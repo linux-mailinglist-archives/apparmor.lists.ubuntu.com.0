@@ -2,30 +2,77 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 844C22A205
-	for <lists+apparmor@lfdr.de>; Sat, 25 May 2019 02:11:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF7C02A23D
+	for <lists+apparmor@lfdr.de>; Sat, 25 May 2019 03:17:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1hUKH3-0003iS-A8; Sat, 25 May 2019 00:10:57 +0000
+	id 1hULIz-0000Q1-5P; Sat, 25 May 2019 01:17:01 +0000
 Received: from youngberry.canonical.com ([91.189.89.112])
  by huckleberry.canonical.com with esmtps (TLS1.0:DHE_RSA_AES_128_CBC_SHA1:128)
- (Exim 4.86_2) (envelope-from <seth.arnold@canonical.com>)
- id 1hUKH1-0003iL-CT
- for apparmor@lists.ubuntu.com; Sat, 25 May 2019 00:10:55 +0000
-Received: from 1.general.sarnold.us.vpn ([10.172.64.70] helo=localhost)
- by youngberry.canonical.com with esmtpsa (TLS1.0:RSA_AES_256_CBC_SHA1:32)
- (Exim 4.76) (envelope-from <seth.arnold@canonical.com>)
- id 1hUKH0-0004TI-Q9
- for apparmor@lists.ubuntu.com; Sat, 25 May 2019 00:10:55 +0000
-Date: Fri, 24 May 2019 17:10:53 -0700
-From: Seth Arnold <seth.arnold@canonical.com>
-To: apparmor@lists.ubuntu.com
-Message-ID: <20190525001053.GB6058@hunt>
+ (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
+ id 1hULIw-0000Pt-SD
+ for apparmor@lists.ubuntu.com; Sat, 25 May 2019 01:16:58 +0000
+Received: from static-50-53-34-51.bvtn.or.frontiernet.net ([50.53.34.51]
+ helo=[192.168.192.153])
+ by youngberry.canonical.com with esmtpsa (TLS1.0:RSA_AES_128_CBC_SHA1:16)
+ (Exim 4.76) (envelope-from <john.johansen@canonical.com>)
+ id 1hULIw-00007M-7J; Sat, 25 May 2019 01:16:58 +0000
+To: Seth Arnold <seth.arnold@canonical.com>, apparmor@lists.ubuntu.com
 References: <7979059d-044a-3f1a-83f9-8254a8a51daa@zestysoft.com>
+ <20190525001053.GB6058@hunt>
+From: John Johansen <john.johansen@canonical.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
+ 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
+Organization: Canonical
+Message-ID: <734c73ce-1e25-cc3a-ed3d-7edae3ee94fc@canonical.com>
+Date: Fri, 24 May 2019 18:16:55 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <7979059d-044a-3f1a-83f9-8254a8a51daa@zestysoft.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+In-Reply-To: <20190525001053.GB6058@hunt>
+Content-Language: en-GB
 Subject: Re: [apparmor] Attempting FullSystemPolicy with Ubuntu 18.04.2
 	LTS...
 X-BeenThere: apparmor@lists.ubuntu.com
@@ -39,143 +86,130 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7698551315792887666=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-
---===============7698551315792887666==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="+pHx0qQiF2pBVqBT"
-Content-Disposition: inline
-
-
---+pHx0qQiF2pBVqBT
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, May 24, 2019 at 03:28:21PM -0700, Ian wrote:
-> It's like I'm only getting a few of these at a time -- I added this to the
-> kernel boot parameter: 'audit_backlog_limit=3D65536' but that didn't seem=
- to
-> affect the number of these that I was shown. I assume some type of
-> throttling might be occurring but there was no notice of this happening on
-> the console.
-
-Hello Ian,
-
-The audit_backlog_limit parameter likely only applies to the auditd
-daemon. If your audit messages are written to dmesg instead, you'll
-reach a different rate limiting method. (Though I thought that one would
-include a message about printk rate limits being hit.)
-
-Regular printk message rate can be controlled via
-/proc/sys/kernel/printk_ratelimit
-/proc/sys/kernel/printk_ratelimit_burst
-details are in the kernel source file Documentation/sysctl/kernel.txt
-
-> 1) Can I separate out the different "comm" matches into different profile
-> files or do I need to maintain one monolithic file?
-
-You can't filter directly on comm. (You can do the profile transitions on
-exec, though, as you already know.)
-
-> 2) If I want to worry about restricting binaries later, but only want to
-> "whitelist" at this point in time, is there a generic profile that I can
-> create that will grant all permissions?
-
-We should probably write a tool to generate one appropriate for the system
-it's on, since it's not obvious how to do this by hand. But "Allow
-Everything" profiles probably shouldn't be the norm, so maybe a little
-friction is worthwhile.
-
-Anyway, it would look something like:
-
-profile profilename /attachment/specification {
-  network,
-  signal,
-  file,
-  mount,
-  pivot_root,
-  ptrace,
-  unix,
-  dbus,
-}
-
-> 3) Why did this "Warning from stdin (line 1): /sbin/apparmor_parser: cann=
-ot
-> use or update cache, disable, or for" disappear when I started to use
-> profile files instead of echo for apparmor_parser?
-
-The filename used for the compiled cache files is based on the filename of
-the input files.
-
-> 4) Will I be able to retain the apparmor profile files that come with
-> Ubuntu?=A0 I assume I'll need to duplicate most of the stuff I've done in
-> initramfs into /etc/apparmor.d somewhere?
-
-Likely these will need some changes. You'll probably want more strict
-profiles than we've provided, anyway, since we've written the profiles
-with the contrasting goals of providing some safety but without too
-much compromise in useability. If you're doing this full-system policy
-investigation you'll probably want to make different tradeoffs than
-we have.
-
-> 5) How does apparmor handle multiple profiles that match on the same file=
-?=A0
-> Is the reason why my separate init profile file ignored because the
-> init-systemd one already matched on it?
-
-This is a bit involved.
-
-There's attachments using attachment specifications from unconfined
-processes and Px rules with wildcards, then there's profile-directed
-transitions.
-
-When going from unconfined to confined, or when using a Px rule where at
-least some of the pathname is written with wildcards or other globbing,
-then AppArmor will try to apply policy in the order of most specific to
-least specific name. A profile attachment without wildcards should beat a
-profile with wildcards or globbing. Multiple profile attachments with
-wildcards or globs should pick the longest match.
-
-Profile-directed transitions (-> in the rules) will take precedence
-over the attachment-directed transitions. I believe in this case every
-execution must have exactly one possible outcome but I'm less sure
-of this.
-
-I hope this helps.
-
-Thanks
-
---+pHx0qQiF2pBVqBT
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEQVAQ8bojyMcg37H18yFyWZ2NLpcFAlzoiAUACgkQ8yFyWZ2N
-Lpeyogf+L1ekiSCRTOFwqcWWi70mG5wYlMwkwYkaruxMnYThzcrYtUYO2mSefmp5
-u+kRx1tyewgngcOwR3fxUOk0Ob98odMIuAflQmuaSmHCyPQpB3B2lpmJUo5uil0p
-g196ZNhg2iu34ZvPsFwGP6G6aWDlreBzqCK7dQYmL7ABoNoqEdQHlvO7vJfHoSGO
-9t2WKMcOkD3kHy5kVGWxscmP6lRvenHmFemJ/BSMg29YnJB618uUBSeHnXXdJk+8
-u6C8A/PO6E8HWGdigrZQkp9RTTmax4+wjYC9rrnO5zdN3a5rWJlcd6H6QtOoCcZx
-urInzNhViqLrhMCS+x8LTXeSfVqmmw==
-=4guX
------END PGP SIGNATURE-----
-
---+pHx0qQiF2pBVqBT--
-
-
---===============7698551315792887666==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
-eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
-aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
-
---===============7698551315792887666==--
-
+T24gNS8yNC8xOSA1OjEwIFBNLCBTZXRoIEFybm9sZCB3cm90ZToKPiBPbiBGcmksIE1heSAyNCwg
+MjAxOSBhdCAwMzoyODoyMVBNIC0wNzAwLCBJYW4gd3JvdGU6Cj4+IEl0J3MgbGlrZSBJJ20gb25s
+eSBnZXR0aW5nIGEgZmV3IG9mIHRoZXNlIGF0IGEgdGltZSAtLSBJIGFkZGVkIHRoaXMgdG8gdGhl
+Cj4+IGtlcm5lbCBib290IHBhcmFtZXRlcjogJ2F1ZGl0X2JhY2tsb2dfbGltaXQ9NjU1MzYnIGJ1
+dCB0aGF0IGRpZG4ndCBzZWVtIHRvCj4+IGFmZmVjdCB0aGUgbnVtYmVyIG9mIHRoZXNlIHRoYXQg
+SSB3YXMgc2hvd24uIEkgYXNzdW1lIHNvbWUgdHlwZSBvZgo+PiB0aHJvdHRsaW5nIG1pZ2h0IGJl
+IG9jY3VycmluZyBidXQgdGhlcmUgd2FzIG5vIG5vdGljZSBvZiB0aGlzIGhhcHBlbmluZyBvbgo+
+PiB0aGUgY29uc29sZS4KPiAKPiBIZWxsbyBJYW4sCj4gCj4gVGhlIGF1ZGl0X2JhY2tsb2dfbGlt
+aXQgcGFyYW1ldGVyIGxpa2VseSBvbmx5IGFwcGxpZXMgdG8gdGhlIGF1ZGl0ZAo+IGRhZW1vbi4g
+SWYgeW91ciBhdWRpdCBtZXNzYWdlcyBhcmUgd3JpdHRlbiB0byBkbWVzZyBpbnN0ZWFkLCB5b3Un
+bGwKPiByZWFjaCBhIGRpZmZlcmVudCByYXRlIGxpbWl0aW5nIG1ldGhvZC4gKFRob3VnaCBJIHRo
+b3VnaHQgdGhhdCBvbmUgd291bGQKPiBpbmNsdWRlIGEgbWVzc2FnZSBhYm91dCBwcmludGsgcmF0
+ZSBsaW1pdHMgYmVpbmcgaGl0LikKPiAKPiBSZWd1bGFyIHByaW50ayBtZXNzYWdlIHJhdGUgY2Fu
+IGJlIGNvbnRyb2xsZWQgdmlhCj4gL3Byb2Mvc3lzL2tlcm5lbC9wcmludGtfcmF0ZWxpbWl0Cj4g
+L3Byb2Mvc3lzL2tlcm5lbC9wcmludGtfcmF0ZWxpbWl0X2J1cnN0Cj4gZGV0YWlscyBhcmUgaW4g
+dGhlIGtlcm5lbCBzb3VyY2UgZmlsZSBEb2N1bWVudGF0aW9uL3N5c2N0bC9rZXJuZWwudHh0Cj4g
+Cgp5ZXMsIGlmIGF1ZGl0ZCBpc24ndCByZWdpc3RlcmVkIG1lc3NhZ2VzIHdpbGwgZ28gdG8gdGhl
+IGtlcm5lbCByaW5nCmJ1ZmZlciBhbmQgcHJpbnRrX3JhdGVsaW1pdCBpcyB1c2VkLgoKdGhlcmUg
+aXMgYSB3YXJuaW5nIG1lc3NhZ2UgdGhhdCBhdWRpdCBtZXNzYWdlcyBhcmUgbG9zdCwgaG93ZXZl
+ciBpdAptYXkgbm90IGFsd2F5cyB0cmlnZ2VyLiBEZXBlbmRpbmcgb24gd2hhdCB0cmlnZ2VyZWQg
+dGhlIGxvc3MsIGZhaWx1cmUKbW9kZSBldGMuCgoKPj4gMSkgQ2FuIEkgc2VwYXJhdGUgb3V0IHRo
+ZSBkaWZmZXJlbnQgImNvbW0iIG1hdGNoZXMgaW50byBkaWZmZXJlbnQgcHJvZmlsZQo+PiBmaWxl
+cyBvciBkbyBJIG5lZWQgdG8gbWFpbnRhaW4gb25lIG1vbm9saXRoaWMgZmlsZT8KPiAKPiBZb3Ug
+Y2FuJ3QgZmlsdGVyIGRpcmVjdGx5IG9uIGNvbW0uIChZb3UgY2FuIGRvIHRoZSBwcm9maWxlIHRy
+YW5zaXRpb25zIG9uCj4gZXhlYywgdGhvdWdoLCBhcyB5b3UgYWxyZWFkeSBrbm93LikKPiAKPj4g
+MikgSWYgSSB3YW50IHRvIHdvcnJ5IGFib3V0IHJlc3RyaWN0aW5nIGJpbmFyaWVzIGxhdGVyLCBi
+dXQgb25seSB3YW50IHRvCj4+ICJ3aGl0ZWxpc3QiIGF0IHRoaXMgcG9pbnQgaW4gdGltZSwgaXMg
+dGhlcmUgYSBnZW5lcmljIHByb2ZpbGUgdGhhdCBJIGNhbgo+PiBjcmVhdGUgdGhhdCB3aWxsIGdy
+YW50IGFsbCBwZXJtaXNzaW9ucz8KPiAKPiBXZSBzaG91bGQgcHJvYmFibHkgd3JpdGUgYSB0b29s
+IHRvIGdlbmVyYXRlIG9uZSBhcHByb3ByaWF0ZSBmb3IgdGhlIHN5c3RlbQo+IGl0J3Mgb24sIHNp
+bmNlIGl0J3Mgbm90IG9idmlvdXMgaG93IHRvIGRvIHRoaXMgYnkgaGFuZC4gQnV0ICJBbGxvdwo+
+IEV2ZXJ5dGhpbmciIHByb2ZpbGVzIHByb2JhYmx5IHNob3VsZG4ndCBiZSB0aGUgbm9ybSwgc28g
+bWF5YmUgYSBsaXR0bGUKPiBmcmljdGlvbiBpcyB3b3J0aHdoaWxlLgo+IAo+IEFueXdheSwgaXQg
+d291bGQgbG9vayBzb21ldGhpbmcgbGlrZToKPiAKPiBwcm9maWxlIHByb2ZpbGVuYW1lIC9hdHRh
+Y2htZW50L3NwZWNpZmljYXRpb24gewo+ICAgbmV0d29yaywKPiAgIHNpZ25hbCwKPiAgIGZpbGUs
+Cj4gICBtb3VudCwKPiAgIHBpdm90X3Jvb3QsCj4gICBwdHJhY2UsCj4gICB1bml4LAo+ICAgZGJ1
+cywKPiB9Cj4gCgppdCBoYXBwZW5zIGVub3VnaCB0aGF0IGl0IGlzIGNvbWluZyBhcyBhIG5ldyBm
+ZWF0dXJlLCB5b3UgdW5mb3J0dW5hdGVseQpqdXN0IGNhbid0IHVzZSBpdCB5ZXQKCgo+PiAzKSBX
+aHkgZGlkIHRoaXMgIldhcm5pbmcgZnJvbSBzdGRpbiAobGluZSAxKTogL3NiaW4vYXBwYXJtb3Jf
+cGFyc2VyOiBjYW5ub3QKPj4gdXNlIG9yIHVwZGF0ZSBjYWNoZSwgZGlzYWJsZSwgb3IgZm9yIiBk
+aXNhcHBlYXIgd2hlbiBJIHN0YXJ0ZWQgdG8gdXNlCj4+IHByb2ZpbGUgZmlsZXMgaW5zdGVhZCBv
+ZiBlY2hvIGZvciBhcHBhcm1vcl9wYXJzZXI/Cj4gCj4gVGhlIGZpbGVuYW1lIHVzZWQgZm9yIHRo
+ZSBjb21waWxlZCBjYWNoZSBmaWxlcyBpcyBiYXNlZCBvbiB0aGUgZmlsZW5hbWUgb2YKPiB0aGUg
+aW5wdXQgZmlsZXMuCj4gCgpyZWFsbHkgdXNpbmcgdGhlIHBhcnNlciBmcm9tIHRoZSBpbml0cmQg
+aXMgYSBiYWQgaWRlYS4gSWRlYWxseSB5b3UgCmJ1bmRsZSBqdXN0IHRoZSBjYWNoZSBuZWNlc3Nh
+cnkgZm9yIHRoYXQgaW5pdHJkJ3Mga2VybmVsLiBBbmQgaW5zdGVhZCBvZgpkb2luZyBhIHJlZ3Vs
+YXIgcHJvZmlsZSBsb2FkIHlvdSBkbyBhIGJpbmFyeSBsb2FkLgoKY3VycmVudGx5IHRoZXJlIGlz
+bid0IGEgZ29vZCB3YXkgdG8gZG8gdGhpcy4gQnV0IHlvdSBjYW4gZG8gaXQgd2l0aAp0aGUgcGFy
+c2VyCgphcHBhcm1vcl9wYXJzZXIgLS1iaW5hcnkgL2Rpci90by9jYWNoZS8qCgoKPj4gNCkgV2ls
+bCBJIGJlIGFibGUgdG8gcmV0YWluIHRoZSBhcHBhcm1vciBwcm9maWxlIGZpbGVzIHRoYXQgY29t
+ZSB3aXRoCj4+IFVidW50dT/CoCBJIGFzc3VtZSBJJ2xsIG5lZWQgdG8gZHVwbGljYXRlIG1vc3Qg
+b2YgdGhlIHN0dWZmIEkndmUgZG9uZSBpbgo+PiBpbml0cmFtZnMgaW50byAvZXRjL2FwcGFybW9y
+LmQgc29tZXdoZXJlPwo+IAo+IExpa2VseSB0aGVzZSB3aWxsIG5lZWQgc29tZSBjaGFuZ2VzLiBZ
+b3UnbGwgcHJvYmFibHkgd2FudCBtb3JlIHN0cmljdAo+IHByb2ZpbGVzIHRoYW4gd2UndmUgcHJv
+dmlkZWQsIGFueXdheSwgc2luY2Ugd2UndmUgd3JpdHRlbiB0aGUgcHJvZmlsZXMKPiB3aXRoIHRo
+ZSBjb250cmFzdGluZyBnb2FscyBvZiBwcm92aWRpbmcgc29tZSBzYWZldHkgYnV0IHdpdGhvdXQg
+dG9vCj4gbXVjaCBjb21wcm9taXNlIGluIHVzZWFiaWxpdHkuIElmIHlvdSdyZSBkb2luZyB0aGlz
+IGZ1bGwtc3lzdGVtIHBvbGljeQo+IGludmVzdGlnYXRpb24geW91J2xsIHByb2JhYmx5IHdhbnQg
+dG8gbWFrZSBkaWZmZXJlbnQgdHJhZGVvZmZzIHRoYW4KPiB3ZSBoYXZlLgo+IAoKSW5kZWVkLCBl
+dmVuIHRoZSBjdXJyZW50IGFic3RyYWN0aW9ucyBhcmUgbm90IGRlc2lnbmVkIGZvciBzdHJpY3Rl
+cgpwb2xpY2llcwoKPj4gNSkgSG93IGRvZXMgYXBwYXJtb3IgaGFuZGxlIG11bHRpcGxlIHByb2Zp
+bGVzIHRoYXQgbWF0Y2ggb24gdGhlIHNhbWUgZmlsZT/CoAo+PiBJcyB0aGUgcmVhc29uIHdoeSBt
+eSBzZXBhcmF0ZSBpbml0IHByb2ZpbGUgZmlsZSBpZ25vcmVkIGJlY2F1c2UgdGhlCj4+IGluaXQt
+c3lzdGVtZCBvbmUgYWxyZWFkeSBtYXRjaGVkIG9uIGl0Pwo+IAo+IFRoaXMgaXMgYSBiaXQgaW52
+b2x2ZWQuCj4gCml0IGhlbHBzIHRvIHRoaW5rIGFib3V0IGl0IGZyb20gYSBwcm9maWxlIHBvaW50
+IG9mIHZpZXcKCj4gVGhlcmUncyBhdHRhY2htZW50cyB1c2luZyBhdHRhY2htZW50IHNwZWNpZmlj
+YXRpb25zIGZyb20gdW5jb25maW5lZAo+IHByb2Nlc3NlcyBhbmQgUHggcnVsZXMgd2l0aCB3aWxk
+Y2FyZHMsIHRoZW4gdGhlcmUncyBwcm9maWxlLWRpcmVjdGVkCj4gdHJhbnNpdGlvbnMuCj4gCj4g
+V2hlbiBnb2luZyBmcm9tIHVuY29uZmluZWQgdG8gY29uZmluZWQsIG9yIHdoZW4gdXNpbmcgYSBQ
+eCBydWxlIHdoZXJlIGF0Cj4gbGVhc3Qgc29tZSBvZiB0aGUgcGF0aG5hbWUgaXMgd3JpdHRlbiB3
+aXRoIHdpbGRjYXJkcyBvciBvdGhlciBnbG9iYmluZywKPiB0aGVuIEFwcEFybW9yIHdpbGwgdHJ5
+IHRvIGFwcGx5IHBvbGljeSBpbiB0aGUgb3JkZXIgb2YgbW9zdCBzcGVjaWZpYyB0bwo+IGxlYXN0
+IHNwZWNpZmljIG5hbWUuIEEgcHJvZmlsZSBhdHRhY2htZW50IHdpdGhvdXQgd2lsZGNhcmRzIHNo
+b3VsZCBiZWF0IGEKPiBwcm9maWxlIHdpdGggd2lsZGNhcmRzIG9yIGdsb2JiaW5nLiBNdWx0aXBs
+ZSBwcm9maWxlIGF0dGFjaG1lbnRzIHdpdGgKPiB3aWxkY2FyZHMgb3IgZ2xvYnMgc2hvdWxkIHBp
+Y2sgdGhlIGxvbmdlc3QgbWF0Y2guCj4gCgpUaGUgcHJvZmlsZSBhbHdheXMgY29udHJvbHMgdGhl
+IHRyYW5zaXRpb24uIFRoZXJlIGFyZSBkaWZmZXJlbnQgcnVsZXMKdG8gZGV0ZXJtaW5lIHdoaWNo
+IHRyYW5zaXRpb24gdHlwZSB0byB1c2UuCgpGaXJzdCB0aGUgcHJvZmlsZSBydWxlIHBhdHRlcm4g
+dGhhdCBtYXRjaGVzIHRoZSBleGVjdXRhYmxlIGlzIHVzZWQKCjEuIC9hLyoqICB1eCwKMi4gL2Ev
+Yi8qIFB4LAozLiAvYS9iL2MgaXgsCgphbnkgb3ZlcmxhcCBiZXR3ZWVuIHJ1bGVzIHdpdGggZGlm
+ZmVyZW50IHBlcm1pc3Npb25zIGhhdmUgdG8gcmVzb2x2ZWQKYXQgcG9saWN5IGNvbXBpbGUgdGlt
+ZSwgb3RoZXJ3aXNlIHRoZSBwb2xpY3kgY29tcGlsZSB3aWxsIGZhaWwuCgp0aGUgZ2VuZXJhbCBy
+dWxlIGlzIGV4YWN0IG1hdGNoIHdpbnMsIHRoZW4gbG9uZ2VzdCBsZWZ0IG1hdGNoLiBUaGUKY29t
+cGlsZXIgY2FuJ3QgY3VycmVudGx5IGRlYWwgd2l0aCBkb21pbmFuY2UgZm9yIG92ZXJsYXBwaW5n
+IGV4cHJlc3Npb25zCnNvIGNvbmZsaWN0aW5nIG92ZXJsbGFwcGluZyBleGVjIHJ1bGVzIG1heSBj
+YXVzZSB0aGUgY29tcGlsZSB0byBmYWlsLgoKYnV0IGluIHRoZSBhYm92ZSBzZXQgb2YgcnVsZXMs
+IDMgaXMgYW4gZXhhY3QgbWF0Y2ggYW5kIHdvdWxkIHdpbiBpZgppdCBtYXRjZXMgdGhlIGV4ZWMs
+IHRoZW4gMiwgYW5kIHRoZW4gMS4KCk9uY2UgeW91IGtub3cgd2hpY2ggcnVsZSBhcHBsaWVzIHlv
+dSBjYW4gbG9vayBhdCB0aGUgdHJhbnNpdGlvbiBtb2RlCgpQL3AgLSBsb29rIGZvciBwcm9maWxl
+cyB3aXRoIGEgbWF0Y2hpbmcgYXR0YWNobWVudC4gTm90ZSB0aGF0IHByb2ZpbGVzCiAgICAgIHRo
+YXQgZG9uJ3QgaGF2ZSBhbiBleHBsaWNpdCBhdHRhY2htZW50IGV4cHJlc3Npb24gdXNlIHRoZWly
+IG5hbWUKICAgICAgYXMgdGhlIGF0dGFjaG1lbnQuCgpDL2MgLSBzYW1lIGFzIFAvcCBidXQgY29u
+c2lkZXJzIGNoaWxkcmVuIHByb2ZpbGVzIGluc3RlYWQKCmkgLSBpbmhlcml0IGN1cnJlbnQgcHJv
+ZmlsZS4gTm8gZnVydGhlciBsb29rdXAgbmVlZGVkCgp1IC0gdXNlIHVuY29uZmluZWQKCi0+IC0g
+c3BlY2lmeSBleGFjdGx5IHdoaWNoIHByb2ZpbGUgdG8gdHJhbnNpdGlvbiB0by4gU28gbWF0Y2gg
+b24KICAgICBwcm9maWxlIG5hbWUgbm90IGV4ZWN1dGFibGUgYW5kIGF0dGFjaG1lbnQgY29uZGl0
+aW9uYWxzLgoKdGhlc2UgY2FuIGJlIGNvbWJpbmVkLCBzb21lIHNvCgpwaXggLSBtZWFucyB0cnkg
+ZG9pbmcgYSBwIHRyYW5zaXRpb24gZmlyc3QgYW5kIGlmIG5vIG1hdGNoIGZvdW5kIGZhbGxiYWNr
+CiAgICAgIHRvIGluaGVyaXQuCgoKQXNzdW1pbmcgUC9wIG9yIEMvYyBhcmUgdXNlZCB0aGUgbmV4
+dCBzdGVwIGlzIHdhbGtpbmcgdGhlIGxvYWRlZCBwcm9maWxlcwp0byBmaW5kIHRoZSBiZXN0IG1h
+dGNoIGF0dGFjaG1lbnQuIEF0dGFjaG1lbnRzIGFyZSBhZ2FpbiBiYXNlZCBvbiBleGFjdAptYXRj
+aCB3aW5zLCBhbmQgdGhlbiBsb25nZXN0IGxlZnQgbWF0Y2ggYmVmb3JlIHJlZ2V4IGNvbmZsaWN0
+LiBFeGNlcHQgdGhpcwp0aW1lIHRoZSByZXNvbHV0aW9uIGlzIGRvbmUgaW4ga2VybmVsLgoKT25j
+ZSB0aGUgYmVzdCBtYXRjaCBwcm9maWxlIGlzIGZvdW5kLCB0aGUgdHJhbnNpdGlvbiB0byB0aGF0
+IHByb2ZpbGUgaXMKdXNlZC4KCkZvciB1bmNvbmZpbmVkIHlvdSBqdXN0IG5lZWQgdG8gdW5kZXJz
+dGFuZCB0aGF0IGl0IGhhcyBhIHNpbmdsZQogIC8qKiBwaXgsCgpleGVjIHRyYW5zaXRpb24gcnVs
+ZSwgc28KCkZvciBwcm9maWxlIHN0YWNrcywgeW91IGRvIHRoZSBhYm92ZSB0cmFuc2l0aW9uIHJl
+c3VsdGlvbiBmb3IgZWFjaCBwcm9maWxlCmluIHRoZSBzdGFjaywgYW5kIHRoZW4gdGhleSBhcmUg
+Y29tYmluZWQgaW50byBhIG5ldyBzdGFjay4KCj4gUHJvZmlsZS1kaXJlY3RlZCB0cmFuc2l0aW9u
+cyAoLT4gaW4gdGhlIHJ1bGVzKSB3aWxsIHRha2UgcHJlY2VkZW5jZQo+IG92ZXIgdGhlIGF0dGFj
+aG1lbnQtZGlyZWN0ZWQgdHJhbnNpdGlvbnMuIEkgYmVsaWV2ZSBpbiB0aGlzIGNhc2UgZXZlcnkK
+PiBleGVjdXRpb24gbXVzdCBoYXZlIGV4YWN0bHkgb25lIHBvc3NpYmxlIG91dGNvbWUgYnV0IEkn
+bSBsZXNzIHN1cmUKPiBvZiB0aGlzLgo+IAoKeWVwLCBlYWNoIHRhcmdldCBpbiBhIC0+IGlzIHRy
+ZWF0ZWQgYXMgYSBkaWZmZXJlbnQgcGVybWlzc2lvbiBzbyBvdmVybGFwcGluZwp0cmFuc2l0aW9u
+cyB0aGF0IGNhbid0IGJlIHJlc29sdmVkIHdpbGwgZmFpbCBjb21waWxlIHdpdGggYW4geCBjb25m
+bGljdC4KCiAgL2EvYi9jIC0+IGZvbywKICAvYS9iLyogLT4gYmFyLAoKd2lsbCB3b3JrIGJlY2F1
+c2UgdGhlIG92ZXJsYXAgY2FuIGJlIHJlc29sdmVkIGJ1dAoKICAvYS9iLyogLT4gZm9vLAogIC9h
+L2IqKiAtPiBiYXIsCgp3aWxsIGN1cnJlbnRseSBmYWlsIHRoZSBjb21waWxlLiBFdmVuIHRob3Vn
+aCB3ZSBzaG91bGQgYmUgYWJsZSByZXNvbHZlIHRoYXQKb25lIHdpdGggdGhlIGNvcnJlY3QgZG9t
+aW5hbmNlIGNhbGN1bGF0aW9uLgoKCi0tIApBcHBBcm1vciBtYWlsaW5nIGxpc3QKQXBwQXJtb3JA
+bGlzdHMudWJ1bnR1LmNvbQpNb2RpZnkgc2V0dGluZ3Mgb3IgdW5zdWJzY3JpYmUgYXQ6IGh0dHBz
+Oi8vbGlzdHMudWJ1bnR1LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2FwcGFybW9yCg==
