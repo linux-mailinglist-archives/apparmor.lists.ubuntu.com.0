@@ -2,77 +2,62 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E1B42CE0F
-	for <lists+apparmor@lfdr.de>; Tue, 28 May 2019 19:55:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EDD430230
+	for <lists+apparmor@lfdr.de>; Thu, 30 May 2019 20:47:52 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1hVgJL-0000qN-NS; Tue, 28 May 2019 17:54:55 +0000
-Received: from youngberry.canonical.com ([91.189.89.112])
- by huckleberry.canonical.com with esmtps (TLS1.0:DHE_RSA_AES_128_CBC_SHA1:128)
- (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1hVgJK-0000q9-MR
- for apparmor@lists.ubuntu.com; Tue, 28 May 2019 17:54:54 +0000
-Received: from static-50-53-34-51.bvtn.or.frontiernet.net ([50.53.34.51]
- helo=[192.168.192.153])
- by youngberry.canonical.com with esmtpsa (TLS1.0:RSA_AES_128_CBC_SHA1:16)
- (Exim 4.76) (envelope-from <john.johansen@canonical.com>)
- id 1hVgJK-0006gH-5p; Tue, 28 May 2019 17:54:54 +0000
-To: npdflr <npdflr@zoho.com>, apparmor <apparmor@lists.ubuntu.com>
-References: <16af667c037.d622a89919527.5675786628185187403@zoho.com>
-From: John Johansen <john.johansen@canonical.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
- 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
-Organization: Canonical
-Message-ID: <180ef031-adc2-07db-2025-86725d4c31d4@canonical.com>
-Date: Tue, 28 May 2019 10:54:52 -0700
+	id 1hWQ5X-0008LA-PK; Thu, 30 May 2019 18:47:43 +0000
+Received: from secure.zestysoft.com ([63.205.203.253])
+ by huckleberry.canonical.com with esmtps
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <apparmor@zestysoft.com>) id 1hWQ5U-0008Kl-D4
+ for apparmor@lists.ubuntu.com; Thu, 30 May 2019 18:47:40 +0000
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by secure.zestysoft.com (Postfix) with ESMTP id 7241FADC00F
+ for <apparmor@lists.ubuntu.com>; Thu, 30 May 2019 11:47:36 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 secure.zestysoft.com 7241FADC00F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zestysoft.com;
+ s=default; t=1559242056;
+ bh=3hqOQLyoLoO99O9eejbVzFC2pok59l+GPbwJD+zxB0k=;
+ h=Subject:To:References:From:Date:In-Reply-To:From;
+ b=ke8h5uJT5cZaUasoxJ+fb+NQdwH2MHMSq4ZAFKUyS3CVU+VrobC+SkQelxlpznh3r
+ 3p8+fA3t6EqAs1fCv2b976tA4n6jH45H0Q1ts+kG5XCv8TSWyTXb/jPKzSwxhSMTga
+ gbyvSOfw1PwfEg7bCYgyohKp3Zrso0nrypG5OZpY=
+X-Virus-Scanned: amavisd-new at zestysoft.com
+Received: from secure.zestysoft.com ([127.0.0.1])
+ by localhost (secure.zestysoft.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id oPm9dFrtmdud for <apparmor@lists.ubuntu.com>;
+ Thu, 30 May 2019 11:47:34 -0700 (PDT)
+Received: from [172.20.3.88] (unknown [4.79.43.180])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by secure.zestysoft.com (Postfix) with ESMTPSA id 0DC06ADC00E
+ for <apparmor@lists.ubuntu.com>; Thu, 30 May 2019 11:47:34 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 secure.zestysoft.com 0DC06ADC00E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zestysoft.com;
+ s=default; t=1559242054;
+ bh=3hqOQLyoLoO99O9eejbVzFC2pok59l+GPbwJD+zxB0k=;
+ h=Subject:To:References:From:Date:In-Reply-To:From;
+ b=aSVuUlbMO1+l68fnj6NpwR3ijMlmQnMGSAC40zbT/PlF+Qt4me2XIMoTe56LHFEOl
+ xlNrjYMl/8TLU6JtOKnqERG+OOS/fyXFE0s+Ac8NIWcdBS77a+nckpdp7sdRokmWr/
+ YVXTvP125NnjvTtDKHsVDVi7yYk8YlnR/+c+m14M=
+To: apparmor@lists.ubuntu.com
+References: <7979059d-044a-3f1a-83f9-8254a8a51daa@zestysoft.com>
+ <20190525001053.GB6058@hunt>
+ <734c73ce-1e25-cc3a-ed3d-7edae3ee94fc@canonical.com>
+ <77776c98-473e-eb98-2fe6-c29a1bfa7e28@zestysoft.com>
+ <859df47c-6c0d-0be4-4590-6b05ce0fd0a0@zestysoft.com>
+From: Ian <apparmor@zestysoft.com>
+Message-ID: <7ec74901-7e32-b279-01b6-fddf38b7d1d1@zestysoft.com>
+Date: Thu, 30 May 2019 11:47:35 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <16af667c037.d622a89919527.5675786628185187403@zoho.com>
-Content-Language: en-GB
-Subject: Re: [apparmor] Data collection by AppArmor
+In-Reply-To: <859df47c-6c0d-0be4-4590-6b05ce0fd0a0@zestysoft.com>
+Content-Language: en-US
+Subject: Re: [apparmor] Attempting FullSystemPolicy with Ubuntu 18.04.2
+	LTS...
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -84,36 +69,493 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1633177821228260098=="
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-T24gNS8yNi8xOSA0OjA5IFBNLCBucGRmbHIgd3JvdGU6Cj4gSGVsbG8sCj4gRG9lcyBBcHBBcm1v
-ciBjb2xsZWN0IGFueSBkYXRhIGZyb20gaXRzIHVzZXJzPwo+IElzIHRoZXJlIGFueSBwcml2YWN5
-IHBvbGljeSBmb3IgQXBwQXJtb3Igb3IgaXMgdGhlIHVidW50dSBkYXRhIHByaXZhY3kgYXBwbGlj
-YWJsZSBmb3IgQXBwQXJtb3I/Cj4gCgpBcHBBcm1vciBkb2VzIG5vdCBjb2xsZWN0IGRhdGEgZnJv
-bSBpdHMgdXNlcnMuCgpUaGUgQXBwQXJtb3Igc2VjdXJpdHkgbW9kdWxlIHdpbGwgbG9nIHZpb2xh
-dGlvbnMgdG8gdGhlIGF1ZGl0IHN1YnN5c3RlbSwgYW5kIHRob3NlIHdpbGwgYmUgbG9nZ2VkL2Zv
-cndhcmRlZC9yZWNvcmRlZCBvbiB0aGUgdXNlcnMgc3lzdGVtKHMpIGFjY29yZGluZyB0byBob3cg
-dGhlIHVzZXIgaGFzIGxvZ2dpbmcgY29uZmlndXJlZC4gQWdhaW4gdGhpcyBpcyBub3QgZm9yd2Fy
-ZGVkIHRvIG9yIGNvbGxlY3RlZCBieSB0aGUgQXBwQXJtb3IgcHJvamVjdC4KClVzZXJzIG1heSBz
-dWJtaXQgaW5mb3JtYXRpb24gYXMgcGFydCBvZiBhbiBlbWFpbCwgYnVnIHJlcG9ydCBvciBtZXJn
-ZSByZXF1ZXN0LCBldGMuIGFuZCB0aGF0IHdpbGwgYmUgcmVjb3JkZWQgYXMgcGFydCBvZiB0aGUg
-bWFpbGluZyBsaXN0LCBidWcvaXNzdWUgdHJhY2tlciwgb3IgZ2l0IGNvZGUgcmVwb3NpdG9yeSBi
-dXQgb25seSBhcyBwYXJ0IG9mIGEgdXNlciBpbml0aWF0ZWQgYWN0aW9uLgoKV2UgY3VycmVudGx5
-IGRvbid0IGhhdmUgYSBwdWJsaWMgcHJpdmFjeSBwb2xpY3kgcG9zdGVkLCBpdHMgc29tZXRoaW5n
-IHdlIHNob3VsZCBnZXQgdXAuIEJhc2ljYWxseSBldmVyeW9uZSB3aG8gY3VycmVudGx5IHdvcmtz
-IG9uIHRoZSBwcm9qZWN0IGlzIGEgcHJpdmFjeSBhbmQgb3BlbiBzb3VyY2UgYWR2b2NhdGUgYW5k
-IHdlIGhhdmUgbm8gcGxhbnMgb2UgaW50ZW50aW9ucyB0byBjb2xsZWN0IGluZm9ybWF0aW9uIGZy
-b20sIG9yIG9uLCBvdXIgdXNlcnMgYmV5b25kIHdoYXQgaXMgbmVlZGVkIHRvIHJ1biB0aGUgdmFy
-aW91cyBwcm9qZWN0IGNvbXBvbmVudHMgKGllLiBpZiB5b3Ugc2lnbiB1cCB0byBiZSBvbiB0aGUg
-bWFpbGluZyBsaXN0LCBtYWlsIG1hbiBuZWVkcyB0aGUgZW1haWwgYWRkcmVzcyB0byByZWxheSBt
-ZXNzYWdlcyB0bykuIEluIGZhY3Qgd2UgZGVsaWJlcmF0ZSBzdGlsbCBhbGxvdyBlbWFpbGVkIHBh
-dGNoZXMgYW5kIGJ1ZyByZXBvcnRpbmcgc28gdGhhdCBvdXIgdXNlcnMgZG8gbm90IGhhdmUgdG8g
-Y3JlYXRlIGEgZ2l0bGFiIG9yIGxhdW5jaHBhZCBhY2NvdW50LiBOb3IgZG8gd2UgcmVxdWlyZSB0
-aGF0IHRoZXkgY3JlYXRlIGEgbWFpbGluZyBsaXN0IGFjY291bnQgd2l0aCB0aGUgdW5kZXJzdGFu
-ZGluZyB0aGF0IG1haWwgZnJvbSBub25lIG1lbWJlcnMgbWF5IGJlIGRlbGF5ZWQgYXMgaXQgbmVl
-ZHMgdG8gYmUgbW9kZXJhdGVkIHRocm91Z2guCgoKLS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApB
-cHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlmeSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBh
-dDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21haWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
+This is a multi-part message in MIME format.
+--===============1633177821228260098==
+Content-Type: multipart/alternative;
+ boundary="------------7A6585CA151EDC80207DF63C"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------7A6585CA151EDC80207DF63C
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+
+On 5/27/19 5:11 PM, Ian wrote:
+>
+> On 5/27/19 12:08 PM, Ian wrote:
+>>
+>> Does apparmor have the same problem as selinux where there are 
+>> "security aware" programs that don't properly honor enforcement 
+>> settings, or is this an inheritance problem that I'm not correctly 
+>> addressing?
+>>
+>>
+>>
+> Adding "attach_disconnected" to the flags parameter of the 
+> init-systemd profile was required to get the system to fully boot.  I 
+> assume this was necessary because of the transition from initramfs, 
+> however the "ALLOWED" audit log entries really threw me there -- that 
+> and my ability to run lots of other commands without issue in that 
+> "emergency" mode didn't make this an obvious fix.
+>
+> This initramfs transition is a tricky bit of business -- I assume I'll 
+> want to have a different profile for systemd for the chrooted system 
+> and that when the apparmor service starts, the profile will get 
+> replaced, however I thought that profile changes like this aren't seen 
+> by currently executing processes -- one has to restart the process for 
+> the change to take effect?  Then there's the timing of when journald 
+> and auditd starts.  Ideally I'd like to keep the full-permission 
+> profile I set up in inittamfs for systemd, but then somehow deny any 
+> type of inheritance once the AppArmor service starts.
+>
+> Any advice on how to proceed? -- If it is true that all child 
+> processes will, by default, inherit the permissions from the 
+> init-systemd profile unless I add deny rules -- I'm back at square one 
+> with a blacklist setup.
+>
+>
+Sorry for not replying to one of your responses John.  I didn't receive 
+the emails, but did read the responses from the web archive.
+
+
+I've made a lot of progress, but am still not quite able to fully boot 
+into systemd's version of init 3.
+/var/log/audit/audit.log and journalctl -r doesn't show any new 
+"ALLOWED" entries.
+I did notice this in /var/log/syslog:
+
+    May 30 10:46:51 1546-w-dev dbus-daemon[9496]: [system] Activating
+    systemd to hand-off: service name='org.freedesktop.hostname1'
+    unit='dbus-org.freedesktop.hostname1.service' requested by ':1.21'
+    (uid=0 pid=10058 comm="/usr/sbin/NetworkManager --no-daemon "
+    label="usr.sbin.NetworkManager (complain)"
+
+Running systemctl by itself shows no failed services, however there are 
+still two that never get out of "activating:"
+
+    NetworkManager.service loaded activating start     start Network
+    Manager
+    systemd-logind.service loaded activating start     start Login Service
+
+Here's how I've gotten to where I have:
+
+Running a fresh copy of a minimal install of Ubuntu 18.04.2 LTS with all 
+the updates.  It boots into a GUI, so this isn't as minimal as CentOS's 
+version... or I did something wrong when installing it.  :)
+
+dpkg-query -W apparmor shows: 2.12-4ubuntu5.1
+
+This is being ran in a vm, and I've attached minicom to the vm's kernel 
+"console" so that I can see everything that scrolls past and do things 
+like pause the output after disabling rate limiting.  :)
+
+In initramfs, I have this one profile:
+
+    profile init-systemd /lib/systemd/systemd flags=(complain
+    attach_disconnected) {
+         network,
+         signal,
+         file,
+         mount,
+         pivot_root,
+         ptrace,
+         unix,
+         dbus,
+         umount,
+         capability,
+
+    }
+
+This is the version of that profile after the transition:
+
+    profile init-systemd /lib/systemd/** flags=(complain
+    attach_disconnected) {
+       capability,
+       network,
+       dbus,
+       mount,
+       umount,
+       signal,
+       ptrace,
+       pivot_root,
+       unix,
+       /** mrwlk,
+       /** Px,
+
+    }
+
+My goal with this is to get the system into a state where I can then 
+start to whitelist the executables -- to that end I'm hoping this allows 
+everything except executing things -- to execute a separate profile must 
+exist.  With this said, I created this file:
+
+local/whitelist
+
+         network,
+         signal,
+         file,
+         mount,
+         pivot_root,
+         ptrace,
+         unix,
+         dbus,
+         umount,
+         capability,
+
+and then wrote this little perl script to create stub files for all the 
+currently-existing executables:
+
+    #!/usr/bin/perl
+
+    use strict;
+    use warnings;
+
+    my @markedAsExecutable = `/usr/bin/find /usr/bin/ -executable -type f`;
+    my @applications;
+
+    foreach my $potentialExecutable (@markedAsExecutable)
+    {
+         chop($potentialExecutable);
+         my $isApplicationResult = `/usr/bin/file -i
+    '$potentialExecutable'`;
+         if ($isApplicationResult =~ m/\/x-/)
+         {
+             push(@applications, $potentialExecutable);
+             #print $isApplicationResult . "\n";
+         }
+    }
+
+    foreach my $application (@applications)
+    {
+         my $wlFileName = $application;
+         # replace slashes with periods
+         $wlFileName =~ s/\//./g;
+         # drop leading period if one exists
+         $wlFileName =~ s/^\.//;
+         # replace special chars with underscores for apparmor profile names
+         $wlFileName =~ s/[^0-9A-z.]/_/g;
+         #print $wlFileName . "\n";
+         if (! -f "/etc/apparmor.d/" . $wlFileName)
+         {
+             open FILE, ">/etc/apparmor.d/" . $wlFileName;
+             print FILE "profile " . $wlFileName . " \"" . $application
+    . "\" flags=(complain) {\n";
+             print FILE "\t#include <local/whitelist>\n";
+             print FILE "}";
+             close FILE;
+         }
+    }
+
+Ran as root, this gets me almost all of the way there.  There are 
+binaries that have a '[' in the filename and since that's a reserved 
+character inside apparmor's profiles, I had to manually edit some of 
+those profiles.  It's likely there are other binaries out there with 
+additional special character issues -- not sure how I can make this code 
+deal with those automatically yet, but I could run apparmor_parser -Q 
+against each of these newly created files and notify the user about any 
+problems found.
+
+Fun fact, Ubuntu likes to mark files like .png with the executable file 
+flag.
+
+Fun fact #2, In line 1 of /usr/bin/networkd-dispatcher, there is a space 
+between the shebang and /usr/bin/python3.  This is enough to fool "file" 
+into thinking that it's a plain text file even though it still 
+executes.  There may be other files like this.
+
+After a number of reboots and log parsing (thank you vmware snapshots!), 
+I had to edit these files to add "attach_disconnected" to their flags lists:
+
+    lib.systemd.systemd
+    lib.systemd.systemd_hostnamed
+    sbin.apparmor_parser
+    sbin.dhclient
+    sbin.hdparm
+    sbin.lvm
+    sbin.u_d_c_print_pci_ids
+    usr.bin.unshare
+    usr.sbin.cups-browsed
+    usr.sbin.cupsd
+    usr.sbin.gdm3
+    usr.sbin.NetworkManager
+    usr.share.apport.apport
+    usr.share.gdm.generate_config
+
+I also disabled some services since they were having trouble and I 
+didn't need them:
+
+avahi-daemon
+wpa_supplicant
+ModemManager
+thermald
+cups-browsed
+
+This gets me to a login prompt and I can ssh in.
+
+
+--------------7A6585CA151EDC80207DF63C
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 5/27/19 5:11 PM, Ian wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:859df47c-6c0d-0be4-4590-6b05ce0fd0a0@zestysoft.com">
+      <br>
+      On 5/27/19 12:08 PM, Ian wrote:
+      <br>
+      <blockquote type="cite">
+        <br>
+        Does apparmor have the same problem as selinux where there are
+        "security aware" programs that don't properly honor enforcement
+        settings, or is this an inheritance problem that I'm not
+        correctly addressing?
+        <br>
+        <br>
+        <br>
+        <br>
+      </blockquote>
+      Adding "attach_disconnected" to the flags parameter of the
+      init-systemd profile was required to get the system to fully
+      boot.  I assume this was necessary because of the transition from
+      initramfs, however the "ALLOWED" audit log entries really threw me
+      there -- that and my ability to run lots of other commands without
+      issue in that "emergency" mode didn't make this an obvious fix.
+      <br>
+      <br>
+      This initramfs transition is a tricky bit of business -- I assume
+      I'll want to have a different profile for systemd for the chrooted
+      system and that when the apparmor service starts, the profile will
+      get replaced, however I thought that profile changes like this
+      aren't seen by currently executing processes -- one has to restart
+      the process for the change to take effect?  Then there's the
+      timing of when journald and auditd starts.  Ideally I'd like to
+      keep the full-permission profile I set up in inittamfs for
+      systemd, but then somehow deny any type of inheritance once the
+      AppArmor service starts.
+      <br>
+      <br>
+      Any advice on how to proceed? -- If it is true that all child
+      processes will, by default, inherit the permissions from the
+      init-systemd profile unless I add deny rules -- I'm back at square
+      one with a blacklist setup.
+      <br>
+      <br>
+      <br>
+    </blockquote>
+    <p>Sorry for not replying to one of your responses John.  I didn't
+      receive the emails, but did read the responses from the web
+      archive.</p>
+    <p><br>
+    </p>
+    I've made a lot of progress, but am still not quite able to fully
+    boot into systemd's version of init 3.<br>
+    /var/log/audit/audit.log and journalctl -r doesn't show any new
+    "ALLOWED" entries.<br>
+    I did notice this in /var/log/syslog:<br>
+    <blockquote>
+      <p>May 30 10:46:51 1546-w-dev dbus-daemon[9496]: [system]
+        Activating systemd to hand-off: service
+        name='org.freedesktop.hostname1'
+        unit='dbus-org.freedesktop.hostname1.service' requested by
+        ':1.21' (uid=0 pid=10058 comm="/usr/sbin/NetworkManager
+        --no-daemon " label="usr.sbin.NetworkManager (complain)"</p>
+    </blockquote>
+    <p>Running systemctl by itself shows no failed services, however
+      there are still two that never get out of "activating:"
+    </p>
+    <blockquote>
+      <p>NetworkManager.service                                                                               
+        loaded activating start     start Network
+        Manager                                                              
+        <br>
+systemd-logind.service                                                                               
+        loaded activating start     start Login Service</p>
+    </blockquote>
+    <p>Here's how I've gotten to where I have:</p>
+    <p>Running a fresh copy of a minimal install of Ubuntu 18.04.2 LTS
+      with all the updates.  It boots into a GUI, so this isn't as
+      minimal as CentOS's version... or I did something wrong when
+      installing it.  :)</p>
+    <p>dpkg-query -W apparmor shows: 2.12-4ubuntu5.1<br>
+    </p>
+    <p>This is being ran in a vm, and I've attached minicom to the vm's
+      kernel "console" so that I can see everything that scrolls past
+      and do things like pause the output after disabling rate
+      limiting.  :)<br>
+    </p>
+    In initramfs, I have this one profile:
+    <blockquote>
+      <p>profile init-systemd /lib/systemd/systemd flags=(complain
+        attach_disconnected) {<br>
+            network,<br>
+            signal,<br>
+            file,<br>
+            mount,<br>
+            pivot_root,<br>
+            ptrace,<br>
+            unix,<br>
+            dbus,<br>
+            umount,<br>
+            capability,<br>
+        <br>
+        }<br>
+      </p>
+    </blockquote>
+    <p>This is the version of that profile after the transition:</p>
+    <blockquote>
+      <p>profile init-systemd /lib/systemd/** flags=(complain
+        attach_disconnected) {<br>
+          capability,<br>
+          network,<br>
+          dbus,<br>
+          mount,<br>
+          umount,<br>
+          signal,<br>
+          ptrace,<br>
+          pivot_root,<br>
+          unix,<br>
+          /** mrwlk,<br>
+          /** Px,<br>
+        <br>
+        }<br>
+      </p>
+    </blockquote>
+    <p>My goal with this is to get the system into a state where I can
+      then start to whitelist the executables -- to that end I'm hoping
+      this allows everything except executing things -- to execute a
+      separate profile must exist.  With this said, I created this file:</p>
+    <p>local/whitelist</p>
+    <blockquote>
+      <p>    network,<br>
+            signal,<br>
+            file,<br>
+            mount,<br>
+            pivot_root,<br>
+            ptrace,<br>
+            unix,<br>
+            dbus,<br>
+            umount,<br>
+            capability,<br>
+      </p>
+    </blockquote>
+    <p>and then wrote this little perl script to create stub files for
+      all the currently-existing executables:</p>
+    <blockquote>
+      <p>#!/usr/bin/perl<br>
+        <br>
+        use strict;<br>
+        use warnings;<br>
+        <br>
+        my @markedAsExecutable = `/usr/bin/find /usr/bin/ -executable
+        -type f`;<br>
+        my @applications;<br>
+        <br>
+        foreach my $potentialExecutable (@markedAsExecutable)<br>
+        {<br>
+            chop($potentialExecutable);<br>
+            my $isApplicationResult = `/usr/bin/file -i
+        '$potentialExecutable'`;<br>
+            if ($isApplicationResult =~ m/\/x-/)<br>
+            {<br>
+                push(@applications, $potentialExecutable);<br>
+                #print $isApplicationResult . "\n";<br>
+            }<br>
+        }<br>
+        <br>
+        foreach my $application (@applications)<br>
+        {<br>
+            my $wlFileName = $application;<br>
+            # replace slashes with periods<br>
+            $wlFileName =~ s/\//./g;<br>
+            # drop leading period if one exists<br>
+            $wlFileName =~ s/^\.//;<br>
+            # replace special chars with underscores for apparmor
+        profile names<br>
+            $wlFileName =~ s/[^0-9A-z.]/_/g;<br>
+            #print $wlFileName . "\n";<br>
+            if (! -f "/etc/apparmor.d/" . $wlFileName)<br>
+            {<br>
+                open FILE, "&gt;/etc/apparmor.d/" . $wlFileName;<br>
+                print FILE "profile " . $wlFileName . " \"" .
+        $application . "\" flags=(complain) {\n";<br>
+                print FILE "\t#include &lt;local/whitelist&gt;\n";<br>
+                print FILE "}";<br>
+                close FILE;<br>
+            }<br>
+        }<br>
+      </p>
+    </blockquote>
+    Ran as root, this gets me almost all of the way there.  There are
+    binaries that have a '[' in the filename and since that's a reserved
+    character inside apparmor's profiles, I had to manually edit some of
+    those profiles.  It's likely there are other binaries out there with
+    additional special character issues -- not sure how I can make this
+    code deal with those automatically yet, but I could run
+    apparmor_parser -Q against each of these newly created files and
+    notify the user about any problems found.<br>
+    <p>Fun fact, Ubuntu likes to mark files like .png with the
+      executable file flag.</p>
+    Fun fact #2, In line 1 of /usr/bin/networkd-dispatcher, there is a
+    space between the shebang and /usr/bin/python3.  This is enough to
+    fool "file" into thinking that it's a plain text file even though it
+    still executes.  There may be other files like this.<br>
+    <p>After a number of reboots and log parsing (thank you vmware
+      snapshots!), I had to edit these files to add
+      "attach_disconnected" to their flags lists:</p>
+    <blockquote>lib.systemd.systemd<br>
+      lib.systemd.systemd_hostnamed<br>
+      sbin.apparmor_parser<br>
+      sbin.dhclient<br>
+      sbin.hdparm<br>
+      sbin.lvm<br>
+      sbin.u_d_c_print_pci_ids<br>
+      usr.bin.unshare<br>
+      usr.sbin.cups-browsed<br>
+      usr.sbin.cupsd<br>
+      usr.sbin.gdm3<br>
+      usr.sbin.NetworkManager<br>
+      usr.share.apport.apport<br>
+      usr.share.gdm.generate_config<br>
+    </blockquote>
+    <p>I also disabled some services since they were having trouble and
+      I didn't need them:</p>
+    <p>avahi-daemon<br>
+      wpa_supplicant<br>
+      ModemManager<br>
+      thermald<br>
+      cups-browsed<br>
+      <br>
+    </p>
+    <p>This gets me to a login prompt and I can ssh in.<br>
+    </p>
+  </body>
+</html>
+
+--------------7A6585CA151EDC80207DF63C--
+
+
+--===============1633177821228260098==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
+eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
+aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
+
+--===============1633177821228260098==--
+
