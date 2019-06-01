@@ -2,22 +2,23 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50FF331890
-	for <lists+apparmor@lfdr.de>; Sat,  1 Jun 2019 02:04:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D332318C8
+	for <lists+apparmor@lfdr.de>; Sat,  1 Jun 2019 02:25:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1hWrVD-0007ZA-Nn; Sat, 01 Jun 2019 00:04:03 +0000
+	id 1hWrq0-00009e-Pr; Sat, 01 Jun 2019 00:25:32 +0000
 Received: from youngberry.canonical.com ([91.189.89.112])
  by huckleberry.canonical.com with esmtps (TLS1.0:DHE_RSA_AES_128_CBC_SHA1:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1hWrVB-0007Yy-EB
- for apparmor@lists.ubuntu.com; Sat, 01 Jun 2019 00:04:01 +0000
+ id 1hWrpy-00009K-GW
+ for apparmor@lists.ubuntu.com; Sat, 01 Jun 2019 00:25:30 +0000
 Received: from static-50-53-34-51.bvtn.or.frontiernet.net ([50.53.34.51]
- helo=[10.8.192.6])
+ helo=[10.8.192.10])
  by youngberry.canonical.com with esmtpsa (TLS1.0:RSA_AES_128_CBC_SHA1:16)
  (Exim 4.76) (envelope-from <john.johansen@canonical.com>)
- id 1hWrVA-00029K-Ng; Sat, 01 Jun 2019 00:04:01 +0000
+ id 1hWrpx-00042x-Pp; Sat, 01 Jun 2019 00:25:30 +0000
+From: John Johansen <john.johansen@canonical.com>
 To: Ian <apparmor@zestysoft.com>, apparmor@lists.ubuntu.com
 References: <7979059d-044a-3f1a-83f9-8254a8a51daa@zestysoft.com>
  <20190525001053.GB6058@hunt>
@@ -28,7 +29,6 @@ References: <7979059d-044a-3f1a-83f9-8254a8a51daa@zestysoft.com>
  <20190530190434.GA30663@horizon>
  <de0466db-4362-e25a-a334-59c88af82ac3@zestysoft.com>
  <d78ac3ce-24c1-631a-930d-b66613ee1fdf@zestysoft.com>
-From: John Johansen <john.johansen@canonical.com>
 Openpgp: preference=signencrypt
 Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
  xsFNBE5mrPoBEADAk19PsgVgBKkImmR2isPQ6o7KJhTTKjJdwVbkWSnNn+o6Up5knKP1f49E
@@ -73,15 +73,14 @@ Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
  qJciYE8TGHkZw1hOku+4OoM2GB5nEDlj+2TF/jLQ+EipX9PkPJYvxfRlC6dK8PKKfX9KdfmA
  IcgHfnV1jSn+8yH2djBPtKiqW0J69aIsyx7iV/03paPCjJh7Xq9vAzydN5U/UA==
 Organization: Canonical
-Message-ID: <a8204163-ba52-fa27-da4d-ff498acd18d6@canonical.com>
-Date: Fri, 31 May 2019 17:03:56 -0700
+Message-ID: <ff693251-4142-40ab-49f4-8d75fc9d4c14@canonical.com>
+Date: Fri, 31 May 2019 17:25:27 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ Thunderbird/60.7.0
 MIME-Version: 1.0
 In-Reply-To: <d78ac3ce-24c1-631a-930d-b66613ee1fdf@zestysoft.com>
 Content-Language: en-GB
-Subject: Re: [apparmor] Attempting FullSystemPolicy with Ubuntu 18.04.2
-	LTS...
+Subject: [apparmor] Attempting FullSystemPolicy with Ubuntu 18.04.2 LTS...
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
