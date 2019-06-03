@@ -2,24 +2,47 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D332318C8
-	for <lists+apparmor@lfdr.de>; Sat,  1 Jun 2019 02:25:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8039F339D3
+	for <lists+apparmor@lfdr.de>; Mon,  3 Jun 2019 22:41:04 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1hWrq0-00009e-Pr; Sat, 01 Jun 2019 00:25:32 +0000
-Received: from youngberry.canonical.com ([91.189.89.112])
- by huckleberry.canonical.com with esmtps (TLS1.0:DHE_RSA_AES_128_CBC_SHA1:128)
- (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1hWrpy-00009K-GW
- for apparmor@lists.ubuntu.com; Sat, 01 Jun 2019 00:25:30 +0000
-Received: from static-50-53-34-51.bvtn.or.frontiernet.net ([50.53.34.51]
- helo=[10.8.192.10])
- by youngberry.canonical.com with esmtpsa (TLS1.0:RSA_AES_128_CBC_SHA1:16)
- (Exim 4.76) (envelope-from <john.johansen@canonical.com>)
- id 1hWrpx-00042x-Pp; Sat, 01 Jun 2019 00:25:30 +0000
-From: John Johansen <john.johansen@canonical.com>
-To: Ian <apparmor@zestysoft.com>, apparmor@lists.ubuntu.com
+	id 1hXtlH-0005tD-Rd; Mon, 03 Jun 2019 20:40:55 +0000
+Received: from secure.zestysoft.com ([63.205.203.253])
+ by huckleberry.canonical.com with esmtps
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <apparmor@zestysoft.com>) id 1hXtlF-0005t7-Kt
+ for apparmor@lists.ubuntu.com; Mon, 03 Jun 2019 20:40:53 +0000
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by secure.zestysoft.com (Postfix) with ESMTP id E7891ADC00F
+ for <apparmor@lists.ubuntu.com>; Mon,  3 Jun 2019 13:40:49 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 secure.zestysoft.com E7891ADC00F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zestysoft.com;
+ s=default; t=1559594449;
+ bh=t7RyCZsZq3d3nR1lmhp8hZmYGjDZlI9Pi74BYRE8Tvk=;
+ h=Subject:To:References:From:Date:In-Reply-To:From;
+ b=eWadye/2wQJN02ui7YtJb2ckiIJn9f0Sla4ojsCZqb2mjdzBDyPtVMxnZE99IZHX1
+ v5VRROSR2tATbZ2FYkYwjmit8bQ2c2uDDxkZ1sIOKhibM1ZOSdumG1Gg41PjurWePT
+ ojlVRj1826ietu719eClUwbFKTPBStOaar4E0oNw=
+X-Virus-Scanned: amavisd-new at zestysoft.com
+Received: from secure.zestysoft.com ([127.0.0.1])
+ by localhost (secure.zestysoft.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id 9wlaDa7ZGcno for <apparmor@lists.ubuntu.com>;
+ Mon,  3 Jun 2019 13:40:48 -0700 (PDT)
+Received: from [172.20.3.88] (unknown [4.79.43.180])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by secure.zestysoft.com (Postfix) with ESMTPSA id 0AE39ADC00E
+ for <apparmor@lists.ubuntu.com>; Mon,  3 Jun 2019 13:40:47 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 secure.zestysoft.com 0AE39ADC00E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zestysoft.com;
+ s=default; t=1559594448;
+ bh=t7RyCZsZq3d3nR1lmhp8hZmYGjDZlI9Pi74BYRE8Tvk=;
+ h=Subject:To:References:From:Date:In-Reply-To:From;
+ b=DOGM1bGueFI5LAwLpq8oSLIT/kWr4kgAPAQRAxasJAajZduKFPvSrLHtYRBdai958
+ 6/Xpiv/IIdQec23Bh4c6eQmDcASP3Yrra33GQiJn2EYDOz6Ct46Z6SJmWkxCV5S7bb
+ x//cznYdnoPGFoL8fqonRJAdLkvgOctV7NQw7vsU=
+To: apparmor@lists.ubuntu.com
 References: <7979059d-044a-3f1a-83f9-8254a8a51daa@zestysoft.com>
  <20190525001053.GB6058@hunt>
  <734c73ce-1e25-cc3a-ed3d-7edae3ee94fc@canonical.com>
@@ -29,58 +52,16 @@ References: <7979059d-044a-3f1a-83f9-8254a8a51daa@zestysoft.com>
  <20190530190434.GA30663@horizon>
  <de0466db-4362-e25a-a334-59c88af82ac3@zestysoft.com>
  <d78ac3ce-24c1-631a-930d-b66613ee1fdf@zestysoft.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
- 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
-Organization: Canonical
-Message-ID: <ff693251-4142-40ab-49f4-8d75fc9d4c14@canonical.com>
-Date: Fri, 31 May 2019 17:25:27 -0700
+From: Ian <apparmor@zestysoft.com>
+Message-ID: <22a9286c-d60e-466a-c261-b6500d2db820@zestysoft.com>
+Date: Mon, 3 Jun 2019 13:40:49 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.7.0
 MIME-Version: 1.0
 In-Reply-To: <d78ac3ce-24c1-631a-930d-b66613ee1fdf@zestysoft.com>
-Content-Language: en-GB
-Subject: [apparmor] Attempting FullSystemPolicy with Ubuntu 18.04.2 LTS...
+Content-Language: en-US
+Subject: Re: [apparmor] Attempting FullSystemPolicy with Ubuntu 18.04.2
+	LTS...
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -92,124 +73,145 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============8730279120449692299=="
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-T24gNS8zMS8xOSAyOjU5IFBNLCBJYW4gd3JvdGU6Cj4gT24gRnJpLCAzMSBNYXkgMjAxOSwgSmFt
-aWUgd3JvdGU6Cj4+IE9uIEZyaSwgMzEgTWF5IDIwMTksIElhbiB3cm90ZToKPj4KPj4+L1RoZSBv
-bmx5IHRoaW5nIG91dHN0YW5kaW5nIGlzIHNvbWUgdHJvdWJsZSBJIHJ1biBpbnRvIGFmdGVyIHRo
-ZSBpbml0cmFtZnMgLz4+L2Nocm9vdCB0cmFuc2l0aW9uIGJ1dCBiZWZvcmUgdGhlIGFwcGFybW9y
-IHNlcnZpY2Ugc3RhcnRzOiAvPj4vLz4+L01heSAzMSAxMjoxMDo1NSAxNTQ2LXctZGV2IGF1ZGl0
-WzUxNjJdOiBBVkMgYXBwYXJtb3I9IkFMTE9XRUQiIC8+Pi9vcGVyYXRpb249ImV4ZWMiIGluZm89
-InByb2ZpbGUgdHJhbnNpdGlvbiBub3QgZm91bmQiIGVycm9yPS0xMyAvPj4vcHJvZmlsZT0iaW5p
-dC1zeXMgLz4+L3RlbWQiIG5hbWU9Ii91c3IvYmluL3Vuc2hhcmUiIHBpZD01MTYyIGNvbW09Iihz
-cGF3bikiIC8+Pi9yZXF1ZXN0ZWRfbWFzaz0ieCIgZGVuaWVkX21hc2s9IngiIGZzdWlkPTAgb3Vp
-ZD0wIC8+Pi90YXJnZXQ9Ii91c3IvYmluL3Vuc2hhcmUiIC8+Pi9NYXkgMzEgMTI6MTA6NTQgMTU0
-Ni13LWRldiBhdWRpdFs1MDA0XTogQVZDIGFwcGFybW9yPSJBTExPV0VEIiAvPj4vb3BlcmF0aW9u
-PSJleGVjIiBpbmZvPSJwcm9maWxlIHRyYW5zaXRpb24gbm90IGZvdW5kIiBlcnJvcj0tMTMgLz4+
-L3Byb2ZpbGU9ImluaXQtc3lzIC8+Pi90ZW1kIiBuYW1lPSIvdXNyL2Jpbi91bnNoYXJlIiBwaWQ9
-NTAwNCBjb21tPSIoc3Bhd24pIiAvPj4vcmVxdWVzdGVkX21hc2s9IngiIGRlbmllZF9tYXNrPSJ4
-IiBmc3VpZD0wIG91aWQ9MCAvPj4vdGFyZ2V0PSIvdXNyL2Jpbi91bnNoYXJlIiAvPgo+Pk5vdGlj
-ZSBpdCBpcyAvdXNyL2Jpbi91bnNoYXJlIGhlcmUsIGJ1dCB5b3UgbWVudGlvbiBiZWxvdyB0aGF0
-Cj4+Jy91c3Ivc2Jpbi91bnNoYXJlJyBleGlzdHMsIGJ1dCB3aGF0IHlvdSBwYXN0ZWQgbG9va3Mg
-Y29ycmVjdC4gSXMgdGhpcyBhIHR5cG8KPj5pbiB0aGUgZW1haWwgb3Igc29tZXdoZXJlIGVsc2U/
-Cj4+Cj4+Pi9UaGUgL3Vzci9zYmluL3Vuc2hhcmUgcHJvZmlsZSBleGlzdHM6IC8+Pi8vPj4vcm9v
-dCBhdCAxNTQ2LXctZGV2IDxodHRwczovL2xpc3RzLnVidW50dS5jb20vbWFpbG1hbi9saXN0aW5m
-by9hcHBhcm1vcj46L2V0Yy9hcHBhcm1vci5kIyBjYXQgdXNyLmJpbi51bnNoYXJlIC8+Pi9wcm9m
-aWxlIHVzci5iaW4udW5zaGFyZSAvdXNyL2Jpbi91bnNoYXJlIC8+Pi9mbGFncz0oY29tcGxhaW4s
-YXR0YWNoX2Rpc2Nvbm5lY3RlZCkgeyAvPj4vwqDCoMKgICNpbmNsdWRlIDxsb2NhbC93aGl0ZWxp
-c3Q+IC8+Pi99IC8KPiAKPiBKYW1pZSwKPiAKPiBUaGF0IHdhcyBhIHR5cG8gaW4gdGhlIGVtYWls
-LiBUaGVyZSBpcyBubyAvdXNyL3NiaW4vdW5zaGFyZSBleGVjdXRhYmxlIG9yIHByb2ZpbGUuCj4g
-Cj4gQWZ0ZXIgZXZlcnl0aGluZyBsb2FkcywgaWYgSSByZXN0YXJ0IHRoZSAibHZtMi1wdnNjYW5A
-ODoxIiBzZXJ2aWNlIHRoYXQgSSB0aGluayBpcyByZXNwb25zaWJsZSBmb3IgdGhvc2UgZXJyb3Jz
-IGR1cmluZyBib290IChzeXN0ZW1jdGwgc2hvd3MgaXQgYXMgZmFpbGVkKSwgaXQgYWxsIHdvcmtz
-IGNvcnJlY3RseS4KPiAKPiAtLS0KPiAKPiAKPiBPbiBhIGRpZmZlcmVudCB0b3BpYywgd2hlbiBJ
-IGF0dGVtcHRlZCB0byBydW4gJ2FwdCB1cGRhdGUnLCB0aGlzIGhhcHBlbnM6Cj4gCj4gICAgIHR5
-cGU9QVZDIG1zZz1hdWRpdCgxNTU5MzM0MzE4LjkzNjo4ODUwKTogYXBwYXJtb3I9IkFMTE9XRUQi
-IG9wZXJhdGlvbj0iZXhlYyIgaW5mbz0ibm8gbmV3IHByaXZzIiBlcnJvcj0tMSBwcm9maWxlPSJ1
-c3IubGliLmFwdC5tZXRob2RzLmdwZ3YiIG5hbWU9Ii91c3IvYmluL2FwdC1rZXkiIHBpZD0xMTAx
-MSBjb21tPSJncGd2IiByZXF1ZXN0ZWRfbWFzaz0ieCIgZGVuaWVkX21hc2s9IngiIGZzdWlkPTEw
-NCBvdWlkPTAgdGFyZ2V0PSJ1c3IuYmluLmFwdF9rZXkiCj4gICAgIHR5cGU9QVZDIG1zZz1hdWRp
-dCgxNTU5MzM0MzE5LjIxMjo4ODUxKTogYXBwYXJtb3I9IkFMTE9XRUQiIG9wZXJhdGlvbj0iZXhl
-YyIgaW5mbz0ibm8gbmV3IHByaXZzIiBlcnJvcj0tMSBwcm9maWxlPSJ1c3IubGliLmFwdC5tZXRo
-b2RzLmdwZ3YiIG5hbWU9Ii91c3IvYmluL2FwdC1rZXkiIHBpZD0xMTAxMyBjb21tPSJncGd2IiBy
-ZXF1ZXN0ZWRfbWFzaz0ieCIgZGVuaWVkX21hc2s9IngiIGZzdWlkPTEwNCBvdWlkPTAgdGFyZ2V0
-PSJ1c3IuYmluLmFwdF9rZXkiCj4gICAgIHR5cGU9QVZDIG1zZz1hdWRpdCgxNTU5MzM0MzE5LjIy
-ODo4ODUyKTogYXBwYXJtb3I9IkFMTE9XRUQiIG9wZXJhdGlvbj0iZXhlYyIgaW5mbz0ibm8gbmV3
-IHByaXZzIiBlcnJvcj0tMSBwcm9maWxlPSJ1c3IubGliLmFwdC5tZXRob2RzLmdwZ3YiIG5hbWU9
-Ii91c3IvYmluL2FwdC1rZXkiIHBpZD0xMTAxNSBjb21tPSJncGd2IiByZXF1ZXN0ZWRfbWFzaz0i
-eCIgZGVuaWVkX21hc2s9IngiIGZzdWlkPTEwNCBvdWlkPTAgdGFyZ2V0PSJ1c3IuYmluLmFwdF9r
-ZXkiCj4gICAgIHR5cGU9QVZDIG1zZz1hdWRpdCgxNTU5MzM0MzE5LjMzMjo4ODUzKTogYXBwYXJt
-b3I9IkFMTE9XRUQiIG9wZXJhdGlvbj0iZXhlYyIgaW5mbz0ibm8gbmV3IHByaXZzIiBlcnJvcj0t
-MSBwcm9maWxlPSJ1c3IubGliLmFwdC5tZXRob2RzLmdwZ3YiIG5hbWU9Ii91c3IvYmluL2FwdC1r
-ZXkiIHBpZD0xMTAxNyBjb21tPSJncGd2IiByZXF1ZXN0ZWRfbWFzaz0ieCIgZGVuaWVkX21hc2s9
-IngiIGZzdWlkPTEwNCBvdWlkPTAgdGFyZ2V0PSJ1c3IuYmluLmFwdF9rZXkiCj4gCj4gCj4gICAg
-IFc6IEFuIGVycm9yIG9jY3VycmVkIGR1cmluZyB0aGUgc2lnbmF0dXJlIHZlcmlmaWNhdGlvbi4g
-VGhlIHJlcG9zaXRvcnkgaXMgbm90IHVwZGF0ZWQgYW5kIHRoZSBwcmV2aW91cyBpbmRleCBmaWxl
-cyB3aWxsIGJlIHVzZWQuIEdQRyBlcnJvcjogaHR0cDovL3VzLmFyY2hpdmUudWJ1bnR1LmNvbS91
-YnVudHUgYmlvbmljIEluUmVsZWFzZTogQ291bGRuJ3QgZXhlY3V0ZSAvdXNyL2Jpbi9hcHQta2V5
-IHRvIGNoZWNrIC92YXIvbGliL2FwdC9saXN0cy91cy5hcmNoaXZlLnVidW50dS5jb21fdWJ1bnR1
-X2Rpc3RzX2Jpb25pY19JblJlbGVhc2UKPiAgICAgVzogQW4gZXJyb3Igb2NjdXJyZWQgZHVyaW5n
-IHRoZSBzaWduYXR1cmUgdmVyaWZpY2F0aW9uLiBUaGUgcmVwb3NpdG9yeSBpcyBub3QgdXBkYXRl
-ZCBhbmQgdGhlIHByZXZpb3VzIGluZGV4IGZpbGVzIHdpbGwgYmUgdXNlZC4gR1BHIGVycm9yOiBo
-dHRwOi8vdXMuYXJjaGl2ZS51YnVudHUuY29tL3VidW50dSBiaW9uaWMtdXBkYXRlcyBJblJlbGVh
-c2U6IENvdWxkbid0IGV4ZWN1dGUgL3Vzci9iaW4vYXB0LWtleSB0byBjaGVjayAvdmFyL2xpYi9h
-cHQvbGlzdHMvcGFydGlhbC91cy5hcmNoaXZlLnVidW50dS5jb21fdWJ1bnR1X2Rpc3RzX2Jpb25p
-Yy11cGRhdGVzX0luUmVsZWFzZQo+ICAgICBXOiBBbiBlcnJvciBvY2N1cnJlZCBkdXJpbmcgdGhl
-IHNpZ25hdHVyZSB2ZXJpZmljYXRpb24uIFRoZSByZXBvc2l0b3J5IGlzIG5vdCB1cGRhdGVkIGFu
-ZCB0aGUgcHJldmlvdXMgaW5kZXggZmlsZXMgd2lsbCBiZSB1c2VkLiBHUEcgZXJyb3I6IGh0dHA6
-Ly9zZWN1cml0eS51YnVudHUuY29tL3VidW50dSBiaW9uaWMtc2VjdXJpdHkgSW5SZWxlYXNlOiBD
-b3VsZG4ndCBleGVjdXRlIC91c3IvYmluL2FwdC1rZXkgdG8gY2hlY2sgL3Zhci9saWIvYXB0L2xp
-c3RzL3BhcnRpYWwvc2VjdXJpdHkudWJ1bnR1LmNvbV91YnVudHVfZGlzdHNfYmlvbmljLXNlY3Vy
-aXR5X0luUmVsZWFzZQo+ICAgICBXOiBBbiBlcnJvciBvY2N1cnJlZCBkdXJpbmcgdGhlIHNpZ25h
-dHVyZSB2ZXJpZmljYXRpb24uIFRoZSByZXBvc2l0b3J5IGlzIG5vdCB1cGRhdGVkIGFuZCB0aGUg
-cHJldmlvdXMgaW5kZXggZmlsZXMgd2lsbCBiZSB1c2VkLiBHUEcgZXJyb3I6IGh0dHA6Ly91cy5h
-cmNoaXZlLnVidW50dS5jb20vdWJ1bnR1IGJpb25pYy1iYWNrcG9ydHMgSW5SZWxlYXNlOiBDb3Vs
-ZG4ndCBleGVjdXRlIC91c3IvYmluL2FwdC1rZXkgdG8gY2hlY2sgL3Zhci9saWIvYXB0L2xpc3Rz
-L3BhcnRpYWwvdXMuYXJjaGl2ZS51YnVudHUuY29tX3VidW50dV9kaXN0c19iaW9uaWMtYmFja3Bv
-cnRzX0luUmVsZWFzZQo+IAo+IAo+IEl0J3Mgbm90IGNsZWFyIHRvIG1lIHdoeSBpdCB0aGlua3Mg
-SSB3b3VsZCBiZSByZXF1ZXN0aW5nIG5ldyBwcml2cyB3aGVuIGFsbCBvZiB0aGUgcHJvZmlsZXMg
-SSd2ZSBjcmVhdGVkIGhhdmUgdGhlIGV4YWN0IHNhbWUgcHJpdiByZXF1ZXN0cy7CoCBJdCdzIGFs
-c28gb2RkIHRoYXQgYXBwYXJtb3IgaXMgc3RhdGluZyAiQUxMT1dFRCIgYnV0IHRoZW4gc3RpbGwg
-YmxvY2tpbmcgdGhlIGV4ZWN1dGlvbj8KPiAKCkJlY2F1c2Ugd2hlbiBuby1uZXctcHJpdnMgbGFu
-ZGVkIGl0IHdhcyBtYW5kYXRlZCB0aGF0IHRoZSBMU01zIG5vdCBvdmVyIHJpZGUgaXQuIE5vIG5l
-dy1wcml2cyBpcyBub3QgcGFydCBvZiBhcHBhcm1vciBidXQgdGhlIGJyb2FkZXIga2VybmVsLCBh
-bmQgd2FzIHByb3ZpZGVkIGFzIGEgd2F5IHRvIGZvciBhIHRhc2sgdG8gbG9ja2Rvd24gcHJpdmls
-ZWdlcyB0byB0aGUgY3VycmVudCBzZXQuCgpwcmN0bChQUl9TRVRfTk9fTkVXX1BSSVZTLCAxLCAw
-LCAwLCAwKTsKCkl0IHdhcyBhZGRlZCB3aXRoIHNlY2NvbXAgKDMuNSkgc28gdGhhdCB0aGUgdGFz
-ayBjb3VsZCBkbyBzZXR1cCBhbmQgdGhlbiBsb2NrIGl0cyBzYW5kYm94L3NlY3VyaXR5IGVudiBk
-b3duLiBBdCB0aGUgdGltZSB0aGUgTFNNcyB3ZXJlIHRvbGQgaXQgc2hvdWxkIGFwcGx5IHRvIHRo
-ZW0gYXMgd2VsbC4gV2l0aCBzZWNjb21wIHVzZSBleHBhbmRpbmcgYW5kIHN5c3RlbWQgbm93IHNl
-dHRpbmcgaXQgdGhpcyBoYXMgdW5mb3J0dW5hdGVseSBjYXVzZWQgc2V2ZXJhbCBwcm9ibGVtcyBm
-b3IgTFNNcyBhbmQgc2VsaW51eCBzdWNjZXNzZnVsbHkgYWRkZWQgYSBzZXRwcml2cyBhYmlsaXR5
-IHRoYXQgYWxsb3dzIHRoZW0gdG8gc2VsZWN0aXZlbHkgb3ZlcnJpZGUuIEFwcEFybW9yIGRvZXMg
-Y3VycmVudGx5IGFsbG93IHRyYW5zaXRpb25zIHVuZGVyIG5vLW5ldy1wcml2cyBidXQgb25seSB3
-aGVuIHRoZSB0cmFuc2l0aW9uIGlzIHByb3ZhYmxlIGEgc3Vic2V0IG9mIHRoZSB0YXNrcyBjb25m
-aW5lbWVudCAoMy41IC0gNC4xMiB1bmNvbmZpbmVkIGlzIGFsbG93ZWQgdG8gdHJhbnNpdGlvbiB0
-byBhIHByb2ZpbGUsIDQuMTMgLSA0LjE2IGlzIGxpbWl0ZWQgdG8gc3RyaWN0IHN1YnNldCBvZiBj
-dXJyZW50IGNvbmZpbmVtZW50LCBiYXNpY2FsbHkgeW91IGNhbiBleHRlbmQgYSBwcm9maWxlIHN0
-YWNrLCA0LjE3IC0gNS4yIHRvIGEgc3Vic2V0IG9mIGNvbmZpbmVtZW50IGF0IHRoZSB0aW1lIG5u
-cCBpcyBzZXQpLiBXZSBkbyBoYXZlIHBsYW5zIHRvIGFkZCBvdXIgb3duIGFiaWxpdHkgdG8gaGF2
-ZSBhIHBlcm1pc3Npb24gdG8gb3ZlcnJpZGUgbm8tbmV3LXByaXZzIGJ1dCB0aGF0IGhhcyBub3Qg
-bGFuZGVkIHVwc3RyZWFtIHlldC4KCgo+IFJ1bm5pbmcgcHN0cmVlIGF0IHRoZSBzYW1lIHRpbWUg
-YXMgYXB0IHNob3dzIHRoZSBmb2xsb3dpbmcgb3JkZXI6IHN5c3RlbWQsIHNzaGQsIHNzaGQsIHNz
-aGQsIGJhc2gsIHN1ZG8sIGJhc2gsIGFwdCwgZ3BndiAoYW5kIGh0dHAsIGh0dHApLCBncGd2Cj4g
-Cj4gICAgIHJvb3RAMTU0Ni13LWRldjovZXRjL2FwcGFybW9yLmQjIGNhdCB1c3IubGliLmFwdC5t
-ZXRob2RzLmdwZ3YKPiAgICAgcHJvZmlsZSB1c3IubGliLmFwdC5tZXRob2RzLmdwZ3YgL3Vzci9s
-aWIvYXB0L21ldGhvZHMvZ3BndiBmbGFncz0oY29tcGxhaW4pIHsKPiAgICAgwqDCoMKgICNpbmNs
-dWRlIDxsb2NhbC93aGl0ZWxpc3Q+Cj4gICAgIH0KPiAKPiAKPiAgICAgcm9vdEAxNTQ2LXctZGV2
-Oi9ldGMvYXBwYXJtb3IuZCMgY2F0IHVzci5iaW4uYXB0X2tleQo+ICAgICBwcm9maWxlIHVzci5i
-aW4uYXB0X2tleSAvdXNyL2Jpbi9hcHQta2V5IGZsYWdzPShjb21wbGFpbikgewo+ICAgICDCoMKg
-wqAgI2luY2x1ZGUgPGxvY2FsL3doaXRlbGlzdD4KPiAgICAgfQo+IAo+IAo+IEhhdmUgSSByYW4g
-aW50byB0aGlzP8KgIGh0dHBzOi8vbGlzdHMudWJ1bnR1LmNvbS9hcmNoaXZlcy9hcHBhcm1vci8y
-MDE4LU5vdmVtYmVyLzAxMTg0Ni5odG1sCj4gCgp1bmZvcnR1bmF0ZWx5LCB5ZXMuIEkgY2FuIHBv
-aW50IHlvdSBhdCBhIHRlc3Qga2VybmVsIGZvciB0aGUgbm5wIG92ZXJyaWRlIGJ1dCwgSSB3aWxs
-IG5lZWQKdG8gZ2V0IHVwIGEgdXNlcnNwYWNlIHRoYXQgY2FuIHdvcmsgd2l0aCBpdC4gSSdsbCBz
-ZWUgd2hhdCBJIGNhbiBkbyB0aGlzIHdlZWtlbmQuCgo+ICAgICByb290QDE1NDYtdy1kZXY6L2V0
-Yy9hcHBhcm1vci5kIyB1bmFtZSAtcgo+ICAgICA0LjE1LjAtNTAtZ2VuZXJpYwo+IAo+IEkgc2Vl
-IHRoaXMgcHJvYmxlbSB3aXRoICdtYW4nIHRvby4KPiAKPiBJJ20gc29vbyBjbG9zZSB0byBnZXR0
-aW5nIHRoaXMgd29ya2luZy4uLgo+IAo+IAoKCi0tIApBcHBBcm1vciBtYWlsaW5nIGxpc3QKQXBw
-QXJtb3JAbGlzdHMudWJ1bnR1LmNvbQpNb2RpZnkgc2V0dGluZ3Mgb3IgdW5zdWJzY3JpYmUgYXQ6
-IGh0dHBzOi8vbGlzdHMudWJ1bnR1LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2FwcGFybW9yCg==
+This is a multi-part message in MIME format.
+--===============8730279120449692299==
+Content-Type: multipart/alternative;
+ boundary="------------0B2E2D9FF1D91DFAA82F88A1"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------0B2E2D9FF1D91DFAA82F88A1
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+
+On 5/31/19 2:59 PM, John wrote:
+> Because when no-new-privs landed it was mandated that the LSMs not over ride it. No new-privs is not part of apparmor but the broader kernel, and was provided as a way to for a task to lockdown privileges to the current set.
+>
+> prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0);
+>
+> It was added with seccomp (3.5) so that the task could do setup and then lock its sandbox/security env down. At the time the LSMs were told it should apply to them as well. With seccomp use expanding and systemd now setting it this has unfortunately caused several problems for LSMs and selinux successfully added a setprivs ability that allows them to selectively override. AppArmor does currently allow transitions under no-new-privs but only when the transition is provable a subset of the tasks confinement (3.5 - 4.12 unconfined is allowed to transition to a profile, 4.13 - 4.16 is limited to strict subset of current confinement, basically you can extend a profile stack, 4.17 - 5.2 to a subset of confinement at the time nnp is set). We do have plans to add our own ability to have a permission to override no-new-privs but that has not landed upstream yet.
+>
+>
+> >/Running pstree at the same time as apt shows the following order: 
+> systemd, sshd, sshd, sshd, bash, sudo, bash, apt, gpgv (and http, 
+> http), gpgv />//>/root at 1546-w-dev 
+> <https://lists.ubuntu.com/mailman/listinfo/apparmor>:/etc/apparmor.d# 
+> cat usr.lib.apt.methods.gpgv />/profile usr.lib.apt.methods.gpgv /usr/lib/apt/methods/gpgv 
+> flags=(complain) { />/    #include <local/whitelist> />/} />//>//>/root at 1546-w-dev 
+> <https://lists.ubuntu.com/mailman/listinfo/apparmor>:/etc/apparmor.d# 
+> cat usr.bin.apt_key />/profile usr.bin.apt_key /usr/bin/apt-key flags=(complain) { />/    #include <local/whitelist> />/} />//>//>/Have I ran into this? 
+> https://lists.ubuntu.com/archives/apparmor/2018-November/011846.html />//
+> unfortunately, yes. I can point you at a test kernel for the nnp override but, I will need
+> to get up a userspace that can work with it. I'll see what I can do this weekend.
+>
+>
+if I use "/** px" for init-systemd and all other discrete profiles, am I 
+correct in concluding that each child process does a domain transition?  
+I.E. using that pstree output from above, by the time gpgv executes, the 
+following transitions happen:
+
+unconfined -> init-systemd -> usr.sbin.sshd -> bin.bash -> usr.bin.sudo 
+-> bin.bash -> and so on?
+
+Does the nnp issue occur after a certain depth is reached, or is 
+something else triggering this?  What I don't get is that each process 
+should have the same profile permission requests. Are there additional 
+permissions I need to add to my "whitelist" file?
+
+Also, if nnp locks things down, does that mean ux only works if the 
+parent process is itself unconfined?  I.E. this isn't possible: 
+unconfined -> px -> ux?  If that is possible, maybe I could somehow get 
+apparmor to initially transition to ux before px?
+
+
+
+--------------0B2E2D9FF1D91DFAA82F88A1
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 5/31/19 2:59 PM, John wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:d78ac3ce-24c1-631a-930d-b66613ee1fdf@zestysoft.com">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <pre>
+Because when no-new-privs landed it was mandated that the LSMs not over ride it. No new-privs is not part of apparmor but the broader kernel, and was provided as a way to for a task to lockdown privileges to the current set.
+
+prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0);
+
+It was added with seccomp (3.5) so that the task could do setup and then lock its sandbox/security env down. At the time the LSMs were told it should apply to them as well. With seccomp use expanding and systemd now setting it this has unfortunately caused several problems for LSMs and selinux successfully added a setprivs ability that allows them to selectively override. AppArmor does currently allow transitions under no-new-privs but only when the transition is provable a subset of the tasks confinement (3.5 - 4.12 unconfined is allowed to transition to a profile, 4.13 - 4.16 is limited to strict subset of current confinement, basically you can extend a profile stack, 4.17 - 5.2 to a subset of confinement at the time nnp is set). We do have plans to add our own ability to have a permission to override no-new-privs but that has not landed upstream yet.
+
+
+&gt;<i> Running pstree at the same time as apt shows the following order: systemd, sshd, sshd, sshd, bash, sudo, bash, apt, gpgv (and http, http), gpgv
+</i>&gt;<i> 
+</i>&gt;<i>     <a href="https://lists.ubuntu.com/mailman/listinfo/apparmor">root at 1546-w-dev</a>:/etc/apparmor.d# cat usr.lib.apt.methods.gpgv
+</i>&gt;<i>     profile usr.lib.apt.methods.gpgv /usr/lib/apt/methods/gpgv flags=(complain) {
+</i>&gt;<i>         #include &lt;local/whitelist&gt;
+</i>&gt;<i>     }
+</i>&gt;<i> 
+</i>&gt;<i> 
+</i>&gt;<i>     <a href="https://lists.ubuntu.com/mailman/listinfo/apparmor">root at 1546-w-dev</a>:/etc/apparmor.d# cat usr.bin.apt_key
+</i>&gt;<i>     profile usr.bin.apt_key /usr/bin/apt-key flags=(complain) {
+</i>&gt;<i>         #include &lt;local/whitelist&gt;
+</i>&gt;<i>     }
+</i>&gt;<i> 
+</i>&gt;<i> 
+</i>&gt;<i> Have I ran into this?  <a href="https://lists.ubuntu.com/archives/apparmor/2018-November/011846.html">https://lists.ubuntu.com/archives/apparmor/2018-November/011846.html</a>
+</i>&gt;<i> 
+</i>
+unfortunately, yes. I can point you at a test kernel for the nnp override but, I will need
+to get up a userspace that can work with it. I'll see what I can do this weekend.
+
+
+</pre>
+    </blockquote>
+    <p>if I use "/** px" for init-systemd and all other discrete
+      profiles, am I correct in concluding that each child process does
+      a domain transition?  I.E. using that pstree output from above, by
+      the time gpgv executes, the following transitions happen:</p>
+    <p>unconfined -&gt; init-systemd -&gt; usr.sbin.sshd -&gt; bin.bash
+      -&gt; usr.bin.sudo -&gt; bin.bash -&gt; and so on?<br>
+    </p>
+    <p>Does the nnp issue occur after a certain depth is reached, or is
+      something else triggering this?  What I don't get is that each
+      process should have the same profile permission requests. Are
+      there additional permissions I need to add to my "whitelist"
+      file?  </p>
+    <p>Also, if nnp locks things down, does that mean ux only works if
+      the parent process is itself unconfined?  I.E. this isn't
+      possible: unconfined -&gt; px -&gt; ux?  If that is possible,
+      maybe I could somehow get apparmor to initially transition to ux
+      before px?<br>
+    </p>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------0B2E2D9FF1D91DFAA82F88A1--
+
+
+--===============8730279120449692299==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
+eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
+aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
+
+--===============8730279120449692299==--
+
