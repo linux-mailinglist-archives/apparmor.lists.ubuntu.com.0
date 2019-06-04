@@ -2,23 +2,47 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0C7733A4B
-	for <lists+apparmor@lfdr.de>; Mon,  3 Jun 2019 23:53:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67B5833C4A
+	for <lists+apparmor@lfdr.de>; Tue,  4 Jun 2019 02:02:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1hXusz-000821-FX; Mon, 03 Jun 2019 21:52:57 +0000
-Received: from youngberry.canonical.com ([91.189.89.112])
- by huckleberry.canonical.com with esmtps (TLS1.0:DHE_RSA_AES_128_CBC_SHA1:128)
- (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1hXusx-00081v-Jk
- for apparmor@lists.ubuntu.com; Mon, 03 Jun 2019 21:52:55 +0000
-Received: from static-50-53-54-166.bvtn.or.frontiernet.net ([50.53.54.166]
- helo=[192.168.192.153])
- by youngberry.canonical.com with esmtpsa (TLS1.0:RSA_AES_128_CBC_SHA1:16)
- (Exim 4.76) (envelope-from <john.johansen@canonical.com>)
- id 1hXusx-0007eS-2t; Mon, 03 Jun 2019 21:52:55 +0000
-To: Ian <apparmor@zestysoft.com>, apparmor@lists.ubuntu.com
+	id 1hXwu7-0007HH-Mn; Tue, 04 Jun 2019 00:02:15 +0000
+Received: from secure.zestysoft.com ([63.205.203.253])
+ by huckleberry.canonical.com with esmtps
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <apparmor@zestysoft.com>) id 1hXwu5-0007H6-SL
+ for apparmor@lists.ubuntu.com; Tue, 04 Jun 2019 00:02:14 +0000
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by secure.zestysoft.com (Postfix) with ESMTP id 24AF5ADC00F
+ for <apparmor@lists.ubuntu.com>; Mon,  3 Jun 2019 17:02:10 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 secure.zestysoft.com 24AF5ADC00F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zestysoft.com;
+ s=default; t=1559606530;
+ bh=DWrQFQLJ64w0UG+vcnAWUQUJeL/C/eL/nGV2jYw0Pkc=;
+ h=Subject:To:References:From:Date:In-Reply-To:From;
+ b=PnK5Yf5XIxw3mXU8014yRpbsP6IfQ/bHSB4LZ4sAolMmdE/mNYg+Ow0et0i+JAYF+
+ 8E+mcK64psTuTr6w4qGxzVatpClt1bNTZEI7Cki4Gob6pSz0jzfrki8f5xmhZ8TpYN
+ qXAVTQjPDG4yutRNXRNXICWyxEd4ZtTBNSTM2P98=
+X-Virus-Scanned: amavisd-new at zestysoft.com
+Received: from secure.zestysoft.com ([127.0.0.1])
+ by localhost (secure.zestysoft.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id voCTQJq1jC4N for <apparmor@lists.ubuntu.com>;
+ Mon,  3 Jun 2019 17:02:08 -0700 (PDT)
+Received: from [172.20.3.88] (unknown [4.79.43.180])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by secure.zestysoft.com (Postfix) with ESMTPSA id D241FADC00E
+ for <apparmor@lists.ubuntu.com>; Mon,  3 Jun 2019 17:02:07 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 secure.zestysoft.com D241FADC00E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zestysoft.com;
+ s=default; t=1559606527;
+ bh=DWrQFQLJ64w0UG+vcnAWUQUJeL/C/eL/nGV2jYw0Pkc=;
+ h=Subject:To:References:From:Date:In-Reply-To:From;
+ b=sibo6LvUAK9GPx8Z/xmaMrE1i9SHtFrmH8UfeQ/aYRPFNXWHQAAmUvox3hWA86tk3
+ 7bvHymUE2MP8rTAve3EryapUiH/8ZVfqSFmLl1No8urHzi9uqhG8NA/lIo/AbKXnC+
+ ljZC8v8acripBVnXPRty17G9Gjc3+ebELIp+MyfU=
+To: apparmor@lists.ubuntu.com
 References: <7979059d-044a-3f1a-83f9-8254a8a51daa@zestysoft.com>
  <20190525001053.GB6058@hunt>
  <734c73ce-1e25-cc3a-ed3d-7edae3ee94fc@canonical.com>
@@ -29,58 +53,14 @@ References: <7979059d-044a-3f1a-83f9-8254a8a51daa@zestysoft.com>
  <de0466db-4362-e25a-a334-59c88af82ac3@zestysoft.com>
  <d78ac3ce-24c1-631a-930d-b66613ee1fdf@zestysoft.com>
  <22a9286c-d60e-466a-c261-b6500d2db820@zestysoft.com>
-From: John Johansen <john.johansen@canonical.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
- 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
-Organization: Canonical
-Message-ID: <e6b2d9a4-0735-579d-b227-1dfc7ac9d508@canonical.com>
-Date: Mon, 3 Jun 2019 14:52:52 -0700
+From: Ian <apparmor@zestysoft.com>
+Message-ID: <5938a8fb-8cd7-b5fd-e4fc-f6e58f4c085b@zestysoft.com>
+Date: Mon, 3 Jun 2019 17:02:08 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.7.0
 MIME-Version: 1.0
 In-Reply-To: <22a9286c-d60e-466a-c261-b6500d2db820@zestysoft.com>
-Content-Language: en-GB
+Content-Language: en-US
 Subject: Re: [apparmor] Attempting FullSystemPolicy with Ubuntu 18.04.2
 	LTS...
 X-BeenThere: apparmor@lists.ubuntu.com
@@ -94,121 +74,100 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============5285702761982852450=="
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-T24gNi8zLzE5IDE6NDAgUE0sIElhbiB3cm90ZToKPiAKPiBPbiA1LzMxLzE5IDI6NTkgUE0sIEpv
-aG4gd3JvdGU6Cj4+IEJlY2F1c2Ugd2hlbiBuby1uZXctcHJpdnMgbGFuZGVkIGl0IHdhcyBtYW5k
-YXRlZCB0aGF0IHRoZSBMU01zIG5vdCBvdmVyIHJpZGUgaXQuIE5vIG5ldy1wcml2cyBpcyBub3Qg
-cGFydCBvZiBhcHBhcm1vciBidXQgdGhlIGJyb2FkZXIga2VybmVsLCBhbmQgd2FzIHByb3ZpZGVk
-IGFzIGEgd2F5IHRvIGZvciBhIHRhc2sgdG8gbG9ja2Rvd24gcHJpdmlsZWdlcyB0byB0aGUgY3Vy
-cmVudCBzZXQuCj4+Cj4+IHByY3RsKFBSX1NFVF9OT19ORVdfUFJJVlMsIDEsIDAsIDAsIDApOwo+
-Pgo+PiBJdCB3YXMgYWRkZWQgd2l0aCBzZWNjb21wICgzLjUpIHNvIHRoYXQgdGhlIHRhc2sgY291
-bGQgZG8gc2V0dXAgYW5kIHRoZW4gbG9jayBpdHMgc2FuZGJveC9zZWN1cml0eSBlbnYgZG93bi4g
-QXQgdGhlIHRpbWUgdGhlIExTTXMgd2VyZSB0b2xkIGl0IHNob3VsZCBhcHBseSB0byB0aGVtIGFz
-IHdlbGwuIFdpdGggc2VjY29tcCB1c2UgZXhwYW5kaW5nIGFuZCBzeXN0ZW1kIG5vdyBzZXR0aW5n
-IGl0IHRoaXMgaGFzIHVuZm9ydHVuYXRlbHkgY2F1c2VkIHNldmVyYWwgcHJvYmxlbXMgZm9yIExT
-TXMgYW5kIHNlbGludXggc3VjY2Vzc2Z1bGx5IGFkZGVkIGEgc2V0cHJpdnMgYWJpbGl0eSB0aGF0
-IGFsbG93cyB0aGVtIHRvIHNlbGVjdGl2ZWx5IG92ZXJyaWRlLiBBcHBBcm1vciBkb2VzIGN1cnJl
-bnRseSBhbGxvdyB0cmFuc2l0aW9ucyB1bmRlciBuby1uZXctcHJpdnMgYnV0IG9ubHkgd2hlbiB0
-aGUgdHJhbnNpdGlvbiBpcyBwcm92YWJsZSBhIHN1YnNldCBvZiB0aGUgdGFza3MgY29uZmluZW1l
-bnQgKDMuNSAtIDQuMTIgdW5jb25maW5lZCBpcyBhbGxvd2VkIHRvIHRyYW5zaXRpb24gdG8gYSBw
-cm9maWxlLCA0LjEzIC0gNC4xNiBpcyBsaW1pdGVkIHRvIHN0cmljdCBzdWJzZXQgb2YgY3VycmVu
-dCBjb25maW5lbWVudCwgYmFzaWNhbGx5IHlvdSBjYW4gZXh0ZW5kIGEgcHJvZmlsZSBzdGFjaywg
-NC4xNyAtIDUuMiB0byBhIHN1YnNldCBvZiBjb25maW5lbWVudCBhdCB0aGUgdGltZSBubnAgaXMg
-c2V0KS4gV2UgZG8gaGF2ZSBwbGFucyB0byBhZGQgb3VyIG93biBhYmlsaXR5IHRvIGhhdmUgYSBw
-ZXJtaXNzaW9uIHRvIG92ZXJyaWRlIG5vLW5ldy1wcml2cyBidXQgdGhhdCBoYXMgbm90IGxhbmRl
-ZCB1cHN0cmVhbSB5ZXQuCj4+Cj4+Cj4+ID4vUnVubmluZyBwc3RyZWUgYXQgdGhlIHNhbWUgdGlt
-ZSBhcyBhcHQgc2hvd3MgdGhlIGZvbGxvd2luZyBvcmRlcjogc3lzdGVtZCwgc3NoZCwgc3NoZCwg
-c3NoZCwgYmFzaCwgc3VkbywgYmFzaCwgYXB0LCBncGd2IChhbmQgaHR0cCwgaHR0cCksIGdwZ3Yg
-Lz4vLz4vcm9vdCBhdCAxNTQ2LXctZGV2IDxodHRwczovL2xpc3RzLnVidW50dS5jb20vbWFpbG1h
-bi9saXN0aW5mby9hcHBhcm1vcj46L2V0Yy9hcHBhcm1vci5kIyBjYXQgdXNyLmxpYi5hcHQubWV0
-aG9kcy5ncGd2IC8+L3Byb2ZpbGUgdXNyLmxpYi5hcHQubWV0aG9kcy5ncGd2IC91c3IvbGliL2Fw
-dC9tZXRob2RzL2dwZ3YgZmxhZ3M9KGNvbXBsYWluKSB7IC8+L8KgwqDCoCAjaW5jbHVkZSA8bG9j
-YWwvd2hpdGVsaXN0PiAvPi99IC8+Ly8+Ly8+L3Jvb3QgYXQgMTU0Ni13LWRldiA8aHR0cHM6Ly9s
-aXN0cy51YnVudHUuY29tL21haWxtYW4vbGlzdGluZm8vYXBwYXJtb3I+Oi9ldGMvYXBwYXJtb3Iu
-ZCMgY2F0IHVzci5iaW4uYXB0X2tleSAvPi9wcm9maWxlIHVzci5iaW4uYXB0X2tleSAvdXNyL2Jp
-bi9hcHQta2V5IGZsYWdzPShjb21wbGFpbikgeyAvPi/CoMKgwqAgI2luY2x1ZGUgPGxvY2FsL3do
-aXRlbGlzdD4gLz4vfSAvPi8vPi8vPi9IYXZlIEkgcmFuIGludG8gdGhpcz/CoCBodHRwczovL2xp
-c3RzLnVidW50dS5jb20vYXJjaGl2ZXMvYXBwYXJtb3IvMjAxOC1Ob3ZlbWJlci8wMTE4NDYuaHRt
-bCAvPi8vCj4+IHVuZm9ydHVuYXRlbHksIHllcy4gSSBjYW4gcG9pbnQgeW91IGF0IGEgdGVzdCBr
-ZXJuZWwgZm9yIHRoZSBubnAgb3ZlcnJpZGUgYnV0LCBJIHdpbGwgbmVlZAo+PiB0byBnZXQgdXAg
-YSB1c2Vyc3BhY2UgdGhhdCBjYW4gd29yayB3aXRoIGl0LiBJJ2xsIHNlZSB3aGF0IEkgY2FuIGRv
-IHRoaXMgd2Vla2VuZC4KPj4KPj4KPiBpZiBJIHVzZSAiLyoqIHB4IiBmb3IgaW5pdC1zeXN0ZW1k
-IGFuZCBhbGwgb3RoZXIgZGlzY3JldGUgcHJvZmlsZXMsIGFtIEkgY29ycmVjdCBpbiBjb25jbHVk
-aW5nIHRoYXQgZWFjaCBjaGlsZCBwcm9jZXNzIGRvZXMgYSBkb21haW4gdHJhbnNpdGlvbj/CoCBJ
-LkUuIHVzaW5nIHRoYXQgcHN0cmVlIG91dHB1dCBmcm9tIGFib3ZlLCBieSB0aGUgdGltZSBncGd2
-IGV4ZWN1dGVzLCB0aGUgZm9sbG93aW5nIHRyYW5zaXRpb25zIGhhcHBlbjoKPiAKPiB1bmNvbmZp
-bmVkIC0+IGluaXQtc3lzdGVtZCAtPiB1c3Iuc2Jpbi5zc2hkIC0+IGJpbi5iYXNoIC0+IHVzci5i
-aW4uc3VkbyAtPiBiaW4uYmFzaCAtPiBhbmQgc28gb24/Cj4gCkhybW1tIEkgd291bGQgbm90IHNh
-eSBhIHRyYW5zaXRpb24gaXMgZ3VhcmFudGVlZCwgcmF0aGVyIGEgcHJvZmlsZSBsb29rdXAgaXMg
-Z3VhcmFudGVlZC4gVGhhdCBsb29rdXAgbWF5IHZlcnkgd2VsbCByZXN1bHQgaW4gdGhlIHNhbWUg
-cHJvZmlsZSBhcyB0aGUgY3VycmVudCBjb25maW5lbWVudCAoZGVwZW5kZW50IG9uIGhvdyBhdHRh
-Y2htZW50cyBhcmUgZGVmaW5lZCkuIE90aGVyIHRoYW4gdGhhdCBzZW1hbnRpYyB5ZXMuCgoKPiBE
-b2VzIHRoZSBubnAgaXNzdWUgb2NjdXIgYWZ0ZXIgYSBjZXJ0YWluIGRlcHRoIGlzIHJlYWNoZWQs
-IG9yIGlzIHNvbWV0aGluZyBlbHNlIHRyaWdnZXJpbmcgdGhpcz8gCgpBIHRhc2sgaW52b2tpbmcg
-dGhlIG5vX25ld19wcml2cyBwcmN0CgpodHRwczovL3d3dy5rZXJuZWwub3JnL2RvYy9Eb2N1bWVu
-dGF0aW9uL3ByY3RsL25vX25ld19wcml2cy50eHQKCj4gV2hhdCBJIGRvbid0IGdldCBpcyB0aGF0
-IGVhY2ggcHJvY2VzcyBzaG91bGQgaGF2ZSB0aGUgc2FtZSBwcm9maWxlIHBlcm1pc3Npb24gcmVx
-dWVzdHMuIEFyZSB0aGVyZSBhZGRpdGlvbmFsIHBlcm1pc3Npb25zIEkgbmVlZCB0byBhZGQgdG8g
-bXkgIndoaXRlbGlzdCIgZmlsZT8KCkkgYW0gbm90IHN1cmUgSSB1bmRlcnN0YW5kIHRoZSBxdWVz
-dGlvbi4gQnV0IG1heWJlIHRoZSBleHBsYW5hdGlvbiB3aWxsIGhlbHAKCkZvciBhcHBhcm1vciBl
-eGVjIHRyYW5zaXRpb25zIHlvdSBvbmx5IG5lZWQgdG8gY29uc2lkZXIgdGhlIHRhc2tzIGN1cnJl
-bnQgY29uZmluZW1lbnQuIEEgcGFyZW50cyBjb25maW5lbWVudCBvbmx5IG1hdHRlcnMgaW4gdGhh
-dCBpdHMgY29uZmluZW1lbnQgaXMgdXNlZCBpbmhlcml0ZWQgYXQgdGltZSBvZiBmb3JrIGFuZCB1
-c2VkIGF0IHRpbWUgb2YgZXhlYy4gRWFjaCBwcm9maWxlIGhhcyBmdWxsIGNvbnRyb2wgb3ZlciBo
-b3cgdHJhbnNpdGlvbnMgYXJlIGRvbmUgc28gaXRzIGxvY2FsIHJ1bGUsIGVnLgoKICAvKiogcHgs
-CgppcyB1c2VkIHRvIGRldGVybWluZSB3aGF0IHRyYW5zaXRpb24sIGlmIGFueSwgc2hvdWxkIGJl
-IGRvbmUuIHB4IHRyYW5zaXRpb25zIHdpbGwgZXZhbHVhdGUgdGhlIGJlc3QgcHJvZmlsZSB0cmFu
-c2l0aW9uIGZvciB0aGUgY3VycmVudGx5IGxvYWRlZCBwcm9maWxlIHNldCBiYXNlZCBvbiB0aGUg
-YXR0YWNobWVudCBjb25kaXRpb25hbHMuCgpJdCBpcyBwb3NzaWJsZSB0aGF0IGEgc2luZ2xlIHBy
-b2ZpbGUgd2lsbCBjb3ZlciBtdWx0aXBsZSBkaWZmZXJlbnQgZXhlY3V0YWJsZXMgb3IgYmUgcmV1
-c2VkIG11bHRpcGxlIHRpbWVzIHRocm91Z2ggYW5kIGV4ZWMgY2hhaW4sIGxpa2UgeW91IGhhdmUg
-YWJvdmUuCgpIb3dldmVyIHlvdSBhcmUgZnJlZSB0byBkZWZpbmUgeW91ciBwb2xpY3kgdG8gZG8g
-c29tZXRoaW5nIGVsc2UsIHZpYSBpeCwgdXgsIGN4LCBhbmQgLT4gYmFzZWQgdHJhbnNpdGlvbnMu
-CgpXaXRoIHBvbGljeSBuYW1lc3BhY2VzIGl0IGlzIHBvc3NpYmxlIHRvIGhhdmUgZGlmZmVyZW50
-IHNldHMgb2YgcHJvZmlsZXMgd2l0aCBkaWZmZXJlbnQgYXR0YWNobWVudCBzZXRzLiBZb3UgY2Fu
-IGtlZXAgc29tZSBleGVjIGhpZXJhcmNoeSB3aXRoIGNoaWxkcmVuIHByb2ZpbGVzLCBldGMuCgo+
-IAo+IEFsc28sIGlmIG5ucCBsb2NrcyB0aGluZ3MgZG93biwgZG9lcyB0aGF0IG1lYW4gdXggb25s
-eSB3b3JrcyBpZiB0aGUgcGFyZW50IHByb2Nlc3MgaXMgaXRzZWxmIHVuY29uZmluZWQ/wqAgSS5F
-LiB0aGlzIGlzbid0IHBvc3NpYmxlOiB1bmNvbmZpbmVkIC0+IHB4IC0+IHV4P8KgIElmIHRoYXQg
-aXMgcG9zc2libGUsIG1heWJlIEkgY291bGQgc29tZWhvdyBnZXQgYXBwYXJtb3IgdG8gaW5pdGlh
-bGx5IHRyYW5zaXRpb24gdG8gdXggYmVmb3JlIHB4Pwo+IAoKVGhlIHV4IGV4Y2VwdGlvbiBmb3Ig
-bm5wIG9ubHkgd29ya3MgYmFzZWQgb24gdGhlIGN1cnJlbnQgY29uZmluZW1lbnQgYXQgdGhlIHRp
-bWUgb2YgdGhlIGV4ZWMuIFNvIGlmIHRoZSB0YXNrIGRvaW5nIHRoZSBleGVjIGlzIHVuY29uZmlu
-ZWQgaXQgY2FuIHRyYW5zaXRpb24gdG8gYW55IHByb2ZpbGUuIEl0IGRvZXMgbm90IGRlcGVuZCBv
-biB0aGUgcGFyZW50IHRhc2tzIGNvbmZpbmVtZW50IGJleW9uZCB0aGF0IGluIHRoZSBmb3JrIGV4
-ZWMgbW9kZWwgdGhlIGZvcmtlZCBjaGlsZCBpbmhlcml0cyBpdHMgcGFyZW50cyBjb25maW5lbWVu
-dCBhdCB0aGUgdGltZSBvZiB0aGUgZm9yayBiZWZvcmUgZG9pbmcgdGhlIGV4ZWMsIGJ1dCBpZiB0
-aGUgcGFyZW50IGNoYW5nZWQgaXRzIG93biBjb25maW5lbWVudCBiZXR3ZWVuIHRoZSBmb3JrIGFu
-ZCB0aGUgY2hpbGRzIGNhbGwgdG8gZXhlYyB0aGUgcGFyZW50cyBjaGFuZ2Ugb2YgY29uZmluZW1l
-bnQgd291bGQgbm90IGFmZmVjdCB0aGUgY2hpbGQncyBkZWNpc2lvbiBhdCBleGVjLgoKQ3VycmVu
-dGx5IHdoZW4gYSB0YXNrIGlzIHVuZGVyIG5ucCBvbmNlIGEgdGFzayBoYXMgdHJhbnNpdGlvbmVk
-IGZyb20gdW5jb25maW5lZCB0byBhIHByb2ZpbGUgaXQgaXMgaW1wb3NzaWJsZSB0byBnbyBiYWNr
-IHRvIGJlaW5nIHVuY29uZmluZWQuIFRoZSBubnAgb3ZlcnJpZGUgKHRoYXQgaGFzIG5vdCBsYW5k
-ZWQpIHdvdWxkIG1ha2UgZG9pbmcgdGhhdCBwb3NzaWJsZS4KCkFub3RoZXIgcG90ZW50aWFsIHNv
-bHV0aW9uIHRoYXQgaXMgY3VycmVudGx5IGF2YWlsYWJsZSB3b3VsZCBiZSB0byB1c2Ugc3RhY2tp
-bmcgYW5kIG1heWJlIHVzZSBvZiBhcHBhcm1vciBuYW1lc3BhY2VzLCB3aXRoIDQuMTcrIGtlcm5l
-bHMuIFRoaXMgd291bGQgYWxsb3cgeW91IHRvIGtlZXAgYSBmaXhlZCBjb25maW5lbWVudCBhdCB0
-aGUgdGltZSBvZiBubnAsIGJ1dCBoYXZlIGZ1cnRoZXIgdHJhbnNpdGlvbnMuIEl0IHdvdWxkIGxv
-b2sgc29tZXRoaW5nIGxpa2UKCiAgaW5pdC1zeXN0ZW1kLy8mdXNyLnNiaW4uc3NoZCAtPiBpbml0
-LXN5c3RlbWQvLyZiaW4uYmFzaCAtPiBpbml0LXN5c3RlbWQvLyYmdXNyLmJpbi5zdWRvIC0+IGlu
-aXQtc3lzdGVtZC8vJmJpbi5iYXNoCgpJbiB3aGljaCBjYXNlIHRoZSBjb25maW5lbWVudCBpcyBn
-dWFyYW50ZWVkIHRvIGJlIGEgc3Vic2V0IG9mIHRoZSBjb25maW5lbWVudCBhdCB0aGUgdGltZSBv
-ZiBubnAgKGluaXQtc3lzdGVtZCkgYW5kIHRoZSByZXN0IG9mIHRoZSBwcm9maWxlcyBpbiB0aGUg
-c3RhY2suCgpob3dldmVyIEkgZG9uJ3QgdGhpbmsgdGhpcyBpcyBzb21ldGhpbmcgeW91IHdvdWxk
-IHdhbnQgdG8gZG8gYWxsIHRoZSB0aW1lIGFuZCBzdGFja2luZyBjdXJyZW50bHkgY2FuIG5vdCBi
-ZSBjb25kaXRpb25hbCB1cG9uIG5ucC4gV2hpY2ggbWFrZXMgdGhpcyBraW5kIG9mIHNldHVwIGRp
-ZmZpY3VsdCBpZiBub3QgaW1wb3NzaWJsZSB0byBjdXJyZW50bHkgd29yayB3aXRoIGRpcmVjdGx5
-IHRocm91Z2ggYXBwYXJtb3IgcG9saWN5LCBidXQgaXQgbWlnaHQgYmUgcG9zc2libGUgdG8gbWFr
-ZSB0aGlzIHdvcmsgYnkgaGF2aW5nIHN5c3RlbWQgc2V0IHRoZSBhcHBhcm1vciBjb25maW5lbWVu
-dCBpbiB0aGUgc3lzdGVtZCB1bml0IHdpdGgKCkFwcEFybW9yUHJvZmlsZT08Y29uZmluZW1lbnQ+
-CgpodHRwczovL2dpdGxhYi5jb20vYXBwYXJtb3IvYXBwYXJtb3Ivd2lraXMvQXBwQXJtb3JJblN5
-c3RlbWQKCnRoYXQgd2F5IHN5c3RlbWQgY2FuIHNldCB0aGUgaW5pdGlhbCBjb25maW5lbWVudCBh
-bmQgc3RhY2sgZm9yIHRoZSBzZXJ2aWNlcyBpdCBzZXRzIG5ucCBvbiBhbmQgYXBwYXJtb3IgcG9s
-aWN5IGRvZXMgbm90IGhhdmUgdG8gY29uZGl0aW9uYWxseSByZXNwb25kIHRvIG5ucAoKCgoKCgot
-LSAKQXBwQXJtb3IgbWFpbGluZyBsaXN0CkFwcEFybW9yQGxpc3RzLnVidW50dS5jb20KTW9kaWZ5
-IHNldHRpbmdzIG9yIHVuc3Vic2NyaWJlIGF0OiBodHRwczovL2xpc3RzLnVidW50dS5jb20vbWFp
-bG1hbi9saXN0aW5mby9hcHBhcm1vcgo=
+This is a multi-part message in MIME format.
+--===============5285702761982852450==
+Content-Type: multipart/alternative;
+ boundary="------------7C5450C2E3C881F8E26F6A4D"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------7C5450C2E3C881F8E26F6A4D
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+On 11/3/18, /John Johansen/ wrote://
+
+ > A task invoking the no_new_privs prct > 
+https://www.kernel.org/doc/Documentation/prctl/no_new_privs.txt 
+<https://www.kernel.org/doc/Documentation/prctl/no_new_privs.txt>
+
+Okay, so I just did a strace on 'man' and see that it calls that 
+function with the nnp parameter before attempting to execve the child 
+processes that fail to execute.
+
+Okay -- I get it now:  While nnp normally works fine if the executable 
+is unconstrained, once apparmor assigns a security label to the 
+executable, it's game over because the LSM system asks apparmor to do 
+something it cannot -- prove the future profile transition has the same 
+permissions.  I thought the child processes were asking for additional 
+security, but that's not the case.
+
+This means that since all non-kernel processes have a label with the 
+FullSystemPolicy setup, this is an unavoidable problem -- there is no 
+way to remove a label once assigned.  It's ironic that a function 
+designed to help secure a system is what is responsible for preventing 
+whitelisting.
+
+I assume I'll run into a similar issue with selinux since this is a LSM 
+label transition thing then? Man, this linux whitelisting search is 
+turning out to be the holy grail.
+
+
+--------------7C5450C2E3C881F8E26F6A4D
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p>
+      On 11/3/18, <i>John Johansen</i> wrote:<i> </i></p>
+    <p>&gt; A task invoking the no_new_privs prct
+      <a
+        href="https://www.kernel.org/doc/Documentation/prctl/no_new_privs.txt">&gt;
+        https://www.kernel.org/doc/Documentation/prctl/no_new_privs.txt</a>
+    </p>
+    <p>Okay, so I just did a strace on 'man' and see that it calls that
+      function with the nnp parameter before attempting to execve the
+      child processes that fail to execute.</p>
+    <p>Okay -- I get it now:  While nnp normally works fine if the
+      executable is unconstrained, once apparmor assigns a security
+      label to the executable, it's game over because the LSM system
+      asks apparmor to do something it cannot -- prove the future
+      profile transition has the same permissions.  I thought the child
+      processes were asking for additional security, but that's not the
+      case.<br>
+    </p>
+    <p>This means that since all non-kernel processes have a label with
+      the FullSystemPolicy setup, this is an unavoidable problem --
+      there is no way to remove a label once assigned.  It's ironic that
+      a function designed to help secure a system is what is responsible
+      for preventing whitelisting.<br>
+    </p>
+    <p>I assume I'll run into a similar issue with selinux since this is
+      a LSM label transition thing then? Man, this linux whitelisting
+      search is turning out to be the holy grail.</p>
+  </body>
+</html>
+
+--------------7C5450C2E3C881F8E26F6A4D--
+
+
+--===============5285702761982852450==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
+eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
+aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
+
+--===============5285702761982852450==--
+
