@@ -2,77 +2,85 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17D097715C
-	for <lists+apparmor@lfdr.de>; Fri, 26 Jul 2019 20:40:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69AAF785C9
+	for <lists+apparmor@lfdr.de>; Mon, 29 Jul 2019 09:05:09 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1hr58h-0005TT-42; Fri, 26 Jul 2019 18:40:23 +0000
-Received: from youngberry.canonical.com ([91.189.89.112])
- by huckleberry.canonical.com with esmtps (TLS1.0:DHE_RSA_AES_128_CBC_SHA1:128)
- (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1hr58f-0005TD-Hk
- for apparmor@lists.ubuntu.com; Fri, 26 Jul 2019 18:40:21 +0000
-Received: from static-50-53-33-191.bvtn.or.frontiernet.net ([50.53.33.191]
- helo=[192.168.192.153])
- by youngberry.canonical.com with esmtpsa (TLS1.0:RSA_AES_128_CBC_SHA1:16)
- (Exim 4.76) (envelope-from <john.johansen@canonical.com>)
- id 1hr58d-0005hr-Lf; Fri, 26 Jul 2019 18:40:20 +0000
-To: Abhishek Vijeev <abhishekvijeev@iisc.ac.in>,
- "apparmor@lists.ubuntu.com" <apparmor@lists.ubuntu.com>
-References: <MAXPR0101MB1132042133609E595BCC6F0FFBC00@MAXPR0101MB1132.INDPRD01.PROD.OUTLOOK.COM>
-From: John Johansen <john.johansen@canonical.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
- xsFNBE5mrPoBEADAk19PsgVgBKkImmR2isPQ6o7KJhTTKjJdwVbkWSnNn+o6Up5knKP1f49E
- BQlceWg1yp/NwbR8ad+eSEO/uma/K+PqWvBptKC9SWD97FG4uB4/caomLEU97sLQMtnvGWdx
- rxVRGM4anzWYMgzz5TZmIiVTZ43Ou5VpaS1Vz1ZSxP3h/xKNZr/TcW5WQai8u3PWVnbkjhSZ
- PHv1BghN69qxEPomrJBm1gmtx3ZiVmFXluwTmTgJOkpFol7nbJ0ilnYHrA7SX3CtR1upeUpM
- a/WIanVO96WdTjHHIa43fbhmQube4txS3FcQLOJVqQsx6lE9B7qAppm9hQ10qPWwdfPy/+0W
- 6AWtNu5ASiGVCInWzl2HBqYd/Zll93zUq+NIoCn8sDAM9iH+wtaGDcJywIGIn+edKNtK72AM
- gChTg/j1ZoWH6ZeWPjuUfubVzZto1FMoGJ/SF4MmdQG1iQNtf4sFZbEgXuy9cGi2bomF0zvy
- BJSANpxlKNBDYKzN6Kz09HUAkjlFMNgomL/cjqgABtAx59L+dVIZfaF281pIcUZzwvh5+JoG
- eOW5uBSMbE7L38nszooykIJ5XrAchkJxNfz7k+FnQeKEkNzEd2LWc3QF4BQZYRT6PHHga3Rg
- ykW5+1wTMqJILdmtaPbXrF3FvnV0LRPcv4xKx7B3fGm7ygdoowARAQABzR1Kb2huIEpvaGFu
- c2VuIDxqb2huQGpqbXgubmV0PsLBegQTAQoAJAIbAwULCQgHAwUVCgkICwUWAgMBAAIeAQIX
- gAUCTo0YVwIZAQAKCRAFLzZwGNXD2LxJD/9TJZCpwlncTgYeraEMeDfkWv8c1IsM1j0AmE4V
- tL+fE780ZVP9gkjgkdYSxt7ecETPTKMaZSisrl1RwqU0oogXdXQSpxrGH01icu/2n0jcYSqY
- KggPxy78BGs2LZq4XPfJTZmHZGnXGq/eDr/mSnj0aavBJmMZ6jbiPz6yHtBYPZ9fdo8btczw
- P41YeWoIu26/8II6f0Xm3VC5oAa8v7Rd+RWZa8TMwlhzHExxel3jtI7IzzOsnmE9/8Dm0ARD
- 5iTLCXwR1cwI/J9BF/S1Xv8PN1huT3ItCNdatgp8zqoJkgPVjmvyL64Q3fEkYbfHOWsaba9/
- kAVtBNz9RTFh7IHDfECVaToujBd7BtPqr+qIjWFadJD3I5eLCVJvVrrolrCATlFtN3YkQs6J
- n1AiIVIU3bHR8Gjevgz5Ll6SCGHgRrkyRpnSYaU/uLgn37N6AYxi/QAL+by3CyEFLjzWAEvy
- Q8bq3Iucn7JEbhS/J//dUqLoeUf8tsGi00zmrITZYeFYARhQMtsfizIrVDtz1iPf/ZMp5gRB
- niyjpXn131cm3M3gv6HrQsAGnn8AJru8GDi5XJYIco/1+x/qEiN2nClaAOpbhzN2eUvPDY5W
- 0q3bA/Zp2mfG52vbRI+tQ0Br1Hd/vsntUHO903mMZep2NzN3BZ5qEvPvG4rW5Zq2DpybWc7B
- TQROZqz6ARAAoqw6kkBhWyM1fvgamAVjeZ6nKEfnRWbkC94L1EsJLup3Wb2X0ABNOHSkbSD4
- pAuC2tKF/EGBt5CP7QdVKRGcQzAd6b2c1Idy9RLw6w4gi+nn/d1Pm1kkYhkSi5zWaIg0m5RQ
- Uk+El8zkf5tcE/1N0Z5OK2JhjwFu5bX0a0l4cFGWVQEciVMDKRtxMjEtk3SxFalm6ZdQ2pp2
- 822clnq4zZ9mWu1d2waxiz+b5Ia4weDYa7n41URcBEUbJAgnicJkJtCTwyIxIW2KnVyOrjvk
- QzIBvaP0FdP2vvZoPMdlCIzOlIkPLgxE0IWueTXeBJhNs01pb8bLqmTIMlu4LvBELA/veiaj
- j5s8y542H/aHsfBf4MQUhHxO/BZV7h06KSUfIaY7OgAgKuGNB3UiaIUS5+a9gnEOQLDxKRy/
- a7Q1v9S+Nvx+7j8iH3jkQJhxT6ZBhZGRx0gkH3T+F0nNDm5NaJUsaswgJrqFZkUGd2Mrm1qn
- KwXiAt8SIcENdq33R0KKKRC80Xgwj8Jn30vXLSG+NO1GH0UMcAxMwy/pvk6LU5JGjZR73J5U
- LVhH4MLbDggD3mPaiG8+fotTrJUPqqhg9hyUEPpYG7sqt74Xn79+CEZcjLHzyl6vAFE2W0kx
- lLtQtUZUHO36afFv8qGpO3ZqPvjBUuatXF6tvUQCwf3H6XMAEQEAAcLBXwQYAQoACQUCTmas
- +gIbDAAKCRAFLzZwGNXD2D/XD/0ddM/4ai1b+Tl1jznKajX3kG+MeEYeI4f40vco3rOLrnRG
- FOcbyyfVF69MKepie4OwoI1jcTU0ADecnbWnDNHpr0SczxBMro3bnrLhsmvjunTYIvssBZtB
- 4aVJjuLILPUlnhFqa7fbVq0ZQjbiV/rt2jBENdm9pbJZ6GjnpYIcAbPCCa/ffL4/SQRSYHXo
- hGiiS4y5jBTmK5ltfewLOw02fkexH+IJFrrGBXDSg6n2Sgxnn++NF34fXcm9piaw3mKsICm+
- 0hdNh4afGZ6IWV8PG2teooVDp4dYih++xX/XS8zBCc1O9w4nzlP2gKzlqSWbhiWpifRJBFa4
- WtAeJTdXYd37j/BI4RWWhnyw7aAPNGj33ytGHNUf6Ro2/jtj4tF1y/QFXqjJG/wGjpdtRfbt
- UjqLHIsvfPNNJq/958p74ndACidlWSHzj+Op26KpbFnmwNO0psiUsnhvHFwPO/vAbl3RsR5+
- 0Ro+hvs2cEmQuv9r/bDlCfpzp2t3cK+rhxUqisOx8DZfz1BnkaoCRFbvvvk+7L/fomPntGPk
- qJciYE8TGHkZw1hOku+4OoM2GB5nEDlj+2TF/jLQ+EipX9PkPJYvxfRlC6dK8PKKfX9KdfmA
- IcgHfnV1jSn+8yH2djBPtKiqW0J69aIsyx7iV/03paPCjJh7Xq9vAzydN5U/UA==
-Organization: Canonical
-Message-ID: <9240f8b1-3b4a-ebad-85c3-5dfd938d8aa2@canonical.com>
-Date: Fri, 26 Jul 2019 11:40:14 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <MAXPR0101MB1132042133609E595BCC6F0FFBC00@MAXPR0101MB1132.INDPRD01.PROD.OUTLOOK.COM>
+	id 1hrziK-0000vb-6M; Mon, 29 Jul 2019 07:04:56 +0000
+Received: from mail-eopbgr1380054.outbound.protection.outlook.com
+ ([40.107.138.54] helo=IND01-MA1-obe.outbound.protection.outlook.com)
+ by huckleberry.canonical.com with esmtps
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <abhishekvijeev@iisc.ac.in>) id 1hrziH-0000vP-BY
+ for apparmor@lists.ubuntu.com; Mon, 29 Jul 2019 07:04:54 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=fGlvG/PS0IxvutcTLZWpc/zAJtC5a4S1/QaS9CQLQv8I5LSIYCiZj4JVTF5L8wI2gDgYCGvIkrTNE75m4Yk5MR5pxRx/AbEVUgp5d1+aQD7PCbXhynvWFXSnscvfTVbfAQ34Zub/FDK/FGbzqXxYaj4vxZ3r/SlKwE4s3eB2m1hzOZ9xNCCzPPuIx7SXwgOI99ysSTmSf9T7D/EypKisblGnEZGtMh18rp2QM9lS3ffgAD5+2tAxqoRbxs0nmUG28lK1om0Srw4pKjWANL/OyE/zZAM00g+ZRnhHRvmGORoNyzN+X4UiEJlGCpAtoMuhOvjY6jZzpC7UH+/E9ndPeA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jVa9uRTtOFl3+P2dHpNKle4APs7uuQlqLcVrXu7Eelc=;
+ b=ZUNmDYONsK1DIBuoGDiMgli7s1MPBXrS/3II3tcYDPBxX7W0GLI6/vXI127Ri3EAGtYBzYrStD0o2IgZ87Mip8+65MF4Gpsk/fW/nddABgEPt+YCdc9oW/3SBM5Yyizq9I/xa2LnV/lny+LskEVPl8FDY3NL/mr0Rv2i/bHIEP52D/jeQ/DTIr45d8bVN1BK8QryyIvvS2KoFIk4c2dZb3q455YiAyUWWKnmcQ7owcYd+UsP01uMZpfkxyQ2ml0sLNryoIRi9duzK3hdvG5qyPCkN47MCOhlrIomPTw1UFHVOxBphVhO/Te+Aj61ggpgHqdirQj0TnjucG1EVcq6VA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1;spf=pass
+ smtp.mailfrom=iisc.ac.in;dmarc=pass action=none
+ header.from=iisc.ac.in;dkim=pass header.d=iisc.ac.in;arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iisc.ac.in;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jVa9uRTtOFl3+P2dHpNKle4APs7uuQlqLcVrXu7Eelc=;
+ b=s/CaQ16so1sS4Tiw7XKd5HhKeUDjAZx5UFtNMyKo3HO6MSJoM7vYwF0KyMFIR7HMRTojT/ehw+9Iopa0en7ewoS/9rozqnvn20jRthBqHMLdCsv/CYavsYt9O1lhGaXj3i1PcwC0c6qySzQH4omF/9/Lmdz9xI8afqtjBu70xt0=
+Received: from PN1PR0101MB1133.INDPRD01.PROD.OUTLOOK.COM (52.134.166.8) by
+ PN1PR0101MB2080.INDPRD01.PROD.OUTLOOK.COM (52.134.162.9) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2115.10; Mon, 29 Jul 2019 07:04:49 +0000
+Received: from PN1PR0101MB1133.INDPRD01.PROD.OUTLOOK.COM
+ ([fe80::e1f0:2dd0:ca3:cd8d]) by PN1PR0101MB1133.INDPRD01.PROD.OUTLOOK.COM
+ ([fe80::e1f0:2dd0:ca3:cd8d%5]) with mapi id 15.20.2115.005; Mon, 29 Jul 2019
+ 07:04:49 +0000
+From: Abhishek Vijeev <abhishekvijeev@iisc.ac.in>
+To: Casey Schaufler <casey@schaufler-ca.com>, "apparmor@lists.ubuntu.com"
+ <apparmor@lists.ubuntu.com>
+Thread-Topic: [apparmor] Questions about AppArmor's Kernel Code
+Thread-Index: AQHVQ7FiuL2/i98WSU25BWOuSi1nA6bdF1cAgAQYYcU=
+Date: Mon, 29 Jul 2019 07:04:49 +0000
+Message-ID: <PN1PR0101MB1133B7777C9596E0DA98E23AFBDD0@PN1PR0101MB1133.INDPRD01.PROD.OUTLOOK.COM>
+References: <MAXPR0101MB1132042133609E595BCC6F0FFBC00@MAXPR0101MB1132.INDPRD01.PROD.OUTLOOK.COM>,
+ <e13a05b3-19f0-7c4c-ec7e-e9353f3183f2@schaufler-ca.com>
+In-Reply-To: <e13a05b3-19f0-7c4c-ec7e-e9353f3183f2@schaufler-ca.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-GB
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=abhishekvijeev@iisc.ac.in; 
+x-originating-ip: [14.139.128.40]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 186d4ab3-c966-4ee7-7c07-08d713f30bf9
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(7193020);
+ SRVR:PN1PR0101MB2080; 
+x-ms-traffictypediagnostic: PN1PR0101MB2080:
+x-microsoft-antispam-prvs: <PN1PR0101MB2080973CBBDF4078D06A8A31FBDD0@PN1PR0101MB2080.INDPRD01.PROD.OUTLOOK.COM>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-forefront-prvs: 01136D2D90
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(376002)(346002)(136003)(396003)(39850400004)(366004)(189003)(199004)(2501003)(68736007)(5660300002)(81156014)(19627405001)(486006)(81166006)(6306002)(54896002)(26005)(6506007)(53546011)(186003)(33656002)(6436002)(102836004)(8936002)(9686003)(446003)(7736002)(71190400001)(71200400001)(86362001)(476003)(11346002)(229853002)(8676002)(2906002)(76116006)(99286004)(6606003)(3846002)(66066001)(66946007)(64756008)(66446008)(76176011)(110136005)(7696005)(5024004)(316002)(14444005)(66476007)(6246003)(786003)(14454004)(107886003)(478600001)(55016002)(53936002)(4326008)(256004)(74316002)(6116002)(52536014)(25786009)(66556008)(80872003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:PN1PR0101MB2080;
+ H:PN1PR0101MB1133.INDPRD01.PROD.OUTLOOK.COM; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: iisc.ac.in does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: xd9cxeozSiuX1z1/w30gZl6yrXJptaD6jZVNxoY+p1Lvo+QLBTzm/KnRsh6QmyhW76CpzqPcEp+MJmAu9cs2feqWyiBJB/CqkLRYpKAJzIMOj8N5fz58Y1wOtQma9v9x1p4JjfIuanU/m6NNlcw84GP/fv2ZJjD1UGrg7nyUREPr52laLnSvyU5W5fqZ6x127tcNJhavTpCRJHCnNYFDqo0RXJ9aANMrUuLMkdF4OsRzY3GhTEXOIhPDdUoPUGhKuOvCXw+U2HXH2jpszYWNfVbd/Nyc6k2SrjJRS+FUM2dVqnjkrIZHDPRTXRr/ooPK7DjlvntDROsNhXcfJeSCiqTBU2DwckSGGbysbY2HbbnWzTDF0HsNeYBBJzqlpdhbp6OYFFwhFXu2B4jy6YN5Sk+AkYSiE9eBK1RB68QDkPU=
+MIME-Version: 1.0
+X-OriginatorOrg: iisc.ac.in
+X-MS-Exchange-CrossTenant-Network-Message-Id: 186d4ab3-c966-4ee7-7c07-08d713f30bf9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Jul 2019 07:04:49.3755 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 6f15cd97-f6a7-41e3-b2c5-ad4193976476
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: abhishekvijeev@IISc.ac.in
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN1PR0101MB2080
 Subject: Re: [apparmor] Questions about AppArmor's Kernel Code
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -86,62 +94,184 @@ List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
 Cc: Rakesh Rajan Beck <rakeshbeck@iisc.ac.in>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2990991131884991196=="
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-T24gNy8yNi8xOSA1OjU2IEFNLCBBYmhpc2hlayBWaWplZXYgd3JvdGU6Cj4gSGksCj4gCj4gCj4g
-SSBoYXZlIGEgZmV3IHF1ZXN0aW9ucyBhYm91dCBBcHBBcm1vcidzIGtlcm5lbCBjb2RlIGFuZCB3
-b3VsZCBiZSBncmF0ZWZ1bCBpZiB5b3UgY291bGQga2luZGx5IGFuc3dlciB0aGVtLsKgCj4gCj4g
-Cj4gMSkgV2h5IGRvZXMgQXBwQXJtb3IgbWFpbnRhaW4gdHdvIHNlcGFyYXRlIHNlY3VyaXR5IGJs
-b2JzIGluIGNyZWQtPnNlY3VyaXR5IGFzIHdlbGwgYXMgdGFzay1zZWN1cml0eSBmb3IgcHJvY2Vz
-c2VzPyBGb3IgYSBzaW1wbGUgcHJvamVjdCB0aGF0IHJlcXVpcmVzIGFzc29jaWF0aW5nIGEgc2Vj
-dXJpdHkgY29udGV4dCB3aXRoIGV2ZXJ5IHRhc2ssIHdvdWxkIGl0IHN1ZmZpY2UgdG8gdXNlIGp1
-c3Qgb25lIG9mIHRoZXNlPwo+IAp0aGUgdGFzay0+c2VjdXJpdHkgZmllbGQgaXMgdXNlZCB0byBz
-dG9yZSB0YXNrIHNwZWNpZmljIGluZm9ybWF0aW9uLCB0aGF0IGlzIG5vdCB1c2VkIGZvciBnZW5l
-cmFsIG1lZGlhdGlvbi4gQ3VycmVudGx5IHRoZSBpbmZvcm1hdGlvbiBzdG9yZWQgdGhlaXIgaXMg
-Zm9yIHRoZSBjaGFuZ2VfaGF0IGFuZCBjaGFuZ2Vfb25leGVjIGFwaXMgYW5kIHNvbWUgaW5mbyB0
-byB0cmFjayB3aGF0IHRoZSBjb25maW5lbWVudCB3YXMgd2hlbiBuby1uZXdwcml2cyB3YXMgYXBw
-bGllZCB0byB0aGUgdGFzay4KCmNyZWQtPnNlY3VyaXR5IGlzIHVzZWQgdG8gc3RvcmUgdGhlIHN1
-YmplY3RzIGxhYmVsICh0eXBlKSBmb3IgbWVkaWF0aW9uLgoKQmVmb3JlIHRoZSB0YXNrLT5zZWN1
-cml0eSBmaWVsZCB3YXMgcmVpbnRyb2R1Y2UgYWxsIHRoZSBpbmZvcm1hdGlvbiB3YXMgc3RvcmVk
-IG9mZiB0aGUgY3JlZCBpbiBhIGludGVybWVkaWF0ZSBzdHJ1Y3R1cmUuIERvaW5nIHNvIHdvdWxk
-IGNhdXNlIHVzZSBvZiB0aGUgY2hhbmdlX2hhdCBhbmQgY2hhbmdlX29uZXhlYyBhcGkgdG8gY2hh
-bmdlIHRoZSBjcmVkIG9mIHRoZSB0YXNrIGV2ZW4gd2hlbiB0aGUgY29uZmluZW1lbnQgaGFkIG5v
-dCBjaGFuZ2VkLiBUaGUgc3dpdGNoIHRvIHVzaW5nIHRoZSB0YXNrLT5zZWN1cml0eSBmaWVsZCB3
-YXMgcHJlIDQuMTgKCj4gCj4gMikgVGhlcmUgaGFzIGJlZW4gYSBjaGFuZ2UgaW4gdGhlIHdheSBz
-ZWN1cml0eSBibG9icyBhcmUgYWNjZXNzZWQgZnJvbSBrZXJuZWwgdmVyc2lvbiA0LjE4IHRvIDUu
-Mi4gSSBzZWUgdGhhdCBpbiB2NS4yLCB0aGXCoHNlY3VyaXR5IGJsb2IncyBhZGRyZXNzIGlzIG9i
-dGFpbmVkIGJ5IGFkZGluZyB0aGUgc2l6ZSBvZiB0aGUgYmxvYiB0byB0aGUgc3RhcnQgYWRkcmVz
-cy4gV2h5IGhhcyB0aGlzIGNoYW5nZSBiZWVuIG1hZGU/IChGb3IgcmVmZXJlbmNlOsKgaHR0cHM6
-Ly9naXRodWIuY29tL3RvcnZhbGRzL2xpbnV4L2Jsb2IvbWFzdGVyL3NlY3VyaXR5L2FwcGFybW9y
-L2luY2x1ZGUvY3JlZC5oI0wyNCkKPiAKc2VlIENhc2V5J3MgYW5zd2VyCgo+IAo+IDMpIEkgdHJp
-ZWQgYWRkaW5nIGEgY3VzdG9tIGZpZWxkIChwb2ludGVyIHRvIGEgY3VzdG9tIHN0cnVjdHVyZSkg
-dG8gc3RydWN0IGFhX3Byb2ZpbGUsIGF0IGV4YWN0bHkgdGhpcyBwb2ludCAtwqBodHRwczovL2dp
-dGh1Yi5jb20vdG9ydmFsZHMvbGludXgvYmxvYi9tYXN0ZXIvc2VjdXJpdHkvYXBwYXJtb3IvaW5j
-bHVkZS9wb2xpY3kuaCNMMTQ0LiBJIGhhdmUgdGFrZW4gY2FyZSB0byBhbGxvY2F0ZSBhbmQgZnJl
-ZSBtZW1vcnkgZm9yIHRoZSBwb2ludGVyIGF0IHRoZSBhcHByb3ByaWF0ZSBwbGFjZXMgKGFsbG9j
-YXRpb24gaXMgcGVyZm9ybWVkIGhlcmUgLcKgaHR0cHM6Ly9naXRodWIuY29tL3RvcnZhbGRzL2xp
-bnV4L2Jsb2IvbWFzdGVyL3NlY3VyaXR5L2FwcGFybW9yL3BvbGljeV91bnBhY2suYyNMNjcxwqBh
-bmQgZnJlZWluZyBpcyBwZXJmb3JtZWTCoGhlcmUgLcKgaHR0cHM6Ly9naXRodWIuY29tL3RvcnZh
-bGRzL2xpbnV4L2Jsb2IvbWFzdGVyL3NlY3VyaXR5L2FwcGFybW9yL3BvbGljeS5jI0wyMDUpLsKg
-SG93ZXZlciwgd2hpbGUgYm9vdGluZyB0aGUga2VybmVsLCBpdCBjcmFzaGVzwqBhdCB0aGUgZnVu
-Y3Rpb24gJ3NlY3VyaXR5X3ByZXBhcmVfY3JlZHMoICknLCB3aGljaCBJIHByZXN1bWUgaW52b2tl
-cyAnYXBwYXJtb3JfY3JlZF9wcmVwYXJlKCApJy4gSWYgSSB3YXMsIHRvIGFzc3VtZSBmb3IgYSBt
-b21lbnQgdGhhdCB0aGVyZSBhcmUgbm8gYnVncyB3aXRoIG15IG1lbW9yeSBhbGxvY2F0aW9uIGNv
-ZGUsIGlzIHRoZXJlIGFueSBvdGhlciByZWFzb24gd2h5IHN1Y2ggYSBjcmFzaCBtaWdodCBoYXZl
-IG9jY3VycmVkP8KgSSBoYXZlIGF0dGFjaGVkIHRoZSBrZXJuZWwgY3Jhc2ggbG9nwqBmaWxlwqB3
-aXRoIHRoaXMgZW1haWwgZm9yIHlvdXIga2luZMKgcmVmZXJlbmNlLsKgCj4gCgpJIGtub3cgdGhl
-IGNvZGUgcG9pbnRzIGJ1dCB0byBiZSBhYmxlIHRvIGNvbW1lbnQgYmV5b25kIHZhZ3VlIGd1ZXNz
-ZXMgSSBuZWVkIHRvIHNlZSB5b3VyIGNoYW5nZXMuIEkgY2FuIGdpdmUgeW91IHRoZSB3YXJuaW5n
-IHRvIG5vdCBhZGQgeW91ciBmaWVsZCBhZnRlciB0aGUgY3VycmVudCBsYXN0IGZpZWxkLAoKICBz
-dHJ1Y3QgYWFfbGFiZWwgbGFiZWw7CgphcyBpdCBoYXMgYSB2YXJpYWJsZSBsZW5ndGggZmllbGQu
-IFdoaWxlIHRoYXQgaXMgYWx3YXlzIDIgZW50cmllcyB3aGVuIGl0cyBlbWJlZGRlZCBpbiB0aGUg
-cHJvZmlsZSB0aGUgY29tcGlsZXIgd2lsbCBlbmQgdXAgdHJlYXRpbmcgaXQgYXMgemVybyBsZW5n
-dGggb3ZlciBsYXBwaW5nIHlvdXIgbmV3IGZpZWxkIHdpdGggdGhlIHN0YXJ0IG9mIHRoZSB2YXJp
-YWJsZSBsZW5ndGggYXJyYXkuCgpJIGRvIGhhdmUgYSBwYXRjaCB0byBhZGRyZXNzIHRoaXMgdXNp
-bmcgYSB1bmlvbiBidXQgSSBoYXZlbid0IGxhbmRlZCBpdCB5ZXQuCgotLSAKQXBwQXJtb3IgbWFp
-bGluZyBsaXN0CkFwcEFybW9yQGxpc3RzLnVidW50dS5jb20KTW9kaWZ5IHNldHRpbmdzIG9yIHVu
-c3Vic2NyaWJlIGF0OiBodHRwczovL2xpc3RzLnVidW50dS5jb20vbWFpbG1hbi9saXN0aW5mby9h
-cHBhcm1vcgo=
+--===============2990991131884991196==
+Content-Language: en-GB
+Content-Type: multipart/alternative;
+	boundary="_000_PN1PR0101MB1133B7777C9596E0DA98E23AFBDD0PN1PR0101MB1133_"
+
+--_000_PN1PR0101MB1133B7777C9596E0DA98E23AFBDD0PN1PR0101MB1133_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Oh alright I understand, thank you Casey.
+
+
+________________________________
+From: Casey Schaufler <casey@schaufler-ca.com>
+Sent: 26 July 2019 21:59
+To: Abhishek Vijeev <abhishekvijeev@iisc.ac.in>; apparmor@lists.ubuntu.com =
+<apparmor@lists.ubuntu.com>
+Cc: Rakesh Rajan Beck <rakeshbeck@iisc.ac.in>
+Subject: Re: [apparmor] Questions about AppArmor's Kernel Code
+
+On 7/26/2019 5:56 AM, Abhishek Vijeev wrote:
+>
+> Hi,
+>
+>
+> I have a few questions about AppArmor's kernel code and would be grateful=
+ if you could kindly answer them.?
+>
+>
+> 1) Why does AppArmor maintain two separate security blobs in cred->securi=
+ty as well as task-security for processes? For a simple project that requir=
+es associating a security context with every task, would it suffice to use =
+just one of these?
+>
+>
+> 2) There has been a change in the way security blobs are accessed from ke=
+rnel version 4.18 to 5.2. I see that in v5.2, the?security blob's address i=
+s obtained by adding the size of the blob to the start address. Why has thi=
+s change been made? (For reference:?https://github.com/torvalds/linux/blob/=
+master/security/apparmor/include/cred.h#L24)
+>
+The change was made to allow multiple security modules to share the
+blobs. The security module initialization replaces the size of the blobs
+in apparmor_bob_sizes with their offsets in the blob. The addition you
+see adds the offset, not the size.
+
+>
+> 3) I tried adding a custom field (pointer to a custom structure) to struc=
+t aa_profile, at exactly this point -?https://github.com/torvalds/linux/blo=
+b/master/security/apparmor/include/policy.h#L144. I have taken care to allo=
+cate and free memory for the pointer at the appropriate places (allocation =
+is performed here -?https://github.com/torvalds/linux/blob/master/security/=
+apparmor/policy_unpack.c#L671?and freeing is performed?here -?https://githu=
+b.com/torvalds/linux/blob/master/security/apparmor/policy.c#L205).?However,=
+ while booting the kernel, it crashes?at the function 'security_prepare_cre=
+ds( )', which I presume invokes 'apparmor_cred_prepare( )'. If I was, to as=
+sume for a moment that there are no bugs with my memory allocation code, is=
+ there any other reason why such a crash might have occurred??I have attach=
+ed the kernel crash log?file?with this email for your kind?reference.?
+>
+>
+> Thank you,
+>
+> Abhishek.
+>
+>
+>
+>
+
+--_000_PN1PR0101MB1133B7777C9596E0DA98E23AFBDD0PN1PR0101MB1133_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size: 12pt; color: rgb(0, 0,=
+ 0); font-family: Calibri, Helvetica, sans-serif, EmojiFont, &quot;Apple Co=
+lor Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &quot;Segoe UI=
+ Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Oh alright I understand, thank yo=
+u Casey.</p>
+<br>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Casey Schaufler &lt;c=
+asey@schaufler-ca.com&gt;<br>
+<b>Sent:</b> 26 July 2019 21:59<br>
+<b>To:</b> Abhishek Vijeev &lt;abhishekvijeev@iisc.ac.in&gt;; apparmor@list=
+s.ubuntu.com &lt;apparmor@lists.ubuntu.com&gt;<br>
+<b>Cc:</b> Rakesh Rajan Beck &lt;rakeshbeck@iisc.ac.in&gt;<br>
+<b>Subject:</b> Re: [apparmor] Questions about AppArmor's Kernel Code</font=
+>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">On 7/26/2019 5:56 AM, Abhishek Vijeev wrote:<br>
+&gt;<br>
+&gt; Hi,<br>
+&gt;<br>
+&gt;<br>
+&gt; I have a few questions about AppArmor's kernel code and would be grate=
+ful if you could kindly answer them.?<br>
+&gt;<br>
+&gt;<br>
+&gt; 1) Why does AppArmor maintain two separate security blobs in cred-&gt;=
+security as well as task-security for processes? For a simple project that =
+requires associating a security context with every task, would it suffice t=
+o use just one of these?<br>
+&gt;<br>
+&gt;<br>
+&gt; 2) There has been a change in the way security blobs are accessed from=
+ kernel version 4.18 to 5.2. I see that in v5.2, the?security blob's addres=
+s is obtained by adding the size of the blob to the start address. Why has =
+this change been made? (For reference:?https://github.com/torvalds/linux/bl=
+ob/master/security/apparmor/include/cred.h#L24)<br>
+&gt;<br>
+The change was made to allow multiple security modules to share the<br>
+blobs. The security module initialization replaces the size of the blobs<br=
+>
+in apparmor_bob_sizes with their offsets in the blob. The addition you<br>
+see adds the offset, not the size.<br>
+<br>
+&gt;<br>
+&gt; 3) I tried adding a custom field (pointer to a custom structure) to st=
+ruct aa_profile, at exactly this point -?https://github.com/torvalds/linux/=
+blob/master/security/apparmor/include/policy.h#L144. I have taken care to a=
+llocate and free memory for the pointer
+ at the appropriate places (allocation is performed here -?https://github.c=
+om/torvalds/linux/blob/master/security/apparmor/policy_unpack.c#L671?and fr=
+eeing is performed?here -?https://github.com/torvalds/linux/blob/master/sec=
+urity/apparmor/policy.c#L205).?However,
+ while booting the kernel, it crashes?at the function 'security_prepare_cre=
+ds( )', which I presume invokes 'apparmor_cred_prepare( )'. If I was, to as=
+sume for a moment that there are no bugs with my memory allocation code, is=
+ there any other reason why such
+ a crash might have occurred??I have attached the kernel crash log?file?wit=
+h this email for your kind?reference.?<br>
+&gt;<br>
+&gt;<br>
+&gt; Thank you,<br>
+&gt;<br>
+&gt; Abhishek.<br>
+&gt;<br>
+&gt;<br>
+&gt;<br>
+&gt;<br>
+</div>
+</span></font></div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_PN1PR0101MB1133B7777C9596E0DA98E23AFBDD0PN1PR0101MB1133_--
+
+
+--===============2990991131884991196==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
+eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
+aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
+
+--===============2990991131884991196==--
+
