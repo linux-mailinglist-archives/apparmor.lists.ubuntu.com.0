@@ -2,77 +2,73 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62CA6842EC
-	for <lists+apparmor@lfdr.de>; Wed,  7 Aug 2019 05:34:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F01684A87
+	for <lists+apparmor@lfdr.de>; Wed,  7 Aug 2019 13:19:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1hvCix-0007NQ-M3; Wed, 07 Aug 2019 03:34:51 +0000
-Received: from youngberry.canonical.com ([91.189.89.112])
- by huckleberry.canonical.com with esmtps (TLS1.0:DHE_RSA_AES_128_CBC_SHA1:128)
- (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1hvCiw-0007NK-Dr
- for apparmor@lists.ubuntu.com; Wed, 07 Aug 2019 03:34:50 +0000
-Received: from static-50-53-33-191.bvtn.or.frontiernet.net ([50.53.33.191]
- helo=[192.168.192.153])
- by youngberry.canonical.com with esmtpsa (TLS1.0:RSA_AES_128_CBC_SHA1:16)
- (Exim 4.76) (envelope-from <john.johansen@canonical.com>)
- id 1hvCiv-00007V-Jy; Wed, 07 Aug 2019 03:34:50 +0000
-To: Mikhail Morfikov <mmorfikov@gmail.com>, apparmor@lists.ubuntu.com
+	id 1hvJyv-0001Hp-8I; Wed, 07 Aug 2019 11:19:49 +0000
+Received: from mail-lf1-f66.google.com ([209.85.167.66])
+ by huckleberry.canonical.com with esmtps
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <mmorfikov@gmail.com>) id 1hvJyt-0001He-Cp
+ for apparmor@lists.ubuntu.com; Wed, 07 Aug 2019 11:19:47 +0000
+Received: by mail-lf1-f66.google.com with SMTP id p197so63696781lfa.2
+ for <apparmor@lists.ubuntu.com>; Wed, 07 Aug 2019 04:19:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:references:from:openpgp:autocrypt:message-id:date
+ :user-agent:mime-version:in-reply-to;
+ bh=Lo7KPNbBqO15lleyrL5ttTrT2TDx1CcO6HZHEOlm5rg=;
+ b=bpW2Z4UnBSFvk3ZJsfyMHhUC/HU3LneuLX9vBqHmEWn2EvSrLMI0nuMDDUb1vp4j6Q
+ pNCJc/RcjY0gdXv0lxUJoenJqt7dtaKY3EHnoASmHIjqiWnB5WrxNGmcKexU7Qu5oQfA
+ uC+J59eXVbVF+iCzeln/Vg2CZGwNNaWQuFz5iIptJjXPQrMReM1dxJ4QY+DUhNQj83tE
+ EoDftLsaMzWyrgY/GtqlIypef9Cc6zcHXoxaTy+SlXPMw43QLKXauoE03hn8NcUjC2fd
+ 9KkZZSJuMRkn7Z7C7HAPAYo7d7yglCm+5UD2o7bSniiaGcSU3tKOERq92I9lwjr62um4
+ 9btw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:references:from:openpgp:autocrypt
+ :message-id:date:user-agent:mime-version:in-reply-to;
+ bh=Lo7KPNbBqO15lleyrL5ttTrT2TDx1CcO6HZHEOlm5rg=;
+ b=eX6QCfsgLbUkutVJ2jhkYsk6JMRHpQbZ+s12sL+x1LvLKfyk4npUBssvfLThYHKVb/
+ Xz3zsn/BR21S6Ivb2T6g9cppl/6heumCidZS61RXC+L+l3p9XcfxEIBRiHkhM5vf9ar4
+ bRrIKdIrm2nQ+J/QHQtvo6sRlF+TY7/cfRce+yctXPMNO63NwherKIoqL8+jFuOn+AUf
+ HF/3G53AhfKnH68kl3MHxdCzDfvIagAU1nVkVKmLB5ASDD3bhiivyRLffcAS2aRAUem7
+ NYYLFUpOwkqpoQfxOCP9XagXtVZFDtOrCHSMMBjGLDq2dbKBONK09BZohDOCYq8J+bd4
+ j91w==
+X-Gm-Message-State: APjAAAUwZ1kXNh+sCffGM5RRz7GsvncDZxsBhEgdn2aGlNRI2feQNjEV
+ wdes25PYh6+Jb1hMoexa6YskmVET
+X-Google-Smtp-Source: APXvYqyD2OMMtz+vngG08K5aj74KKEyJg2t9kK2XnWTeobxAA/kNioNgEhxEqx6zths1tga2c+lbQQ==
+X-Received: by 2002:a19:be03:: with SMTP id o3mr5557539lff.88.1565176786444;
+ Wed, 07 Aug 2019 04:19:46 -0700 (PDT)
+Received: from localhost (user-5-173-185-66.play-internet.pl. [5.173.185.66])
+ by smtp.gmail.com with ESMTPSA id
+ t63sm18342293lje.65.2019.08.07.04.19.45
+ (version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
+ Wed, 07 Aug 2019 04:19:45 -0700 (PDT)
+To: John Johansen <john.johansen@canonical.com>, apparmor@lists.ubuntu.com
 References: <6f11fe69-b263-e961-6dbd-684a0bb9a74b@gmail.com>
  <20190806222444.GB26609@hunt>
  <9f2d30ed-0fd3-4c5b-188b-6df19b094f7b@gmail.com>
-From: John Johansen <john.johansen@canonical.com>
+ <03a2a7d8-e8df-747e-dd39-7fc3d0e6caf0@canonical.com>
+From: Mikhail Morfikov <mmorfikov@gmail.com>
 Openpgp: preference=signencrypt
-Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
- 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
-Organization: Canonical
-Message-ID: <03a2a7d8-e8df-747e-dd39-7fc3d0e6caf0@canonical.com>
-Date: Tue, 6 Aug 2019 20:34:39 -0700
+Autocrypt: addr=mmorfikov@gmail.com; prefer-encrypt=mutual; keydata=
+ mDMEXRaE+hYJKwYBBAHaRw8BAQdADVtvGNnC7y4y14i2IuxupgValXBb5YBbzeymUVfQEQu0
+ L01pa2hhaWwgTW9yZmlrb3YgKE1vcmZpaykgPG1tb3JmaWtvdkBnbWFpbC5jb20+iJYEExYK
+ AD4WIQR1ZhNYxftXAnkWpwEy2ctjR5bMoQUCXRaJTwIbAwUJAeEzgAULCQgHAwUVCgkICwUW
+ AgMBAAIeAQIXgAAKCRAy2ctjR5bMoRS0AP9NEO+t25BNIya+w+I4if6Zv8FgtIMpS06LJdgL
+ 3QhOXQD/dsoOMLyLNaa7aEvwidUrv7CFd27VdNcSfajciwaXbwO4OARdFoT6EgorBgEEAZdV
+ AQUBAQdA1vPaWR/g6H2DzFqi6zjEBCqEv6bOg+N6lahCEuhLc24DAQgHiH4EGBYKACYWIQR1
+ ZhNYxftXAnkWpwEy2ctjR5bMoQUCXRaE+gIbDAUJAeEzgAAKCRAy2ctjR5bMocLJAQCVr++2
+ +63HkY55uXQgTeJf446YbqyKH/TP3WvHCxqDfwD+Ks9eAFnkknOqtMrj1GHIzM4bk2hwKw8v
+ V+nbEhOboQI=
+Message-ID: <18e7e5cf-6431-0128-5981-f580210e6685@gmail.com>
+Date: Wed, 7 Aug 2019 13:19:37 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <9f2d30ed-0fd3-4c5b-188b-6df19b094f7b@gmail.com>
+In-Reply-To: <03a2a7d8-e8df-747e-dd39-7fc3d0e6caf0@canonical.com>
 Subject: Re: [apparmor] Question about "Failed name lookup - disconnected
  path"
 X-BeenThere: apparmor@lists.ubuntu.com
@@ -86,106 +82,87 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7575153891705467151=="
+Content-Type: multipart/mixed; boundary="===============3117498051025033889=="
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============7575153891705467151==
+--===============3117498051025033889==
 Content-Type: multipart/signed; micalg=pgp-sha512;
  protocol="application/pgp-signature";
- boundary="NMesqhmqCU6gbPMuWz9JfOHFB4y4A8wlm"
+ boundary="31WUfchJsbrvhkdXKV6RoKTjO5lwy68RT"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---NMesqhmqCU6gbPMuWz9JfOHFB4y4A8wlm
-Content-Type: multipart/mixed; boundary="fC0wiNHlkTnoiraowifEvtzGY0EDbFvtl";
+--31WUfchJsbrvhkdXKV6RoKTjO5lwy68RT
+Content-Type: multipart/mixed; boundary="ZyCzw1gETFuL08a8DTt6obukYV8lyu5WZ";
  protected-headers="v1"
-From: John Johansen <john.johansen@canonical.com>
-To: Mikhail Morfikov <mmorfikov@gmail.com>, apparmor@lists.ubuntu.com
-Message-ID: <03a2a7d8-e8df-747e-dd39-7fc3d0e6caf0@canonical.com>
+From: Mikhail Morfikov <mmorfikov@gmail.com>
+To: John Johansen <john.johansen@canonical.com>, apparmor@lists.ubuntu.com
+Message-ID: <18e7e5cf-6431-0128-5981-f580210e6685@gmail.com>
 Subject: Re: [apparmor] Question about "Failed name lookup - disconnected
  path"
 References: <6f11fe69-b263-e961-6dbd-684a0bb9a74b@gmail.com>
  <20190806222444.GB26609@hunt>
  <9f2d30ed-0fd3-4c5b-188b-6df19b094f7b@gmail.com>
-In-Reply-To: <9f2d30ed-0fd3-4c5b-188b-6df19b094f7b@gmail.com>
+ <03a2a7d8-e8df-747e-dd39-7fc3d0e6caf0@canonical.com>
+In-Reply-To: <03a2a7d8-e8df-747e-dd39-7fc3d0e6caf0@canonical.com>
 
---fC0wiNHlkTnoiraowifEvtzGY0EDbFvtl
+--ZyCzw1gETFuL08a8DTt6obukYV8lyu5WZ
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
+Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
 
-On 8/6/19 7:36 PM, Mikhail Morfikov wrote:
-> On 07/08/2019 00:24, Seth Arnold wrote:
->> - run both processes in the same filesystem namespace, so files have n=
-ames
->>   that are meaningful to both
->>
+On 07/08/2019 05:34, John Johansen wrote:
+> name=3D"apparmor/.null" says that it is an fd that was inherited and ap=
+parmor did a
+> revalidation on it and the access was denied so the fd was duped to a s=
+pecial null
+> device files instead of out right closing it (there are good reasons fo=
+r doing this).
 >=20
-> I though they both run in the same filesystem namespace.=20
-> It's just /usr/sbin/deluser which executes /usr/sbin/userdel .
+> So you will need to look back in your log for an apparmor=3DDENIED mess=
+age, with
+> operation=3D"file_inherit" that should give you the actual file in this=
+ case.
+Ok, I see.
 >=20
-> Here are the two profiles:
-> https://pastebin.com/raw/8cDyVh8J
-> https://pastebin.com/raw/Etxm2h88
+> I should note that on newer kernels we don't generally audit apparmor/.=
+null so
+> you will only get the file_inherit denial logged.
 >=20
->=20
+I have 5.2.6 kernel and usually I use the latest stable.
 
-info=3D"Failed name lookup - disconnected path" tends to happen when the =
-applications
-are in different mount namespaces, and an fd is passed between them, eith=
-er through
-inheritance or explicitly over a socket.
+I have another question, what about this message?
 
-It does not guarantee that it is due to the tasks being in a separate mou=
-nt namespace.
-Looking further we see
+kernel: [42605.998291][   T22] audit: type=3D1400 audit(1565176324.321:85=
+1): apparmor=3D"ALLOWED" \
+  operation=3D"getattr" info=3D"Failed name lookup - disconnected path" e=
+rror=3D-13 profile=3D"userdel" \
+  name=3D"" pid=3D24997 comm=3D"userdel" requested_mask=3D"r" denied_mask=
+=3D"r" fsuid=3D0 ouid=3D0
 
-name=3D"apparmor/.null" says that it is an fd that was inherited and appa=
-rmor did a
-revalidation on it and the access was denied so the fd was duped to a spe=
-cial null
-device files instead of out right closing it (there are good reasons for =
-doing this).
-
-So you will need to look back in your log for an apparmor=3DDENIED messag=
-e, with
-operation=3D"file_inherit" that should give you the actual file in this c=
-ase.
-
-I should note that on newer kernels we don't generally audit apparmor/.nu=
-ll so
-you will only get the file_inherit denial logged.
+Here *name=3D""* is empty. So what about this case?
 
 
---fC0wiNHlkTnoiraowifEvtzGY0EDbFvtl--
+--ZyCzw1gETFuL08a8DTt6obukYV8lyu5WZ--
 
---NMesqhmqCU6gbPMuWz9JfOHFB4y4A8wlm
+--31WUfchJsbrvhkdXKV6RoKTjO5lwy68RT
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE7cSDD705q2rFEEf7BS82cBjVw9gFAl1KRs8ACgkQBS82cBjV
-w9hdyhAAstjRWeuI60JGG3+3VOyT7N9s1GngLjrgJQy9Am1j37QfGEy966rXElCt
-TXPwqfY1a93MOhJGEGkfIFvp2/GfNgAav/PSQn4rou7BMb/eIhQ6HDBNGDbXocVE
-PWShyaTvRTg3eahJTnHliGManv0uzTUap2LgMVOGgypVwsLNVglERrZjvflYKtUh
-r3jcUG/iROF53jQqiYpzK8ZRqJwK3YsIqf1yqYsMhOZig423EwIpef8frAbGhyce
-z8BoBca+vvDL6yQnATVqzMwI0OXrj/ua4JBsf4CWbcytJVhZ4fBvF3BHHiYYm46m
-V4S5M2DN2Vof3no4aSm/UqZM19lZ4aPCvMkK1I0YUuT5BhXxnEjpafhopkwAzOJ3
-mQZshhuA6PXaexHecJXufqhGPauxbSGSeF4pII8NK5RpTy8Zky3gHymbBih+FdGn
-NQU1zPVU3H6aGFGnQvdmZdtKb/ElNUfkV9aPk4HUSLpittZ4gAzivp1AWXembJb+
-wZZYBogzxxpwCZUdqo5wexdkY3D7HXurijXRAWXDuO4lBgmNQGlWkffrJWNoczP5
-NNSSN+v0gR3mM7EU9b9qsKJcf6uRxxnYgZwVZRig1VDjPmoaB5aFZXBiaLybYHFi
-eMG4KX4VRwpy6EKjklzucGyvrBR7oUFneaxEA80PVdDfUoTmSwY=
-=h7RG
+iHUEARYKAB0WIQR1ZhNYxftXAnkWpwEy2ctjR5bMoQUCXUqzyQAKCRAy2ctjR5bM
+oWZGAP48oAAR79maxsiDZTj5GD2M9F4XQDmSPSaX/Jc8QYIBaAD/cH5wQdpkvs0k
+cn+FKVF67z1DpHWXPQuktTGr0ilEXA0=
+=OjX8
 -----END PGP SIGNATURE-----
 
---NMesqhmqCU6gbPMuWz9JfOHFB4y4A8wlm--
+--31WUfchJsbrvhkdXKV6RoKTjO5lwy68RT--
 
 
---===============7575153891705467151==
+--===============3117498051025033889==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -195,5 +172,5 @@ LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
 eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
 aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
 
---===============7575153891705467151==--
+--===============3117498051025033889==--
 
