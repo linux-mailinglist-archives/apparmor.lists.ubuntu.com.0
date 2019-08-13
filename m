@@ -2,76 +2,83 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FBE78A7F7
-	for <lists+apparmor@lfdr.de>; Mon, 12 Aug 2019 22:09:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 986E88B874
+	for <lists+apparmor@lfdr.de>; Tue, 13 Aug 2019 14:21:44 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1hxGci-0003ns-8I; Mon, 12 Aug 2019 20:08:56 +0000
-Received: from youngberry.canonical.com ([91.189.89.112])
- by huckleberry.canonical.com with esmtps (TLS1.0:DHE_RSA_AES_128_CBC_SHA1:128)
- (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1hxGcg-0003nm-6u
- for apparmor@lists.ubuntu.com; Mon, 12 Aug 2019 20:08:54 +0000
-Received: from static-50-53-33-191.bvtn.or.frontiernet.net ([50.53.33.191]
- helo=[192.168.192.153])
- by youngberry.canonical.com with esmtpsa (TLS1.0:RSA_AES_128_CBC_SHA1:16)
- (Exim 4.76) (envelope-from <john.johansen@canonical.com>)
- id 1hxGcf-0007HW-Og
- for apparmor@lists.ubuntu.com; Mon, 12 Aug 2019 20:08:53 +0000
-To: apparmor <apparmor@lists.ubuntu.com>
-From: John Johansen <john.johansen@canonical.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
- 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
-Organization: Canonical
-Message-ID: <f20a021d-8299-886b-e3be-35ba385c0ff3@canonical.com>
-Date: Mon, 12 Aug 2019 13:08:51 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
+	id 1hxVo1-0007mi-SG; Tue, 13 Aug 2019 12:21:37 +0000
+Received: from mail-eopbgr1390084.outbound.protection.outlook.com
+ ([40.107.139.84] helo=IND01-BO1-obe.outbound.protection.outlook.com)
+ by huckleberry.canonical.com with esmtps
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <abhishekvijeev@iisc.ac.in>) id 1hxVnz-0007lq-Bu
+ for apparmor@lists.ubuntu.com; Tue, 13 Aug 2019 12:21:35 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=NujR/ZG5diLkEUKmKLt8mNyRxw6zMgSJlvdQnRuFqJNeqP1YEIFYZDqDTTUurFei2wACqT5cKhmYu3z1jvaICtF5tkjfHvIHDO/JpVODgl4jhrpgpTxe3MzPfPEjfawN/7Fptku4xMt2z3MbkbjLz3dtPcV0vbVeqbObpGcepH3K3JSZu9xnPK5EmpIZCpFLiSa7oOrJyGV860VcVy+B+YDS1UCF4TTy3WyoJDNjmiP6mLCSoGhI0ckdhzR5itpwIKT4CjIEwEe7j6wGE7K8lU7giSGc6U/jiHAJH8XOUW0WovFjcYHUBhyX5Z1PPcS+1Tli2HyTRdPqAxFymhneqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=I1a56OiKU1k7Bq4YU7rFoLcTBhAQMtX5xawSPWrusCk=;
+ b=G9kQKNaAVbi+QJqIUAS5q14IGnoVIeriPKbuSbFIjA8Bh7UkrTR4CXWGIewe0E6mCXa8063XNn25Gkx8wo+uIzmPeidAscP2ryHvM/c3k10csS3rIysHSTQvWIuED3P6wCLcKYxEUZ7+yorGfh5HEYyTuUB2vPJJMFiyggZOtoB6iuzHErVgg6YtIxE+UQM2FIRCsj20+3MQG6RRxFT7NLl+10gbyw/tAuFPsxqgfhDIXBfjclVXKx7Hdl8bfnts6Z/r7g6dLrVz6udv4+e8VEIMYUTVVGPQjmn540Yf4t6yAx7lLB1cd/pxdu9oC+n5jn2fw8tP1L8imFtmaVEwNQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=iisc.ac.in; dmarc=pass action=none header.from=iisc.ac.in;
+ dkim=pass header.d=iisc.ac.in; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iisc.ac.in;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=I1a56OiKU1k7Bq4YU7rFoLcTBhAQMtX5xawSPWrusCk=;
+ b=cgjH+Pd70hqu9biiulykgEFcGQQ7oLal8MY3XvWpijI3H2X6uWpr+Z3bGWgWbJiF1dFUpL7tg5HYB0bdrDjssqDaW5CrYKueDVEg9eEi0HEmNU6CNaafKN0g4qifDWwC2Xv5mXV0pXfclKvDzp2HqUhqaWhAJ0YvLS9b4tCQuZA=
+Received: from MAXPR0101MB1132.INDPRD01.PROD.OUTLOOK.COM (10.174.63.142) by
+ MAXPR0101MB1258.INDPRD01.PROD.OUTLOOK.COM (52.134.130.13) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2157.20; Tue, 13 Aug 2019 12:21:13 +0000
+Received: from MAXPR0101MB1132.INDPRD01.PROD.OUTLOOK.COM
+ ([fe80::59de:f1b2:6017:42c6]) by MAXPR0101MB1132.INDPRD01.PROD.OUTLOOK.COM
+ ([fe80::59de:f1b2:6017:42c6%11]) with mapi id 15.20.2157.022; Tue, 13 Aug
+ 2019 12:21:13 +0000
+From: Abhishek Vijeev <abhishekvijeev@iisc.ac.in>
+To: "apparmor@lists.ubuntu.com" <apparmor@lists.ubuntu.com>
+Thread-Topic: AppArmor Child Profiles
+Thread-Index: AQHVUcj2NiGOYeAJRU2HiKFm3K9tyQ==
+Date: Tue, 13 Aug 2019 12:21:13 +0000
+Message-ID: <MAXPR0101MB1132E410C073568A5D2C30F5FBD20@MAXPR0101MB1132.INDPRD01.PROD.OUTLOOK.COM>
+Accept-Language: en-GB, en-US
 Content-Language: en-GB
-Subject: [apparmor] irc meeting Tues Aug 13, 18:00 UTC
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=abhishekvijeev@iisc.ac.in; 
+x-originating-ip: [14.139.128.40]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: e11a32ce-4443-4ab8-0d54-08d71fe8bb7c
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(7193020);
+ SRVR:MAXPR0101MB1258; 
+x-ms-traffictypediagnostic: MAXPR0101MB1258:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MAXPR0101MB1258CC4759CC751C0FAD447FFBD20@MAXPR0101MB1258.INDPRD01.PROD.OUTLOOK.COM>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-forefront-prvs: 01283822F8
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(346002)(376002)(366004)(396003)(39860400002)(136003)(189003)(199004)(14454004)(99286004)(6506007)(7696005)(256004)(26005)(19627405001)(86362001)(71200400001)(486006)(71190400001)(8676002)(81156014)(1730700003)(476003)(81166006)(102836004)(186003)(786003)(107886003)(2906002)(316002)(3846002)(4326008)(25786009)(6116002)(53936002)(478600001)(6606003)(66066001)(2501003)(3480700005)(52536014)(7736002)(7116003)(2351001)(74316002)(76116006)(5660300002)(66446008)(66476007)(66556008)(64756008)(66946007)(55016002)(8936002)(9686003)(6916009)(33656002)(5640700003)(91956017)(54896002)(6436002)(80872003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MAXPR0101MB1258;
+ H:MAXPR0101MB1132.INDPRD01.PROD.OUTLOOK.COM; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: iisc.ac.in does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: GmdLyjHod36I3kUMJRArJzUkYrS07h8EtpwUXn25BgwmAQ6Idng1G00t5zzcwGUHWiDY8wCjxxbUr5kWi8U+YTGI93WC4eGr3k32zN1gw8lv4gQuys4dYasC+Xn6wYfJc/VdXKUX2byK7CDcLo52w4XW26X/dPWGBNyBGNzt6m7N/s6xPoBaPvJSyp0X4KJXnucfGvappunLWDYU0Vx0gQB5xUqrsbciPkxUPup7eJVZPVdTOkhRLvexZXCx+wiccOTrgshOGUYpq8ow3E1rihRDGkhRlQTc4A3i7RJZNeZlbwPX10PXxqjjyf3khWl0o8QROziANRbMXuDdJoRNAs6sjq3BuZb47JJbuuh9rfHBNd+59ixTjnix2Gz6nk5Z87YgTDXU2OUoSC3KddX7dWTk7iNv8482HfI5hABnB5w=
+MIME-Version: 1.0
+X-OriginatorOrg: iisc.ac.in
+X-MS-Exchange-CrossTenant-Network-Message-Id: e11a32ce-4443-4ab8-0d54-08d71fe8bb7c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Aug 2019 12:21:13.3098 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 6f15cd97-f6a7-41e3-b2c5-ad4193976476
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: yScIpSXm16tAhgSjT+SlZR5LT12EyeFnyvx6pVapt2lqtrp9EEO9MbccmBhEAucnSiSewfNOPebifH5lW/bijwlPIJFRjdkSqIPe09HH5lw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MAXPR0101MB1258
+Subject: [apparmor] AppArmor Child Profiles
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -83,15 +90,244 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Rakesh Rajan Beck <rakeshbeck@iisc.ac.in>
+Content-Type: multipart/mixed; boundary="===============8465199496355541852=="
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-VGhlIG5leHQgaWNyIG1lZXRpbmcgaXMgVHVlc2RheSBBdWcgMTggYXQgMTg6MDAgVVRDIGluICNh
-cHBhcm1vciBvbiBvZnRjLm5ldAoKUGxlYXNlIHVwZGF0ZSB0aGUgYWdlbmRhIGh0dHBzOi8vZ2l0
-bGFiLmNvbS9hcHBhcm1vci9hcHBhcm1vci93aWtpcy9NZWV0aW5nQWdlbmRhIG9yIHJlcGx5IHRv
-IHRoaXMgbWFpbCBpZiB5b3UgaGF2ZSBpdGVtcyB5b3Ugd2FudCB0byBhZGQKCi0tIApBcHBBcm1v
-ciBtYWlsaW5nIGxpc3QKQXBwQXJtb3JAbGlzdHMudWJ1bnR1LmNvbQpNb2RpZnkgc2V0dGluZ3Mg
-b3IgdW5zdWJzY3JpYmUgYXQ6IGh0dHBzOi8vbGlzdHMudWJ1bnR1LmNvbS9tYWlsbWFuL2xpc3Rp
-bmZvL2FwcGFybW9yCg==
+--===============8465199496355541852==
+Content-Language: en-GB
+Content-Type: multipart/alternative;
+	boundary="_000_MAXPR0101MB1132E410C073568A5D2C30F5FBD20MAXPR0101MB1132_"
+
+--_000_MAXPR0101MB1132E410C073568A5D2C30F5FBD20MAXPR0101MB1132_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Hi,
+
+
+We're looking for some help with respect to AppArmor child profiles.
+
+
+In a scenario where 'parent_process' spawns (fork and exec) a number of chi=
+ld
+
+processes, we would like to achieve the following - if a profile exists for=
+ any child
+
+process, use it. Otherwise, don't inherit the parent's profile - instead, i=
+nherit a
+
+different default profile (presumably specified as a nested profile within =
+the parent).
+
+
+We have taken a good look at the use cases for the 'p', 'c', and 'i' exec f=
+lags,
+
+however, no combination of these flags seems to solve the problem:
+
+
+a) px - Uses the child's profile (different) if it exists
+
+b) cx - Uses the child's profile (nested) if it exists
+
+c) pix - Uses the child's profile (different) if it exists, else inherits t=
+he parent's profile
+
+d) cix - Uses the child's profile (nested) if it exists, else inherits the =
+parent's profile
+
+
+Here's an example of what we would like:
+
+
+Parent Process' Profile:
+
+
+profile parent
+
+{
+
+     ...
+
+     ...
+
+     profile child_default
+
+     {
+
+          ...
+
+          ...
+
+     }
+
+     ...
+
+     ...
+
+}
+
+
+Is there a way by which we could say this: for all children spawned by pare=
+nt,
+
+check whether there exists a child profile (either a different profile in t=
+he
+
+file system, or a nested child profile) and if so use it, else use profile =
+'child_default'?
+
+
+We understand that doing this for a parent that spawns around 5 children ju=
+st
+
+involves creating 5 different profiles for each of them, and specifying exe=
+c
+
+transitions on each. However, doing this for a process that spawns more tha=
+n
+
+20 children (something like the init process) becomes cumbersome. Does
+
+AppArmor provide support for this out of the box?
+
+
+Thank you.
+
+
+
+
+
+--_000_MAXPR0101MB1132E410C073568A5D2C30F5FBD20MAXPR0101MB1132_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size: 12pt; colo=
+r: rgb(0, 0, 0); font-family: Calibri, Helvetica, sans-serif, EmojiFont, &q=
+uot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &q=
+uot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;">
+<p style=3D"margin-top:0; margin-bottom:0">Hi,</p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0">We're looking for some help with=
+ respect to AppArmor child profiles.</p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0">In a scenario where 'parent_proc=
+ess' spawns (fork and exec) a number of&nbsp;child</p>
+<p style=3D"margin-top:0; margin-bottom:0">processes,&nbsp;we&nbsp;would li=
+ke to achieve the following - if a profile exists for any&nbsp;child</p>
+<p style=3D"margin-top:0; margin-bottom:0">process,&nbsp;use it. Otherwise,=
+ don't inherit the parent's profile - instead, inherit a&nbsp;</p>
+<p style=3D"margin-top:0; margin-bottom:0">different&nbsp;<span style=3D"fo=
+nt-size:12pt">default profile (presumably specified as a nested profile wit=
+hin the parent).</span></p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0">We have taken a good look at the=
+ use cases for the 'p', 'c', and 'i' exec flags,</p>
+<p style=3D"margin-top:0; margin-bottom:0">however, no combination of these=
+ flags seems to solve the problem:</p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0">a) px - Uses the child's&nbsp;pr=
+ofile <span style=3D"font-family:Calibri,Helvetica,sans-serif,EmojiFont,&qu=
+ot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,NotoColorEmoji,&quot;=
+Segoe UI Symbol&quot;,&quot;Android Emoji&quot;,EmojiSymbols; font-size:16p=
+x">
+(different)&nbsp;</span>if it exists</p>
+<p style=3D"margin-top:0; margin-bottom:0">b) cx - Uses the child's profile=
+ (nested)&nbsp;if it exists</p>
+<p style=3D"margin-top:0; margin-bottom:0">c) pix - Uses the child's profil=
+e (different) if it exists, else inherits the parent's profile</p>
+<p style=3D"margin-top:0; margin-bottom:0">d) cix - Uses the child's profil=
+e (nested) if it exists, else inherits the parent's profile</p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0">Here's an example of what we wou=
+ld like:</p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0"><u>Parent Process' Profile:</u><=
+/p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0">profile parent</p>
+<p style=3D"margin-top:0; margin-bottom:0">{</p>
+<p style=3D"margin-top:0; margin-bottom:0">&nbsp; &nbsp; &nbsp;...</p>
+<p style=3D"margin-top:0; margin-bottom:0">&nbsp; &nbsp; &nbsp;...</p>
+<p style=3D"margin-top:0; margin-bottom:0">&nbsp; &nbsp; &nbsp;profile chil=
+d_default</p>
+<p style=3D"margin-top:0; margin-bottom:0">&nbsp; &nbsp; &nbsp;{</p>
+<p style=3D"margin-top:0; margin-bottom:0">&nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; ...</p>
+<p style=3D"margin-top:0; margin-bottom:0">&nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; ...</p>
+<p style=3D"margin-top:0; margin-bottom:0">&nbsp; &nbsp; &nbsp;}</p>
+<p style=3D"margin-top:0; margin-bottom:0">&nbsp; &nbsp; &nbsp;...</p>
+<p style=3D"margin-top:0; margin-bottom:0">&nbsp; &nbsp; &nbsp;...</p>
+<p style=3D"margin-top:0; margin-bottom:0">}</p>
+<p style=3D"margin-top:0; margin-bottom:0"></p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0">Is there a way by which we could=
+ say this: for all children spawned by parent,</p>
+<p style=3D"margin-top:0; margin-bottom:0">check whether there exists a chi=
+ld profile (either a different profile in the</p>
+<p style=3D"margin-top:0; margin-bottom:0">file&nbsp;system, or a nested ch=
+ild profile) and if so use it, else use profile 'child_default'?</p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0">We understand that doing this fo=
+r a parent that spawns around 5 children just&nbsp;</p>
+<p style=3D"margin-top:0; margin-bottom:0">involves creating 5 different pr=
+ofiles for each of them, and specifying exec</p>
+<p style=3D"margin-top:0; margin-bottom:0">transitions on each. However, do=
+ing this for a process that spawns more than</p>
+<p style=3D"margin-top:0; margin-bottom:0">20&nbsp;children (something like=
+&nbsp;the init process) becomes cumbersome. Does&nbsp;</p>
+<p style=3D"margin-top:0; margin-bottom:0">AppArmor provide support for thi=
+s out of the box?</p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0">Thank you.</p>
+<p style=3D"margin-top:0; margin-bottom:0"></p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0"></p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+</div>
+</body>
+</html>
+
+--_000_MAXPR0101MB1132E410C073568A5D2C30F5FBD20MAXPR0101MB1132_--
+
+
+--===============8465199496355541852==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
+eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
+aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
+
+--===============8465199496355541852==--
+
