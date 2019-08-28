@@ -2,54 +2,77 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 998019F7CF
-	for <lists+apparmor@lfdr.de>; Wed, 28 Aug 2019 03:28:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 615849FA4E
+	for <lists+apparmor@lfdr.de>; Wed, 28 Aug 2019 08:19:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1i2mlN-0003co-CP; Wed, 28 Aug 2019 01:28:41 +0000
-Received: from secure.zestysoft.com ([63.205.203.253])
- by huckleberry.canonical.com with esmtps
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <apparmor@zestysoft.com>) id 1i2mlK-0003ci-EB
- for apparmor@lists.ubuntu.com; Wed, 28 Aug 2019 01:28:38 +0000
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by secure.zestysoft.com (Postfix) with ESMTP id 574BBADC003
- for <apparmor@lists.ubuntu.com>; Tue, 27 Aug 2019 18:28:35 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 secure.zestysoft.com 574BBADC003
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zestysoft.com;
- s=default; t=1566955715;
- bh=n7WxgaLi3cxQrj1SjiOvlE2UODL9tR0eD8dld28gJD8=;
- h=From:Subject:Date:To:From;
- b=MjIAogkiPk2dVRFb8EOX01TV/w27dS36UauMWaMiRbRg9ZhtihmHBSTUAQurBnxOx
- fcRL1GMSYcSRAVTyMCyhy/73iu7J31I+LIICl4z8PZicQLj+qD8bvM/II9TTdNihDJ
- VNpYVM1K49B9tPikCoYGbwb/wIMdR7CZD2B7HoAc=
-X-Virus-Scanned: amavisd-new at zestysoft.com
-Received: from secure.zestysoft.com ([127.0.0.1])
- by localhost (secure.zestysoft.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id VLGXcXRURITR for <apparmor@lists.ubuntu.com>;
- Tue, 27 Aug 2019 18:28:29 -0700 (PDT)
-Received: from ians-mbp-w.intranet.zestysoft.com
- (Ians-MBP-W.intranet.zestysoft.com [192.168.100.14])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by secure.zestysoft.com (Postfix) with ESMTPSA id B7884ADC002
- for <apparmor@lists.ubuntu.com>; Tue, 27 Aug 2019 18:28:29 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 secure.zestysoft.com B7884ADC002
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zestysoft.com;
- s=default; t=1566955709;
- bh=n7WxgaLi3cxQrj1SjiOvlE2UODL9tR0eD8dld28gJD8=;
- h=From:Subject:Date:To:From;
- b=BpbtLtHBv+xdl5qQyGa6HrRudQ34XbjZZXb9E1fdprUJdY1wMFJBNFfOHpwMHHqkz
- NFY3pK6AI21EdV5LJVJ0hj902z2YVidAhMkH1MwqnYTFeUcJNAXBiznOddPuQBVyga
- Di74dRdvPaIFwIYvlkDN4mzZPTSnJiHa4Dj60+bo=
-From: apparmor@zestysoft.com
-Mime-Version: 1.0 (Mac OS X Mail 12.4 \(3445.104.11\))
-Message-Id: <CA288C06-5EC0-4F54-BBB8-BE3D4220338F@zestysoft.com>
-Date: Tue, 27 Aug 2019 18:28:30 -0700
-To: apparmor@lists.ubuntu.com
-X-Mailer: Apple Mail (2.3445.104.11)
-Subject: [apparmor] Status of nnp override?
+	id 1i2rII-0003vj-An; Wed, 28 Aug 2019 06:18:58 +0000
+Received: from youngberry.canonical.com ([91.189.89.112])
+ by huckleberry.canonical.com with esmtps (TLS1.0:DHE_RSA_AES_128_CBC_SHA1:128)
+ (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
+ id 1i2rIG-0003va-W7
+ for apparmor@lists.ubuntu.com; Wed, 28 Aug 2019 06:18:56 +0000
+Received: from static-50-53-33-191.bvtn.or.frontiernet.net ([50.53.33.191]
+ helo=[10.8.192.6])
+ by youngberry.canonical.com with esmtpsa (TLS1.0:RSA_AES_128_CBC_SHA1:16)
+ (Exim 4.76) (envelope-from <john.johansen@canonical.com>)
+ id 1i2rIG-0006Ai-DB; Wed, 28 Aug 2019 06:18:56 +0000
+To: apparmor@zestysoft.com, apparmor@lists.ubuntu.com
+References: <CA288C06-5EC0-4F54-BBB8-BE3D4220338F@zestysoft.com>
+From: John Johansen <john.johansen@canonical.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
+ 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
+Organization: Canonical
+Message-ID: <dccadba3-775e-6c21-d361-6d2ea209ff3c@canonical.com>
+Date: Tue, 27 Aug 2019 23:18:51 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
+MIME-Version: 1.0
+In-Reply-To: <CA288C06-5EC0-4F54-BBB8-BE3D4220338F@zestysoft.com>
+Content-Language: en-GB
+Subject: Re: [apparmor] Status of nnp override?
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -66,15 +89,24 @@ Content-Transfer-Encoding: base64
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-QW55IGNoYW5jZSB0aGUgTk5QIG92ZXJyaWRlIG1hZGUgaXQgdXBzdHJlYW0/ICBJIGRvbid0IG1l
-YW4gdG8gYmUgYSBuYWcgLS0gaWYgdGhlcmUgaXMgYSBzdHJpbmcgb3Igc29tZXRoaW5nIEkgY2Fu
-IHNlYXJjaCBmb3IgdG8gZGlzY292ZXIgd2hlbiB0aGlzIGhhcHBlbnMsIHBsZWFzZSBwb2ludCBt
-ZSBpbiB0aGUgcmlnaHQgZGlyZWN0aW9uLgoKSSBmaW5hbGx5IGhhdmUgc29tZSB0aW1lIHRvIHdv
-cmsgb24gdGhlIEZ1bGxTeXN0ZW1Qb2xpY3kgc3R1ZmYgYWdhaW4gLS0gIEkga25vdyBKb2huIEpv
-aGFuc2VuIG1lbnRpb25lZCB0aGF0IHRoZXJlIG1pZ2h0IGJlIGEgdGVzdCBrZXJuZWwgZm9yIHRo
-ZSBubnAgb3ZlcnJpZGUgb3RoZXJ3aXNlPyAgSSB0aGluayB0aGVyZSB3YXMgYSBwcm9ibGVtIHdp
-dGggdXNlcnNwYWNlIHRoYXQgY2FuIHdvcmsgd2l0aCBpdCBiYWNrIGluIEp1bmUsIGJ1dCBtYXli
-ZSBwcm9ncmVzcyBoYXMgYmVlbiBtYWRlIHNpbmNlIHRoZW4/CgpBcHByZWNpYXRlIGV2ZXJ5dGhp
-bmcgeW91IGd1eXMgYXJlIGRvaW5nLApJYW4KLS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBB
-cm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlmeSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDog
-aHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21haWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
+T24gOC8yNy8xOSA2OjI4IFBNLCBhcHBhcm1vckB6ZXN0eXNvZnQuY29tIHdyb3RlOgo+IEFueSBj
+aGFuY2UgdGhlIE5OUCBvdmVycmlkZSBtYWRlIGl0IHVwc3RyZWFtPyAgSSBkb24ndCBtZWFuIHRv
+IGJlIGEgbmFnIC0tIGlmIHRoZXJlIGlzIGEgc3RyaW5nIG9yIHNvbWV0aGluZyBJIGNhbiBzZWFy
+Y2ggZm9yIHRvIGRpc2NvdmVyIHdoZW4gdGhpcyBoYXBwZW5zLCBwbGVhc2UgcG9pbnQgbWUgaW4g
+dGhlIHJpZ2h0IGRpcmVjdGlvbi4KPiAKPiBJIGZpbmFsbHkgaGF2ZSBzb21lIHRpbWUgdG8gd29y
+ayBvbiB0aGUgRnVsbFN5c3RlbVBvbGljeSBzdHVmZiBhZ2FpbiAtLSAgSSBrbm93IEpvaG4gSm9o
+YW5zZW4gbWVudGlvbmVkIHRoYXQgdGhlcmUgbWlnaHQgYmUgYSB0ZXN0IGtlcm5lbCBmb3IgdGhl
+IG5ucCBvdmVycmlkZSBvdGhlcndpc2U/ICBJIHRoaW5rIHRoZXJlIHdhcyBhIHByb2JsZW0gd2l0
+aCB1c2Vyc3BhY2UgdGhhdCBjYW4gd29yayB3aXRoIGl0IGJhY2sgaW4gSnVuZSwgYnV0IG1heWJl
+IHByb2dyZXNzIGhhcyBiZWVuIG1hZGUgc2luY2UgdGhlbj8KPiAKPiBBcHByZWNpYXRlIGV2ZXJ5
+dGhpbmcgeW91IGd1eXMgYXJlIGRvaW5nLAoKSXQgaGFzbid0IHlldCwgYW5kIEkgaGF2ZW4ndCBo
+YWQgYSBjaGFuY2UgdG8gZ2V0IGJhY2sgdG8gdGhlIHBhdGNoIHRvIGZpeCBpdHMgaXNzdWVzLiBJ
+dCBpcyBoaWdoIG9uIHRoZSBwcmlvcml0eSBsaXN0LCBidXQgd2l0aCBteSBjdXJyZW50IHNjaGVk
+dWxlIEkgZG9uJ3QgZXhwZWN0IEkgd2lsbCBiZSBhYmxlIHRvIGdldCB0byBpdCBmb3IgYSBmZXcg
+d2Vla3MuCgpXaGVuIGEgdGVzdCBrZXJuZWwgaXMgcmVhZHkgSSBjYW4gcG9pbnQgeW91IGF0IGl0
+LiBZb3Ugd2lsbCBpbmRlZWQgbmVlZCBhbiB1cGRhdGVkIHVzZXJzcGFjZSBjYXBhYmxlIG9mIHNw
+ZWNpZnlpbmcgdGhlIG92ZXJyaWRlIG9uIHlvdXIgZXhlYyBydWxlLiBJJ2xsIG1ha2Ugc3VyZSB0
+byBnZXQgYSBQUiB1cCBmb3IgdGhhdCBhcyB3ZWxsIHdoZW4gdGhlIGtlcm5lbCBpcyByZWFkeS4K
+CgoKCgoKLS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29t
+Ck1vZGlmeSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUu
+Y29tL21haWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
