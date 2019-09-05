@@ -2,52 +2,53 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18FACA9C7F
-	for <lists+apparmor@lfdr.de>; Thu,  5 Sep 2019 10:01:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E23EA9CF0
+	for <lists+apparmor@lfdr.de>; Thu,  5 Sep 2019 10:28:38 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1i5mhx-0005IK-0k; Thu, 05 Sep 2019 08:01:33 +0000
-Received: from mail-io1-f53.google.com ([209.85.166.53])
+	id 1i5n84-00072h-9A; Thu, 05 Sep 2019 08:28:32 +0000
+Received: from mail-io1-f44.google.com ([209.85.166.44])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <birger.solna@gmail.com>) id 1i5mht-0005Hl-9w
- for apparmor@lists.ubuntu.com; Thu, 05 Sep 2019 08:01:29 +0000
-Received: by mail-io1-f53.google.com with SMTP id s21so2770878ioa.1
- for <apparmor@lists.ubuntu.com>; Thu, 05 Sep 2019 01:01:29 -0700 (PDT)
+ (envelope-from <birger.solna@gmail.com>) id 1i5n81-00072P-7g
+ for apparmor@lists.ubuntu.com; Thu, 05 Sep 2019 08:28:29 +0000
+Received: by mail-io1-f44.google.com with SMTP id d25so2878023iob.6
+ for <apparmor@lists.ubuntu.com>; Thu, 05 Sep 2019 01:28:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
- bh=BKjVFih+XCgwSpjkuZdr36cs3767RtZ6OsSmCIEzYzg=;
- b=iWs/5klHh3z6cZmikchwyl+ThrqmatSim/tBLGEtfuX8qwbiZiAETn91LwczpMIMuB
- YS8HhsKKNYF7Z5WWkkVVX1xE8pgDcVDLF98D2w0lrCj7DWDBDQ+M8WdVFDTc5YFP/gqk
- nZPxktcVe6n6QUqbBQJxKo1ASHAtwiJd9WZFdvuVsC35cGir0JfHQOHa2pgF93FMczEk
- 30pizK2WQY18r5sVKUN+D1Xjg9tpn0pwzyRXG+243qEtXPfpqojFUgtihavwScnWSmob
- QEtHJvaetnOwbFLGO2ZmXBXXgCkRMNAOB9LmRytTOLg7CV88MUX7T7eme5AE+tyECS2s
- wiAg==
+ bh=MIyxuQ8a+OgyuQz5HEqtoYsxXkDPXBnOdtUHXSm5Vug=;
+ b=ugruJvyFKI+LT5HMmvFjLO0B3hC+YCwHpM423N6yw3QHYCI15RjVWRV1X7OLqO0IOy
+ fmA+2QtcniBptI6M7vYEsTy71m8fUHADVFtF47kfBfKM7IjN5VGU+aWGhSlqWP0B6fy5
+ GoUyQrWrCBq/iUX13BI7+vawbLlfjJHhk0y9ZIYvFMglQnEAxO0+61jcchcxDBNq0nva
+ 1e0uKoQ65ZCjNY92KUgcRVg1LDkBkk3wTIr7wRf8kRjj6xY/y0TLBNTR+vTSjipPHzma
+ J/Uo+Y1gu8DZAy6ICqe4RIje906fW3F84enhuGXMWxtzF8lB/MubB0NBJowTxTubpTFy
+ 38iA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to;
- bh=BKjVFih+XCgwSpjkuZdr36cs3767RtZ6OsSmCIEzYzg=;
- b=rX1khEZWMgtXulJ+bMXFpAPNcYdKUAolrQ3RM0g6MJb7sgjCPR1Bpnv/gpgyN73gz8
- CtcHsSmd6vJQ9iWi0Osza31DVcqEe4iW8lDSmKe1kW3s+CRWjwuVqHrwERTI1Ngipgs7
- nJcKvKkjz1xc2vQ4wDrdoJWYEFVlK06b50NYZ7z85NqL4VLp8RRqNGxuCEm2LtMuWNzr
- M0jNKX50CWao4ezK7AGLMwLzOqoiWg2/YPtlmFO8OWcFAwkSiVM8e4HhMMP29kP+vIyq
- PB12HfClOgw6Q0orSAaXGB2a7c8J4gxEI/7kXjVjE3pTDxjA8FNtrvi/JuEHIzYKGo+Y
- 3MZA==
-X-Gm-Message-State: APjAAAWUDNA52/qYm8RSCUQcOfxekn334JW5dSLFmPR3xQt5o77alJWk
- /xcW4MyDvTQIX7uK+2z4uUyxcPI+G1Hm0hXxjVHJCtUd
-X-Google-Smtp-Source: APXvYqx00ZXY8wPwZ69P2KRJW4/B4Ebw+ziiKEWkYLbMCAQI41SP8sbfK1VM92tK2NofVnyab7hippoLwVKEd6ahLlA=
-X-Received: by 2002:a02:5105:: with SMTP id s5mr2751146jaa.42.1567670487342;
- Thu, 05 Sep 2019 01:01:27 -0700 (PDT)
+ bh=MIyxuQ8a+OgyuQz5HEqtoYsxXkDPXBnOdtUHXSm5Vug=;
+ b=LLn0953NIS7QQbMGjPUIeIBZved2ww1Hc4EbiMtVDh4OpNQRsAkbMySRF3fWndQKBg
+ AZ795nWUgBnGC+2eu8qOJaosV69LAU7g0S+saLItu0yM5lyQ5Ia8Xz8swPIbxB0mEYnv
+ u5SvHxekVZpQwcSdxf7+TYiZAS0XUY3hBL4QIm4zkhGPNiWMB8SdG0S8A8DvJpQFBOOf
+ QB/Vs3qjY+SqiqB0Wo3UFsq2qiu6e0Ue+Lkxfk8WUEkL7fHx5TjCbkTa8ODJwUSHfdZQ
+ EPZT2+O8qIg+n0vue+P7uCxHHP5emhFqxM7e3pPuZZl369G56tbWb4lwtVIXroe9FKBR
+ n0lQ==
+X-Gm-Message-State: APjAAAW74RRP98Z2Aa6D5Kl5AO6BuAk2dx/JWrmiRVX6VgPuUORppLKt
+ J3uDqFdwAtyTEMYosOjp9Ep9pI0yq+O/08E7gpJG18rO
+X-Google-Smtp-Source: APXvYqxZB5QDY6OTa8dbddLhEvz/svrg1VJBJNERrLrKL5DJtU1fwFQiI/G54HgPjbGGLJ+I9pjhhPyn+AYhGluuljg=
+X-Received: by 2002:a02:7702:: with SMTP id g2mr2816330jac.92.1567672107070;
+ Thu, 05 Sep 2019 01:28:27 -0700 (PDT)
 MIME-Version: 1.0
 References: <CABRH9Vx7CSxROBCMV5fbNPN-Sct4kFB_D2TawAWt_0KqD_C6KQ@mail.gmail.com>
  <20190904231133.GA4082@hunt>
  <CAATJJ0JSALj=dL71fAge0vDgb11GFSy+hwFDAs=Q916bw-2bkQ@mail.gmail.com>
-In-Reply-To: <CAATJJ0JSALj=dL71fAge0vDgb11GFSy+hwFDAs=Q916bw-2bkQ@mail.gmail.com>
+ <CABRH9VxNOCdEjZBzLgg6g3NWqneA9rUeRzPkadrX9KXjTZw6=Q@mail.gmail.com>
+In-Reply-To: <CABRH9VxNOCdEjZBzLgg6g3NWqneA9rUeRzPkadrX9KXjTZw6=Q@mail.gmail.com>
 From: Birger Birger <birger.solna@gmail.com>
-Date: Thu, 5 Sep 2019 10:01:15 +0200
-Message-ID: <CABRH9VxNOCdEjZBzLgg6g3NWqneA9rUeRzPkadrX9KXjTZw6=Q@mail.gmail.com>
+Date: Thu, 5 Sep 2019 10:28:14 +0200
+Message-ID: <CABRH9VzzN=SJi5vtEAcaDFwmgZzxDs5zLOXjXHrMbMeuxHX5kw@mail.gmail.com>
 To: apparmor@lists.ubuntu.com
 Subject: [apparmor] Fwd:  apparmor & clamav
 X-BeenThere: apparmor@lists.ubuntu.com
@@ -61,16 +62,66 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8325745213807624883=="
+Content-Type: multipart/mixed; boundary="===============2417896274887129485=="
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
---===============8325745213807624883==
-Content-Type: multipart/alternative; boundary="00000000000085e4750591c9bac0"
+--===============2417896274887129485==
+Content-Type: multipart/alternative; boundary="00000000000010fba90591ca1bab"
 
---00000000000085e4750591c9bac0
+--00000000000010fba90591ca1bab
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+
+smb config
+[global]
+    workgroup =3D company
+    realm =3D COMPANY.LOCAL
+    netbios name =3D zentyal
+    server string =3D Zentyal Server
+    server role =3D dc
+    server role check:inhibit =3D yes
+    server services =3D -dns
+    server signing =3D auto
+    dsdb:schema update allowed =3D yes
+    ldap server require strong auth =3D no
+    drs:max object sync =3D 1200
+
+    idmap_ldb:use rfc2307 =3D yes
+
+    winbind enum users =3D yes
+    winbind enum groups =3D yes
+    template shell =3D /bin/bash
+    template homedir =3D /home/%U
+
+    rpc server dynamic port range =3D 49152-65535
+
+    interfaces =3D lo,eth0,eth1
+    bind interfaces only =3D yes
+
+    map to guest =3D Bad User
+
+    log level =3D 3
+    log file =3D /var/log/samba/samba.log
+    max log size =3D 100000
+
+    include =3D /etc/samba/shares.conf
+
+[netlogon]
+    path =3D /var/lib/samba/sysvol/company.local/scripts
+    browseable =3D no
+    read only =3D yes
+
+[sysvol]
+    path =3D /var/lib/samba/sysvol
+    read only =3D no
+
+---------- Forwarded message ---------
+Fr=C3=A5n: Birger Birger <birger.solna@gmail.com>
+Date: tors 5 sep. 2019 kl 10:01
+Subject: Fwd: [apparmor] apparmor & clamav
+To: <apparmor@lists.ubuntu.com>
+
 
 Hope this helps the troubleshooting. What do you think?
 
@@ -279,112 +330,138 @@ AppArmor@lists.ubuntu.com
 Modify settings or unsubscribe at:
 https://lists.ubuntu.com/mailman/listinfo/apparmor
 
---00000000000085e4750591c9bac0
+--00000000000010fba90591ca1bab
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div>Hope this helps the troubleshooting. What do you thin=
-k?</div><div><br></div><div>syslog</div><div>Sep =C2=A05 09:07:02 zentyal k=
-ernel: [77608.395063] audit: type=3D1400 audit(1567667222.149:32): apparmor=
-=3D&quot;DENIED&quot; operation=3D&quot;connect&quot; profile=3D&quot;/usr/=
-bin/freshclam&quot; name=3D&quot;/run/samba/winbindd/pipe&quot; pid=3D13656=
- comm=3D&quot;freshclam&quot; requested_mask=3D&quot;wr&quot; denied_mask=
-=3D&quot;wr&quot; fsuid=3D0 ouid=3D0</div><div><br></div><div>kern log</div=
-><div>Sep =C2=A05 09:07:02 zentyal kernel: [77608.395063] audit: type=3D140=
-0 audit(1567667222.149:32): apparmor=3D&quot;DENIED&quot; operation=3D&quot=
-;connect&quot; profile=3D&quot;/usr/bin/freshclam&quot; name=3D&quot;/run/s=
-amba/winbindd/pipe&quot; pid=3D13656 comm=3D&quot;freshclam&quot; requested=
-_mask=3D&quot;wr&quot; denied_mask=3D&quot;wr&quot; fsuid=3D0 ouid=3D0 <br>=
-</div><div><br></div><div>samba log</div><div>[2019/09/05 07:02:00.093952, =
-=C2=A03] ../lib/ldb-samba/ldb_wrap.c:326(ldb_wrap_connect)<br>=C2=A0 ldb_wr=
-ap open of secrets.ldb<br>[2019/09/05 07:02:00.101494, =C2=A03] ../source4/=
-dsdb/samdb/ldb_modules/schema_load.c:226(dsdb_schema_refresh)<br>=C2=A0 Sch=
-ema refresh needed 2004 !=3D 2018<br>[2019/09/05 07:02:00.301221, =C2=A03] =
-../source4/smbd/service_stream.c:65(stream_terminate_connection)<br>=C2=A0 =
-Terminating connection - &#39;ldapsrv_call_wait_done: call-&gt;wait_recv() =
-- NT_STATUS_LOCAL_DISCONNECT&#39;<br>[2019/09/05 07:02:00.301309, =C2=A02] =
-../source4/smbd/process_standard.c:473(standard_terminate)<br>=C2=A0 standa=
-rd_terminate: reason[ldapsrv_call_wait_done: call-&gt;wait_recv() - NT_STAT=
-US_LOCAL_DISCONNECT]<br>[2019/09/05 07:02:00.306703, =C2=A02] ../source4/sm=
-bd/process_standard.c:157(standard_child_pipe_handler)<br>=C2=A0 Child 7164=
- () exited with status 0<br>[2019/09/05 07:02:10.104443, =C2=A03] ../lib/ld=
-b-samba/ldb_wrap.c:326(ldb_wrap_connect)<br>=C2=A0 ldb_wrap open of secrets=
-.ldb<br>[2019/09/05 07:02:10.112086, =C2=A03] ../source4/dsdb/samdb/ldb_mod=
-ules/schema_load.c:226(dsdb_schema_refresh)<br>=C2=A0 Schema refresh needed=
- 2004 !=3D 2018<br>[2019/09/05 07:02:10.303645, =C2=A03] ../source4/smbd/se=
-rvice_stream.c:65(stream_terminate_connection)<br>=C2=A0 Terminating connec=
-tion - &#39;ldapsrv_call_wait_done: call-&gt;wait_recv() - NT_STATUS_LOCAL_=
-DISCONNECT&#39;<br>[2019/09/05 07:02:10.303735, =C2=A02] ../source4/smbd/pr=
-ocess_standard.c:473(standard_terminate)<br>=C2=A0 standard_terminate: reas=
-on[ldapsrv_call_wait_done: call-&gt;wait_recv() - NT_STATUS_LOCAL_DISCONNEC=
-T]<br>[2019/09/05 07:02:10.309144, =C2=A02] ../source4/smbd/process_standar=
-d.c:157(standard_child_pipe_handler)<br>=C2=A0 Child 7169 () exited with st=
-atus 0<br>[2019/09/05 07:02:20.115943, =C2=A03] ../lib/ldb-samba/ldb_wrap.c=
-:326(ldb_wrap_connect)<br>=C2=A0 ldb_wrap open of secrets.ldb<br>[2019/09/0=
-5 07:02:20.123510, =C2=A03] ../source4/dsdb/samdb/ldb_modules/schema_load.c=
-:226(dsdb_schema_refresh)<br>=C2=A0 Schema refresh needed 2004 !=3D 2018<br=
->[2019/09/05 07:02:20.306510, =C2=A03] ../source4/smbd/service_stream.c:65(=
-stream_terminate_connection)<br>=C2=A0 Terminating connection - &#39;ldapsr=
-v_call_wait_done: call-&gt;wait_recv() - NT_STATUS_LOCAL_DISCONNECT&#39;<br=
->[2019/09/05 07:02:20.306599, =C2=A02] ../source4/smbd/process_standard.c:4=
-73(standard_terminate)<br>=C2=A0 standard_terminate: reason[ldapsrv_call_wa=
-it_done: call-&gt;wait_recv() - NT_STATUS_LOCAL_DISCONNECT]<br>[2019/09/05 =
-07:02:20.311951, =C2=A02] ../source4/smbd/process_standard.c:157(standard_c=
-hild_pipe_handler)<br>=C2=A0 Child 7174 () exited with status 0<br>[2019/09=
-/05 07:02:29.978362, =C2=A02] ../source4/dsdb/kcc/kcc_periodic.c:710(kccsrv=
-_samba_kcc)<br>=C2=A0 Calling samba_kcc script<br>[2019/09/05 07:02:30.0343=
-50, =C2=A03] ../lib/ldb-samba/ldb_wrap.c:326(ldb_wrap_connect)<br>=C2=A0 ld=
-b_wrap open of secrets.ldb<br>[2019/09/05 07:02:30.042180, =C2=A03] ../sour=
-ce4/dsdb/samdb/ldb_modules/schema_load.c:226(dsdb_schema_refresh)<br>=C2=A0=
- Schema refresh needed 2004 !=3D 2018<br>[2019/09/05 07:02:30.180387, =C2=
-=A00] ../lib/util/util_runcmd.c:327(samba_runcmd_io_handler)<br>=C2=A0 /usr=
-/sbin/samba_kcc: ldb_wrap open of secrets.ldb<br>[2019/09/05 07:02:30.19574=
-2, =C2=A03] ../source4/smbd/service_stream.c:65(stream_terminate_connection=
-)<br>=C2=A0 Terminating connection - &#39;ldapsrv_call_wait_done: call-&gt;=
-wait_recv() - NT_STATUS_LOCAL_DISCONNECT&#39;<br>[2019/09/05 07:02:30.19583=
-3, =C2=A02] ../source4/smbd/process_standard.c:473(standard_terminate)<br>=
-=C2=A0 standard_terminate: reason[ldapsrv_call_wait_done: call-&gt;wait_rec=
-v() - NT_STATUS_LOCAL_DISCONNECT]<br>[2019/09/05 07:02:30.201464, =C2=A02] =
-../source4/smbd/process_standard.c:157(standard_child_pipe_handler)<br>=C2=
-=A0 Child 7183 () exited with status 0<br>[2019/09/05 07:02:30.314889, =C2=
-=A03] ../lib/util/util_runcmd.c:291(samba_runcmd_io_handler)<br>=C2=A0 samb=
-a_runcmd_io_handler: Child /usr/sbin/samba_kcc exited 0<br>[2019/09/05 07:0=
-2:30.314929, =C2=A03] ../source4/dsdb/kcc/kcc_periodic.c:695(samba_kcc_done=
-)<br>=C2=A0 Completed samba_kcc OK<br>[2019/09/05 07:02:40.070125, =C2=A03]=
- ../lib/ldb-samba/ldb_wrap.c:326(ldb_wrap_connect)<br>=C2=A0 ldb_wrap open =
-of secrets.ldb<br>[2019/09/05 07:02:40.077497, =C2=A03] ../source4/dsdb/sam=
-db/ldb_modules/schema_load.c:226(dsdb_schema_refresh)<br>=C2=A0 Schema refr=
-esh needed 2004 !=3D 2018<br>[2019/09/05 07:02:40.295079, =C2=A03] ../sourc=
+<div dir=3D"ltr"><div>smb config</div><div>[global]<br>=C2=A0 =C2=A0 workgr=
+oup =3D company<br>=C2=A0 =C2=A0 realm =3D COMPANY.LOCAL<br>=C2=A0 =C2=A0 n=
+etbios name =3D zentyal<br>=C2=A0 =C2=A0 server string =3D Zentyal Server<b=
+r>=C2=A0 =C2=A0 server role =3D dc<br>=C2=A0 =C2=A0 server role check:inhib=
+it =3D yes<br>=C2=A0 =C2=A0 server services =3D -dns<br>=C2=A0 =C2=A0 serve=
+r signing =3D auto<br>=C2=A0 =C2=A0 dsdb:schema update allowed =3D yes<br>=
+=C2=A0 =C2=A0 ldap server require strong auth =3D no<br>=C2=A0 =C2=A0 drs:m=
+ax object sync =3D 1200<br><br>=C2=A0 =C2=A0 idmap_ldb:use rfc2307 =3D yes<=
+br><br>=C2=A0 =C2=A0 winbind enum users =3D yes<br>=C2=A0 =C2=A0 winbind en=
+um groups =3D yes<br>=C2=A0 =C2=A0 template shell =3D /bin/bash<br>=C2=A0 =
+=C2=A0 template homedir =3D /home/%U<br><br>=C2=A0 =C2=A0 rpc server dynami=
+c port range =3D 49152-65535<br><br>=C2=A0 =C2=A0 interfaces =3D lo,eth0,et=
+h1<br>=C2=A0 =C2=A0 bind interfaces only =3D yes<br><br>=C2=A0 =C2=A0 map t=
+o guest =3D Bad User<br><br>=C2=A0 =C2=A0 log level =3D 3<br>=C2=A0 =C2=A0 =
+log file =3D /var/log/samba/samba.log<br>=C2=A0 =C2=A0 max log size =3D 100=
+000<br><br>=C2=A0 =C2=A0 include =3D /etc/samba/shares.conf<br><br>[netlogo=
+n]<br>=C2=A0 =C2=A0 path =3D /var/lib/samba/sysvol/company.local/scripts<br=
+>=C2=A0 =C2=A0 browseable =3D no<br>=C2=A0 =C2=A0 read only =3D yes<br><br>=
+[sysvol]<br>=C2=A0 =C2=A0 path =3D /var/lib/samba/sysvol<br>=C2=A0 =C2=A0 r=
+ead only =3D no</div><div><br><div class=3D"gmail_quote"><div dir=3D"ltr" c=
+lass=3D"gmail_attr">---------- Forwarded message ---------<br>Fr=C3=A5n: <b=
+ class=3D"gmail_sendername" dir=3D"auto">Birger Birger</b> <span dir=3D"aut=
+o">&lt;<a href=3D"mailto:birger.solna@gmail.com">birger.solna@gmail.com</a>=
+&gt;</span><br>Date: tors 5 sep. 2019 kl 10:01<br>Subject: Fwd: [apparmor] =
+apparmor &amp; clamav<br>To:  &lt;<a href=3D"mailto:apparmor@lists.ubuntu.c=
+om">apparmor@lists.ubuntu.com</a>&gt;<br></div><br><br><div dir=3D"ltr"><di=
+v>Hope this helps the troubleshooting. What do you think?</div><div><br></d=
+iv><div>syslog</div><div>Sep =C2=A05 09:07:02 zentyal kernel: [77608.395063=
+] audit: type=3D1400 audit(1567667222.149:32): apparmor=3D&quot;DENIED&quot=
+; operation=3D&quot;connect&quot; profile=3D&quot;/usr/bin/freshclam&quot; =
+name=3D&quot;/run/samba/winbindd/pipe&quot; pid=3D13656 comm=3D&quot;freshc=
+lam&quot; requested_mask=3D&quot;wr&quot; denied_mask=3D&quot;wr&quot; fsui=
+d=3D0 ouid=3D0</div><div><br></div><div>kern log</div><div>Sep =C2=A05 09:0=
+7:02 zentyal kernel: [77608.395063] audit: type=3D1400 audit(1567667222.149=
+:32): apparmor=3D&quot;DENIED&quot; operation=3D&quot;connect&quot; profile=
+=3D&quot;/usr/bin/freshclam&quot; name=3D&quot;/run/samba/winbindd/pipe&quo=
+t; pid=3D13656 comm=3D&quot;freshclam&quot; requested_mask=3D&quot;wr&quot;=
+ denied_mask=3D&quot;wr&quot; fsuid=3D0 ouid=3D0 <br></div><div><br></div><=
+div>samba log</div><div>[2019/09/05 07:02:00.093952, =C2=A03] ../lib/ldb-sa=
+mba/ldb_wrap.c:326(ldb_wrap_connect)<br>=C2=A0 ldb_wrap open of secrets.ldb=
+<br>[2019/09/05 07:02:00.101494, =C2=A03] ../source4/dsdb/samdb/ldb_modules=
+/schema_load.c:226(dsdb_schema_refresh)<br>=C2=A0 Schema refresh needed 200=
+4 !=3D 2018<br>[2019/09/05 07:02:00.301221, =C2=A03] ../source4/smbd/servic=
+e_stream.c:65(stream_terminate_connection)<br>=C2=A0 Terminating connection=
+ - &#39;ldapsrv_call_wait_done: call-&gt;wait_recv() - NT_STATUS_LOCAL_DISC=
+ONNECT&#39;<br>[2019/09/05 07:02:00.301309, =C2=A02] ../source4/smbd/proces=
+s_standard.c:473(standard_terminate)<br>=C2=A0 standard_terminate: reason[l=
+dapsrv_call_wait_done: call-&gt;wait_recv() - NT_STATUS_LOCAL_DISCONNECT]<b=
+r>[2019/09/05 07:02:00.306703, =C2=A02] ../source4/smbd/process_standard.c:=
+157(standard_child_pipe_handler)<br>=C2=A0 Child 7164 () exited with status=
+ 0<br>[2019/09/05 07:02:10.104443, =C2=A03] ../lib/ldb-samba/ldb_wrap.c:326=
+(ldb_wrap_connect)<br>=C2=A0 ldb_wrap open of secrets.ldb<br>[2019/09/05 07=
+:02:10.112086, =C2=A03] ../source4/dsdb/samdb/ldb_modules/schema_load.c:226=
+(dsdb_schema_refresh)<br>=C2=A0 Schema refresh needed 2004 !=3D 2018<br>[20=
+19/09/05 07:02:10.303645, =C2=A03] ../source4/smbd/service_stream.c:65(stre=
+am_terminate_connection)<br>=C2=A0 Terminating connection - &#39;ldapsrv_ca=
+ll_wait_done: call-&gt;wait_recv() - NT_STATUS_LOCAL_DISCONNECT&#39;<br>[20=
+19/09/05 07:02:10.303735, =C2=A02] ../source4/smbd/process_standard.c:473(s=
+tandard_terminate)<br>=C2=A0 standard_terminate: reason[ldapsrv_call_wait_d=
+one: call-&gt;wait_recv() - NT_STATUS_LOCAL_DISCONNECT]<br>[2019/09/05 07:0=
+2:10.309144, =C2=A02] ../source4/smbd/process_standard.c:157(standard_child=
+_pipe_handler)<br>=C2=A0 Child 7169 () exited with status 0<br>[2019/09/05 =
+07:02:20.115943, =C2=A03] ../lib/ldb-samba/ldb_wrap.c:326(ldb_wrap_connect)=
+<br>=C2=A0 ldb_wrap open of secrets.ldb<br>[2019/09/05 07:02:20.123510, =C2=
+=A03] ../source4/dsdb/samdb/ldb_modules/schema_load.c:226(dsdb_schema_refre=
+sh)<br>=C2=A0 Schema refresh needed 2004 !=3D 2018<br>[2019/09/05 07:02:20.=
+306510, =C2=A03] ../source4/smbd/service_stream.c:65(stream_terminate_conne=
+ction)<br>=C2=A0 Terminating connection - &#39;ldapsrv_call_wait_done: call=
+-&gt;wait_recv() - NT_STATUS_LOCAL_DISCONNECT&#39;<br>[2019/09/05 07:02:20.=
+306599, =C2=A02] ../source4/smbd/process_standard.c:473(standard_terminate)=
+<br>=C2=A0 standard_terminate: reason[ldapsrv_call_wait_done: call-&gt;wait=
+_recv() - NT_STATUS_LOCAL_DISCONNECT]<br>[2019/09/05 07:02:20.311951, =C2=
+=A02] ../source4/smbd/process_standard.c:157(standard_child_pipe_handler)<b=
+r>=C2=A0 Child 7174 () exited with status 0<br>[2019/09/05 07:02:29.978362,=
+ =C2=A02] ../source4/dsdb/kcc/kcc_periodic.c:710(kccsrv_samba_kcc)<br>=C2=
+=A0 Calling samba_kcc script<br>[2019/09/05 07:02:30.034350, =C2=A03] ../li=
+b/ldb-samba/ldb_wrap.c:326(ldb_wrap_connect)<br>=C2=A0 ldb_wrap open of sec=
+rets.ldb<br>[2019/09/05 07:02:30.042180, =C2=A03] ../source4/dsdb/samdb/ldb=
+_modules/schema_load.c:226(dsdb_schema_refresh)<br>=C2=A0 Schema refresh ne=
+eded 2004 !=3D 2018<br>[2019/09/05 07:02:30.180387, =C2=A00] ../lib/util/ut=
+il_runcmd.c:327(samba_runcmd_io_handler)<br>=C2=A0 /usr/sbin/samba_kcc: ldb=
+_wrap open of secrets.ldb<br>[2019/09/05 07:02:30.195742, =C2=A03] ../sourc=
 e4/smbd/service_stream.c:65(stream_terminate_connection)<br>=C2=A0 Terminat=
 ing connection - &#39;ldapsrv_call_wait_done: call-&gt;wait_recv() - NT_STA=
-TUS_LOCAL_DISCONNECT&#39;<br>[2019/09/05 07:02:40.295164, =C2=A02] ../sourc=
+TUS_LOCAL_DISCONNECT&#39;<br>[2019/09/05 07:02:30.195833, =C2=A02] ../sourc=
 e4/smbd/process_standard.c:473(standard_terminate)<br>=C2=A0 standard_termi=
 nate: reason[ldapsrv_call_wait_done: call-&gt;wait_recv() - NT_STATUS_LOCAL=
-_DISCONNECT]<br>[2019/09/05 07:02:40.300523, =C2=A02] ../source4/smbd/proce=
-ss_standard.c:157(standard_child_pipe_handler)<br>=C2=A0 Child 7189 () exit=
-ed with status 0<br>[2019/09/05 07:02:50.083237, =C2=A03] ../lib/ldb-samba/=
-ldb_wrap.c:326(ldb_wrap_connect)<br>=C2=A0 ldb_wrap open of secrets.ldb<br>=
-[2019/09/05 07:02:50.090899, =C2=A03] ../source4/dsdb/samdb/ldb_modules/sch=
-ema_load.c:226(dsdb_schema_refresh)<br>=C2=A0 Schema refresh needed 2004 !=
-=3D 2018<br>[2019/09/05 07:02:50.299324, =C2=A03] ../source4/smbd/service_s=
-tream.c:65(stream_terminate_connection)<br>=C2=A0 Terminating connection - =
-&#39;ldapsrv_call_wait_done: call-&gt;wait_recv() - NT_STATUS_LOCAL_DISCONN=
-ECT&#39;<br>[2019/09/05 07:02:50.299422, =C2=A02] ../source4/smbd/process_s=
-tandard.c:473(standard_terminate)<br>=C2=A0 standard_terminate: reason[ldap=
-srv_call_wait_done: call-&gt;wait_recv() - NT_STATUS_LOCAL_DISCONNECT]<br>[=
-2019/09/05 07:02:50.304819, =C2=A02] ../source4/smbd/process_standard.c:157=
-(standard_child_pipe_handler)<br>=C2=A0 Child 7194 () exited with status 0<=
-br></div><div><br></div><div><br><div class=3D"gmail_quote"><div dir=3D"ltr=
-" class=3D"gmail_attr">---------- Forwarded message ---------<br>Fr=C3=A5n:=
- <b class=3D"gmail_sendername" dir=3D"auto">Christian Ehrhardt</b> <span di=
-r=3D"auto">&lt;<a href=3D"mailto:christian.ehrhardt@canonical.com">christia=
-n.ehrhardt@canonical.com</a>&gt;</span><br>Date: tors 5 sep. 2019 kl 08:10<=
-br>Subject: Re: [apparmor] apparmor &amp; clamav<br>To: Seth Arnold &lt;<a =
-href=3D"mailto:seth.arnold@canonical.com">seth.arnold@canonical.com</a>&gt;=
-<br>Cc:  &lt;<a href=3D"mailto:apparmor@lists.ubuntu.com">apparmor@lists.ub=
-untu.com</a>&gt;<br></div><br><br>On Thu, Sep 5, 2019 at 1:11 AM Seth Arnol=
-d &lt;<a href=3D"mailto:seth.arnold@canonical.com" target=3D"_blank">seth.a=
-rnold@canonical.com</a>&gt; wrote:<br>
+_DISCONNECT]<br>[2019/09/05 07:02:30.201464, =C2=A02] ../source4/smbd/proce=
+ss_standard.c:157(standard_child_pipe_handler)<br>=C2=A0 Child 7183 () exit=
+ed with status 0<br>[2019/09/05 07:02:30.314889, =C2=A03] ../lib/util/util_=
+runcmd.c:291(samba_runcmd_io_handler)<br>=C2=A0 samba_runcmd_io_handler: Ch=
+ild /usr/sbin/samba_kcc exited 0<br>[2019/09/05 07:02:30.314929, =C2=A03] .=
+./source4/dsdb/kcc/kcc_periodic.c:695(samba_kcc_done)<br>=C2=A0 Completed s=
+amba_kcc OK<br>[2019/09/05 07:02:40.070125, =C2=A03] ../lib/ldb-samba/ldb_w=
+rap.c:326(ldb_wrap_connect)<br>=C2=A0 ldb_wrap open of secrets.ldb<br>[2019=
+/09/05 07:02:40.077497, =C2=A03] ../source4/dsdb/samdb/ldb_modules/schema_l=
+oad.c:226(dsdb_schema_refresh)<br>=C2=A0 Schema refresh needed 2004 !=3D 20=
+18<br>[2019/09/05 07:02:40.295079, =C2=A03] ../source4/smbd/service_stream.=
+c:65(stream_terminate_connection)<br>=C2=A0 Terminating connection - &#39;l=
+dapsrv_call_wait_done: call-&gt;wait_recv() - NT_STATUS_LOCAL_DISCONNECT&#3=
+9;<br>[2019/09/05 07:02:40.295164, =C2=A02] ../source4/smbd/process_standar=
+d.c:473(standard_terminate)<br>=C2=A0 standard_terminate: reason[ldapsrv_ca=
+ll_wait_done: call-&gt;wait_recv() - NT_STATUS_LOCAL_DISCONNECT]<br>[2019/0=
+9/05 07:02:40.300523, =C2=A02] ../source4/smbd/process_standard.c:157(stand=
+ard_child_pipe_handler)<br>=C2=A0 Child 7189 () exited with status 0<br>[20=
+19/09/05 07:02:50.083237, =C2=A03] ../lib/ldb-samba/ldb_wrap.c:326(ldb_wrap=
+_connect)<br>=C2=A0 ldb_wrap open of secrets.ldb<br>[2019/09/05 07:02:50.09=
+0899, =C2=A03] ../source4/dsdb/samdb/ldb_modules/schema_load.c:226(dsdb_sch=
+ema_refresh)<br>=C2=A0 Schema refresh needed 2004 !=3D 2018<br>[2019/09/05 =
+07:02:50.299324, =C2=A03] ../source4/smbd/service_stream.c:65(stream_termin=
+ate_connection)<br>=C2=A0 Terminating connection - &#39;ldapsrv_call_wait_d=
+one: call-&gt;wait_recv() - NT_STATUS_LOCAL_DISCONNECT&#39;<br>[2019/09/05 =
+07:02:50.299422, =C2=A02] ../source4/smbd/process_standard.c:473(standard_t=
+erminate)<br>=C2=A0 standard_terminate: reason[ldapsrv_call_wait_done: call=
+-&gt;wait_recv() - NT_STATUS_LOCAL_DISCONNECT]<br>[2019/09/05 07:02:50.3048=
+19, =C2=A02] ../source4/smbd/process_standard.c:157(standard_child_pipe_han=
+dler)<br>=C2=A0 Child 7194 () exited with status 0<br></div><div><br></div>=
+<div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">-=
+--------- Forwarded message ---------<br>Fr=C3=A5n: <b class=3D"gmail_sende=
+rname" dir=3D"auto">Christian Ehrhardt</b> <span dir=3D"auto">&lt;<a href=
+=3D"mailto:christian.ehrhardt@canonical.com" target=3D"_blank">christian.eh=
+rhardt@canonical.com</a>&gt;</span><br>Date: tors 5 sep. 2019 kl 08:10<br>S=
+ubject: Re: [apparmor] apparmor &amp; clamav<br>To: Seth Arnold &lt;<a href=
+=3D"mailto:seth.arnold@canonical.com" target=3D"_blank">seth.arnold@canonic=
+al.com</a>&gt;<br>Cc:  &lt;<a href=3D"mailto:apparmor@lists.ubuntu.com" tar=
+get=3D"_blank">apparmor@lists.ubuntu.com</a>&gt;<br></div><br><br>On Thu, S=
+ep 5, 2019 at 1:11 AM Seth Arnold &lt;<a href=3D"mailto:seth.arnold@canonic=
+al.com" target=3D"_blank">seth.arnold@canonical.com</a>&gt; wrote:<br>
 &gt;<br>
 &gt; On Wed, Sep 04, 2019 at 08:02:56PM +0200, Birger Birger wrote:<br>
 &gt; &gt; This looks promising to troubleshoot. Any ideas?<br>
@@ -460,11 +537,12 @@ Modify settings or unsubscribe at: <a href=3D"https://lists.ubuntu.com/mail=
 man/listinfo/apparmor" rel=3D"noreferrer" target=3D"_blank">https://lists.u=
 buntu.com/mailman/listinfo/apparmor</a><br>
 </div></div></div>
+</div></div></div>
 
---00000000000085e4750591c9bac0--
+--00000000000010fba90591ca1bab--
 
 
---===============8325745213807624883==
+--===============2417896274887129485==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -474,5 +552,5 @@ LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
 eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
 aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
 
---===============8325745213807624883==--
+--===============2417896274887129485==--
 
