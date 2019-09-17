@@ -2,39 +2,39 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 297AAB4E44
-	for <lists+apparmor@lfdr.de>; Tue, 17 Sep 2019 14:43:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4832DB4E51
+	for <lists+apparmor@lfdr.de>; Tue, 17 Sep 2019 14:45:44 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1iACpi-0004CY-19; Tue, 17 Sep 2019 12:43:50 +0000
+	id 1iACrQ-0004MF-Jj; Tue, 17 Sep 2019 12:45:36 +0000
 Received: from indium.canonical.com ([91.189.90.7])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <bounces@canonical.com>) id 1iACpg-0004CK-22
- for apparmor@lists.ubuntu.com; Tue, 17 Sep 2019 12:43:48 +0000
+ (envelope-from <bounces@canonical.com>) id 1iACrP-0004M1-EF
+ for apparmor@lists.ubuntu.com; Tue, 17 Sep 2019 12:45:35 +0000
 Received: from ackee.canonical.com ([91.189.89.26])
  by indium.canonical.com with esmtp (Exim 4.86_2 #2 (Debian))
- id 1iACpf-00069h-Tn
- for <apparmor@lists.ubuntu.com>; Tue, 17 Sep 2019 12:43:47 +0000
+ id 1iACrP-0006MG-AQ
+ for <apparmor@lists.ubuntu.com>; Tue, 17 Sep 2019 12:45:35 +0000
 Received: from ackee.canonical.com (localhost [IPv6:::1])
- by ackee.canonical.com (Postfix) with ESMTP id D70B6E0F3B
- for <apparmor@lists.ubuntu.com>; Tue, 17 Sep 2019 12:43:47 +0000 (UTC)
+ by ackee.canonical.com (Postfix) with ESMTP id 4343FE0F3B
+ for <apparmor@lists.ubuntu.com>; Tue, 17 Sep 2019 12:45:35 +0000 (UTC)
 MIME-Version: 1.0
 X-Launchpad-Message-Rationale: Reviewer @apparmor-dev
 X-Launchpad-Message-For: apparmor-dev
 X-Launchpad-Notification-Type: code-review
-Message-Id: <156872422755.32632.5827984089400345963.codereview@wampee.canonical.com>
+Message-Id: <e5070542-2028-18a5-5631-87596b58b7e1@sdeziel.info>
 X-Launchpad-Branch: ~sdeziel/apparmor-profiles/+git/apparmor-profiles:apt-cacher-ng
 X-Launchpad-Project: apparmor-profiles
-In-Reply-To: <156864596105.5940.7000443989613601220.launchpad@ackee.canonical.com>
+In-Reply-To: <156872422755.32632.5827984089400345963.codereview@wampee.canonical.com>
 To: mp+372819@code.launchpad.net
-From: Seth Arnold <seth.arnold@canonical.com>
-Date: Tue, 17 Sep 2019 12:43:47 -0000
+From: =?utf-8?q?Simon_D=C3=A9ziel?= <simon@sdeziel.info>
+Date: Tue, 17 Sep 2019 12:45:35 -0000
 Precedence: bulk
 X-Generated-By: Launchpad (canonical.com); Revision="19048";
  Instance="production-secrets-lazr.conf"
-X-Launchpad-Hash: d4be4161e706486cb5b4d3ec5e0ad859d2a40001
+X-Launchpad-Hash: a05f046c2090da5b54abb311a03ebbfdcdd4c8dc
 Subject: Re: [apparmor] [Merge]
  ~sdeziel/apparmor-profiles/+git/apparmor-profiles:apt-cacher-ng into
  apparmor-profiles:master
@@ -54,13 +54,16 @@ Content-Transfer-Encoding: base64
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-VGhlIGNoYW5nZSBtYWtlcyBzZW5zZSB0byBtZSBidXQgSSdtIG5vdCBzdXJlIGlmIHRoaXMgb3Ig
-aHR0cHM6Ly9naXRsYWIuY29tL2FwcGFybW9yL2FwcGFybW9yLXByb2ZpbGVzIGlzIHRoZSBiZXR0
-ZXIgcGxhY2UgdG8gbWFrZSB0aGUgY2hhbmdlLgoKVGhhbmtzCi0tIApodHRwczovL2NvZGUubGF1
-bmNocGFkLm5ldC9+c2RlemllbC9hcHBhcm1vci1wcm9maWxlcy8rZ2l0L2FwcGFybW9yLXByb2Zp
-bGVzLyttZXJnZS8zNzI4MTkKWW91ciB0ZWFtIEFwcEFybW9yIERldmVsb3BlcnMgaXMgcmVxdWVz
-dGVkIHRvIHJldmlldyB0aGUgcHJvcG9zZWQgbWVyZ2Ugb2YgfnNkZXppZWwvYXBwYXJtb3ItcHJv
-ZmlsZXMvK2dpdC9hcHBhcm1vci1wcm9maWxlczphcHQtY2FjaGVyLW5nIGludG8gYXBwYXJtb3It
-cHJvZmlsZXM6bWFzdGVyLgoKLS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0
-cy51YnVudHUuY29tCk1vZGlmeSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9s
-aXN0cy51YnVudHUuY29tL21haWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
+TXkgYmFkLCB0aGFua3MgZm9yIGNhdGNoaW5nIHRoaXMgOykKSSdsbCBoZWFkIG92ZXIgdG8gZ2l0
+bGFiIGFuZCByZXN1Ym1pdC4KCk9uIDIwMTktMDktMTcgODo0MyBhLm0uLCBTZXRoIEFybm9sZCB3
+cm90ZToKPiBUaGUgY2hhbmdlIG1ha2VzIHNlbnNlIHRvIG1lIGJ1dCBJJ20gbm90IHN1cmUgaWYg
+dGhpcyBvciBodHRwczovL2dpdGxhYi5jb20vYXBwYXJtb3IvYXBwYXJtb3ItcHJvZmlsZXMgaXMg
+dGhlIGJldHRlciBwbGFjZSB0byBtYWtlIHRoZSBjaGFuZ2UuCj4gCj4gVGhhbmtzCj4gCgoKLS0g
+Cmh0dHBzOi8vY29kZS5sYXVuY2hwYWQubmV0L35zZGV6aWVsL2FwcGFybW9yLXByb2ZpbGVzLytn
+aXQvYXBwYXJtb3ItcHJvZmlsZXMvK21lcmdlLzM3MjgxOQpZb3VyIHRlYW0gQXBwQXJtb3IgRGV2
+ZWxvcGVycyBpcyByZXF1ZXN0ZWQgdG8gcmV2aWV3IHRoZSBwcm9wb3NlZCBtZXJnZSBvZiB+c2Rl
+emllbC9hcHBhcm1vci1wcm9maWxlcy8rZ2l0L2FwcGFybW9yLXByb2ZpbGVzOmFwdC1jYWNoZXIt
+bmcgaW50byBhcHBhcm1vci1wcm9maWxlczptYXN0ZXIuCgotLSAKQXBwQXJtb3IgbWFpbGluZyBs
+aXN0CkFwcEFybW9yQGxpc3RzLnVidW50dS5jb20KTW9kaWZ5IHNldHRpbmdzIG9yIHVuc3Vic2Ny
+aWJlIGF0OiBodHRwczovL2xpc3RzLnVidW50dS5jb20vbWFpbG1hbi9saXN0aW5mby9hcHBhcm1v
+cgo=
