@@ -2,44 +2,36 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4832DB4E51
-	for <lists+apparmor@lfdr.de>; Tue, 17 Sep 2019 14:45:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F64EB4E8A
+	for <lists+apparmor@lfdr.de>; Tue, 17 Sep 2019 14:53:35 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1iACrQ-0004MF-Jj; Tue, 17 Sep 2019 12:45:36 +0000
-Received: from indium.canonical.com ([91.189.90.7])
+	id 1iACz6-0004x3-4e; Tue, 17 Sep 2019 12:53:32 +0000
+Received: from youngberry.canonical.com ([91.189.89.112])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <bounces@canonical.com>) id 1iACrP-0004M1-EF
- for apparmor@lists.ubuntu.com; Tue, 17 Sep 2019 12:45:35 +0000
-Received: from ackee.canonical.com ([91.189.89.26])
- by indium.canonical.com with esmtp (Exim 4.86_2 #2 (Debian))
- id 1iACrP-0006MG-AQ
- for <apparmor@lists.ubuntu.com>; Tue, 17 Sep 2019 12:45:35 +0000
-Received: from ackee.canonical.com (localhost [IPv6:::1])
- by ackee.canonical.com (Postfix) with ESMTP id 4343FE0F3B
- for <apparmor@lists.ubuntu.com>; Tue, 17 Sep 2019 12:45:35 +0000 (UTC)
+ (envelope-from <seth.arnold@canonical.com>) id 1iACz5-0004wt-A9
+ for apparmor@lists.ubuntu.com; Tue, 17 Sep 2019 12:53:31 +0000
+Received: from static-dcd-cqq-121001.business.bouyguestelecom.com
+ ([212.194.121.1] helo=localhost)
+ by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <seth.arnold@canonical.com>) id 1iACz4-00040k-SM
+ for apparmor@lists.ubuntu.com; Tue, 17 Sep 2019 12:53:31 +0000
+Date: Tue, 17 Sep 2019 12:53:27 +0000
+From: Seth Arnold <seth.arnold@canonical.com>
+To: apparmor@lists.ubuntu.com
+Message-ID: <20190917125327.GA21433@millbarge>
+References: <5991785a-1f0d-0a7b-46c6-1ddc4189f69a@gmail.com>
 MIME-Version: 1.0
-X-Launchpad-Message-Rationale: Reviewer @apparmor-dev
-X-Launchpad-Message-For: apparmor-dev
-X-Launchpad-Notification-Type: code-review
-Message-Id: <e5070542-2028-18a5-5631-87596b58b7e1@sdeziel.info>
-X-Launchpad-Branch: ~sdeziel/apparmor-profiles/+git/apparmor-profiles:apt-cacher-ng
-X-Launchpad-Project: apparmor-profiles
-In-Reply-To: <156872422755.32632.5827984089400345963.codereview@wampee.canonical.com>
-To: mp+372819@code.launchpad.net
-From: =?utf-8?q?Simon_D=C3=A9ziel?= <simon@sdeziel.info>
-Date: Tue, 17 Sep 2019 12:45:35 -0000
-Precedence: bulk
-X-Generated-By: Launchpad (canonical.com); Revision="19048";
- Instance="production-secrets-lazr.conf"
-X-Launchpad-Hash: a05f046c2090da5b54abb311a03ebbfdcdd4c8dc
-Subject: Re: [apparmor] [Merge]
- ~sdeziel/apparmor-profiles/+git/apparmor-profiles:apt-cacher-ng into
- apparmor-profiles:master
+In-Reply-To: <5991785a-1f0d-0a7b-46c6-1ddc4189f69a@gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [apparmor] Question about file_mmap/exec in the case of
+ perl/shell scripts
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
+Precedence: list
 List-Id: AppArmor discussion <apparmor.lists.ubuntu.com>
 List-Unsubscribe: <https://lists.ubuntu.com/mailman/options/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=unsubscribe>
@@ -48,22 +40,65 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Reply-To: mp+372819@code.launchpad.net
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1875410137914898632=="
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-TXkgYmFkLCB0aGFua3MgZm9yIGNhdGNoaW5nIHRoaXMgOykKSSdsbCBoZWFkIG92ZXIgdG8gZ2l0
-bGFiIGFuZCByZXN1Ym1pdC4KCk9uIDIwMTktMDktMTcgODo0MyBhLm0uLCBTZXRoIEFybm9sZCB3
-cm90ZToKPiBUaGUgY2hhbmdlIG1ha2VzIHNlbnNlIHRvIG1lIGJ1dCBJJ20gbm90IHN1cmUgaWYg
-dGhpcyBvciBodHRwczovL2dpdGxhYi5jb20vYXBwYXJtb3IvYXBwYXJtb3ItcHJvZmlsZXMgaXMg
-dGhlIGJldHRlciBwbGFjZSB0byBtYWtlIHRoZSBjaGFuZ2UuCj4gCj4gVGhhbmtzCj4gCgoKLS0g
-Cmh0dHBzOi8vY29kZS5sYXVuY2hwYWQubmV0L35zZGV6aWVsL2FwcGFybW9yLXByb2ZpbGVzLytn
-aXQvYXBwYXJtb3ItcHJvZmlsZXMvK21lcmdlLzM3MjgxOQpZb3VyIHRlYW0gQXBwQXJtb3IgRGV2
-ZWxvcGVycyBpcyByZXF1ZXN0ZWQgdG8gcmV2aWV3IHRoZSBwcm9wb3NlZCBtZXJnZSBvZiB+c2Rl
-emllbC9hcHBhcm1vci1wcm9maWxlcy8rZ2l0L2FwcGFybW9yLXByb2ZpbGVzOmFwdC1jYWNoZXIt
-bmcgaW50byBhcHBhcm1vci1wcm9maWxlczptYXN0ZXIuCgotLSAKQXBwQXJtb3IgbWFpbGluZyBs
-aXN0CkFwcEFybW9yQGxpc3RzLnVidW50dS5jb20KTW9kaWZ5IHNldHRpbmdzIG9yIHVuc3Vic2Ny
-aWJlIGF0OiBodHRwczovL2xpc3RzLnVidW50dS5jb20vbWFpbG1hbi9saXN0aW5mby9hcHBhcm1v
-cgo=
+
+--===============1875410137914898632==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Q68bSM7Ycu6FN28Q"
+Content-Disposition: inline
+
+
+--Q68bSM7Ycu6FN28Q
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, Sep 12, 2019 at 04:20:22PM +0200, Mikhail Morfikov wrote:
+> Shouldn't be here some "x" or "m" permissions, or maybe AppArmor assumes=
+=20
+> this automatically for the confined path, so it's redundant to specify it=
+=20
+> manually?
+
+Interpreters are handled differently:
+
+https://bugs.launchpad.net/apparmor/+bug/1346553
+
+I'm not sure if we'll be able to change this behaviour in the future or
+not.
+
+Thanks
+
+--Q68bSM7Ycu6FN28Q
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEQVAQ8bojyMcg37H18yFyWZ2NLpcFAl2A10IACgkQ8yFyWZ2N
+Lpe94ggAvCnAzBnoE+79ibdlUv7ehsHHhlXlbLKMPo+xM9JL304iyMa1hGaCfMC5
+kNWVzPvO5hSzk7xLVzewCFb12jKlZ5q/iv4ZuYUQfBOmyf+1CLEUik1YLhd76KQy
+X/b7ZK/8Zin7eTQvV/3V1WxaXdAUstbq2cFU3iDyTSFUDakDf7rm+f6AkXKJ27ch
+s1FMCAdCkBWOmuwwi7fm3PZOy/05aRFIvgHf/53thbZHNDqXB22WDx5ocJzsoZeq
+DNVeXu/PKodYcCaS7G107N3//8YHZSILaltelkGEFPfVG2Oo6zV7KZARM84aUPNC
+ugYf7rtNMhdD+O4TO/2ENDR580x4Sw==
+=9f6F
+-----END PGP SIGNATURE-----
+
+--Q68bSM7Ycu6FN28Q--
+
+
+--===============1875410137914898632==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
+eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
+aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
+
+--===============1875410137914898632==--
+
