@@ -2,77 +2,30 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E4A0C3F17
-	for <lists+apparmor@lfdr.de>; Tue,  1 Oct 2019 19:56:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B240BC3FA7
+	for <lists+apparmor@lfdr.de>; Tue,  1 Oct 2019 20:17:51 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1iFMNq-0000Gg-Dc; Tue, 01 Oct 2019 17:56:22 +0000
+	id 1iFMiY-0002YN-Lu; Tue, 01 Oct 2019 18:17:46 +0000
 Received: from youngberry.canonical.com ([91.189.89.112])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>) id 1iFMNp-0000GX-Kz
- for apparmor@lists.ubuntu.com; Tue, 01 Oct 2019 17:56:21 +0000
-Received: from static-50-53-33-191.bvtn.or.frontiernet.net ([50.53.33.191]
- helo=[192.168.192.153]) by youngberry.canonical.com with esmtpsa
+ (envelope-from <seth.arnold@canonical.com>) id 1iFMiX-0002YD-GY
+ for apparmor@lists.ubuntu.com; Tue, 01 Oct 2019 18:17:45 +0000
+Received: from 97-120-111-46.ptld.qwest.net ([97.120.111.46] helo=localhost)
+ by youngberry.canonical.com with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>)
- id 1iFMNp-0000RF-5K; Tue, 01 Oct 2019 17:56:21 +0000
-To: Abhishek Vijeev <abhishekvijeev@iisc.ac.in>,
- "apparmor@lists.ubuntu.com" <apparmor@lists.ubuntu.com>
+ (envelope-from <seth.arnold@canonical.com>)
+ id 1iFMiX-0001iJ-1p; Tue, 01 Oct 2019 18:17:45 +0000
+Date: Tue, 1 Oct 2019 18:17:43 +0000
+From: Seth Arnold <seth.arnold@canonical.com>
+To: Abhishek Vijeev <abhishekvijeev@iisc.ac.in>
+Message-ID: <20191001181743.GA13903@millbarge>
 References: <MAXPR0101MB1849CE559A8177539D0CBFC8FB9D0@MAXPR0101MB1849.INDPRD01.PROD.OUTLOOK.COM>
-From: John Johansen <john.johansen@canonical.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
- 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
-Organization: Canonical
-Message-ID: <a0076548-73d4-3d88-13d9-d8fffd29b34b@canonical.com>
-Date: Tue, 1 Oct 2019 10:56:18 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
 MIME-Version: 1.0
 In-Reply-To: <MAXPR0101MB1849CE559A8177539D0CBFC8FB9D0@MAXPR0101MB1849.INDPRD01.PROD.OUTLOOK.COM>
-Content-Language: en-GB
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Subject: Re: [apparmor] Query about AppArmor's Profile Transitions
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -85,45 +38,64 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Rakesh Rajan Beck <rakeshbeck@iisc.ac.in>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Rakesh Rajan Beck <rakeshbeck@iisc.ac.in>,
+ "apparmor@lists.ubuntu.com" <apparmor@lists.ubuntu.com>
+Content-Type: multipart/mixed; boundary="===============5668734108653575594=="
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-T24gMTAvMS8xOSAxMDoyNSBBTSwgQWJoaXNoZWsgVmlqZWV2IHdyb3RlOgo+IEhpLAo+IAo+IFdl
-IGhhZCBhIHNtYWxsIHF1ZXN0aW9uIHJlZ2FyZGluZyBBcHBBcm1vcidzIHByb2ZpbGUgdHJhbnNp
-dGlvbnMuCj4gCj4gQ3VycmVudGx5LCBBcHBBcm1vciBhbGxvd3MgJ3BpeCcgYW5kICdjaXgnIHRy
-YW5zaXRpb25zLiBIb3dldmVyLCB3ZSB3b3VsZCBsaWtlIHRvIGV4dGVuZCBBcHBBcm1vciB0bwo+
-IGFsbG93IGEgJ3BjaXgnIHRyYW5zaXRpb24uIFRvIGNsYXJpZnkgd2hhdCB3ZSBtZWFuIGJ5ICdw
-Y2l4Jywgd2UncmUgbG9va2luZyBmb3IgYSB3YXkgYnkgd2hpY2ggd2UKPiBjYW4gc3BlY2lmeSB0
-aGUgZm9sbG93aW5nIHBvbGljeTogJ2xvb2sgZm9yIGEgc3BlY2lmaWMgcHJvZmlsZSwgYnV0IGlm
-IG9uZSBkb2Vzbid0IGV4aXN0LCBsb29rIGZvciBhCj4gY2hpbGQgcHJvZmlsZSwgb3RoZXJ3aXNl
-IGluaGVyaXQgdGhlIGN1cnJlbnQgcHJvZmlsZScuIEFyZSB0aGVyZSBhbnkgY2hhbGxlbmdlcyB0
-byBpbXBsZW1lbnRpbmcKPiB0aGlzPyBBbHNvLCBpcyB0aGlzIGEgZmVhdHVyZSB0aGF0IGlzIHBs
-YW5uZWQgZm9yIHJlbGVhc2UgaW4gZnV0dXJlIHZlcnNpb25zIG9mIEFwcEFybW9yPwo+IApVbmZv
-cnR1bmF0ZWx5IGl0cyBub3QgcG9zc2libGUgeWV0IGJlY2F1c2Ugb2YgaG93IHRoZSBwZXJtaXNz
-aW9uIHNldCBpcyBzdG9yZWQsIGFuZCBjb21wdXRlZCAoSSBjYW4KcHJvdmlkZSBkZXRhaWxzIGlm
-IHlvdSByZWFsbHkgd2FudCkuIFRoaXMgaXNuJ3QgaGFyZCBibG9ja2VyIGl0IGlzIGp1c3Qgc29t
-ZXRoaW5nIHRoYXQgbmVlZHMgdG8gYmUKY2hhbmdlZC9maXhlZCBpbiBib3RoIHRoZSB1c2Vyc3Bh
-Y2UgYW5kIGtlcm5lbC4gRm9ydHVuYXRlbHkgdGhhdCB3b3JrIGlzIGFscmVhZHkgaW4gcHJvY2Vz
-cyBmb3Igb3RoZXIKZmVhdHVyZXMgdGhhdCBhcmUgY29taW5nLiBPbmNlIHRoZSBwZXJtaXNzaW9u
-IHJld29yayBsYW5kcyBzdXBwb3J0aW5nIHRoaXMgd2lsbCBiZWNvbWUgbXVjaCBlYXNpZXIsCmFu
-ZCB5b3VyIHJlcXVlc3QgbGluZXMgdXAgd2l0aCBhIGZlYXR1cmUgdGhhdCBoYXMgYmVlbiBvbiB0
-aGUgcm9hZG1hcCBmb3IgYSBsb25nIHRpbWUuCgpCYXNpY2FsbHkgdGhlcmUgaGFzIGJlZW4gYSBk
-ZXNpcmUvbmVlZCBmb3IgbXVjaCBtb3JlIGZsZXhpYmxlIHByb2ZpbGUgdHJhbnNpdGlvbnMsIHdo
-ZXJlIHlvdSBjYW4Kc3BlY2lmeSB0aGUgb3JkZXIgb2YgdGhlIHNlYXJjaC4gU29tZXRoaW5nIGFs
-b25nIHRoZSBsaW5lcyBvZgoKICAvKiogeCAtPiBwcm9maWxlMSwgXnByb2ZpbGUyLCBAe2V4ZWN9
-LCBAe2luaGVyaXR9LAoKYmFzaWNhbGx5IGhhdmluZyBhIGxpc3QgaW4gb3JkZXIgb2YgcHJlZmVy
-ZW5jZSB0byBzZWFyY2guIFRoZXJlIG5lZWRzIHRvIGJlIHNvbWUgZGlzY3Vzc2lvbiBzdGlsbAp0
-byBhcnJpdmUgYXQgdGhlIGFjdHVhbCBzeW50YXguCgpUaGUgd29yayByZXF1aXJlZCB0byBnZXQg
-dG8gd2hlcmUgd2UgY2FuIGRvIHRoaXMgaXMKMS4ga2VybmVsIHBlcm1pc3Npb24gcmVtYXAvcmV3
-b3JrCjIuIHVzZXJzcGFjZSwgcmV3b3JrIGhvdyBwZXJtaXNzaW9ucyBhcmUgaGFuZGxlZCBhbmQg
-Y2FycmllZCB0aHJvdWdob3V0IGNvbXBpbGUsIG1hcCB0byB3aGF0IGlzCiAgc3VwcG9ydGVkIGJ5
-IGtlcm5lbCBhdCB0aGUgZW5kLgozLiBrZXJuZWwgZXh0ZW5kLCBzZWFyY2ggdG8gc3VwcG9ydCBv
-cmRlcmVkIGxpc3QKNC4gdXNlcnNwYWNlIGV4dGVuZCBsYW5ndWFnZSB0byBzdXBwb3J0IG9yZGVy
-ZWQgbGlzdC9wY2l4IHdoYXQgZXZlciB0aGUgc3ludGF4IGlzCgoxLiBhbmQgMi4gYXJlIGZhaXJs
-eSBpbnZvbHZlZC4gMyBhbmQgNCBhcmUgbm90IHRvbyBiYWQKCiAgCgotLSAKQXBwQXJtb3IgbWFp
-bGluZyBsaXN0CkFwcEFybW9yQGxpc3RzLnVidW50dS5jb20KTW9kaWZ5IHNldHRpbmdzIG9yIHVu
-c3Vic2NyaWJlIGF0OiBodHRwczovL2xpc3RzLnVidW50dS5jb20vbWFpbG1hbi9saXN0aW5mby9h
-cHBhcm1vcgo=
+
+--===============5668734108653575594==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="fdj2RfSjLxBAspz7"
+Content-Disposition: inline
+
+
+--fdj2RfSjLxBAspz7
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Tue, Oct 01, 2019 at 05:25:21PM +0000, Abhishek Vijeev wrote:
+> Currently, AppArmor allows 'pix' and 'cix' transitions. However, we would like to extend AppArmor to
+> allow a 'pcix' transition. To clarify what we mean by 'pcix', we're looking for a way by which we
+> can specify the following policy: 'look for a specific profile, but if one doesn't exist, look for a
+> child profile, otherwise inherit the current profile'. Are there any challenges to implementing
+> this? Also, is this a feature that is planned for release in future versions of AppArmor?
+
+I do have to wonder if whatever you're trying to solve would be better
+handled via stacking profiles instead.
+
+What are you trying to achieve?
+
+Thanks
+
+--fdj2RfSjLxBAspz7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEQVAQ8bojyMcg37H18yFyWZ2NLpcFAl2TmEMACgkQ8yFyWZ2N
+Lpef9QgAjJWgkSeJQhulQkupFat37KlFL3Lf9Dv0daYHAkUXqUIRnBxvQNqgFK/9
+ni4nfxfT9Wu/fIPgXs8NE81LDKs5PssCT4Ba0idZRYugd6rd+sm8fX9APjWPfG1P
+arQZI4qHhH4AWpVtbqLueK1gRzQ2FCwkD95yCLJGsUy16/jzMASgktpXeuoPZUfn
+HIiyZZmSII+B2V+nf0tl3fRFXu4fDAPjzKEsrbtfGYhx6MBkcRTNFOd48Z6hE9EL
+Oss92T2qA18leJX7GOi5XsHAAr7JZYZFXxr3bZknb+uwyb7LKp53r341UcJ3TCfY
+jKZAvbdMhZIGuiHx27iuFtpcFOwyVQ==
+=I5/I
+-----END PGP SIGNATURE-----
+
+--fdj2RfSjLxBAspz7--
+
+
+--===============5668734108653575594==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
+eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
+aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
+
+--===============5668734108653575594==--
+
