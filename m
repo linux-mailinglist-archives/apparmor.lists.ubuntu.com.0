@@ -2,81 +2,78 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0679AC3E82
-	for <lists+apparmor@lfdr.de>; Tue,  1 Oct 2019 19:25:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E4A0C3F17
+	for <lists+apparmor@lfdr.de>; Tue,  1 Oct 2019 19:56:27 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1iFLtw-0005u9-5Z; Tue, 01 Oct 2019 17:25:28 +0000
-Received: from mail-eopbgr1380072.outbound.protection.outlook.com
- ([40.107.138.72] helo=IND01-MA1-obe.outbound.protection.outlook.com)
+	id 1iFMNq-0000Gg-Dc; Tue, 01 Oct 2019 17:56:22 +0000
+Received: from youngberry.canonical.com ([91.189.89.112])
  by huckleberry.canonical.com with esmtps
- (TLS1.2:ECDHE_RSA_AES_128_CBC_SHA1:128) (Exim 4.86_2)
- (envelope-from <abhishekvijeev@iisc.ac.in>) id 1iFLts-0005tO-R6
- for apparmor@lists.ubuntu.com; Tue, 01 Oct 2019 17:25:25 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Rem9KxyHzb51jTxf7Xw/uGOOHcJuS3cPaaV9Ay1nzsts5xdC+ZZq0IYy5ZvCHGQh/JcZujJudwQ8/PbXgv2pXp+153DXJi4BopU5aqx0VFqlCEGZzIBNyI96V9EyyToVmhBd94+OdHO4NOxCQeMnpYGhSctNO7XOFeHSAwLptRd7XNi2WHJMSlbFf8Gm3V2sKOUzG6FI53MHmbFZYpi4JFYvBYQXnZv5rOK7XxMFmlSIGBjvZeXYEENh0uAEfC5RsmfCXd23/cYA6lpFWQriL9dWd74vnJrC+FlsSB6igQvF02xfC/oVEbntng1t7RUU6eRwyu3QltaSxjVaDSLA0w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gd7kNNvUylGQB1eIYp5w4NsWMojcIPlMEFxCHwtb07Y=;
- b=GSoXN6JAPw+XPoEub5OdY9+UNjIf9aaUnqRlm2d5tD3gS182BqHltHDDuYwgZbkgUavyKe84OoNhkEBO35E8zXV0BVlEuZ6VoW2NliGPpZ9N/A0KYnP4j6E4Z+TT5VRZytID442pkfy3H9bz6+LfcYgRJJZiUu8YS9S+Tx++kfeh2TyONEgWs6i9yWcSnq15rkrYqm/ZWvM6zLcci79yC0oXzB99H3I0hpOsh5x6rSeKHTMrrPQHHpXZI4NjRrTBAJJiySEzjqkBHywOlYXuqv8mULmyeOeK+ul3m5D0LAxvwy0532rUQ0CDef6f+bPOg7tmxSKLbbNBIs3nQlRezA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=iisc.ac.in; dmarc=pass action=none header.from=iisc.ac.in;
- dkim=pass header.d=iisc.ac.in; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iisc.ac.in;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gd7kNNvUylGQB1eIYp5w4NsWMojcIPlMEFxCHwtb07Y=;
- b=qWRNysgNI+uOTx78ic/QXP8VOh/2BFwtTK6LxOdsTkRHS2lbMNWnSGZ366U0kU+ctBGunCgL+sYvNvQRLKEwA3X8MNrIhl0o9xzpsi1BNQFrr6c65qsYKgt3NZeWhDoVmB75O1gA3ulJ6kW/scDHwTPYBxYUCa8DdrZObfIDYKE=
-Received: from MAXPR0101MB1849.INDPRD01.PROD.OUTLOOK.COM (52.134.132.151) by
- MAXPR0101MB1961.INDPRD01.PROD.OUTLOOK.COM (52.134.130.22) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2305.20; Tue, 1 Oct 2019 17:25:21 +0000
-Received: from MAXPR0101MB1849.INDPRD01.PROD.OUTLOOK.COM
- ([fe80::51fd:5109:627:7064]) by MAXPR0101MB1849.INDPRD01.PROD.OUTLOOK.COM
- ([fe80::51fd:5109:627:7064%7]) with mapi id 15.20.2305.017; Tue, 1 Oct 2019
- 17:25:21 +0000
-From: Abhishek Vijeev <abhishekvijeev@iisc.ac.in>
-To: "apparmor@lists.ubuntu.com" <apparmor@lists.ubuntu.com>
-Thread-Topic: Query about AppArmor's Profile Transitions
-Thread-Index: AQHVeH0r7YNQO4OkDUmL/twYD8/vZg==
-Date: Tue, 1 Oct 2019 17:25:21 +0000
-Message-ID: <MAXPR0101MB1849CE559A8177539D0CBFC8FB9D0@MAXPR0101MB1849.INDPRD01.PROD.OUTLOOK.COM>
-Accept-Language: en-GB, en-US
-Content-Language: en-GB
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=abhishekvijeev@iisc.ac.in; 
-x-originating-ip: [183.82.21.62]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 012bba39-cc75-4165-dc62-08d746945629
-x-ms-traffictypediagnostic: MAXPR0101MB1961:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MAXPR0101MB1961DDC1BA768D59112FA72DFB9D0@MAXPR0101MB1961.INDPRD01.PROD.OUTLOOK.COM>
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
-x-forefront-prvs: 0177904E6B
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(366004)(376002)(396003)(346002)(39860400002)(136003)(199004)(189003)(1730700003)(486006)(6916009)(2501003)(476003)(66066001)(6436002)(107886003)(3846002)(6116002)(256004)(33656002)(5640700003)(52536014)(105004)(6506007)(71200400001)(71190400001)(8676002)(81156014)(4326008)(64756008)(99286004)(786003)(316002)(8936002)(19627405001)(86362001)(478600001)(54896002)(74316002)(25786009)(5660300002)(7696005)(9686003)(7736002)(102836004)(66946007)(66556008)(66446008)(66476007)(186003)(81166006)(55016002)(26005)(14454004)(2351001)(4744005)(76116006)(2906002)(80872003);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MAXPR0101MB1961;
- H:MAXPR0101MB1849.INDPRD01.PROD.OUTLOOK.COM; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: iisc.ac.in does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: DMKrB2bic/3lOVbp2E1Rrc8Wzsu7VaQOToRqImE0bT7zuWx+eWT9IkbwRbaFsE9u19tugi3UTjWhYda+6V9sRtgweIzGAt3TuwY15TFiGNZVCWHHzUZXg06b103cZBlEQZn5GDJ+6/uYb4QK8z5csWfjfcB6d8kTAVMQxC1LCuOIY5dw9jpNKau6XD/lqzbjZE8EuTLjKYANdYcDgIikS/N6FaxkVQopPpFa6j6KAv8ptrmi8fhnzoWeKJyYHTRE6ktBQGb9R2CfH1HWjDXeIobWfnUESZ9SXzxNDaYkRfUYf+7u922MHG9CH4cuFZwklLpwF/v10jaUGCugKok129wZftAfgVzQLnv+ScK//id8unxdNQCS1gytEMxtDlo7mDmZw8FHuuC/pIhelbE9mtEjBV4rlhzJV476s9xmcmg=
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <john.johansen@canonical.com>) id 1iFMNp-0000GX-Kz
+ for apparmor@lists.ubuntu.com; Tue, 01 Oct 2019 17:56:21 +0000
+Received: from static-50-53-33-191.bvtn.or.frontiernet.net ([50.53.33.191]
+ helo=[192.168.192.153]) by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <john.johansen@canonical.com>)
+ id 1iFMNp-0000RF-5K; Tue, 01 Oct 2019 17:56:21 +0000
+To: Abhishek Vijeev <abhishekvijeev@iisc.ac.in>,
+ "apparmor@lists.ubuntu.com" <apparmor@lists.ubuntu.com>
+References: <MAXPR0101MB1849CE559A8177539D0CBFC8FB9D0@MAXPR0101MB1849.INDPRD01.PROD.OUTLOOK.COM>
+From: John Johansen <john.johansen@canonical.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
+ 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
+Organization: Canonical
+Message-ID: <a0076548-73d4-3d88-13d9-d8fffd29b34b@canonical.com>
+Date: Tue, 1 Oct 2019 10:56:18 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-X-OriginatorOrg: iisc.ac.in
-X-MS-Exchange-CrossTenant-Network-Message-Id: 012bba39-cc75-4165-dc62-08d746945629
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Oct 2019 17:25:21.0387 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 6f15cd97-f6a7-41e3-b2c5-ad4193976476
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 043dWyRy34iGca9VBne7DxUM4RJW3oAlzKOie8zcq0qqqDcqXAHScBNZG+fLiI2Kywk+/ktK0NtEA+AbrXvTqPwMAuueQR9wFQNZd5hAW9s=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MAXPR0101MB1961
-Subject: [apparmor] Query about AppArmor's Profile Transitions
+In-Reply-To: <MAXPR0101MB1849CE559A8177539D0CBFC8FB9D0@MAXPR0101MB1849.INDPRD01.PROD.OUTLOOK.COM>
+Content-Language: en-GB
+Subject: Re: [apparmor] Query about AppArmor's Profile Transitions
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -89,95 +86,44 @@ List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
 Cc: Rakesh Rajan Beck <rakeshbeck@iisc.ac.in>
-Content-Type: multipart/mixed; boundary="===============0966702581560281762=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
---===============0966702581560281762==
-Content-Language: en-GB
-Content-Type: multipart/alternative;
-	boundary="_000_MAXPR0101MB1849CE559A8177539D0CBFC8FB9D0MAXPR0101MB1849_"
-
---_000_MAXPR0101MB1849CE559A8177539D0CBFC8FB9D0MAXPR0101MB1849_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Hi,
-
-We had a small question regarding AppArmor's profile transitions.
-
-Currently, AppArmor allows 'pix' and 'cix' transitions. However, we would l=
-ike to extend AppArmor to
-allow a 'pcix' transition. To clarify what we mean by 'pcix', we're looking=
- for a way by which we
-can specify the following policy: 'look for a specific profile, but if one =
-doesn't exist, look for a
-child profile, otherwise inherit the current profile'. Are there any challe=
-nges to implementing
-this? Also, is this a feature that is planned for release in future version=
-s of AppArmor?
-
-Thank you,
-Abhishek Vijeev.
-
---_000_MAXPR0101MB1849CE559A8177539D0CBFC8FB9D0MAXPR0101MB1849_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span>Hi,<br>
-</span>
-<div><br>
-</div>
-<div>We had a small question regarding AppArmor's profile transitions.<br>
-</div>
-<div><br>
-</div>
-<div>Currently, AppArmor allows 'pix' and 'cix' transitions. However, we wo=
-uld like to extend AppArmor to<br>
-</div>
-<div>allow a 'pcix' transition. To clarify what we mean by 'pcix', we're lo=
-oking for a way by which we<br>
-</div>
-<div>can specify the following policy: 'look for a specific profile, but if=
- one doesn't exist, look for a<br>
-</div>
-<div>child profile, otherwise inherit the current profile'. Are there any c=
-hallenges to implementing<br>
-</div>
-<div>this? Also, is this a feature that is planned for release in future ve=
-rsions of AppArmor?<br>
-</div>
-<div><br>
-</div>
-<div>Thank you,<br>
-</div>
-<span>Abhishek Vijeev.</span><br>
-</div>
-</body>
-</html>
-
---_000_MAXPR0101MB1849CE559A8177539D0CBFC8FB9D0MAXPR0101MB1849_--
-
-
---===============0966702581560281762==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
-eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
-aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
-
---===============0966702581560281762==--
-
+T24gMTAvMS8xOSAxMDoyNSBBTSwgQWJoaXNoZWsgVmlqZWV2IHdyb3RlOgo+IEhpLAo+IAo+IFdl
+IGhhZCBhIHNtYWxsIHF1ZXN0aW9uIHJlZ2FyZGluZyBBcHBBcm1vcidzIHByb2ZpbGUgdHJhbnNp
+dGlvbnMuCj4gCj4gQ3VycmVudGx5LCBBcHBBcm1vciBhbGxvd3MgJ3BpeCcgYW5kICdjaXgnIHRy
+YW5zaXRpb25zLiBIb3dldmVyLCB3ZSB3b3VsZCBsaWtlIHRvIGV4dGVuZCBBcHBBcm1vciB0bwo+
+IGFsbG93IGEgJ3BjaXgnIHRyYW5zaXRpb24uIFRvIGNsYXJpZnkgd2hhdCB3ZSBtZWFuIGJ5ICdw
+Y2l4Jywgd2UncmUgbG9va2luZyBmb3IgYSB3YXkgYnkgd2hpY2ggd2UKPiBjYW4gc3BlY2lmeSB0
+aGUgZm9sbG93aW5nIHBvbGljeTogJ2xvb2sgZm9yIGEgc3BlY2lmaWMgcHJvZmlsZSwgYnV0IGlm
+IG9uZSBkb2Vzbid0IGV4aXN0LCBsb29rIGZvciBhCj4gY2hpbGQgcHJvZmlsZSwgb3RoZXJ3aXNl
+IGluaGVyaXQgdGhlIGN1cnJlbnQgcHJvZmlsZScuIEFyZSB0aGVyZSBhbnkgY2hhbGxlbmdlcyB0
+byBpbXBsZW1lbnRpbmcKPiB0aGlzPyBBbHNvLCBpcyB0aGlzIGEgZmVhdHVyZSB0aGF0IGlzIHBs
+YW5uZWQgZm9yIHJlbGVhc2UgaW4gZnV0dXJlIHZlcnNpb25zIG9mIEFwcEFybW9yPwo+IApVbmZv
+cnR1bmF0ZWx5IGl0cyBub3QgcG9zc2libGUgeWV0IGJlY2F1c2Ugb2YgaG93IHRoZSBwZXJtaXNz
+aW9uIHNldCBpcyBzdG9yZWQsIGFuZCBjb21wdXRlZCAoSSBjYW4KcHJvdmlkZSBkZXRhaWxzIGlm
+IHlvdSByZWFsbHkgd2FudCkuIFRoaXMgaXNuJ3QgaGFyZCBibG9ja2VyIGl0IGlzIGp1c3Qgc29t
+ZXRoaW5nIHRoYXQgbmVlZHMgdG8gYmUKY2hhbmdlZC9maXhlZCBpbiBib3RoIHRoZSB1c2Vyc3Bh
+Y2UgYW5kIGtlcm5lbC4gRm9ydHVuYXRlbHkgdGhhdCB3b3JrIGlzIGFscmVhZHkgaW4gcHJvY2Vz
+cyBmb3Igb3RoZXIKZmVhdHVyZXMgdGhhdCBhcmUgY29taW5nLiBPbmNlIHRoZSBwZXJtaXNzaW9u
+IHJld29yayBsYW5kcyBzdXBwb3J0aW5nIHRoaXMgd2lsbCBiZWNvbWUgbXVjaCBlYXNpZXIsCmFu
+ZCB5b3VyIHJlcXVlc3QgbGluZXMgdXAgd2l0aCBhIGZlYXR1cmUgdGhhdCBoYXMgYmVlbiBvbiB0
+aGUgcm9hZG1hcCBmb3IgYSBsb25nIHRpbWUuCgpCYXNpY2FsbHkgdGhlcmUgaGFzIGJlZW4gYSBk
+ZXNpcmUvbmVlZCBmb3IgbXVjaCBtb3JlIGZsZXhpYmxlIHByb2ZpbGUgdHJhbnNpdGlvbnMsIHdo
+ZXJlIHlvdSBjYW4Kc3BlY2lmeSB0aGUgb3JkZXIgb2YgdGhlIHNlYXJjaC4gU29tZXRoaW5nIGFs
+b25nIHRoZSBsaW5lcyBvZgoKICAvKiogeCAtPiBwcm9maWxlMSwgXnByb2ZpbGUyLCBAe2V4ZWN9
+LCBAe2luaGVyaXR9LAoKYmFzaWNhbGx5IGhhdmluZyBhIGxpc3QgaW4gb3JkZXIgb2YgcHJlZmVy
+ZW5jZSB0byBzZWFyY2guIFRoZXJlIG5lZWRzIHRvIGJlIHNvbWUgZGlzY3Vzc2lvbiBzdGlsbAp0
+byBhcnJpdmUgYXQgdGhlIGFjdHVhbCBzeW50YXguCgpUaGUgd29yayByZXF1aXJlZCB0byBnZXQg
+dG8gd2hlcmUgd2UgY2FuIGRvIHRoaXMgaXMKMS4ga2VybmVsIHBlcm1pc3Npb24gcmVtYXAvcmV3
+b3JrCjIuIHVzZXJzcGFjZSwgcmV3b3JrIGhvdyBwZXJtaXNzaW9ucyBhcmUgaGFuZGxlZCBhbmQg
+Y2FycmllZCB0aHJvdWdob3V0IGNvbXBpbGUsIG1hcCB0byB3aGF0IGlzCiAgc3VwcG9ydGVkIGJ5
+IGtlcm5lbCBhdCB0aGUgZW5kLgozLiBrZXJuZWwgZXh0ZW5kLCBzZWFyY2ggdG8gc3VwcG9ydCBv
+cmRlcmVkIGxpc3QKNC4gdXNlcnNwYWNlIGV4dGVuZCBsYW5ndWFnZSB0byBzdXBwb3J0IG9yZGVy
+ZWQgbGlzdC9wY2l4IHdoYXQgZXZlciB0aGUgc3ludGF4IGlzCgoxLiBhbmQgMi4gYXJlIGZhaXJs
+eSBpbnZvbHZlZC4gMyBhbmQgNCBhcmUgbm90IHRvbyBiYWQKCiAgCgotLSAKQXBwQXJtb3IgbWFp
+bGluZyBsaXN0CkFwcEFybW9yQGxpc3RzLnVidW50dS5jb20KTW9kaWZ5IHNldHRpbmdzIG9yIHVu
+c3Vic2NyaWJlIGF0OiBodHRwczovL2xpc3RzLnVidW50dS5jb20vbWFpbG1hbi9saXN0aW5mby9h
+cHBhcm1vcgo=
