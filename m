@@ -2,68 +2,77 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90A18D6DF9
-	for <lists+apparmor@lfdr.de>; Tue, 15 Oct 2019 05:57:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58860E5E05
+	for <lists+apparmor@lfdr.de>; Sat, 26 Oct 2019 18:09:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1iKDy2-0005KC-2L; Tue, 15 Oct 2019 03:57:50 +0000
-Received: from mail-lf1-f49.google.com ([209.85.167.49])
+	id 1iOOcp-0001mK-G9; Sat, 26 Oct 2019 16:09:11 +0000
+Received: from youngberry.canonical.com ([91.189.89.112])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <mmorfikov@gmail.com>) id 1iKDy0-0005K6-Ta
- for apparmor@lists.ubuntu.com; Tue, 15 Oct 2019 03:57:48 +0000
-Received: by mail-lf1-f49.google.com with SMTP id u3so13298941lfl.10
- for <apparmor@lists.ubuntu.com>; Mon, 14 Oct 2019 20:57:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=to:from:subject:openpgp:autocrypt:message-id:date:user-agent
- :mime-version; bh=kv84csXM007pQRiuVyC4bxrS4z1RYzLmldc3dWclYWE=;
- b=nWTXDUQkzIGVwJlQ1jiZYP2dMPWa7gGjCoTdLL0spTnotpk6GjYOd6MUi3OHtwnsAY
- y+0W6VGSW+A7nMQhMB+s2tQZHmnomQyiSh/5uDMCzhc71T3l082GOn+WguHHA/+A4/0D
- 4wDWA7HyVOXwN7Yla9O89QZPWBEgA7LhsRyihhenW4XXOVttCxkybUMInX1wMyDCJbwl
- jmqWQR1wMa6njMk1sSdXvTksyIY2aZZnP9pxX/d1PRaCWiBBiLFU++WAK+JzULz+zhIj
- nIG5CZJqpxdkbGLez+80VH54LfyV0KuDZYnB9/xQwyA+rdqJWUggHHqRokuA6curcL1j
- LfxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:to:from:subject:openpgp:autocrypt:message-id
- :date:user-agent:mime-version;
- bh=kv84csXM007pQRiuVyC4bxrS4z1RYzLmldc3dWclYWE=;
- b=tNzR7pLROnwR3fmSAYqeTKBN6jy3Sjg5Xr1OUad8eOFluijMrz8/HejZ/RGzvipQx2
- 7l3l5JrPSYGswdm73gdB909TXZiQNp8oTENicLRo+WBFQI7ayTXHPSejKnD87XDe1XWo
- o3BuL+5ezcju0I3qGojT/NVF80WRLbS+aJMGum+W+nvak8+UAqicsgPzGkmlDR/2F9Nf
- e1j23BEorfTLCy3fl/STi6+cSHToXDV1HtjxNMRCp1/HRUTEBpP+ATIgmx3bQ2FMP1JO
- ZEGKPrlQGOALut4TZJkhhGIEZE4DGpLvwt25wUKQcCh4S3FUqFqOuM1KUn870lk66i5o
- IFcA==
-X-Gm-Message-State: APjAAAV0M9GgADNWoaiFSs3Sa5I86ODq/+ShIgIeUBBi4zsH+um2GAm6
- K0Y3CqYm1i2iFYpotRja6wJ0oODa
-X-Google-Smtp-Source: APXvYqwEYm0W+fiIQgYocMU3Uu/6go3x7jLxBvDsKm5yJZsQek2iv9bWqDvYGiVsUAvn9pIRhIhHJA==
-X-Received: by 2002:a19:f80d:: with SMTP id a13mr17956078lff.6.1571111868069; 
- Mon, 14 Oct 2019 20:57:48 -0700 (PDT)
-Received: from localhost (public-gprs351484.centertel.pl. [37.47.4.61])
- by smtp.gmail.com with ESMTPSA id q11sm4799900lje.52.2019.10.14.20.57.46
- for <apparmor@lists.ubuntu.com>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 14 Oct 2019 20:57:47 -0700 (PDT)
-To: apparmor@lists.ubuntu.com
-From: Mikhail Morfikov <mmorfikov@gmail.com>
+ (envelope-from <john.johansen@canonical.com>) id 1iOOcn-0001m7-E8
+ for apparmor@lists.ubuntu.com; Sat, 26 Oct 2019 16:09:09 +0000
+Received: from static-50-53-33-191.bvtn.or.frontiernet.net ([50.53.33.191]
+ helo=[192.168.192.153]) by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <john.johansen@canonical.com>)
+ id 1iOOcn-0002u8-22; Sat, 26 Oct 2019 16:09:09 +0000
+To: Mikhail Morfikov <mmorfikov@gmail.com>, apparmor@lists.ubuntu.com
+References: <8fcb6087-4bc0-2956-c17e-8ca7d24767b1@gmail.com>
+From: John Johansen <john.johansen@canonical.com>
 Openpgp: preference=signencrypt
-Autocrypt: addr=mmorfikov@gmail.com; prefer-encrypt=mutual; keydata=
- mDMEXRaE+hYJKwYBBAHaRw8BAQdADVtvGNnC7y4y14i2IuxupgValXBb5YBbzeymUVfQEQu0
- L01pa2hhaWwgTW9yZmlrb3YgKE1vcmZpaykgPG1tb3JmaWtvdkBnbWFpbC5jb20+iJYEExYK
- AD4WIQR1ZhNYxftXAnkWpwEy2ctjR5bMoQUCXRaJTwIbAwUJAeEzgAULCQgHAwUVCgkICwUW
- AgMBAAIeAQIXgAAKCRAy2ctjR5bMoRS0AP9NEO+t25BNIya+w+I4if6Zv8FgtIMpS06LJdgL
- 3QhOXQD/dsoOMLyLNaa7aEvwidUrv7CFd27VdNcSfajciwaXbwO4OARdFoT6EgorBgEEAZdV
- AQUBAQdA1vPaWR/g6H2DzFqi6zjEBCqEv6bOg+N6lahCEuhLc24DAQgHiH4EGBYKACYWIQR1
- ZhNYxftXAnkWpwEy2ctjR5bMoQUCXRaE+gIbDAUJAeEzgAAKCRAy2ctjR5bMocLJAQCVr++2
- +63HkY55uXQgTeJf446YbqyKH/TP3WvHCxqDfwD+Ks9eAFnkknOqtMrj1GHIzM4bk2hwKw8v
- V+nbEhOboQI=
-Message-ID: <8fcb6087-4bc0-2956-c17e-8ca7d24767b1@gmail.com>
-Date: Tue, 15 Oct 2019 05:57:39 +0200
+Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
+ 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
+Organization: Canonical
+Message-ID: <7686320e-da36-add7-de0f-6fd5924c7873@canonical.com>
+Date: Sat, 26 Oct 2019 09:08:56 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.9.0
 MIME-Version: 1.0
-Subject: [apparmor] Question about "too many specified profile transitions"
+In-Reply-To: <8fcb6087-4bc0-2956-c17e-8ca7d24767b1@gmail.com>
+Subject: Re: [apparmor] Question about "too many specified profile
+	transitions"
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -75,75 +84,103 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1574774113864789309=="
+Content-Type: multipart/mixed; boundary="===============7338073571379967935=="
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1574774113864789309==
+--===============7338073571379967935==
 Content-Type: multipart/signed; micalg=pgp-sha512;
  protocol="application/pgp-signature";
- boundary="evpt2glP13W01qfWRT6nIeK9FT2s8Cjug"
+ boundary="tz60oV2qfMIdZ2lAeSlB7iNhRyeqU3Wqr"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---evpt2glP13W01qfWRT6nIeK9FT2s8Cjug
-Content-Type: multipart/mixed; boundary="LYdNCh5LAHvqC7KhjwN1TYz8BBylcMb59";
+--tz60oV2qfMIdZ2lAeSlB7iNhRyeqU3Wqr
+Content-Type: multipart/mixed; boundary="xxHKjAgTEpMxSHSKUlW2NGMKcnU5YQocI";
  protected-headers="v1"
-From: Mikhail Morfikov <mmorfikov@gmail.com>
-To: apparmor@lists.ubuntu.com
-Message-ID: <8fcb6087-4bc0-2956-c17e-8ca7d24767b1@gmail.com>
-Subject: Question about "too many specified profile transitions"
+From: John Johansen <john.johansen@canonical.com>
+To: Mikhail Morfikov <mmorfikov@gmail.com>, apparmor@lists.ubuntu.com
+Message-ID: <7686320e-da36-add7-de0f-6fd5924c7873@canonical.com>
+Subject: Re: Question about "too many specified profile transitions"
+References: <8fcb6087-4bc0-2956-c17e-8ca7d24767b1@gmail.com>
+In-Reply-To: <8fcb6087-4bc0-2956-c17e-8ca7d24767b1@gmail.com>
 
---LYdNCh5LAHvqC7KhjwN1TYz8BBylcMb59
+--xxHKjAgTEpMxSHSKUlW2NGMKcnU5YQocI
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Content-Language: en-GB
 Content-Transfer-Encoding: quoted-printable
 
-Should the rules in the following test profile count as a profile transit=
-ions?
+On 10/14/19 8:57 PM, Mikhail Morfikov wrote:
+> Should the rules in the following test profile count as a profile trans=
+itions?
+>=20
+yes those are all unique profile transitions.
 
-profile test /bin/test {
-  /file1 rwl -> /some-file1,
-  /file2 rwl -> /some-file2,
-  /file3 rwl -> /some-file3,
-  /file4 rwl -> /some-file4,
-  /file5 rwl -> /some-file5,
-  /file6 rwl -> /some-file6,
-  /file7 rwl -> /some-file7,
-  /file8 rwl -> /some-file8,
-  /file9 rwl -> /some-file9,
-  /file10 rwl -> /some-file10,
-  /file11 rwl -> /some-file11,
-  /file12 rwl -> /some-file12,
-  /file13 rwl -> /some-file13,
-}
+> profile test /bin/test {
+>   /file1 rwl -> /some-file1,
+>   /file2 rwl -> /some-file2,
+>   /file3 rwl -> /some-file3,
+>   /file4 rwl -> /some-file4,
+>   /file5 rwl -> /some-file5,
+>   /file6 rwl -> /some-file6,
+>   /file7 rwl -> /some-file7,
+>   /file8 rwl -> /some-file8,
+>   /file9 rwl -> /some-file9,
+>   /file10 rwl -> /some-file10,
+>   /file11 rwl -> /some-file11,
+>   /file12 rwl -> /some-file12,
+>   /file13 rwl -> /some-file13,
+> }
+>=20
+> When I try to load this profile, I get:
+>=20
+>   # apparmor_parser -r test-profile
+>   Profile test has too many specified profile transitions.
+>=20
 
-When I try to load this profile, I get:
+Unfortunately apparmor only supports 12 of this style of transition in a
+profile atm. There are 2 patch sets in the works to help address this. A
+smaller patch that can be backported to older kernels, and userspaces. It=
 
-  # apparmor_parser -r test-profile
-  Profile test has too many specified profile transitions.
+will raise the limit to 28 of this style of transition in a profile.
+
+There is also a larger rework of how the permission set is stored and
+accessed in apparmor, that will effectively remove the limit, allowing
+for a few billion transitions if your computer can support it. But that
+is a much larger patchset and will require a newer release of apparmor.
 
 
 
---LYdNCh5LAHvqC7KhjwN1TYz8BBylcMb59--
 
---evpt2glP13W01qfWRT6nIeK9FT2s8Cjug
+
+--xxHKjAgTEpMxSHSKUlW2NGMKcnU5YQocI--
+
+--tz60oV2qfMIdZ2lAeSlB7iNhRyeqU3Wqr
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYKAB0WIQR1ZhNYxftXAnkWpwEy2ctjR5bMoQUCXaVDuQAKCRAy2ctjR5bM
-oXDEAQD31LSpDKWVowdrgpzMIBI/msc4KEfR/dFEY0TmxSsK4wEA5mGUTnxYcJUT
-7NSMe5btity3/yw3ObBf0WSsqbS2vgM=
-=cBbP
+iQIzBAEBCgAdFiEE7cSDD705q2rFEEf7BS82cBjVw9gFAl20b6MACgkQBS82cBjV
+w9go1xAAsiGDO4V5unNMyAYc8oYwYAC0V0G4vCurPrptBdE8714sTZt3cWN8t1YB
+qVs/3I6om8bk4+WAhW/Y8tTEa6FHSezP22t0LC+ceySQZ04n2OUihWw/G1WVobCj
+4507gVjdm18KGELbJFwTgesrHaTWVns6VvMjNcBlSKD8PDx8MDcZomxr3FBerdFE
++IvXf0p4LRy6Xp/9SS+0RUpENUxmgRtbdSglHxIFXyeVpY+0zoFytosm8EatdEVU
+YX6bzIMhQt5P8i05yE/r92w+DvtXgCCixvFQ6KVLZ0bUyg5YcV2yeFqLMnfC+5Y3
+BGWKACbgdWG0GafckuX0/AlYKXszymVr6jiF55oH9ZW5jz73e3dIvNFQvNJthm5e
+GGQhOY5eq4qZzX24VMRQSD2ExcUc7RnGbqm06uEzOMVTYbwwERPQO2AyZ+KInE9z
+QFCaEZZ0tBx+HwpEixxhY31sq/dKansJeHLLrgWtK0cg9kbOZBoz5+xoAWOe2wmJ
+bU2uW1HrbP+VvZ33tEQ9Zcet3pGblnFFB1B4rlSuz3XiFVpqnkNO9eeleFZXCvha
+8BF1vbXRbTrvTlwGoMRfSJ9skPwLXrkHwrc6PsrJlKUL77Aucmk2xhN7hYKccJQr
+R1El73d14ZlP+8dt7FW6dZ5MtM4XatUJ68ljarKoZKuy8dMcHtg=
+=dm7x
 -----END PGP SIGNATURE-----
 
---evpt2glP13W01qfWRT6nIeK9FT2s8Cjug--
+--tz60oV2qfMIdZ2lAeSlB7iNhRyeqU3Wqr--
 
 
---===============1574774113864789309==
+--===============7338073571379967935==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -153,5 +190,5 @@ LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
 eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
 aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
 
---===============1574774113864789309==--
+--===============7338073571379967935==--
 
