@@ -2,37 +2,35 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBE8213625E
-	for <lists+apparmor@lfdr.de>; Thu,  9 Jan 2020 22:19:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08EBF13629D
+	for <lists+apparmor@lfdr.de>; Thu,  9 Jan 2020 22:33:39 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1ipfDZ-0000Vd-CL; Thu, 09 Jan 2020 21:19:49 +0000
-Received: from relay9-d.mail.gandi.net ([217.70.183.199])
+	id 1ipfQr-0001MA-1S; Thu, 09 Jan 2020 21:33:33 +0000
+Received: from youngberry.canonical.com ([91.189.89.112])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <otto@ubuntu.com>) id 1ipeF7-0001sE-Ed
- for apparmor@lists.ubuntu.com; Thu, 09 Jan 2020 20:17:21 +0000
-X-Originating-IP: 209.85.215.179
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com
- [209.85.215.179]) (Authenticated sender: outgoing@kekalainen.net)
- by relay9-d.mail.gandi.net (Postfix) with ESMTPSA id E2CF5FF804
- for <apparmor@lists.ubuntu.com>; Thu,  9 Jan 2020 20:17:20 +0000 (UTC)
-Received: by mail-pg1-f179.google.com with SMTP id b9so3719563pgk.12
- for <apparmor@lists.ubuntu.com>; Thu, 09 Jan 2020 12:17:20 -0800 (PST)
-X-Gm-Message-State: APjAAAW8DIWXWoTMSspzpFJjrn86OqNviC1/7Y5KPCKtgKXIZHzskwgh
- mny6wyUV1wV/oqqck0jw/E8Gx1kxWQ5eebvbj0XE
-X-Google-Smtp-Source: APXvYqySpaIm3SeaC9u5DzrADERKr1dVtIqxeevsrsVywQ7uDNsElB6LnB3A2X9vep5srZk8L5FxhPJQ6ktjhtz2X5g=
-X-Received: by 2002:a63:4a0e:: with SMTP id x14mr400819pga.360.1578601039274; 
- Thu, 09 Jan 2020 12:17:19 -0800 (PST)
+ (envelope-from <john.johansen@canonical.com>) id 1ipfQq-0001M4-1t
+ for apparmor@lists.ubuntu.com; Thu, 09 Jan 2020 21:33:32 +0000
+Received: from static-50-53-33-191.bvtn.or.frontiernet.net ([50.53.33.191]
+ helo=[192.168.192.153]) by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <john.johansen@canonical.com>)
+ id 1ipfQp-00010z-Le; Thu, 09 Jan 2020 21:33:31 +0000
+To: =?UTF-8?B?T3R0byBLZWvDpGzDpGluZW4=?= <otto@ubuntu.com>,
+ AppArmor dev list <apparmor@lists.ubuntu.com>
+References: <CAHj_TLA3SLECQkVNkax0s0_TvyoH7h+=AX-SkLa9XGZUhw2vtA@mail.gmail.com>
+From: John Johansen <john.johansen@canonical.com>
+Organization: Canonical
+Message-ID: <b2ad1fc3-db59-e01a-3dff-2fddbc7188d1@canonical.com>
+Date: Thu, 9 Jan 2020 13:33:29 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 MIME-Version: 1.0
-From: =?UTF-8?B?T3R0byBLZWvDpGzDpGluZW4=?= <otto@ubuntu.com>
-Date: Thu, 9 Jan 2020 22:16:53 +0200
-X-Gmail-Original-Message-ID: <CAHj_TLA3SLECQkVNkax0s0_TvyoH7h+=AX-SkLa9XGZUhw2vtA@mail.gmail.com>
-Message-ID: <CAHj_TLA3SLECQkVNkax0s0_TvyoH7h+=AX-SkLa9XGZUhw2vtA@mail.gmail.com>
-To: AppArmor dev list <apparmor@lists.ubuntu.com>
-X-Mailman-Approved-At: Thu, 09 Jan 2020 21:19:47 +0000
-Subject: [apparmor] Meeting in FOSDEM?
+In-Reply-To: <CAHj_TLA3SLECQkVNkax0s0_TvyoH7h+=AX-SkLa9XGZUhw2vtA@mail.gmail.com>
+Content-Language: en-GB
+Subject: Re: [apparmor] Meeting in FOSDEM?
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -49,9 +47,12 @@ Content-Transfer-Encoding: base64
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-SGVsbG8hCgpBbnkgQXBwQXJtb3IgZGV2ZWxvcGVycyBhdHRlbmRpbmcgRk9TREVNIDIwMjA/Cldv
-dWxkIHlvdSBsaWtlIHRvIGhhdmUgYSBzbWFsbCBtZWV0aW5nIG9yIHNvbWV0aGluZywgbWF5YmUg
-ZGlzY3VzcyAzLjAKZGV2ZWxvcG1lbnQuLj8KCi0gT3R0bwoKLS0gCkFwcEFybW9yIG1haWxpbmcg
-bGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlmeSBzZXR0aW5ncyBvciB1bnN1YnNj
-cmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21haWxtYW4vbGlzdGluZm8vYXBwYXJt
-b3IK
+T24gMS85LzIwIDEyOjE2IFBNLCBPdHRvIEtla8OkbMOkaW5lbiB3cm90ZToKPiBIZWxsbyEKPiAK
+PiBBbnkgQXBwQXJtb3IgZGV2ZWxvcGVycyBhdHRlbmRpbmcgRk9TREVNIDIwMjA/Cj4gV291bGQg
+eW91IGxpa2UgdG8gaGF2ZSBhIHNtYWxsIG1lZXRpbmcgb3Igc29tZXRoaW5nLCBtYXliZSBkaXNj
+dXNzIDMuMAo+IGRldmVsb3BtZW50Li4/Cj4gCgpIaSBPdHRvLAoKdW5mb3J0dW5hdGVseSBuZWl0
+aGVyIENocmlzdGlhbiBub3IgSSB3aWxsIGJlIGF0IEZPU0RFTSB0aGlzIHllYXIuIEl0IGlzCnBv
+c3NpYmxlIHRoYXQgQ2hyaXMgd2lsbCBiZSBidXQgaGUgaXNuJ3Qgb25saW5lIGF0bS4KCi0tIApB
+cHBBcm1vciBtYWlsaW5nIGxpc3QKQXBwQXJtb3JAbGlzdHMudWJ1bnR1LmNvbQpNb2RpZnkgc2V0
+dGluZ3Mgb3IgdW5zdWJzY3JpYmUgYXQ6IGh0dHBzOi8vbGlzdHMudWJ1bnR1LmNvbS9tYWlsbWFu
+L2xpc3RpbmZvL2FwcGFybW9yCg==
