@@ -2,42 +2,82 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id A74E8137C14
-	for <lists+apparmor@lfdr.de>; Sat, 11 Jan 2020 08:25:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CE57137CBB
+	for <lists+apparmor@lfdr.de>; Sat, 11 Jan 2020 10:48:59 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1iqB9P-0003rc-FG; Sat, 11 Jan 2020 07:25:39 +0000
-Received: from server00.inetadmin.eu ([109.74.156.7])
+	id 1iqDNw-0005l1-Mk; Sat, 11 Jan 2020 09:48:48 +0000
+Received: from 3.mo173.mail-out.ovh.net ([46.105.34.1])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <azurit@pobox.sk>) id 1iqB9K-0003r0-Gr
- for apparmor@lists.ubuntu.com; Sat, 11 Jan 2020 07:25:34 +0000
-Received: from localhost (server00.inetadmin.eu [109.74.156.6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- (Authenticated sender: azurit@elbiahosting.sk)
- by server00.inetadmin.eu (Postfix) with ESMTPSA id 53A0A13A880
- for <apparmor@lists.ubuntu.com>; Sat, 11 Jan 2020 08:25:33 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.sk;
- s=dkiminetadmin; t=1578727533;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:  in-reply-to:in-reply-to; 
- bh=zwBeLr1g0DPt0UZNISMPEqGvp+Uee1a4tcihxP9y4nY=;
- b=OotrLrSlxkvKgH5AQPojhctpT/kRUiwLnA9vKiSDS10mEI9HdGqzF+ITL4rWxlpTWJw4gm
- 0+GJjR80aIlrqeSjNY7QYYFbApDfdGGbH6DH22ubZzpTR3VsMaKlu46tW2eyjB3v/1UlPE
- Mu/NuRHYtOrK4UQBd5fYzAXM4JfFQWE=
-Received: from [217.12.54.210] ([217.12.54.210]) by webmail.inetadmin.eu
- (Horde Framework) with HTTPS; Sat, 11 Jan 2020 08:25:33 +0100
-Date: Sat, 11 Jan 2020 08:25:33 +0100
-Message-ID: <20200111082533.Horde.-q_htOKjOvSwJY_kRNitnGs@webmail.inetadmin.eu>
-From: azurit@pobox.sk
-To: apparmor@lists.ubuntu.com
-In-Reply-To: <f189a6f3-80f8-6acc-62c3-06408bcef190@chicoree.fr>
-User-Agent: Horde Application Framework 5
+ (envelope-from <sylvain@chicoree.fr>) id 1iqDNu-0005kv-C3
+ for apparmor@lists.ubuntu.com; Sat, 11 Jan 2020 09:48:46 +0000
+Received: from player732.ha.ovh.net (unknown [10.109.143.175])
+ by mo173.mail-out.ovh.net (Postfix) with ESMTP id 1041412AC09
+ for <apparmor@lists.ubuntu.com>; Sat, 11 Jan 2020 10:48:45 +0100 (CET)
+Received: from chicoree.fr (reverse-177-9.fdn.fr [80.67.177.9])
+ (Authenticated sender: sylvain@chicoree.fr)
+ by player732.ha.ovh.net (Postfix) with ESMTPSA id 69C77DFBE80A;
+ Sat, 11 Jan 2020 09:48:42 +0000 (UTC)
+To: azurit@pobox.sk, apparmor@lists.ubuntu.com
+References: <20200111082533.Horde.-q_htOKjOvSwJY_kRNitnGs@webmail.inetadmin.eu>
+From: Sylvain Leroux <sylvain@chicoree.fr>
+Openpgp: preference=signencrypt
+Autocrypt: addr=sylvain@chicoree.fr; keydata=
+ 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
+ ZVTXbkoKWnXazv6EYQ==
+Message-ID: <87e7a580-2566-2c6c-1ddb-16299edddd63@chicoree.fr>
+Date: Sat, 11 Jan 2020 10:48:41 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Firefox/60.0 Thunderbird/60.9.0
 MIME-Version: 1.0
-Content-Disposition: inline
+In-Reply-To: <20200111082533.Horde.-q_htOKjOvSwJY_kRNitnGs@webmail.inetadmin.eu>
+Content-Language: en-US
+X-Ovh-Tracer-Id: 11096025060158312078
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: 0
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedufedrvdeihedgtdeiucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucenucfjughrpefuvfhfhffkffgfgggjtgfgsehtkeertddtfeejnecuhfhrohhmpefuhihlvhgrihhnucfnvghrohhugicuoehshihlvhgrihhnsegthhhitghorhgvvgdrfhhrqeenucfkpheptddrtddrtddrtddpkedtrdeijedrudejjedrleenucfrrghrrghmpehmohguvgepshhmthhpqdhouhhtpdhhvghlohepphhlrgihvghrjeefvddrhhgrrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpehshihlvhgrihhnsegthhhitghorhgvvgdrfhhrpdhrtghpthhtoheprghpphgrrhhmohhrsehlihhsthhsrdhusghunhhtuhdrtghomhenucevlhhushhtvghrufhiiigvpedt
 Subject: Re: [apparmor] Patching a system profile for a specific user
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -50,43 +90,16 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"; DelSp="Yes"
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-SGksCgpqdXN0IHB1dCB0aGlzIGluIC9ldGMvYXBwYXJtb3IuZC9sb2NhbC91c3IuYmluLnRodW5k
-ZXJiaXJkIDoKb3duZXIgQHtIT01FfS8uc2lnbmF0dXJlLmQvKiogciwKCgphenVyCgoKCgpDaXTD
-oXQgU3lsdmFpbiBMZXJvdXggPHN5bHZhaW5AY2hpY29yZWUuZnI+OgoKPgo+IEhpIGV2ZXJ5b25l
-LAo+Cj4gSSdtIGEgc2Vhc29uZWQgTGludXggYWRtaW5pc3RyYXRvciBidXQgSSBoYXZlIGxpdHRs
-ZSBwcmlvciBleHBlcmllbmNlCj4gd2l0aCBBcHBBcm1vci4gIEZXSVcsIEkgYWxyZWFkeSBoYXZl
-IGFza2VkIHRoaXMgcXVlc3Rpb24gb24gdGhlCj4gU3VwZXJVc2VyIFN0YWNrRXhjaGFuZ2Ugd2Vi
-IHNpdGUgdGhpcyBhZnRlcm5vb24gWzFdLCAgYnV0IGl0IHJlY2VpdmVkCj4gbGl0dGxlIGludGVy
-ZXN0LCBhbmQgSSBub3cgaGF2ZSBsaXR0bGUgaG9wZXMgdG8gaGF2ZSBhbiBhbnN3ZXIgdGhlcmUu
-Cj4KPiBPdXIgTGludXggRGViaWFuIGJveGVzIGhhdmUgYSBzdGFuZGFyZCBwb2xpY3kgZm9yIHRo
-ZSBUaHVuZGVyYmlyZAo+IGVtYWlsIGNsaWVudCBpbiBgL2V0Yy9hcHBhcm1vci5kL3Vzci5iaW4u
-dGh1bmRlcmJpcmRgCj4KPiBPbmUgdXNlciBuZWVkcyBUaHVuZGVyYmlyZCB0byBoYXZlIHJlYWQg
-YWNjZXNzIHRvIHRoZSBmaWxlcyBzdG9yZWQgaW4KPiBoaXMgYCR7SE9NRX0vc2lnbmF0dXJlLmQv
-YCBmb2xkZXIuIElzIHRoZXJlIGEgd2F5IHRvIGNyZWF0ZSBhCj4gdXNlci1zcGVjaWZpYyBwcm9m
-aWxlIHRoYXQgX2luY2x1ZGVzXyB0aGUgZGVmYXVsdCBwcm9maWxlIHNldHRpbmdzLAo+IGJ1dCBn
-cmFudGluZyBleHRyYSBhY2Nlc3MgdGhlIHRoZSBuZWVkZWQgZmlsZXM/IEkgZGlkbid0IGZpbmQg
-YW55Cj4gcmVmZXJlbmNlIGFib3V0IHRoYXQgcGFydGljdWxhciB1c2UgY2FzZSwgYW5kIG15IGZp
-cnN0IGF0dGVtcHRzIHdlcmUKPiB1bnN1Y2Nlc3NmdWwuIEJ1dCBJIGNhbid0IHNheSBpZiBteSBz
-eW50YXggd2FzIHdyb25nLCBvZiBpZiB0aGlzCj4gd2Fzbid0IHBvc3NpYmxlIGF0IGFsbC4gSGVy
-ZSB3aGF0IEkgdHJpZWQ6Cj4KPgo+IGBgYAo+ICQgY2F0ICIke0hPTUV9Ly5hcHBhcm1vci5kL3Vz
-ci5iaW4udGh1bmRlcmJpcmQiCj4KPiAjaW5jbHVkZSA8L2V0Yy9hcHBhcm1vci5kL3Vzci5iaW4u
-dGh1bmRlcmJpcmQ+Cj4KPiBwcm9maWxlIHRodW5kZXJiaXJkIEB7dGh1bmRlcmJpcmRfZXhlY3V0
-YWJsZX0gewo+ICAgb3duZXIgQHtIT01FfS8uc2lnbmF0dXJlLmQvKiogciwKPiB9Cj4KPiAkIHN1
-ZG8gc3lzdGVtY3RsIHJlc3RhcnQgYXBwYXJtb3IKPgo+IGBgYAo+Cj4KPiBUaGlzIGRvZXNuJ3Qg
-c2VlbSB0byBjaGFuZ2UgYW55dGhpbmcuIEF0IHN1Y2ggcG9pbnQgSSBkb24ndCB0aGluayB0aGUK
-PiB1c2VyLXNwZWNpZmljIHByb2ZpbGUgaXMgcmVhZCBhdCBhbGwuIENvdWxkIHlvdSBoZWxwIG1l
-IGZpeGluZyB0aGF0Pwo+Cj4KPiBUaGFua3MgYSBsb3QsCj4gLSAtIFN5bHZhaW4gTGVyb3V4Cj4K
-Pgo+Cj4gWzFdCj4gaHR0cHM6Ly9zdXBlcnVzZXIuY29tL3F1ZXN0aW9ucy8xNTE2MTgxL2NvbmZp
-Z3VyZS1hcHBhcm1vci10by1hbGxvdy1maWxlLWFjY2Vzcy1vbi1hLXBlci11c2VyLWJhc2lzCj4K
-PiAtIC0tCj4gLSAtLSBTeWx2YWluIExlcm91eAo+IC0gLS0gc3lsdmFpbkBjaGljb3JlZS5mcgo+
-IC0gLS0gaHR0cDovL3d3dy5jaGljb3JlZS5mcgo+IC0tCj4gQXBwQXJtb3IgbWFpbGluZyBsaXN0
-Cj4gQXBwQXJtb3JAbGlzdHMudWJ1bnR1LmNvbQo+IE1vZGlmeSBzZXR0aW5ncyBvciB1bnN1YnNj
-cmliZSBhdDogIAo+IGh0dHBzOi8vbGlzdHMudWJ1bnR1LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2Fw
-cGFybW9yCgoKCgotLSAKQXBwQXJtb3IgbWFpbGluZyBsaXN0CkFwcEFybW9yQGxpc3RzLnVidW50
-dS5jb20KTW9kaWZ5IHNldHRpbmdzIG9yIHVuc3Vic2NyaWJlIGF0OiBodHRwczovL2xpc3RzLnVi
-dW50dS5jb20vbWFpbG1hbi9saXN0aW5mby9hcHBhcm1vcgo=
+VGhhbmtzIGF6dXIsCgpPbiAxMS8wMS8yMDIwIDA4OjI1LCBhenVyaXRAcG9ib3guc2sgd3JvdGU6
+Cj4ganVzdCBwdXQgdGhpcyBpbiAvZXRjL2FwcGFybW9yLmQvbG9jYWwvdXNyLmJpbi50aHVuZGVy
+YmlyZCA6Cj4gb3duZXIgQHtIT01FfS8uc2lnbmF0dXJlLmQvKiogciwKCgpNeSBpc3N1ZSBpcyBJ
+IGRvbid0IHdhbnQgdG8gY2hhbmdlIHRoZSBzeXN0ZW0gY29uZmlndXJhdGlvbi4gSSB3b3VsZAps
+aWtlIHRvIGdyYW50IHRoZSBleHRyYSBwZXJtaXNzaW9uICpvbmx5KiBmb3IgdGhlIHVzZXIgdGhh
+dCBuZWVkcyBpdC4KCi0tIApBcHBBcm1vciBtYWlsaW5nIGxpc3QKQXBwQXJtb3JAbGlzdHMudWJ1
+bnR1LmNvbQpNb2RpZnkgc2V0dGluZ3Mgb3IgdW5zdWJzY3JpYmUgYXQ6IGh0dHBzOi8vbGlzdHMu
+dWJ1bnR1LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2FwcGFybW9yCg==
