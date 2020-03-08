@@ -2,43 +2,74 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7718A15D3A8
-	for <lists+apparmor@lfdr.de>; Fri, 14 Feb 2020 09:18:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 915AC17D700
+	for <lists+apparmor@lfdr.de>; Mon,  9 Mar 2020 00:17:32 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1j2WAi-0007bR-2h; Fri, 14 Feb 2020 08:18:00 +0000
-Received: from meel.puscii.nl ([185.52.224.5])
+	id 1jB5Ad-00070w-JT; Sun, 08 Mar 2020 23:17:19 +0000
+Received: from youngberry.canonical.com ([91.189.89.112])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <intrigeri@debian.org>) id 1j2WAg-0007bH-Ka
- for apparmor@lists.ubuntu.com; Fri, 14 Feb 2020 08:17:58 +0000
-Received: from localhost (localhost [127.0.0.1])
- by meel.puscii.nl (Postfix) with ESMTP id 14CE0C2FF1
- for <apparmor@lists.ubuntu.com>; Fri, 14 Feb 2020 08:17:12 +0000 (UTC)
-Received: from meel.puscii.nl ([127.0.0.1])
- by localhost (meel.puscii.nl [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id XIJ029oPoPZA for <apparmor@lists.ubuntu.com>;
- Fri, 14 Feb 2020 08:17:11 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by meel.puscii.nl (Postfix) with ESMTP id 72BBEC3052
- for <apparmor@lists.ubuntu.com>; Fri, 14 Feb 2020 08:17:11 +0000 (UTC)
-X-Virus-Scanned: amavisd-new at meel.puscii.nl
-Received: from meel.puscii.nl ([127.0.0.1])
- by localhost (meel.puscii.nl [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id SV-Phs7lGhTz for <apparmor@lists.ubuntu.com>;
- Fri, 14 Feb 2020 08:17:11 +0000 (UTC)
-Received: from manticora (localhost [127.0.0.1])
- by localhost (Postfix) with ESMTP id 12104188202E
- for <apparmor@lists.ubuntu.com>; Fri, 14 Feb 2020 09:17:53 +0100 (CET)
-Message-Id: <87r1yx1t1r.fsf@manticora>
-From: intrigeri <intrigeri@debian.org>
-To: apparmor@lists.ubuntu.com
-In-Reply-To: <9cf3e4af-04d1-2a2b-0841-1c9df2466f22@gmail.com>
-References: <a58437d1-4cbf-953c-d06d-f950032ee6e2@canonical.com>
- <9cf3e4af-04d1-2a2b-0841-1c9df2466f22@gmail.com>
-Date: Fri, 14 Feb 2020 09:17:52 +0100
-Subject: Re: [apparmor] New AppArmor web page now live
+ (envelope-from <john.johansen@canonical.com>) id 1jB5Aa-00070q-KN
+ for apparmor@lists.ubuntu.com; Sun, 08 Mar 2020 23:17:16 +0000
+Received: from static-50-53-33-191.bvtn.or.frontiernet.net ([50.53.33.191]
+ helo=[192.168.192.153]) by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <john.johansen@canonical.com>) id 1jB5Aa-0004pF-7E
+ for apparmor@lists.ubuntu.com; Sun, 08 Mar 2020 23:17:16 +0000
+From: John Johansen <john.johansen@canonical.com>
+To: apparmor <apparmor@lists.ubuntu.com>
+Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
+ 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
+Organization: Canonical
+Message-ID: <644ddc74-c926-8673-9f46-f947b4b950fe@canonical.com>
+Date: Sun, 8 Mar 2020 16:17:14 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
+MIME-Version: 1.0
+Content-Language: en-GB
+Subject: [apparmor]  irc meeting Tues Mar 10, 18:00 UTC
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -50,13 +81,15 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-VmluY2FzIERhcmdpcyAoMjAyMC0wMi0xMyk6Cj4gVGhhbmtzIE90dG8hIFJlYWxseSBuaWNlIGFu
-ZCBjbGVhbiBzaXRlIDopCgorMQoKQ29uZ3JhdHMhCgotLSAKQXBwQXJtb3IgbWFpbGluZyBsaXN0
-CkFwcEFybW9yQGxpc3RzLnVidW50dS5jb20KTW9kaWZ5IHNldHRpbmdzIG9yIHVuc3Vic2NyaWJl
-IGF0OiBodHRwczovL2xpc3RzLnVidW50dS5jb20vbWFpbG1hbi9saXN0aW5mby9hcHBhcm1vcgo=
+VGhlIG5leHQgaWNyIG1lZXRpbmcgaXMgVHVlc2RheSBNYXIgMTAgYXQgMTg6MDAgVVRDIGluICNh
+cHBhcm1vciBvbiBvZnRjLm5ldAoKUGxlYXNlIHVwZGF0ZSB0aGUgYWdlbmRhIGh0dHBzOi8vZ2l0
+bGFiLmNvbS9hcHBhcm1vci9hcHBhcm1vci93aWtpcy9NZWV0aW5nQWdlbmRhIG9yIHJlcGx5IHRv
+IHRoaXMgbWFpbCBpZiB5b3UgaGF2ZSBpdGVtcyB5b3Ugd2FudCB0byBhZGQKCgotLSAKQXBwQXJt
+b3IgbWFpbGluZyBsaXN0CkFwcEFybW9yQGxpc3RzLnVidW50dS5jb20KTW9kaWZ5IHNldHRpbmdz
+IG9yIHVuc3Vic2NyaWJlIGF0OiBodHRwczovL2xpc3RzLnVidW50dS5jb20vbWFpbG1hbi9saXN0
+aW5mby9hcHBhcm1vcgo=
