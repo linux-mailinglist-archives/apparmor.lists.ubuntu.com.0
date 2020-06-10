@@ -2,24 +2,27 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28ADC1F1E9A
-	for <lists+apparmor@lfdr.de>; Mon,  8 Jun 2020 19:51:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E18501F56EB
+	for <lists+apparmor@lfdr.de>; Wed, 10 Jun 2020 16:41:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1jiLvz-0004AB-JC; Mon, 08 Jun 2020 17:51:43 +0000
+	id 1jj1uR-00080u-BZ; Wed, 10 Jun 2020 14:40:55 +0000
 Received: from youngberry.canonical.com ([91.189.89.112])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>) id 1jiLvx-0004A5-K0
- for apparmor@lists.ubuntu.com; Mon, 08 Jun 2020 17:51:41 +0000
+ (envelope-from <john.johansen@canonical.com>) id 1jj1uP-000809-Ce
+ for apparmor@lists.ubuntu.com; Wed, 10 Jun 2020 14:40:53 +0000
 Received: from static-50-53-52-215.bvtn.or.frontiernet.net ([50.53.52.215]
  helo=[192.168.192.153]) by youngberry.canonical.com with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>) id 1jiLvx-000362-6r
- for apparmor@lists.ubuntu.com; Mon, 08 Jun 2020 17:51:41 +0000
+ (envelope-from <john.johansen@canonical.com>)
+ id 1jj1uO-0005fZ-H7; Wed, 10 Jun 2020 14:40:52 +0000
+To: Stefan Hundhammer <shundhammer@suse.de>,
+ Christian Boltz <opensuse@cboltz.de>
+References: <1794871.jzh3902Se6@tux.boltz.de.vu>
+ <06f9ced030aae366686a3f681b476b32@suse.de>
 From: John Johansen <john.johansen@canonical.com>
-To: apparmor <apparmor@lists.ubuntu.com>
 Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
  LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCgptUUlOQkU1bXJQb0JFQURB
  azE5UHNnVmdCS2tJbW1SMmlzUFE2bzdLSmhUVEtqSmR3VmJrV1NuTm4rbzZVcDVrCm5LUDFm
@@ -95,13 +98,16 @@ Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
  MDNwYVBDakpoN1hxOXZBenlkTjVVL1VBPT0KPTZQL2IKLS0tLS1FTkQgUEdQIFBVQkxJQyBL
  RVkgQkxPQ0stLS0tLQo=
 Organization: Canonical
-Message-ID: <28197c61-5730-f3fe-e877-af81d830244f@canonical.com>
-Date: Mon, 8 Jun 2020 10:51:39 -0700
+Message-ID: <464826e3-803e-1710-88ac-2fd13c3f7bca@canonical.com>
+Date: Wed, 10 Jun 2020 07:40:50 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.8.0
 MIME-Version: 1.0
+In-Reply-To: <06f9ced030aae366686a3f681b476b32@suse.de>
+Content-Type: multipart/mixed; boundary="------------73CDA8A9139690D6E2F175F9"
 Content-Language: en-US
-Subject: [apparmor]  irc meeting Tues June 9, 18:00 UTC
+Subject: Re: [apparmor] [yast-devel] Upcoming changes in AppArmor aa-status
+ output
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -113,15 +119,196 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: apparmor@lists.ubuntu.com, yast-devel@opensuse.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-VGhlIG5leHQgaXJjIG1lZXRpbmcgaXMgVHVlc2RheSBKdW5lIDksIGF0IDE4OjAwIFVUQyBpbiAj
-YXBwYXJtb3Igb24gb2Z0Yy5uZXQKClBsZWFzZSB1cGRhdGUgdGhlIGFnZW5kYSBodHRwczovL2dp
-dGxhYi5jb20vYXBwYXJtb3IvYXBwYXJtb3Ivd2lraXMvTWVldGluZ0FnZW5kYSBvciByZXBseSB0
-byB0aGlzIG1haWwgaWYgeW91IGhhdmUgaXRlbXMgeW91IHdhbnQgdG8gYWRkCgotLSAKQXBwQXJt
-b3IgbWFpbGluZyBsaXN0CkFwcEFybW9yQGxpc3RzLnVidW50dS5jb20KTW9kaWZ5IHNldHRpbmdz
-IG9yIHVuc3Vic2NyaWJlIGF0OiBodHRwczovL2xpc3RzLnVidW50dS5jb20vbWFpbG1hbi9saXN0
-aW5mby9hcHBhcm1vcgo=
+This is a multi-part message in MIME format.
+--------------73CDA8A9139690D6E2F175F9
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+On 5/4/20 1:08 AM, Stefan Hundhammer wrote:
+> On 2020-04-30 13:22, Christian Boltz wrote:
+>> Hello,
+>>
+>> AFAIK the YaST AppArmor module uses the JSON output of aa-status.
+>>
+>> There are two upcoming changes, and I'd like to point them out so that
+>> you can adjust the YaST AppArmor module if needed.
+> 
+> This time PLEASE remember to also bump the JSON version number of that output. We had to do a pretty ugly hot fix for that last time, and it was just coincidence that this did not conflict with the previous version.
+> 
+
+the JSON version was bumped to 2
+
+attached is an example output of aa-status, along with the corresponding pretty json and compressed json output using the new unconfined, kill, mixed, and prompt modes
+
+--------------73CDA8A9139690D6E2F175F9
+Content-Type: text/plain; charset=UTF-8;
+ name="aa-status.txt"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+ filename="aa-status.txt"
+
+YXBwYXJtb3IgbW9kdWxlIGlzIGxvYWRlZC4KNDUgcHJvZmlsZXMgYXJlIGxvYWRlZC4KNDAg
+cHJvZmlsZXMgYXJlIGluIGVuZm9yY2UgbW9kZS4KICAgL3NuYXAvY29yZS85Mjg5L3Vzci9s
+aWIvc25hcGQvc25hcC1jb25maW5lCiAgIC9zbmFwL2NvcmUvOTI4OS91c3IvbGliL3NuYXBk
+L3NuYXAtY29uZmluZS8vbW91bnQtbmFtZXNwYWNlLWNhcHR1cmUtaGVscGVyCiAgIC91c3Iv
+YmluL2V2aW5jZQogICAvdXNyL2Jpbi9ldmluY2UtcHJldmlld2VyCiAgIC91c3IvYmluL2V2
+aW5jZS1wcmV2aWV3ZXIvL3Nhbml0aXplZF9oZWxwZXIKICAgL3Vzci9iaW4vZXZpbmNlLXRo
+dW1ibmFpbGVyCiAgIC91c3IvYmluL2V2aW5jZS8vc2FuaXRpemVkX2hlbHBlcgogICAvdXNy
+L2Jpbi9tYW4KICAgL3Vzci9saWIvTmV0d29ya01hbmFnZXIvbm0tZGhjcC1jbGllbnQuYWN0
+aW9uCiAgIC91c3IvbGliL05ldHdvcmtNYW5hZ2VyL25tLWRoY3AtaGVscGVyCiAgIC91c3Iv
+bGliL2Nvbm5tYW4vc2NyaXB0cy9kaGNsaWVudC1zY3JpcHQKICAgL3Vzci9saWIvY3Vwcy9i
+YWNrZW5kL2N1cHMtcGRmCiAgIC91c3IvbGliL3NuYXBkL3NuYXAtY29uZmluZQogICAvdXNy
+L2xpYi9zbmFwZC9zbmFwLWNvbmZpbmUvL21vdW50LW5hbWVzcGFjZS1jYXB0dXJlLWhlbHBl
+cgogICAvdXNyL3NiaW4vY3Vwcy1icm93c2VkCiAgIC91c3Ivc2Jpbi9jdXBzZAogICAvdXNy
+L3NiaW4vY3Vwc2QvL3RoaXJkX3BhcnR5CiAgIC91c3Ivc2Jpbi90Y3BkdW1wCiAgIC97LHVz
+ci99c2Jpbi9kaGNsaWVudAogICA6bnM6Zm9vCiAgIGZpcmVmb3gKICAgZmlyZWZveC8vYnJv
+d3Nlcl9qYXZhCiAgIGZpcmVmb3gvL2Jyb3dzZXJfb3BlbmpkawogICBmaXJlZm94Ly9sc2Jf
+cmVsZWFzZQogICBmaXJlZm94Ly9zYW5pdGl6ZWRfaGVscGVyCiAgIGlwcHVzYnhkCiAgIGxp
+YnJlb2ZmaWNlLXNlbmRkb2MKICAgbGlicmVvZmZpY2Utc29mZmljZS8vZ3BnCiAgIGxpYnJl
+b2ZmaWNlLXhwZGZpbXBvcnQKICAgbHNiX3JlbGVhc2UKICAgbWFuX2ZpbHRlcgogICBtYW5f
+Z3JvZmYKICAgbnZpZGlhX21vZHByb2JlCiAgIG52aWRpYV9tb2Rwcm9iZS8va21vZAogICBz
+bmFwLXVwZGF0ZS1ucy5jb3JlCiAgIHNuYXAtdXBkYXRlLW5zLnNuYXAtc3RvcmUKICAgc25h
+cC5jb3JlLmhvb2suY29uZmlndXJlCiAgIHNuYXAuc25hcC1zdG9yZS5zbmFwLXN0b3JlCiAg
+IHNuYXAuc25hcC1zdG9yZS51YnVudHUtc29mdHdhcmUKICAgc25hcC5zbmFwLXN0b3JlLnVi
+dW50dS1zb2Z0d2FyZS1sb2NhbC1maWxlCjIgcHJvZmlsZXMgYXJlIGluIGNvbXBsYWluIG1v
+ZGUuCiAgIGxpYnJlb2ZmaWNlLW9vcHNsYXNoCiAgIGxpYnJlb2ZmaWNlLXNvZmZpY2UKMSBw
+cm9maWxlcyBhcmUgaW4ga2lsbCBtb2RlLgogICBleGFtcGxlCjEgcHJvZmlsZXMgYXJlIGlu
+IHVuY29uZmluZWQgbW9kZS4KICAgdGVzdAoxIHByb2ZpbGVzIGFyZSBpbiBwcm9tcHQgbW9k
+ZS4KICAgaW50ZXJhY3RpdmUKOCBwcm9jZXNzZXMgaGF2ZSBwcm9maWxlcyBkZWZpbmVkLgoy
+IHByb2Nlc3NlcyBhcmUgaW4gZW5mb3JjZSBtb2RlLgogICAvdXNyL3NiaW4vY3Vwcy1icm93
+c2VkICg2MjQpIAogICAvdXNyL3NiaW4vY3Vwc2QgKDUyMCkgCjAgcHJvY2Vzc2VzIGFyZSBp
+biBjb21wbGFpbiBtb2RlLgoxIHByb2Nlc3NlcyBhcmUgdW5jb25maW5lZCBidXQgaGF2ZSBh
+IHByb2ZpbGUgZGVmaW5lZC4KICAgL3Vzci9iaW4vYmFzaCAoMTQ2NikgdGVzdAoxIHByb2Nl
+c3NlcyBhcmUgaW4gbWl4ZWQgbW9kZS4KICAgL3Vzci9iaW4vY2F0ICgxNTAyKSBpbnRlcmFj
+dGl2ZS8vJjpuczpmb28KMSBwcm9jZXNzZXMgYXJlIGluIGtpbGwgbW9kZS4KICAgL3Vzci9i
+aW4vY2F0ICgxNDc0KSBleGFtcGxlCjMgcHJvY2Vzc2VzIGFyZSBpbiBwcm9tcHQgbW9kZS4K
+ICAgL3Vzci9iaW4vY2F0ICgxNDc1KSBpbnRlcmFjdGl2ZQogICAvdXNyL2Jpbi9jYXQgKDE0
+OTkpIGludGVyYWN0aXZlLy8mOm5zOnVuY29uZmluZWQKICAgL3Vzci9iaW4vY2F0ICgxNDk3
+KSBpbnRlcmFjdGl2ZS8vJnVuY29uZmluZWQK
+--------------73CDA8A9139690D6E2F175F9
+Content-Type: application/json;
+ name="aa-status.json"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+ filename="aa-status.json"
+
+eyJ2ZXJzaW9uIjogIjIiLCAicHJvZmlsZXMiOiB7Ii9zbmFwL2NvcmUvOTI4OS91c3IvbGli
+L3NuYXBkL3NuYXAtY29uZmluZSI6ICJlbmZvcmNlIiwgIi9zbmFwL2NvcmUvOTI4OS91c3Iv
+bGliL3NuYXBkL3NuYXAtY29uZmluZS8vbW91bnQtbmFtZXNwYWNlLWNhcHR1cmUtaGVscGVy
+IjogImVuZm9yY2UiLCAiL3Vzci9iaW4vZXZpbmNlIjogImVuZm9yY2UiLCAiL3Vzci9iaW4v
+ZXZpbmNlLXByZXZpZXdlciI6ICJlbmZvcmNlIiwgIi91c3IvYmluL2V2aW5jZS1wcmV2aWV3
+ZXIvL3Nhbml0aXplZF9oZWxwZXIiOiAiZW5mb3JjZSIsICIvdXNyL2Jpbi9ldmluY2UtdGh1
+bWJuYWlsZXIiOiAiZW5mb3JjZSIsICIvdXNyL2Jpbi9ldmluY2UvL3Nhbml0aXplZF9oZWxw
+ZXIiOiAiZW5mb3JjZSIsICIvdXNyL2Jpbi9tYW4iOiAiZW5mb3JjZSIsICIvdXNyL2xpYi9O
+ZXR3b3JrTWFuYWdlci9ubS1kaGNwLWNsaWVudC5hY3Rpb24iOiAiZW5mb3JjZSIsICIvdXNy
+L2xpYi9OZXR3b3JrTWFuYWdlci9ubS1kaGNwLWhlbHBlciI6ICJlbmZvcmNlIiwgIi91c3Iv
+bGliL2Nvbm5tYW4vc2NyaXB0cy9kaGNsaWVudC1zY3JpcHQiOiAiZW5mb3JjZSIsICIvdXNy
+L2xpYi9jdXBzL2JhY2tlbmQvY3Vwcy1wZGYiOiAiZW5mb3JjZSIsICIvdXNyL2xpYi9zbmFw
+ZC9zbmFwLWNvbmZpbmUiOiAiZW5mb3JjZSIsICIvdXNyL2xpYi9zbmFwZC9zbmFwLWNvbmZp
+bmUvL21vdW50LW5hbWVzcGFjZS1jYXB0dXJlLWhlbHBlciI6ICJlbmZvcmNlIiwgIi91c3Iv
+c2Jpbi9jdXBzLWJyb3dzZWQiOiAiZW5mb3JjZSIsICIvdXNyL3NiaW4vY3Vwc2QiOiAiZW5m
+b3JjZSIsICIvdXNyL3NiaW4vY3Vwc2QvL3RoaXJkX3BhcnR5IjogImVuZm9yY2UiLCAiL3Vz
+ci9zYmluL3RjcGR1bXAiOiAiZW5mb3JjZSIsICIveyx1c3IvfXNiaW4vZGhjbGllbnQiOiAi
+ZW5mb3JjZSIsICI6bnM6Zm9vIjogImVuZm9yY2UiLCAiZmlyZWZveCI6ICJlbmZvcmNlIiwg
+ImZpcmVmb3gvL2Jyb3dzZXJfamF2YSI6ICJlbmZvcmNlIiwgImZpcmVmb3gvL2Jyb3dzZXJf
+b3BlbmpkayI6ICJlbmZvcmNlIiwgImZpcmVmb3gvL2xzYl9yZWxlYXNlIjogImVuZm9yY2Ui
+LCAiZmlyZWZveC8vc2FuaXRpemVkX2hlbHBlciI6ICJlbmZvcmNlIiwgImlwcHVzYnhkIjog
+ImVuZm9yY2UiLCAibGlicmVvZmZpY2Utc2VuZGRvYyI6ICJlbmZvcmNlIiwgImxpYnJlb2Zm
+aWNlLXNvZmZpY2UvL2dwZyI6ICJlbmZvcmNlIiwgImxpYnJlb2ZmaWNlLXhwZGZpbXBvcnQi
+OiAiZW5mb3JjZSIsICJsc2JfcmVsZWFzZSI6ICJlbmZvcmNlIiwgIm1hbl9maWx0ZXIiOiAi
+ZW5mb3JjZSIsICJtYW5fZ3JvZmYiOiAiZW5mb3JjZSIsICJudmlkaWFfbW9kcHJvYmUiOiAi
+ZW5mb3JjZSIsICJudmlkaWFfbW9kcHJvYmUvL2ttb2QiOiAiZW5mb3JjZSIsICJzbmFwLXVw
+ZGF0ZS1ucy5jb3JlIjogImVuZm9yY2UiLCAic25hcC11cGRhdGUtbnMuc25hcC1zdG9yZSI6
+ICJlbmZvcmNlIiwgInNuYXAuY29yZS5ob29rLmNvbmZpZ3VyZSI6ICJlbmZvcmNlIiwgInNu
+YXAuc25hcC1zdG9yZS5zbmFwLXN0b3JlIjogImVuZm9yY2UiLCAic25hcC5zbmFwLXN0b3Jl
+LnVidW50dS1zb2Z0d2FyZSI6ICJlbmZvcmNlIiwgInNuYXAuc25hcC1zdG9yZS51YnVudHUt
+c29mdHdhcmUtbG9jYWwtZmlsZSI6ICJlbmZvcmNlIiwgImxpYnJlb2ZmaWNlLW9vcHNsYXNo
+IjogImNvbXBsYWluIiwgImxpYnJlb2ZmaWNlLXNvZmZpY2UiOiAiY29tcGxhaW4iLCAiZXhh
+bXBsZSI6ICJraWxsIiwgInRlc3QiOiAidW5jb25maW5lZCIsICJpbnRlcmFjdGl2ZSI6ICJw
+cm9tcHQifSwgInByb2Nlc3NlcyI6IHsiL3Vzci9zYmluL2N1cHMtYnJvd3NlZCI6IFt7InBy
+b2ZpbGUiOiAiL3Vzci9zYmluL2N1cHMtYnJvd3NlZCIsICJwaWQiOiAiNjI0IiwgInN0YXR1
+cyI6ICJlbmZvcmNlIn1dLCAiL3Vzci9zYmluL2N1cHNkIjogW3sicHJvZmlsZSI6ICIvdXNy
+L3NiaW4vY3Vwc2QiLCAicGlkIjogIjUyMCIsICJzdGF0dXMiOiAiZW5mb3JjZSJ9XSwgIi91
+c3IvYmluL2Jhc2giOiBbeyJwcm9maWxlIjogInRlc3QiLCAicGlkIjogIjE0NjYiLCAic3Rh
+dHVzIjogInVuY29uZmluZWQifV0sICIvdXNyL2Jpbi9jYXQiOiBbeyJwcm9maWxlIjogImlu
+dGVyYWN0aXZlLy8mOm5zOmZvbyIsICJwaWQiOiAiMTUwMiIsICJzdGF0dXMiOiAibWl4ZWQi
+fV0sICIvdXNyL2Jpbi9jYXQiOiBbeyJwcm9maWxlIjogImV4YW1wbGUiLCAicGlkIjogIjE0
+NzQiLCAic3RhdHVzIjogImtpbGwifV0sICIvdXNyL2Jpbi9jYXQiOiBbeyJwcm9maWxlIjog
+ImludGVyYWN0aXZlIiwgInBpZCI6ICIxNDc1IiwgInN0YXR1cyI6ICJwcm9tcHQifSwgeyJw
+cm9maWxlIjogImludGVyYWN0aXZlLy8mdW5jb25maW5lZCIsICJwaWQiOiAiMTQ5NyIsICJz
+dGF0dXMiOiAicHJvbXB0In0sIHsicHJvZmlsZSI6ICJpbnRlcmFjdGl2ZS8vJjpuczp1bmNv
+bmZpbmVkIiwgInBpZCI6ICIxNDk5IiwgInN0YXR1cyI6ICJwcm9tcHQifV19fQo=
+--------------73CDA8A9139690D6E2F175F9
+Content-Type: text/plain; charset=UTF-8;
+ name="aa-status.prettyjson"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+ filename="aa-status.prettyjson"
+
+ewoJInZlcnNpb24iOgkiMiIsCgkicHJvZmlsZXMiOgl7CgkJIi9zbmFwL2NvcmUvOTI4OS91
+c3IvbGliL3NuYXBkL3NuYXAtY29uZmluZSI6CSJlbmZvcmNlIiwKCQkiL3NuYXAvY29yZS85
+Mjg5L3Vzci9saWIvc25hcGQvc25hcC1jb25maW5lLy9tb3VudC1uYW1lc3BhY2UtY2FwdHVy
+ZS1oZWxwZXIiOgkiZW5mb3JjZSIsCgkJIi91c3IvYmluL2V2aW5jZSI6CSJlbmZvcmNlIiwK
+CQkiL3Vzci9iaW4vZXZpbmNlLXByZXZpZXdlciI6CSJlbmZvcmNlIiwKCQkiL3Vzci9iaW4v
+ZXZpbmNlLXByZXZpZXdlci8vc2FuaXRpemVkX2hlbHBlciI6CSJlbmZvcmNlIiwKCQkiL3Vz
+ci9iaW4vZXZpbmNlLXRodW1ibmFpbGVyIjoJImVuZm9yY2UiLAoJCSIvdXNyL2Jpbi9ldmlu
+Y2UvL3Nhbml0aXplZF9oZWxwZXIiOgkiZW5mb3JjZSIsCgkJIi91c3IvYmluL21hbiI6CSJl
+bmZvcmNlIiwKCQkiL3Vzci9saWIvTmV0d29ya01hbmFnZXIvbm0tZGhjcC1jbGllbnQuYWN0
+aW9uIjoJImVuZm9yY2UiLAoJCSIvdXNyL2xpYi9OZXR3b3JrTWFuYWdlci9ubS1kaGNwLWhl
+bHBlciI6CSJlbmZvcmNlIiwKCQkiL3Vzci9saWIvY29ubm1hbi9zY3JpcHRzL2RoY2xpZW50
+LXNjcmlwdCI6CSJlbmZvcmNlIiwKCQkiL3Vzci9saWIvY3Vwcy9iYWNrZW5kL2N1cHMtcGRm
+IjoJImVuZm9yY2UiLAoJCSIvdXNyL2xpYi9zbmFwZC9zbmFwLWNvbmZpbmUiOgkiZW5mb3Jj
+ZSIsCgkJIi91c3IvbGliL3NuYXBkL3NuYXAtY29uZmluZS8vbW91bnQtbmFtZXNwYWNlLWNh
+cHR1cmUtaGVscGVyIjoJImVuZm9yY2UiLAoJCSIvdXNyL3NiaW4vY3Vwcy1icm93c2VkIjoJ
+ImVuZm9yY2UiLAoJCSIvdXNyL3NiaW4vY3Vwc2QiOgkiZW5mb3JjZSIsCgkJIi91c3Ivc2Jp
+bi9jdXBzZC8vdGhpcmRfcGFydHkiOgkiZW5mb3JjZSIsCgkJIi91c3Ivc2Jpbi90Y3BkdW1w
+IjoJImVuZm9yY2UiLAoJCSIveyx1c3IvfXNiaW4vZGhjbGllbnQiOgkiZW5mb3JjZSIsCgkJ
+Ijpuczpmb28iOgkiZW5mb3JjZSIsCgkJImZpcmVmb3giOgkiZW5mb3JjZSIsCgkJImZpcmVm
+b3gvL2Jyb3dzZXJfamF2YSI6CSJlbmZvcmNlIiwKCQkiZmlyZWZveC8vYnJvd3Nlcl9vcGVu
+amRrIjoJImVuZm9yY2UiLAoJCSJmaXJlZm94Ly9sc2JfcmVsZWFzZSI6CSJlbmZvcmNlIiwK
+CQkiZmlyZWZveC8vc2FuaXRpemVkX2hlbHBlciI6CSJlbmZvcmNlIiwKCQkiaXBwdXNieGQi
+OgkiZW5mb3JjZSIsCgkJImxpYnJlb2ZmaWNlLXNlbmRkb2MiOgkiZW5mb3JjZSIsCgkJImxp
+YnJlb2ZmaWNlLXNvZmZpY2UvL2dwZyI6CSJlbmZvcmNlIiwKCQkibGlicmVvZmZpY2UteHBk
+ZmltcG9ydCI6CSJlbmZvcmNlIiwKCQkibHNiX3JlbGVhc2UiOgkiZW5mb3JjZSIsCgkJIm1h
+bl9maWx0ZXIiOgkiZW5mb3JjZSIsCgkJIm1hbl9ncm9mZiI6CSJlbmZvcmNlIiwKCQkibnZp
+ZGlhX21vZHByb2JlIjoJImVuZm9yY2UiLAoJCSJudmlkaWFfbW9kcHJvYmUvL2ttb2QiOgki
+ZW5mb3JjZSIsCgkJInNuYXAtdXBkYXRlLW5zLmNvcmUiOgkiZW5mb3JjZSIsCgkJInNuYXAt
+dXBkYXRlLW5zLnNuYXAtc3RvcmUiOgkiZW5mb3JjZSIsCgkJInNuYXAuY29yZS5ob29rLmNv
+bmZpZ3VyZSI6CSJlbmZvcmNlIiwKCQkic25hcC5zbmFwLXN0b3JlLnNuYXAtc3RvcmUiOgki
+ZW5mb3JjZSIsCgkJInNuYXAuc25hcC1zdG9yZS51YnVudHUtc29mdHdhcmUiOgkiZW5mb3Jj
+ZSIsCgkJInNuYXAuc25hcC1zdG9yZS51YnVudHUtc29mdHdhcmUtbG9jYWwtZmlsZSI6CSJl
+bmZvcmNlIiwKCQkibGlicmVvZmZpY2Utb29wc2xhc2giOgkiY29tcGxhaW4iLAoJCSJsaWJy
+ZW9mZmljZS1zb2ZmaWNlIjoJImNvbXBsYWluIiwKCQkiZXhhbXBsZSI6CSJraWxsIiwKCQki
+dGVzdCI6CSJ1bmNvbmZpbmVkIiwKCQkiaW50ZXJhY3RpdmUiOgkicHJvbXB0IgoJfSwKCSJw
+cm9jZXNzZXMiOgl7CgkJIi91c3Ivc2Jpbi9jdXBzLWJyb3dzZWQiOglbewoJCQkJInByb2Zp
+bGUiOgkiL3Vzci9zYmluL2N1cHMtYnJvd3NlZCIsCgkJCQkicGlkIjoJIjYyNCIsCgkJCQki
+c3RhdHVzIjoJImVuZm9yY2UiCgkJCX1dLAoJCSIvdXNyL3NiaW4vY3Vwc2QiOglbewoJCQkJ
+InByb2ZpbGUiOgkiL3Vzci9zYmluL2N1cHNkIiwKCQkJCSJwaWQiOgkiNTIwIiwKCQkJCSJz
+dGF0dXMiOgkiZW5mb3JjZSIKCQkJfV0sCgkJIi91c3IvYmluL2Jhc2giOglbewoJCQkJInBy
+b2ZpbGUiOgkidGVzdCIsCgkJCQkicGlkIjoJIjE0NjYiLAoJCQkJInN0YXR1cyI6CSJ1bmNv
+bmZpbmVkIgoJCQl9XSwKCQkiL3Vzci9iaW4vY2F0IjoJW3sKCQkJCSJwcm9maWxlIjoJImlu
+dGVyYWN0aXZlLy8mOm5zOmZvbyIsCgkJCQkicGlkIjoJIjE1MDIiLAoJCQkJInN0YXR1cyI6
+CSJtaXhlZCIKCQkJfV0sCgkJIi91c3IvYmluL2NhdCI6CVt7CgkJCQkicHJvZmlsZSI6CSJl
+eGFtcGxlIiwKCQkJCSJwaWQiOgkiMTQ3NCIsCgkJCQkic3RhdHVzIjoJImtpbGwiCgkJCX1d
+LAoJCSIvdXNyL2Jpbi9jYXQiOglbewoJCQkJInByb2ZpbGUiOgkiaW50ZXJhY3RpdmUiLAoJ
+CQkJInBpZCI6CSIxNDc1IiwKCQkJCSJzdGF0dXMiOgkicHJvbXB0IgoJCQl9LCB7CgkJCQki
+cHJvZmlsZSI6CSJpbnRlcmFjdGl2ZS8vJnVuY29uZmluZWQiLAoJCQkJInBpZCI6CSIxNDk3
+IiwKCQkJCSJzdGF0dXMiOgkicHJvbXB0IgoJCQl9LCB7CgkJCQkicHJvZmlsZSI6CSJpbnRl
+cmFjdGl2ZS8vJjpuczp1bmNvbmZpbmVkIiwKCQkJCSJwaWQiOgkiMTQ5OSIsCgkJCQkic3Rh
+dHVzIjoJInByb21wdCIKCQkJfV0KCX0KfQo=
+--------------73CDA8A9139690D6E2F175F9
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
+eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
+aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
+
+--------------73CDA8A9139690D6E2F175F9--
+
