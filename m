@@ -2,108 +2,29 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id A60BA222E2A
-	for <lists+apparmor@lfdr.de>; Thu, 16 Jul 2020 23:51:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55E0A222E2B
+	for <lists+apparmor@lfdr.de>; Thu, 16 Jul 2020 23:51:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1jwBmq-00041r-NQ; Thu, 16 Jul 2020 21:51:28 +0000
+	id 1jwBms-00041y-PH; Thu, 16 Jul 2020 21:51:30 +0000
 Received: from youngberry.canonical.com ([91.189.89.112])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>) id 1jwBmp-00041g-HK
+ (envelope-from <seth.arnold@canonical.com>) id 1jwBmp-00041f-Fl
  for apparmor@lists.ubuntu.com; Thu, 16 Jul 2020 21:51:27 +0000
-Received: from static-50-53-54-182.bvtn.or.frontiernet.net ([50.53.54.182]
- helo=[192.168.192.153]) by youngberry.canonical.com with esmtpsa
+Received: from 2.general.sarnold.us.vpn ([10.172.64.71] helo=localhost)
+ by youngberry.canonical.com with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>)
- id 1jwBmo-0005LL-TA; Thu, 16 Jul 2020 21:51:27 +0000
-To: "mailinglisten@posteo.de" <mailinglisten@posteo.de>,
- apparmor@lists.ubuntu.com
+ (envelope-from <seth.arnold@canonical.com>) id 1jwBmo-0005LM-Sz
+ for apparmor@lists.ubuntu.com; Thu, 16 Jul 2020 21:51:27 +0000
+Date: Thu, 16 Jul 2020 21:51:25 +0000
+From: Seth Arnold <seth.arnold@canonical.com>
+To: apparmor@lists.ubuntu.com
+Message-ID: <20200716215125.GB1808886@millbarge>
 References: <375a90df-1a79-649e-7c99-5dde32280c44@posteo.de>
-From: John Johansen <john.johansen@canonical.com>
-Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
- LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCgptUUlOQkU1bXJQb0JFQURB
- azE5UHNnVmdCS2tJbW1SMmlzUFE2bzdLSmhUVEtqSmR3VmJrV1NuTm4rbzZVcDVrCm5LUDFm
- NDlFQlFsY2VXZzF5cC9Od2JSOGFkK2VTRU8vdW1hL0srUHFXdkJwdEtDOVNXRDk3Rkc0dUI0
- L2Nhb20KTEVVOTdzTFFNdG52R1dkeHJ4VlJHTTRhbnpXWU1neno1VFptSWlWVFo0M091NVZw
- YVMxVnoxWlN4UDNoL3hLTgpaci9UY1c1V1FhaTh1M1BXVm5ia2poU1pQSHYxQmdoTjY5cXhF
- UG9tckpCbTFnbXR4M1ppVm1GWGx1d1RtVGdKCk9rcEZvbDduYkowaWxuWUhyQTdTWDNDdFIx
- dXBlVXBNYS9XSWFuVk85NldkVGpISElhNDNmYmhtUXViZTR0eFMKM0ZjUUxPSlZxUXN4NmxF
- OUI3cUFwcG05aFExMHFQV3dkZlB5LyswVzZBV3ROdTVBU2lHVkNJbld6bDJIQnFZZAovWmxs
- OTN6VXErTklvQ244c0RBTTlpSCt3dGFHRGNKeXdJR0luK2VkS050SzcyQU1nQ2hUZy9qMVpv
- V0g2WmVXClBqdVVmdWJWelp0bzFGTW9HSi9TRjRNbWRRRzFpUU50ZjRzRlpiRWdYdXk5Y0dp
- MmJvbUYwenZ5QkpTQU5weGwKS05CRFlLek42S3owOUhVQWtqbEZNTmdvbUwvY2pxZ0FCdEF4
- NTlMK2RWSVpmYUYyODFwSWNVWnp3dmg1K0pvRwplT1c1dUJTTWJFN0wzOG5zem9veWtJSjVY
- ckFjaGtKeE5mejdrK0ZuUWVLRWtOekVkMkxXYzNRRjRCUVpZUlQ2ClBISGdhM1JneWtXNSsx
- d1RNcUpJTGRtdGFQYlhyRjNGdm5WMExSUGN2NHhLeDdCM2ZHbTd5Z2Rvb3dBUkFRQUIKdEIx
- S2IyaHVJRXB2YUdGdWMyVnVJRHhxYjJodVFHcHFiWGd1Ym1WMFBva0NPZ1FUQVFvQUpBSWJB
- d1VMQ1FnSApBd1VWQ2drSUN3VVdBZ01CQUFJZUFRSVhnQVVDVG8wWVZ3SVpBUUFLQ1JBRkx6
- WndHTlhEMkx4SkQvOVRKWkNwCndsbmNUZ1llcmFFTWVEZmtXdjhjMUlzTTFqMEFtRTRWdEwr
- ZkU3ODBaVlA5Z2tqZ2tkWVN4dDdlY0VUUFRLTWEKWlNpc3JsMVJ3cVUwb29nWGRYUVNweHJH
- SDAxaWN1LzJuMGpjWVNxWUtnZ1B4eTc4QkdzMkxacTRYUGZKVFptSApaR25YR3EvZURyL21T
- bmowYWF2QkptTVo2amJpUHo2eUh0QllQWjlmZG84YnRjendQNDFZZVdvSXUyNi84SUk2CmYw
- WG0zVkM1b0FhOHY3UmQrUldaYThUTXdsaHpIRXh4ZWwzanRJN0l6ek9zbm1FOS84RG0wQVJE
- NWlUTENYd1IKMWN3SS9KOUJGL1MxWHY4UE4xaHVUM0l0Q05kYXRncDh6cW9Ka2dQVmptdnlM
- NjRRM2ZFa1liZkhPV3NhYmE5LwprQVZ0Qk56OVJURmg3SUhEZkVDVmFUb3VqQmQ3QnRQcXIr
- cUlqV0ZhZEpEM0k1ZUxDVkp2VnJyb2xyQ0FUbEZ0Ck4zWWtRczZKbjFBaUlWSVUzYkhSOEdq
- ZXZnejVMbDZTQ0dIZ1Jya3lScG5TWWFVL3VMZ24zN042QVl4aS9RQUwKK2J5M0N5RUZManpX
- QUV2eVE4YnEzSXVjbjdKRWJoUy9KLy9kVXFMb2VVZjh0c0dpMDB6bXJJVFpZZUZZQVJoUQpN
- dHNmaXpJclZEdHoxaVBmL1pNcDVnUkJuaXlqcFhuMTMxY20zTTNndjZIclFzQUdubjhBSnJ1
- OEdEaTVYSllJCmNvLzEreC9xRWlOMm5DbGFBT3BiaHpOMmVVdlBEWTVXMHEzYkEvWnAybWZH
- NTJ2YlJJK3RRMEJyMUhkL3ZzbnQKVUhPOTAzbU1aZXAyTnpOM0JaNXFFdlB2RzRyVzVacTJE
- cHliV2JRclNtOW9iaUJLYjJoaGJuTmxiaUE4YW05bwpiaTVxYjJoaGJuTmxia0JqWVc1dmJt
- bGpZV3d1WTI5dFBva0NOd1FUQVFvQUlRVUNUbzBYV2dJYkF3VUxDUWdICkF3VVZDZ2tJQ3dV
- V0FnTUJBQUllQVFJWGdBQUtDUkFGTHpad0dOWEQySXRNRC85anliYzg3ZE00dUFIazZ5Tk0K
- TjBZL0JGbW10VFdWc09CaHFPbm9iNGkzOEJyRE8yQzFoUUNQQ1FlNExMczEvNHB0ZW92UXQ4
- QjJGeXJQVmp3Zwo3alpUSE5LNzRyNmxDQ1Z4eDN5dTFCN1U5UG80VlRrY3NsVmIxL3FtV3V4
- OFhXY040eXZrVHFsTCtHeHB5Sm45CjlaWmZmWEpjNk9oNlRtT2ZiS0d2TXV1djVhclNJQTNK
- SEZMZjlhTHZadEExaXNKVXI3cFM5YXBnOXVUVUdVcDcKd2ZWMFdUNlQzZUczbXRVVTJ1cDVK
- VjQ4NTBMMDVqSFM2dVdpZS9ZK3lmSk9iaXlyeE4vNlpxVzVHb25oTEJxLwptc3pjVjV2QlQz
- QkRWZTNSdkY2WGRNOU9oUG4xK1k4MXg1NCt2UTExM044aUx3RjdHR2ExNFp5SVZBTlpEMEkw
- CkhqUnZhMmsvUnFJUlR6S3l1UEg1cGtsY0tIVlBFRk1tT3pNVCtGT294Tmp2Uys3K3dHMktN
- RFlFbUhQcjFQSkIKWlNaZUh6SzE5dGZhbFBNcHBGeGkrc3lZTGFnTjBtQjdKSFF3WTdjclV1
- T0RoeWNxNjBZVnoxdGFFeWd1M1l2MgoyL0kxRUNHSHZLSEc2d2M5MG80M0MvZWxIRUNYbkVo
- N3RLcGxEY3BJQytPQ21NeEtIaFI0NitYY1p2Z3c0RGdiCjdjYTgzZVFSM0NHODlMdlFwVzJM
- TEtFRUJEajdoWmhrTGJra1BSWm0zdzhKWTQ0YXc4VnRneFdkblNFTUNMeEwKSU9OaDZ1Wjcv
- L0RZVnRjSWFNSllrZWJhWnRHZENwMElnVVpiMjQvVmR2WkNZYk82MkhrLzNWbzFuWHdIVUVz
- Mwo2RC92MWJUMFJaRmk2OUxnc0NjT2N4NGdZTGtDRFFST1pxejZBUkFBb3F3NmtrQmhXeU0x
- ZnZnYW1BVmplWjZuCktFZm5SV2JrQzk0TDFFc0pMdXAzV2IyWDBBQk5PSFNrYlNENHBBdUMy
- dEtGL0VHQnQ1Q1A3UWRWS1JHY1F6QWQKNmIyYzFJZHk5Ukx3Nnc0Z2krbm4vZDFQbTFra1lo
- a1NpNXpXYUlnMG01UlFVaytFbDh6a2Y1dGNFLzFOMFo1TwpLMkpoandGdTViWDBhMGw0Y0ZH
- V1ZRRWNpVk1ES1J0eE1qRXRrM1N4RmFsbTZaZFEycHAyODIyY2xucTR6WjltCld1MWQyd2F4
- aXorYjVJYTR3ZURZYTduNDFVUmNCRVViSkFnbmljSmtKdENUd3lJeElXMktuVnlPcmp2a1F6
- SUIKdmFQMEZkUDJ2dlpvUE1kbENJek9sSWtQTGd4RTBJV3VlVFhlQkpoTnMwMXBiOGJMcW1U
- SU1sdTRMdkJFTEEvdgplaWFqajVzOHk1NDJIL2FIc2ZCZjRNUVVoSHhPL0JaVjdoMDZLU1Vm
- SWFZN09nQWdLdUdOQjNVaWFJVVM1K2E5CmduRU9RTER4S1J5L2E3UTF2OVMrTnZ4KzdqOGlI
- M2prUUpoeFQ2WkJoWkdSeDBna0gzVCtGMG5ORG01TmFKVXMKYXN3Z0pycUZaa1VHZDJNcm0x
- cW5Ld1hpQXQ4U0ljRU5kcTMzUjBLS0tSQzgwWGd3ajhKbjMwdlhMU0crTk8xRwpIMFVNY0F4
- TXd5L3B2azZMVTVKR2paUjczSjVVTFZoSDRNTGJEZ2dEM21QYWlHOCtmb3RUckpVUHFxaGc5
- aHlVCkVQcFlHN3NxdDc0WG43OStDRVpjakxIenlsNnZBRkUyVzBreGxMdFF0VVpVSE8zNmFm
- RnY4cUdwTzNacVB2akIKVXVhdFhGNnR2VVFDd2YzSDZYTUFFUUVBQVlrQ0h3UVlBUW9BQ1FV
- Q1RtYXMrZ0liREFBS0NSQUZMelp3R05YRAoyRC9YRC8wZGRNLzRhaTFiK1RsMWp6bkthalgz
- a0crTWVFWWVJNGY0MHZjbzNyT0xyblJHRk9jYnl5ZlZGNjlNCktlcGllNE93b0kxamNUVTBB
- RGVjbmJXbkROSHByMFNjenhCTXJvM2Juckxoc212anVuVFlJdnNzQlp0QjRhVkoKanVMSUxQ
- VWxuaEZxYTdmYlZxMFpRamJpVi9ydDJqQkVOZG05cGJKWjZHam5wWUljQWJQQ0NhL2ZmTDQv
- U1FSUwpZSFhvaEdpaVM0eTVqQlRtSzVsdGZld0xPdzAyZmtleEgrSUpGcnJHQlhEU2c2bjJT
- Z3hubisrTkYzNGZYY205CnBpYXczbUtzSUNtKzBoZE5oNGFmR1o2SVdWOFBHMnRlb29WRHA0
- ZFlpaCsreFgvWFM4ekJDYzFPOXc0bnpsUDIKZ0t6bHFTV2JoaVdwaWZSSkJGYTRXdEFlSlRk
- WFlkMzdqL0JJNFJXV2hueXc3YUFQTkdqMzN5dEdITlVmNlJvMgovanRqNHRGMXkvUUZYcWpK
- Ry93R2pwZHRSZmJ0VWpxTEhJc3ZmUE5OSnEvOTU4cDc0bmRBQ2lkbFdTSHpqK09wCjI2S3Bi
- Rm5td05PMHBzaVVzbmh2SEZ3UE8vdkFibDNSc1I1KzBSbytodnMyY0VtUXV2OXIvYkRsQ2Zw
- enAydDMKY0srcmh4VXFpc094OERaZnoxQm5rYW9DUkZidnZ2ays3TC9mb21QbnRHUGtxSmNp
- WUU4VEdIa1p3MWhPa3UrNApPb00yR0I1bkVEbGorMlRGL2pMUStFaXBYOVBrUEpZdnhmUmxD
- NmRLOFBLS2ZYOUtkZm1BSWNnSGZuVjFqU24rCjh5SDJkakJQdEtpcVcwSjY5YUlzeXg3aVYv
- MDNwYVBDakpoN1hxOXZBenlkTjVVL1VBPT0KPTZQL2IKLS0tLS1FTkQgUEdQIFBVQkxJQyBL
- RVkgQkxPQ0stLS0tLQo=
-Organization: Canonical
-Message-ID: <cedf2127-96f7-a0cc-320e-c2a18754f118@canonical.com>
-Date: Thu, 16 Jul 2020 14:51:24 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
 MIME-Version: 1.0
 In-Reply-To: <375a90df-1a79-649e-7c99-5dde32280c44@posteo.de>
-Content-Language: en-US
 Subject: Re: [apparmor] rkhunter profile oddities
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -116,50 +37,75 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2003753957681907567=="
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-T24gNy8xNi8yMCAxMjozNiBQTSwgbWFpbGluZ2xpc3RlbkBwb3N0ZW8uZGUgd3JvdGU6Cj4gSGkg
-dGhlcmUhCj4gCj4gSSBjcmVhdGVkIGEgdmVyeSBzaW1wbGUgcHJvZmlsZSB0byBjb25maW5lIHJr
-aHVudGVyICh2ZXJzaW9uIG51bWJlcnMgYmVsb3cpLgo+IAo+IFRoaXMgcHJvZmlsZSBjb250YWlu
-cyAvKiogciwgIHRvIGJlIHN1cmUsIGV2ZXJ5dGhpbmcgY2FuIGJlIHJlYWQgYnkKPiBya2h1bnRl
-ci4KPiAKPiBEZXNwaXRlIHVzaW5nIC8qKiByLCAgSSBnZXQgcGxlbnR5IG9mIHRoZXNlIGVycm9y
-IG1lc3NhZ2VzOgo+IAo+IFByb2ZpbGU6IC91c3IvYmluL3JraHVudGVyCj4gT3BlcmF0aW9uOiBn
-ZXRhdHRyCj4gTmFtZTogdXNyL3NiaW4vTW9kZW1NYW5hZ2VyCj4gRGVuaWVkOiByCj4gTG9nZmls
-ZTogL3Zhci9sb2cvYXVkaXQvYXVkaXQubG9nCj4gKDMgZm91bmQsIG1vc3QgcmVjZW50IGZyb20g
-J1RodSBKdWwgMTYgMTk6NTE6MjIgMjAyMCcpCj4gCj4gUHJvZmlsZTogL3Vzci9iaW4vcmtodW50
-ZXIKPiBPcGVyYXRpb246IGdldGF0dHIKPiBOYW1lOiB1c3Ivc2Jpbi9OZXR3b3JrTWFuYWdlcgo+
-IERlbmllZDogcgo+IExvZ2ZpbGU6IC92YXIvbG9nL2F1ZGl0L2F1ZGl0LmxvZwo+ICgzIGZvdW5k
-LCBtb3N0IHJlY2VudCBmcm9tICdUaHUgSnVsIDE2IDE5OjUxOjIyIDIwMjAnKQo+IAo+IFdoYXQg
-eW91IGNhbiBzZWUsIGF0ICJOYW1lIiB0aGVyZSBpcyB0aGUgc2xhc2ggbWlzc2luZywgaXQgc2hv
-dWxkIGJlCj4gTmFtZTogL3Vzci9zYmluL01vZGVtTWFuYWdlcgo+IE5hbWU6IC91c3Ivc2Jpbi9O
-ZXR3b3JrTWFuYWdlcgo+IAo+IEluc3RlYWQsIGFzIHlvdSBjYW4gc2VlLCBhcHBhcm1vciByZXBv
-cnRzOgo+IAo+IE5hbWU6IHVzci9zYmluL01vZGVtTWFuYWdlcgo+IE5hbWU6IHVzci9zYmluL05l
-dHdvcmtNYW5hZ2VyCj4gCj4gCj4gSXMgdGhpcyBwcm9iYWJseSBhbiBlcnJvciBpbiBya2h1bnRl
-ciBhbmQgbm90IGluIGFwcGFybW9yPwo+IE15IGd1ZXNzIGlzLCBya2h1bnRlciB0cmllcyB0byBh
-Y2Nlc3MgZmlsZXMgbGlrZQo+IAo+IHVzci9zYmluL01vZGVtTWFuYWdlcgo+IHVzci9zYmluL05l
-dHdvcmtNYW5hZ2VyCj4gdXNyL2xpYi91cG93ZXIvdXBvd2VyZAo+IHVzci9saWIvYmx1ZXRvb3Ro
-L2JsdWV0b290aGQKPiAKPiB3aXRob3V0IHRoZSBsZWFkaW5nIHNsYXNoLgo+IAp0aGlzIGluZGlj
-YXRlcyB0aGUgb2JqZWN0L2ZpbGUgaXMgZGlzY29ubmVjdGVkIGZyb20gdGhlIHRhc2tzIG1vdW50
-IG5hbWVzcGFjZS4KClRoZXNlIG9iamVjdHMvZmlsZXMgY291bGQgbm90IGJlIG9wZW5lZCBieSB0
-aGUgdGFzayBhbmQgd2hlcmUgZWl0aGVyIGluaGVyaXRlZCwgcGFzc2VkIGluIHZpYSBmZCBwYXNz
-aW5nIG92ZXIgdW5peCBzb2NrZXRzLCBvciBvcGVuZWQgYmVmb3JlIHRoZSB0YXNrIGNoYW5nZWQg
-aXRzIG1vdW50IG5hbWVzcGFjZS4KCkFwcEFybW9yIGRvZXMgbm90IGRlYWwgd2l0aCB0aGVzZSBv
-YmplY3RzL2ZpbGVzIHdlbGwgYXRtLiBUaGVyZSBhcmUgbG9uZyB0ZXJtcyBwbGFucyBidXQgdGhl
-IGZpeGVzIHdpbGwgdGFrZSBhIHdoaWxlIHRvIGxhbmQuCgpBdG0gdGhlIG9ubHkgd2F5IHRvIGRl
-YWwgd2l0aCB0aGVtIGlzIGFkZCB0aGUgcHJvZmlsZSBmbGFnICdhdHRhY2hlZF9kaXNjb25uZWN0
-ZWQnIHRvIHRoZSBwcm9maWxlLiBXYXJuaW5nIHRoaXMgaXMgYSBoYWNrIGFuZCBkb2VzIHJlZHVj
-ZSBwcm9maWxlIHNlY3VyaXR5LgoKcHJvZmlsZSBleGFtcGxlIGZsYWdzPShhdHRhY2hfZGlzY29u
-bmVjdGVkKSB7Li59Cgp0aGlzIHdpbGwgYXR0YWNoIHRoZXNlIGZpbGVzIHRvIHRoZSB0YXNrcyBu
-YW1lc3BhY2UgYnkgYWRkaW5nIGEgbGVhZGluZyAnLycgY2hhcmFjdGVyLgoKSW4gdGhlIG5lYXIg
-dGVybSB5b3Ugd2lsbCBiZSBhYmxlIHRvIHRvIGNvbnRyb2wgd2hhdCBnZXRzIHByZXBlbmRlZCBi
-eSBhdHRhY2hfZGlzY29ubmVjdGVkIGJ1dCB0aGUgcmVhbCBmaXhlcyBhcmUgc3RpbGwgYXQgbGVh
-c3QgNi0xMiBtb250aHMgb3V0LgoKCj4gV2hhdCBkbyB5b3UgdGhpbmssIGJyb2tlbiBya2h1bnRl
-ciwgZm9yZ2V0dGluZyB0aGUgbGVhZGluZyBzbGFzaD8KaXRzIG5vdCBya2h1bnRlciwgaXRzIHRo
-ZSBrZXJuZWwgYW5kIGl0IGlzIGRlbGliZXJhdGUKCgo+IAo+IFZlcnNpb25zIHVzZWQ6Cj4gYXBw
-YXJtb3ItcGFyc2VyLCBhcHBhcm1vci11dGlscyAgMi4xMy40Cj4gS2VybmVsIDUuNy43Cj4gcmto
-dW50ZXIgMS40LjYKPiAKPiBUaGFua3MhCj4gCj4gCgoKLS0gCkFwcEFybW9yIG1haWxpbmcgbGlz
-dApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlmeSBzZXR0aW5ncyBvciB1bnN1YnNjcmli
-ZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21haWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
+
+--===============2003753957681907567==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="mxv5cy4qt+RJ9ypb"
+Content-Disposition: inline
+
+
+--mxv5cy4qt+RJ9ypb
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Thu, Jul 16, 2020 at 09:36:11PM +0200, mailinglisten@posteo.de wrote:
+> Instead, as you can see, apparmor reports:
+>$
+> Name: usr/sbin/ModemManager
+> Name: usr/sbin/NetworkManager
+>$
+>$
+> Is this probably an error in rkhunter and not in apparmor?
+
+This is because rkhunter is executing in its own filesystem namespace for
+whatever reason, and the LSM interface isn't passing to AppArmor
+sufficient information for AppArmor to know the mountpoint that was used
+to access those files.
+
+You can add flags=(attach_disconnected) near the start of the profile to
+cause these accesses to be treated as if they were mounted at /.
+
+eg
+
+profile rkhunter /usr/bin/rkhunter flags=(attach_disconnected) {
+  /** r,
+  ...
+}
+
+Thanks
+
+
+--mxv5cy4qt+RJ9ypb
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEQVAQ8bojyMcg37H18yFyWZ2NLpcFAl8Qy9kACgkQ8yFyWZ2N
+LpfAqQf8Cbw72Howdbe2SgYgPacxwCzobPy5mVeuJQcbepsC0BAAuAS3RRJVyaew
+WPz3W06fZbWOX5P3MftX7GfBafRKjV6KEeaYH06DFTvyC2dlO5YiJ0nrTB68pU/X
+Yn6aYbeV7QxOQLIJM+LcVan7bLR6s0vCKa21DjUz8uMwywr3ryNDNv05eKO6OsVI
+sCfMA/ajSsPo5nWbkoUNz3A9ecmSlvH5Lx0sx3qlVTlkuk5D9dEMVlgJSAdTkUzW
+AWDA2WW1j7hAP6NdVFiaLHPuUNerlOFIMrNZn5xSGya8OxEJHfn/ROPhsNiNT69z
+NL+IIsveu74KWkBr569NiV85dYEODw==
+=BdN4
+-----END PGP SIGNATURE-----
+
+--mxv5cy4qt+RJ9ypb--
+
+
+--===============2003753957681907567==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
+eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
+aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
+
+--===============2003753957681907567==--
+
