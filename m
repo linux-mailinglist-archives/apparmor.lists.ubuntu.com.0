@@ -2,39 +2,31 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AFF2228F79
-	for <lists+apparmor@lfdr.de>; Wed, 22 Jul 2020 06:59:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E448822A0CF
+	for <lists+apparmor@lfdr.de>; Wed, 22 Jul 2020 22:35:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1jy6fH-00044m-Ud; Wed, 22 Jul 2020 04:47:36 +0000
-Received: from casper.infradead.org ([90.155.50.34])
+	id 1jyLSR-0001ZK-BC; Wed, 22 Jul 2020 20:35:19 +0000
+Received: from youngberry.canonical.com ([91.189.89.112])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <rdunlap@infradead.org>) id 1jxDjt-0007It-2T
- for apparmor@lists.ubuntu.com; Sun, 19 Jul 2020 18:08:41 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
- Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:In-Reply-To:References;
- bh=CgRnudM818Ox8zC1i9FgSDhyBLgDa+Y/onXsjyLCw/4=; b=ONvhuYhkvPXUZtwXkc8K1Bgs2+
- b3mzjeyg1SYos7MJnaIYaBiY55AO0nlgoSim0uDcgk4MINinffOUPNfiOxJNs4CWHvRtKS3+vcJZ+
- OAhuyIheCZ0VaUNFvt2yj9s7QCVJfnrtHUotUV2ZIo6DSPFf3rBLS/hxE5z546buKutFasDM73jQ+
- +n9U/Avp0cMEqfwo4glfL8DNO9ajTzMbXAId1PB8pFOSD7FShgVGQoQ9Z3VP2Gf5rcjMs6j0aB+1w
- 9paEKqwZDVN7VtXWgpJLr0iYoUlBUURoNXOLoVIFMHf8GoCbSiiCDYxhwNSP85BKIu0W8EUdFCjXS
- 5P6ncZ+Q==;
-Received: from [2601:1c0:6280:3f0::19c2] (helo=smtpauth.infradead.org)
- by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1jxDjq-0006CP-49; Sun, 19 Jul 2020 18:08:39 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: linux-kernel@vger.kernel.org
-Date: Sun, 19 Jul 2020 11:08:35 -0700
-Message-Id: <20200719180835.24658-1-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.26.2
+ (envelope-from <seth.arnold@canonical.com>) id 1jyLSQ-0001ZE-JR
+ for apparmor@lists.ubuntu.com; Wed, 22 Jul 2020 20:35:18 +0000
+Received: from 2.general.sarnold.us.vpn ([10.172.64.71] helo=localhost)
+ by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <seth.arnold@canonical.com>)
+ id 1jyLSP-0006Dv-4C; Wed, 22 Jul 2020 20:35:17 +0000
+Date: Wed, 22 Jul 2020 20:35:14 +0000
+From: Seth Arnold <seth.arnold@canonical.com>
+To: Randy Dunlap <rdunlap@infradead.org>
+Message-ID: <20200722203514.GB84486@millbarge>
+References: <20200719180835.24658-1-rdunlap@infradead.org>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Wed, 22 Jul 2020 04:47:31 +0000
-Subject: [apparmor] [PATCH] security: apparmor: file.h: delete duplicated
-	word
+In-Reply-To: <20200719180835.24658-1-rdunlap@infradead.org>
+Subject: Re: [apparmor] [PATCH] security: apparmor: file.h: delete
+ duplicated word
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -46,28 +38,80 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Randy Dunlap <rdunlap@infradead.org>, apparmor@lists.ubuntu.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: apparmor@lists.ubuntu.com, linux-kernel@vger.kernel.org
+Content-Type: multipart/mixed; boundary="===============3564270461022006850=="
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-RGVsZXRlIHRoZSBkb3VibGVkIHdvcmQgInRoZW4iIGluIGEgY29tbWVudC4KClNpZ25lZC1vZmYt
-Ynk6IFJhbmR5IER1bmxhcCA8cmR1bmxhcEBpbmZyYWRlYWQub3JnPgpDYzogSm9obiBKb2hhbnNl
-biA8am9obi5qb2hhbnNlbkBjYW5vbmljYWwuY29tPgpDYzogYXBwYXJtb3JAbGlzdHMudWJ1bnR1
-LmNvbQotLS0KIHNlY3VyaXR5L2FwcGFybW9yL2luY2x1ZGUvZmlsZS5oIHwgICAgMiArLQogMSBm
-aWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgotLS0gbGludXgtbmV4
-dC0yMDIwMDcxNy5vcmlnL3NlY3VyaXR5L2FwcGFybW9yL2luY2x1ZGUvZmlsZS5oCisrKyBsaW51
-eC1uZXh0LTIwMjAwNzE3L3NlY3VyaXR5L2FwcGFybW9yL2luY2x1ZGUvZmlsZS5oCkBAIC0xNjcs
-NyArMTY3LDcgQEAgaW50IGFhX2F1ZGl0X2ZpbGUoc3RydWN0IGFhX3Byb2ZpbGUgKnBybwogICog
-QHBlcm1zOiBwZXJtaXNzaW9uIHRhYmxlIGluZGV4ZWQgYnkgdGhlIG1hdGNoZWQgc3RhdGUgYWNj
-ZXB0IGVudHJ5IG9mIEBkZmEKICAqIEB0cmFuczogdHJhbnNpdGlvbiB0YWJsZSBmb3IgaW5kZXhl
-ZCBieSBuYW1lZCB4IHRyYW5zaXRpb25zCiAgKgotICogRmlsZSBwZXJtaXNzaW9uIGFyZSBkZXRl
-cm1pbmVkIGJ5IG1hdGNoaW5nIGEgcGF0aCBhZ2FpbnN0IEBkZmEgYW5kIHRoZW4KKyAqIEZpbGUg
-cGVybWlzc2lvbiBhcmUgZGV0ZXJtaW5lZCBieSBtYXRjaGluZyBhIHBhdGggYWdhaW5zdCBAZGZh
-IGFuZAogICogdGhlbiB1c2luZyB0aGUgdmFsdWUgb2YgdGhlIGFjY2VwdCBlbnRyeSBmb3IgdGhl
-IG1hdGNoaW5nIHN0YXRlIGFzCiAgKiBhbiBpbmRleCBpbnRvIEBwZXJtcy4gIElmIGEgbmFtZWQg
-ZXhlYyB0cmFuc2l0aW9uIGlzIHJlcXVpcmVkIGl0IGlzCiAgKiBsb29rZWQgdXAgaW4gdGhlIHRy
-YW5zaXRpb24gdGFibGUuCgotLSAKQXBwQXJtb3IgbWFpbGluZyBsaXN0CkFwcEFybW9yQGxpc3Rz
-LnVidW50dS5jb20KTW9kaWZ5IHNldHRpbmdzIG9yIHVuc3Vic2NyaWJlIGF0OiBodHRwczovL2xp
-c3RzLnVidW50dS5jb20vbWFpbG1hbi9saXN0aW5mby9hcHBhcm1vcgo=
+
+--===============3564270461022006850==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="U+BazGySraz5kW0T"
+Content-Disposition: inline
+
+
+--U+BazGySraz5kW0T
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Sun, Jul 19, 2020 at 11:08:35AM -0700, Randy Dunlap wrote:
+> Delete the doubled word "then" in a comment.
+>=20
+> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+> Cc: John Johansen <john.johansen@canonical.com>
+> Cc: apparmor@lists.ubuntu.com
+
+Reviewed-by: Seth Arnold <seth.arnold@canonical.com>
+
+Thanks
+
+> ---
+>  security/apparmor/include/file.h |    2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> --- linux-next-20200717.orig/security/apparmor/include/file.h
+> +++ linux-next-20200717/security/apparmor/include/file.h
+> @@ -167,7 +167,7 @@ int aa_audit_file(struct aa_profile *pro
+>   * @perms: permission table indexed by the matched state accept entry of=
+ @dfa
+>   * @trans: transition table for indexed by named x transitions
+>   *
+> - * File permission are determined by matching a path against @dfa and th=
+en
+> + * File permission are determined by matching a path against @dfa and
+>   * then using the value of the accept entry for the matching state as
+>   * an index into @perms.  If a named exec transition is required it is
+>   * looked up in the transition table.
+>=20
+
+--U+BazGySraz5kW0T
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEQVAQ8bojyMcg37H18yFyWZ2NLpcFAl8Yov4ACgkQ8yFyWZ2N
+Lped0wf7BOUDobQFJ75lulsDDZ+njuj+aWldahIGtNOsBSkxOxo8jU/yFQ3CcvOV
+K1VxjYqkhxU5QhWceVFsQ8DN8ILghdb6yofJ9vfnuSgdqcifzwoHbku3Ul99hZyo
+sN5MkQKlLdMsksQCWEvHvB7ofMguuHjHbsYlqPOspdMMLPOEetFzte+irh0cNUyg
+T+oIcWtW9ZUZLSOzmMCM8siFK9lZ2f72zzUpiG1jHxWq9RqVivcKDXGIsvuJtBvZ
+oPALNws2CAWFpwwHj217PkTwVifdPhdvT80ujs27vIim0I2bmSYBF21pYZ5K9pOW
+iAA3GhT6OVL5aXhhQIA6btoyPWbsnw==
+=GKRw
+-----END PGP SIGNATURE-----
+
+--U+BazGySraz5kW0T--
+
+
+--===============3564270461022006850==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
+eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
+aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
+
+--===============3564270461022006850==--
+
