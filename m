@@ -2,108 +2,52 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48EEA22FE5E
-	for <lists+apparmor@lfdr.de>; Tue, 28 Jul 2020 02:13:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E9D623AC57
+	for <lists+apparmor@lfdr.de>; Mon,  3 Aug 2020 20:28:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1k0DEv-0002HT-V9; Tue, 28 Jul 2020 00:13:05 +0000
-Received: from youngberry.canonical.com ([91.189.89.112])
+	id 1k2fCJ-0000Wf-Ub; Mon, 03 Aug 2020 18:28:31 +0000
+Received: from mail-ed1-f42.google.com ([209.85.208.42])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>) id 1k0DEu-0002HN-9P
- for apparmor@lists.ubuntu.com; Tue, 28 Jul 2020 00:13:04 +0000
-Received: from static-50-53-54-182.bvtn.or.frontiernet.net ([50.53.54.182]
- helo=[192.168.192.153]) by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>)
- id 1k0DEt-0002L4-Ox; Tue, 28 Jul 2020 00:13:04 +0000
-To: Amitav Mohanty <amitavmohanty01@gmail.com>, apparmor@lists.ubuntu.com
-References: <CAG0uzYPzaMLKxniLHha0-xTmbN2NpDGSOLumBJfFYchKee-_1Q@mail.gmail.com>
-From: John Johansen <john.johansen@canonical.com>
-Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
- LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCgptUUlOQkU1bXJQb0JFQURB
- azE5UHNnVmdCS2tJbW1SMmlzUFE2bzdLSmhUVEtqSmR3VmJrV1NuTm4rbzZVcDVrCm5LUDFm
- NDlFQlFsY2VXZzF5cC9Od2JSOGFkK2VTRU8vdW1hL0srUHFXdkJwdEtDOVNXRDk3Rkc0dUI0
- L2Nhb20KTEVVOTdzTFFNdG52R1dkeHJ4VlJHTTRhbnpXWU1neno1VFptSWlWVFo0M091NVZw
- YVMxVnoxWlN4UDNoL3hLTgpaci9UY1c1V1FhaTh1M1BXVm5ia2poU1pQSHYxQmdoTjY5cXhF
- UG9tckpCbTFnbXR4M1ppVm1GWGx1d1RtVGdKCk9rcEZvbDduYkowaWxuWUhyQTdTWDNDdFIx
- dXBlVXBNYS9XSWFuVk85NldkVGpISElhNDNmYmhtUXViZTR0eFMKM0ZjUUxPSlZxUXN4NmxF
- OUI3cUFwcG05aFExMHFQV3dkZlB5LyswVzZBV3ROdTVBU2lHVkNJbld6bDJIQnFZZAovWmxs
- OTN6VXErTklvQ244c0RBTTlpSCt3dGFHRGNKeXdJR0luK2VkS050SzcyQU1nQ2hUZy9qMVpv
- V0g2WmVXClBqdVVmdWJWelp0bzFGTW9HSi9TRjRNbWRRRzFpUU50ZjRzRlpiRWdYdXk5Y0dp
- MmJvbUYwenZ5QkpTQU5weGwKS05CRFlLek42S3owOUhVQWtqbEZNTmdvbUwvY2pxZ0FCdEF4
- NTlMK2RWSVpmYUYyODFwSWNVWnp3dmg1K0pvRwplT1c1dUJTTWJFN0wzOG5zem9veWtJSjVY
- ckFjaGtKeE5mejdrK0ZuUWVLRWtOekVkMkxXYzNRRjRCUVpZUlQ2ClBISGdhM1JneWtXNSsx
- d1RNcUpJTGRtdGFQYlhyRjNGdm5WMExSUGN2NHhLeDdCM2ZHbTd5Z2Rvb3dBUkFRQUIKdEIx
- S2IyaHVJRXB2YUdGdWMyVnVJRHhxYjJodVFHcHFiWGd1Ym1WMFBva0NPZ1FUQVFvQUpBSWJB
- d1VMQ1FnSApBd1VWQ2drSUN3VVdBZ01CQUFJZUFRSVhnQVVDVG8wWVZ3SVpBUUFLQ1JBRkx6
- WndHTlhEMkx4SkQvOVRKWkNwCndsbmNUZ1llcmFFTWVEZmtXdjhjMUlzTTFqMEFtRTRWdEwr
- ZkU3ODBaVlA5Z2tqZ2tkWVN4dDdlY0VUUFRLTWEKWlNpc3JsMVJ3cVUwb29nWGRYUVNweHJH
- SDAxaWN1LzJuMGpjWVNxWUtnZ1B4eTc4QkdzMkxacTRYUGZKVFptSApaR25YR3EvZURyL21T
- bmowYWF2QkptTVo2amJpUHo2eUh0QllQWjlmZG84YnRjendQNDFZZVdvSXUyNi84SUk2CmYw
- WG0zVkM1b0FhOHY3UmQrUldaYThUTXdsaHpIRXh4ZWwzanRJN0l6ek9zbm1FOS84RG0wQVJE
- NWlUTENYd1IKMWN3SS9KOUJGL1MxWHY4UE4xaHVUM0l0Q05kYXRncDh6cW9Ka2dQVmptdnlM
- NjRRM2ZFa1liZkhPV3NhYmE5LwprQVZ0Qk56OVJURmg3SUhEZkVDVmFUb3VqQmQ3QnRQcXIr
- cUlqV0ZhZEpEM0k1ZUxDVkp2VnJyb2xyQ0FUbEZ0Ck4zWWtRczZKbjFBaUlWSVUzYkhSOEdq
- ZXZnejVMbDZTQ0dIZ1Jya3lScG5TWWFVL3VMZ24zN042QVl4aS9RQUwKK2J5M0N5RUZManpX
- QUV2eVE4YnEzSXVjbjdKRWJoUy9KLy9kVXFMb2VVZjh0c0dpMDB6bXJJVFpZZUZZQVJoUQpN
- dHNmaXpJclZEdHoxaVBmL1pNcDVnUkJuaXlqcFhuMTMxY20zTTNndjZIclFzQUdubjhBSnJ1
- OEdEaTVYSllJCmNvLzEreC9xRWlOMm5DbGFBT3BiaHpOMmVVdlBEWTVXMHEzYkEvWnAybWZH
- NTJ2YlJJK3RRMEJyMUhkL3ZzbnQKVUhPOTAzbU1aZXAyTnpOM0JaNXFFdlB2RzRyVzVacTJE
- cHliV2JRclNtOW9iaUJLYjJoaGJuTmxiaUE4YW05bwpiaTVxYjJoaGJuTmxia0JqWVc1dmJt
- bGpZV3d1WTI5dFBva0NOd1FUQVFvQUlRVUNUbzBYV2dJYkF3VUxDUWdICkF3VVZDZ2tJQ3dV
- V0FnTUJBQUllQVFJWGdBQUtDUkFGTHpad0dOWEQySXRNRC85anliYzg3ZE00dUFIazZ5Tk0K
- TjBZL0JGbW10VFdWc09CaHFPbm9iNGkzOEJyRE8yQzFoUUNQQ1FlNExMczEvNHB0ZW92UXQ4
- QjJGeXJQVmp3Zwo3alpUSE5LNzRyNmxDQ1Z4eDN5dTFCN1U5UG80VlRrY3NsVmIxL3FtV3V4
- OFhXY040eXZrVHFsTCtHeHB5Sm45CjlaWmZmWEpjNk9oNlRtT2ZiS0d2TXV1djVhclNJQTNK
- SEZMZjlhTHZadEExaXNKVXI3cFM5YXBnOXVUVUdVcDcKd2ZWMFdUNlQzZUczbXRVVTJ1cDVK
- VjQ4NTBMMDVqSFM2dVdpZS9ZK3lmSk9iaXlyeE4vNlpxVzVHb25oTEJxLwptc3pjVjV2QlQz
- QkRWZTNSdkY2WGRNOU9oUG4xK1k4MXg1NCt2UTExM044aUx3RjdHR2ExNFp5SVZBTlpEMEkw
- CkhqUnZhMmsvUnFJUlR6S3l1UEg1cGtsY0tIVlBFRk1tT3pNVCtGT294Tmp2Uys3K3dHMktN
- RFlFbUhQcjFQSkIKWlNaZUh6SzE5dGZhbFBNcHBGeGkrc3lZTGFnTjBtQjdKSFF3WTdjclV1
- T0RoeWNxNjBZVnoxdGFFeWd1M1l2MgoyL0kxRUNHSHZLSEc2d2M5MG80M0MvZWxIRUNYbkVo
- N3RLcGxEY3BJQytPQ21NeEtIaFI0NitYY1p2Z3c0RGdiCjdjYTgzZVFSM0NHODlMdlFwVzJM
- TEtFRUJEajdoWmhrTGJra1BSWm0zdzhKWTQ0YXc4VnRneFdkblNFTUNMeEwKSU9OaDZ1Wjcv
- L0RZVnRjSWFNSllrZWJhWnRHZENwMElnVVpiMjQvVmR2WkNZYk82MkhrLzNWbzFuWHdIVUVz
- Mwo2RC92MWJUMFJaRmk2OUxnc0NjT2N4NGdZTGtDRFFST1pxejZBUkFBb3F3NmtrQmhXeU0x
- ZnZnYW1BVmplWjZuCktFZm5SV2JrQzk0TDFFc0pMdXAzV2IyWDBBQk5PSFNrYlNENHBBdUMy
- dEtGL0VHQnQ1Q1A3UWRWS1JHY1F6QWQKNmIyYzFJZHk5Ukx3Nnc0Z2krbm4vZDFQbTFra1lo
- a1NpNXpXYUlnMG01UlFVaytFbDh6a2Y1dGNFLzFOMFo1TwpLMkpoandGdTViWDBhMGw0Y0ZH
- V1ZRRWNpVk1ES1J0eE1qRXRrM1N4RmFsbTZaZFEycHAyODIyY2xucTR6WjltCld1MWQyd2F4
- aXorYjVJYTR3ZURZYTduNDFVUmNCRVViSkFnbmljSmtKdENUd3lJeElXMktuVnlPcmp2a1F6
- SUIKdmFQMEZkUDJ2dlpvUE1kbENJek9sSWtQTGd4RTBJV3VlVFhlQkpoTnMwMXBiOGJMcW1U
- SU1sdTRMdkJFTEEvdgplaWFqajVzOHk1NDJIL2FIc2ZCZjRNUVVoSHhPL0JaVjdoMDZLU1Vm
- SWFZN09nQWdLdUdOQjNVaWFJVVM1K2E5CmduRU9RTER4S1J5L2E3UTF2OVMrTnZ4KzdqOGlI
- M2prUUpoeFQ2WkJoWkdSeDBna0gzVCtGMG5ORG01TmFKVXMKYXN3Z0pycUZaa1VHZDJNcm0x
- cW5Ld1hpQXQ4U0ljRU5kcTMzUjBLS0tSQzgwWGd3ajhKbjMwdlhMU0crTk8xRwpIMFVNY0F4
- TXd5L3B2azZMVTVKR2paUjczSjVVTFZoSDRNTGJEZ2dEM21QYWlHOCtmb3RUckpVUHFxaGc5
- aHlVCkVQcFlHN3NxdDc0WG43OStDRVpjakxIenlsNnZBRkUyVzBreGxMdFF0VVpVSE8zNmFm
- RnY4cUdwTzNacVB2akIKVXVhdFhGNnR2VVFDd2YzSDZYTUFFUUVBQVlrQ0h3UVlBUW9BQ1FV
- Q1RtYXMrZ0liREFBS0NSQUZMelp3R05YRAoyRC9YRC8wZGRNLzRhaTFiK1RsMWp6bkthalgz
- a0crTWVFWWVJNGY0MHZjbzNyT0xyblJHRk9jYnl5ZlZGNjlNCktlcGllNE93b0kxamNUVTBB
- RGVjbmJXbkROSHByMFNjenhCTXJvM2Juckxoc212anVuVFlJdnNzQlp0QjRhVkoKanVMSUxQ
- VWxuaEZxYTdmYlZxMFpRamJpVi9ydDJqQkVOZG05cGJKWjZHam5wWUljQWJQQ0NhL2ZmTDQv
- U1FSUwpZSFhvaEdpaVM0eTVqQlRtSzVsdGZld0xPdzAyZmtleEgrSUpGcnJHQlhEU2c2bjJT
- Z3hubisrTkYzNGZYY205CnBpYXczbUtzSUNtKzBoZE5oNGFmR1o2SVdWOFBHMnRlb29WRHA0
- ZFlpaCsreFgvWFM4ekJDYzFPOXc0bnpsUDIKZ0t6bHFTV2JoaVdwaWZSSkJGYTRXdEFlSlRk
- WFlkMzdqL0JJNFJXV2hueXc3YUFQTkdqMzN5dEdITlVmNlJvMgovanRqNHRGMXkvUUZYcWpK
- Ry93R2pwZHRSZmJ0VWpxTEhJc3ZmUE5OSnEvOTU4cDc0bmRBQ2lkbFdTSHpqK09wCjI2S3Bi
- Rm5td05PMHBzaVVzbmh2SEZ3UE8vdkFibDNSc1I1KzBSbytodnMyY0VtUXV2OXIvYkRsQ2Zw
- enAydDMKY0srcmh4VXFpc094OERaZnoxQm5rYW9DUkZidnZ2ays3TC9mb21QbnRHUGtxSmNp
- WUU4VEdIa1p3MWhPa3UrNApPb00yR0I1bkVEbGorMlRGL2pMUStFaXBYOVBrUEpZdnhmUmxD
- NmRLOFBLS2ZYOUtkZm1BSWNnSGZuVjFqU24rCjh5SDJkakJQdEtpcVcwSjY5YUlzeXg3aVYv
- MDNwYVBDakpoN1hxOXZBenlkTjVVL1VBPT0KPTZQL2IKLS0tLS1FTkQgUEdQIFBVQkxJQyBL
- RVkgQkxPQ0stLS0tLQo=
-Organization: Canonical
-Message-ID: <0c562586-f25a-dc0b-bdee-dc9b1bf71278@canonical.com>
-Date: Mon, 27 Jul 2020 17:13:01 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ (envelope-from <murali.selvaraj2003@gmail.com>) id 1k2eoP-0007dt-W2
+ for apparmor@lists.ubuntu.com; Mon, 03 Aug 2020 18:03:50 +0000
+Received: by mail-ed1-f42.google.com with SMTP id di22so20720966edb.12
+ for <apparmor@lists.ubuntu.com>; Mon, 03 Aug 2020 11:03:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=u037KjtjTqi1tHMPGpqqR690VCHhIzm8YELnqZApmRw=;
+ b=k7pvozDphPKPllQpz9Ja8C0qGS/9PgT8dsQX/bmXagsHlF0w3PyQWvPBvWxAewTPq5
+ Eip3GbtefkzYI/v+cytwz0nOF9VJvi3jEfxOxB19oH38KW11bzGLCncQK6qk6V/9DiwZ
+ 2sq+I4xxALABXRz0Y8SZ09KXFJLk0ZDwyM3/ZPMovqIyZEo6eAH6XUO5KliWO7dRN7lz
+ 38GjrfHbaNhIPL0Ow6pCUTW5g0a7EW00HscaIwY/L3uzTp5JPq8tB+ImspvxkpYXw41P
+ WCpBX8Tsk3e+UFRshFWqEKu3X/cZpkRQYitXKKE9d5cBbvGdLIzta2y8BQgIChj6yvhO
+ qBPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=u037KjtjTqi1tHMPGpqqR690VCHhIzm8YELnqZApmRw=;
+ b=MWhDaaCUhW+7VOQnmLdUR0O91GOrK28mdsJ2C2lHREGnA7xd2kWgZ3PH/4oqQ0K6IC
+ BXQm27UgABGCyV8DSJFgP1OoRqWouf0unNuw60Wmq/PX/TCZaC9F1QuEvhJtjyXr30p+
+ A7do8uQv0X8GajCQedsFMzizdzSsYIEGIT3rLNVPxzY70SUilt+JJXxLbMsz3IHEhLWi
+ jYMxWjyt/uWI+uPUPSyo3nUq6GI7opfNosqHLvOLUXOO/WBXQmd6SX9sD6+VRHswX2v5
+ AQOqUDgMtAeiNm79zvLgHFEZxCVRFqbXLADW3AvZ8hoMsL4iTiKKDGLaXRa5B8cKesDg
+ RB5Q==
+X-Gm-Message-State: AOAM530xUhYJs02P9265d8o2A94wzj10nFUaOuo/wnQgEFy5jjvqRzgZ
+ izCICMDd1YQGZbPNjl8BCM5Qgb0uCjyMtNwvS6M3yv3Z
+X-Google-Smtp-Source: ABdhPJybXQv5arIecJMpeRTOg+2H25mtO3fKkRXcEQWn/ACfIOmJIOjykdMmMdUrA6a78ynAYb1pSg4zKRKbvV1F5Ss=
+X-Received: by 2002:aa7:cc98:: with SMTP id p24mr17402804edt.333.1596477829129; 
+ Mon, 03 Aug 2020 11:03:49 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CAG0uzYPzaMLKxniLHha0-xTmbN2NpDGSOLumBJfFYchKee-_1Q@mail.gmail.com>
-Content-Language: en-US
-Subject: Re: [apparmor] Portable profiles
+From: Murali Selvaraj <murali.selvaraj2003@gmail.com>
+Date: Mon, 3 Aug 2020 14:03:38 -0400
+Message-ID: <CAODFaZ5jftC-cEVxLSwNB_RX15AswxgUVaDTf35bUqXte1M7Nw@mail.gmail.com>
+To: apparmor@lists.ubuntu.com
+Received-SPF: pass client-ip=209.85.208.42;
+ envelope-from=murali.selvaraj2003@gmail.com; helo=mail-ed1-f42.google.com
+X-Mailman-Approved-At: Mon, 03 Aug 2020 18:28:30 +0000
+Subject: [apparmor] Apparmor: Query
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -115,50 +59,133 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============8936571334767292464=="
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-T24gNy8yNy8yMCAyOjIyIFBNLCBBbWl0YXYgTW9oYW50eSB3cm90ZToKPiBIaQo+IAo+IEkgYW0g
-cmVhZGluZyB1cCBvbiBBcHBhcm1vciByZWNlbnRseS4gSSBzZWUgdGhhdCBVYnVudHUgYW5kIG9w
-ZW5TVVNFIGhhdmUgcGFja2FnZWQgcHJvZmlsZXMgaW4gdGhlaXIgcmVwb3NpdG9yaWVzLiBIb3dl
-dmVyLCBvdGhlciBkaXN0cmlidXRpb25zIGFyZSBqdXN0IGFza2luZyBwZW9wbGUgdG8gY3JlYXRl
-IHRoZSBwcm9maWxlcyB1c2luZyB0b29scyBvciBtYW51YWxseSBvciBtb2RpZnkgcHJvZmlsZXMg
-ZnJvbSB0aGUgYWJvdmUgZGlzdHJpYnV0aW9ucy4gSSB0aGluayB0aGF0IHNvcnQgb2YgaGluZGVy
-cyB0aGUgYWRvcHRpb24gb2YgQXBwYXJtb3IuIEkgd291bGQgbG92ZSB0byBoZWFyIHlvdXIgdGhv
-dWdodHMgb24gdGhpcy4KPiAKCkl0IGNlcnRhaW5seSBkb2VzIHNvbWUuIFByb2ZpbGVzIHVuZm9y
-dHVuYXRlbHkgaGF2ZSB0byBiZSBzb21ld2hhdCB0YWlsb3JlZCB0byBhIG1hY2hpbmUvZGlzdHJv
-LiBUaGVyZSBhcmUgc2V2ZXJhbCB0aGluZ3MgaG93ZXZlciB0aGF0IGNhbiBiZSBkb25lIHRvIG1h
-a2UgcHJvZmlsZXMgbW9yZSBwb3J0YWJsZSwgYW5kIGFzIGFuIHVwc3RyZWFtIHdlIGhhdmUgYmVl
-biBwdXNoaW5nIGZvciBwcm9maWxlcyB0byB1c2UgYXMgbWFueSBhcyBwb3NzaWJsZS4KCmVnLgpE
-ZXByZWNhdGlvbiBvZiBwYXRoIGJhc2UgcHJvZmlsZSBuYW1lcwpodHRwczovL2dpdGxhYi5jb20v
-YXBwYXJtb3IvYXBwYXJtb3IvLS93aWtpcy9EZXByZWNhdGVQcm9maWxlUGF0aE5hbWUKCmFuZCB0
-aGUgdXNlIG9mIHZhcmlhYmxlcyBmb3IgdGhlIGJhc2Ugb2YgcnVsZXMsIHdoaWNoIGFsbG93cyBh
-IGRpc3RybyB0byBqdXN0IG1vZGlmeSB0aGUgdmFyaWFibGUgZGVmaW5lLgoKZWcuCkB7cHJvY30v
-c2VsZi9hdHRyL2N1cnJlbnQgcncsCkB7bGlifS8qKiBtciwKb3duZXIgQHtIT01FfS8qKiByLAoK
-QXMgYW4gdXBzdHJlYW0gd2UgaGF2ZSBhZGRlZCBzZXZlcmFsIG5ldyBiYXNlIHZhcmlhYmxlcyBh
-bmQgdXBkYXRlZCByZWZlcmVuY2UgcG9saWN5IHRvIHVzZSB0aGVtLiBJdCB3aWxsIG9mIGNvdXJz
-ZSB0YWtlIHRpbWUgdG8gZ2V0IG91dCBvZiB0cmVlIHBvbGljeSBtaWdyYXRlZCBvdmVyLgoKCj4g
-QWxzbywgSSB3YXMgdGhpbmtpbmcgb2YgaGF2aW5nIHNvbWUgdG9vbCBhcyB0aGUgZm9sbG93aW5n
-Ogo+IAo+IGhhdmUgYSBiYXNlIHByb2ZpbGUgdGVtcGxhdGUgZm9yIGFuIGFwcGxpY2F0aW9uCj4g
-wqDCoMKgIHwKPiDCoMKgwqAgfAo+IMKgwqAgXCAvCj4gaGF2ZSBhIGdlbmVyYXRvciB0b29swqDC
-oMKgwqDCoMKgwqDCoCA8LS0gYSBkaXN0cm8tc3BlY2lmaWMgbGlzdCBvZiBsb2NhdGlvbnMgKGxp
-YnJhcmllcyBpbmNsdWRlZCkKPiDCoMKgwqAgfAo+IMKgwqDCoCB8Cj4gwqDCoCBcIC8KPiBjcmVh
-dGUgYSBwcm9maWxlIHVzYWJsZSBpbiB0aGUgZGlzdHJvIGRpcmVjdGx5IGZyb20gdGhlIHByb2Zp
-bGUgdGVtcGxhdGUgbWFpbnRhaW5lZCBpbiB0aGUgY29tbW9uIHJlcG8KPiAKPiBMZXQgbWUga25v
-dyB3aGF0IHlvdSB0aGluay4KPiAKCklkZWFsbHkgd2UgY291bGQgZG8gdGhpcyB3aXRoIGFsbCB3
-aXRoIHZhcmlhYmxlcywgYnV0IHRoZSByZWFsaXR5IGlzIHRoYXQgd2UgcHJvYmFibHkgd29uJ3Qg
-ZXZlciBnZXQgYWxsIHByb2ZpbGVzIHRvIHVzZSB2YXJpYWJsZXMgYW5kIHRvb2xpbmcgdG8gcmV3
-cml0ZSBwcm9maWxlcyBpcyBhbHdheXMgbmljZSB0byBoYXZlLiBJZGVhbGx5IGV4aXN0aW5nIHRv
-b2xpbmcgZ2VucHJvZi9sb2dwcm9mL21lcmdlcHJvZiB3b3VsZCBiZSBhYmxlIHRvIGlkZW50aWZ5
-IHByb2ZpbGUgbG9jYXRpb25zIGFuZCBtYXAgdGhlbSB0byB2YXJpYWJsZXMgb3IgbmV3IGxvY2F0
-aW9ucyBhbmQgcmV3cml0ZSB0aGVtLiBXaXRoIHRoYXQgc2FpZCBJIGFtIG5vdCBvcHBvc2VkIHRv
-IGhhdmluZyBhIGRlZGljYXRlZCB0b29sIHRvIGRvIHRoaXMgZWl0aGVyLgoKQW5vdGhlciB0aGlu
-ZyBJIHdvdWxkIGxpa2UgaXMgZm9yIHVwc3RyZWFtIGFwcGFybW9yIHRvIGNvbGxlY3QgdGhlIHNl
-dCBvZiBkZWZpbmVzIGZvciBlYWNoIGRpc3RybywgYW5kIG1ha2UgaXQgd2UgY2FuIHN3aXRjaCB0
-aGUgdmFyaWFibGUgZGVmaW5lcyBieSBlaXRoZXIgY2hlY2tpbmcgd2hhdCBkaXN0cm8gYXBwYXJt
-b3IgaXMgcnVubmluZyBvbiAoZHluYW1pYykgb3IgYnkgZGVmaW5pbmcgYSBkaXN0cm8gdmFyaWFi
-bGUgdG8gZm9yY2UgYSBnaXZlbiBzZXQuCgotLSAKQXBwQXJtb3IgbWFpbGluZyBsaXN0CkFwcEFy
-bW9yQGxpc3RzLnVidW50dS5jb20KTW9kaWZ5IHNldHRpbmdzIG9yIHVuc3Vic2NyaWJlIGF0OiBo
-dHRwczovL2xpc3RzLnVidW50dS5jb20vbWFpbG1hbi9saXN0aW5mby9hcHBhcm1vcgo=
+--===============8936571334767292464==
+Content-Type: multipart/alternative; boundary="000000000000e5ab0705abfcf56c"
+
+--000000000000e5ab0705abfcf56c
+Content-Type: text/plain; charset="UTF-8"
+
+Hi All,
+
+I have successfully set up the apparmor in my Linux machine.
+
+Requirement:
+
+- Trying to find the list of capabilities needed for this below code which
+runs in "unprivileged" mode [ nobody user ]
+- The below code while executes, permission denied for write operation and
+killing init process
+cat /tmp/kill.sh
+#!/bin/sh
+echo "Exploring apparmor"
+while [ 1 ]
+do
+cat /nvram/foo
+echo "TEST" > /nvram/foo    => This operation won't be successful due to
+permission issue.
+killall root_process        =>  This operation won't be successful due to
+permission issue.
+sleep 5
+done
+
+ls -ltr /nvram/foo
+-rw-r--r--    1 root     root             0 Aug  1 22:23 /nvram/foo
+
+~# /tmp/kill.sh
+~# su nobody
+nobody@:/home/root$
+nobody@/home/root$
+nobody@:/home/root$
+nobody@:/home/root$ /tmp/kill.sh &
+[1] 18981
+nobody@:/home/root$ Exploring apparmor
+/tmp/kill.sh: line 6: /nvram/foo: Permission denied
+killall: can't kill pid 4404: Operation not permitted
+
+
+Analysis:
+
+While running this process (complain) mode in apparmor, I assume the
+required capabilities will be apparmor event logs.
+
+Please note that, the process runs in "unprivileged (nobody) user.
+
+For write operation while the process is running in nobody user mode, it
+needs CAP_DAC_OVERRIDE capability to complete the write operation.
+
+For kill operation, while the process is running in nobody user mode, it
+needs CAP_KILL capability to complete the kill operation.
+
+
+Query 1:
+
+- But I do not see CAP_DAC_OVERRIDE and CAP_KILL in apparmor event logs.
+
+Query 2:
+
+- How apparmor identities how many capabilities are needed for the process?
+
+Query 3:
+
+- Does all system calls need capability when it runs in a non-root process,
+how does apparmor mapping the linux capabilities?
+
+Can someone please clarify these queries?
+
+Thankx
+Murali.S
+
+--000000000000e5ab0705abfcf56c
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi All,<br><br>I have successfully set up the apparmor in =
+my Linux machine.<br><br>Requirement:<br><br>- Trying to find the list of c=
+apabilities needed for this below code which runs in &quot;unprivileged&quo=
+t; mode [ nobody user ]<br>- The below code while executes, permission deni=
+ed for write operation and killing init process <br>cat /tmp/kill.sh<br>#!/=
+bin/sh<br>echo &quot;Exploring apparmor&quot;<br>while [ 1 ]<br>do<br>cat /=
+nvram/foo<br>echo &quot;TEST&quot; &gt; /nvram/foo =C2=A0 =C2=A0=3D&gt; Thi=
+s operation won&#39;t be successful due to permission issue.<br>killall roo=
+t_process =C2=A0 =C2=A0 =C2=A0 =C2=A0=3D&gt; =C2=A0This operation won&#39;t=
+ be successful due to permission issue.<br>sleep 5<br>done<br><br>ls -ltr /=
+nvram/foo<br>-rw-r--r-- =C2=A0 =C2=A01 root =C2=A0 =C2=A0 root =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 0 Aug =C2=A01 22:23 /nvram/foo<br><br>~# /t=
+mp/kill.sh<br>~# su nobody<br>nobody@:/home/root$<br>nobody@/home/root$<br>=
+nobody@:/home/root$<br>nobody@:/home/root$ /tmp/kill.sh &amp;<br>[1] 18981<=
+br>nobody@:/home/root$ Exploring apparmor<br>/tmp/kill.sh: line 6: /nvram/f=
+oo: Permission denied<br>killall: can&#39;t kill pid 4404: Operation not pe=
+rmitted<br><br><br>Analysis:<br><br>While running this process (complain) m=
+ode in apparmor, I assume the required capabilities will be apparmor event =
+logs.<br><br>Please note that, the process runs in &quot;unprivileged (nobo=
+dy) user.<br><br>For write operation while the process is running in nobody=
+ user mode, it needs CAP_DAC_OVERRIDE capability to complete the write oper=
+ation.<br><br>For kill operation, while the process is running in nobody us=
+er mode, it needs CAP_KILL capability to complete the kill operation.<br><b=
+r><br>Query 1:<br><br>- But I do not see CAP_DAC_OVERRIDE and CAP_KILL in a=
+pparmor event logs.<br><br>Query 2:<br><br>- How apparmor identities how ma=
+ny capabilities are needed for the process?<br><br>Query 3:<br><br>- Does a=
+ll system calls need capability when it runs in a non-root process, how doe=
+s apparmor mapping the linux capabilities?<br><br>Can someone please clarif=
+y these queries?<div><br></div><div>Thankx</div><div>Murali.S<br><br><br><b=
+r><br><br><br><br><br><br><br><br><br></div></div>
+
+--000000000000e5ab0705abfcf56c--
+
+
+--===============8936571334767292464==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
+eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
+aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
+
+--===============8936571334767292464==--
+
