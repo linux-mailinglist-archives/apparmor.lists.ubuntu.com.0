@@ -2,56 +2,110 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5777923B756
-	for <lists+apparmor@lfdr.de>; Tue,  4 Aug 2020 11:07:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56E8A23B879
+	for <lists+apparmor@lfdr.de>; Tue,  4 Aug 2020 12:08:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1k2sv7-0005vO-7w; Tue, 04 Aug 2020 09:07:41 +0000
-Received: from mail-ej1-f44.google.com ([209.85.218.44])
+	id 1k2ts1-0001iN-8b; Tue, 04 Aug 2020 10:08:33 +0000
+Received: from youngberry.canonical.com ([91.189.89.112])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <murali.selvaraj2003@gmail.com>) id 1k2nDu-0005eP-AP
- for apparmor@lists.ubuntu.com; Tue, 04 Aug 2020 03:02:42 +0000
-Received: by mail-ej1-f44.google.com with SMTP id d6so26937035ejr.5
- for <apparmor@lists.ubuntu.com>; Mon, 03 Aug 2020 20:02:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=g7kaCCZWnEWkv/Y81ddrR29R3EezldneNqpvg8VelrM=;
- b=pjYf4HhpyrYwwNSb2oD7V+lLlJqnoHlVR5IcY9iRhgAsMCLcLCD8h2PiC4hvZcWnHB
- nVMwWt+n9gC637pcHBB6FAi+ibjYake0+SAUhNIkhxonSbama7P+82DpmDxZ23H7YLaH
- XlmQY8b8c+FMCwu/3Nu5Y4nxOV2DzRSWwbyjYwCQuWOv93iMzlr92UEETW689RF10IBd
- yNZumuiOp+A5j9IaOb/rqkSD8Kkc9p0Uuv47pCHF+K+UeW0hOAFQ8jO8lrJGKxWSueQZ
- JCHtEtdiUscHvEsgeqEAKCKQvqNq7d+erDSMC4MiYHVG35M5fGJIvCIk/uNz0sjAzmux
- 5bfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=g7kaCCZWnEWkv/Y81ddrR29R3EezldneNqpvg8VelrM=;
- b=eL9nN4NZcYgrcTaxu/PB3AHr0qQWvnKsqxhlJT1HolN2bn3xx3Zf4JEC0lt0iezKdr
- 6X0eyCq5h/OM5yTI30RGNJcgHEvFUOc2gCAgQeOB7xCqWrlknl2Enl9qNaSgBby45YYn
- madb1Ax35jjjXuWG6rMMrSapJgCBefR/sB0RBb9LWFwgCfY9QyYrjJVWyRg4DZScJlqG
- 4a1wNEz/fKiu4IfusCel3N5zcMsXRM4eBFhXkePZgetyW+vpOpxpE2hsbOhcpB6nupne
- q5NtVZPL0D/tnf89q5t4l0GhkvC/W+Lp/nrVxU8TRCf4fUs3Fff4Eud6m2+wD4ULmIJt
- IOqg==
-X-Gm-Message-State: AOAM531Ri6LLA72jf5066pGXH1jXy5Ab3x5NYtGL/Gi+DeSYOzsMSBKO
- fJwFcH+pnNb+dHt4WAgae69zKkfOlLhor62d+mSeXsIM
-X-Google-Smtp-Source: ABdhPJw4+eeAF7v7QJRaHRynm4cn5GTZbFzosf4Gvj/FRZAzkMJabW0z1EH2kVy6VWlWWQSFqLFcepmbd78j/RfJ174=
-X-Received: by 2002:a17:906:9392:: with SMTP id
- l18mr19054298ejx.357.1596510160829; 
- Mon, 03 Aug 2020 20:02:40 -0700 (PDT)
-MIME-Version: 1.0
+ (envelope-from <john.johansen@canonical.com>) id 1k2try-0001hh-UO
+ for apparmor@lists.ubuntu.com; Tue, 04 Aug 2020 10:08:30 +0000
+Received: from static-50-53-58-29.bvtn.or.frontiernet.net ([50.53.58.29]
+ helo=[192.168.192.153]) by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <john.johansen@canonical.com>)
+ id 1k2try-0005b9-E1; Tue, 04 Aug 2020 10:08:30 +0000
+To: Murali Selvaraj <murali.selvaraj2003@gmail.com>,
+ Seth Arnold <seth.arnold@canonical.com>
 References: <CAODFaZ5jftC-cEVxLSwNB_RX15AswxgUVaDTf35bUqXte1M7Nw@mail.gmail.com>
  <20200804002056.GB2250578@millbarge>
-In-Reply-To: <20200804002056.GB2250578@millbarge>
-From: Murali Selvaraj <murali.selvaraj2003@gmail.com>
-Date: Mon, 3 Aug 2020 23:02:30 -0400
-Message-ID: <CAODFaZ4io354t+qwQMBHzaMdN9hY9cGucBdot26DeuDgDsEOwA@mail.gmail.com>
-To: Seth Arnold <seth.arnold@canonical.com>
-Received-SPF: pass client-ip=209.85.218.44;
- envelope-from=murali.selvaraj2003@gmail.com; helo=mail-ej1-f44.google.com
-X-Mailman-Approved-At: Tue, 04 Aug 2020 09:07:39 +0000
+ <CAODFaZ4io354t+qwQMBHzaMdN9hY9cGucBdot26DeuDgDsEOwA@mail.gmail.com>
+From: John Johansen <john.johansen@canonical.com>
+Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
+ LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCgptUUlOQkU1bXJQb0JFQURB
+ azE5UHNnVmdCS2tJbW1SMmlzUFE2bzdLSmhUVEtqSmR3VmJrV1NuTm4rbzZVcDVrCm5LUDFm
+ NDlFQlFsY2VXZzF5cC9Od2JSOGFkK2VTRU8vdW1hL0srUHFXdkJwdEtDOVNXRDk3Rkc0dUI0
+ L2Nhb20KTEVVOTdzTFFNdG52R1dkeHJ4VlJHTTRhbnpXWU1neno1VFptSWlWVFo0M091NVZw
+ YVMxVnoxWlN4UDNoL3hLTgpaci9UY1c1V1FhaTh1M1BXVm5ia2poU1pQSHYxQmdoTjY5cXhF
+ UG9tckpCbTFnbXR4M1ppVm1GWGx1d1RtVGdKCk9rcEZvbDduYkowaWxuWUhyQTdTWDNDdFIx
+ dXBlVXBNYS9XSWFuVk85NldkVGpISElhNDNmYmhtUXViZTR0eFMKM0ZjUUxPSlZxUXN4NmxF
+ OUI3cUFwcG05aFExMHFQV3dkZlB5LyswVzZBV3ROdTVBU2lHVkNJbld6bDJIQnFZZAovWmxs
+ OTN6VXErTklvQ244c0RBTTlpSCt3dGFHRGNKeXdJR0luK2VkS050SzcyQU1nQ2hUZy9qMVpv
+ V0g2WmVXClBqdVVmdWJWelp0bzFGTW9HSi9TRjRNbWRRRzFpUU50ZjRzRlpiRWdYdXk5Y0dp
+ MmJvbUYwenZ5QkpTQU5weGwKS05CRFlLek42S3owOUhVQWtqbEZNTmdvbUwvY2pxZ0FCdEF4
+ NTlMK2RWSVpmYUYyODFwSWNVWnp3dmg1K0pvRwplT1c1dUJTTWJFN0wzOG5zem9veWtJSjVY
+ ckFjaGtKeE5mejdrK0ZuUWVLRWtOekVkMkxXYzNRRjRCUVpZUlQ2ClBISGdhM1JneWtXNSsx
+ d1RNcUpJTGRtdGFQYlhyRjNGdm5WMExSUGN2NHhLeDdCM2ZHbTd5Z2Rvb3dBUkFRQUIKdEIx
+ S2IyaHVJRXB2YUdGdWMyVnVJRHhxYjJodVFHcHFiWGd1Ym1WMFBva0NPZ1FUQVFvQUpBSWJB
+ d1VMQ1FnSApBd1VWQ2drSUN3VVdBZ01CQUFJZUFRSVhnQVVDVG8wWVZ3SVpBUUFLQ1JBRkx6
+ WndHTlhEMkx4SkQvOVRKWkNwCndsbmNUZ1llcmFFTWVEZmtXdjhjMUlzTTFqMEFtRTRWdEwr
+ ZkU3ODBaVlA5Z2tqZ2tkWVN4dDdlY0VUUFRLTWEKWlNpc3JsMVJ3cVUwb29nWGRYUVNweHJH
+ SDAxaWN1LzJuMGpjWVNxWUtnZ1B4eTc4QkdzMkxacTRYUGZKVFptSApaR25YR3EvZURyL21T
+ bmowYWF2QkptTVo2amJpUHo2eUh0QllQWjlmZG84YnRjendQNDFZZVdvSXUyNi84SUk2CmYw
+ WG0zVkM1b0FhOHY3UmQrUldaYThUTXdsaHpIRXh4ZWwzanRJN0l6ek9zbm1FOS84RG0wQVJE
+ NWlUTENYd1IKMWN3SS9KOUJGL1MxWHY4UE4xaHVUM0l0Q05kYXRncDh6cW9Ka2dQVmptdnlM
+ NjRRM2ZFa1liZkhPV3NhYmE5LwprQVZ0Qk56OVJURmg3SUhEZkVDVmFUb3VqQmQ3QnRQcXIr
+ cUlqV0ZhZEpEM0k1ZUxDVkp2VnJyb2xyQ0FUbEZ0Ck4zWWtRczZKbjFBaUlWSVUzYkhSOEdq
+ ZXZnejVMbDZTQ0dIZ1Jya3lScG5TWWFVL3VMZ24zN042QVl4aS9RQUwKK2J5M0N5RUZManpX
+ QUV2eVE4YnEzSXVjbjdKRWJoUy9KLy9kVXFMb2VVZjh0c0dpMDB6bXJJVFpZZUZZQVJoUQpN
+ dHNmaXpJclZEdHoxaVBmL1pNcDVnUkJuaXlqcFhuMTMxY20zTTNndjZIclFzQUdubjhBSnJ1
+ OEdEaTVYSllJCmNvLzEreC9xRWlOMm5DbGFBT3BiaHpOMmVVdlBEWTVXMHEzYkEvWnAybWZH
+ NTJ2YlJJK3RRMEJyMUhkL3ZzbnQKVUhPOTAzbU1aZXAyTnpOM0JaNXFFdlB2RzRyVzVacTJE
+ cHliV2JRclNtOW9iaUJLYjJoaGJuTmxiaUE4YW05bwpiaTVxYjJoaGJuTmxia0JqWVc1dmJt
+ bGpZV3d1WTI5dFBva0NOd1FUQVFvQUlRVUNUbzBYV2dJYkF3VUxDUWdICkF3VVZDZ2tJQ3dV
+ V0FnTUJBQUllQVFJWGdBQUtDUkFGTHpad0dOWEQySXRNRC85anliYzg3ZE00dUFIazZ5Tk0K
+ TjBZL0JGbW10VFdWc09CaHFPbm9iNGkzOEJyRE8yQzFoUUNQQ1FlNExMczEvNHB0ZW92UXQ4
+ QjJGeXJQVmp3Zwo3alpUSE5LNzRyNmxDQ1Z4eDN5dTFCN1U5UG80VlRrY3NsVmIxL3FtV3V4
+ OFhXY040eXZrVHFsTCtHeHB5Sm45CjlaWmZmWEpjNk9oNlRtT2ZiS0d2TXV1djVhclNJQTNK
+ SEZMZjlhTHZadEExaXNKVXI3cFM5YXBnOXVUVUdVcDcKd2ZWMFdUNlQzZUczbXRVVTJ1cDVK
+ VjQ4NTBMMDVqSFM2dVdpZS9ZK3lmSk9iaXlyeE4vNlpxVzVHb25oTEJxLwptc3pjVjV2QlQz
+ QkRWZTNSdkY2WGRNOU9oUG4xK1k4MXg1NCt2UTExM044aUx3RjdHR2ExNFp5SVZBTlpEMEkw
+ CkhqUnZhMmsvUnFJUlR6S3l1UEg1cGtsY0tIVlBFRk1tT3pNVCtGT294Tmp2Uys3K3dHMktN
+ RFlFbUhQcjFQSkIKWlNaZUh6SzE5dGZhbFBNcHBGeGkrc3lZTGFnTjBtQjdKSFF3WTdjclV1
+ T0RoeWNxNjBZVnoxdGFFeWd1M1l2MgoyL0kxRUNHSHZLSEc2d2M5MG80M0MvZWxIRUNYbkVo
+ N3RLcGxEY3BJQytPQ21NeEtIaFI0NitYY1p2Z3c0RGdiCjdjYTgzZVFSM0NHODlMdlFwVzJM
+ TEtFRUJEajdoWmhrTGJra1BSWm0zdzhKWTQ0YXc4VnRneFdkblNFTUNMeEwKSU9OaDZ1Wjcv
+ L0RZVnRjSWFNSllrZWJhWnRHZENwMElnVVpiMjQvVmR2WkNZYk82MkhrLzNWbzFuWHdIVUVz
+ Mwo2RC92MWJUMFJaRmk2OUxnc0NjT2N4NGdZTGtDRFFST1pxejZBUkFBb3F3NmtrQmhXeU0x
+ ZnZnYW1BVmplWjZuCktFZm5SV2JrQzk0TDFFc0pMdXAzV2IyWDBBQk5PSFNrYlNENHBBdUMy
+ dEtGL0VHQnQ1Q1A3UWRWS1JHY1F6QWQKNmIyYzFJZHk5Ukx3Nnc0Z2krbm4vZDFQbTFra1lo
+ a1NpNXpXYUlnMG01UlFVaytFbDh6a2Y1dGNFLzFOMFo1TwpLMkpoandGdTViWDBhMGw0Y0ZH
+ V1ZRRWNpVk1ES1J0eE1qRXRrM1N4RmFsbTZaZFEycHAyODIyY2xucTR6WjltCld1MWQyd2F4
+ aXorYjVJYTR3ZURZYTduNDFVUmNCRVViSkFnbmljSmtKdENUd3lJeElXMktuVnlPcmp2a1F6
+ SUIKdmFQMEZkUDJ2dlpvUE1kbENJek9sSWtQTGd4RTBJV3VlVFhlQkpoTnMwMXBiOGJMcW1U
+ SU1sdTRMdkJFTEEvdgplaWFqajVzOHk1NDJIL2FIc2ZCZjRNUVVoSHhPL0JaVjdoMDZLU1Vm
+ SWFZN09nQWdLdUdOQjNVaWFJVVM1K2E5CmduRU9RTER4S1J5L2E3UTF2OVMrTnZ4KzdqOGlI
+ M2prUUpoeFQ2WkJoWkdSeDBna0gzVCtGMG5ORG01TmFKVXMKYXN3Z0pycUZaa1VHZDJNcm0x
+ cW5Ld1hpQXQ4U0ljRU5kcTMzUjBLS0tSQzgwWGd3ajhKbjMwdlhMU0crTk8xRwpIMFVNY0F4
+ TXd5L3B2azZMVTVKR2paUjczSjVVTFZoSDRNTGJEZ2dEM21QYWlHOCtmb3RUckpVUHFxaGc5
+ aHlVCkVQcFlHN3NxdDc0WG43OStDRVpjakxIenlsNnZBRkUyVzBreGxMdFF0VVpVSE8zNmFm
+ RnY4cUdwTzNacVB2akIKVXVhdFhGNnR2VVFDd2YzSDZYTUFFUUVBQVlrQ0h3UVlBUW9BQ1FV
+ Q1RtYXMrZ0liREFBS0NSQUZMelp3R05YRAoyRC9YRC8wZGRNLzRhaTFiK1RsMWp6bkthalgz
+ a0crTWVFWWVJNGY0MHZjbzNyT0xyblJHRk9jYnl5ZlZGNjlNCktlcGllNE93b0kxamNUVTBB
+ RGVjbmJXbkROSHByMFNjenhCTXJvM2Juckxoc212anVuVFlJdnNzQlp0QjRhVkoKanVMSUxQ
+ VWxuaEZxYTdmYlZxMFpRamJpVi9ydDJqQkVOZG05cGJKWjZHam5wWUljQWJQQ0NhL2ZmTDQv
+ U1FSUwpZSFhvaEdpaVM0eTVqQlRtSzVsdGZld0xPdzAyZmtleEgrSUpGcnJHQlhEU2c2bjJT
+ Z3hubisrTkYzNGZYY205CnBpYXczbUtzSUNtKzBoZE5oNGFmR1o2SVdWOFBHMnRlb29WRHA0
+ ZFlpaCsreFgvWFM4ekJDYzFPOXc0bnpsUDIKZ0t6bHFTV2JoaVdwaWZSSkJGYTRXdEFlSlRk
+ WFlkMzdqL0JJNFJXV2hueXc3YUFQTkdqMzN5dEdITlVmNlJvMgovanRqNHRGMXkvUUZYcWpK
+ Ry93R2pwZHRSZmJ0VWpxTEhJc3ZmUE5OSnEvOTU4cDc0bmRBQ2lkbFdTSHpqK09wCjI2S3Bi
+ Rm5td05PMHBzaVVzbmh2SEZ3UE8vdkFibDNSc1I1KzBSbytodnMyY0VtUXV2OXIvYkRsQ2Zw
+ enAydDMKY0srcmh4VXFpc094OERaZnoxQm5rYW9DUkZidnZ2ays3TC9mb21QbnRHUGtxSmNp
+ WUU4VEdIa1p3MWhPa3UrNApPb00yR0I1bkVEbGorMlRGL2pMUStFaXBYOVBrUEpZdnhmUmxD
+ NmRLOFBLS2ZYOUtkZm1BSWNnSGZuVjFqU24rCjh5SDJkakJQdEtpcVcwSjY5YUlzeXg3aVYv
+ MDNwYVBDakpoN1hxOXZBenlkTjVVL1VBPT0KPTZQL2IKLS0tLS1FTkQgUEdQIFBVQkxJQyBL
+ RVkgQkxPQ0stLS0tLQo=
+Organization: Canonical
+Message-ID: <90be476c-2702-ed53-ada9-94245703f23f@canonical.com>
+Date: Tue, 4 Aug 2020 03:08:28 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <CAODFaZ4io354t+qwQMBHzaMdN9hY9cGucBdot26DeuDgDsEOwA@mail.gmail.com>
+Content-Language: en-US
 Subject: Re: [apparmor] Apparmor: Query
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -65,305 +119,170 @@ List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
 Cc: apparmor@lists.ubuntu.com
-Content-Type: multipart/mixed; boundary="===============8123869790906112386=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
---===============8123869790906112386==
-Content-Type: multipart/alternative; boundary="00000000000004412b05ac047d84"
-
---00000000000004412b05ac047d84
-Content-Type: text/plain; charset="UTF-8"
-
-Hi Seth,
-
-Thanks for the detailed explanation. Please go through below details and
-clarify further queries.
-
-I do not see a capability difference when this script runs in root (UID:0)
- and nobody (UID>0).
-If we are observing the required capabilities when the script runs in root,
-that would be easy for us to find
-the needed capabilities for this script. Then we will apply this capability
-when it runs in nobody user.
-
-#!/bin/sh
-echo "Testing"
-while [ 1 ]
-do
-cat /etc/foo   =================> Ensure this file belongs to root
-permission
-echo "TESTING" > /nvram/foo
-killall <root_process_name>
-sleep 5
-done
-
- ls -ltr /etc/foo
--rw-r--r--    1 root     root             8 Aug  3 20:31 /etc/foo
-
-
-Can you please check this script in your environment and share your
-observation. Please do the needful.
-Please execute in root and non-root mode and find the capability list from
-apparmor log events.
-
-*Need further clarifications:*
-
-My aim is to identify the required capabilities for the process when it
-runs in "non-root" user.
-Currently, this process runs in root mode, so by default all CAPs are
-enabled in Effective/Permitted CAPs.
-
-Analysis:
-
--> While the process runs in non-root mode, we are planning to apply the
-capabilities before switching to non-root from root.
-   So, we need to set appropriate capabilities in order to run the
-application successfully in "non-root".
-
--> As per my assumption, we will find the required capabilities when the
-process runs in root-mode. To find the required CAPs list
-   we thought to use "apparmor" logs while the process runs in compliant
-mode.
-   Once we get the CAPs list from Apparmor logs, then we shall use the same
-required CAPS only ( NOT all the CAPs) for the
-   process when it runs in non-root mode.
-
--> The idea is that we are trying to drop root privilege using this method.
-
-Can you please confirm , the above method is possible in apparmor event
-logs to find the required CAPs at least when run
-in "root" mode.
-
-Thanks
-Murali.S
-
-On Mon, Aug 3, 2020 at 8:21 PM Seth Arnold <seth.arnold@canonical.com>
-wrote:
-
-> Hello Murali,
->
-> On Mon, Aug 03, 2020 at 02:03:38PM -0400, Murali Selvaraj wrote:
-> > Query 1:
-> >
-> > - But I do not see CAP_DAC_OVERRIDE and CAP_KILL in apparmor event logs.
->
-> AppArmor does not have a mechanism to grant capabilities that a process
-> does not already have. The kernel will query LSMs to see if a capability
-> is allowed to be used if the process already has the capability in
-> question. (There may be exceptions to this, there's hundreds of these
-> checks scattered throughout the kernel.)
->
-> You'll only see these requests in AppArmor logs if the process had these
-> capabilities. By using su to switch to the 'nobody' account, you only have
-> access to whatever privileges the nobody account already has: additional
-> access to root_squashed files on NFS, any other processes mistakenly
-> running as user nobody, etc.
->
-> Because this doesn't include any capabilities in the process's
-> capabilities sets, AppArmor won't even see the requests.
->
-> > Query 2:
-> >
-> > - How apparmor identities how many capabilities are needed for the
-> process?
->
-> The kernel will call capable() in the codepaths as necessary; the security
-> module interface will get the calls, without context, after the rest of
-> the kernel's capabilities handling. It's difficult to follow because it's
-> been heavily optimized for performance.
->
-> In any event, AppArmor will usually see capability requests after the
-> usual DAC permissions are handled.
->
->
-> > Query 3:
-> >
-> > - Does all system calls need capability when it runs in a non-root
-> process,
-> > how does apparmor mapping the linux capabilities?
->
-> "root processes" means both uid 0 as well as having capabilities in the
-> effective capability set. (Perhaps it'd also make sense to consider the
-> other capability sets in the process?) A uid 0 process with no
-> capabilities still has considerable power, since many important files like
-> /etc/sudoers are owned by uid 0, and modifying these files through DAC
-> permissions alone could be used to then gain capabilities. However, a uid
-> 0 process with no capabilities couldn't itself initiate a reboot in the
-> kernel, or override DAC restrictions on files, etc.
->
-> A process with capabilities need not be uid 0 though I can't immediately
-> point any common examples.
->
-> Linux's uid namespaces makes things a bit more complicated: a process can
-> have namespace-level capabilities that do not extend to capabilities in
-> the init namespace. (Consider something like an LXD guest: there may be
-> different users within the guest, and the 'root' user with the LXD guest
-> can do privileged operations over the namespace, eg manage the routing
-> table used for that network namespace, but not be able to manage the
-> routing table used by the network namespace for the init process.)
->
-> See the user_namespaces(7) and unshare(2) manpages for some more
-> information.
->
-> > Can someone please clarify these queries?
->
-> I'm afraid my description probably made things worse.
->
-> Let me try one quick simple thing:
->
-> Run your example with and without root privileges. You'll see the
-> difference in AppArmor log output. Hopefully that helps. :)
->
-> Thanks
->
-
---00000000000004412b05ac047d84
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><br>Hi Seth,<div><br></div><div>Thanks for the detailed ex=
-planation. Please go through below details and clarify=C2=A0further queries=
-.</div><div><br>I do not see a capability difference when this script runs =
-in root (UID:0) =C2=A0and nobody (UID&gt;0).<br>If we are observing the req=
-uired capabilities when the script runs in root, that would be easy for us =
-to find<br>the needed capabilities for this script. Then we will apply this=
- capability when it runs in nobody user.<br><br>#!/bin/sh<br>echo &quot;Tes=
-ting&quot;<br>while [ 1 ]<br>do<br>cat /etc/foo =C2=A0 =3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D&gt; Ensure this file belongs to root perm=
-ission <br>echo &quot;TESTING&quot; &gt; /nvram/foo<br>killall &lt;root_pro=
-cess_name&gt;<br>sleep 5<br>done<br><br>=C2=A0ls -ltr /etc/foo<br>-rw-r--r-=
-- =C2=A0 =C2=A01 root =C2=A0 =C2=A0 root =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 8 Aug =C2=A03 20:31 /etc/foo<br><br><br>Can you please check this s=
-cript in your environment and share your observation. Please do the needful=
-.</div><div>Please execute in root and non-root mode and find the capabilit=
-y list from apparmor log events.<br><br><b>Need further clarifications:</b>=
-<br><br>My aim is to identify the required capabilities for the process whe=
-n it runs in &quot;non-root&quot; user.<br>Currently, this process runs in =
-root mode, so by default all CAPs are enabled in Effective/Permitted CAPs.<=
-br><br>Analysis:<br><br>-&gt; While the process runs in non-root mode, we a=
-re planning to apply the capabilities before switching to non-root from roo=
-t.<br>=C2=A0 =C2=A0So, we need to set appropriate capabilities in order to =
-run the application successfully in &quot;non-root&quot;.<br><br>-&gt; As p=
-er my assumption, we will find the required capabilities when the process r=
-uns in root-mode. To find the required CAPs list<br>=C2=A0 =C2=A0we thought=
- to use &quot;apparmor&quot; logs while the process runs in compliant mode.=
-<br>=C2=A0 =C2=A0Once we get the CAPs list from Apparmor logs, then we shal=
-l use the same required CAPS only ( NOT all the CAPs) for the<br>=C2=A0 =C2=
-=A0process when it runs in non-root mode.<br><br>-&gt; The idea is that we =
-are trying to drop root privilege using this method.<br><br>Can you please =
-confirm , the above method is possible in apparmor event logs to find the r=
-equired CAPs at least when run<br>in &quot;root&quot; mode.<br></div><div><=
-br></div><div>Thanks</div><div>Murali.S</div></div><br><div class=3D"gmail_=
-quote"><div dir=3D"ltr" class=3D"gmail_attr">On Mon, Aug 3, 2020 at 8:21 PM=
- Seth Arnold &lt;<a href=3D"mailto:seth.arnold@canonical.com">seth.arnold@c=
-anonical.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" styl=
-e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
-g-left:1ex">Hello Murali,<br>
-<br>
-On Mon, Aug 03, 2020 at 02:03:38PM -0400, Murali Selvaraj wrote:<br>
-&gt; Query 1:<br>
-&gt; <br>
-&gt; - But I do not see CAP_DAC_OVERRIDE and CAP_KILL in apparmor event log=
-s.<br>
-<br>
-AppArmor does not have a mechanism to grant capabilities that a process<br>
-does not already have. The kernel will query LSMs to see if a capability<br=
->
-is allowed to be used if the process already has the capability in<br>
-question. (There may be exceptions to this, there&#39;s hundreds of these<b=
-r>
-checks scattered throughout the kernel.)<br>
-<br>
-You&#39;ll only see these requests in AppArmor logs if the process had thes=
-e<br>
-capabilities. By using su to switch to the &#39;nobody&#39; account, you on=
-ly have<br>
-access to whatever privileges the nobody account already has: additional<br=
->
-access to root_squashed files on NFS, any other processes mistakenly<br>
-running as user nobody, etc.<br>
-<br>
-Because this doesn&#39;t include any capabilities in the process&#39;s<br>
-capabilities sets, AppArmor won&#39;t even see the requests.<br>
-<br>
-&gt; Query 2:<br>
-&gt; <br>
-&gt; - How apparmor identities how many capabilities are needed for the pro=
-cess?<br>
-<br>
-The kernel will call capable() in the codepaths as necessary; the security<=
-br>
-module interface will get the calls, without context, after the rest of<br>
-the kernel&#39;s capabilities handling. It&#39;s difficult to follow becaus=
-e it&#39;s<br>
-been heavily optimized for performance.<br>
-<br>
-In any event, AppArmor will usually see capability requests after the<br>
-usual DAC permissions are handled.<br>
-<br>
-<br>
-&gt; Query 3:<br>
-&gt; <br>
-&gt; - Does all system calls need capability when it runs in a non-root pro=
-cess,<br>
-&gt; how does apparmor mapping the linux capabilities?<br>
-<br>
-&quot;root processes&quot; means both uid 0 as well as having capabilities =
-in the<br>
-effective capability set. (Perhaps it&#39;d also make sense to consider the=
-<br>
-other capability sets in the process?) A uid 0 process with no<br>
-capabilities still has considerable power, since many important files like<=
-br>
-/etc/sudoers are owned by uid 0, and modifying these files through DAC<br>
-permissions alone could be used to then gain capabilities. However, a uid<b=
-r>
-0 process with no capabilities couldn&#39;t itself initiate a reboot in the=
-<br>
-kernel, or override DAC restrictions on files, etc.<br>
-<br>
-A process with capabilities need not be uid 0 though I can&#39;t immediatel=
-y<br>
-point any common examples.<br>
-<br>
-Linux&#39;s uid namespaces makes things a bit more complicated: a process c=
-an<br>
-have namespace-level capabilities that do not extend to capabilities in<br>
-the init namespace. (Consider something like an LXD guest: there may be<br>
-different users within the guest, and the &#39;root&#39; user with the LXD =
-guest<br>
-can do privileged operations over the namespace, eg manage the routing<br>
-table used for that network namespace, but not be able to manage the<br>
-routing table used by the network namespace for the init process.)<br>
-<br>
-See the user_namespaces(7) and unshare(2) manpages for some more informatio=
-n.<br>
-<br>
-&gt; Can someone please clarify these queries?<br>
-<br>
-I&#39;m afraid my description probably made things worse.<br>
-<br>
-Let me try one quick simple thing:<br>
-<br>
-Run your example with and without root privileges. You&#39;ll see the<br>
-difference in AppArmor log output. Hopefully that helps. :)<br>
-<br>
-Thanks<br>
-</blockquote></div>
-
---00000000000004412b05ac047d84--
-
-
---===============8123869790906112386==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
-eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
-aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
-
---===============8123869790906112386==--
-
+T24gOC8zLzIwIDg6MDIgUE0sIE11cmFsaSBTZWx2YXJhaiB3cm90ZToKPiAKPiBIaSBTZXRoLAo+
+IAo+IFRoYW5rcyBmb3IgdGhlIGRldGFpbGVkIGV4cGxhbmF0aW9uLiBQbGVhc2UgZ28gdGhyb3Vn
+aCBiZWxvdyBkZXRhaWxzIGFuZCBjbGFyaWZ5wqBmdXJ0aGVyIHF1ZXJpZXMuCj4gCj4gSSBkbyBu
+b3Qgc2VlIGEgY2FwYWJpbGl0eSBkaWZmZXJlbmNlIHdoZW4gdGhpcyBzY3JpcHQgcnVucyBpbiBy
+b290IChVSUQ6MCkgwqBhbmQgbm9ib2R5IChVSUQ+MCkuCj4gSWYgd2UgYXJlIG9ic2VydmluZyB0
+aGUgcmVxdWlyZWQgY2FwYWJpbGl0aWVzIHdoZW4gdGhlIHNjcmlwdCBydW5zIGluIHJvb3QsIHRo
+YXQgd291bGQgYmUgZWFzeSBmb3IgdXMgdG8gZmluZAo+IHRoZSBuZWVkZWQgY2FwYWJpbGl0aWVz
+IGZvciB0aGlzIHNjcmlwdC4gVGhlbiB3ZSB3aWxsIGFwcGx5IHRoaXMgY2FwYWJpbGl0eSB3aGVu
+IGl0IHJ1bnMgaW4gbm9ib2R5IHVzZXIuCj4gCj4gIyEvYmluL3NoCj4gZWNobyAiVGVzdGluZyIK
+PiB3aGlsZSBbIDEgXQo+IGRvCj4gY2F0IC9ldGMvZm9vIMKgID09PT09PT09PT09PT09PT09PiBF
+bnN1cmUgdGhpcyBmaWxlIGJlbG9uZ3MgdG8gcm9vdCBwZXJtaXNzaW9uCj4gZWNobyAiVEVTVElO
+RyIgPiAvbnZyYW0vZm9vCj4ga2lsbGFsbCA8cm9vdF9wcm9jZXNzX25hbWU+Cj4gc2xlZXAgNQo+
+IGRvbmUKPiAKPiDCoGxzIC1sdHIgL2V0Yy9mb28KPiAtcnctci0tci0tIMKgIMKgMSByb290IMKg
+IMKgIHJvb3QgwqAgwqAgwqAgwqAgwqAgwqAgOCBBdWcgwqAzIDIwOjMxIC9ldGMvZm9vCj4gCgpj
+YW4geW91IHBsZWFzZSBhZGQKCmVjaG8gLW4gIkNvbmZpbmVtZW50OiIKY2F0IC9wcm9jL3NlbGYv
+YXR0ci9jdXJyZW50IHx8IGVjaG8gIkZhaWxlZCB0byBvYnRhaW4gY29uZmluZW1lbnQiIDsgZXhp
+dCAxCgp0byB5b3VyIHNjcmlwdCBhZnRlciB0aGUga2lsbGFsbCBvciBzb21ldGhpbmcgc2ltaWxh
+ciwgdGhpcyB3aWxsIGR1bXAgdGhlIGNvbmZpbmVtZW50IG9mIHRoZSAiY2F0IiBjb21tYW5kIGJ1
+dCB1bmxlc3MgeW91IGhhdmUgYSB0cmFuc2l0aW9uIGZvciAiY2F0IiBpdCBzaG91bGQgaGF2ZSB0
+aGUgY29uZmluZW1lbnQgb2YgaXQgcGFyZW50IG9yIGJlIGRlbmllZC4KCkkgc2hvdWxkIG5vdGUg
+dGhhdCBhcHBhcm1vciBkb2VzIGhhdmUgYSBkZWR1cCBjYWNoZSBhcm91bmQgbG9nZ2luZyBjYXBh
+YmlsaXRpZXMuIEl0IGlzIGEgc2luZ2xlIGVudHJ5IHBlciBwcm9jZXNzb3IgKG9yIHZpcnR1YWwg
+cHJvY2Vzc29yKSwgYW5kIHdpbGwgcHJldmVudCBhIHByZXZpb3VzbHkgc2VlbiBjYXAgZnJvbSBi
+ZWluZyBsb2dnZWQgSUZGIG5vIG90aGVyIFBST0ZJTEUgaGFzIG1lZGlhdGVkIGEgY2FwIG9uIHRo
+YXQgcHJvY2Vzc29yIHNpbmNlIHRoZSBsYXN0IHRpbWUgdGhhdCBwcm9maWxlIHByZXZpb3VzbHkg
+bG9nZ2VkIHRoZSBDQVAgaW4gcXVlc3Rpb24uCgpUaGVyZSBpcyBubyBtYW51YWwgc3dpdGNoIHRv
+IGNsZWFyIHRoZSBjYWNoZSwgYnV0IGl0IGNhbiBiZSBlZmZlY3RpdmVseSBjbGVhcmVkIGJ5IHJl
+cGxhY2luZyB0aGUgcHJvZmlsZSBidXQgeW91IG5lZWQgdG8gYWN0dWFsbHkgbWFrZSBhIGNoYW5n
+ZSB0byB0aGUgcHJvZmlsZSBzbyB0aGF0IHByb2ZpbGUgbG9hZCBkZWR1cCBkb2Vzbid0IGRyb3Ag
+dGhlIHJlcGxhY2VtZW50LgoKCj4gCj4gQ2FuIHlvdSBwbGVhc2UgY2hlY2sgdGhpcyBzY3JpcHQg
+aW4geW91ciBlbnZpcm9ubWVudCBhbmQgc2hhcmUgeW91ciBvYnNlcnZhdGlvbi4gUGxlYXNlIGRv
+IHRoZSBuZWVkZnVsLgo+IFBsZWFzZSBleGVjdXRlIGluIHJvb3QgYW5kIG5vbi1yb290IG1vZGUg
+YW5kIGZpbmQgdGhlIGNhcGFiaWxpdHkgbGlzdCBmcm9tIGFwcGFybW9yIGxvZyBldmVudHMuCj4g
+Cgpub3QgZXhhY3RseSB5b3VyIHNjcmlwdCBidXQgcm91Z2hseSBlcXVpdmFsZW50Cgp1bmNvbmZp
+bmVkIG5vbi1yb290IHVzZXIga2lsbGluZyByb290IHByb2Nlc3MKCiAgJCBraWxsIDIzNTc5CiAg
+YmFzaDoga2lsbDogKDIzNTc5KSAtIE9wZXJhdGlvbiBub3QgcGVybWl0dGVkCgpubyBhcHBhcm1v
+ciBsb2cgbWVzc2FnZS4KCi0tLS0KCnVuY29uZmluZWQgcm9vdCB1c2VyIGtpbGxpbmcgcm9vdCBw
+cm9jZXNzCgogICQgc3VkbyBraWxsIDIzNTc5CgpzdWNjZXNzLCBubyBhcHBhcm1vciBsb2cgbWVz
+c2FnZQoKLS0tLQoKY29uZmluZWQgbm9uLXJvb3QgdXNlciB3aXRob3V0IHNpZ25hbCBvciBDQVAg
+cGVybWlzc2lvbnMga2lsbGluZyByb290IHByb2Nlc3MKCiAgJCBhYS1leGVjIC1wIGRlbW8gLS0g
+a2lsbCAyMzk2NQogIGtpbGw6ICgyMzk2NSk6IE9wZXJhdGlvbiBub3QgcGVybWl0dGVkCgpubyBh
+cHBhcm1vciBsb2cgbWVzc2FnZQoKLS0tLQoKY29uZmluZWQgcm9vdCB1c2VyIHdpdGhvdXQgc2ln
+bmFsIG9yIENBUCBwZXJtaXNzaW9ucyBraWxsaW5nIHJvb3QgcHJvY2VzcwoKICAkIHN1ZG8gYWEt
+ZXhlYyAtcCBkZW1vIC0tIGtpbGwgMjM5NjUKICBraWxsOiAoMjM5NjUpOiBQZXJtaXNzaW9uIGRl
+bmllZAoKYXBwYXJtb3IgbG9nIG1lc3NhZ2VzCgpbOTg3MDIxLjM3OTcxOV0gYXVkaXQ6IHR5cGU9
+MTQwMCBhdWRpdCgxNTk2NTMzMjkzLjg3ODoyMzQpOiBhcHBhcm1vcj0iREVOSUVEIiBvcGVyYXRp
+b249InNpZ25hbCIgcHJvZmlsZT0iZGVtbyIgcGlkPTI0MDM2IGNvbW09ImtpbGwiIHJlcXVlc3Rl
+ZF9tYXNrPSJzZW5kIiBkZW5pZWRfbWFzaz0ic2VuZCIgc2lnbmFsPXRlcm0gcGVlcj0iL3Vzci9i
+aW4vbWFuIgpbOTg3MDIxLjM3OTcyN10gYXVkaXQ6IHR5cGU9MTQwMCBhdWRpdCgxNTk2NTMzMjkz
+Ljg3ODoyMzUpOiBhcHBhcm1vcj0iREVOSUVEIiBvcGVyYXRpb249InNpZ25hbCIgcHJvZmlsZT0i
+L3Vzci9iaW4vbWFuIiBwaWQ9MjQwMzYgY29tbT0ia2lsbCIgcmVxdWVzdGVkX21hc2s9InJlY2Vp
+dmUiIGRlbmllZF9tYXNrPSJyZWNlaXZlIiBzaWduYWw9dGVybSBwZWVyPSJkZW1vIgoKbm90aWNl
+IG5vIGNhcGFiaWxpdGllcyBhcmUgbmVlZGVkIHRvIHNlbmQgdGhlIHNpZ25hbCBiZWNhdXNlIGl0
+cyBiZWluZyBzZW50IGZyb20gcm9vdCB0byBhIHJvb3QgcHJvY2VzcwoKLS0tLQoKY29uZmluZWQg
+cm9vdCB1c2VyIHdpdGhvdXQgc2lnbmFsIG9yIENBUCBwZXJtaXNzaW9uIGtpbGwgYSBub24tcm9v
+dCBwcm9jZXNzIChkaWZmZXJlbnQgdWlkcykKCiAgJCBzdWRvIGFhLWV4ZWMgLXAgZGVtbyAtLSBr
+aWxsIDI0NjkwCiAga2lsbDogKDI0NjkwKTogT3BlcmF0aW9uIG5vdCBwZXJtaXR0ZWQKCmFwcGFy
+bW9yIGxvZyBtZXNzYWdlCgpbOTg5MDczLjQzMTkzNl0gYXVkaXQ6IHR5cGU9MTQwMCBhdWRpdCgx
+NTk2NTM1MzQ1Ljk4MToyMzgpOiBhcHBhcm1vcj0iREVOSUVEIiBvcGVyYXRpb249ImNhcGFibGUi
+IHByb2ZpbGU9ImRlbW8iIHBpZD0yNDcxNyBjb21tPSJraWxsIiBjYXBhYmlsaXR5PTUgIGNhcG5h
+bWU9ImtpbGwiCgpmaW5hbGx5IHdlIGdldCBhIENBUCByZXF1ZXN0IGZvciBraWxsCgoKVGhlIHJl
+YXNvbiBmb3IgdGhpcyBpcyB0aGF0IHRoZSBrZXJuZWwgYXBwbGllcyBEQUMgbWVkaWF0aW9uIGJl
+Zm9yZSBMU00gKGFwcGFybW9yKSBtZWRpYXRpb24uIEFwcEFybW9yIG5ldmVyIHNlZXMgdGhlIHBl
+cm1pc3Npb24gcmVxdWVzdCB1bmxlc3MgREFDIGFsbG93IHRoZSBvcGVyYXRpb24uCgo+ICpOZWVk
+IGZ1cnRoZXIgY2xhcmlmaWNhdGlvbnM6Kgo+IAo+IE15IGFpbSBpcyB0byBpZGVudGlmeSB0aGUg
+cmVxdWlyZWQgY2FwYWJpbGl0aWVzIGZvciB0aGUgcHJvY2VzcyB3aGVuIGl0IHJ1bnMgaW4gIm5v
+bi1yb290IiB1c2VyLgo+IEN1cnJlbnRseSwgdGhpcyBwcm9jZXNzIHJ1bnMgaW4gcm9vdCBtb2Rl
+LCBzbyBieSBkZWZhdWx0IGFsbCBDQVBzIGFyZSBlbmFibGVkIGluIEVmZmVjdGl2ZS9QZXJtaXR0
+ZWQgQ0FQcy4KPiAKPiBBbmFseXNpczoKPiAKPiAtPiBXaGlsZSB0aGUgcHJvY2VzcyBydW5zIGlu
+IG5vbi1yb290IG1vZGUsIHdlIGFyZSBwbGFubmluZyB0byBhcHBseSB0aGUgY2FwYWJpbGl0aWVz
+IGJlZm9yZSBzd2l0Y2hpbmcgdG8gbm9uLXJvb3QgZnJvbSByb290Lgo+IMKgIMKgU28sIHdlIG5l
+ZWQgdG8gc2V0IGFwcHJvcHJpYXRlIGNhcGFiaWxpdGllcyBpbiBvcmRlciB0byBydW4gdGhlIGFw
+cGxpY2F0aW9uIHN1Y2Nlc3NmdWxseSBpbiAibm9uLXJvb3QiLgo+IAp5ZXMKCj4gLT4gQXMgcGVy
+IG15IGFzc3VtcHRpb24sIHdlIHdpbGwgZmluZCB0aGUgcmVxdWlyZWQgY2FwYWJpbGl0aWVzIHdo
+ZW4gdGhlIHByb2Nlc3MgcnVucyBpbiByb290LW1vZGUuIFRvIGZpbmQgdGhlIHJlcXVpcmVkIENB
+UHMgbGlzdAo+IMKgIMKgd2UgdGhvdWdodCB0byB1c2UgImFwcGFybW9yIiBsb2dzIHdoaWxlIHRo
+ZSBwcm9jZXNzIHJ1bnMgaW4gY29tcGxpYW50IG1vZGUuCgp0aGlzIGRvZXNuJ3QgcXVpdGUgd29y
+ayBidXQgeW91IHdpbGwgYmUgYWJsZSB0byBjb2xsZWN0IGNhcGFiaWxpdGllcyB0aGF0IGRvbid0
+IHJlbHkgb24gYSB1aWQgY2hlY2suIFRoaXMgaXMgYmVjYXVzZSBvZiBob3cgdGhlIGtlcm5lbCBk
+b2Vzbid0IGFsd2F5cyBhcHBseSBhIGNhcGFiaWxpdHkgY2hlY2ssIEVnLiBmb3Iga2lsbCBDQVBT
+IGFyZSBub3QgYWx3YXlzIGNoZWNrZWQgaW4gdGhlIHNhbWUgd2F5IHdoZW4gc3ViamVjdCB1aWQg
+PT0gb2JqZWN0IHVpZCB2cy4gc3ViamVjdCB1aWQgIT0gb2JqZWN0IHVpZC4gVGhlIHNhbWUgY2Fu
+IGJlIHNhaWQgZm9yIERBQ19PVkVSUklERSwgREFDX1JFQURTRUFSQ0gsIC4uLgoKU29tZSBjYXBh
+YmlsaXRpZXMgaG93ZXZlciBhcmVuJ3QgZ3VhcmRlZCBieSB1aWQgY2hlY2tzIGFuZCB5b3Ugc2hv
+dWxkIGJlIGFibGUgdG8gY29sbGVjdCB0aGVzZSBjYXBzIHdoZW4gcnVuIGFzIHJvb3QuIFdoYXQg
+eW91IG5lZWQgdG8gZG8gdG8gY29sbGVjdCB0aGUgZnVsbCBsaXN0IG9mIGNhcGFiaWxpdGllcyBp
+cyBnaXZlIHRoZSBub24tcm9vdCBwcm9jZXNzIGFsbCBjYXBhYmlsaXRpZXMgYW5kIHJ1biBpdC4g
+VGhpcyBzaG91bGQgY29sbGVjdCB0aGUgZnVsbCBzZXQgb2YgQ0FQcyB3aXRoIGhvdyB5b3UgYXJl
+IHVzaW5nIHVpZHMuCgoKPiDCoCDCoE9uY2Ugd2UgZ2V0IHRoZSBDQVBzIGxpc3QgZnJvbSBBcHBh
+cm1vciBsb2dzLCB0aGVuIHdlIHNoYWxsIHVzZSB0aGUgc2FtZSByZXF1aXJlZCBDQVBTIG9ubHkg
+KCBOT1QgYWxsIHRoZSBDQVBzKSBmb3IgdGhlCj4gwqAgwqBwcm9jZXNzIHdoZW4gaXQgcnVucyBp
+biBub24tcm9vdCBtb2RlLgo+IAo+IC0+IFRoZSBpZGVhIGlzIHRoYXQgd2UgYXJlIHRyeWluZyB0
+byBkcm9wIHJvb3QgcHJpdmlsZWdlIHVzaW5nIHRoaXMgbWV0aG9kLgo+IAo+IENhbiB5b3UgcGxl
+YXNlIGNvbmZpcm0gLCB0aGUgYWJvdmUgbWV0aG9kIGlzIHBvc3NpYmxlIGluIGFwcGFybW9yIGV2
+ZW50IGxvZ3MgdG8gZmluZCB0aGUgcmVxdWlyZWQgQ0FQcyBhdCBsZWFzdCB3aGVuIHJ1bgo+IGlu
+ICJyb290IiBtb2RlLgo+IAoKY2xvc2UgYnV0IHNlZSBhYm92ZSwgYWxzbyB5b3UgbmVlZCB0byBt
+YWtlIHN1cmUgZXhlcmNpc2UgdGhlIGFwcGxpY2F0aW9uIHRvIGdldCBwcm9wZXIgY292ZXJhZ2UK
+Cj4gVGhhbmtzCj4gTXVyYWxpLlMKPiAKPiBPbiBNb24sIEF1ZyAzLCAyMDIwIGF0IDg6MjEgUE0g
+U2V0aCBBcm5vbGQgPHNldGguYXJub2xkQGNhbm9uaWNhbC5jb20gPG1haWx0bzpzZXRoLmFybm9s
+ZEBjYW5vbmljYWwuY29tPj4gd3JvdGU6Cj4gCj4gICAgIEhlbGxvIE11cmFsaSwKPiAKPiAgICAg
+T24gTW9uLCBBdWcgMDMsIDIwMjAgYXQgMDI6MDM6MzhQTSAtMDQwMCwgTXVyYWxpIFNlbHZhcmFq
+IHdyb3RlOgo+ICAgICA+IFF1ZXJ5IDE6Cj4gICAgID4KPiAgICAgPiAtIEJ1dCBJIGRvIG5vdCBz
+ZWUgQ0FQX0RBQ19PVkVSUklERSBhbmQgQ0FQX0tJTEwgaW4gYXBwYXJtb3IgZXZlbnQgbG9ncy4K
+PiAKPiAgICAgQXBwQXJtb3IgZG9lcyBub3QgaGF2ZSBhIG1lY2hhbmlzbSB0byBncmFudCBjYXBh
+YmlsaXRpZXMgdGhhdCBhIHByb2Nlc3MKPiAgICAgZG9lcyBub3QgYWxyZWFkeSBoYXZlLiBUaGUg
+a2VybmVsIHdpbGwgcXVlcnkgTFNNcyB0byBzZWUgaWYgYSBjYXBhYmlsaXR5Cj4gICAgIGlzIGFs
+bG93ZWQgdG8gYmUgdXNlZCBpZiB0aGUgcHJvY2VzcyBhbHJlYWR5IGhhcyB0aGUgY2FwYWJpbGl0
+eSBpbgo+ICAgICBxdWVzdGlvbi4gKFRoZXJlIG1heSBiZSBleGNlcHRpb25zIHRvIHRoaXMsIHRo
+ZXJlJ3MgaHVuZHJlZHMgb2YgdGhlc2UKPiAgICAgY2hlY2tzIHNjYXR0ZXJlZCB0aHJvdWdob3V0
+IHRoZSBrZXJuZWwuKQo+IAo+ICAgICBZb3UnbGwgb25seSBzZWUgdGhlc2UgcmVxdWVzdHMgaW4g
+QXBwQXJtb3IgbG9ncyBpZiB0aGUgcHJvY2VzcyBoYWQgdGhlc2UKPiAgICAgY2FwYWJpbGl0aWVz
+LiBCeSB1c2luZyBzdSB0byBzd2l0Y2ggdG8gdGhlICdub2JvZHknIGFjY291bnQsIHlvdSBvbmx5
+IGhhdmUKPiAgICAgYWNjZXNzIHRvIHdoYXRldmVyIHByaXZpbGVnZXMgdGhlIG5vYm9keSBhY2Nv
+dW50IGFscmVhZHkgaGFzOiBhZGRpdGlvbmFsCj4gICAgIGFjY2VzcyB0byByb290X3NxdWFzaGVk
+IGZpbGVzIG9uIE5GUywgYW55IG90aGVyIHByb2Nlc3NlcyBtaXN0YWtlbmx5Cj4gICAgIHJ1bm5p
+bmcgYXMgdXNlciBub2JvZHksIGV0Yy4KPiAKPiAgICAgQmVjYXVzZSB0aGlzIGRvZXNuJ3QgaW5j
+bHVkZSBhbnkgY2FwYWJpbGl0aWVzIGluIHRoZSBwcm9jZXNzJ3MKPiAgICAgY2FwYWJpbGl0aWVz
+IHNldHMsIEFwcEFybW9yIHdvbid0IGV2ZW4gc2VlIHRoZSByZXF1ZXN0cy4KPiAKPiAgICAgPiBR
+dWVyeSAyOgo+ICAgICA+Cj4gICAgID4gLSBIb3cgYXBwYXJtb3IgaWRlbnRpdGllcyBob3cgbWFu
+eSBjYXBhYmlsaXRpZXMgYXJlIG5lZWRlZCBmb3IgdGhlIHByb2Nlc3M/Cj4gCj4gICAgIFRoZSBr
+ZXJuZWwgd2lsbCBjYWxsIGNhcGFibGUoKSBpbiB0aGUgY29kZXBhdGhzIGFzIG5lY2Vzc2FyeTsg
+dGhlIHNlY3VyaXR5Cj4gICAgIG1vZHVsZSBpbnRlcmZhY2Ugd2lsbCBnZXQgdGhlIGNhbGxzLCB3
+aXRob3V0IGNvbnRleHQsIGFmdGVyIHRoZSByZXN0IG9mCj4gICAgIHRoZSBrZXJuZWwncyBjYXBh
+YmlsaXRpZXMgaGFuZGxpbmcuIEl0J3MgZGlmZmljdWx0IHRvIGZvbGxvdyBiZWNhdXNlIGl0J3MK
+PiAgICAgYmVlbiBoZWF2aWx5IG9wdGltaXplZCBmb3IgcGVyZm9ybWFuY2UuCj4gCj4gICAgIElu
+IGFueSBldmVudCwgQXBwQXJtb3Igd2lsbCB1c3VhbGx5IHNlZSBjYXBhYmlsaXR5IHJlcXVlc3Rz
+IGFmdGVyIHRoZQo+ICAgICB1c3VhbCBEQUMgcGVybWlzc2lvbnMgYXJlIGhhbmRsZWQuCj4gCj4g
+Cj4gICAgID4gUXVlcnkgMzoKPiAgICAgPgo+ICAgICA+IC0gRG9lcyBhbGwgc3lzdGVtIGNhbGxz
+IG5lZWQgY2FwYWJpbGl0eSB3aGVuIGl0IHJ1bnMgaW4gYSBub24tcm9vdCBwcm9jZXNzLAo+ICAg
+ICA+IGhvdyBkb2VzIGFwcGFybW9yIG1hcHBpbmcgdGhlIGxpbnV4IGNhcGFiaWxpdGllcz8KPiAK
+PiAgICAgInJvb3QgcHJvY2Vzc2VzIiBtZWFucyBib3RoIHVpZCAwIGFzIHdlbGwgYXMgaGF2aW5n
+IGNhcGFiaWxpdGllcyBpbiB0aGUKPiAgICAgZWZmZWN0aXZlIGNhcGFiaWxpdHkgc2V0LiAoUGVy
+aGFwcyBpdCdkIGFsc28gbWFrZSBzZW5zZSB0byBjb25zaWRlciB0aGUKPiAgICAgb3RoZXIgY2Fw
+YWJpbGl0eSBzZXRzIGluIHRoZSBwcm9jZXNzPykgQSB1aWQgMCBwcm9jZXNzIHdpdGggbm8KPiAg
+ICAgY2FwYWJpbGl0aWVzIHN0aWxsIGhhcyBjb25zaWRlcmFibGUgcG93ZXIsIHNpbmNlIG1hbnkg
+aW1wb3J0YW50IGZpbGVzIGxpa2UKPiAgICAgL2V0Yy9zdWRvZXJzIGFyZSBvd25lZCBieSB1aWQg
+MCwgYW5kIG1vZGlmeWluZyB0aGVzZSBmaWxlcyB0aHJvdWdoIERBQwo+ICAgICBwZXJtaXNzaW9u
+cyBhbG9uZSBjb3VsZCBiZSB1c2VkIHRvIHRoZW4gZ2FpbiBjYXBhYmlsaXRpZXMuIEhvd2V2ZXIs
+IGEgdWlkCj4gICAgIDAgcHJvY2VzcyB3aXRoIG5vIGNhcGFiaWxpdGllcyBjb3VsZG4ndCBpdHNl
+bGYgaW5pdGlhdGUgYSByZWJvb3QgaW4gdGhlCj4gICAgIGtlcm5lbCwgb3Igb3ZlcnJpZGUgREFD
+IHJlc3RyaWN0aW9ucyBvbiBmaWxlcywgZXRjLgo+IAo+ICAgICBBIHByb2Nlc3Mgd2l0aCBjYXBh
+YmlsaXRpZXMgbmVlZCBub3QgYmUgdWlkIDAgdGhvdWdoIEkgY2FuJ3QgaW1tZWRpYXRlbHkKPiAg
+ICAgcG9pbnQgYW55IGNvbW1vbiBleGFtcGxlcy4KPiAKPiAgICAgTGludXgncyB1aWQgbmFtZXNw
+YWNlcyBtYWtlcyB0aGluZ3MgYSBiaXQgbW9yZSBjb21wbGljYXRlZDogYSBwcm9jZXNzIGNhbgo+
+ICAgICBoYXZlIG5hbWVzcGFjZS1sZXZlbCBjYXBhYmlsaXRpZXMgdGhhdCBkbyBub3QgZXh0ZW5k
+IHRvIGNhcGFiaWxpdGllcyBpbgo+ICAgICB0aGUgaW5pdCBuYW1lc3BhY2UuIChDb25zaWRlciBz
+b21ldGhpbmcgbGlrZSBhbiBMWEQgZ3Vlc3Q6IHRoZXJlIG1heSBiZQo+ICAgICBkaWZmZXJlbnQg
+dXNlcnMgd2l0aGluIHRoZSBndWVzdCwgYW5kIHRoZSAncm9vdCcgdXNlciB3aXRoIHRoZSBMWEQg
+Z3Vlc3QKPiAgICAgY2FuIGRvIHByaXZpbGVnZWQgb3BlcmF0aW9ucyBvdmVyIHRoZSBuYW1lc3Bh
+Y2UsIGVnIG1hbmFnZSB0aGUgcm91dGluZwo+ICAgICB0YWJsZSB1c2VkIGZvciB0aGF0IG5ldHdv
+cmsgbmFtZXNwYWNlLCBidXQgbm90IGJlIGFibGUgdG8gbWFuYWdlIHRoZQo+ICAgICByb3V0aW5n
+IHRhYmxlIHVzZWQgYnkgdGhlIG5ldHdvcmsgbmFtZXNwYWNlIGZvciB0aGUgaW5pdCBwcm9jZXNz
+LikKPiAKPiAgICAgU2VlIHRoZSB1c2VyX25hbWVzcGFjZXMoNykgYW5kIHVuc2hhcmUoMikgbWFu
+cGFnZXMgZm9yIHNvbWUgbW9yZSBpbmZvcm1hdGlvbi4KPiAKPiAgICAgPiBDYW4gc29tZW9uZSBw
+bGVhc2UgY2xhcmlmeSB0aGVzZSBxdWVyaWVzPwo+IAo+ICAgICBJJ20gYWZyYWlkIG15IGRlc2Ny
+aXB0aW9uIHByb2JhYmx5IG1hZGUgdGhpbmdzIHdvcnNlLgo+IAo+ICAgICBMZXQgbWUgdHJ5IG9u
+ZSBxdWljayBzaW1wbGUgdGhpbmc6Cj4gCj4gICAgIFJ1biB5b3VyIGV4YW1wbGUgd2l0aCBhbmQg
+d2l0aG91dCByb290IHByaXZpbGVnZXMuIFlvdSdsbCBzZWUgdGhlCj4gICAgIGRpZmZlcmVuY2Ug
+aW4gQXBwQXJtb3IgbG9nIG91dHB1dC4gSG9wZWZ1bGx5IHRoYXQgaGVscHMuIDopCj4gCj4gICAg
+IFRoYW5rcwo+IAo+IAoKCi0tIApBcHBBcm1vciBtYWlsaW5nIGxpc3QKQXBwQXJtb3JAbGlzdHMu
+dWJ1bnR1LmNvbQpNb2RpZnkgc2V0dGluZ3Mgb3IgdW5zdWJzY3JpYmUgYXQ6IGh0dHBzOi8vbGlz
+dHMudWJ1bnR1LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2FwcGFybW9yCg==
