@@ -2,33 +2,42 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BE5323F1AC
-	for <lists+apparmor@lfdr.de>; Fri,  7 Aug 2020 19:07:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB9CE23F39C
+	for <lists+apparmor@lfdr.de>; Fri,  7 Aug 2020 22:12:20 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1k45qL-0006eP-Rc; Fri, 07 Aug 2020 17:07:45 +0000
-Received: from greymarch.letopolis.de ([37.120.179.78])
+	id 1k48in-0007Ra-3Y; Fri, 07 Aug 2020 20:12:09 +0000
+Received: from mail.cboltz.de ([88.99.101.17])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <jgs-apparmor@letopolis.de>) id 1k45qJ-0006eJ-70
- for apparmor@lists.ubuntu.com; Fri, 07 Aug 2020 17:07:43 +0000
-Received: from mephala (unknown [IPv6:2001:16b8:30b4:c000:a8c6:79a8:18ef:45a])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by greymarch.letopolis.de (Postfix) with ESMTPSA id B2F1F24042A;
- Fri,  7 Aug 2020 19:07:42 +0200 (CEST)
-Date: Fri, 7 Aug 2020 19:07:41 +0200
-From: Jonas =?UTF-8?B?R3Jvw59l?= Sundrup <jgs-apparmor@letopolis.de>
-To: John Johansen <john.johansen@canonical.com>, Christian Boltz
- <apparmor@cboltz.de>
-Message-ID: <20200807190741.70738f15@mephala>
-In-Reply-To: <22516202-d22a-5975-93f2-fc7606e45e13@canonical.com>
+ (envelope-from <apparmor@cboltz.de>) id 1k48il-0007RU-Cb
+ for apparmor@lists.ubuntu.com; Fri, 07 Aug 2020 20:12:07 +0000
+X-sprachakt.com-SMTP-Auth: no
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by mail.cboltz.de (Postfix) with ESMTP id E88705C012B
+ for <apparmor@lists.ubuntu.com>; Fri,  7 Aug 2020 22:12:06 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at mail.cboltz.de
+Received: from mail.cboltz.de ([127.0.0.1])
+ by localhost (mail.cboltz.de [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id xNKcavShcnV6 for <apparmor@lists.ubuntu.com>;
+ Fri,  7 Aug 2020 22:12:05 +0200 (CEST)
+Received: from home.cboltz.de (unknown [10.10.0.6])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (Client did not present a certificate)
+ by mail.cboltz.de (Postfix) with ESMTPSA
+ for <apparmor@lists.ubuntu.com>; Fri,  7 Aug 2020 22:12:05 +0200 (CEST)
+From: Christian Boltz <apparmor@cboltz.de>
+To: apparmor@lists.ubuntu.com
+Date: Fri, 07 Aug 2020 22:12:01 +0200
+Message-ID: <4659696.0Tsaam8APR@tux.boltz.de.vu>
+In-Reply-To: <20200807190741.70738f15@mephala>
 References: <20200806110540.1a67cbe2@mephala>
  <22516202-d22a-5975-93f2-fc7606e45e13@canonical.com>
-X-Pect: The Spanish Inquisition
+ <20200807190741.70738f15@mephala>
 MIME-Version: 1.0
+X-Face: #?nL0}JpqNtLQy@q#bRm?B?pGS8[mx6r.6[91zp@*2DZ?18)haWs5wgvi, ,
+ wF/JWMTUh+6x, b7_`pW3)m~0606sDW0&'EKA}_-W+)Bz~d]k>4E9TyU}k@b&1=%yk\
 Subject: Re: [apparmor] deny and selectively allow in AppArmor?
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -41,43 +50,119 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: apparmor@lists.ubuntu.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============7272957699315086058=="
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-SGksCgpPbiAyMDIwLTA4LTA2LCBKb2huIEpvaGFuc2VuIHdyb3RlOgo+IGFwcGFybW9yIGlzIGRl
-ZmF1bHQgZGVueQoKSSB3YXNuJ3QgYXdhcmUgb2YgdGhhdCBwYXJ0LCBwcm9iYWJseSBkaWRuJ3Qg
-cmVhZCB0aGF0IHBhcnQgb2YgdGhlCmRvY3VtZW50YXRpb24gd2VsbCBlbm91Z2ggdG8gcmVtZW1i
-ZXIgaW4gdGhhdCBtb21lbnQgYW5kIGR1cmluZyBteQp0ZXN0aW5nIHRoaXMgbGlrZWx5IGRpZG4n
-dCB3b3JrIGJlY2F1c2UgZG93biB0aGUgdHJlZSBvZiBpbmNsdWRlZAphYnN0cmFjdGlvbnMKCk9u
-IDIwMjAtMDgtMDYsIENocmlzdGlhbiBCb2x0eiB3cm90ZToKPiBkbyB5b3UgaGF2ZSBhbnkgcnVs
-ZSBpbiB5b3VyICBwcm9maWxlIHRoYXQgX2FsbG93c18gYWNjZXNzIHRvIHRoZSBob21lCj4gZGly
-ZWN0b3J5PwoKdGhpcyB3YXMgdGhlIGNhc2UuIGRlZmF1bHQtZGVueSBkb2VzIG1ha2UgYSBsb3Qg
-bW9yZSBzZW5zZSB3aXRoIHJlZ2FyZHMKdG8gYSBNQUMtc3lzdGVtIGluZGVlZC4KCkkgdG9vayBh
-biBldmVuaW5nIGNsZWFuaW5nIG91dCB0aGUgYWJzdHJhY3Rpb25zIHRvIHN1aXQgbXkgbmVlZHMg
-YW5kCm5vdyB0aGluZ3MgZG8gaW5kZWVkIHdvcmsgbGlrZSBJIHdhbnQgdGhlbSB0byEgQW5kIG1v
-c3Qgb2YgdGhlCmFic3RyYWN0aW9ucyBhcmUgbm93IGhhbmQtY3VyYXRlZCwgc28gSSBhY3R1YWxs
-eSBrbm93IHdoYXQgZWFjaCBvZiB0aGVtCmRvZXMuCgpUaGFuayB5b3UgdmVyeSBtdWNoIGZvciB0
-aGUgcG9pbnRlcnMhCgpJIGhhdmUgb25lIHF1ZXN0aW9uIGxlZnQsIHdoZW4gd2UncmUgYXQgaXQ6
-IElmIEkgZG8gaGF2ZSBjb25mbGljdGluZwpkaXJlY3RpdmVzLCBzdWNoIGFzCgogICAgL215L2Rp
-cmVjdG9yeSByLAogICAgL215L2RpcmVjdG9yeSBydywKCndoaWNoIG9uZSB0YWtlcyBwcmVjZWRl
-bmNlPyB0aGUgZmlyc3QsIHRoZSBsYXN0LCB0aGUgc3RyaWN0ZXIgb3IgdGhlCmJyb2FkZXI/Cklu
-IGNhc2Ugb2YgbmVzdGVkIEknZCBzdXNwZWN0IHRoYXQgQXBwQXJtb3Igd2lsbCBqdXN0IG5lc3Qg
-dGhlIHBvbGljaWVzCmFjY29yZGluZ2x5LCBubyBtYXR0ZXIgaW4gd2hpY2ggb3JkZXIgdGhleSBv
-Y2N1ciwgcmlnaHQ/CgoKICB+IEpvbmFzCgoKT24gMjAyMC0wOC0wNiwgQ2hyaXN0aWFuIEJvbHR6
-IHdyb3RlOgo+IFlvdSBjb3VsZCBkbyBzb21lIHRyaWNrZXJ5IHdpdGggcmVnZXhlcy4gQW5ub3lp
-bmcsIGJ1dCBzdGlsbCBiZXR0ZXIKPiB0aGFuIGhhdmluZyB0byBkZW55IGVhY2ggYW5kIGV2ZXJ5
-IGZpbGUgc2VwYXJhdGVseS4gU29tZXRoaW5nIGxpa2UKPnRoaXM6Cj4gCj4gZGVueSBvd25lciBA
-e0hPTUV9LywgICMgZGVueSBkaXJlY3RvcnkgbGlzdGluZyBvZiB0aGUgaG9tZSBkaXJlY3RvcnkK
-PiBkZW55IG93bmVyIEB7SE9NRX0vW14uXSoqLAo+IGRlbnkgb3duZXIgQHtIT01FfS9bXi5dW15t
-XSoqLAo+IGRlbnkgb3duZXIgQHtIT01FfS9bXi5dW15tXVteb10qKiwKPiBkZW55IG93bmVyIEB7
-SE9NRX0vW14uXVtebV1bXm9dW156XSoqLAo+IGRlbnkgb3duZXIgQHtIT01FfS9bXi5dW15tXVte
-b11bXnpdW15pXSoqLAo+IGRlbnkgb3duZXIgQHtIT01FfS9bXi5dW15tXVteb11bXnpdW15pXVte
-bF0qKiwKPiBkZW55IG93bmVyIEB7SE9NRX0vW14uXVtebV1bXm9dW156XVteaV1bXmxdW15sXSoq
-LAo+IGRlbnkgb3duZXIgQHtIT01FfS9bXi5dW15tXVteb11bXnpdW15pXVtebF1bXmxdW15hXSoq
-LAoKSSB0aGFuayB5b3Uga2luZGx5IGZvciB0aGUgcHJvcG9zYWwsIGJ1dCBJIHRoaW5rIEknbGwg
-YXZvaWQgdGhpcwphcHByb2FjaC4gOykKCi0tIApBcHBBcm1vciBtYWlsaW5nIGxpc3QKQXBwQXJt
-b3JAbGlzdHMudWJ1bnR1LmNvbQpNb2RpZnkgc2V0dGluZ3Mgb3IgdW5zdWJzY3JpYmUgYXQ6IGh0
-dHBzOi8vbGlzdHMudWJ1bnR1LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2FwcGFybW9yCg==
+--===============7272957699315086058==
+Content-Type: multipart/signed; boundary="nextPart6217562.69fOiX1Uyh"; micalg="pgp-sha256"; protocol="application/pgp-signature"
+
+--nextPart6217562.69fOiX1Uyh
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"
+
+Hello,
+
+Am Freitag, 7. August 2020, 19:07:41 CEST schrieb Jonas Gro=DFe Sundrup:
+> I have one question left, when we're at it: If I do have conflicting
+> directives, such as
+>=20
+>     /my/directory r,
+>     /my/directory rw,
+>=20
+> which one takes precedence? the first, the last, the stricter or the
+> broader?
+
+They get added up - so in your example, you'll get rw.
+
+As another example,
+
+  /foo rwl,
+  /foo wk,
+
+will effectively give you   /foo rwlk,
+
+> In case of nested I'd suspect that AppArmor will just nest the
+> policies accordingly, no matter in which order they occur, right?
+
+The rule order doesn't matter.
+
+
+> On 2020-08-06, Christian Boltz wrote:
+> > You could do some trickery with regexes. Annoying, but still better
+> > than having to deny each and every file separately. Something like
+> >
+> >this:
+> > deny owner @{HOME}/,  # deny directory listing of the home directory
+> > deny owner @{HOME}/[^.]**,
+> > deny owner @{HOME}/[^.][^m]**,
+> > deny owner @{HOME}/[^.][^m][^o]**,
+> > deny owner @{HOME}/[^.][^m][^o][^z]**,
+
+Looking at this again, I noticed a bug - it needs to be
+
+deny owner @{HOME}/[^.]**,
+deny owner @{HOME}/.[^m]**,
+deny owner @{HOME}/.m[^o]**,
+deny owner @{HOME}/.mo[^z]**,
+
+> I thank you kindly for the proposal, but I think I'll avoid this
+> approach. ;)
+
+Good decision ;-)
+
+
+Regards,
+
+Christian Boltz
+=2D-=20
+<jdstrand> [after 4 bugreports] that should be all of them
+<cboltz> well, at least until there's an openSUSE kernel with stacking
+         available ;-)
+<jjohansen> cboltz: no, no, no, see this is why we can't upstream,
+            cboltz will break everything
+[from #apparmor]
+
+--nextPart6217562.69fOiX1Uyh
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEcMqgYN4EKq6xsVGWxqaC6mPILxwFAl8ttZEACgkQxqaC6mPI
+Lxy2LBAAhmoMNinJACaWDDWY+POA5BhQq04PisUHBw/ek8nn3PIrTV+WmB74/HdY
+DiMnlc1a+YaZZwqyGuB9VCzUlTuICmI6nEUKxuFYjH6BAjmxzhnDZNFBekGJXOQF
+Q0udmLZTvCZmvPoieafY95GkDI7nNOasSUkdzOg+XeFVsPgBXg8mWRXNKvHRb+fG
+zj8PoJaWdj08x/cSPdMjbGBPzulTduc8g622YsmPfmIwaQIb9wPfeWLd1V36bLHe
+8to/8//iIq69hCmPPbP/QEWs1D8JEcX3qmNDFsfrV9JBsEdpFlMQvolTexF3XTqK
+uPyQDBi6qvlIfaCFdtonwLlE3HG1ChwRtQWldnQtTlzQ8wG6Jtc+ZOQvosfZuNSh
+j/7o+bpqvuNjjOMOSZRmR575w7lqUdnzL4p0nh6pSIiNq+07axe0cRrgSocukVa3
+78daCHhnflNbSnloNzEhpD0qtDeXeSut3NF9mZpWMqPQsx1C2/Za4AmMTyW1HPFh
+VE2Sr6crltLpWj7Xr5P5Nmv2Z947pnQZCV+/4J0PMXrGgyhzj8YOYxgJ9tHxidTw
+aroY88bV2A0KvzeqdEfJmyUuaYa5HYOC8wTXJOH1Pb5GkKPYQVN3YzMPjIC00QRr
+rApGZKI6gfZhGZ2O33bmLEn3L2u30Chjy1wZShMx5VusLdwgaYc=
+=LxJh
+-----END PGP SIGNATURE-----
+
+--nextPart6217562.69fOiX1Uyh--
+
+
+
+
+
+--===============7272957699315086058==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
+eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
+aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
+
+--===============7272957699315086058==--
+
+
+
+
