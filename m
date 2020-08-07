@@ -2,31 +2,111 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E98423F435
-	for <lists+apparmor@lfdr.de>; Fri,  7 Aug 2020 23:28:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97A7E23F476
+	for <lists+apparmor@lfdr.de>; Fri,  7 Aug 2020 23:37:16 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1k49u9-0003le-Q6; Fri, 07 Aug 2020 21:27:57 +0000
+	id 1k4A36-0004Vh-Q8; Fri, 07 Aug 2020 21:37:12 +0000
 Received: from youngberry.canonical.com ([91.189.89.112])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <seth.arnold@canonical.com>) id 1k49u7-0003lV-DN
- for apparmor@lists.ubuntu.com; Fri, 07 Aug 2020 21:27:55 +0000
-Received: from 2.general.sarnold.us.vpn ([10.172.64.71] helo=localhost)
- by youngberry.canonical.com with esmtpsa
+ (envelope-from <john.johansen@canonical.com>) id 1k4A34-0004VZ-SY
+ for apparmor@lists.ubuntu.com; Fri, 07 Aug 2020 21:37:10 +0000
+Received: from static-50-53-58-29.bvtn.or.frontiernet.net ([50.53.58.29]
+ helo=[192.168.192.153]) by youngberry.canonical.com with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <seth.arnold@canonical.com>)
- id 1k49u5-0006am-ET; Fri, 07 Aug 2020 21:27:53 +0000
-Date: Fri, 7 Aug 2020 21:27:51 +0000
-From: Seth Arnold <seth.arnold@canonical.com>
-To: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <20200807212751.GB3169683@millbarge>
-References: <20200807165055.3756-1-rdunlap@infradead.org>
+ (envelope-from <john.johansen@canonical.com>)
+ id 1k4A34-0007mu-EK; Fri, 07 Aug 2020 21:37:10 +0000
+To: apparmor@lists.ubuntu.com, =?UTF-8?Q?Jonas_Gro=c3=9fe_Sundrup?=
+ <jgs-apparmor@letopolis.de>
+References: <20200806110540.1a67cbe2@mephala>
+ <22516202-d22a-5975-93f2-fc7606e45e13@canonical.com>
+ <20200807190741.70738f15@mephala> <4659696.0Tsaam8APR@tux.boltz.de.vu>
+From: John Johansen <john.johansen@canonical.com>
+Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
+ LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCgptUUlOQkU1bXJQb0JFQURB
+ azE5UHNnVmdCS2tJbW1SMmlzUFE2bzdLSmhUVEtqSmR3VmJrV1NuTm4rbzZVcDVrCm5LUDFm
+ NDlFQlFsY2VXZzF5cC9Od2JSOGFkK2VTRU8vdW1hL0srUHFXdkJwdEtDOVNXRDk3Rkc0dUI0
+ L2Nhb20KTEVVOTdzTFFNdG52R1dkeHJ4VlJHTTRhbnpXWU1neno1VFptSWlWVFo0M091NVZw
+ YVMxVnoxWlN4UDNoL3hLTgpaci9UY1c1V1FhaTh1M1BXVm5ia2poU1pQSHYxQmdoTjY5cXhF
+ UG9tckpCbTFnbXR4M1ppVm1GWGx1d1RtVGdKCk9rcEZvbDduYkowaWxuWUhyQTdTWDNDdFIx
+ dXBlVXBNYS9XSWFuVk85NldkVGpISElhNDNmYmhtUXViZTR0eFMKM0ZjUUxPSlZxUXN4NmxF
+ OUI3cUFwcG05aFExMHFQV3dkZlB5LyswVzZBV3ROdTVBU2lHVkNJbld6bDJIQnFZZAovWmxs
+ OTN6VXErTklvQ244c0RBTTlpSCt3dGFHRGNKeXdJR0luK2VkS050SzcyQU1nQ2hUZy9qMVpv
+ V0g2WmVXClBqdVVmdWJWelp0bzFGTW9HSi9TRjRNbWRRRzFpUU50ZjRzRlpiRWdYdXk5Y0dp
+ MmJvbUYwenZ5QkpTQU5weGwKS05CRFlLek42S3owOUhVQWtqbEZNTmdvbUwvY2pxZ0FCdEF4
+ NTlMK2RWSVpmYUYyODFwSWNVWnp3dmg1K0pvRwplT1c1dUJTTWJFN0wzOG5zem9veWtJSjVY
+ ckFjaGtKeE5mejdrK0ZuUWVLRWtOekVkMkxXYzNRRjRCUVpZUlQ2ClBISGdhM1JneWtXNSsx
+ d1RNcUpJTGRtdGFQYlhyRjNGdm5WMExSUGN2NHhLeDdCM2ZHbTd5Z2Rvb3dBUkFRQUIKdEIx
+ S2IyaHVJRXB2YUdGdWMyVnVJRHhxYjJodVFHcHFiWGd1Ym1WMFBva0NPZ1FUQVFvQUpBSWJB
+ d1VMQ1FnSApBd1VWQ2drSUN3VVdBZ01CQUFJZUFRSVhnQVVDVG8wWVZ3SVpBUUFLQ1JBRkx6
+ WndHTlhEMkx4SkQvOVRKWkNwCndsbmNUZ1llcmFFTWVEZmtXdjhjMUlzTTFqMEFtRTRWdEwr
+ ZkU3ODBaVlA5Z2tqZ2tkWVN4dDdlY0VUUFRLTWEKWlNpc3JsMVJ3cVUwb29nWGRYUVNweHJH
+ SDAxaWN1LzJuMGpjWVNxWUtnZ1B4eTc4QkdzMkxacTRYUGZKVFptSApaR25YR3EvZURyL21T
+ bmowYWF2QkptTVo2amJpUHo2eUh0QllQWjlmZG84YnRjendQNDFZZVdvSXUyNi84SUk2CmYw
+ WG0zVkM1b0FhOHY3UmQrUldaYThUTXdsaHpIRXh4ZWwzanRJN0l6ek9zbm1FOS84RG0wQVJE
+ NWlUTENYd1IKMWN3SS9KOUJGL1MxWHY4UE4xaHVUM0l0Q05kYXRncDh6cW9Ka2dQVmptdnlM
+ NjRRM2ZFa1liZkhPV3NhYmE5LwprQVZ0Qk56OVJURmg3SUhEZkVDVmFUb3VqQmQ3QnRQcXIr
+ cUlqV0ZhZEpEM0k1ZUxDVkp2VnJyb2xyQ0FUbEZ0Ck4zWWtRczZKbjFBaUlWSVUzYkhSOEdq
+ ZXZnejVMbDZTQ0dIZ1Jya3lScG5TWWFVL3VMZ24zN042QVl4aS9RQUwKK2J5M0N5RUZManpX
+ QUV2eVE4YnEzSXVjbjdKRWJoUy9KLy9kVXFMb2VVZjh0c0dpMDB6bXJJVFpZZUZZQVJoUQpN
+ dHNmaXpJclZEdHoxaVBmL1pNcDVnUkJuaXlqcFhuMTMxY20zTTNndjZIclFzQUdubjhBSnJ1
+ OEdEaTVYSllJCmNvLzEreC9xRWlOMm5DbGFBT3BiaHpOMmVVdlBEWTVXMHEzYkEvWnAybWZH
+ NTJ2YlJJK3RRMEJyMUhkL3ZzbnQKVUhPOTAzbU1aZXAyTnpOM0JaNXFFdlB2RzRyVzVacTJE
+ cHliV2JRclNtOW9iaUJLYjJoaGJuTmxiaUE4YW05bwpiaTVxYjJoaGJuTmxia0JqWVc1dmJt
+ bGpZV3d1WTI5dFBva0NOd1FUQVFvQUlRVUNUbzBYV2dJYkF3VUxDUWdICkF3VVZDZ2tJQ3dV
+ V0FnTUJBQUllQVFJWGdBQUtDUkFGTHpad0dOWEQySXRNRC85anliYzg3ZE00dUFIazZ5Tk0K
+ TjBZL0JGbW10VFdWc09CaHFPbm9iNGkzOEJyRE8yQzFoUUNQQ1FlNExMczEvNHB0ZW92UXQ4
+ QjJGeXJQVmp3Zwo3alpUSE5LNzRyNmxDQ1Z4eDN5dTFCN1U5UG80VlRrY3NsVmIxL3FtV3V4
+ OFhXY040eXZrVHFsTCtHeHB5Sm45CjlaWmZmWEpjNk9oNlRtT2ZiS0d2TXV1djVhclNJQTNK
+ SEZMZjlhTHZadEExaXNKVXI3cFM5YXBnOXVUVUdVcDcKd2ZWMFdUNlQzZUczbXRVVTJ1cDVK
+ VjQ4NTBMMDVqSFM2dVdpZS9ZK3lmSk9iaXlyeE4vNlpxVzVHb25oTEJxLwptc3pjVjV2QlQz
+ QkRWZTNSdkY2WGRNOU9oUG4xK1k4MXg1NCt2UTExM044aUx3RjdHR2ExNFp5SVZBTlpEMEkw
+ CkhqUnZhMmsvUnFJUlR6S3l1UEg1cGtsY0tIVlBFRk1tT3pNVCtGT294Tmp2Uys3K3dHMktN
+ RFlFbUhQcjFQSkIKWlNaZUh6SzE5dGZhbFBNcHBGeGkrc3lZTGFnTjBtQjdKSFF3WTdjclV1
+ T0RoeWNxNjBZVnoxdGFFeWd1M1l2MgoyL0kxRUNHSHZLSEc2d2M5MG80M0MvZWxIRUNYbkVo
+ N3RLcGxEY3BJQytPQ21NeEtIaFI0NitYY1p2Z3c0RGdiCjdjYTgzZVFSM0NHODlMdlFwVzJM
+ TEtFRUJEajdoWmhrTGJra1BSWm0zdzhKWTQ0YXc4VnRneFdkblNFTUNMeEwKSU9OaDZ1Wjcv
+ L0RZVnRjSWFNSllrZWJhWnRHZENwMElnVVpiMjQvVmR2WkNZYk82MkhrLzNWbzFuWHdIVUVz
+ Mwo2RC92MWJUMFJaRmk2OUxnc0NjT2N4NGdZTGtDRFFST1pxejZBUkFBb3F3NmtrQmhXeU0x
+ ZnZnYW1BVmplWjZuCktFZm5SV2JrQzk0TDFFc0pMdXAzV2IyWDBBQk5PSFNrYlNENHBBdUMy
+ dEtGL0VHQnQ1Q1A3UWRWS1JHY1F6QWQKNmIyYzFJZHk5Ukx3Nnc0Z2krbm4vZDFQbTFra1lo
+ a1NpNXpXYUlnMG01UlFVaytFbDh6a2Y1dGNFLzFOMFo1TwpLMkpoandGdTViWDBhMGw0Y0ZH
+ V1ZRRWNpVk1ES1J0eE1qRXRrM1N4RmFsbTZaZFEycHAyODIyY2xucTR6WjltCld1MWQyd2F4
+ aXorYjVJYTR3ZURZYTduNDFVUmNCRVViSkFnbmljSmtKdENUd3lJeElXMktuVnlPcmp2a1F6
+ SUIKdmFQMEZkUDJ2dlpvUE1kbENJek9sSWtQTGd4RTBJV3VlVFhlQkpoTnMwMXBiOGJMcW1U
+ SU1sdTRMdkJFTEEvdgplaWFqajVzOHk1NDJIL2FIc2ZCZjRNUVVoSHhPL0JaVjdoMDZLU1Vm
+ SWFZN09nQWdLdUdOQjNVaWFJVVM1K2E5CmduRU9RTER4S1J5L2E3UTF2OVMrTnZ4KzdqOGlI
+ M2prUUpoeFQ2WkJoWkdSeDBna0gzVCtGMG5ORG01TmFKVXMKYXN3Z0pycUZaa1VHZDJNcm0x
+ cW5Ld1hpQXQ4U0ljRU5kcTMzUjBLS0tSQzgwWGd3ajhKbjMwdlhMU0crTk8xRwpIMFVNY0F4
+ TXd5L3B2azZMVTVKR2paUjczSjVVTFZoSDRNTGJEZ2dEM21QYWlHOCtmb3RUckpVUHFxaGc5
+ aHlVCkVQcFlHN3NxdDc0WG43OStDRVpjakxIenlsNnZBRkUyVzBreGxMdFF0VVpVSE8zNmFm
+ RnY4cUdwTzNacVB2akIKVXVhdFhGNnR2VVFDd2YzSDZYTUFFUUVBQVlrQ0h3UVlBUW9BQ1FV
+ Q1RtYXMrZ0liREFBS0NSQUZMelp3R05YRAoyRC9YRC8wZGRNLzRhaTFiK1RsMWp6bkthalgz
+ a0crTWVFWWVJNGY0MHZjbzNyT0xyblJHRk9jYnl5ZlZGNjlNCktlcGllNE93b0kxamNUVTBB
+ RGVjbmJXbkROSHByMFNjenhCTXJvM2Juckxoc212anVuVFlJdnNzQlp0QjRhVkoKanVMSUxQ
+ VWxuaEZxYTdmYlZxMFpRamJpVi9ydDJqQkVOZG05cGJKWjZHam5wWUljQWJQQ0NhL2ZmTDQv
+ U1FSUwpZSFhvaEdpaVM0eTVqQlRtSzVsdGZld0xPdzAyZmtleEgrSUpGcnJHQlhEU2c2bjJT
+ Z3hubisrTkYzNGZYY205CnBpYXczbUtzSUNtKzBoZE5oNGFmR1o2SVdWOFBHMnRlb29WRHA0
+ ZFlpaCsreFgvWFM4ekJDYzFPOXc0bnpsUDIKZ0t6bHFTV2JoaVdwaWZSSkJGYTRXdEFlSlRk
+ WFlkMzdqL0JJNFJXV2hueXc3YUFQTkdqMzN5dEdITlVmNlJvMgovanRqNHRGMXkvUUZYcWpK
+ Ry93R2pwZHRSZmJ0VWpxTEhJc3ZmUE5OSnEvOTU4cDc0bmRBQ2lkbFdTSHpqK09wCjI2S3Bi
+ Rm5td05PMHBzaVVzbmh2SEZ3UE8vdkFibDNSc1I1KzBSbytodnMyY0VtUXV2OXIvYkRsQ2Zw
+ enAydDMKY0srcmh4VXFpc094OERaZnoxQm5rYW9DUkZidnZ2ays3TC9mb21QbnRHUGtxSmNp
+ WUU4VEdIa1p3MWhPa3UrNApPb00yR0I1bkVEbGorMlRGL2pMUStFaXBYOVBrUEpZdnhmUmxD
+ NmRLOFBLS2ZYOUtkZm1BSWNnSGZuVjFqU24rCjh5SDJkakJQdEtpcVcwSjY5YUlzeXg3aVYv
+ MDNwYVBDakpoN1hxOXZBenlkTjVVL1VBPT0KPTZQL2IKLS0tLS1FTkQgUEdQIFBVQkxJQyBL
+ RVkgQkxPQ0stLS0tLQo=
+Organization: Canonical
+Message-ID: <31f0f3b7-af2f-3b51-c6d0-0fd4880b34da@canonical.com>
+Date: Fri, 7 Aug 2020 14:37:08 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200807165055.3756-1-rdunlap@infradead.org>
-Subject: Re: [apparmor] [PATCH] security: apparmor: delete repeated words in
- comments
+In-Reply-To: <4659696.0Tsaam8APR@tux.boltz.de.vu>
+Content-Language: en-US
+Subject: Re: [apparmor] deny and selectively allow in AppArmor?
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -38,118 +118,52 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: linux-security-module@vger.kernel.org, "Serge E. Hallyn" <serge@hallyn.com>,
- apparmor@lists.ubuntu.com, linux-kernel@vger.kernel.org,
- James Morris <jmorris@namei.org>
-Content-Type: multipart/mixed; boundary="===============6393699246185520584=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-
---===============6393699246185520584==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="oLBj+sq0vYjzfsbl"
-Content-Disposition: inline
-
-
---oLBj+sq0vYjzfsbl
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Aug 07, 2020 at 09:50:55AM -0700, Randy Dunlap wrote:
-> Drop repeated words in comments.
-> {a, then, to}
->=20
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-> Cc: John Johansen <john.johansen@canonical.com>
-> Cc: apparmor@lists.ubuntu.com
-> Cc: James Morris <jmorris@namei.org>
-> Cc: "Serge E. Hallyn" <serge@hallyn.com>
-> Cc: linux-security-module@vger.kernel.org
-
-Reviewed-By: Seth Arnold <seth.arnold@canonical.com>
-
-Thanks
-
-> ---
->  security/apparmor/include/file.h  |    2 +-
->  security/apparmor/path.c          |    2 +-
->  security/apparmor/policy_unpack.c |    2 +-
->  3 files changed, 3 insertions(+), 3 deletions(-)
->=20
-> --- linux-next-20200731.orig/security/apparmor/include/file.h
-> +++ linux-next-20200731/security/apparmor/include/file.h
-> @@ -167,7 +167,7 @@ int aa_audit_file(struct aa_profile *pro
->   * @perms: permission table indexed by the matched state accept entry of=
- @dfa
->   * @trans: transition table for indexed by named x transitions
->   *
-> - * File permission are determined by matching a path against @dfa and th=
-en
-> + * File permission are determined by matching a path against @dfa and
->   * then using the value of the accept entry for the matching state as
->   * an index into @perms.  If a named exec transition is required it is
->   * looked up in the transition table.
-> --- linux-next-20200731.orig/security/apparmor/path.c
-> +++ linux-next-20200731/security/apparmor/path.c
-> @@ -83,7 +83,7 @@ static int disconnect(const struct path
->   *
->   * Returns: %0 else error code if path lookup fails
->   *          When no error the path name is returned in @name which point=
-s to
-> - *          to a position in @buf
-> + *          a position in @buf
->   */
->  static int d_namespace_path(const struct path *path, char *buf, char **n=
-ame,
->  			    int flags, const char *disconnected)
-> --- linux-next-20200731.orig/security/apparmor/policy_unpack.c
-> +++ linux-next-20200731/security/apparmor/policy_unpack.c
-> @@ -39,7 +39,7 @@
-> =20
->  /*
->   * The AppArmor interface treats data as a type byte followed by the
-> - * actual data.  The interface has the notion of a a named entry
-> + * actual data.  The interface has the notion of a named entry
->   * which has a name (AA_NAME typecode followed by name string) followed =
-by
->   * the entries typecode and data.  Named types allow for optional
->   * elements and extensions to be added and tested for without breaking
->=20
-> --=20
-> AppArmor mailing list
-> AppArmor@lists.ubuntu.com
-> Modify settings or unsubscribe at: https://lists.ubuntu.com/mailman/listi=
-nfo/apparmor
-
---oLBj+sq0vYjzfsbl
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEQVAQ8bojyMcg37H18yFyWZ2NLpcFAl8tx1YACgkQ8yFyWZ2N
-LpeN+Qf+OkvGh9PooJZWP1r+NZGJt4P/B/3fK5qaEZmnHpJafI5S2SIjDeD2N82S
-t7JYEeRnOCRkoI3awiL0TL4rGQ87mevJKwrZgthbGWdnnb5FBLcOA+R3Xrm1FUtl
-EXChzjoYe5ObfbGluB4zWJTtFNQNcSgvFnizGqfSrDNLKf9tCXPxgLyJIaR1C7vF
-JONeSYhvwisK5kgoXXnPUdhfmrPM0OiO7LXWRkeAbta20fp2SaQyRCjEj2itnjOS
-M5Nd6oILXRi8FW6F1vSmw/XYz3ohR2R/WEAiAdhGK8pMMkqOuSwMoWrItKUr4w4y
-trBH6c8l432rLmlUFA4Zn0Ve09QKDw==
-=WcjH
------END PGP SIGNATURE-----
-
---oLBj+sq0vYjzfsbl--
-
-
---===============6393699246185520584==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
-eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
-aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
-
---===============6393699246185520584==--
-
+T24gOC83LzIwIDE6MTIgUE0sIENocmlzdGlhbiBCb2x0eiB3cm90ZToKPiBIZWxsbywKPiAKPiBB
+bSBGcmVpdGFnLCA3LiBBdWd1c3QgMjAyMCwgMTk6MDc6NDEgQ0VTVCBzY2hyaWViIEpvbmFzIEdy
+b8OfZSBTdW5kcnVwOgo+PiBJIGhhdmUgb25lIHF1ZXN0aW9uIGxlZnQsIHdoZW4gd2UncmUgYXQg
+aXQ6IElmIEkgZG8gaGF2ZSBjb25mbGljdGluZwo+PiBkaXJlY3RpdmVzLCBzdWNoIGFzCj4+Cj4+
+ICAgICAvbXkvZGlyZWN0b3J5IHIsCj4+ICAgICAvbXkvZGlyZWN0b3J5IHJ3LAo+Pgo+PiB3aGlj
+aCBvbmUgdGFrZXMgcHJlY2VkZW5jZT8gdGhlIGZpcnN0LCB0aGUgbGFzdCwgdGhlIHN0cmljdGVy
+IG9yIHRoZQo+PiBicm9hZGVyPwo+IAo+IFRoZXkgZ2V0IGFkZGVkIHVwIC0gc28gaW4geW91ciBl
+eGFtcGxlLCB5b3UnbGwgZ2V0IHJ3Lgo+IAo+IEFzIGFub3RoZXIgZXhhbXBsZSwKPiAKPiAgIC9m
+b28gcndsLAo+ICAgL2ZvbyB3aywKPiAKPiB3aWxsIGVmZmVjdGl2ZWx5IGdpdmUgeW91ICAgL2Zv
+byByd2xrLAo+IAo+PiBJbiBjYXNlIG9mIG5lc3RlZCBJJ2Qgc3VzcGVjdCB0aGF0IEFwcEFybW9y
+IHdpbGwganVzdCBuZXN0IHRoZQo+PiBwb2xpY2llcyBhY2NvcmRpbmdseSwgbm8gbWF0dGVyIGlu
+IHdoaWNoIG9yZGVyIHRoZXkgb2NjdXIsIHJpZ2h0Pwo+IAo+IFRoZSBydWxlIG9yZGVyIGRvZXNu
+J3QgbWF0dGVyLgo+IAo+IApMZXQgbWUgZXhwYW5kIG9uIHRoaXMgYSBiaXQuIEFwcEFybW9yIHN5
+bnRheCBpcyBkZWNsYXJhdGl2ZSBzbyBydWxlIG9yZGVyIGRvZXNuJ3QgbWF0dGVyIGFzIENocmlz
+dGlhbiBoYXMgc2FpZC4KCkhvd2V2ZXIgaXRzIGEgbGl0dGxlIG1vcmUgY29tcGxpY2F0ZWQgdGhh
+biB0aGV5IGp1c3QgYWRkZWQgdXAuCgoxLiBUaGV5IG9ubHkgYWRkIHVwIHdoZXJlIHRoZSBydWxl
+cyBvdmVybGFwCgogIC8qKiByaywKICAvZm9vIHcsCgp3aWxsIGdpdmUgL2ZvbyByd2ssIHBlcm1p
+c3Npb25zLCBidXQgdGhlIHJlc3Qgb2YgdGhlIGZpbGVzIHRoYXQgb25seSBtYXRjaCAvKiogd2ls
+bCBvbmx5IGhhdmUgcmsgcGVybWlzc2lvbnMKCgoyLiBkZW55IGhhcyBwcmlvcml0eS4gWW91IGNh
+biB0aGluayBvZiBpdCBhcyBhZGQgdXAgYWxsIHRoZSBhbGxvdyBydWxlcyBpbiBvbmUgc2V0IGFu
+ZCBhbGwgdGhlIGRlbnkgaW4gYW5vdGhlciBhbmQgc3VidHJhY3QgdGhlIGRlbnkgc2V0IGZyb20g
+dGhlIGFsbG93IHNldC4KCgozLiBFeGVjIHJ1bGUgcXVhbGlmaWVycyB1c2UgYSBtb3N0IHNwZWNp
+ZmljIG1hdGNoIHByaW9yaXR5LgoKICBpeCAvKiosCiAgcHggL2Zvby9iYXIsCgp0aGUgcHggcnVs
+ZSBpcyBtb3JlIHNwZWNpZmljLCBzbyBweCB3aWxsIGJlIHVzZWQgZm9yIC9mb28vYmFyLCB3aGls
+ZSBpeCB3b3VsZCBiZSB1c2VkIGZvciBldmVyeXRoaW5nIGVsc2UKCgozLjEuIEV4ZWMgcnVsZSBk
+b21pbmFuY2UgaXMgbm90IGZ1bGx5IGltcGxlbWVudGVkIHlldC4gU28gaXQgb25seSB3b3JrcyB3
+aXRoIGV4YWN0IG1hdGNoIHJ1bGVzIGxpa2UgaW4gdGhlIGFib3ZlIGV4YW1wbGUuCgogIGl4IC91
+c3IvKiosCiAgcHggL3Vzci9iaW4vKiwKCmN1cnJlbnRseSB3aWxsIHJlcG9ydCBhIGNvbmZsaWN0
+IGJlY2F1c2UgdGhlIC91c3IvYmluLyBiZWluZyBtb3JlIHNwZWNpZmljIGlzIG5vdCBjb3JyZWN0
+bHkgcmVzb2x2ZWQuCgoKNC4gVGhlIG1vc3Qgc3BlY2lmaWMgbWF0Y2ggYXBwbGllcyB0byBwcm9m
+aWxlIGF0dGFjaG1lbnRzLCB3aXRoIGEgZmFsbGJhY2sgdG8gbG9uZ2VzdCBsZWZ0IHNwZWNpZmlj
+IG1hdGNoIGZvciBwb2xpY3kgbm90IHNoYXJpbmcgYW4gYXR0YWNobWVudCBkZmEuCgpwcm9maWxl
+IHVzciAvdXNyLyoqIHsgfQpwcm9maWxlIGJpbiAvdXNyL2Jpbi8qIHsgfQoKYmFzaWNhbGx5LCB0
+aGlzIG1lYW5zIHRoZSBhYm92ZSB3aWxsIHdvcmsgYXMgZXhwZWN0ZWQuIEJ1dCB0aGUgY29uZmxp
+Y3QgaXMgZm91bmQgaW4gdGhlIGtlcm5lbCBhdCBydW50aW1lIGluc3RlYWQgb2YgZHVyaW5nIGNv
+bXBpbGUuIFRoZSBrZXJuZWwgY2FuIGhhbmRsZSBvdmVybGFwcGluZyBydWxlcyB0byBhIHBvaW50
+IChpdHMgbm90IHBlcmZlY3QpIGFuZCB3aWxsIGZhaWwgdGhlIGV4ZWMgaWYgaXRzIGhldXJpc3Rp
+Y3MgY2FuIHJlc29sdmUgdGhlIGRvbWluYW5jZS4gQWxzbyBuZXdlciBrZXJuZWxzIGFyZSBiZXR0
+ZXIgYXQgdGhpcyB0aGFuIG9sZGVyIGtlcm5lbHMuCgoKNS4gVGhlcmUgd2lsbCBiZSBsYW5ndWFn
+ZSBleHRlbnNpb25zIGF0IHNvbWUgcG9pbnQgYWxsb3dpbmcgYSBmb3JtIG9mIHJ1bGUgcHJpb3Jp
+dHksIGJ1dCB0aGF0IGlzIG5vdCBhdmFpbGFibGUgeWV0LgoKLS0gCkFwcEFybW9yIG1haWxpbmcg
+bGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlmeSBzZXR0aW5ncyBvciB1bnN1YnNj
+cmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21haWxtYW4vbGlzdGluZm8vYXBwYXJt
+b3IK
