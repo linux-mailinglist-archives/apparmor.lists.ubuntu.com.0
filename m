@@ -2,52 +2,108 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DB97250876
-	for <lists+apparmor@lfdr.de>; Mon, 24 Aug 2020 20:52:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 019B42511F4
+	for <lists+apparmor@lfdr.de>; Tue, 25 Aug 2020 08:19:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1kAHZV-0005jL-Na; Mon, 24 Aug 2020 18:51:57 +0000
-Received: from mail-ej1-f54.google.com ([209.85.218.54])
+	id 1kASIJ-0006v4-0B; Tue, 25 Aug 2020 06:18:55 +0000
+Received: from youngberry.canonical.com ([91.189.89.112])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <murali.selvaraj2003@gmail.com>) id 1kAHZT-0005ir-Mr
- for apparmor@lists.ubuntu.com; Mon, 24 Aug 2020 18:51:55 +0000
-Received: by mail-ej1-f54.google.com with SMTP id l2so7221941eji.3
- for <apparmor@lists.ubuntu.com>; Mon, 24 Aug 2020 11:51:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=yXK/VFpGHVR4q841IBcIjJaCJRFWtrzxPgVqmSHxsHc=;
- b=WUlbzU95INzeQLuTPBQIEtFI1837VWNC2avwwhvOJT20Li5pQcsRm6UUB/pd3DHyG4
- Utty/V87zKueFs4jt03AuySe/KFSOylBzSkliPIzbSf6rzeDh1uoWlw5Gm8JUsgE1hLy
- AraeU/IwLOtdmwaIMTUItdVNKuhRAuE502cmRGpdYVjciL9jb8u5fyG/nh9VBI1T1eYq
- 4ie4tObg+2GyuE9Yz7WNVL1jVSjEipExNb6j/02UhHr3LzYzr0uWUc+/FxU3jAS13AjC
- 2QHt36ghFZL+AG2wQiLrlR6IKHiwl2qNylK0KCawCXVwcgXN+Kw9Yl34qerpO1Fca032
- CDiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=yXK/VFpGHVR4q841IBcIjJaCJRFWtrzxPgVqmSHxsHc=;
- b=gH4YNjUqwlkFqu9um+j2XmT1SlpikUz33HdTpEpghbBreulYFE4QaaS6etceT+8SZZ
- i1iuz1EyjRt6teVavWmM5+RTr+obVC6LPLJkxztRXF3PPH/qJZ5/hEla55KwqeAIwaHs
- BUF3jBjbLOo+Io/03O33x2+DhQeLj+3pzR/XBGcnojpshtxtYjv4pycNSAcRXPYhYt8Q
- Q8I+ncHehZhXnsIGreAMrtQ8IZSPYfwK/kmN6MHkW7NqMB352KdT+OjLOTA1wfzoP2rj
- 29gNgewnT40RTGEJ6dU5aW5DcSWb7NC0WB2egjI3wuvqLzEZSXmG7Ew5QbOwpv36CiIu
- 0Dyw==
-X-Gm-Message-State: AOAM530YWHV3RuthAtfW6pfBXQHSZ8x/zZXL2vYWLk9g3afdJseIGBvk
- buPOpEulK85/wRWU0blv9FGRKnO3BjR4fuGhqbSz0hjZKnk=
-X-Google-Smtp-Source: ABdhPJwVrVQ4jkssC75jAe+KAt9RxZUJv9ttNWaQmlXllRKKTQgajZW94Ss3gQT87J6L809OOwpP+F9YsdO8RBK2kMo=
-X-Received: by 2002:a17:907:2713:: with SMTP id
- w19mr6780332ejk.357.1598295114577; 
- Mon, 24 Aug 2020 11:51:54 -0700 (PDT)
+ (envelope-from <john.johansen@canonical.com>) id 1kASIH-0006uy-JA
+ for apparmor@lists.ubuntu.com; Tue, 25 Aug 2020 06:18:53 +0000
+Received: from [172.58.46.186] (helo=[192.168.43.253])
+ by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <john.johansen@canonical.com>)
+ id 1kASIG-0004Dn-TP; Tue, 25 Aug 2020 06:18:53 +0000
+To: Murali Selvaraj <murali.selvaraj2003@gmail.com>, apparmor@lists.ubuntu.com
+References: <CAODFaZ7xL+h_QM1k689LMKC4TV=JYMyZScoGPEaiYP9Vax9QeQ@mail.gmail.com>
+From: John Johansen <john.johansen@canonical.com>
+Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
+ LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCgptUUlOQkU1bXJQb0JFQURB
+ azE5UHNnVmdCS2tJbW1SMmlzUFE2bzdLSmhUVEtqSmR3VmJrV1NuTm4rbzZVcDVrCm5LUDFm
+ NDlFQlFsY2VXZzF5cC9Od2JSOGFkK2VTRU8vdW1hL0srUHFXdkJwdEtDOVNXRDk3Rkc0dUI0
+ L2Nhb20KTEVVOTdzTFFNdG52R1dkeHJ4VlJHTTRhbnpXWU1neno1VFptSWlWVFo0M091NVZw
+ YVMxVnoxWlN4UDNoL3hLTgpaci9UY1c1V1FhaTh1M1BXVm5ia2poU1pQSHYxQmdoTjY5cXhF
+ UG9tckpCbTFnbXR4M1ppVm1GWGx1d1RtVGdKCk9rcEZvbDduYkowaWxuWUhyQTdTWDNDdFIx
+ dXBlVXBNYS9XSWFuVk85NldkVGpISElhNDNmYmhtUXViZTR0eFMKM0ZjUUxPSlZxUXN4NmxF
+ OUI3cUFwcG05aFExMHFQV3dkZlB5LyswVzZBV3ROdTVBU2lHVkNJbld6bDJIQnFZZAovWmxs
+ OTN6VXErTklvQ244c0RBTTlpSCt3dGFHRGNKeXdJR0luK2VkS050SzcyQU1nQ2hUZy9qMVpv
+ V0g2WmVXClBqdVVmdWJWelp0bzFGTW9HSi9TRjRNbWRRRzFpUU50ZjRzRlpiRWdYdXk5Y0dp
+ MmJvbUYwenZ5QkpTQU5weGwKS05CRFlLek42S3owOUhVQWtqbEZNTmdvbUwvY2pxZ0FCdEF4
+ NTlMK2RWSVpmYUYyODFwSWNVWnp3dmg1K0pvRwplT1c1dUJTTWJFN0wzOG5zem9veWtJSjVY
+ ckFjaGtKeE5mejdrK0ZuUWVLRWtOekVkMkxXYzNRRjRCUVpZUlQ2ClBISGdhM1JneWtXNSsx
+ d1RNcUpJTGRtdGFQYlhyRjNGdm5WMExSUGN2NHhLeDdCM2ZHbTd5Z2Rvb3dBUkFRQUIKdEIx
+ S2IyaHVJRXB2YUdGdWMyVnVJRHhxYjJodVFHcHFiWGd1Ym1WMFBva0NPZ1FUQVFvQUpBSWJB
+ d1VMQ1FnSApBd1VWQ2drSUN3VVdBZ01CQUFJZUFRSVhnQVVDVG8wWVZ3SVpBUUFLQ1JBRkx6
+ WndHTlhEMkx4SkQvOVRKWkNwCndsbmNUZ1llcmFFTWVEZmtXdjhjMUlzTTFqMEFtRTRWdEwr
+ ZkU3ODBaVlA5Z2tqZ2tkWVN4dDdlY0VUUFRLTWEKWlNpc3JsMVJ3cVUwb29nWGRYUVNweHJH
+ SDAxaWN1LzJuMGpjWVNxWUtnZ1B4eTc4QkdzMkxacTRYUGZKVFptSApaR25YR3EvZURyL21T
+ bmowYWF2QkptTVo2amJpUHo2eUh0QllQWjlmZG84YnRjendQNDFZZVdvSXUyNi84SUk2CmYw
+ WG0zVkM1b0FhOHY3UmQrUldaYThUTXdsaHpIRXh4ZWwzanRJN0l6ek9zbm1FOS84RG0wQVJE
+ NWlUTENYd1IKMWN3SS9KOUJGL1MxWHY4UE4xaHVUM0l0Q05kYXRncDh6cW9Ka2dQVmptdnlM
+ NjRRM2ZFa1liZkhPV3NhYmE5LwprQVZ0Qk56OVJURmg3SUhEZkVDVmFUb3VqQmQ3QnRQcXIr
+ cUlqV0ZhZEpEM0k1ZUxDVkp2VnJyb2xyQ0FUbEZ0Ck4zWWtRczZKbjFBaUlWSVUzYkhSOEdq
+ ZXZnejVMbDZTQ0dIZ1Jya3lScG5TWWFVL3VMZ24zN042QVl4aS9RQUwKK2J5M0N5RUZManpX
+ QUV2eVE4YnEzSXVjbjdKRWJoUy9KLy9kVXFMb2VVZjh0c0dpMDB6bXJJVFpZZUZZQVJoUQpN
+ dHNmaXpJclZEdHoxaVBmL1pNcDVnUkJuaXlqcFhuMTMxY20zTTNndjZIclFzQUdubjhBSnJ1
+ OEdEaTVYSllJCmNvLzEreC9xRWlOMm5DbGFBT3BiaHpOMmVVdlBEWTVXMHEzYkEvWnAybWZH
+ NTJ2YlJJK3RRMEJyMUhkL3ZzbnQKVUhPOTAzbU1aZXAyTnpOM0JaNXFFdlB2RzRyVzVacTJE
+ cHliV2JRclNtOW9iaUJLYjJoaGJuTmxiaUE4YW05bwpiaTVxYjJoaGJuTmxia0JqWVc1dmJt
+ bGpZV3d1WTI5dFBva0NOd1FUQVFvQUlRVUNUbzBYV2dJYkF3VUxDUWdICkF3VVZDZ2tJQ3dV
+ V0FnTUJBQUllQVFJWGdBQUtDUkFGTHpad0dOWEQySXRNRC85anliYzg3ZE00dUFIazZ5Tk0K
+ TjBZL0JGbW10VFdWc09CaHFPbm9iNGkzOEJyRE8yQzFoUUNQQ1FlNExMczEvNHB0ZW92UXQ4
+ QjJGeXJQVmp3Zwo3alpUSE5LNzRyNmxDQ1Z4eDN5dTFCN1U5UG80VlRrY3NsVmIxL3FtV3V4
+ OFhXY040eXZrVHFsTCtHeHB5Sm45CjlaWmZmWEpjNk9oNlRtT2ZiS0d2TXV1djVhclNJQTNK
+ SEZMZjlhTHZadEExaXNKVXI3cFM5YXBnOXVUVUdVcDcKd2ZWMFdUNlQzZUczbXRVVTJ1cDVK
+ VjQ4NTBMMDVqSFM2dVdpZS9ZK3lmSk9iaXlyeE4vNlpxVzVHb25oTEJxLwptc3pjVjV2QlQz
+ QkRWZTNSdkY2WGRNOU9oUG4xK1k4MXg1NCt2UTExM044aUx3RjdHR2ExNFp5SVZBTlpEMEkw
+ CkhqUnZhMmsvUnFJUlR6S3l1UEg1cGtsY0tIVlBFRk1tT3pNVCtGT294Tmp2Uys3K3dHMktN
+ RFlFbUhQcjFQSkIKWlNaZUh6SzE5dGZhbFBNcHBGeGkrc3lZTGFnTjBtQjdKSFF3WTdjclV1
+ T0RoeWNxNjBZVnoxdGFFeWd1M1l2MgoyL0kxRUNHSHZLSEc2d2M5MG80M0MvZWxIRUNYbkVo
+ N3RLcGxEY3BJQytPQ21NeEtIaFI0NitYY1p2Z3c0RGdiCjdjYTgzZVFSM0NHODlMdlFwVzJM
+ TEtFRUJEajdoWmhrTGJra1BSWm0zdzhKWTQ0YXc4VnRneFdkblNFTUNMeEwKSU9OaDZ1Wjcv
+ L0RZVnRjSWFNSllrZWJhWnRHZENwMElnVVpiMjQvVmR2WkNZYk82MkhrLzNWbzFuWHdIVUVz
+ Mwo2RC92MWJUMFJaRmk2OUxnc0NjT2N4NGdZTGtDRFFST1pxejZBUkFBb3F3NmtrQmhXeU0x
+ ZnZnYW1BVmplWjZuCktFZm5SV2JrQzk0TDFFc0pMdXAzV2IyWDBBQk5PSFNrYlNENHBBdUMy
+ dEtGL0VHQnQ1Q1A3UWRWS1JHY1F6QWQKNmIyYzFJZHk5Ukx3Nnc0Z2krbm4vZDFQbTFra1lo
+ a1NpNXpXYUlnMG01UlFVaytFbDh6a2Y1dGNFLzFOMFo1TwpLMkpoandGdTViWDBhMGw0Y0ZH
+ V1ZRRWNpVk1ES1J0eE1qRXRrM1N4RmFsbTZaZFEycHAyODIyY2xucTR6WjltCld1MWQyd2F4
+ aXorYjVJYTR3ZURZYTduNDFVUmNCRVViSkFnbmljSmtKdENUd3lJeElXMktuVnlPcmp2a1F6
+ SUIKdmFQMEZkUDJ2dlpvUE1kbENJek9sSWtQTGd4RTBJV3VlVFhlQkpoTnMwMXBiOGJMcW1U
+ SU1sdTRMdkJFTEEvdgplaWFqajVzOHk1NDJIL2FIc2ZCZjRNUVVoSHhPL0JaVjdoMDZLU1Vm
+ SWFZN09nQWdLdUdOQjNVaWFJVVM1K2E5CmduRU9RTER4S1J5L2E3UTF2OVMrTnZ4KzdqOGlI
+ M2prUUpoeFQ2WkJoWkdSeDBna0gzVCtGMG5ORG01TmFKVXMKYXN3Z0pycUZaa1VHZDJNcm0x
+ cW5Ld1hpQXQ4U0ljRU5kcTMzUjBLS0tSQzgwWGd3ajhKbjMwdlhMU0crTk8xRwpIMFVNY0F4
+ TXd5L3B2azZMVTVKR2paUjczSjVVTFZoSDRNTGJEZ2dEM21QYWlHOCtmb3RUckpVUHFxaGc5
+ aHlVCkVQcFlHN3NxdDc0WG43OStDRVpjakxIenlsNnZBRkUyVzBreGxMdFF0VVpVSE8zNmFm
+ RnY4cUdwTzNacVB2akIKVXVhdFhGNnR2VVFDd2YzSDZYTUFFUUVBQVlrQ0h3UVlBUW9BQ1FV
+ Q1RtYXMrZ0liREFBS0NSQUZMelp3R05YRAoyRC9YRC8wZGRNLzRhaTFiK1RsMWp6bkthalgz
+ a0crTWVFWWVJNGY0MHZjbzNyT0xyblJHRk9jYnl5ZlZGNjlNCktlcGllNE93b0kxamNUVTBB
+ RGVjbmJXbkROSHByMFNjenhCTXJvM2Juckxoc212anVuVFlJdnNzQlp0QjRhVkoKanVMSUxQ
+ VWxuaEZxYTdmYlZxMFpRamJpVi9ydDJqQkVOZG05cGJKWjZHam5wWUljQWJQQ0NhL2ZmTDQv
+ U1FSUwpZSFhvaEdpaVM0eTVqQlRtSzVsdGZld0xPdzAyZmtleEgrSUpGcnJHQlhEU2c2bjJT
+ Z3hubisrTkYzNGZYY205CnBpYXczbUtzSUNtKzBoZE5oNGFmR1o2SVdWOFBHMnRlb29WRHA0
+ ZFlpaCsreFgvWFM4ekJDYzFPOXc0bnpsUDIKZ0t6bHFTV2JoaVdwaWZSSkJGYTRXdEFlSlRk
+ WFlkMzdqL0JJNFJXV2hueXc3YUFQTkdqMzN5dEdITlVmNlJvMgovanRqNHRGMXkvUUZYcWpK
+ Ry93R2pwZHRSZmJ0VWpxTEhJc3ZmUE5OSnEvOTU4cDc0bmRBQ2lkbFdTSHpqK09wCjI2S3Bi
+ Rm5td05PMHBzaVVzbmh2SEZ3UE8vdkFibDNSc1I1KzBSbytodnMyY0VtUXV2OXIvYkRsQ2Zw
+ enAydDMKY0srcmh4VXFpc094OERaZnoxQm5rYW9DUkZidnZ2ays3TC9mb21QbnRHUGtxSmNp
+ WUU4VEdIa1p3MWhPa3UrNApPb00yR0I1bkVEbGorMlRGL2pMUStFaXBYOVBrUEpZdnhmUmxD
+ NmRLOFBLS2ZYOUtkZm1BSWNnSGZuVjFqU24rCjh5SDJkakJQdEtpcVcwSjY5YUlzeXg3aVYv
+ MDNwYVBDakpoN1hxOXZBenlkTjVVL1VBPT0KPTZQL2IKLS0tLS1FTkQgUEdQIFBVQkxJQyBL
+ RVkgQkxPQ0stLS0tLQo=
+Organization: Canonical
+Message-ID: <411e496d-f59f-8fbb-7ed7-aa1eefb995b7@canonical.com>
+Date: Mon, 24 Aug 2020 23:18:46 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-From: Murali Selvaraj <murali.selvaraj2003@gmail.com>
-Date: Mon, 24 Aug 2020 14:51:44 -0400
-Message-ID: <CAODFaZ7xL+h_QM1k689LMKC4TV=JYMyZScoGPEaiYP9Vax9QeQ@mail.gmail.com>
-To: apparmor@lists.ubuntu.com
-Received-SPF: pass client-ip=209.85.218.54;
- envelope-from=murali.selvaraj2003@gmail.com; helo=mail-ej1-f54.google.com
-Subject: [apparmor] Apparmor - Basic queries
+In-Reply-To: <CAODFaZ7xL+h_QM1k689LMKC4TV=JYMyZScoGPEaiYP9Vax9QeQ@mail.gmail.com>
+Content-Language: en-US
+Subject: Re: [apparmor] Apparmor - Basic queries
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -59,77 +115,76 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============5468067405286343563=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
---===============5468067405286343563==
-Content-Type: multipart/alternative; boundary="0000000000008cfa2f05ada41475"
-
---0000000000008cfa2f05ada41475
-Content-Type: text/plain; charset="UTF-8"
-
-Hi All,
-
-Please go through the below details and clarify with examples.
-
-Q1:How do we identify required capabilities from apparmor logs.
-
-I am looking to find out the list of capabilities are used for the
-application/process using apparmor.
-I have set up the apparmor and am able to see few capabilities NOT all CAPs
-in apparmor logs.
-Do we have any simple exercise/method to find the required capabilities for
-the process specific from apparmor logs.
-It will help us to set the required capabilities for the security reason.
-
-Q2:How do we know the process/application enough to cover  full code
-coverage for its required capabilities?
-
-Do we have any suggested procedure/method to confirm the coverage of
-application, especially for real-time application?
-
-Q3:  In case of long run test cases, how to ensure all apparmor event logs
-are stored even uptime is more than 2 days?
-
-Do we have any configuration to keep apparmor logs for more than 2 days?
-
-Thanks
-Murali.S
-
---0000000000008cfa2f05ada41475
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Hi All,</div><div><br></div><div>Please go through th=
-e below details and clarify with examples.=C2=A0=C2=A0</div><div><br></div>=
-Q1:How do we identify required capabilities from apparmor logs.<br><br>I am=
- looking to find out the list of capabilities are used for the application/=
-process using apparmor.<br>I have set up the apparmor and am able to see fe=
-w capabilities NOT all CAPs in apparmor logs.<br>Do we have any simple exer=
-cise/method to find the required capabilities for the process specific from=
- apparmor logs.<br>It will help us to set the required capabilities for the=
- security reason.<br><br>Q2:How do we know the process/application enough t=
-o cover =C2=A0full code coverage for its required capabilities?<br><br>Do w=
-e have any suggested procedure/method to confirm the coverage of applicatio=
-n, especially for real-time application?<br><br>Q3: =C2=A0In case of long r=
-un test cases, how to ensure all apparmor event logs are stored even uptime=
- is more than 2 days? <br><br>Do we have any configuration to keep apparmor=
- logs for more than 2 days?<br><div><br></div><div>Thanks<br></div><div>Mur=
-ali.S</div></div>
-
---0000000000008cfa2f05ada41475--
-
-
---===============5468067405286343563==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
-eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
-aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
-
---===============5468067405286343563==--
-
+T24gOC8yNC8yMCAxMTo1MSBBTSwgTXVyYWxpIFNlbHZhcmFqIHdyb3RlOgo+IEhpIEFsbCwKPiAK
+PiBQbGVhc2UgZ28gdGhyb3VnaCB0aGUgYmVsb3cgZGV0YWlscyBhbmQgY2xhcmlmeSB3aXRoIGV4
+YW1wbGVzLsKgwqAKPiAKPiBRMTpIb3cgZG8gd2UgaWRlbnRpZnkgcmVxdWlyZWQgY2FwYWJpbGl0
+aWVzIGZyb20gYXBwYXJtb3IgbG9ncy4KPiAKbG9vayBmb3IgZGVuaWFscyB3aXRoIHRoZSBjYXBu
+YW1lPSBmaWVsZC4KCgo+IEkgYW0gbG9va2luZyB0byBmaW5kIG91dCB0aGUgbGlzdCBvZiBjYXBh
+YmlsaXRpZXMgYXJlIHVzZWQgZm9yIHRoZSBhcHBsaWNhdGlvbi9wcm9jZXNzIHVzaW5nIGFwcGFy
+bW9yLgo+IEkgaGF2ZSBzZXQgdXAgdGhlIGFwcGFybW9yIGFuZCBhbSBhYmxlIHRvIHNlZSBmZXcg
+Y2FwYWJpbGl0aWVzIE5PVCBhbGwgQ0FQcyBpbiBhcHBhcm1vciBsb2dzLgoKQXBwQXJtb3Igd2ls
+bCBvbmx5IHJlcG9ydCBvbiBDQVBzIHRoYXQgbWFrZSBpdCB0byBpdHMgbW9kdWxlIGNvZGUuIFRo
+ZSBrZXJuZWwgYXBwbGllcyBEQUMgYW5kIHVpZCBjaGVja3MgRklSU1QuCgplZy4gRm9yIGNhcGFi
+aWxpdHkgREFDX09WRVJSSURFCgogIHRoZSBmaXJzdCBjaGVjayBpcyBpZiB0aGUgdGFzaydzIHVp
+ZCA9PSB0aGUgb2JqZWN0J3MgKGZpbGUncykgdWlkIGlmIHllcyBjYXBhYmlsaXR5IERBQyBvdmVy
+cmlkZSBpcyBub3QgY2hlY2tlZC4gSWYgaXQgdGhleSBhcmUgZGlmZmVyZW50IHRoZW4gdGhlIGtl
+cm5lbCB3aWxsIGNoZWNrIHRoZSB0YXNrJ3MgY2FwYWJpbGl0eSBzZXQsIGFuZCBpZiBEQUNfT1ZF
+UlJJREUgaXMgbm90IGluIHRoZSBzZXQgdGhlIG9wZXJhdGlvbiB3aWxsIGJlIGRlbmllZCBhbmQg
+YXBwYXJtb3Igd2lsbCBuZXZlciBiZSBjb25zdWx0ZWQuIE9ubHkgaWYgdGhlIG9wZXJhdGlvbiBy
+ZXF1aXJlcyBEQUNfT1ZFUlJJREUgYW5kIHRoZSB0YXNrJ3MgY2FwYWJpbGl0eSBzZXQgaGFzIERB
+Q19PVkVSUklERSB3aWxsIGFwcGFybW9yIGJlIGNoZWNrZWQuCgpTbyB0aGUgQXBwQXJtb3IgcHJv
+ZmlsZSdzIGNhcGFiaWxpdHkgc2V0IGlzIHNlcGFyYXRlIGZyb20gdGhlIHN5c3RlbSBzZXQgYW5k
+IEJvdGggaGF2ZSB0byBhbGxvdyB0aGUgY2FwYWJpbGl0eSBmb3IgaXQgdG8gYmUgYWxsb3dlZC4K
+CkFsc28gYXBwYXJtb3IgaGFzIGEgc21hbGwgMSBlbnRyeSBwZXIgY3B1IGRlZHVwIGNhY2hlIHNv
+LCB0aGF0IG11bHRpcGUgcmVxdWVzdHMgdG8gdGhlIHNhbWUgcHJvZmlsZSBhbmQgY2FwYWJpbGl0
+eSB3aWxsIG5vdCBiZSBsb2dnZWQsIGlmIHRoZXkgYXJlIGhhcHBlbmluZyBiYWNrIHRvIGJhY2sg
+KHlvdSBqdXN0IGdldCBvbmUpLiBEZXBlbmRpbmcgb24geW91ciBrZXJuZWwgdGhlcmUgaGF2ZSBi
+ZWVuIGJ1Z3MgaW4gdGhpcyBjYWNoaW5nIHNvIG5vdCBhbGwgbWVzc2FnZXMgaGF2ZSBhbHdheXMg
+YmVlbiBjb3JyZWN0bHkgbG9nZ2VkLgoKCj4gRG8gd2UgaGF2ZSBhbnkgc2ltcGxlIGV4ZXJjaXNl
+L21ldGhvZCB0byBmaW5kIHRoZSByZXF1aXJlZCBjYXBhYmlsaXRpZXMgZm9yIHRoZSBwcm9jZXNz
+IHNwZWNpZmljIGZyb20gYXBwYXJtb3IgbG9ncy4KCk5vLiBXZSBjYW4gY29tZSBjbG9zZSBieSBj
+b25maW5pbmcgdGhlIGFwcGxpY2F0aW9uIGluIGEgc2FmZSBlbnZpcm9ubWVudCBhbmQgZXhlcmNp
+c2luZyB0aGUgYXBwbGljYXRpb24gaW4gY29tcGxhaW4gbW9kZS4gT3IgaWYgeW91IG11c3QgZGVw
+bG95IGluIGEgaG9zdGlsZSBlbnZpcm9ubWVudCBpbiBlbmZvcmNlIG1vZGUsIGJ1dCB5b3UgbWF5
+IGhhdmUgdG8gcmVzdGFydCB0aGUgYXBwbGljYXRpb24gZHVlIHRvIGRlbmlhbHMgY2hhbmdpbmcg
+Y29kZSBwYXRocy4KCj4gSXQgd2lsbCBoZWxwIHVzIHRvIHNldCB0aGUgcmVxdWlyZWQgY2FwYWJp
+bGl0aWVzIGZvciB0aGUgc2VjdXJpdHkgcmVhc29uLgo+IAoKQXBwQXJtb3IgZG9lcyBub3Qgc2V0
+IGNhcGFiaWxpdGllcyBidXQgaXQgY2FuIGhlbHAgeW91IGRpc2NvdmVyIHRoZW0KCj4gUTI6SG93
+IGRvIHdlIGtub3cgdGhlIHByb2Nlc3MvYXBwbGljYXRpb24gZW5vdWdoIHRvIGNvdmVyIMKgZnVs
+bCBjb2RlIGNvdmVyYWdlIGZvciBpdHMgcmVxdWlyZWQgY2FwYWJpbGl0aWVzPwo+IAppbiBzaG9y
+dCB5b3UgZG9uJ3QsIGF0IGxlYXN0IG5vdCB3aXRob3V0IGEgbG90IG9mIHdvcmsuIFlvdSBjYW4g
+ZG8gY29kZSB0cmFjaW5nIGFuZCBjb3ZlcmFnZSBiYXNlZCBkZWJ1ZyB0b29scyBhZ2FpbnN0IHRo
+ZSBhcHBsaWNhdGlvbiB0byBmaW5kIHdoYXQgY29kZSBoYXMgYmVlbiBleGVyY2lzZWQuIEFuZCB0
+aGVuIHlvdSBjYW4gZG8gY29kZSBhbmFseXNpcyB0byBlbnN1cmUgdGhvc2UgY292ZXJlZCBwYXJ0
+cyBnZXQgZXZlcnl0aGluZyB0aGF0IGNvdWxkIHRyaWdnZXIgY2FwYWJpbGl0eSByZXF1ZXN0cy4g
+RXZlbiB0aGVuIHlvdSBuZWVkIHRvIGJlIGNhcmVmdWwgdG8gY2hlY2sgdGhlIGNvZGUgdG8gbWFr
+ZSBzdXJlIGl0cyBub3QgdXNpbmcgdXNlciBkZWZpbmVkIGRhdGEgdG8gc2V0IGNhcHMuIElmIGl0
+IGRvZXMgdGhpcyB5b3UgbmVlZCB0byBhc3N1bWUgdGhlIHVzZXIgY291bGQgcmVxdWVzdC9zZXQg
+YWxsIC4uLgoKPiBEbyB3ZSBoYXZlIGFueSBzdWdnZXN0ZWQgcHJvY2VkdXJlL21ldGhvZCB0byBj
+b25maXJtIHRoZSBjb3ZlcmFnZSBvZiBhcHBsaWNhdGlvbiwgZXNwZWNpYWxseSBmb3IgcmVhbC10
+aW1lIGFwcGxpY2F0aW9uPwo+IApVc2UgdHJhY2luZyBmdHJhY2UsIC4uIG9yIGNvdmVyYWdlIHRv
+b2xzIGxpa2UgZ2NvdgoKPiBRMzogwqBJbiBjYXNlIG9mIGxvbmcgcnVuIHRlc3QgY2FzZXMsIGhv
+dyB0byBlbnN1cmUgYWxsIGFwcGFybW9yIGV2ZW50IGxvZ3MgYXJlIHN0b3JlZCBldmVuIHVwdGlt
+ZSBpcyBtb3JlIHRoYW4gMiBkYXlzPwo+IApVc2UgYXVkaXRkLCB5b3UgY2FuIGNvbnRyb2wgYnVm
+ZmVyIHNpemVzIGFuZCB3aGV0aGVyIG1lc3NhZ2VzIGNhbiBiZSBkcm9wcGVkIG9yIHdoZXRoZXIg
+c3lzdGVtIHNob3VsZCBwYW5pYyBpZiBpdCBjYW4ndCBsb2cgYSBtZXNzYWdlLgoKPiBEbyB3ZSBo
+YXZlIGFueSBjb25maWd1cmF0aW9uIHRvIGtlZXAgYXBwYXJtb3IgbG9ncyBmb3IgbW9yZSB0aGFu
+IDIgZGF5cz8KPiAKCkFwcEFybW9yIGRvZXMgbm90IGRpcmVjdGx5IGNvbnRyb2wgc3RvcmFnZSBs
+b2dzLCBpbnN0ZWFkIGl0IGxldmVyYWdlcyB0aGUgYXVkaXQgc3Vic3lzdGVtIGFuZCB5b3VyIHVz
+ZXJzcGFjZSBhdWRpdGluZyBzb2x1dGlvbiBpcyBpbiBjaGFyZ2Ugb2YgdGhhdC4gU28gaWYgeW91
+IGFyZSB1c2luZyBhdWRpdGQgKG9wdGlvbiB3aXRoIHRoZSBtb3N0IGNvbnRyb2wgb2Yga2VybmVs
+IG1lc3NhZ2VzKSB5b3Ugd291bGQgbG9vayBhdCBpdHMgb3B0aW9ucyBhbmQgY29uZmlndXJlIGl0
+IGhvdyB5b3Ugd2FudC9uZWVkLiBUaGUgb3RoZXIgYXVkaXQgc29sdXRpb25zIHJzeXNsb2cgZXRj
+IHdpbGwgbWVzc2FnZXMgZnJvbSB0aGUga2VybmVsIHJpbmcgYnVmZmVyIGFuZCB5b3UgYWdhaW4g
+Y29udHJvbCBob3cgdGhleSBhcmUgbG9nZ2VkIGluIHRoZSByZXNwZWN0aXZlIGFwcGxpY2F0aW9u
+IGNvbmZpZy4gSSBtZW50aW9uIHRoZSBkaWZmZXJlbmNlIGFzIHB1bGxpbmcgZnJvbSB0aGUgcmlu
+Z2J1ZmZlciBkb2Vzbid0IHByb3ZpZGUgYWxsIHRoZSBzYW1lIGNvbnRyb2xzIHRoYXQgYXVkaXRk
+IGFsbG93cyBmb3IgZnJvbSB0aGUgYXVkaXQgc3Vic3lzdGVtLgoKCi0tIApBcHBBcm1vciBtYWls
+aW5nIGxpc3QKQXBwQXJtb3JAbGlzdHMudWJ1bnR1LmNvbQpNb2RpZnkgc2V0dGluZ3Mgb3IgdW5z
+dWJzY3JpYmUgYXQ6IGh0dHBzOi8vbGlzdHMudWJ1bnR1LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2Fw
+cGFybW9yCg==
