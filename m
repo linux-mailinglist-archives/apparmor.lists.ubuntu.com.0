@@ -2,56 +2,110 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D50B262102
-	for <lists+apparmor@lfdr.de>; Tue,  8 Sep 2020 22:23:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30E6C26219F
+	for <lists+apparmor@lfdr.de>; Tue,  8 Sep 2020 23:00:44 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1kFk8j-0001Tq-PV; Tue, 08 Sep 2020 20:22:53 +0000
-Received: from mail-ej1-f43.google.com ([209.85.218.43])
+	id 1kFkjF-0003WW-4Q; Tue, 08 Sep 2020 21:00:37 +0000
+Received: from youngberry.canonical.com ([91.189.89.112])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <murali.selvaraj2003@gmail.com>) id 1kFk8h-0001Tj-QZ
- for apparmor@lists.ubuntu.com; Tue, 08 Sep 2020 20:22:51 +0000
-Received: by mail-ej1-f43.google.com with SMTP id p9so249397ejf.6
- for <apparmor@lists.ubuntu.com>; Tue, 08 Sep 2020 13:22:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=dTx4UzRlvEyuIlGYlQTYUmdB5fi1eScLBpeMIEuEWfM=;
- b=DvH1+kdvBIkYDpFEnxDertmohphgQWvw/iOjzIhSkeqBHqhqmbeGp7K2QASc3Nt+J9
- LunQR6uXvDyxWq/PQuINRXvfCnm6WEaGxHOxIKvYX8r1ZrWT6GIt4WiwuUKjUivgHSkS
- vTtkNRrJm8fxqgs0w+zgyBbMqKJcqXgksxx6xc5RRoze3qsI8BCnBoPqCzszIzu1w1KA
- kC90LYMgGvxLV9CR9FKWze3IGO6tK/ZpYh3Bfzgd4xdXSka3PwX0NQmaHOLqX+nbEoAj
- c7vujJYukXx0ad/PXQNtRbOdWDNaaBqJNRpABUpuwBM/NZKxMHvqs/bcOWuEFIP/6Biy
- FRww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=dTx4UzRlvEyuIlGYlQTYUmdB5fi1eScLBpeMIEuEWfM=;
- b=szB3FBKtmjWP6BhFdeA+TfimYX9z0pfT25gieZOmp3n7PMYjG0gyrPWrq77FORwcGC
- vxT9WLu7D0wu6cqLV+Ukmwy13fPtmh55Jb/ph+pPXCyyZaH6PNjtS1ZaNVhhqp3dQnfz
- lrnkAWSOaDa8qavBBZNKeiRTHqLisWYDJRj6WNzSn/h8n1GhmQBT1u/IFQFOa5S3afgp
- XNkvcEu+a1+H9Cs1enj6y0XD81w1SOmktMLHq9xYKYU1YaKH2fuPXNCSYXuP7CgrN6c+
- aJej1VwXF4ydEOU8K8PNIHpYB/sHvqalrAvzpvoIpZlDgNx9ESP7SnAZVjGVBDeOODnN
- P5Hw==
-X-Gm-Message-State: AOAM530f9MIK/Bd16NE0OijqHOf3+BHZOuLg4g6AKWOphYY8n8olat+e
- 4mg3nKslPw5+Plk/NRvzz86M8SVisSD6h85tAlQ=
-X-Google-Smtp-Source: ABdhPJxO+Y+YurJtiQEUFLdrgkz88vCWHdwLB2+o1cWchm0WXPjYt2zWiQJlKdfTO5vbeMFbBp7rRoTiAme22HmT5WM=
-X-Received: by 2002:a17:907:213b:: with SMTP id
- qo27mr166368ejb.441.1599596571102; 
- Tue, 08 Sep 2020 13:22:51 -0700 (PDT)
-MIME-Version: 1.0
+ (envelope-from <john.johansen@canonical.com>) id 1kFkjD-0003WQ-3a
+ for apparmor@lists.ubuntu.com; Tue, 08 Sep 2020 21:00:35 +0000
+Received: from static-50-53-58-29.bvtn.or.frontiernet.net ([50.53.58.29]
+ helo=[192.168.192.153]) by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <john.johansen@canonical.com>)
+ id 1kFkjC-0001uM-Ng; Tue, 08 Sep 2020 21:00:34 +0000
+To: Murali Selvaraj <murali.selvaraj2003@gmail.com>
 References: <CAODFaZ7xL+h_QM1k689LMKC4TV=JYMyZScoGPEaiYP9Vax9QeQ@mail.gmail.com>
  <411e496d-f59f-8fbb-7ed7-aa1eefb995b7@canonical.com>
  <CAODFaZ4DubxnxxWR=AMgepm6eiGUjbJFu1rqeCXBOw+yu0GAsw@mail.gmail.com>
-In-Reply-To: <CAODFaZ4DubxnxxWR=AMgepm6eiGUjbJFu1rqeCXBOw+yu0GAsw@mail.gmail.com>
-From: Murali Selvaraj <murali.selvaraj2003@gmail.com>
-Date: Tue, 8 Sep 2020 16:22:40 -0400
-Message-ID: <CAODFaZ65RM=Bx=OK75Hvbn087jS3dYuCk6dc=Lx5wrMA0-S4zg@mail.gmail.com>
-To: John Johansen <john.johansen@canonical.com>
-Received-SPF: pass client-ip=209.85.218.43;
- envelope-from=murali.selvaraj2003@gmail.com; helo=mail-ej1-f43.google.com
+ <CAODFaZ65RM=Bx=OK75Hvbn087jS3dYuCk6dc=Lx5wrMA0-S4zg@mail.gmail.com>
+From: John Johansen <john.johansen@canonical.com>
+Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
+ LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCgptUUlOQkU1bXJQb0JFQURB
+ azE5UHNnVmdCS2tJbW1SMmlzUFE2bzdLSmhUVEtqSmR3VmJrV1NuTm4rbzZVcDVrCm5LUDFm
+ NDlFQlFsY2VXZzF5cC9Od2JSOGFkK2VTRU8vdW1hL0srUHFXdkJwdEtDOVNXRDk3Rkc0dUI0
+ L2Nhb20KTEVVOTdzTFFNdG52R1dkeHJ4VlJHTTRhbnpXWU1neno1VFptSWlWVFo0M091NVZw
+ YVMxVnoxWlN4UDNoL3hLTgpaci9UY1c1V1FhaTh1M1BXVm5ia2poU1pQSHYxQmdoTjY5cXhF
+ UG9tckpCbTFnbXR4M1ppVm1GWGx1d1RtVGdKCk9rcEZvbDduYkowaWxuWUhyQTdTWDNDdFIx
+ dXBlVXBNYS9XSWFuVk85NldkVGpISElhNDNmYmhtUXViZTR0eFMKM0ZjUUxPSlZxUXN4NmxF
+ OUI3cUFwcG05aFExMHFQV3dkZlB5LyswVzZBV3ROdTVBU2lHVkNJbld6bDJIQnFZZAovWmxs
+ OTN6VXErTklvQ244c0RBTTlpSCt3dGFHRGNKeXdJR0luK2VkS050SzcyQU1nQ2hUZy9qMVpv
+ V0g2WmVXClBqdVVmdWJWelp0bzFGTW9HSi9TRjRNbWRRRzFpUU50ZjRzRlpiRWdYdXk5Y0dp
+ MmJvbUYwenZ5QkpTQU5weGwKS05CRFlLek42S3owOUhVQWtqbEZNTmdvbUwvY2pxZ0FCdEF4
+ NTlMK2RWSVpmYUYyODFwSWNVWnp3dmg1K0pvRwplT1c1dUJTTWJFN0wzOG5zem9veWtJSjVY
+ ckFjaGtKeE5mejdrK0ZuUWVLRWtOekVkMkxXYzNRRjRCUVpZUlQ2ClBISGdhM1JneWtXNSsx
+ d1RNcUpJTGRtdGFQYlhyRjNGdm5WMExSUGN2NHhLeDdCM2ZHbTd5Z2Rvb3dBUkFRQUIKdEIx
+ S2IyaHVJRXB2YUdGdWMyVnVJRHhxYjJodVFHcHFiWGd1Ym1WMFBva0NPZ1FUQVFvQUpBSWJB
+ d1VMQ1FnSApBd1VWQ2drSUN3VVdBZ01CQUFJZUFRSVhnQVVDVG8wWVZ3SVpBUUFLQ1JBRkx6
+ WndHTlhEMkx4SkQvOVRKWkNwCndsbmNUZ1llcmFFTWVEZmtXdjhjMUlzTTFqMEFtRTRWdEwr
+ ZkU3ODBaVlA5Z2tqZ2tkWVN4dDdlY0VUUFRLTWEKWlNpc3JsMVJ3cVUwb29nWGRYUVNweHJH
+ SDAxaWN1LzJuMGpjWVNxWUtnZ1B4eTc4QkdzMkxacTRYUGZKVFptSApaR25YR3EvZURyL21T
+ bmowYWF2QkptTVo2amJpUHo2eUh0QllQWjlmZG84YnRjendQNDFZZVdvSXUyNi84SUk2CmYw
+ WG0zVkM1b0FhOHY3UmQrUldaYThUTXdsaHpIRXh4ZWwzanRJN0l6ek9zbm1FOS84RG0wQVJE
+ NWlUTENYd1IKMWN3SS9KOUJGL1MxWHY4UE4xaHVUM0l0Q05kYXRncDh6cW9Ka2dQVmptdnlM
+ NjRRM2ZFa1liZkhPV3NhYmE5LwprQVZ0Qk56OVJURmg3SUhEZkVDVmFUb3VqQmQ3QnRQcXIr
+ cUlqV0ZhZEpEM0k1ZUxDVkp2VnJyb2xyQ0FUbEZ0Ck4zWWtRczZKbjFBaUlWSVUzYkhSOEdq
+ ZXZnejVMbDZTQ0dIZ1Jya3lScG5TWWFVL3VMZ24zN042QVl4aS9RQUwKK2J5M0N5RUZManpX
+ QUV2eVE4YnEzSXVjbjdKRWJoUy9KLy9kVXFMb2VVZjh0c0dpMDB6bXJJVFpZZUZZQVJoUQpN
+ dHNmaXpJclZEdHoxaVBmL1pNcDVnUkJuaXlqcFhuMTMxY20zTTNndjZIclFzQUdubjhBSnJ1
+ OEdEaTVYSllJCmNvLzEreC9xRWlOMm5DbGFBT3BiaHpOMmVVdlBEWTVXMHEzYkEvWnAybWZH
+ NTJ2YlJJK3RRMEJyMUhkL3ZzbnQKVUhPOTAzbU1aZXAyTnpOM0JaNXFFdlB2RzRyVzVacTJE
+ cHliV2JRclNtOW9iaUJLYjJoaGJuTmxiaUE4YW05bwpiaTVxYjJoaGJuTmxia0JqWVc1dmJt
+ bGpZV3d1WTI5dFBva0NOd1FUQVFvQUlRVUNUbzBYV2dJYkF3VUxDUWdICkF3VVZDZ2tJQ3dV
+ V0FnTUJBQUllQVFJWGdBQUtDUkFGTHpad0dOWEQySXRNRC85anliYzg3ZE00dUFIazZ5Tk0K
+ TjBZL0JGbW10VFdWc09CaHFPbm9iNGkzOEJyRE8yQzFoUUNQQ1FlNExMczEvNHB0ZW92UXQ4
+ QjJGeXJQVmp3Zwo3alpUSE5LNzRyNmxDQ1Z4eDN5dTFCN1U5UG80VlRrY3NsVmIxL3FtV3V4
+ OFhXY040eXZrVHFsTCtHeHB5Sm45CjlaWmZmWEpjNk9oNlRtT2ZiS0d2TXV1djVhclNJQTNK
+ SEZMZjlhTHZadEExaXNKVXI3cFM5YXBnOXVUVUdVcDcKd2ZWMFdUNlQzZUczbXRVVTJ1cDVK
+ VjQ4NTBMMDVqSFM2dVdpZS9ZK3lmSk9iaXlyeE4vNlpxVzVHb25oTEJxLwptc3pjVjV2QlQz
+ QkRWZTNSdkY2WGRNOU9oUG4xK1k4MXg1NCt2UTExM044aUx3RjdHR2ExNFp5SVZBTlpEMEkw
+ CkhqUnZhMmsvUnFJUlR6S3l1UEg1cGtsY0tIVlBFRk1tT3pNVCtGT294Tmp2Uys3K3dHMktN
+ RFlFbUhQcjFQSkIKWlNaZUh6SzE5dGZhbFBNcHBGeGkrc3lZTGFnTjBtQjdKSFF3WTdjclV1
+ T0RoeWNxNjBZVnoxdGFFeWd1M1l2MgoyL0kxRUNHSHZLSEc2d2M5MG80M0MvZWxIRUNYbkVo
+ N3RLcGxEY3BJQytPQ21NeEtIaFI0NitYY1p2Z3c0RGdiCjdjYTgzZVFSM0NHODlMdlFwVzJM
+ TEtFRUJEajdoWmhrTGJra1BSWm0zdzhKWTQ0YXc4VnRneFdkblNFTUNMeEwKSU9OaDZ1Wjcv
+ L0RZVnRjSWFNSllrZWJhWnRHZENwMElnVVpiMjQvVmR2WkNZYk82MkhrLzNWbzFuWHdIVUVz
+ Mwo2RC92MWJUMFJaRmk2OUxnc0NjT2N4NGdZTGtDRFFST1pxejZBUkFBb3F3NmtrQmhXeU0x
+ ZnZnYW1BVmplWjZuCktFZm5SV2JrQzk0TDFFc0pMdXAzV2IyWDBBQk5PSFNrYlNENHBBdUMy
+ dEtGL0VHQnQ1Q1A3UWRWS1JHY1F6QWQKNmIyYzFJZHk5Ukx3Nnc0Z2krbm4vZDFQbTFra1lo
+ a1NpNXpXYUlnMG01UlFVaytFbDh6a2Y1dGNFLzFOMFo1TwpLMkpoandGdTViWDBhMGw0Y0ZH
+ V1ZRRWNpVk1ES1J0eE1qRXRrM1N4RmFsbTZaZFEycHAyODIyY2xucTR6WjltCld1MWQyd2F4
+ aXorYjVJYTR3ZURZYTduNDFVUmNCRVViSkFnbmljSmtKdENUd3lJeElXMktuVnlPcmp2a1F6
+ SUIKdmFQMEZkUDJ2dlpvUE1kbENJek9sSWtQTGd4RTBJV3VlVFhlQkpoTnMwMXBiOGJMcW1U
+ SU1sdTRMdkJFTEEvdgplaWFqajVzOHk1NDJIL2FIc2ZCZjRNUVVoSHhPL0JaVjdoMDZLU1Vm
+ SWFZN09nQWdLdUdOQjNVaWFJVVM1K2E5CmduRU9RTER4S1J5L2E3UTF2OVMrTnZ4KzdqOGlI
+ M2prUUpoeFQ2WkJoWkdSeDBna0gzVCtGMG5ORG01TmFKVXMKYXN3Z0pycUZaa1VHZDJNcm0x
+ cW5Ld1hpQXQ4U0ljRU5kcTMzUjBLS0tSQzgwWGd3ajhKbjMwdlhMU0crTk8xRwpIMFVNY0F4
+ TXd5L3B2azZMVTVKR2paUjczSjVVTFZoSDRNTGJEZ2dEM21QYWlHOCtmb3RUckpVUHFxaGc5
+ aHlVCkVQcFlHN3NxdDc0WG43OStDRVpjakxIenlsNnZBRkUyVzBreGxMdFF0VVpVSE8zNmFm
+ RnY4cUdwTzNacVB2akIKVXVhdFhGNnR2VVFDd2YzSDZYTUFFUUVBQVlrQ0h3UVlBUW9BQ1FV
+ Q1RtYXMrZ0liREFBS0NSQUZMelp3R05YRAoyRC9YRC8wZGRNLzRhaTFiK1RsMWp6bkthalgz
+ a0crTWVFWWVJNGY0MHZjbzNyT0xyblJHRk9jYnl5ZlZGNjlNCktlcGllNE93b0kxamNUVTBB
+ RGVjbmJXbkROSHByMFNjenhCTXJvM2Juckxoc212anVuVFlJdnNzQlp0QjRhVkoKanVMSUxQ
+ VWxuaEZxYTdmYlZxMFpRamJpVi9ydDJqQkVOZG05cGJKWjZHam5wWUljQWJQQ0NhL2ZmTDQv
+ U1FSUwpZSFhvaEdpaVM0eTVqQlRtSzVsdGZld0xPdzAyZmtleEgrSUpGcnJHQlhEU2c2bjJT
+ Z3hubisrTkYzNGZYY205CnBpYXczbUtzSUNtKzBoZE5oNGFmR1o2SVdWOFBHMnRlb29WRHA0
+ ZFlpaCsreFgvWFM4ekJDYzFPOXc0bnpsUDIKZ0t6bHFTV2JoaVdwaWZSSkJGYTRXdEFlSlRk
+ WFlkMzdqL0JJNFJXV2hueXc3YUFQTkdqMzN5dEdITlVmNlJvMgovanRqNHRGMXkvUUZYcWpK
+ Ry93R2pwZHRSZmJ0VWpxTEhJc3ZmUE5OSnEvOTU4cDc0bmRBQ2lkbFdTSHpqK09wCjI2S3Bi
+ Rm5td05PMHBzaVVzbmh2SEZ3UE8vdkFibDNSc1I1KzBSbytodnMyY0VtUXV2OXIvYkRsQ2Zw
+ enAydDMKY0srcmh4VXFpc094OERaZnoxQm5rYW9DUkZidnZ2ays3TC9mb21QbnRHUGtxSmNp
+ WUU4VEdIa1p3MWhPa3UrNApPb00yR0I1bkVEbGorMlRGL2pMUStFaXBYOVBrUEpZdnhmUmxD
+ NmRLOFBLS2ZYOUtkZm1BSWNnSGZuVjFqU24rCjh5SDJkakJQdEtpcVcwSjY5YUlzeXg3aVYv
+ MDNwYVBDakpoN1hxOXZBenlkTjVVL1VBPT0KPTZQL2IKLS0tLS1FTkQgUEdQIFBVQkxJQyBL
+ RVkgQkxPQ0stLS0tLQo=
+Organization: Canonical
+Message-ID: <08b7d42f-43a2-2134-6bf2-b654b798009d@canonical.com>
+Date: Tue, 8 Sep 2020 14:00:32 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <CAODFaZ65RM=Bx=OK75Hvbn087jS3dYuCk6dc=Lx5wrMA0-S4zg@mail.gmail.com>
+Content-Language: en-US
 Subject: Re: [apparmor] Apparmor - Basic queries
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -65,285 +119,141 @@ List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
 Cc: apparmor@lists.ubuntu.com
-Content-Type: multipart/mixed; boundary="===============0044701830584356024=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
---===============0044701830584356024==
-Content-Type: multipart/alternative; boundary="00000000000067922e05aed319e1"
-
---00000000000067922e05aed319e1
-Content-Type: text/plain; charset="UTF-8"
-
->
->
-> Thanks for the explanation.
->
-> Can you please clarify the below queries.
->
-> 1) After setting the process in compliant mode for the process, able to
-> see below logs.
->
-> 2020 Sep 04 19:14:07 user kernel: audit: type=1400
-> audit(1599246847.756:1360): apparmor="ALLOWED" operation="capable"
->  profile="Testing" pid=15084 comm="sh" capability=1  capname="dac_override"
->
-> comm shows "sh", it would be a shell script. I would like to find which
-> part of the code in the process needs dac_override capability.
-> I have cross checked the code, found a few instances but not able to
-> conclude which code really needs dac_override.
-> Do we have any method to find the corresponding code?
->
-> Does system() also could be pointed to comm="sh"?
->
->
-> 2) Assume, my non-root process needs DAC_OVERRIDE to write a file which
-> has root permission.
->   But this is only one instance in the code.
->
->   In that case, if we enable DAC_OVERRIDE for this non-root process does
-> it show any security leak or just change the file permission as below
->   chmod 777 <file>. Which option would be the best method for security?
->
-> 3) To monitor the process behaviour using Apparmor, we need to restart the
-> process while monitoring the process for apparmor complain mode.
->    In embedded products, some of the process will restart the system in
-> case of kill/restart the particular process.
->    How can it be achievable for such a process using apparmor? or we could
-> not monitor those processes ?
->
->
-> Thanks
-> Murali.S
->
-> On Tue, Aug 25, 2020 at 2:18 AM John Johansen <john.johansen@canonical.com>
-> wrote:
->
->> On 8/24/20 11:51 AM, Murali Selvaraj wrote:
->> > Hi All,
->> >
->> > Please go through the below details and clarify with examples.
->> >
->> > Q1:How do we identify required capabilities from apparmor logs.
->> >
->> look for denials with the capname= field.
->>
->>
->> > I am looking to find out the list of capabilities are used for the
->> application/process using apparmor.
->> > I have set up the apparmor and am able to see few capabilities NOT all
->> CAPs in apparmor logs.
->>
->> AppArmor will only report on CAPs that make it to its module code. The
->> kernel applies DAC and uid checks FIRST.
->>
->> eg. For capability DAC_OVERRIDE
->>
->>   the first check is if the task's uid == the object's (file's) uid if
->> yes capability DAC override is not checked. If it they are different then
->> the kernel will check the task's capability set, and if DAC_OVERRIDE is not
->> in the set the operation will be denied and apparmor will never be
->> consulted. Only if the operation requires DAC_OVERRIDE and the task's
->> capability set has DAC_OVERRIDE will apparmor be checked.
->>
->> So the AppArmor profile's capability set is separate from the system set
->> and Both have to allow the capability for it to be allowed.
->>
->> Also apparmor has a small 1 entry per cpu dedup cache so, that multipe
->> requests to the same profile and capability will not be logged, if they are
->> happening back to back (you just get one). Depending on your kernel there
->> have been bugs in this caching so not all messages have always been
->> correctly logged.
->>
->>
->> > Do we have any simple exercise/method to find the required capabilities
->> for the process specific from apparmor logs.
->>
->> No. We can come close by confining the application in a safe environment
->> and exercising the application in complain mode. Or if you must deploy in a
->> hostile environment in enforce mode, but you may have to restart the
->> application due to denials changing code paths.
->>
->> > It will help us to set the required capabilities for the security
->> reason.
->> >
->>
->> AppArmor does not set capabilities but it can help you discover them
->>
->> > Q2:How do we know the process/application enough to cover  full code
->> coverage for its required capabilities?
->> >
->> in short you don't, at least not without a lot of work. You can do code
->> tracing and coverage based debug tools against the application to find what
->> code has been exercised. And then you can do code analysis to ensure those
->> covered parts get everything that could trigger capability requests. Even
->> then you need to be careful to check the code to make sure its not using
->> user defined data to set caps. If it does this you need to assume the user
->> could request/set all ...
->>
->> > Do we have any suggested procedure/method to confirm the coverage of
->> application, especially for real-time application?
->> >
->> Use tracing ftrace, .. or coverage tools like gcov
->>
->> > Q3:  In case of long run test cases, how to ensure all apparmor event
->> logs are stored even uptime is more than 2 days?
->> >
->> Use auditd, you can control buffer sizes and whether messages can be
->> dropped or whether system should panic if it can't log a message.
->>
->> > Do we have any configuration to keep apparmor logs for more than 2 days?
->> >
->>
->> AppArmor does not directly control storage logs, instead it leverages the
->> audit subsystem and your userspace auditing solution is in charge of that.
->> So if you are using auditd (option with the most control of kernel
->> messages) you would look at its options and configure it how you want/need.
->> The other audit solutions rsyslog etc will messages from the kernel ring
->> buffer and you again control how they are logged in the respective
->> application config. I mention the difference as pulling from the ringbuffer
->> doesn't provide all the same controls that auditd allows for from the audit
->> subsystem.
->>
->>
-
---00000000000067922e05aed319e1
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_quote"><blockquote class=3D"gmail_quot=
-e" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204)=
-;padding-left:1ex"><div dir=3D"ltr"><br>Thanks for the explanation.<br><br>=
-Can you please clarify the below queries.<br><br>1) After setting the proce=
-ss in compliant mode for the process, able to see below logs.<br><br>2020 S=
-ep 04 19:14:07 user kernel: audit: type=3D1400 audit(1599246847.756:1360): =
-apparmor=3D&quot;ALLOWED&quot; operation=3D&quot;capable&quot;<br>=C2=A0pro=
-file=3D&quot;Testing&quot; pid=3D15084 comm=3D&quot;sh&quot; capability=3D1=
- =C2=A0capname=3D&quot;dac_override&quot;<br><br>comm shows &quot;sh&quot;,=
- it would be a shell script. I would like to find which part of the code in=
- the process needs dac_override capability.<br>I have cross checked the cod=
-e, found a few instances but not able to conclude which code really needs d=
-ac_override.<br>Do we have any method to find the corresponding code?<br><b=
-r>Does system() also could be pointed to comm=3D&quot;sh&quot;?<br><br><br>=
-2) Assume, my non-root process needs DAC_OVERRIDE to write a file which has=
- root permission.<br>=C2=A0 But this is only one instance in the code. <br>=
-<br>=C2=A0 In that case, if we enable DAC_OVERRIDE for this non-root proces=
-s does it show any security leak or just change the file permission as belo=
-w<br>=C2=A0 chmod 777 &lt;file&gt;. Which option would be the best method f=
-or security?<br><br>3) To monitor the process behaviour using Apparmor, we =
-need to restart the process while monitoring the process for apparmor compl=
-ain mode.<br>=C2=A0 =C2=A0In embedded products, some of the process will re=
-start the system in case of kill/restart the particular process.<br>=C2=A0 =
-=C2=A0How can it be achievable for such a process using apparmor? or we cou=
-ld not monitor those processes ?<br><br><br>Thanks<br>Murali.S<br></div><br=
-><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, A=
-ug 25, 2020 at 2:18 AM John Johansen &lt;<a href=3D"mailto:john.johansen@ca=
-nonical.com" target=3D"_blank">john.johansen@canonical.com</a>&gt; wrote:<b=
-r></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex=
-;border-left:1px solid rgb(204,204,204);padding-left:1ex">On 8/24/20 11:51 =
-AM, Murali Selvaraj wrote:<br>
-&gt; Hi All,<br>
-&gt; <br>
-&gt; Please go through the below details and clarify with examples.=C2=A0=
-=C2=A0<br>
-&gt; <br>
-&gt; Q1:How do we identify required capabilities from apparmor logs.<br>
-&gt; <br>
-look for denials with the capname=3D field.<br>
-<br>
-<br>
-&gt; I am looking to find out the list of capabilities are used for the app=
-lication/process using apparmor.<br>
-&gt; I have set up the apparmor and am able to see few capabilities NOT all=
- CAPs in apparmor logs.<br>
-<br>
-AppArmor will only report on CAPs that make it to its module code. The kern=
-el applies DAC and uid checks FIRST.<br>
-<br>
-eg. For capability DAC_OVERRIDE<br>
-<br>
-=C2=A0 the first check is if the task&#39;s uid =3D=3D the object&#39;s (fi=
-le&#39;s) uid if yes capability DAC override is not checked. If it they are=
- different then the kernel will check the task&#39;s capability set, and if=
- DAC_OVERRIDE is not in the set the operation will be denied and apparmor w=
-ill never be consulted. Only if the operation requires DAC_OVERRIDE and the=
- task&#39;s capability set has DAC_OVERRIDE will apparmor be checked.<br>
-<br>
-So the AppArmor profile&#39;s capability set is separate from the system se=
-t and Both have to allow the capability for it to be allowed.<br>
-<br>
-Also apparmor has a small 1 entry per cpu dedup cache so, that multipe requ=
-ests to the same profile and capability will not be logged, if they are hap=
-pening back to back (you just get one). Depending on your kernel there have=
- been bugs in this caching so not all messages have always been correctly l=
-ogged.<br>
-<br>
-<br>
-&gt; Do we have any simple exercise/method to find the required capabilitie=
-s for the process specific from apparmor logs.<br>
-<br>
-No. We can come close by confining the application in a safe environment an=
-d exercising the application in complain mode. Or if you must deploy in a h=
-ostile environment in enforce mode, but you may have to restart the applica=
-tion due to denials changing code paths.<br>
-<br>
-&gt; It will help us to set the required capabilities for the security reas=
-on.<br>
-&gt; <br>
-<br>
-AppArmor does not set capabilities but it can help you discover them<br>
-<br>
-&gt; Q2:How do we know the process/application enough to cover =C2=A0full c=
-ode coverage for its required capabilities?<br>
-&gt; <br>
-in short you don&#39;t, at least not without a lot of work. You can do code=
- tracing and coverage based debug tools against the application to find wha=
-t code has been exercised. And then you can do code analysis to ensure thos=
-e covered parts get everything that could trigger capability requests. Even=
- then you need to be careful to check the code to make sure its not using u=
-ser defined data to set caps. If it does this you need to assume the user c=
-ould request/set all ...<br>
-<br>
-&gt; Do we have any suggested procedure/method to confirm the coverage of a=
-pplication, especially for real-time application?<br>
-&gt; <br>
-Use tracing ftrace, .. or coverage tools like gcov<br>
-<br>
-&gt; Q3: =C2=A0In case of long run test cases, how to ensure all apparmor e=
-vent logs are stored even uptime is more than 2 days?<br>
-&gt; <br>
-Use auditd, you can control buffer sizes and whether messages can be droppe=
-d or whether system should panic if it can&#39;t log a message.<br>
-<br>
-&gt; Do we have any configuration to keep apparmor logs for more than 2 day=
-s?<br>
-&gt; <br>
-<br>
-AppArmor does not directly control storage logs, instead it leverages the a=
-udit subsystem and your userspace auditing solution is in charge of that. S=
-o if you are using auditd (option with the most control of kernel messages)=
- you would look at its options and configure it how you want/need. The othe=
-r audit solutions rsyslog etc will messages from the kernel ring buffer and=
- you again control how they are logged in the respective application config=
-. I mention the difference as pulling from the ringbuffer doesn&#39;t provi=
-de all the same controls that auditd allows for from the audit subsystem.<b=
-r>
-<br>
-</blockquote></div>
-</blockquote></div></div>
-
---00000000000067922e05aed319e1--
-
-
---===============0044701830584356024==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
-eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
-aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
-
---===============0044701830584356024==--
-
+T24gOS84LzIwIDE6MjIgUE0sIE11cmFsaSBTZWx2YXJhaiB3cm90ZToKPiAKPiAgICAgVGhhbmtz
+IGZvciB0aGUgZXhwbGFuYXRpb24uCj4gCj4gICAgIENhbiB5b3UgcGxlYXNlIGNsYXJpZnkgdGhl
+IGJlbG93IHF1ZXJpZXMuCj4gCj4gICAgIDEpIEFmdGVyIHNldHRpbmcgdGhlIHByb2Nlc3MgaW4g
+Y29tcGxpYW50IG1vZGUgZm9yIHRoZSBwcm9jZXNzLCBhYmxlIHRvIHNlZSBiZWxvdyBsb2dzLgo+
+IAo+ICAgICAyMDIwIFNlcCAwNCAxOToxNDowNyB1c2VyIGtlcm5lbDogYXVkaXQ6IHR5cGU9MTQw
+MCBhdWRpdCgxNTk5MjQ2ODQ3Ljc1NjoxMzYwKTogYXBwYXJtb3I9IkFMTE9XRUQiIG9wZXJhdGlv
+bj0iY2FwYWJsZSIKPiAgICAgwqBwcm9maWxlPSJUZXN0aW5nIiBwaWQ9MTUwODQgY29tbT0ic2gi
+IGNhcGFiaWxpdHk9MSDCoGNhcG5hbWU9ImRhY19vdmVycmlkZSIKPiAKPiAgICAgY29tbSBzaG93
+cyAic2giLCBpdCB3b3VsZCBiZSBhIHNoZWxsIHNjcmlwdC4gSSB3b3VsZCBsaWtlIHRvIGZpbmQg
+d2hpY2ggcGFydCBvZiB0aGUgY29kZSBpbiB0aGUgcHJvY2VzcyBuZWVkcyBkYWNfb3ZlcnJpZGUg
+Y2FwYWJpbGl0eS4KPiAgICAgSSBoYXZlIGNyb3NzIGNoZWNrZWQgdGhlIGNvZGUsIGZvdW5kIGEg
+ZmV3IGluc3RhbmNlcyBidXQgbm90IGFibGUgdG8gY29uY2x1ZGUgd2hpY2ggY29kZSByZWFsbHkg
+bmVlZHMgZGFjX292ZXJyaWRlLgo+ICAgICBEbyB3ZSBoYXZlIGFueSBtZXRob2QgdG8gZmluZCB0
+aGUgY29ycmVzcG9uZGluZyBjb2RlPwo+IApzdHJhY2UsIGdkYgoKQXBwQXJtb3IgY3VycmVudGx5
+IGRvZXNuJ3QsIGVzcGVjaWFsbHkgd2l0aCB1c2Vyc3BhY2UgY29kZSwgYnV0IGlmIHlvdSBhcmUg
+d2lsbGluZyB0byBwYXRjaCBhIGtlcm5lbCBhbmQgdXNlIGFwcGFybW9yIDMgeW91IG1ha2UgdGhl
+IGdkYiBleHBlcmllbmNlIG5vdCB0b28gYmFkLiBCeSBjYXVzaW5nIHRoZSB0YXNrIHRvIHN0b3Ag
+d2hlbiBhbiBhdWRpdCBtZXNzYWdlIGlzIGdlbmVyYXRlZCwgeW91IGNhbiB0aGVuIGVhc2lseSB1
+c2UgZ2RiIHRvIGJhY2t0cmFjZSB0aGUgc3RvcHBlZCB0YXNrLgoKCj4gICAgIERvZXMgc3lzdGVt
+KCkgYWxzbyBjb3VsZCBiZSBwb2ludGVkIHRvIGNvbW09InNoIj8KPiAKeWVzLCBodHRwczovL2xp
+bnV4LmRpZS5uZXQvbWFuLzMvc3lzdGVtCgpiYXNpY2FsbHkgY29tbSBpcyBzZXQgb24gZXhlYyBh
+bmQgc3lzdGVtKCkgZXhlY3MgYSBzaGVsbC4gIEhvd2V2ZXIgSSB3aWxsIG5vdGUgdGFza3MgYXJl
+IGZyZWUgdG8gY2hhbmdlIHRoZSB2YWx1ZSBvZiB0aGVpciBjb21tIGZpZWxkLCBzbyB5b3UgY2Fu
+IG5vdCByZWx5IG9uIHRoZSB2YWx1ZSBpbiB0aGF0IGZpZWxkCgo+IAo+ICAgICAyKSBBc3N1bWUs
+IG15IG5vbi1yb290IHByb2Nlc3MgbmVlZHMgREFDX09WRVJSSURFIHRvIHdyaXRlIGEgZmlsZSB3
+aGljaCBoYXMgcm9vdCBwZXJtaXNzaW9uLgo+ICAgICDCoCBCdXQgdGhpcyBpcyBvbmx5IG9uZSBp
+bnN0YW5jZSBpbiB0aGUgY29kZS4KPiAKPiAgICAgwqAgSW4gdGhhdCBjYXNlLCBpZiB3ZSBlbmFi
+bGUgREFDX09WRVJSSURFIGZvciB0aGlzIG5vbi1yb290IHByb2Nlc3MgZG9lcyBpdCBzaG93IGFu
+eSBzZWN1cml0eSBsZWFrIG9yIGp1c3QgY2hhbmdlIHRoZSBmaWxlIHBlcm1pc3Npb24gYXMgYmVs
+b3cKPiAgICAgwqAgY2htb2QgNzc3IDxmaWxlPi4gV2hpY2ggb3B0aW9uIHdvdWxkIGJlIHRoZSBi
+ZXN0IG1ldGhvZCBmb3Igc2VjdXJpdHk/Cj4gCmN1cnJlbnRseSBEQUNfT1ZFUlJJREUgd2lsbCBi
+ZSBhdmFpbGFibGUgZm9yIGV2ZXJ5IGZpbGUgdGhlIHRhc2sgdHJpZXMgdG8gYWNjZXNzLiBCdXQg
+aWYgdGhhdCB0YXNrIGlzIGFsc28gY29uZmluZWQgYnkgYXBwYXJtb3IgdGhlIHNldCBvZiBmaWxl
+cyBpdCBjYW4gYWNjZXNzIGNhbiBzdGlsbCBiZSBsaW1pdGVkLiBDYXBhYmlsaXR5IERBQ19PVkVS
+UklERSB3aWxsIG5vdCBvdmVycmlkZSBhbiBhcHBhcm1vciBmaWxlIHJ1bGUsIG5vdCBldmVuIHRo
+ZSBvd25lciBtb2RpZmllci4KCmNoYW5naW5nIGEgZmlsZSB0byA3Nzcgd2lsbCBtYWtlIGl0IGF2
+YWlsYWJsZSB0byBhIHByb2Nlc3NlcyBub3QganVzdCB0aGUgdGFzayB0aGF0IGhhcyBEQUNfT1ZF
+UlJJREUKCm5laXRoZXIgc2l0dWF0aW9uIGlzIGdyZWF0LCB0aGUgcXVlc3Rpb24gYmVjb21lcyB3
+aGljaCBpcyB3b3JzZSBpbiB5b3VyIHNjZW5hcmlvL2RlcGxveW1lbnQuIElmIHlvdSBhcmUgZ2l2
+aW5nIENBUF9PVkVSUklERSB0byBhIG5ldHdvcmsgZmFjaW5nIGRhZW1vbiBhbmQgbm90IHVzaW5n
+IGFueSBhZGRpdGlvbmFsIGNvbmZpbmVtZW50LCBhbmQgdGhhdCBpcyB0aGUgYXR0YWNrIHN1cmZh
+Y2UgeW91IGFyZSB3b3JyaWVkIGFib3V0IHRoZW4gY2hhbmdpbmcgYSBzaW5nbGUgZmlsZSB0byA3
+NzcgbWlnaHQgYmUgdGhlIHNhZmVyIG9wdGlvbi4KCmlmIHlvdSBhcmUgcnVubmluZyBhIHVuaXZl
+cnNpdHkgc3lzdGVtIHdpdGggc2hhcmVkIHVzZXJzIHdobyB3aWxsIHB1c2ggdGhlIGJvdW5kYXJp
+ZXMgYW5kIHRoZSBmaWxlIGlzIC9ldGMvcGFzc3dkIG9yIC9ldGMvc2hhZG93IHRoZSA3NzcgaXMg
+YWJvdXQgdGhlIHdvcnN0IHRoaW5nIHlvdSBjYW4gZG8uCgpUTERSOiBpdCByZWFsbHkgZGVwZW5k
+cwoKCj4gICAgIDMpIFRvIG1vbml0b3IgdGhlIHByb2Nlc3MgYmVoYXZpb3VyIHVzaW5nIEFwcGFy
+bW9yLCB3ZSBuZWVkIHRvIHJlc3RhcnQgdGhlIHByb2Nlc3Mgd2hpbGUgbW9uaXRvcmluZyB0aGUg
+cHJvY2VzcyBmb3IgYXBwYXJtb3IgY29tcGxhaW4gbW9kZS4KPiAgICAgwqAgwqBJbiBlbWJlZGRl
+ZCBwcm9kdWN0cywgc29tZSBvZiB0aGUgcHJvY2VzcyB3aWxsIHJlc3RhcnQgdGhlIHN5c3RlbSBp
+biBjYXNlIG9mIGtpbGwvcmVzdGFydCB0aGUgcGFydGljdWxhciBwcm9jZXNzLgo+ICAgICDCoCDC
+oEhvdyBjYW4gaXQgYmUgYWNoaWV2YWJsZSBmb3Igc3VjaCBhIHByb2Nlc3MgdXNpbmcgYXBwYXJt
+b3I/IG9yIHdlIGNvdWxkIG5vdCBtb25pdG9yIHRob3NlIHByb2Nlc3NlcyA/Cgp5b3UgbmVlZCB0
+byBoYXZlIGFwcGFybW9yIHByb2ZpbGUgYXR0YWNoZWQgdG8gdGhlIHByb2Nlc3MgZnJvbSBpdHMg
+c3RhcnQuIFlvdSBjYW4gcmVsb2FkIGFuZCBjaGFuZ2UgdGhlIG1vbml0b3JpbmcgcnVsZXMgYWZ0
+ZXIgdGhlIGZhY3QgYnV0IGN1cnJlbnRseSB0aGVyZSBpcyBub3Qgd2F5IHRvIGNoYW5nZSB0aGUg
+cHJvY2Vzc2VzIGNvbmZpbmVtZW50IGFmdGVyIHRoZSBmYWN0LgoKPiAKPiAKPiAgICAgVGhhbmtz
+Cj4gICAgIE11cmFsaS5TCj4gCj4gICAgIE9uIFR1ZSwgQXVnIDI1LCAyMDIwIGF0IDI6MTggQU0g
+Sm9obiBKb2hhbnNlbiA8am9obi5qb2hhbnNlbkBjYW5vbmljYWwuY29tIDxtYWlsdG86am9obi5q
+b2hhbnNlbkBjYW5vbmljYWwuY29tPj4gd3JvdGU6Cj4gCj4gICAgICAgICBPbiA4LzI0LzIwIDEx
+OjUxIEFNLCBNdXJhbGkgU2VsdmFyYWogd3JvdGU6Cj4gICAgICAgICA+IEhpIEFsbCwKPiAgICAg
+ICAgID4KPiAgICAgICAgID4gUGxlYXNlIGdvIHRocm91Z2ggdGhlIGJlbG93IGRldGFpbHMgYW5k
+IGNsYXJpZnkgd2l0aCBleGFtcGxlcy7CoMKgCj4gICAgICAgICA+Cj4gICAgICAgICA+IFExOkhv
+dyBkbyB3ZSBpZGVudGlmeSByZXF1aXJlZCBjYXBhYmlsaXRpZXMgZnJvbSBhcHBhcm1vciBsb2dz
+Lgo+ICAgICAgICAgPgo+ICAgICAgICAgbG9vayBmb3IgZGVuaWFscyB3aXRoIHRoZSBjYXBuYW1l
+PSBmaWVsZC4KPiAKPiAKPiAgICAgICAgID4gSSBhbSBsb29raW5nIHRvIGZpbmQgb3V0IHRoZSBs
+aXN0IG9mIGNhcGFiaWxpdGllcyBhcmUgdXNlZCBmb3IgdGhlIGFwcGxpY2F0aW9uL3Byb2Nlc3Mg
+dXNpbmcgYXBwYXJtb3IuCj4gICAgICAgICA+IEkgaGF2ZSBzZXQgdXAgdGhlIGFwcGFybW9yIGFu
+ZCBhbSBhYmxlIHRvIHNlZSBmZXcgY2FwYWJpbGl0aWVzIE5PVCBhbGwgQ0FQcyBpbiBhcHBhcm1v
+ciBsb2dzLgo+IAo+ICAgICAgICAgQXBwQXJtb3Igd2lsbCBvbmx5IHJlcG9ydCBvbiBDQVBzIHRo
+YXQgbWFrZSBpdCB0byBpdHMgbW9kdWxlIGNvZGUuIFRoZSBrZXJuZWwgYXBwbGllcyBEQUMgYW5k
+IHVpZCBjaGVja3MgRklSU1QuCj4gCj4gICAgICAgICBlZy4gRm9yIGNhcGFiaWxpdHkgREFDX09W
+RVJSSURFCj4gCj4gICAgICAgICDCoCB0aGUgZmlyc3QgY2hlY2sgaXMgaWYgdGhlIHRhc2sncyB1
+aWQgPT0gdGhlIG9iamVjdCdzIChmaWxlJ3MpIHVpZCBpZiB5ZXMgY2FwYWJpbGl0eSBEQUMgb3Zl
+cnJpZGUgaXMgbm90IGNoZWNrZWQuIElmIGl0IHRoZXkgYXJlIGRpZmZlcmVudCB0aGVuIHRoZSBr
+ZXJuZWwgd2lsbCBjaGVjayB0aGUgdGFzaydzIGNhcGFiaWxpdHkgc2V0LCBhbmQgaWYgREFDX09W
+RVJSSURFIGlzIG5vdCBpbiB0aGUgc2V0IHRoZSBvcGVyYXRpb24gd2lsbCBiZSBkZW5pZWQgYW5k
+IGFwcGFybW9yIHdpbGwgbmV2ZXIgYmUgY29uc3VsdGVkLiBPbmx5IGlmIHRoZSBvcGVyYXRpb24g
+cmVxdWlyZXMgREFDX09WRVJSSURFIGFuZCB0aGUgdGFzaydzIGNhcGFiaWxpdHkgc2V0IGhhcyBE
+QUNfT1ZFUlJJREUgd2lsbCBhcHBhcm1vciBiZSBjaGVja2VkLgo+IAo+ICAgICAgICAgU28gdGhl
+IEFwcEFybW9yIHByb2ZpbGUncyBjYXBhYmlsaXR5IHNldCBpcyBzZXBhcmF0ZSBmcm9tIHRoZSBz
+eXN0ZW0gc2V0IGFuZCBCb3RoIGhhdmUgdG8gYWxsb3cgdGhlIGNhcGFiaWxpdHkgZm9yIGl0IHRv
+IGJlIGFsbG93ZWQuCj4gCj4gICAgICAgICBBbHNvIGFwcGFybW9yIGhhcyBhIHNtYWxsIDEgZW50
+cnkgcGVyIGNwdSBkZWR1cCBjYWNoZSBzbywgdGhhdCBtdWx0aXBlIHJlcXVlc3RzIHRvIHRoZSBz
+YW1lIHByb2ZpbGUgYW5kIGNhcGFiaWxpdHkgd2lsbCBub3QgYmUgbG9nZ2VkLCBpZiB0aGV5IGFy
+ZSBoYXBwZW5pbmcgYmFjayB0byBiYWNrICh5b3UganVzdCBnZXQgb25lKS4gRGVwZW5kaW5nIG9u
+IHlvdXIga2VybmVsIHRoZXJlIGhhdmUgYmVlbiBidWdzIGluIHRoaXMgY2FjaGluZyBzbyBub3Qg
+YWxsIG1lc3NhZ2VzIGhhdmUgYWx3YXlzIGJlZW4gY29ycmVjdGx5IGxvZ2dlZC4KPiAKPiAKPiAg
+ICAgICAgID4gRG8gd2UgaGF2ZSBhbnkgc2ltcGxlIGV4ZXJjaXNlL21ldGhvZCB0byBmaW5kIHRo
+ZSByZXF1aXJlZCBjYXBhYmlsaXRpZXMgZm9yIHRoZSBwcm9jZXNzIHNwZWNpZmljIGZyb20gYXBw
+YXJtb3IgbG9ncy4KPiAKPiAgICAgICAgIE5vLiBXZSBjYW4gY29tZSBjbG9zZSBieSBjb25maW5p
+bmcgdGhlIGFwcGxpY2F0aW9uIGluIGEgc2FmZSBlbnZpcm9ubWVudCBhbmQgZXhlcmNpc2luZyB0
+aGUgYXBwbGljYXRpb24gaW4gY29tcGxhaW4gbW9kZS4gT3IgaWYgeW91IG11c3QgZGVwbG95IGlu
+IGEgaG9zdGlsZSBlbnZpcm9ubWVudCBpbiBlbmZvcmNlIG1vZGUsIGJ1dCB5b3UgbWF5IGhhdmUg
+dG8gcmVzdGFydCB0aGUgYXBwbGljYXRpb24gZHVlIHRvIGRlbmlhbHMgY2hhbmdpbmcgY29kZSBw
+YXRocy4KPiAKPiAgICAgICAgID4gSXQgd2lsbCBoZWxwIHVzIHRvIHNldCB0aGUgcmVxdWlyZWQg
+Y2FwYWJpbGl0aWVzIGZvciB0aGUgc2VjdXJpdHkgcmVhc29uLgo+ICAgICAgICAgPgo+IAo+ICAg
+ICAgICAgQXBwQXJtb3IgZG9lcyBub3Qgc2V0IGNhcGFiaWxpdGllcyBidXQgaXQgY2FuIGhlbHAg
+eW91IGRpc2NvdmVyIHRoZW0KPiAKPiAgICAgICAgID4gUTI6SG93IGRvIHdlIGtub3cgdGhlIHBy
+b2Nlc3MvYXBwbGljYXRpb24gZW5vdWdoIHRvIGNvdmVyIMKgZnVsbCBjb2RlIGNvdmVyYWdlIGZv
+ciBpdHMgcmVxdWlyZWQgY2FwYWJpbGl0aWVzPwo+ICAgICAgICAgPgo+ICAgICAgICAgaW4gc2hv
+cnQgeW91IGRvbid0LCBhdCBsZWFzdCBub3Qgd2l0aG91dCBhIGxvdCBvZiB3b3JrLiBZb3UgY2Fu
+IGRvIGNvZGUgdHJhY2luZyBhbmQgY292ZXJhZ2UgYmFzZWQgZGVidWcgdG9vbHMgYWdhaW5zdCB0
+aGUgYXBwbGljYXRpb24gdG8gZmluZCB3aGF0IGNvZGUgaGFzIGJlZW4gZXhlcmNpc2VkLiBBbmQg
+dGhlbiB5b3UgY2FuIGRvIGNvZGUgYW5hbHlzaXMgdG8gZW5zdXJlIHRob3NlIGNvdmVyZWQgcGFy
+dHMgZ2V0IGV2ZXJ5dGhpbmcgdGhhdCBjb3VsZCB0cmlnZ2VyIGNhcGFiaWxpdHkgcmVxdWVzdHMu
+IEV2ZW4gdGhlbiB5b3UgbmVlZCB0byBiZSBjYXJlZnVsIHRvIGNoZWNrIHRoZSBjb2RlIHRvIG1h
+a2Ugc3VyZSBpdHMgbm90IHVzaW5nIHVzZXIgZGVmaW5lZCBkYXRhIHRvIHNldCBjYXBzLiBJZiBp
+dCBkb2VzIHRoaXMgeW91IG5lZWQgdG8gYXNzdW1lIHRoZSB1c2VyIGNvdWxkIHJlcXVlc3Qvc2V0
+IGFsbCAuLi4KPiAKPiAgICAgICAgID4gRG8gd2UgaGF2ZSBhbnkgc3VnZ2VzdGVkIHByb2NlZHVy
+ZS9tZXRob2QgdG8gY29uZmlybSB0aGUgY292ZXJhZ2Ugb2YgYXBwbGljYXRpb24sIGVzcGVjaWFs
+bHkgZm9yIHJlYWwtdGltZSBhcHBsaWNhdGlvbj8KPiAgICAgICAgID4KPiAgICAgICAgIFVzZSB0
+cmFjaW5nIGZ0cmFjZSwgLi4gb3IgY292ZXJhZ2UgdG9vbHMgbGlrZSBnY292Cj4gCj4gICAgICAg
+ICA+IFEzOiDCoEluIGNhc2Ugb2YgbG9uZyBydW4gdGVzdCBjYXNlcywgaG93IHRvIGVuc3VyZSBh
+bGwgYXBwYXJtb3IgZXZlbnQgbG9ncyBhcmUgc3RvcmVkIGV2ZW4gdXB0aW1lIGlzIG1vcmUgdGhh
+biAyIGRheXM/Cj4gICAgICAgICA+Cj4gICAgICAgICBVc2UgYXVkaXRkLCB5b3UgY2FuIGNvbnRy
+b2wgYnVmZmVyIHNpemVzIGFuZCB3aGV0aGVyIG1lc3NhZ2VzIGNhbiBiZSBkcm9wcGVkIG9yIHdo
+ZXRoZXIgc3lzdGVtIHNob3VsZCBwYW5pYyBpZiBpdCBjYW4ndCBsb2cgYSBtZXNzYWdlLgo+IAo+
+ICAgICAgICAgPiBEbyB3ZSBoYXZlIGFueSBjb25maWd1cmF0aW9uIHRvIGtlZXAgYXBwYXJtb3Ig
+bG9ncyBmb3IgbW9yZSB0aGFuIDIgZGF5cz8KPiAgICAgICAgID4KPiAKPiAgICAgICAgIEFwcEFy
+bW9yIGRvZXMgbm90IGRpcmVjdGx5IGNvbnRyb2wgc3RvcmFnZSBsb2dzLCBpbnN0ZWFkIGl0IGxl
+dmVyYWdlcyB0aGUgYXVkaXQgc3Vic3lzdGVtIGFuZCB5b3VyIHVzZXJzcGFjZSBhdWRpdGluZyBz
+b2x1dGlvbiBpcyBpbiBjaGFyZ2Ugb2YgdGhhdC4gU28gaWYgeW91IGFyZSB1c2luZyBhdWRpdGQg
+KG9wdGlvbiB3aXRoIHRoZSBtb3N0IGNvbnRyb2wgb2Yga2VybmVsIG1lc3NhZ2VzKSB5b3Ugd291
+bGQgbG9vayBhdCBpdHMgb3B0aW9ucyBhbmQgY29uZmlndXJlIGl0IGhvdyB5b3Ugd2FudC9uZWVk
+LiBUaGUgb3RoZXIgYXVkaXQgc29sdXRpb25zIHJzeXNsb2cgZXRjIHdpbGwgbWVzc2FnZXMgZnJv
+bSB0aGUga2VybmVsIHJpbmcgYnVmZmVyIGFuZCB5b3UgYWdhaW4gY29udHJvbCBob3cgdGhleSBh
+cmUgbG9nZ2VkIGluIHRoZSByZXNwZWN0aXZlIGFwcGxpY2F0aW9uIGNvbmZpZy4gSSBtZW50aW9u
+IHRoZSBkaWZmZXJlbmNlIGFzIHB1bGxpbmcgZnJvbSB0aGUgcmluZ2J1ZmZlciBkb2Vzbid0IHBy
+b3ZpZGUgYWxsIHRoZSBzYW1lIGNvbnRyb2xzIHRoYXQgYXVkaXRkIGFsbG93cyBmb3IgZnJvbSB0
+aGUgYXVkaXQgc3Vic3lzdGVtLgo+IAoKCi0tIApBcHBBcm1vciBtYWlsaW5nIGxpc3QKQXBwQXJt
+b3JAbGlzdHMudWJ1bnR1LmNvbQpNb2RpZnkgc2V0dGluZ3Mgb3IgdW5zdWJzY3JpYmUgYXQ6IGh0
+dHBzOi8vbGlzdHMudWJ1bnR1LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2FwcGFybW9yCg==
