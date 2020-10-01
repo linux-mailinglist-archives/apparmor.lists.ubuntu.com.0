@@ -2,28 +2,24 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30E6C26219F
-	for <lists+apparmor@lfdr.de>; Tue,  8 Sep 2020 23:00:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BA72280591
+	for <lists+apparmor@lfdr.de>; Thu,  1 Oct 2020 19:38:26 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1kFkjF-0003WW-4Q; Tue, 08 Sep 2020 21:00:37 +0000
+	id 1kO2Wz-0006uf-Fm; Thu, 01 Oct 2020 17:38:13 +0000
 Received: from youngberry.canonical.com ([91.189.89.112])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>) id 1kFkjD-0003WQ-3a
- for apparmor@lists.ubuntu.com; Tue, 08 Sep 2020 21:00:35 +0000
-Received: from static-50-53-58-29.bvtn.or.frontiernet.net ([50.53.58.29]
+ (envelope-from <john.johansen@canonical.com>) id 1kO2Wy-0006uY-5L
+ for apparmor@lists.ubuntu.com; Thu, 01 Oct 2020 17:38:12 +0000
+Received: from static-50-53-41-238.bvtn.or.frontiernet.net ([50.53.41.238]
  helo=[192.168.192.153]) by youngberry.canonical.com with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>)
- id 1kFkjC-0001uM-Ng; Tue, 08 Sep 2020 21:00:34 +0000
-To: Murali Selvaraj <murali.selvaraj2003@gmail.com>
-References: <CAODFaZ7xL+h_QM1k689LMKC4TV=JYMyZScoGPEaiYP9Vax9QeQ@mail.gmail.com>
- <411e496d-f59f-8fbb-7ed7-aa1eefb995b7@canonical.com>
- <CAODFaZ4DubxnxxWR=AMgepm6eiGUjbJFu1rqeCXBOw+yu0GAsw@mail.gmail.com>
- <CAODFaZ65RM=Bx=OK75Hvbn087jS3dYuCk6dc=Lx5wrMA0-S4zg@mail.gmail.com>
+ (envelope-from <john.johansen@canonical.com>) id 1kO2Wx-0001Uh-PO
+ for apparmor@lists.ubuntu.com; Thu, 01 Oct 2020 17:38:11 +0000
 From: John Johansen <john.johansen@canonical.com>
+To: apparmor <apparmor@lists.ubuntu.com>
 Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
  LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCgptUUlOQkU1bXJQb0JFQURB
  azE5UHNnVmdCS2tJbW1SMmlzUFE2bzdLSmhUVEtqSmR3VmJrV1NuTm4rbzZVcDVrCm5LUDFm
@@ -99,14 +95,12 @@ Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
  MDNwYVBDakpoN1hxOXZBenlkTjVVL1VBPT0KPTZQL2IKLS0tLS1FTkQgUEdQIFBVQkxJQyBL
  RVkgQkxPQ0stLS0tLQo=
 Organization: Canonical
-Message-ID: <08b7d42f-43a2-2134-6bf2-b654b798009d@canonical.com>
-Date: Tue, 8 Sep 2020 14:00:32 -0700
+Message-ID: <762bcf11-3f5f-e171-85b6-cc33597abe96@canonical.com>
+Date: Thu, 1 Oct 2020 10:37:59 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <CAODFaZ65RM=Bx=OK75Hvbn087jS3dYuCk6dc=Lx5wrMA0-S4zg@mail.gmail.com>
-Content-Language: en-US
-Subject: Re: [apparmor] Apparmor - Basic queries
+Subject: [apparmor]  AppArmor 3.0 Released
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -118,142 +112,101 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: apparmor@lists.ubuntu.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1528770668672653071=="
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-T24gOS84LzIwIDE6MjIgUE0sIE11cmFsaSBTZWx2YXJhaiB3cm90ZToKPiAKPiAgICAgVGhhbmtz
-IGZvciB0aGUgZXhwbGFuYXRpb24uCj4gCj4gICAgIENhbiB5b3UgcGxlYXNlIGNsYXJpZnkgdGhl
-IGJlbG93IHF1ZXJpZXMuCj4gCj4gICAgIDEpIEFmdGVyIHNldHRpbmcgdGhlIHByb2Nlc3MgaW4g
-Y29tcGxpYW50IG1vZGUgZm9yIHRoZSBwcm9jZXNzLCBhYmxlIHRvIHNlZSBiZWxvdyBsb2dzLgo+
-IAo+ICAgICAyMDIwIFNlcCAwNCAxOToxNDowNyB1c2VyIGtlcm5lbDogYXVkaXQ6IHR5cGU9MTQw
-MCBhdWRpdCgxNTk5MjQ2ODQ3Ljc1NjoxMzYwKTogYXBwYXJtb3I9IkFMTE9XRUQiIG9wZXJhdGlv
-bj0iY2FwYWJsZSIKPiAgICAgwqBwcm9maWxlPSJUZXN0aW5nIiBwaWQ9MTUwODQgY29tbT0ic2gi
-IGNhcGFiaWxpdHk9MSDCoGNhcG5hbWU9ImRhY19vdmVycmlkZSIKPiAKPiAgICAgY29tbSBzaG93
-cyAic2giLCBpdCB3b3VsZCBiZSBhIHNoZWxsIHNjcmlwdC4gSSB3b3VsZCBsaWtlIHRvIGZpbmQg
-d2hpY2ggcGFydCBvZiB0aGUgY29kZSBpbiB0aGUgcHJvY2VzcyBuZWVkcyBkYWNfb3ZlcnJpZGUg
-Y2FwYWJpbGl0eS4KPiAgICAgSSBoYXZlIGNyb3NzIGNoZWNrZWQgdGhlIGNvZGUsIGZvdW5kIGEg
-ZmV3IGluc3RhbmNlcyBidXQgbm90IGFibGUgdG8gY29uY2x1ZGUgd2hpY2ggY29kZSByZWFsbHkg
-bmVlZHMgZGFjX292ZXJyaWRlLgo+ICAgICBEbyB3ZSBoYXZlIGFueSBtZXRob2QgdG8gZmluZCB0
-aGUgY29ycmVzcG9uZGluZyBjb2RlPwo+IApzdHJhY2UsIGdkYgoKQXBwQXJtb3IgY3VycmVudGx5
-IGRvZXNuJ3QsIGVzcGVjaWFsbHkgd2l0aCB1c2Vyc3BhY2UgY29kZSwgYnV0IGlmIHlvdSBhcmUg
-d2lsbGluZyB0byBwYXRjaCBhIGtlcm5lbCBhbmQgdXNlIGFwcGFybW9yIDMgeW91IG1ha2UgdGhl
-IGdkYiBleHBlcmllbmNlIG5vdCB0b28gYmFkLiBCeSBjYXVzaW5nIHRoZSB0YXNrIHRvIHN0b3Ag
-d2hlbiBhbiBhdWRpdCBtZXNzYWdlIGlzIGdlbmVyYXRlZCwgeW91IGNhbiB0aGVuIGVhc2lseSB1
-c2UgZ2RiIHRvIGJhY2t0cmFjZSB0aGUgc3RvcHBlZCB0YXNrLgoKCj4gICAgIERvZXMgc3lzdGVt
-KCkgYWxzbyBjb3VsZCBiZSBwb2ludGVkIHRvIGNvbW09InNoIj8KPiAKeWVzLCBodHRwczovL2xp
-bnV4LmRpZS5uZXQvbWFuLzMvc3lzdGVtCgpiYXNpY2FsbHkgY29tbSBpcyBzZXQgb24gZXhlYyBh
-bmQgc3lzdGVtKCkgZXhlY3MgYSBzaGVsbC4gIEhvd2V2ZXIgSSB3aWxsIG5vdGUgdGFza3MgYXJl
-IGZyZWUgdG8gY2hhbmdlIHRoZSB2YWx1ZSBvZiB0aGVpciBjb21tIGZpZWxkLCBzbyB5b3UgY2Fu
-IG5vdCByZWx5IG9uIHRoZSB2YWx1ZSBpbiB0aGF0IGZpZWxkCgo+IAo+ICAgICAyKSBBc3N1bWUs
-IG15IG5vbi1yb290IHByb2Nlc3MgbmVlZHMgREFDX09WRVJSSURFIHRvIHdyaXRlIGEgZmlsZSB3
-aGljaCBoYXMgcm9vdCBwZXJtaXNzaW9uLgo+ICAgICDCoCBCdXQgdGhpcyBpcyBvbmx5IG9uZSBp
-bnN0YW5jZSBpbiB0aGUgY29kZS4KPiAKPiAgICAgwqAgSW4gdGhhdCBjYXNlLCBpZiB3ZSBlbmFi
-bGUgREFDX09WRVJSSURFIGZvciB0aGlzIG5vbi1yb290IHByb2Nlc3MgZG9lcyBpdCBzaG93IGFu
-eSBzZWN1cml0eSBsZWFrIG9yIGp1c3QgY2hhbmdlIHRoZSBmaWxlIHBlcm1pc3Npb24gYXMgYmVs
-b3cKPiAgICAgwqAgY2htb2QgNzc3IDxmaWxlPi4gV2hpY2ggb3B0aW9uIHdvdWxkIGJlIHRoZSBi
-ZXN0IG1ldGhvZCBmb3Igc2VjdXJpdHk/Cj4gCmN1cnJlbnRseSBEQUNfT1ZFUlJJREUgd2lsbCBi
-ZSBhdmFpbGFibGUgZm9yIGV2ZXJ5IGZpbGUgdGhlIHRhc2sgdHJpZXMgdG8gYWNjZXNzLiBCdXQg
-aWYgdGhhdCB0YXNrIGlzIGFsc28gY29uZmluZWQgYnkgYXBwYXJtb3IgdGhlIHNldCBvZiBmaWxl
-cyBpdCBjYW4gYWNjZXNzIGNhbiBzdGlsbCBiZSBsaW1pdGVkLiBDYXBhYmlsaXR5IERBQ19PVkVS
-UklERSB3aWxsIG5vdCBvdmVycmlkZSBhbiBhcHBhcm1vciBmaWxlIHJ1bGUsIG5vdCBldmVuIHRo
-ZSBvd25lciBtb2RpZmllci4KCmNoYW5naW5nIGEgZmlsZSB0byA3Nzcgd2lsbCBtYWtlIGl0IGF2
-YWlsYWJsZSB0byBhIHByb2Nlc3NlcyBub3QganVzdCB0aGUgdGFzayB0aGF0IGhhcyBEQUNfT1ZF
-UlJJREUKCm5laXRoZXIgc2l0dWF0aW9uIGlzIGdyZWF0LCB0aGUgcXVlc3Rpb24gYmVjb21lcyB3
-aGljaCBpcyB3b3JzZSBpbiB5b3VyIHNjZW5hcmlvL2RlcGxveW1lbnQuIElmIHlvdSBhcmUgZ2l2
-aW5nIENBUF9PVkVSUklERSB0byBhIG5ldHdvcmsgZmFjaW5nIGRhZW1vbiBhbmQgbm90IHVzaW5n
-IGFueSBhZGRpdGlvbmFsIGNvbmZpbmVtZW50LCBhbmQgdGhhdCBpcyB0aGUgYXR0YWNrIHN1cmZh
-Y2UgeW91IGFyZSB3b3JyaWVkIGFib3V0IHRoZW4gY2hhbmdpbmcgYSBzaW5nbGUgZmlsZSB0byA3
-NzcgbWlnaHQgYmUgdGhlIHNhZmVyIG9wdGlvbi4KCmlmIHlvdSBhcmUgcnVubmluZyBhIHVuaXZl
-cnNpdHkgc3lzdGVtIHdpdGggc2hhcmVkIHVzZXJzIHdobyB3aWxsIHB1c2ggdGhlIGJvdW5kYXJp
-ZXMgYW5kIHRoZSBmaWxlIGlzIC9ldGMvcGFzc3dkIG9yIC9ldGMvc2hhZG93IHRoZSA3NzcgaXMg
-YWJvdXQgdGhlIHdvcnN0IHRoaW5nIHlvdSBjYW4gZG8uCgpUTERSOiBpdCByZWFsbHkgZGVwZW5k
-cwoKCj4gICAgIDMpIFRvIG1vbml0b3IgdGhlIHByb2Nlc3MgYmVoYXZpb3VyIHVzaW5nIEFwcGFy
-bW9yLCB3ZSBuZWVkIHRvIHJlc3RhcnQgdGhlIHByb2Nlc3Mgd2hpbGUgbW9uaXRvcmluZyB0aGUg
-cHJvY2VzcyBmb3IgYXBwYXJtb3IgY29tcGxhaW4gbW9kZS4KPiAgICAgwqAgwqBJbiBlbWJlZGRl
-ZCBwcm9kdWN0cywgc29tZSBvZiB0aGUgcHJvY2VzcyB3aWxsIHJlc3RhcnQgdGhlIHN5c3RlbSBp
-biBjYXNlIG9mIGtpbGwvcmVzdGFydCB0aGUgcGFydGljdWxhciBwcm9jZXNzLgo+ICAgICDCoCDC
-oEhvdyBjYW4gaXQgYmUgYWNoaWV2YWJsZSBmb3Igc3VjaCBhIHByb2Nlc3MgdXNpbmcgYXBwYXJt
-b3I/IG9yIHdlIGNvdWxkIG5vdCBtb25pdG9yIHRob3NlIHByb2Nlc3NlcyA/Cgp5b3UgbmVlZCB0
-byBoYXZlIGFwcGFybW9yIHByb2ZpbGUgYXR0YWNoZWQgdG8gdGhlIHByb2Nlc3MgZnJvbSBpdHMg
-c3RhcnQuIFlvdSBjYW4gcmVsb2FkIGFuZCBjaGFuZ2UgdGhlIG1vbml0b3JpbmcgcnVsZXMgYWZ0
-ZXIgdGhlIGZhY3QgYnV0IGN1cnJlbnRseSB0aGVyZSBpcyBub3Qgd2F5IHRvIGNoYW5nZSB0aGUg
-cHJvY2Vzc2VzIGNvbmZpbmVtZW50IGFmdGVyIHRoZSBmYWN0LgoKPiAKPiAKPiAgICAgVGhhbmtz
-Cj4gICAgIE11cmFsaS5TCj4gCj4gICAgIE9uIFR1ZSwgQXVnIDI1LCAyMDIwIGF0IDI6MTggQU0g
-Sm9obiBKb2hhbnNlbiA8am9obi5qb2hhbnNlbkBjYW5vbmljYWwuY29tIDxtYWlsdG86am9obi5q
-b2hhbnNlbkBjYW5vbmljYWwuY29tPj4gd3JvdGU6Cj4gCj4gICAgICAgICBPbiA4LzI0LzIwIDEx
-OjUxIEFNLCBNdXJhbGkgU2VsdmFyYWogd3JvdGU6Cj4gICAgICAgICA+IEhpIEFsbCwKPiAgICAg
-ICAgID4KPiAgICAgICAgID4gUGxlYXNlIGdvIHRocm91Z2ggdGhlIGJlbG93IGRldGFpbHMgYW5k
-IGNsYXJpZnkgd2l0aCBleGFtcGxlcy7CoMKgCj4gICAgICAgICA+Cj4gICAgICAgICA+IFExOkhv
-dyBkbyB3ZSBpZGVudGlmeSByZXF1aXJlZCBjYXBhYmlsaXRpZXMgZnJvbSBhcHBhcm1vciBsb2dz
-Lgo+ICAgICAgICAgPgo+ICAgICAgICAgbG9vayBmb3IgZGVuaWFscyB3aXRoIHRoZSBjYXBuYW1l
-PSBmaWVsZC4KPiAKPiAKPiAgICAgICAgID4gSSBhbSBsb29raW5nIHRvIGZpbmQgb3V0IHRoZSBs
-aXN0IG9mIGNhcGFiaWxpdGllcyBhcmUgdXNlZCBmb3IgdGhlIGFwcGxpY2F0aW9uL3Byb2Nlc3Mg
-dXNpbmcgYXBwYXJtb3IuCj4gICAgICAgICA+IEkgaGF2ZSBzZXQgdXAgdGhlIGFwcGFybW9yIGFu
-ZCBhbSBhYmxlIHRvIHNlZSBmZXcgY2FwYWJpbGl0aWVzIE5PVCBhbGwgQ0FQcyBpbiBhcHBhcm1v
-ciBsb2dzLgo+IAo+ICAgICAgICAgQXBwQXJtb3Igd2lsbCBvbmx5IHJlcG9ydCBvbiBDQVBzIHRo
-YXQgbWFrZSBpdCB0byBpdHMgbW9kdWxlIGNvZGUuIFRoZSBrZXJuZWwgYXBwbGllcyBEQUMgYW5k
-IHVpZCBjaGVja3MgRklSU1QuCj4gCj4gICAgICAgICBlZy4gRm9yIGNhcGFiaWxpdHkgREFDX09W
-RVJSSURFCj4gCj4gICAgICAgICDCoCB0aGUgZmlyc3QgY2hlY2sgaXMgaWYgdGhlIHRhc2sncyB1
-aWQgPT0gdGhlIG9iamVjdCdzIChmaWxlJ3MpIHVpZCBpZiB5ZXMgY2FwYWJpbGl0eSBEQUMgb3Zl
-cnJpZGUgaXMgbm90IGNoZWNrZWQuIElmIGl0IHRoZXkgYXJlIGRpZmZlcmVudCB0aGVuIHRoZSBr
-ZXJuZWwgd2lsbCBjaGVjayB0aGUgdGFzaydzIGNhcGFiaWxpdHkgc2V0LCBhbmQgaWYgREFDX09W
-RVJSSURFIGlzIG5vdCBpbiB0aGUgc2V0IHRoZSBvcGVyYXRpb24gd2lsbCBiZSBkZW5pZWQgYW5k
-IGFwcGFybW9yIHdpbGwgbmV2ZXIgYmUgY29uc3VsdGVkLiBPbmx5IGlmIHRoZSBvcGVyYXRpb24g
-cmVxdWlyZXMgREFDX09WRVJSSURFIGFuZCB0aGUgdGFzaydzIGNhcGFiaWxpdHkgc2V0IGhhcyBE
-QUNfT1ZFUlJJREUgd2lsbCBhcHBhcm1vciBiZSBjaGVja2VkLgo+IAo+ICAgICAgICAgU28gdGhl
-IEFwcEFybW9yIHByb2ZpbGUncyBjYXBhYmlsaXR5IHNldCBpcyBzZXBhcmF0ZSBmcm9tIHRoZSBz
-eXN0ZW0gc2V0IGFuZCBCb3RoIGhhdmUgdG8gYWxsb3cgdGhlIGNhcGFiaWxpdHkgZm9yIGl0IHRv
-IGJlIGFsbG93ZWQuCj4gCj4gICAgICAgICBBbHNvIGFwcGFybW9yIGhhcyBhIHNtYWxsIDEgZW50
-cnkgcGVyIGNwdSBkZWR1cCBjYWNoZSBzbywgdGhhdCBtdWx0aXBlIHJlcXVlc3RzIHRvIHRoZSBz
-YW1lIHByb2ZpbGUgYW5kIGNhcGFiaWxpdHkgd2lsbCBub3QgYmUgbG9nZ2VkLCBpZiB0aGV5IGFy
-ZSBoYXBwZW5pbmcgYmFjayB0byBiYWNrICh5b3UganVzdCBnZXQgb25lKS4gRGVwZW5kaW5nIG9u
-IHlvdXIga2VybmVsIHRoZXJlIGhhdmUgYmVlbiBidWdzIGluIHRoaXMgY2FjaGluZyBzbyBub3Qg
-YWxsIG1lc3NhZ2VzIGhhdmUgYWx3YXlzIGJlZW4gY29ycmVjdGx5IGxvZ2dlZC4KPiAKPiAKPiAg
-ICAgICAgID4gRG8gd2UgaGF2ZSBhbnkgc2ltcGxlIGV4ZXJjaXNlL21ldGhvZCB0byBmaW5kIHRo
-ZSByZXF1aXJlZCBjYXBhYmlsaXRpZXMgZm9yIHRoZSBwcm9jZXNzIHNwZWNpZmljIGZyb20gYXBw
-YXJtb3IgbG9ncy4KPiAKPiAgICAgICAgIE5vLiBXZSBjYW4gY29tZSBjbG9zZSBieSBjb25maW5p
-bmcgdGhlIGFwcGxpY2F0aW9uIGluIGEgc2FmZSBlbnZpcm9ubWVudCBhbmQgZXhlcmNpc2luZyB0
-aGUgYXBwbGljYXRpb24gaW4gY29tcGxhaW4gbW9kZS4gT3IgaWYgeW91IG11c3QgZGVwbG95IGlu
-IGEgaG9zdGlsZSBlbnZpcm9ubWVudCBpbiBlbmZvcmNlIG1vZGUsIGJ1dCB5b3UgbWF5IGhhdmUg
-dG8gcmVzdGFydCB0aGUgYXBwbGljYXRpb24gZHVlIHRvIGRlbmlhbHMgY2hhbmdpbmcgY29kZSBw
-YXRocy4KPiAKPiAgICAgICAgID4gSXQgd2lsbCBoZWxwIHVzIHRvIHNldCB0aGUgcmVxdWlyZWQg
-Y2FwYWJpbGl0aWVzIGZvciB0aGUgc2VjdXJpdHkgcmVhc29uLgo+ICAgICAgICAgPgo+IAo+ICAg
-ICAgICAgQXBwQXJtb3IgZG9lcyBub3Qgc2V0IGNhcGFiaWxpdGllcyBidXQgaXQgY2FuIGhlbHAg
-eW91IGRpc2NvdmVyIHRoZW0KPiAKPiAgICAgICAgID4gUTI6SG93IGRvIHdlIGtub3cgdGhlIHBy
-b2Nlc3MvYXBwbGljYXRpb24gZW5vdWdoIHRvIGNvdmVyIMKgZnVsbCBjb2RlIGNvdmVyYWdlIGZv
-ciBpdHMgcmVxdWlyZWQgY2FwYWJpbGl0aWVzPwo+ICAgICAgICAgPgo+ICAgICAgICAgaW4gc2hv
-cnQgeW91IGRvbid0LCBhdCBsZWFzdCBub3Qgd2l0aG91dCBhIGxvdCBvZiB3b3JrLiBZb3UgY2Fu
-IGRvIGNvZGUgdHJhY2luZyBhbmQgY292ZXJhZ2UgYmFzZWQgZGVidWcgdG9vbHMgYWdhaW5zdCB0
-aGUgYXBwbGljYXRpb24gdG8gZmluZCB3aGF0IGNvZGUgaGFzIGJlZW4gZXhlcmNpc2VkLiBBbmQg
-dGhlbiB5b3UgY2FuIGRvIGNvZGUgYW5hbHlzaXMgdG8gZW5zdXJlIHRob3NlIGNvdmVyZWQgcGFy
-dHMgZ2V0IGV2ZXJ5dGhpbmcgdGhhdCBjb3VsZCB0cmlnZ2VyIGNhcGFiaWxpdHkgcmVxdWVzdHMu
-IEV2ZW4gdGhlbiB5b3UgbmVlZCB0byBiZSBjYXJlZnVsIHRvIGNoZWNrIHRoZSBjb2RlIHRvIG1h
-a2Ugc3VyZSBpdHMgbm90IHVzaW5nIHVzZXIgZGVmaW5lZCBkYXRhIHRvIHNldCBjYXBzLiBJZiBp
-dCBkb2VzIHRoaXMgeW91IG5lZWQgdG8gYXNzdW1lIHRoZSB1c2VyIGNvdWxkIHJlcXVlc3Qvc2V0
-IGFsbCAuLi4KPiAKPiAgICAgICAgID4gRG8gd2UgaGF2ZSBhbnkgc3VnZ2VzdGVkIHByb2NlZHVy
-ZS9tZXRob2QgdG8gY29uZmlybSB0aGUgY292ZXJhZ2Ugb2YgYXBwbGljYXRpb24sIGVzcGVjaWFs
-bHkgZm9yIHJlYWwtdGltZSBhcHBsaWNhdGlvbj8KPiAgICAgICAgID4KPiAgICAgICAgIFVzZSB0
-cmFjaW5nIGZ0cmFjZSwgLi4gb3IgY292ZXJhZ2UgdG9vbHMgbGlrZSBnY292Cj4gCj4gICAgICAg
-ICA+IFEzOiDCoEluIGNhc2Ugb2YgbG9uZyBydW4gdGVzdCBjYXNlcywgaG93IHRvIGVuc3VyZSBh
-bGwgYXBwYXJtb3IgZXZlbnQgbG9ncyBhcmUgc3RvcmVkIGV2ZW4gdXB0aW1lIGlzIG1vcmUgdGhh
-biAyIGRheXM/Cj4gICAgICAgICA+Cj4gICAgICAgICBVc2UgYXVkaXRkLCB5b3UgY2FuIGNvbnRy
-b2wgYnVmZmVyIHNpemVzIGFuZCB3aGV0aGVyIG1lc3NhZ2VzIGNhbiBiZSBkcm9wcGVkIG9yIHdo
-ZXRoZXIgc3lzdGVtIHNob3VsZCBwYW5pYyBpZiBpdCBjYW4ndCBsb2cgYSBtZXNzYWdlLgo+IAo+
-ICAgICAgICAgPiBEbyB3ZSBoYXZlIGFueSBjb25maWd1cmF0aW9uIHRvIGtlZXAgYXBwYXJtb3Ig
-bG9ncyBmb3IgbW9yZSB0aGFuIDIgZGF5cz8KPiAgICAgICAgID4KPiAKPiAgICAgICAgIEFwcEFy
-bW9yIGRvZXMgbm90IGRpcmVjdGx5IGNvbnRyb2wgc3RvcmFnZSBsb2dzLCBpbnN0ZWFkIGl0IGxl
-dmVyYWdlcyB0aGUgYXVkaXQgc3Vic3lzdGVtIGFuZCB5b3VyIHVzZXJzcGFjZSBhdWRpdGluZyBz
-b2x1dGlvbiBpcyBpbiBjaGFyZ2Ugb2YgdGhhdC4gU28gaWYgeW91IGFyZSB1c2luZyBhdWRpdGQg
-KG9wdGlvbiB3aXRoIHRoZSBtb3N0IGNvbnRyb2wgb2Yga2VybmVsIG1lc3NhZ2VzKSB5b3Ugd291
-bGQgbG9vayBhdCBpdHMgb3B0aW9ucyBhbmQgY29uZmlndXJlIGl0IGhvdyB5b3Ugd2FudC9uZWVk
-LiBUaGUgb3RoZXIgYXVkaXQgc29sdXRpb25zIHJzeXNsb2cgZXRjIHdpbGwgbWVzc2FnZXMgZnJv
-bSB0aGUga2VybmVsIHJpbmcgYnVmZmVyIGFuZCB5b3UgYWdhaW4gY29udHJvbCBob3cgdGhleSBh
-cmUgbG9nZ2VkIGluIHRoZSByZXNwZWN0aXZlIGFwcGxpY2F0aW9uIGNvbmZpZy4gSSBtZW50aW9u
-IHRoZSBkaWZmZXJlbmNlIGFzIHB1bGxpbmcgZnJvbSB0aGUgcmluZ2J1ZmZlciBkb2Vzbid0IHBy
-b3ZpZGUgYWxsIHRoZSBzYW1lIGNvbnRyb2xzIHRoYXQgYXVkaXRkIGFsbG93cyBmb3IgZnJvbSB0
-aGUgYXVkaXQgc3Vic3lzdGVtLgo+IAoKCi0tIApBcHBBcm1vciBtYWlsaW5nIGxpc3QKQXBwQXJt
-b3JAbGlzdHMudWJ1bnR1LmNvbQpNb2RpZnkgc2V0dGluZ3Mgb3IgdW5zdWJzY3JpYmUgYXQ6IGh0
-dHBzOi8vbGlzdHMudWJ1bnR1LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2FwcGFybW9yCg==
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============1528770668672653071==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature";
+ boundary="V7bn9FPD1ROWImrrTryZeOzul58sASvLe"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--V7bn9FPD1ROWImrrTryZeOzul58sASvLe
+Content-Type: multipart/mixed; boundary="JeZiB4HCryZVgdvJjAZOtzPF6x4Rle2X4"
+
+--JeZiB4HCryZVgdvJjAZOtzPF6x4Rle2X4
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+
+The AppArmor development team is pleased to announce the 3.0 release
+of the AppArmor user space components.=20
+
+The release is available on
+
+gitlab
+    https://gitlab.com/apparmor/apparmor/-/releases/v3.0.0
+
+or via launchpad
+    code https://launchpad.net/apparmor/3.0/3.0/+download/apparmor-3.0.0.=
+tar.gz
+    sha256sum: 66fd751fe51eb427d2aa864ee035b12d01d212fd595579275219b0148c=
+43755e
+
+    A detached gnupg signature for launchpag is available at
+      https://launchpad.net/apparmor/3.0/3.0/+download/apparmor-3.0.0.tar=
+=2Egz.asc
+
+    This is planned to be the last apparmor release with launchpad downlo=
+ads.
+
+
+which should indicate the release was signed with the AppArmor signing
+key having the fingerprint
+
+  3ECD CBA5 FB34 D254 961C C53F 6689 E64E 3D36 64BB
+
+The release notes are available at
+
+   https://gitlab.com/apparmor/apparmor/-/wikis/Release_Notes_3.0
+
+Please report any bugs you may find via the gitlab AppArmor project
+https://gitlab.com/apparmor/apparmor
+
+
+Kudos to everyone who helped make this release possible.
+
+Thanks!
+
+
+--JeZiB4HCryZVgdvJjAZOtzPF6x4Rle2X4--
+
+--V7bn9FPD1ROWImrrTryZeOzul58sASvLe
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE7cSDD705q2rFEEf7BS82cBjVw9gFAl92FAEACgkQBS82cBjV
+w9jomQ/+NMr+NkcWtNut4lRUqYi9On7n21t9nxpDGvrRzU3GMHTJOerLI4783Hl4
+ZsSXsvrRS+zKSpW54EU523AnaD9mcbfihOL1GjxHMv0zQVXD0JkOulIB91o4fVKq
++yKns1ECq8tI8YgJf20fhHvJJc41R4ZMCUoa69nkOZiPEOXWX07kJ0pdbNmxDLxT
+uCiDpUC7Qa1y8eixF7lvXK01oUrdl1K/WdfxHcCrILStZ6tg8a9MHRJFtWySflyi
+Th6nRSQ4OqSN+dW1HZizQ+0hfhIU2GLZd9GVSxBBRh/YYknYoZpipzqHF7UJ6vWJ
+ZrE3tjijt0/misUkRQ0im5YvoAuGjbdF/+DFSACeMe0UNINRaIs/PH2NoVqEqHq8
+Qsf9jI2lVqXfWXuc3e6py/zKU5isijENr4tmDtBe4v6ik873oKNoQg+ufIxre9EG
+u5F12vVmQ+am6qfy1yfcfBGI/uB9ODSOaov8NTCMBUHZxsCjTFKKaoF5iIJ09rUc
+FhViYxWrArE3c1rdQe5UGici8kvST9QEcg0XjlGc6i98JSkz9wGCjKsBzAYPOGjM
+6ccYKr/0978GqzOnOEwvCekeLFjfLVHuC9/1D2Dru4PgoxC3nbGq0ktyMO9nS+N1
+FNzE9NfiGqleANz6qxkeJWh+lLJ4I5CuzCP9b3Q/dunWJR+WHys=
+=syhW
+-----END PGP SIGNATURE-----
+
+--V7bn9FPD1ROWImrrTryZeOzul58sASvLe--
+
+
+--===============1528770668672653071==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
+eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
+aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
+
+--===============1528770668672653071==--
+
