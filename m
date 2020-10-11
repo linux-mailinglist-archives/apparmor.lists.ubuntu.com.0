@@ -2,22 +2,22 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BA72280591
-	for <lists+apparmor@lfdr.de>; Thu,  1 Oct 2020 19:38:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B37128AA9C
+	for <lists+apparmor@lfdr.de>; Sun, 11 Oct 2020 23:11:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1kO2Wz-0006uf-Fm; Thu, 01 Oct 2020 17:38:13 +0000
+	id 1kRicz-0001oa-CU; Sun, 11 Oct 2020 21:11:37 +0000
 Received: from youngberry.canonical.com ([91.189.89.112])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>) id 1kO2Wy-0006uY-5L
- for apparmor@lists.ubuntu.com; Thu, 01 Oct 2020 17:38:12 +0000
+ (envelope-from <john.johansen@canonical.com>) id 1kRicx-0001oU-Lw
+ for apparmor@lists.ubuntu.com; Sun, 11 Oct 2020 21:11:35 +0000
 Received: from static-50-53-41-238.bvtn.or.frontiernet.net ([50.53.41.238]
  helo=[192.168.192.153]) by youngberry.canonical.com with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>) id 1kO2Wx-0001Uh-PO
- for apparmor@lists.ubuntu.com; Thu, 01 Oct 2020 17:38:11 +0000
+ (envelope-from <john.johansen@canonical.com>) id 1kRicx-0005i6-9B
+ for apparmor@lists.ubuntu.com; Sun, 11 Oct 2020 21:11:35 +0000
 From: John Johansen <john.johansen@canonical.com>
 To: apparmor <apparmor@lists.ubuntu.com>
 Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
@@ -95,12 +95,13 @@ Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
  MDNwYVBDakpoN1hxOXZBenlkTjVVL1VBPT0KPTZQL2IKLS0tLS1FTkQgUEdQIFBVQkxJQyBL
  RVkgQkxPQ0stLS0tLQo=
 Organization: Canonical
-Message-ID: <762bcf11-3f5f-e171-85b6-cc33597abe96@canonical.com>
-Date: Thu, 1 Oct 2020 10:37:59 -0700
+Message-ID: <95ae4695-2e5e-67f2-1914-abcad448f8fc@canonical.com>
+Date: Sun, 11 Oct 2020 14:11:32 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-Subject: [apparmor]  AppArmor 3.0 Released
+Content-Language: en-US
+Subject: [apparmor]  irc meeting Tues October 13, 18:00 UTC
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -112,101 +113,15 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1528770668672653071=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1528770668672653071==
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature";
- boundary="V7bn9FPD1ROWImrrTryZeOzul58sASvLe"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---V7bn9FPD1ROWImrrTryZeOzul58sASvLe
-Content-Type: multipart/mixed; boundary="JeZiB4HCryZVgdvJjAZOtzPF6x4Rle2X4"
-
---JeZiB4HCryZVgdvJjAZOtzPF6x4Rle2X4
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-The AppArmor development team is pleased to announce the 3.0 release
-of the AppArmor user space components.=20
-
-The release is available on
-
-gitlab
-    https://gitlab.com/apparmor/apparmor/-/releases/v3.0.0
-
-or via launchpad
-    code https://launchpad.net/apparmor/3.0/3.0/+download/apparmor-3.0.0.=
-tar.gz
-    sha256sum: 66fd751fe51eb427d2aa864ee035b12d01d212fd595579275219b0148c=
-43755e
-
-    A detached gnupg signature for launchpag is available at
-      https://launchpad.net/apparmor/3.0/3.0/+download/apparmor-3.0.0.tar=
-=2Egz.asc
-
-    This is planned to be the last apparmor release with launchpad downlo=
-ads.
-
-
-which should indicate the release was signed with the AppArmor signing
-key having the fingerprint
-
-  3ECD CBA5 FB34 D254 961C C53F 6689 E64E 3D36 64BB
-
-The release notes are available at
-
-   https://gitlab.com/apparmor/apparmor/-/wikis/Release_Notes_3.0
-
-Please report any bugs you may find via the gitlab AppArmor project
-https://gitlab.com/apparmor/apparmor
-
-
-Kudos to everyone who helped make this release possible.
-
-Thanks!
-
-
---JeZiB4HCryZVgdvJjAZOtzPF6x4Rle2X4--
-
---V7bn9FPD1ROWImrrTryZeOzul58sASvLe
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE7cSDD705q2rFEEf7BS82cBjVw9gFAl92FAEACgkQBS82cBjV
-w9jomQ/+NMr+NkcWtNut4lRUqYi9On7n21t9nxpDGvrRzU3GMHTJOerLI4783Hl4
-ZsSXsvrRS+zKSpW54EU523AnaD9mcbfihOL1GjxHMv0zQVXD0JkOulIB91o4fVKq
-+yKns1ECq8tI8YgJf20fhHvJJc41R4ZMCUoa69nkOZiPEOXWX07kJ0pdbNmxDLxT
-uCiDpUC7Qa1y8eixF7lvXK01oUrdl1K/WdfxHcCrILStZ6tg8a9MHRJFtWySflyi
-Th6nRSQ4OqSN+dW1HZizQ+0hfhIU2GLZd9GVSxBBRh/YYknYoZpipzqHF7UJ6vWJ
-ZrE3tjijt0/misUkRQ0im5YvoAuGjbdF/+DFSACeMe0UNINRaIs/PH2NoVqEqHq8
-Qsf9jI2lVqXfWXuc3e6py/zKU5isijENr4tmDtBe4v6ik873oKNoQg+ufIxre9EG
-u5F12vVmQ+am6qfy1yfcfBGI/uB9ODSOaov8NTCMBUHZxsCjTFKKaoF5iIJ09rUc
-FhViYxWrArE3c1rdQe5UGici8kvST9QEcg0XjlGc6i98JSkz9wGCjKsBzAYPOGjM
-6ccYKr/0978GqzOnOEwvCekeLFjfLVHuC9/1D2Dru4PgoxC3nbGq0ktyMO9nS+N1
-FNzE9NfiGqleANz6qxkeJWh+lLJ4I5CuzCP9b3Q/dunWJR+WHys=
-=syhW
------END PGP SIGNATURE-----
-
---V7bn9FPD1ROWImrrTryZeOzul58sASvLe--
-
-
---===============1528770668672653071==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
-eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
-aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
-
---===============1528770668672653071==--
-
+VGhlIG5leHQgaXJjIG1lZXRpbmcgaXMgVHVlc2RheSBPY3RvYmVyIDEzLCBhdCAxODowMCBVVEMg
+aW4gI2FwcGFybW9yIG9uIG9mdGMubmV0CgpQbGVhc2UgdXBkYXRlIHRoZSBhZ2VuZGEgaHR0cHM6
+Ly9naXRsYWIuY29tL2FwcGFybW9yL2FwcGFybW9yL3dpa2lzL01lZXRpbmdBZ2VuZGEgb3IgcmVw
+bHkgdG8gdGhpcyBtYWlsIGlmIHlvdSBoYXZlIGl0ZW1zIHlvdSB3YW50IHRvIGFkZAoKLS0gCkFw
+cEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlmeSBzZXR0
+aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21haWxtYW4v
+bGlzdGluZm8vYXBwYXJtb3IK
