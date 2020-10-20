@@ -2,106 +2,52 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 099E428F05F
-	for <lists+apparmor@lfdr.de>; Thu, 15 Oct 2020 12:50:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0490B294044
+	for <lists+apparmor@lfdr.de>; Tue, 20 Oct 2020 18:13:17 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1kT0q7-0006q3-7a; Thu, 15 Oct 2020 10:50:31 +0000
-Received: from youngberry.canonical.com ([91.189.89.112])
+	id 1kUuG0-00020D-2z; Tue, 20 Oct 2020 16:13:04 +0000
+Received: from mail-ej1-f49.google.com ([209.85.218.49])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>) id 1kT0q5-0006px-G4
- for apparmor@lists.ubuntu.com; Thu, 15 Oct 2020 10:50:29 +0000
-Received: from static-50-53-41-238.bvtn.or.frontiernet.net ([50.53.41.238]
- helo=[192.168.192.153]) by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>) id 1kT0q5-0006cI-4f
- for apparmor@lists.ubuntu.com; Thu, 15 Oct 2020 10:50:29 +0000
-From: John Johansen <john.johansen@canonical.com>
-To: apparmor <apparmor@lists.ubuntu.com>
-Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
- LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCgptUUlOQkU1bXJQb0JFQURB
- azE5UHNnVmdCS2tJbW1SMmlzUFE2bzdLSmhUVEtqSmR3VmJrV1NuTm4rbzZVcDVrCm5LUDFm
- NDlFQlFsY2VXZzF5cC9Od2JSOGFkK2VTRU8vdW1hL0srUHFXdkJwdEtDOVNXRDk3Rkc0dUI0
- L2Nhb20KTEVVOTdzTFFNdG52R1dkeHJ4VlJHTTRhbnpXWU1neno1VFptSWlWVFo0M091NVZw
- YVMxVnoxWlN4UDNoL3hLTgpaci9UY1c1V1FhaTh1M1BXVm5ia2poU1pQSHYxQmdoTjY5cXhF
- UG9tckpCbTFnbXR4M1ppVm1GWGx1d1RtVGdKCk9rcEZvbDduYkowaWxuWUhyQTdTWDNDdFIx
- dXBlVXBNYS9XSWFuVk85NldkVGpISElhNDNmYmhtUXViZTR0eFMKM0ZjUUxPSlZxUXN4NmxF
- OUI3cUFwcG05aFExMHFQV3dkZlB5LyswVzZBV3ROdTVBU2lHVkNJbld6bDJIQnFZZAovWmxs
- OTN6VXErTklvQ244c0RBTTlpSCt3dGFHRGNKeXdJR0luK2VkS050SzcyQU1nQ2hUZy9qMVpv
- V0g2WmVXClBqdVVmdWJWelp0bzFGTW9HSi9TRjRNbWRRRzFpUU50ZjRzRlpiRWdYdXk5Y0dp
- MmJvbUYwenZ5QkpTQU5weGwKS05CRFlLek42S3owOUhVQWtqbEZNTmdvbUwvY2pxZ0FCdEF4
- NTlMK2RWSVpmYUYyODFwSWNVWnp3dmg1K0pvRwplT1c1dUJTTWJFN0wzOG5zem9veWtJSjVY
- ckFjaGtKeE5mejdrK0ZuUWVLRWtOekVkMkxXYzNRRjRCUVpZUlQ2ClBISGdhM1JneWtXNSsx
- d1RNcUpJTGRtdGFQYlhyRjNGdm5WMExSUGN2NHhLeDdCM2ZHbTd5Z2Rvb3dBUkFRQUIKdEIx
- S2IyaHVJRXB2YUdGdWMyVnVJRHhxYjJodVFHcHFiWGd1Ym1WMFBva0NPZ1FUQVFvQUpBSWJB
- d1VMQ1FnSApBd1VWQ2drSUN3VVdBZ01CQUFJZUFRSVhnQVVDVG8wWVZ3SVpBUUFLQ1JBRkx6
- WndHTlhEMkx4SkQvOVRKWkNwCndsbmNUZ1llcmFFTWVEZmtXdjhjMUlzTTFqMEFtRTRWdEwr
- ZkU3ODBaVlA5Z2tqZ2tkWVN4dDdlY0VUUFRLTWEKWlNpc3JsMVJ3cVUwb29nWGRYUVNweHJH
- SDAxaWN1LzJuMGpjWVNxWUtnZ1B4eTc4QkdzMkxacTRYUGZKVFptSApaR25YR3EvZURyL21T
- bmowYWF2QkptTVo2amJpUHo2eUh0QllQWjlmZG84YnRjendQNDFZZVdvSXUyNi84SUk2CmYw
- WG0zVkM1b0FhOHY3UmQrUldaYThUTXdsaHpIRXh4ZWwzanRJN0l6ek9zbm1FOS84RG0wQVJE
- NWlUTENYd1IKMWN3SS9KOUJGL1MxWHY4UE4xaHVUM0l0Q05kYXRncDh6cW9Ka2dQVmptdnlM
- NjRRM2ZFa1liZkhPV3NhYmE5LwprQVZ0Qk56OVJURmg3SUhEZkVDVmFUb3VqQmQ3QnRQcXIr
- cUlqV0ZhZEpEM0k1ZUxDVkp2VnJyb2xyQ0FUbEZ0Ck4zWWtRczZKbjFBaUlWSVUzYkhSOEdq
- ZXZnejVMbDZTQ0dIZ1Jya3lScG5TWWFVL3VMZ24zN042QVl4aS9RQUwKK2J5M0N5RUZManpX
- QUV2eVE4YnEzSXVjbjdKRWJoUy9KLy9kVXFMb2VVZjh0c0dpMDB6bXJJVFpZZUZZQVJoUQpN
- dHNmaXpJclZEdHoxaVBmL1pNcDVnUkJuaXlqcFhuMTMxY20zTTNndjZIclFzQUdubjhBSnJ1
- OEdEaTVYSllJCmNvLzEreC9xRWlOMm5DbGFBT3BiaHpOMmVVdlBEWTVXMHEzYkEvWnAybWZH
- NTJ2YlJJK3RRMEJyMUhkL3ZzbnQKVUhPOTAzbU1aZXAyTnpOM0JaNXFFdlB2RzRyVzVacTJE
- cHliV2JRclNtOW9iaUJLYjJoaGJuTmxiaUE4YW05bwpiaTVxYjJoaGJuTmxia0JqWVc1dmJt
- bGpZV3d1WTI5dFBva0NOd1FUQVFvQUlRVUNUbzBYV2dJYkF3VUxDUWdICkF3VVZDZ2tJQ3dV
- V0FnTUJBQUllQVFJWGdBQUtDUkFGTHpad0dOWEQySXRNRC85anliYzg3ZE00dUFIazZ5Tk0K
- TjBZL0JGbW10VFdWc09CaHFPbm9iNGkzOEJyRE8yQzFoUUNQQ1FlNExMczEvNHB0ZW92UXQ4
- QjJGeXJQVmp3Zwo3alpUSE5LNzRyNmxDQ1Z4eDN5dTFCN1U5UG80VlRrY3NsVmIxL3FtV3V4
- OFhXY040eXZrVHFsTCtHeHB5Sm45CjlaWmZmWEpjNk9oNlRtT2ZiS0d2TXV1djVhclNJQTNK
- SEZMZjlhTHZadEExaXNKVXI3cFM5YXBnOXVUVUdVcDcKd2ZWMFdUNlQzZUczbXRVVTJ1cDVK
- VjQ4NTBMMDVqSFM2dVdpZS9ZK3lmSk9iaXlyeE4vNlpxVzVHb25oTEJxLwptc3pjVjV2QlQz
- QkRWZTNSdkY2WGRNOU9oUG4xK1k4MXg1NCt2UTExM044aUx3RjdHR2ExNFp5SVZBTlpEMEkw
- CkhqUnZhMmsvUnFJUlR6S3l1UEg1cGtsY0tIVlBFRk1tT3pNVCtGT294Tmp2Uys3K3dHMktN
- RFlFbUhQcjFQSkIKWlNaZUh6SzE5dGZhbFBNcHBGeGkrc3lZTGFnTjBtQjdKSFF3WTdjclV1
- T0RoeWNxNjBZVnoxdGFFeWd1M1l2MgoyL0kxRUNHSHZLSEc2d2M5MG80M0MvZWxIRUNYbkVo
- N3RLcGxEY3BJQytPQ21NeEtIaFI0NitYY1p2Z3c0RGdiCjdjYTgzZVFSM0NHODlMdlFwVzJM
- TEtFRUJEajdoWmhrTGJra1BSWm0zdzhKWTQ0YXc4VnRneFdkblNFTUNMeEwKSU9OaDZ1Wjcv
- L0RZVnRjSWFNSllrZWJhWnRHZENwMElnVVpiMjQvVmR2WkNZYk82MkhrLzNWbzFuWHdIVUVz
- Mwo2RC92MWJUMFJaRmk2OUxnc0NjT2N4NGdZTGtDRFFST1pxejZBUkFBb3F3NmtrQmhXeU0x
- ZnZnYW1BVmplWjZuCktFZm5SV2JrQzk0TDFFc0pMdXAzV2IyWDBBQk5PSFNrYlNENHBBdUMy
- dEtGL0VHQnQ1Q1A3UWRWS1JHY1F6QWQKNmIyYzFJZHk5Ukx3Nnc0Z2krbm4vZDFQbTFra1lo
- a1NpNXpXYUlnMG01UlFVaytFbDh6a2Y1dGNFLzFOMFo1TwpLMkpoandGdTViWDBhMGw0Y0ZH
- V1ZRRWNpVk1ES1J0eE1qRXRrM1N4RmFsbTZaZFEycHAyODIyY2xucTR6WjltCld1MWQyd2F4
- aXorYjVJYTR3ZURZYTduNDFVUmNCRVViSkFnbmljSmtKdENUd3lJeElXMktuVnlPcmp2a1F6
- SUIKdmFQMEZkUDJ2dlpvUE1kbENJek9sSWtQTGd4RTBJV3VlVFhlQkpoTnMwMXBiOGJMcW1U
- SU1sdTRMdkJFTEEvdgplaWFqajVzOHk1NDJIL2FIc2ZCZjRNUVVoSHhPL0JaVjdoMDZLU1Vm
- SWFZN09nQWdLdUdOQjNVaWFJVVM1K2E5CmduRU9RTER4S1J5L2E3UTF2OVMrTnZ4KzdqOGlI
- M2prUUpoeFQ2WkJoWkdSeDBna0gzVCtGMG5ORG01TmFKVXMKYXN3Z0pycUZaa1VHZDJNcm0x
- cW5Ld1hpQXQ4U0ljRU5kcTMzUjBLS0tSQzgwWGd3ajhKbjMwdlhMU0crTk8xRwpIMFVNY0F4
- TXd5L3B2azZMVTVKR2paUjczSjVVTFZoSDRNTGJEZ2dEM21QYWlHOCtmb3RUckpVUHFxaGc5
- aHlVCkVQcFlHN3NxdDc0WG43OStDRVpjakxIenlsNnZBRkUyVzBreGxMdFF0VVpVSE8zNmFm
- RnY4cUdwTzNacVB2akIKVXVhdFhGNnR2VVFDd2YzSDZYTUFFUUVBQVlrQ0h3UVlBUW9BQ1FV
- Q1RtYXMrZ0liREFBS0NSQUZMelp3R05YRAoyRC9YRC8wZGRNLzRhaTFiK1RsMWp6bkthalgz
- a0crTWVFWWVJNGY0MHZjbzNyT0xyblJHRk9jYnl5ZlZGNjlNCktlcGllNE93b0kxamNUVTBB
- RGVjbmJXbkROSHByMFNjenhCTXJvM2Juckxoc212anVuVFlJdnNzQlp0QjRhVkoKanVMSUxQ
- VWxuaEZxYTdmYlZxMFpRamJpVi9ydDJqQkVOZG05cGJKWjZHam5wWUljQWJQQ0NhL2ZmTDQv
- U1FSUwpZSFhvaEdpaVM0eTVqQlRtSzVsdGZld0xPdzAyZmtleEgrSUpGcnJHQlhEU2c2bjJT
- Z3hubisrTkYzNGZYY205CnBpYXczbUtzSUNtKzBoZE5oNGFmR1o2SVdWOFBHMnRlb29WRHA0
- ZFlpaCsreFgvWFM4ekJDYzFPOXc0bnpsUDIKZ0t6bHFTV2JoaVdwaWZSSkJGYTRXdEFlSlRk
- WFlkMzdqL0JJNFJXV2hueXc3YUFQTkdqMzN5dEdITlVmNlJvMgovanRqNHRGMXkvUUZYcWpK
- Ry93R2pwZHRSZmJ0VWpxTEhJc3ZmUE5OSnEvOTU4cDc0bmRBQ2lkbFdTSHpqK09wCjI2S3Bi
- Rm5td05PMHBzaVVzbmh2SEZ3UE8vdkFibDNSc1I1KzBSbytodnMyY0VtUXV2OXIvYkRsQ2Zw
- enAydDMKY0srcmh4VXFpc094OERaZnoxQm5rYW9DUkZidnZ2ays3TC9mb21QbnRHUGtxSmNp
- WUU4VEdIa1p3MWhPa3UrNApPb00yR0I1bkVEbGorMlRGL2pMUStFaXBYOVBrUEpZdnhmUmxD
- NmRLOFBLS2ZYOUtkZm1BSWNnSGZuVjFqU24rCjh5SDJkakJQdEtpcVcwSjY5YUlzeXg3aVYv
- MDNwYVBDakpoN1hxOXZBenlkTjVVL1VBPT0KPTZQL2IKLS0tLS1FTkQgUEdQIFBVQkxJQyBL
- RVkgQkxPQ0stLS0tLQo=
-Organization: Canonical
-Message-ID: <6c58c7c3-fd3c-0a78-557a-2f222ba7e95c@canonical.com>
-Date: Thu, 15 Oct 2020 03:50:27 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ (envelope-from <sswarnas@gmail.com>) id 1kUuFy-000206-Im
+ for apparmor@lists.ubuntu.com; Tue, 20 Oct 2020 16:13:02 +0000
+Received: by mail-ej1-f49.google.com with SMTP id dt13so3546997ejb.12
+ for <apparmor@lists.ubuntu.com>; Tue, 20 Oct 2020 09:13:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=1bGTnzJJiQgGXsx3m6gzcVnkOqPDZe0111bkWxPe/nw=;
+ b=OUbg0kt7u5zm4nz87TbjmQy/zhsxTx/sOWMjlVk4mbmKgVSM23tRXZqfkR1PzxeCFW
+ ahJbykZJoQGRbBh/+r3Hxrcsd2lcIn7+jAtL1VJ1oFSeftugMp8cRtEunZnpVBzfii5d
+ oYaceQXN/U5rFP7iU9DXoQAvlYGlsl8xSMt/4UCTizaMj//Hj8Uy/u+H0/gC3jCtMCYy
+ BiA0eFuyAw9tA26zGoR5mAEXoiO00fgPSEoNMa+91Me0aZ9LPCzXoSA5N11RqokQpA8C
+ biLbVTtcMLj+1mBuprQDiod1yuXQurYPjHPOHPOSon/zWtwdo3gT4fcVP9UvVNXt2tBm
+ dudQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=1bGTnzJJiQgGXsx3m6gzcVnkOqPDZe0111bkWxPe/nw=;
+ b=SS/CymyGaaVGlXGmKcDk0/bvbi0lrcE+d+pk8uDa2OXMpXBGfedoH7LE0z015kabRp
+ M5vnu3bsBafduqOwLS0bSQRpzuSE0kSZbAUyUy6rYUzXSMZFAUHU2qvdl5llKX1pYLbC
+ 9j/3lbB5kfrt8ivjqoQpcXvbJtLuWRMj6C5Vlrge/oCvE6tHSNg4Qfw3p+x1tAdz+qe+
+ OjBJMGZ0IfTiYqDzRiQ3xmB8V63bWIS9FNzbPFn8fbZezRag+e2aawoDaveIulG91l9L
+ iDXSHIDklPj0l+ZHvI/RMQra3H1G4gpvbxi31pPVHwD3eM2k5WJ+qOmFPr7N9v18gIND
+ /naQ==
+X-Gm-Message-State: AOAM531CGiaXDMRte06+nH+5m6/cXFUjhyW6vORp7mbrzq/CdaqjkZzB
+ lhs8nbC3NB6hMDlI9cDkmoGkLu6FENX1YL4kSe0He9tgWX0=
+X-Google-Smtp-Source: ABdhPJyIfNC9g4IWL8bQQ+ddy+A7Nd4pGP+6Xbm05XSGQVQFmeOnRTUFnfkfF3p42MsL5vwQtf9QJtmaE9RSSDbvn0Q=
+X-Received: by 2002:a17:906:3ada:: with SMTP id
+ z26mr3836195ejd.151.1603210381503; 
+ Tue, 20 Oct 2020 09:13:01 -0700 (PDT)
 MIME-Version: 1.0
-Content-Language: en-US
-Subject: [apparmor]  AppArmor 2.13.5 Released
+From: swarna latha <sswarnas@gmail.com>
+Date: Tue, 20 Oct 2020 12:12:50 -0400
+Message-ID: <CAJs3c4xwqOOLPVOW8bBPrpRkFceLYdFSgWmKBtwbu1o5vj4Fhw@mail.gmail.com>
+To: "apparmor@lists.ubuntu.com" <apparmor@lists.ubuntu.com>
+Received-SPF: pass client-ip=209.85.218.49; envelope-from=sswarnas@gmail.com;
+ helo=mail-ej1-f49.google.com
+Subject: [apparmor] Regarding apparmor in container
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -113,28 +59,61 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============7060762382715680970=="
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-VGhlIEFwcEFybW9yIGRldmVsb3BtZW50IHRlYW0gaXMgcGxlYXNlZCB0byBhbm5vdW5jZSB0aGUg
-Mi4xMy41IHJlbGVhc2UKb2YgdGhlIEFwcEFybW9yIHVzZXIgc3BhY2UgY29tcG9uZW50cy4gCgpU
-aGUgcmVsZWFzZSBpcyBhdmFpbGFibGUgb24KCmdpdGxhYgogICAgaHR0cHM6Ly9naXRsYWIuY29t
-L2FwcGFybW9yL2FwcGFybW9yLy0vcmVsZWFzZXMvdjIuMTMuNQoKb3IgdmlhIGxhdW5jaHBhZAog
-ICAgY29kZTogaHR0cHM6Ly9sYXVuY2hwYWQubmV0L2FwcGFybW9yLzIuMTMvMi4xMy41Lytkb3du
-bG9hZC9hcHBhcm1vci0yLjEzLjUudGFyLmd6CiAgICBzaGEyNTZzdW06IDYzN2UyYTE0ZDg0NGU1
-M2UwZjBiMzFkYzhmZTg4MjFmN2JiMzY5MDhjNzA5Y2NjMjNlMjkwMzMwNTNjYWE3MTcKCiAgICBB
-IGRldGFjaGVkIGdudXBnIHNpZ25hdHVyZSBmb3IgbGF1bmNocGFnIGlzIGF2YWlsYWJsZSBhdAog
-ICAgICBodHRwczovL2xhdW5jaHBhZC5uZXQvYXBwYXJtb3IvMi4xMy8yLjEzLjUvK2Rvd25sb2Fk
-L2FwcGFybW9yLTIuMTMuNS50YXIuZ3ouYXNjCgoKCndoaWNoIHNob3VsZCBpbmRpY2F0ZSB0aGUg
-cmVsZWFzZSB3YXMgc2lnbmVkIHdpdGggdGhlIEFwcEFybW9yIHNpZ25pbmcKa2V5IGhhdmluZyB0
-aGUgZmluZ2VycHJpbnQKCiAgM0VDRCBDQkE1IEZCMzQgRDI1NCA5NjFDIEM1M0YgNjY4OSBFNjRF
-IDNEMzYgNjRCQgoKVGhlIHJlbGVhc2Ugbm90ZXMgYXJlIGF2YWlsYWJsZSBhdAoKICAgaHR0cHM6
-Ly9naXRsYWIuY29tL2FwcGFybW9yL2FwcGFybW9yLy0vd2lraXMvUmVsZWFzZV9Ob3Rlc18yLjEz
-LjUKClBsZWFzZSByZXBvcnQgYW55IGJ1Z3MgeW91IG1heSBmaW5kIHZpYSB0aGUgZ2l0bGFiIEFw
-cEFybW9yIHByb2plY3QKaHR0cHM6Ly9naXRsYWIuY29tL2FwcGFybW9yL2FwcGFybW9yCgoKS3Vk
-b3MgdG8gZXZlcnlvbmUgd2hvIGhlbHBlZCBtYWtlIHRoaXMgcmVsZWFzZSBwb3NzaWJsZS4KClRo
-YW5rcyEKCi0tIApBcHBBcm1vciBtYWlsaW5nIGxpc3QKQXBwQXJtb3JAbGlzdHMudWJ1bnR1LmNv
-bQpNb2RpZnkgc2V0dGluZ3Mgb3IgdW5zdWJzY3JpYmUgYXQ6IGh0dHBzOi8vbGlzdHMudWJ1bnR1
-LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2FwcGFybW9yCg==
+--===============7060762382715680970==
+Content-Type: multipart/alternative; boundary="0000000000004a313705b21c81bb"
+
+--0000000000004a313705b21c81bb
+Content-Type: text/plain; charset="UTF-8"
+
+Hi,
+
+We are using apparmor to generate profile for a video application running
+in container.
+
+with apparmor in complaint mode, we see the video is not streaming, and we
+are not getting any apparmor logs. if we disable the apparmor profile, we
+see video streaming.
+
+Can you please let us know the reason for this behaviour... is it due to
+any permission issue or performance issue...
+
+if it is due to permission issue, why we are not getting apparmor logs in
+this case.
+
+Thanks,
+Swarna
+
+--0000000000004a313705b21c81bb
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi,<div><br></div><div>We are using apparmor to generate p=
+rofile for a video application running in container.</div><div><br></div><d=
+iv>with apparmor in complaint mode, we see the video is not streaming, and =
+we are not getting any apparmor logs. if we disable the apparmor profile, w=
+e see video streaming.</div><div><br></div><div>Can you please let us know =
+the reason for this behaviour... is it due to any permission issue or perfo=
+rmance issue...</div><div><br></div><div>if it is due to permission issue, =
+why we=C2=A0are not getting apparmor logs in this case.</div><div><br></div=
+><div>Thanks,</div><div>Swarna</div><div><br></div><div><br></div><div><br>=
+</div></div>
+
+--0000000000004a313705b21c81bb--
+
+
+--===============7060762382715680970==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
+eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
+aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
+
+--===============7060762382715680970==--
+
