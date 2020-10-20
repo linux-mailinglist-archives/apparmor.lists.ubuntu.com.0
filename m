@@ -2,55 +2,312 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id D40A4294377
-	for <lists+apparmor@lfdr.de>; Tue, 20 Oct 2020 21:47:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47F0929439C
+	for <lists+apparmor@lfdr.de>; Tue, 20 Oct 2020 21:55:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1kUxb1-0004VR-5k; Tue, 20 Oct 2020 19:46:59 +0000
-Received: from mail-pj1-f45.google.com ([209.85.216.45])
+	id 1kUxit-0004tG-45; Tue, 20 Oct 2020 19:55:07 +0000
+Received: from [149.56.148.14] (helo=mail.sdeziel.info)
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <sswarnas@gmail.com>) id 1kUxax-0004VK-Os
- for apparmor@lists.ubuntu.com; Tue, 20 Oct 2020 19:46:55 +0000
-Received: by mail-pj1-f45.google.com with SMTP id p3so1210166pjd.0
- for <apparmor@lists.ubuntu.com>; Tue, 20 Oct 2020 12:46:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=41v5GiLetaxHlrubdi/AvvpWLsYd/nODHvOoF6egTt8=;
- b=rOaZ2bs8slEHTAMi/iVmYMYTmi3aaNoB5cIEv80ta3S8GDDoItKgIcVY3doD4sqW2P
- m8a/g2RSgaVqZeKtf9so7McZGEoz5CpoZ9+dg+kHKlYMyShgOiDs0hM+mQjIisvwLTLV
- u7Ma2AS3b2FMFmOog8A3La1m08gWMcG1EcF9q3MT4LRPssGry/s30ru2TpIRts1Jl2nM
- OiDlPyIQDCpZqUjVtsA/Gt2qJaiJApXEVoTT8/zs3S47Ad6A/xB9roG1X3RkqXDg1K09
- aR+kVrh/I2G2xlsVfGDFfQkRVvknyehqXiHLu0o0UROAWd6dBVr10236A2vkoJcrNJcj
- 5EqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=41v5GiLetaxHlrubdi/AvvpWLsYd/nODHvOoF6egTt8=;
- b=idEnIf63ns/PlcwWtjCDsmYY+hQ/+UbMMaawKQu8j4pdGFiBSlU6bDs0JntFyzbIHQ
- egnGBSCAeFe/0RdFlGkTo5Jsbcbvj2Os4MUFu7aBcEw53jHInpyhD6js+X1Bwyc+8LQ9
- ZYjZi90s8NcGLhpJaMaakMLo5EDtS1NqcmARZ8GJAyy5x74Dl7WpsgdOmzWv8XA078wr
- pTfodb6Ak2DUK0ASGrepsoJrxFlp0MQ4xJY9R1lIipGXhVQmSMaaDMD4A2hNj/6QSnqR
- /MCd2WhtO9RXpgRokg0b7oBY9AOyvfoxhVtgWrTqgUcdZe2Uh9RZu5c6Eg6MZzCnxVTf
- 9gCg==
-X-Gm-Message-State: AOAM5325dB+ocirIv1xSkWPpo8lnMcSwBMNjj6JniE6OMYNH0KGGZRPs
- doYEwRjrBwSMOkV7k29HXPCZb1blUAixsamgr3o=
-X-Google-Smtp-Source: ABdhPJyafac/O2zgZ55Gy9ajpgUwwBh6B1wj6QeqUwcZqMi4gbQAG+0GEwuVVmUsXLuneMcWXDSOuoVruewYJ97u5pI=
-X-Received: by 2002:a17:90a:4b87:: with SMTP id
- i7mr4256211pjh.68.1603223213872; 
- Tue, 20 Oct 2020 12:46:53 -0700 (PDT)
-MIME-Version: 1.0
+ (envelope-from <simon@sdeziel.info>) id 1kUxir-0004sz-2i
+ for apparmor@lists.ubuntu.com; Tue, 20 Oct 2020 19:55:05 +0000
+Received: from localhost (localhost [127.0.0.1])
+ by mail.sdeziel.info (Postfix) with ESMTP id 4CG4940bPmzlCR
+ for <apparmor@lists.ubuntu.com>; Tue, 20 Oct 2020 19:55:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=sdeziel.info; h=
+ content-type:content-type:in-reply-to:mime-version:user-agent
+ :date:date:message-id:from:from:references:subject:subject
+ :received; s=mail2010; t=1603223703; x=1603828504; bh=jUkdAH+qUH
+ p8UDJguFf7LH6F+Cyw7p3vA2Nq3PtCYQo=; b=P2hYs6s1Vr55+N/HEGCX3dgL6J
+ z3RW35KIPCLCpJh4Zr/2FaVMVF98zQT6vNjr6Trxey7v7njybogX+eUPK3wM8ImF
+ Fbc+VmuLzoFkN0p9uCzHU0GL7ElVibSwpBa4sALREO/fv/Lsva51h7TkhLbKlfFy
+ AxSCG8q+J9wvd52wxVmrCZ7gCA6VuKFENkD2J5SbYP6k65SyxxY1tFN1i8uuLB6f
+ wT0KpwzuxW9g1JLMiAAQhZHj9YIj6+Ud1YcPfppS2rEQp5FOPqWVVGxIIf31jrXs
+ Q55KV4/wZg658shFk6JS/aNqyv2wuyPMldD/DSRpuMT5hs4wmUlvOnZOAzhQ==
+Received: from [IPv6:2001:470:b1c3:794c::100] (simon-laptop.vpn.sdeziel.info
+ [IPv6:2001:470:b1c3:794c::100])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: simon)
+ by mail.sdeziel.info (Postfix) with ESMTPSA id 4CG4934qypzlC7
+ for <apparmor@lists.ubuntu.com>; Tue, 20 Oct 2020 19:55:03 +0000 (UTC)
+To: apparmor@lists.ubuntu.com
 References: <CAJs3c4xwqOOLPVOW8bBPrpRkFceLYdFSgWmKBtwbu1o5vj4Fhw@mail.gmail.com>
  <f760dc51-7a5c-3162-2698-049710431dd6@canonical.com>
-In-Reply-To: <f760dc51-7a5c-3162-2698-049710431dd6@canonical.com>
-From: swarna latha <sswarnas@gmail.com>
-Date: Tue, 20 Oct 2020 15:46:42 -0400
-Message-ID: <CAJs3c4xz+Eb-LXZC4d6G=Pu8xXQeQaweQPbNE5Vngs7ywPxheg@mail.gmail.com>
-To: John Johansen <john.johansen@canonical.com>
-Received-SPF: pass client-ip=209.85.216.45; envelope-from=sswarnas@gmail.com;
- helo=mail-pj1-f45.google.com
+ <CAJs3c4xz+Eb-LXZC4d6G=Pu8xXQeQaweQPbNE5Vngs7ywPxheg@mail.gmail.com>
+From: Simon Deziel <simon@sdeziel.info>
+Autocrypt: addr=simon@sdeziel.info; prefer-encrypt=mutual; keydata=
+ LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCgptUUlOQkUyVGdLc0JFQURT
+ N0cxU3BUcUhHMDMrdnBVcDJQTDNoSkpLbkpVdDl0U3JGd05WakNaVFBMRTlxN2RjClNheTZw
+ KzlYTmxubmVQNnFlUWpLRG5qOVArQVB1VkNjUUw1T2FtdEVvZDFJRUJHOFlmSXhId2dPMlpv
+ Zy9GQkMKN0haYVlvN1AwRkVRNlRyQkxFSFZUU1M4dmJQYVRyYytkTzNlQ1ZYODZ6SUlEYVFh
+ NzViWHVIaEVhcS9OYm0vVQpNeWlnTlF6UzJyL3IrVlVCVTlET0c4WStSeWE2elVmdlNhOGlr
+ bWJVRFZKUmlld2xUL0xLc1ZuTlk5Qks4S3VECk05andOOEZzRWgvYjRZaUhkMkFyN29jd0NM
+ bEY1bzdWdElNc2xlUTlVOXBUc2FtOEdDbGQ2UTU2Tncxd1Njc3cKeS91dEFKa09pNzZzd0VQ
+ ZVA0LzVFSHp2UHJacWtpMnZkTmZXRFphODBMTjVscWRLeXVUT29YOGNBRWJTT2pRYQpZcnVT
+ WjNUTzZTbGoyNHVmeDRoMFBaQVVMQ2dCZUkxSUhiV3A1a01JYU9mak9SdzBsL1dwL2hWRk5v
+ Q3Zvek04CjMwR0dIM215SThaeFRYRGJBaEczaHhYeDM1MWI0TmJ2ZzhhTHVpSnQ4dXFZdmYz
+ dnc3VEMzYU9qeldlVFcycHIKSFdUbGsyeFh3dktKV0R5QUNyMExScmsxdHo5WHdYVitRdVRq
+ cHVqaFh1aGg5U1ZUSDBIRUVhU2VHUUJSUFJ6bQpSVlJZckVzSllnczFoc0lsM1hTbzh6aDdy
+ SCtaMHE1NFQzOHhwUFp4WG1QL2h3VU9IVWtlN0kxZ1lQdGo2NlhGCmJTaTlLRnhVYjRDdzRC
+ UFMxTWg3TVhuTzNwQkd1NkptLzg3YUxjYlY4Rnl4WE90UDBPbDJzeFYzcFFBUkFRQUIKdENW
+ VGFXMXZiaUJFWlhwcFpXd2dQSE5wYlc5dUxtUmxlbWxsYkVCbmJXRnBiQzVqYjIwK2lRSlhC
+ Qk1CQ2dCQgpBaHNEQlFzSkNBY0RCUlVLQ1FnTEJSWUNBd0VBQWg0QkFoZUFBaGtCRmlFRWEr
+ aWorbzRtakx6MTJmY0pyRUJGClRrZ2F1RkVGQWwxRmdFMEZDUk4wWnFJQUNna1FyRUJGVGtn
+ YXVGSEp1Zy85RjB2TVpFN1RycFNzSStOZ2pZd00KNkNXSlNQUXpvazZKTlN2L1JzUm12ZmZ2
+ aEpCZ2EwUUZaZlh6cW5JZVZCNHNxMGQzeGVzVittUmU2a2tSM1VSawpNRkUvdmZ6VzBLanVH
+ dG4zT1pSbGZ4TjVqMStQcVZCOHBKSlhEaTk4OU1nMWlHUmN4SDZjcTRwZmFPSHVyVHRGCmJx
+ NmRoM2xyaTRVTmtyWUttaGd3ejlXMjBtKzNrc3JUNHZrSnJsMG5UUGUzZzNxUDNIVTJETnc4
+ M3Y5QUNCSGcKMHVUNGtXWU5EenExeWNDeDRtZVQ3VzVuVm1qcXE1ZmJMZ0FiQ3RSZjEwUzdz
+ TVh5QnoyOERGcENuenloUklPRgpKZkhDVUQwdFEyanB2YjRoS21jc3EzSWtYcSswUmFqbDU0
+ TEtRNjF5VHZPNHplMTJ6M1BOWTBxOVNOSmNmUUV6CjZWaHlOQVJ1KzJFYzZlNlRqa0Yvb0dZ
+ ZXhjNkhVS3dESDhTZy9lUzd5SFE1S2JHRGZMMVhTNnJBVUZHcWJYMW0KWUlVZTBEMzFsb3F0
+ K2lCekljMEIvMTFOMUNCWVNHMVhYVmRGbCtPbG5uNi9wU1Q4b0V0c1JQRG1HSzdRVEZRNApz
+ SnA5ajVqQnoyQW4rZlJwS1hzTU53L0NjVzFlUnBiVDRLczRLbzd1QUxnNjZKUnpBZHNYM2dZ
+ MEIwTml0bGwxCjR4T25JYTdjL2NJRGVJRnRKdC9SVDJYMGsybjd3MkpGSHlRYjh3Qzh2T21W
+ QlZpT0NTSEVYMC9HWjF2Q3Y4NHMKMEZSYS9zVVluS0RPWnhPQysxd1VmbFBXOG5Da2tiUmc5
+ bmZmY0MvSUZTSWtKcXVDb1V1NDExRlVQVWhRS25vdgozdzNOUHJidlFSWWNOZkppTVEweE9u
+ SzBJVk5wYlc5dUlFUmxlbWxsYkNBOGMybHRiMjVBYzJSbGVtbGxiQzVwCmJtWnZQb2tDVkFR
+ VEFRb0FQZ0liQXdVTENRZ0hBd1VWQ2drSUN3VVdBZ01CQUFJZUFRSVhnQlloQkd2b28vcU8K
+ Sm95ODlkbjNDYXhBUlU1SUdyaFJCUUpkUllCVEJRa1RkR2FpQUFvSkVLeEFSVTVJR3JoUmJw
+ WVArd2FTeFhhOApjQ0FscEFzNFlNd1BTeTR2a0c4QXUzWEhVZUw5d2U5eCtnTXppZnl5eDhB
+ MEwzT1MrV0RJczgyaHgyekJRWFltCklNcEp4V3YxcWFYTWliVkJqSTU3Wmk3VGxVcXp5RCtw
+ bWVQdVpoRTFRT0E5K2FxSlRsNjlQYTNzSVdBNWJVVGgKdUxBN1J6NUgrUyt3c1BQakJjY1NQ
+ K204M1BOQllaUERrVmV4aktOajdkTmhKODRicWd1QVBjMm5iMFM4M3VHNwpReFJTQlhic3U4
+ bWRoY0pKaE1qcXZCaENwem9ZNkRSSy9hOGN2aE1WcWUwWEpqL2NQL1JCMVlVMzU5aFlYM2Jz
+ CkJFZTlBdHJ5Wk1PL3E1NjNTNmpLTVdBZ2c4NWpMdVdxbjFmTFcrcnd0SlpOSUc2Qk9teUxk
+ VVhUMTNLdVV1bVkKNHVMOHFXd0hiU2d0UFY2RW5RbTl6d3pqMi85UkVrWDhPdll4cThTRFQ1
+ SWdUSkhMdlFsM2toSkVEdXNmcUFmYwpHdVhBZGthWk5BdlJrRkQwc1piSXhiYXI2R2VDWXFt
+ R3MxSkQxckR6cHdmVDJjWC9jU1QrbmQvVGZiYzZ4R3ZWCkdDSmZsSkhUMmQ1OW1LVFFENkxF
+ Q2I3K0twOXE5QjN1Y3psNVZwWFdYSE5MTkhsZDFmc3oyUUdsWDZHY3gvNGwKQVQ4UWVqWXZv
+ N2dKRWt1Zko2cExHMGRIVjlyWDFXUExVcnNuNXQvTnJpNDhuZVVIVzNEbXB6MWhDbituK2xv
+ cgpyUHdWRmwyc2tYSEFkdDhxTnVkNVVIR2R5TTRnVWFkYzQ5aFZyQXduWTRSRzA1TW1qUHhv
+ Rm1mMXcwTDIwNE9LCkk3dm9qbmNwR1NUb0lmQWUrZlVWVUdNVk1sWkM3UjFadW9COXRDSlRh
+ VzF2YmlCRVpYcHBaV3dnUEhOcGJXOXUKUUhobGJHVnlZVzVqWlM1amIyMCtpUUpVQkJNQkNn
+ QStBaHNEQlFzSkNBY0RCUlVLQ1FnTEJSWUNBd0VBQWg0QgpBaGVBRmlFRWEraWorbzRtakx6
+ MTJmY0pyRUJGVGtnYXVGRUZBbDFGZ0ZnRkNSTjBacUlBQ2drUXJFQkZUa2dhCnVGRXQ4eEFB
+ eFkzVG0wQWs1TzA4OU5rMGFEWUFlMlZHMldSWm9qa1lIMnZwdTVQK1dZZ1h1U05icW1ubERj
+ UTEKM25pZmwrdWExVUlqdk1mOHp5eXpWZWtDSHYrSXphOEhnVXJLeFM0VWt1Q0NlU3g2YWJF
+ bFlPcXBDd1lFWFkvMgpKczV3Mk5JdDRkSFZDMGIxNElndjBGZmFoR1JiNVY4eGYrdmNXblAv
+ T1JxbkJLdHdNWG9rUVdTR0ZOTXg2S1VoCmdIaWZTYk01cXIzTEwrSk9jM1QvNFhBTWRnc05K
+ UkRmeEVMb2JRMVA3b0RCVER3TTdtcFkzNGZMS1A4R3J4VEYKOTJYR2dDSFR2c0FyMTRtcFhz
+ R2pma1VYUUZ4cHdFUUVpRGk0aHlQdHhYdUYvNkVuWUl6eVFyckUwZ05POFJyQQpBQUJCTnVS
+ bUxBZU4xeE1pYWZDN0Qrb1Q3WTRTTlNHc0JPWHZINmZXUG5qSkJ4T2hndlN0NFdCaUM4SHRO
+ N1VHClB6K0FLZEdkdkczeVNjcjNGdEtKWDd0VTh4Q0NhSkNGU0xYYitnQk03TUpkSTRmVy8y
+ ZDc2OThwRlkwRERBSnYKdlRndUtySVJJMXo5TysybWZieVUzVW1XR2hNWXZPVys2SHpNQ3I2
+ dFpoSC9YWnQ4UnlaVTVGOW90cDFGN3lWZQoyZHlaMGdVdENFbXNwWU5vdWpzV0ltU0RNOSsx
+ amdEY2RuWXpiY3F1L2FsTDZBcXM5eml1ZHpVdm9lb0dGWXFBClAvV3RBaExYdG8xNEg4akF2
+ ekw3dG9VdGhWZlFxRDdQUkxRR3BzSDZ5aTc0OS9mMEQ4czRsZnhUUlZqMThSZnkKYUw3eHhp
+ Wk8zSzVkOXZkMW9LYW5wemx0WGdlS3JBRzUzMktOZ3FHN05qbk45NUwvd3ErMEpGTnBiVzl1
+ SUVSbAplbWxsYkNBOGMyUmxlbWxsYkVCNFpXeGxjbUZ1WTJVdVkyOXRQb2tDVkFRVEFRb0FQ
+ Z0liQXdVTENRZ0hBd1VWCkNna0lDd1VXQWdNQkFBSWVBUUlYZ0JZaEJHdm9vL3FPSm95ODlk
+ bjNDYXhBUlU1SUdyaFJCUUpkUllCZEJRa1QKZEdhaUFBb0pFS3hBUlU1SUdyaFJkVEVQLzBY
+ OUlUZVFWOWh0YmVIcUphWEY0K2NmMEhVa3M3N3pKZFpUdTZPTgpBSkNFK0RTaW9jWVltd21h
+ dXFDVUlVY0dlSm44Q3JJa2pZRzFobG5ZUVByN3I0QisxbjAxdjZZa3RTb3Z3c0U1ClBDK05i
+ ZHczdjZjaHB4czZkS0VPdXZxVWMxVHJVUUdWc3NTRkRlcS8zbDVQZHlJNnVCbE9WM0RvYWxK
+ WUNUdnoKU3RDQ0dJOG9BQUdUZ2IweE5yT1BYaTlNZ0Z1R1VGYTM3aWhoVHVxZ2tacU91ayt0
+ bUk4bEJSeG9oOFZZeXpwUwpDM3ZmUFh1SndxM2VKTTdPZnhuM1JFSVlOOXdoMWsvYS94UVZm
+ ZWc1MkJXeFQwdjVTLzBNMEMwUUhVeGNkLzlHCnlzbUl1YjJZYm1wSGlBTG91S1Qxa1NuQ0l2
+ YU5oY0JPZXZoTzRhRTI1aWdSa3JaQmVzTUd1enlYMGxkaU1nWVIKLzJZN1BCbDUzbzVXMGs4
+ Y1RtOHhXMllDVnJIbWhBem9obnVXbGxZdGswUy9kRkx4VW8yaXpOcDk3S1Z4Q1ppcwpleGd3
+ c2k4a2RaRUY1VldEWWVqWkJwU0NyelNiNENjNFR4Mkt1UW53RXZtakJKMG9rMlpKYUZia3pL
+ TFRzWW4wCk5HcE81TUNpS29ybFgrc0lYQmp0OTFORGhQdXg1MEZVQlRCL0ZmVWdzTkFYaW11
+ Q1FQTEVSR0R4VHdJZVV3a2MKRUtsUDBuM21qaUw5ME1YOWZCb2pValhYbjBUa0RDYWcvMXFI
+ V01ncXZNd05tTkc3MFllMnBXTFM4RnQ4eVczTApjc3JVQ281b2lIVXFrYjNLOS9SZlRyM3RE
+ Vkt1V3IraEVTRjVpMGxuaktPNEhKWUVrSi9EZFM4M0pRYXY1aFBDCk1GekR0QjVUYVcxdmJp
+ QkVaWHBwWld3Z1BITmtaWHBwWld4QWJuTmxZeTVwYno2SkFsUUVFd0VLQUQ0Q0d3TUYKQ3dr
+ SUJ3TUZGUW9KQ0FzRkZnSURBUUFDSGdFQ0Y0QVdJUVJyNktQNmppYU12UFhaOXdtc1FFVk9T
+ QnE0VVFVQwpYVVdBWmdVSkUzUm1vZ0FLQ1JDc1FFVk9TQnE0VVM2VkVBQ3JBMWd1c2o5enh2
+ eUJmOW1PT3hOSTJsQ1ExQjBYCmFyY0licUlYcDRIaEVzR08zRXhRanhoNnVTWmwwVkhQWHZB
+ SVdreDJOOENqWDFqNm03QVRpSEJMY1IyOGMwVU8KU1pxMVdUZ0ZjVUFrUnhibjBhV3B1aUhM
+ S0Q5bDRYaVlvNmdEUnFqbVhOazd0eXRISWdpNENCb01Fa1Vpa0xTTQpWMU1MbWQvVkxEczR3
+ Y2VDTW9CdGlxT0xMS1lFbUoyN292NWI0ZHNvRE5SUUtWSTNBY1g4MFp0Y0wzUUtOOS90Clp1
+ b2hITnFuZFZjRjZvZytPQUp3VFM0bHZPZ1pYR1YzRXpLbERRdDZFWTJwdE5pUDAvYzBiT3o5
+ NUtDQ3Y1VCsKQWNVVWVIelJNWVQ4V2lpOStBemFNZHdEZ3lkWHdzRys0SFVhV2t5R0dZSXJY
+ alhJektvOFJVYUVoL2VSc2FleAo2Ni9TWFNxUzdlZzNXem0vWFZBQXFOK2M2Sm84aUJEMDVv
+ c0JHTnUwU0w0ekxYYUJjMlNIV2dyekVncWlQaVVXClVKbFJwYmI0SStwOGN4TzBleE0xZGg3
+ Mm5oS3lvUjEvZVBYR0lkYmcwODR4YldkelpJdEhWQ0sxSGFMeVViQnQKVDJtQS94NjVjUEpp
+ dG1OR1gyclFwUnFPTEtLMXQ2bHZmVjB0dTlhcXl5S2pjUUZKWDlyUDhHMnpTc0t0MzJiYQpi
+ aUNaTkJrenlMVTFtUDExM3Q2L1BtbnRndnJyL1haYkhhS1NIdjk2TmV5djRiOUVSTnZQeEhX
+ L1haRTV0OEFvCnluanpqQUNIbW9rejJ5L2lvalRNMnFpM0lOMTZRWmNhNUdBeE0vRXF1VG8x
+ YjdRdEcya084T0FqbHJ5cjVXbmgKVldBTFRmZlFvbUZLcmJrQ0RRUk5rNENyQVJBQXJiVVNr
+ by9FSCtYOWw2U1BCRUFiQjN1VDF4SUMyUXc3VUg4bAo4bXhraEszdGtUcW5XZnpVeTJ2SVhF
+ cTdTaUZWckFoNHFsZzF1OXpocjh0bW0ydVc5RTgvdVdORTYwYyt5d0FHCmx6Tk1teUdicyto
+ NTFVcFhtUTdiMVhHU2hsSjFodytxK1B0Q0lkU0YzeU1FeGNmNVZnWnorckxINXRqeHNmeksK
+ ZHVsV2EvWHNvYnFIcXdkQnc2NnN0TkpwbHdPLzVyQStMMEpmb1JqcjFJbDI1T1c1WWhNNzRT
+ TmN5bWRGZ2JJZQppZ2FxSHZiQklMNm5GMGlIdnBQbWx6eHhCaGgya1daSld6aVZ2NE9WNkt5
+ VEp6ZVBiVHIrYmRnazAvdGZEcU1OCjgxOW1Cd1RqTTJEZ3V6MzdPVVliYU5HSGx1cVRYcnR1
+ MVV4dVFHQ0MxUHJGSVR5Q083cXZqYmE3MGVHVEJiTDAKempMY2NqQXZyWkV3U3Ayczhpc0t3
+ K3U5S1pyVlF6R3YxR3Q0ZjVyUGQ5c3hjRHpGcXpJVHhkNTBZODRWTVkzSQpJKy9sZGZKVGpG
+ dEFNLzFuQUFsY3FFZ2E1Y2tId3lEc0g4VVduRjNjUDdXVi9xYW5YNGJkcUFrRDhHQy9DUnJO
+ CmtiUnR1TG83OWc1OWtsYXpyR1h1c0VTbGxrelBWUnBOTTJLeUovQ0wweWZXL05KQk9nMXJH
+ NkJYMEdnMkozSUYKRE9oL1B5UkxjMTVwblAxUzhxRFJ1SytRRTBhYnB1ZFlVUENMdUhBcG93
+ dTZscFlkRFRidHNDakxaSXBtTzlJNwpmajdSODRCSXdlSFZQTExOd1g5c29sZnM0c1R4b2E1
+ azMvTWF2a2hrOVlUY0hHMFpKN0t0aTBXM0hkWHpqR2JMCk56Z21WQWtBRVFFQUFZa0NKUVFZ
+ QVFvQUR3SWJEQVVDVU9yL3JBVUpCVGl5WmdBS0NSQ3NRRVZPU0JxNFViR2wKRUFDSDlIRXhW
+ ei91OFU4bGVRWE5vWVFyRzN2MnpYVzVtZU1CWUl6dnhMcndRLytHYUpSNjE3Y3dMd0NVRGFW
+ cQpZRVkyMC9DcURtS1pEVmFsSkpnNWMyNGYrL0N6UUpsR09qeDJqS0FJeWROZGhsTkg5cC9C
+ alM2YzVCM1NoSDB1CmVQUTVnOGtFMFBOM3d5YkdJZHNqd0d4MUpDVW91THNiZmFoSlFFTXhh
+ ME10aER4ZWZqRkYvUTI5NHdkVjJYUzkKTzRxSXJaNjZwR2lQYmN2cER4VVVad3ZQYnVWOWcx
+ ZExGc21idnF0dmF1UHVCbjI4SVdpSmlCNEV1UE5nUThCSgpPODQrY3k1V29EMGNMZWhaSWZH
+ eWZQUGdkUktEeXFoMU8yaDJGZkF1NlBEK2gzK2VmeW44cldvVFRBWkFBSHVnCkZyVzBQSnB0
+ R21heXRVdzVsNTVHVDQzQ2J2bC9XNXU0K2U3WmF3VjJvUFlRQ0dtenE1eUtNYkNxS3B2LzI3
+ WEEKU05HYW1VTGt0L0tIWStneTJWeUx3VkhSRnV4N29NUDE5eEpqbWtmYWJQeXRlNWx4TDAv
+ aDR3YjZmd3lQNlY5SAordkJ2VW1pbFM3QzhNUkthNnZsc25hU2hXWkROb0dZVmVCVGgzaWph
+ OURmbUhzb0lWbEVLLzUxMmREeXV5TForCmZEeWdRbUJyVjVpRGhtaEJidmR1bTJ0a1dJL2FZ
+ RmdvV1hLVy9VZ2VmcDFPUnpadUMwcjZsUEVuc05vdlF1UmoKa2JPQk9ubnFLWnZBSkFwcUIz
+ T0xteDdBZUhxMVdncGVUdzViY0lOV1lBdWE0RkQ1eWN2VnVyQU5qVXMxZUdkawp0dzhuR0Ft
+ dzBaL1pDbnRVVlZubUNCSFlmb3pQelBZaEZJaTUzT3JOeVU2R0Ria0NEUVJTVjBXb0FSQUEx
+ MG51Cm1rS3dYTllRSGZKY1M5azVXaEZPSlE0QTZZeUhqNHVHZEpUTWZCWjZkd1EyWXpucVM1
+ TjgrbHR1eFBWbUUvWXgKUkt3TitVUHNyb3VkR2dobDg0dmwrYldhVFN3aGNkZ05lM2dvcjBI
+ R01DOXlKMXFSSTRKMGVsNm04MVNDRENOYgpmOFhJcXREbDZWd2QwTUVnTXF5MGNzQlBuVGl1
+ MTVKZExZR3Vna2ZvbmFPNVFsVnVkTGtRbzdpOG9BbXY5K1MyCnM0TkZPQ3BONFdGcGlYSjB4
+ cjdOeVk3VTMwa2FSZTRPanBlYWIwaDZNNG1Ec2wraEl6czhWRWpGMVJCM2d5U2IKenBqQ0Fw
+ ZDN5YXgrUkhTbFozS095dDRPOEV6bXhEUUpSMEgwZmluV1YwUXdLcGIvNjhDekR0bGhMdkJQ
+ TDlMZgoxa1ZNSjM0N2tDUG95RytvVGRnUDhDYmthQlJ2SUJjWTB4aVF1eU5Td3JDeGhPN3lZ
+ YjhXMjk3YUNub0dabzNHCkJCOG1xeTVRNUszRXE0RStkcmF4OEhUdHozcHJ5SzVIWVVzdlpU
+ K1dLOHJ2NnQweGszYy9zczYySGRPZDV1N2wKV2dtbGRoWTR5cE9sb3lXSDA3YzZaZjRzSG10
+ SU5DbUwwY0RiSVc5ZFlyT3Z5QXR4RE9BdEVGMzV4dmlvYXhmcQpHMTFRUWprUG5iSEhKZE9M
+ VGt5MTJFR3RwemdnZ0pSRTBCaTk1Y0dUY29CbTR0bEd2VEtpcEQ0Y0tqQjZBejlaCkx5MEpW
+ dHhDWG5HbVhHdHIzUG53RmNZb0FPbVRXQXNySUxXdnJLRzlmeThjWTY5S3ZTaGdEVVpFWXkx
+ ZVMxMWsKZGswcFNtejlXTm5iQWR0dWFkTUhqblhKaHRBdHY4NjBId0ZvU1BVQUVRRUFBWWtF
+ cEFRWUFRb0FEd0liQWdVQwpWd1JuaFFVSkJOU3V5d0tKd2IwZ0JCa0JDZ0JtQlFKU1YwV29Y
+ eFNBQUFBQUFDNEFLR2x6YzNWbGNpMW1jSEpBCmJtOTBZWFJwYjI1ekxtOXdaVzV3WjNBdVpt
+ bG1kR2hvYjNKelpXMWhiaTV1WlhRMU5qVkRNemMwUVVaQ1FVUXkKUmtNMk1qQkROa014UWtJ
+ M01rWkZNRVJCUlRrd01FSXlRek0wQUFvSkVITCtEYTZRQ3l3MERESVFBSUtTSGVJbwpWOHFw
+ dXlHU0tOQWdQUU94VGd6SVNXWHlkcEtVWUxaMW0vODFiVnpTSzVMUlJMYXZubHhQTDB1dlA3
+ UXRaejB4ClprT2dZWlBDcjRJd0RCa0hTTlloQnZDMXJlUUNCS0F1UjkxQ1dpbnFKRjBRaXRE
+ ZVAvUjdsRjJERnpGaUFnUjAKQ3YrSXVsWUNjeG5pTC9EQnFQWE41Q1haMHVGVmowbUVVZVFv
+ VDJPZi9FNFBDakFIRDdGVlNpTm45WGgyVVJDMQowZTl3Q1RnaFV3VG83c2J0enlodHVUcFBV
+ NWpMVnJ3c2piSUpyaWtLUmM0ZEptYjY3SVA0eVpjbHJTTTFuUjRjCmEzR0oxQ1NkUk02VXZv
+ K2xsL2dLR01XTm5Wa3JqK1NldGZ0cU1CMU0zTDRPMzZCMGZORTE2dXNySU1BdnNuelIKWFVv
+ UEt0SEZnVGQxaTN1c3BsZC9OZkdGNU41ZDJlUm0weDlUTXloblQ4Y2hqaHMvc05zaHpzNkZq
+ Y3hVNzg3TQpDUnpPZXJ3bm1rUU5PbjM5U096bGc3ZnBmcWZVOGFxdGFCMVlDSmJDVDJ1RkIy
+ TkNzZDRTWGoySjZ5dThzRjBwCldHZlQzUHg3TjJHTElXdmRtdXZYVlAyb1F2TTNaYzJBOGs0
+ dTN5dStVaDQxV1UxVk02TUJiVWFOU0Eva09jMDIKTXFLUFZNU3N5SFg1Um5KeVpGOHFkRDRZ
+ VmR2YWdJZkJ6S2tiS3Byc1JxNXBqY0pyRzFua21saHo5R2Zid1o2TQp1K1h1cTc2dkVBdjFT
+ VUZlUXNDaEtsa01BdW1zYzNYQ0EvcHd5eGpSaGlhZFV2NkJMQk10UUN5SjJwOFA0NEpsCm5t
+ R0pMMWZxOUhTT0JPNzFmU2hYOUVWRTJ2Sko2TXpVbTZhcUNSQ3NRRVZPU0JxNFVVbHlELzR0
+ QkR5ZXN2aHMKVXJJc2QrOGVWZGNuZm1qY3Bsb00rZ2lSRnZuUk1GWGxKb1hINVJmTDcxeCsy
+ eUlXazUyaHhnQUsxeDFYVUZCSgpuenRGZ3R6bXhDV0Rpem9GN2dEQy80MEFwUUhIczRad3JL
+ ZXZQR1VObXdYdzlWUE9NS3Y4ZDFwU0tSeUdLclg4CmdabXozTEhLTStrcm1TSVB4WW1iRnNa
+ RWxTYmh6cUt0UjQ4WlNCYlY3WVBWNFBnVXlZZzhicXpLc0xDWVl6eGIKS2VLMFB6MkxCWHVa
+ cHBQdWpHSDUxL1BjcmdqRExqQ1loMTUvTG51eHZ3d2ZIUlFFTlhYV2NJdXdqcEttREpOQQpN
+ ZUIwVnpJM1M1RVVkeHF0cHFKS3JuajhNdnVZTlk0NEhoSzNiZS9TK3BzZDZmOEh4OG1KeHpD
+ NjdVM1dKQllFCnBkaGRsV2p5dVg2YkdlR05VZzZGVEovc2ZXd3YyczVvcXNCK1ZwaTNyb1VI
+ azdOZFk1eXQzUXBCc2lTT0pENEYKdjZxaWlMZkhEa2NiVkIramJ4QlBGM1kreGdIenZuRktR
+ Nm5mMWdJSWdVcWhGaHlyNkRxWklnSERvQzBqdGswWApiQ0traytDTStiS2FRQjk2cHBybUUz
+ aWRZMzN6dnVOaWlSakgxVDRubDhyczh6Rzlaby9pNzdyNzRPdWlIbEpaCkxWUHVobzRJUDdL
+ MTlWZ0xxR0xWdkJIUXE5Ukk1Z0NsQUZ2VlJDMjZQc2FEWFJ1N3ZQcjZsai9CWGFsUkg0SnUK
+ NlkyQ1dvd1hBbzBXdVJvdDZBVGliYXN6SDBiUE83VktNNUlWdnJRWnlnbDZLR3g3SlA0WVRw
+ ZmtjdmxNZzVobgpGNW12QWxiRG04R1BoK0FxaFBpeE1vMkxaaGtuVjdHWDc3a0NEUVJTekQx
+ OUFSQUE2WVA0TXpEeWZmeE5OZEpNCk1XQ3U4Q1p3eG1tdWlDbHlsZHlkRFIvcnZUalJ5alU2
+ QitWL3c4OW1VQzNiaEdwTklySzhDN0xjLzRNNi9mdTEKMW5oSUlNMXluT3NrUUJjd1Vkb2xM
+ RWc1UklIQVZLUnNHdFVERXZLTURaekZvNTJIRTRrcStPem1hSTVyUUxxYgpNUnBlQ1BLcEtI
+ bGdFZjZWNzhjekY0d0xrZDlIaDdZRDB1UnZvSldTVDZIWVVDMTg4VlJjbmM0eFpwWEpxT2Ux
+ CjgzZHJOK2tSamJjcnFxRStmQWJwczBobEY5Q09WUG9vanY5WTFNRjUrRW9SRytKb2o0eGs1
+ RE1jeG9XellKancKUGZLbWZHRFZ3S21VYmdaTTFaeFVNdW53aWxGY3J3ejdHRnRFc1N6V0R6
+ VUU5c2hPYjlXVm9JNEFXQnNyV0c0NgpwUjBzK3FFWTNjdDlCS242enBRMGxUajlOemw0cjZ4
+ aUswSkYyOXE5Ni83clB1VjhEeEtYNjRNbFBxU0kvaXFaCm1CU2w3ZG5scDdoVEhsYmNLb0VQ
+ SlZmY2xzTW4raTllUFYrVGEvNlFMUldxVzVLOEFuSzhINWxaV3BSa3dCc2YKdjRISUk0YVFr
+ dGkwUTE0VUhGOUM5czBWcHNvNnBtbmJEakYzTTRueFlpT1NBNG9rZGFwNE5pWGZEN3ZhUmx1
+ dgpXWTk2UUVVVHNlR3IyVlNMeDVLcU1RdmlaSUhJdjFlbGdFOE5rOUkzQVpISHh0TitmYnlr
+ RU9QTVZoREhjdk5kCjh6Z2s0Q2dXclc0Nk9MMU5IZmYrdHlnZlEwcFJuWUl0QVZmeDd3cFJ0
+ emdMWGJ6WG1RRHNwaUN5bUZESzF6RVcKNDQ4RjhpZ3VBZ2JHckV3ZmhRbXF1bHhDUFVjQUVR
+ RUFBWWtDSlFRWUFRb0FEd0liREFVQ1ZzdHVJZ1VKQk94KwpvQUFLQ1JDc1FFVk9TQnE0VWY2
+ REVBRFEzZ3lQUkNMZzg1U1ZZZ1U0TlB6T0NGc0JIU3llS0dkNnJtRU5URkF6CnU1WWN2Q1pP
+ OWlpMEpjUmYrMWZEUTlTTTV0cEJTNFRtK2JlZzArYW1KSE05ajlOYkVNUm85TDFhSWFNb3FN
+ a3gKY0RuR0VXYzUwTVh2ZHZlV3RVRno2UEF3ZEJxQ3pabThxeE01UUJXdUY2Mzdua01JRXRl
+ Z3lwREJTbGhVdjhHbwp3RUZzeVkrSHVEbjNRblBOT09UaVpnL05BbzFrQ2phNjV3azB2UGFp
+ cVFnazJHU3V6N1NKR2VFTFV5VFp4UVk4Cng3SGpEVE9jUm5BRDRyd2lsTERsbUIyanNLWW5U
+ NVNoSC9kS0ZJRmRoWC84K2pRcWhhd2lsSVgvRlZHYVZFRGYKNGpsVFh4U21vSEw3b0NCbnFm
+ S3NTK0d0RXFXYlV6L3VIOGZRanVUU2dmYUU2U3oxY2FScDJKN3RqZldyS1pySwpHVGFxajRj
+ dnRDTlpHMnNBWjYwY1NBbmpHTE5mOUxYTjZRRWdFRWVubFVXVEV3VER0SWR0b3JXU2FFdnhj
+ RUVnCmdDRzA3WDFmYlFvajZiT2NsMjBZcCtOUzBGZzV4MHNhbW85L1E0c0RHWmJjb2FIS2VY
+ K1BVY0NPSmsxZlJPM0wKNFNvY2tFd1dTcE9hb1ZHbnhqdER1YWxxQUZLekdBWDIxSVZDcXU3
+ Y3ZhUGFreCtJWDNQZCtJaG5PdmMxWDNRdgoveXlKUVVRQTJpdUh6dW85WXRDZmp1Mmd1Q1BS
+ MVlGbGtUQU1PbHY0YnVVS2tsT1J1TWsyVHZFMzNMMjI4Sit2CngzbnYzWVRFSjVUVWtpU203
+ b2V3dnZnc0U1eDRKQkpGZDhndjhaazVrZEVheEVXSG9hUXR3eVp2ZGNCRCtQWWEKVjdrQ0RR
+ UlhCR0NRQVJBQXlJb3BnbldJODdxREdidmRTbjRRTG92UVYxM09LVW01TUhkQldySTdyS2xO
+ Vis4RQo4eW5LNTlRc1hweFV3NGNSUjlOREpNS2NjeEQ5d0tnbmRwcUNwek01ZHlKSmFpTWMr
+ NWViTkI5YzZwNm1ndkJIClZDNnkwZGcrSWx1cll3djZOUHJMMUttTXhHK0NCNDhweE9hQ3c0
+ V0V4M3hwUGdwWWVTVlRhVVprVEM2bVpzWHgKYnVVVzY0ejU0TlRaZW9STjJWTXhWME1nYlNS
+ NUp6ZWhDSTV0ZGs2M1dYdlB4cXhvOVhhVm9nb3IxN3BtMmltaApWdWZqNG96NGpaMG43S20y
+ OC9vYkV5bTN0RXcyS0dzY2k5dmNlS25ZelVSUlY0Q3gzWWlTNWZuKy80Z0hreXRJCjk5dzdY
+ K3UrNmZtYnluYXRjMzRkU3drS20zZXVVY1BlM3J1UHFzQUdreTc1TGlxdDNwVEkxbXQ0MnpT
+ NHNQVHcKVmZIdk9GVVF3VEY3OVovQWxWTCtiVjVkRmVYQlhSaUJ0cktkd0p1QlhYVC95b2Zr
+ ZkFjbkMrUkhvcnJ1dldEKwowRHRiWUo4c0JlU3hBeWt5bHoxNlJzYnlsNGFIbUxMelN0blZK
+ UGczTWkzRk5uVTdaQzl2UXNWM2R3S3orTVlECmdVQTJxdmxZb2paOW9nQ0tHcklpQXNHVXZ0
+ UmlIQ2RBN01OQVU3cGUzZzNibWVtQnlNKzB0VlNLR1MxTXp4cWgKMkVMdFdLd1dXL2trM2FF
+ RXFMUyt4aHFuMHFRbjNvWXQ3bENDbjdsaEcyUk56YWJvc0NzQXVCSUdqUlNjKytyTApPbjcy
+ b3hUODEwSjZSR1M1amcvT0M0MG9hOXM1d2VUdVJDOTU1OUV1UGFTVjJwT1ZRYm0vSGorVFJp
+ RUFFUUVBCkFZa0V1d1FZQVFvQUpnSWJBaFloQkd2b28vcU9Kb3k4OWRuM0NheEFSVTVJR3Jo
+ UkJRSmRSWUNuQlFrS0E0Y1gKQW9uQnZTQUVHUUVLQUdZRkFsY0VZSkJmRklBQUFBQUFMZ0Fv
+ YVhOemRXVnlMV1p3Y2tCdWIzUmhkR2x2Ym5NdQpiM0JsYm5CbmNDNW1hV1owYUdodmNuTmxi
+ V0Z1TG01bGRETkdOME01TVRNMU1rRXlORGxDUkRoRU1qRkRRVEU0Ck1rVTNOREF4UWtVME9U
+ UTFPVEl5TjBFQUNna1E1MEFiNUpSWklucFcxQkFBcHp1NEJ2VHVtWEROeHNLVzBMQTAKR1FB
+ eFRHSkxnTHcvcld2aW11RWpDUTMrd1dDcUZUM3V3cXBZMHJvUkJyOVZyWnRBblVXOVdHVTNM
+ dmRPb2w0cwpmQnhWU0xaeWVVZmJaaWJKSysxSG05bGExVURmWHNZZ0IwRXdtVXNxSEFoSE1G
+ WXFZSjh0T25XdkNhbkVjREkwCmJzNzJ5QWtaZENlZ1JTcFVMQmtFVEN2S3YrNFpxUmpSVkFH
+ NUFJaDBxV1hsZjdVYllTRVUzVWpab3dEQlBoY3MKQWVaWUl3TU1SMzhDSStNNFNZeHhDdTNy
+ YUU0YVpMSFQwcVoxMElHNHd3SU95Mlp2cGpGdTllODcyblpKL0tYMgovWWI3bEgyQk5BOGhW
+ TTlBY04vVzFGdlhUU3dCMTdzNzBnUDhNdzBWNVhLTUpVdEJiS3Z0TmRJOXFQUWEvOFZNCnQ1
+ VEpCSHc3KzJUaXdXZm9DNEFiVzI1OTM1YzdoZXZ6aVhlMnlEaGZ2T0JDbzVrYUc1WEtqSUFW
+ dzhXL2VjNjQKRXNuZ0NETklNTUxZekV0QVFlUE1qeDQ1NFQycjZzRnBVYWsraGJVTTlTcnZF
+ YlpMRjVuYWIyRkxSdnlMRnBTVAowbGVMbVpncWVKODE0YlQ4Skl6SWtkZC9zN3lPbGt2enJQ
+ MnZybytxYk15a2Q4amFpSG9HVWEzUE1mK0tlN1JrCmhoVStFakpzM2t3K3NiRUYrRkwyODZD
+ N1JxK1pCdHhUZElabk1oM3pEck9SejBJZkV4ZXJvMGgrQ0hSRDNmV1QKcWVPN3NpUk9QdmVP
+ WTE3a3czaW1rKzdtMlpLeTJ1aVp1Ni9TWHIrZE9OZHZ0dzBjcXhid3NBS1J2b2FiZkl3dwpr
+ eE4rL1l2TGRYKzZhOHBOWHVkVm81WUpFS3hBUlU1SUdyaFJndllRQUlObFd1RVZyUGwvejk3
+ V1pnOC84eUhhCmk2ZkN4OWZWWDVia05NM0ZVa2hRZGZHZmJUU0lJcjNxOTRhZUdabjlUWitM
+ Y0lPajNQdTNrMEJJSjZQenp1RWoKT00xN0dnbllVakhpcVo1ZXQ4SzM3eXowY3hBOU9MRWlI
+ UkNlTHY1bDlLcmloMVJsZUMvUUg4RGJQSEdaNmNOVgpKM2kyelkwdkhNVXBCRmdBQUduWTh3
+ OUN5Rm9SaE1mRERxVExtR3plS1hIU2dzaUFQRWR6NjJJTmE0Mmw3alRiCmFTVGlQck1peGxs
+ VDJ4NFVZRFp3anRtdkREOXdTQ2dGUzlOK0dwK1owTFlUYm9yKzFCN2FPWlBLNnpNbGhtV3kK
+ WWtDbzhYWU1LNE16Y3Zoblo5blFWR0xOWVU4elVsUGpsenRCY0NRZVZzbFVXbjNia2VTak9l
+ M1VlS25LRDhLNwoxazF4cHB6ZW1TVjZLOXFkSlVtSHlDZk9pNHZ5b3JIUTFUVDFjVkVBcmk0
+ ZE1Cck1BS3pLVlVBRzBXVEwzMW0rClM0MlNvTC9GZVZwRE1WTU1UVlZybWtlV1JMblVVQ0Ni
+ c1A2a0Iza0J2TnlReEU4R3lWNjBjU0VsYlJycGwwUXgKcjc1RjN0ZHJXR2VtbGg0czFueE55
+ U2NVUi9pZ3g4OENLQjVEK3dLb2lhOFg5TUs5am9iRXlRQU1SV3FnOHVmTwpqVW5BWnUyUG1t
+ bTMyM2NYWDZYVzdweGVWUnVXSTJZUXVrQjdZVTF5dzJZU1JJVkxCbVlEbmtDbkpZRjcwSUFE
+ Ck93b1BuQThFTkM4R2Rxam1jUE9LczBwM2FtcTZJNmFqY1dSVktpaEdnOXRLcExqY3RlUldk
+ clc3M29lS0xxNkIKM0tMblg0UlNyeERaK016Rytwcnd1UUlOQkZjRVloNEJFQURMMHd5QjdK
+ R1hHbXVESVBacVRLTjlGdlpIblVxbwpLd1BWVDV1UDVsTndTem1obGFFdHYyYkI2WjFBNWhR
+ SU82YU50N3VuUXNUMEsxVUhFOTdsY1EvcDZDa0h1b1U1CkdvRWlaYmpGZjNweU43dnZld09j
+ Y2F5cEt1ai9ERldVWHlTNXVlV3Rudk1nQzJFU3BaZ0RqaWFLVjJFVEZ2VHgKU0NQam94Q0hS
+ a2lsR1FZeUtMVDJzKytiQ0hOVkZuczNIOWJUZklJWW1XYXhkTjhVQ1pueWFDWXkzV1Z5Snhp
+ ZApNQjNPbjZEZTRnd3lFK0JFQnVFcDh5UW5sZW1VNFRxaDNyRWswTkQ5VkdYN0c1RzMwbC9q
+ NzhaZis0QkpPZXNQCnczdklRU242SlpxMnVTSHRSQXVuSEMrellpdjlJWkFXNW5IazhIY2tx
+ V0ljdWRoWldhR29lOGlDZUs4aWlLN0EKdTlSNWdzOEg5Q2Zia20yS1FzeUhlcHUwNWttRjJm
+ VlZ4UnIxY1JUUURJZU1ocFZiQ1V4Zkd2Vkl4UXFkZ1A2QwpLT3p5dmZaZFBhaTRtS1ZTV3J0
+ ZmVRTG5WRnh1QWU4NE9UVHpHV1pIN3VqWFdjTDBxMm9qSTY5Zkt5KzZTMXIwCjFxRkVqTk5X
+ Y2VaMGNOazFXS0lOMTNaZ3g4clFtTVlnMVpLZy9MVTdLRXVMTmk5d2hUUC9rNyt5YzdQQ0Fp
+ aUkKaXM5bUhrTWtFbXZ3VXdQTjFlQU5XREtwa3FGRnh3M2x2enh6Wi9sSldxSHkzem9pdlFM
+ YUFBSjRRSEVkSjdtagpKMGNJWDl0UUVwL2E4aUFvQVkwdi80K1lEODdsMGR6OXNDQkxkc0pj
+ WHNhZWI5YlV6djFQSEp2UGFHODZsaFh4ClVjRG5QQVpnb2pKalB3QVJBUUFCaVFJOEJCZ0JD
+ Z0FtQWhzTUZpRUVhK2lqK280bWpMejEyZmNKckVCRlRrZ2EKdUZFRkFsMUZnS3dGQ1FvRGhZ
+ a0FDZ2tRckVCRlRrZ2F1RkZTYVJBQXJVTFdrTnhvRzZaMUhmckRZZXljc01WWQpGWXpwT0hI
+ b1piNzhHQTR1SHhDak11UTl3NmNxYmIzN3gySkpabm1jVVNqVlA3b3IxeVdGZlJaVmFYRkJQ
+ Tm1DClNsVk9YeEFPLzZtdnFNd2h5dFUzL21YV3lMRElVMnBQbGpXUWZmRTRHQ20xbFNCNTdG
+ MG4weXZSVFc2MnRrb20KZGdvaVJ6dVN0Lzc5TjMvVFlNcFJyMjdzR0N3T3g1RUptQ3QvS0Zj
+ TGYxaE8wUXhoa3RTM2VvbWJXcXNpT3FkYwpHY3I3NWo4NzVqcmRGWUdSVnpPUjhjRWpsVGRV
+ MUNZWnc5MXJsWFNJZ2dxSEhNMFZqWHFUQ09EMTlwb3VTd2FYCm9DU21uU3BoQXRNbjlmWjQ4
+ clF1Rm1lM2xzZG1WdXhBYkRIcml4NWhTUnVNU1ppSWhXd2Y5Rkh1NG9SM3U3K3AKSEpwMmRE
+ SENaSG1jRTN5QkpRVE05SEJRN3ZnUlBoKzdmZ1QyelBjTG1tZWY3ekI4Nm1oWFcwVTBjZnZx
+ cUpubgp0cHFPNGw0dmJPM0RYcE1QZHN6Rm9XWGJzdEZWRzRWWWxDNFhhUERqajIxKytCRmY1
+ NVBTS2RnaGdXZGhTWFBNCkpkb2wyU09DZFpDbDdvL2RweHdWcHlRMGlZTm5OdU5vMHJIVDlK
+ dWg4Vll6VEVvdlBnOWtERi9DbWxJZGhhanoKcG5hV0FWNlRlb1h6SWYrOERIL2YrM0FOdCsy
+ R01yQmQzSFhsb0pWVDNKbjk0K3Jzd1ZVT2xjdkNiNWxybVhuZQp4Q2dyaS9ySmhTZlczc3pZ
+ bGZnbEZwZDlKeDM3QlJQdk0yMDBGeUJEMjIxL0lyRzFNNlhEOFVlYU5BUlUzd0lkCmhpdzkx
+ RytVaEVYbElaUkhaSG89Cj02TnJ0Ci0tLS0tRU5EIFBHUCBQVUJMSUMgS0VZIEJMT0NLLS0t LS0K
+Message-ID: <a7eff0c0-b372-4f63-266a-daddbc2aeded@sdeziel.info>
+Date: Tue, 20 Oct 2020 15:55:04 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <CAJs3c4xz+Eb-LXZC4d6G=Pu8xXQeQaweQPbNE5Vngs7ywPxheg@mail.gmail.com>
 Subject: Re: [apparmor] Regarding apparmor in container
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -63,127 +320,71 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: "apparmor@lists.ubuntu.com" <apparmor@lists.ubuntu.com>
-Content-Type: multipart/mixed; boundary="===============2719548653864953448=="
+Content-Type: multipart/mixed; boundary="===============6057127779062514053=="
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
---===============2719548653864953448==
-Content-Type: multipart/alternative; boundary="000000000000289c6805b21f7ea1"
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============6057127779062514053==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature";
+ boundary="d2P0nr5wzO0GWJaWoQMuI70MMapVqalJW"
 
---000000000000289c6805b21f7ea1
-Content-Type: text/plain; charset="UTF-8"
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--d2P0nr5wzO0GWJaWoQMuI70MMapVqalJW
+Content-Type: multipart/mixed; boundary="3iVLqBk40I04Douks0KuwhnDVPG0ukqWU"
 
-Thanks john for the quick reply..
-
-My kernel version is 4.1.51-1.19
-
-Tried below logging options, but didnt help. Not able to get logs, what is
-blocking apparmor to play video.
- echo -n "noquiet" /sys/module/apparmor/parameters/audit
-echo 0> /sys/module/apparmor/parameters/debug
-
-On Tue, Oct 20, 2020 at 3:05 PM John Johansen <john.johansen@canonical.com>
-wrote:
-
-> On 10/20/20 9:12 AM, swarna latha wrote:
-> > Hi,
-> >
-> > We are using apparmor to generate profile for a video application
-> running in container.
-> >
-> > with apparmor in complaint mode, we see the video is not streaming, and
-> we are not getting any apparmor logs. if we disable the apparmor profile,
-> we see video streaming.
-> >
-> > Can you please let us know the reason for this behaviour... is it due to
-> any permission issue or performance issue...
-> >
-> > if it is due to permission issue, why we are not getting apparmor logs
-> in this case.
-> >
->
-> It is likely a permission issue but it is possible other parts of the
-> kernel are interacting with apparmor
->
-> what is your kernel version?
->
->
-> As root can you enable debug mode,
->
->   echo 0> /sys/module/apparmor/parameters/debug
->
-> this will give some logging output with extra info for so special cases.
->
-> and can youturn off audit silencing
->
->   echo -n "noquiet" /sys/module/apparmor/parameters/audit
->
-> this turns off deny rules silencing of denials.
->
->
-> You can toggle these values live and do it one at a time if you like.
->
-
---000000000000289c6805b21f7ea1
-Content-Type: text/html; charset="UTF-8"
+--3iVLqBk40I04Douks0KuwhnDVPG0ukqWU
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Thanks john for the quick reply..<div><br></div><div>My ke=
-rnel version is=C2=A04.1.51-1.19</div><div><br></div><div>Tried below loggi=
-ng options, but didnt help. Not able to get logs, what is blocking apparmor=
- to play video.</div><div>=C2=A0echo -n &quot;noquiet&quot; /sys/module/app=
-armor/parameters/audit=C2=A0=C2=A0<br></div><div>echo 0&gt; /sys/module/app=
-armor/parameters/debug=C2=A0=C2=A0<br></div></div><br><div class=3D"gmail_q=
-uote"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, Oct 20, 2020 at 3:05 PM=
- John Johansen &lt;<a href=3D"mailto:john.johansen@canonical.com">john.joha=
-nsen@canonical.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote=
-" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);=
-padding-left:1ex">On 10/20/20 9:12 AM, swarna latha wrote:<br>
-&gt; Hi,<br>
-&gt; <br>
-&gt; We are using apparmor to generate profile for a video application runn=
-ing in container.<br>
-&gt; <br>
-&gt; with apparmor in complaint mode, we see the video is not streaming, an=
-d we are not getting any apparmor logs. if we disable the apparmor profile,=
- we see video streaming.<br>
-&gt; <br>
-&gt; Can you please let us know the reason for this behaviour... is it due =
-to any permission issue or performance issue...<br>
-&gt; <br>
-&gt; if it is due to permission issue, why we=C2=A0are not getting apparmor=
- logs in this case.<br>
-&gt; <br>
-<br>
-It is likely a permission issue but it is possible other parts of the kerne=
-l are interacting with apparmor<br>
-<br>
-what is your kernel version?<br>
-<br>
-<br>
-As root can you enable debug mode,<br>
-<br>
-=C2=A0 echo 0&gt; /sys/module/apparmor/parameters/debug<br>
-<br>
-this will give some logging output with extra info for so special cases.<br=
->
-<br>
-and can youturn off audit silencing<br>
-<br>
-=C2=A0 echo -n &quot;noquiet&quot; /sys/module/apparmor/parameters/audit<br=
->
-<br>
-this turns off deny rules silencing of denials.<br>
-<br>
-<br>
-You can toggle these values live and do it one at a time if you like.<br>
-</blockquote></div>
+On 2020-10-20 3:46 p.m., swarna latha wrote:
+> Thanks john for the quick reply..
+>=20
+> My kernel version is 4.1.51-1.19
+>=20
+> Tried below logging options, but didnt help. Not able to get logs, what=
+ is
+> blocking apparmor to play video.
+>  echo -n "noquiet" /sys/module/apparmor/parameters/audit
+> echo 0> /sys/module/apparmor/parameters/debug
 
---000000000000289c6805b21f7ea1--
+So far, what I've seen with containers is that dmesg/kernel logs are
+only visible from the host's context, not the containers themselves.
+
+HTH,
+Simon
 
 
---===============2719548653864953448==
+--3iVLqBk40I04Douks0KuwhnDVPG0ukqWU--
+
+--d2P0nr5wzO0GWJaWoQMuI70MMapVqalJW
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEP3yRNSokm9jSHKGC50Ab5JRZInoFAl+PQJ8ACgkQ50Ab5JRZ
+InoUfg//ffXT2pLZCdGjyGoP9CKzIwFezS+ki9EiWo529UndXnPoTHYDr52p+SnT
+nggEWgNEUQP6ine/PZvbxSyP5WQf6zkLE0zU90IydtnyK3H567L+uDLVMQ8nGL8s
+CzzUNfh1Nld7QQ0Z1xndpIEmuSAsz/TbhF2Koyd3XZ3UVloTLgkSOb3XBqLBMp1I
+UVK+55iOXFhWI8zRSQmHBNFQCMQav0iHiyik8axewNeRHJs8Yf/HNJCQqfKxRW/W
+VFzFeBCH0bCYd9Dhs/LZDS+ojO6mDEiu3xa8npw85LzZMivxOlb9THBEZfqsvB0G
+lJySFZKnrRucCFDmK5cuRHOqtXmKcMn/LI1yShBmr1TdOTeFGpVfbd6lJ0bBJ2NR
+egkbjSraLbexsElmY/GK94pRFskWoGZOiLQFPLZ0cDFnSubKJAWE6DgaNwOUHT80
+256qVtlxUPGy6o2NqCy3hbIATa9wqKyn6GzT5eNrBTe1DMxH1tIJSWAwEBHgxYBQ
+3UTLgU2P7RQ5jJwIO3GBrOhsROoB+xQ+6lJ1Mh5kiktelREuQ+VvSeF3q5oBaxtO
+7yp8pYdFiC6IfPXDwZA52r8sX0iwS8sV3PFQJ9cRxFOgaMXaM7jdLIfENd7D9zNX
+CtZISD93iLv9wo/o2zjgC+S3RnERuD04fQUIhvOf++TF9IvRZIo=
+=5xh3
+-----END PGP SIGNATURE-----
+
+--d2P0nr5wzO0GWJaWoQMuI70MMapVqalJW--
+
+
+--===============6057127779062514053==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -193,5 +394,5 @@ LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
 eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
 aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
 
---===============2719548653864953448==--
+--===============6057127779062514053==--
 
