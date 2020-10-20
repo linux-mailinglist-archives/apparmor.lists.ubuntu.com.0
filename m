@@ -2,58 +2,111 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 091D929446C
-	for <lists+apparmor@lfdr.de>; Tue, 20 Oct 2020 23:17:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38AB52944A1
+	for <lists+apparmor@lfdr.de>; Tue, 20 Oct 2020 23:36:21 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1kUz0A-0004Vn-Ky; Tue, 20 Oct 2020 21:17:02 +0000
-Received: from mail-pl1-f174.google.com ([209.85.214.174])
+	id 1kUzIk-0005XM-4x; Tue, 20 Oct 2020 21:36:14 +0000
+Received: from youngberry.canonical.com ([91.189.89.112])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <sswarnas@gmail.com>) id 1kUz07-0004TS-PF
- for apparmor@lists.ubuntu.com; Tue, 20 Oct 2020 21:16:59 +0000
-Received: by mail-pl1-f174.google.com with SMTP id y1so52505plp.6
- for <apparmor@lists.ubuntu.com>; Tue, 20 Oct 2020 14:16:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
- bh=iWjvhWhnAdwK0CM+hApN4Oiu5vSt/Zst+wTFq62Kg68=;
- b=KDX1DGaHSvUgHJqGIJ/Ha0Yo6JZ7WJHG0FciL+8H/OlHJnv9SgzaWnQNYLdA4hslZa
- UymYKYms+fppBhjwN0OgXDxjTOpGx8RIZqhT15A88WvjNdswvDjdhTKGuInf/fKill4v
- +7D0VnHE8ATCWbnPq4PfdUlv6grc9XWYQQELwUUZ7wMj0Pbctx7suOCWloYahN+avHAV
- ERtU8XEIteuf29YE/YYF8WEnaQOd0sL6A4NviD4I//l3nSwr4+xH8BOO38FQiC+j02J0
- pcr/iuAOKLpHhunlbbcLaJg5OORqVqcYvA7RQ2y5/u8hAULGXGtDDaYulOtDrY57axM/
- leDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to;
- bh=iWjvhWhnAdwK0CM+hApN4Oiu5vSt/Zst+wTFq62Kg68=;
- b=CJpOASISCF+18+x2qi8atHoFEu9yTZe2RQRs6C2YNSCN2nQFV4xeMPFz8R8IWer5wR
- j3FzpN8Z0p5Go/Lxs22XvajDgR+mLCCi5k7iC1vMhGKIHWi4jKl/FMDl4is5xHL5JmEV
- 7ikQ2EoOivvoW20mHhmsQz8a/2h2yOhTs9eexvQimCL1xj/W9p/hhybwhDYYlJdWfYyA
- Ez5XHHtZNt26wADkAPbuuJtztFaEwg9IO8v8ZveZl4LmUXlrEeDtJcscSjcfY8zpR9SI
- 1oCud4B+meJqDO6/pZ70yAZR3qK7oBI16wKqqaZpsZnvU29dwdwHOOYqNgJT6zBGc0ws
- 9vgQ==
-X-Gm-Message-State: AOAM533g2ZmnLo2Xb0NM+ClcYmydA0Ih9a8A4TdVjL86i7cLH3s3DjhU
- 06zsVby5ygZJu8ndkw/r8WFhhmfAhtv8LAtuXdc=
-X-Google-Smtp-Source: ABdhPJxs5PoaYy/1ZV0UvRdW/na6OqA3Mayd03KmWvSwPVPtIb2naTZ5YWTVlCGWOwztw2I7PrvNpa6y1E/AFoF2S1U=
-X-Received: by 2002:a17:902:a3c9:b029:d5:df0c:f217 with SMTP id
- q9-20020a170902a3c9b02900d5df0cf217mr5681plb.59.1603228617758; Tue, 20 Oct
- 2020 14:16:57 -0700 (PDT)
-MIME-Version: 1.0
+ (envelope-from <john.johansen@canonical.com>) id 1kUzIi-0005XG-GX
+ for apparmor@lists.ubuntu.com; Tue, 20 Oct 2020 21:36:12 +0000
+Received: from static-50-53-41-238.bvtn.or.frontiernet.net ([50.53.41.238]
+ helo=[192.168.192.153]) by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <john.johansen@canonical.com>)
+ id 1kUzIi-0006A0-1q; Tue, 20 Oct 2020 21:36:12 +0000
+To: swarna latha <sswarnas@gmail.com>, Simon Deziel <simon@sdeziel.info>
 References: <CAJs3c4xwqOOLPVOW8bBPrpRkFceLYdFSgWmKBtwbu1o5vj4Fhw@mail.gmail.com>
  <f760dc51-7a5c-3162-2698-049710431dd6@canonical.com>
  <CAJs3c4xz+Eb-LXZC4d6G=Pu8xXQeQaweQPbNE5Vngs7ywPxheg@mail.gmail.com>
  <a7eff0c0-b372-4f63-266a-daddbc2aeded@sdeziel.info>
- <ce387075-b00c-1211-ae18-223fb8bae115@canonical.com>
-In-Reply-To: <ce387075-b00c-1211-ae18-223fb8bae115@canonical.com>
-From: swarna latha <sswarnas@gmail.com>
-Date: Tue, 20 Oct 2020 17:16:46 -0400
-Message-ID: <CAJs3c4x9U4T_RqdgPMQbogJwn_ysH-qw4FD2Kgp1peOBomU-hA@mail.gmail.com>
-To: John Johansen <john.johansen@canonical.com>, apparmor@lists.ubuntu.com
-Received-SPF: pass client-ip=209.85.214.174; envelope-from=sswarnas@gmail.com;
- helo=mail-pl1-f174.google.com
+ <CAJs3c4xJvMHe+i43RQRU7=wFXV5hxxoXyd6UPF_ggXLP0Zr+XA@mail.gmail.com>
+From: John Johansen <john.johansen@canonical.com>
+Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
+ LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCgptUUlOQkU1bXJQb0JFQURB
+ azE5UHNnVmdCS2tJbW1SMmlzUFE2bzdLSmhUVEtqSmR3VmJrV1NuTm4rbzZVcDVrCm5LUDFm
+ NDlFQlFsY2VXZzF5cC9Od2JSOGFkK2VTRU8vdW1hL0srUHFXdkJwdEtDOVNXRDk3Rkc0dUI0
+ L2Nhb20KTEVVOTdzTFFNdG52R1dkeHJ4VlJHTTRhbnpXWU1neno1VFptSWlWVFo0M091NVZw
+ YVMxVnoxWlN4UDNoL3hLTgpaci9UY1c1V1FhaTh1M1BXVm5ia2poU1pQSHYxQmdoTjY5cXhF
+ UG9tckpCbTFnbXR4M1ppVm1GWGx1d1RtVGdKCk9rcEZvbDduYkowaWxuWUhyQTdTWDNDdFIx
+ dXBlVXBNYS9XSWFuVk85NldkVGpISElhNDNmYmhtUXViZTR0eFMKM0ZjUUxPSlZxUXN4NmxF
+ OUI3cUFwcG05aFExMHFQV3dkZlB5LyswVzZBV3ROdTVBU2lHVkNJbld6bDJIQnFZZAovWmxs
+ OTN6VXErTklvQ244c0RBTTlpSCt3dGFHRGNKeXdJR0luK2VkS050SzcyQU1nQ2hUZy9qMVpv
+ V0g2WmVXClBqdVVmdWJWelp0bzFGTW9HSi9TRjRNbWRRRzFpUU50ZjRzRlpiRWdYdXk5Y0dp
+ MmJvbUYwenZ5QkpTQU5weGwKS05CRFlLek42S3owOUhVQWtqbEZNTmdvbUwvY2pxZ0FCdEF4
+ NTlMK2RWSVpmYUYyODFwSWNVWnp3dmg1K0pvRwplT1c1dUJTTWJFN0wzOG5zem9veWtJSjVY
+ ckFjaGtKeE5mejdrK0ZuUWVLRWtOekVkMkxXYzNRRjRCUVpZUlQ2ClBISGdhM1JneWtXNSsx
+ d1RNcUpJTGRtdGFQYlhyRjNGdm5WMExSUGN2NHhLeDdCM2ZHbTd5Z2Rvb3dBUkFRQUIKdEIx
+ S2IyaHVJRXB2YUdGdWMyVnVJRHhxYjJodVFHcHFiWGd1Ym1WMFBva0NPZ1FUQVFvQUpBSWJB
+ d1VMQ1FnSApBd1VWQ2drSUN3VVdBZ01CQUFJZUFRSVhnQVVDVG8wWVZ3SVpBUUFLQ1JBRkx6
+ WndHTlhEMkx4SkQvOVRKWkNwCndsbmNUZ1llcmFFTWVEZmtXdjhjMUlzTTFqMEFtRTRWdEwr
+ ZkU3ODBaVlA5Z2tqZ2tkWVN4dDdlY0VUUFRLTWEKWlNpc3JsMVJ3cVUwb29nWGRYUVNweHJH
+ SDAxaWN1LzJuMGpjWVNxWUtnZ1B4eTc4QkdzMkxacTRYUGZKVFptSApaR25YR3EvZURyL21T
+ bmowYWF2QkptTVo2amJpUHo2eUh0QllQWjlmZG84YnRjendQNDFZZVdvSXUyNi84SUk2CmYw
+ WG0zVkM1b0FhOHY3UmQrUldaYThUTXdsaHpIRXh4ZWwzanRJN0l6ek9zbm1FOS84RG0wQVJE
+ NWlUTENYd1IKMWN3SS9KOUJGL1MxWHY4UE4xaHVUM0l0Q05kYXRncDh6cW9Ka2dQVmptdnlM
+ NjRRM2ZFa1liZkhPV3NhYmE5LwprQVZ0Qk56OVJURmg3SUhEZkVDVmFUb3VqQmQ3QnRQcXIr
+ cUlqV0ZhZEpEM0k1ZUxDVkp2VnJyb2xyQ0FUbEZ0Ck4zWWtRczZKbjFBaUlWSVUzYkhSOEdq
+ ZXZnejVMbDZTQ0dIZ1Jya3lScG5TWWFVL3VMZ24zN042QVl4aS9RQUwKK2J5M0N5RUZManpX
+ QUV2eVE4YnEzSXVjbjdKRWJoUy9KLy9kVXFMb2VVZjh0c0dpMDB6bXJJVFpZZUZZQVJoUQpN
+ dHNmaXpJclZEdHoxaVBmL1pNcDVnUkJuaXlqcFhuMTMxY20zTTNndjZIclFzQUdubjhBSnJ1
+ OEdEaTVYSllJCmNvLzEreC9xRWlOMm5DbGFBT3BiaHpOMmVVdlBEWTVXMHEzYkEvWnAybWZH
+ NTJ2YlJJK3RRMEJyMUhkL3ZzbnQKVUhPOTAzbU1aZXAyTnpOM0JaNXFFdlB2RzRyVzVacTJE
+ cHliV2JRclNtOW9iaUJLYjJoaGJuTmxiaUE4YW05bwpiaTVxYjJoaGJuTmxia0JqWVc1dmJt
+ bGpZV3d1WTI5dFBva0NOd1FUQVFvQUlRVUNUbzBYV2dJYkF3VUxDUWdICkF3VVZDZ2tJQ3dV
+ V0FnTUJBQUllQVFJWGdBQUtDUkFGTHpad0dOWEQySXRNRC85anliYzg3ZE00dUFIazZ5Tk0K
+ TjBZL0JGbW10VFdWc09CaHFPbm9iNGkzOEJyRE8yQzFoUUNQQ1FlNExMczEvNHB0ZW92UXQ4
+ QjJGeXJQVmp3Zwo3alpUSE5LNzRyNmxDQ1Z4eDN5dTFCN1U5UG80VlRrY3NsVmIxL3FtV3V4
+ OFhXY040eXZrVHFsTCtHeHB5Sm45CjlaWmZmWEpjNk9oNlRtT2ZiS0d2TXV1djVhclNJQTNK
+ SEZMZjlhTHZadEExaXNKVXI3cFM5YXBnOXVUVUdVcDcKd2ZWMFdUNlQzZUczbXRVVTJ1cDVK
+ VjQ4NTBMMDVqSFM2dVdpZS9ZK3lmSk9iaXlyeE4vNlpxVzVHb25oTEJxLwptc3pjVjV2QlQz
+ QkRWZTNSdkY2WGRNOU9oUG4xK1k4MXg1NCt2UTExM044aUx3RjdHR2ExNFp5SVZBTlpEMEkw
+ CkhqUnZhMmsvUnFJUlR6S3l1UEg1cGtsY0tIVlBFRk1tT3pNVCtGT294Tmp2Uys3K3dHMktN
+ RFlFbUhQcjFQSkIKWlNaZUh6SzE5dGZhbFBNcHBGeGkrc3lZTGFnTjBtQjdKSFF3WTdjclV1
+ T0RoeWNxNjBZVnoxdGFFeWd1M1l2MgoyL0kxRUNHSHZLSEc2d2M5MG80M0MvZWxIRUNYbkVo
+ N3RLcGxEY3BJQytPQ21NeEtIaFI0NitYY1p2Z3c0RGdiCjdjYTgzZVFSM0NHODlMdlFwVzJM
+ TEtFRUJEajdoWmhrTGJra1BSWm0zdzhKWTQ0YXc4VnRneFdkblNFTUNMeEwKSU9OaDZ1Wjcv
+ L0RZVnRjSWFNSllrZWJhWnRHZENwMElnVVpiMjQvVmR2WkNZYk82MkhrLzNWbzFuWHdIVUVz
+ Mwo2RC92MWJUMFJaRmk2OUxnc0NjT2N4NGdZTGtDRFFST1pxejZBUkFBb3F3NmtrQmhXeU0x
+ ZnZnYW1BVmplWjZuCktFZm5SV2JrQzk0TDFFc0pMdXAzV2IyWDBBQk5PSFNrYlNENHBBdUMy
+ dEtGL0VHQnQ1Q1A3UWRWS1JHY1F6QWQKNmIyYzFJZHk5Ukx3Nnc0Z2krbm4vZDFQbTFra1lo
+ a1NpNXpXYUlnMG01UlFVaytFbDh6a2Y1dGNFLzFOMFo1TwpLMkpoandGdTViWDBhMGw0Y0ZH
+ V1ZRRWNpVk1ES1J0eE1qRXRrM1N4RmFsbTZaZFEycHAyODIyY2xucTR6WjltCld1MWQyd2F4
+ aXorYjVJYTR3ZURZYTduNDFVUmNCRVViSkFnbmljSmtKdENUd3lJeElXMktuVnlPcmp2a1F6
+ SUIKdmFQMEZkUDJ2dlpvUE1kbENJek9sSWtQTGd4RTBJV3VlVFhlQkpoTnMwMXBiOGJMcW1U
+ SU1sdTRMdkJFTEEvdgplaWFqajVzOHk1NDJIL2FIc2ZCZjRNUVVoSHhPL0JaVjdoMDZLU1Vm
+ SWFZN09nQWdLdUdOQjNVaWFJVVM1K2E5CmduRU9RTER4S1J5L2E3UTF2OVMrTnZ4KzdqOGlI
+ M2prUUpoeFQ2WkJoWkdSeDBna0gzVCtGMG5ORG01TmFKVXMKYXN3Z0pycUZaa1VHZDJNcm0x
+ cW5Ld1hpQXQ4U0ljRU5kcTMzUjBLS0tSQzgwWGd3ajhKbjMwdlhMU0crTk8xRwpIMFVNY0F4
+ TXd5L3B2azZMVTVKR2paUjczSjVVTFZoSDRNTGJEZ2dEM21QYWlHOCtmb3RUckpVUHFxaGc5
+ aHlVCkVQcFlHN3NxdDc0WG43OStDRVpjakxIenlsNnZBRkUyVzBreGxMdFF0VVpVSE8zNmFm
+ RnY4cUdwTzNacVB2akIKVXVhdFhGNnR2VVFDd2YzSDZYTUFFUUVBQVlrQ0h3UVlBUW9BQ1FV
+ Q1RtYXMrZ0liREFBS0NSQUZMelp3R05YRAoyRC9YRC8wZGRNLzRhaTFiK1RsMWp6bkthalgz
+ a0crTWVFWWVJNGY0MHZjbzNyT0xyblJHRk9jYnl5ZlZGNjlNCktlcGllNE93b0kxamNUVTBB
+ RGVjbmJXbkROSHByMFNjenhCTXJvM2Juckxoc212anVuVFlJdnNzQlp0QjRhVkoKanVMSUxQ
+ VWxuaEZxYTdmYlZxMFpRamJpVi9ydDJqQkVOZG05cGJKWjZHam5wWUljQWJQQ0NhL2ZmTDQv
+ U1FSUwpZSFhvaEdpaVM0eTVqQlRtSzVsdGZld0xPdzAyZmtleEgrSUpGcnJHQlhEU2c2bjJT
+ Z3hubisrTkYzNGZYY205CnBpYXczbUtzSUNtKzBoZE5oNGFmR1o2SVdWOFBHMnRlb29WRHA0
+ ZFlpaCsreFgvWFM4ekJDYzFPOXc0bnpsUDIKZ0t6bHFTV2JoaVdwaWZSSkJGYTRXdEFlSlRk
+ WFlkMzdqL0JJNFJXV2hueXc3YUFQTkdqMzN5dEdITlVmNlJvMgovanRqNHRGMXkvUUZYcWpK
+ Ry93R2pwZHRSZmJ0VWpxTEhJc3ZmUE5OSnEvOTU4cDc0bmRBQ2lkbFdTSHpqK09wCjI2S3Bi
+ Rm5td05PMHBzaVVzbmh2SEZ3UE8vdkFibDNSc1I1KzBSbytodnMyY0VtUXV2OXIvYkRsQ2Zw
+ enAydDMKY0srcmh4VXFpc094OERaZnoxQm5rYW9DUkZidnZ2ays3TC9mb21QbnRHUGtxSmNp
+ WUU4VEdIa1p3MWhPa3UrNApPb00yR0I1bkVEbGorMlRGL2pMUStFaXBYOVBrUEpZdnhmUmxD
+ NmRLOFBLS2ZYOUtkZm1BSWNnSGZuVjFqU24rCjh5SDJkakJQdEtpcVcwSjY5YUlzeXg3aVYv
+ MDNwYVBDakpoN1hxOXZBenlkTjVVL1VBPT0KPTZQL2IKLS0tLS1FTkQgUEdQIFBVQkxJQyBL
+ RVkgQkxPQ0stLS0tLQo=
+Organization: Canonical
+Message-ID: <534af051-9e0f-aab0-da47-32f04b6a9c8b@canonical.com>
+Date: Tue, 20 Oct 2020 14:36:09 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <CAJs3c4xJvMHe+i43RQRU7=wFXV5hxxoXyd6UPF_ggXLP0Zr+XA@mail.gmail.com>
+Content-Language: en-US
 Subject: Re: [apparmor] Regarding apparmor in container
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -66,170 +119,41 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8070819483759352113=="
+Cc: apparmor@lists.ubuntu.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
---===============8070819483759352113==
-Content-Type: multipart/alternative; boundary="000000000000415da005b220c0e0"
-
---000000000000415da005b220c0e0
-Content-Type: text/plain; charset="UTF-8"
-
-Hi,
-
-i see similar behaviour, i am not able to use mrCx, mrUx options to capture
-the apparmor logs of the process inside container.
-
-The process in the container is executed only if give ix. But i am not
-getting apparmor logs of this process.
-
-is there any patch i can apply on 4.1 kernel to capture apparmor logs for
-this process.
-
-Thanks,
-Swarna
-
-On Tue, Oct 20, 2020 at 4:55 PM John Johansen <john.johansen@canonical.com>
-wrote:
-
-> oops forgot to check that you were in the reply, so this only went to
-> simon and the list
->
-> On 10/20/20 12:55 PM, Simon Deziel wrote:
-> > On 2020-10-20 3:46 p.m., swarna latha wrote:
-> >> Thanks john for the quick reply..
-> >>
-> >> My kernel version is 4.1.51-1.19
-> >>
-> >> Tried below logging options, but didnt help. Not able to get logs, what
-> is
-> >> blocking apparmor to play video.
-> >>  echo -n "noquiet" /sys/module/apparmor/parameters/audit
-> >> echo 0> /sys/module/apparmor/parameters/debug
-> >
-> > So far, what I've seen with containers is that dmesg/kernel logs are
-> > only visible from the host's context, not the containers themselves.
-> >
->
-> this is usually true. In addition are you getting no apparmor logs, or
-> just no apparmor log for this issue. Those are two different things to
-> debug.
->
-> With that said I suspect the issue is NO_NEW_PRIVS, see prctl(2). When
-> that is set apparmor can not transition its profile, and will fail execs
-> that request a profile transition.
->
-> Looking at the 4.1 kernel apparmor is not auditing NO_NEW_PRIVS
-> causing a failure in profile transitions (its an external restriction
-> and not exactly part of apparmor). Which would also align with what
-> you are seeing.
->
-> When it comes to NO_NEW_PRIVS on the 4.1 kernel you basically have
-> three choices.
->
-> 1. Don't transition the profile, use ix
->
-> 2. transition the profile before the container does
->     prctl(PR_SET_NO_NEW_PRIVS).
->
-> 3. If a container task is unconfined it can transition into a
->    profile even after NO_NEW_PRIVS is set but once it does that it
->    won't be able to transition the profile again.
->
-> --
-> AppArmor mailing list
-> AppArmor@lists.ubuntu.com
-> Modify settings or unsubscribe at:
-> https://lists.ubuntu.com/mailman/listinfo/apparmor
->
-
---000000000000415da005b220c0e0
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr">Hi,<div><br></div><div>i see similar beha=
-viour, i am not able to use mrCx, mrUx options to capture the apparmor logs=
- of the process inside container.</div><div><br></div><div>The process in t=
-he container is executed only if give ix. But i am not getting apparmor log=
-s of this process.</div><div><br></div><div>is there any patch i can apply =
-on 4.1 kernel to capture apparmor logs for this process.</div><div><br></di=
-v><div>Thanks,</div><div>Swarna</div></div><br><div class=3D"gmail_quote"><=
-div dir=3D"ltr" class=3D"gmail_attr">On Tue, Oct 20, 2020 at 4:55 PM John J=
-ohansen &lt;<a href=3D"mailto:john.johansen@canonical.com">john.johansen@ca=
-nonical.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=
-=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
--left:1ex">oops forgot to check that you were in the reply, so this only we=
-nt to<br>
-simon and the list<br>
-<br>
-On 10/20/20 12:55 PM, Simon Deziel wrote:<br>
-&gt; On 2020-10-20 3:46 p.m., swarna latha wrote:<br>
-&gt;&gt; Thanks john for the quick reply..<br>
-&gt;&gt;<br>
-&gt;&gt; My kernel version is 4.1.51-1.19<br>
-&gt;&gt;<br>
-&gt;&gt; Tried below logging options, but didnt help. Not able to get logs,=
- what is<br>
-&gt;&gt; blocking apparmor to play video.<br>
-&gt;&gt;=C2=A0 echo -n &quot;noquiet&quot; /sys/module/apparmor/parameters/=
-audit<br>
-&gt;&gt; echo 0&gt; /sys/module/apparmor/parameters/debug<br>
-&gt; <br>
-&gt; So far, what I&#39;ve seen with containers is that dmesg/kernel logs a=
-re<br>
-&gt; only visible from the host&#39;s context, not the containers themselve=
-s.<br>
-&gt; <br>
-<br>
-this is usually true. In addition are you getting no apparmor logs, or<br>
-just no apparmor log for this issue. Those are two different things to<br>
-debug.<br>
-<br>
-With that said I suspect the issue is NO_NEW_PRIVS, see prctl(2). When<br>
-that is set apparmor can not transition its profile, and will fail execs<br=
->
-that request a profile transition. <br>
-<br>
-Looking at the 4.1 kernel apparmor is not auditing NO_NEW_PRIVS<br>
-causing a failure in profile transitions (its an external restriction<br>
-and not exactly part of apparmor). Which would also align with what<br>
-you are seeing.<br>
-<br>
-When it comes to NO_NEW_PRIVS on the 4.1 kernel you basically have<br>
-three choices.<br>
-<br>
-1. Don&#39;t transition the profile, use ix<br>
-<br>
-2. transition the profile before the container does<br>
-=C2=A0 =C2=A0 prctl(PR_SET_NO_NEW_PRIVS).<br>
-<br>
-3. If a container task is unconfined it can transition into a<br>
-=C2=A0 =C2=A0profile even after NO_NEW_PRIVS is set but once it does that i=
-t<br>
-=C2=A0 =C2=A0won&#39;t be able to transition the profile again.<br>
-<br>
--- <br>
-AppArmor mailing list<br>
-<a href=3D"mailto:AppArmor@lists.ubuntu.com" target=3D"_blank">AppArmor@lis=
-ts.ubuntu.com</a><br>
-Modify settings or unsubscribe at: <a href=3D"https://lists.ubuntu.com/mail=
-man/listinfo/apparmor" rel=3D"noreferrer" target=3D"_blank">https://lists.u=
-buntu.com/mailman/listinfo/apparmor</a><br>
-</blockquote></div></div>
-
---000000000000415da005b220c0e0--
-
-
---===============8070819483759352113==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
-eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
-aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
-
---===============8070819483759352113==--
-
+T24gMTAvMjAvMjAgMTo1OCBQTSwgc3dhcm5hIGxhdGhhIHdyb3RlOgo+IERvZXMgaXQgbWVhbiwg
+d2Ugd2lsbCBub3QgYmUgYWJsZSB0byBnZXQgYXBwYXJtb3IgbG9ncyBmb3IgYXBwbGljYXRpb25z
+IHJ1bm5pbmcgaW4gY29udGFpbmVyID8KPiAKCk5vdCBuZWNlc3NhcmlseSwgaXQgd2lsbCBkZXBl
+bmQgb24gaG93IHRoZSBjb250YWluZXIgaXMgc2V0dXAuCgo+IEFuZCBjb250YWluZXIgaGFzIGl0
+cyBvd24gZG1lc2cgYnVmZmVyID8KPiAKbm8sIGl0cyBqdXN0IGEgbWF0dGVyIG9mIHdoZXRoZXIg
+dGhlIGNvbnRhaW5lciBoYXMgYWNjZXNzIHRvIHRoZSBkbWVzZyBidWZmZXIKCj4gQXJlIHRoZXJl
+IGFuecKgIHdheXMgdG8gdXNlIGFwcGFybW9yIHRvIGdlbmVyYXRlIHByb2ZpbGUgZm9yIGFwcGxp
+Y2F0aW9ucyBydW5uaW5nIGluIGNvbnRhaW5lcnMgPwo+IAp5ZXMuIElmIHRoZSBjb250YWluZXIg
+aGFzIGFjY2VzcyB0byB0aGUga2VybmVsIG1lc3NhZ2VzIHlvdSBjYW4gZ2VuZXJhdGUgdGhlIHBy
+b2ZpbGUgaW4gdGhlIGNvbnRhaW5lci4KSWYgaXQgZG9lc24ndCB0aGUgaG9zdCBzdGlsbCBoYXMg
+YWNjZXNzIGFuZCB5b3UgY2FuIGdlbmVyYXRlIGEgcHJvZmlsZSBvbiB0aGUgaG9zdCBhbmQgdGhl
+biBjb3B5IGl0CmludG8gdGhlIGNvbnRhaW5lciwgb3IgeW91IGNhbiBjb3B5IHRoZSBsb2cgaW50
+byB0aGUgY29udGFpbmVyIGFuZCB1c2UgYWEtbG9ncHJvZiB0byBnZW5lcmF0ZSBhCnByb2ZpbGUg
+ZnJvbSB0aGUgbG9nIGZpbGUuCgoKPiBUaGFua3MsCj4gU3dhcm5hCj4gCj4gT24gVHVlLCBPY3Qg
+MjAsIDIwMjAgYXQgMzo1NSBQTSBTaW1vbiBEZXppZWwgPHNpbW9uQHNkZXppZWwuaW5mbyA8bWFp
+bHRvOnNpbW9uQHNkZXppZWwuaW5mbz4+IHdyb3RlOgo+IAo+ICAgICBPbiAyMDIwLTEwLTIwIDM6
+NDYgcC5tLiwgc3dhcm5hIGxhdGhhIHdyb3RlOgo+ICAgICA+IFRoYW5rcyBqb2huIGZvciB0aGUg
+cXVpY2sgcmVwbHkuLgo+ICAgICA+Cj4gICAgID4gTXkga2VybmVsIHZlcnNpb24gaXMgNC4xLjUx
+LTEuMTkKPiAgICAgPgo+ICAgICA+IFRyaWVkIGJlbG93IGxvZ2dpbmcgb3B0aW9ucywgYnV0IGRp
+ZG50IGhlbHAuIE5vdCBhYmxlIHRvIGdldCBsb2dzLCB3aGF0IGlzCj4gICAgID4gYmxvY2tpbmcg
+YXBwYXJtb3IgdG8gcGxheSB2aWRlby4KPiAgICAgPsKgIGVjaG8gLW4gIm5vcXVpZXQiIC9zeXMv
+bW9kdWxlL2FwcGFybW9yL3BhcmFtZXRlcnMvYXVkaXQKPiAgICAgPiBlY2hvIDA+IC9zeXMvbW9k
+dWxlL2FwcGFybW9yL3BhcmFtZXRlcnMvZGVidWcKPiAKPiAgICAgU28gZmFyLCB3aGF0IEkndmUg
+c2VlbiB3aXRoIGNvbnRhaW5lcnMgaXMgdGhhdCBkbWVzZy9rZXJuZWwgbG9ncyBhcmUKPiAgICAg
+b25seSB2aXNpYmxlIGZyb20gdGhlIGhvc3QncyBjb250ZXh0LCBub3QgdGhlIGNvbnRhaW5lcnMg
+dGhlbXNlbHZlcy4KPiAKPiAgICAgSFRILAo+ICAgICBTaW1vbgo+IAo+ICAgICAtLSAKPiAgICAg
+QXBwQXJtb3IgbWFpbGluZyBsaXN0Cj4gICAgIEFwcEFybW9yQGxpc3RzLnVidW50dS5jb20gPG1h
+aWx0bzpBcHBBcm1vckBsaXN0cy51YnVudHUuY29tPgo+ICAgICBNb2RpZnkgc2V0dGluZ3Mgb3Ig
+dW5zdWJzY3JpYmUgYXQ6IGh0dHBzOi8vbGlzdHMudWJ1bnR1LmNvbS9tYWlsbWFuL2xpc3RpbmZv
+L2FwcGFybW9yCj4gCj4gCgoKLS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0
+cy51YnVudHUuY29tCk1vZGlmeSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9s
+aXN0cy51YnVudHUuY29tL21haWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
