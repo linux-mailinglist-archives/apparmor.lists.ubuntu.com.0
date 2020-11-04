@@ -2,53 +2,56 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE4EF2981A9
-	for <lists+apparmor@lfdr.de>; Sun, 25 Oct 2020 13:35:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBBC52A69D3
+	for <lists+apparmor@lfdr.de>; Wed,  4 Nov 2020 17:32:22 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1kWfFN-0006Oq-5f; Sun, 25 Oct 2020 12:35:41 +0000
-Received: from indium.canonical.com ([91.189.90.7])
+	id 1kaLhh-0005EX-RQ; Wed, 04 Nov 2020 16:32:09 +0000
+Received: from mail-pg1-f182.google.com ([209.85.215.182])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <bounces@canonical.com>) id 1kWfFL-0006Ng-H6
- for apparmor@lists.ubuntu.com; Sun, 25 Oct 2020 12:35:39 +0000
-Received: from loganberry.canonical.com ([91.189.90.37])
- by indium.canonical.com with esmtp (Exim 4.86_2 #2 (Debian))
- id 1kWfFK-0003X0-V9
- for <apparmor@lists.ubuntu.com>; Sun, 25 Oct 2020 12:35:38 +0000
-Received: from loganberry.canonical.com (localhost [127.0.0.1])
- by loganberry.canonical.com (Postfix) with ESMTP id EA5332E8074
- for <apparmor@lists.ubuntu.com>; Sun, 25 Oct 2020 12:35:38 +0000 (UTC)
+ (envelope-from <sswarnas@gmail.com>) id 1kaLhf-0005EP-Ed
+ for apparmor@lists.ubuntu.com; Wed, 04 Nov 2020 16:32:07 +0000
+Received: by mail-pg1-f182.google.com with SMTP id z24so17044609pgk.3
+ for <apparmor@lists.ubuntu.com>; Wed, 04 Nov 2020 08:32:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=1hXrzNOb7CzntHhvColAHto+i7npXIsL4Clf+oC3ies=;
+ b=s/t7b9mH2WH/YwzE6lxrINRX96MnSQX8iPEyE4xZqnE5FqwUmVtYMW9A+F3aBu5t1z
+ O3B3oShIp+ESygDFzoEgD2uwdTX/UUCfLahW9HownExxjnKDT4/v+4/oWaxlCHW4KjRo
+ 1zoFfO2j8QA1Oml1iWDnaGm5bqcVc0GkDNWYlVxMQ+Wayf41aI36PWdRJy3pv+rOzSdR
+ HhieM6xDFG5C30iUdZ7qF3dwIEz2T3HHOe9JPaKfRjsEt48vk39tt6k7K3y70vf6hmfv
+ /hYpfm7lBA4gRDRqRAuLtSjQPquxas3UBuks+8hH0DpNifS/iY+uO/yrKtr7BXUW+ya3
+ YUog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=1hXrzNOb7CzntHhvColAHto+i7npXIsL4Clf+oC3ies=;
+ b=JhaNBhLDapoIP8bh4UuFZ9Lcero/UmonEFJZnpBRCg2AnzDEZoqzP4bUJouD7ifmJp
+ 2l4qVrEkDCpattFWmiOY1rsvq7TcyIYX3wiLE64E/Sh9T7ak3w5maM6/Gx77nh2QVZLY
+ uL41/qFKo8iE1PB6lmVik9QFPmtLnSeQNrY+MnvyugR0S452KITV10a7yDr7YYYmfnIx
+ JnZI2hGlrBz1yWU4CdIiK1Gv0ZlHlYB3RUmei6aoEzClyISCAHLYBBCcWtErQwXa69Ws
+ 41K4AiCLKq6NURWSamFHEHDY8asJ1QH2/eoVuCQePt5NAI+hLynGGtGwV6yilY7aMDN9
+ bpVg==
+X-Gm-Message-State: AOAM530Q2o1dTA6faJz2q1T0e2XaX30GeFcVhmUddd/aGMVD5tLCsfPB
+ boMbZ9HowpxHbJkO+PjNTVFhiXqSoEtddJDp2VA22AqwGR0=
+X-Google-Smtp-Source: ABdhPJz3y9e9hKbNGUkW6kOK6coenRZZbsAXsTVHCQDscmv/gZuNllSFVryXedsgEYJzBiOAkrHxr0X9zTDOlp8fCPg=
+X-Received: by 2002:a17:90a:fd8d:: with SMTP id
+ cx13mr5064223pjb.138.1604507525319; 
+ Wed, 04 Nov 2020 08:32:05 -0800 (PST)
 MIME-Version: 1.0
-Date: Sun, 25 Oct 2020 12:26:07 -0000
-From: baptx <1777070@bugs.launchpad.net>
+From: swarna latha <sswarnas@gmail.com>
+Date: Wed, 4 Nov 2020 11:31:54 -0500
+Message-ID: <CAJs3c4wJHm=HB_LiL1G-=2V20-D86e5Xxt6tTzMquD9b3Bv_kg@mail.gmail.com>
 To: apparmor@lists.ubuntu.com
-X-Launchpad-Notification-Type: bug
-X-Launchpad-Bug: distribution=ubuntu; sourcepackage=apparmor; component=main; 
- status=Confirmed; importance=Undecided; assignee=None; 
-X-Launchpad-Bug: distribution=ubuntu; sourcepackage=firefox; component=main;
- status=Confirmed; importance=Undecided; assignee=None; 
-X-Launchpad-Bug-Tags: bionic
-X-Launchpad-Bug-Information-Type: Public
-X-Launchpad-Bug-Private: no
-X-Launchpad-Bug-Security-Vulnerability: no
-X-Launchpad-Bug-Commenters: b4ptx elindarie janitor osomon seth-arnold skunk
- xavpaice
-X-Launchpad-Bug-Reporter: Xav Paice (xavpaice)
-X-Launchpad-Bug-Modifier: baptx (b4ptx)
-References: <152904811695.1951.15951974184045199043.malonedeb@chaenomeles.canonical.com>
-Message-Id: <160362876725.30080.2930844573169280337.malone@chaenomeles.canonical.com>
-X-Launchpad-Message-Rationale: Subscriber of Duplicate @apparmor-dev
-X-Launchpad-Message-For: apparmor-dev
-Precedence: bulk
-X-Generated-By: Launchpad (canonical.com);
- Revision="bc5a16cfdc4ba776ecdf84a052201ef8fb1f3321"; Instance="production"
-X-Launchpad-Hash: eaaad8419ad8cf3511eb26b862caddc1acb45772
-Subject: [apparmor] [Bug 1777070] Re: firefox plugin libwidevinecdm.so
- crashes due to apparmor denial
+Received-SPF: pass client-ip=209.85.215.182; envelope-from=sswarnas@gmail.com;
+ helo=mail-pg1-f182.google.com
+Subject: [apparmor] Regarding using apparmor to harden container
+	configuration
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
+Precedence: list
 List-Id: AppArmor discussion <apparmor.lists.ubuntu.com>
 List-Unsubscribe: <https://lists.ubuntu.com/mailman/options/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=unsubscribe>
@@ -57,129 +60,62 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Reply-To: Bug 1777070 <1777070@bugs.launchpad.net>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============6821590246347303715=="
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-SWYgc29tZW9uZSBkb2VzIG5vdCBoYXZlIGEgc3Vic2NyaXB0aW9uIG9uIG5ldGZsaXguY29tLCBp
-dCBpcyBhbHNvCnBvc3NpYmxlIHRvIHRlc3QgV2lkZXZpbmUgd2l0aG91dCBzdWJzY3JpcHRpb24g
-b24gc3BvdGlmeS5jb20uCgotLSAKWW91IHJlY2VpdmVkIHRoaXMgYnVnIG5vdGlmaWNhdGlvbiBi
-ZWNhdXNlIHlvdSBhcmUgYSBtZW1iZXIgb2YgQXBwQXJtb3IKRGV2ZWxvcGVycywgd2hpY2ggaXMg
-c3Vic2NyaWJlZCB0byBhIGR1cGxpY2F0ZSBidWcgcmVwb3J0ICgxODU5MzYxKS4KaHR0cHM6Ly9i
-dWdzLmxhdW5jaHBhZC5uZXQvYnVncy8xNzc3MDcwCgpUaXRsZToKICBmaXJlZm94IHBsdWdpbiBs
-aWJ3aWRldmluZWNkbS5zbyBjcmFzaGVzIGR1ZSB0byBhcHBhcm1vciBkZW5pYWwKClN0YXR1cyBp
-biBhcHBhcm1vciBwYWNrYWdlIGluIFVidW50dToKICBDb25maXJtZWQKU3RhdHVzIGluIGZpcmVm
-b3ggcGFja2FnZSBpbiBVYnVudHU6CiAgQ29uZmlybWVkCgpCdWcgZGVzY3JpcHRpb246CiAgVWJ1
-bnR1IDE4LjA0LCBGaXJlZm94IDYwLjAuMStidWlsZDItMHVidW50dTAuMTguMDQuMQoKICBSdW5u
-aW5nIGZpcmVmaXgsIHRoZW4gZ29pbmcgdG8gbmV0ZmxpeC5jb20gYW5kIGF0dGVtcHRpbmcgdG8g
-cGxheSBhCiAgbW92aWUuICBUaGUgd2lkZXZpbmVjZG0gcGx1Z2luIGNyYXNoZXMsIHRoZSBmb2xs
-b3dpbmcgaXMgZm91bmQgaW4KICBzeXNsb2c6CgogIAogIEp1biAxNSAxOToxMzoyMiB4cGx0IGtl
-cm5lbDogWzMwMTM1MS41NTMwNDNdIGF1ZGl0OiB0eXBlPTE0MDAgYXVkaXQoMTUyOTA0NjgwMi41
-ODU6MjQ2KTogYXBwYXJtb3I9IkRFTklFRCIgb3BlcmF0aW9uPSJmaWxlX21tYXAiIHByb2ZpbGU9
-Ii91c3IvbGliL2ZpcmVmb3gvZmlyZWZveHssKltec11bXmhdfSIgbmFtZT0iL2hvbWUveGF2Ly5t
-b3ppbGxhL2ZpcmVmb3gvd2lhdm9reGsuZGVmYXVsdC0xNTEwOTc3ODc4MTcxL2dtcC13aWRldmlu
-ZWNkbS8xLjQuOC4xMDA4L2xpYndpZGV2aW5lY2RtLnNvIiBwaWQ9MTYxMTggY29tbT0icGx1Z2lu
-LWNvbnRhaW5lIiByZXF1ZXN0ZWRfbWFzaz0ibSIgZGVuaWVkX21hc2s9Im0iIGZzdWlkPTEwMDAg
-b3VpZD0xMDAwCiAgSnVuIDE1IDE5OjEzOjIyIHhwbHQga2VybmVsOiBbMzAxMzUxLjU1MzIzNl0g
-YXVkaXQ6IHR5cGU9MTQwMCBhdWRpdCgxNTI5MDQ2ODAyLjU4NToyNDcpOiBhcHBhcm1vcj0iREVO
-SUVEIiBvcGVyYXRpb249InB0cmFjZSIgcHJvZmlsZT0iL3Vzci9saWIvZmlyZWZveC9maXJlZm94
-eywqW15zXVteaF19IiBwaWQ9MjQ3MTQgY29tbT0iZmlyZWZveCIgcmVxdWVzdGVkX21hc2s9InRy
-YWNlIiBkZW5pZWRfbWFzaz0idHJhY2UiIHBlZXI9Ii91c3IvbGliL2ZpcmVmb3gvZmlyZWZveHss
-Kltec11bXmhdfSIKICBKdW4gMTUgMTk6MTM6MjIgeHBsdCBrZXJuZWw6IFszMDEzNTEuNTUzMjU5
-XSBwbHVnaW4tY29udGFpbmVbMTYxMThdOiBzZWdmYXVsdCBhdCAwIGlwIDAwMDA3ZmNkZmRhYTc2
-YWYgc3AgMDAwMDdmZmMxZmYwM2UyOCBlcnJvciA2IGluIGxpYnh1bC5zb1s3ZmNkZmI3N2EwMDAr
-NjExMTAwMF0KICBKdW4gMTUgMTk6MTM6MjIgeHBsdCBzbm1wZFsyMzM0XTogZXJyb3Igb24gc3Vi
-Y29udGFpbmVyICdpYV9hZGRyJyBpbnNlcnQgKC0xKQogIEp1biAxNSAxOToxMzoyMiB4cGx0IC91
-c3IvbGliL2dkbTMvZ2RtLXgtc2Vzc2lvbls2NTQ5XTogIyMjISEhIFtQYXJlbnRdW01lc3NhZ2VD
-aGFubmVsOjpDYWxsXSBFcnJvcjogQ2hhbm5lbCBlcnJvcjogY2Fubm90IHNlbmQvcmVjdgogIEp1
-biAxNSAxOToxMzoyNCB4cGx0IGtlcm5lbDogWzMwMTM1My45NjAxODJdIGF1ZGl0OiB0eXBlPTE0
-MDAgYXVkaXQoMTUyOTA0NjgwNC45OTQ6MjQ4KTogYXBwYXJtb3I9IkRFTklFRCIgb3BlcmF0aW9u
-PSJmaWxlX21tYXAiIHByb2ZpbGU9Ii91c3IvbGliL2ZpcmVmb3gvZmlyZWZveHssKltec11bXmhd
-fSIgbmFtZT0iL2hvbWUveGF2Ly5tb3ppbGxhL2ZpcmVmb3gvd2lhdm9reGsuZGVmYXVsdC0xNTEw
-OTc3ODc4MTcxL2dtcC13aWRldmluZWNkbS8xLjQuOC4xMDA4L2xpYndpZGV2aW5lY2RtLnNvIiBw
-aWQ9MTYxMzUgY29tbT0icGx1Z2luLWNvbnRhaW5lIiByZXF1ZXN0ZWRfbWFzaz0ibSIgZGVuaWVk
-X21hc2s9Im0iIGZzdWlkPTEwMDAgb3VpZD0xMDAwCiAgSnVuIDE1IDE5OjEzOjI0IHhwbHQga2Vy
-bmVsOiBbMzAxMzUzLjk2MDM3M10gYXVkaXQ6IHR5cGU9MTQwMCBhdWRpdCgxNTI5MDQ2ODA0Ljk5
-NDoyNDkpOiBhcHBhcm1vcj0iREVOSUVEIiBvcGVyYXRpb249InB0cmFjZSIgcHJvZmlsZT0iL3Vz
-ci9saWIvZmlyZWZveC9maXJlZm94eywqW15zXVteaF19IiBwaWQ9MjQ3MTQgY29tbT0iZmlyZWZv
-eCIgcmVxdWVzdGVkX21hc2s9InRyYWNlIiBkZW5pZWRfbWFzaz0idHJhY2UiIHBlZXI9Ii91c3Iv
-bGliL2ZpcmVmb3gvZmlyZWZveHssKltec11bXmhdfSIKICBKdW4gMTUgMTk6MTM6MjQgeHBsdCBr
-ZXJuZWw6IFszMDEzNTMuOTYwMzk4XSBwbHVnaW4tY29udGFpbmVbMTYxMzVdOiBzZWdmYXVsdCBh
-dCAwIGlwIDAwMDA3ZmUzYjU3ZjQ2YWYgc3AgMDAwMDdmZmU2ZGMwYjQ4OCBlcnJvciA2IGluIGxp
-Ynh1bC5zb1s3ZmUzYjM0YzcwMDArNjExMTAwMF0KICBKdW4gMTUgMTk6MTM6MjggeHBsdCBrZXJu
-ZWw6IFszMDEzNTcuODU5MTc3XSBhdWRpdDogdHlwZT0xNDAwIGF1ZGl0KDE1MjkwNDY4MDguODk1
-OjI1MCk6IGFwcGFybW9yPSJERU5JRUQiIG9wZXJhdGlvbj0iZmlsZV9tbWFwIiBwcm9maWxlPSIv
-dXNyL2xpYi9maXJlZm94L2ZpcmVmb3h7LCpbXnNdW15oXX0iIG5hbWU9Ii9ob21lL3hhdi8ubW96
-aWxsYS9maXJlZm94L3dpYXZva3hrLmRlZmF1bHQtMTUxMDk3Nzg3ODE3MS9nbXAtd2lkZXZpbmVj
-ZG0vMS40LjguMTAwOC9saWJ3aWRldmluZWNkbS5zbyIgcGlkPTE2MTM5IGNvbW09InBsdWdpbi1j
-b250YWluZSIgcmVxdWVzdGVkX21hc2s9Im0iIGRlbmllZF9tYXNrPSJtIiBmc3VpZD0xMDAwIG91
-aWQ9MTAwMAogIEp1biAxNSAxOToxMzoyOCB4cGx0IGtlcm5lbDogWzMwMTM1Ny44NTkzMjhdIGF1
-ZGl0OiB0eXBlPTE0MDAgYXVkaXQoMTUyOTA0NjgwOC44OTU6MjUxKTogYXBwYXJtb3I9IkRFTklF
-RCIgb3BlcmF0aW9uPSJwdHJhY2UiIHByb2ZpbGU9Ii91c3IvbGliL2ZpcmVmb3gvZmlyZWZveHss
-Kltec11bXmhdfSIgcGlkPTI0NzE0IGNvbW09ImZpcmVmb3giIHJlcXVlc3RlZF9tYXNrPSJ0cmFj
-ZSIgZGVuaWVkX21hc2s9InRyYWNlIiBwZWVyPSIvdXNyL2xpYi9maXJlZm94L2ZpcmVmb3h7LCpb
-XnNdW15oXX0iCiAgSnVuIDE1IDE5OjEzOjI4IHhwbHQga2VybmVsOiBbMzAxMzU3Ljg1OTM0OV0g
-cGx1Z2luLWNvbnRhaW5lWzE2MTM5XTogc2VnZmF1bHQgYXQgMCBpcCAwMDAwN2ZjZjMyYWUwNmFm
-IHNwIDAwMDA3ZmZlYjhhMTM2YzggZXJyb3IgNiBpbiBsaWJ4dWwuc29bN2ZjZjMwN2IzMDAwKzYx
-MTEwMDBdCiAgSnVuIDE1IDE5OjEzOjI1IHhwbHQgL3Vzci9saWIvZ2RtMy9nZG0teC1zZXNzaW9u
-WzY1NDldOiAjIyMhISEgW1BhcmVudF1bTWVzc2FnZUNoYW5uZWw6OkNhbGxdIEVycm9yOiBDaGFu
-bmVsIGVycm9yOiBjYW5ub3Qgc2VuZC9yZWN2CiAgSnVuIDE1IDE5OjEzOjI5IHhwbHQgL3Vzci9s
-aWIvZ2RtMy9nZG0teC1zZXNzaW9uWzY1NDldOiBFUlJPUiBibG9ja19yZWFwOjMyODogW2hhbXN0
-ZXJdIGJhZCBleGl0IGNvZGUgMQogIEp1biAxNSAxOToxMzoyOSB4cGx0IC91c3IvbGliL2dkbTMv
-Z2RtLXgtc2Vzc2lvbls2NTQ5XTogIyMjISEhIFtQYXJlbnRdW01lc3NhZ2VDaGFubmVsOjpDYWxs
-XSBFcnJvcjogQ2hhbm5lbCBlcnJvcjogY2Fubm90IHNlbmQvcmVjdgogIEp1biAxNSAxOToxMzoy
-OSB4cGx0IGtlcm5lbDogWzMwMTM1OC4yMjc2MzVdIGF1ZGl0OiB0eXBlPTE0MDAgYXVkaXQoMTUy
-OTA0NjgwOS4yNjM6MjUyKTogYXBwYXJtb3I9IkRFTklFRCIgb3BlcmF0aW9uPSJmaWxlX21tYXAi
-IHByb2ZpbGU9Ii91c3IvbGliL2ZpcmVmb3gvZmlyZWZveHssKltec11bXmhdfSIgbmFtZT0iL2hv
-bWUveGF2Ly5tb3ppbGxhL2ZpcmVmb3gvd2lhdm9reGsuZGVmYXVsdC0xNTEwOTc3ODc4MTcxL2dt
-cC13aWRldmluZWNkbS8xLjQuOC4xMDA4L2xpYndpZGV2aW5lY2RtLnNvIiBwaWQ9MTYxODggY29t
-bT0icGx1Z2luLWNvbnRhaW5lIiByZXF1ZXN0ZWRfbWFzaz0ibSIgZGVuaWVkX21hc2s9Im0iIGZz
-dWlkPTEwMDAgb3VpZD0xMDAwCiAgSnVuIDE1IDE5OjEzOjI5IHhwbHQga2VybmVsOiBbMzAxMzU4
-LjIyNzgxMV0gYXVkaXQ6IHR5cGU9MTQwMCBhdWRpdCgxNTI5MDQ2ODA5LjI2MzoyNTMpOiBhcHBh
-cm1vcj0iREVOSUVEIiBvcGVyYXRpb249InB0cmFjZSIgcHJvZmlsZT0iL3Vzci9saWIvZmlyZWZv
-eC9maXJlZm94eywqW15zXVteaF19IiBwaWQ9MjQ3MTQgY29tbT0iZmlyZWZveCIgcmVxdWVzdGVk
-X21hc2s9InRyYWNlIiBkZW5pZWRfbWFzaz0idHJhY2UiIHBlZXI9Ii91c3IvbGliL2ZpcmVmb3gv
-ZmlyZWZveHssKltec11bXmhdfSIKICBKdW4gMTUgMTk6MTM6MjkgeHBsdCBrZXJuZWw6IFszMDEz
-NTguMjI3ODQ0XSBwbHVnaW4tY29udGFpbmVbMTYxODhdOiBzZWdmYXVsdCBhdCAwIGlwIDAwMDA3
-ZmU1NjY3YzY2YWYgc3AgMDAwMDdmZmZlOGNjMGRhOCBlcnJvciA2IGluIGxpYnh1bC5zb1s3ZmU1
-NjQ0OTkwMDArNjExMTAwMF0KICBKdW4gMTUgMTk6MTM6MzEgeHBsdCBrZXJuZWw6IFszMDEzNjAu
-NTc0MTc3XSBhdWRpdDogdHlwZT0xNDAwIGF1ZGl0KDE1MjkwNDY4MTEuNjA4OjI1NCk6IGFwcGFy
-bW9yPSJERU5JRUQiIG9wZXJhdGlvbj0iZmlsZV9tbWFwIiBwcm9maWxlPSIvdXNyL2xpYi9maXJl
-Zm94L2ZpcmVmb3h7LCpbXnNdW15oXX0iIG5hbWU9Ii9ob21lL3hhdi8ubW96aWxsYS9maXJlZm94
-L3dpYXZva3hrLmRlZmF1bHQtMTUxMDk3Nzg3ODE3MS9nbXAtd2lkZXZpbmVjZG0vMS40LjguMTAw
-OC9saWJ3aWRldmluZWNkbS5zbyIgcGlkPTE2MTkyIGNvbW09InBsdWdpbi1jb250YWluZSIgcmVx
-dWVzdGVkX21hc2s9Im0iIGRlbmllZF9tYXNrPSJtIiBmc3VpZD0xMDAwIG91aWQ9MTAwMAogIEp1
-biAxNSAxOToxMzozMSB4cGx0IGtlcm5lbDogWzMwMTM2MC41NzQzMjZdIGF1ZGl0OiB0eXBlPTE0
-MDAgYXVkaXQoMTUyOTA0NjgxMS42MDg6MjU1KTogYXBwYXJtb3I9IkRFTklFRCIgb3BlcmF0aW9u
-PSJwdHJhY2UiIHByb2ZpbGU9Ii91c3IvbGliL2ZpcmVmb3gvZmlyZWZveHssKltec11bXmhdfSIg
-cGlkPTI0NzE0IGNvbW09ImZpcmVmb3giIHJlcXVlc3RlZF9tYXNrPSJ0cmFjZSIgZGVuaWVkX21h
-c2s9InRyYWNlIiBwZWVyPSIvdXNyL2xpYi9maXJlZm94L2ZpcmVmb3h7LCpbXnNdW15oXX0iCiAg
-SnVuIDE1IDE5OjEzOjMxIHhwbHQga2VybmVsOiBbMzAxMzYwLjU3NDM1Ml0gcGx1Z2luLWNvbnRh
-aW5lWzE2MTkyXTogc2VnZmF1bHQgYXQgMCBpcCAwMDAwN2Y4MzUwNzYwNmFmIHNwIDAwMDA3ZmZk
-YjNkMjJmMDggZXJyb3IgNiBpbiBsaWJ4dWwuc29bN2Y4MzRlNDMzMDAwKzYxMTEwMDBdCiAgSnVu
-IDE1IDE5OjEzOjM1IHhwbHQga2VybmVsOiBbMzAxMzY0LjMxMzcyN10gYXVkaXQ6IHR5cGU9MTQw
-MCBhdWRpdCgxNTI5MDQ2ODE1LjM0OToyNTYpOiBhcHBhcm1vcj0iREVOSUVEIiBvcGVyYXRpb249
-ImZpbGVfbW1hcCIgcHJvZmlsZT0iL3Vzci9saWIvZmlyZWZveC9maXJlZm94eywqW15zXVteaF19
-IiBuYW1lPSIvaG9tZS94YXYvLm1vemlsbGEvZmlyZWZveC93aWF2b2t4ay5kZWZhdWx0LTE1MTA5
-Nzc4NzgxNzEvZ21wLXdpZGV2aW5lY2RtLzEuNC44LjEwMDgvbGlid2lkZXZpbmVjZG0uc28iIHBp
-ZD0xNjIwNiBjb21tPSJwbHVnaW4tY29udGFpbmUiIHJlcXVlc3RlZF9tYXNrPSJtIiBkZW5pZWRf
-bWFzaz0ibSIgZnN1aWQ9MTAwMCBvdWlkPTEwMDAKICBKdW4gMTUgMTk6MTM6MzUgeHBsdCBrZXJu
-ZWw6IFszMDEzNjQuMzEzODk2XSBhdWRpdDogdHlwZT0xNDAwIGF1ZGl0KDE1MjkwNDY4MTUuMzQ5
-OjI1Nyk6IGFwcGFybW9yPSJERU5JRUQiIG9wZXJhdGlvbj0icHRyYWNlIiBwcm9maWxlPSIvdXNy
-L2xpYi9maXJlZm94L2ZpcmVmb3h7LCpbXnNdW15oXX0iIHBpZD0yNDcxNCBjb21tPSJmaXJlZm94
-IiByZXF1ZXN0ZWRfbWFzaz0idHJhY2UiIGRlbmllZF9tYXNrPSJ0cmFjZSIgcGVlcj0iL3Vzci9s
-aWIvZmlyZWZveC9maXJlZm94eywqW15zXVteaF19IgogIEp1biAxNSAxOToxMzozNSB4cGx0IGtl
-cm5lbDogWzMwMTM2NC4zMTM5NjddIHBsdWdpbi1jb250YWluZVsxNjIwNl06IHNlZ2ZhdWx0IGF0
-IDAgaXAgMDAwMDdmNWZmNmY3NDZhZiBzcCAwMDAwN2ZmZjYwYzljNzY4IGVycm9yIDYgaW4gbGli
-eHVsLnNvWzdmNWZmNGM0NzAwMCs2MTExMDAwXQogIEp1biAxNSAxOToxMzozNSB4cGx0IC91c3Iv
-bGliL2dkbTMvZ2RtLXgtc2Vzc2lvbls2NTQ5XTogbWVzc2FnZSByZXBlYXRlZCAzIHRpbWVzOiBb
-ICMjIyEhISBbUGFyZW50XVtNZXNzYWdlQ2hhbm5lbDo6Q2FsbF0gRXJyb3I6IENoYW5uZWwgZXJy
-b3I6IGNhbm5vdCBzZW5kL3JlY3ZdCgogIElmIEkgcnVuIEZpcmVmb3ggZnJvbSB0aGUgc25hcCAo
-cmV2IDYwLjAuMi0xKSB0aGVyZSdzIG5vIHByb2JsZW0uCgpUbyBtYW5hZ2Ugbm90aWZpY2F0aW9u
-cyBhYm91dCB0aGlzIGJ1ZyBnbyB0bzoKaHR0cHM6Ly9idWdzLmxhdW5jaHBhZC5uZXQvdWJ1bnR1
-Lytzb3VyY2UvYXBwYXJtb3IvK2J1Zy8xNzc3MDcwLytzdWJzY3JpcHRpb25zCgotLSAKQXBwQXJt
-b3IgbWFpbGluZyBsaXN0CkFwcEFybW9yQGxpc3RzLnVidW50dS5jb20KTW9kaWZ5IHNldHRpbmdz
-IG9yIHVuc3Vic2NyaWJlIGF0OiBodHRwczovL2xpc3RzLnVidW50dS5jb20vbWFpbG1hbi9saXN0
-aW5mby9hcHBhcm1vcgo=
+--===============6821590246347303715==
+Content-Type: multipart/alternative; boundary="00000000000016125305b34a8515"
+
+--00000000000016125305b34a8515
+Content-Type: text/plain; charset="UTF-8"
+
+Hi,
+
+I am trying to use apparmor to harden the rootfs of the container
+configuration.
+
+I have few queries regarding this.
+
+1. My process will be using a set of libraries and these libraries might be
+writing to some files in the rootfs or need some capabs. I dont see this
+files/capabs in my apparmor logs. Is this expected behaviour ?
+
+2. Is there any limitation for apparmor to monitor applications running in
+container or is it the same as an application running in the host ?
+
+Can you please clarify the above queries ?
+
+Thanks,
+Swarna
+
+--00000000000016125305b34a8515
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi,<div><br></div><div>I am trying to use apparmor to hard=
+en the rootfs of the container configuration.</div><div><br></div><div>I ha=
+ve few queries regarding this.</div><div><br></div><div>1. My process will =
+be using a set of libraries and these libraries might be writing to some fi=
+les in the rootfs or need some capabs. I dont see this files/capabs in my a=
+pparmor logs. Is this expected behaviour ?</div><div><br></div><div>2. Is t=
+here any limitation for apparmor to monitor applications=C2=A0running in co=
+ntainer or is it the same as an application running in the host ?</div><div=
+><br></div><div>Can you please clarify the above queries ?</div><div><br></=
+div><div>Thanks,</div><div>Swarna</div></div>
+
+--00000000000016125305b34a8515--
+
+
+--===============6821590246347303715==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
+eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
+aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
+
+--===============6821590246347303715==--
+
