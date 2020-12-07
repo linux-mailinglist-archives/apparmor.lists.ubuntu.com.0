@@ -2,22 +2,22 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 858492CBBC0
-	for <lists+apparmor@lfdr.de>; Wed,  2 Dec 2020 12:43:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 849782D0ED8
+	for <lists+apparmor@lfdr.de>; Mon,  7 Dec 2020 12:19:48 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1kkQXb-0001YY-2J; Wed, 02 Dec 2020 11:43:23 +0000
+	id 1kmEYH-0002Lg-0z; Mon, 07 Dec 2020 11:19:33 +0000
 Received: from youngberry.canonical.com ([91.189.89.112])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>) id 1kkQXY-0001Y8-Tb
- for apparmor@lists.ubuntu.com; Wed, 02 Dec 2020 11:43:20 +0000
+ (envelope-from <john.johansen@canonical.com>) id 1kmEYF-0002LS-IG
+ for apparmor@lists.ubuntu.com; Mon, 07 Dec 2020 11:19:31 +0000
 Received: from static-50-53-41-238.bvtn.or.frontiernet.net ([50.53.41.238]
  helo=[192.168.192.153]) by youngberry.canonical.com with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>) id 1kkQXY-0004yg-HR
- for apparmor@lists.ubuntu.com; Wed, 02 Dec 2020 11:43:20 +0000
+ (envelope-from <john.johansen@canonical.com>) id 1kmEYF-0007OK-5c
+ for apparmor@lists.ubuntu.com; Mon, 07 Dec 2020 11:19:31 +0000
 From: John Johansen <john.johansen@canonical.com>
 To: apparmor <apparmor@lists.ubuntu.com>
 Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
@@ -95,12 +95,13 @@ Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
  MDNwYVBDakpoN1hxOXZBenlkTjVVL1VBPT0KPTZQL2IKLS0tLS1FTkQgUEdQIFBVQkxJQyBL
  RVkgQkxPQ0stLS0tLQo=
 Organization: Canonical
-Message-ID: <29731810-6cf6-f435-e2b2-b4b667edf9d4@canonical.com>
-Date: Wed, 2 Dec 2020 03:42:44 -0800
+Message-ID: <1007119d-6a96-48a7-edc6-73d54a1290e7@canonical.com>
+Date: Mon, 7 Dec 2020 03:19:29 -0800
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-Subject: [apparmor]  AppArmor 3.0.1 Released
+Content-Language: en-US
+Subject: [apparmor]  irc meeting Tues Dec 8, 18:00 UTC
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -112,84 +113,15 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7192401937050877286=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============7192401937050877286==
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature";
- boundary="zbmhefObTeyv58sN0vW6Hy5UkYuFMDtdI"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---zbmhefObTeyv58sN0vW6Hy5UkYuFMDtdI
-Content-Type: multipart/mixed; boundary="5DkvegSGx7VWf1Tlk5tNJfAUujoHcjo03"
-
---5DkvegSGx7VWf1Tlk5tNJfAUujoHcjo03
-Content-Type: text/plain; charset=windows-1252
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-The AppArmor development team is pleased to announce the 3.0.1 release
-of the AppArmor user space components.=20
-
-The release is available on
-
-gitlab
-    https://gitlab.com/apparmor/apparmor/-/releases/v3.0.1
-
-
-The release notes are available at
-
-   https://gitlab.com/apparmor/apparmor/-/wikis/Release_Notes_3.0.1
-
-Please report any bugs you may find via the gitlab AppArmor project
-https://gitlab.com/apparmor/apparmor
-
-
-Kudos to everyone who helped make this release possible.
-
-Thanks!
-
-
-
---5DkvegSGx7VWf1Tlk5tNJfAUujoHcjo03--
-
---zbmhefObTeyv58sN0vW6Hy5UkYuFMDtdI
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE7cSDD705q2rFEEf7BS82cBjVw9gFAl/HfdYACgkQBS82cBjV
-w9g41Q//SWO3AtjWhI3BPjUdRc89Zo3lU4RRs4yoQmaH49UBOdbaxIYVItnJTY9n
-PCemzlJajY2baZzY02KghxyqHf75tmuTVskKGKtOIXr1wXonULHHu1Qy4roJzUs0
-j1pdJ9t7QfoTsEUV3BAOttDawffRtjTVJNTGkxtSLMl/6YEs/RMLE7I+DSOUaSDh
-7uBtbtj6huPQ5mu5BtNNLZm+ti3ixBAurgmfSzIX5g2eN2b0+Xq5le9WPXui5C25
-FN1JgmVtk9Zd1ao5JxQ3m6xgt89PJE2EtFgGq1l6e3unsR9RQqsaiZwrh5e7OTzp
-xD7icIv7ucX5WwgQ0frgzzibVkp7EtLEbM6TtqG6IPbj9SP5MPiS6i+z6QbgZJGH
-9uGUtzQosSRxk7ghejgNPZS8Vt31jxCLBobnF3Sfi+inteGH7KAnyVWv2geVYxud
-CzK85jOsCvNc1p8ZdEvlpDH/NJTIkOkn7j0r3lSYuhFTJdPRJC1cvHuLidgNHncG
-XGB0D/NZpjqIZPiv+RLB9cW49MHdEUMsc8+372bQ9+hB+jfo5tmJIojE8Cm/iuRO
-Nmw2Xx+aw7/HtcDKugRi09d2U24y53cVwzJTvvL2aLq9PLnDIk0W609hd0MhZizD
-YNoSu5R52myS7eRj+do2E5oBlxOVAObSqmGqbe3ecwOfHwK5uzs=
-=ay3o
------END PGP SIGNATURE-----
-
---zbmhefObTeyv58sN0vW6Hy5UkYuFMDtdI--
-
-
---===============7192401937050877286==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
-eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
-aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
-
---===============7192401937050877286==--
-
+VGhlIG5leHQgaXJjIG1lZXRpbmcgaXMgVHVlc2RheSBEZWNlbWJlciA4LCBhdCAxODowMCBVVEMg
+aW4gI2FwcGFybW9yIG9uIG9mdGMubmV0CgpQbGVhc2UgdXBkYXRlIHRoZSBhZ2VuZGEgaHR0cHM6
+Ly9naXRsYWIuY29tL2FwcGFybW9yL2FwcGFybW9yL3dpa2lzL01lZXRpbmdBZ2VuZGEgb3IgcmVw
+bHkgdG8gdGhpcyBtYWlsIGlmIHlvdSBoYXZlIGl0ZW1zIHlvdSB3YW50IHRvIGFkZAoKLS0gCkFw
+cEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlmeSBzZXR0
+aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21haWxtYW4v
+bGlzdGluZm8vYXBwYXJtb3IK
