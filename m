@@ -2,22 +2,22 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 849782D0ED8
-	for <lists+apparmor@lfdr.de>; Mon,  7 Dec 2020 12:19:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41EE42D100C
+	for <lists+apparmor@lfdr.de>; Mon,  7 Dec 2020 13:05:59 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1kmEYH-0002Lg-0z; Mon, 07 Dec 2020 11:19:33 +0000
+	id 1kmFH2-00056c-IC; Mon, 07 Dec 2020 12:05:48 +0000
 Received: from youngberry.canonical.com ([91.189.89.112])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>) id 1kmEYF-0002LS-IG
- for apparmor@lists.ubuntu.com; Mon, 07 Dec 2020 11:19:31 +0000
+ (envelope-from <john.johansen@canonical.com>) id 1kmFGw-00054Z-2V
+ for apparmor@lists.ubuntu.com; Mon, 07 Dec 2020 12:05:42 +0000
 Received: from static-50-53-41-238.bvtn.or.frontiernet.net ([50.53.41.238]
  helo=[192.168.192.153]) by youngberry.canonical.com with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>) id 1kmEYF-0007OK-5c
- for apparmor@lists.ubuntu.com; Mon, 07 Dec 2020 11:19:31 +0000
+ (envelope-from <john.johansen@canonical.com>) id 1kmFGv-0001vh-Mr
+ for apparmor@lists.ubuntu.com; Mon, 07 Dec 2020 12:05:41 +0000
 From: John Johansen <john.johansen@canonical.com>
 To: apparmor <apparmor@lists.ubuntu.com>
 Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
@@ -95,13 +95,13 @@ Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
  MDNwYVBDakpoN1hxOXZBenlkTjVVL1VBPT0KPTZQL2IKLS0tLS1FTkQgUEdQIFBVQkxJQyBL
  RVkgQkxPQ0stLS0tLQo=
 Organization: Canonical
-Message-ID: <1007119d-6a96-48a7-edc6-73d54a1290e7@canonical.com>
-Date: Mon, 7 Dec 2020 03:19:29 -0800
+Message-ID: <fd2c5368-8c6e-a9ab-2627-718e362f4047@canonical.com>
+Date: Mon, 7 Dec 2020 04:05:40 -0800
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
 Content-Language: en-US
-Subject: [apparmor]  irc meeting Tues Dec 8, 18:00 UTC
+Subject: [apparmor]  AppArmor 2.13.6 Released
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -118,10 +118,15 @@ Content-Transfer-Encoding: base64
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-VGhlIG5leHQgaXJjIG1lZXRpbmcgaXMgVHVlc2RheSBEZWNlbWJlciA4LCBhdCAxODowMCBVVEMg
-aW4gI2FwcGFybW9yIG9uIG9mdGMubmV0CgpQbGVhc2UgdXBkYXRlIHRoZSBhZ2VuZGEgaHR0cHM6
-Ly9naXRsYWIuY29tL2FwcGFybW9yL2FwcGFybW9yL3dpa2lzL01lZXRpbmdBZ2VuZGEgb3IgcmVw
-bHkgdG8gdGhpcyBtYWlsIGlmIHlvdSBoYXZlIGl0ZW1zIHlvdSB3YW50IHRvIGFkZAoKLS0gCkFw
-cEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlmeSBzZXR0
-aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21haWxtYW4v
-bGlzdGluZm8vYXBwYXJtb3IK
+VGhlIEFwcEFybW9yIGRldmVsb3BtZW50IHRlYW0gaXMgcGxlYXNlZCB0byBhbm5vdW5jZSB0aGUg
+Mi4xMy42IHJlbGVhc2UKb2YgdGhlIEFwcEFybW9yIHVzZXIgc3BhY2UgY29tcG9uZW50cy4gCgpU
+aGUgcmVsZWFzZSBpcyBhdmFpbGFibGUgb24KCmdpdGxhYgogICAgaHR0cHM6Ly9naXRsYWIuY29t
+L2FwcGFybW9yL2FwcGFybW9yLy0vcmVsZWFzZXMvdjIuMTMuNgoKClRoZSByZWxlYXNlIG5vdGVz
+IGFyZSBhdmFpbGFibGUgYXQKCiAgIGh0dHBzOi8vZ2l0bGFiLmNvbS9hcHBhcm1vci9hcHBhcm1v
+ci8tL3dpa2lzL1JlbGVhc2VfTm90ZXNfMi4xMy42CgpQbGVhc2UgcmVwb3J0IGFueSBidWdzIHlv
+dSBtYXkgZmluZCB2aWEgdGhlIGdpdGxhYiBBcHBBcm1vciBwcm9qZWN0Cmh0dHBzOi8vZ2l0bGFi
+LmNvbS9hcHBhcm1vci9hcHBhcm1vcgoKCkt1ZG9zIHRvIGV2ZXJ5b25lIHdobyBoZWxwZWQgbWFr
+ZSB0aGlzIHJlbGVhc2UgcG9zc2libGUuCgpUaGFua3MhCgoKLS0gCkFwcEFybW9yIG1haWxpbmcg
+bGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlmeSBzZXR0aW5ncyBvciB1bnN1YnNj
+cmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21haWxtYW4vbGlzdGluZm8vYXBwYXJt
+b3IK
