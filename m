@@ -2,24 +2,23 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5ACE52DF94A
-	for <lists+apparmor@lfdr.de>; Mon, 21 Dec 2020 07:33:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46B922F0A98
+	for <lists+apparmor@lfdr.de>; Mon, 11 Jan 2021 01:29:27 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1krEl8-0005XF-AM; Mon, 21 Dec 2020 06:33:30 +0000
+	id 1kyl58-0001eC-Uq; Mon, 11 Jan 2021 00:29:14 +0000
 Received: from youngberry.canonical.com ([91.189.89.112])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>) id 1krEl5-0005WL-Jr
- for apparmor@lists.ubuntu.com; Mon, 21 Dec 2020 06:33:27 +0000
-Received: from static-50-53-41-238.bvtn.or.frontiernet.net ([50.53.41.238]
- helo=[192.168.192.153]) by youngberry.canonical.com with esmtpsa
+ (envelope-from <john.johansen@canonical.com>) id 1kyl56-0001e0-SL
+ for apparmor@lists.ubuntu.com; Mon, 11 Jan 2021 00:29:12 +0000
+Received: from [50.53.41.238] (helo=[192.168.192.153])
+ by youngberry.canonical.com with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>)
- id 1krEl4-0005mZ-7v; Mon, 21 Dec 2020 06:33:26 +0000
-To: Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
-References: <20201221032739.11379-1-rdunlap@infradead.org>
+ (envelope-from <john.johansen@canonical.com>) id 1kyl56-0007MS-Go
+ for apparmor@lists.ubuntu.com; Mon, 11 Jan 2021 00:29:12 +0000
+To: apparmor <apparmor@lists.ubuntu.com>
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
  LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCgptUUlOQkU1bXJQb0JFQURB
@@ -96,15 +95,13 @@ Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
  MDNwYVBDakpoN1hxOXZBenlkTjVVL1VBPT0KPTZQL2IKLS0tLS1FTkQgUEdQIFBVQkxJQyBL
  RVkgQkxPQ0stLS0tLQo=
 Organization: Canonical
-Message-ID: <bb287c08-518d-ede3-c237-199e9cdb6881@canonical.com>
-Date: Sun, 20 Dec 2020 22:33:23 -0800
+Message-ID: <ab64e854-6eb8-1ed0-4a7e-bf244e3b7543@canonical.com>
+Date: Sun, 10 Jan 2021 16:29:10 -0800
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20201221032739.11379-1-rdunlap@infradead.org>
 Content-Language: en-US
-Subject: Re: [apparmor] [PATCH v2] security: apparmor: delete repeated words
-	in comments
+Subject: [apparmor] irc meeting Tues Jan 12 - Cancelled
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -116,58 +113,14 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Seth Arnold <seth.arnold@canonical.com>,
- linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
- James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-T24gMTIvMjAvMjAgNzoyNyBQTSwgUmFuZHkgRHVubGFwIHdyb3RlOgo+IERyb3AgcmVwZWF0ZWQg
-d29yZHMgaW4gY29tbWVudHMuCj4ge2EsIHRoZW4sIHRvfQo+IAo+IFNpZ25lZC1vZmYtYnk6IFJh
-bmR5IER1bmxhcCA8cmR1bmxhcEBpbmZyYWRlYWQub3JnPgo+IENjOiBKb2huIEpvaGFuc2VuIDxq
-b2huLmpvaGFuc2VuQGNhbm9uaWNhbC5jb20+Cj4gQ2M6IGFwcGFybW9yQGxpc3RzLnVidW50dS5j
-b20KPiBDYzogSmFtZXMgTW9ycmlzIDxqbW9ycmlzQG5hbWVpLm9yZz4KPiBDYzogIlNlcmdlIEUu
-IEhhbGx5biIgPHNlcmdlQGhhbGx5bi5jb20+Cj4gQ2M6IGxpbnV4LXNlY3VyaXR5LW1vZHVsZUB2
-Z2VyLmtlcm5lbC5vcmcKPiBSZXZpZXdlZC1CeTogU2V0aCBBcm5vbGQgPHNldGguYXJub2xkQGNh
-bm9uaWNhbC5jb20+CgpBY2tlZC1ieTogSm9obiBKb2hhbnNlbiA8am9obi5qb2hhbnNlbkBjYW5v
-bmljYWwuY29tPgoKSSB3aWxsIHB1bGwgdGhpcyBpbnRvIGFwcGFybW9yLW5leHQKCj4gLS0tCj4g
-djI6IHJlYmFzZQo+IAo+ICBzZWN1cml0eS9hcHBhcm1vci9pbmNsdWRlL2ZpbGUuaCAgfCAgICAy
-ICstCj4gIHNlY3VyaXR5L2FwcGFybW9yL3BhdGguYyAgICAgICAgICB8ICAgIDIgKy0KPiAgc2Vj
-dXJpdHkvYXBwYXJtb3IvcG9saWN5X3VucGFjay5jIHwgICAgMiArLQo+ICAzIGZpbGVzIGNoYW5n
-ZWQsIDMgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkKPiAKPiAtLS0gbGludXgtbmV4dC0y
-MDIwMTIxOC5vcmlnL3NlY3VyaXR5L2FwcGFybW9yL2luY2x1ZGUvZmlsZS5oCj4gKysrIGxpbnV4
-LW5leHQtMjAyMDEyMTgvc2VjdXJpdHkvYXBwYXJtb3IvaW5jbHVkZS9maWxlLmgKPiBAQCAtMTY3
-LDcgKzE2Nyw3IEBAIGludCBhYV9hdWRpdF9maWxlKHN0cnVjdCBhYV9wcm9maWxlICpwcm8KPiAg
-ICogQHBlcm1zOiBwZXJtaXNzaW9uIHRhYmxlIGluZGV4ZWQgYnkgdGhlIG1hdGNoZWQgc3RhdGUg
-YWNjZXB0IGVudHJ5IG9mIEBkZmEKPiAgICogQHRyYW5zOiB0cmFuc2l0aW9uIHRhYmxlIGZvciBp
-bmRleGVkIGJ5IG5hbWVkIHggdHJhbnNpdGlvbnMKPiAgICoKPiAtICogRmlsZSBwZXJtaXNzaW9u
-IGFyZSBkZXRlcm1pbmVkIGJ5IG1hdGNoaW5nIGEgcGF0aCBhZ2FpbnN0IEBkZmEgYW5kIHRoZW4K
-PiArICogRmlsZSBwZXJtaXNzaW9uIGFyZSBkZXRlcm1pbmVkIGJ5IG1hdGNoaW5nIGEgcGF0aCBh
-Z2FpbnN0IEBkZmEgYW5kCj4gICAqIHRoZW4gdXNpbmcgdGhlIHZhbHVlIG9mIHRoZSBhY2NlcHQg
-ZW50cnkgZm9yIHRoZSBtYXRjaGluZyBzdGF0ZSBhcwo+ICAgKiBhbiBpbmRleCBpbnRvIEBwZXJt
-cy4gIElmIGEgbmFtZWQgZXhlYyB0cmFuc2l0aW9uIGlzIHJlcXVpcmVkIGl0IGlzCj4gICAqIGxv
-b2tlZCB1cCBpbiB0aGUgdHJhbnNpdGlvbiB0YWJsZS4KPiAtLS0gbGludXgtbmV4dC0yMDIwMTIx
-OC5vcmlnL3NlY3VyaXR5L2FwcGFybW9yL3BhdGguYwo+ICsrKyBsaW51eC1uZXh0LTIwMjAxMjE4
-L3NlY3VyaXR5L2FwcGFybW9yL3BhdGguYwo+IEBAIC04Myw3ICs4Myw3IEBAIHN0YXRpYyBpbnQg
-ZGlzY29ubmVjdChjb25zdCBzdHJ1Y3QgcGF0aAo+ICAgKgo+ICAgKiBSZXR1cm5zOiAlMCBlbHNl
-IGVycm9yIGNvZGUgaWYgcGF0aCBsb29rdXAgZmFpbHMKPiAgICogICAgICAgICAgV2hlbiBubyBl
-cnJvciB0aGUgcGF0aCBuYW1lIGlzIHJldHVybmVkIGluIEBuYW1lIHdoaWNoIHBvaW50cyB0bwo+
-IC0gKiAgICAgICAgICB0byBhIHBvc2l0aW9uIGluIEBidWYKPiArICogICAgICAgICAgYSBwb3Np
-dGlvbiBpbiBAYnVmCj4gICAqLwo+ICBzdGF0aWMgaW50IGRfbmFtZXNwYWNlX3BhdGgoY29uc3Qg
-c3RydWN0IHBhdGggKnBhdGgsIGNoYXIgKmJ1ZiwgY2hhciAqKm5hbWUsCj4gIAkJCSAgICBpbnQg
-ZmxhZ3MsIGNvbnN0IGNoYXIgKmRpc2Nvbm5lY3RlZCkKPiAtLS0gbGludXgtbmV4dC0yMDIwMTIx
-OC5vcmlnL3NlY3VyaXR5L2FwcGFybW9yL3BvbGljeV91bnBhY2suYwo+ICsrKyBsaW51eC1uZXh0
-LTIwMjAxMjE4L3NlY3VyaXR5L2FwcGFybW9yL3BvbGljeV91bnBhY2suYwo+IEBAIC0zOSw3ICsz
-OSw3IEBACj4gIAo+ICAvKgo+ICAgKiBUaGUgQXBwQXJtb3IgaW50ZXJmYWNlIHRyZWF0cyBkYXRh
-IGFzIGEgdHlwZSBieXRlIGZvbGxvd2VkIGJ5IHRoZQo+IC0gKiBhY3R1YWwgZGF0YS4gIFRoZSBp
-bnRlcmZhY2UgaGFzIHRoZSBub3Rpb24gb2YgYSBhIG5hbWVkIGVudHJ5Cj4gKyAqIGFjdHVhbCBk
-YXRhLiAgVGhlIGludGVyZmFjZSBoYXMgdGhlIG5vdGlvbiBvZiBhIG5hbWVkIGVudHJ5Cj4gICAq
-IHdoaWNoIGhhcyBhIG5hbWUgKEFBX05BTUUgdHlwZWNvZGUgZm9sbG93ZWQgYnkgbmFtZSBzdHJp
-bmcpIGZvbGxvd2VkIGJ5Cj4gICAqIHRoZSBlbnRyaWVzIHR5cGVjb2RlIGFuZCBkYXRhLiAgTmFt
-ZWQgdHlwZXMgYWxsb3cgZm9yIG9wdGlvbmFsCj4gICAqIGVsZW1lbnRzIGFuZCBleHRlbnNpb25z
-IHRvIGJlIGFkZGVkIGFuZCB0ZXN0ZWQgZm9yIHdpdGhvdXQgYnJlYWtpbmcKPiAKCgotLSAKQXBw
-QXJtb3IgbWFpbGluZyBsaXN0CkFwcEFybW9yQGxpc3RzLnVidW50dS5jb20KTW9kaWZ5IHNldHRp
-bmdzIG9yIHVuc3Vic2NyaWJlIGF0OiBodHRwczovL2xpc3RzLnVidW50dS5jb20vbWFpbG1hbi9s
-aXN0aW5mby9hcHBhcm1vcgo=
+VGhlIGlyYyBtZWV0aW5nIGZvciB0aGlzIG1vbnRoIGlzIGNhbmNlbGxlZC4gSWYgdGhlcmUgaXMg
+c29tZXRoaW5nIHRoYXQgbmVlZHMgdG8gYmUgZGlzY3Vzc2VkIHRoYXQgY2FuJ3Qgd2FpdCB1bnRp
+bCB0aGUgRmVicnVhcnkgbWVldGluZyBhbiBpbXByb21wdHUgbWVldGluZyBjYW4gYmUgYXJyYW5n
+ZWQuCgotLSAKQXBwQXJtb3IgbWFpbGluZyBsaXN0CkFwcEFybW9yQGxpc3RzLnVidW50dS5jb20K
+TW9kaWZ5IHNldHRpbmdzIG9yIHVuc3Vic2NyaWJlIGF0OiBodHRwczovL2xpc3RzLnVidW50dS5j
+b20vbWFpbG1hbi9saXN0aW5mby9hcHBhcm1vcgo=
