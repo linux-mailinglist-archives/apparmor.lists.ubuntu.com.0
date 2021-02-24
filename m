@@ -2,53 +2,40 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C154323A50
-	for <lists+apparmor@lfdr.de>; Wed, 24 Feb 2021 11:17:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59422323C75
+	for <lists+apparmor@lfdr.de>; Wed, 24 Feb 2021 13:56:41 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1lErE8-0000ST-8E; Wed, 24 Feb 2021 10:17:04 +0000
-Received: from mout.gmx.net ([212.227.17.22])
+	id 1lEtiS-0004wV-JU; Wed, 24 Feb 2021 12:56:32 +0000
+Received: from mail.cboltz.de ([88.99.101.17])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <TheDiveO@gmx.eu>) id 1lErE6-0000Qx-Fe
- for AppArmor@lists.ubuntu.com; Wed, 24 Feb 2021 10:17:02 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1614161821;
- bh=FbmSy+C9a/mmk9Opcd2BrmsbEpN7Z2Y6iclmT+gJi3Q=;
- h=X-UI-Sender-Class:From:To:Subject:Date;
- b=KjAh2BvLCmQaMmBUMWE4x9fvRm2wnRyE9KUIZuHfz+LP95GeEEn8tTCOYMnG9UTgJ
- afG/cuPUZclHAFDH4KMwAv0y2Ic5kEyOOCUvgFK5/O8hF9nEIMsdmJGx6r/f+4VuaI
- n2GBmxv0uAech79k9flgNvJKNupx7EMAVZEavdGg=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from [84.173.155.199] ([84.173.155.199]) by web-mail.gmx.net
- (3c-app-gmx-bs53.server.lan [172.19.170.137]) (via HTTP); Wed, 24 Feb 2021
- 11:17:01 +0100
+ (envelope-from <apparmor@cboltz.de>) id 1lEtiQ-0004wP-NF
+ for apparmor@lists.ubuntu.com; Wed, 24 Feb 2021 12:56:30 +0000
+X-sprachakt.com-SMTP-Auth: no
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by mail.cboltz.de (Postfix) with ESMTP id 46BD25C01AF;
+ Wed, 24 Feb 2021 13:56:30 +0100 (CET)
+X-Virus-Scanned: amavisd-new at mail.cboltz.de
+Received: from mail.cboltz.de ([127.0.0.1])
+ by localhost (mail.cboltz.de [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id QHB85G7gs9UM; Wed, 24 Feb 2021 13:56:28 +0100 (CET)
+Received: from home.cboltz.de (unknown [10.10.0.6])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (Client did not present a certificate)
+ by mail.cboltz.de (Postfix) with ESMTPSA;
+ Wed, 24 Feb 2021 13:56:28 +0100 (CET)
+From: Christian Boltz <apparmor@cboltz.de>
+To: apparmor@lists.ubuntu.com
+Date: Wed, 24 Feb 2021 13:56:21 +0100
+Message-ID: <6901047.gQ41x59yMm@tux.boltz.de.vu>
+In-Reply-To: <trinity-9878cf5b-24f9-455c-a35b-82da31b41e7f-1614161820960@3c-app-gmx-bs53>
+References: <trinity-9878cf5b-24f9-455c-a35b-82da31b41e7f-1614161820960@3c-app-gmx-bs53>
 MIME-Version: 1.0
-Message-ID: <trinity-9878cf5b-24f9-455c-a35b-82da31b41e7f-1614161820960@3c-app-gmx-bs53>
-From: TheDiveO@gmx.eu
-To: AppArmor@lists.ubuntu.com
-Date: Wed, 24 Feb 2021 11:17:01 +0100
-Importance: normal
-Sensitivity: Normal
-X-Priority: 3
-X-Provags-ID: V03:K1:4X0516qvA9GbSeMEJeMOf23F6BZMuN9oiXdSjL5nLdkgsULy3xT/nb+kFyI56W7Wxqaal
- bT2DnjG9HJpaveIibYX+5VzLacMl184s+GQrvSJKBLD4iwwn4xor8Sfipf1fdALX6gnV7KxdJpIz
- 0sdYuIMZcFXIoa8SmO+eFRS7nN9YXS4Ip+C4+Li18bnlSG0dBgiQNqUkZhfG/fNe5VyLN04OfshP
- b9zNyNWMHbZaH0vyaMrVBAebODxDIGN7k1n2mLiePT6AEymGxbMzRJrvswDoaT+p5C24z5aF4VaV
- Yc=
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:VhX8CN3xvg8=:TuACsx2QLsorZp89hL8K5K
- Dda0L/UDElCLGNIFPR/+AbfWIbnlANJU7RsCEAU9HI8LryIZ+BhRtC93aRx8K2n6RuQLXGKnt
- x0PKXYgos6xkgSGb+dWxVzr750/Z5Sk4HCe4bCXiRLFO2HQKQ9FeWWJ29y6VHjgSw+NH6OOFX
- Qe+spLDyzLOGDurPKyWYbDG5Vvxt5QpKW5GVbGQeHFiLqGKtyNZYaCICH0EnMX4uSMDIfndvC
- tZa5vKMn62YFIFa8jkcvBYA4mjuzwNhAaeKTiEygKh0umup3s3quzmHMsBy3a6UkDRRjERbVH
- UZ6BxhRn6BPeO/QTMvvB1bccNBYSFOCIzKl/v9qbrHZTiQNKSQo1Fr7xVCw9WBBt3m4Uo4HJJ
- mviz0NgVbQ4bfveLnq6laUGojSY7s6LT3+rFtO3NmhH+IjfW6CxwqTjqxEJU5+xibUs5Vzj+B
- 8jI+Ix9e9q/VxfkV8yduueOn+MXjL6J38vLlVSeziMowkSIICDBWqEW7paq8PPR9aXE6cvJrb
- 1PEcKRhM/WT5HKD0IIYRO9Ku1BzdwPYZepBMJmK41tj6JoNYFnzlg5WGDCNgrs5ibqUR+T8ud
- jrGP+UybP3CTk=
-Subject: [apparmor] What are "AARE"s, exactly?
+X-Face: #?nL0}JpqNtLQy@q#bRm?B?pGS8[mx6r.6[91zp@*2DZ?18)haWs5wgvi, ,
+ wF/JWMTUh+6x, b7_`pW3)m~0606sDW0&'EKA}_-W+)Bz~d]k>4E9TyU}k@b&1=%yk\
+Subject: Re: [apparmor] What are "AARE"s, exactly?
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -60,27 +47,104 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============4906238696027740832=="
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-VGhlIG1hbiBwYWdlIGZvciBhcHBhcm1vci5kIG1lbnRpb25zIHRoZSAiQUFSRSIgZWxlbWVudCBp
-biBhIGxvdCBvZiBwbGFjZXMsIHN1Y2ggYXMgZm9yIHNwZWNpZnlpbmcgcGVlcnMuIFVuZm9ydHVu
-YXRlbHksIHRoZSBtYW4gcGFnZSAob3IgaXRzIHNvdXJjZSBwYXJzZXIvYXBwYXJtb3IuZC5wb2Qp
-IG9ubHkgc2F5cyAiQUFSRSBoYXZlIHNwZWNpYWwgbWVhbmluZ3M7IHNlZSBiZWxvdy4gTWF5IGlu
-Y2x1ZGUgVkFSSUFCTEUiLiBGdXJ0aGVyIGRvd24sIHRoZXJlIGlzIGEgdGVyc2UgImRlZmluaXRp
-b24iIGluIGZvcm0gb2YgIj8qW117fSIgd2hpY2ggSSBzaW1wbHkgZG8gbm90IHVuZGVyc3RhbmQu
-CgpEaXNjbGFpbWVyOiBJJ3ZlIGV2ZW4gZm91bmQgYW5kIHJlYWQgdGhlIGRvY3VtZW50cyBpbiBh
-cHBhcm1vci9kb2N1bWVudGF0aW9uLyoub2R0LCBidXQgbWlnaHQgdmVyeSB3ZWxsIG1pc3NlZCBh
-IGNydWNpYWwgaGludCBhYm91dCBBQVJFIHRoZXJlLgoKSSBjYW4gaW1hZ2luZSB0aGF0ICJBQVJF
-IiBtZWFucyAiQXBwQXJtb3IgcmVnIGV4cCIgYW5kIGFsc28gZm91bmQgdXRpbHMvYXBwYXJtb3Iv
-YWFyZS5weS4gVW5mb3J0dW5hdGVseSwgSSdtIHN0aWxsIG5vdCBjbGVhciBmcm9tIHJlYWRpbmcg
-dGhlIFB5dGhvbiBzb3VyY2Ugb2YgYWFyZS5weSBhYm91dCB3aGF0IEFBUkVzIHJlYWxseSBhcmUg
-YW5kIGhvdyB0aGV5IG1pZ2h0IGRpZmZlciBmcm9tIHJlZ3VsYXIgZXhwcmVzc2lvbnMgKHdoaWNo
-IG9uZXMpIGFuZCBpZiB0aGV5IGluY2x1ZGUgZ2xvYmJpbmcgb3Igbm90PwoKQ2FuIHlvdSBwbGVh
-c2UgaGVscCBvdXQgYW5kIGV4cGxhaW4gd2hhdCBBQVJFcyBhcmUgZnJvbSBhIHVzZXIncyBwZXJz
-cGVjdGl2ZT8KClRoYW5rIHlvdSB2ZXJ5IG11Y2ghCgpIYXJhbGQKCi0tIApBcHBBcm1vciBtYWls
-aW5nIGxpc3QKQXBwQXJtb3JAbGlzdHMudWJ1bnR1LmNvbQpNb2RpZnkgc2V0dGluZ3Mgb3IgdW5z
-dWJzY3JpYmUgYXQ6IGh0dHBzOi8vbGlzdHMudWJ1bnR1LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2Fw
-cGFybW9yCg==
+--===============4906238696027740832==
+Content-Type: multipart/signed; boundary="nextPart1782560.tNmzakEp8Y"; micalg="pgp-sha256"; protocol="application/pgp-signature"
+
+--nextPart1782560.tNmzakEp8Y
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"; protected-headers="v1"
+From: Christian Boltz <apparmor@cboltz.de>
+To: apparmor@lists.ubuntu.com
+Cc: TheDiveO@gmx.eu
+Subject: Re: [apparmor] What are "AARE"s, exactly?
+Date: Wed, 24 Feb 2021 13:56:21 +0100
+Message-ID: <6901047.gQ41x59yMm@tux.boltz.de.vu>
+In-Reply-To: <trinity-9878cf5b-24f9-455c-a35b-82da31b41e7f-1614161820960@3c-app-gmx-bs53>
+References: <trinity-9878cf5b-24f9-455c-a35b-82da31b41e7f-1614161820960@3c-app-gmx-bs53>
+
+Hello,
+
+Am Mittwoch, 24. Februar 2021, 11:17:01 CET schrieb TheDiveO@gmx.eu:
+> The man page for apparmor.d mentions the "AARE" element in a lot of
+> places, such as for specifying peers. Unfortunately, the man page (or
+> its source parser/apparmor.d.pod) only says "AARE have special
+> meanings; see below. May include VARIABLE". Further down, there is a
+> terse "definition" in form of "?*[]{}" which I simply do not
+> understand.
+> 
+> Disclaimer: I've even found and read the documents in
+> apparmor/documentation/*.odt, but might very well missed a crucial
+> hint about AARE there.
+> 
+> I can imagine that "AARE" means "AppArmor reg exp" and also found
+> utils/apparmor/aare.py. Unfortunately, I'm still not clear from
+> reading the Python source of aare.py about what AAREs really are and
+> how they might differ from regular expressions (which ones) and if
+> they include globbing or not?
+>
+> Can you please help out and explain what AAREs are from a user's
+> perspective?
+
+It seems the apparmor.d manpage lacks a mention of AARE at one place - 
+the place they are explained ;-)
+
+That place is the "Globbing" section. Have a look at it, it should help 
+to understand the AARE syntax.
+
+If you still have questions, feel free to ask - maybe the manpage needs 
+more improvements ;-)
+
+
+Regards,
+
+Christian Boltz
+-- 
+...........why use Windows, if there is a door.............
+
+--nextPart1782560.tNmzakEp8Y
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEcMqgYN4EKq6xsVGWxqaC6mPILxwFAmA2TPUACgkQxqaC6mPI
+LxwBtQ//akBD2sTfQygK1xCti8+U+Foi1ECHo9aQnfOwLSvlDQDk6sBqwYPpEajP
+NASVpOOMInaPRD5KfEx9yZbcBQ3d9Hfer9COpLWEEL2AiTqC8NlKM5dv0TlMRWMj
+S9j4iOPuTc42bQ87ewp6//5Ea1+PqW7T8MQ4FhCHB7W0EL7jvCvIkwqc7TMdogWc
+ejV30TrwksTB6z0RB/gaCt5K57KjtFDgXDOBf5g7bYAV44e2XwOCZ+oGJEiSSSDX
+VpCIRs/yqhbincX81gIA1IiyCoFjDAkUWxEidEHL+J16YVtYNzasY7rpf7prn7n+
+AZDRonJDLsQsBVj1rFdG9+9NqYD/TQctY61KvZFCgx73yGMXn08pSZY4CpBTTU+2
+uSeEsI5huSsgs+Xj9YDA8/fG+Ni/JzBHufjy9uj30FMlIy7z8u7r3O+mD3B9F8nu
+qlv5sLJ/3alesIC5eTmVOn6gdc5i0+jCrIBb8Z2o9ZA9vmpZCfG+siRuEJBIdZJS
+0355/QkEZ1blC/7/feshb1aZD/G/wLhk1Mj5cg4jMGyo2xIBJ2iHbz9aoVMz9VjI
+qh9mfd9q7SahT/QjVFbyTCPVM5JHcYCdFlxgQ492X+HP2xTfhyAe/Z8Vc2l3JFY1
+pPYjCtgXVSy++Te2+rWn1dteLYNsesD7HsPw2IxQrV/o8YQZHN4=
+=6YkP
+-----END PGP SIGNATURE-----
+
+--nextPart1782560.tNmzakEp8Y--
+
+
+
+
+
+--===============4906238696027740832==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
+eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
+aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
+
+--===============4906238696027740832==--
+
+
+
+
