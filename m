@@ -2,53 +2,42 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 819AC324D80
-	for <lists+apparmor@lfdr.de>; Thu, 25 Feb 2021 11:05:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E060326F0A
+	for <lists+apparmor@lfdr.de>; Sat, 27 Feb 2021 22:32:23 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1lFDW1-0005pu-Hm; Thu, 25 Feb 2021 10:05:01 +0000
-Received: from mout.gmx.net ([212.227.17.21])
+	id 1lG7C7-0002x8-3L; Sat, 27 Feb 2021 21:32:11 +0000
+Received: from mail.cboltz.de ([88.99.101.17])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <TheDiveO@gmx.eu>) id 1lFDVx-0005pJ-NF
- for apparmor@lists.ubuntu.com; Thu, 25 Feb 2021 10:04:57 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1614247497;
- bh=yH0xiyTG/IGItYMFRJYq66EUBau5WtbIgSKDz+WoZEs=;
- h=X-UI-Sender-Class:From:To:Subject:Date;
- b=UrApN28v+zC3c7buSMRdh8LKCNOKnD1qbN67tY4IV5LJEUiXo10VoRYFba9IwTWtg
- PvVAl4K+MY7LCRdL5gPpxqenuLOLBl3to58PMfkOiGpZibsgTB+mjnLa2y8I3DmsJV
- 47VEPGFKA5Isr/60X60FJcUKgxJW9T94I3nTxFwU=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from [165.225.26.254] ([165.225.26.254]) by web-mail.gmx.net
- (3c-app-gmx-bap61.server.lan [172.19.172.131]) (via HTTP); Thu, 25 Feb 2021
- 11:04:57 +0100
-MIME-Version: 1.0
-Message-ID: <trinity-0314431f-4321-41f5-9f74-368bc6a6a391-1614247497190@3c-app-gmx-bap61>
-From: TheDiveO@gmx.eu
+ (envelope-from <apparmor@cboltz.de>) id 1lG7C4-0002wM-Ii
+ for apparmor@lists.ubuntu.com; Sat, 27 Feb 2021 21:32:08 +0000
+X-sprachakt.com-SMTP-Auth: no
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by mail.cboltz.de (Postfix) with ESMTP id DAFF15C01AE;
+ Sat, 27 Feb 2021 22:32:07 +0100 (CET)
+X-Virus-Scanned: amavisd-new at mail.cboltz.de
+Received: from mail.cboltz.de ([127.0.0.1])
+ by localhost (mail.cboltz.de [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id FdrDqYUTUnXT; Sat, 27 Feb 2021 22:32:05 +0100 (CET)
+Received: from home.cboltz.de (unknown [10.10.0.6])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (Client did not present a certificate)
+ by mail.cboltz.de (Postfix) with ESMTPSA;
+ Sat, 27 Feb 2021 22:32:04 +0100 (CET)
+From: Christian Boltz <apparmor@cboltz.de>
 To: apparmor@lists.ubuntu.com
-Date: Thu, 25 Feb 2021 11:04:57 +0100
-Importance: normal
-Sensitivity: Normal
-X-Priority: 3
-X-Provags-ID: V03:K1:+09mYLqmE2CJFmHiIJ3ERhwXo4ewNl3OXL5/ohw8yT5+W7fj6FtGXuk3WKgCjsOgjIU1x
- pIgP5Q/VHjUOA4zQFgXpXfEDhtDufmzIHn+wtdhSghhmmz+U4TosGsAgvBsRK9H4jz0CL8K8Seo3
- eHnGbTa6yFCyaTC4kBjUTSbMxaLPY+kTEwFpo5oZ1+u0qpAO1Z7mh/3zJBwE07jR8tvRmpRnyO2Q
- q2xIIeF8qvdrN7mm9m6RWW+rkzZbM2qrWxSGIweBKcwjyUiace+HI3/P7W6OayV08jiMLAltxxVd
- 7A=
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:o/mB1wq7on0=:vghHgXm2y+b0J7C7cNlJ7y
- PYD0dBEtO3fhCAEjxIIyiFmbhdTeRpWbqb3b/hGe8bLTGQcf5srTPvX+Yj5ISzvd1i1iJkPZe
- 2etBGF4Ttorh57BMcHDB0gXehCQSCCRp6lV7RbeAtcW83X+ZtwhSLOI5q8JaGonXR4NWGmaJI
- t0lTrIooUPrCwl8Hfr2hSa5xXbgB57dn+D9SRhghsdocB8BUD+eAlRrXCy/TGTYoRCrHpgDtx
- syxHwubRFZm+jxi+Km81NuJq64/kI//eukr1L5wKU5lGy7cwxO8oKOPhYTQd+qV+RC1fpAQMl
- 4UsNHM7monRmc0L4VjqnPna+AvO4io8oHVGsARr/Mz0UN/Vt5k71wWiH6hhxzMjhTGaZRhwsC
- blntU2OzTrpxGc2bbTLqM+AHn08WY3GdcX3SkPEKPwXYAyrkMvU9WMt4J75LA+hvJ+PqjP1Cq
- d8dlouBatSy2BV5DbdJqDB+/DhIKQCBZoaXW/cZOKEDP0rgb7lD38g1rutrLhPedkpFuUTV2I
- D/Jby2o98To0TXqqFJ6COEzc5ue2+nKTAnWB7r1/Mh/WVQovEweWh5t1WGbYYIXDfrd07RDwG
- ZfS7tx1CZdsr8=
-Subject: [apparmor] wiki page TechnicalDoc_Proc_and_ptrace
+Date: Sat, 27 Feb 2021 22:32:01 +0100
+Message-ID: <3193579.oVCXLik4gb@tux.boltz.de.vu>
+In-Reply-To: <trinity-8ec36262-f18c-4589-b8dc-91a6d7be3eb6-1614197267130@3c-app-gmx-bs73>
+References: <trinity-9878cf5b-24f9-455c-a35b-82da31b41e7f-1614161820960@3c-app-gmx-bs53>
+ <6901047.gQ41x59yMm@tux.boltz.de.vu>
+ <trinity-8ec36262-f18c-4589-b8dc-91a6d7be3eb6-1614197267130@3c-app-gmx-bs73>
+MIME-Version: 1.0
+X-Face: #?nL0}JpqNtLQy@q#bRm?B?pGS8[mx6r.6[91zp@*2DZ?18)haWs5wgvi, ,
+ wF/JWMTUh+6x, b7_`pW3)m~0606sDW0&'EKA}_-W+)Bz~d]k>4E9TyU}k@b&1=%yk\
+Subject: Re: [apparmor] What are "AARE"s, exactly?
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -60,59 +49,137 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8728825503419034066=="
+Content-Type: multipart/mixed; boundary="===============7169222719962517705=="
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
---===============8728825503419034066==
-Content-Type: text/html; charset=UTF-8
+--===============7169222719962517705==
+Content-Type: multipart/signed; boundary="nextPart1742665.NAextbAEGE"; micalg="pgp-sha256"; protocol="application/pgp-signature"
 
-<html><head></head><body><div style="font-family: Verdana;font-size: 12.0px;"><div>Reading AppArmor&#39;s wiki article&nbsp;https://gitlab.com/apparmor/apparmor/-/wikis/TechnicalDoc_Proc_and_ptrace about the technical details of mediating access to certain /proc/ procfs elements as well as ptrace raises two questions for me:</div>
+--nextPart1742665.NAextbAEGE
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"; protected-headers="v1"
+From: Christian Boltz <apparmor@cboltz.de>
+To: apparmor@lists.ubuntu.com
+Cc: TheDiveO@gmx.eu
+Subject: Re: [apparmor] What are "AARE"s, exactly?
+Date: Sat, 27 Feb 2021 22:32:01 +0100
+Message-ID: <3193579.oVCXLik4gb@tux.boltz.de.vu>
+In-Reply-To: <trinity-8ec36262-f18c-4589-b8dc-91a6d7be3eb6-1614197267130@3c-app-gmx-bs73>
+References: <trinity-9878cf5b-24f9-455c-a35b-82da31b41e7f-1614161820960@3c-app-gmx-bs53> <6901047.gQ41x59yMm@tux.boltz.de.vu> <trinity-8ec36262-f18c-4589-b8dc-91a6d7be3eb6-1614197267130@3c-app-gmx-bs73>
 
-<div class="signature">&nbsp;</div>
+Hello,
 
-<div class="signature">&nbsp;</div>
+Am Mittwoch, 24. Februar 2021, 21:07:47 CET schrieb TheDiveO@gmx.eu:
+> > It seems the apparmor.d manpage lacks a mention of AARE at one place
+> > - the place they are explained ;-)
+> 
+> Especially a proper definition, it seems. As it is, today's definition
+> rather looks like cats having a jolly good time with a keyboard, and
+> especially the weird keys.
 
-<div class="signature">1. section: ptrace and unconfined</div>
+;-)
 
-<div class="signature">&nbsp;</div>
+> > That place is the "Globbing" section. Have a look at it, it should
+> > help to understand the AARE syntax.
+> 
+> Ah, thanks for that pointer! It does help understanding the AARE
+> syntax ... but unfortunately only to _some_ extend. For instance,
+> this does not explain the additional features that seems to be
+> defined, like using variables; but then, the globbing section doesn't
+> cover variables either.
 
-<div class="signature">How is &quot;In the case of the tracer being unconfined no ptrace rule is needed.&quot; to be exactly interpreted? Does this mean that there is no ptrace rule necessary for the unconfined tracer -- which would be somehow obvious under the assumption that there is no explicit &quot;unconfined&quot; profile? Or am I misunderstanding here and this means that if the tracer is unconfined, the tracee profile cannot block ptrace and /proc/ access?</div>
+You can use variables inside an AARE, and also inside alternations:
 
-<div class="signature">&nbsp;</div>
+    /foo/@{bar}/** r,
+    /foo/{@{bar},baz}/** r,
 
-<div class="signature">2. section:&nbsp;List of /proc files checking ptrace access</div>
+(of course you need to define the variable @{bar} in the preamble)
 
-<div class="signature">&nbsp;</div>
+> For instance, in the context of specifying a peer using an AARE: does
+> that mean that I could specify a set of matching profile names (task
+> labels), such as "foo*"? or "/usr/bin/*"?
 
-<div class="signature">&quot;It is also important to understand that the ptrace check may not always be performed when accessing one of the following /proc files, some of the checks are conditional and only performed when the cred or user, etc is different.&quot;</div>
+Yes.
 
-<div class="signature">&nbsp;</div>
+> > If you still have questions, feel free to ask - maybe the manpage
+> > needs more improvements ;-)
+> 
+> ...I would suspect so...
 
-<div class="signature">Now that really intrigues me purely for truely honest reasons and I looked at __ptrace_may_access(...)&nbsp;https://elixir.bootlin.com/linux/v5.11.1/source/kernel/ptrace.c#L275 what exactly is going on.</div>
+I tried some additions to the apparmor.d manpage. Before I submit them 
+to gitlab - do the changes include everything you missed? (If not, feel 
+free to propose a better text ;-)
 
-<div class="signature">&nbsp;</div>
+--- a/parser/apparmor.d.pod
++++ b/parser/apparmor.d.pod
+@@ -1513,9 +1513,10 @@
+ F</etc/apparmor.d/tunables/global>. F</etc/apparmor.d/tunables/global> 
+ is typically included at the beginning of an AppArmor profile.
 
-<div class="signature">As far as I understand the code, the only immediate &quot;card blanche&quot; free access shortcut is in case of same thread group: __ptrace_may_access then grants access without consulting any LSM hook, including the integral CAP_SYS_PTRACE capabilitites &quot;LSM&quot; check.</div>
+-=head2 Globbing
++=head2 Globbing (AARE)
 
-<div class="signature">&nbsp;</div>
+-File resources may be specified with a globbing syntax similar to that
++File resources and other parameters accepting an AARE
++may be specified with a globbing syntax similar to that
+ used by popular shells, such as csh(1), bash(1), zsh(1).
 
-<div class="signature">However, all further checks, and especially tracer credential checks (UID/GID or FSUID/FSGID) agains the tracee&#39;s {,E,S}UID/{,E,S}GID, always tail into&nbsp;<span style="white-space: pre-wrap;">security_ptrace_access_</span><span style="white-space: pre-wrap;">check(...), thus invoking AppArmor&#39;s ptrace access check. I tried to cross-check with a Docker container started with &quot;--pid host&quot;, but otherwise constrained by Docker&#39;s default container AppArmor profile and then trying to read /proc/1/environ. A parallel &quot;dmsg -wH&quot; clearly yields a fresh AppArmor originating audit access denial log.</span></div>
+ =over 4
+@@ -1548,6 +1549,12 @@
+ matching a, b or c
 
-<div class="signature">&nbsp;</div>
+ will expand to one rule to match ab, one rule to match cd
 
-<div class="signature">Unless I&#39;m missing something here (which well might be the case given the intricate and involved&nbsp;mechanics I&#39;m facing here), then we wiki page for&nbsp;TechnicalDoc_Proc_and_ptrace should be updated (corrected): the only known case where the ptrace check isn&#39;t performed is for tracer and tracee being in the same thread group. &quot;when the cred or user, etc is different&quot; should be removed on the basis that even if this check is successful, further code execution still flows&nbsp;through AppArmor&#39;s ptrace security hook (as it also does if CAP_SYS_PTRACE is present).</div>
++Can also include variables.
++
++=item B<@{variable}>
++
++will expand to all values assigned to the given variable.
++
+ =back
 
-<div class="signature">&nbsp;</div>
-
-<div class="signature">With best regards,</div>
-
-<div class="signature">Harald</div>
-
-<div class="signature">&nbsp;</div></div></body></html>
+ When AppArmor looks up a directory the pathname being looked up will
 
 
---===============8728825503419034066==
+
+Regards,
+
+Christian Boltz
+-- 
+* mrdocs wonders when darix sleeps
+<sshaw> mrdocs: robots don't need sleep
+[from #opensuse-buildservice]
+
+--nextPart1742665.NAextbAEGE
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEcMqgYN4EKq6xsVGWxqaC6mPILxwFAmA6ulEACgkQxqaC6mPI
+Lxz0dxAAyKDTm2PaYfvDlJw3pYFNI7wSgbEvUSmXBcUPn9ZH75fu2er+jhKwDhpc
+uwF8X3i6MI/HQH0tCwbtGMDUD1yp8Bx6Kk+AxkACCoJVzx5tjsykgZzSUI35/FN6
+2Ox5Ksoz0eoFAufyN4rPF9WdsFO0LVhvgPXWRomS44TpQClgin7eTG9DTNK6iwEk
+d2NTklI6bvC9Z157hbKgW5QhwnQfoegRnX9HU5snFR5AqCzMGwUZj5TwUEG2oFpn
+F+fIHXmQNBvhC9EHcOgHT/9icziiUUGOSMnzhN8+bW7OOoQoLgpS7uxevfYFGT8K
+TavFeE/+ijcbqqryx4n8lOUI4z2ZNaN7F/KCH2CpizGsIeKaHZhKShie8g+7DN1u
+eD3Yhpd8AqB7BN8iyEJOGLRMAPQaT2pGOKQiIkHG2n6ZlEY8qdh+p7HYH2w0Zd1n
+jrd770VW/hYZZiODf3lyeIRnguD+g7YNQt+edTF+4NzkonN9IYV4bd3QbKHkPFvK
+yK5vA4UvowN7Ck/jhvMLcgttircIC1Y9YiF2I+ItHvHSXaku1nyUHDIvkzitufAW
+I/k53SA3lHzF0gg6hzRuYBHGwTdQkCk2pHju3mwrLJ05cyMjqNC/fWLZvJokR2bl
+HHFdpB/RnukWVIjqmMep/6hLBOa+rFSYNnUXWXWZR8L5GOdFExk=
+=+eO7
+-----END PGP SIGNATURE-----
+
+--nextPart1742665.NAextbAEGE--
+
+
+
+
+
+--===============7169222719962517705==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -122,4 +189,8 @@ LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
 eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
 aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
 
---===============8728825503419034066==--
+--===============7169222719962517705==--
+
+
+
+
