@@ -2,42 +2,108 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E060326F0A
-	for <lists+apparmor@lfdr.de>; Sat, 27 Feb 2021 22:32:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F41DE327103
+	for <lists+apparmor@lfdr.de>; Sun, 28 Feb 2021 07:07:50 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1lG7C7-0002x8-3L; Sat, 27 Feb 2021 21:32:11 +0000
-Received: from mail.cboltz.de ([88.99.101.17])
+	id 1lGFEx-0005qo-Ul; Sun, 28 Feb 2021 06:07:39 +0000
+Received: from youngberry.canonical.com ([91.189.89.112])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <apparmor@cboltz.de>) id 1lG7C4-0002wM-Ii
- for apparmor@lists.ubuntu.com; Sat, 27 Feb 2021 21:32:08 +0000
-X-sprachakt.com-SMTP-Auth: no
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by mail.cboltz.de (Postfix) with ESMTP id DAFF15C01AE;
- Sat, 27 Feb 2021 22:32:07 +0100 (CET)
-X-Virus-Scanned: amavisd-new at mail.cboltz.de
-Received: from mail.cboltz.de ([127.0.0.1])
- by localhost (mail.cboltz.de [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id FdrDqYUTUnXT; Sat, 27 Feb 2021 22:32:05 +0100 (CET)
-Received: from home.cboltz.de (unknown [10.10.0.6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (Client did not present a certificate)
- by mail.cboltz.de (Postfix) with ESMTPSA;
- Sat, 27 Feb 2021 22:32:04 +0100 (CET)
-From: Christian Boltz <apparmor@cboltz.de>
-To: apparmor@lists.ubuntu.com
-Date: Sat, 27 Feb 2021 22:32:01 +0100
-Message-ID: <3193579.oVCXLik4gb@tux.boltz.de.vu>
-In-Reply-To: <trinity-8ec36262-f18c-4589-b8dc-91a6d7be3eb6-1614197267130@3c-app-gmx-bs73>
-References: <trinity-9878cf5b-24f9-455c-a35b-82da31b41e7f-1614161820960@3c-app-gmx-bs53>
- <6901047.gQ41x59yMm@tux.boltz.de.vu>
- <trinity-8ec36262-f18c-4589-b8dc-91a6d7be3eb6-1614197267130@3c-app-gmx-bs73>
+ (envelope-from <john.johansen@canonical.com>) id 1lGFEu-0005qi-5Y
+ for apparmor@lists.ubuntu.com; Sun, 28 Feb 2021 06:07:36 +0000
+Received: from [50.53.41.238] (helo=[192.168.192.153])
+ by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <john.johansen@canonical.com>)
+ id 1lGFEt-0005cn-K7; Sun, 28 Feb 2021 06:07:35 +0000
+To: TheDiveO@gmx.eu, apparmor@lists.ubuntu.com
+References: <trinity-0314431f-4321-41f5-9f74-368bc6a6a391-1614247497190@3c-app-gmx-bap61>
+From: John Johansen <john.johansen@canonical.com>
+Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
+ LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCgptUUlOQkU1bXJQb0JFQURB
+ azE5UHNnVmdCS2tJbW1SMmlzUFE2bzdLSmhUVEtqSmR3VmJrV1NuTm4rbzZVcDVrCm5LUDFm
+ NDlFQlFsY2VXZzF5cC9Od2JSOGFkK2VTRU8vdW1hL0srUHFXdkJwdEtDOVNXRDk3Rkc0dUI0
+ L2Nhb20KTEVVOTdzTFFNdG52R1dkeHJ4VlJHTTRhbnpXWU1neno1VFptSWlWVFo0M091NVZw
+ YVMxVnoxWlN4UDNoL3hLTgpaci9UY1c1V1FhaTh1M1BXVm5ia2poU1pQSHYxQmdoTjY5cXhF
+ UG9tckpCbTFnbXR4M1ppVm1GWGx1d1RtVGdKCk9rcEZvbDduYkowaWxuWUhyQTdTWDNDdFIx
+ dXBlVXBNYS9XSWFuVk85NldkVGpISElhNDNmYmhtUXViZTR0eFMKM0ZjUUxPSlZxUXN4NmxF
+ OUI3cUFwcG05aFExMHFQV3dkZlB5LyswVzZBV3ROdTVBU2lHVkNJbld6bDJIQnFZZAovWmxs
+ OTN6VXErTklvQ244c0RBTTlpSCt3dGFHRGNKeXdJR0luK2VkS050SzcyQU1nQ2hUZy9qMVpv
+ V0g2WmVXClBqdVVmdWJWelp0bzFGTW9HSi9TRjRNbWRRRzFpUU50ZjRzRlpiRWdYdXk5Y0dp
+ MmJvbUYwenZ5QkpTQU5weGwKS05CRFlLek42S3owOUhVQWtqbEZNTmdvbUwvY2pxZ0FCdEF4
+ NTlMK2RWSVpmYUYyODFwSWNVWnp3dmg1K0pvRwplT1c1dUJTTWJFN0wzOG5zem9veWtJSjVY
+ ckFjaGtKeE5mejdrK0ZuUWVLRWtOekVkMkxXYzNRRjRCUVpZUlQ2ClBISGdhM1JneWtXNSsx
+ d1RNcUpJTGRtdGFQYlhyRjNGdm5WMExSUGN2NHhLeDdCM2ZHbTd5Z2Rvb3dBUkFRQUIKdEIx
+ S2IyaHVJRXB2YUdGdWMyVnVJRHhxYjJodVFHcHFiWGd1Ym1WMFBva0NPZ1FUQVFvQUpBSWJB
+ d1VMQ1FnSApBd1VWQ2drSUN3VVdBZ01CQUFJZUFRSVhnQVVDVG8wWVZ3SVpBUUFLQ1JBRkx6
+ WndHTlhEMkx4SkQvOVRKWkNwCndsbmNUZ1llcmFFTWVEZmtXdjhjMUlzTTFqMEFtRTRWdEwr
+ ZkU3ODBaVlA5Z2tqZ2tkWVN4dDdlY0VUUFRLTWEKWlNpc3JsMVJ3cVUwb29nWGRYUVNweHJH
+ SDAxaWN1LzJuMGpjWVNxWUtnZ1B4eTc4QkdzMkxacTRYUGZKVFptSApaR25YR3EvZURyL21T
+ bmowYWF2QkptTVo2amJpUHo2eUh0QllQWjlmZG84YnRjendQNDFZZVdvSXUyNi84SUk2CmYw
+ WG0zVkM1b0FhOHY3UmQrUldaYThUTXdsaHpIRXh4ZWwzanRJN0l6ek9zbm1FOS84RG0wQVJE
+ NWlUTENYd1IKMWN3SS9KOUJGL1MxWHY4UE4xaHVUM0l0Q05kYXRncDh6cW9Ka2dQVmptdnlM
+ NjRRM2ZFa1liZkhPV3NhYmE5LwprQVZ0Qk56OVJURmg3SUhEZkVDVmFUb3VqQmQ3QnRQcXIr
+ cUlqV0ZhZEpEM0k1ZUxDVkp2VnJyb2xyQ0FUbEZ0Ck4zWWtRczZKbjFBaUlWSVUzYkhSOEdq
+ ZXZnejVMbDZTQ0dIZ1Jya3lScG5TWWFVL3VMZ24zN042QVl4aS9RQUwKK2J5M0N5RUZManpX
+ QUV2eVE4YnEzSXVjbjdKRWJoUy9KLy9kVXFMb2VVZjh0c0dpMDB6bXJJVFpZZUZZQVJoUQpN
+ dHNmaXpJclZEdHoxaVBmL1pNcDVnUkJuaXlqcFhuMTMxY20zTTNndjZIclFzQUdubjhBSnJ1
+ OEdEaTVYSllJCmNvLzEreC9xRWlOMm5DbGFBT3BiaHpOMmVVdlBEWTVXMHEzYkEvWnAybWZH
+ NTJ2YlJJK3RRMEJyMUhkL3ZzbnQKVUhPOTAzbU1aZXAyTnpOM0JaNXFFdlB2RzRyVzVacTJE
+ cHliV2JRclNtOW9iaUJLYjJoaGJuTmxiaUE4YW05bwpiaTVxYjJoaGJuTmxia0JqWVc1dmJt
+ bGpZV3d1WTI5dFBva0NOd1FUQVFvQUlRVUNUbzBYV2dJYkF3VUxDUWdICkF3VVZDZ2tJQ3dV
+ V0FnTUJBQUllQVFJWGdBQUtDUkFGTHpad0dOWEQySXRNRC85anliYzg3ZE00dUFIazZ5Tk0K
+ TjBZL0JGbW10VFdWc09CaHFPbm9iNGkzOEJyRE8yQzFoUUNQQ1FlNExMczEvNHB0ZW92UXQ4
+ QjJGeXJQVmp3Zwo3alpUSE5LNzRyNmxDQ1Z4eDN5dTFCN1U5UG80VlRrY3NsVmIxL3FtV3V4
+ OFhXY040eXZrVHFsTCtHeHB5Sm45CjlaWmZmWEpjNk9oNlRtT2ZiS0d2TXV1djVhclNJQTNK
+ SEZMZjlhTHZadEExaXNKVXI3cFM5YXBnOXVUVUdVcDcKd2ZWMFdUNlQzZUczbXRVVTJ1cDVK
+ VjQ4NTBMMDVqSFM2dVdpZS9ZK3lmSk9iaXlyeE4vNlpxVzVHb25oTEJxLwptc3pjVjV2QlQz
+ QkRWZTNSdkY2WGRNOU9oUG4xK1k4MXg1NCt2UTExM044aUx3RjdHR2ExNFp5SVZBTlpEMEkw
+ CkhqUnZhMmsvUnFJUlR6S3l1UEg1cGtsY0tIVlBFRk1tT3pNVCtGT294Tmp2Uys3K3dHMktN
+ RFlFbUhQcjFQSkIKWlNaZUh6SzE5dGZhbFBNcHBGeGkrc3lZTGFnTjBtQjdKSFF3WTdjclV1
+ T0RoeWNxNjBZVnoxdGFFeWd1M1l2MgoyL0kxRUNHSHZLSEc2d2M5MG80M0MvZWxIRUNYbkVo
+ N3RLcGxEY3BJQytPQ21NeEtIaFI0NitYY1p2Z3c0RGdiCjdjYTgzZVFSM0NHODlMdlFwVzJM
+ TEtFRUJEajdoWmhrTGJra1BSWm0zdzhKWTQ0YXc4VnRneFdkblNFTUNMeEwKSU9OaDZ1Wjcv
+ L0RZVnRjSWFNSllrZWJhWnRHZENwMElnVVpiMjQvVmR2WkNZYk82MkhrLzNWbzFuWHdIVUVz
+ Mwo2RC92MWJUMFJaRmk2OUxnc0NjT2N4NGdZTGtDRFFST1pxejZBUkFBb3F3NmtrQmhXeU0x
+ ZnZnYW1BVmplWjZuCktFZm5SV2JrQzk0TDFFc0pMdXAzV2IyWDBBQk5PSFNrYlNENHBBdUMy
+ dEtGL0VHQnQ1Q1A3UWRWS1JHY1F6QWQKNmIyYzFJZHk5Ukx3Nnc0Z2krbm4vZDFQbTFra1lo
+ a1NpNXpXYUlnMG01UlFVaytFbDh6a2Y1dGNFLzFOMFo1TwpLMkpoandGdTViWDBhMGw0Y0ZH
+ V1ZRRWNpVk1ES1J0eE1qRXRrM1N4RmFsbTZaZFEycHAyODIyY2xucTR6WjltCld1MWQyd2F4
+ aXorYjVJYTR3ZURZYTduNDFVUmNCRVViSkFnbmljSmtKdENUd3lJeElXMktuVnlPcmp2a1F6
+ SUIKdmFQMEZkUDJ2dlpvUE1kbENJek9sSWtQTGd4RTBJV3VlVFhlQkpoTnMwMXBiOGJMcW1U
+ SU1sdTRMdkJFTEEvdgplaWFqajVzOHk1NDJIL2FIc2ZCZjRNUVVoSHhPL0JaVjdoMDZLU1Vm
+ SWFZN09nQWdLdUdOQjNVaWFJVVM1K2E5CmduRU9RTER4S1J5L2E3UTF2OVMrTnZ4KzdqOGlI
+ M2prUUpoeFQ2WkJoWkdSeDBna0gzVCtGMG5ORG01TmFKVXMKYXN3Z0pycUZaa1VHZDJNcm0x
+ cW5Ld1hpQXQ4U0ljRU5kcTMzUjBLS0tSQzgwWGd3ajhKbjMwdlhMU0crTk8xRwpIMFVNY0F4
+ TXd5L3B2azZMVTVKR2paUjczSjVVTFZoSDRNTGJEZ2dEM21QYWlHOCtmb3RUckpVUHFxaGc5
+ aHlVCkVQcFlHN3NxdDc0WG43OStDRVpjakxIenlsNnZBRkUyVzBreGxMdFF0VVpVSE8zNmFm
+ RnY4cUdwTzNacVB2akIKVXVhdFhGNnR2VVFDd2YzSDZYTUFFUUVBQVlrQ0h3UVlBUW9BQ1FV
+ Q1RtYXMrZ0liREFBS0NSQUZMelp3R05YRAoyRC9YRC8wZGRNLzRhaTFiK1RsMWp6bkthalgz
+ a0crTWVFWWVJNGY0MHZjbzNyT0xyblJHRk9jYnl5ZlZGNjlNCktlcGllNE93b0kxamNUVTBB
+ RGVjbmJXbkROSHByMFNjenhCTXJvM2Juckxoc212anVuVFlJdnNzQlp0QjRhVkoKanVMSUxQ
+ VWxuaEZxYTdmYlZxMFpRamJpVi9ydDJqQkVOZG05cGJKWjZHam5wWUljQWJQQ0NhL2ZmTDQv
+ U1FSUwpZSFhvaEdpaVM0eTVqQlRtSzVsdGZld0xPdzAyZmtleEgrSUpGcnJHQlhEU2c2bjJT
+ Z3hubisrTkYzNGZYY205CnBpYXczbUtzSUNtKzBoZE5oNGFmR1o2SVdWOFBHMnRlb29WRHA0
+ ZFlpaCsreFgvWFM4ekJDYzFPOXc0bnpsUDIKZ0t6bHFTV2JoaVdwaWZSSkJGYTRXdEFlSlRk
+ WFlkMzdqL0JJNFJXV2hueXc3YUFQTkdqMzN5dEdITlVmNlJvMgovanRqNHRGMXkvUUZYcWpK
+ Ry93R2pwZHRSZmJ0VWpxTEhJc3ZmUE5OSnEvOTU4cDc0bmRBQ2lkbFdTSHpqK09wCjI2S3Bi
+ Rm5td05PMHBzaVVzbmh2SEZ3UE8vdkFibDNSc1I1KzBSbytodnMyY0VtUXV2OXIvYkRsQ2Zw
+ enAydDMKY0srcmh4VXFpc094OERaZnoxQm5rYW9DUkZidnZ2ays3TC9mb21QbnRHUGtxSmNp
+ WUU4VEdIa1p3MWhPa3UrNApPb00yR0I1bkVEbGorMlRGL2pMUStFaXBYOVBrUEpZdnhmUmxD
+ NmRLOFBLS2ZYOUtkZm1BSWNnSGZuVjFqU24rCjh5SDJkakJQdEtpcVcwSjY5YUlzeXg3aVYv
+ MDNwYVBDakpoN1hxOXZBenlkTjVVL1VBPT0KPTZQL2IKLS0tLS1FTkQgUEdQIFBVQkxJQyBL
+ RVkgQkxPQ0stLS0tLQo=
+Organization: Canonical
+Message-ID: <ced8acdb-04ba-0e72-185c-89fb46470d91@canonical.com>
+Date: Sat, 27 Feb 2021 22:07:31 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-Face: #?nL0}JpqNtLQy@q#bRm?B?pGS8[mx6r.6[91zp@*2DZ?18)haWs5wgvi, ,
- wF/JWMTUh+6x, b7_`pW3)m~0606sDW0&'EKA}_-W+)Bz~d]k>4E9TyU}k@b&1=%yk\
-Subject: Re: [apparmor] What are "AARE"s, exactly?
+In-Reply-To: <trinity-0314431f-4321-41f5-9f74-368bc6a6a391-1614247497190@3c-app-gmx-bap61>
+Content-Language: en-US
+Subject: Re: [apparmor] wiki page TechnicalDoc_Proc_and_ptrace
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -49,148 +115,74 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7169222719962517705=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
---===============7169222719962517705==
-Content-Type: multipart/signed; boundary="nextPart1742665.NAextbAEGE"; micalg="pgp-sha256"; protocol="application/pgp-signature"
-
---nextPart1742665.NAextbAEGE
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"; protected-headers="v1"
-From: Christian Boltz <apparmor@cboltz.de>
-To: apparmor@lists.ubuntu.com
-Cc: TheDiveO@gmx.eu
-Subject: Re: [apparmor] What are "AARE"s, exactly?
-Date: Sat, 27 Feb 2021 22:32:01 +0100
-Message-ID: <3193579.oVCXLik4gb@tux.boltz.de.vu>
-In-Reply-To: <trinity-8ec36262-f18c-4589-b8dc-91a6d7be3eb6-1614197267130@3c-app-gmx-bs73>
-References: <trinity-9878cf5b-24f9-455c-a35b-82da31b41e7f-1614161820960@3c-app-gmx-bs53> <6901047.gQ41x59yMm@tux.boltz.de.vu> <trinity-8ec36262-f18c-4589-b8dc-91a6d7be3eb6-1614197267130@3c-app-gmx-bs73>
-
-Hello,
-
-Am Mittwoch, 24. Februar 2021, 21:07:47 CET schrieb TheDiveO@gmx.eu:
-> > It seems the apparmor.d manpage lacks a mention of AARE at one place
-> > - the place they are explained ;-)
-> 
-> Especially a proper definition, it seems. As it is, today's definition
-> rather looks like cats having a jolly good time with a keyboard, and
-> especially the weird keys.
-
-;-)
-
-> > That place is the "Globbing" section. Have a look at it, it should
-> > help to understand the AARE syntax.
-> 
-> Ah, thanks for that pointer! It does help understanding the AARE
-> syntax ... but unfortunately only to _some_ extend. For instance,
-> this does not explain the additional features that seems to be
-> defined, like using variables; but then, the globbing section doesn't
-> cover variables either.
-
-You can use variables inside an AARE, and also inside alternations:
-
-    /foo/@{bar}/** r,
-    /foo/{@{bar},baz}/** r,
-
-(of course you need to define the variable @{bar} in the preamble)
-
-> For instance, in the context of specifying a peer using an AARE: does
-> that mean that I could specify a set of matching profile names (task
-> labels), such as "foo*"? or "/usr/bin/*"?
-
-Yes.
-
-> > If you still have questions, feel free to ask - maybe the manpage
-> > needs more improvements ;-)
-> 
-> ...I would suspect so...
-
-I tried some additions to the apparmor.d manpage. Before I submit them 
-to gitlab - do the changes include everything you missed? (If not, feel 
-free to propose a better text ;-)
-
---- a/parser/apparmor.d.pod
-+++ b/parser/apparmor.d.pod
-@@ -1513,9 +1513,10 @@
- F</etc/apparmor.d/tunables/global>. F</etc/apparmor.d/tunables/global> 
- is typically included at the beginning of an AppArmor profile.
-
--=head2 Globbing
-+=head2 Globbing (AARE)
-
--File resources may be specified with a globbing syntax similar to that
-+File resources and other parameters accepting an AARE
-+may be specified with a globbing syntax similar to that
- used by popular shells, such as csh(1), bash(1), zsh(1).
-
- =over 4
-@@ -1548,6 +1549,12 @@
- matching a, b or c
-
- will expand to one rule to match ab, one rule to match cd
-
-+Can also include variables.
-+
-+=item B<@{variable}>
-+
-+will expand to all values assigned to the given variable.
-+
- =back
-
- When AppArmor looks up a directory the pathname being looked up will
-
-
-
-Regards,
-
-Christian Boltz
--- 
-* mrdocs wonders when darix sleeps
-<sshaw> mrdocs: robots don't need sleep
-[from #opensuse-buildservice]
-
---nextPart1742665.NAextbAEGE
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEcMqgYN4EKq6xsVGWxqaC6mPILxwFAmA6ulEACgkQxqaC6mPI
-Lxz0dxAAyKDTm2PaYfvDlJw3pYFNI7wSgbEvUSmXBcUPn9ZH75fu2er+jhKwDhpc
-uwF8X3i6MI/HQH0tCwbtGMDUD1yp8Bx6Kk+AxkACCoJVzx5tjsykgZzSUI35/FN6
-2Ox5Ksoz0eoFAufyN4rPF9WdsFO0LVhvgPXWRomS44TpQClgin7eTG9DTNK6iwEk
-d2NTklI6bvC9Z157hbKgW5QhwnQfoegRnX9HU5snFR5AqCzMGwUZj5TwUEG2oFpn
-F+fIHXmQNBvhC9EHcOgHT/9icziiUUGOSMnzhN8+bW7OOoQoLgpS7uxevfYFGT8K
-TavFeE/+ijcbqqryx4n8lOUI4z2ZNaN7F/KCH2CpizGsIeKaHZhKShie8g+7DN1u
-eD3Yhpd8AqB7BN8iyEJOGLRMAPQaT2pGOKQiIkHG2n6ZlEY8qdh+p7HYH2w0Zd1n
-jrd770VW/hYZZiODf3lyeIRnguD+g7YNQt+edTF+4NzkonN9IYV4bd3QbKHkPFvK
-yK5vA4UvowN7Ck/jhvMLcgttircIC1Y9YiF2I+ItHvHSXaku1nyUHDIvkzitufAW
-I/k53SA3lHzF0gg6hzRuYBHGwTdQkCk2pHju3mwrLJ05cyMjqNC/fWLZvJokR2bl
-HHFdpB/RnukWVIjqmMep/6hLBOa+rFSYNnUXWXWZR8L5GOdFExk=
-=+eO7
------END PGP SIGNATURE-----
-
---nextPart1742665.NAextbAEGE--
-
-
-
-
-
---===============7169222719962517705==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
-eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
-aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
-
---===============7169222719962517705==--
-
-
-
-
+T24gMi8yNS8yMSAyOjA0IEFNLCBUaGVEaXZlT0BnbXguZXUgd3JvdGU6Cj4gUmVhZGluZyBBcHBB
+cm1vcidzIHdpa2kgYXJ0aWNsZcKgaHR0cHM6Ly9naXRsYWIuY29tL2FwcGFybW9yL2FwcGFybW9y
+Ly0vd2lraXMvVGVjaG5pY2FsRG9jX1Byb2NfYW5kX3B0cmFjZSBhYm91dCB0aGUgdGVjaG5pY2Fs
+IGRldGFpbHMgb2YgbWVkaWF0aW5nIGFjY2VzcyB0byBjZXJ0YWluIC9wcm9jLyBwcm9jZnMgZWxl
+bWVudHMgYXMgd2VsbCBhcyBwdHJhY2UgcmFpc2VzIHR3byBxdWVzdGlvbnMgZm9yIG1lOgo+IMKg
+Cj4gwqAKPiAxLiBzZWN0aW9uOiBwdHJhY2UgYW5kIHVuY29uZmluZWQKPiDCoAo+IEhvdyBpcyAi
+SW4gdGhlIGNhc2Ugb2YgdGhlIHRyYWNlciBiZWluZyB1bmNvbmZpbmVkIG5vIHB0cmFjZSBydWxl
+IGlzIG5lZWRlZC4iIHRvIGJlIGV4YWN0bHkgaW50ZXJwcmV0ZWQ/IERvZXMgdGhpcyBtZWFuIHRo
+YXQgdGhlcmUgaXMgbm8gcHRyYWNlIHJ1bGUgbmVjZXNzYXJ5IGZvciB0aGUgdW5jb25maW5lZCB0
+cmFjZXIgLS0gd2hpY2ggd291bGQgYmUgc29tZWhvdyBvYnZpb3VzIHVuZGVyIHRoZSBhc3N1bXB0
+aW9uIHRoYXQgdGhlcmUgaXMgbm8gZXhwbGljaXQgInVuY29uZmluZWQiIHByb2ZpbGU/IE9yIGFt
+IEkgbWlzdW5kZXJzdGFuZGluZyBoZXJlIGFuZCB0aGlzIG1lYW5zIHRoYXQgaWYgdGhlIHRyYWNl
+ciBpcyB1bmNvbmZpbmVkLCB0aGUgdHJhY2VlIHByb2ZpbGUgY2Fubm90IGJsb2NrIHB0cmFjZSBh
+bmQgL3Byb2MvIGFjY2Vzcz8KPgoKdGhlIHVuY29uZmluZWQgdHJhY2VyIGRvZXMgbm90IG5lZWQg
+YSBwdHJhY2UgcnVsZSwgYW5kIGEgY29uZmluZWQgdHJhY2VlIGNhbiBub3QgY3VycmVudGx5IGJs
+b2NrIHB0cmFjZSBmcm9tIGFuIHVuY29uZmluZWQgdHJhY2VyLiBBcyBmb3IgL3Byb2MvIGFjY2Vz
+cyB5ZXMgdGhlIHByb2ZpbGUgY2FuIGFuZCBkb2VzIGJsb2NrIHRoYXQgYm90aCB3aXRoIHB0cmFj
+ZSBydWxlcyAoaWYgcHRyYWNlIHBlcm1pc3Npb24gaXMgcmVxdWVzdGVkKSBhbmQgd2l0aCBmaWxl
+IHJ1bGVzLgoKVGhlIGV4Y2VwdGlvbiBvZiB0aGUgdHJhY2VlIG5vdCBiZWluZyBhYmxlIHRvIGJs
+b2NrIHVuY29uZmluZWQgaXMgc3BlY2lhbCBhbmQgdGhlcmUgbWF5IGJlIGEgZmxhZyBpbiB0aGUg
+ZnV0dXJlIHRvIGFsbG93IHRoZSB0cmFjZWUgcHJvZmlsZSBydWxlIHRvIG92ZXJyaWRlIHRoYXQu
+CgpJIHNob3VsZCBub3RlIHRoYXQgd2UgY2FuIHVzZSBkaWZmZXJlbnQgdGVybWlub2xvZ3kgaWYg
+aXRzIGVhc2llci4gVGhlIHRyYWNlciBwcm9maWxlLCBpcyB0aGUgc3ViamVjdCB0eXBlIGFuZCB0
+aGUgdHJhY2VlIHByb2ZpbGUgaXMgdGhlIG9iamVjdCB0eXBlLiBUaGUgcHJvZmlsZSBpdCBzZWxm
+IGlzIHRoZSBzYW1lIGl0IGp1c3Qgc3dpdGNoZXMgcm9sZSBkZXBlbmRpbmcgb24gd2hldGhlciBp
+dCBpcyB0aGUgdGFzayBkb2luZyB0aGUgdHJhY2luZy4gQXMgZm9yIC9wcm9jLyBhY2Nlc3Nlcywg
+dGhlIHRhc2sgaXMgYWx3YXlzIGluIHRoZSBzdWJqZWN0IHJvbGUuIAoKCj4gMi4gc2VjdGlvbjrC
+oExpc3Qgb2YgL3Byb2MgZmlsZXMgY2hlY2tpbmcgcHRyYWNlIGFjY2Vzcwo+IMKgCj4gIkl0IGlz
+IGFsc28gaW1wb3J0YW50IHRvIHVuZGVyc3RhbmQgdGhhdCB0aGUgcHRyYWNlIGNoZWNrIG1heSBu
+b3QgYWx3YXlzIGJlIHBlcmZvcm1lZCB3aGVuIGFjY2Vzc2luZyBvbmUgb2YgdGhlIGZvbGxvd2lu
+ZyAvcHJvYyBmaWxlcywgc29tZSBvZiB0aGUgY2hlY2tzIGFyZSBjb25kaXRpb25hbCBhbmQgb25s
+eSBwZXJmb3JtZWQgd2hlbiB0aGUgY3JlZCBvciB1c2VyLCBldGMgaXMgZGlmZmVyZW50LiIKPiDC
+oAo+IE5vdyB0aGF0IHJlYWxseSBpbnRyaWd1ZXMgbWUgcHVyZWx5IGZvciB0cnVlbHkgaG9uZXN0
+IHJlYXNvbnMgYW5kIEkgbG9va2VkIGF0IF9fcHRyYWNlX21heV9hY2Nlc3MoLi4uKcKgaHR0cHM6
+Ly9lbGl4aXIuYm9vdGxpbi5jb20vbGludXgvdjUuMTEuMS9zb3VyY2Uva2VybmVsL3B0cmFjZS5j
+I0wyNzUgd2hhdCBleGFjdGx5IGlzIGdvaW5nIG9uLgo+IMKgCj4gQXMgZmFyIGFzIEkgdW5kZXJz
+dGFuZCB0aGUgY29kZSwgdGhlIG9ubHkgaW1tZWRpYXRlICJjYXJkIGJsYW5jaGUiIGZyZWUgYWNj
+ZXNzIHNob3J0Y3V0IGlzIGluIGNhc2Ugb2Ygc2FtZSB0aHJlYWQgZ3JvdXA6IF9fcHRyYWNlX21h
+eV9hY2Nlc3MgdGhlbiBncmFudHMgYWNjZXNzIHdpdGhvdXQgY29uc3VsdGluZyBhbnkgTFNNIGhv
+b2ssIGluY2x1ZGluZyB0aGUgaW50ZWdyYWwgQ0FQX1NZU19QVFJBQ0UgY2FwYWJpbGl0aXRlcyAi
+TFNNIiBjaGVjay4KPiDCoAoKeW91IGFyZSByaWdodCB0aGUgb25seSBjYXJ0ZSBibGFuY2hlIGlz
+IG5vdyB0aGUgc2FtZSB0aHJlYWQgZ3JvdXAsIEkgd291bGQgaGF2ZSB0byBkaWcgd2F5IGJhY2sg
+aW50byBoaXN0b3J5IHRvIHNheSBhbnltb3JlLiBUaGF0IHN0YXRlbWVudCBjZXJ0YWlubHkgY291
+bGQgYmUgdGlnaHRlbmVkIHVwLgoKPiBIb3dldmVyLCBhbGwgZnVydGhlciBjaGVja3MsIGFuZCBl
+c3BlY2lhbGx5IHRyYWNlciBjcmVkZW50aWFsIGNoZWNrcyAoVUlEL0dJRCBvciBGU1VJRC9GU0dJ
+RCkgYWdhaW5zIHRoZSB0cmFjZWUncyB7LEUsU31VSUQveyxFLFN9R0lELCBhbHdheXMgdGFpbCBp
+bnRvwqBzZWN1cml0eV9wdHJhY2VfYWNjZXNzX2NoZWNrKC4uLiksIHRodXMgaW52b2tpbmcgQXBw
+QXJtb3IncyBwdHJhY2UgYWNjZXNzIGNoZWNrLiBJIHRyaWVkIHRvIGNyb3NzLWNoZWNrIHdpdGgg
+YSBEb2NrZXIgY29udGFpbmVyIHN0YXJ0ZWQgd2l0aCAiLS1waWQgaG9zdCIsIGJ1dCBvdGhlcndp
+c2UgY29uc3RyYWluZWQgYnkgRG9ja2VyJ3MgZGVmYXVsdCBjb250YWluZXIgQXBwQXJtb3IgcHJv
+ZmlsZSBhbmQgdGhlbiB0cnlpbmcgdG8gcmVhZCAvcHJvYy8xL2Vudmlyb24uIEEgcGFyYWxsZWwg
+ImRtc2cgLXdIIiBjbGVhcmx5IHlpZWxkcyBhIGZyZXNoIEFwcEFybW9yIG9yaWdpbmF0aW5nIGF1
+ZGl0IGFjY2VzcyBkZW5pYWwgbG9nLgo+IMKgCj4gVW5sZXNzIEknbSBtaXNzaW5nIHNvbWV0aGlu
+ZyBoZXJlICh3aGljaCB3ZWxsIG1pZ2h0IGJlIHRoZSBjYXNlIGdpdmVuIHRoZSBpbnRyaWNhdGUg
+YW5kIGludm9sdmVkwqBtZWNoYW5pY3MgSSdtIGZhY2luZyBoZXJlKSwgdGhlbiB3ZSB3aWtpIHBh
+Z2UgZm9ywqBUZWNobmljYWxEb2NfUHJvY19hbmRfcHRyYWNlIHNob3VsZCBiZSB1cGRhdGVkIChj
+b3JyZWN0ZWQpOiB0aGUgb25seSBrbm93biBjYXNlIHdoZXJlIHRoZSBwdHJhY2UgY2hlY2sgaXNu
+J3QgcGVyZm9ybWVkIGlzIGZvciB0cmFjZXIgYW5kIHRyYWNlZSBiZWluZyBpbiB0aGUgc2FtZSB0
+aHJlYWQgZ3JvdXAuICJ3aGVuIHRoZSBjcmVkIG9yIHVzZXIsIGV0YyBpcyBkaWZmZXJlbnQiIHNo
+b3VsZCBiZSByZW1vdmVkIG9uIHRoZSBiYXNpcyB0aGF0IGV2ZW4gaWYgdGhpcyBjaGVjayBpcyBz
+dWNjZXNzZnVsLCBmdXJ0aGVyIGNvZGUgZXhlY3V0aW9uIHN0aWxsIGZsb3dzwqB0aHJvdWdoIEFw
+cEFybW9yJ3MgcHRyYWNlIHNlY3VyaXR5IGhvb2sgKGFzIGl0IGFsc28gZG9lcyBpZiBDQVBfU1lT
+X1BUUkFDRSBpcyBwcmVzZW50KS4KPiDCoAoKY29ycmVjdAoKPiBXaXRoIGJlc3QgcmVnYXJkcywK
+PiBIYXJhbGQKPiDCoAo+IAoKCi0tIApBcHBBcm1vciBtYWlsaW5nIGxpc3QKQXBwQXJtb3JAbGlz
+dHMudWJ1bnR1LmNvbQpNb2RpZnkgc2V0dGluZ3Mgb3IgdW5zdWJzY3JpYmUgYXQ6IGh0dHBzOi8v
+bGlzdHMudWJ1bnR1LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2FwcGFybW9yCg==
