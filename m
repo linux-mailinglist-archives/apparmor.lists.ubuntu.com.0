@@ -2,42 +2,40 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 258BF328C2A
-	for <lists+apparmor@lfdr.de>; Mon,  1 Mar 2021 19:46:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55B41328E87
+	for <lists+apparmor@lfdr.de>; Mon,  1 Mar 2021 20:36:45 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1lGnYs-0003SE-OS; Mon, 01 Mar 2021 18:46:30 +0000
+	id 1lGoLN-0006Bb-R1; Mon, 01 Mar 2021 19:36:37 +0000
 Received: from mail.cboltz.de ([88.99.101.17])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <apparmor@cboltz.de>) id 1lGnYq-0003S7-Ij
- for apparmor@lists.ubuntu.com; Mon, 01 Mar 2021 18:46:28 +0000
+ (envelope-from <apparmor@cboltz.de>) id 1lGoLM-0006BV-3R
+ for apparmor@lists.ubuntu.com; Mon, 01 Mar 2021 19:36:36 +0000
 X-sprachakt.com-SMTP-Auth: no
 Received: from localhost (localhost.localdomain [127.0.0.1])
- by mail.cboltz.de (Postfix) with ESMTP id 013C15C01C0;
- Mon,  1 Mar 2021 19:46:27 +0100 (CET)
+ by mail.cboltz.de (Postfix) with ESMTP id B96825C010F;
+ Mon,  1 Mar 2021 20:36:35 +0100 (CET)
 X-Virus-Scanned: amavisd-new at mail.cboltz.de
 Received: from mail.cboltz.de ([127.0.0.1])
  by localhost (mail.cboltz.de [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id EcVIC0dh3d76; Mon,  1 Mar 2021 19:46:25 +0100 (CET)
+ with ESMTP id G9gBaNcQQ5ST; Mon,  1 Mar 2021 20:36:34 +0100 (CET)
 Received: from home.cboltz.de (unknown [10.10.0.6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (Client did not present a certificate)
  by mail.cboltz.de (Postfix) with ESMTPSA;
- Mon,  1 Mar 2021 19:46:25 +0100 (CET)
+ Mon,  1 Mar 2021 20:36:34 +0100 (CET)
 From: Christian Boltz <apparmor@cboltz.de>
-To: apparmor@lists.ubuntu.com, TheDiveO@gmx.eu
-Date: Mon, 01 Mar 2021 19:46:24 +0100
-Message-ID: <3187709.5nqBFa1VBs@tux.boltz.de.vu>
-In-Reply-To: <trinity-4db11edf-0285-4025-9734-e819316c1388-1614587672082@3c-app-gmx-bs29>
-References: <trinity-9878cf5b-24f9-455c-a35b-82da31b41e7f-1614161820960@3c-app-gmx-bs53>
- <3193579.oVCXLik4gb@tux.boltz.de.vu>
- <trinity-4db11edf-0285-4025-9734-e819316c1388-1614587672082@3c-app-gmx-bs29>
+To: "apparmor@lists.ubuntu.com" <apparmor@lists.ubuntu.com>
+Date: Mon, 01 Mar 2021 20:36:30 +0100
+Message-ID: <1693755.NBhbg4TIZQ@tux.boltz.de.vu>
+In-Reply-To: <PS2PR04MB37190144D36EBE2DB14529FFA09A9@PS2PR04MB3719.apcprd04.prod.outlook.com>
+References: <PS2PR04MB37190144D36EBE2DB14529FFA09A9@PS2PR04MB3719.apcprd04.prod.outlook.com>
 MIME-Version: 1.0
 X-Face: #?nL0}JpqNtLQy@q#bRm?B?pGS8[mx6r.6[91zp@*2DZ?18)haWs5wgvi, ,
  wF/JWMTUh+6x, b7_`pW3)m~0606sDW0&'EKA}_-W+)Bz~d]k>4E9TyU}k@b&1=%yk\
-Subject: Re: [apparmor] What are "AARE"s, exactly?
+Subject: Re: [apparmor] File permission mode
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -49,108 +47,91 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============5418009987143574923=="
+Cc: Indhuja A V S <indhuja.a@tataelxsi.co.in>
+Content-Type: multipart/mixed; boundary="===============5769068020381169948=="
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
---===============5418009987143574923==
-Content-Type: multipart/signed; boundary="nextPart4925681.T34NKv1oFC"; micalg="pgp-sha256"; protocol="application/pgp-signature"
+--===============5769068020381169948==
+Content-Type: multipart/signed; boundary="nextPart2412937.TDg75HRl6A"; micalg="pgp-sha256"; protocol="application/pgp-signature"
 
---nextPart4925681.T34NKv1oFC
+--nextPart2412937.TDg75HRl6A
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="iso-8859-1"; protected-headers="v1"
 From: Christian Boltz <apparmor@cboltz.de>
-To: apparmor@lists.ubuntu.com, TheDiveO@gmx.eu
-Subject: Re: [apparmor] What are "AARE"s, exactly?
-Date: Mon, 01 Mar 2021 19:46:24 +0100
-Message-ID: <3187709.5nqBFa1VBs@tux.boltz.de.vu>
-In-Reply-To: <trinity-4db11edf-0285-4025-9734-e819316c1388-1614587672082@3c-app-gmx-bs29>
-References: <trinity-9878cf5b-24f9-455c-a35b-82da31b41e7f-1614161820960@3c-app-gmx-bs53> <3193579.oVCXLik4gb@tux.boltz.de.vu> <trinity-4db11edf-0285-4025-9734-e819316c1388-1614587672082@3c-app-gmx-bs29>
+To: "apparmor@lists.ubuntu.com" <apparmor@lists.ubuntu.com>
+Cc: Indhuja A V S <indhuja.a@tataelxsi.co.in>
+Subject: Re: [apparmor] File permission mode
+Date: Mon, 01 Mar 2021 20:36:30 +0100
+Message-ID: <1693755.NBhbg4TIZQ@tux.boltz.de.vu>
+In-Reply-To: <PS2PR04MB37190144D36EBE2DB14529FFA09A9@PS2PR04MB3719.apcprd04.prod.outlook.com>
+References: <PS2PR04MB37190144D36EBE2DB14529FFA09A9@PS2PR04MB3719.apcprd04.prod.outlook.com>
 
 Hello,
 
-Am Montag, 1. M=E4rz 2021, 09:34:32 CET schrieb TheDiveO@gmx.eu:
-> What might (still) be left are the grammar definitions for FILEGLOB
-> and AARE; are they actually the same or is AARE the "superset" of
-> FILEGLOB due to it allowing for VARIABLE? If FILEGLOB and AARE
-> actually are the same, would it make sense to then boil them down
-> into a single grammar element, preferably AARE? Why AARE: because of
-> VARIABLE, to distinguish from "plain" FILEGLOB.
-
-I'd say that FILEGLOB and AARE are very close from a user's point of=20
-view, but there are some technical details under the hood (and "funny"=20
-things the syntax allows, but that qualify as "please don't try this at=20
-home" ;-) so we probably will keep them listed separately.
-
-One of these details is that variable expansion is done first, before=20
-doing any plaintext or AARE matching, so strictly speaking variables are=20
-not really part of AARE. However, from a user's point of view this=20
-doesn't really matter.
-
-> In consequence, it would also help to specifically reference the
-> "Globbing (AARE)" section from the "Format" section:
+Am Montag, 1. M=E4rz 2021, 16:40:56 CET schrieb Indhuja A V S:
+> I have the following questions regarding file permission access modes,
 >=20
->   AARE =3D ?*[]{}^ See section "Globbing (AARE)" below for meanings.
+> a) Why multiple writes are used in "/dev/shm/* rww" and
+> "/dev/shm/filename www"? What difference does it make by using
+> multiple writes instead of a single write?
 
-Good idea.
+rw and rrrrrwwwwwww have the same meaning - rw.
 
-Submitted as https://gitlab.com/apparmor/apparmor/-/merge_requests/715=20
-(includes the changes from my previous mail).
+Nevertheless, I'd call repeating permissions a (harmless) bug in the=20
+profile. So if you found them in a profile, please ask the profile=20
+author to collapse rww to rw and www to w.
 
-> Now, that begs for expanding on AARE grammar, which admittedly is a
-> gory issue, try finding a proper globbing grammar :/
->=20
-> But one important aspect here is that contrary to (sh?) range negation
-> "[!]", AppArmor uses [^] similar to typical regex'es.
+> b) What is the difference between rwk and krw? I can understand that
+> order of execution is different but how is it useful?
 
-At least in bash, both   ls [^p]*   and   ls [!p]*   work.
+No difference, the file permissions can be specified in any order you=20
+want.
 
-> Another question here is: does AppArmor AARE explicitly support
-> character classes, or is this an undocumented and un-guaranteed
-> side-effect of the Python-based implementation of the parser?
-
-This is a side effect of the python implementation, which is "close=20
-enough" to what apparmor_parser does, but not exactly the same.
+The only restriction are exec rules - for example, changing Px to xP=20
+would be invalid syntax. (Other permissions can be ordered as you want -=20
+mrPx, Pxrm, rPxm and even mmmrrrrmmPxmm have the same meaning.)
 
 
 Regards,
 
 Christian Boltz
 =2D-=20
-Infrastructure is, by definition, boring. Whenever people in Infra
-have an interesting day, somebody is going to write a postmortem.
-[Kris K=F6hntopp in
-https://plus.google.com/+KristianK=F6hntopp/posts/MBYz6YRNWQ5]
+Please, if this thread gets more than 10 posts long and delves into
+anecdotes about systems deployed in army conflicts in the 1970s,
+please delete it.
+[gumb in opensuse-users]
 
---nextPart4925681.T34NKv1oFC
+
+--nextPart2412937.TDg75HRl6A
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part.
 Content-Transfer-Encoding: 7Bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEcMqgYN4EKq6xsVGWxqaC6mPILxwFAmA9NoAACgkQxqaC6mPI
-LxxhgRAAicUz9DSDGii4ZrPQ+u4pAxQGpK8qb72z/RvveWIvSE2v0jAtGhs1/wXi
-1R8XHDejWZ1KjnxQE9oJ1CfrdZ1rWHhALsBFe9dT9pwE7SO3Kj8mnN8F4iSLbXak
-fJYD2cFaN8eYh8r3pKtZ6mvYwyyEg41yYXN9GJ5/S0JAC8Oc/ZJzoSPNNj35KcE/
-CRpFBehndWbzySDfgizHtMmuDZBo9UJ+C2O7HOZY8IPPzF2SHs3IataBiGG47SzG
-OwWk+b6L4zzyDlO6mJ8okKlIPS8Qkwomp80b9QBEF1je6VOg/ioCsGQH+1wZpXgZ
-8OZuU07lDr497+XWQOXoi4YimEy15k6SjqgtWuTEkQBSxH8oCJl3nVrldwKv8imZ
-IedN3dpzUzRPVkWx6GPaZ9u4OpNhwLMd13HWvzv6fkXBLgA4rsOSTx3QBPbX90yu
-FvZQdtwIXygQSTa18re9ZzPSDlu7Anz6CfjaoDXObvsECiGxuGpcNcFysWiTD+RB
-GhO4c0Z2u69ryqWuLoZh/wzI1SncD1QJZBNXgCrA82B9RzcUaqe3vTnKYEa8GTm8
-8jmZB5e95uTls5irfK8opGduOswEDFUo3bqU1nnlbyvJCjTMd9r4vvqv0ZMtVm2W
-Ctd1eB6nC7uP5n7IO/PMpLulJg1scx4yjhKc84bTP3SiB35t3/c=
-=Gnxo
+iQIzBAABCAAdFiEEcMqgYN4EKq6xsVGWxqaC6mPILxwFAmA9Qj4ACgkQxqaC6mPI
+LxxRSQ//e9+d5B5XLQB/MaCw37yakmxDlrF8qc/SJti1uFmKh2sgi0T9K27Zdj/T
+LN+m9xVCOjpbPGGi67Bl/VxDy+4RKwb8mlr79Ng6ueDNkAP4PLTgKkbB2cjHZQMz
+CDPGSE+DZ72JsiqDDiiso+C6wq7+9SLI2Ck0MsKB2Y2qopjOSy+EwF3VQShuEN1r
+2bnWpJlXvIg5NPxmsegGUwmILfZAlrnXN89+iDXlXBC1W0QGLRoHrMJvq2T/qXUl
+HkEiFXkNa1gUJV5SPSfBKTom2rVv1PDooapk/YPMKjVP1Bp+uTr4FwLsCigB1Yh3
+1CBWC5BEATz56wD8+nB5Acqxm37LBe54XK0QaTyk8R9fN9m2FqhDF+om1ygcB6zl
+PTJDS/yaXGBthXPQJ76PgI617EzACYy605jxyI9tOSqvagkhDfWvobF2g3lDYiiN
+GQVyoEN0OB4xtICi8bnCQKEHeMpP+9+KGFnmnlVpUe+Ureh2KtVuwpn/IrUa3XOZ
+d5WNWHZIGkVtIa1Fp9+PqDPpFgjYDCW3GQiKve7Hl/KakpoEZjWuhAHkWtB2sWHZ
+w6p7u/IrrqbuzvJ06XLSkc0ZCP2tCgTWeM7USnokaRXyyIflC/Uf4a/0J23xiqWG
+NfyYv0AXFLZdWMz4LQbKcPr1cMNR19NUZkY2cUrMcouWnb8VnjA=
+=b5zL
 -----END PGP SIGNATURE-----
 
---nextPart4925681.T34NKv1oFC--
+--nextPart2412937.TDg75HRl6A--
 
 
 
 
 
---===============5418009987143574923==
+--===============5769068020381169948==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -160,7 +141,7 @@ LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
 eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
 aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
 
---===============5418009987143574923==--
+--===============5769068020381169948==--
 
 
 
