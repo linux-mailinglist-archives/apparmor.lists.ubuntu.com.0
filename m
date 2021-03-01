@@ -2,48 +2,47 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65CEB3280E2
-	for <lists+apparmor@lfdr.de>; Mon,  1 Mar 2021 15:31:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 307DA3282B0
+	for <lists+apparmor@lfdr.de>; Mon,  1 Mar 2021 16:41:12 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1lGjZx-0003qy-BB; Mon, 01 Mar 2021 14:31:21 +0000
-Received: from mail-eopbgr1310133.outbound.protection.outlook.com
- ([40.107.131.133] helo=APC01-SG2-obe.outbound.protection.outlook.com)
+	id 1lGkfN-00007V-Od; Mon, 01 Mar 2021 15:41:01 +0000
+Received: from mail-eopbgr1310115.outbound.protection.outlook.com
+ ([40.107.131.115] helo=APC01-SG2-obe.outbound.protection.outlook.com)
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <indhuja.a@tataelxsi.co.in>) id 1lGjZu-0003qs-5H
- for apparmor@lists.ubuntu.com; Mon, 01 Mar 2021 14:31:18 +0000
+ (envelope-from <indhuja.a@tataelxsi.co.in>) id 1lGkfM-000073-IE
+ for apparmor@lists.ubuntu.com; Mon, 01 Mar 2021 15:41:00 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=X3yzr8pCOtpLPS9eFq9mSgEnU/MUyCu2N8ZgBIrM3hFxfmjQy68+zgbtZNU1GgZU0RMNWBBh+/lENQSfbR4gNAcg99ymXLyQmr/RiW8dpbpRh1jlhgEVbaZvuPj0umJEtt0WGh3ihxXHz/13SNBqueuoEuaNdpoyG021FBSiU+OKXBoWsUC+bJRay/BCdGLS4clsPNVgtdmla+zeXamMDzWTpRuxBdnrAszU44BfenXuRhATKatHsYeDfFNZpX41IhsGAnQrYQfQykKtJOZ8NvTTxfsN/uKTno6ntPKd7pvyYpsJ4VEmD7XVDdlPlDmN4WM9CgIYZaocy/2d0Ceq6Q==
+ b=nYvBM0mMW3JURqjxXEvt6/BpVleyfpYXD1mtmBoJ/VJJhXNF2N5YckggdMWjfjNetY17m/dFMK9dy3T0wb2cmhpDP+bh0GufKiJ6idlb5/p847EVVIzcdmb3ukCzGD0/CrpWZJBQ6oxsm+EmLjUS9OKQLzgfIXNwTHBd4cq3k1oQQL5jRFnLkzKYXX8Is7ZGX6Rgc3rcz5EeWmHSLLt/SpTepd8b/LD2HFWhvI5Nm1mUbKe/vjuo1cc68fOrjHgtf/wb7U0MoVHAyEcQV9pyF9C3SFIpYl/LvJpny3tJr70KAlyJ2mLnuuftQY1/7ycurw34Pk6EMr1zj9MrZfsBTA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0/289mALhArYSxCeqZyYReypC9El6qnmcTYNniUwExk=;
- b=bub57EGOnJfVcYThhoZ+mmoQEI3o721WSqLVa+T1DNQIsdUJz/kPHvAFQwf/geJ8jvaq2fmRC1agn4gx2DZ+O1PeP7O96qxQBvr73KscvkijpVhhVimXyr392BEpni9c4DMqzJiTfnF2u83a5zxmXo7Rps4MvvfyIuIpEyv+PEjtru6GC3drDHe8KTlvLicp8l3G7CAke4bhKZFwi6NMD775THN8A8IxIpojGEJgdqfY/PFeLsnCo2t4LNn1W12YGoaAyDNMQkQz7H4qTOu7v/p3uZQPmKrV/NjFJpwRYNUUP3+NpCdJVO+FXnRx1vwn4kJN0HMYM3QHMkJx+eZmZA==
+ bh=RSmTFuhtK7y5MIfSO+xevHF0CWMYOl9aLGgf7YEnM4w=;
+ b=YS1JNFaHboxLZWl2BWDcQOUH5SHL8OYLSEBZI9nxGyhC7mYYCYRg9oRTIh0FP5QGXzvO1U+f101T8aKOoAzMsdfrsGWtsA9kJ47G+GHHxT1BISJVpdnD8ICPKsagwnqRlmJ2r9OQd1uQBJWS56FKdl8A+6FPSFhtvw94J9OBGje4tfwlAit21qFO4wA/SXVNydwFqz2w138IT+D9sM+uRo4Xr7qZn4YvkxrtHNRcyvTIP3Cyh0JBzFuPV9rjHdRcv2KA6EOce0qCm8+r6AR4lew+pjVGmDeyV85j8x2sH4ilmrg+d4v8s6fwslxxZyp/X6n7L7uqdFeA23peqzXFJg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=tataelxsi.co.in; dmarc=pass action=none
  header.from=tataelxsi.co.in; dkim=pass header.d=tataelxsi.co.in; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tataelxsi.co.in;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0/289mALhArYSxCeqZyYReypC9El6qnmcTYNniUwExk=;
- b=hHGXOWUrNL0ch5328EP6ChQzBkqTzTfRD+PtDnXYlPT2vUViisZ/v4TWIxZRfFbSDec82f4dL/GcQBxtcn/wYpb9Vxa9FLZVFyM0InTyi0dm8oQcU6e9LN18w7ivi+oxP9KkjmKE+1wdDY+6E8g5YWrxwO6fsSYNeGyvGDrmEl9WxJZ3aBZp7WOqVvyiq6mHmOoQF9aRUmpwiqmqDhi156DE2JUUhyeWochlryF29jGvc6M8C0mAGj5aRXTIOv2B5xV+oHUQvkcsZVS2vwne0jGe9fBa4dWurr65a94Tz8xXApG+jP8PG20Z2wk1NwnxZrp7CfOM+5QedO+3mLiSEQ==
-Received: from PS2PR04MB3719.apcprd04.prod.outlook.com (2603:1096:300:66::22)
- by PSBPR04MB4037.apcprd04.prod.outlook.com (2603:1096:301:4::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.19; Mon, 1 Mar
- 2021 14:31:14 +0000
+ bh=RSmTFuhtK7y5MIfSO+xevHF0CWMYOl9aLGgf7YEnM4w=;
+ b=Ykux6nyLC0ibRa3Mb6wL4UAqykGX0xpFQW0pGGrB3TbtDeTYtrB4VXKDq6lNdFjtZCg1c+Yi72NLS8sb+gG1Sh1rEEiCRuqooCbS2+PQV1bd7NwBAQgf5SSJhenNaXROo7RMOD4Si3tB+QS8aP28N/q37ZKtXnBf/Xv1wf7BpWGui7wZoi1lFV5/5jCS2zBF+MN/ZNwa35ESZ3kbXdCOnkS9eRNHY+gHYkL8dyaED4KjBpV19ZxmBhecKMrwZ5s+JxYmO8aF624AETv/+qntz2NvSyVy5MHjRHzk9HmoSKoIUZ1p8uW774e+D1I72cEgfT7mLhNiEUfqXstSYJ4aOg==
+Received: from PS2PR04MB3719.apcprd04.prod.outlook.com (20.179.113.214) by
+ PS1PR0401MB2107.apcprd04.prod.outlook.com (10.170.182.149) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3890.19; Mon, 1 Mar 2021 15:40:57 +0000
 Received: from PS2PR04MB3719.apcprd04.prod.outlook.com
  ([fe80::9022:683b:2d85:253c]) by PS2PR04MB3719.apcprd04.prod.outlook.com
  ([fe80::9022:683b:2d85:253c%7]) with mapi id 15.20.3890.028; Mon, 1 Mar 2021
- 14:31:14 +0000
+ 15:40:57 +0000
 From: Indhuja A V S <indhuja.a@tataelxsi.co.in>
 To: "apparmor@lists.ubuntu.com" <apparmor@lists.ubuntu.com>
-Thread-Topic: Logging in AppArmor
-Thread-Index: AQHXDqeBH64kZDPgG0+geD4EFBJgwA==
-Date: Mon, 1 Mar 2021 14:31:13 +0000
-Message-ID: <PS2PR04MB3719167F6D93AB6CFC4F7EB3A09A9@PS2PR04MB3719.apcprd04.prod.outlook.com>
+Thread-Topic: File permission mode
+Thread-Index: AQHXDq0qgzxHG5EaaEqW21qfiIniGQ==
+Date: Mon, 1 Mar 2021 15:40:56 +0000
+Message-ID: <PS2PR04MB37190144D36EBE2DB14529FFA09A9@PS2PR04MB3719.apcprd04.prod.outlook.com>
 Accept-Language: en-IN, en-US
 Content-Language: en-IN
 X-MS-Has-Attach: 
@@ -54,53 +53,53 @@ authentication-results: lists.ubuntu.com; dkim=none (message not signed)
 x-originating-ip: [165.225.122.113]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 1262ed18-15f1-4a27-d972-08d8dcbeaad4
-x-ms-traffictypediagnostic: PSBPR04MB4037:
-x-microsoft-antispam-prvs: <PSBPR04MB40375DEECE14446EB7911530A09A9@PSBPR04MB4037.apcprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7219;
+x-ms-office365-filtering-correlation-id: 3a899f2b-5959-4046-50c6-08d8dcc8680b
+x-ms-traffictypediagnostic: PS1PR0401MB2107:
+x-microsoft-antispam-prvs: <PS1PR0401MB21074A9301DEAA47D8F7AD08A09A9@PS1PR0401MB2107.apcprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6790;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: UyzCoUu2CoDVGMlH5kp//YlGPiXafhDAtlgr38MQ01XEYTaEOHlDbkIDgMqRyAMneFFcDmOMnXKNp3LJZJ28sSUxrI0nebLMEcipf+U8YCY0jV1bN28FcbXCPZ/kHtMuct78Lt1hEMnl4X5XlPNqlC0JHuehqqJPXIknFxhzadccbRA/NVMq1foc0E586SPnNKIUDMj8YfB8UN/z/2xDfU8yuWUL/NIscHQSZam572cKCevW7UYRyA6K8cE2dPRLha+eXR6NuwGE3apfJaY4BY131fZmV8IpJbA4mz1zz9vubkfDVEdkdLEzSQyPUxaaGNp+Q+Lfo6QLLXlyGBadhf7kbO1P1YEZpHvhf/QT4TBGrfgGKUholl3tJmdSh2DArr85o/rQvhSourwmJGsba7GuRKqjzhsVG9JFmt0EMQzHOhTeQxXDP1DOEfHzadM/5Yl16gNV2xfd+COTIvH9cub/C+BAW5TGH45WvGgq5YVFfxoWMe1/ZywunddB++S81pW81Z8dyGPxiiCpGHf6Mg==
+x-microsoft-antispam-message-info: Tlu7eSoSiXzyDm8LNYkEw3pPJe5zEj/TQkrCtNhGa0WP+hI1air+/646cF+dFoIGw7xPkoab5MahNj/Fj8DcU+5BQ0J//AqmoPTQAtyx88Sg5wYzgfxmd4YleiwCc6yyU3Ff9p06g/06oVmpW36y0Wb1Zmgpix5iBebIgKXGrxXIy/kJFfKlnCJgVg9A1OxtUSH6JVUdUk5wC6aPE46PaFPud7hTdX/uzf4UZJqyI72lsMYeio22rVFlFr2gnF+aJZFU15VgvQHBaeumf04GVvf5tVyyJmV0pv8TLaQ/yn2XnXAOY6nR3Ue/At7OGUaRcUJrsdNjOUxq/YPq6W5DZqZDildl7p5l2t+UE6nFxiy3VFrHRIM6i5dpyQG+WIy+RZf/M2oEeX9P2lx0Dm1NsDLhIEr14g87rnUflc4/KI/M2a116qP3UWfCKP/1JUHLhQzU2Vl3Fqeg0pF09ZChukgAF1qhL6f621a5ZA6vRtKt4n+zgGjvjOJvMQo1z8J4CPSqJg99r9sCdCnKWKmCqg==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PS2PR04MB3719.apcprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(396003)(346002)(136003)(39850400004)(376002)(316002)(55016002)(2906002)(83380400001)(76116006)(3480700007)(33656002)(478600001)(8936002)(86362001)(8676002)(7696005)(71200400001)(6506007)(9686003)(186003)(66556008)(19627405001)(91956017)(66446008)(5660300002)(52536014)(66476007)(6916009)(55236004)(66946007)(64756008)(26005)(7116003);
+ SFS:(4636009)(39860400002)(396003)(366004)(376002)(346002)(136003)(8676002)(7116003)(6916009)(7696005)(3480700007)(86362001)(6506007)(478600001)(19627405001)(5660300002)(8936002)(55236004)(71200400001)(66946007)(76116006)(91956017)(2906002)(186003)(26005)(52536014)(66476007)(316002)(66556008)(55016002)(9686003)(66446008)(64756008)(33656002)(83380400001);
  DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata: =?iso-8859-1?Q?ITOQQ9OhRxIzFaGkfEiuVqVSzMX157a/ukg6JBuqy8KpcILpRuovN3Fndv?=
- =?iso-8859-1?Q?Wk82THiwN/SZ4Yeb5yyoIj/3zDrfLfXLIQoQrnOG/neHBQZY/9nfTD9Yuk?=
- =?iso-8859-1?Q?hqeAF+GqTUmDWaysr2s3m2iyNJYnaVpGuWQGFSIHi3PHrY+YA+EcEkzv/M?=
- =?iso-8859-1?Q?8B1EM6SBYyxfOBFn8ACfuYDmWPHUCB/29KkqsWufWlt/xkCgDOxFOcVyff?=
- =?iso-8859-1?Q?jaF4LZu6rjYr/QDPc9No+y4iQRR5qfbPgUTwLLnZiTU0kkl8tq/ywQpT7l?=
- =?iso-8859-1?Q?wAsesnRE2ac6yL02453gtB9LqAMf3IxXvDpbtYPdyfQZPD9c6L2Hax41f/?=
- =?iso-8859-1?Q?spGx4P/8Z7hzbHI1XWrhzw4RfUlSBe2aJyz32jh9JtLpE5rN56zrqYS/YL?=
- =?iso-8859-1?Q?rT69L8CpO5xO6BYFhOdz3IXburXhh/3XxmT+rrsVdoPNVsX3h+/B1HkP9W?=
- =?iso-8859-1?Q?UFf74ZbPFR0Y7OXtMxJv15ovDxMiLdieouON+6ols+sO1K9jauk24KyKsz?=
- =?iso-8859-1?Q?/vhrFCiy80MUkLnouqLq/fsI90RYLCPWpTQEoA3E579ZknUWFirse5CsfN?=
- =?iso-8859-1?Q?8mjJ7t68lTOL8hsXgGv5EGp/huUUJQMcr13F4GWafwjw8EFlkJ08Eyrbon?=
- =?iso-8859-1?Q?tqjMgdYnw5ievp3xyy4BvanZCU4EY+SAa4fJ9/0nGXhrvEVBbzMu9fvyZh?=
- =?iso-8859-1?Q?ABiJ5xO9k8Q9Cbk2JkXVn/bsqxD0ShqI5TJWqRmq/ck4k0DAonRQ6qbUuZ?=
- =?iso-8859-1?Q?3yKmAeRBjsymgCFKdorrPiLImnVHgkMVxngKsBFDd4pYClq+0KTNQXgYFu?=
- =?iso-8859-1?Q?KAOKm3z+3kLLXHqmyVUFor90TS8m6oint+FFidm1zhgWdZVu2gK3BwGPWj?=
- =?iso-8859-1?Q?EVXg+oadmBchGyYOMwBOksv8Iq6kzTiGmW4fRJG2Rj2OtwO3yZvrWORo3P?=
- =?iso-8859-1?Q?+e8Por1TEIWh7VAOuzWk5vYLZgiBa51rqkKU7koxg6s4q4OlzwErXYffD1?=
- =?iso-8859-1?Q?rog00MzAs2FkWyP81CmvSoFnsYWz2RzqntGx4VHypwMYYDzXSdlBxVNm4K?=
- =?iso-8859-1?Q?ncbAAEHyupNivqHgEBulwFZUust0minHvrtg6lgDaU1RWsuYTNLaJJ9hI+?=
- =?iso-8859-1?Q?QZ+GfnhTELyCUSKb1SB1VA2WewwqO12+3RGsK/hSbaK1/mrgs2TJVNuofp?=
- =?iso-8859-1?Q?hyKk6157CkUsAOzB9JcxfimE804YQ1i+c5Qvni1APtgcEqRz3F0VBeDBQh?=
- =?iso-8859-1?Q?HAU2sAQ7oK8b12Bhbwdt5+bhfyYNm/PJF7dCYrHhxUBojlh5Nnok/IBnBn?=
- =?iso-8859-1?Q?XSNsh8PjhEeFc5RtKOqF8tUu9TFneFsG1e7L+LVtN5poe84=3D?=
+x-ms-exchange-antispam-messagedata: =?iso-8859-1?Q?Idu0A7BlvgH7l0iAImIViCEBSN90XE2vNMKKtNgGkzL2L0Q3t9mTLMRYhv?=
+ =?iso-8859-1?Q?WiPzLtMU9nvEkjNJn4RiDbzP0Xib9kAgNDiUyGi9zaSsIT39Pe3hevaftL?=
+ =?iso-8859-1?Q?otFhGvMA+HyK78VfH/kAC0vbF5dB6VO4djKNpPF1AOQRZ4tOBVH6kTiBkV?=
+ =?iso-8859-1?Q?GHPKs5mq0Z5V/GdWuiR4AN54cyPWM1SyzrLM2Tb43mM7UJtZByuV7K223w?=
+ =?iso-8859-1?Q?sMjqsUbrrE0kvCpF1eYaWhnndpnrIkH2a28i7WQdftkmresuNayy+7nYBH?=
+ =?iso-8859-1?Q?kunGB0brzYSqrOOTo1LqbHsIfeYev95hqQdGPhGMh+cCuCg/94+6XH0vo9?=
+ =?iso-8859-1?Q?lxRgQDFpVfcxj+U1KoojqvFzjxl9VfxpbcY/cbn3iPuoXlUV5yUdlOZ4SC?=
+ =?iso-8859-1?Q?NOD+BOG3ozayRnm+tDtjJ2s/NkVUMy+QWr8u3lbUYvZvTLr8a8wOtaNucd?=
+ =?iso-8859-1?Q?kXAnFM7iszM+Qk3D42IMnGudYBmpIOrp98yY6GVJG9YXOvh/JGv+Q3E7lA?=
+ =?iso-8859-1?Q?ZTqfg+6wDJsdMu9gJjsR0URe70gnJXwxkMTKpeliFycRZJyzdl9toSokcf?=
+ =?iso-8859-1?Q?q1yuV4V31Prh1sZLw2f0EHycdvSKGMH4XP0ogHfWhKohziF3BMimbWsX9A?=
+ =?iso-8859-1?Q?I/Ho2jnO1tjSvNnj3PyJ/CGpg/zdFARYhbAuJHwCe8sq++3K7U1R+OAJYq?=
+ =?iso-8859-1?Q?ytK3rAUDjGcC9KzvTgJz5fhHfQLaY6M48bLkM3Ccvp92AQaFVWvOME10Zc?=
+ =?iso-8859-1?Q?igJKEo4y7nAGE7PVfhXt9CzvTQyndNoyONg78CgfqW180esxzO2eWUqetq?=
+ =?iso-8859-1?Q?Vpvrg2VN51vSrTvjxO1VJAYJju4vobdSGSKF/W/GG7OvS923qWepLtF2kd?=
+ =?iso-8859-1?Q?HMhRUrBRwdVHhocZwfQAMojf+8M/R1gUE7CjHsB+/kKZMiWN2EOazn6Rx7?=
+ =?iso-8859-1?Q?ZZgktIJgQaj5KJIsnE/eKbleahGmh0/kspRf3a/7arehEEKIHI4/Xfs9wB?=
+ =?iso-8859-1?Q?I8EaWHD2ckiVDtWAdsN7CljR49uSJIV6GlQf7SaNarbLkrFFXcgX0qhn0S?=
+ =?iso-8859-1?Q?bBSmUUKsyffT7nrmCB+AAT+CzYtuSTiHtXSdAgJQwtPPaeQE8jJSuXgH+P?=
+ =?iso-8859-1?Q?dssJM5DhU6lTnAhxRv1zm2fYgDmKdW6VN/icYBNvx9kwt7HkPhWn/VT5gc?=
+ =?iso-8859-1?Q?KTxOV+Unf0YhAfZ3YiD0PYGFl2db6cIQvEu5lNlhAzLNMUL3z+0hOqhNoG?=
+ =?iso-8859-1?Q?xI3OvM5N0GSjzpLFacVrrBqpLrpXsvLje/11Vq7Gix2MQvWc8hdLeHhQYo?=
+ =?iso-8859-1?Q?nTT5FO1VP9yU5aYrx8knCgZMC0GRpEXCt6dJU4qNq+O6u3A=3D?=
 x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
 X-OriginatorOrg: tataelxsi.co.in
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PS2PR04MB3719.apcprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1262ed18-15f1-4a27-d972-08d8dcbeaad4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Mar 2021 14:31:13.9968 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3a899f2b-5959-4046-50c6-08d8dcc8680b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Mar 2021 15:40:56.9317 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: ad6a39dd-96b6-4368-82da-f2ec4d92e26a
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: CeN0oBFp6IUW5wPFvBHIUfjXvZATWo1PU1Ktedbip/NLDYSQoslrLSKJBPnYwLYveZMBpwgTU8aYhQO38i0kgc1PlFT8Tx3iFI5noTxJQuU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PSBPR04MB4037
-Subject: [apparmor] Logging in AppArmor
+X-MS-Exchange-CrossTenant-userprincipalname: MCLkkeB+g7bIYGEHa/fmQKFAA8WMtGNnr/MyGMbCmsT7iwKcTLxXhN+UPBv5fbDGjFTw+ABgbsMp85ip+DvfP65f6LU/ngSdAJ67SfM9B6w=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PS1PR0401MB2107
+Subject: [apparmor] File permission mode
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -112,25 +111,29 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6613043327203169160=="
+Content-Type: multipart/mixed; boundary="===============3509179714729929945=="
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
---===============6613043327203169160==
+--===============3509179714729929945==
 Content-Language: en-IN
 Content-Type: multipart/alternative;
-	boundary="_000_PS2PR04MB3719167F6D93AB6CFC4F7EB3A09A9PS2PR04MB3719apcp_"
+	boundary="_000_PS2PR04MB37190144D36EBE2DB14529FFA09A9PS2PR04MB3719apcp_"
 
---_000_PS2PR04MB3719167F6D93AB6CFC4F7EB3A09A9PS2PR04MB3719apcp_
+--_000_PS2PR04MB37190144D36EBE2DB14529FFA09A9PS2PR04MB3719apcp_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
 Hello,
 
-While using aa-logprof (AppArmor version 2.13.4), there were few mentions o=
-f "audit[ID]:" and "kernel: audit:" for the same capability(dac_override) i=
-n journalctl. Could someone please let me know the difference between them?=
- Why 2 lines are getting logged for dac_override alone?
+I have the following questions regarding file permission access modes,
+
+a) Why multiple writes are used in "/dev/shm/* rww" and "/dev/shm/filename =
+www"? What difference does it make by using multiple writes instead of a si=
+ngle write?
+
+b) What is the difference between rwk and krw? I can understand that order =
+of execution is different but how is it useful?
 
 Thanks and regards
 Indhuja
@@ -151,7 +154,7 @@ nsmission. If verification is required, please request for a hard-copy vers=
 ion.
 ________________________________
 
---_000_PS2PR04MB3719167F6D93AB6CFC4F7EB3A09A9PS2PR04MB3719apcp_
+--_000_PS2PR04MB37190144D36EBE2DB14529FFA09A9PS2PR04MB3719apcp_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -165,15 +168,32 @@ ttom:0;} </style>
 <body dir=3D"ltr">
 <div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
 : 12pt; color: rgb(0, 0, 0);">
-Hello,
-<div><br>
+Hello,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
 </div>
-While using aa-logprof (AppArmor version 2.13.4), there were few mentions o=
-f &quot;audit[ID]:&quot; and &quot;kernel: audit:&quot; for the same capabi=
-lity(dac_override) in journalctl. Could someone please let me know the diff=
-erence between them? Why 2 lines are getting logged
- for dac_override alone?<br>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+I have the&nbsp;following questions regarding file permission access modes,=
 </div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+a) Why multiple writes are used in &quot;/dev/shm/* rww&quot; and &quot;/de=
+v/shm/filename www&quot;? What difference does it make by using multiple wr=
+ites instead of a single write?</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+b) What is the difference between rwk and krw? I can understand that order =
+of execution is different but how is it useful?</div>
 <div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
 : 12pt; color: rgb(0, 0, 0);">
 <br>
@@ -183,7 +203,7 @@ erence between them? Why 2 lines are getting logged
 Thanks and regards</div>
 <div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
 : 12pt; color: rgb(0, 0, 0);">
-Indhuja</div>
+Indhuja&nbsp;</div>
 <hr>
 <span style=3D"font-size:12pt;  font-family: 'Cambria','times new roman','g=
 aramond',serif; color:#000106;"><i>Disclaimer: This email and any files tra=
@@ -206,10 +226,10 @@ mission. If verification is required,
 </body>
 </html>
 
---_000_PS2PR04MB3719167F6D93AB6CFC4F7EB3A09A9PS2PR04MB3719apcp_--
+--_000_PS2PR04MB37190144D36EBE2DB14529FFA09A9PS2PR04MB3719apcp_--
 
 
---===============6613043327203169160==
+--===============3509179714729929945==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -219,5 +239,5 @@ LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
 eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
 aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
 
---===============6613043327203169160==--
+--===============3509179714729929945==--
 
