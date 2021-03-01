@@ -2,112 +2,105 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3330F327AB0
-	for <lists+apparmor@lfdr.de>; Mon,  1 Mar 2021 10:26:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65CEB3280E2
+	for <lists+apparmor@lfdr.de>; Mon,  1 Mar 2021 15:31:35 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1lGeok-0002ds-2F; Mon, 01 Mar 2021 09:26:18 +0000
-Received: from youngberry.canonical.com ([91.189.89.112])
+	id 1lGjZx-0003qy-BB; Mon, 01 Mar 2021 14:31:21 +0000
+Received: from mail-eopbgr1310133.outbound.protection.outlook.com
+ ([40.107.131.133] helo=APC01-SG2-obe.outbound.protection.outlook.com)
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>) id 1lGeoh-0002dm-Jp
- for apparmor@lists.ubuntu.com; Mon, 01 Mar 2021 09:26:15 +0000
-Received: from [50.53.41.238] (helo=[192.168.192.153])
- by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>)
- id 1lGeoh-0001Ly-09; Mon, 01 Mar 2021 09:26:15 +0000
-To: TheDiveO@gmx.eu, Christian Boltz <apparmor@cboltz.de>
-References: <trinity-9878cf5b-24f9-455c-a35b-82da31b41e7f-1614161820960@3c-app-gmx-bs53>
- <6901047.gQ41x59yMm@tux.boltz.de.vu>
- <trinity-8ec36262-f18c-4589-b8dc-91a6d7be3eb6-1614197267130@3c-app-gmx-bs73>
- <3193579.oVCXLik4gb@tux.boltz.de.vu>
- <trinity-4db11edf-0285-4025-9734-e819316c1388-1614587672082@3c-app-gmx-bs29>
-From: John Johansen <john.johansen@canonical.com>
-Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
- LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCgptUUlOQkU1bXJQb0JFQURB
- azE5UHNnVmdCS2tJbW1SMmlzUFE2bzdLSmhUVEtqSmR3VmJrV1NuTm4rbzZVcDVrCm5LUDFm
- NDlFQlFsY2VXZzF5cC9Od2JSOGFkK2VTRU8vdW1hL0srUHFXdkJwdEtDOVNXRDk3Rkc0dUI0
- L2Nhb20KTEVVOTdzTFFNdG52R1dkeHJ4VlJHTTRhbnpXWU1neno1VFptSWlWVFo0M091NVZw
- YVMxVnoxWlN4UDNoL3hLTgpaci9UY1c1V1FhaTh1M1BXVm5ia2poU1pQSHYxQmdoTjY5cXhF
- UG9tckpCbTFnbXR4M1ppVm1GWGx1d1RtVGdKCk9rcEZvbDduYkowaWxuWUhyQTdTWDNDdFIx
- dXBlVXBNYS9XSWFuVk85NldkVGpISElhNDNmYmhtUXViZTR0eFMKM0ZjUUxPSlZxUXN4NmxF
- OUI3cUFwcG05aFExMHFQV3dkZlB5LyswVzZBV3ROdTVBU2lHVkNJbld6bDJIQnFZZAovWmxs
- OTN6VXErTklvQ244c0RBTTlpSCt3dGFHRGNKeXdJR0luK2VkS050SzcyQU1nQ2hUZy9qMVpv
- V0g2WmVXClBqdVVmdWJWelp0bzFGTW9HSi9TRjRNbWRRRzFpUU50ZjRzRlpiRWdYdXk5Y0dp
- MmJvbUYwenZ5QkpTQU5weGwKS05CRFlLek42S3owOUhVQWtqbEZNTmdvbUwvY2pxZ0FCdEF4
- NTlMK2RWSVpmYUYyODFwSWNVWnp3dmg1K0pvRwplT1c1dUJTTWJFN0wzOG5zem9veWtJSjVY
- ckFjaGtKeE5mejdrK0ZuUWVLRWtOekVkMkxXYzNRRjRCUVpZUlQ2ClBISGdhM1JneWtXNSsx
- d1RNcUpJTGRtdGFQYlhyRjNGdm5WMExSUGN2NHhLeDdCM2ZHbTd5Z2Rvb3dBUkFRQUIKdEIx
- S2IyaHVJRXB2YUdGdWMyVnVJRHhxYjJodVFHcHFiWGd1Ym1WMFBva0NPZ1FUQVFvQUpBSWJB
- d1VMQ1FnSApBd1VWQ2drSUN3VVdBZ01CQUFJZUFRSVhnQVVDVG8wWVZ3SVpBUUFLQ1JBRkx6
- WndHTlhEMkx4SkQvOVRKWkNwCndsbmNUZ1llcmFFTWVEZmtXdjhjMUlzTTFqMEFtRTRWdEwr
- ZkU3ODBaVlA5Z2tqZ2tkWVN4dDdlY0VUUFRLTWEKWlNpc3JsMVJ3cVUwb29nWGRYUVNweHJH
- SDAxaWN1LzJuMGpjWVNxWUtnZ1B4eTc4QkdzMkxacTRYUGZKVFptSApaR25YR3EvZURyL21T
- bmowYWF2QkptTVo2amJpUHo2eUh0QllQWjlmZG84YnRjendQNDFZZVdvSXUyNi84SUk2CmYw
- WG0zVkM1b0FhOHY3UmQrUldaYThUTXdsaHpIRXh4ZWwzanRJN0l6ek9zbm1FOS84RG0wQVJE
- NWlUTENYd1IKMWN3SS9KOUJGL1MxWHY4UE4xaHVUM0l0Q05kYXRncDh6cW9Ka2dQVmptdnlM
- NjRRM2ZFa1liZkhPV3NhYmE5LwprQVZ0Qk56OVJURmg3SUhEZkVDVmFUb3VqQmQ3QnRQcXIr
- cUlqV0ZhZEpEM0k1ZUxDVkp2VnJyb2xyQ0FUbEZ0Ck4zWWtRczZKbjFBaUlWSVUzYkhSOEdq
- ZXZnejVMbDZTQ0dIZ1Jya3lScG5TWWFVL3VMZ24zN042QVl4aS9RQUwKK2J5M0N5RUZManpX
- QUV2eVE4YnEzSXVjbjdKRWJoUy9KLy9kVXFMb2VVZjh0c0dpMDB6bXJJVFpZZUZZQVJoUQpN
- dHNmaXpJclZEdHoxaVBmL1pNcDVnUkJuaXlqcFhuMTMxY20zTTNndjZIclFzQUdubjhBSnJ1
- OEdEaTVYSllJCmNvLzEreC9xRWlOMm5DbGFBT3BiaHpOMmVVdlBEWTVXMHEzYkEvWnAybWZH
- NTJ2YlJJK3RRMEJyMUhkL3ZzbnQKVUhPOTAzbU1aZXAyTnpOM0JaNXFFdlB2RzRyVzVacTJE
- cHliV2JRclNtOW9iaUJLYjJoaGJuTmxiaUE4YW05bwpiaTVxYjJoaGJuTmxia0JqWVc1dmJt
- bGpZV3d1WTI5dFBva0NOd1FUQVFvQUlRVUNUbzBYV2dJYkF3VUxDUWdICkF3VVZDZ2tJQ3dV
- V0FnTUJBQUllQVFJWGdBQUtDUkFGTHpad0dOWEQySXRNRC85anliYzg3ZE00dUFIazZ5Tk0K
- TjBZL0JGbW10VFdWc09CaHFPbm9iNGkzOEJyRE8yQzFoUUNQQ1FlNExMczEvNHB0ZW92UXQ4
- QjJGeXJQVmp3Zwo3alpUSE5LNzRyNmxDQ1Z4eDN5dTFCN1U5UG80VlRrY3NsVmIxL3FtV3V4
- OFhXY040eXZrVHFsTCtHeHB5Sm45CjlaWmZmWEpjNk9oNlRtT2ZiS0d2TXV1djVhclNJQTNK
- SEZMZjlhTHZadEExaXNKVXI3cFM5YXBnOXVUVUdVcDcKd2ZWMFdUNlQzZUczbXRVVTJ1cDVK
- VjQ4NTBMMDVqSFM2dVdpZS9ZK3lmSk9iaXlyeE4vNlpxVzVHb25oTEJxLwptc3pjVjV2QlQz
- QkRWZTNSdkY2WGRNOU9oUG4xK1k4MXg1NCt2UTExM044aUx3RjdHR2ExNFp5SVZBTlpEMEkw
- CkhqUnZhMmsvUnFJUlR6S3l1UEg1cGtsY0tIVlBFRk1tT3pNVCtGT294Tmp2Uys3K3dHMktN
- RFlFbUhQcjFQSkIKWlNaZUh6SzE5dGZhbFBNcHBGeGkrc3lZTGFnTjBtQjdKSFF3WTdjclV1
- T0RoeWNxNjBZVnoxdGFFeWd1M1l2MgoyL0kxRUNHSHZLSEc2d2M5MG80M0MvZWxIRUNYbkVo
- N3RLcGxEY3BJQytPQ21NeEtIaFI0NitYY1p2Z3c0RGdiCjdjYTgzZVFSM0NHODlMdlFwVzJM
- TEtFRUJEajdoWmhrTGJra1BSWm0zdzhKWTQ0YXc4VnRneFdkblNFTUNMeEwKSU9OaDZ1Wjcv
- L0RZVnRjSWFNSllrZWJhWnRHZENwMElnVVpiMjQvVmR2WkNZYk82MkhrLzNWbzFuWHdIVUVz
- Mwo2RC92MWJUMFJaRmk2OUxnc0NjT2N4NGdZTGtDRFFST1pxejZBUkFBb3F3NmtrQmhXeU0x
- ZnZnYW1BVmplWjZuCktFZm5SV2JrQzk0TDFFc0pMdXAzV2IyWDBBQk5PSFNrYlNENHBBdUMy
- dEtGL0VHQnQ1Q1A3UWRWS1JHY1F6QWQKNmIyYzFJZHk5Ukx3Nnc0Z2krbm4vZDFQbTFra1lo
- a1NpNXpXYUlnMG01UlFVaytFbDh6a2Y1dGNFLzFOMFo1TwpLMkpoandGdTViWDBhMGw0Y0ZH
- V1ZRRWNpVk1ES1J0eE1qRXRrM1N4RmFsbTZaZFEycHAyODIyY2xucTR6WjltCld1MWQyd2F4
- aXorYjVJYTR3ZURZYTduNDFVUmNCRVViSkFnbmljSmtKdENUd3lJeElXMktuVnlPcmp2a1F6
- SUIKdmFQMEZkUDJ2dlpvUE1kbENJek9sSWtQTGd4RTBJV3VlVFhlQkpoTnMwMXBiOGJMcW1U
- SU1sdTRMdkJFTEEvdgplaWFqajVzOHk1NDJIL2FIc2ZCZjRNUVVoSHhPL0JaVjdoMDZLU1Vm
- SWFZN09nQWdLdUdOQjNVaWFJVVM1K2E5CmduRU9RTER4S1J5L2E3UTF2OVMrTnZ4KzdqOGlI
- M2prUUpoeFQ2WkJoWkdSeDBna0gzVCtGMG5ORG01TmFKVXMKYXN3Z0pycUZaa1VHZDJNcm0x
- cW5Ld1hpQXQ4U0ljRU5kcTMzUjBLS0tSQzgwWGd3ajhKbjMwdlhMU0crTk8xRwpIMFVNY0F4
- TXd5L3B2azZMVTVKR2paUjczSjVVTFZoSDRNTGJEZ2dEM21QYWlHOCtmb3RUckpVUHFxaGc5
- aHlVCkVQcFlHN3NxdDc0WG43OStDRVpjakxIenlsNnZBRkUyVzBreGxMdFF0VVpVSE8zNmFm
- RnY4cUdwTzNacVB2akIKVXVhdFhGNnR2VVFDd2YzSDZYTUFFUUVBQVlrQ0h3UVlBUW9BQ1FV
- Q1RtYXMrZ0liREFBS0NSQUZMelp3R05YRAoyRC9YRC8wZGRNLzRhaTFiK1RsMWp6bkthalgz
- a0crTWVFWWVJNGY0MHZjbzNyT0xyblJHRk9jYnl5ZlZGNjlNCktlcGllNE93b0kxamNUVTBB
- RGVjbmJXbkROSHByMFNjenhCTXJvM2Juckxoc212anVuVFlJdnNzQlp0QjRhVkoKanVMSUxQ
- VWxuaEZxYTdmYlZxMFpRamJpVi9ydDJqQkVOZG05cGJKWjZHam5wWUljQWJQQ0NhL2ZmTDQv
- U1FSUwpZSFhvaEdpaVM0eTVqQlRtSzVsdGZld0xPdzAyZmtleEgrSUpGcnJHQlhEU2c2bjJT
- Z3hubisrTkYzNGZYY205CnBpYXczbUtzSUNtKzBoZE5oNGFmR1o2SVdWOFBHMnRlb29WRHA0
- ZFlpaCsreFgvWFM4ekJDYzFPOXc0bnpsUDIKZ0t6bHFTV2JoaVdwaWZSSkJGYTRXdEFlSlRk
- WFlkMzdqL0JJNFJXV2hueXc3YUFQTkdqMzN5dEdITlVmNlJvMgovanRqNHRGMXkvUUZYcWpK
- Ry93R2pwZHRSZmJ0VWpxTEhJc3ZmUE5OSnEvOTU4cDc0bmRBQ2lkbFdTSHpqK09wCjI2S3Bi
- Rm5td05PMHBzaVVzbmh2SEZ3UE8vdkFibDNSc1I1KzBSbytodnMyY0VtUXV2OXIvYkRsQ2Zw
- enAydDMKY0srcmh4VXFpc094OERaZnoxQm5rYW9DUkZidnZ2ays3TC9mb21QbnRHUGtxSmNp
- WUU4VEdIa1p3MWhPa3UrNApPb00yR0I1bkVEbGorMlRGL2pMUStFaXBYOVBrUEpZdnhmUmxD
- NmRLOFBLS2ZYOUtkZm1BSWNnSGZuVjFqU24rCjh5SDJkakJQdEtpcVcwSjY5YUlzeXg3aVYv
- MDNwYVBDakpoN1hxOXZBenlkTjVVL1VBPT0KPTZQL2IKLS0tLS1FTkQgUEdQIFBVQkxJQyBL
- RVkgQkxPQ0stLS0tLQo=
-Organization: Canonical
-Message-ID: <4872f4e0-2e44-8524-0076-c406a125f360@canonical.com>
-Date: Mon, 1 Mar 2021 01:26:12 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ (envelope-from <indhuja.a@tataelxsi.co.in>) id 1lGjZu-0003qs-5H
+ for apparmor@lists.ubuntu.com; Mon, 01 Mar 2021 14:31:18 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=X3yzr8pCOtpLPS9eFq9mSgEnU/MUyCu2N8ZgBIrM3hFxfmjQy68+zgbtZNU1GgZU0RMNWBBh+/lENQSfbR4gNAcg99ymXLyQmr/RiW8dpbpRh1jlhgEVbaZvuPj0umJEtt0WGh3ihxXHz/13SNBqueuoEuaNdpoyG021FBSiU+OKXBoWsUC+bJRay/BCdGLS4clsPNVgtdmla+zeXamMDzWTpRuxBdnrAszU44BfenXuRhATKatHsYeDfFNZpX41IhsGAnQrYQfQykKtJOZ8NvTTxfsN/uKTno6ntPKd7pvyYpsJ4VEmD7XVDdlPlDmN4WM9CgIYZaocy/2d0Ceq6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0/289mALhArYSxCeqZyYReypC9El6qnmcTYNniUwExk=;
+ b=bub57EGOnJfVcYThhoZ+mmoQEI3o721WSqLVa+T1DNQIsdUJz/kPHvAFQwf/geJ8jvaq2fmRC1agn4gx2DZ+O1PeP7O96qxQBvr73KscvkijpVhhVimXyr392BEpni9c4DMqzJiTfnF2u83a5zxmXo7Rps4MvvfyIuIpEyv+PEjtru6GC3drDHe8KTlvLicp8l3G7CAke4bhKZFwi6NMD775THN8A8IxIpojGEJgdqfY/PFeLsnCo2t4LNn1W12YGoaAyDNMQkQz7H4qTOu7v/p3uZQPmKrV/NjFJpwRYNUUP3+NpCdJVO+FXnRx1vwn4kJN0HMYM3QHMkJx+eZmZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=tataelxsi.co.in; dmarc=pass action=none
+ header.from=tataelxsi.co.in; dkim=pass header.d=tataelxsi.co.in; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tataelxsi.co.in;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0/289mALhArYSxCeqZyYReypC9El6qnmcTYNniUwExk=;
+ b=hHGXOWUrNL0ch5328EP6ChQzBkqTzTfRD+PtDnXYlPT2vUViisZ/v4TWIxZRfFbSDec82f4dL/GcQBxtcn/wYpb9Vxa9FLZVFyM0InTyi0dm8oQcU6e9LN18w7ivi+oxP9KkjmKE+1wdDY+6E8g5YWrxwO6fsSYNeGyvGDrmEl9WxJZ3aBZp7WOqVvyiq6mHmOoQF9aRUmpwiqmqDhi156DE2JUUhyeWochlryF29jGvc6M8C0mAGj5aRXTIOv2B5xV+oHUQvkcsZVS2vwne0jGe9fBa4dWurr65a94Tz8xXApG+jP8PG20Z2wk1NwnxZrp7CfOM+5QedO+3mLiSEQ==
+Received: from PS2PR04MB3719.apcprd04.prod.outlook.com (2603:1096:300:66::22)
+ by PSBPR04MB4037.apcprd04.prod.outlook.com (2603:1096:301:4::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.19; Mon, 1 Mar
+ 2021 14:31:14 +0000
+Received: from PS2PR04MB3719.apcprd04.prod.outlook.com
+ ([fe80::9022:683b:2d85:253c]) by PS2PR04MB3719.apcprd04.prod.outlook.com
+ ([fe80::9022:683b:2d85:253c%7]) with mapi id 15.20.3890.028; Mon, 1 Mar 2021
+ 14:31:14 +0000
+From: Indhuja A V S <indhuja.a@tataelxsi.co.in>
+To: "apparmor@lists.ubuntu.com" <apparmor@lists.ubuntu.com>
+Thread-Topic: Logging in AppArmor
+Thread-Index: AQHXDqeBH64kZDPgG0+geD4EFBJgwA==
+Date: Mon, 1 Mar 2021 14:31:13 +0000
+Message-ID: <PS2PR04MB3719167F6D93AB6CFC4F7EB3A09A9@PS2PR04MB3719.apcprd04.prod.outlook.com>
+Accept-Language: en-IN, en-US
+Content-Language: en-IN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: lists.ubuntu.com; dkim=none (message not signed)
+ header.d=none;lists.ubuntu.com; dmarc=none action=none
+ header.from=tataelxsi.co.in;
+x-originating-ip: [165.225.122.113]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 1262ed18-15f1-4a27-d972-08d8dcbeaad4
+x-ms-traffictypediagnostic: PSBPR04MB4037:
+x-microsoft-antispam-prvs: <PSBPR04MB40375DEECE14446EB7911530A09A9@PSBPR04MB4037.apcprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7219;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: UyzCoUu2CoDVGMlH5kp//YlGPiXafhDAtlgr38MQ01XEYTaEOHlDbkIDgMqRyAMneFFcDmOMnXKNp3LJZJ28sSUxrI0nebLMEcipf+U8YCY0jV1bN28FcbXCPZ/kHtMuct78Lt1hEMnl4X5XlPNqlC0JHuehqqJPXIknFxhzadccbRA/NVMq1foc0E586SPnNKIUDMj8YfB8UN/z/2xDfU8yuWUL/NIscHQSZam572cKCevW7UYRyA6K8cE2dPRLha+eXR6NuwGE3apfJaY4BY131fZmV8IpJbA4mz1zz9vubkfDVEdkdLEzSQyPUxaaGNp+Q+Lfo6QLLXlyGBadhf7kbO1P1YEZpHvhf/QT4TBGrfgGKUholl3tJmdSh2DArr85o/rQvhSourwmJGsba7GuRKqjzhsVG9JFmt0EMQzHOhTeQxXDP1DOEfHzadM/5Yl16gNV2xfd+COTIvH9cub/C+BAW5TGH45WvGgq5YVFfxoWMe1/ZywunddB++S81pW81Z8dyGPxiiCpGHf6Mg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PS2PR04MB3719.apcprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(366004)(396003)(346002)(136003)(39850400004)(376002)(316002)(55016002)(2906002)(83380400001)(76116006)(3480700007)(33656002)(478600001)(8936002)(86362001)(8676002)(7696005)(71200400001)(6506007)(9686003)(186003)(66556008)(19627405001)(91956017)(66446008)(5660300002)(52536014)(66476007)(6916009)(55236004)(66946007)(64756008)(26005)(7116003);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata: =?iso-8859-1?Q?ITOQQ9OhRxIzFaGkfEiuVqVSzMX157a/ukg6JBuqy8KpcILpRuovN3Fndv?=
+ =?iso-8859-1?Q?Wk82THiwN/SZ4Yeb5yyoIj/3zDrfLfXLIQoQrnOG/neHBQZY/9nfTD9Yuk?=
+ =?iso-8859-1?Q?hqeAF+GqTUmDWaysr2s3m2iyNJYnaVpGuWQGFSIHi3PHrY+YA+EcEkzv/M?=
+ =?iso-8859-1?Q?8B1EM6SBYyxfOBFn8ACfuYDmWPHUCB/29KkqsWufWlt/xkCgDOxFOcVyff?=
+ =?iso-8859-1?Q?jaF4LZu6rjYr/QDPc9No+y4iQRR5qfbPgUTwLLnZiTU0kkl8tq/ywQpT7l?=
+ =?iso-8859-1?Q?wAsesnRE2ac6yL02453gtB9LqAMf3IxXvDpbtYPdyfQZPD9c6L2Hax41f/?=
+ =?iso-8859-1?Q?spGx4P/8Z7hzbHI1XWrhzw4RfUlSBe2aJyz32jh9JtLpE5rN56zrqYS/YL?=
+ =?iso-8859-1?Q?rT69L8CpO5xO6BYFhOdz3IXburXhh/3XxmT+rrsVdoPNVsX3h+/B1HkP9W?=
+ =?iso-8859-1?Q?UFf74ZbPFR0Y7OXtMxJv15ovDxMiLdieouON+6ols+sO1K9jauk24KyKsz?=
+ =?iso-8859-1?Q?/vhrFCiy80MUkLnouqLq/fsI90RYLCPWpTQEoA3E579ZknUWFirse5CsfN?=
+ =?iso-8859-1?Q?8mjJ7t68lTOL8hsXgGv5EGp/huUUJQMcr13F4GWafwjw8EFlkJ08Eyrbon?=
+ =?iso-8859-1?Q?tqjMgdYnw5ievp3xyy4BvanZCU4EY+SAa4fJ9/0nGXhrvEVBbzMu9fvyZh?=
+ =?iso-8859-1?Q?ABiJ5xO9k8Q9Cbk2JkXVn/bsqxD0ShqI5TJWqRmq/ck4k0DAonRQ6qbUuZ?=
+ =?iso-8859-1?Q?3yKmAeRBjsymgCFKdorrPiLImnVHgkMVxngKsBFDd4pYClq+0KTNQXgYFu?=
+ =?iso-8859-1?Q?KAOKm3z+3kLLXHqmyVUFor90TS8m6oint+FFidm1zhgWdZVu2gK3BwGPWj?=
+ =?iso-8859-1?Q?EVXg+oadmBchGyYOMwBOksv8Iq6kzTiGmW4fRJG2Rj2OtwO3yZvrWORo3P?=
+ =?iso-8859-1?Q?+e8Por1TEIWh7VAOuzWk5vYLZgiBa51rqkKU7koxg6s4q4OlzwErXYffD1?=
+ =?iso-8859-1?Q?rog00MzAs2FkWyP81CmvSoFnsYWz2RzqntGx4VHypwMYYDzXSdlBxVNm4K?=
+ =?iso-8859-1?Q?ncbAAEHyupNivqHgEBulwFZUust0minHvrtg6lgDaU1RWsuYTNLaJJ9hI+?=
+ =?iso-8859-1?Q?QZ+GfnhTELyCUSKb1SB1VA2WewwqO12+3RGsK/hSbaK1/mrgs2TJVNuofp?=
+ =?iso-8859-1?Q?hyKk6157CkUsAOzB9JcxfimE804YQ1i+c5Qvni1APtgcEqRz3F0VBeDBQh?=
+ =?iso-8859-1?Q?HAU2sAQ7oK8b12Bhbwdt5+bhfyYNm/PJF7dCYrHhxUBojlh5Nnok/IBnBn?=
+ =?iso-8859-1?Q?XSNsh8PjhEeFc5RtKOqF8tUu9TFneFsG1e7L+LVtN5poe84=3D?=
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-In-Reply-To: <trinity-4db11edf-0285-4025-9734-e819316c1388-1614587672082@3c-app-gmx-bs29>
-Content-Language: en-US
-Subject: Re: [apparmor] What are "AARE"s, exactly?
+X-OriginatorOrg: tataelxsi.co.in
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PS2PR04MB3719.apcprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1262ed18-15f1-4a27-d972-08d8dcbeaad4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Mar 2021 14:31:13.9968 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: ad6a39dd-96b6-4368-82da-f2ec4d92e26a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: CeN0oBFp6IUW5wPFvBHIUfjXvZATWo1PU1Ktedbip/NLDYSQoslrLSKJBPnYwLYveZMBpwgTU8aYhQO38i0kgc1PlFT8Tx3iFI5noTxJQuU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PSBPR04MB4037
+Subject: [apparmor] Logging in AppArmor
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -119,51 +112,112 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: apparmor@lists.ubuntu.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============6613043327203169160=="
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-T24gMy8xLzIxIDEyOjM0IEFNLCBUaGVEaXZlT0BnbXguZXUgd3JvdGU6Cj4gCj4gSGksCj4gCj4g
-wqAKPiB0aGFuayB5b3UgdmVyeSBtdWNoIGZvciB0YWtpbmcgdGhlIHRpbWUgdG8gYW5zd2VyaW5n
-IG15IHF1ZXN0aW9ucyBhYm91dCBBQVJFcyBhbmQgYWxzbyBmb3IgZ29pbmcgdG8gdXBkYXRlIHRo
-ZSBtYW4gcGFnZSBvZiBhcHBhcm1vci5kISBUaGVzZSB1cGNvbWluZyBjaGFuZ2VzIGhlbHAgYSBs
-b3QgaW4gb3JkZXIgdG8gbWFrZSB0aGUgbGluayBiZXR3ZWVuIEFBUkVzIGFuZCBnbG9iYmluZywg
-YXMgd2VsbCBhcyB2YXJpYWJsZSBzdWJzdGl0dXRpb24uCj4gCj4gV2hhdCBtaWdodCAoc3RpbGwp
-IGJlIGxlZnQgYXJlIHRoZSBncmFtbWFyIGRlZmluaXRpb25zIGZvciBGSUxFR0xPQiBhbmQgQUFS
-RTsgYXJlIHRoZXkgYWN0dWFsbHkgdGhlIHNhbWUgb3IgaXMgQUFSRSB0aGUgInN1cGVyc2V0IiBv
-ZiBGSUxFR0xPQiBkdWUgdG8gaXQgYWxsb3dpbmcgZm9yIFZBUklBQkxFPyBJZiBGSUxFR0xPQiBh
-bmQgQUFSRSBhY3R1YWxseSBhcmUgdGhlIHNhbWUsIHdvdWxkIGl0IG1ha2Ugc2Vuc2UgdG8gdGhl
-biBib2lsIHRoZW0gZG93biBpbnRvIGEgc2luZ2xlIGdyYW1tYXIgZWxlbWVudCwgcHJlZmVyYWJs
-eSBBQVJFPyBXaHkgQUFSRTogYmVjYXVzZSBvZiBWQVJJQUJMRSwgdG8gZGlzdGluZ3Vpc2ggZnJv
-bSAicGxhaW4iIEZJTEVHTE9CLgo+IApCZXlvbmQgdmFyaWFibGUgc3Vic3RpdGlvbiBBQVJFIHNs
-aWdodGx5IGRpZmZlcmVudCB0aGFuIHN0YW5kYXJkIEZJTEVHTE9CIGluIHRoZSB3YXkgKiBhbmQg
-KiogYXJlIGhhbmRsZWQuIEFuZCBpbiBpdHMgY2hhcmFjdGVyIGNsYXNzIG5lZ2F0aW9uLiBBbHNv
-IHRoZSBmdWxsIHNldCBvZiB3aGF0IGlzIHBsYW5uZWQgZm9yIEFBUkUgaXMgbm90IGN1cnJlbnRs
-eSBleHBvc2VkIHNvIHRoZSBkaWZmZXJlbmNlIHdpbGwgYmUgbGFyZ2VyIGluIHRoZSBmdXR1cmUu
-Cgo+IEluIGNvbnNlcXVlbmNlLCBpdCB3b3VsZCBhbHNvIGhlbHAgdG8gc3BlY2lmaWNhbGx5IHJl
-ZmVyZW5jZSB0aGUgIkdsb2JiaW5nIChBQVJFKSIgc2VjdGlvbiBmcm9tIHRoZSAiRm9ybWF0IiBz
-ZWN0aW9uOgo+IAo+ICAgQUFSRSA9ID8qW117fV4gU2VlIHNlY3Rpb24gIkdsb2JiaW5nIChBQVJF
-KSIgYmVsb3cgZm9yIG1lYW5pbmdzLgo+IAo+IE5vdywgdGhhdCBiZWdzIGZvciBleHBhbmRpbmcg
-b24gQUFSRSBncmFtbWFyLCB3aGljaCBhZG1pdHRlZGx5IGlzIGEgZ29yeSBpc3N1ZSwgdHJ5IGZp
-bmRpbmcgYSBwcm9wZXIgZ2xvYmJpbmcgZ3JhbW1hciA6Lwo+IApObyBraWRkaW5nLCB0aGlzIGlz
-IGEgcG9pbnQgb2YgZGViYXRlLgoKVGhlcmUgYXJlIHNvbWUgYm9vbGVhbiBleHByZXNzaW9uIGNo
-YW5nZXMgY29taW5nIHRoYXQgc29ydCBvZiBleHBhbmQgdGhlIHN5bnRheCAoYnV0IG5vdCBhdCB0
-aGUgc3ViZXhwcmVzc2lvbiBsZXZlbCkuIFRoZSBleGFjdCBzeW50YXggaGFzIG5vdCBiZWVuIHNl
-dHRsZWQgb24gYnV0IGl0IHdpbGwgYWxsb3cgZXhwcmVzc2lvbnMgdG8gYmUgdGhpbmdzIGxpa2UK
-CiAgLyoqIC0gL2Jpbi8qLmZvbyBweCwKCm9yIHBlcmhhcHMgKGFub3RoZXIgcHJvcG9zZWQgc3lu
-dGF4KQoKICAvKiogZXhjZXB0IC9iaW4vKi5mb28gcHgsCgoKdGhlIHNwYWNpbmcgdG8gc2VwYXJh
-dGUgdGhlIHN1YmV4cHJlc3Npb24gZnJvbSB0aGUgb3BlcmF0b3IgYW5kIHRoZSBvdGhlciBzdWJl
-eHByZXNzaW9uIGlzIHJlcXVpcmVkCgo+IEJ1dCBvbmUgaW1wb3J0YW50IGFzcGVjdCBoZXJlIGlz
-IHRoYXQgY29udHJhcnkgdG8gKHNoPykgcmFuZ2UgbmVnYXRpb24gIlshXSIsIEFwcEFybW9yIHVz
-ZXMgW15dIHNpbWlsYXIgdG8gdHlwaWNhbCByZWdleCdlcy4KPiAKCnllcCwgaXRzIGJlZW4gdGhh
-dCBmb3JldmVyLCBwYXJ0bHkgYmVjYXVzZSB0aGUgb3JpZ2luYWwgYmFja2VuZCBmb3IgaXQgd2Fz
-IHBjcmUKCj4gQW5vdGhlciBxdWVzdGlvbiBoZXJlIGlzOiBkb2VzIEFwcEFybW9yIEFBUkUgZXhw
-bGljaXRseSBzdXBwb3J0IGNoYXJhY3RlciBjbGFzc2VzLCBvciBpcyB0aGlzIGFuIHVuZG9jdW1l
-bnRlZCBhbmQgdW4tZ3VhcmFudGVlZCBzaWRlLWVmZmVjdCBvZiB0aGUgUHl0aG9uLWJhc2VkIGlt
-cGxlbWVudGF0aW9uIG9mIHRoZSBwYXJzZXI/Cj4gCgppdCBkb2VzIG5vdCBpbiBpdHMgY3VycmVu
-dCBmb3JtIGJ1dCBtYXkgaW4gdGhlIGZ1dHVyZS4gVGhleSBhcmUgc29tZXRoaW5nIHdlIGhhdmUg
-dG8gYmUgdmVyeSB2ZXJ5IGNhcmVmdWwgYWJvdXQuCgotLSAKQXBwQXJtb3IgbWFpbGluZyBsaXN0
-CkFwcEFybW9yQGxpc3RzLnVidW50dS5jb20KTW9kaWZ5IHNldHRpbmdzIG9yIHVuc3Vic2NyaWJl
-IGF0OiBodHRwczovL2xpc3RzLnVidW50dS5jb20vbWFpbG1hbi9saXN0aW5mby9hcHBhcm1vcgo=
+--===============6613043327203169160==
+Content-Language: en-IN
+Content-Type: multipart/alternative;
+	boundary="_000_PS2PR04MB3719167F6D93AB6CFC4F7EB3A09A9PS2PR04MB3719apcp_"
+
+--_000_PS2PR04MB3719167F6D93AB6CFC4F7EB3A09A9PS2PR04MB3719apcp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Hello,
+
+While using aa-logprof (AppArmor version 2.13.4), there were few mentions o=
+f "audit[ID]:" and "kernel: audit:" for the same capability(dac_override) i=
+n journalctl. Could someone please let me know the difference between them?=
+ Why 2 lines are getting logged for dac_override alone?
+
+Thanks and regards
+Indhuja
+________________________________
+Disclaimer: This email and any files transmitted with it are confidential a=
+nd intended solely for the use of the individual or entity to whom they are=
+ addressed. If you are not the intended recipient of this message , or if t=
+his message has been addressed to you in error, please immediately alert th=
+e sender by reply email and then delete this message and any attachments. I=
+f you are not the intended recipient, you are hereby notified that any use,=
+ dissemination, copying, or storage of this message or its attachments is s=
+trictly prohibited. Email transmission cannot be guaranteed to be secure or=
+ error-free, as information could be intercepted, corrupted, lost, destroye=
+d, arrive late or incomplete, or contain viruses. The sender, therefore, do=
+es not accept liability for any errors, omissions or contaminations in the =
+contents of this message which might have occurred as a result of email tra=
+nsmission. If verification is required, please request for a hard-copy vers=
+ion.
+________________________________
+
+--_000_PS2PR04MB3719167F6D93AB6CFC4F7EB3A09A9PS2PR04MB3719apcp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Hello,
+<div><br>
+</div>
+While using aa-logprof (AppArmor version 2.13.4), there were few mentions o=
+f &quot;audit[ID]:&quot; and &quot;kernel: audit:&quot; for the same capabi=
+lity(dac_override) in journalctl. Could someone please let me know the diff=
+erence between them? Why 2 lines are getting logged
+ for dac_override alone?<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Thanks and regards</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Indhuja</div>
+<hr>
+<span style=3D"font-size:12pt;  font-family: 'Cambria','times new roman','g=
+aramond',serif; color:#000106;"><i>Disclaimer: This email and any files tra=
+nsmitted with it are confidential and intended solely for the use of the in=
+dividual or entity to whom they are
+ addressed. If you are not the intended recipient of this message , or if t=
+his message has been addressed to you in error, please immediately alert th=
+e sender by reply email and then delete this message and any attachments. I=
+f you are not the intended recipient,
+ you are hereby notified that any use, dissemination, copying, or storage o=
+f this message or its attachments is strictly prohibited. Email transmissio=
+n cannot be guaranteed to be secure or error-free, as information could be =
+intercepted, corrupted, lost, destroyed,
+ arrive late or incomplete, or contain viruses. The sender, therefore, does=
+ not accept liability for any errors, omissions or contaminations in the co=
+ntents of this message which might have occurred as a result of email trans=
+mission. If verification is required,
+ please request for a hard-copy version. </i></span><br>
+<hr>
+</body>
+</html>
+
+--_000_PS2PR04MB3719167F6D93AB6CFC4F7EB3A09A9PS2PR04MB3719apcp_--
+
+
+--===============6613043327203169160==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
+eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
+aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
+
+--===============6613043327203169160==--
+
