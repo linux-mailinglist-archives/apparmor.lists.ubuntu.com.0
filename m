@@ -2,68 +2,109 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4876C34A241
-	for <lists+apparmor@lfdr.de>; Fri, 26 Mar 2021 07:58:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C794634A375
+	for <lists+apparmor@lfdr.de>; Fri, 26 Mar 2021 09:57:40 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1lPgQC-00088L-DA; Fri, 26 Mar 2021 06:58:16 +0000
-Received: from mail-ej1-f48.google.com ([209.85.218.48])
+	id 1lPiHc-0008SN-FL; Fri, 26 Mar 2021 08:57:32 +0000
+Received: from youngberry.canonical.com ([91.189.89.112])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <wampir990@gmail.com>) id 1lPgQA-00088E-Jm
- for apparmor@lists.ubuntu.com; Fri, 26 Mar 2021 06:58:14 +0000
-Received: by mail-ej1-f48.google.com with SMTP id r12so6823020ejr.5
- for <apparmor@lists.ubuntu.com>; Thu, 25 Mar 2021 23:58:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=to:references:from:subject:message-id:date:mime-version:in-reply-to
- :content-transfer-encoding:content-language;
- bh=yiunu5KJizdClFv9MsVVgWQ4TTedyMzb82Iu7cEI4Kk=;
- b=X3xfxV+TZ3/zsyCOC4OkLbfit33gI4dF7PrXna3mmkYtJ9sHNeFxOAsbwhenO0yVZr
- JWfYOwZBmJqeu9/bpGyHHFfBoVicQxucCxVHQSpblYuMxzLOA/qKXgxiCau6uXyPpECe
- W80C+5L5R/lNeCEqi9I2esvU8QQUQSo4zTzviJQ5asehoC9fTVsR7zdT0iO3V0lbNYeR
- NV42uFSkiGnKfUjDDXS2hgWcW86GF3Feq7Yw2R5wLAu4g5i/ru23y8da+8xr3+2MWfUl
- vB4FnKtZmYUG3P9awk8NXdaiuhv1iHLub9fnal6AgvQbJvXxdosw9EO4mgu+EIyGMoj0
- 8Ckw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:to:references:from:subject:message-id:date
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=yiunu5KJizdClFv9MsVVgWQ4TTedyMzb82Iu7cEI4Kk=;
- b=GCSNXdDtLeRzRumPh/XBu0o0jSA4D08e1pvC583vQQFgE8PbkSlihKp9HTjJf1nQE+
- eTJhZ112MwIzsIcl4oxnYtf9V/UDjX6Ak1PAD124uOecalpu0zraxgTIObv2+sLooatO
- bT/2bUi86VSxmcRNjKqD273MHvFHR+QchxNh2nJJyAg7kPvzYA0JPkPs6w9bMUp08G6o
- Ci/iyp4dKzD3iVsK538H2aZXq6WF2IGwAxin3iaonQRoUvDHk1bRZTgzWuSvpQPTiimo
- +gAJ/ZqEHswKj/P93jnSA4hliIQqgx5OgyudwxT3+vyi1T5otpKyOuCttT2xIgNBF174
- 20JA==
-X-Gm-Message-State: AOAM530+yrFE7yXy0z6J4vStdbbeZkTFCwLzlvGw1sMXphyNjraGFHuC
- ksgJ2kJrF3pjdeyHVrkDPLfkEJpORJ8=
-X-Google-Smtp-Source: ABdhPJxhyn5wGVemJ7jrq/w+mUPXtcawaxOK8Yo3n9M7G+OtKQoGV08vlmowTVJskZG+QrTeHbCt7Q==
-X-Received: by 2002:a17:906:7f12:: with SMTP id
- d18mr13241132ejr.368.1616741894006; 
- Thu, 25 Mar 2021 23:58:14 -0700 (PDT)
-Received: from mail.wampir.eu ([2002:589c:6791:10:8516:e9e9:54cc:5409])
- by smtp.gmail.com with ESMTPSA id mc10sm3440928ejb.56.2021.03.25.23.58.13
- for <apparmor@lists.ubuntu.com>
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Mar 2021 23:58:13 -0700 (PDT)
-Received: by mail.wampir.eu (Postfix, from userid 337)
- id ADB2753; Fri, 26 Mar 2021 06:58:12 +0000 (UTC)
-Authentication-Results: mail.wampir.eu; dkim=none; dkim-atps=neutral
-X-Spam-Checker-Version: SpamAssassin
-X-Spam-Status: No
-X-Spam-Score: 2.5  required: 5.0
-To: apparmor@lists.ubuntu.com
+ (envelope-from <john.johansen@canonical.com>) id 1lPiHb-0008SA-6e
+ for apparmor@lists.ubuntu.com; Fri, 26 Mar 2021 08:57:31 +0000
+Received: from [50.53.41.238] (helo=[192.168.192.153])
+ by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <john.johansen@canonical.com>)
+ id 1lPiHa-0001HS-MR; Fri, 26 Mar 2021 08:57:30 +0000
+To: Jacek <wampir990@gmail.com>, apparmor@lists.ubuntu.com
 References: <92d8bc5f-1fe0-cdfd-9ac6-d2d5301d6622@canonical.com>
-From: Jacek <wampir990@gmail.com>
-Message-ID: <7037587e-0ef0-870e-340b-a7400553fe32@gmail.com>
-Date: Fri, 26 Mar 2021 07:58:10 +0100
+ <7037587e-0ef0-870e-340b-a7400553fe32@gmail.com>
+From: John Johansen <john.johansen@canonical.com>
+Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
+ LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCgptUUlOQkU1bXJQb0JFQURB
+ azE5UHNnVmdCS2tJbW1SMmlzUFE2bzdLSmhUVEtqSmR3VmJrV1NuTm4rbzZVcDVrCm5LUDFm
+ NDlFQlFsY2VXZzF5cC9Od2JSOGFkK2VTRU8vdW1hL0srUHFXdkJwdEtDOVNXRDk3Rkc0dUI0
+ L2Nhb20KTEVVOTdzTFFNdG52R1dkeHJ4VlJHTTRhbnpXWU1neno1VFptSWlWVFo0M091NVZw
+ YVMxVnoxWlN4UDNoL3hLTgpaci9UY1c1V1FhaTh1M1BXVm5ia2poU1pQSHYxQmdoTjY5cXhF
+ UG9tckpCbTFnbXR4M1ppVm1GWGx1d1RtVGdKCk9rcEZvbDduYkowaWxuWUhyQTdTWDNDdFIx
+ dXBlVXBNYS9XSWFuVk85NldkVGpISElhNDNmYmhtUXViZTR0eFMKM0ZjUUxPSlZxUXN4NmxF
+ OUI3cUFwcG05aFExMHFQV3dkZlB5LyswVzZBV3ROdTVBU2lHVkNJbld6bDJIQnFZZAovWmxs
+ OTN6VXErTklvQ244c0RBTTlpSCt3dGFHRGNKeXdJR0luK2VkS050SzcyQU1nQ2hUZy9qMVpv
+ V0g2WmVXClBqdVVmdWJWelp0bzFGTW9HSi9TRjRNbWRRRzFpUU50ZjRzRlpiRWdYdXk5Y0dp
+ MmJvbUYwenZ5QkpTQU5weGwKS05CRFlLek42S3owOUhVQWtqbEZNTmdvbUwvY2pxZ0FCdEF4
+ NTlMK2RWSVpmYUYyODFwSWNVWnp3dmg1K0pvRwplT1c1dUJTTWJFN0wzOG5zem9veWtJSjVY
+ ckFjaGtKeE5mejdrK0ZuUWVLRWtOekVkMkxXYzNRRjRCUVpZUlQ2ClBISGdhM1JneWtXNSsx
+ d1RNcUpJTGRtdGFQYlhyRjNGdm5WMExSUGN2NHhLeDdCM2ZHbTd5Z2Rvb3dBUkFRQUIKdEIx
+ S2IyaHVJRXB2YUdGdWMyVnVJRHhxYjJodVFHcHFiWGd1Ym1WMFBva0NPZ1FUQVFvQUpBSWJB
+ d1VMQ1FnSApBd1VWQ2drSUN3VVdBZ01CQUFJZUFRSVhnQVVDVG8wWVZ3SVpBUUFLQ1JBRkx6
+ WndHTlhEMkx4SkQvOVRKWkNwCndsbmNUZ1llcmFFTWVEZmtXdjhjMUlzTTFqMEFtRTRWdEwr
+ ZkU3ODBaVlA5Z2tqZ2tkWVN4dDdlY0VUUFRLTWEKWlNpc3JsMVJ3cVUwb29nWGRYUVNweHJH
+ SDAxaWN1LzJuMGpjWVNxWUtnZ1B4eTc4QkdzMkxacTRYUGZKVFptSApaR25YR3EvZURyL21T
+ bmowYWF2QkptTVo2amJpUHo2eUh0QllQWjlmZG84YnRjendQNDFZZVdvSXUyNi84SUk2CmYw
+ WG0zVkM1b0FhOHY3UmQrUldaYThUTXdsaHpIRXh4ZWwzanRJN0l6ek9zbm1FOS84RG0wQVJE
+ NWlUTENYd1IKMWN3SS9KOUJGL1MxWHY4UE4xaHVUM0l0Q05kYXRncDh6cW9Ka2dQVmptdnlM
+ NjRRM2ZFa1liZkhPV3NhYmE5LwprQVZ0Qk56OVJURmg3SUhEZkVDVmFUb3VqQmQ3QnRQcXIr
+ cUlqV0ZhZEpEM0k1ZUxDVkp2VnJyb2xyQ0FUbEZ0Ck4zWWtRczZKbjFBaUlWSVUzYkhSOEdq
+ ZXZnejVMbDZTQ0dIZ1Jya3lScG5TWWFVL3VMZ24zN042QVl4aS9RQUwKK2J5M0N5RUZManpX
+ QUV2eVE4YnEzSXVjbjdKRWJoUy9KLy9kVXFMb2VVZjh0c0dpMDB6bXJJVFpZZUZZQVJoUQpN
+ dHNmaXpJclZEdHoxaVBmL1pNcDVnUkJuaXlqcFhuMTMxY20zTTNndjZIclFzQUdubjhBSnJ1
+ OEdEaTVYSllJCmNvLzEreC9xRWlOMm5DbGFBT3BiaHpOMmVVdlBEWTVXMHEzYkEvWnAybWZH
+ NTJ2YlJJK3RRMEJyMUhkL3ZzbnQKVUhPOTAzbU1aZXAyTnpOM0JaNXFFdlB2RzRyVzVacTJE
+ cHliV2JRclNtOW9iaUJLYjJoaGJuTmxiaUE4YW05bwpiaTVxYjJoaGJuTmxia0JqWVc1dmJt
+ bGpZV3d1WTI5dFBva0NOd1FUQVFvQUlRVUNUbzBYV2dJYkF3VUxDUWdICkF3VVZDZ2tJQ3dV
+ V0FnTUJBQUllQVFJWGdBQUtDUkFGTHpad0dOWEQySXRNRC85anliYzg3ZE00dUFIazZ5Tk0K
+ TjBZL0JGbW10VFdWc09CaHFPbm9iNGkzOEJyRE8yQzFoUUNQQ1FlNExMczEvNHB0ZW92UXQ4
+ QjJGeXJQVmp3Zwo3alpUSE5LNzRyNmxDQ1Z4eDN5dTFCN1U5UG80VlRrY3NsVmIxL3FtV3V4
+ OFhXY040eXZrVHFsTCtHeHB5Sm45CjlaWmZmWEpjNk9oNlRtT2ZiS0d2TXV1djVhclNJQTNK
+ SEZMZjlhTHZadEExaXNKVXI3cFM5YXBnOXVUVUdVcDcKd2ZWMFdUNlQzZUczbXRVVTJ1cDVK
+ VjQ4NTBMMDVqSFM2dVdpZS9ZK3lmSk9iaXlyeE4vNlpxVzVHb25oTEJxLwptc3pjVjV2QlQz
+ QkRWZTNSdkY2WGRNOU9oUG4xK1k4MXg1NCt2UTExM044aUx3RjdHR2ExNFp5SVZBTlpEMEkw
+ CkhqUnZhMmsvUnFJUlR6S3l1UEg1cGtsY0tIVlBFRk1tT3pNVCtGT294Tmp2Uys3K3dHMktN
+ RFlFbUhQcjFQSkIKWlNaZUh6SzE5dGZhbFBNcHBGeGkrc3lZTGFnTjBtQjdKSFF3WTdjclV1
+ T0RoeWNxNjBZVnoxdGFFeWd1M1l2MgoyL0kxRUNHSHZLSEc2d2M5MG80M0MvZWxIRUNYbkVo
+ N3RLcGxEY3BJQytPQ21NeEtIaFI0NitYY1p2Z3c0RGdiCjdjYTgzZVFSM0NHODlMdlFwVzJM
+ TEtFRUJEajdoWmhrTGJra1BSWm0zdzhKWTQ0YXc4VnRneFdkblNFTUNMeEwKSU9OaDZ1Wjcv
+ L0RZVnRjSWFNSllrZWJhWnRHZENwMElnVVpiMjQvVmR2WkNZYk82MkhrLzNWbzFuWHdIVUVz
+ Mwo2RC92MWJUMFJaRmk2OUxnc0NjT2N4NGdZTGtDRFFST1pxejZBUkFBb3F3NmtrQmhXeU0x
+ ZnZnYW1BVmplWjZuCktFZm5SV2JrQzk0TDFFc0pMdXAzV2IyWDBBQk5PSFNrYlNENHBBdUMy
+ dEtGL0VHQnQ1Q1A3UWRWS1JHY1F6QWQKNmIyYzFJZHk5Ukx3Nnc0Z2krbm4vZDFQbTFra1lo
+ a1NpNXpXYUlnMG01UlFVaytFbDh6a2Y1dGNFLzFOMFo1TwpLMkpoandGdTViWDBhMGw0Y0ZH
+ V1ZRRWNpVk1ES1J0eE1qRXRrM1N4RmFsbTZaZFEycHAyODIyY2xucTR6WjltCld1MWQyd2F4
+ aXorYjVJYTR3ZURZYTduNDFVUmNCRVViSkFnbmljSmtKdENUd3lJeElXMktuVnlPcmp2a1F6
+ SUIKdmFQMEZkUDJ2dlpvUE1kbENJek9sSWtQTGd4RTBJV3VlVFhlQkpoTnMwMXBiOGJMcW1U
+ SU1sdTRMdkJFTEEvdgplaWFqajVzOHk1NDJIL2FIc2ZCZjRNUVVoSHhPL0JaVjdoMDZLU1Vm
+ SWFZN09nQWdLdUdOQjNVaWFJVVM1K2E5CmduRU9RTER4S1J5L2E3UTF2OVMrTnZ4KzdqOGlI
+ M2prUUpoeFQ2WkJoWkdSeDBna0gzVCtGMG5ORG01TmFKVXMKYXN3Z0pycUZaa1VHZDJNcm0x
+ cW5Ld1hpQXQ4U0ljRU5kcTMzUjBLS0tSQzgwWGd3ajhKbjMwdlhMU0crTk8xRwpIMFVNY0F4
+ TXd5L3B2azZMVTVKR2paUjczSjVVTFZoSDRNTGJEZ2dEM21QYWlHOCtmb3RUckpVUHFxaGc5
+ aHlVCkVQcFlHN3NxdDc0WG43OStDRVpjakxIenlsNnZBRkUyVzBreGxMdFF0VVpVSE8zNmFm
+ RnY4cUdwTzNacVB2akIKVXVhdFhGNnR2VVFDd2YzSDZYTUFFUUVBQVlrQ0h3UVlBUW9BQ1FV
+ Q1RtYXMrZ0liREFBS0NSQUZMelp3R05YRAoyRC9YRC8wZGRNLzRhaTFiK1RsMWp6bkthalgz
+ a0crTWVFWWVJNGY0MHZjbzNyT0xyblJHRk9jYnl5ZlZGNjlNCktlcGllNE93b0kxamNUVTBB
+ RGVjbmJXbkROSHByMFNjenhCTXJvM2Juckxoc212anVuVFlJdnNzQlp0QjRhVkoKanVMSUxQ
+ VWxuaEZxYTdmYlZxMFpRamJpVi9ydDJqQkVOZG05cGJKWjZHam5wWUljQWJQQ0NhL2ZmTDQv
+ U1FSUwpZSFhvaEdpaVM0eTVqQlRtSzVsdGZld0xPdzAyZmtleEgrSUpGcnJHQlhEU2c2bjJT
+ Z3hubisrTkYzNGZYY205CnBpYXczbUtzSUNtKzBoZE5oNGFmR1o2SVdWOFBHMnRlb29WRHA0
+ ZFlpaCsreFgvWFM4ekJDYzFPOXc0bnpsUDIKZ0t6bHFTV2JoaVdwaWZSSkJGYTRXdEFlSlRk
+ WFlkMzdqL0JJNFJXV2hueXc3YUFQTkdqMzN5dEdITlVmNlJvMgovanRqNHRGMXkvUUZYcWpK
+ Ry93R2pwZHRSZmJ0VWpxTEhJc3ZmUE5OSnEvOTU4cDc0bmRBQ2lkbFdTSHpqK09wCjI2S3Bi
+ Rm5td05PMHBzaVVzbmh2SEZ3UE8vdkFibDNSc1I1KzBSbytodnMyY0VtUXV2OXIvYkRsQ2Zw
+ enAydDMKY0srcmh4VXFpc094OERaZnoxQm5rYW9DUkZidnZ2ays3TC9mb21QbnRHUGtxSmNp
+ WUU4VEdIa1p3MWhPa3UrNApPb00yR0I1bkVEbGorMlRGL2pMUStFaXBYOVBrUEpZdnhmUmxD
+ NmRLOFBLS2ZYOUtkZm1BSWNnSGZuVjFqU24rCjh5SDJkakJQdEtpcVcwSjY5YUlzeXg3aVYv
+ MDNwYVBDakpoN1hxOXZBenlkTjVVL1VBPT0KPTZQL2IKLS0tLS1FTkQgUEdQIFBVQkxJQyBL
+ RVkgQkxPQ0stLS0tLQo=
+Organization: Canonical
+Message-ID: <cc0f25b7-be0b-f5de-8a52-b4b39ce06e0a@canonical.com>
+Date: Fri, 26 Mar 2021 01:57:28 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <92d8bc5f-1fe0-cdfd-9ac6-d2d5301d6622@canonical.com>
-Content-Language: pl-PL
-Received-SPF: pass client-ip=209.85.218.48; envelope-from=wampir990@gmail.com;
- helo=mail-ej1-f48.google.com
-Subject: [apparmor] Apparmor policy hide?
+In-Reply-To: <7037587e-0ef0-870e-340b-a7400553fe32@gmail.com>
+Content-Language: en-US
+Subject: Re: [apparmor] Apparmor policy hide?
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -75,25 +116,40 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-SGkKCldoZW5ldmVyIGEgcHJvZ3JhbSB0cmllcyB0byB0b3VjaCBhIGZvcmJpZGRlbiByZXNvdXJj
-ZSwgdGhlIHN5c3RlbSAKKEFwcGFybW9yPykgcmVwbGllcyBBY2NlcyBEZW5pZWQuCgoKU29tZSBw
-cm9ncmFtcyBtYXkgb3ZlcnJlYWN0IGluIHRoaXMgY2FzZS4KCk15IHN1Z2dlc3Rpb24gZm9yIGFw
-cGFybW9yIGFjY2VzcyBwb2xpY3k6CmFkZCB0aGUgaGlkZSBvcHRpb24sIHdoaWNoIGNhdXNlcyB3
-aGVuIHRoZSBhcHBsaWNhdGlvbiB0cmllcyB0byB0b3VjaCAKdGhlIGZvcmJpZGRlbiByZXNvdXJj
-ZSwgaXQgaXMgYWxzbyBkZW5pZWQgYWNjZXNzLCBidXQgd2l0aCB0aGUgbWVzc2FnZSAKIk5vIHN1
-Y2ggZmlsZSBvciBkaXJlY3RvcnkiLgoKVGhpcyB3aWxsIGhlbHAgYXZvaWQgZXJyb3JzIHdoZW4g
-dGhlIHByb2dyYW0gdHJpZXMgdG8gY2hlY2ssIGZvciBleGFtcGxlIAovIHN5cyAvIG1vZHVsZSAv
-IGFwcGFybW9yLCAvIHN5cyAvIGtlcm5lbCAvIHNlY3VyaXR5LCBvciB+Ly5zc2gvLAphbmQgd2ls
-bCBleGl0IHdpdGggYSBmYXRhbCBlcnJvciBpZiBhY2Nlc3MgaXMgZGVuaWVkLgoKT3JpZ2luYWxs
-eSBzdWNoIGEgc29sdXRpb24gaXMgaW4gR3JzZWN1cml0eSBBQ0w6CgoKT2JqZWN0IG1vZGVzOiAu
-Li4KCiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaMKg
-wqDCoMKgIC0gVGhpcyBvYmplY3QgaXMgaGlkZGVuLgoKCmh0dHBzOi8vZ3JzZWN1cml0eS5uZXQv
-Z3JhY2xkb2MuaHRtCgoKUmVnYXJkcwoKSmFjZWsKCgoKCgotLSAKQXBwQXJtb3IgbWFpbGluZyBs
-aXN0CkFwcEFybW9yQGxpc3RzLnVidW50dS5jb20KTW9kaWZ5IHNldHRpbmdzIG9yIHVuc3Vic2Ny
-aWJlIGF0OiBodHRwczovL2xpc3RzLnVidW50dS5jb20vbWFpbG1hbi9saXN0aW5mby9hcHBhcm1v
-cgo=
+T24gMy8yNS8yMSAxMTo1OCBQTSwgSmFjZWsgd3JvdGU6Cj4gSGkKPiAKPiBXaGVuZXZlciBhIHBy
+b2dyYW0gdHJpZXMgdG8gdG91Y2ggYSBmb3JiaWRkZW4gcmVzb3VyY2UsIHRoZSBzeXN0ZW0gKEFw
+cGFybW9yPykgcmVwbGllcyBBY2NlcyBEZW5pZWQuCj4gCj4gCj4gU29tZSBwcm9ncmFtcyBtYXkg
+b3ZlcnJlYWN0IGluIHRoaXMgY2FzZS4KPiAKPiBNeSBzdWdnZXN0aW9uIGZvciBhcHBhcm1vciBh
+Y2Nlc3MgcG9saWN5Ogo+IGFkZCB0aGUgaGlkZSBvcHRpb24sIHdoaWNoIGNhdXNlcyB3aGVuIHRo
+ZSBhcHBsaWNhdGlvbiB0cmllcyB0byB0b3VjaCB0aGUgZm9yYmlkZGVuIHJlc291cmNlLCBpdCBp
+cyBhbHNvIGRlbmllZCBhY2Nlc3MsIGJ1dCB3aXRoIHRoZSBtZXNzYWdlICJObyBzdWNoIGZpbGUg
+b3IgZGlyZWN0b3J5Ii4KPiAKPiBUaGlzIHdpbGwgaGVscCBhdm9pZCBlcnJvcnMgd2hlbiB0aGUg
+cHJvZ3JhbSB0cmllcyB0byBjaGVjaywgZm9yIGV4YW1wbGUgLyBzeXMgLyBtb2R1bGUgLyBhcHBh
+cm1vciwgLyBzeXMgLyBrZXJuZWwgLyBzZWN1cml0eSwgb3Igfi8uc3NoLywKPiBhbmQgd2lsbCBl
+eGl0IHdpdGggYSBmYXRhbCBlcnJvciBpZiBhY2Nlc3MgaXMgZGVuaWVkLgo+IAoKaXQgaGVscHMg
+c29tZSB0aW1lcywgYnV0IGlzIHZlcnkgbXVjaCBzdGlsbCBhbiBlcnJvciBjb2RlIGFuZCBkZXBl
+bmRlbnQgb24gaG93IHRoZSBhcHBsaWNhdGlvbiBpcyBoYW5kbGluZyByZXR1cm5lZCBlcnJvcnMu
+IFdpdGggdGhhdCBzYWlkIGhpZGluZyB2aWEgcmV0dXJuaW5nIEVOT0VOVCBpbnN0ZWFkIG9mIEVB
+Q0NFUyBpcyBwYXJ0IG9mIHRoZSBleHRlbmRlZCBwZXJtIHdvcmsgdGhhdCBzaG91bGQgYmUgbGFu
+ZGluZyB1cHN0cmVhbSBvdmVyIHRoZSBuZXh0IGN5Y2xlIG9yIHR3by4gRWcuCgogIGhpZGUgdyAv
+Zm9vL2JhciwKClRoaXMgb2YgY291cnNlIGRvZXNuJ3Qgc3RvcCBhbiBhcHBsaWNhdGlvbiBmcm9t
+IGJlaW5nIGFibGUgdG8gZGlzY292ZXIgc29tZXRoaW5nIGlzbid0IHJpZ2h0LCBlZy4gaWYgeW91
+IGdpdmUgZGlyZWN0b3J5IHJlYWQgYWNjZXNzIHRoZSBkaXIgbGlzdGluZyB3aWxsIHNob3cgdGhl
+IGVudHJ5IHRoYXQgaXMgYmVpbmcgaGlkZGVuLCB0aGlzIGFzIHlvdSBzYWlkIGlzIG1vcmUgYWJv
+dXQgdHJ5aW5nIG5vdCB0byBicmVhayBjZXJ0YWluIGFwcGxpY2F0aW9ucy4KClRoZSBvdGhlciBv
+cHRpb24geW91IGhhdmUgaXMgdGhlIGhlYXZ5IGhhbW1lciBvZiBraWxsaW5nIHRoZSB0YXNrIGlu
+c3RlYWQuIEN1cnJlbnRseSB0aGF0IGlzIGxpbWl0ZWQgdG8gYSBwcm9maWxlIGZsYWcgYnV0IHRo
+ZSBleHRlbmRlZCBwZXJtIHdvcmsgd2lsbCBtYWtlIHRoYXQgcG9zc2libGUgdG8gc3BlY2lmeSBh
+dCB0aGUgcnVsZSBsZXZlbC4KCiAga2lsbCB3IC9ldGMvcGFzc3dvcmQsCgoKPiBPcmlnaW5hbGx5
+IHN1Y2ggYSBzb2x1dGlvbiBpcyBpbiBHcnNlY3VyaXR5IEFDTDoKPiAKPiAKPiBPYmplY3QgbW9k
+ZXM6IC4uLgo+IAo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCBowqDCoMKgwqAgLSBUaGlzIG9iamVjdCBpcyBoaWRkZW4uCj4gCj4gCj4gaHR0cHM6Ly9n
+cnNlY3VyaXR5Lm5ldC9ncmFjbGRvYy5odG0KPiAKPiAKPiBSZWdhcmRzCj4gCj4gSmFjZWsKPiAK
+PiAKPiAKPiAKPiAKCgotLSAKQXBwQXJtb3IgbWFpbGluZyBsaXN0CkFwcEFybW9yQGxpc3RzLnVi
+dW50dS5jb20KTW9kaWZ5IHNldHRpbmdzIG9yIHVuc3Vic2NyaWJlIGF0OiBodHRwczovL2xpc3Rz
+LnVidW50dS5jb20vbWFpbG1hbi9saXN0aW5mby9hcHBhcm1vcgo=
