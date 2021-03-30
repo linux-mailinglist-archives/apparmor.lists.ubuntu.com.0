@@ -2,108 +2,42 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5322E34F252
-	for <lists+apparmor@lfdr.de>; Tue, 30 Mar 2021 22:38:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9329734F2AB
+	for <lists+apparmor@lfdr.de>; Tue, 30 Mar 2021 22:59:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1lRL81-0004HD-K1; Tue, 30 Mar 2021 20:38:21 +0000
-Received: from youngberry.canonical.com ([91.189.89.112])
+	id 1lRLSe-0005bi-2B; Tue, 30 Mar 2021 20:59:40 +0000
+Received: from mail.cboltz.de ([88.99.101.17])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>) id 1lRL7z-0004Go-VM
- for apparmor@lists.ubuntu.com; Tue, 30 Mar 2021 20:38:19 +0000
-Received: from [50.53.41.238] (helo=[192.168.192.153])
- by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>)
- id 1lRL7z-0000pM-JZ; Tue, 30 Mar 2021 20:38:19 +0000
-To: Murali Selvaraj <murali.selvaraj2003@gmail.com>, apparmor@lists.ubuntu.com
-References: <CAODFaZ7317Aop=dzf+_BuFSqNQ-4BjLCv5AnwhC=y5BGQGfB7w@mail.gmail.com>
-From: John Johansen <john.johansen@canonical.com>
-Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
- LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCgptUUlOQkU1bXJQb0JFQURB
- azE5UHNnVmdCS2tJbW1SMmlzUFE2bzdLSmhUVEtqSmR3VmJrV1NuTm4rbzZVcDVrCm5LUDFm
- NDlFQlFsY2VXZzF5cC9Od2JSOGFkK2VTRU8vdW1hL0srUHFXdkJwdEtDOVNXRDk3Rkc0dUI0
- L2Nhb20KTEVVOTdzTFFNdG52R1dkeHJ4VlJHTTRhbnpXWU1neno1VFptSWlWVFo0M091NVZw
- YVMxVnoxWlN4UDNoL3hLTgpaci9UY1c1V1FhaTh1M1BXVm5ia2poU1pQSHYxQmdoTjY5cXhF
- UG9tckpCbTFnbXR4M1ppVm1GWGx1d1RtVGdKCk9rcEZvbDduYkowaWxuWUhyQTdTWDNDdFIx
- dXBlVXBNYS9XSWFuVk85NldkVGpISElhNDNmYmhtUXViZTR0eFMKM0ZjUUxPSlZxUXN4NmxF
- OUI3cUFwcG05aFExMHFQV3dkZlB5LyswVzZBV3ROdTVBU2lHVkNJbld6bDJIQnFZZAovWmxs
- OTN6VXErTklvQ244c0RBTTlpSCt3dGFHRGNKeXdJR0luK2VkS050SzcyQU1nQ2hUZy9qMVpv
- V0g2WmVXClBqdVVmdWJWelp0bzFGTW9HSi9TRjRNbWRRRzFpUU50ZjRzRlpiRWdYdXk5Y0dp
- MmJvbUYwenZ5QkpTQU5weGwKS05CRFlLek42S3owOUhVQWtqbEZNTmdvbUwvY2pxZ0FCdEF4
- NTlMK2RWSVpmYUYyODFwSWNVWnp3dmg1K0pvRwplT1c1dUJTTWJFN0wzOG5zem9veWtJSjVY
- ckFjaGtKeE5mejdrK0ZuUWVLRWtOekVkMkxXYzNRRjRCUVpZUlQ2ClBISGdhM1JneWtXNSsx
- d1RNcUpJTGRtdGFQYlhyRjNGdm5WMExSUGN2NHhLeDdCM2ZHbTd5Z2Rvb3dBUkFRQUIKdEIx
- S2IyaHVJRXB2YUdGdWMyVnVJRHhxYjJodVFHcHFiWGd1Ym1WMFBva0NPZ1FUQVFvQUpBSWJB
- d1VMQ1FnSApBd1VWQ2drSUN3VVdBZ01CQUFJZUFRSVhnQVVDVG8wWVZ3SVpBUUFLQ1JBRkx6
- WndHTlhEMkx4SkQvOVRKWkNwCndsbmNUZ1llcmFFTWVEZmtXdjhjMUlzTTFqMEFtRTRWdEwr
- ZkU3ODBaVlA5Z2tqZ2tkWVN4dDdlY0VUUFRLTWEKWlNpc3JsMVJ3cVUwb29nWGRYUVNweHJH
- SDAxaWN1LzJuMGpjWVNxWUtnZ1B4eTc4QkdzMkxacTRYUGZKVFptSApaR25YR3EvZURyL21T
- bmowYWF2QkptTVo2amJpUHo2eUh0QllQWjlmZG84YnRjendQNDFZZVdvSXUyNi84SUk2CmYw
- WG0zVkM1b0FhOHY3UmQrUldaYThUTXdsaHpIRXh4ZWwzanRJN0l6ek9zbm1FOS84RG0wQVJE
- NWlUTENYd1IKMWN3SS9KOUJGL1MxWHY4UE4xaHVUM0l0Q05kYXRncDh6cW9Ka2dQVmptdnlM
- NjRRM2ZFa1liZkhPV3NhYmE5LwprQVZ0Qk56OVJURmg3SUhEZkVDVmFUb3VqQmQ3QnRQcXIr
- cUlqV0ZhZEpEM0k1ZUxDVkp2VnJyb2xyQ0FUbEZ0Ck4zWWtRczZKbjFBaUlWSVUzYkhSOEdq
- ZXZnejVMbDZTQ0dIZ1Jya3lScG5TWWFVL3VMZ24zN042QVl4aS9RQUwKK2J5M0N5RUZManpX
- QUV2eVE4YnEzSXVjbjdKRWJoUy9KLy9kVXFMb2VVZjh0c0dpMDB6bXJJVFpZZUZZQVJoUQpN
- dHNmaXpJclZEdHoxaVBmL1pNcDVnUkJuaXlqcFhuMTMxY20zTTNndjZIclFzQUdubjhBSnJ1
- OEdEaTVYSllJCmNvLzEreC9xRWlOMm5DbGFBT3BiaHpOMmVVdlBEWTVXMHEzYkEvWnAybWZH
- NTJ2YlJJK3RRMEJyMUhkL3ZzbnQKVUhPOTAzbU1aZXAyTnpOM0JaNXFFdlB2RzRyVzVacTJE
- cHliV2JRclNtOW9iaUJLYjJoaGJuTmxiaUE4YW05bwpiaTVxYjJoaGJuTmxia0JqWVc1dmJt
- bGpZV3d1WTI5dFBva0NOd1FUQVFvQUlRVUNUbzBYV2dJYkF3VUxDUWdICkF3VVZDZ2tJQ3dV
- V0FnTUJBQUllQVFJWGdBQUtDUkFGTHpad0dOWEQySXRNRC85anliYzg3ZE00dUFIazZ5Tk0K
- TjBZL0JGbW10VFdWc09CaHFPbm9iNGkzOEJyRE8yQzFoUUNQQ1FlNExMczEvNHB0ZW92UXQ4
- QjJGeXJQVmp3Zwo3alpUSE5LNzRyNmxDQ1Z4eDN5dTFCN1U5UG80VlRrY3NsVmIxL3FtV3V4
- OFhXY040eXZrVHFsTCtHeHB5Sm45CjlaWmZmWEpjNk9oNlRtT2ZiS0d2TXV1djVhclNJQTNK
- SEZMZjlhTHZadEExaXNKVXI3cFM5YXBnOXVUVUdVcDcKd2ZWMFdUNlQzZUczbXRVVTJ1cDVK
- VjQ4NTBMMDVqSFM2dVdpZS9ZK3lmSk9iaXlyeE4vNlpxVzVHb25oTEJxLwptc3pjVjV2QlQz
- QkRWZTNSdkY2WGRNOU9oUG4xK1k4MXg1NCt2UTExM044aUx3RjdHR2ExNFp5SVZBTlpEMEkw
- CkhqUnZhMmsvUnFJUlR6S3l1UEg1cGtsY0tIVlBFRk1tT3pNVCtGT294Tmp2Uys3K3dHMktN
- RFlFbUhQcjFQSkIKWlNaZUh6SzE5dGZhbFBNcHBGeGkrc3lZTGFnTjBtQjdKSFF3WTdjclV1
- T0RoeWNxNjBZVnoxdGFFeWd1M1l2MgoyL0kxRUNHSHZLSEc2d2M5MG80M0MvZWxIRUNYbkVo
- N3RLcGxEY3BJQytPQ21NeEtIaFI0NitYY1p2Z3c0RGdiCjdjYTgzZVFSM0NHODlMdlFwVzJM
- TEtFRUJEajdoWmhrTGJra1BSWm0zdzhKWTQ0YXc4VnRneFdkblNFTUNMeEwKSU9OaDZ1Wjcv
- L0RZVnRjSWFNSllrZWJhWnRHZENwMElnVVpiMjQvVmR2WkNZYk82MkhrLzNWbzFuWHdIVUVz
- Mwo2RC92MWJUMFJaRmk2OUxnc0NjT2N4NGdZTGtDRFFST1pxejZBUkFBb3F3NmtrQmhXeU0x
- ZnZnYW1BVmplWjZuCktFZm5SV2JrQzk0TDFFc0pMdXAzV2IyWDBBQk5PSFNrYlNENHBBdUMy
- dEtGL0VHQnQ1Q1A3UWRWS1JHY1F6QWQKNmIyYzFJZHk5Ukx3Nnc0Z2krbm4vZDFQbTFra1lo
- a1NpNXpXYUlnMG01UlFVaytFbDh6a2Y1dGNFLzFOMFo1TwpLMkpoandGdTViWDBhMGw0Y0ZH
- V1ZRRWNpVk1ES1J0eE1qRXRrM1N4RmFsbTZaZFEycHAyODIyY2xucTR6WjltCld1MWQyd2F4
- aXorYjVJYTR3ZURZYTduNDFVUmNCRVViSkFnbmljSmtKdENUd3lJeElXMktuVnlPcmp2a1F6
- SUIKdmFQMEZkUDJ2dlpvUE1kbENJek9sSWtQTGd4RTBJV3VlVFhlQkpoTnMwMXBiOGJMcW1U
- SU1sdTRMdkJFTEEvdgplaWFqajVzOHk1NDJIL2FIc2ZCZjRNUVVoSHhPL0JaVjdoMDZLU1Vm
- SWFZN09nQWdLdUdOQjNVaWFJVVM1K2E5CmduRU9RTER4S1J5L2E3UTF2OVMrTnZ4KzdqOGlI
- M2prUUpoeFQ2WkJoWkdSeDBna0gzVCtGMG5ORG01TmFKVXMKYXN3Z0pycUZaa1VHZDJNcm0x
- cW5Ld1hpQXQ4U0ljRU5kcTMzUjBLS0tSQzgwWGd3ajhKbjMwdlhMU0crTk8xRwpIMFVNY0F4
- TXd5L3B2azZMVTVKR2paUjczSjVVTFZoSDRNTGJEZ2dEM21QYWlHOCtmb3RUckpVUHFxaGc5
- aHlVCkVQcFlHN3NxdDc0WG43OStDRVpjakxIenlsNnZBRkUyVzBreGxMdFF0VVpVSE8zNmFm
- RnY4cUdwTzNacVB2akIKVXVhdFhGNnR2VVFDd2YzSDZYTUFFUUVBQVlrQ0h3UVlBUW9BQ1FV
- Q1RtYXMrZ0liREFBS0NSQUZMelp3R05YRAoyRC9YRC8wZGRNLzRhaTFiK1RsMWp6bkthalgz
- a0crTWVFWWVJNGY0MHZjbzNyT0xyblJHRk9jYnl5ZlZGNjlNCktlcGllNE93b0kxamNUVTBB
- RGVjbmJXbkROSHByMFNjenhCTXJvM2Juckxoc212anVuVFlJdnNzQlp0QjRhVkoKanVMSUxQ
- VWxuaEZxYTdmYlZxMFpRamJpVi9ydDJqQkVOZG05cGJKWjZHam5wWUljQWJQQ0NhL2ZmTDQv
- U1FSUwpZSFhvaEdpaVM0eTVqQlRtSzVsdGZld0xPdzAyZmtleEgrSUpGcnJHQlhEU2c2bjJT
- Z3hubisrTkYzNGZYY205CnBpYXczbUtzSUNtKzBoZE5oNGFmR1o2SVdWOFBHMnRlb29WRHA0
- ZFlpaCsreFgvWFM4ekJDYzFPOXc0bnpsUDIKZ0t6bHFTV2JoaVdwaWZSSkJGYTRXdEFlSlRk
- WFlkMzdqL0JJNFJXV2hueXc3YUFQTkdqMzN5dEdITlVmNlJvMgovanRqNHRGMXkvUUZYcWpK
- Ry93R2pwZHRSZmJ0VWpxTEhJc3ZmUE5OSnEvOTU4cDc0bmRBQ2lkbFdTSHpqK09wCjI2S3Bi
- Rm5td05PMHBzaVVzbmh2SEZ3UE8vdkFibDNSc1I1KzBSbytodnMyY0VtUXV2OXIvYkRsQ2Zw
- enAydDMKY0srcmh4VXFpc094OERaZnoxQm5rYW9DUkZidnZ2ays3TC9mb21QbnRHUGtxSmNp
- WUU4VEdIa1p3MWhPa3UrNApPb00yR0I1bkVEbGorMlRGL2pMUStFaXBYOVBrUEpZdnhmUmxD
- NmRLOFBLS2ZYOUtkZm1BSWNnSGZuVjFqU24rCjh5SDJkakJQdEtpcVcwSjY5YUlzeXg3aVYv
- MDNwYVBDakpoN1hxOXZBenlkTjVVL1VBPT0KPTZQL2IKLS0tLS1FTkQgUEdQIFBVQkxJQyBL
- RVkgQkxPQ0stLS0tLQo=
-Organization: Canonical
-Message-ID: <617dd889-94e3-ab7b-316d-56528594fd23@canonical.com>
-Date: Tue, 30 Mar 2021 13:38:17 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ (envelope-from <apparmor@cboltz.de>) id 1lRLSd-0005bb-7c
+ for apparmor@lists.ubuntu.com; Tue, 30 Mar 2021 20:59:39 +0000
+X-sprachakt.com-SMTP-Auth: no
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by mail.cboltz.de (Postfix) with ESMTP id CAD555C00FA
+ for <apparmor@lists.ubuntu.com>; Tue, 30 Mar 2021 22:59:38 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at mail.cboltz.de
+Received: from mail.cboltz.de ([127.0.0.1])
+ by localhost (mail.cboltz.de [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id WNRd2Z7ByIfr for <apparmor@lists.ubuntu.com>;
+ Tue, 30 Mar 2021 22:59:37 +0200 (CEST)
+Received: from home.cboltz.de (unknown [10.10.0.6])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (Client did not present a certificate)
+ by mail.cboltz.de (Postfix) with ESMTPSA
+ for <apparmor@lists.ubuntu.com>; Tue, 30 Mar 2021 22:59:37 +0200 (CEST)
+From: Christian Boltz <apparmor@cboltz.de>
+To: apparmor@lists.ubuntu.com
+Date: Tue, 30 Mar 2021 22:59:34 +0200
+Message-ID: <8394045.udUvZY7WZc@tux.boltz.de.vu>
+In-Reply-To: <20210330222800.6699c3e3@mephala>
+References: <20210330222800.6699c3e3@mephala>
 MIME-Version: 1.0
-In-Reply-To: <CAODFaZ7317Aop=dzf+_BuFSqNQ-4BjLCv5AnwhC=y5BGQGfB7w@mail.gmail.com>
-Content-Language: en-US
-Subject: Re: [apparmor] Reg.Apparmor vs Hardening
+X-Face: #?nL0}JpqNtLQy@q#bRm?B?pGS8[mx6r.6[91zp@*2DZ?18)haWs5wgvi, ,
+ wF/JWMTUh+6x, b7_`pW3)m~0606sDW0&'EKA}_-W+)Bz~d]k>4E9TyU}k@b&1=%yk\
+Subject: Re: [apparmor] Rule to allow chmod-operations (or reduce dmesg
+	suppression)
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -115,32 +49,99 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0465495786750525566=="
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-T24gMy8zMC8yMSAxMDo1NCBBTSwgTXVyYWxpIFNlbHZhcmFqIHdyb3RlOgo+IEhpIEFsbCwKPiAK
-PiBBcyBwZXIgbXkgdW5kZXJzdGFuZGluZyB3aXRoIHRoZSBoZWxwIG9mIEFwcGFybW9yIHByb2Zp
-bGUgd2UgYXJlCj4gcmVzdHJpY3RpbmcgdGhlIGFjY2VzcyB0byB0aGUgcHJvY2VzcyBpbiB0ZXJt
-cyBvZgo+IGl0cyByZXNvdXJjZXMvbmFtZXNwYWNlcy4KPiAKPiBJdCBsb29rcyBzaW1pbGFyIHRv
-IGhhcmRlbmluZyB3aGVyZSB3ZSBhcmUgcmVzdHJpY3RpbmcgdGhlIHJlc291cmNlcyB0byBwcm9j
-ZXNzLgo+IApjb3JyZWN0Cgo+IERvZXMgaXQgbWVhbiwgdGVjaG5pY2FsbHkgSGFyZGVuaW5nIGFu
-ZCBBcHBhcm1vciBwcm9maWxlcyBsb29rIHRoZQo+IHNhbWUgb3IgZGlmZmVyZW50PyBDYW4geW91
-IHBsZWFzZSBzaGFyZSB5b3VyIGNvbW1lbnRzLgo+IAoKQXBwQXJtb3IgaXMgYSBmb3JtIG9mIGhh
-cmRlbmluZywgc3BlY2lmaWNhbGx5IGl0cyBhIG1hbmRhdG9yeSBhY2Nlc3MgY29udHJvbCBzeXN0
-ZW0uClRoaW5rIG9mIGl0IGxpa2UgYSBzYW5kYm94IHdpdGggZmluZSBncmFpbmVkIHNoYXJpbmcu
-CgpIYXJkZW5pbmcgaXMgYW4gdW1icmVsbGEgdGVybSB0aGF0IGNvdmVycyBhIHdob2xlIGJ1bmNo
-IG9mIGRpZmZlcmVudCB0aGluZ3MgeW91IGNhbgpkbyB0byBwcm90ZWN0IGFuIGFwcGxpY2F0aW9u
-IG9yIHN5c3RlbS4gSXQgY2FuIGJlIHRoaW5ncyBsaWtlOiBjb21waWxlciBoYXJkZW5pbmcgZWcu
-Cmluc2VydGluZyBjaGVjayBmb3Igc3RhY2sgZnJhbWUgb3ZlcmZsb3cgYmVmb3JlIHJldHVybiwg
-YWRkcmVzcyBzcGFjZSBsYXlvdXQKcmFuZG9taXphdGlvbiAoQVNMUiksIG1hbmRhdG9yeSBhY2Nl
-c3MgY29udHJvbCwgY29udGFpbmVyaXphdGlvbiwgZXZlbiBtZW1vcnkKZW5jcnlwdGlvbi4KCllv
-dSBjYW4gZ2V0IGFuIGlkZWEgb2YgaG93IGJyb2FkIHRoZSB0b3BpYyBpcyBieSBsb29raW5nIGF0
-IHRoZSBzZXQgb2YgZGlmZmVyZW50CmhhcmRlbmluZyB0ZWNobmlxdWVzIHVidW50dSBoYXMgYXBw
-bGllZCB0byBkaWZmZXJlbnQgcGFydHMgb2YgdGhlaXIgZGlzdHJvIChvdGhlcgpkaXN0cm8gZG8g
-aXQgdG8sIEkganVzdCBoYXBwZW4gdG8gaGF2ZSB0aGlzIGxpbmsgaGFuZHkpLgoKaHR0cHM6Ly93
-aWtpLnVidW50dS5jb20vU2VjdXJpdHkvRmVhdHVyZXMKCi0tIApBcHBBcm1vciBtYWlsaW5nIGxp
-c3QKQXBwQXJtb3JAbGlzdHMudWJ1bnR1LmNvbQpNb2RpZnkgc2V0dGluZ3Mgb3IgdW5zdWJzY3Jp
-YmUgYXQ6IGh0dHBzOi8vbGlzdHMudWJ1bnR1LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2FwcGFybW9y
-Cg==
+--===============0465495786750525566==
+Content-Type: multipart/signed; boundary="nextPart6283068.bXP5IRoyRn"; micalg="pgp-sha256"; protocol="application/pgp-signature"
+
+--nextPart6283068.bXP5IRoyRn
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"; protected-headers="v1"
+From: Christian Boltz <apparmor@cboltz.de>
+To: apparmor@lists.ubuntu.com
+Subject: Re: [apparmor] Rule to allow chmod-operations (or reduce dmesg suppression)
+Date: Tue, 30 Mar 2021 22:59:34 +0200
+Message-ID: <8394045.udUvZY7WZc@tux.boltz.de.vu>
+In-Reply-To: <20210330222800.6699c3e3@mephala>
+References: <20210330222800.6699c3e3@mephala>
+
+Hello,
+
+Am Dienstag, 30. M=E4rz 2021, 22:28:00 CEST schrieb Jonas Gro=DFe Sundrup:
+> type=3D1400 audit(1617134745.962:4981): apparmor=3D"DENIED"
+> operation=3D"chmod" profile=3D"/usr/lib/signal-desktop/signal-desktop"
+> name=3D"/var/cache/fontconfig/" pid=3D246265 comm=3D"signal-desktop"
+> requested_mask=3D"w" denied_mask=3D"w" fsuid=3D1000 ouid=3D0
+[...]
+> /var/cache/fontconfig rw,
+> /var/cache/fontconfig/** rw,
+>=20
+> in the profile I'm testing with, but that doesn't resolve it. Possibly
+> because it's a chmod-operation instead of an
+> open-operation?=20
+
+chmod is part of  w  permissions, nothing wrong with that.  (You=20
+probably don't need  r  permissions, unless you have another log event=20
+with a denial for them.)
+
+However, you carefully avoided the correct path ;-) - you'll need
+    /var/cache/fontconfig/ w,
+
+Note the trailing  /  which marks it as a directory (without trailing=20
+slash, the rule would apply to a file).
+
+
+Regards,
+
+Christian Boltz
+=2D-=20
+[20:01] * mrdocs grabs a snack first
+[20:01] <suseROCKs> hmm last time mrdocs said he was going to grab
+        a snack, we didn't see him again for a week
+[from #opensuse-project]
+
+--nextPart6283068.bXP5IRoyRn
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEcMqgYN4EKq6xsVGWxqaC6mPILxwFAmBjkTYACgkQxqaC6mPI
+LxyTrxAAszybYDCEe+0F8ekroXa4cVTmbVB7XcRExm8cOXO31WcIwUJhS4P0Kmr+
+elGv1s9+1EKEj+jv1H4mMdnrhyDS/Lvhu+c8fXlDZpbtD4/23Vr8How3y44YAl7u
+4v3rpU9a0ijSTZ1m9MVqURbsv/Zd0VduKW1YrjNvzua3dZuNYxoocLgeDVWALJEv
+0hCEIg73DAoh8zcIsE8MxiiR53u/KknE5moG4HLKMHxrnOFVvRe35a+kS3/WuyC5
+t1gDMuIEsUhxUTxREpvcMmEdT+oz9DUKxdFz+K1ONOqGg3G1k2hxfqu7pmvElUYz
+QjeZZZXS1/de9D3Qb6Vmzx74qtIQmBItFqcsgb91oKxsFPHUph+8++VvUjGPNF7G
+rBYKjLn11lOSfPIDd+s8kwQuMVdzq9HY+G5fZcGyihDjjjwh7ahwOcZBE1fkGPk1
+p/EyDQ7yJtBIsz+dlfcKrja9rsbb18N6B6NNKdaOu+poIRrVvmVesSD5g6fQsG8N
+I65+wkBiIugvBXtGFRUlWE6+zvTDs6M/jw+ZaDbjCNiFIokIrnr9d8+6gq0/sv9f
+4C6h9McdDrQlS7T+9bguimQMUiDGF2Ubg2bT8rGvwtIPq9yNjmiwYh84ehIC1TR2
+LfmjbmOOY25YUcOBKg/o5maYs4noqQFa4sPLfbNP5ds7J9bFjf8=
+=WiNy
+-----END PGP SIGNATURE-----
+
+--nextPart6283068.bXP5IRoyRn--
+
+
+
+
+
+--===============0465495786750525566==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
+eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
+aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
+
+--===============0465495786750525566==--
+
+
+
+
