@@ -2,29 +2,108 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1272354887
-	for <lists+apparmor@lfdr.de>; Tue,  6 Apr 2021 00:19:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00782354888
+	for <lists+apparmor@lfdr.de>; Tue,  6 Apr 2021 00:19:35 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1lTXYa-00013i-HJ; Mon, 05 Apr 2021 22:18:52 +0000
+	id 1lTXZD-00016D-NF; Mon, 05 Apr 2021 22:19:31 +0000
 Received: from youngberry.canonical.com ([91.189.89.112])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <seth.arnold@canonical.com>) id 1lTXYY-00013b-OW
- for apparmor@lists.ubuntu.com; Mon, 05 Apr 2021 22:18:50 +0000
-Received: from 2.general.sarnold.us.vpn ([10.172.64.71] helo=localhost)
+ (envelope-from <john.johansen@canonical.com>) id 1lTXZC-000161-2I
+ for apparmor@lists.ubuntu.com; Mon, 05 Apr 2021 22:19:30 +0000
+Received: from [50.53.41.238] (helo=[192.168.192.153])
  by youngberry.canonical.com with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <seth.arnold@canonical.com>)
- id 1lTXYY-0001wt-32; Mon, 05 Apr 2021 22:18:50 +0000
-Date: Mon, 5 Apr 2021 22:18:48 +0000
-From: Seth Arnold <seth.arnold@canonical.com>
-To: Murali Selvaraj <murali.selvaraj2003@gmail.com>
-Message-ID: <20210405221848.GA3209843@millbarge>
+ (envelope-from <john.johansen@canonical.com>)
+ id 1lTXZB-0001yC-Lt; Mon, 05 Apr 2021 22:19:29 +0000
+To: Murali Selvaraj <murali.selvaraj2003@gmail.com>,
+ Seth Arnold <seth.arnold@canonical.com>, apparmor@lists.ubuntu.com
 References: <CAODFaZ4_k=8JWue+YSwMCs7BTbBLCPknpkfbock+HYo1kJgaqg@mail.gmail.com>
+From: John Johansen <john.johansen@canonical.com>
+Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
+ LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCgptUUlOQkU1bXJQb0JFQURB
+ azE5UHNnVmdCS2tJbW1SMmlzUFE2bzdLSmhUVEtqSmR3VmJrV1NuTm4rbzZVcDVrCm5LUDFm
+ NDlFQlFsY2VXZzF5cC9Od2JSOGFkK2VTRU8vdW1hL0srUHFXdkJwdEtDOVNXRDk3Rkc0dUI0
+ L2Nhb20KTEVVOTdzTFFNdG52R1dkeHJ4VlJHTTRhbnpXWU1neno1VFptSWlWVFo0M091NVZw
+ YVMxVnoxWlN4UDNoL3hLTgpaci9UY1c1V1FhaTh1M1BXVm5ia2poU1pQSHYxQmdoTjY5cXhF
+ UG9tckpCbTFnbXR4M1ppVm1GWGx1d1RtVGdKCk9rcEZvbDduYkowaWxuWUhyQTdTWDNDdFIx
+ dXBlVXBNYS9XSWFuVk85NldkVGpISElhNDNmYmhtUXViZTR0eFMKM0ZjUUxPSlZxUXN4NmxF
+ OUI3cUFwcG05aFExMHFQV3dkZlB5LyswVzZBV3ROdTVBU2lHVkNJbld6bDJIQnFZZAovWmxs
+ OTN6VXErTklvQ244c0RBTTlpSCt3dGFHRGNKeXdJR0luK2VkS050SzcyQU1nQ2hUZy9qMVpv
+ V0g2WmVXClBqdVVmdWJWelp0bzFGTW9HSi9TRjRNbWRRRzFpUU50ZjRzRlpiRWdYdXk5Y0dp
+ MmJvbUYwenZ5QkpTQU5weGwKS05CRFlLek42S3owOUhVQWtqbEZNTmdvbUwvY2pxZ0FCdEF4
+ NTlMK2RWSVpmYUYyODFwSWNVWnp3dmg1K0pvRwplT1c1dUJTTWJFN0wzOG5zem9veWtJSjVY
+ ckFjaGtKeE5mejdrK0ZuUWVLRWtOekVkMkxXYzNRRjRCUVpZUlQ2ClBISGdhM1JneWtXNSsx
+ d1RNcUpJTGRtdGFQYlhyRjNGdm5WMExSUGN2NHhLeDdCM2ZHbTd5Z2Rvb3dBUkFRQUIKdEIx
+ S2IyaHVJRXB2YUdGdWMyVnVJRHhxYjJodVFHcHFiWGd1Ym1WMFBva0NPZ1FUQVFvQUpBSWJB
+ d1VMQ1FnSApBd1VWQ2drSUN3VVdBZ01CQUFJZUFRSVhnQVVDVG8wWVZ3SVpBUUFLQ1JBRkx6
+ WndHTlhEMkx4SkQvOVRKWkNwCndsbmNUZ1llcmFFTWVEZmtXdjhjMUlzTTFqMEFtRTRWdEwr
+ ZkU3ODBaVlA5Z2tqZ2tkWVN4dDdlY0VUUFRLTWEKWlNpc3JsMVJ3cVUwb29nWGRYUVNweHJH
+ SDAxaWN1LzJuMGpjWVNxWUtnZ1B4eTc4QkdzMkxacTRYUGZKVFptSApaR25YR3EvZURyL21T
+ bmowYWF2QkptTVo2amJpUHo2eUh0QllQWjlmZG84YnRjendQNDFZZVdvSXUyNi84SUk2CmYw
+ WG0zVkM1b0FhOHY3UmQrUldaYThUTXdsaHpIRXh4ZWwzanRJN0l6ek9zbm1FOS84RG0wQVJE
+ NWlUTENYd1IKMWN3SS9KOUJGL1MxWHY4UE4xaHVUM0l0Q05kYXRncDh6cW9Ka2dQVmptdnlM
+ NjRRM2ZFa1liZkhPV3NhYmE5LwprQVZ0Qk56OVJURmg3SUhEZkVDVmFUb3VqQmQ3QnRQcXIr
+ cUlqV0ZhZEpEM0k1ZUxDVkp2VnJyb2xyQ0FUbEZ0Ck4zWWtRczZKbjFBaUlWSVUzYkhSOEdq
+ ZXZnejVMbDZTQ0dIZ1Jya3lScG5TWWFVL3VMZ24zN042QVl4aS9RQUwKK2J5M0N5RUZManpX
+ QUV2eVE4YnEzSXVjbjdKRWJoUy9KLy9kVXFMb2VVZjh0c0dpMDB6bXJJVFpZZUZZQVJoUQpN
+ dHNmaXpJclZEdHoxaVBmL1pNcDVnUkJuaXlqcFhuMTMxY20zTTNndjZIclFzQUdubjhBSnJ1
+ OEdEaTVYSllJCmNvLzEreC9xRWlOMm5DbGFBT3BiaHpOMmVVdlBEWTVXMHEzYkEvWnAybWZH
+ NTJ2YlJJK3RRMEJyMUhkL3ZzbnQKVUhPOTAzbU1aZXAyTnpOM0JaNXFFdlB2RzRyVzVacTJE
+ cHliV2JRclNtOW9iaUJLYjJoaGJuTmxiaUE4YW05bwpiaTVxYjJoaGJuTmxia0JqWVc1dmJt
+ bGpZV3d1WTI5dFBva0NOd1FUQVFvQUlRVUNUbzBYV2dJYkF3VUxDUWdICkF3VVZDZ2tJQ3dV
+ V0FnTUJBQUllQVFJWGdBQUtDUkFGTHpad0dOWEQySXRNRC85anliYzg3ZE00dUFIazZ5Tk0K
+ TjBZL0JGbW10VFdWc09CaHFPbm9iNGkzOEJyRE8yQzFoUUNQQ1FlNExMczEvNHB0ZW92UXQ4
+ QjJGeXJQVmp3Zwo3alpUSE5LNzRyNmxDQ1Z4eDN5dTFCN1U5UG80VlRrY3NsVmIxL3FtV3V4
+ OFhXY040eXZrVHFsTCtHeHB5Sm45CjlaWmZmWEpjNk9oNlRtT2ZiS0d2TXV1djVhclNJQTNK
+ SEZMZjlhTHZadEExaXNKVXI3cFM5YXBnOXVUVUdVcDcKd2ZWMFdUNlQzZUczbXRVVTJ1cDVK
+ VjQ4NTBMMDVqSFM2dVdpZS9ZK3lmSk9iaXlyeE4vNlpxVzVHb25oTEJxLwptc3pjVjV2QlQz
+ QkRWZTNSdkY2WGRNOU9oUG4xK1k4MXg1NCt2UTExM044aUx3RjdHR2ExNFp5SVZBTlpEMEkw
+ CkhqUnZhMmsvUnFJUlR6S3l1UEg1cGtsY0tIVlBFRk1tT3pNVCtGT294Tmp2Uys3K3dHMktN
+ RFlFbUhQcjFQSkIKWlNaZUh6SzE5dGZhbFBNcHBGeGkrc3lZTGFnTjBtQjdKSFF3WTdjclV1
+ T0RoeWNxNjBZVnoxdGFFeWd1M1l2MgoyL0kxRUNHSHZLSEc2d2M5MG80M0MvZWxIRUNYbkVo
+ N3RLcGxEY3BJQytPQ21NeEtIaFI0NitYY1p2Z3c0RGdiCjdjYTgzZVFSM0NHODlMdlFwVzJM
+ TEtFRUJEajdoWmhrTGJra1BSWm0zdzhKWTQ0YXc4VnRneFdkblNFTUNMeEwKSU9OaDZ1Wjcv
+ L0RZVnRjSWFNSllrZWJhWnRHZENwMElnVVpiMjQvVmR2WkNZYk82MkhrLzNWbzFuWHdIVUVz
+ Mwo2RC92MWJUMFJaRmk2OUxnc0NjT2N4NGdZTGtDRFFST1pxejZBUkFBb3F3NmtrQmhXeU0x
+ ZnZnYW1BVmplWjZuCktFZm5SV2JrQzk0TDFFc0pMdXAzV2IyWDBBQk5PSFNrYlNENHBBdUMy
+ dEtGL0VHQnQ1Q1A3UWRWS1JHY1F6QWQKNmIyYzFJZHk5Ukx3Nnc0Z2krbm4vZDFQbTFra1lo
+ a1NpNXpXYUlnMG01UlFVaytFbDh6a2Y1dGNFLzFOMFo1TwpLMkpoandGdTViWDBhMGw0Y0ZH
+ V1ZRRWNpVk1ES1J0eE1qRXRrM1N4RmFsbTZaZFEycHAyODIyY2xucTR6WjltCld1MWQyd2F4
+ aXorYjVJYTR3ZURZYTduNDFVUmNCRVViSkFnbmljSmtKdENUd3lJeElXMktuVnlPcmp2a1F6
+ SUIKdmFQMEZkUDJ2dlpvUE1kbENJek9sSWtQTGd4RTBJV3VlVFhlQkpoTnMwMXBiOGJMcW1U
+ SU1sdTRMdkJFTEEvdgplaWFqajVzOHk1NDJIL2FIc2ZCZjRNUVVoSHhPL0JaVjdoMDZLU1Vm
+ SWFZN09nQWdLdUdOQjNVaWFJVVM1K2E5CmduRU9RTER4S1J5L2E3UTF2OVMrTnZ4KzdqOGlI
+ M2prUUpoeFQ2WkJoWkdSeDBna0gzVCtGMG5ORG01TmFKVXMKYXN3Z0pycUZaa1VHZDJNcm0x
+ cW5Ld1hpQXQ4U0ljRU5kcTMzUjBLS0tSQzgwWGd3ajhKbjMwdlhMU0crTk8xRwpIMFVNY0F4
+ TXd5L3B2azZMVTVKR2paUjczSjVVTFZoSDRNTGJEZ2dEM21QYWlHOCtmb3RUckpVUHFxaGc5
+ aHlVCkVQcFlHN3NxdDc0WG43OStDRVpjakxIenlsNnZBRkUyVzBreGxMdFF0VVpVSE8zNmFm
+ RnY4cUdwTzNacVB2akIKVXVhdFhGNnR2VVFDd2YzSDZYTUFFUUVBQVlrQ0h3UVlBUW9BQ1FV
+ Q1RtYXMrZ0liREFBS0NSQUZMelp3R05YRAoyRC9YRC8wZGRNLzRhaTFiK1RsMWp6bkthalgz
+ a0crTWVFWWVJNGY0MHZjbzNyT0xyblJHRk9jYnl5ZlZGNjlNCktlcGllNE93b0kxamNUVTBB
+ RGVjbmJXbkROSHByMFNjenhCTXJvM2Juckxoc212anVuVFlJdnNzQlp0QjRhVkoKanVMSUxQ
+ VWxuaEZxYTdmYlZxMFpRamJpVi9ydDJqQkVOZG05cGJKWjZHam5wWUljQWJQQ0NhL2ZmTDQv
+ U1FSUwpZSFhvaEdpaVM0eTVqQlRtSzVsdGZld0xPdzAyZmtleEgrSUpGcnJHQlhEU2c2bjJT
+ Z3hubisrTkYzNGZYY205CnBpYXczbUtzSUNtKzBoZE5oNGFmR1o2SVdWOFBHMnRlb29WRHA0
+ ZFlpaCsreFgvWFM4ekJDYzFPOXc0bnpsUDIKZ0t6bHFTV2JoaVdwaWZSSkJGYTRXdEFlSlRk
+ WFlkMzdqL0JJNFJXV2hueXc3YUFQTkdqMzN5dEdITlVmNlJvMgovanRqNHRGMXkvUUZYcWpK
+ Ry93R2pwZHRSZmJ0VWpxTEhJc3ZmUE5OSnEvOTU4cDc0bmRBQ2lkbFdTSHpqK09wCjI2S3Bi
+ Rm5td05PMHBzaVVzbmh2SEZ3UE8vdkFibDNSc1I1KzBSbytodnMyY0VtUXV2OXIvYkRsQ2Zw
+ enAydDMKY0srcmh4VXFpc094OERaZnoxQm5rYW9DUkZidnZ2ays3TC9mb21QbnRHUGtxSmNp
+ WUU4VEdIa1p3MWhPa3UrNApPb00yR0I1bkVEbGorMlRGL2pMUStFaXBYOVBrUEpZdnhmUmxD
+ NmRLOFBLS2ZYOUtkZm1BSWNnSGZuVjFqU24rCjh5SDJkakJQdEtpcVcwSjY5YUlzeXg3aVYv
+ MDNwYVBDakpoN1hxOXZBenlkTjVVL1VBPT0KPTZQL2IKLS0tLS1FTkQgUEdQIFBVQkxJQyBL
+ RVkgQkxPQ0stLS0tLQo=
+Organization: Canonical
+Message-ID: <32fb7fcd-7476-9b27-de1f-b64b0b86877c@canonical.com>
+Date: Mon, 5 Apr 2021 15:19:27 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
 In-Reply-To: <CAODFaZ4_k=8JWue+YSwMCs7BTbBLCPknpkfbock+HYo1kJgaqg@mail.gmail.com>
+Content-Language: en-US
 Subject: Re: [apparmor] Apparmor: Queries
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -37,170 +116,105 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: apparmor@lists.ubuntu.com
-Content-Type: multipart/mixed; boundary="===============6065236890801002623=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-
---===============6065236890801002623==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4Ckj6UjgE2iN1+kY"
-Content-Disposition: inline
-
-
---4Ckj6UjgE2iN1+kY
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, Apr 05, 2021 at 01:09:02AM +0530, Murali Selvaraj wrote:
-> -> From the aa-log-prof, we are able to generate an apparmor profile
-> for the required process. In order to confirm the profile(by
-> theoretically)
->    if we compare cat /proc/<pid>/maps | grep -i lib this output will
-> it be sufficient or any possibility of the libraries may
->    not be in this entry cat /proc/<pid>/maps?
-
-Hello Murali,
-
-/proc/pid/maps only reflects libraries that are currently in use. It's
-possible for applications to use dlopen(3) to dynamically load libraries
-at runtime (think "plugins") -- and probably some applications do
-something very similar for dynamically loaded libraries but do it
-themselves rather than using dlopen(3).
-
-So /proc/pid/maps is good enough for most applications but it is not
-comprehensive in the general case.
-
-> -> Like a library, do we have any other way to find the list of
-> configuration, temporary files using by process can be identified
->    by simple tools or from any /proc entries like above? This is just
-> to confirm about our profile.
-
-You could use filesystem auditing rules or syscall auditing rules with
-auditd, or you could use ebpf tools like opensnoop from the iovisor
-project to catch file and directory opens, reads, writes. There's a lot of
-systemcalls that do file IO, though, and it'd be easy to overlook one that
-your application uses.
-
-You could use perf to enumerate all the syscalls that your application
-uses in its test suite, and then audit all the file-related syscalls.
-
-> -> For example, one of my process is running in "non-root" owner which
-> has read/write access to /proc/<test>/<test_2>/
->    While generate profile for this process, Do I need to add this
-> entry /proc/<test>/<test_2>/* rw, Or without adding this entry
->    will it able to do read/write operation /proc/<test>/<test_2>/?
-
-I'm sorry, I don't understand this question.
-
-A confined process needs to have AppArmor rules to allow whatever it is
-that you actually want to allow.
-
-> Can you please explain the difference for the below entries in the
-> apparmor profile?
->=20
-> /tmp/lock_file rw,
-> /tmp/lock_file rwc,
-
-'c' is how the kernel portion of AppArmor reports a file creation attempt.
-'c' is not accepted in the userspace portion of AppArmor policies, so your
-second rule will fail to compile:
-
-$ echo "profile p { /a c, }" | apparmor_parser -Qd
-AppArmor parser error, in stdin line 1: syntax error, unexpected TOK_ID, ex=
-pecting TOK_MODE
-
-
-> /tmp/test.css ww,
-> /tmp/test.css w
-> /tmp/initialized rww,
-> /tmp/initialized rw,
-
-The second 'w' is redundant and doesn't do anything. The parser accepts
-this without error, though:
-
-$ echo "profile p { /a ww, }" | apparmor_parser -Qd
------ Debugging built structures -----
-Name:		p
-Profile Mode:	Enforce
---- Entries ---
-Mode:	wa:wa	Name:	(/a)
-
-
-> /tmp/driver krw,
-> /tmp/driver rw,
-
-The version with 'k' lets your application call flock(2) on the file
-/tmp/driver.
-
-> By default, while device boots apparmor profiles are loaded to Kernel
-> and the corresponding process read from the profile during the process
-> execution,
-> -> As per our code, the process kills/crashes by unknown reason; we
-> have a mechanism to restart by itself.
->  In that case, during the process restart, will it start as per
-> profile or without profile?
-
-This depends on how the application was originally started and how you'll
-restart it, as well as the application policy that you've written. If the
-supervisor that you're using to start the application is responsible for
-restarting the application, it'll probably go fine. If a different
-mechanism is being used to restart the application, it might not.
-
-> I would like to understand the reason for below DENIED logs, what does
-> it really expect?
-> Do I need to add the entry like /tmp/test c or /tmp/test rw or
-> /tmp/test rwk? Pls share the difference for each mentioned
-> possibility?
->=20
-> 2021 Apr 04 17:35:05 admin kernel: audit: type=3D1400
-> audit(1617557705.711:207): apparmor=3D"DENIED" operation=3D"mknod"
-> profile=3D"example" name=3D"/tmp/test" pid=3D11410 comm=3D"application"
-> requested_mask=3D"c" denied_mask=3D"c" fsuid=3D0 ouid=3D0
->=20
-> What is really this log expecting?
-
-For this specific entry two possibilities make sense:
-
-/tmp/test w,
-owner /tmp/test w,
-
-The application may need other permissions later; AppArmor can't know when
-the file is created if the application will read from it, lock it, execute
-it, etc. It won't know those things until the application actually issues
-syscalls for that.
-
-Thanks
-
---4Ckj6UjgE2iN1+kY
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEQVAQ8bojyMcg37H18yFyWZ2NLpcFAmBrjMQACgkQ8yFyWZ2N
-LpfxiAgAt3wNVk5uXBAUSiTbVvsRjeQG9dbVGcekKbo3b/mSmH93I3DdftO0lhkB
-Eja8WjCgrCWy117YbBcenEYPzKDUPXh9BTSYqJRloKaJhEK89wpK8tb401/u5wDe
-0/bCwKXp4iHk3j8cGFTN3RZGP/mbK7DVCTNuSCDw86dREQMGfiVJda7asLClScJV
-Hkvht+7ffv5cr1TbMnIVvirVmzBklPLueYxHqq8jO0F8hRAFBZaI/sypSA7wZScQ
-+l9pkZLmR3Ydr7YPx3u+F8BU/8jYBnQ9QnPGxy2TFYi/FgMGcr7P/ggRD0DASVPG
-dzR3YZQ+y0qFfUvlRIT8JSfd1jLENA==
-=4ODu
------END PGP SIGNATURE-----
-
---4Ckj6UjgE2iN1+kY--
-
-
---===============6065236890801002623==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
-eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
-aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
-
---===============6065236890801002623==--
-
+T24gNC80LzIxIDEyOjM5IFBNLCBNdXJhbGkgU2VsdmFyYWogd3JvdGU6Cj4gSGkgSm9obi9TZXRo
+LAo+IAo+IFRoYW5rcyBKb2huL1NldGggZm9yIHlvdXIgZGV0YWlsZWQgaW5mb3JtYXRpb24uCj4g
+Cj4gQ2FuIHlvdSBwbGVhc2UgY2xhcmlmeSB0aGUgYmVsb3cgcXVlcmllcy4KPiAKPiBRdWVyeSAx
+Ogo+IAo+IC0+IEZyb20gdGhlIGFhLWxvZy1wcm9mLCB3ZSBhcmUgYWJsZSB0byBnZW5lcmF0ZSBh
+biBhcHBhcm1vciBwcm9maWxlCj4gZm9yIHRoZSByZXF1aXJlZCBwcm9jZXNzLiBJbiBvcmRlciB0
+byBjb25maXJtIHRoZSBwcm9maWxlKGJ5Cj4gdGhlb3JldGljYWxseSkKPiAgICBpZiB3ZSBjb21w
+YXJlIGNhdCAvcHJvYy88cGlkPi9tYXBzIHwgZ3JlcCAtaSBsaWIgdGhpcyBvdXRwdXQgd2lsbAo+
+IGl0IGJlIHN1ZmZpY2llbnQgb3IgYW55IHBvc3NpYmlsaXR5IG9mIHRoZSBsaWJyYXJpZXMgbWF5
+Cj4gICAgbm90IGJlIGluIHRoaXMgZW50cnkgY2F0IC9wcm9jLzxwaWQ+L21hcHM/Cj4gCi9wcm9j
+LzxwaWQ+L21hcHMgd2lsbCBvbmx5IHNob3cgbGlicmFyaWVzIHRoYXQgaGF2ZSBiZWVuIG1tYXBw
+ZWQuIElmCm5ldyBsaWJyYXJpZXMgYXJlIGR5bmFtaWNhbGx5IGxvYWRlZCB0aGV5IGNvdWxkIGlu
+ZGVlZCBiZSBtaXNzaW5nCgo+IC0+IExpa2UgYSBsaWJyYXJ5LCBkbyB3ZSBoYXZlIGFueSBvdGhl
+ciB3YXkgdG8gZmluZCB0aGUgbGlzdCBvZgo+IGNvbmZpZ3VyYXRpb24sIHRlbXBvcmFyeSBmaWxl
+cyB1c2luZyBieSBwcm9jZXNzIGNhbiBiZSBpZGVudGlmaWVkCj4gICAgYnkgc2ltcGxlIHRvb2xz
+IG9yIGZyb20gYW55IC9wcm9jIGVudHJpZXMgbGlrZSBhYm92ZT8gVGhpcyBpcyBqdXN0Cj4gdG8g
+Y29uZmlybSBhYm91dCBvdXIgcHJvZmlsZS4KPiAKCnlvdSBjYW4gdXNlIGxkZCB0byBmaW5kIG1v
+c3QgbGlicmFyeSBkZXBlbmRlbmNpZXMuIEFnYWluIGl0IGlzIHBvc3NpYmxlCnRoYXQgdGhpcyB3
+aWxsIG1pc3MgdGhpbmdzIGlmIHRoZXkgYXJlIGR5bmFtaWNhbGx5IGxvYWRlZC4KCldlIGRvbid0
+IGhhdmUgYW55IHRvb2xzIGF0bSB0aGF0IGRvIGJpbmFyeSBhbmFseXNpcyBvZiBhIHByb2dyYW0g
+dG8KdHJ5IGFuZCBkaXNjb3ZlciByZXNvdXJjZXMgdGhhdCBhcmUgYWNjZXNzZWQuIEJ1dCB5b3Ug
+Y291bGQgdXNlCnRvb2xzIGxpa2UgZ2NvdiBhbmQgcHJvZ3JhbSB0ZXN0IHN1aXRzIHRvIGRpc2Nv
+dmVyIGhvdyBtdWNoIG9mIHRoZQpwcm9ncmFtIGhhcyBiZWVuIGV4ZXJjaXNlZC4KCgo+IFF1ZXJ5
+IDI6Cj4gCj4gLT4gRm9yIGV4YW1wbGUsIG9uZSBvZiBteSBwcm9jZXNzIGlzIHJ1bm5pbmcgaW4g
+Im5vbi1yb290IiBvd25lciB3aGljaAo+IGhhcyByZWFkL3dyaXRlIGFjY2VzcyB0byAvcHJvYy88
+dGVzdD4vPHRlc3RfMj4vCj4gICAgV2hpbGUgZ2VuZXJhdGUgcHJvZmlsZSBmb3IgdGhpcyBwcm9j
+ZXNzLCBEbyBJIG5lZWQgdG8gYWRkIHRoaXMKPiBlbnRyeSAvcHJvYy88dGVzdD4vPHRlc3RfMj4v
+KiBydywgT3Igd2l0aG91dCBhZGRpbmcgdGhpcyBlbnRyeQo+ICAgIHdpbGwgaXQgYWJsZSB0byBk
+byByZWFkL3dyaXRlIG9wZXJhdGlvbiAvcHJvYy88dGVzdD4vPHRlc3RfMj4vPwo+IAoKSSdtIHNv
+cnJ5IEkgYW0gbm90IHN1cmUgSSBmb2xsb3cgd2hhdCB5b3UgYXJlIGFza2luZy4gQXNzdW1pbmcg
+eW91cgpydW5uaW5nIHByb2Nlc3MgaXMgY29uZmluZWQgYnkgYW4gYXBwYXJtb3IgcHJvZmlsZSB0
+aGVuIHRoYXQgcHJvZmlsZQp3aWxsIHJlcXVpcmUgcnVsZXMgdG8gYWNjZXNzIHByb2MgZW50cmll
+cy4KCldoYXQgZW50cmllcyB0aGUgdGFzayBjYW4gYWNjZXNzIHdpbGwgZGVwZW5kIG9uIHRoZSBy
+dWxlcyB0aGF0IHRoZQpwcm9maWxlIGhhcywgc28geW91IHZlcnkgd2VsbCBtaWdodCBuZWVkIHRv
+IGFkZCBhIHJ1bGUuCgpJbiBhZGRpdGlvbi4gSW4gYXBwYXJtb3IKCiAgL3Byb2MvPHRlc3Q+Lzx0
+ZXN0XzI+LyByLAoKd291bGQgb25seSBnaXZlIGFjY2VzcyB0byB0aGUgZGlyZWN0b3J5IGxpc3Rp
+bmcgb2YgL3Byb2MvPHRlc3Q+Lzx0ZXN0XzI+LwoKbm90IGFueSBvZiB0aGUgZmlsZXMgb3IgZGly
+ZWN0b3JpZXMgdW5kZXIgaXQuIFNvIGFkZGluZyAKCiAgL3Byb2MvPHRlc3Q+Lzx0ZXN0XzI+Lyog
+cncsCgptaWdodCBpbmRlZWQgYmUgbmVlZGVkLgoKPiBRdWVyeSAzOgo+IAo+IENhbiB5b3UgcGxl
+YXNlIGV4cGxhaW4gdGhlIGRpZmZlcmVuY2UgZm9yIHRoZSBiZWxvdyBlbnRyaWVzIGluIHRoZQo+
+IGFwcGFybW9yIHByb2ZpbGU/Cj4gCj4gL3RtcC9sb2NrX2ZpbGUgcncsCj4gL3RtcC9sb2NrX2Zp
+bGUgcndjLAo+IApjIGFzIGEgcGVybWlzc2lvbiBpbiBwb2xpY3kgaXMgbm90IHN1cHBvcnRlZCwg
+bm9yIHdpbGwgaXQgZXZlciBiZQpzdXBwb3J0ZWQgYmVjYXVzZSBpdCBpcyB0byBlYXN5IHRvIGNv
+bmZ1c2UvbWl4IGl0IHVwIHdpdGggY3ggd2hlcmUKdGhlIGMgaW4gY3ggbWVhbnMgY2hpbGQuIFRo
+ZSBhYmlsaXR5IHRvIHNwZWNpZnkgY3JlYXRlIHNlcGFyYXRlIGZyb20KcncgaXMgY29taW5nLCBp
+dHMganVzdCBub3QgYXZhaWxhYmxlIHlldC4KCnNvICIvdG1wL2xvY2tfZmlsZSByd2MsIiBpcyBp
+bnZhbGlkIGFuZCB3aWxsIHJlc3VsdCBpbiBhbiBlcnJvcgpzaW1pbGFyIHRvCgpBcHBBcm1vciBw
+YXJzZXIgZXJyb3IgYXQgbGluZSAxOiBzeW50YXggZXJyb3IsIHVuZXhwZWN0ZWQgVE9LX0lELCBl
+eHBlY3RpbmcgVE9LX01PREUKCnllcyB0aGUgZXJyb3IgbWVzc2FnZSBuZWVkcyB0byBiZSBpbXBy
+b3ZlZAoKPiAvdG1wL3Rlc3QuY3NzIHd3LAo+IC90bXAvdGVzdC5jc3Mgdwo+IApubyBkaWZmZXJl
+bmNlCgo+IC90bXAvaW5pdGlhbGl6ZWQgcnd3LAo+IC90bXAvaW5pdGlhbGl6ZWQgcncsCj4gCm5v
+IGRpZmZlcmVuY2UKCj4gL3RtcC9kcml2ZXIga3J3LAo+IC90bXAvZHJpdmVyIHJ3LAo+IAo+IC90
+bXAvZHJpdmVyIGtydywKCndpbGwgYWxsb3cgdGFraW5nIHNoYXJlZCBhbmQgZXhjbHVzaXZlIGxv
+Y2tzIG9uIHRoZSBmaWxlIGluIGFkZGl0aW9uCnRvIGFsbG93aW5nIHJlYWQgYW5kIHdyaXRlLgoK
+PiAKPiBRdWVyeSA0Ogo+IAo+IEJ5IGRlZmF1bHQsIHdoaWxlIGRldmljZSBib290cyBhcHBhcm1v
+ciBwcm9maWxlcyBhcmUgbG9hZGVkIHRvIEtlcm5lbAo+IGFuZCB0aGUgY29ycmVzcG9uZGluZyBw
+cm9jZXNzIHJlYWQgZnJvbSB0aGUgcHJvZmlsZSBkdXJpbmcgdGhlIHByb2Nlc3MKPiBleGVjdXRp
+b24sCj4gLT4gQXMgcGVyIG91ciBjb2RlLCB0aGUgcHJvY2VzcyBraWxscy9jcmFzaGVzIGJ5IHVu
+a25vd24gcmVhc29uOyB3ZQo+IGhhdmUgYSBtZWNoYW5pc20gdG8gcmVzdGFydCBieSBpdHNlbGYu
+Cj4gIEluIHRoYXQgY2FzZSwgZHVyaW5nIHRoZSBwcm9jZXNzIHJlc3RhcnQsIHdpbGwgaXQgc3Rh
+cnQgYXMgcGVyCj4gcHJvZmlsZSBvciB3aXRob3V0IHByb2ZpbGU/CgpUaGF0IHdpbGwgZGVwZW5k
+IG9uIHBvbGljeSwgYW5kIHdobyBpcyByZXN0YXJ0aW5nIHRoZSBwcm9jZXNzZXMuCgpBcHBBcm1v
+ciBwcm9maWxlIGF0dGFjaG1lbnQgaXMgZGV0ZXJtaW5lZCBieSB0aGUgY29uZmluZW1lbnQgb2Yg
+dGhlCnRhc2sgdGhhdCBleGVjcyB0aGUgcHJvY2Vzcy4KCklmIHRoZSB0YXNrIHJlbGF1bmNoaW5n
+IHRoZSBwcm9jZXNzIGEgcHJvZmlsZSBydWxlIHRoYXQgZGV0ZXJtaW5lcwppeCAoaW5oZXJpdCkg
+c2hvdWxkIGJlIHVzZWQgdGhlbiB5b3VyIHJlbGF1bmNoZWQgcHJvY2VzcyB3b3VsZCB1c2UKdGhl
+IHNhbWUgcHJvZmlsZS4KCklmIHRoZSB0YXNrJ3MgcHJvZmlsZSBoYXMgYSBydWxlIHRoYXQgZGV0
+ZXJtaW5lcyBweCBzaG91bGQgYmUgdXNlZAp0aGVuIHRoZSBhIHNlYXJjaCBmb3IgdGhlIGJlc3Qg
+bWF0Y2hpbmcgcHJvZmlsZSBmb3IgdGhlIGV4ZWMgcHJvZ3JhbQppcyBkb25lLCBhbmQgdGhhdCB3
+b3VsZCBiZSB1c2VkLgoKSWYgdGhlIHRhc2sgdGhhdCBpcyByZWxhdW5jaGluZyB0aGUgcHJvY2Vz
+cyBpcyB1bmNvbmZpbmVkLCB0aGF0IG1lYW5zCml0IGlzIHRoZSBwcm9maWxlIGF0dGFjaG1lbnQg
+aXMgZG9uZSB2aWEgYSBwaXggcnVsZS4gU28gdGhlIHNldCBvZgpsb2FkZWQgcHJvZmlsZXMgd2ls
+bCBiZSBzZWFyY2hlZCBmb3IgYSBiZXN0IG1hdGNoLCBhbmQgaWYgbm8gbWF0Y2gKaXMgZm91bmQg
+dGhlIHJlbGF1bmNoZWQgcHJvZ3JhbSB3aWxsIGluaGVyaXQgdGhlIGxhbmNoaW5nIHRhc2tzCmNv
+bmZpbmVtZW50IChpbiB0aGlzIGNhc2UgdW5jb25maW5lZCkuCgoKCj4gCj4gCj4gUXVlcnkgNToK
+PiAKPiBJIHdvdWxkIGxpa2UgdG8gdW5kZXJzdGFuZCB0aGUgcmVhc29uIGZvciBiZWxvdyBERU5J
+RUQgbG9ncywgd2hhdCBkb2VzCj4gaXQgcmVhbGx5IGV4cGVjdD8KPiBEbyBJIG5lZWQgdG8gYWRk
+IHRoZSBlbnRyeSBsaWtlIC90bXAvdGVzdCBjIG9yIC90bXAvdGVzdCBydyBvcgo+IC90bXAvdGVz
+dCByd2s/IFBscyBzaGFyZSB0aGUgZGlmZmVyZW5jZSBmb3IgZWFjaCBtZW50aW9uZWQKPiBwb3Nz
+aWJpbGl0eT8KPiAKCiAgL3RtcC90ZXN0IGMsCgppbnZhbGlkCgogIC90bW8vdGVzdCBydywKCmFs
+bG93IHJlYWQsIHdyaXRlLCBjcmVhdGUsIHRydW5jIGV0YyBvbiB0aGUgL3RtcC90ZXN0IGZpbGUg
+KG5vdCBkaXIpCgogIC90bXAvdGVzdCByd2ssCgpTYW1lIGFzIGFib3ZlIGJ1dCBhbHNvIGFsbG93
+IGV4Y2x1c2l2ZSBtYW5kYXRvcnkgbG9ja3Mgb24gdGhlIGZpbGUuCgo+IDIwMjEgQXByIDA0IDE3
+OjM1OjA1IGFkbWluIGtlcm5lbDogYXVkaXQ6IHR5cGU9MTQwMAo+IGF1ZGl0KDE2MTc1NTc3MDUu
+NzExOjIwNyk6IGFwcGFybW9yPSJERU5JRUQiIG9wZXJhdGlvbj0ibWtub2QiCj4gcHJvZmlsZT0i
+ZXhhbXBsZSIgbmFtZT0iL3RtcC90ZXN0IiBwaWQ9MTE0MTAgY29tbT0iYXBwbGljYXRpb24iCj4g
+cmVxdWVzdGVkX21hc2s9ImMiIGRlbmllZF9tYXNrPSJjIiBmc3VpZD0wIG91aWQ9MAo+IAo+IFdo
+YXQgaXMgcmVhbGx5IHRoaXMgbG9nIGV4cGVjdGluZz8KPiAKClRvIHJlbW92ZSB0aGUgYWJvdmUg
+ZGVuaWFsIHlvdSBuZWVkCgogIC90bXAvdGVzdCB3LAoKVGhlIHcgcGVybWlzc2lvbiByZWFsbHkg
+Y292ZXJzIG1vcmUgdGhhbiBqdXN0IHdyaXRlLiBJdCBjb3ZlcnMgd3JpdGUsIGFwcGVuZCwgY3Jl
+YXRlLCB0cnVuY2F0ZSwgbWV0YSB3cml0ZS4gSXRzIHNpbXBsZSBidXQgaXMgbm90IHRlcnJpYmx5
+IGZpbmUgZ3JhaW5lZC4gV2hlbiB0aGUgZXh0ZW5kZWQgcGVybWlzc2lvbiB3b3JrIGxhbmRzIHlv
+dSB3aWxsIGhhdmUgdGhlIG9wdGlvbiBvZiBiZWluZyBtb3JlIGZpbmUgZ3JhaW5lZCwgc2VwYXJh
+dGluZyBlYWNoIG9mIHRob3NlIG91dC4gRWcuCgogIC90bXAvdGVzdCAoY3JlYXRlLGFwcGVuZCks
+CgpidXQgdGhhdCBpcyBOT1QgYXZhaWxhYmxlIHlldC4KCgoKPiBUaGFua3MKPiBNdXJhbGkuUwo+
+IAoKCi0tIApBcHBBcm1vciBtYWlsaW5nIGxpc3QKQXBwQXJtb3JAbGlzdHMudWJ1bnR1LmNvbQpN
+b2RpZnkgc2V0dGluZ3Mgb3IgdW5zdWJzY3JpYmUgYXQ6IGh0dHBzOi8vbGlzdHMudWJ1bnR1LmNv
+bS9tYWlsbWFuL2xpc3RpbmZvL2FwcGFybW9yCg==
