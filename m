@@ -2,51 +2,30 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2E6F36492F
-	for <lists+apparmor@lfdr.de>; Mon, 19 Apr 2021 19:46:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE15C364EF2
+	for <lists+apparmor@lfdr.de>; Tue, 20 Apr 2021 02:07:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1lYXyf-0007Sa-Mf; Mon, 19 Apr 2021 17:46:29 +0000
-Received: from mail-lf1-f52.google.com ([209.85.167.52])
+	id 1lYdup-000089-WB; Tue, 20 Apr 2021 00:06:55 +0000
+Received: from youngberry.canonical.com ([91.189.89.112])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <murali.selvaraj2003@gmail.com>) id 1lYXya-0007SO-9X
- for apparmor@lists.ubuntu.com; Mon, 19 Apr 2021 17:46:24 +0000
-Received: by mail-lf1-f52.google.com with SMTP id g8so57336811lfv.12
- for <apparmor@lists.ubuntu.com>; Mon, 19 Apr 2021 10:46:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=o+8aV86+GkFNLwTNXa0OXhsiPtlGjyay4BtVNIYXsd4=;
- b=NsLQrw8FEQLtrznxMjva+gawkqZ75E9DOTwav2Us/PBbUEJKsLZxdC+l5TbM/2dHhR
- AuDKGBlxbS4K0NnTVK11DSA2X25dFOamLArsJaSkIywM2UiaegYBvSgjiaKtrdl/FfKz
- HdO69DlZPWXGANZIH4yGWA6DM/v6bScpI79VFZH/uTJHXKQhRwA0oKNktJNhIbJn3zGf
- lmaGfJsrW2d1GG+tQH0JnQFIbN0oHw92RovieHPQqkGKclIClvFyu+LYphaYd2yq9Oe0
- F7m4cgEp+O3iwt8j00rtN2TjKAfLnRakLHDRsNKftClMNbh2kEUvR1s27SQKNx6DpDBa
- vXBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=o+8aV86+GkFNLwTNXa0OXhsiPtlGjyay4BtVNIYXsd4=;
- b=R8fydoP+Y9xI1ZTJeSXSZQMSQTLwtc4LTLeR3skzSYFDGgyEJWn/lik2WM2n8NVpkk
- t/rR8YCE1Ci1XSVa8HJVVZGt+RQ0IWwYHcF+YDVUya7CkwNhid6EfheNegj9jEWA9fz5
- iXLSWT+a5qj3ISBKjTjP3SV9RLloxafu7Zb1d5xqGEhUxA8/Nh8D84qvA8BR8az0XHgd
- O5Qxx6/pSvwMcvDNiuopKrJb/FVBEVc+jxoFGfcweHKJRGWYZZnOeytrmyoOY+JMK1DZ
- XL6F+MOFhFIt4sFLljDsYZG/mMNPQNq3jAiVhDJbFHXNL50rmsPozsRR/IemDIWgx0fX
- 78QA==
-X-Gm-Message-State: AOAM533v7ijDMNPIE6BaV23NJOCcXbxsu0z0s2Ht5ywVvtRkRnFlpB3E
- ZDgd+DM5k09etW/nhaCBn9FhHI5HEtGUL3AajNO/iI8IEfg=
-X-Google-Smtp-Source: ABdhPJz6zsnbgXa9mxDk3qWsfXZavBh89molG59qPufDY6k5RRHeKzTj8IOeZEFWgGk15Pb7hJmbApZTp3YlHccWtHU=
-X-Received: by 2002:ac2:52b7:: with SMTP id r23mr4193539lfm.451.1618854382851; 
- Mon, 19 Apr 2021 10:46:22 -0700 (PDT)
-MIME-Version: 1.0
-From: Murali Selvaraj <murali.selvaraj2003@gmail.com>
-Date: Mon, 19 Apr 2021 23:16:11 +0530
-Message-ID: <CAODFaZ4-QRvLugoUo55UJnPNqoaU8N+eVMqhfNYVboOM7s970w@mail.gmail.com>
+ (envelope-from <seth.arnold@canonical.com>) id 1lYduk-000083-1H
+ for apparmor@lists.ubuntu.com; Tue, 20 Apr 2021 00:06:50 +0000
+Received: from 2.general.sarnold.us.vpn ([10.172.64.71] helo=localhost)
+ by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <seth.arnold@canonical.com>) id 1lYduj-0006dQ-Fc
+ for apparmor@lists.ubuntu.com; Tue, 20 Apr 2021 00:06:49 +0000
+Date: Tue, 20 Apr 2021 00:06:47 +0000
+From: Seth Arnold <seth.arnold@canonical.com>
 To: apparmor@lists.ubuntu.com
-Received-SPF: pass client-ip=209.85.167.52;
- envelope-from=murali.selvaraj2003@gmail.com; helo=mail-lf1-f52.google.com
-Subject: [apparmor] Apparmor profile: custom header file query
+Message-ID: <20210420000647.GA615286@millbarge>
+References: <CAODFaZ4-QRvLugoUo55UJnPNqoaU8N+eVMqhfNYVboOM7s970w@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CAODFaZ4-QRvLugoUo55UJnPNqoaU8N+eVMqhfNYVboOM7s970w@mail.gmail.com>
+Subject: Re: [apparmor] Apparmor profile: custom header file query
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -58,22 +37,86 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1786857597201797331=="
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-SGkgQWxsLAoKQXMgcGVyIG91ciBkZXNpZ24gLCB3ZSBhcmUgYXBwbHlpbmcgY2VydGFpbiBjYXBh
-YmlsaXRpZXMgdG8gYWxsIG15IHByb2ZpbGVzLgoKLT4gY3JlYXRlZCBjdXN0b20gaW5jbHVkZSBm
-aWxlcyBhcyBmb2xsb3cgI2luY2x1ZGUgInJlbGF0aXZlX3BhdGgiCiAgIEB7ZGVmYXVsdF9jYXBz
-fT1jaG93bixkYWNfb3ZlcnJpZGUsZGFjX3JlYWRfc2VhcmNoLGZvd25lcixmc2V0aWQsa2lsbCxp
-cGNfbG9jayxzeXNfbmljZSxzZXRwY2FwLGlwY19vd25lcixzeXNfcHRyYWNlLHN5c19jaHJvb3QK
-Ci0+IEFkZGluZyB0aGlzIGhlYWRlciBmaWxlIGluIHRoZSByZXF1aXJlZCBhcHBhcm1vciBwcm9m
-aWxlcy4KICAgI2luY2x1ZGUgInJlbGF0aXZlX3BhdGgiCiAgIGNhcGFiaWx0eSBAe2RlZmF1bHRf
-Y2Fwc30sCgotPiBXaGlsZSBwYXJzaW5nIHRoZSBhcHBhcm1vciBwcm9maWxlcyBpbnRvIEtlcm5l
-bCwgb2JzZXJ2aW5nIGJlbG93IGVycm9ycy4KICAgc3ludGF4IGVycm9yLCB1bmV4cGVjdGVkIFRP
-S19FUVVBTFMsIGV4cGVjdGluZyBUT0tfTU9ERQoKQ2FuIHNvbWVvbmUgaGVscCBtZSB0byBjbGFy
-aWZ5IHRoZSBhYm92ZSBxdWVyaWVzLgoKVGhhbmtzCk11cmFsaS5TCgotLSAKQXBwQXJtb3IgbWFp
-bGluZyBsaXN0CkFwcEFybW9yQGxpc3RzLnVidW50dS5jb20KTW9kaWZ5IHNldHRpbmdzIG9yIHVu
-c3Vic2NyaWJlIGF0OiBodHRwczovL2xpc3RzLnVidW50dS5jb20vbWFpbG1hbi9saXN0aW5mby9h
-cHBhcm1vcgo=
+
+--===============1786857597201797331==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="oyUTqETQ0mS9luUI"
+Content-Disposition: inline
+
+
+--oyUTqETQ0mS9luUI
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, Apr 19, 2021 at 11:16:11PM +0530, Murali Selvaraj wrote:
+> As per our design , we are applying certain capabilities to all my profil=
+es.
+>=20
+> -> created custom include files as follow #include "relative_path"
+>    @{default_caps}=3Dchown,dac_override,dac_read_search,fowner,fsetid,kil=
+l,ipc_lock,sys_nice,setpcap,ipc_owner,sys_ptrace,sys_chroot
+>=20
+> -> Adding this header file in the required apparmor profiles.
+>    #include "relative_path"
+>    capabilty @{default_caps},
+>=20
+> -> While parsing the apparmor profiles into Kernel, observing below error=
+s.
+>    syntax error, unexpected TOK_EQUALS, expecting TOK_MODE
+
+The set variables in AppArmor aren't a generic text replacement tool,
+they're specialized for managing the combinatorial explosion of different
+distributions putting 'the same' files in different locations, managing
+typical unix usernames in directory structures, etc.
+
+You could get something very similar by making a new abstraction file just
+for your capabilities:
+
+path/to/whatever/abstractions/default_service_capabilities:
+capability chown dac_override dac_read_search fowner fsetid kill ipc_lock s=
+ys_nice setpcap ipc_owner sys_ptrace sys_chroot,
+
+And then in your profiles:
+
+#include "path/to/whatever/abstractions/default_service_capabilities"
+
+
+I hope this helps.
+
+Thanks
+
+--oyUTqETQ0mS9luUI
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEQVAQ8bojyMcg37H18yFyWZ2NLpcFAmB+GxQACgkQ8yFyWZ2N
+LpdDaAf/ShLiSkPfaePCLNaPGmXAfNKoyCQ4LDulou9zpYVgaANcN5uV9Z/zDga3
+PttNL2Wk1Uhc7GAuSgtc46O8NRscyVH+VgcQrnwig/zawMidAUnDH2ADBQH+KLxN
+DoGQSFhQHw5vwcgeLJH7f0KHtSew6zuwm1j9Q9K6z4Xy2bY/RqIN7Y3A32fSpcdQ
+EDULzffqQRB6OmWocwkVwobARQGh+BKmfqkd/TnFTvC9qMV0lF8jErVdtK8nBtKP
+4tms8rhg3bdg8fdy1TalPgioV9d/Ih+smi4GgvyKqZz3o0boJEtY7SKXSKTEgrg1
+TjULTRIE1/c/KD+HJTNnu23oSFDnZg==
+=cbXY
+-----END PGP SIGNATURE-----
+
+--oyUTqETQ0mS9luUI--
+
+
+--===============1786857597201797331==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
+eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
+aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
+
+--===============1786857597201797331==--
+
