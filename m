@@ -2,70 +2,56 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 644C93676BF
-	for <lists+apparmor@lfdr.de>; Thu, 22 Apr 2021 03:25:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B8A036779B
+	for <lists+apparmor@lfdr.de>; Thu, 22 Apr 2021 04:54:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1lZO5t-0006Jg-Qi; Thu, 22 Apr 2021 01:25:25 +0000
-Received: from sonic313-22.consmr.mail.ir2.yahoo.com ([77.238.179.189])
+	id 1lZPTb-0001RW-Ao; Thu, 22 Apr 2021 02:53:59 +0000
+Received: from mail-pf1-f177.google.com ([209.85.210.177])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <moocan2112@yahoo.fr>) id 1lZO5s-0006Ja-AP
- for AppArmor@lists.ubuntu.com; Thu, 22 Apr 2021 01:25:24 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.fr; s=s2048;
- t=1619054723; bh=PMSRBP1SSHzvVs7m+onrozVoKjVPAgssq/SPkLgBGQI=;
- h=Date:From:To:Subject:References:From:Subject:Reply-To;
- b=XgGcEO4z4QXMXt6vhIUTHDxqx4JF5fajgzbiVK2Pb8p6JNgYF3tnIuCW0jW0RBRVwfOo9st9vp4ZL/izVbml69Rauq/y185o7VH6J8Y5n61ZKuvflBjGAReZGrckD2UBYGETXSejaMY5ThXFfQiHvdOXrZTPrxzlFdswMrDhlsn2xMKpwZIT3YnXcnN8IszBbIotIS4lPAkidhhVVEdUe/Ym2f/6dEAjkiIWXMfC6ohIq0AnGbAgoTEygHiROkgJ0WxwmnT7X9jwpyJC1S+FNaJg1po3chPV9HpLTe/YpITGvmk/5vBIsaBBuZxhGkHX6+vDtv2xUeb8B6vglqcJ7A==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1619054723; bh=sF0w/sULSULLDGRCeLsbsRHY5TtiUTgAGMfxRWeL2fh=;
- h=X-Sonic-MF:Date:From:To:Subject:From:Subject;
- b=CctRDQREWsexo7xm4y3AP1FDdS4xfZX5KGH5YGi1QjCIx/CxF25Z4gpazPwjGLz4YlyoZXf7knV1csGeTEJ48+t7YHMnSp7SY6kVsvKW3R4hYjFPBWMgkq1Mj8kQBrAG0kBvNdraMGkFZg6HiPI5yS0ikhypnFOc/VSZ3OLnxYRIn60YgXJTO3bkYZYrcd19H6GrVTF+MRKdrpAE7ptghSsjxfaxiO71wfmTM2E4XDOnjK8iU5GFn0rUHvI5zVmE/GpYwMDhCJ60N9y1elTPcv62fDWaFec+Hf4POEgvQznniDo1iDqSj3BCtn8fep02752ev8Lb+CXgvBcrLBj0UA==
-X-YMail-OSG: 9VEDX10VM1leykrDwcUqU52N39zWv3nvFlUJKYdekravOj.9ZIaE1cp8Y3PCKae
- zly.m5x_cOPWsPw1.M0VvafuGh9wpl5Fac.fhAX0TDpKtyqzcSeO_6F9Qr1IjmqFzY2YfHQItAdU
- 4JuIZJBaDEUm4IzsqrbMtRW7AGwkwZrZMHGVpJvod9o5_DtvnydlCpK_pb7Ts0oxdFLNlP.koLiz
- pOkN8VNWHBJesYVY17lqmeq4sv7EiENK.blb.RsJyNk2vM.cN7J0xmMmd8_go27BfXJT86PIEmTR
- aPBaD4gqQKmbidsz6w42X11r4MtSLqZuFjiqKw2LzPEbK1JNDgAwIrNblQZeRQaRIDymgkACSSQ6
- Vwbl84jvcq5bVW3T5sk3aFDV_PCMUH9KFsCVACBTEuEtTYmzclBoOxHqZjiumicAwAB1vNR6s4F5
- aoQmU1cudojJuJZaPTeErjsh6qxaSz0c_6oOKLD7qP1UUKrY3l9G.iHTxJ_PLDzwi_6UIx11nUgn
- bs6RAtcd5oK0GHclHskQmV1z583mFjwLlHoksIvoblk1MmjqyiPYuRf7.bLy49m_eon1lQX90R_Y
- wDsr9HfXQ6lCbEbDzqztD68LMuaCY665hbyEIKdwUs6s5dMgENZR7ZNoLwzBVFIziMpmK2OHP8Mg
- BMQfcARBxYoGhKyOxydwISAQWZJuloXQH03gDeY_SG5jAmSB4JILbth7O6xvsSqlTPUTIbhvooFx
- cyNWZDRIhFScv9K9l5mibNrRh9Iz4Pfg03DO6GTA0CjPxQGuSdOwq8cP7pxQE4d1DNgvu8GlHy0Q
- DRwchWNYtiJI2JVge_no2aareH0PiKb64Ar9rQcFtGAKgOIEz7Pvh7vr_7e6rGPki.jSadNp620n
- OSjIBSqHmhpQEEnr7rV2O_vftkHrp3BEyHTZ58cGMBJVfDtkGBm5WSXy1Hvyft8xmADi_7vzqV7w
- 1PQ3AQral9o9TUfWTqtp5c4QufT7WalxDhW.psXTRGQcnLcDDgSpTLbEOHFq0OcfHutt.t.u40cC
- cDtd29zJDb7meRxaM1vXsy9LjrJKu90qLoYTzm7NXVvn8EDTl6xDuMDRzbDCJ.led31SxKGDHGRZ
- WzmB0LXmK8keJMVmwbqf5th3GFz0J76NHQNTMyv4hSbNHF4k_6WcBy8widH64vMWpsyR5TY6YHYn
- IWzAPTmuGOTjv0ysuEa1IPNI4E1cL2MyYWpicN_GTcOB23qPBNOd7_8OMizgkwT3zX4a5x4rnBPZ
- p9RttqCBoulhrDJG5.Ts9Zt.IDNgwhMvEOowdhSGSaWKRTvzvYFoI0zLErad_To2UDn7acUXqjDJ
- ..rNS7tB6RhXsZH5tVv18LyMrhXqu78HbJ_RS0KqZmRJp0on1lu6fNPGRRY5MFV71E1.Lg.zA2Qp
- x4gAHxQMPnUJ897nu4DXM2o9il9iY3y6m2Z7yStMi7HF05yzu5rLRVxePFFfmW4vJ74aNm_jcuZf
- H_uMF5fANNi_iOpXs9V_Zz4WcJ5LnDLmcCEmXuSpzhaY8GJsFQu4h7OuXQL.Rh0vN5Q9mn4AQiox
- 3ZvmHnjQ6ZLqaDyeTyl4bz8t9PGR_rgxqDxre0gptX.i9Gb8v8zcVr7C1vpmzQVfqDdK1Ha2Lgox
- LCq3IdxtNpohjbuIbbhK_cr8Q48mSZT._7RgYwEtfWNY_BCn4zD8YD86lxJlZy3KyoIcpky1kl_j
- _i.gUxjTxRMk.LUZ8x56GGMtdnfestRd.C8CjNHG5hikJgal7PFyfKiUH2GGWPrS4l4f8DJWnEJZ
- 5o8YCTEOkZ2AVJYqGQ2E.qxnTXWjrJK_grcICOhPh6CUET_a1rErYvNQlIrELJObMCmOF3KbPTc8
- XR_6z.d2lsnQZbFdb48U.Eu8vX5O_EwTMwtgRH0vkEHbCVqBWEFEhAZeT0cBsZOHiBWXb03XNJ8P
- 1Eag8pgIKvKgVMV1ZKg5RSDkwrjNvXDP2z516FOsLoEnpj9aF6.as9x0w_3vtwiO2MNG0qgXxVNl
- DnRAI8AAW3SbpF7jakXA9wg9ybBgM.IJuRy6.PLSOT5LNx2b3QAi56XeN3HwreAJNnrmmUgJNiu2
- jxY3XZfD9vlXeylhWq5N0910ZpVCQfO4T3q3PAyDDRr6b7Qs0odPgs3dF0uyfFYqCW7SG4tqB8ta
- a..PXGnBy2w9MxTOKJF39pH0FgK6tG0l_euJHynvaw7nQ9J0mSpTmhoC6U6iIrQ_S5aayIzKfJZi
- f96C8tMVAdzaSXG5b3WNRWCxek7fca4PWgq3eKs8ukIW8D2zxPgFGJiNWkNkfwd1dK9waBPNKq9d
- fqB.iv8DH7LBmPj6wUaOZMe8.dFkoKjBzpXLJB.jv5wn7DjfbiOQP5Aqj3azeGggSAdpQCmegjlu
- _NfpOufpAW9aBJYf9l.Fy_LABsediHw--
-X-Sonic-MF: <moocan2112@yahoo.fr>
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic313.consmr.mail.ir2.yahoo.com with HTTP; Thu, 22 Apr 2021 01:25:23 +0000
-Date: Thu, 22 Apr 2021 01:23:40 +0000 (UTC)
-From: Hans Gruber <moocan2112@yahoo.fr>
-To: "AppArmor@lists.ubuntu.com" <AppArmor@lists.ubuntu.com>
-Message-ID: <105423785.7781397.1619054620734@mail.yahoo.com>
+ (envelope-from <sswarnas@gmail.com>) id 1lZPTY-0001RO-PX
+ for apparmor@lists.ubuntu.com; Thu, 22 Apr 2021 02:53:56 +0000
+Received: by mail-pf1-f177.google.com with SMTP id p67so25734594pfp.10
+ for <apparmor@lists.ubuntu.com>; Wed, 21 Apr 2021 19:53:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Uz0BWukTALZoDXBeEdICyrip2s6Pa0MukJVcQnP21oY=;
+ b=d8P8y1cV0yPYZMu2cm6tYCp5E7Wc/pO8IjecVa/LtKrBF8aNS7NUq+OZwrVOzYCD/a
+ mH3obF7nPrVI3sk33CaSCzD/WCVAql6K/40sWDtltsV37koFUm0nR3K315m95IEYUS6e
+ 7O+bie7eLfPqnb8n9PpJOR2MEFwsMf4Po/98kqwpTiZnFHiuS8O4JLbKotrDqXso9k4E
+ 8bi4IgeQVJxxYu1s6HdsO/YdIxUT1ofzqBZoWiMO20QUPjVWKeOeX596JY7A1nX1AwpR
+ 7AbTSeZAMLN0dGY1e7CfKvS2wm9PbpIVgqyAs6KRMOs9CmEJUO1qmkmBy7p/wRoARIQ4
+ S+4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Uz0BWukTALZoDXBeEdICyrip2s6Pa0MukJVcQnP21oY=;
+ b=T3gUPCaYWQuFY1j34/2Gci/oAL4TEl8WoC3yupGnHhtCN0H12t33sFHzko9s85J5D6
+ xnhFCRnJmt1bToVwSsL3CntXzhfWEZvRovCHfs8gtfakhty3cgX0+B8ZFJxzT6kM+ZDo
+ 43uq7p9XY+uVRmBlnnvWTLrGgcupot/zV67vx1Jd8sm4f/TmLdhfOjRbXtrRCgbIbbAW
+ 8+PUIsenObI/KcsZnrDSqEWxhw6HIajmCaW8VKHCR7Euvo4UOKnRsWUt9jd9+20W42yk
+ OvDDvk2yYqwQec7j9gKHRL1CIVhDZjSRTSjcImXmdqETPe5eB5Pg7/W1xmyA85dalf+a
+ ckzg==
+X-Gm-Message-State: AOAM530rxjtBBb78EfR5bIJQLhfnil6NfRtXgoj25z7huocSigO8plY6
+ iNb98mvB2f+wbrDf+WDLMIqeHD0miDTnhI0R/rM=
+X-Google-Smtp-Source: ABdhPJy49EZURVeD1Gr6/PjAkp2eN2ucHcw3Ptc1IrFMxX+G6TCS55v5fY7qGQd+drR5E+wJkbXoTNqScdZK/qan/5M=
+X-Received: by 2002:a05:6a00:1aca:b029:25a:b810:94c7 with SMTP id
+ f10-20020a056a001acab029025ab81094c7mr1181239pfv.15.1619060034907; Wed, 21
+ Apr 2021 19:53:54 -0700 (PDT)
 MIME-Version: 1.0
-References: <105423785.7781397.1619054620734.ref@mail.yahoo.com>
-X-Mailer: WebService/1.1.18121 YMailNorrin Mozilla/5.0 (X11; Linux x86_64;
- rv:86.0) Gecko/20100101 Firefox/86.0
-Subject: [apparmor] Apparmor Link rules
+References: <CAJs3c4xaFpc52=XGW9=Xk_mTOzZ1wcRAexFNUTbMaFKXihuWWQ@mail.gmail.com>
+ <20210421225333.GA2367494@millbarge>
+In-Reply-To: <20210421225333.GA2367494@millbarge>
+From: swarna latha <sswarnas@gmail.com>
+Date: Wed, 21 Apr 2021 22:53:43 -0400
+Message-ID: <CAJs3c4z33mxCyaFoV2VEhU4GURZ=+6tXUs7aT3+JSKHPya5rqQ@mail.gmail.com>
+To: Seth Arnold <seth.arnold@canonical.com>
+Received-SPF: pass client-ip=209.85.210.177; envelope-from=sswarnas@gmail.com;
+ helo=mail-pf1-f177.google.com
+Subject: Re: [apparmor] Regarding header file for default capabilities
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -77,87 +63,119 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8049878465950867211=="
+Cc: apparmor@lists.ubuntu.com
+Content-Type: multipart/mixed; boundary="===============3751965506960892037=="
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
---===============8049878465950867211==
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_7781396_339171866.1619054620733"
-Content-Length: 4539
+--===============3751965506960892037==
+Content-Type: multipart/alternative; boundary="00000000000040337505c086ca78"
 
-------=_Part_7781396_339171866.1619054620733
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+--00000000000040337505c086ca78
+Content-Type: text/plain; charset="UTF-8"
 
-Hello,
-I'm trying to secure and restrict access of a bash script which need to perform actions on a symlink (update timestamp and create it if missing).
-Is it possible to use an AppArmor Link Rules for a symbolic link or is it only for hard link ?
-I don't find information about symbolic link.
-According to AppArmor Core Policy Reference at https://gitlab.com/apparmor/apparmor/-/wikis/AppArmor_Core_Policy_Reference only hard link is specified. 
-Bash script use ln which requires two rules/path/symlink rw,/path/[A-Za-Z0-9][A-Za-Z0-9][A-Za-Z0-9][A-Za-Z0-9][A-Za-Z0-9][A-Za-Z0-9][A-Za-Z0-9][A-Za-Z0-9] rw,
+Hi Seth,
 
-The second one is required because ln create a temporary file as /path/CgX8vf6d and it names
-changes each time. Without this rule ln fail and audit record denied access for /path/CgX8vf6d in creation.But I don't like this rule because it opens potential access to all files in /path in rw which is a sensitive folder. 
-I would like to know if it's possible to use a link rule to avoid the second one which require rw for read and creation.
+Thank you for your immediate response. I have followed as per your
+suggestion.
 
-I tried using a link rule but it never worked but it could be misuse by myself.
-Thank you in advance.
-Regards
+My header file name is common_caps
+
+cat common_caps:
+capability chown dac_override dac_read_search fowner fsetid kill ipc_lock
+sys_nice setpcap ipc_owner sys_ptrace sys_chroot,
+
+profile Test /usr/bin/ping flags=(attach_disconnected) {
+    #include "common_caps"
+    capability sys_tty_config,
+    capability sys_rawio,
+}
+we have removed the python user space utils, due to the space constraint in
+our device.
+so loading this profile with  sh -x /etc/apparmor/apparmor_parse.sh, and
+getting below error.
+
+AppArmor parser error for usr.bin.test at line 1: syntax error, unexpected
+TOK_CAPABILITY, expecting $end
+
+Can you please let me know if i am missing anything here.
+
+Thanks,
+Swarna
 
 
+On Wed, Apr 21, 2021 at 6:53 PM Seth Arnold <seth.arnold@canonical.com>
+wrote:
 
+> On Wed, Apr 21, 2021 at 09:41:23AM -0400, swarna latha wrote:
+> > Can someone throw lights on how to implement  a set of default
+> > capabilities to be added in all profiles (preferably in header file)
+>
+> Hello Swarna, I gave advice to someone else recently that's probably
+> applicable to your case, too:
+>
+> https://lists.ubuntu.com/archives/apparmor/2021-April/012264.html
+>
+> Thanks
+> --
+> AppArmor mailing list
+> AppArmor@lists.ubuntu.com
+> Modify settings or unsubscribe at:
+> https://lists.ubuntu.com/mailman/listinfo/apparmor
+>
 
-
-------=_Part_7781396_339171866.1619054620733
-Content-Type: text/html; charset=UTF-8
+--00000000000040337505c086ca78
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<html><head></head><body><div class=3D"yahoo-style-wrap" style=3D"font-fami=
-ly:Helvetica Neue, Helvetica, Arial, sans-serif;font-size:13px;"><div dir=
-=3D"ltr" data-setdir=3D"false">Hello,</div><div dir=3D"ltr" data-setdir=3D"=
-false"><br></div><div dir=3D"ltr" data-setdir=3D"false">I'm trying to secur=
-e and restrict access of a bash script which need to perform actions on a s=
-ymlink (update timestamp and create it if missing).</div><div dir=3D"ltr" d=
-ata-setdir=3D"false"><br></div><div dir=3D"ltr" data-setdir=3D"false">Is it=
- possible to use an AppArmor Link Rules for a symbolic link or is it only f=
-or hard link ?<br></div><div dir=3D"ltr" data-setdir=3D"false">I don't find=
- information about symbolic link.</div><div dir=3D"ltr" data-setdir=3D"fals=
-e"><br></div><div dir=3D"ltr" data-setdir=3D"false">According to AppArmor C=
-ore Policy Reference at <a href=3D"https://gitlab.com/apparmor/apparmor/-/w=
-ikis/AppArmor_Core_Policy_Reference" rel=3D"nofollow" target=3D"_blank">htt=
-ps://gitlab.com/apparmor/apparmor/-/wikis/AppArmor_Core_Policy_Reference</a=
-> only hard link is specified. </div><div dir=3D"ltr" data-setdir=3D"false"=
-><br></div><div dir=3D"ltr" data-setdir=3D"false">Bash script use ln which =
-requires two rules</div><div dir=3D"ltr" data-setdir=3D"false">/path/symlin=
-k rw,</div><div dir=3D"ltr" data-setdir=3D"false">/path/[A-Za-Z0-9][A-Za-Z0=
--9][A-Za-Z0-9][A-Za-Z0-9][A-Za-Z0-9][A-Za-Z0-9][A-Za-Z0-9][A-Za-Z0-9] rw,<b=
-r></div><div dir=3D"ltr" data-setdir=3D"false"><br></div><div dir=3D"ltr" d=
-ata-setdir=3D"false">The second one is required because ln create a tempora=
-ry file as /path/CgX8vf6d and it names<br></div><div dir=3D"ltr" data-setdi=
-r=3D"false">changes each time. Without this rule ln fail and audit record d=
-enied access for /path/CgX8vf6d in creation.</div><div dir=3D"ltr" data-set=
-dir=3D"false"><span class=3D"VIiyi" lang=3D"en"><span class=3D"JLqJ4b ChMk0=
-b" data-language-for-alternatives=3D"en" data-language-to-translate-into=3D=
-"fr" data-phrase-index=3D"0"><span>But I don't like this rule because it op=
-ens potential access to all files in /path in rw which is a sensitive folde=
-r.</span></span></span>  </div><div dir=3D"ltr" data-setdir=3D"false"><br><=
-/div><div dir=3D"ltr" data-setdir=3D"false">I would like to know if it's po=
-ssible to use a link rule to avoid the second one which require rw for read=
- and creation.<br></div><div dir=3D"ltr" data-setdir=3D"false"><br></div><d=
-iv dir=3D"ltr" data-setdir=3D"false">I tried using a link rule but it never=
- worked but it could be misuse by myself.</div><div dir=3D"ltr" data-setdir=
-=3D"false"><br></div><div dir=3D"ltr" data-setdir=3D"false">Thank you in ad=
-vance.</div><div dir=3D"ltr" data-setdir=3D"false"><br></div><div dir=3D"lt=
-r" data-setdir=3D"false">Regards</div><div dir=3D"ltr" data-setdir=3D"false=
-"><br></div><div dir=3D"ltr" data-setdir=3D"false"><br></div><div dir=3D"lt=
-r" data-setdir=3D"false"><br></div><div dir=3D"ltr" data-setdir=3D"false"><=
-br></div><div dir=3D"ltr" data-setdir=3D"false"><br></div></div></body></ht=
-ml>
-------=_Part_7781396_339171866.1619054620733--
+<div dir=3D"ltr">Hi Seth,<div><br></div><div>Thank you for your immediate r=
+esponse. I have followed as per your suggestion.</div><div><br></div><div>M=
+y header file name is common_caps</div><div><br></div><div>cat common_caps:=
+<br></div><div>capability chown dac_override dac_read_search fowner fsetid =
+kill ipc_lock sys_nice setpcap ipc_owner sys_ptrace sys_chroot,<br></div><d=
+iv><br></div><div>profile Test /usr/bin/ping flags=3D(attach_disconnected) =
+{<br>=C2=A0 =C2=A0 #include &quot;common_caps&quot;<br>=C2=A0 =C2=A0 capabi=
+lity sys_tty_config,<br>=C2=A0 =C2=A0 capability sys_rawio,<br></div><div>}=
+</div><div>we have removed the python user space utils, due to the space co=
+nstraint in our device.=C2=A0</div><div></div><div>so loading this profile =
+with=C2=A0=C2=A0sh -x /etc/apparmor/apparmor_parse.sh, and getting below er=
+ror.</div><div><br>AppArmor parser error for usr.bin.test at line 1: syntax=
+ error, unexpected TOK_CAPABILITY, expecting $end<br></div><div><br></div><=
+div>Can you please let me know if i am missing anything here.</div><div><br=
+></div><div>Thanks,</div><div>Swarna</div><div><br></div></div><br><div cla=
+ss=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, Apr 21, 20=
+21 at 6:53 PM Seth Arnold &lt;<a href=3D"mailto:seth.arnold@canonical.com">=
+seth.arnold@canonical.com</a>&gt; wrote:<br></div><blockquote class=3D"gmai=
+l_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,20=
+4,204);padding-left:1ex">On Wed, Apr 21, 2021 at 09:41:23AM -0400, swarna l=
+atha wrote:<br>
+&gt; Can someone throw lights on how to implement=C2=A0 a set of default<br=
+>
+&gt; capabilities to be added in all profiles (preferably in header file)<b=
+r>
+<br>
+Hello Swarna, I gave advice to someone else recently that&#39;s probably<br=
+>
+applicable to your case, too:<br>
+<br>
+<a href=3D"https://lists.ubuntu.com/archives/apparmor/2021-April/012264.htm=
+l" rel=3D"noreferrer" target=3D"_blank">https://lists.ubuntu.com/archives/a=
+pparmor/2021-April/012264.html</a><br>
+<br>
+Thanks<br>
+-- <br>
+AppArmor mailing list<br>
+<a href=3D"mailto:AppArmor@lists.ubuntu.com" target=3D"_blank">AppArmor@lis=
+ts.ubuntu.com</a><br>
+Modify settings or unsubscribe at: <a href=3D"https://lists.ubuntu.com/mail=
+man/listinfo/apparmor" rel=3D"noreferrer" target=3D"_blank">https://lists.u=
+buntu.com/mailman/listinfo/apparmor</a><br>
+</blockquote></div>
+
+--00000000000040337505c086ca78--
 
 
---===============8049878465950867211==
+--===============3751965506960892037==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -167,5 +185,5 @@ LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
 eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
 aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
 
---===============8049878465950867211==--
+--===============3751965506960892037==--
 
