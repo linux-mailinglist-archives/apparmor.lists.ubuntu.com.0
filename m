@@ -2,55 +2,109 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B8A036779B
-	for <lists+apparmor@lfdr.de>; Thu, 22 Apr 2021 04:54:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F07A3367921
+	for <lists+apparmor@lfdr.de>; Thu, 22 Apr 2021 07:15:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1lZPTb-0001RW-Ao; Thu, 22 Apr 2021 02:53:59 +0000
-Received: from mail-pf1-f177.google.com ([209.85.210.177])
+	id 1lZRg3-0007Az-G9; Thu, 22 Apr 2021 05:14:59 +0000
+Received: from youngberry.canonical.com ([91.189.89.112])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <sswarnas@gmail.com>) id 1lZPTY-0001RO-PX
- for apparmor@lists.ubuntu.com; Thu, 22 Apr 2021 02:53:56 +0000
-Received: by mail-pf1-f177.google.com with SMTP id p67so25734594pfp.10
- for <apparmor@lists.ubuntu.com>; Wed, 21 Apr 2021 19:53:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Uz0BWukTALZoDXBeEdICyrip2s6Pa0MukJVcQnP21oY=;
- b=d8P8y1cV0yPYZMu2cm6tYCp5E7Wc/pO8IjecVa/LtKrBF8aNS7NUq+OZwrVOzYCD/a
- mH3obF7nPrVI3sk33CaSCzD/WCVAql6K/40sWDtltsV37koFUm0nR3K315m95IEYUS6e
- 7O+bie7eLfPqnb8n9PpJOR2MEFwsMf4Po/98kqwpTiZnFHiuS8O4JLbKotrDqXso9k4E
- 8bi4IgeQVJxxYu1s6HdsO/YdIxUT1ofzqBZoWiMO20QUPjVWKeOeX596JY7A1nX1AwpR
- 7AbTSeZAMLN0dGY1e7CfKvS2wm9PbpIVgqyAs6KRMOs9CmEJUO1qmkmBy7p/wRoARIQ4
- S+4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Uz0BWukTALZoDXBeEdICyrip2s6Pa0MukJVcQnP21oY=;
- b=T3gUPCaYWQuFY1j34/2Gci/oAL4TEl8WoC3yupGnHhtCN0H12t33sFHzko9s85J5D6
- xnhFCRnJmt1bToVwSsL3CntXzhfWEZvRovCHfs8gtfakhty3cgX0+B8ZFJxzT6kM+ZDo
- 43uq7p9XY+uVRmBlnnvWTLrGgcupot/zV67vx1Jd8sm4f/TmLdhfOjRbXtrRCgbIbbAW
- 8+PUIsenObI/KcsZnrDSqEWxhw6HIajmCaW8VKHCR7Euvo4UOKnRsWUt9jd9+20W42yk
- OvDDvk2yYqwQec7j9gKHRL1CIVhDZjSRTSjcImXmdqETPe5eB5Pg7/W1xmyA85dalf+a
- ckzg==
-X-Gm-Message-State: AOAM530rxjtBBb78EfR5bIJQLhfnil6NfRtXgoj25z7huocSigO8plY6
- iNb98mvB2f+wbrDf+WDLMIqeHD0miDTnhI0R/rM=
-X-Google-Smtp-Source: ABdhPJy49EZURVeD1Gr6/PjAkp2eN2ucHcw3Ptc1IrFMxX+G6TCS55v5fY7qGQd+drR5E+wJkbXoTNqScdZK/qan/5M=
-X-Received: by 2002:a05:6a00:1aca:b029:25a:b810:94c7 with SMTP id
- f10-20020a056a001acab029025ab81094c7mr1181239pfv.15.1619060034907; Wed, 21
- Apr 2021 19:53:54 -0700 (PDT)
-MIME-Version: 1.0
+ (envelope-from <john.johansen@canonical.com>) id 1lZRg2-0007Aq-2n
+ for apparmor@lists.ubuntu.com; Thu, 22 Apr 2021 05:14:58 +0000
+Received: from [50.53.41.238] (helo=[192.168.192.153])
+ by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <john.johansen@canonical.com>)
+ id 1lZRg1-00087D-Kk; Thu, 22 Apr 2021 05:14:57 +0000
+To: swarna latha <sswarnas@gmail.com>, Seth Arnold <seth.arnold@canonical.com>
 References: <CAJs3c4xaFpc52=XGW9=Xk_mTOzZ1wcRAexFNUTbMaFKXihuWWQ@mail.gmail.com>
  <20210421225333.GA2367494@millbarge>
-In-Reply-To: <20210421225333.GA2367494@millbarge>
-From: swarna latha <sswarnas@gmail.com>
-Date: Wed, 21 Apr 2021 22:53:43 -0400
-Message-ID: <CAJs3c4z33mxCyaFoV2VEhU4GURZ=+6tXUs7aT3+JSKHPya5rqQ@mail.gmail.com>
-To: Seth Arnold <seth.arnold@canonical.com>
-Received-SPF: pass client-ip=209.85.210.177; envelope-from=sswarnas@gmail.com;
- helo=mail-pf1-f177.google.com
+ <CAJs3c4z33mxCyaFoV2VEhU4GURZ=+6tXUs7aT3+JSKHPya5rqQ@mail.gmail.com>
+From: John Johansen <john.johansen@canonical.com>
+Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
+ LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCgptUUlOQkU1bXJQb0JFQURB
+ azE5UHNnVmdCS2tJbW1SMmlzUFE2bzdLSmhUVEtqSmR3VmJrV1NuTm4rbzZVcDVrCm5LUDFm
+ NDlFQlFsY2VXZzF5cC9Od2JSOGFkK2VTRU8vdW1hL0srUHFXdkJwdEtDOVNXRDk3Rkc0dUI0
+ L2Nhb20KTEVVOTdzTFFNdG52R1dkeHJ4VlJHTTRhbnpXWU1neno1VFptSWlWVFo0M091NVZw
+ YVMxVnoxWlN4UDNoL3hLTgpaci9UY1c1V1FhaTh1M1BXVm5ia2poU1pQSHYxQmdoTjY5cXhF
+ UG9tckpCbTFnbXR4M1ppVm1GWGx1d1RtVGdKCk9rcEZvbDduYkowaWxuWUhyQTdTWDNDdFIx
+ dXBlVXBNYS9XSWFuVk85NldkVGpISElhNDNmYmhtUXViZTR0eFMKM0ZjUUxPSlZxUXN4NmxF
+ OUI3cUFwcG05aFExMHFQV3dkZlB5LyswVzZBV3ROdTVBU2lHVkNJbld6bDJIQnFZZAovWmxs
+ OTN6VXErTklvQ244c0RBTTlpSCt3dGFHRGNKeXdJR0luK2VkS050SzcyQU1nQ2hUZy9qMVpv
+ V0g2WmVXClBqdVVmdWJWelp0bzFGTW9HSi9TRjRNbWRRRzFpUU50ZjRzRlpiRWdYdXk5Y0dp
+ MmJvbUYwenZ5QkpTQU5weGwKS05CRFlLek42S3owOUhVQWtqbEZNTmdvbUwvY2pxZ0FCdEF4
+ NTlMK2RWSVpmYUYyODFwSWNVWnp3dmg1K0pvRwplT1c1dUJTTWJFN0wzOG5zem9veWtJSjVY
+ ckFjaGtKeE5mejdrK0ZuUWVLRWtOekVkMkxXYzNRRjRCUVpZUlQ2ClBISGdhM1JneWtXNSsx
+ d1RNcUpJTGRtdGFQYlhyRjNGdm5WMExSUGN2NHhLeDdCM2ZHbTd5Z2Rvb3dBUkFRQUIKdEIx
+ S2IyaHVJRXB2YUdGdWMyVnVJRHhxYjJodVFHcHFiWGd1Ym1WMFBva0NPZ1FUQVFvQUpBSWJB
+ d1VMQ1FnSApBd1VWQ2drSUN3VVdBZ01CQUFJZUFRSVhnQVVDVG8wWVZ3SVpBUUFLQ1JBRkx6
+ WndHTlhEMkx4SkQvOVRKWkNwCndsbmNUZ1llcmFFTWVEZmtXdjhjMUlzTTFqMEFtRTRWdEwr
+ ZkU3ODBaVlA5Z2tqZ2tkWVN4dDdlY0VUUFRLTWEKWlNpc3JsMVJ3cVUwb29nWGRYUVNweHJH
+ SDAxaWN1LzJuMGpjWVNxWUtnZ1B4eTc4QkdzMkxacTRYUGZKVFptSApaR25YR3EvZURyL21T
+ bmowYWF2QkptTVo2amJpUHo2eUh0QllQWjlmZG84YnRjendQNDFZZVdvSXUyNi84SUk2CmYw
+ WG0zVkM1b0FhOHY3UmQrUldaYThUTXdsaHpIRXh4ZWwzanRJN0l6ek9zbm1FOS84RG0wQVJE
+ NWlUTENYd1IKMWN3SS9KOUJGL1MxWHY4UE4xaHVUM0l0Q05kYXRncDh6cW9Ka2dQVmptdnlM
+ NjRRM2ZFa1liZkhPV3NhYmE5LwprQVZ0Qk56OVJURmg3SUhEZkVDVmFUb3VqQmQ3QnRQcXIr
+ cUlqV0ZhZEpEM0k1ZUxDVkp2VnJyb2xyQ0FUbEZ0Ck4zWWtRczZKbjFBaUlWSVUzYkhSOEdq
+ ZXZnejVMbDZTQ0dIZ1Jya3lScG5TWWFVL3VMZ24zN042QVl4aS9RQUwKK2J5M0N5RUZManpX
+ QUV2eVE4YnEzSXVjbjdKRWJoUy9KLy9kVXFMb2VVZjh0c0dpMDB6bXJJVFpZZUZZQVJoUQpN
+ dHNmaXpJclZEdHoxaVBmL1pNcDVnUkJuaXlqcFhuMTMxY20zTTNndjZIclFzQUdubjhBSnJ1
+ OEdEaTVYSllJCmNvLzEreC9xRWlOMm5DbGFBT3BiaHpOMmVVdlBEWTVXMHEzYkEvWnAybWZH
+ NTJ2YlJJK3RRMEJyMUhkL3ZzbnQKVUhPOTAzbU1aZXAyTnpOM0JaNXFFdlB2RzRyVzVacTJE
+ cHliV2JRclNtOW9iaUJLYjJoaGJuTmxiaUE4YW05bwpiaTVxYjJoaGJuTmxia0JqWVc1dmJt
+ bGpZV3d1WTI5dFBva0NOd1FUQVFvQUlRVUNUbzBYV2dJYkF3VUxDUWdICkF3VVZDZ2tJQ3dV
+ V0FnTUJBQUllQVFJWGdBQUtDUkFGTHpad0dOWEQySXRNRC85anliYzg3ZE00dUFIazZ5Tk0K
+ TjBZL0JGbW10VFdWc09CaHFPbm9iNGkzOEJyRE8yQzFoUUNQQ1FlNExMczEvNHB0ZW92UXQ4
+ QjJGeXJQVmp3Zwo3alpUSE5LNzRyNmxDQ1Z4eDN5dTFCN1U5UG80VlRrY3NsVmIxL3FtV3V4
+ OFhXY040eXZrVHFsTCtHeHB5Sm45CjlaWmZmWEpjNk9oNlRtT2ZiS0d2TXV1djVhclNJQTNK
+ SEZMZjlhTHZadEExaXNKVXI3cFM5YXBnOXVUVUdVcDcKd2ZWMFdUNlQzZUczbXRVVTJ1cDVK
+ VjQ4NTBMMDVqSFM2dVdpZS9ZK3lmSk9iaXlyeE4vNlpxVzVHb25oTEJxLwptc3pjVjV2QlQz
+ QkRWZTNSdkY2WGRNOU9oUG4xK1k4MXg1NCt2UTExM044aUx3RjdHR2ExNFp5SVZBTlpEMEkw
+ CkhqUnZhMmsvUnFJUlR6S3l1UEg1cGtsY0tIVlBFRk1tT3pNVCtGT294Tmp2Uys3K3dHMktN
+ RFlFbUhQcjFQSkIKWlNaZUh6SzE5dGZhbFBNcHBGeGkrc3lZTGFnTjBtQjdKSFF3WTdjclV1
+ T0RoeWNxNjBZVnoxdGFFeWd1M1l2MgoyL0kxRUNHSHZLSEc2d2M5MG80M0MvZWxIRUNYbkVo
+ N3RLcGxEY3BJQytPQ21NeEtIaFI0NitYY1p2Z3c0RGdiCjdjYTgzZVFSM0NHODlMdlFwVzJM
+ TEtFRUJEajdoWmhrTGJra1BSWm0zdzhKWTQ0YXc4VnRneFdkblNFTUNMeEwKSU9OaDZ1Wjcv
+ L0RZVnRjSWFNSllrZWJhWnRHZENwMElnVVpiMjQvVmR2WkNZYk82MkhrLzNWbzFuWHdIVUVz
+ Mwo2RC92MWJUMFJaRmk2OUxnc0NjT2N4NGdZTGtDRFFST1pxejZBUkFBb3F3NmtrQmhXeU0x
+ ZnZnYW1BVmplWjZuCktFZm5SV2JrQzk0TDFFc0pMdXAzV2IyWDBBQk5PSFNrYlNENHBBdUMy
+ dEtGL0VHQnQ1Q1A3UWRWS1JHY1F6QWQKNmIyYzFJZHk5Ukx3Nnc0Z2krbm4vZDFQbTFra1lo
+ a1NpNXpXYUlnMG01UlFVaytFbDh6a2Y1dGNFLzFOMFo1TwpLMkpoandGdTViWDBhMGw0Y0ZH
+ V1ZRRWNpVk1ES1J0eE1qRXRrM1N4RmFsbTZaZFEycHAyODIyY2xucTR6WjltCld1MWQyd2F4
+ aXorYjVJYTR3ZURZYTduNDFVUmNCRVViSkFnbmljSmtKdENUd3lJeElXMktuVnlPcmp2a1F6
+ SUIKdmFQMEZkUDJ2dlpvUE1kbENJek9sSWtQTGd4RTBJV3VlVFhlQkpoTnMwMXBiOGJMcW1U
+ SU1sdTRMdkJFTEEvdgplaWFqajVzOHk1NDJIL2FIc2ZCZjRNUVVoSHhPL0JaVjdoMDZLU1Vm
+ SWFZN09nQWdLdUdOQjNVaWFJVVM1K2E5CmduRU9RTER4S1J5L2E3UTF2OVMrTnZ4KzdqOGlI
+ M2prUUpoeFQ2WkJoWkdSeDBna0gzVCtGMG5ORG01TmFKVXMKYXN3Z0pycUZaa1VHZDJNcm0x
+ cW5Ld1hpQXQ4U0ljRU5kcTMzUjBLS0tSQzgwWGd3ajhKbjMwdlhMU0crTk8xRwpIMFVNY0F4
+ TXd5L3B2azZMVTVKR2paUjczSjVVTFZoSDRNTGJEZ2dEM21QYWlHOCtmb3RUckpVUHFxaGc5
+ aHlVCkVQcFlHN3NxdDc0WG43OStDRVpjakxIenlsNnZBRkUyVzBreGxMdFF0VVpVSE8zNmFm
+ RnY4cUdwTzNacVB2akIKVXVhdFhGNnR2VVFDd2YzSDZYTUFFUUVBQVlrQ0h3UVlBUW9BQ1FV
+ Q1RtYXMrZ0liREFBS0NSQUZMelp3R05YRAoyRC9YRC8wZGRNLzRhaTFiK1RsMWp6bkthalgz
+ a0crTWVFWWVJNGY0MHZjbzNyT0xyblJHRk9jYnl5ZlZGNjlNCktlcGllNE93b0kxamNUVTBB
+ RGVjbmJXbkROSHByMFNjenhCTXJvM2Juckxoc212anVuVFlJdnNzQlp0QjRhVkoKanVMSUxQ
+ VWxuaEZxYTdmYlZxMFpRamJpVi9ydDJqQkVOZG05cGJKWjZHam5wWUljQWJQQ0NhL2ZmTDQv
+ U1FSUwpZSFhvaEdpaVM0eTVqQlRtSzVsdGZld0xPdzAyZmtleEgrSUpGcnJHQlhEU2c2bjJT
+ Z3hubisrTkYzNGZYY205CnBpYXczbUtzSUNtKzBoZE5oNGFmR1o2SVdWOFBHMnRlb29WRHA0
+ ZFlpaCsreFgvWFM4ekJDYzFPOXc0bnpsUDIKZ0t6bHFTV2JoaVdwaWZSSkJGYTRXdEFlSlRk
+ WFlkMzdqL0JJNFJXV2hueXc3YUFQTkdqMzN5dEdITlVmNlJvMgovanRqNHRGMXkvUUZYcWpK
+ Ry93R2pwZHRSZmJ0VWpxTEhJc3ZmUE5OSnEvOTU4cDc0bmRBQ2lkbFdTSHpqK09wCjI2S3Bi
+ Rm5td05PMHBzaVVzbmh2SEZ3UE8vdkFibDNSc1I1KzBSbytodnMyY0VtUXV2OXIvYkRsQ2Zw
+ enAydDMKY0srcmh4VXFpc094OERaZnoxQm5rYW9DUkZidnZ2ays3TC9mb21QbnRHUGtxSmNp
+ WUU4VEdIa1p3MWhPa3UrNApPb00yR0I1bkVEbGorMlRGL2pMUStFaXBYOVBrUEpZdnhmUmxD
+ NmRLOFBLS2ZYOUtkZm1BSWNnSGZuVjFqU24rCjh5SDJkakJQdEtpcVcwSjY5YUlzeXg3aVYv
+ MDNwYVBDakpoN1hxOXZBenlkTjVVL1VBPT0KPTZQL2IKLS0tLS1FTkQgUEdQIFBVQkxJQyBL
+ RVkgQkxPQ0stLS0tLQo=
+Organization: Canonical
+Message-ID: <bc319606-37ca-6a10-7b27-d0ded33097bb@canonical.com>
+Date: Wed, 21 Apr 2021 22:14:55 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <CAJs3c4z33mxCyaFoV2VEhU4GURZ=+6tXUs7aT3+JSKHPya5rqQ@mail.gmail.com>
+Content-Language: en-US
 Subject: Re: [apparmor] Regarding header file for default capabilities
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -64,126 +118,28 @@ List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
 Cc: apparmor@lists.ubuntu.com
-Content-Type: multipart/mixed; boundary="===============3751965506960892037=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
---===============3751965506960892037==
-Content-Type: multipart/alternative; boundary="00000000000040337505c086ca78"
-
---00000000000040337505c086ca78
-Content-Type: text/plain; charset="UTF-8"
-
-Hi Seth,
-
-Thank you for your immediate response. I have followed as per your
-suggestion.
-
-My header file name is common_caps
-
-cat common_caps:
-capability chown dac_override dac_read_search fowner fsetid kill ipc_lock
-sys_nice setpcap ipc_owner sys_ptrace sys_chroot,
-
-profile Test /usr/bin/ping flags=(attach_disconnected) {
-    #include "common_caps"
-    capability sys_tty_config,
-    capability sys_rawio,
-}
-we have removed the python user space utils, due to the space constraint in
-our device.
-so loading this profile with  sh -x /etc/apparmor/apparmor_parse.sh, and
-getting below error.
-
-AppArmor parser error for usr.bin.test at line 1: syntax error, unexpected
-TOK_CAPABILITY, expecting $end
-
-Can you please let me know if i am missing anything here.
-
-Thanks,
-Swarna
-
-
-On Wed, Apr 21, 2021 at 6:53 PM Seth Arnold <seth.arnold@canonical.com>
-wrote:
-
-> On Wed, Apr 21, 2021 at 09:41:23AM -0400, swarna latha wrote:
-> > Can someone throw lights on how to implement  a set of default
-> > capabilities to be added in all profiles (preferably in header file)
->
-> Hello Swarna, I gave advice to someone else recently that's probably
-> applicable to your case, too:
->
-> https://lists.ubuntu.com/archives/apparmor/2021-April/012264.html
->
-> Thanks
-> --
-> AppArmor mailing list
-> AppArmor@lists.ubuntu.com
-> Modify settings or unsubscribe at:
-> https://lists.ubuntu.com/mailman/listinfo/apparmor
->
-
---00000000000040337505c086ca78
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi Seth,<div><br></div><div>Thank you for your immediate r=
-esponse. I have followed as per your suggestion.</div><div><br></div><div>M=
-y header file name is common_caps</div><div><br></div><div>cat common_caps:=
-<br></div><div>capability chown dac_override dac_read_search fowner fsetid =
-kill ipc_lock sys_nice setpcap ipc_owner sys_ptrace sys_chroot,<br></div><d=
-iv><br></div><div>profile Test /usr/bin/ping flags=3D(attach_disconnected) =
-{<br>=C2=A0 =C2=A0 #include &quot;common_caps&quot;<br>=C2=A0 =C2=A0 capabi=
-lity sys_tty_config,<br>=C2=A0 =C2=A0 capability sys_rawio,<br></div><div>}=
-</div><div>we have removed the python user space utils, due to the space co=
-nstraint in our device.=C2=A0</div><div></div><div>so loading this profile =
-with=C2=A0=C2=A0sh -x /etc/apparmor/apparmor_parse.sh, and getting below er=
-ror.</div><div><br>AppArmor parser error for usr.bin.test at line 1: syntax=
- error, unexpected TOK_CAPABILITY, expecting $end<br></div><div><br></div><=
-div>Can you please let me know if i am missing anything here.</div><div><br=
-></div><div>Thanks,</div><div>Swarna</div><div><br></div></div><br><div cla=
-ss=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, Apr 21, 20=
-21 at 6:53 PM Seth Arnold &lt;<a href=3D"mailto:seth.arnold@canonical.com">=
-seth.arnold@canonical.com</a>&gt; wrote:<br></div><blockquote class=3D"gmai=
-l_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,20=
-4,204);padding-left:1ex">On Wed, Apr 21, 2021 at 09:41:23AM -0400, swarna l=
-atha wrote:<br>
-&gt; Can someone throw lights on how to implement=C2=A0 a set of default<br=
->
-&gt; capabilities to be added in all profiles (preferably in header file)<b=
-r>
-<br>
-Hello Swarna, I gave advice to someone else recently that&#39;s probably<br=
->
-applicable to your case, too:<br>
-<br>
-<a href=3D"https://lists.ubuntu.com/archives/apparmor/2021-April/012264.htm=
-l" rel=3D"noreferrer" target=3D"_blank">https://lists.ubuntu.com/archives/a=
-pparmor/2021-April/012264.html</a><br>
-<br>
-Thanks<br>
--- <br>
-AppArmor mailing list<br>
-<a href=3D"mailto:AppArmor@lists.ubuntu.com" target=3D"_blank">AppArmor@lis=
-ts.ubuntu.com</a><br>
-Modify settings or unsubscribe at: <a href=3D"https://lists.ubuntu.com/mail=
-man/listinfo/apparmor" rel=3D"noreferrer" target=3D"_blank">https://lists.u=
-buntu.com/mailman/listinfo/apparmor</a><br>
-</blockquote></div>
-
---00000000000040337505c086ca78--
-
-
---===============3751965506960892037==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
-eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
-aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
-
---===============3751965506960892037==--
-
+T24gNC8yMS8yMSA3OjUzIFBNLCBzd2FybmEgbGF0aGEgd3JvdGU6Cj4gSGkgU2V0aCwKPiAKPiBU
+aGFuayB5b3UgZm9yIHlvdXIgaW1tZWRpYXRlIHJlc3BvbnNlLiBJIGhhdmUgZm9sbG93ZWQgYXMg
+cGVyIHlvdXIgc3VnZ2VzdGlvbi4KPiAKPiBNeSBoZWFkZXIgZmlsZSBuYW1lIGlzIGNvbW1vbl9j
+YXBzCj4gCj4gY2F0IGNvbW1vbl9jYXBzOgo+IGNhcGFiaWxpdHkgY2hvd24gZGFjX292ZXJyaWRl
+IGRhY19yZWFkX3NlYXJjaCBmb3duZXIgZnNldGlkIGtpbGwgaXBjX2xvY2sgc3lzX25pY2Ugc2V0
+cGNhcCBpcGNfb3duZXIgc3lzX3B0cmFjZSBzeXNfY2hyb290LAo+IAo+IHByb2ZpbGUgVGVzdCAv
+dXNyL2Jpbi9waW5nIGZsYWdzPShhdHRhY2hfZGlzY29ubmVjdGVkKSB7Cj4gwqAgwqAgI2luY2x1
+ZGUgImNvbW1vbl9jYXBzIgo+IMKgIMKgIGNhcGFiaWxpdHkgc3lzX3R0eV9jb25maWcsCj4gwqAg
+wqAgY2FwYWJpbGl0eSBzeXNfcmF3aW8sCj4gfQo+IHdlIGhhdmUgcmVtb3ZlZCB0aGUgcHl0aG9u
+IHVzZXIgc3BhY2UgdXRpbHMsIGR1ZSB0byB0aGUgc3BhY2UgY29uc3RyYWludCBpbiBvdXIgZGV2
+aWNlLsKgCj4gc28gbG9hZGluZyB0aGlzIHByb2ZpbGUgd2l0aMKgwqBzaCAteCAvZXRjL2FwcGFy
+bW9yL2FwcGFybW9yX3BhcnNlLnNoLCBhbmQgZ2V0dGluZyBiZWxvdyBlcnJvci4KPiAKPiBBcHBB
+cm1vciBwYXJzZXIgZXJyb3IgZm9yIHVzci5iaW4udGVzdCBhdCBsaW5lIDE6IHN5bnRheCBlcnJv
+ciwgdW5leHBlY3RlZCBUT0tfQ0FQQUJJTElUWSwgZXhwZWN0aW5nICRlbmQKPiAKPiBDYW4geW91
+IHBsZWFzZSBsZXQgbWUga25vdyBpZiBpIGFtIG1pc3NpbmcgYW55dGhpbmcgaGVyZS4KPiAKCkl0
+cyBoYXJkIHRvIHNheSBmcm9tIHlvdXIgb3V0cHV0LiBUaGUgcHJvZmlsZSBhbmQgY29tbW9uIGNh
+cHMgZnJvbSBhYm92ZSBwYXJzZSBqdXN0IGZpbmUgZm9yIG1lLiBXaGF0IGlzCnRoZSBmdWxsIGNv
+bnRlbnRzIG9mIHVzci5iaW4udGVzdD8KCgoKLS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBB
+cm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlmeSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDog
+aHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21haWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
