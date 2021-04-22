@@ -2,26 +2,25 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED47F36792A
-	for <lists+apparmor@lfdr.de>; Thu, 22 Apr 2021 07:18:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A991936792F
+	for <lists+apparmor@lfdr.de>; Thu, 22 Apr 2021 07:21:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1lZRjH-0007Pq-Fu; Thu, 22 Apr 2021 05:18:19 +0000
+	id 1lZRlw-0007WA-3c; Thu, 22 Apr 2021 05:21:04 +0000
 Received: from youngberry.canonical.com ([91.189.89.112])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>) id 1lZRjG-0007Pd-0X
- for AppArmor@lists.ubuntu.com; Thu, 22 Apr 2021 05:18:18 +0000
+ (envelope-from <john.johansen@canonical.com>) id 1lZRlu-0007W4-Ul
+ for apparmor@lists.ubuntu.com; Thu, 22 Apr 2021 05:21:02 +0000
 Received: from [50.53.41.238] (helo=[192.168.192.153])
  by youngberry.canonical.com with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
  (envelope-from <john.johansen@canonical.com>)
- id 1lZRjF-0008Lz-KZ; Thu, 22 Apr 2021 05:18:17 +0000
-To: Hans Gruber <moocan2112@yahoo.fr>,
- "AppArmor@lists.ubuntu.com" <AppArmor@lists.ubuntu.com>
-References: <105423785.7781397.1619054620734.ref@mail.yahoo.com>
- <105423785.7781397.1619054620734@mail.yahoo.com>
+ id 1lZRlu-0008VU-IQ; Thu, 22 Apr 2021 05:21:02 +0000
+To: Murali Selvaraj <murali.selvaraj2003@gmail.com>,
+ apparmor@lists.ubuntu.com, Seth Arnold <seth.arnold@canonical.com>
+References: <CAODFaZ5-vQeqWtgWmwO=Qp21=JjeC5zJCzZ-zkpQT2hQNONqcQ@mail.gmail.com>
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
  LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCgptUUlOQkU1bXJQb0JFQURB
@@ -98,14 +97,15 @@ Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
  MDNwYVBDakpoN1hxOXZBenlkTjVVL1VBPT0KPTZQL2IKLS0tLS1FTkQgUEdQIFBVQkxJQyBL
  RVkgQkxPQ0stLS0tLQo=
 Organization: Canonical
-Message-ID: <784c1d16-cbcb-5b86-121c-6a162d7c9be4@canonical.com>
-Date: Wed, 21 Apr 2021 22:18:15 -0700
+Message-ID: <f0c9334a-7b73-8f48-d1ee-4294efb00120@canonical.com>
+Date: Wed, 21 Apr 2021 22:21:00 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <105423785.7781397.1619054620734@mail.yahoo.com>
+In-Reply-To: <CAODFaZ5-vQeqWtgWmwO=Qp21=JjeC5zJCzZ-zkpQT2hQNONqcQ@mail.gmail.com>
 Content-Language: en-US
-Subject: Re: [apparmor] Apparmor Link rules
+Subject: Re: [apparmor] Apparmor: Query on adding many capabilities in the
+ custom header file
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -122,34 +122,22 @@ Content-Transfer-Encoding: base64
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-T24gNC8yMS8yMSA2OjIzIFBNLCBIYW5zIEdydWJlciB3cm90ZToKPiBIZWxsbywKPiAKPiBJJ20g
-dHJ5aW5nIHRvIHNlY3VyZSBhbmQgcmVzdHJpY3QgYWNjZXNzIG9mIGEgYmFzaCBzY3JpcHQgd2hp
-Y2ggbmVlZCB0byBwZXJmb3JtIGFjdGlvbnMgb24gYSBzeW1saW5rICh1cGRhdGUgdGltZXN0YW1w
-IGFuZCBjcmVhdGUgaXQgaWYgbWlzc2luZykuCj4gCgpjdXJyZW50bHkgbGluayBydWxlcyBhcmUg
-aGFyZCBsaW5rcyBvbmx5LiBTeW1saW5rcyBhcmUgdHJlYXRlZCBsaWtlIHJlZ3VsYXIgZmlsZXMs
-IGFuZCBtZWRpYXRpb24gaXMgZG9uZSBwb3N0IHN5bWxpbmsgdHJhdmVyc2FsIHNvIHRoYXQgdGhl
-eSBjYW4ndCBiZSB1c2VkIGFzIGFuIGF0dGFjayB2ZWN0b3IuCgo+IElzIGl0IHBvc3NpYmxlIHRv
-IHVzZSBhbiBBcHBBcm1vciBMaW5rIFJ1bGVzIGZvciBhIHN5bWJvbGljIGxpbmsgb3IgaXMgaXQg
-b25seSBmb3IgaGFyZCBsaW5rID8KPiBJIGRvbid0IGZpbmQgaW5mb3JtYXRpb24gYWJvdXQgc3lt
-Ym9saWMgbGluay4KPiAKYXRtIGhhcmRsaW5rIG9ubHksIHdlIGFyZSBpbnZlc3RpZ2F0aW5nIGV4
-dGVuZGluZyBpdCB0byBiZSBhYmxlIHRvIG1lZGlhdGUgc3ltbGlua3MKCj4gQWNjb3JkaW5nIHRv
-IEFwcEFybW9yIENvcmUgUG9saWN5IFJlZmVyZW5jZSBhdCBodHRwczovL2dpdGxhYi5jb20vYXBw
-YXJtb3IvYXBwYXJtb3IvLS93aWtpcy9BcHBBcm1vcl9Db3JlX1BvbGljeV9SZWZlcmVuY2Ugb25s
-eSBoYXJkIGxpbmsgaXMgc3BlY2lmaWVkLgo+IAo+IEJhc2ggc2NyaXB0IHVzZSBsbiB3aGljaCBy
-ZXF1aXJlcyB0d28gcnVsZXMKPiAvcGF0aC9zeW1saW5rIHJ3LAo+IC9wYXRoL1tBLVphLVowLTld
-W0EtWmEtWjAtOV1bQS1aYS1aMC05XVtBLVphLVowLTldW0EtWmEtWjAtOV1bQS1aYS1aMC05XVtB
-LVphLVowLTldW0EtWmEtWjAtOV0gcncsCj4gCj4gVGhlIHNlY29uZCBvbmUgaXMgcmVxdWlyZWQg
-YmVjYXVzZSBsbiBjcmVhdGUgYSB0ZW1wb3JhcnkgZmlsZSBhcyAvcGF0aC9DZ1g4dmY2ZCBhbmQg
-aXQgbmFtZXMKPiBjaGFuZ2VzIGVhY2ggdGltZS4gV2l0aG91dCB0aGlzIHJ1bGUgbG4gZmFpbCBh
-bmQgYXVkaXQgcmVjb3JkIGRlbmllZCBhY2Nlc3MgZm9yIC9wYXRoL0NnWDh2ZjZkIGluIGNyZWF0
-aW9uLgo+IEJ1dCBJIGRvbid0IGxpa2UgdGhpcyBydWxlIGJlY2F1c2UgaXQgb3BlbnMgcG90ZW50
-aWFsIGFjY2VzcyB0byBhbGwgZmlsZXMgaW4gL3BhdGggaW4gcncgd2hpY2ggaXMgYSBzZW5zaXRp
-dmUgZm9sZGVyLgo+IAo+IEkgd291bGQgbGlrZSB0byBrbm93IGlmIGl0J3MgcG9zc2libGUgdG8g
-dXNlIGEgbGluayBydWxlIHRvIGF2b2lkIHRoZSBzZWNvbmQgb25lIHdoaWNoIHJlcXVpcmUgcncg
-Zm9yIHJlYWQgYW5kIGNyZWF0aW9uLgo+IAo+IEkgdHJpZWQgdXNpbmcgYSBsaW5rIHJ1bGUgYnV0
-IGl0IG5ldmVyIHdvcmtlZCBidXQgaXQgY291bGQgYmUgbWlzdXNlIGJ5IG15c2VsZi4KPiAKClVu
-Zm9ydHVuYXRlbHkgYXQgdGhpcyB0aW1lIHRoaXMgc2VlbXMgdG8gYmUgcmVxdWlyZWQuCgo+IFRo
-YW5rIHlvdSBpbiBhZHZhbmNlLgo+IAo+IFJlZ2FyZHMKPiAKPiAKPiAKPiAKPiAKPiAKCgotLSAK
-QXBwQXJtb3IgbWFpbGluZyBsaXN0CkFwcEFybW9yQGxpc3RzLnVidW50dS5jb20KTW9kaWZ5IHNl
-dHRpbmdzIG9yIHVuc3Vic2NyaWJlIGF0OiBodHRwczovL2xpc3RzLnVidW50dS5jb20vbWFpbG1h
-bi9saXN0aW5mby9hcHBhcm1vcgo=
+T24gNC8yMC8yMSAxMDowMSBBTSwgTXVyYWxpIFNlbHZhcmFqIHdyb3RlOgo+IEhpIEFsbCwKPiAK
+PiBBcyBwZXIgb3VyIGRlc2lnbiAsIHdlIGFyZSBhcHBseWluZyBjZXJ0YWluIGNhcGFiaWxpdGll
+cyB0byBhbGwgbXkgcHJvZmlsZXMuCj4gCj4gLT4gY3JlYXRlZCBjdXN0b20gaW5jbHVkZSBmaWxl
+cyBhcyBmb2xsb3cgaW4gI2luY2x1ZGUgInJlbGF0aXZlX3BhdGgiCj4gICAgQHtkZWZhdWx0X2Nh
+cHN9PWNob3duLGRhY19vdmVycmlkZSxkYWNfcmVhZF9zZWFyY2gsZm93bmVyLGZzZXRpZCxraWxs
+LGlwY19sb2NrLHN5c19uaWNlLHNldHBjYXAsaXBjX293bmVyLHN5c19wdHJhY2Usc3lzX2Nocm9v
+dAo+IAo+IC0+IEFkZGluZyB0aGlzIGhlYWRlciBmaWxlIGluIHRoZSByZXF1aXJlZCBhcHBhcm1v
+ciBwcm9maWxlcy4KPiAgICAjaW5jbHVkZSAicmVsYXRpdmVfcGF0aCIKPiAgICBjYXBhYmlsaXR5
+IEB7ZGVmYXVsdF9jYXBzfSwKPiAKPiAtPiBXaGlsZSBwYXJzaW5nIHRoZSBhcHBhcm1vciBwcm9m
+aWxlcyBpbnRvIEtlcm5lbCwgb2JzZXJ2aW5nIGJlbG93IGVycm9ycy4KPiAgICBzeW50YXggZXJy
+b3IsIHVuZXhwZWN0ZWQgVE9LX0VRVUFMUywgZXhwZWN0aW5nIFRPS19NT0RFCj4gCj4gQ2FuIHNv
+bWVvbmUgaGVscCBtZSB0byBjbGFyaWZ5IHRoZSBhYm92ZSBxdWVyaWVzLgo+IAoKQXQgdGhpcyB0
+aW1lIHZhcmlhYmxlIGFzc2lnbm1lbnQgY2FuIG5vdCBiZSBkb25lIGluIHRoZSBwcm9maWxlIGJv
+ZHkuIEl0IGNhbiBvbmx5IGFwcGVhciBpbiB0aGUgcHJvZmlsZSBoZWFkZXIuIFlvdSBuZWVkIHRv
+IHJld29yayB5b3VyIHByb2ZpbGUgdG8gZG8KCmluY2x1ZGUgInJlbGF0aXZlX3BhdGgiCgpwcm9m
+aWxlIGV4YW1wbGUgewoKICBjYXBhYmlsaXR5IEB7ZGVmYXVsdF9jYXBzfSwKfQoKCi0tIApBcHBB
+cm1vciBtYWlsaW5nIGxpc3QKQXBwQXJtb3JAbGlzdHMudWJ1bnR1LmNvbQpNb2RpZnkgc2V0dGlu
+Z3Mgb3IgdW5zdWJzY3JpYmUgYXQ6IGh0dHBzOi8vbGlzdHMudWJ1bnR1LmNvbS9tYWlsbWFuL2xp
+c3RpbmZvL2FwcGFybW9yCg==
