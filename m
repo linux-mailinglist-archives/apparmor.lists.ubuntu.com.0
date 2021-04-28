@@ -2,60 +2,43 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE89F36DF4C
-	for <lists+apparmor@lfdr.de>; Wed, 28 Apr 2021 21:01:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45E3C36E014
+	for <lists+apparmor@lfdr.de>; Wed, 28 Apr 2021 22:07:16 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1lbpRJ-00036c-JN; Wed, 28 Apr 2021 19:01:37 +0000
-Received: from mail-lf1-f50.google.com ([209.85.167.50])
+	id 1lbqSf-0007BN-TP; Wed, 28 Apr 2021 20:07:05 +0000
+Received: from mail.cboltz.de ([88.99.101.17])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <murali.selvaraj2003@gmail.com>) id 1lbpRI-00036V-8k
- for apparmor@lists.ubuntu.com; Wed, 28 Apr 2021 19:01:36 +0000
-Received: by mail-lf1-f50.google.com with SMTP id 2so8199010lft.4
- for <apparmor@lists.ubuntu.com>; Wed, 28 Apr 2021 12:01:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=03FgQ3ollyl6QmoroqbPvJAUr0M0s0sTaQuKtZBtW1A=;
- b=EAzsKD4FC4046zKHTtNne6Fq/16VuxxHinAYP3yY4Q5HhMmC3Pgg0E/6Z7mxmFwyx2
- K3e7a/a+zduKkyeWX2U4It7Vz+9gUTtFSDbQ4zfdoPlGu3A0aAGtp/TDuIDkE84dw7U3
- j+dz4CYDXQ8gBxYK1feQ4LcX+W4CEwbg12z8VLvf0CbGV1Ns9PiAca2UuYZNQ2vtgpXo
- hS0kTSs9vftJL7WjKjvFNm3ET9+S4fktZBaAx6kFm95BNWiC66/ni7QO7UdGqrx0fQX6
- NXNNNCWKkaYHb9E2gqEM8b7ZdePj1QVjzxS6PDPi4NK8UapGdVv21YOJj/dvMvoVFisH
- Rd0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=03FgQ3ollyl6QmoroqbPvJAUr0M0s0sTaQuKtZBtW1A=;
- b=Lh4Gt3gCMYJLRhQ/enlC4q1nr3SNliyCj7xNKyZ8pQUai9qYI43S27GUbfXz48jSjp
- HGCUYchD5jy/EuvO9PVG0xeBUVS5/DG2aZeJZls8gB3xUO7du8t4kQJhRs497Fphi6mV
- ENXugyCUqzlFZU/vRqDlggAzf0uGNDYFNgT1QhhL9Uk7l8RmFn01eswQ02nq3aXi2ALU
- nakZNdRzwBX9/GLmfs+w7Q1S0LzRK0XXCEkFBuc6o229iAoDg87kOrZD6g+S5yX+LPmN
- jp9T8xIsz3u8YuXYM0lrkVAAqx730O7Ldds7/k1UGVT+ITOQBZK2s5nBKgljfcmOFbo0
- GWCA==
-X-Gm-Message-State: AOAM532isrsPjY0EkFa0tw+IC+NKnji0fjTwJBW5hrx6lP5eey329++8
- L89s8sxAbfivCbPf9rWAZ8fv0p1dT9LqVp+MScU=
-X-Google-Smtp-Source: ABdhPJzhPpsu6qWICzSnNKjughuaDmWbpNrtFgHj9NtIpABJj5T72ZO/qOqGSOXWOLoD+BT36hfhRkiHJ17f4L32zt8=
-X-Received: by 2002:a05:6512:78c:: with SMTP id
- x12mr21558965lfr.462.1619636495124; 
- Wed, 28 Apr 2021 12:01:35 -0700 (PDT)
-MIME-Version: 1.0
+ (envelope-from <apparmor@cboltz.de>) id 1lbqSd-00079f-D5
+ for apparmor@lists.ubuntu.com; Wed, 28 Apr 2021 20:07:03 +0000
+X-sprachakt.com-SMTP-Auth: no
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by mail.cboltz.de (Postfix) with ESMTP id CAC2F5C0093;
+ Wed, 28 Apr 2021 22:07:02 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at mail.cboltz.de
+Received: from mail.cboltz.de ([127.0.0.1])
+ by localhost (mail.cboltz.de [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id 5AZy_GTNmyKp; Wed, 28 Apr 2021 22:07:01 +0200 (CEST)
+Received: from home.cboltz.de (unknown [10.10.0.6])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (Client did not present a certificate)
+ by mail.cboltz.de (Postfix) with ESMTPSA;
+ Wed, 28 Apr 2021 22:07:01 +0200 (CEST)
+From: Christian Boltz <apparmor@cboltz.de>
+To: apparmor@lists.ubuntu.com
+Date: Wed, 28 Apr 2021 22:06:58 +0200
+Message-ID: <2880435.J7sXRC9dT7@tux.boltz.de.vu>
+In-Reply-To: <CAODFaZ7+_anXqMbkyHrupc8CMxS0OfaGTX0EF_mZx46=7TF-=g@mail.gmail.com>
 References: <CAODFaZ5-vQeqWtgWmwO=Qp21=JjeC5zJCzZ-zkpQT2hQNONqcQ@mail.gmail.com>
- <CAODFaZ7jKw4vugyvUsVeckzMmEooj6kPGRfJwbNbrH_uG=awOQ@mail.gmail.com>
- <CAODFaZ4hxO9Rmj04AFAn0nGA=8LPFUdUERUNDEGznF2HEDesww@mail.gmail.com>
  <1845778.uqYG4e8EI7@tux.boltz.de.vu>
-In-Reply-To: <1845778.uqYG4e8EI7@tux.boltz.de.vu>
-From: Murali Selvaraj <murali.selvaraj2003@gmail.com>
-Date: Thu, 29 Apr 2021 00:31:23 +0530
-Message-ID: <CAODFaZ7+_anXqMbkyHrupc8CMxS0OfaGTX0EF_mZx46=7TF-=g@mail.gmail.com>
-To: Christian Boltz <apparmor@cboltz.de>
-Received-SPF: pass client-ip=209.85.167.50;
- envelope-from=murali.selvaraj2003@gmail.com; helo=mail-lf1-f50.google.com
+ <CAODFaZ7+_anXqMbkyHrupc8CMxS0OfaGTX0EF_mZx46=7TF-=g@mail.gmail.com>
+MIME-Version: 1.0
+X-Face: #?nL0}JpqNtLQy@q#bRm?B?pGS8[mx6r.6[91zp@*2DZ?18)haWs5wgvi, ,
+ wF/JWMTUh+6x, b7_`pW3)m~0606sDW0&'EKA}_-W+)Bz~d]k>4E9TyU}k@b&1=%yk\
 Subject: Re: [apparmor] Apparmor: Query on adding many capabilities in the
- custom header file
+	custom header file
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -67,72 +50,123 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: apparmor@lists.ubuntu.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Murali Selvaraj <murali.selvaraj2003@gmail.com>
+Content-Type: multipart/mixed; boundary="===============5802323114140882230=="
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-VGhhbmtzIENocmlzdGlhbiAgZm9yIHRoZSBpbnB1dHMuCgpJIGhhdmUgY3JlYXRlZCBhIGhlYWRl
-ciBmaWxlIGFzIGZvbGxvd3MgYW5kIGluY2x1ZGVkIGluIHRoZSBhcHBhcm1vciBwcm9maWxlLgoK
-YWRtaW5AdGVzdDovZXRjL2FwcGFybW9yLmQjIGNhdCBjYXBzL2RlZmF1bHQKY2FwYWJpbGl0eSBj
-aG93biBkYWNfb3ZlcnJpZGUgZGFjX3JlYWRfc2VhcmNoIGZvd25lciBmc2V0aWQga2lsbAppcGNf
-bG9jayBzeXNfbmljZSBzZXRwY2FwIGlwY19vd25lciBzeXNfcHRyYWNlIHN5c19jaHJvb3QsCmFk
-bWluQHRlc3Q6L2V0Yy9hcHBhcm1vci5kIwoKcHJvZmlsZSA6CmNhdCB1c3IuYmluLmZvbwpwcm9m
-aWxlIGZvby91c3IvYmluL2ZvbyBmbGFncz0oYXR0YWNoX2Rpc2Nvbm5lY3RlZCkgewogICAgI2lu
-Y2x1ZGUgPGNhcHMvZGVmYXVsdD4KICAgIGNhcGFiaWxpdHkgc2V0Z2lkLAogICAgY2FwYWJpbGl0
-eSBzZXR1aWQsCiAgICAvc3lzL2RldmljZXMvc3lzdGVtL2NwdS9vbmxpbmUgciwKICAgIC9zeXMv
-ZGV2aWNlcy9zeXN0ZW0vY3B1L3Bvc3NpYmxlIHIsCiAgICAvc3lzL2RldmljZXMvc3lzdGVtL2Nw
-dS9wcmVzZW50IHIsCn0KCmFkbWluQHRlc3Q6fiMgc2ggL2V0Yy9hcHBhcm1vci9hcHBhcm1vcl9w
-YXJzZS5zaApXYXJuaW5nIGZyb20gc3RkaW4gKGxpbmUgMSk6IGNvbmZpZyBmaWxlICcvZXRjL2Fw
-cGFybW9yL3BhcnNlci5jb25mJyBub3QgZm91bmQKQXBwQXJtb3IgcGFyc2VyIGVycm9yIGZvciAv
-ZXRjL2FwcGFybW9yLmQvY2FwcyBpbgovZXRjL2FwcGFybW9yLmQvY2Fwcy9kZWZhdWx0IGF0IGxp
-bmUgMTogc3ludGF4IGVycm9yLCB1bmV4cGVjdGVkClRPS19DQVBBQklMSVRZLCBleHBlY3Rpbmcg
-JGVuZAphZG1pbkB0ZXN0On4jCgpUaGlzIHN5bnRheCBpc3N1ZSBpbnR1cm4gc2V0IGFwcGFybW9y
-IHNlcnZpY2UgYXMgYSBmYWlsZWQgc3RhdGUuICBCdXQKdGhlIHByb2Nlc3MvcHJvZmlsZSBsb2Fk
-ZWQgaW4gZW5mb3JjZS1tb2RlLgril48gYXBwYXJtb3Iuc2VydmljZSAtIEFwcEFybW9yIGluaXRp
-YWxpemF0aW9uCiAgICAgTG9hZGVkOiBsb2FkZWQgKC9saWIvc3lzdGVtZC9zeXN0ZW0vYXBwYXJt
-b3Iuc2VydmljZTsgZW5hYmxlZDsKdmVuZG9yIHByZXNldDogZW5hYmxlZCkKICAgICBBY3RpdmU6
-IGZhaWxlZCAoUmVzdWx0OiBleGl0LWNvZGUpIHNpbmNlIFN1biAyMDIxLTA0LTI1IDIzOjIwOjEy
-ClVUQzsgMiBkYXlzIGFnbwogICAgICAgRG9jczogbWFuOmFwcGFybW9yKDcpCiAgICAgICAgICAg
-ICBodHRwOi8vd2lraS5hcHBhcm1vci5uZXQvCiAgICBQcm9jZXNzOiAyNjU4IEV4ZWNTdGFydD0v
-ZXRjL2FwcGFybW9yL2FwcGFybW9yX3BhcnNlLnNoCihjb2RlPWV4aXRlZCwgc3RhdHVzPTEvRkFJ
-TFVSRSkKICAgTWFpbiBQSUQ6IDI2NTggKGNvZGU9ZXhpdGVkLCBzdGF0dXM9MS9GQUlMVVJFKQoK
-QWZ0ZXIgbG9hZGluZyB0aGUgcHJvZmlsZSAoZW5mb3JjZSBtb2RlKSwgdGhlIGhlYWRlciBmaWxl
-IGNoYW5nZSBoYXMKYmVlbihjYXBhYmlsaXR5KSBhcHBsaWVkLgpCdXQgSSBoYXZlIHNlZW4gdGhp
-cyBzeW50YXggZXJyb3IgaW4gYXBwYXJtb3Igc3lzdGVtZCBzZXJ2aWNlLgoKSSBjb25maXJtZWQg
-dGhhdCB0aGlzIGlzIGR1ZSB0byBoZWFkZXIgZmlsZSBbIEkgaGFkIGNvbW1lbnQgdGhpcyBsaW5l
-CmFuZCBkbyBub3Qgc2VlIGFueSBlcnJvciBdCgpDYW4geW91IHBsZWFzZSBoZWxwIHVzIHRvIHJl
-c29sdmUgdGhpcyBzeW50YXggZXJyb3IgKEFwcEFybW9yIHBhcnNlcgplcnJvciBmb3IgL2V0Yy9h
-cHBhcm1vci5kL2NhcHMgaW4gL2V0Yy9hcHBhcm1vci5kL2NhcHMvZGVmYXVsdCBhdCBsaW5lCjE6
-IHN5bnRheCBlcnJvciwgdW5leHBlY3RlZCBUT0tfQ0FQQUJJTElUWSwgZXhwZWN0aW5nICRlbmQp
-CgpUaGFua3MKTXVyYWxpLlMKCk9uIFN1biwgQXByIDI1LCAyMDIxIGF0IDI6MTggQU0gQ2hyaXN0
-aWFuIEJvbHR6IDxhcHBhcm1vckBjYm9sdHouZGU+IHdyb3RlOgo+Cj4gSGVsbG8sCj4KPiBBbSBT
-YW1zdGFnLCAyNC4gQXByaWwgMjAyMSwgMTU6NDY6MjIgQ0VTVCBzY2hyaWViIE11cmFsaSBTZWx2
-YXJhajoKPiA+IENhbiB5b3UgcGxlYXNlIGd1aWRlIG1lIHRvIHJlc29sdmUgdGhlIGFib3ZlIHF1
-ZXJ5IG9uIHRoZSBoZWFkZXIgZmlsZQo+ID4gd2l0aCBlbmFibGluZyBtYW55IGNhcGFiaWxpdGll
-cyBpbiB0aGUgaGVhZGVyIGZpbGU/Cj4KPiBhKSAvbnZyYW0yL2FwcGFybW9yX2Jvb3QvY2Fwcy9j
-b21tb24KPgo+ICAgICBjYXBhYmlsaXR5IGNob3duIGRhY19vdmVycmlkZSBkYWNfcmVhZF9zZWFy
-Y2ggZm93bmVyIGZzZXRpZCBraWxsIGlwY19sb2NrIHN5c19uaWNlIHNldHBjYXAgcGNfb3duZXIg
-c3lzX3B0cmFjZSBzeXNfY2hyb290LAo+Cj4gb3IgKHNhbWUgbWVhbmluZywgYnV0IG1vcmUgcmVh
-ZGFibGUpCj4KPiAgICAgY2FwYWJpbGl0eSBjaG93biwKPiAgICAgY2FwYWJpbGl0eSBkYWNfb3Zl
-cnJpZGUsCj4gICAgIGNhcGFiaWxpdHkgZGFjX3JlYWRfc2VhcmNoLAo+ICAgICBjYXBhYmlsaXR5
-IGZvd25lciwKPiAgICAgY2FwYWJpbGl0eSBmc2V0aWQsCj4gICAgIGNhcGFiaWxpdHkga2lsbCwK
-PiAgICAgY2FwYWJpbGl0eSBpcGNfbG9jaywKPiAgICAgY2FwYWJpbGl0eSBzeXNfbmljZSwKPiAg
-ICAgY2FwYWJpbGl0eSBzZXRwY2FwLAo+ICAgICBjYXBhYmlsaXR5IHBjX293bmVyLAo+ICAgICBj
-YXBhYmlsaXR5IHN5c19wdHJhY2UsCj4gICAgIGNhcGFiaWxpdHkgc3lzX2Nocm9vdCwKPgo+Cj4g
-YikgL252cmFtMi9hcHBhcm1vcl9ib290L3Vzci5iaW4udGVzdAo+Cj4gICAgIHByb2ZpbGUgdGVz
-dCAvdXNyL2Jpbi90ZXN0IGZsYWdzPShhdHRhY2hfZGlzY29ubmVjdGVkKSB7Cj4gICAgICAgICAj
-aW5jbHVkZSAiL252cmFtMi9hcHBhcm1vcl9ib290L2NhcHMvY29tbW9uIgo+ICAgICAgICAgY2Fw
-YWJpbGl0eSBzZXR1aWQsCj4gICAgICAgICBjYXBhYmlsaXR5IHNldGdpZCwKPgo+ICAgICAgICAg
-L3N5cy9kZXZpY2VzL3N5c3RlbS9jcHUvb25saW5lIHIsCj4gICAgICAgICBbLi4uIGFsbCB5b3Vy
-IG90aGVyIHJ1bGVzIC4uLl0KPiAgICAgfQo+Cj4gTm90ZSB0aGF0IHlvdSBuZWVkIHRvIG1vdmUg
-dGhlIGluY2x1ZGUgaW5zaWRlIHRoZSBwcm9maWxlLgo+Cj4KPiBSZWdhcmRzLAo+Cj4gQ2hyaXN0
-aWFuIEJvbHR6Cj4gLS0KPiA+SW4gWWFzdDItU3lzdGVtLUVkaXRvciAvZXRjL3N5c2NvbmZpZy1E
-YXRlaWVuIGluCj4gPlN5c3RlbS1LZXJuZWwtTU9EVUxFU19MT0FERURfT05fQk9PVCBpZGUtc2Nz
-aSBlaW50cmFnZW4uCj4gKkpBVVVVVVVVVVVMTExMTCogKkFSUlJHR0hISEgqCj4gTWFuIHJlaWNo
-ZSBtaXIgZWluZSBLbGluaWstSmFocmVzcGFja3VuZyB2b24gJFNDSE1FUlpNSVRURUwhISEKPiBb
-PiBIZWlueiBEaXR0bWFyIHVuZCBEYXZpZCBIYWxsZXIgaW4gc3VzZS1saW51eF0KCi0tIApBcHBB
-cm1vciBtYWlsaW5nIGxpc3QKQXBwQXJtb3JAbGlzdHMudWJ1bnR1LmNvbQpNb2RpZnkgc2V0dGlu
-Z3Mgb3IgdW5zdWJzY3JpYmUgYXQ6IGh0dHBzOi8vbGlzdHMudWJ1bnR1LmNvbS9tYWlsbWFuL2xp
-c3RpbmZvL2FwcGFybW9yCg==
+--===============5802323114140882230==
+Content-Type: multipart/signed; boundary="nextPart26126864.8dQXvbBVOk"; micalg="pgp-sha256"; protocol="application/pgp-signature"
+
+--nextPart26126864.8dQXvbBVOk
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"; protected-headers="v1"
+From: Christian Boltz <apparmor@cboltz.de>
+To: apparmor@lists.ubuntu.com
+Cc: Murali Selvaraj <murali.selvaraj2003@gmail.com>
+Subject: Re: [apparmor] Apparmor: Query on adding many capabilities in the custom header file
+Date: Wed, 28 Apr 2021 22:06:58 +0200
+Message-ID: <2880435.J7sXRC9dT7@tux.boltz.de.vu>
+In-Reply-To: <CAODFaZ7+_anXqMbkyHrupc8CMxS0OfaGTX0EF_mZx46=7TF-=g@mail.gmail.com>
+References: <CAODFaZ5-vQeqWtgWmwO=Qp21=JjeC5zJCzZ-zkpQT2hQNONqcQ@mail.gmail.com> <1845778.uqYG4e8EI7@tux.boltz.de.vu> <CAODFaZ7+_anXqMbkyHrupc8CMxS0OfaGTX0EF_mZx46=7TF-=g@mail.gmail.com>
+
+Hello,
+
+Am Mittwoch, 28. April 2021, 21:01:23 CEST schrieb Murali Selvaraj:
+> I have created a header file as follows and included in the apparmor
+> profile.
+>=20
+> admin@test:/etc/apparmor.d# cat caps/default
+> capability chown dac_override dac_read_search fowner fsetid kill
+> ipc_lock sys_nice setpcap ipc_owner sys_ptrace sys_chroot,
+> admin@test:/etc/apparmor.d#
+>=20
+> profile :
+> cat usr.bin.foo
+> profile foo/usr/bin/foo flags=3D(attach_disconnected) {
+
+Unrelated to your problem: I'd guess you mean
+     profile foo  /usr/bin/foo flags=3D(attach_disconnected) {
+with a space between "foo" and the path.
+
+>     #include <caps/default>
+[...]
+> admin@test:~# sh /etc/apparmor/apparmor_parse.sh
+> Warning from stdin (line 1): config file '/etc/apparmor/parser.conf'
+> not found AppArmor parser error for /etc/apparmor.d/caps in
+> /etc/apparmor.d/caps/default at line 1: syntax error, unexpected
+> TOK_CAPABILITY, expecting $end
+> admin@test:~#
+
+I tested your usr.bin.foo profile with apparmor_parser, and it can be=20
+loaded without problems. [To clarify: I also tested before adding the=20
+space mentioned above.]
+
+Can you please show your /etc/apparmor/apparmor_parse.sh script?
+I have a feeling that it does something strange - wild guess:
+
+    # apparmor_parser -r caps/default
+    AppArmor parser error for caps/default in profile caps/default at=20
+    line 1: syntax error, unexpected TOK_CAPABILITY, expecting end of=20
+    file
+
+You should only load your profiles with apparmor_parser, but not the=20
+include files. Included files get loaded whenever they are included, and=20
+are not meant to be loaded separately.
+
+Oh, BTW - the most boring way to load all your profiles is
+    apparmor_parser -r /etc/apparmor.d/
+
+
+Regards,
+
+Christian Boltz
+=2D-=20
+Wenn schon, dann h=F6chstens Homo Sapiens Sapiens XEmacensis, die
+Entwicklungslinie, die im Laufe der Evolution sieben Finger an jeder
+Hand entwickelt hat. Und das alles nur um alle Tastenk=FCrzel zur
+Bedienung von XEmacs nutzen zu k=F6nnen. [T. Templin =FCber David Haller]
+
+--nextPart26126864.8dQXvbBVOk
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEcMqgYN4EKq6xsVGWxqaC6mPILxwFAmCJwGIACgkQxqaC6mPI
+Lxxt/A//dFya7KK9IyGfXUodjxsk7L3JhkSaQUsIG02ZqALkQ1mDasJE6ycml2fB
++u2Gvxyqc7fGBkvL6ihldJMihflUk/el2jUXpIoije9LFxZ4EQ8eI/xJIJVk+8ml
+AlgfxyPF1HyempnX+mzYehZfooEEl5O0j6JHx3T1CkKF5HAwilkgSOCxpVBxjF5H
+XpIeNdtZljL4yKOfWMwKqzpTaiwCGrGynAR6fFbONtQjWcF4g/aQ+3JzG5reCgeT
+MuAPoQMCZFxbzo1PAuvSUXqW0OgmHaoFoIaaSDeuWOiiNZX9bjxnN2MG3IrNcI/g
+iy4vKSPegQsKe4MNkcFJQmEYcbIDNOGQU+rqF52EKxu704feM/28HaWWBtVC8oqy
+33BwMGGwCQq24EXUIgJgoZki1ifm7ewJlTWhjAxlFdgRldX2eHJ7DqlE+4UMDT10
+y48BaIcwP0nYlMQPh+pr8NFimNzebTkNG500bgWeQF/ME0hboL1GDBr9o4HDuHc+
+QicaaiTR4jbLy2spl5BZV7H3MiGxSHCIF6FThACaRrnsRmVEAlvRQC6uUmNOfQzE
+X7TJallLrN7X27WeszwQUBQ6zZOTM57IKwOK44cPIOuJX1Qjs34xnSXR8G1fqFeG
++bgmN8gqljSfcBslnfRd1JX6CWE3v86lTuCtU+ZgMwwykWSUvQg=
+=IBG4
+-----END PGP SIGNATURE-----
+
+--nextPart26126864.8dQXvbBVOk--
+
+
+
+
+
+--===============5802323114140882230==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
+eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
+aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
+
+--===============5802323114140882230==--
+
+
+
+
