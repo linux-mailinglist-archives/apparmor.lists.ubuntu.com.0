@@ -2,43 +2,106 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45E3C36E014
-	for <lists+apparmor@lfdr.de>; Wed, 28 Apr 2021 22:07:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84DD2377816
+	for <lists+apparmor@lfdr.de>; Sun,  9 May 2021 21:33:12 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1lbqSf-0007BN-TP; Wed, 28 Apr 2021 20:07:05 +0000
-Received: from mail.cboltz.de ([88.99.101.17])
+	id 1lfpAk-0000JX-R5; Sun, 09 May 2021 19:33:02 +0000
+Received: from youngberry.canonical.com ([91.189.89.112])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <apparmor@cboltz.de>) id 1lbqSd-00079f-D5
- for apparmor@lists.ubuntu.com; Wed, 28 Apr 2021 20:07:03 +0000
-X-sprachakt.com-SMTP-Auth: no
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by mail.cboltz.de (Postfix) with ESMTP id CAC2F5C0093;
- Wed, 28 Apr 2021 22:07:02 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at mail.cboltz.de
-Received: from mail.cboltz.de ([127.0.0.1])
- by localhost (mail.cboltz.de [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id 5AZy_GTNmyKp; Wed, 28 Apr 2021 22:07:01 +0200 (CEST)
-Received: from home.cboltz.de (unknown [10.10.0.6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (Client did not present a certificate)
- by mail.cboltz.de (Postfix) with ESMTPSA;
- Wed, 28 Apr 2021 22:07:01 +0200 (CEST)
-From: Christian Boltz <apparmor@cboltz.de>
-To: apparmor@lists.ubuntu.com
-Date: Wed, 28 Apr 2021 22:06:58 +0200
-Message-ID: <2880435.J7sXRC9dT7@tux.boltz.de.vu>
-In-Reply-To: <CAODFaZ7+_anXqMbkyHrupc8CMxS0OfaGTX0EF_mZx46=7TF-=g@mail.gmail.com>
-References: <CAODFaZ5-vQeqWtgWmwO=Qp21=JjeC5zJCzZ-zkpQT2hQNONqcQ@mail.gmail.com>
- <1845778.uqYG4e8EI7@tux.boltz.de.vu>
- <CAODFaZ7+_anXqMbkyHrupc8CMxS0OfaGTX0EF_mZx46=7TF-=g@mail.gmail.com>
+ (envelope-from <john.johansen@canonical.com>) id 1lfpAj-0000Iy-96
+ for apparmor@lists.ubuntu.com; Sun, 09 May 2021 19:33:01 +0000
+Received: from [50.53.41.238] (helo=[192.168.192.153])
+ by youngberry.canonical.com with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
+ (envelope-from <john.johansen@canonical.com>) id 1lfpAi-000246-Tm
+ for apparmor@lists.ubuntu.com; Sun, 09 May 2021 19:33:01 +0000
+From: John Johansen <john.johansen@canonical.com>
+To: apparmor <apparmor@lists.ubuntu.com>
+Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
+ LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCgptUUlOQkU1bXJQb0JFQURB
+ azE5UHNnVmdCS2tJbW1SMmlzUFE2bzdLSmhUVEtqSmR3VmJrV1NuTm4rbzZVcDVrCm5LUDFm
+ NDlFQlFsY2VXZzF5cC9Od2JSOGFkK2VTRU8vdW1hL0srUHFXdkJwdEtDOVNXRDk3Rkc0dUI0
+ L2Nhb20KTEVVOTdzTFFNdG52R1dkeHJ4VlJHTTRhbnpXWU1neno1VFptSWlWVFo0M091NVZw
+ YVMxVnoxWlN4UDNoL3hLTgpaci9UY1c1V1FhaTh1M1BXVm5ia2poU1pQSHYxQmdoTjY5cXhF
+ UG9tckpCbTFnbXR4M1ppVm1GWGx1d1RtVGdKCk9rcEZvbDduYkowaWxuWUhyQTdTWDNDdFIx
+ dXBlVXBNYS9XSWFuVk85NldkVGpISElhNDNmYmhtUXViZTR0eFMKM0ZjUUxPSlZxUXN4NmxF
+ OUI3cUFwcG05aFExMHFQV3dkZlB5LyswVzZBV3ROdTVBU2lHVkNJbld6bDJIQnFZZAovWmxs
+ OTN6VXErTklvQ244c0RBTTlpSCt3dGFHRGNKeXdJR0luK2VkS050SzcyQU1nQ2hUZy9qMVpv
+ V0g2WmVXClBqdVVmdWJWelp0bzFGTW9HSi9TRjRNbWRRRzFpUU50ZjRzRlpiRWdYdXk5Y0dp
+ MmJvbUYwenZ5QkpTQU5weGwKS05CRFlLek42S3owOUhVQWtqbEZNTmdvbUwvY2pxZ0FCdEF4
+ NTlMK2RWSVpmYUYyODFwSWNVWnp3dmg1K0pvRwplT1c1dUJTTWJFN0wzOG5zem9veWtJSjVY
+ ckFjaGtKeE5mejdrK0ZuUWVLRWtOekVkMkxXYzNRRjRCUVpZUlQ2ClBISGdhM1JneWtXNSsx
+ d1RNcUpJTGRtdGFQYlhyRjNGdm5WMExSUGN2NHhLeDdCM2ZHbTd5Z2Rvb3dBUkFRQUIKdEIx
+ S2IyaHVJRXB2YUdGdWMyVnVJRHhxYjJodVFHcHFiWGd1Ym1WMFBva0NPZ1FUQVFvQUpBSWJB
+ d1VMQ1FnSApBd1VWQ2drSUN3VVdBZ01CQUFJZUFRSVhnQVVDVG8wWVZ3SVpBUUFLQ1JBRkx6
+ WndHTlhEMkx4SkQvOVRKWkNwCndsbmNUZ1llcmFFTWVEZmtXdjhjMUlzTTFqMEFtRTRWdEwr
+ ZkU3ODBaVlA5Z2tqZ2tkWVN4dDdlY0VUUFRLTWEKWlNpc3JsMVJ3cVUwb29nWGRYUVNweHJH
+ SDAxaWN1LzJuMGpjWVNxWUtnZ1B4eTc4QkdzMkxacTRYUGZKVFptSApaR25YR3EvZURyL21T
+ bmowYWF2QkptTVo2amJpUHo2eUh0QllQWjlmZG84YnRjendQNDFZZVdvSXUyNi84SUk2CmYw
+ WG0zVkM1b0FhOHY3UmQrUldaYThUTXdsaHpIRXh4ZWwzanRJN0l6ek9zbm1FOS84RG0wQVJE
+ NWlUTENYd1IKMWN3SS9KOUJGL1MxWHY4UE4xaHVUM0l0Q05kYXRncDh6cW9Ka2dQVmptdnlM
+ NjRRM2ZFa1liZkhPV3NhYmE5LwprQVZ0Qk56OVJURmg3SUhEZkVDVmFUb3VqQmQ3QnRQcXIr
+ cUlqV0ZhZEpEM0k1ZUxDVkp2VnJyb2xyQ0FUbEZ0Ck4zWWtRczZKbjFBaUlWSVUzYkhSOEdq
+ ZXZnejVMbDZTQ0dIZ1Jya3lScG5TWWFVL3VMZ24zN042QVl4aS9RQUwKK2J5M0N5RUZManpX
+ QUV2eVE4YnEzSXVjbjdKRWJoUy9KLy9kVXFMb2VVZjh0c0dpMDB6bXJJVFpZZUZZQVJoUQpN
+ dHNmaXpJclZEdHoxaVBmL1pNcDVnUkJuaXlqcFhuMTMxY20zTTNndjZIclFzQUdubjhBSnJ1
+ OEdEaTVYSllJCmNvLzEreC9xRWlOMm5DbGFBT3BiaHpOMmVVdlBEWTVXMHEzYkEvWnAybWZH
+ NTJ2YlJJK3RRMEJyMUhkL3ZzbnQKVUhPOTAzbU1aZXAyTnpOM0JaNXFFdlB2RzRyVzVacTJE
+ cHliV2JRclNtOW9iaUJLYjJoaGJuTmxiaUE4YW05bwpiaTVxYjJoaGJuTmxia0JqWVc1dmJt
+ bGpZV3d1WTI5dFBva0NOd1FUQVFvQUlRVUNUbzBYV2dJYkF3VUxDUWdICkF3VVZDZ2tJQ3dV
+ V0FnTUJBQUllQVFJWGdBQUtDUkFGTHpad0dOWEQySXRNRC85anliYzg3ZE00dUFIazZ5Tk0K
+ TjBZL0JGbW10VFdWc09CaHFPbm9iNGkzOEJyRE8yQzFoUUNQQ1FlNExMczEvNHB0ZW92UXQ4
+ QjJGeXJQVmp3Zwo3alpUSE5LNzRyNmxDQ1Z4eDN5dTFCN1U5UG80VlRrY3NsVmIxL3FtV3V4
+ OFhXY040eXZrVHFsTCtHeHB5Sm45CjlaWmZmWEpjNk9oNlRtT2ZiS0d2TXV1djVhclNJQTNK
+ SEZMZjlhTHZadEExaXNKVXI3cFM5YXBnOXVUVUdVcDcKd2ZWMFdUNlQzZUczbXRVVTJ1cDVK
+ VjQ4NTBMMDVqSFM2dVdpZS9ZK3lmSk9iaXlyeE4vNlpxVzVHb25oTEJxLwptc3pjVjV2QlQz
+ QkRWZTNSdkY2WGRNOU9oUG4xK1k4MXg1NCt2UTExM044aUx3RjdHR2ExNFp5SVZBTlpEMEkw
+ CkhqUnZhMmsvUnFJUlR6S3l1UEg1cGtsY0tIVlBFRk1tT3pNVCtGT294Tmp2Uys3K3dHMktN
+ RFlFbUhQcjFQSkIKWlNaZUh6SzE5dGZhbFBNcHBGeGkrc3lZTGFnTjBtQjdKSFF3WTdjclV1
+ T0RoeWNxNjBZVnoxdGFFeWd1M1l2MgoyL0kxRUNHSHZLSEc2d2M5MG80M0MvZWxIRUNYbkVo
+ N3RLcGxEY3BJQytPQ21NeEtIaFI0NitYY1p2Z3c0RGdiCjdjYTgzZVFSM0NHODlMdlFwVzJM
+ TEtFRUJEajdoWmhrTGJra1BSWm0zdzhKWTQ0YXc4VnRneFdkblNFTUNMeEwKSU9OaDZ1Wjcv
+ L0RZVnRjSWFNSllrZWJhWnRHZENwMElnVVpiMjQvVmR2WkNZYk82MkhrLzNWbzFuWHdIVUVz
+ Mwo2RC92MWJUMFJaRmk2OUxnc0NjT2N4NGdZTGtDRFFST1pxejZBUkFBb3F3NmtrQmhXeU0x
+ ZnZnYW1BVmplWjZuCktFZm5SV2JrQzk0TDFFc0pMdXAzV2IyWDBBQk5PSFNrYlNENHBBdUMy
+ dEtGL0VHQnQ1Q1A3UWRWS1JHY1F6QWQKNmIyYzFJZHk5Ukx3Nnc0Z2krbm4vZDFQbTFra1lo
+ a1NpNXpXYUlnMG01UlFVaytFbDh6a2Y1dGNFLzFOMFo1TwpLMkpoandGdTViWDBhMGw0Y0ZH
+ V1ZRRWNpVk1ES1J0eE1qRXRrM1N4RmFsbTZaZFEycHAyODIyY2xucTR6WjltCld1MWQyd2F4
+ aXorYjVJYTR3ZURZYTduNDFVUmNCRVViSkFnbmljSmtKdENUd3lJeElXMktuVnlPcmp2a1F6
+ SUIKdmFQMEZkUDJ2dlpvUE1kbENJek9sSWtQTGd4RTBJV3VlVFhlQkpoTnMwMXBiOGJMcW1U
+ SU1sdTRMdkJFTEEvdgplaWFqajVzOHk1NDJIL2FIc2ZCZjRNUVVoSHhPL0JaVjdoMDZLU1Vm
+ SWFZN09nQWdLdUdOQjNVaWFJVVM1K2E5CmduRU9RTER4S1J5L2E3UTF2OVMrTnZ4KzdqOGlI
+ M2prUUpoeFQ2WkJoWkdSeDBna0gzVCtGMG5ORG01TmFKVXMKYXN3Z0pycUZaa1VHZDJNcm0x
+ cW5Ld1hpQXQ4U0ljRU5kcTMzUjBLS0tSQzgwWGd3ajhKbjMwdlhMU0crTk8xRwpIMFVNY0F4
+ TXd5L3B2azZMVTVKR2paUjczSjVVTFZoSDRNTGJEZ2dEM21QYWlHOCtmb3RUckpVUHFxaGc5
+ aHlVCkVQcFlHN3NxdDc0WG43OStDRVpjakxIenlsNnZBRkUyVzBreGxMdFF0VVpVSE8zNmFm
+ RnY4cUdwTzNacVB2akIKVXVhdFhGNnR2VVFDd2YzSDZYTUFFUUVBQVlrQ0h3UVlBUW9BQ1FV
+ Q1RtYXMrZ0liREFBS0NSQUZMelp3R05YRAoyRC9YRC8wZGRNLzRhaTFiK1RsMWp6bkthalgz
+ a0crTWVFWWVJNGY0MHZjbzNyT0xyblJHRk9jYnl5ZlZGNjlNCktlcGllNE93b0kxamNUVTBB
+ RGVjbmJXbkROSHByMFNjenhCTXJvM2Juckxoc212anVuVFlJdnNzQlp0QjRhVkoKanVMSUxQ
+ VWxuaEZxYTdmYlZxMFpRamJpVi9ydDJqQkVOZG05cGJKWjZHam5wWUljQWJQQ0NhL2ZmTDQv
+ U1FSUwpZSFhvaEdpaVM0eTVqQlRtSzVsdGZld0xPdzAyZmtleEgrSUpGcnJHQlhEU2c2bjJT
+ Z3hubisrTkYzNGZYY205CnBpYXczbUtzSUNtKzBoZE5oNGFmR1o2SVdWOFBHMnRlb29WRHA0
+ ZFlpaCsreFgvWFM4ekJDYzFPOXc0bnpsUDIKZ0t6bHFTV2JoaVdwaWZSSkJGYTRXdEFlSlRk
+ WFlkMzdqL0JJNFJXV2hueXc3YUFQTkdqMzN5dEdITlVmNlJvMgovanRqNHRGMXkvUUZYcWpK
+ Ry93R2pwZHRSZmJ0VWpxTEhJc3ZmUE5OSnEvOTU4cDc0bmRBQ2lkbFdTSHpqK09wCjI2S3Bi
+ Rm5td05PMHBzaVVzbmh2SEZ3UE8vdkFibDNSc1I1KzBSbytodnMyY0VtUXV2OXIvYkRsQ2Zw
+ enAydDMKY0srcmh4VXFpc094OERaZnoxQm5rYW9DUkZidnZ2ays3TC9mb21QbnRHUGtxSmNp
+ WUU4VEdIa1p3MWhPa3UrNApPb00yR0I1bkVEbGorMlRGL2pMUStFaXBYOVBrUEpZdnhmUmxD
+ NmRLOFBLS2ZYOUtkZm1BSWNnSGZuVjFqU24rCjh5SDJkakJQdEtpcVcwSjY5YUlzeXg3aVYv
+ MDNwYVBDakpoN1hxOXZBenlkTjVVL1VBPT0KPTZQL2IKLS0tLS1FTkQgUEdQIFBVQkxJQyBL
+ RVkgQkxPQ0stLS0tLQo=
+Organization: Canonical
+Message-ID: <ff7c17be-b05e-fa47-aaba-8d41778f23ed@canonical.com>
+Date: Sun, 9 May 2021 12:32:59 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-Face: #?nL0}JpqNtLQy@q#bRm?B?pGS8[mx6r.6[91zp@*2DZ?18)haWs5wgvi, ,
- wF/JWMTUh+6x, b7_`pW3)m~0606sDW0&'EKA}_-W+)Bz~d]k>4E9TyU}k@b&1=%yk\
-Subject: Re: [apparmor] Apparmor: Query on adding many capabilities in the
-	custom header file
+Content-Language: en-US
+Subject: [apparmor]  irc meeting Tues May 11 - Cancelled
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -50,123 +113,14 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Murali Selvaraj <murali.selvaraj2003@gmail.com>
-Content-Type: multipart/mixed; boundary="===============5802323114140882230=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
---===============5802323114140882230==
-Content-Type: multipart/signed; boundary="nextPart26126864.8dQXvbBVOk"; micalg="pgp-sha256"; protocol="application/pgp-signature"
-
---nextPart26126864.8dQXvbBVOk
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"; protected-headers="v1"
-From: Christian Boltz <apparmor@cboltz.de>
-To: apparmor@lists.ubuntu.com
-Cc: Murali Selvaraj <murali.selvaraj2003@gmail.com>
-Subject: Re: [apparmor] Apparmor: Query on adding many capabilities in the custom header file
-Date: Wed, 28 Apr 2021 22:06:58 +0200
-Message-ID: <2880435.J7sXRC9dT7@tux.boltz.de.vu>
-In-Reply-To: <CAODFaZ7+_anXqMbkyHrupc8CMxS0OfaGTX0EF_mZx46=7TF-=g@mail.gmail.com>
-References: <CAODFaZ5-vQeqWtgWmwO=Qp21=JjeC5zJCzZ-zkpQT2hQNONqcQ@mail.gmail.com> <1845778.uqYG4e8EI7@tux.boltz.de.vu> <CAODFaZ7+_anXqMbkyHrupc8CMxS0OfaGTX0EF_mZx46=7TF-=g@mail.gmail.com>
-
-Hello,
-
-Am Mittwoch, 28. April 2021, 21:01:23 CEST schrieb Murali Selvaraj:
-> I have created a header file as follows and included in the apparmor
-> profile.
->=20
-> admin@test:/etc/apparmor.d# cat caps/default
-> capability chown dac_override dac_read_search fowner fsetid kill
-> ipc_lock sys_nice setpcap ipc_owner sys_ptrace sys_chroot,
-> admin@test:/etc/apparmor.d#
->=20
-> profile :
-> cat usr.bin.foo
-> profile foo/usr/bin/foo flags=3D(attach_disconnected) {
-
-Unrelated to your problem: I'd guess you mean
-     profile foo  /usr/bin/foo flags=3D(attach_disconnected) {
-with a space between "foo" and the path.
-
->     #include <caps/default>
-[...]
-> admin@test:~# sh /etc/apparmor/apparmor_parse.sh
-> Warning from stdin (line 1): config file '/etc/apparmor/parser.conf'
-> not found AppArmor parser error for /etc/apparmor.d/caps in
-> /etc/apparmor.d/caps/default at line 1: syntax error, unexpected
-> TOK_CAPABILITY, expecting $end
-> admin@test:~#
-
-I tested your usr.bin.foo profile with apparmor_parser, and it can be=20
-loaded without problems. [To clarify: I also tested before adding the=20
-space mentioned above.]
-
-Can you please show your /etc/apparmor/apparmor_parse.sh script?
-I have a feeling that it does something strange - wild guess:
-
-    # apparmor_parser -r caps/default
-    AppArmor parser error for caps/default in profile caps/default at=20
-    line 1: syntax error, unexpected TOK_CAPABILITY, expecting end of=20
-    file
-
-You should only load your profiles with apparmor_parser, but not the=20
-include files. Included files get loaded whenever they are included, and=20
-are not meant to be loaded separately.
-
-Oh, BTW - the most boring way to load all your profiles is
-    apparmor_parser -r /etc/apparmor.d/
-
-
-Regards,
-
-Christian Boltz
-=2D-=20
-Wenn schon, dann h=F6chstens Homo Sapiens Sapiens XEmacensis, die
-Entwicklungslinie, die im Laufe der Evolution sieben Finger an jeder
-Hand entwickelt hat. Und das alles nur um alle Tastenk=FCrzel zur
-Bedienung von XEmacs nutzen zu k=F6nnen. [T. Templin =FCber David Haller]
-
---nextPart26126864.8dQXvbBVOk
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEcMqgYN4EKq6xsVGWxqaC6mPILxwFAmCJwGIACgkQxqaC6mPI
-Lxxt/A//dFya7KK9IyGfXUodjxsk7L3JhkSaQUsIG02ZqALkQ1mDasJE6ycml2fB
-+u2Gvxyqc7fGBkvL6ihldJMihflUk/el2jUXpIoije9LFxZ4EQ8eI/xJIJVk+8ml
-AlgfxyPF1HyempnX+mzYehZfooEEl5O0j6JHx3T1CkKF5HAwilkgSOCxpVBxjF5H
-XpIeNdtZljL4yKOfWMwKqzpTaiwCGrGynAR6fFbONtQjWcF4g/aQ+3JzG5reCgeT
-MuAPoQMCZFxbzo1PAuvSUXqW0OgmHaoFoIaaSDeuWOiiNZX9bjxnN2MG3IrNcI/g
-iy4vKSPegQsKe4MNkcFJQmEYcbIDNOGQU+rqF52EKxu704feM/28HaWWBtVC8oqy
-33BwMGGwCQq24EXUIgJgoZki1ifm7ewJlTWhjAxlFdgRldX2eHJ7DqlE+4UMDT10
-y48BaIcwP0nYlMQPh+pr8NFimNzebTkNG500bgWeQF/ME0hboL1GDBr9o4HDuHc+
-QicaaiTR4jbLy2spl5BZV7H3MiGxSHCIF6FThACaRrnsRmVEAlvRQC6uUmNOfQzE
-X7TJallLrN7X27WeszwQUBQ6zZOTM57IKwOK44cPIOuJX1Qjs34xnSXR8G1fqFeG
-+bgmN8gqljSfcBslnfRd1JX6CWE3v86lTuCtU+ZgMwwykWSUvQg=
-=IBG4
------END PGP SIGNATURE-----
-
---nextPart26126864.8dQXvbBVOk--
-
-
-
-
-
---===============5802323114140882230==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
-eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
-aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
-
---===============5802323114140882230==--
-
-
-
-
+VGhlIGlyYyBtZWV0aW5nIGZvciB0aGlzIG1vbnRoIGlzIGNhbmNlbGxlZC4gSWYgdGhlcmUgaXMg
+c29tZXRoaW5nIHRoYXQgbmVlZHMgdG8gYmUgZGlzY3Vzc2VkIHRoYXQgY2FuJ3Qgd2FpdCB1bnRp
+bCB0aGUgRmVicnVhcnkgbWVldGluZyBhbiBpbXByb21wdHUgbWVldGluZyBjYW4gYmUgYXJyYW5n
+ZWQuCgoKLS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29t
+Ck1vZGlmeSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUu
+Y29tL21haWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
