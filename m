@@ -2,108 +2,40 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63384386C38
-	for <lists+apparmor@lfdr.de>; Mon, 17 May 2021 23:22:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE115386CA2
+	for <lists+apparmor@lfdr.de>; Mon, 17 May 2021 23:50:19 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1likh3-000271-FB; Mon, 17 May 2021 21:22:29 +0000
-Received: from youngberry.canonical.com ([91.189.89.112])
+	id 1lil7v-0003NP-74; Mon, 17 May 2021 21:50:15 +0000
+Received: from mail.cboltz.de ([88.99.101.17])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>) id 1likh1-00026v-Dc
- for apparmor@lists.ubuntu.com; Mon, 17 May 2021 21:22:27 +0000
-Received: from [50.53.41.238] (helo=[192.168.192.153])
- by youngberry.canonical.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <john.johansen@canonical.com>)
- id 1likh0-0000Ff-VF; Mon, 17 May 2021 21:22:27 +0000
-To: "mailinglisten@posteo.de" <mailinglisten@posteo.de>,
- apparmor@lists.ubuntu.com
-References: <16e8bf7f-9e53-8ad9-5183-31ecc51fc015@posteo.de>
-From: John Johansen <john.johansen@canonical.com>
-Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
- LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCgptUUlOQkU1bXJQb0JFQURB
- azE5UHNnVmdCS2tJbW1SMmlzUFE2bzdLSmhUVEtqSmR3VmJrV1NuTm4rbzZVcDVrCm5LUDFm
- NDlFQlFsY2VXZzF5cC9Od2JSOGFkK2VTRU8vdW1hL0srUHFXdkJwdEtDOVNXRDk3Rkc0dUI0
- L2Nhb20KTEVVOTdzTFFNdG52R1dkeHJ4VlJHTTRhbnpXWU1neno1VFptSWlWVFo0M091NVZw
- YVMxVnoxWlN4UDNoL3hLTgpaci9UY1c1V1FhaTh1M1BXVm5ia2poU1pQSHYxQmdoTjY5cXhF
- UG9tckpCbTFnbXR4M1ppVm1GWGx1d1RtVGdKCk9rcEZvbDduYkowaWxuWUhyQTdTWDNDdFIx
- dXBlVXBNYS9XSWFuVk85NldkVGpISElhNDNmYmhtUXViZTR0eFMKM0ZjUUxPSlZxUXN4NmxF
- OUI3cUFwcG05aFExMHFQV3dkZlB5LyswVzZBV3ROdTVBU2lHVkNJbld6bDJIQnFZZAovWmxs
- OTN6VXErTklvQ244c0RBTTlpSCt3dGFHRGNKeXdJR0luK2VkS050SzcyQU1nQ2hUZy9qMVpv
- V0g2WmVXClBqdVVmdWJWelp0bzFGTW9HSi9TRjRNbWRRRzFpUU50ZjRzRlpiRWdYdXk5Y0dp
- MmJvbUYwenZ5QkpTQU5weGwKS05CRFlLek42S3owOUhVQWtqbEZNTmdvbUwvY2pxZ0FCdEF4
- NTlMK2RWSVpmYUYyODFwSWNVWnp3dmg1K0pvRwplT1c1dUJTTWJFN0wzOG5zem9veWtJSjVY
- ckFjaGtKeE5mejdrK0ZuUWVLRWtOekVkMkxXYzNRRjRCUVpZUlQ2ClBISGdhM1JneWtXNSsx
- d1RNcUpJTGRtdGFQYlhyRjNGdm5WMExSUGN2NHhLeDdCM2ZHbTd5Z2Rvb3dBUkFRQUIKdEIx
- S2IyaHVJRXB2YUdGdWMyVnVJRHhxYjJodVFHcHFiWGd1Ym1WMFBva0NPZ1FUQVFvQUpBSWJB
- d1VMQ1FnSApBd1VWQ2drSUN3VVdBZ01CQUFJZUFRSVhnQVVDVG8wWVZ3SVpBUUFLQ1JBRkx6
- WndHTlhEMkx4SkQvOVRKWkNwCndsbmNUZ1llcmFFTWVEZmtXdjhjMUlzTTFqMEFtRTRWdEwr
- ZkU3ODBaVlA5Z2tqZ2tkWVN4dDdlY0VUUFRLTWEKWlNpc3JsMVJ3cVUwb29nWGRYUVNweHJH
- SDAxaWN1LzJuMGpjWVNxWUtnZ1B4eTc4QkdzMkxacTRYUGZKVFptSApaR25YR3EvZURyL21T
- bmowYWF2QkptTVo2amJpUHo2eUh0QllQWjlmZG84YnRjendQNDFZZVdvSXUyNi84SUk2CmYw
- WG0zVkM1b0FhOHY3UmQrUldaYThUTXdsaHpIRXh4ZWwzanRJN0l6ek9zbm1FOS84RG0wQVJE
- NWlUTENYd1IKMWN3SS9KOUJGL1MxWHY4UE4xaHVUM0l0Q05kYXRncDh6cW9Ka2dQVmptdnlM
- NjRRM2ZFa1liZkhPV3NhYmE5LwprQVZ0Qk56OVJURmg3SUhEZkVDVmFUb3VqQmQ3QnRQcXIr
- cUlqV0ZhZEpEM0k1ZUxDVkp2VnJyb2xyQ0FUbEZ0Ck4zWWtRczZKbjFBaUlWSVUzYkhSOEdq
- ZXZnejVMbDZTQ0dIZ1Jya3lScG5TWWFVL3VMZ24zN042QVl4aS9RQUwKK2J5M0N5RUZManpX
- QUV2eVE4YnEzSXVjbjdKRWJoUy9KLy9kVXFMb2VVZjh0c0dpMDB6bXJJVFpZZUZZQVJoUQpN
- dHNmaXpJclZEdHoxaVBmL1pNcDVnUkJuaXlqcFhuMTMxY20zTTNndjZIclFzQUdubjhBSnJ1
- OEdEaTVYSllJCmNvLzEreC9xRWlOMm5DbGFBT3BiaHpOMmVVdlBEWTVXMHEzYkEvWnAybWZH
- NTJ2YlJJK3RRMEJyMUhkL3ZzbnQKVUhPOTAzbU1aZXAyTnpOM0JaNXFFdlB2RzRyVzVacTJE
- cHliV2JRclNtOW9iaUJLYjJoaGJuTmxiaUE4YW05bwpiaTVxYjJoaGJuTmxia0JqWVc1dmJt
- bGpZV3d1WTI5dFBva0NOd1FUQVFvQUlRVUNUbzBYV2dJYkF3VUxDUWdICkF3VVZDZ2tJQ3dV
- V0FnTUJBQUllQVFJWGdBQUtDUkFGTHpad0dOWEQySXRNRC85anliYzg3ZE00dUFIazZ5Tk0K
- TjBZL0JGbW10VFdWc09CaHFPbm9iNGkzOEJyRE8yQzFoUUNQQ1FlNExMczEvNHB0ZW92UXQ4
- QjJGeXJQVmp3Zwo3alpUSE5LNzRyNmxDQ1Z4eDN5dTFCN1U5UG80VlRrY3NsVmIxL3FtV3V4
- OFhXY040eXZrVHFsTCtHeHB5Sm45CjlaWmZmWEpjNk9oNlRtT2ZiS0d2TXV1djVhclNJQTNK
- SEZMZjlhTHZadEExaXNKVXI3cFM5YXBnOXVUVUdVcDcKd2ZWMFdUNlQzZUczbXRVVTJ1cDVK
- VjQ4NTBMMDVqSFM2dVdpZS9ZK3lmSk9iaXlyeE4vNlpxVzVHb25oTEJxLwptc3pjVjV2QlQz
- QkRWZTNSdkY2WGRNOU9oUG4xK1k4MXg1NCt2UTExM044aUx3RjdHR2ExNFp5SVZBTlpEMEkw
- CkhqUnZhMmsvUnFJUlR6S3l1UEg1cGtsY0tIVlBFRk1tT3pNVCtGT294Tmp2Uys3K3dHMktN
- RFlFbUhQcjFQSkIKWlNaZUh6SzE5dGZhbFBNcHBGeGkrc3lZTGFnTjBtQjdKSFF3WTdjclV1
- T0RoeWNxNjBZVnoxdGFFeWd1M1l2MgoyL0kxRUNHSHZLSEc2d2M5MG80M0MvZWxIRUNYbkVo
- N3RLcGxEY3BJQytPQ21NeEtIaFI0NitYY1p2Z3c0RGdiCjdjYTgzZVFSM0NHODlMdlFwVzJM
- TEtFRUJEajdoWmhrTGJra1BSWm0zdzhKWTQ0YXc4VnRneFdkblNFTUNMeEwKSU9OaDZ1Wjcv
- L0RZVnRjSWFNSllrZWJhWnRHZENwMElnVVpiMjQvVmR2WkNZYk82MkhrLzNWbzFuWHdIVUVz
- Mwo2RC92MWJUMFJaRmk2OUxnc0NjT2N4NGdZTGtDRFFST1pxejZBUkFBb3F3NmtrQmhXeU0x
- ZnZnYW1BVmplWjZuCktFZm5SV2JrQzk0TDFFc0pMdXAzV2IyWDBBQk5PSFNrYlNENHBBdUMy
- dEtGL0VHQnQ1Q1A3UWRWS1JHY1F6QWQKNmIyYzFJZHk5Ukx3Nnc0Z2krbm4vZDFQbTFra1lo
- a1NpNXpXYUlnMG01UlFVaytFbDh6a2Y1dGNFLzFOMFo1TwpLMkpoandGdTViWDBhMGw0Y0ZH
- V1ZRRWNpVk1ES1J0eE1qRXRrM1N4RmFsbTZaZFEycHAyODIyY2xucTR6WjltCld1MWQyd2F4
- aXorYjVJYTR3ZURZYTduNDFVUmNCRVViSkFnbmljSmtKdENUd3lJeElXMktuVnlPcmp2a1F6
- SUIKdmFQMEZkUDJ2dlpvUE1kbENJek9sSWtQTGd4RTBJV3VlVFhlQkpoTnMwMXBiOGJMcW1U
- SU1sdTRMdkJFTEEvdgplaWFqajVzOHk1NDJIL2FIc2ZCZjRNUVVoSHhPL0JaVjdoMDZLU1Vm
- SWFZN09nQWdLdUdOQjNVaWFJVVM1K2E5CmduRU9RTER4S1J5L2E3UTF2OVMrTnZ4KzdqOGlI
- M2prUUpoeFQ2WkJoWkdSeDBna0gzVCtGMG5ORG01TmFKVXMKYXN3Z0pycUZaa1VHZDJNcm0x
- cW5Ld1hpQXQ4U0ljRU5kcTMzUjBLS0tSQzgwWGd3ajhKbjMwdlhMU0crTk8xRwpIMFVNY0F4
- TXd5L3B2azZMVTVKR2paUjczSjVVTFZoSDRNTGJEZ2dEM21QYWlHOCtmb3RUckpVUHFxaGc5
- aHlVCkVQcFlHN3NxdDc0WG43OStDRVpjakxIenlsNnZBRkUyVzBreGxMdFF0VVpVSE8zNmFm
- RnY4cUdwTzNacVB2akIKVXVhdFhGNnR2VVFDd2YzSDZYTUFFUUVBQVlrQ0h3UVlBUW9BQ1FV
- Q1RtYXMrZ0liREFBS0NSQUZMelp3R05YRAoyRC9YRC8wZGRNLzRhaTFiK1RsMWp6bkthalgz
- a0crTWVFWWVJNGY0MHZjbzNyT0xyblJHRk9jYnl5ZlZGNjlNCktlcGllNE93b0kxamNUVTBB
- RGVjbmJXbkROSHByMFNjenhCTXJvM2Juckxoc212anVuVFlJdnNzQlp0QjRhVkoKanVMSUxQ
- VWxuaEZxYTdmYlZxMFpRamJpVi9ydDJqQkVOZG05cGJKWjZHam5wWUljQWJQQ0NhL2ZmTDQv
- U1FSUwpZSFhvaEdpaVM0eTVqQlRtSzVsdGZld0xPdzAyZmtleEgrSUpGcnJHQlhEU2c2bjJT
- Z3hubisrTkYzNGZYY205CnBpYXczbUtzSUNtKzBoZE5oNGFmR1o2SVdWOFBHMnRlb29WRHA0
- ZFlpaCsreFgvWFM4ekJDYzFPOXc0bnpsUDIKZ0t6bHFTV2JoaVdwaWZSSkJGYTRXdEFlSlRk
- WFlkMzdqL0JJNFJXV2hueXc3YUFQTkdqMzN5dEdITlVmNlJvMgovanRqNHRGMXkvUUZYcWpK
- Ry93R2pwZHRSZmJ0VWpxTEhJc3ZmUE5OSnEvOTU4cDc0bmRBQ2lkbFdTSHpqK09wCjI2S3Bi
- Rm5td05PMHBzaVVzbmh2SEZ3UE8vdkFibDNSc1I1KzBSbytodnMyY0VtUXV2OXIvYkRsQ2Zw
- enAydDMKY0srcmh4VXFpc094OERaZnoxQm5rYW9DUkZidnZ2ays3TC9mb21QbnRHUGtxSmNp
- WUU4VEdIa1p3MWhPa3UrNApPb00yR0I1bkVEbGorMlRGL2pMUStFaXBYOVBrUEpZdnhmUmxD
- NmRLOFBLS2ZYOUtkZm1BSWNnSGZuVjFqU24rCjh5SDJkakJQdEtpcVcwSjY5YUlzeXg3aVYv
- MDNwYVBDakpoN1hxOXZBenlkTjVVL1VBPT0KPTZQL2IKLS0tLS1FTkQgUEdQIFBVQkxJQyBL
- RVkgQkxPQ0stLS0tLQo=
-Organization: Canonical
-Message-ID: <7c3c4f77-ab02-c74a-e8eb-7ae1d19fd162@canonical.com>
-Date: Mon, 17 May 2021 14:22:25 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
+ (envelope-from <apparmor@cboltz.de>) id 1lil7q-0003Lw-1v
+ for apparmor@lists.ubuntu.com; Mon, 17 May 2021 21:50:10 +0000
+X-sprachakt.com-SMTP-Auth: no
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by mail.cboltz.de (Postfix) with ESMTP id AFD185C008E
+ for <apparmor@lists.ubuntu.com>; Mon, 17 May 2021 23:50:09 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at mail.cboltz.de
+Received: from mail.cboltz.de ([127.0.0.1])
+ by localhost (mail.cboltz.de [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id lvbIrD7ki5bp for <apparmor@lists.ubuntu.com>;
+ Mon, 17 May 2021 23:50:07 +0200 (CEST)
+Received: from home.cboltz.de (unknown [10.10.0.6])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (Client did not present a certificate)
+ by mail.cboltz.de (Postfix) with ESMTPSA
+ for <apparmor@lists.ubuntu.com>; Mon, 17 May 2021 23:50:07 +0200 (CEST)
+From: Christian Boltz <apparmor@cboltz.de>
+To: apparmor@lists.ubuntu.com
+Date: Mon, 17 May 2021 23:50:06 +0200
+Message-ID: <2000495.NGGyWjjzmL@tux.boltz.de.vu>
 In-Reply-To: <16e8bf7f-9e53-8ad9-5183-31ecc51fc015@posteo.de>
-Content-Language: en-US
+References: <16e8bf7f-9e53-8ad9-5183-31ecc51fc015@posteo.de>
+MIME-Version: 1.0
+X-Face: #?nL0}JpqNtLQy@q#bRm?B?pGS8[mx6r.6[91zp@*2DZ?18)haWs5wgvi, ,
+ wF/JWMTUh+6x, b7_`pW3)m~0606sDW0&'EKA}_-W+)Bz~d]k>4E9TyU}k@b&1=%yk\
 Subject: Re: [apparmor] apparmor cache dir error messages
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -116,32 +48,112 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============8693462117629560227=="
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-T24gNS8xNy8yMSAxOjE1IEFNLCBtYWlsaW5nbGlzdGVuQHBvc3Rlby5kZSB3cm90ZToKPiBJIGp1
-c3QgZGlzY292ZXJlZCBhbiBhcHBhcm1vciBlcnJvciBtZXNzYWdlIGluIHRoZSBsb2dzIGFuZCBJ
-IGhhdmUgbm8KPiBjbHVlIHdoZW4gdGhpcyBmaXJzdCBhcHBlYXJlZC4uLi4KPiAKPiAiYXBwYXJt
-b3Iuc3lzdGVtZCAoLi4uKSBDYWNoZTogZmFpbGVkIHRvIGFkZCByZWFkIG9ubHkgbG9jYXRpb24K
-PiAnL3Vzci9zaGFyZS9hcHBhcm1vci9jYWNoZScsIGRvZXMgbm90IGNvbnRhaW4gdmFsaWQgY2Fj
-aGUgZGlyZWN0b3J5Igo+IAoKdGhhdCB3YXJuaW5nIG1lc3NhZ2UgY2VydGFpbmx5IGNvdWxkIGJl
-IGltcHJvdmVkLCBhbmQgbWF5YmUgc2hvdWxkbid0IGV2ZW4KYmUgb3V0cHV0IGF0IGFsbCBpbiB0
-aGlzIGluc3RhbmNlLiBJdCBpbmRpY2F0ZXMgdGhhdCBpbiB0aGF0IGxvY2F0aW9uIHRoZXJlCmlz
-bid0IGEgbWF0Y2hpbmcgZGlyZWN0b3J5IGZvciB0aGUgY3VycmVudCBrZXJuZWwgcG9saWN5LgoK
-SXQgY2FuIGJlIHN1cHJlc3NlZCB3aXRoCi0td2Fybj1uby1jYWNoZQoKPiAvdXNyL3NoYXJlL2Fw
-cGFybW9yL2NhY2hlLyBhY3R1YWxseSBkb2VzIGV4aXN0IGFuZCBjb250YWlucyBhIDEgeWVhciBv
-bGQKPiBzdWJkaXJlY3Rvcnkgd2l0aCBwcm9maWxlIGZpbGVzIGluc2lkZSwgYXMgaXQgc2VlbXMu
-Cj4gCj4gSXMgdGhpcyBzb21ldGhpbmcgdG8gd29ycnkgYWJvdXQ/Cgpub3QgdW5sZXNzIHlvdSBo
-YXZlIHJlYXNvbiB0byBoYXZlIGEgcHJlY29tcGlsZWQgcG9saWN5IHN0b3JlZCB0aGVyZSBhbmQK
-ZXhwZWN0IHRvIGJlIHVzaW5nIGl0LiBUaGlzIGRvZXNuJ3QgZXZlbiBtZWFuIHlvdXIgc3lzdGVt
-IGlzbid0IGNhY2hpbmcKcG9saWN5LiBBcHBBcm1vcidzIGNhY2hlIGNvbnNpc3RzIG9mIGEgdG9w
-IHdyaXRhYmxlIGxvY2FsIGxheWVyIGFuZCB0aGVuCm9wdGlvbmFsIHJlYWRvbmx5IGxheWVycy4g
-VGhlc2UgcmVhZG9ubHkgbGF5ZXJzIGFyZSBnb29kIGZvciBzaGlwcGluZwpwb2xpY3kgcHJlY29t
-cGlsZWQgb3IgaGF2aW5nIHNvbWUgcG9saWN5IG1hbmFnZWQgaW5kaXJlY3RseSwgYnV0IHN0aWxs
-CmFsbG93aW5nIGxvY2FsIGNoYW5nZXMgdG8gb3ZlcnJpZGUuCgoKPiBTaW5jZSB0aGlzIHN1YmRp
-ciBpbiB0aGUgY2FjaGUgaXMgeWVhciBvbGQsIEkgZ3Vlc3MgaXTCtHMgc2FmZSB0byBkZWxldGU/
-Cj4gCnllcwoKCi0tIApBcHBBcm1vciBtYWlsaW5nIGxpc3QKQXBwQXJtb3JAbGlzdHMudWJ1bnR1
-LmNvbQpNb2RpZnkgc2V0dGluZ3Mgb3IgdW5zdWJzY3JpYmUgYXQ6IGh0dHBzOi8vbGlzdHMudWJ1
-bnR1LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2FwcGFybW9yCg==
+--===============8693462117629560227==
+Content-Type: multipart/signed; boundary="nextPart17254037.kLabZn1SE1"; micalg="pgp-sha256"; protocol="application/pgp-signature"
+
+--nextPart17254037.kLabZn1SE1
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"; protected-headers="v1"
+From: Christian Boltz <apparmor@cboltz.de>
+To: apparmor@lists.ubuntu.com
+Subject: Re: [apparmor] apparmor cache dir error messages
+Date: Mon, 17 May 2021 23:50:06 +0200
+Message-ID: <2000495.NGGyWjjzmL@tux.boltz.de.vu>
+In-Reply-To: <16e8bf7f-9e53-8ad9-5183-31ecc51fc015@posteo.de>
+References: <16e8bf7f-9e53-8ad9-5183-31ecc51fc015@posteo.de>
+
+Hello,
+
+Am Montag, 17. Mai 2021, 10:15:15 CEST schrieb mailinglisten@posteo.de:
+> I just discovered an apparmor error message in the logs and I have no
+> clue when this first appeared....
+>=20
+> "apparmor.systemd (...) Cache: failed to add read only location
+> '/usr/share/apparmor/cache', does not contain valid cache directory"
+>=20
+> /usr/share/apparmor/cache/ actually does exist and contains a 1 year
+> old subdirectory with profile files inside, as it seems.
+>=20
+> Is this something to worry about?
+
+Not really, it's quite harmless.
+
+/usr/share/apparmor/cache/ contains a pre-compiled cache, typically=20
+shipped by a RPM or DEB package.
+
+You'll notice that it has one or more subdirectories like 2cfa59e0.0,=20
+the directory name is [simplified explanation] a hash of the AppArmor=20
+features supported by the kernel.
+
+In theory the packaged pre-compiled cache should match the kernel so=20
+that the directory actually gets used. Your error message indicates that=20
+there is a mismatch - did you install a non-default kernel?
+(And BTW, which distribution do you use?)
+
+> Since this subdir in the cache is year old, I guess it=B4s safe to
+> delete?
+
+The directory is probably part of a package you've installed [1],=20
+therefore I'd recommend to keep it. (Deleting it won't break AppArmor,=20
+but your package manager might start to complain about the missing=20
+files.)
+
+
+Regards,
+
+Christian Boltz
+
+[1] on openSUSE it's part of the apparmor-profiles package
+=2D-=20
+Nun liegen 70 Gigs en bloc darum und nix ist mehr mit LVM.
+Ich k=F6nnte sie allenfalls per Mail an eine ung=FCltige Adresse
+verschicken und schnell partitionieren, bevor sie zur=FCckkommen.
+[Ratti in suse-linux]
+
+--nextPart17254037.kLabZn1SE1
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEcMqgYN4EKq6xsVGWxqaC6mPILxwFAmCi5Q4ACgkQxqaC6mPI
+LxzOjxAAlCM7hsG4nujUOuY/49/k5jOwt1LnokhBilTa0WgLJSxFPSyTN0wZj06A
+xKPHlh2kU5GFVYweJBU1uYsXuCn9HQD/5QmCo6YTQ1IKAAXqLrVhxBfjy8l0eauS
+KhcfCTt/uEvhY9pIJpZhlLoVNd0g0kyqBQLQIhUMtPXFw8uRIcHjwguRJnSd7DJh
+3bFbkoZleeFC8jEcb5biEhbKg9RQJsBe3lSD0eu3Qv/YZrlfTgLHBQG6ctFYFEsM
+G6QOnz+zykca9rZZW+6j21gE2w1UDnj11PFoXYd33zHb1aQ4c3KzTTCno7JwC52N
+gGriKfmIt9vcPBRD7VLdY9nSKofhTyatgVYl3urtx98xqgHmNxffejSj0vMsjc1C
+E5XMVAxpd2/tnFA9H2gxm+flfwSdmHkm7VBp5o7OlAnOp5ZLCL6ZMFvIIyL4w+j5
+hMj6QZibaDAt7meTy/WuBvsajrwNXbKjpeb2Fs5kIiEjt0oeB8maCv9tAtjyJyHD
+ztGuu25zhQKPJ8tqS4TvvXDpJWhX8GG94zWXKyEF0Gz2FcTYjJkLOvvgmiVEyglV
+eP0U3LW6y0wHsfbPNBPlSN2yYZAW7zkiAcvYI2FXtsQrpdjjQQcVjBS9SouHr0dh
+uI5vZFqhxLK52yQ27qYMsL6KzjvPPaNHNfjCXX44G6Gx6mJ0HtU=
+=Jvq4
+-----END PGP SIGNATURE-----
+
+--nextPart17254037.kLabZn1SE1--
+
+
+
+
+
+--===============8693462117629560227==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
+eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
+aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
+
+--===============8693462117629560227==--
+
+
+
+
