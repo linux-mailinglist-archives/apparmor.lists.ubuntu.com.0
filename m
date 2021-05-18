@@ -2,34 +2,55 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AAFE388198
-	for <lists+apparmor@lfdr.de>; Tue, 18 May 2021 22:47:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D882638827B
+	for <lists+apparmor@lfdr.de>; Tue, 18 May 2021 23:55:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1lj6cO-00080e-At; Tue, 18 May 2021 20:47:08 +0000
-Received: from youngberry.canonical.com ([91.189.89.112])
+	id 1lj7gf-0002hY-Va; Tue, 18 May 2021 21:55:37 +0000
+Received: from indium.canonical.com ([91.189.90.7])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <seth.arnold@canonical.com>) id 1lj6cM-0007zU-5Y
- for apparmor@lists.ubuntu.com; Tue, 18 May 2021 20:47:06 +0000
-Received: from 2.general.sarnold.us.vpn ([10.172.64.71] helo=localhost)
- by youngberry.canonical.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <seth.arnold@canonical.com>)
- id 1lj6cL-0007Be-Jl; Tue, 18 May 2021 20:47:05 +0000
-Date: Tue, 18 May 2021 20:47:03 +0000
-From: Seth Arnold <seth.arnold@canonical.com>
-To: Bug 1928360 <1928360@bugs.launchpad.net>
-Message-ID: <20210518204703.GD4082368@millbarge>
-References: <162092271688.7693.3046118231154125647.malonedeb@gac.canonical.com>
- <162136678892.2376.6200857094716250450.malone@wampee.canonical.com>
+ (envelope-from <bounces@canonical.com>) id 1lj7ge-0002hG-An
+ for apparmor@lists.ubuntu.com; Tue, 18 May 2021 21:55:36 +0000
+Received: from loganberry.canonical.com ([91.189.90.37])
+ by indium.canonical.com with esmtp (Exim 4.93 #5 (Debian))
+ id 1lj7gd-0000z8-Pu
+ for <apparmor@lists.ubuntu.com>; Tue, 18 May 2021 21:55:35 +0000
+Received: from loganberry.canonical.com (localhost [127.0.0.1])
+ by loganberry.canonical.com (Postfix) with ESMTP id B77262E8136
+ for <apparmor@lists.ubuntu.com>; Tue, 18 May 2021 21:55:35 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <162136678892.2376.6200857094716250450.malone@wampee.canonical.com>
-Subject: Re: [apparmor] [Bug 1928360] Re: Switch to Fcitx 5 for Chinese
+Date: Tue, 18 May 2021 21:49:30 -0000
+From: Gunnar Hjalmarsson <1928360@bugs.launchpad.net>
+To: apparmor@lists.ubuntu.com
+X-Launchpad-Notification-Type: bug
+X-Launchpad-Bug: product=lubuntu-default-settings; status=New;
+ importance=Undecided; assignee=None; 
+X-Launchpad-Bug: product=ubuntukylin; status=New; importance=Undecided;
+ assignee=None; 
+X-Launchpad-Bug: distribution=ubuntu; sourcepackage=apparmor; component=main; 
+ status=New; importance=Undecided; assignee=None; 
+X-Launchpad-Bug: distribution=ubuntu; sourcepackage=language-selector;
+ component=main; status=In Progress; importance=Undecided;
+ assignee=gunnarhj@ubuntu.com; 
+X-Launchpad-Bug-Information-Type: Public
+X-Launchpad-Bug-Private: no
+X-Launchpad-Bug-Security-Vulnerability: no
+X-Launchpad-Bug-Commenters: gunnarhj seth-arnold
+X-Launchpad-Bug-Reporter: Gunnar Hjalmarsson (gunnarhj)
+X-Launchpad-Bug-Modifier: Gunnar Hjalmarsson (gunnarhj)
+References: <162092271688.7693.3046118231154125647.malonedeb@gac.canonical.com>
+Message-Id: <162137457057.1187.11599836119795174277.malone@wampee.canonical.com>
+X-Launchpad-Message-Rationale: Subscriber @apparmor-dev
+X-Launchpad-Message-For: apparmor-dev
+Precedence: bulk
+X-Generated-By: Launchpad (canonical.com);
+ Revision="5321c3f40fa4d4b847f4e47fb766e7b95ed5036c"; Instance="production"
+X-Launchpad-Hash: bbd5f98b67f2645b20babdb68d8b5db78f7f9b49
+Subject: [apparmor] [Bug 1928360] Re: Switch to Fcitx 5 for Chinese
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
-Precedence: list
 List-Id: AppArmor discussion <apparmor.lists.ubuntu.com>
 List-Unsubscribe: <https://lists.ubuntu.com/mailman/options/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=unsubscribe>
@@ -38,62 +59,31 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: apparmor@lists.ubuntu.com
-Content-Type: multipart/mixed; boundary="===============5093413884551039009=="
+Reply-To: Bug 1928360 <1928360@bugs.launchpad.net>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-
---===============5093413884551039009==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="GyRA7555PLgSTuth"
-Content-Disposition: inline
-
-
---GyRA7555PLgSTuth
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, May 18, 2021 at 07:39:48PM -0000, Gunnar Hjalmarsson wrote:
-> On 2021-05-16 22:23, Gunnar Hjalmarsson wrote:
-> > As regards apparmor it's possible that no change is needed.
->=20
-> Well, I simply tested with the Chromium snap. fcitx5 does not work in
-> Chromium, while fcitx4 does. So something needs to be done.
-
-Excellent, can you paste the DENIED lines from your test into the bug
-report?
-
-Thanks
-
---GyRA7555PLgSTuth
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEQVAQ8bojyMcg37H18yFyWZ2NLpcFAmCkJ8QACgkQ8yFyWZ2N
-LpetUwf+ILLNO9aBgYZMk88yvFOBo7fTK0MNT7mLVclDuvl+nBFMslTAukKPIvxn
-LvboTMwMHIytKarvjF38+VMcrWbflnfk4BBM/NXasxzbgGWQ0m26uj2XolHE+EnS
-U82+6v79yZZlwbcIfS90G8lRTMQO/LMU7mPhnrmWOo/qdtnaaG9PPhV/3QvbTW49
-ISdvtjz2Lu7znrbNOg8A8b2yxiiAe0KAoSj9oyiKrHNwgaPpghmfyA95kLCBZq9F
-+pezVwuqy6NHp9EyfaONIcPQYTiWnHALVC6NLsB0d34R7J1/NVjhd+cGu5xGWy1u
-VVuR5PNcw7ROtUi17UWNN20W295kyQ==
-=QZgH
------END PGP SIGNATURE-----
-
---GyRA7555PLgSTuth--
-
-
---===============5093413884551039009==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
-eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
-aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
-
---===============5093413884551039009==--
-
+U3VyZSwgU2V0aCwgYXR0YWNoZWQgcGxlYXNlIGZpbmQgdGhlIG91dHB1dCBmcm9tCgpjYXQgL3Zh
+ci9sb2cvYXVkaXQvYXVkaXQubG9nIHwgZ3JlcCBERU5JRUQKCioqIEF0dGFjaG1lbnQgYWRkZWQ6
+ICJhcHBhcm1vcl9kZW5pZWQtbGluZXNfY2hyb21pdW0udHh0IgogICBodHRwczovL2J1Z3MubGF1
+bmNocGFkLm5ldC91YnVudHUvK3NvdXJjZS9sYW5ndWFnZS1zZWxlY3Rvci8rYnVnLzE5MjgzNjAv
+K2F0dGFjaG1lbnQvNTQ5ODU3OC8rZmlsZXMvYXBwYXJtb3JfZGVuaWVkLWxpbmVzX2Nocm9taXVt
+LnR4dAoKLS0gCllvdSByZWNlaXZlZCB0aGlzIGJ1ZyBub3RpZmljYXRpb24gYmVjYXVzZSB5b3Ug
+YXJlIGEgbWVtYmVyIG9mIEFwcEFybW9yCkRldmVsb3BlcnMsIHdoaWNoIGlzIHN1YnNjcmliZWQg
+dG8gdGhlIGJ1ZyByZXBvcnQuCmh0dHBzOi8vYnVncy5sYXVuY2hwYWQubmV0L2J1Z3MvMTkyODM2
+MAoKVGl0bGU6CiAgU3dpdGNoIHRvIEZjaXR4IDUgZm9yIENoaW5lc2UKClN0YXR1cyBpbiBMdWJ1
+bnR1IGRlZmF1bHQgc2V0dGluZ3M6CiAgTmV3ClN0YXR1cyBpbiBVYnVudHUgS3lsaW46CiAgTmV3
+ClN0YXR1cyBpbiBhcHBhcm1vciBwYWNrYWdlIGluIFVidW50dToKICBOZXcKU3RhdHVzIGluIGxh
+bmd1YWdlLXNlbGVjdG9yIHBhY2thZ2UgaW4gVWJ1bnR1OgogIEluIFByb2dyZXNzCgpCdWcgZGVz
+Y3JpcHRpb246CiAgSW4gRGViaWFuIDExIEZjaXR4IDUgd2lsbCBiZSB0aGUgZGVmYXVsdCBJTSBm
+cmFtZXdvcmsgZm9yIENoaW5lc2Ugb24KICBub24tR05PTUUgZGVza3RvcHMuIEkgY2FuIHRoaW5r
+IGl0J3MgdGltZSB0byBtYWtlIHRoZSBlcXVpdmFsZW50CiAgY2hhbmdlcyBpbiBVYnVudHUgMjEu
+MTAgYXMgd2VsbC4KCiAgSSdkIGFwcHJlY2lhdGUgaW5wdXQgb24gdGhlIHRvcGljIGZyb20gdGhl
+IFVidW50dSBLeWxpbiB0ZWFtIGFzIHdlbGwKICBhcyBvdGhlciBDaGluZXNlIHNwZWFraW5nIHVz
+ZXJzLgoKVG8gbWFuYWdlIG5vdGlmaWNhdGlvbnMgYWJvdXQgdGhpcyBidWcgZ28gdG86Cmh0dHBz
+Oi8vYnVncy5sYXVuY2hwYWQubmV0L2x1YnVudHUtZGVmYXVsdC1zZXR0aW5ncy8rYnVnLzE5Mjgz
+NjAvK3N1YnNjcmlwdGlvbnMKCi0tIApBcHBBcm1vciBtYWlsaW5nIGxpc3QKQXBwQXJtb3JAbGlz
+dHMudWJ1bnR1LmNvbQpNb2RpZnkgc2V0dGluZ3Mgb3IgdW5zdWJzY3JpYmUgYXQ6IGh0dHBzOi8v
+bGlzdHMudWJ1bnR1LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2FwcGFybW9yCg==
