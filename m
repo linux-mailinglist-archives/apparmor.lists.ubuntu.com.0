@@ -2,27 +2,27 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95A76388097
-	for <lists+apparmor@lfdr.de>; Tue, 18 May 2021 21:39:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8E743880BA
+	for <lists+apparmor@lfdr.de>; Tue, 18 May 2021 21:45:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1lj5YZ-0001bN-13; Tue, 18 May 2021 19:39:07 +0000
+	id 1lj5ew-00021i-Lu; Tue, 18 May 2021 19:45:42 +0000
 Received: from indium.canonical.com ([91.189.90.7])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <bounces@canonical.com>) id 1lj5YX-0001bH-Os
- for apparmor@lists.ubuntu.com; Tue, 18 May 2021 19:39:05 +0000
-Received: from wampee.canonical.com ([91.189.89.61])
+ (envelope-from <bounces@canonical.com>) id 1lj5ev-00020w-1l
+ for apparmor@lists.ubuntu.com; Tue, 18 May 2021 19:45:41 +0000
+Received: from loganberry.canonical.com ([91.189.90.37])
  by indium.canonical.com with esmtp (Exim 4.93 #5 (Debian))
- id 1lj5YX-0001xb-ED
- for <apparmor@lists.ubuntu.com>; Tue, 18 May 2021 19:39:05 +0000
-Received: from wampee.canonical.com (localhost [127.0.0.1])
- by wampee.canonical.com (Postfix) with ESMTPS id 022913B0188
- for <apparmor@lists.ubuntu.com>; Tue, 18 May 2021 19:39:04 +0000 (UTC)
+ id 1lj5et-0002o2-AR
+ for <apparmor@lists.ubuntu.com>; Tue, 18 May 2021 19:45:39 +0000
+Received: from loganberry.canonical.com (localhost [127.0.0.1])
+ by loganberry.canonical.com (Postfix) with ESMTP id 401BA2E8188
+ for <apparmor@lists.ubuntu.com>; Tue, 18 May 2021 19:45:39 +0000 (UTC)
 MIME-Version: 1.0
-Date: Tue, 18 May 2021 19:39:04 -0000
-From: Launchpad Bug Tracker <1928360@bugs.launchpad.net>
+Date: Tue, 18 May 2021 19:39:48 -0000
+From: Gunnar Hjalmarsson <1928360@bugs.launchpad.net>
 To: apparmor@lists.ubuntu.com
 X-Launchpad-Notification-Type: bug
 X-Launchpad-Bug: product=lubuntu-default-settings; status=New;
@@ -39,15 +39,16 @@ X-Launchpad-Bug-Private: no
 X-Launchpad-Bug-Security-Vulnerability: no
 X-Launchpad-Bug-Commenters: gunnarhj
 X-Launchpad-Bug-Reporter: Gunnar Hjalmarsson (gunnarhj)
+X-Launchpad-Bug-Modifier: Gunnar Hjalmarsson (gunnarhj)
 References: <162092271688.7693.3046118231154125647.malonedeb@gac.canonical.com>
+Message-Id: <162136678892.2376.6200857094716250450.malone@wampee.canonical.com>
 X-Launchpad-Message-Rationale: Subscriber @apparmor-dev
 X-Launchpad-Message-For: apparmor-dev
-Message-Id: <162136674492.1436.6472760548205254350.launchpad@wampee.canonical.com>
 Precedence: bulk
 X-Generated-By: Launchpad (canonical.com);
- Revision="5321c3f40fa4d4b847f4e47fb766e7b95ed5036c"; Instance="lpnet88"
-X-Launchpad-Hash: f20b8459085d56fbddea03294dc47f9c1e925367
-Subject: [apparmor] [Bug 1928360] [NEW] Switch to Fcitx 5 for Chinese
+ Revision="5321c3f40fa4d4b847f4e47fb766e7b95ed5036c"; Instance="production"
+X-Launchpad-Hash: 6e151c607eec56b7b2ed57bfaa9005bf49b81bdb
+Subject: [apparmor] [Bug 1928360] Re: Switch to Fcitx 5 for Chinese
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 List-Id: AppArmor discussion <apparmor.lists.ubuntu.com>
@@ -64,22 +65,24 @@ Content-Transfer-Encoding: base64
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-WW91IGhhdmUgYmVlbiBzdWJzY3JpYmVkIHRvIGEgcHVibGljIGJ1ZyBieSBHdW5uYXIgSGphbG1h
-cnNzb24gKGd1bm5hcmhqKToKCkluIERlYmlhbiAxMSBGY2l0eCA1IHdpbGwgYmUgdGhlIGRlZmF1
-bHQgSU0gZnJhbWV3b3JrIGZvciBDaGluZXNlIG9uCm5vbi1HTk9NRSBkZXNrdG9wcy4gSSBjYW4g
-dGhpbmsgaXQncyB0aW1lIHRvIG1ha2UgdGhlIGVxdWl2YWxlbnQgY2hhbmdlcwppbiBVYnVudHUg
-MjEuMTAgYXMgd2VsbC4KCkknZCBhcHByZWNpYXRlIGlucHV0IG9uIHRoZSB0b3BpYyBmcm9tIHRo
-ZSBVYnVudHUgS3lsaW4gdGVhbSBhcyB3ZWxsIGFzCm90aGVyIENoaW5lc2Ugc3BlYWtpbmcgdXNl
-cnMuCgoqKiBBZmZlY3RzOiBsdWJ1bnR1LWRlZmF1bHQtc2V0dGluZ3MKICAgICBJbXBvcnRhbmNl
-OiBVbmRlY2lkZWQKICAgICAgICAgU3RhdHVzOiBOZXcKCioqIEFmZmVjdHM6IHVidW50dWt5bGlu
-CiAgICAgSW1wb3J0YW5jZTogVW5kZWNpZGVkCiAgICAgICAgIFN0YXR1czogTmV3CgoqKiBBZmZl
-Y3RzOiBhcHBhcm1vciAoVWJ1bnR1KQogICAgIEltcG9ydGFuY2U6IFVuZGVjaWRlZAogICAgICAg
-ICBTdGF0dXM6IE5ldwoKKiogQWZmZWN0czogbGFuZ3VhZ2Utc2VsZWN0b3IgKFVidW50dSkKICAg
-ICBJbXBvcnRhbmNlOiBVbmRlY2lkZWQKICAgICBBc3NpZ25lZTogR3VubmFyIEhqYWxtYXJzc29u
-IChndW5uYXJoaikKICAgICAgICAgU3RhdHVzOiBJbiBQcm9ncmVzcwoKLS0gClN3aXRjaCB0byBG
-Y2l0eCA1IGZvciBDaGluZXNlCmh0dHBzOi8vYnVncy5sYXVuY2hwYWQubmV0L2J1Z3MvMTkyODM2
-MApZb3UgcmVjZWl2ZWQgdGhpcyBidWcgbm90aWZpY2F0aW9uIGJlY2F1c2UgeW91IGFyZSBhIG1l
-bWJlciBvZiBBcHBBcm1vciBEZXZlbG9wZXJzLCB3aGljaCBpcyBzdWJzY3JpYmVkIHRvIHRoZSBi
-dWcgcmVwb3J0LgoKLS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVu
-dHUuY29tCk1vZGlmeSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51
-YnVudHUuY29tL21haWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
+T24gMjAyMS0wNS0xNiAyMjoyMywgR3VubmFyIEhqYWxtYXJzc29uIHdyb3RlOgo+IEFzIHJlZ2Fy
+ZHMgYXBwYXJtb3IgaXQncyBwb3NzaWJsZSB0aGF0IG5vIGNoYW5nZSBpcyBuZWVkZWQuCgpXZWxs
+LCBJIHNpbXBseSB0ZXN0ZWQgd2l0aCB0aGUgQ2hyb21pdW0gc25hcC4gZmNpdHg1IGRvZXMgbm90
+IHdvcmsgaW4KQ2hyb21pdW0sIHdoaWxlIGZjaXR4NCBkb2VzLiBTbyBzb21ldGhpbmcgbmVlZHMg
+dG8gYmUgZG9uZS4KCi0tIApZb3UgcmVjZWl2ZWQgdGhpcyBidWcgbm90aWZpY2F0aW9uIGJlY2F1
+c2UgeW91IGFyZSBhIG1lbWJlciBvZiBBcHBBcm1vcgpEZXZlbG9wZXJzLCB3aGljaCBpcyBzdWJz
+Y3JpYmVkIHRvIHRoZSBidWcgcmVwb3J0LgpodHRwczovL2J1Z3MubGF1bmNocGFkLm5ldC9idWdz
+LzE5MjgzNjAKClRpdGxlOgogIFN3aXRjaCB0byBGY2l0eCA1IGZvciBDaGluZXNlCgpTdGF0dXMg
+aW4gTHVidW50dSBkZWZhdWx0IHNldHRpbmdzOgogIE5ldwpTdGF0dXMgaW4gVWJ1bnR1IEt5bGlu
+OgogIE5ldwpTdGF0dXMgaW4gYXBwYXJtb3IgcGFja2FnZSBpbiBVYnVudHU6CiAgTmV3ClN0YXR1
+cyBpbiBsYW5ndWFnZS1zZWxlY3RvciBwYWNrYWdlIGluIFVidW50dToKICBJbiBQcm9ncmVzcwoK
+QnVnIGRlc2NyaXB0aW9uOgogIEluIERlYmlhbiAxMSBGY2l0eCA1IHdpbGwgYmUgdGhlIGRlZmF1
+bHQgSU0gZnJhbWV3b3JrIGZvciBDaGluZXNlIG9uCiAgbm9uLUdOT01FIGRlc2t0b3BzLiBJIGNh
+biB0aGluayBpdCdzIHRpbWUgdG8gbWFrZSB0aGUgZXF1aXZhbGVudAogIGNoYW5nZXMgaW4gVWJ1
+bnR1IDIxLjEwIGFzIHdlbGwuCgogIEknZCBhcHByZWNpYXRlIGlucHV0IG9uIHRoZSB0b3BpYyBm
+cm9tIHRoZSBVYnVudHUgS3lsaW4gdGVhbSBhcyB3ZWxsCiAgYXMgb3RoZXIgQ2hpbmVzZSBzcGVh
+a2luZyB1c2Vycy4KClRvIG1hbmFnZSBub3RpZmljYXRpb25zIGFib3V0IHRoaXMgYnVnIGdvIHRv
+OgpodHRwczovL2J1Z3MubGF1bmNocGFkLm5ldC9sdWJ1bnR1LWRlZmF1bHQtc2V0dGluZ3MvK2J1
+Zy8xOTI4MzYwLytzdWJzY3JpcHRpb25zCgotLSAKQXBwQXJtb3IgbWFpbGluZyBsaXN0CkFwcEFy
+bW9yQGxpc3RzLnVidW50dS5jb20KTW9kaWZ5IHNldHRpbmdzIG9yIHVuc3Vic2NyaWJlIGF0OiBo
+dHRwczovL2xpc3RzLnVidW50dS5jb20vbWFpbG1hbi9saXN0aW5mby9hcHBhcm1vcgo=
