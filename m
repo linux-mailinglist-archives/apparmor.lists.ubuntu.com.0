@@ -2,42 +2,110 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C54A38989A
-	for <lists+apparmor@lfdr.de>; Wed, 19 May 2021 23:31:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83EF2389928
+	for <lists+apparmor@lfdr.de>; Thu, 20 May 2021 00:15:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1ljTmg-0001j1-VB; Wed, 19 May 2021 21:31:18 +0000
-Received: from mail.cboltz.de ([88.99.101.17])
+	id 1ljUT0-00047g-PP; Wed, 19 May 2021 22:15:02 +0000
+Received: from youngberry.canonical.com ([91.189.89.112])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <apparmor@cboltz.de>) id 1ljTme-0001iu-SP
- for apparmor@lists.ubuntu.com; Wed, 19 May 2021 21:31:16 +0000
-X-sprachakt.com-SMTP-Auth: no
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by mail.cboltz.de (Postfix) with ESMTP id 5ECB95C01C3
- for <apparmor@lists.ubuntu.com>; Wed, 19 May 2021 23:31:16 +0200 (CEST)
-X-Virus-Scanned: amavisd-new at mail.cboltz.de
-Received: from mail.cboltz.de ([127.0.0.1])
- by localhost (mail.cboltz.de [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id rDMOxvgbj3CR for <apparmor@lists.ubuntu.com>;
- Wed, 19 May 2021 23:31:15 +0200 (CEST)
-Received: from home.cboltz.de (unknown [10.10.0.6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (Client did not present a certificate)
- by mail.cboltz.de (Postfix) with ESMTPSA
- for <apparmor@lists.ubuntu.com>; Wed, 19 May 2021 23:31:14 +0200 (CEST)
-From: Christian Boltz <apparmor@cboltz.de>
-To: apparmor@lists.ubuntu.com
-Date: Wed, 19 May 2021 23:31:11 +0200
-Message-ID: <26584956.dEFYxv8rk7@tux.boltz.de.vu>
-In-Reply-To: <65166ba6-2550-7596-5c74-2a3dd7255ceb@posteo.de>
+ (envelope-from <john.johansen@canonical.com>) id 1ljUSy-00046a-H3
+ for apparmor@lists.ubuntu.com; Wed, 19 May 2021 22:15:00 +0000
+Received: from [50.53.41.238] (helo=[192.168.192.153])
+ by youngberry.canonical.com with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
+ (envelope-from <john.johansen@canonical.com>)
+ id 1ljUSx-0006Kj-Qa; Wed, 19 May 2021 22:15:00 +0000
+To: Christian Boltz <apparmor@cboltz.de>, apparmor@lists.ubuntu.com
 References: <16e8bf7f-9e53-8ad9-5183-31ecc51fc015@posteo.de>
  <2000495.NGGyWjjzmL@tux.boltz.de.vu>
  <65166ba6-2550-7596-5c74-2a3dd7255ceb@posteo.de>
+ <26584956.dEFYxv8rk7@tux.boltz.de.vu>
+From: John Johansen <john.johansen@canonical.com>
+Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
+ LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCgptUUlOQkU1bXJQb0JFQURB
+ azE5UHNnVmdCS2tJbW1SMmlzUFE2bzdLSmhUVEtqSmR3VmJrV1NuTm4rbzZVcDVrCm5LUDFm
+ NDlFQlFsY2VXZzF5cC9Od2JSOGFkK2VTRU8vdW1hL0srUHFXdkJwdEtDOVNXRDk3Rkc0dUI0
+ L2Nhb20KTEVVOTdzTFFNdG52R1dkeHJ4VlJHTTRhbnpXWU1neno1VFptSWlWVFo0M091NVZw
+ YVMxVnoxWlN4UDNoL3hLTgpaci9UY1c1V1FhaTh1M1BXVm5ia2poU1pQSHYxQmdoTjY5cXhF
+ UG9tckpCbTFnbXR4M1ppVm1GWGx1d1RtVGdKCk9rcEZvbDduYkowaWxuWUhyQTdTWDNDdFIx
+ dXBlVXBNYS9XSWFuVk85NldkVGpISElhNDNmYmhtUXViZTR0eFMKM0ZjUUxPSlZxUXN4NmxF
+ OUI3cUFwcG05aFExMHFQV3dkZlB5LyswVzZBV3ROdTVBU2lHVkNJbld6bDJIQnFZZAovWmxs
+ OTN6VXErTklvQ244c0RBTTlpSCt3dGFHRGNKeXdJR0luK2VkS050SzcyQU1nQ2hUZy9qMVpv
+ V0g2WmVXClBqdVVmdWJWelp0bzFGTW9HSi9TRjRNbWRRRzFpUU50ZjRzRlpiRWdYdXk5Y0dp
+ MmJvbUYwenZ5QkpTQU5weGwKS05CRFlLek42S3owOUhVQWtqbEZNTmdvbUwvY2pxZ0FCdEF4
+ NTlMK2RWSVpmYUYyODFwSWNVWnp3dmg1K0pvRwplT1c1dUJTTWJFN0wzOG5zem9veWtJSjVY
+ ckFjaGtKeE5mejdrK0ZuUWVLRWtOekVkMkxXYzNRRjRCUVpZUlQ2ClBISGdhM1JneWtXNSsx
+ d1RNcUpJTGRtdGFQYlhyRjNGdm5WMExSUGN2NHhLeDdCM2ZHbTd5Z2Rvb3dBUkFRQUIKdEIx
+ S2IyaHVJRXB2YUdGdWMyVnVJRHhxYjJodVFHcHFiWGd1Ym1WMFBva0NPZ1FUQVFvQUpBSWJB
+ d1VMQ1FnSApBd1VWQ2drSUN3VVdBZ01CQUFJZUFRSVhnQVVDVG8wWVZ3SVpBUUFLQ1JBRkx6
+ WndHTlhEMkx4SkQvOVRKWkNwCndsbmNUZ1llcmFFTWVEZmtXdjhjMUlzTTFqMEFtRTRWdEwr
+ ZkU3ODBaVlA5Z2tqZ2tkWVN4dDdlY0VUUFRLTWEKWlNpc3JsMVJ3cVUwb29nWGRYUVNweHJH
+ SDAxaWN1LzJuMGpjWVNxWUtnZ1B4eTc4QkdzMkxacTRYUGZKVFptSApaR25YR3EvZURyL21T
+ bmowYWF2QkptTVo2amJpUHo2eUh0QllQWjlmZG84YnRjendQNDFZZVdvSXUyNi84SUk2CmYw
+ WG0zVkM1b0FhOHY3UmQrUldaYThUTXdsaHpIRXh4ZWwzanRJN0l6ek9zbm1FOS84RG0wQVJE
+ NWlUTENYd1IKMWN3SS9KOUJGL1MxWHY4UE4xaHVUM0l0Q05kYXRncDh6cW9Ka2dQVmptdnlM
+ NjRRM2ZFa1liZkhPV3NhYmE5LwprQVZ0Qk56OVJURmg3SUhEZkVDVmFUb3VqQmQ3QnRQcXIr
+ cUlqV0ZhZEpEM0k1ZUxDVkp2VnJyb2xyQ0FUbEZ0Ck4zWWtRczZKbjFBaUlWSVUzYkhSOEdq
+ ZXZnejVMbDZTQ0dIZ1Jya3lScG5TWWFVL3VMZ24zN042QVl4aS9RQUwKK2J5M0N5RUZManpX
+ QUV2eVE4YnEzSXVjbjdKRWJoUy9KLy9kVXFMb2VVZjh0c0dpMDB6bXJJVFpZZUZZQVJoUQpN
+ dHNmaXpJclZEdHoxaVBmL1pNcDVnUkJuaXlqcFhuMTMxY20zTTNndjZIclFzQUdubjhBSnJ1
+ OEdEaTVYSllJCmNvLzEreC9xRWlOMm5DbGFBT3BiaHpOMmVVdlBEWTVXMHEzYkEvWnAybWZH
+ NTJ2YlJJK3RRMEJyMUhkL3ZzbnQKVUhPOTAzbU1aZXAyTnpOM0JaNXFFdlB2RzRyVzVacTJE
+ cHliV2JRclNtOW9iaUJLYjJoaGJuTmxiaUE4YW05bwpiaTVxYjJoaGJuTmxia0JqWVc1dmJt
+ bGpZV3d1WTI5dFBva0NOd1FUQVFvQUlRVUNUbzBYV2dJYkF3VUxDUWdICkF3VVZDZ2tJQ3dV
+ V0FnTUJBQUllQVFJWGdBQUtDUkFGTHpad0dOWEQySXRNRC85anliYzg3ZE00dUFIazZ5Tk0K
+ TjBZL0JGbW10VFdWc09CaHFPbm9iNGkzOEJyRE8yQzFoUUNQQ1FlNExMczEvNHB0ZW92UXQ4
+ QjJGeXJQVmp3Zwo3alpUSE5LNzRyNmxDQ1Z4eDN5dTFCN1U5UG80VlRrY3NsVmIxL3FtV3V4
+ OFhXY040eXZrVHFsTCtHeHB5Sm45CjlaWmZmWEpjNk9oNlRtT2ZiS0d2TXV1djVhclNJQTNK
+ SEZMZjlhTHZadEExaXNKVXI3cFM5YXBnOXVUVUdVcDcKd2ZWMFdUNlQzZUczbXRVVTJ1cDVK
+ VjQ4NTBMMDVqSFM2dVdpZS9ZK3lmSk9iaXlyeE4vNlpxVzVHb25oTEJxLwptc3pjVjV2QlQz
+ QkRWZTNSdkY2WGRNOU9oUG4xK1k4MXg1NCt2UTExM044aUx3RjdHR2ExNFp5SVZBTlpEMEkw
+ CkhqUnZhMmsvUnFJUlR6S3l1UEg1cGtsY0tIVlBFRk1tT3pNVCtGT294Tmp2Uys3K3dHMktN
+ RFlFbUhQcjFQSkIKWlNaZUh6SzE5dGZhbFBNcHBGeGkrc3lZTGFnTjBtQjdKSFF3WTdjclV1
+ T0RoeWNxNjBZVnoxdGFFeWd1M1l2MgoyL0kxRUNHSHZLSEc2d2M5MG80M0MvZWxIRUNYbkVo
+ N3RLcGxEY3BJQytPQ21NeEtIaFI0NitYY1p2Z3c0RGdiCjdjYTgzZVFSM0NHODlMdlFwVzJM
+ TEtFRUJEajdoWmhrTGJra1BSWm0zdzhKWTQ0YXc4VnRneFdkblNFTUNMeEwKSU9OaDZ1Wjcv
+ L0RZVnRjSWFNSllrZWJhWnRHZENwMElnVVpiMjQvVmR2WkNZYk82MkhrLzNWbzFuWHdIVUVz
+ Mwo2RC92MWJUMFJaRmk2OUxnc0NjT2N4NGdZTGtDRFFST1pxejZBUkFBb3F3NmtrQmhXeU0x
+ ZnZnYW1BVmplWjZuCktFZm5SV2JrQzk0TDFFc0pMdXAzV2IyWDBBQk5PSFNrYlNENHBBdUMy
+ dEtGL0VHQnQ1Q1A3UWRWS1JHY1F6QWQKNmIyYzFJZHk5Ukx3Nnc0Z2krbm4vZDFQbTFra1lo
+ a1NpNXpXYUlnMG01UlFVaytFbDh6a2Y1dGNFLzFOMFo1TwpLMkpoandGdTViWDBhMGw0Y0ZH
+ V1ZRRWNpVk1ES1J0eE1qRXRrM1N4RmFsbTZaZFEycHAyODIyY2xucTR6WjltCld1MWQyd2F4
+ aXorYjVJYTR3ZURZYTduNDFVUmNCRVViSkFnbmljSmtKdENUd3lJeElXMktuVnlPcmp2a1F6
+ SUIKdmFQMEZkUDJ2dlpvUE1kbENJek9sSWtQTGd4RTBJV3VlVFhlQkpoTnMwMXBiOGJMcW1U
+ SU1sdTRMdkJFTEEvdgplaWFqajVzOHk1NDJIL2FIc2ZCZjRNUVVoSHhPL0JaVjdoMDZLU1Vm
+ SWFZN09nQWdLdUdOQjNVaWFJVVM1K2E5CmduRU9RTER4S1J5L2E3UTF2OVMrTnZ4KzdqOGlI
+ M2prUUpoeFQ2WkJoWkdSeDBna0gzVCtGMG5ORG01TmFKVXMKYXN3Z0pycUZaa1VHZDJNcm0x
+ cW5Ld1hpQXQ4U0ljRU5kcTMzUjBLS0tSQzgwWGd3ajhKbjMwdlhMU0crTk8xRwpIMFVNY0F4
+ TXd5L3B2azZMVTVKR2paUjczSjVVTFZoSDRNTGJEZ2dEM21QYWlHOCtmb3RUckpVUHFxaGc5
+ aHlVCkVQcFlHN3NxdDc0WG43OStDRVpjakxIenlsNnZBRkUyVzBreGxMdFF0VVpVSE8zNmFm
+ RnY4cUdwTzNacVB2akIKVXVhdFhGNnR2VVFDd2YzSDZYTUFFUUVBQVlrQ0h3UVlBUW9BQ1FV
+ Q1RtYXMrZ0liREFBS0NSQUZMelp3R05YRAoyRC9YRC8wZGRNLzRhaTFiK1RsMWp6bkthalgz
+ a0crTWVFWWVJNGY0MHZjbzNyT0xyblJHRk9jYnl5ZlZGNjlNCktlcGllNE93b0kxamNUVTBB
+ RGVjbmJXbkROSHByMFNjenhCTXJvM2Juckxoc212anVuVFlJdnNzQlp0QjRhVkoKanVMSUxQ
+ VWxuaEZxYTdmYlZxMFpRamJpVi9ydDJqQkVOZG05cGJKWjZHam5wWUljQWJQQ0NhL2ZmTDQv
+ U1FSUwpZSFhvaEdpaVM0eTVqQlRtSzVsdGZld0xPdzAyZmtleEgrSUpGcnJHQlhEU2c2bjJT
+ Z3hubisrTkYzNGZYY205CnBpYXczbUtzSUNtKzBoZE5oNGFmR1o2SVdWOFBHMnRlb29WRHA0
+ ZFlpaCsreFgvWFM4ekJDYzFPOXc0bnpsUDIKZ0t6bHFTV2JoaVdwaWZSSkJGYTRXdEFlSlRk
+ WFlkMzdqL0JJNFJXV2hueXc3YUFQTkdqMzN5dEdITlVmNlJvMgovanRqNHRGMXkvUUZYcWpK
+ Ry93R2pwZHRSZmJ0VWpxTEhJc3ZmUE5OSnEvOTU4cDc0bmRBQ2lkbFdTSHpqK09wCjI2S3Bi
+ Rm5td05PMHBzaVVzbmh2SEZ3UE8vdkFibDNSc1I1KzBSbytodnMyY0VtUXV2OXIvYkRsQ2Zw
+ enAydDMKY0srcmh4VXFpc094OERaZnoxQm5rYW9DUkZidnZ2ays3TC9mb21QbnRHUGtxSmNp
+ WUU4VEdIa1p3MWhPa3UrNApPb00yR0I1bkVEbGorMlRGL2pMUStFaXBYOVBrUEpZdnhmUmxD
+ NmRLOFBLS2ZYOUtkZm1BSWNnSGZuVjFqU24rCjh5SDJkakJQdEtpcVcwSjY5YUlzeXg3aVYv
+ MDNwYVBDakpoN1hxOXZBenlkTjVVL1VBPT0KPTZQL2IKLS0tLS1FTkQgUEdQIFBVQkxJQyBL
+ RVkgQkxPQ0stLS0tLQo=
+Organization: Canonical
+Message-ID: <ffc2349c-7a68-0364-59bb-4eed252aea3f@canonical.com>
+Date: Wed, 19 May 2021 15:14:57 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-Face: #?nL0}JpqNtLQy@q#bRm?B?pGS8[mx6r.6[91zp@*2DZ?18)haWs5wgvi, ,
- wF/JWMTUh+6x, b7_`pW3)m~0606sDW0&'EKA}_-W+)Bz~d]k>4E9TyU}k@b&1=%yk\
+In-Reply-To: <26584956.dEFYxv8rk7@tux.boltz.de.vu>
+Content-Language: en-US
 Subject: Re: [apparmor] apparmor cache dir error messages
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -50,118 +118,55 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2544323291322562273=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
---===============2544323291322562273==
-Content-Type: multipart/signed; boundary="nextPart1656511.VWL2ksyWSN"; micalg="pgp-sha256"; protocol="application/pgp-signature"
-
---nextPart1656511.VWL2ksyWSN
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"; protected-headers="v1"
-From: Christian Boltz <apparmor@cboltz.de>
-To: apparmor@lists.ubuntu.com
-Subject: Re: [apparmor] apparmor cache dir error messages
-Date: Wed, 19 May 2021 23:31:11 +0200
-Message-ID: <26584956.dEFYxv8rk7@tux.boltz.de.vu>
-In-Reply-To: <65166ba6-2550-7596-5c74-2a3dd7255ceb@posteo.de>
-References: <16e8bf7f-9e53-8ad9-5183-31ecc51fc015@posteo.de> <2000495.NGGyWjjzmL@tux.boltz.de.vu> <65166ba6-2550-7596-5c74-2a3dd7255ceb@posteo.de>
-
-Hello,
-
-Am Dienstag, 18. Mai 2021, 19:54:55 schrieb mailinglisten@posteo.de:
-> Am 17.05.21 um 23:50 schrieb Christian Boltz:
-> >>(...)
-> >>
-> > In theory the packaged pre-compiled cache should match the kernel so
-> > that the directory actually gets used. Your error message indicates
-> > that there is a mismatch - did you install a non-default kernel?
-> > (And BTW, which distribution do you use?)
->=20
-> opensuse leap 15.2 and actually I do use a non default kernel
-
-OK, that non-default kernel explains why the packaged cache doesn't get=20
-used.
-
-> > The directory is probably part of a package you've installed [1],
-> > therefore I'd recommend to keep it. (Deleting it won't break
-> > AppArmor, but your package manager might start to complain about
-> > the missing files.)
->=20
-> I would expect a cache directory below /var and actually there is also
-> a cache dir, /var/lib/apparmor/cache/ that contains just a hidden
-> filed named .features.
-
-That's an old cache location (up to AppArmor 2.12). IIRC we had to use=20
-it because of the quite complex btrfs layout older openSUSE releases=20
-used (with several /var/$whatever subvolumes) + the condition that the=20
-cache should be available as early as possible on boot.
-
-Newer openSUSE releases have the btrfs subvolumes simplified a lot,=20
-which also allowed to move the cache to /var/cache/apparmor/ starting=20
-with AppArmor 2.13. This directory should contain at least one=20
-subdirectory with cache files that match your running kernel.
-
-> What is the benefit of a pre-compiled cache in contrast to the
-> profiles in /etc/apparmor.d/?
-
-The profiles get loaded faster, which is especially noticable on boot.
-
-The exact numbers depend on the profiles you have. For example, on my=20
-laptop (with several additional non-default profiles, it's 7 seconds=20
-without cache vs. 0.2s when using the cache.
-
-
-Regards,
-
-Christian Boltz
-=2D-=20
-> Womit erstellt ihr so eure Homepages?
-mit vim *g*.  Wobei es Leute gibt, die tats=E4chlich behaupten, das soll
-auch mit diesem Betriebssystem - wie hei=DFt es doch gleich - *=E4h* Emacs
-gehen. <SCNR>   [> Bernd St=E4glich und Philipp Zacharias in suse-linux]
-
---nextPart1656511.VWL2ksyWSN
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEcMqgYN4EKq6xsVGWxqaC6mPILxwFAmClg58ACgkQxqaC6mPI
-LxybmQ/8D98mBvQdRL4NIRTbaqVR9eO3QjKX9RarMCp8aCsHdLloEogFKAWLlDtP
-aYiq8f3Y4+QqqrWxwFE6JV4iYGqByI9gF9VqszOYrDvwnca6epTqT1w164axXTQ5
-UfWNarpQ+fkJ2YUQ8fpAChHv/YsSA+Z9e0X1kHUxanR+9CBrH+FC9Vy1wDhy/obM
-qBMkLX7DEb0EcZET4guaHiRa0cnpq9xzJ3gVlMTmpnkXTfHtoTX4H8lSZlZcK+uD
-K3VD7CZirTdJOm3SoRfxfunJcCPIvy5WX4dGiDhnbeKvj+Ei7HyC9fAWvNEsKOqK
-cY3W9Z1RDjUAzaQdZeax5uhm+QkDREDlmkIaRgiNGUq6D3mxNRysRxp5vMpgugob
-2k53Bwul71R/uHoG5QD4AsY6hxwFNUWh430NJa/ThMUKsf8N+N7vJgF2fxQA4xNR
-pBkh/B9Q5RSHnZCNNj4lxxdJT6rZjS1YcWF7Rs1EebZFQLyLpdGZg44k8osM4nF5
-SGoTQNKrC7P2r3KByVFnYkP3E33KlBE7Dvv+POs9zmW/i7zAcMBOKahefjL6oF/O
-hNwXrpaJw2AFPExzMQPS4CUoX6N6qmRi0iexchi2S5Za0HL5GICHXfgQEXzP8q7Y
-o9ImPG2RujzE5TboB+/TX0X98nUQjf8VEeQWGQH2YLRYzeh/Vag=
-=SdYo
------END PGP SIGNATURE-----
-
---nextPart1656511.VWL2ksyWSN--
-
-
-
-
-
---===============2544323291322562273==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
-eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
-aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
-
---===============2544323291322562273==--
-
-
-
-
+T24gNS8xOS8yMSAyOjMxIFBNLCBDaHJpc3RpYW4gQm9sdHogd3JvdGU6Cj4gSGVsbG8sCj4gCj4g
+QW0gRGllbnN0YWcsIDE4LiBNYWkgMjAyMSwgMTk6NTQ6NTUgc2NocmllYiBtYWlsaW5nbGlzdGVu
+QHBvc3Rlby5kZToKPj4gQW0gMTcuMDUuMjEgdW0gMjM6NTAgc2NocmllYiBDaHJpc3RpYW4gQm9s
+dHo6Cj4+Pj4gKC4uLikKPj4+Pgo+Pj4gSW4gdGhlb3J5IHRoZSBwYWNrYWdlZCBwcmUtY29tcGls
+ZWQgY2FjaGUgc2hvdWxkIG1hdGNoIHRoZSBrZXJuZWwgc28KPj4+IHRoYXQgdGhlIGRpcmVjdG9y
+eSBhY3R1YWxseSBnZXRzIHVzZWQuIFlvdXIgZXJyb3IgbWVzc2FnZSBpbmRpY2F0ZXMKPj4+IHRo
+YXQgdGhlcmUgaXMgYSBtaXNtYXRjaCAtIGRpZCB5b3UgaW5zdGFsbCBhIG5vbi1kZWZhdWx0IGtl
+cm5lbD8KPj4+IChBbmQgQlRXLCB3aGljaCBkaXN0cmlidXRpb24gZG8geW91IHVzZT8pCj4+Cj4+
+IG9wZW5zdXNlIGxlYXAgMTUuMiBhbmQgYWN0dWFsbHkgSSBkbyB1c2UgYSBub24gZGVmYXVsdCBr
+ZXJuZWwKPiAKPiBPSywgdGhhdCBub24tZGVmYXVsdCBrZXJuZWwgZXhwbGFpbnMgd2h5IHRoZSBw
+YWNrYWdlZCBjYWNoZSBkb2Vzbid0IGdldCAKPiB1c2VkLgo+IAo+Pj4gVGhlIGRpcmVjdG9yeSBp
+cyBwcm9iYWJseSBwYXJ0IG9mIGEgcGFja2FnZSB5b3UndmUgaW5zdGFsbGVkIFsxXSwKPj4+IHRo
+ZXJlZm9yZSBJJ2QgcmVjb21tZW5kIHRvIGtlZXAgaXQuIChEZWxldGluZyBpdCB3b24ndCBicmVh
+awo+Pj4gQXBwQXJtb3IsIGJ1dCB5b3VyIHBhY2thZ2UgbWFuYWdlciBtaWdodCBzdGFydCB0byBj
+b21wbGFpbiBhYm91dAo+Pj4gdGhlIG1pc3NpbmcgZmlsZXMuKQo+Pgo+PiBJIHdvdWxkIGV4cGVj
+dCBhIGNhY2hlIGRpcmVjdG9yeSBiZWxvdyAvdmFyIGFuZCBhY3R1YWxseSB0aGVyZSBpcyBhbHNv
+Cj4+IGEgY2FjaGUgZGlyLCAvdmFyL2xpYi9hcHBhcm1vci9jYWNoZS8gdGhhdCBjb250YWlucyBq
+dXN0IGEgaGlkZGVuCj4+IGZpbGVkIG5hbWVkIC5mZWF0dXJlcy4KPiAKPiBUaGF0J3MgYW4gb2xk
+IGNhY2hlIGxvY2F0aW9uICh1cCB0byBBcHBBcm1vciAyLjEyKS4gSUlSQyB3ZSBoYWQgdG8gdXNl
+IAo+IGl0IGJlY2F1c2Ugb2YgdGhlIHF1aXRlIGNvbXBsZXggYnRyZnMgbGF5b3V0IG9sZGVyIG9w
+ZW5TVVNFIHJlbGVhc2VzIAo+IHVzZWQgKHdpdGggc2V2ZXJhbCAvdmFyLyR3aGF0ZXZlciBzdWJ2
+b2x1bWVzKSArIHRoZSBjb25kaXRpb24gdGhhdCB0aGUgCj4gY2FjaGUgc2hvdWxkIGJlIGF2YWls
+YWJsZSBhcyBlYXJseSBhcyBwb3NzaWJsZSBvbiBib290Lgo+IAo+IE5ld2VyIG9wZW5TVVNFIHJl
+bGVhc2VzIGhhdmUgdGhlIGJ0cmZzIHN1YnZvbHVtZXMgc2ltcGxpZmllZCBhIGxvdCwgCj4gd2hp
+Y2ggYWxzbyBhbGxvd2VkIHRvIG1vdmUgdGhlIGNhY2hlIHRvIC92YXIvY2FjaGUvYXBwYXJtb3Iv
+IHN0YXJ0aW5nIAo+IHdpdGggQXBwQXJtb3IgMi4xMy4gVGhpcyBkaXJlY3Rvcnkgc2hvdWxkIGNv
+bnRhaW4gYXQgbGVhc3Qgb25lIAo+IHN1YmRpcmVjdG9yeSB3aXRoIGNhY2hlIGZpbGVzIHRoYXQg
+bWF0Y2ggeW91ciBydW5uaW5nIGtlcm5lbC4KPiAKPj4gV2hhdCBpcyB0aGUgYmVuZWZpdCBvZiBh
+IHByZS1jb21waWxlZCBjYWNoZSBpbiBjb250cmFzdCB0byB0aGUKPj4gcHJvZmlsZXMgaW4gL2V0
+Yy9hcHBhcm1vci5kLz8KPiAKPiBUaGUgcHJvZmlsZXMgZ2V0IGxvYWRlZCBmYXN0ZXIsIHdoaWNo
+IGlzIGVzcGVjaWFsbHkgbm90aWNhYmxlIG9uIGJvb3QuCj4gCj4gVGhlIGV4YWN0IG51bWJlcnMg
+ZGVwZW5kIG9uIHRoZSBwcm9maWxlcyB5b3UgaGF2ZS4gRm9yIGV4YW1wbGUsIG9uIG15IAo+IGxh
+cHRvcCAod2l0aCBzZXZlcmFsIGFkZGl0aW9uYWwgbm9uLWRlZmF1bHQgcHJvZmlsZXMsIGl0J3Mg
+NyBzZWNvbmRzIAo+IHdpdGhvdXQgY2FjaGUgdnMuIDAuMnMgd2hlbiB1c2luZyB0aGUgY2FjaGUu
+Cj4gCkJleW9uZCBsb2FkaW5nIGZhc3RlciB0aGVyZSBhcmUgYSBmZXcgb2Ygb3RoZXIgYmVuZWZp
+dHMsIHRob3VnaCBub3QgYWxsCndpbGwgYXBwbHkgdG8gZGVza3RvcCBzeXN0ZW1zCi0gaWYgdGhl
+IGNhY2hlIGlzIGluIHRoZSByaWdodCBwbGFjZSwgaXQgYWxsb3dzIGZvciBlYXJseSAodmVyeSBl
+YXJseSkKICBwcm9maWxlIGxvYWRzLiBXaGljaCBpcyByZXF1aXJlZCBpZiB5b3Ugd2FudCB0byBk
+byB0aGluZ3MgbGlrZSBjb25maW5lCiAgaW5pdC4KLSBpdCBhbGxvd3Mgc2hpcHBpbmcgcHJlYnVp
+bHQgcG9saWN5IGFzIHBhcnQgb2YgYW4gUk8gc3lzdGVtIGltYWdlLgogIFRoaXMgaXMgdmVyeSB1
+c2VmdWwgZm9yIGxvdyBtZW0vbG93IHBvd2VyIGVtYmVkZGVkIGRldmljZXMuIFBhcnQgb2YKICB0
+aGlzIGlzIGZhc3RlciBib290cyBidXQgYWxzbyB0aGF0IGNvbXBpbGVzIGNhbiByZXF1aXJlIHRv
+byBtYW55CiAgcmVzb3VyY2VzIGZvciBzb21lIG9mIHRoZXNlIGRldmljZS4KLSBpdCBhbGxvd3Mg
+Zm9yIHN5c3RlbXMgd2l0aG91dCB0aGUgYXBwYXJtb3JfcGFyc2VyIG9yIHRvb2xzCgoKLS0gCkFw
+cEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlmeSBzZXR0
+aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21haWxtYW4v
+bGlzdGluZm8vYXBwYXJtb3IK
