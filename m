@@ -2,111 +2,53 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DAD33A727A
-	for <lists+apparmor@lfdr.de>; Tue, 15 Jun 2021 01:31:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E3363ADF41
+	for <lists+apparmor@lfdr.de>; Sun, 20 Jun 2021 17:50:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1lsw3d-0007VA-8i; Mon, 14 Jun 2021 23:31:53 +0000
-Received: from youngberry.canonical.com ([91.189.89.112])
+	id 1luziP-0005jq-TZ; Sun, 20 Jun 2021 15:50:29 +0000
+Received: from mail-ed1-f45.google.com ([209.85.208.45])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>) id 1lsw3a-0007V3-Mx
- for apparmor@lists.ubuntu.com; Mon, 14 Jun 2021 23:31:50 +0000
-Received: from [50.53.41.238] (helo=[192.168.192.153])
- by youngberry.canonical.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <john.johansen@canonical.com>)
- id 1lsw3a-0000iP-7n; Mon, 14 Jun 2021 23:31:50 +0000
-To: Murali Selvaraj <murali.selvaraj2003@gmail.com>,
- Casey Schaufler <casey@schaufler-ca.com>, apparmor@lists.ubuntu.com
-References: <CAODFaZ7Th4AxW0kdavbnNdq6+U+vNyytSm1rU5SrA1ah+BZ0+g@mail.gmail.com>
- <f438b235-da3c-86f9-a847-e60b84023ab1@schaufler-ca.com>
- <CAODFaZ7YTmYuTB=QAjXevfnE=di8yqKtVK-nvTCyjhUAQRGvTA@mail.gmail.com>
-From: John Johansen <john.johansen@canonical.com>
-Autocrypt: addr=john.johansen@canonical.com; prefer-encrypt=mutual; keydata=
- LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCgptUUlOQkU1bXJQb0JFQURB
- azE5UHNnVmdCS2tJbW1SMmlzUFE2bzdLSmhUVEtqSmR3VmJrV1NuTm4rbzZVcDVrCm5LUDFm
- NDlFQlFsY2VXZzF5cC9Od2JSOGFkK2VTRU8vdW1hL0srUHFXdkJwdEtDOVNXRDk3Rkc0dUI0
- L2Nhb20KTEVVOTdzTFFNdG52R1dkeHJ4VlJHTTRhbnpXWU1neno1VFptSWlWVFo0M091NVZw
- YVMxVnoxWlN4UDNoL3hLTgpaci9UY1c1V1FhaTh1M1BXVm5ia2poU1pQSHYxQmdoTjY5cXhF
- UG9tckpCbTFnbXR4M1ppVm1GWGx1d1RtVGdKCk9rcEZvbDduYkowaWxuWUhyQTdTWDNDdFIx
- dXBlVXBNYS9XSWFuVk85NldkVGpISElhNDNmYmhtUXViZTR0eFMKM0ZjUUxPSlZxUXN4NmxF
- OUI3cUFwcG05aFExMHFQV3dkZlB5LyswVzZBV3ROdTVBU2lHVkNJbld6bDJIQnFZZAovWmxs
- OTN6VXErTklvQ244c0RBTTlpSCt3dGFHRGNKeXdJR0luK2VkS050SzcyQU1nQ2hUZy9qMVpv
- V0g2WmVXClBqdVVmdWJWelp0bzFGTW9HSi9TRjRNbWRRRzFpUU50ZjRzRlpiRWdYdXk5Y0dp
- MmJvbUYwenZ5QkpTQU5weGwKS05CRFlLek42S3owOUhVQWtqbEZNTmdvbUwvY2pxZ0FCdEF4
- NTlMK2RWSVpmYUYyODFwSWNVWnp3dmg1K0pvRwplT1c1dUJTTWJFN0wzOG5zem9veWtJSjVY
- ckFjaGtKeE5mejdrK0ZuUWVLRWtOekVkMkxXYzNRRjRCUVpZUlQ2ClBISGdhM1JneWtXNSsx
- d1RNcUpJTGRtdGFQYlhyRjNGdm5WMExSUGN2NHhLeDdCM2ZHbTd5Z2Rvb3dBUkFRQUIKdEIx
- S2IyaHVJRXB2YUdGdWMyVnVJRHhxYjJodVFHcHFiWGd1Ym1WMFBva0NPZ1FUQVFvQUpBSWJB
- d1VMQ1FnSApBd1VWQ2drSUN3VVdBZ01CQUFJZUFRSVhnQVVDVG8wWVZ3SVpBUUFLQ1JBRkx6
- WndHTlhEMkx4SkQvOVRKWkNwCndsbmNUZ1llcmFFTWVEZmtXdjhjMUlzTTFqMEFtRTRWdEwr
- ZkU3ODBaVlA5Z2tqZ2tkWVN4dDdlY0VUUFRLTWEKWlNpc3JsMVJ3cVUwb29nWGRYUVNweHJH
- SDAxaWN1LzJuMGpjWVNxWUtnZ1B4eTc4QkdzMkxacTRYUGZKVFptSApaR25YR3EvZURyL21T
- bmowYWF2QkptTVo2amJpUHo2eUh0QllQWjlmZG84YnRjendQNDFZZVdvSXUyNi84SUk2CmYw
- WG0zVkM1b0FhOHY3UmQrUldaYThUTXdsaHpIRXh4ZWwzanRJN0l6ek9zbm1FOS84RG0wQVJE
- NWlUTENYd1IKMWN3SS9KOUJGL1MxWHY4UE4xaHVUM0l0Q05kYXRncDh6cW9Ka2dQVmptdnlM
- NjRRM2ZFa1liZkhPV3NhYmE5LwprQVZ0Qk56OVJURmg3SUhEZkVDVmFUb3VqQmQ3QnRQcXIr
- cUlqV0ZhZEpEM0k1ZUxDVkp2VnJyb2xyQ0FUbEZ0Ck4zWWtRczZKbjFBaUlWSVUzYkhSOEdq
- ZXZnejVMbDZTQ0dIZ1Jya3lScG5TWWFVL3VMZ24zN042QVl4aS9RQUwKK2J5M0N5RUZManpX
- QUV2eVE4YnEzSXVjbjdKRWJoUy9KLy9kVXFMb2VVZjh0c0dpMDB6bXJJVFpZZUZZQVJoUQpN
- dHNmaXpJclZEdHoxaVBmL1pNcDVnUkJuaXlqcFhuMTMxY20zTTNndjZIclFzQUdubjhBSnJ1
- OEdEaTVYSllJCmNvLzEreC9xRWlOMm5DbGFBT3BiaHpOMmVVdlBEWTVXMHEzYkEvWnAybWZH
- NTJ2YlJJK3RRMEJyMUhkL3ZzbnQKVUhPOTAzbU1aZXAyTnpOM0JaNXFFdlB2RzRyVzVacTJE
- cHliV2JRclNtOW9iaUJLYjJoaGJuTmxiaUE4YW05bwpiaTVxYjJoaGJuTmxia0JqWVc1dmJt
- bGpZV3d1WTI5dFBva0NOd1FUQVFvQUlRVUNUbzBYV2dJYkF3VUxDUWdICkF3VVZDZ2tJQ3dV
- V0FnTUJBQUllQVFJWGdBQUtDUkFGTHpad0dOWEQySXRNRC85anliYzg3ZE00dUFIazZ5Tk0K
- TjBZL0JGbW10VFdWc09CaHFPbm9iNGkzOEJyRE8yQzFoUUNQQ1FlNExMczEvNHB0ZW92UXQ4
- QjJGeXJQVmp3Zwo3alpUSE5LNzRyNmxDQ1Z4eDN5dTFCN1U5UG80VlRrY3NsVmIxL3FtV3V4
- OFhXY040eXZrVHFsTCtHeHB5Sm45CjlaWmZmWEpjNk9oNlRtT2ZiS0d2TXV1djVhclNJQTNK
- SEZMZjlhTHZadEExaXNKVXI3cFM5YXBnOXVUVUdVcDcKd2ZWMFdUNlQzZUczbXRVVTJ1cDVK
- VjQ4NTBMMDVqSFM2dVdpZS9ZK3lmSk9iaXlyeE4vNlpxVzVHb25oTEJxLwptc3pjVjV2QlQz
- QkRWZTNSdkY2WGRNOU9oUG4xK1k4MXg1NCt2UTExM044aUx3RjdHR2ExNFp5SVZBTlpEMEkw
- CkhqUnZhMmsvUnFJUlR6S3l1UEg1cGtsY0tIVlBFRk1tT3pNVCtGT294Tmp2Uys3K3dHMktN
- RFlFbUhQcjFQSkIKWlNaZUh6SzE5dGZhbFBNcHBGeGkrc3lZTGFnTjBtQjdKSFF3WTdjclV1
- T0RoeWNxNjBZVnoxdGFFeWd1M1l2MgoyL0kxRUNHSHZLSEc2d2M5MG80M0MvZWxIRUNYbkVo
- N3RLcGxEY3BJQytPQ21NeEtIaFI0NitYY1p2Z3c0RGdiCjdjYTgzZVFSM0NHODlMdlFwVzJM
- TEtFRUJEajdoWmhrTGJra1BSWm0zdzhKWTQ0YXc4VnRneFdkblNFTUNMeEwKSU9OaDZ1Wjcv
- L0RZVnRjSWFNSllrZWJhWnRHZENwMElnVVpiMjQvVmR2WkNZYk82MkhrLzNWbzFuWHdIVUVz
- Mwo2RC92MWJUMFJaRmk2OUxnc0NjT2N4NGdZTGtDRFFST1pxejZBUkFBb3F3NmtrQmhXeU0x
- ZnZnYW1BVmplWjZuCktFZm5SV2JrQzk0TDFFc0pMdXAzV2IyWDBBQk5PSFNrYlNENHBBdUMy
- dEtGL0VHQnQ1Q1A3UWRWS1JHY1F6QWQKNmIyYzFJZHk5Ukx3Nnc0Z2krbm4vZDFQbTFra1lo
- a1NpNXpXYUlnMG01UlFVaytFbDh6a2Y1dGNFLzFOMFo1TwpLMkpoandGdTViWDBhMGw0Y0ZH
- V1ZRRWNpVk1ES1J0eE1qRXRrM1N4RmFsbTZaZFEycHAyODIyY2xucTR6WjltCld1MWQyd2F4
- aXorYjVJYTR3ZURZYTduNDFVUmNCRVViSkFnbmljSmtKdENUd3lJeElXMktuVnlPcmp2a1F6
- SUIKdmFQMEZkUDJ2dlpvUE1kbENJek9sSWtQTGd4RTBJV3VlVFhlQkpoTnMwMXBiOGJMcW1U
- SU1sdTRMdkJFTEEvdgplaWFqajVzOHk1NDJIL2FIc2ZCZjRNUVVoSHhPL0JaVjdoMDZLU1Vm
- SWFZN09nQWdLdUdOQjNVaWFJVVM1K2E5CmduRU9RTER4S1J5L2E3UTF2OVMrTnZ4KzdqOGlI
- M2prUUpoeFQ2WkJoWkdSeDBna0gzVCtGMG5ORG01TmFKVXMKYXN3Z0pycUZaa1VHZDJNcm0x
- cW5Ld1hpQXQ4U0ljRU5kcTMzUjBLS0tSQzgwWGd3ajhKbjMwdlhMU0crTk8xRwpIMFVNY0F4
- TXd5L3B2azZMVTVKR2paUjczSjVVTFZoSDRNTGJEZ2dEM21QYWlHOCtmb3RUckpVUHFxaGc5
- aHlVCkVQcFlHN3NxdDc0WG43OStDRVpjakxIenlsNnZBRkUyVzBreGxMdFF0VVpVSE8zNmFm
- RnY4cUdwTzNacVB2akIKVXVhdFhGNnR2VVFDd2YzSDZYTUFFUUVBQVlrQ0h3UVlBUW9BQ1FV
- Q1RtYXMrZ0liREFBS0NSQUZMelp3R05YRAoyRC9YRC8wZGRNLzRhaTFiK1RsMWp6bkthalgz
- a0crTWVFWWVJNGY0MHZjbzNyT0xyblJHRk9jYnl5ZlZGNjlNCktlcGllNE93b0kxamNUVTBB
- RGVjbmJXbkROSHByMFNjenhCTXJvM2Juckxoc212anVuVFlJdnNzQlp0QjRhVkoKanVMSUxQ
- VWxuaEZxYTdmYlZxMFpRamJpVi9ydDJqQkVOZG05cGJKWjZHam5wWUljQWJQQ0NhL2ZmTDQv
- U1FSUwpZSFhvaEdpaVM0eTVqQlRtSzVsdGZld0xPdzAyZmtleEgrSUpGcnJHQlhEU2c2bjJT
- Z3hubisrTkYzNGZYY205CnBpYXczbUtzSUNtKzBoZE5oNGFmR1o2SVdWOFBHMnRlb29WRHA0
- ZFlpaCsreFgvWFM4ekJDYzFPOXc0bnpsUDIKZ0t6bHFTV2JoaVdwaWZSSkJGYTRXdEFlSlRk
- WFlkMzdqL0JJNFJXV2hueXc3YUFQTkdqMzN5dEdITlVmNlJvMgovanRqNHRGMXkvUUZYcWpK
- Ry93R2pwZHRSZmJ0VWpxTEhJc3ZmUE5OSnEvOTU4cDc0bmRBQ2lkbFdTSHpqK09wCjI2S3Bi
- Rm5td05PMHBzaVVzbmh2SEZ3UE8vdkFibDNSc1I1KzBSbytodnMyY0VtUXV2OXIvYkRsQ2Zw
- enAydDMKY0srcmh4VXFpc094OERaZnoxQm5rYW9DUkZidnZ2ays3TC9mb21QbnRHUGtxSmNp
- WUU4VEdIa1p3MWhPa3UrNApPb00yR0I1bkVEbGorMlRGL2pMUStFaXBYOVBrUEpZdnhmUmxD
- NmRLOFBLS2ZYOUtkZm1BSWNnSGZuVjFqU24rCjh5SDJkakJQdEtpcVcwSjY5YUlzeXg3aVYv
- MDNwYVBDakpoN1hxOXZBenlkTjVVL1VBPT0KPTZQL2IKLS0tLS1FTkQgUEdQIFBVQkxJQyBL
- RVkgQkxPQ0stLS0tLQo=
-Organization: Canonical
-Message-ID: <5fbafaa8-d63e-9df9-e74b-9b0f0e683e5d@canonical.com>
-Date: Mon, 14 Jun 2021 16:31:45 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ (envelope-from <ratankgupta31@gmail.com>) id 1lu8tS-0003ZB-3X
+ for apparmor@lists.ubuntu.com; Fri, 18 Jun 2021 07:26:22 +0000
+Received: by mail-ed1-f45.google.com with SMTP id n20so7260839edv.8
+ for <apparmor@lists.ubuntu.com>; Fri, 18 Jun 2021 00:26:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=Di5ujz3YReS/47ZSM2PvMTDY7g2k/+9orsV5RYOvBkw=;
+ b=nq3HtTap8ojdcRT6JNB9O5t/XTJn0tZaODHUxzcXDzlEwx4Jfr6BzLjkBbEMUbrXx1
+ z3Ij3I1MDpNUEUgeRzjtOcv5iOJixbNlzPmDW0fI32vdmil1quAt0XlqM4DN11ePjx0l
+ qajLR/PyxWFZwHryvRkRqK+9CLU77WxLyLw6dMVaoWtu5DpR31qSrnujO2hTiv2iX2up
+ jJDwjG9jMxT9RfsmbHI6MU7ca2czlntaF4vIMsqe/uECEUrmU208/j0RnK0azC1em47s
+ 6yET2xzQn5/usPKIsYYs7RfKjDtFexKzWuM83YPdQ2l6QMEIOx/vZ/vOb11G13uD9G/U
+ 85wg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=Di5ujz3YReS/47ZSM2PvMTDY7g2k/+9orsV5RYOvBkw=;
+ b=on/DDTlsjsWHZ4JOoXzsCMABWW3a2NqYeeLmb0RDUsPjovRtWekcQOWCYRzqPs+DHx
+ wHA4MWTYIa20hoKVPDSY0T7IW2BhjmErmuAIZLKIvNLXt/uuEegXp3iENMti39DxLI07
+ xoke3n/Ko3N2fJnMQjlcckBMD/2MBSFeYiiFeteByEcmG0LJJluYZ3ve82x+ExnLfbMt
+ Fh2M9Qh0Uc9X0L6QlQuQ2Gq7fAdgMLUykGMFGT3sA8DZFCPN3qo/UhJhf62SmrMH4xMz
+ 4+9MPsPfHhFiWGhMu4ghMV1Yh1JPUiA61gFvvEqJXpa256DG4S3+k635N0aA5rT4+euY
+ 3ZvA==
+X-Gm-Message-State: AOAM530CTHljKn/pLlgt3JftyPhi5KvW//UgHEk2nLAZ86j6K1e0eIhJ
+ K9RSSBhd3ANHddtzhl3eNS7nHxbsKvVD46UHYX1Q95U7Z2Y=
+X-Google-Smtp-Source: ABdhPJwJJKqf+uafBSrNJIjqaMW7QoYb0nFktR2ahMKmS5FqboNI0+lEcMcTUQ7mglPG1M7g/TpLLq0fUvX5UfOuwIE=
+X-Received: by 2002:a05:6402:524b:: with SMTP id
+ t11mr3149984edd.327.1624001181316; 
+ Fri, 18 Jun 2021 00:26:21 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CAODFaZ7YTmYuTB=QAjXevfnE=di8yqKtVK-nvTCyjhUAQRGvTA@mail.gmail.com>
-Content-Language: en-US
-Subject: Re: [apparmor] When DAC fails/invokes Apparmor Hooks with example
+From: Ratan Gupta <ratankgupta31@gmail.com>
+Date: Fri, 18 Jun 2021 12:56:10 +0530
+Message-ID: <CAMhqiMoZbABJ5yRL4O8tN14ur0H+2cCXP=g00QgPSjuPmN0Z0w@mail.gmail.com>
+To: apparmor@lists.ubuntu.com
+Received-SPF: pass client-ip=209.85.208.45;
+ envelope-from=ratankgupta31@gmail.com; helo=mail-ed1-f45.google.com
+X-Mailman-Approved-At: Sun, 20 Jun 2021 15:50:28 +0000
+Subject: [apparmor] apparmor is not getting started
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -118,29 +60,149 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2658733940658950427=="
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-T24gNi8xNC8yMSA0OjAyIFBNLCBNdXJhbGkgU2VsdmFyYWogd3JvdGU6Cj4gSGkgQ2FzZXksCj4g
-Cj4gSSBhbSB0cnlpbmcgdG8gdW5kZXJzdGFuZCB0aGF0IG9uY2UgYSBEQUMgY2hlY2sgcGFzc2Vz
-LCBpdCB3aWxsIGludm9rZQo+IEFwcGFybW9yIGxvZ3MuCgp0aGlzIGlzbid0IHRydWUgZm9yIGV2
-ZXJ5IGhvb2ssIGVzcGVjaWFsbHkgd2l0aCB0aGUgc2VjdXJpdHlfcGF0aF8gaG9va3MKCkluIGdl
-bmVyYWwgSSBwcmVmZXIgdG8gc2F5IHRoYXQgYm90aCBEQUMgYW5kIE1BQyB3aWxsIGdldCBjYWxs
-ZWQsIGFzCnRoZSBvcmRlcmluZyBpc24ndCBhbHdheXMgREFDIHRoZW4gTUFDCgo+IEkgbG9hZGVk
-IHRoaXMgc2NyaXB0IHdpdGggYW4gZW1wdHkgcHJvZmlsZSBpbiBjb21wbGlhbnQgbW9kZSB0bwo+
-IGNhcHR1cmUgQXBwYXJtb3IgbG9ncy4KPiAKSXMgdGhlIHByb2ZpbGUgYXR0YWNoZWQgdG8gdGhl
-IHRhc2s/IENhbiB5b3UgcHJvdmlkZSB0aGUgb3V0cHV0IG9mCnBzIC1aIGZvciB0aGUgc2NyaXB0
-IG9yIHB1dCBpbnRvIHRoZSBzY3JpcHQKCmNhdCAvcHJvYy9zZWxmL2F0dHIvY3VycmVudAoKYWxz
-bwpob3cgZGlkIHlvdSBwdXQgdGhlIHByb2ZpbGUgaW50byBjb21wbGFpbiBtb2RlIGFuZCBob3cg
-ZGlkIHlvdSBsb2FkCml0IGludG8gdGhlIGtlcm5lbD8KCj4gQXMgbWVudGlvbmVkLCBJIGNvdWxk
-IG5vdCBzZWUgQXBwYXJtb3IgbG9ncy4gRG8gSSBuZWVkIHRvIGNoYW5nZQo+IGFueXRoaW5nIGlu
-IHRoZSBzY3JpcHQgdG8gaW52b2tlIEFwcGFybW9yL0xTTSBob29rcyB0byBjb2xsZWN0Cj4gQXBw
-YXJtb3IgbG9ncy4KPiAKCnF1aXRlIHBvc3NpYmx5LiBNeSBndWVzcyBpcyB0aGUgcHJvZmlsZSBp
-cyBub3QgYXR0YWNoaW5nIHRvIHRoZSBzY3JpcHQKYW5kIHdlIG5lZWQgdG8gZGV0ZXJtaW5lIHdo
-eS4KCllvdSBjb3VsZCBhbHNvIHBvdGVudGlhbGx5IHRyeSBsYXVuY2hpbmcgdGhlIHNjcmlwdCB3
-aXRoCgphYS1leGVjIC1kcCB5b3VyX3Byb2ZpbGUgLS0geW91cl9zY3JpcHQKCgotLSAKQXBwQXJt
-b3IgbWFpbGluZyBsaXN0CkFwcEFybW9yQGxpc3RzLnVidW50dS5jb20KTW9kaWZ5IHNldHRpbmdz
-IG9yIHVuc3Vic2NyaWJlIGF0OiBodHRwczovL2xpc3RzLnVidW50dS5jb20vbWFpbG1hbi9saXN0
-aW5mby9hcHBhcm1vcgo=
+--===============2658733940658950427==
+Content-Type: multipart/alternative; boundary="00000000000086fc9d05c5053d28"
+
+--00000000000086fc9d05c5053d28
+Content-Type: text/plain; charset="UTF-8"
+
+Hi Team,
+
+It would be really helpful if you can look at the following email and guide
+me what I am missing?
+
+I am trying to enable the apparmor in the following linux,
+https://github.com/openbmc/linux
+<https://github.com/openbmc/openbmc/tree/master/meta-ibm/recipes-kernel/linux>
+
+I pulled the http://git.yoctoproject.org/cgit/cgit.cgi/meta-security layer
+and pulled the apparmor from the meta-security.
+
+My kernel is built with the following option flags to enable the
+apparmor(Highlighted in *BOLD*)
+
+CONFIG_PCI=y
+CONFIG_PCIEPORTBUS=y
+CONFIG_PCI_DEBUG=y
+CONFIG_PCI_STUB=y
+CONFIG_PCI_IOV=y
+CONFIG_PCI_PRI=y
+CONFIG_PCIE_ASPEED=y
+CONFIG_SCSI=y
+CONFIG_BLK_DEV_SD=y
+CONFIG_CHR_DEV_SG=y
+CONFIG_USB_NET_DRIVERS=y
+CONFIG_SENSORS_ADT7475=y
+CONFIG_USB_UHCI_HCD=y
+CONFIG_USB_STORAGE=y
+CONFIG_USB_ETH=y
+CONFIG_MSDOS_FS=y
+CONFIG_VFAT_FS=y
+CONFIG_FAT_DEFAULT_UTF8=y
+CONFIG_SENSORS_ADT7475=y
+
+CONFIG_SECURITYFS=y
+CONFIG_SECURITY_NETWORK=y
+CONFIG_SECURITY_PATH=y
+*CONFIG_SECURITY_APPARMOR=y*
+
+*CONFIG_SECURITY_APPARMOR_HASH=yCONFIG_SECURITY_APPARMOR_HASH_DEFAULT=y*
+
+*CONFIG_DEFAULT_SECURITY="apparmor"CONFIG_SECURITY_APPARMOR_BOOTPARAM_VALUE=1*
+CONFIG_AUDIT=y
+define KFEATURE_COMPATIBILITY all
+
+root@abc:~# aa-status
+apparmor not present.
+
+
+root@abc:~#
+
+root@abc:~# apparmor_status
+apparmor not present.
+root@abc:~#
+
+root@abc:~# systemctl status aaparmor
+Unit aaparmor.service could not be found.
+root@abc:~# systemctl status apparmor
+* apparmor.service - AppArmor initialization
+     Loaded: loaded (/lib/systemd/system/apparmor.service; enabled; vendor
+preset: enabled)
+     Active: inactive (dead)
+
+*Condition: start condition failed at Thu 1970-01-01 00:00:14 UTC; 51 years
+5 months ago             `- ConditionSecurity=apparmor was not met*
+       Docs: man:apparmor(7)
+             http://wiki.apparmor.net/
+
+Jan 01 00:00:14 abc systemd[1]: Condition check resulted in AppArmor
+initialization being skipped.
+
+Regards
+Ratan Gupta
+
+--00000000000086fc9d05c5053d28
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hi Team,</div><div><br></div><div>It would be really =
+helpful if you can look at the following email and guide me what I am missi=
+ng?</div><div><br></div><div>I am trying=C2=A0to enable the apparmor in the=
+ following linux,</div><a href=3D"https://github.com/openbmc/openbmc/tree/m=
+aster/meta-ibm/recipes-kernel/linux" rel=3D"noopener noreferrer" target=3D"=
+_blank" style=3D"box-sizing:inherit;text-decoration-line:none;font-family:S=
+lack-Lato,appleLogo,sans-serif;font-size:15px;font-variant-ligatures:common=
+-ligatures;background-color:rgb(248,248,248)">https://github.com/openbmc/li=
+nux</a><div><br></div><div>I pulled the=C2=A0<a href=3D"http://git.yoctopro=
+ject.org/cgit/cgit.cgi/meta-security" target=3D"_blank">http://git.yoctopro=
+ject.org/cgit/cgit.cgi/meta-security</a>=C2=A0layer and pulled the apparmor=
+ from the meta-security.<br></div><div><br></div><div>My kernel is built=C2=
+=A0with the following=C2=A0option flags to enable the apparmor(Highlighted =
+in=C2=A0<b>BOLD</b>)</div><div><br></div><div>CONFIG_PCI=3Dy<br>CONFIG_PCIE=
+PORTBUS=3Dy<br>CONFIG_PCI_DEBUG=3Dy<br>CONFIG_PCI_STUB=3Dy<br>CONFIG_PCI_IO=
+V=3Dy<br>CONFIG_PCI_PRI=3Dy<br>CONFIG_PCIE_ASPEED=3Dy<br>CONFIG_SCSI=3Dy<br=
+>CONFIG_BLK_DEV_SD=3Dy<br>CONFIG_CHR_DEV_SG=3Dy<br>CONFIG_USB_NET_DRIVERS=
+=3Dy<br>CONFIG_SENSORS_ADT7475=3Dy<br>CONFIG_USB_UHCI_HCD=3Dy<br>CONFIG_USB=
+_STORAGE=3Dy<br>CONFIG_USB_ETH=3Dy<br>CONFIG_MSDOS_FS=3Dy<br>CONFIG_VFAT_FS=
+=3Dy<br>CONFIG_FAT_DEFAULT_UTF8=3Dy<br>CONFIG_SENSORS_ADT7475=3Dy<br><br>CO=
+NFIG_SECURITYFS=3Dy<br>CONFIG_SECURITY_NETWORK=3Dy<br>CONFIG_SECURITY_PATH=
+=3Dy<br><b>CONFIG_SECURITY_APPARMOR=3Dy</b><br><b>CONFIG_SECURITY_APPARMOR_=
+HASH=3Dy<br>CONFIG_SECURITY_APPARMOR_HASH_DEFAULT=3Dy</b><br><b>CONFIG_DEFA=
+ULT_SECURITY=3D&quot;apparmor&quot;<br>CONFIG_SECURITY_APPARMOR_BOOTPARAM_V=
+ALUE=3D1</b><br>CONFIG_AUDIT=3Dy<br>define KFEATURE_COMPATIBILITY all<br></=
+div><div><div><br></div><div>root@abc:~# aa-status<br>apparmor not present.=
+</div><div><br></div><div><br>root@abc:~#<br><br>root@abc:~# apparmor_statu=
+s<br>apparmor not present.<br>root@abc:~#<br><br>root@abc:~# systemctl stat=
+us aaparmor<br>Unit aaparmor.service could not be found.<br>root@abc:~# sys=
+temctl status apparmor<br>* apparmor.service - AppArmor initialization<br>=
+=C2=A0 =C2=A0 =C2=A0Loaded: loaded (/lib/systemd/system/apparmor.service; e=
+nabled; vendor preset: enabled)<br>=C2=A0 =C2=A0 =C2=A0Active: inactive (de=
+ad)<br>=C2=A0=C2=A0<b>Condition: start condition failed at Thu 1970-01-01 0=
+0:00:14 UTC; 51 years 5 months ago<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0`- ConditionSecurity=3Dapparmor was not met</b><br>=C2=A0 =C2=
+=A0 =C2=A0 =C2=A0Docs: man:apparmor(7)<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0<a href=3D"http://wiki.apparmor.net/" target=3D"_blank">ht=
+tp://wiki.apparmor.net/</a><br><br>Jan 01 00:00:14 abc systemd[1]: Conditio=
+n check resulted in AppArmor initialization being skipped.<br></div></div><=
+div><br></div><div>Regards<font color=3D"#888888"><br></font></div><font co=
+lor=3D"#888888"><div>Ratan Gupta</div></font></div>
+
+--00000000000086fc9d05c5053d28--
+
+
+--===============2658733940658950427==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
+eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
+aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
+
+--===============2658733940658950427==--
+
