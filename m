@@ -2,76 +2,41 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FE77403BB4
-	for <lists+apparmor@lfdr.de>; Wed,  8 Sep 2021 16:43:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71E3A403FA6
+	for <lists+apparmor@lfdr.de>; Wed,  8 Sep 2021 21:14:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1mNynY-0008TX-QA; Wed, 08 Sep 2021 14:43:36 +0000
-Received: from smtp-relay-internal-1.internal ([10.131.114.114]
- helo=smtp-relay-internal-1.canonical.com)
+	id 1mO31D-0004Wm-Sx; Wed, 08 Sep 2021 19:13:59 +0000
+Received: from mail.cboltz.de ([88.99.101.17])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <georgia.garcia@canonical.com>) id 1mNynW-0008TL-FT
- for apparmor@lists.ubuntu.com; Wed, 08 Sep 2021 14:43:34 +0000
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
- [209.85.218.70])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 4F5B33F30F
- for <apparmor@lists.ubuntu.com>; Wed,  8 Sep 2021 14:43:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1631112214;
- bh=S90iFtOg63972/gVuRT1O7sLnZLonYFMzyzlOsE5yek=;
- h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
- Content-Type:MIME-Version;
- b=P6ERDrWd1OPwPmot/M73lAD4LyahwiiKoqrhUNngLI0TnZOiqoRTx10s6gPY4dxkt
- dmVq7/KhQcd8KI6ZAGJynL41c2SpriiF8FTXsxTKUbyOc/ue5ZN6LRfzVusmxUciW2
- yeODpMrnLUzrLwGxI8tvHNMRls7sdMLSUblpebXYs7GHGQFm5yIihlooRXywe5MnNO
- mlfu1OhK3tD+9pJKIbsnW9Zodj42AVGayxt6aRySgKhkR1TMTcJwX/Xs9+lNvO9G19
- o/kQuy0xAW9M6GWCEB+9WOULBIzRCGJqI5bFvMgAC2PjxecSm4XEX0YjCIwvOLB0yu
- /r/SXI/NkjKwQ==
-Received: by mail-ej1-f70.google.com with SMTP id
- jw25-20020a17090776b900b005ca775a2a00so1129114ejc.1
- for <apparmor@lists.ubuntu.com>; Wed, 08 Sep 2021 07:43:34 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
- :references:organization:user-agent:mime-version
- :content-transfer-encoding;
- bh=S90iFtOg63972/gVuRT1O7sLnZLonYFMzyzlOsE5yek=;
- b=w3FoiyIKby/q8xsGKPgTdRRTjTnX15DtHXPB1I0ZCDuzsvA+1Jj3BxchPLTGpC+UUu
- 5i49H+ILRrEA9mWzZbKOZOXYWJLTJxW2qIEP9i6P/jnfpWvvIaUo7P/x5LlnvFMhX2Es
- ajmO096LvN8V1MwwLq7GHRJ0R94mxh2qm1j8QtdhKreYFjwy6qwDesiWT+lK0/GDjx9p
- GXw+nrecHMeeFj+KZVGcy0kkOyajFc+Bf7hgCTwCtLC364axAB+UsVWIFJfA5G+igSNF
- nHAEqiyaGk5nGpIia5y4sc/H9ciwxGF2ugj3YpoTFRp1pZ7LRj5zFHIFXYiDJKl904Bz
- kZxg==
-X-Gm-Message-State: AOAM533H5YxZvCNdr3PT0VENcfqz0HFRD9HREUKkSxE9ZO6AQAeCuz3f
- P/yJw/HO85c7cyh0EwdRQjOWTgpWty/d7N1fKlXj8JTQMWeW2ahoaRp3ehytwg6o86LEcOkBMoM
- jlkQYifxNe4qvq6tgf0TnEyYKkhlrSDsrNl913g==
-X-Received: by 2002:a17:906:4346:: with SMTP id
- z6mr180582ejm.403.1631112213618; 
- Wed, 08 Sep 2021 07:43:33 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxinydwdmu+uTB5zd3+1Zn1kmepoCZBXeuSzSFiD4+MtTRxUHdFLy+s4jA4HQAN9BgoHSKD9A==
-X-Received: by 2002:a17:906:4346:: with SMTP id
- z6mr180559ejm.403.1631112213412; 
- Wed, 08 Sep 2021 07:43:33 -0700 (PDT)
-Received: from georgia ([2001:67c:1562:8007::aac:4557])
- by smtp.gmail.com with ESMTPSA id dc7sm1314527edb.46.2021.09.08.07.43.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Sep 2021 07:43:33 -0700 (PDT)
-Message-ID: <50482a0b0f141f0f363baa121410c8b59c50470e.camel@canonical.com>
-From: Georgia Garcia <georgia.garcia@canonical.com>
+ (envelope-from <apparmor@cboltz.de>) id 1mO31C-0004WX-FG
+ for apparmor@lists.ubuntu.com; Wed, 08 Sep 2021 19:13:58 +0000
+X-sprachakt.com-SMTP-Auth: no
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by mail.cboltz.de (Postfix) with ESMTP id 08C4B5C0116
+ for <apparmor@lists.ubuntu.com>; Wed,  8 Sep 2021 21:13:58 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at mail.cboltz.de
+Received: from mail.cboltz.de ([127.0.0.1])
+ by localhost (mail.cboltz.de [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id JoWeD1Jwy5uH for <apparmor@lists.ubuntu.com>;
+ Wed,  8 Sep 2021 21:13:56 +0200 (CEST)
+Received: from home.cboltz.de (unknown [10.10.0.6])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (Client did not present a certificate)
+ by mail.cboltz.de (Postfix) with ESMTPSA
+ for <apparmor@lists.ubuntu.com>; Wed,  8 Sep 2021 21:13:56 +0200 (CEST)
+From: Christian Boltz <apparmor@cboltz.de>
 To: apparmor@lists.ubuntu.com
-Date: Wed, 08 Sep 2021 11:43:27 -0300
-In-Reply-To: <20210904020732.GA4049275@millbarge>
-References: <20210903213149.92758-1-georgia.garcia@canonical.com>
- <20210904020732.GA4049275@millbarge>
-Organization: Canonical
-User-Agent: Evolution 3.36.5-0ubuntu1 
+Date: Wed, 08 Sep 2021 21:13:50 +0200
+Message-ID: <3415835.JB2sseZfvn@tux.boltz.de.vu>
+In-Reply-To: <87pmtkop58.fsf@manticora.bergerie.taz>
+References: <87pmtkop58.fsf@manticora.bergerie.taz>
 MIME-Version: 1.0
-Subject: Re: [apparmor] [PATCH v2] apparmor: enable raw text policy
+X-Face: #?nL0}JpqNtLQy@q#bRm?B?pGS8[mx6r.6[91zp@*2DZ?18)haWs5wgvi, ,
+ wF/JWMTUh+6x, b7_`pW3)m~0606sDW0&'EKA}_-W+)Bz~d]k>4E9TyU}k@b&1=%yk\
+Subject: Re: [apparmor] Deprecating the Perl bindings?
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -83,35 +48,122 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Seth Arnold <seth.arnold@canonical.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============6719702879345846562=="
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-T24gU2F0LCAyMDIxLTA5LTA0IGF0IDAyOjA3ICswMDAwLCBTZXRoIEFybm9sZCB3cm90ZToKPiBP
-biBGcmksIFNlcCAwMywgMjAyMSBhdCAwNjozMTo0OVBNIC0wMzAwLCBHZW9yZ2lhIEdhcmNpYSB3
-cm90ZToKPiA+ICtzdGF0aWMgY29uc3Qgc3RydWN0IGZpbGVfb3BlcmF0aW9ucyByYXd0ZXh0X2Zv
-cHMgPSB7Cj4gPiArCS5vcGVuID0gcmF3ZGF0YV9vcGVuLAo+ID4gKwkucmVhZCA9IHJhd3RleHRf
-cmVhZCwKPiA+ICsJLmxsc2VlayA9IGdlbmVyaWNfZmlsZV9sbHNlZWssCj4gPiArCS5yZWxlYXNl
-ID0gcmF3ZGF0YV9yZWxlYXNlLAo+ID4gK307Cj4gCj4gSGV5IEdlb3JnaWEsIEknbSBjdXJpb3Vz
-IGlmIHRoZSByYXdkYXRhX29wZW4gYW5kIHJhd2RhdGFfcmVsZWFzZSBoZXJlIGFyZQo+IGNvcnJl
-Y3QuIElmIHRoZXkgYXJlIGNvcnJlY3QsIGlzIHRoZXJlIGFueSBwcm9ibGVtIGlmIHRoZSBzYW1l
-IHByb2Nlc3MKPiBvcGVucyBib3RoIHRoZSByYXdfdGV4dCBhbmQgdGhlIHJhd19kYXRhIGZpbGVz
-PyBJcyB0aGVyZSBhbnkgcHJvYmxlbSBpZgo+IHR3byBvciBtb3JlIHByb2Nlc3NlcyBvcGVuIGJv
-dGggcmF3X3RleHQgYW5kIHJhd19kYXRhPwo+IAo+IFRoYW5rcwoKSGkgU2V0aCwKCldoZW4gcmF3
-ZGF0YV9vcGVuIGlzIGNhbGxlZCwgd2UgaW5jcmVhc2UgdGhlIHJlZmNvdW50IGZvciBsb2FkZGF0
-YSBhbmQKZGVjcmVhc2UgaXQgZm9yIHJhd2RhdGFfcmVsZWFzZS4gVGhlIHJlc3VsdCBvZiB0aGUg
-ZGVjb21wcmVzc2lvbiBpcwpzdG9yZWQgaW50byBhIG5ldyB2YXJpYWJsZSAocHJpdmF0ZSksIGFu
-ZCBub3QgbG9hZGRhdGEgZGlyZWN0bHkuIAoKU28gd2hlbiB0aGVyZSdzIGEgY2FsbCBmb3IgcmF3
-X2RhdGEgYW5kIHJhd190ZXh0IGJ5IHRoZSBzYW1lIHByb2Nlc3MsCnRoZSByZWZjb3VudCB3aWxs
-IGJlIGluY3JlYXNlZCB0d2ljZSBhbmQgbG9hZGRhdGEgd2lsbCBiZSBkZWNvbXByZXNzZWQKdHdp
-Y2UgaGF2aW5nIHRoZSByZXN1bHQgaW4gdHdvIGRpZmZlcmVudCBwcml2YXRlIHZhcmlhYmxlcy4g
-VGhhdAphcHBsaWVzIGZvciB0d28gb3IgbW9yZSBwcm9jZXNzZXMgYXMgd2VsbC4KCkp1c3QgdG8g
-YmUgc3VyZSwgSSB0ZXN0ZWQgdGhlc2Ugc2NlbmFyaW9zIGFuZCBpdCB3b3JrZWQgYXMgZXhwZWN0
-ZWQuCgpJJ20gbm90IHN1cmUgaWYgdGhhdCdzIHRoZSBpc3N1ZXMgeW91IHdlcmUgY29uY2VybmVk
-IGFib3V0IGFuZCBpZiBJCm1hZGUgbXlzZWxmIGNsZWFyLCBzbyBwbGVhc2UgbGV0IG1lIGtub3cu
-IEkgY291bGQgYmUgbWlzc2luZyBzb21ldGhpbmcKdG9vIDopCgpUaGFua3MsCkdlb3JnaWEKCgot
-LSAKQXBwQXJtb3IgbWFpbGluZyBsaXN0CkFwcEFybW9yQGxpc3RzLnVidW50dS5jb20KTW9kaWZ5
-IHNldHRpbmdzIG9yIHVuc3Vic2NyaWJlIGF0OiBodHRwczovL2xpc3RzLnVidW50dS5jb20vbWFp
-bG1hbi9saXN0aW5mby9hcHBhcm1vcgo=
+--===============6719702879345846562==
+Content-Type: multipart/signed; boundary="nextPart7697435.vEB24yB8Mr"; micalg="pgp-sha256"; protocol="application/pgp-signature"
+
+--nextPart7697435.vEB24yB8Mr
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"; protected-headers="v1"
+From: Christian Boltz <apparmor@cboltz.de>
+To: apparmor@lists.ubuntu.com
+Subject: Re: [apparmor] Deprecating the Perl bindings?
+Date: Wed, 08 Sep 2021 21:13:50 +0200
+Message-ID: <3415835.JB2sseZfvn@tux.boltz.de.vu>
+In-Reply-To: <87pmtkop58.fsf@manticora.bergerie.taz>
+References: <87pmtkop58.fsf@manticora.bergerie.taz>
+
+Hello,
+
+Am Dienstag, 7. September 2021, 08:50:27 CEST schrieb intrigeri:
+> As far as I can tell, in the upstream code base, aa-notify was the
+> only thing that depended on the Perl bindings to libapparmor.
+> It's been ported to Python so that's not the case anymore.
+>=20
+> With my Debian hat on, I can say that shipping the Perl bindings
+> (libapparmor-perl) makes some stuff more complicated, for example for
+> adding cross-building support. So I'm considering dropping them:
+> https://bugs.debian.org/993565
+>=20
+> What would be the drawbacks of dropping the Perl bindings upstream?
+>=20
+> Are we aware of code that uses them? In openSUSE tooling, perhaps?
+
+Historically the YaST2 AppArmor module used the perl bindings (and even=20
+the old perl modules), but since several years YaST is baiscally a=20
+graphical frontend to   aa-genprof --json   etc. - and that way solved=20
+more than one problem. I was even able to do a "remote bugfix" to YaST=20
+by fixing something in aa-genprof ;-)
+
+I'm not sure if other packages use the perl bindings (unfortunately I=20
+can only easily find out what depends on AppArmor, but not individually=20
+for the perl-apparmor subpackage). At least on my laptop, I could=20
+uninstall perl-apparmor without complaints.
+
+> Are we confident they'll keep working, even though we don't actively
+> use them upstream anymore?
+
+Well, we didn't get any bugreports ;-) which can mean
+=2D it works
+=2D nobody uses it   or
+=2D it's broken and nobody uses it
+
+> If we want to drop them upstream, what would be a suitable deprecation
+> process and timeline? Would it be sufficient to announce this on this
+> mailing list and drop them in the next major release?
+
+As long as it doesn't case lots of work, I'd tend to keep the perl=20
+bindings upstream. This is not a strong vote, so if we want to add a=20
+deprecation note (so that we can say "told you so" whenever the perl=20
+bindings cause us headaches), I'm also fine with that.
+
+At the same time - if the perl bindings cause you major headaches on=20
+Debian, feel free to drop --with-perl.
+
+
+Regards,
+
+Christian Boltz
+=2D-=20
+Journaling erh=F6ht die Stabilit=E4t/Konsistenz des Dateisystems nach einem
+n=F6tigen Filesystem-Check, der ohne Journal ein fremdes Kinderzimmer
+aufr=E4umen muss ohne zu wissen, wo der Schei=DF eigentlich hin soll,
+w=E4hrend er mit Journal einen Zettel vor der T=FCr findet, wo die Rotznase
+ihre Sachen zu finden w=FCnscht. [Holger Marzen]
+
+--nextPart7697435.vEB24yB8Mr
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEcMqgYN4EKq6xsVGWxqaC6mPILxwFAmE5C24ACgkQxqaC6mPI
+Lxw/NRAAxPyLjUFjfPRkVYG/LyC9Uf50LM6ZP25yqZtgbikVqv0/O7JQeEcJKA+4
+1eZm1ALZOYzgJbspLjyxJ2h+9AbCsFWrzYFWoclRZS6RYStkDn7FLP5KOfYS8lAc
+JH3YPvTHyk6ckUg5tvatbf2p2bguJr999qVHPfCIfQSq0f8iWf6gt0PrN3OefOYS
+BHFYTHlMZNBoTjNPmhWCkUKDdXm9hsXH0ZwC3AMv26sUldScf3d/ndBa4D7jk/9v
+Qakj8aKWuvytsoxmH2KjUBc4G0tXUAfdPbDprospIAfRVXWZla0B506uS0XetoDi
+N6x05ZklO+Bkkf1wbHGKbgdc69hWv3JyPSzhpk47WpX6BTbA2DFCBMvwQgSd/D95
+RLz707pShxP9Tq1jvNL2AwgsxMeZSLOM9g6Jc5405uz4O6LXtuEUx7hayX70pZ3c
+8/f+5rl/dUP8ME3qMGJMf7iRPZTcniOiTbsn3Hzkl61ASXE05eK8lbDEPXvFgkSD
+KecNYerKqgtmJ5HP44MH8vEpkDK275gTw9QWUAiOfaLY9VD+4LCjs05SzzIgwg7+
+xnBRbTWfH9NZ2DB/42/k05EFWVWe61cOfwU7nxi4bVGObjm6HtmQtKtNIM9aA5JH
+YOEzs8UNXf0PWlrM9WbyFB0Tjfgf56rxK08vP4ftO5HkxbsgdcA=
+=O1Bs
+-----END PGP SIGNATURE-----
+
+--nextPart7697435.vEB24yB8Mr--
+
+
+
+
+
+--===============6719702879345846562==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
+eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
+aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
+
+--===============6719702879345846562==--
+
+
+
+
