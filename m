@@ -2,32 +2,47 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B38341505B
-	for <lists+apparmor@lfdr.de>; Wed, 22 Sep 2021 21:08:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1CDB418F03
+	for <lists+apparmor@lfdr.de>; Mon, 27 Sep 2021 08:24:49 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1mT7bS-0003eS-Uq; Wed, 22 Sep 2021 19:08:22 +0000
-Received: from c.mail.sonic.net ([64.142.111.80])
+	id 1mUk45-0003DT-7y; Mon, 27 Sep 2021 06:24:37 +0000
+Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
+ helo=smtp-relay-canonical-1.canonical.com)
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <forestix@sonic.net>) id 1mT7bP-0003dM-KA
- for apparmor@lists.ubuntu.com; Wed, 22 Sep 2021 19:08:19 +0000
-Received: from unknown (157-131-253-151.fiber.dynamic.sonic.net
- [157.131.253.151]) (authenticated bits=0)
- by c.mail.sonic.net (8.15.1/8.15.1) with ESMTPA id 18MJ8GgH013943
- for <apparmor@lists.ubuntu.com>; Wed, 22 Sep 2021 12:08:16 -0700
-From: Forest <forestix@sonic.net>
-To: apparmor@lists.ubuntu.com
-Date: Wed, 22 Sep 2021 12:08:16 -0700
-Message-ID: <savmkgle9vcmpm23d0egnm7u7aasm67hfk@4ax.com>
-X-Mailer: Forte Agent 3.3/32.846
+ (envelope-from <john.johansen@canonical.com>) id 1mUk44-0003DN-6j
+ for apparmor@lists.ubuntu.com; Mon, 27 Sep 2021 06:24:36 +0000
+Received: from [192.168.192.153] (unknown [50.126.114.69])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 8C6C43F0F8; 
+ Mon, 27 Sep 2021 06:24:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1632723875;
+ bh=EKx5UztWp7A8d+huvbxsh6+y4jtFvn0ktVyb8hE/Lg8=;
+ h=Subject:To:References:From:Message-ID:Date:MIME-Version:
+ In-Reply-To:Content-Type;
+ b=XW6ub3L1BkFJf4rcLVkiBDIujsc8viC1eXmJZ2yMLP++0djXln5Rr83dRzmee/wUB
+ MVkKgkCNdKDvXMbb/l/Xj/77gB9wT32GB2ulCJqGlNm9Nww8z8BKLbi+9usR2pQ9P1
+ Hspqgxt6aJ7wlEFA92iU222p3ks8i/B6wGQbsSimCwxbyztPjeZwejMgjykyW+t7uP
+ uxDwPpmlo+hQS2P0Ty7J0aiyhFYrHHMWQgv/rx1LUgkOmwA9ZnInLKnQjt1pvLEWWy
+ DCCHovjq/CP3vgjtB3OrglBpEmSk/CpQXNrmD/yyTg7C7n7g6k2fZYRwhJvZamo/hx
+ ozGBAE2xsccUw==
+To: Forest <forestix@sonic.net>, apparmor@lists.ubuntu.com
+References: <savmkgle9vcmpm23d0egnm7u7aasm67hfk@4ax.com>
+From: John Johansen <john.johansen@canonical.com>
+Organization: Canonical
+Message-ID: <1bf76b38-2962-d748-7c71-b0d083771588@canonical.com>
+Date: Sun, 26 Sep 2021 23:24:29 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-X-Sonic-CAuth: UmFuZG9tSVb9MUToYJUOUNmsljhk0EstE0sJtY3Fx78BM/jO6cK4BHaVhZiSss/TSA8j2h2qW+dC9Hm0z9ArGI1X3Y+fZhJC
-X-Sonic-ID: C;tJQicdgb7BGChIwupfZQ0w== M;dDQscdgb7BGChIwupfZQ0w==
-X-Spam-Flag: No
-X-Sonic-Spam-Details: 0.0/5.0 by cerberusd
-Subject: [apparmor] Toward cooperation between bubblewrap and AppArmor
+In-Reply-To: <savmkgle9vcmpm23d0egnm7u7aasm67hfk@4ax.com>
+Content-Language: en-US
+Subject: Re: [apparmor] Toward cooperation between bubblewrap and AppArmor
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -44,12 +59,53 @@ Content-Transfer-Encoding: base64
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-QSBkaXNjdXNzaW9uIGhhcyBjb21lIHVwIGFib3V0IGdldHRpbmcgYnViYmxld3JhcCBhbmQgQXBw
-QXJtb3IgdG8gY29vcGVyYXRlLgpPbmUgdXNlIGNhc2Ugd291bGQgYmUgYWxsb3dpbmcgU3RlYW0g
-KHdoaWNoIHJlY2VudGx5IHN0YXJ0ZWQgbGF1bmNoaW5nIGdhbWVzCmluIGEgYndyYXAgY29udGFp
-bmVyKSB0byB3b3JrIGluIEFwcEFybW9yLXJlc3RyaWN0ZWQgZW52aXJvbm1lbnRzIGxpa2UgTFhD
-LgoKSSB0aGluayBzb21lIHBlcnNwZWN0aXZlIGZyb20gQXBwQXJtb3IgbWFpbnRhaW5lcnMgd291
-bGQgYmUgdmFsdWFibGUgdGhlcmU6CgpodHRwczovL2dpdGh1Yi5jb20vY29udGFpbmVycy9idWJi
-bGV3cmFwL2lzc3Vlcy8zNjIKCi0tIApBcHBBcm1vciBtYWlsaW5nIGxpc3QKQXBwQXJtb3JAbGlz
-dHMudWJ1bnR1LmNvbQpNb2RpZnkgc2V0dGluZ3Mgb3IgdW5zdWJzY3JpYmUgYXQ6IGh0dHBzOi8v
-bGlzdHMudWJ1bnR1LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2FwcGFybW9yCg==
+T24gOS8yMi8yMSAxMjowOCBQTSwgRm9yZXN0IHdyb3RlOgo+IEEgZGlzY3Vzc2lvbiBoYXMgY29t
+ZSB1cCBhYm91dCBnZXR0aW5nIGJ1YmJsZXdyYXAgYW5kIEFwcEFybW9yIHRvIGNvb3BlcmF0ZS4K
+PiBPbmUgdXNlIGNhc2Ugd291bGQgYmUgYWxsb3dpbmcgU3RlYW0gKHdoaWNoIHJlY2VudGx5IHN0
+YXJ0ZWQgbGF1bmNoaW5nIGdhbWVzCj4gaW4gYSBid3JhcCBjb250YWluZXIpIHRvIHdvcmsgaW4g
+QXBwQXJtb3ItcmVzdHJpY3RlZCBlbnZpcm9ubWVudHMgbGlrZSBMWEMuCj4gCj4gSSB0aGluayBz
+b21lIHBlcnNwZWN0aXZlIGZyb20gQXBwQXJtb3IgbWFpbnRhaW5lcnMgd291bGQgYmUgdmFsdWFi
+bGUgdGhlcmU6Cj4gCj4gaHR0cHM6Ly9naXRodWIuY29tL2NvbnRhaW5lcnMvYnViYmxld3JhcC9p
+c3N1ZXMvMzYyCj4gCgpTbyB5ZXMgQXBwQXJtb3IgY3VycmVudGx5IGhhcyBpc3N1ZXMgd2l0aCBt
+b3VudCBuYW1lc3BhY2VzIGFuZCBwaXZvdF9yb290LiBJdApkb2VzIHBsYXkgYmV0dGVyIHdpdGgg
+Y2hyb290IGF0IGxlYXN0IGZyb20gYSBzeXN0ZW0gcG9saWN5IHBlcnNwZWN0aXZlLCBidXQKY2hy
+b290IGhhcyBpdHMgb3duIGlzc3Vlcy4gRGVwZW5kaW5nIG9uIGhvdyBwaXZvdF9yb290IGlzIHVz
+ZWQgdGhlIGVmZmVjdHMKcmFuZ2UgZnJvbSBtaW5vciB0byBjb21wbGV0ZWx5IGJyZWFraW5nIGl0
+cyBzZWN1cml0eS4gSXQgaXMgc29tZXRoaW5nIHdlIGhhdmUKYmVlbiB3b3JraW5nIG9uIGZpeGlu
+ZywgYnV0IHJlZ3JldHRhYmx5IGl0IGhhcyBiZWVuIGV4dHJlbWVseSBzbG93IGdvaW5nLgoKQ3Vy
+cmVudGx5IHRoZSBiZXN0IHRoYXQgY2FuIGJlIGRvbmUgaGFzIHByZXR0eSBtdWNoIGJlZW4gY292
+ZXJlZCBlaXRoZXIKcnVubmluZyB1bmNvbmZpbmVkIG9yIHVuZGVyIGEgdmVyeSBsb29zZSBwcm9m
+aWxlLiBzdGdyYWJlciBoYXMgYWxyZWFkeQpjb3ZlcmVkIHRoZSBseGMvZCBzaWRlIG9mIHRoaW5n
+cyBzbyBJIHdpbGwganVzdCBhZGRyZXNzIHRoZSBhcHBhcm1vciBzaWRlLgoKClRoZXJlIGFyZSB0
+d28gaXNzdWVzIGhlcmUgYSBjb25mbGljdCBiZXR3ZWVuIGhvdyB0aGUgY29udGFpbmVyL2J1YmJs
+ZXdyYXAKYW5kIGFwcGFybW9yIHRyeWluZyB0byBwcm90ZWN0IHRoZSBjb250YWluZXIvc3lzdGVt
+LCBhbmQgaG93IGFwcGFybW9yIGN1cnJlbnRseQpoYW5kbGVzIG5hbWVzcGFjaW5nIGFuZCBwaXZv
+dF9yb290LgoKVGVjaG5pcXVlcyBsaWtlIG5hbWVzcGFjaW5nLCBwaXZvdF9yb290LCBhbmQgbm9f
+bmV3X3ByaXZzIGFsbCBwcmVzZW50CmRpZmZpY3VsdGllcyB0byBhbiBMU00gYmVjYXVzZSBub3Qg
+YWxsIHRoZSBuZWVkZWQgaW50ZXJmYWNlcyBhcmUgcHJlc2VudCwKYW5kIHRoZXJlIGlzIGEgbWlz
+bWF0Y2ggYmV0d2VlbiBob3cgdGhlIGZlYXR1cmUgd2FzIGRlc2lnbmVkIGFuZCBob3cgdGhlCkxT
+TSAobm90IG5lY2Vzc2FyaWx5IGp1c3QgYXBwYXJtb3IpIGdlbmVyYWxseSB3b3Jrcy4KCkVnLiBp
+ZiB0aGUgY29udGFpbmVyIG9yIGJ1YmJsZSB3cmFwIHdhbnQgdG8gdXNlIGEgcmVhZCBvbmx5IGJp
+bmQgbW91bnQKdG8gcHJvdGVjdCBhIGZpbGUgdGhlbiBhcHBhcm1vciBwb2xpY3kgd291bGQgaGF2
+ZSB0byBhbGxvdyB0aGF0IHdoZXJlCm5hdGl2ZWx5IGl0IHdvdWxkbid0IGFuZCBpdCB3b3VsZCBq
+dXN0IGVuZm9yY2UgdGhhdCB0aGUgZmlsZSBpcyByZWFkb25seQphcyBwYXJ0IG9mIGl0cyBwb2xp
+Y3kuCgpUaGlzIGlzIGEgZ2VuZXJhbCBpc3N1ZSBlbmNvdW50ZXJlZCB3aGVuIGRpZmZlcmluZyBz
+ZWN1cml0eSBtZWNoYW5pc21zCndpdGggb3ZlcmxhcCBhcmUgYmVpbmcgYXBwbGllZC4gU28gaXRz
+IG5vdCBqdXN0IGEgYnViYmxld3JhcC9hcHBhcm1vcgppc3N1ZSwgd2UgcnVuIGludG8gaXNzdWVz
+IHdoZW4gc3RhY2tpbmcgYXBwYXJtb3IgYW5kIHNlbGludXggb3Igc21hY2ssIG9yCmV2ZW4gc29t
+ZXRoaW5nIGFzIHNpbXBsZSBhcyBhcHBhcm1vciBhbmQgeWFtYS4gU29tZSBtb2RpZmljYXRpb24g
+dG8gZWl0aGVyCm9uZSBvciBib3RoIG9mIHRoZSBjb25mbGljdGluZyBtZWNoYW5pc20gd2lsbCBi
+ZSBuZWVkZWQuCgpUbyBoZWxwIGFkZHJlc3MgdGhpcyBwcm9ibGVtIHdlIGFyZSB3b3JraW5nIG9u
+IHNldmVyYWwgaW1wcm92ZW1lbnRzIG9uIHRoZQphcHBhcm1vciBzaWRlLiBXaXRob3V0IGdldHRp
+bmcgaW50byB0b28gbXVjaCBkZXRhaWwgdGhlcmUgYXJlIGltcHJvdmVtZW50cwp0byBoYW5kbGlu
+ZyBvZiBuYW1lc3BhY2VzIGFuZCBwaXZvcnRfcm9vdCwgbm9fbmV3X3ByaXZzLCBvYmplY3QgZGVs
+ZWdhdGlvbiwKYW5kIHBvbGljeSBjb25kaXRpb25hbHMuCgpQb2xpY3kgY29uZGl0aW9uYWxzIGFy
+ZSBwcm9iYWJseSB0aGUgcGxhY2Ugd2hlcmUgYXBwYXJtb3IgYW5kIGJ1YmJsZXdyYXAKY2FuIGNv
+b3BlcmF0ZSB0aGUgbW9zdCwgYXMgdGhleSB3aWxsIGFsbG93IHBvbGljeSB0byBiZSBtb3JlIGVh
+c2lseSBhZGFwdGVkCnRvIGRpZmZlcmVudCBzaXR1YXRpb25zLiBXZSBjZXJ0YWlubHkgY291bGQg
+dXNlIGhlbHAgaW4gZGVmaW5pbmcgd2hhdCBydWxlCmNoYW5nZXMgYW5kIGNvbmRpdGlvbmFscyB3
+b3VsZCBiZSBiZW5lZmljaWFsIGZvciBidWJibGV3cmFwLiBBcyB3ZWxsIGFzCmlucHV0IG9uIGFu
+eSBwb3RlbnRpYWwgYXBpcyBmb3IgdHdlYWtpbmcgdGhlbS4KCi0tIApBcHBBcm1vciBtYWlsaW5n
+IGxpc3QKQXBwQXJtb3JAbGlzdHMudWJ1bnR1LmNvbQpNb2RpZnkgc2V0dGluZ3Mgb3IgdW5zdWJz
+Y3JpYmUgYXQ6IGh0dHBzOi8vbGlzdHMudWJ1bnR1LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2FwcGFy
+bW9yCg==
