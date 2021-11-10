@@ -2,57 +2,56 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F0E444CA46
-	for <lists+apparmor@lfdr.de>; Wed, 10 Nov 2021 21:12:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D14044CA94
+	for <lists+apparmor@lfdr.de>; Wed, 10 Nov 2021 21:25:57 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1mktxR-0004Cd-Nr; Wed, 10 Nov 2021 20:12:33 +0000
-Received: from mout.gmx.net ([212.227.17.20])
+	id 1mkuAH-00059C-9W; Wed, 10 Nov 2021 20:25:49 +0000
+Received: from nat64.dcmtl.stgraber.org ([45.45.148.0] helo=mx2.sdeziel.info)
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <cemu-europe@gmx.net>) id 1mkO0l-0003gp-Lu
- for apparmor@lists.ubuntu.com; Tue, 09 Nov 2021 10:05:51 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1636452351;
- bh=us8HxGHeuxy85j9UKszkZV7GzCVfJuQSWGYQhFuvvZY=;
- h=X-UI-Sender-Class:From:To:Subject:Date;
- b=hcZrcUcGUysudxaAtynHnpDCIO8nl6njuA/bNLNWeC+fE7y9O2DUtOiYOHsubM6hw
- qUlqHF4JlqVGQroaYEKcuiYH4QPwWJccTX3gh88WYkGz74Iyr00ZJcaDPr410ykJpe
- ChRy21/3vYvO938ffvV6fjTAqzJYhO0qOSvEYx9Q=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from [79.239.69.10] ([79.239.69.10]) by web-mail.gmx.net
- (3c-app-gmx-bs45.server.lan [172.19.170.97]) (via HTTP); Tue, 9 Nov 2021
- 11:05:51 +0100
+ (envelope-from <simon@sdeziel.info>) id 1mkuAF-000595-Nw
+ for apparmor@lists.ubuntu.com; Wed, 10 Nov 2021 20:25:48 +0000
+Received: from mail.sdeziel.info (mail.sdeziel.info
+ [IPv6:2001:470:b1c3:7942::25])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ (No client certificate requested)
+ by mx2.sdeziel.info (Postfix) with ESMTPS id 4HqGZL18QPzyS2
+ for <apparmor@lists.ubuntu.com>; Wed, 10 Nov 2021 20:25:46 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.sdeziel.info (Postfix) with ESMTP id 4HqGYk43y7zmmR
+ for <apparmor@lists.ubuntu.com>; Wed, 10 Nov 2021 20:25:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=sdeziel.info; h=
+ content-transfer-encoding:content-type:content-type:in-reply-to
+ :subject:subject:from:from:references:content-language
+ :user-agent:mime-version:date:date:message-id:received; s=
+ mail2111; t=1636575913; x=1637180714; bh=Yhr2H7W8/q22c3DXfiPMKAT
+ 20u69m7+xB60Q/Yua8Pc=; b=bQeIUMdd8WyahnzzqTNm7cHe3CfQnLPmEmOEyYm
+ /zhLLJLcSARSoGKlWTdExdKN2yVffBPMkQcInjXOoQZO3i6EELi3TvlF7mJalSR1
+ ur6INMLlVG89us23nOLH1RZbrnxQ6Mhby8++BDuj1FG+CUFna/00iwQrFMX3Ngyv
+ Y28DHoUxjAwow/8+M0ACI4HvAv8s1kihfYNOnaXCTSf0whyHU766pAiuERKdl0sS
+ Ty7gKUAHcp6zWP89U4v7+fxSYozNSIAw4eLN4BlKb+JFcZSuZQ1n4+UCObBRuI86
+ 80AayL5O7CkqABP7hIaq531hfKzN70gb98MngTuCt9zx7jw==
+Received: from [IPV6:2001:470:b1c3:7943::2] (unknown
+ [IPv6:2001:470:b1c3:7943::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-384) server-digest SHA384)
+ (No client certificate requested) (Authenticated sender: simon)
+ by mail.sdeziel.info (Postfix) with ESMTPSA id 4HqGYj0c21zmly
+ for <apparmor@lists.ubuntu.com>; Wed, 10 Nov 2021 20:25:12 +0000 (UTC)
+Message-ID: <8d4ec75d-3df3-6573-6a9f-605695a8beac@sdeziel.info>
+Date: Wed, 10 Nov 2021 15:25:12 -0500
 MIME-Version: 1.0
-Message-ID: <trinity-948dd7ea-0e1b-4b22-92b7-b14d8f98ac02-1636452351170@3c-app-gmx-bs45>
-From: =?UTF-8?Q?Cedric_M=C3=BCller?= <cemu-europe@gmx.net>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.0
+Content-Language: en-US
 To: apparmor@lists.ubuntu.com
-Date: Tue, 9 Nov 2021 11:05:51 +0100
-Importance: normal
-Sensitivity: Normal
-X-Priority: 3
-X-Provags-ID: V03:K1:skhmD5FuDrVOxlPjKLn6Oiadluk1ZKsr4JzwBt3ACGbP8LY6UHh7mzjG1EjU7HVqZQ/M/
- J8lNx0DAYA3nA9Wfuh4/oLZ7OReDE8hSZYDbxmoNSZyc0ODNwfay2ekAX2NKzQq24AF2zLusPo5D
- J9JKHBDi8sYAj2rnLw6d6vJ5a1OyOEtBuP/fPrATyFkVYT+FjyVeS4YFg+U77M5EqkjdsfCpfJ5r
- /pAgic0BVZi+lloId0BQhx7++s6USJ8nCcPHsdxi3kmawLDXVcjOXL4wXczF42YCFC8kNjkc8xKQ
- rk=
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:54xq12WZ8WI=:MbAiju8zneILcLFnQY8Emw
- uuE+rW6xgMDgzgC3JDSic6aD/sWUyARL8H4Xwq1zCYpYp/gAPid9JGue+ywIFNjCYI3Hm4Toi
- wk38mw1KiA7bvZXlZNMnW0PkPFmU+k6pLfnge1k88aChzQUDejHIB1XYMKfghtUrDJP0Jmlob
- XS9el32gCrbJd7Xs/qA3pM0wRmy+ml9iB+IpGpiUyM1jN2KFzYDtnp58A+9EQ+smQAmcgdkyq
- ZeQlchQiZECCv1PvN4pxb8c3wx7NQT543eRY0KrmSvMSEl/Zjy125yZJXSrUYSmYtUZgJhLcE
- IuAHbyMc4LpVbFtwtZwHvsDcA7drJR6Z12oFQ9n22R2crw14t+zYQ+1/sGK6P8eIcPiQvJyFv
- XiPhOPZH0rTSwD5m04csr9IMPog1Es64hluDC2NUABy8SnUGVJ8yRC2MUMKxV50mfELjZh3hL
- a7jt7SZ1OxdxzthfcBcV9sIDr56/HYYW8QFWiqQohqrj271PU/YHUGn2Xip4HRHfEa5D1CPYW
- U8gAnk5Z1vn4cFCpuzZl3KQ+BooJJBl9HJp5eyL8/I7dikiXpQNj+cWzhDnv4kkb37BPB+5ER
- 1bCIMNdgULJUiONE+RdjpLAO1R3in0swcPJYNGMZo6+oxwusY4AGBW1mStADug5Sk40NZJ1B5
- RBgmSYm54Amp8mcAfQ2yxU7mbAl5z5zzRO95XU9YgqOlYCF9HEcHbUnZLntXBwbp1+68yBnwd
- 9SWl5LffjM6bUb4MJPJKB/9mnQoB7ylPofiof2ZFAeGhWyA1bFwEWm5nE7SLWRHqzOnR+v3i/
- 9v3ZhgS
-X-Mailman-Approved-At: Wed, 10 Nov 2021 20:12:33 +0000
-Subject: [apparmor] AppArmor denies access,
+References: <trinity-948dd7ea-0e1b-4b22-92b7-b14d8f98ac02-1636452351170@3c-app-gmx-bs45>
+From: Simon Deziel <simon@sdeziel.info>
+In-Reply-To: <trinity-948dd7ea-0e1b-4b22-92b7-b14d8f98ac02-1636452351170@3c-app-gmx-bs45>
+Subject: Re: [apparmor] AppArmor denies access,
  when systemd namespace used by hardening directive (e.g.
  ProtectHome)
 X-BeenThere: apparmor@lists.ubuntu.com
@@ -66,54 +65,54 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-SGksCgppbiB0aGUgbGFzdCB3ZWVrcywgSSB0cmllZCB0byBmaW5kIGEgY29uZmlndXJhdGlvbiBz
-ZXQgdG8gaGFyZGVuIHRoZSBNUVRUIG1lc3NhZ2UgYnJva2VyIE1vc3F1aXR0by4gVGhlcmVmb3Jl
-LCBJIHdhbnQgdG8gdXNlIHByb3Blcmx5IGNvbmZpZ3VyZWQgcGVybWlzc2lvbnMgZm9yIGRpc2Ny
-ZXRpb25hcnkgYWNjZXNzIGNvbnRyb2wgYW5kIGFuIEFwcEFybW9yIHByb2ZpbGUgZm9yIG1hbmRh
-dG9yeSBhY2Nlc3MgY29udHJvbC4gSW4gYWRkaXRpb24sIEkgd2FudCB0byBhcHBseSBzeXN0ZW1k
-IHNhbmRib3hpbmcgYW5kIHNlY3VyaXR5IGhhcmRlbmluZyBkaXJlY3RpdmVzIHRvIGNvbXBsZXRl
-IHRoZSBjb25maWd1cmF0aW9uIHNldC4KCkZvciBtb3JlIGNvbnRleHQ6IFN5c3RlbWQgcHJvdmlk
-ZXMgYSBzb2NrZXQgL3J1bi9zeXN0ZW1kL25vdGlmeSwgd2hlcmUgaXQgbGlzdGVucyBmb3IgbWVz
-c2FnZXMgc3VjaCBhcyB3aGV0aGVyIGEgc2VydmljZSAoZS5nLiBNb3NxdWl0dG8pIGlzIHJlYWR5
-IChpbiB3aGljaCBjYXNlIHN5c3RlbWQgd2lsbCB0cmFuc2l0aW9uIHRoZSBzdGF0dXMgdG8gc3Rh
-cnRlZCkuClRoaXMgc29ja2V0IGlzIG93bmVkIGJ5IHJvb3QgYW5kIHRoZSBwZXJtaXNzaW9uIHNl
-dCBpcyA3NzcuIEFsc28sIE1vc3F1aXR0bydzIEFwcEFybW9yIHByb2ZpbGUgYWxsb3dzIHdyaXRl
-IGFjY2VzcyB0byB0aGlzIHNvY2tldC4KCldpdGggdGhlc2Ugc2V0dGluZywgZXZlcnl0aGluZyBp
-cyB3b3JraW5nIGZpbmUuIE5vIERlbnktbWVzc2FnZXMgaW4gYXVkaXRkIGJlY2F1c2Ugb2YgQXBw
-QXJtb3IuIFRoZSBNb3NxdWl0dG8gc2VydmljZSBjb3VsZCByZXBvcnQgaGlzIHN0YXR1cyB0byB0
-aGUgc29ja2V0IGFuZCBzeXN0ZW1kIHNob3dzIGl0IHdoZW4gdXNpbmcgc3lzdGVtY3RsIHN0YXR1
-cyBtb3NxdWl0dG8uc2VydmljZS4KCkZvciBteSBsYXN0IHN0ZXAsIHVzaW5nIHN5c3RlbWQgc2Fu
-ZGJveGluZyBhbmQgc2VjdXJpdHkgaGFyZGVuaW5nIGRpcmVjdGl2ZXMsIEkgYWRkZWQgdGhlIGRp
-cmVjdGl2ZSBQcm90ZWN0SG9tZT15ZXMgKHNlZcKgaHR0cHM6Ly93d3cuZnJlZWRlc2t0b3Aub3Jn
-L3NvZnR3YXJlL3N5c3RlbWQvbWFuL3N5c3RlbWQuZXhlYy5odG1sI1Byb3RlY3RIb21lPSkgdG8g
-TW9zcXVpdHRvJ3MgdW5pdCBmaWxlIGFuZCByZXN0YXJ0ZWQgdGhlIHNlcnZpY2UuIE5vdywgYXVk
-aXRkIGxvZ3MgYSBkZW5pZWQgbWVzc2FnZSBmcm9tIEFwcEFybW9yIGZvciB0aGUgTW9zcXVpdHRv
-IGJpbmFyeSBmb3IgL3J1bi9zeXN0ZW1kL25vdGlmeSBhbmQgc3lzdGVtZCBkb2VzIG5vdCB1cGRh
-dGUgdGhlIHN0YXR1cyBvZiB0aGUgTW9zcXVpdHRvIHNlcnZpY2UuCgpTZWUgdGhlIGtlcm5lbCBt
-ZXNzYWdlIG91dHB1dDogWzY0NC4xMTg5ODRdIGF1ZGl0OiB0eXBlPTE0MDAgYXVkaXQoMTYzNTk0
-NTI0Ny41OTE6MzMpOiBhcHBhcm1vcj0iREVOSUVEIiBvcGVyYXRpb249InNlbmRtc2ciIGluZm89
-IkZhaWxlZCBuYW1lIGxvb2t1cCAtIGRpc2Nvbm5lY3RlZCBwYXRoIiBlcnJvcj0tMTMgcHJvZmls
-ZT0iL3Vzci9zYmluL21vc3F1aXR0byIgbmFtZT0icnVuL3N5c3RlbWQvbm90aWZ5IiBwaWQ9NDUy
-IGNvbW09Im1vc3F1aXR0byIgcmVxdWVzdGVkX21hc2s9InciIGRlbmllZF9tYXNrPSJ3IiBmc3Vp
-ZD0xMDcgb3VpZD0wCgpXaGF0IEkgZm91bmQgb3V0IHNvIGZhcjogV2hlbiBQcm90ZWN0SG9tZSBp
-cyBhY3RpdmF0ZWQsIHN5c3RlbWQgc3RhcnRzIHRoZSBiaW5hcnkgaW4gYSBuZXcgbW91bnQgbmFt
-ZXNwYWNlLiBXaGVuIHN0YXJ0ZWQgaW4gdGhpcyBtb3VudCBuYW1lc3BhY2UsIEFwcEFybW9yIGRl
-bmllcyBhY2Nlc3MsIG90aGVyd2lzZSBub3QuCgpOb3cgc29tZSBhZGRpdGlvbmFsIGluZm9ybWF0
-aW9uLiBJJ20gdXNpbmcgdGhlIERlYmlhbiBiYXNlZCBkaXN0cmlidXRpb24gQXBlcnRpcyAoc2Vl
-wqBodHRwczovL2FwZXJ0aXMub3JnKSB3aXRoIFN5c3RlbWQgMjQxLTcsIEFwcEFybW9yIDIuMTMu
-Mi0xMCBhbmQgTW9zcXVpdHRvIDEuNS43LTEuCgpBIGRpZmZlcmVudCBidXQgbW9yZSBoaWdoLWxl
-dmVsIGRpc2N1c3Npb24gd291bGQgYmUsIGlmIHRoZXNlIHN5c3RlbWQgYm9vbGVhbiBkaXJlY3Rp
-dmVzIHNob3VsZCBiZSB1c2VkIGF0IGFsbCwgd2hlbiBJJ20gdXNpbmcgQXBwQXJtb3IgYW55d2F5
-LCBiZWNhdXNlIHNvbWUgb2YgdGhlc2Ugc3lzdGVtZCBkaXJlY3RpdmVzIGFyZSBvdmVybGFwcGlu
-ZyB0byBmZWF0dXJlcyBmcm9tIEFwcEFybW9yLiBJJ20gdmVyeSBpbnRlcmVzdGVkIGluIHlvdXIg
-b3BpbmlvbnMgYW5kIEknbSBzdXJlLCBzb21lIG9mIHlvdSBjYW4gaGVscCBtZSB3aXRoIHRoZXNl
-IGlzc3VlcyBhbmQgdGhvdWdodHMuIFRoaXMgaXMgbXkgZmlyc3QgZS1tYWlsIG9uIGEgbWFpbGlu
-ZyBsaXN0LCBkbyBub3QgaGVzaXRhdGUgdG8gY29udGFjdCBtZSBpbiBjYXNlIG9mIGFueSBxdWVz
-dGlvbnMuCgpCZXN0IHJlZ2FyZHMsCgpDZWRyaWMKCi0tIApBcHBBcm1vciBtYWlsaW5nIGxpc3QK
-QXBwQXJtb3JAbGlzdHMudWJ1bnR1LmNvbQpNb2RpZnkgc2V0dGluZ3Mgb3IgdW5zdWJzY3JpYmUg
-YXQ6IGh0dHBzOi8vbGlzdHMudWJ1bnR1LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2FwcGFybW9yCg==
+SGkgQ2VkcmljLAoKT24gMjAyMS0xMS0wOSAwNTowNSwgQ2VkcmljIE3DvGxsZXIgd3JvdGU6Cj4g
+SGksCj4gCj4gaW4gdGhlIGxhc3Qgd2Vla3MsIEkgdHJpZWQgdG8gZmluZCBhIGNvbmZpZ3VyYXRp
+b24gc2V0IHRvIGhhcmRlbiB0aGUgTVFUVCBtZXNzYWdlIGJyb2tlciBNb3NxdWl0dG8uIFRoZXJl
+Zm9yZSwgSSB3YW50IHRvIHVzZSBwcm9wZXJseSBjb25maWd1cmVkIHBlcm1pc3Npb25zIGZvciBk
+aXNjcmV0aW9uYXJ5IGFjY2VzcyBjb250cm9sIGFuZCBhbiBBcHBBcm1vciBwcm9maWxlIGZvciBt
+YW5kYXRvcnkgYWNjZXNzIGNvbnRyb2wuIEluIGFkZGl0aW9uLCBJIHdhbnQgdG8gYXBwbHkgc3lz
+dGVtZCBzYW5kYm94aW5nIGFuZCBzZWN1cml0eSBoYXJkZW5pbmcgZGlyZWN0aXZlcyB0byBjb21w
+bGV0ZSB0aGUgY29uZmlndXJhdGlvbiBzZXQuCj4gCj4gRm9yIG1vcmUgY29udGV4dDogU3lzdGVt
+ZCBwcm92aWRlcyBhIHNvY2tldCAvcnVuL3N5c3RlbWQvbm90aWZ5LCB3aGVyZSBpdCBsaXN0ZW5z
+IGZvciBtZXNzYWdlcyBzdWNoIGFzIHdoZXRoZXIgYSBzZXJ2aWNlIChlLmcuIE1vc3F1aXR0bykg
+aXMgcmVhZHkgKGluIHdoaWNoIGNhc2Ugc3lzdGVtZCB3aWxsIHRyYW5zaXRpb24gdGhlIHN0YXR1
+cyB0byBzdGFydGVkKS4KPiBUaGlzIHNvY2tldCBpcyBvd25lZCBieSByb290IGFuZCB0aGUgcGVy
+bWlzc2lvbiBzZXQgaXMgNzc3LiBBbHNvLCBNb3NxdWl0dG8ncyBBcHBBcm1vciBwcm9maWxlIGFs
+bG93cyB3cml0ZSBhY2Nlc3MgdG8gdGhpcyBzb2NrZXQuCj4gCj4gV2l0aCB0aGVzZSBzZXR0aW5n
+LCBldmVyeXRoaW5nIGlzIHdvcmtpbmcgZmluZS4gTm8gRGVueS1tZXNzYWdlcyBpbiBhdWRpdGQg
+YmVjYXVzZSBvZiBBcHBBcm1vci4gVGhlIE1vc3F1aXR0byBzZXJ2aWNlIGNvdWxkIHJlcG9ydCBo
+aXMgc3RhdHVzIHRvIHRoZSBzb2NrZXQgYW5kIHN5c3RlbWQgc2hvd3MgaXQgd2hlbiB1c2luZyBz
+eXN0ZW1jdGwgc3RhdHVzIG1vc3F1aXR0by5zZXJ2aWNlLgo+IAo+IEZvciBteSBsYXN0IHN0ZXAs
+IHVzaW5nIHN5c3RlbWQgc2FuZGJveGluZyBhbmQgc2VjdXJpdHkgaGFyZGVuaW5nIGRpcmVjdGl2
+ZXMsIEkgYWRkZWQgdGhlIGRpcmVjdGl2ZSBQcm90ZWN0SG9tZT15ZXMgKHNlZcKgaHR0cHM6Ly93
+d3cuZnJlZWRlc2t0b3Aub3JnL3NvZnR3YXJlL3N5c3RlbWQvbWFuL3N5c3RlbWQuZXhlYy5odG1s
+I1Byb3RlY3RIb21lPSkgdG8gTW9zcXVpdHRvJ3MgdW5pdCBmaWxlIGFuZCByZXN0YXJ0ZWQgdGhl
+IHNlcnZpY2UuIE5vdywgYXVkaXRkIGxvZ3MgYSBkZW5pZWQgbWVzc2FnZSBmcm9tIEFwcEFybW9y
+IGZvciB0aGUgTW9zcXVpdHRvIGJpbmFyeSBmb3IgL3J1bi9zeXN0ZW1kL25vdGlmeSBhbmQgc3lz
+dGVtZCBkb2VzIG5vdCB1cGRhdGUgdGhlIHN0YXR1cyBvZiB0aGUgTW9zcXVpdHRvIHNlcnZpY2Uu
+Cj4gCj4gU2VlIHRoZSBrZXJuZWwgbWVzc2FnZSBvdXRwdXQ6IFs2NDQuMTE4OTg0XSBhdWRpdDog
+dHlwZT0xNDAwIGF1ZGl0KDE2MzU5NDUyNDcuNTkxOjMzKTogYXBwYXJtb3I9IkRFTklFRCIgb3Bl
+cmF0aW9uPSJzZW5kbXNnIiBpbmZvPSJGYWlsZWQgbmFtZSBsb29rdXAgLSBkaXNjb25uZWN0ZWQg
+cGF0aCIgZXJyb3I9LTEzIHByb2ZpbGU9Ii91c3Ivc2Jpbi9tb3NxdWl0dG8iIG5hbWU9InJ1bi9z
+eXN0ZW1kL25vdGlmeSIgcGlkPTQ1MiBjb21tPSJtb3NxdWl0dG8iIHJlcXVlc3RlZF9tYXNrPSJ3
+IiBkZW5pZWRfbWFzaz0idyIgZnN1aWQ9MTA3IG91aWQ9MAo+IAo+IFdoYXQgSSBmb3VuZCBvdXQg
+c28gZmFyOiBXaGVuIFByb3RlY3RIb21lIGlzIGFjdGl2YXRlZCwgc3lzdGVtZCBzdGFydHMgdGhl
+IGJpbmFyeSBpbiBhIG5ldyBtb3VudCBuYW1lc3BhY2UuIFdoZW4gc3RhcnRlZCBpbiB0aGlzIG1v
+dW50IG5hbWVzcGFjZSwgQXBwQXJtb3IgZGVuaWVzIGFjY2Vzcywgb3RoZXJ3aXNlIG5vdC4KCkFz
+IHlvdSBmb3VuZCBvdXQsIHVzaW5nIHN5c3RlbWQgbW91bnQgbmFtZXNwYWNlIGZlYXR1cmVzIGNh
+dXNlcyB0aG9zZSAKImRpc2Nvbm5lY3RlZCBwYXRoIiBkZW5pYWxzLiBBRkFJSywgdGhlIGN1cnJl
+bnQgd29ya2Fyb3VuZCBpcyB0byBzZXQgdGhlIAoiYXR0YWNoX2Rpc2Nvbm5lY3RlZCIgZmxhZyBs
+aWtlIHRoaXM6Cgpwcm9maWxlIG1vc3F1aXR0byAvdXNyL3NiaW4vbW9zcXVpdHRvIGZsYWdzPShh
+dHRhY2hfZGlzY29ubmVjdGVkKSB7CiAgIC4uLgp9CgpUaGlzIGlzIGdlbmVyYWxseSBub3QgZGVz
+aXJhYmxlIGR1ZSB0byB0aGUgc2VjdXJpdHkgaW1wbGljYXRpb25zIGFzIApleHBsYWluZWQgaW4g
+aHR0cHM6Ly9naXRsYWIuY29tL2FwcGFybW9yL2FwcGFybW9yLy0vaXNzdWVzLzEyNS4gVGhlcmUg
+aXMgCkFGQUlLIG5vIG90aGVyIHdheSB0byBnZXQgbW91bnQgbmFtZXNwYWNlcyBhbmQgQXBwYXJt
+b3Igc28gSSB1c2UgdGhvc2UgCm1vcmUgb2Z0ZW4gdGhlbiBub3QuCgpIVEgsClNpbW9uCgoKLS0g
+CkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlmeSBz
+ZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21haWxt
+YW4vbGlzdGluZm8vYXBwYXJtb3IK
