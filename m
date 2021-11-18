@@ -2,42 +2,37 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F34E453AD5
-	for <lists+apparmor@lfdr.de>; Tue, 16 Nov 2021 21:20:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A931C455F47
+	for <lists+apparmor@lfdr.de>; Thu, 18 Nov 2021 16:21:44 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1mn4wj-0003ff-GW; Tue, 16 Nov 2021 20:20:49 +0000
-Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
- helo=smtp-relay-canonical-0.canonical.com)
- by huckleberry.canonical.com with esmtps
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <seth.arnold@canonical.com>) id 1mn4wh-0003fN-Db
- for apparmor@lists.ubuntu.com; Tue, 16 Nov 2021 20:20:47 +0000
-Received: from localhost (2.general.sarnold.us.vpn [10.172.64.71])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id B5FCC3F211; 
- Tue, 16 Nov 2021 20:20:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1637094047;
- bh=dbJkjtzFGvLGliEqPmzrW+qTDkUor6+dp8sUoOD0yzs=;
- h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
- Content-Type:In-Reply-To;
- b=lJofooyY/2oUZxhCMHwZTmqJYi1TGDNkOcCdNYKMVbjqyY6VnKfow2GoAg9H/hlXr
- bhab7mmStzJFIcNhwCEZYlZMSVICIM+ItES/5SURc1ddG9wyUpw/BCuEiR6/Hd5UE2
- Hs/owUMpGrDluGW0QVkEQSNfHa+fynEW63PbY8EbiEOkp5Os8HmHCnmipSePFM6BmF
- Z9iuiVjOrSx1VZIfeZwkiL0oj5kD9G2SmQll02UO1DUhMuhEYKevyHVEgjk7oDTz9C
- 3NuLwO8PBggBStFUB7kQpBWJGctjiWKUtwhuRRkzIGbe+8n+oQwtHE/hjpvsRxhoEn
- yYeyJoZapzZqA==
-Date: Tue, 16 Nov 2021 20:20:44 +0000
-From: Seth Arnold <seth.arnold@canonical.com>
-To: beroal <me@beroal.in.ua>
-Message-ID: <20211116202044.GA1434906@millbarge>
-References: <ec3bb2d2-7178-a65f-3a61-34aee8e0560c@beroal.in.ua>
+	id 1mnjEE-0002CY-Fn; Thu, 18 Nov 2021 15:21:34 +0000
+Received: from smtp-1.1gb.com.ua ([195.234.4.10] helo=u1.1gb.ua)
+ by huckleberry.canonical.com with esmtp (Exim 4.86_2)
+ (envelope-from <me@beroal.in.ua>) id 1mnjEB-0002As-J7
+ for apparmor@lists.ubuntu.com; Thu, 18 Nov 2021 15:21:31 +0000
+Received: from Spooler by u1.1gb.ua (Mercury/32 v4.52) ID MO005D24;
+ 18 Nov 2021 17:21:32 +0200
+Received: from spooler by mail-u1-robots.in-solve.hidden (Mercury/32 v4.52);
+ 18 Nov 2021 17:21:30 +0200
+Received: from ul1.1gb.ua (195.234.4.24) by smtp-1.1gb.com.ua (Mercury/32
+ v4.52) with ESMTP ID MG005D22; 18 Nov 2021 17:21:19 +0200
+Received: from [192.162.141.53] ([192.162.141.53]) (authenticated bits=0)
+ by ul1.1gb.ua (8.14.9/8.14.9) with ESMTP id 1AIFLH82010791
+ (version=TLSv1/SSLv3 cipher=AES128-GCM-SHA256 bits=128 verify=NO);
+ Thu, 18 Nov 2021 17:21:18 +0200
+Message-ID: <52abb2cd-3d8a-76ce-54c3-24b4bcc79058@beroal.in.ua>
+Date: Thu, 18 Nov 2021 17:21:17 +0200
 MIME-Version: 1.0
-In-Reply-To: <ec3bb2d2-7178-a65f-3a61-34aee8e0560c@beroal.in.ua>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.0
+Content-Language: en-US
+To: Seth Arnold <seth.arnold@canonical.com>, beroal <me@beroal.in.ua>
+References: <ec3bb2d2-7178-a65f-3a61-34aee8e0560c@beroal.in.ua>
+ <20211116202044.GA1434906@millbarge>
+From: beroal <me@beroal.in.ua>
+In-Reply-To: <20211116202044.GA1434906@millbarge>
 Subject: Re: [apparmor] give a permission to a specific process
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -51,86 +46,155 @@ List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
 Cc: apparmor@lists.ubuntu.com
-Content-Type: multipart/mixed; boundary="===============3557423794890376545=="
+Content-Type: multipart/mixed; boundary="===============8751636566062435030=="
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
+This is a multi-part message in MIME format.
+--===============8751636566062435030==
+Content-Type: multipart/alternative;
+ boundary="------------gsiZendKMkMjjF7HcH7N0Zfd"
+Content-Language: en-US
 
---===============3557423794890376545==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qDbXVdCdHGoSgWSk"
-Content-Disposition: inline
+This is a multi-part message in MIME format.
+--------------gsiZendKMkMjjF7HcH7N0Zfd
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+On 16.11.21 22:20, Seth Arnold wrote:
+> On Tue, Nov 16, 2021 at 11:44:15AM +0200, beroal wrote:
+>> Hi. I wonder whether AppArmor allows to give a permission to a specific
+>> process. A use case: there are UI programs (editors, viewers) that need
+>> temporary access to a file specified by a user (to edit, to view).
+> Work is ongoing to allow delegation of privileges via 'portals'
+> (similar in spirit to the "PowerBox" style of capability object systems
+> http://wiki.c2.com/?PowerBox  ). I'm not sure if this is what you're
+> really asking about, however...
+Yes, PowerBox is what I have in mind. The idea is ancient, but I'm not 
+aware of any implementation for Linux except for Plash 
+http://plash.beasts.org/contents.html .
+
+At first, I planned to have directories ~/.phome/$PROGRAM for every 
+$PROGRAM. (Of course, $PROGRAM doesn't have access to the home directory 
+except for ~/.phome/$PROGRAM. This is the whole point and is achieved 
+through AppArmor.) This would require crazy file moving for files that 
+are accessed by many programs. For example, when writing documents, 
+archiving them, and then sending them by email.
 
 
---qDbXVdCdHGoSgWSk
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+>> Unfortunately, AppArmor profiles give permissions to executable files. For
+>> example, if a user gives executable $E access to /tmp/$F, any user will have
+>> access to /tmp/$F by executing $E. Hence a user need a feature which gives
+>> permission $R to any process that executes executable $E **as a user $U**
+>> where $R, $E, and $U are specified by the user. A feature which gives
+>> permission $R to process $P would be nice too, but isn't essential. There is
+>> a problem how a non-root can use this feature, but it's a separate topic.
+>>
+>> Does AppArmor have such a feature? Maybe, there is a better tool for this
+>> use case?
+> Do note that in your description, User A creates /tmp/$F. User B can
+> access /tmp/$F through cat, vim, dd, cp, etc. even without using
+> executable $E IFF the permissions on /tmp/$F allow it.
 
-On Tue, Nov 16, 2021 at 11:44:15AM +0200, beroal wrote:
-> Hi. I wonder whether AppArmor allows to give a permission to a specific
-> process. A use case: there are UI programs (editors, viewers) that need
-> temporary access to a file specified by a user (to edit, to view).
+It's okay since I want to protect files against malicious programs, not 
+malicious users. (Protecting from malicious users is simple --- 
+classical Unix file permissions.) But then it's okay that any user has 
+access to /tmp/$F. Thank you for pointing this out :-) .
 
+My plan is to make a daemon which allows a user to add file permissions 
+to /etc/apparmor.d/temp/$PROGRAM. And there will be "include if exists 
+<temp/$PROGRAM>" in /etc/apparmor.d/$PROGRAM.
+
+This plan creates a vulnerability though. A malicious user $U0 can give 
+a vulnerable program $E access to /home/$U1 and access /home/$U1 by 
+controlling a process executing $E as $U1 (when $U1 uses $E) :-( .
+
+--------------gsiZendKMkMjjF7HcH7N0Zfd
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <div class="moz-cite-prefix">On 16.11.21 22:20, Seth Arnold wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:20211116202044.GA1434906@millbarge">
+      <pre class="moz-quote-pre" wrap="">On Tue, Nov 16, 2021 at 11:44:15AM +0200, beroal wrote:
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">Hi. I wonder whether AppArmor allows to give a permission to a specific
+process. A use case: there are UI programs (editors, viewers) that need
+temporary access to a file specified by a user (to edit, to view).
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
 Work is ongoing to allow delegation of privileges via 'portals'
 (similar in spirit to the "PowerBox" style of capability object systems
-http://wiki.c2.com/?PowerBox ). I'm not sure if this is what you're
-really asking about, however...
+<a class="moz-txt-link-freetext" href="http://wiki.c2.com/?PowerBox">http://wiki.c2.com/?PowerBox</a> ). I'm not sure if this is what you're
+really asking about, however...</pre>
+    </blockquote>
+    Yes, PowerBox is what I have in mind. The idea is ancient, but I'm
+    not aware of any implementation for Linux except for Plash
+    <a class="moz-txt-link-freetext" href="http://plash.beasts.org/contents.html">http://plash.beasts.org/contents.html</a> .
+    <p>At first, I planned to have directories ~/.phome/$PROGRAM for
+      every $PROGRAM. (Of course, $PROGRAM doesn't have access to the
+      home directory except for ~/.phome/$PROGRAM. This is the whole
+      point and is achieved through AppArmor.) This would require crazy
+      file moving for files that are accessed by many programs. For
+      example, when writing documents, archiving them, and then sending
+      them by email.<br>
+    </p>
+    <p><br>
+    </p>
+    <blockquote type="cite"
+      cite="mid:20211116202044.GA1434906@millbarge">
+      <pre class="moz-quote-pre" wrap="">
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">Unfortunately, AppArmor profiles give permissions to executable files. For
+example, if a user gives executable $E access to /tmp/$F, any user will have
+access to /tmp/$F by executing $E. Hence a user need a feature which gives
+permission $R to any process that executes executable $E **as a user $U**
+where $R, $E, and $U are specified by the user. A feature which gives
+permission $R to process $P would be nice too, but isn't essential. There is
+a problem how a non-root can use this feature, but it's a separate topic.
 
-> Unfortunately, AppArmor profiles give permissions to executable files. For
-> example, if a user gives executable $E access to /tmp/$F, any user will h=
-ave
-> access to /tmp/$F by executing $E. Hence a user need a feature which gives
-> permission $R to any process that executes executable $E **as a user $U**
-> where $R, $E, and $U are specified by the user. A feature which gives
-> permission $R to process $P would be nice too, but isn't essential. There=
- is
-> a problem how a non-root can use this feature, but it's a separate topic.
->=20
-> Does AppArmor have such a feature? Maybe, there is a better tool for this
-> use case?
-
+Does AppArmor have such a feature? Maybe, there is a better tool for this
+use case?
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
 Do note that in your description, User A creates /tmp/$F. User B can
 access /tmp/$F through cat, vim, dd, cp, etc. even without using
 executable $E IFF the permissions on /tmp/$F allow it.
-
-Your security policies need to be developed with a view to the total
-system. It's possible to design AppArmor profiles that will keep users
-=66rom sharing data with each other: ensure users cannot start unconfined
-processes, ensure the profiles require 'owner' access to any locations
-that allow users to write to them.
-
-It's hard to give concrete advice for hypotheticals -- about all I can
-really suggest is that you need to keep the entire view of everything you
-allow on your systems in mind when you're writing policy.
-
-AppArmor's very flexible. You can confine just the network-oriented
-servers or clients. You can confine everything users do. You can confine
-the elements of a user interface. If you have unconfined processes in your
-environment, you've exempted those from AppArmor confinement. Don't lose
-sight of these.
-
-Thanks
-
---qDbXVdCdHGoSgWSk
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEQVAQ8bojyMcg37H18yFyWZ2NLpcFAmGUEpgACgkQ8yFyWZ2N
-LpcHPwgAssmmEQwK6hxR4HVfae1kwLRTEwqmlrPSQ6kug/kexEXvZVhRqfGTCSGt
-CmXqc/q+iEnwtl1Ee5Fps5xLmsvxujPGbuspHmZdmx/sVo+V7pSDFfjK3UWpr9uc
-PXcFO/KtBY2a+rj7uN6iBDhQ8M/6fcIpZd6TC31AYFlk/Zqg+xB6kd4bf/L9fUd2
-J0GGn79bTtfVrAI71IPBJjIv6FaKfroSbG0R8xUEMpKZagjOEXbrEVbRFGRTdFFG
-xXyNJUQLJuCh5Je2Tv50PA7533BQ0vhpM96wzTZ4hmZg/Q4j5dWsxzxrXyg7pyWt
-0XFHEoiCegSN32bdPaSMXCiniiqmBQ==
-=LdGC
------END PGP SIGNATURE-----
-
---qDbXVdCdHGoSgWSk--
+</pre>
+    </blockquote>
+    <p>It's okay since I want to protect files against malicious
+      programs, not malicious users. (Protecting from malicious users is
+      simple --- classical Unix file permissions.) But then it's okay
+      that any user has access to /tmp/$F. Thank you for pointing this
+      out :-) .</p>
+    <p>My plan is to make a daemon which allows a user to add file
+      permissions to /etc/apparmor.d/temp/$PROGRAM. And there will be "<span
+        class="text-bold hx_keyword-hl rounded-1 d-inline-block">include</span>
+      <span class="text-bold hx_keyword-hl rounded-1 d-inline-block">if</span>
+      <span class="text-bold hx_keyword-hl rounded-1 d-inline-block">exists</span>
+      &lt;temp/$PROGRAM&gt;" in /etc/apparmor.d/$PROGRAM.</p>
+    <p>This plan creates a vulnerability though. A malicious user $U0
+      can give a vulnerable program $E access to /home/$U1 and access
+      /home/$U1 by controlling a process executing $E as $U1 (when $U1
+      uses $E) :-( .<br>
+    </p>
+  </body>
+</html>
+--------------gsiZendKMkMjjF7HcH7N0Zfd--
 
 
---===============3557423794890376545==
+
+--===============8751636566062435030==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -140,5 +204,6 @@ LS0gCkFwcEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlm
 eSBzZXR0aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21h
 aWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
 
---===============3557423794890376545==--
+--===============8751636566062435030==--
+
 
