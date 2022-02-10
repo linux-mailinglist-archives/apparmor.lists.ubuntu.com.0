@@ -2,36 +2,36 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE3C94AB19C
-	for <lists+apparmor@lfdr.de>; Sun,  6 Feb 2022 20:20:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BCE34B01D9
+	for <lists+apparmor@lfdr.de>; Thu, 10 Feb 2022 02:20:42 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1nGn4y-0004Gn-6y; Sun, 06 Feb 2022 19:20:08 +0000
+	id 1nHy8L-0006JR-JD; Thu, 10 Feb 2022 01:20:29 +0000
 Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
  helo=smtp-relay-canonical-0.canonical.com)
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>) id 1nGn4w-0004Fx-RG
- for apparmor@lists.ubuntu.com; Sun, 06 Feb 2022 19:20:06 +0000
+ (envelope-from <john.johansen@canonical.com>) id 1nHy8K-0006JK-1w
+ for apparmor@lists.ubuntu.com; Thu, 10 Feb 2022 01:20:28 +0000
 Received: from [192.168.192.153] (unknown [50.126.114.69])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 4B8A440DF8
- for <apparmor@lists.ubuntu.com>; Sun,  6 Feb 2022 19:20:06 +0000 (UTC)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id A3EDF3FFDD
+ for <apparmor@lists.ubuntu.com>; Thu, 10 Feb 2022 01:20:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1644175206;
- bh=at1TlRk0YUEZZ0i5/5YuTc3xnqtr6b7YIvlpCcvd4v4=;
+ s=20210705; t=1644456026;
+ bh=4x9tcTAsBCiJR2vqqKrsNhc8DrgrXYHwR4U5wtb/L+8=;
  h=Message-ID:Date:MIME-Version:From:Subject:To:Content-Type;
- b=vBckjCWhMEyFFl/f7iyf1F4lvFETSK0bZR/OWrmf4DrNhRy0JXBYSU9vQr3sBm1/R
- eZ8a/qbzsLNyn0/HNzHh8JCq93IQDBN5ATXWkJnf+SaXy+j0P6mMXaCSlz3pdd4wP3
- rq53x17OOxHQG81eDqk/l8mnf6hTyzxEDNzPaJ04tHrCv3HIo7rv92TQWTYYlVRAw3
- MCfSE52rTcGuk1caMhwSj4xFhZ5rqosshuvTYnODoDoWDY+QFvETLrKOC2Ropb+dyl
- U0pgtxotrB+/Ik9ftWZ5oYJsqVXbZukhG/W3xFhs+uggZmuV/h5O5pQ/hF3rezyvtx
- 26/YlrGXocNIA==
-Message-ID: <64c6c4c8-ed6d-bd1e-5919-c7f7d03343d5@canonical.com>
-Date: Sun, 6 Feb 2022 11:19:54 -0800
+ b=oW4HT1cni4QWz5WYaQuKzAaO6kQ5fHv7KbzlBXSf/uOIbSXigfvGDoFLSAzZ+qPiB
+ SlCfjuEOmjCB5FXGDt4tSXVWCisvIjNv63OnyMf2+zedzw2KfzmoKR9hASmHgIxkjg
+ DIoLvgoAk2fZtpGJ6+oXTgTiGJEaiGet860VWN5vVn/pyW3MQFnOFzU1kDjTDbgCzv
+ ndJy4ZoPY1/D2Y+FuOaOPVrK6gk8q+NuI2GN3Bsh7rqZmpvyqtO6Q6UrFdmgytAIgl
+ LMsFkPv3xXWosREFPasVpTjzwbroUg78sBO47lZHVDzpInMQgVY8gwMW4g7O9G9F6z
+ nxE7g4GG+SX/Q==
+Message-ID: <78bca943-b6ca-c697-dd1f-163b88073d0f@canonical.com>
+Date: Wed, 9 Feb 2022 17:20:13 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.0
@@ -39,7 +39,7 @@ From: John Johansen <john.johansen@canonical.com>
 To: apparmor <apparmor@lists.ubuntu.com>
 Content-Language: en-US
 Organization: Canonical
-Subject: [apparmor]  irc meeting Tues Feb 8
+Subject: [apparmor]  AppArmor 3.0.4 Released
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -56,10 +56,14 @@ Content-Transfer-Encoding: base64
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-VGhlIG5leHQgaXJjIG1lZXRpbmcgaXMgVHVlc2RheSBGZWJydWFyeSA4LCBhdCAxODowMCBVVEMg
-aW4gI2FwcGFybW9yIG9uIG9mdGMubmV0CgpQbGVhc2UgdXBkYXRlIHRoZSBhZ2VuZGEgaHR0cHM6
-Ly9naXRsYWIuY29tL2FwcGFybW9yL2FwcGFybW9yL3dpa2lzL01lZXRpbmdBZ2VuZGEgb3IgcmVw
-bHkgdG8gdGhpcyBtYWlsIGlmIHlvdSBoYXZlIGl0ZW1zIHlvdSB3YW50IHRvIGFkZAoKLS0gCkFw
-cEFybW9yIG1haWxpbmcgbGlzdApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlmeSBzZXR0
-aW5ncyBvciB1bnN1YnNjcmliZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21haWxtYW4v
-bGlzdGluZm8vYXBwYXJtb3IK
+VGhlIEFwcEFybW9yIGRldmVsb3BtZW50IHRlYW0gaXMgcGxlYXNlZCB0byBhbm5vdW5jZSB0aGUg
+My4wLjQgcmVsZWFzZQpvZiB0aGUgQXBwQXJtb3IgdXNlciBzcGFjZSBjb21wb25lbnRzLiAKClRo
+ZSByZWxlYXNlIGlzIGF2YWlsYWJsZSBvbgoKZ2l0bGFiCiAgICBodHRwczovL2dpdGxhYi5jb20v
+YXBwYXJtb3IvYXBwYXJtb3IvLS9yZWxlYXNlcy92My4wLjQKCgpUaGUgcmVsZWFzZSBub3RlcyBh
+cmUgYXZhaWxhYmxlIGF0CgogICBodHRwczovL2dpdGxhYi5jb20vYXBwYXJtb3IvYXBwYXJtb3Iv
+LS93aWtpcy9SZWxlYXNlX05vdGVzXzMuMC40CgpQbGVhc2UgcmVwb3J0IGFueSBidWdzIHlvdSBt
+YXkgZmluZCB2aWEgdGhlIGdpdGxhYiBBcHBBcm1vciBwcm9qZWN0Cmh0dHBzOi8vZ2l0bGFiLmNv
+bS9hcHBhcm1vci9hcHBhcm1vcgoKCkt1ZG9zIHRvIGV2ZXJ5b25lIHdobyBoZWxwZWQgbWFrZSB0
+aGlzIHJlbGVhc2UgcG9zc2libGUuCgpUaGFua3MhCgoKLS0gCkFwcEFybW9yIG1haWxpbmcgbGlz
+dApBcHBBcm1vckBsaXN0cy51YnVudHUuY29tCk1vZGlmeSBzZXR0aW5ncyBvciB1bnN1YnNjcmli
+ZSBhdDogaHR0cHM6Ly9saXN0cy51YnVudHUuY29tL21haWxtYW4vbGlzdGluZm8vYXBwYXJtb3IK
