@@ -2,53 +2,49 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB28451C799
-	for <lists+apparmor@lfdr.de>; Thu,  5 May 2022 20:35:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8110751CCF8
+	for <lists+apparmor@lfdr.de>; Fri,  6 May 2022 01:50:49 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1nmgJY-00026h-Nm; Thu, 05 May 2022 18:35:00 +0000
-Received: from mail-pg1-f182.google.com ([209.85.215.182])
+	id 1nmlF3-0003bb-LD; Thu, 05 May 2022 23:50:41 +0000
+Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
+ helo=smtp-relay-canonical-1.canonical.com)
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <murali.selvaraj2003@gmail.com>) id 1nmgJX-00026Z-HC
- for apparmor@lists.ubuntu.com; Thu, 05 May 2022 18:34:59 +0000
-Received: by mail-pg1-f182.google.com with SMTP id x12so4262044pgj.7
- for <apparmor@lists.ubuntu.com>; Thu, 05 May 2022 11:34:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:from:date:message-id:subject:to;
- bh=RcmA2VXCKU6gUf8u8enT4XuAhKQwlcUpwnr+HCKPAW8=;
- b=InlbmAIUQ8GCinNhLC4KveO6tha63qvs4+BiM3Q235LJSCVCdy3hLTaILrwRAWvZ57
- xM3/92TTCmZcekPGOjYYw96tdlkOWDPTs0jqkl7G8LVQQAyNRbODx3VdO7sQsVGS30kv
- 448kiJq1RrtYjld46LZIrtR6ej3TqoutWkiXn+vwzTcnOlcFpx479xsdys3IOfxpi/vc
- sfsyT5hyzZstxGUHXWPbqMMifU1CJipBH75+QU4I3QbWE1nJSXbccUzf384H+n/oS5cD
- oDgn6oZJ2KX+Xcm6VAENxuoojdaZBDuXZ4wtfLvRKcMtN6xAQSZLbUvpf4Zfoceo6iUH
- kFqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=RcmA2VXCKU6gUf8u8enT4XuAhKQwlcUpwnr+HCKPAW8=;
- b=whZQfGC83Bi2lAMMziXS1C7NIeuyj60d8bYjRC+ZFVdxt0c5tvZUPkl2zgtQ16as6K
- PRBQRHIrLbpWecas3VkSDV4pkmgDoINot3+TavbrynYi2UHiQInUT6fLsfXLsJZgprlO
- 3XixZpxD5oWlxtHMtB5TDEM700cfmoVNB+0/Car2/ingrxzQeti7P1uxt46eETBl4E/L
- jUXdCgyyrwx19KxZ7FS+rOkJJNU4FCvzU5VoBFIqW7N0LR0oV2IuyK//oxqZR0M6Z1xQ
- O6ZMGQTru1HAR3fYBocUtyZ6sgZa3NaLCuEnqFd8JHIyI641ZZVgNX+UNMyyn3gkyxY6
- nv/A==
-X-Gm-Message-State: AOAM530Xics217kBuFtK5d1DmUlLyIN1IXzpuDz98TAfSjxtXI/uIewA
- o5KWfbOGIC1xC1KPkYnzhI9M/3A7ziJved6C6R5ZVrhvBi0=
-X-Google-Smtp-Source: ABdhPJyUDav3FzZt8u2qZOnEvqNWhfkG7IfcXqBq8YPJUMnsNjxpdeXhFd7DkbQjRbeXa1XqPh3tpH38Wz0M/JS87aU=
-X-Received: by 2002:a65:4c8e:0:b0:3aa:24bf:9e63 with SMTP id
- m14-20020a654c8e000000b003aa24bf9e63mr23227693pgt.592.1651775697564; Thu, 05
- May 2022 11:34:57 -0700 (PDT)
+ (envelope-from <john.johansen@canonical.com>) id 1nmlF2-0003bR-4O
+ for apparmor@lists.ubuntu.com; Thu, 05 May 2022 23:50:40 +0000
+Received: from [10.8.192.2] (unknown [50.126.114.69])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id B101F3F12A; 
+ Thu,  5 May 2022 23:50:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1651794638;
+ bh=dSmM81Jr6aZxH4buxfxvj3u5nJy76Cg4xdcCmI7lfUc=;
+ h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+ In-Reply-To:Content-Type;
+ b=Mbuw3EixTZzxk0F+fbfACWOGQSoe0i+dp+1uEUsj3FvbxFN5iWbo8gvlY/PSVcgBx
+ 7+3Lw5Sa9TOtx4uk2zNqL/iXG440ab0S9fnnTp9OfqBRyyTnoZydS8y45oZJ7528St
+ DRaI8jkWJKitrQBeh16lwZ50+IUqGifCKRYv302oSq8Q86DwVz5AjVWl3RFfxbtb/n
+ +VL2qKakkT9fAGx21hREDMWDBuwQTQKzdFAquKPj/iVrDndft5IDCkM3Yt2sLP+SX7
+ BmG2xGcG/ZBReF6n9D2YZwK+9HE5490XcOYJzXFg5LNQC/K5dCNur4KVArfVw41ik3
+ Id6i2qXrAlGbw==
+Message-ID: <152c0b41-5e7b-9c46-3f87-b91bafa5450f@canonical.com>
+Date: Thu, 5 May 2022 16:50:22 -0700
 MIME-Version: 1.0
-From: Murali Selvaraj <murali.selvaraj2003@gmail.com>
-Date: Thu, 5 May 2022 14:34:46 -0400
-Message-ID: <CAODFaZ4bBHgc9zn9qphV_X5FiSregdUajmK80bFGiqJTb=fZbw@mail.gmail.com>
-To: apparmor@lists.ubuntu.com
-Content-Type: multipart/alternative; boundary="000000000000b3b9b705de47ffac"
-Received-SPF: pass client-ip=209.85.215.182;
- envelope-from=murali.selvaraj2003@gmail.com; helo=mail-pg1-f182.google.com
-Subject: [apparmor] Apparmor : wild cards/CPU spike
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Content-Language: en-US
+To: Murali Selvaraj <murali.selvaraj2003@gmail.com>, apparmor@lists.ubuntu.com
+References: <CAODFaZ4bBHgc9zn9qphV_X5FiSregdUajmK80bFGiqJTb=fZbw@mail.gmail.com>
+From: John Johansen <john.johansen@canonical.com>
+Organization: Canonical
+In-Reply-To: <CAODFaZ4bBHgc9zn9qphV_X5FiSregdUajmK80bFGiqJTb=fZbw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: Re: [apparmor] Apparmor : wild cards/CPU spike
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -63,41 +59,39 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
---000000000000b3b9b705de47ffac
-Content-Type: text/plain; charset="UTF-8"
+On 5/5/22 11:34, Murali Selvaraj wrote:
+> Hi All,
+> 
+> I have enabled Apparmor in my embedded system running in 4.9 Kernel and 4 processes are running in enforce mode.
+> 
+> I have an entry in all four profiles ( */tmp/** rw*).  Do you think it will cause the CPU spike?
 
-Hi All,
+it should not. The additional mediation beyond DAC does cause some additional overhead. How much depends on
+the test/syscall but generally the value is small on the order of 1% or in stastically noise.
 
-I have enabled Apparmor in my embedded system running in 4.9 Kernel and 4
-processes are running in enforce mode.
+> If we have multiple wild card entries in the profile, will it really cause the CPU spike.
+> 
+no more than any other rule. AppArmor policy goes throw a compile that builds a minimized state
+machine. This means that the runtime cost does not vary by the number of rules, or the type
+of rules used. Whether you have 1 rule or 10k rules whether they are all just name matches or
+all the rules are using wild cards.
 
-I have an entry in all four profiles ( */tmp/** rw*).  Do you think it will
-cause the CPU spike?
-If we have multiple wild card entries in the profile, will it really cause
-the CPU spike.
+The time taken to do a match is based on the length of the path being matched and is similar to
+the cost of string compare.
 
-I compared profiles in enforce vs disable; I could see the overall CPU
-usage around 1% difference.
-Do we have any CPU threshold impact as expected by enabling Apparmor?
+> I compared profiles in enforce vs disable; I could see the overall CPU usage around 1% difference.
+> Do we have any CPU threshold impact as expected by enabling Apparmor? 
+> 
 
-Please share your suggestions.
+It very much depends on the workload and I will add the caveat that I haven't done any performance
+overhead testing recently, but around 1% is was what testing averaged last I looked. I should also
+note that unconfined generally doesn't have measurable overhead as it is treated specially to
+minimize time in the apparmor code. This means that only applications that are confined should see
+mediation overhead.
 
-Thanks
-Murali.S
+> Please share your suggestions.
+> 
+> Thanks
+> Murali.S
 
---000000000000b3b9b705de47ffac
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi All,<br><br>I have enabled Apparmor in my embedded syst=
-em running in 4.9 Kernel and 4 processes are running in enforce mode.<br><b=
-r>I have an entry in all four profiles ( <b>/tmp/** rw</b>).=C2=A0 Do you t=
-hink it will cause the CPU spike?<br>If we have multiple wild card entries =
-in the profile, will it really cause the CPU spike.<br><br>I compared profi=
-les in enforce vs disable; I could see the overall CPU usage around 1% diff=
-erence. <br>Do we have any CPU threshold impact as expected by enabling App=
-armor?=C2=A0<br><div><br></div><div>Please share your suggestions.</div><di=
-v><br></div><div>Thanks</div><div>Murali.S</div></div>
-
---000000000000b3b9b705de47ffac--
 
