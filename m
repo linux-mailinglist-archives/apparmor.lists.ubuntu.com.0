@@ -2,34 +2,50 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E9D6525A5B
-	for <lists+apparmor@lfdr.de>; Fri, 13 May 2022 05:47:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E48F52CEB5
+	for <lists+apparmor@lfdr.de>; Thu, 19 May 2022 10:53:06 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1npMH4-00033L-NM; Fri, 13 May 2022 03:47:30 +0000
-Received: from out30-44.freemail.mail.aliyun.com ([115.124.30.44])
+	id 1nrbtu-0007ae-Nd; Thu, 19 May 2022 08:52:54 +0000
+Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
+ helo=smtp-relay-canonical-1.canonical.com)
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <yang.lee@linux.alibaba.com>) id 1np3e0-0004Hu-4F
- for apparmor@lists.ubuntu.com; Thu, 12 May 2022 07:53:56 +0000
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R331e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=alimailimapcm10staff010182156082;
- MF=yang.lee@linux.alibaba.com; NM=1; PH=DS; RN=8; SR=0;
- TI=SMTPD_---0VCziySh_1652342031; 
-Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
- fp:SMTPD_---0VCziySh_1652342031) by smtp.aliyun-inc.com(127.0.0.1);
- Thu, 12 May 2022 15:53:52 +0800
-From: Yang Li <yang.lee@linux.alibaba.com>
-To: john.johansen@canonical.com
-Date: Thu, 12 May 2022 15:53:50 +0800
-Message-Id: <20220512075350.31163-1-yang.lee@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
+ (envelope-from <john.johansen@canonical.com>) id 1nrbts-0007aW-Ak
+ for apparmor@lists.ubuntu.com; Thu, 19 May 2022 08:52:52 +0000
+Received: from [192.168.192.153] (unknown [50.126.114.69])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 076133F772; 
+ Thu, 19 May 2022 08:52:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1652950372;
+ bh=nv2aYgsqLrcfkBftEjGmPU9Khiz+v8yeJ6QN6I+2278=;
+ h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+ In-Reply-To:Content-Type;
+ b=PVHotn9HvK3R8kdYeONbfIuxtLlfbc1tYxn0fMMitiMpTAEUWDoHJSTEmfeVaXzMj
+ 9SkyTgiC/g6dq1hOpGQdli9CiEhy2LjY4r2Xb2aX0ahuPqWhpiSCNQnH2myBawCJNG
+ /fhZe69xKqY7t2dtn4eM/ZEXV7DFclzuC4LdynxrQGCZSO+p61WQmNfwQQH06D9rAx
+ s42YS9L3MseAjkC4fIv+8Kz9hy/49DiAZJAODsZfS4gnVG6uqIYrnSMmr5dJLHSyID
+ lVBHdiyUUDMW/eH5wvBS/LSBVBArcjHsLcD8cUB6mcWbDZfauPLaBMWBp1uwIilHNl
+ TBbUsikMYw3pw==
+Message-ID: <61824a01-0c03-7c74-1101-a30d3ae99f32@canonical.com>
+Date: Thu, 19 May 2022 01:52:40 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 13 May 2022 03:47:29 +0000
-Subject: [apparmor] [PATCH -next] apparmor: Fix aa_str_perms() kernel-doc
-	comment
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Content-Language: en-US
+To: Yang Li <yang.lee@linux.alibaba.com>
+References: <20220512075350.31163-1-yang.lee@linux.alibaba.com>
+From: John Johansen <john.johansen@canonical.com>
+Organization: Canonical
+In-Reply-To: <20220512075350.31163-1-yang.lee@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [apparmor] [PATCH -next] apparmor: Fix aa_str_perms()
+	kernel-doc comment
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -41,42 +57,45 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Abaci Robot <abaci@linux.alibaba.com>, apparmor@lists.ubuntu.com,
+Cc: apparmor@lists.ubuntu.com, Abaci Robot <abaci@linux.alibaba.com>,
  linux-kernel@vger.kernel.org, jmorris@namei.org,
- linux-security-module@vger.kernel.org, Yang Li <yang.lee@linux.alibaba.com>,
- serge@hallyn.com
+ linux-security-module@vger.kernel.org, serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Add the description of @start and remove @state in aa_str_perms()
-kernel-doc comment to remove warnings found by running scripts/kernel-doc,
-which is caused by using 'make W=1'.
+On 5/12/22 00:53, Yang Li wrote:
+> Add the description of @start and remove @state in aa_str_perms()
+> kernel-doc comment to remove warnings found by running scripts/kernel-doc,
+> which is caused by using 'make W=1'.
+> 
+> security/apparmor/file.c:260: warning: Function parameter or member
+> 'start' not described in 'aa_str_perms'
+> security/apparmor/file.c:260: warning: Excess function parameter 'state'
+> description in 'aa_str_perms'
+> 
+> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+> Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
 
-security/apparmor/file.c:260: warning: Function parameter or member
-'start' not described in 'aa_str_perms'
-security/apparmor/file.c:260: warning: Excess function parameter 'state'
-description in 'aa_str_perms'
+sorry, for the delay on this I have pulled it into my tree
 
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
----
- security/apparmor/file.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Acked-by: John Johansen <john.johansen@canonical.com>
 
-diff --git a/security/apparmor/file.c b/security/apparmor/file.c
-index e1b7e93602e4..137c99bb5d4a 100644
---- a/security/apparmor/file.c
-+++ b/security/apparmor/file.c
-@@ -247,7 +247,7 @@ struct aa_perms aa_compute_fperms(struct aa_dfa *dfa, unsigned int state,
- /**
-  * aa_str_perms - find permission that match @name
-  * @dfa: to match against  (MAYBE NULL)
-- * @state: state to start matching in
-+ * @start: the state of the dfa to start matching in
-  * @name: string to match against dfa  (NOT NULL)
-  * @cond: conditions to consider for permission set computation  (NOT NULL)
-  * @perms: Returns - the permissions found when matching @name
--- 
-2.20.1.7.g153144c
+> ---
+>  security/apparmor/file.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/security/apparmor/file.c b/security/apparmor/file.c
+> index e1b7e93602e4..137c99bb5d4a 100644
+> --- a/security/apparmor/file.c
+> +++ b/security/apparmor/file.c
+> @@ -247,7 +247,7 @@ struct aa_perms aa_compute_fperms(struct aa_dfa *dfa, unsigned int state,
+>  /**
+>   * aa_str_perms - find permission that match @name
+>   * @dfa: to match against  (MAYBE NULL)
+> - * @state: state to start matching in
+> + * @start: the state of the dfa to start matching in
+>   * @name: string to match against dfa  (NOT NULL)
+>   * @cond: conditions to consider for permission set computation  (NOT NULL)
+>   * @perms: Returns - the permissions found when matching @name
 
 
