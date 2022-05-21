@@ -2,69 +2,41 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63F3052FACD
-	for <lists+apparmor@lfdr.de>; Sat, 21 May 2022 13:11:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA61E52FFAC
+	for <lists+apparmor@lfdr.de>; Sat, 21 May 2022 23:56:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1nsN0o-0007nD-91; Sat, 21 May 2022 11:11:10 +0000
-Received: from smtp-relay-services-1.internal ([10.131.114.214]
- helo=smtp-relay-services-1.canonical.com)
+	id 1nsX4i-0003hU-4W; Sat, 21 May 2022 21:55:52 +0000
+Received: from mail-4325.protonmail.ch ([185.70.43.25])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <noreply@launchpad.net>) id 1nsN0l-0007kD-Rq
- for apparmor@lists.ubuntu.com; Sat, 21 May 2022 11:11:07 +0000
-Received: from loganberry.canonical.com (loganberry.canonical.com
- [91.189.90.37])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by smtp-relay-services-1.canonical.com (Postfix) with ESMTPSA id 1E07E3F70A
- for <apparmor@lists.ubuntu.com>; Sat, 21 May 2022 11:11:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=launchpad.net;
- s=20210803; t=1653131461;
- bh=s8n6FilV6C1aV+SJkN00YZSM6d8EfZRMOqEyK2lx8yk=;
- h=MIME-Version:Content-Type:Date:From:To:Reply-To:References:
- Message-Id:Subject;
- b=WIhShwWDaTpMm6lv30FKsLF5wmG4reRhHSX2Pky54hsNuq4RpJq4NGInEOCUB/6nY
- 0GkrMQikTCPLR8a8EoDr4bzAERujGrEmtF8cjNHZT6r6U1fCyOmPLQQBWGLyzl6LFV
- 7aUz03sjt9YEp51fiENPTancbZTXrFPAT/6p5lr0SfCsyLGR2akwB6fZUKybbdHVMj
- gPQaw94ULZyi5iF8SHaqPHTuyQk9CGtderhcMMt8JX6PvKTOSxm+hLCLSxZ2gAWr+/
- LUaEbSux+nVI8+ATgUG9v3KTU5YKKe2UtRIMLs3RmH2T8+3lmDIy4FDw79hxyEbmqc
- UICZd36MfZxKg==
-Received: from loganberry.canonical.com (localhost [127.0.0.1])
- by loganberry.canonical.com (Postfix) with ESMTP id 475C62E81B8
- for <apparmor@lists.ubuntu.com>; Sat, 21 May 2022 11:11:00 +0000 (UTC)
+ (envelope-from <werner_kienzler@protonmail.com>) id 1nsX4f-0003hN-77
+ for apparmor@lists.ubuntu.com; Sat, 21 May 2022 21:55:49 +0000
+Date: Sat, 21 May 2022 21:55:40 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+ s=protonmail3; t=1653170148; x=1653429348;
+ bh=2q1FeeRiEejrNRY6H/b1KdWyIKDC0XaXAeEaF8daP7g=;
+ h=Date:To:From:Reply-To:Subject:Message-ID:Feedback-ID:From:To:Cc:
+ Date:Subject:Reply-To:Feedback-ID:Message-ID;
+ b=JU/BTfUDEiTVUWtfzAhKR8P7CmxuwDP0RLYI+oGeUuaTdJ5ORRamWU6YOU08Z5pGQ
+ rRhIsrQ2VR2GbIRVyKKDhCyeuGsHmnAkkExd8P4U5lNWxvaNzLOPF0Q1EmTC2/tKvU
+ 5Gl09KUaHzp9Bi1hGyoZMJCwZhkxPqzhVI0/KCIv/JzViLzenmBGWWRaQFctRZky+f
+ uIgkUqf7a+pfAr/iYfZrEgH8y0TmQ1q0nmv5Bj3BBmnOBStOrq3MgYLpJjTTD2NBqX
+ zVashempRaphxcBv7VDVNThjnCMMisEwTo40WtQmNOV636ttUN/iwp2xSf9G5e88zt
+ iaJfuOHArPSgQ==
+To: "apparmor@lists.ubuntu.com" <apparmor@lists.ubuntu.com>
+From: werner_kienzler <werner_kienzler@protonmail.com>
+Message-ID: <acQDNxeIWDb5bYaBDt1z9dL9-E7k3E5rmYznvPuVJWyHl76LFAV-dpuqS5tFv_MykfCIqkIIfsl7uM4bIZxD2cQsAoQUmDCl__PN9h6IRGE=@protonmail.com>
+Feedback-ID: 20364792:user:proton
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 21 May 2022 11:05:20 -0000
-From: "A. Denton" <1777070@bugs.launchpad.net>
-To: apparmor@lists.ubuntu.com
-X-Launchpad-Notification-Type: bug
-X-Launchpad-Bug: distribution=ubuntu; sourcepackage=apparmor; component=main;
- status=Confirmed; importance=Undecided; assignee=None; 
-X-Launchpad-Bug: distribution=ubuntu; sourcepackage=firefox; component=main;
- status=Confirmed; importance=Undecided; assignee=None; 
-X-Launchpad-Bug-Tags: bionic
-X-Launchpad-Bug-Information-Type: Public
-X-Launchpad-Bug-Private: no
-X-Launchpad-Bug-Security-Vulnerability: no
-X-Launchpad-Bug-Commenters: aquina b4ptx cboltz elindarie janitor jjohansen
- osomon sdeziel seth-arnold skunk xavpaice
-X-Launchpad-Bug-Reporter: Xav Paice (xavpaice)
-X-Launchpad-Bug-Modifier: A. Denton (aquina)
-References: <152904811695.1951.15951974184045199043.malonedeb@chaenomeles.canonical.com>
-Message-Id: <165313112015.16905.234799042736957093.malone@gac.canonical.com>
-X-Launchpad-Message-Rationale: Subscriber of Duplicate @apparmor-dev
-X-Launchpad-Message-For: apparmor-dev
-Precedence: bulk
-X-Generated-By: Launchpad (canonical.com);
- Revision="b94d9e1863e34c2bb2e616313c72421407e026e2"; Instance="production"
-X-Launchpad-Hash: 5894a36d3cdbe348eae3bcf128ecf261a9c6dbec
-Subject: [apparmor] [Bug 1777070] Re: firefox plugin libwidevinecdm.so
-	crashes due to apparmor denial
+Content-Type: multipart/alternative;
+ boundary="b1_9cQgKnVyqE8pkAwCOBbUeYyIbz1DhwWzuypeQ0lvR0"
+Subject: [apparmor] Apparmor and Docker - capabilities and network flags not
+	working
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
+Precedence: list
 List-Id: AppArmor discussion <apparmor.lists.ubuntu.com>
 List-Unsubscribe: <https://lists.ubuntu.com/mailman/options/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=unsubscribe>
@@ -73,144 +45,165 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Reply-To: Bug 1777070 <1777070@bugs.launchpad.net>
+Reply-To: werner_kienzler <werner_kienzler@protonmail.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Solved it for me by editing /etc/apparmor.d/usr.bin.firefox on XSE
-(Debian- & Xubutnu 18.04 LTS-based distro):
+This is a multi-part message in MIME format.
 
-  # per-user firefox configuration
-  #...
-  owner @{HOME}/.{firefox,mozilla}/**/gmp-widevinecdm/*/lib*so m,
+--b1_9cQgKnVyqE8pkAwCOBbUeYyIbz1DhwWzuypeQ0lvR0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
+
+SGVsbG8sCgpJIHRyeSB0byB1c2UgQXBwQXJtb3IgaW4gY29uanVuY3Rpb24gd2l0aCBkb2NrZXIs
+IGFzIGluIHRoZSBleGFtcGxlIGV4cGxhaW5lZCBpbiB0aGUgZG9ja2VyIGRvY3M6Cmh0dHBzOi8v
+ZG9jcy5kb2NrZXIuY29tL2VuZ2luZS9zZWN1cml0eS9hcHBhcm1vci8KCkkgd2FudCB0byBkZXNj
+cmliZSBteSBwcm9ibGVtcyB3aXRoIHRoaXMgZXhhbXBsZS4gSSBjb3BpZWQgb3ZlciB0aGUgZXhh
+bXBsZSBwb2xpY3kgZnJvbSB0aGlzIHdlYnNpdGUgdG8KCi9ldGMvYXBwYXJtb3IuZC9kb2NrZXIt
+bmdpbngKClRoZW4gSSBwYXJzZWQgdGhlIHByb2ZpbGU6CiQgc3VkbyBhcHBhcm1vcl9wYXJzZXIg
+LXIgLVcgL2V0Yy9hcHBhcm1vci5kL2RvY2tlci1uZ2lueAoKYW5kICJhYS1zdGF0dXMiIHNob3dz
+LCB0aGF0IHRoZSBwcm9maWxlIGlzIGxvYWRlZC4KU3RhcnRpbmcgZG9ja2VyIGxpa2U6CgokIHN1
+ZG8gZG9ja2VyIHJ1biAtLXNlY3VyaXR5LW9wdCAiYXBwYXJtb3I9ZG9ja2VyLW5naW54IiAtcCA4
+MDo4MCAtZCAtLW5hbWUgYXBwYXJtb3ItbmdpbnggbmdpbngKCldvcmtzIGxpa2UgZXhwZWN0ZWQg
+LSAiYWEtc3RhdHVzIiBzaG93cywgdGhhdCB0aGUgcmVzdWx0aW5nIGRvY2tlciBwcm9jZXNzZXMg
+YXJlIGNvbmZpbmVkIGFuZCBpZiBJIGRvIGUuZy4KJCBzdWRvIGRvY2tlciBjb250YWluZXIgZXhl
+YyAtaXQgYXBwYXJtb3ItbmdpbnggZGFzaAoKSSdtIGVuZGluZyBpbiBhIHNoZWxsIChkZXNwaXRl
+ICJkYXNoIiBiZWluIGV4cGxpY2l0bHkgZGVuaWVkIGluIHRoZSBwcm9maWxlKSwgYnV0IEFwcGFy
+bW9yIHdvcmtzIGFzIGV4cGVjdGVkLCBlLmcuIGV4ZWN1dGluZzoKIyB0b3VjaCAvYm9vdC90ZXN0
+ZmlsZQoKaW4gdGhlIGNvbnRhaW5lciBpcyBub3QgcG9zc2libGUgKHBlcm1pc3Npb24gZGVuaWVk
+KS4KClNvIEkgdHJpZWQgdG8gcmVzdHJpY3QgdGhlIHByb2ZpbGUgZnVydGhlci4gU2luY2UgSSBk
+b24ndCB3YW50IHRvIGJpbmQgdGhlIGNvbnRhaW5lciB0byBhIHByaXZpbGVnZWQgcG9ydCAoPCAx
+MDI0KSwgSSB0aG91Z2h0IEkgZG9uJ3QgbmVlZAoKY2FwYWJpbGl0eSBuZXRfYmluZF9zZXJ2aWNl
+LAoKaW4gdGhlIEFwcGFybW9yIHByb2ZpbGUuClNvIEkgcmVtb3ZlZCB0aGUgY29ycmVzcG9uZGlu
+ZyBsaW5lIGluIHRoZSBwcm9maWxlIGFuZCByZWxvYWRlZCB0aGUgcHJvZmlsZS4gVG8gZ2V0IHN1
+cmUsIHRoYXQgZXZlcnl0aGluZyBnb2VzIHNtb290aCwgSSBkaWQgKGFmdGVyIHJlbW92aW5nIHRo
+ZSBjb3JyZXNwb25kaW5nIGxpbmUpOgoKJCBzdWRvIGFhLXRlYXJkb3duCiQgc3VkbyBhcHBhcm1v
+cl9wYXJzZXIgLXIgLVcgL2V0Yy9hcHBhcm1vci5kL2RvY2tlci1uZ2lueAoKVGhlbiBJIHN0b3Bw
+ZWQgYW5kIHJlbW92ZWQgdGhlIGNvbnRhaW5lcjoKJCBzdWRvIGRvY2tlciBzdG9wIGFwcGFybW9y
+LW5naW54ICYmIHN1ZG8gZG9ja2VyIHJtIGFwcGFybW9yLW5naW54CgphbmQgcmVzdGFydGVkIGl0
+IC0gYnV0IGFnYWluIG9uIHBvcnQgODAgKHdoaWNoIEkgZXhwZWN0ZWQgbm90IHRvIHdvcmssIHNp
+bmNlIHRoZSBjYXBhYmlsaXR5IHdhcyByZW1vdmVkKToKJCBzdWRvIGRvY2tlciBydW4gLS1zZWN1
+cml0eS1vcHQgImFwcGFybW9yPWRvY2tlci1uZ2lueCIgLXAgODA6ODAgLWQgLS1uYW1lIGFwcGFy
+bW9yLW5naW54IG5naW54CgpCdXQgaXQgd29ya2VkLiBJIGNvdWxkIGFjY2VzcyB0aGUgbmdpbngg
+c2VydmVyIG9uICJodHRwOi8vbG9jYWxob3N0OjgwIiBpbiBteSBob3N0IGJyb3dzZXIuCgpJIHRy
+aWVkIGZ1cnRoZXIgdG8gZGlzYWJsZSBuZXQgYWNjZXNzIGNvbXBsZXRlbHkgYW5kIHJlbW92ZWQg
+dGhlIGZvbGxvd2luZyBsaW5lczoKCm5ldHdvcmsgaW5ldCB0Y3AsCm5ldHdvcmsgaW5ldCB1ZHAs
+Cm5ldHdvcmsgaW5ldCBpY21wLAoKYW5kIHJlcGxhY2VkIGl0IHdpdGg6CgpkZW55IG5ldHdvcmss
+CgpBZ2FpbiBJIHJlbG9hZGVkIHRoZSBwcm9maWxlczoKCiQgc3VkbyBhYS10ZWFyZG93bgokIHN1
+ZG8gYXBwYXJtb3JfcGFyc2VyIC1yIC1XIC9ldGMvYXBwYXJtb3IuZC9kb2NrZXItbmdpbngKCnJl
+c3RhcnRlZCB0aGUgY29udGFpbmVyOgokIHN1ZG8gZG9ja2VyIHN0b3AgYXBwYXJtb3Itbmdpbngg
+JiYgc3VkbyBkb2NrZXIgcm0gYXBwYXJtb3ItbmdpbngKJCBzdWRvIGRvY2tlciBydW4gLS1zZWN1
+cml0eS1vcHQgImFwcGFybW9yPWRvY2tlci1uZ2lueCIgLXAgODA6ODAgLWQgLS1uYW1lIGFwcGFy
+bW9yLW5naW54IG5naW54CgpXaGljaCB3b3JrcyBmaW5lIC0gZGVzcGl0ZSB0aGUgbWlzc2luZyBj
+YXBhYmlsaXRpZXMgYW5kIHRoZSAiZGVueSBuZXR3b3JrIiBkaXJlY3RpdmUuClRoZW4gSSBzdGFy
+dGVkIGFnYWluIGEgc2Vzc2lvbiBpbiB0aGUgY29udGFpbmVyOgokIHN1ZG8gZG9ja2VyIGNvbnRh
+aW5lciBleGVjIC1pdCBhcHBhcm1vci1uZ2lueCBkYXNoCgpBbmQgZS5nLiBhCiMgY3VybCB3d3cu
+Z29vZ2xlLmNvbQoKaXMgd29ya2luZyAtIEkgZ2V0IHRoZSBleHBlY3RlZCBvdXRwdXQsIGRlc3Bp
+dGUgImRlbnkgbmV0d29yayIuClNvIG15IG1haW4gY29uY2VybnMgYXJlOgoxLiBkZXNwaXRlIGRp
+c2FibGluZyAiY2FwYWJpbGl0eSBuZXRfYmluZF9zZXJ2aWNlIiBJIGNhbiBiaW5kIHRvIHBvcnQg
+ODAKMi4gZGVzcGl0ZSAiZGVueSBuZXR3b3JrIiBJIGNhbiB1c2UgY3VybAoKSSdtIHVzaW5nIEFy
+Y2ggTGludXggb24gdGhlIGhvc3QsIHdpdGggQXBwYXJtb3IgMy4wLjQgYW5kIGRvY2tlciAxLjIw
+LjEwLjE2LgoKQ2FuIGFueWJvZHkgaGVscCBtZSB3aXRoIHRoaXMgcHJvYmxlbT8gRnJvbSBteSBw
+b2ludCBvZiB2aWV3IHRoaXMgc2hvdWxkIG5vdCBiZSBwb3NzaWJsZSwgb3IgY2FuIGFueWJvZHkg
+Z2l2ZSBtZSBhbiBleHBsYW5hdGlvbj8KClRoYW5rcwpXZXJuZXI=
+
+--b1_9cQgKnVyqE8pkAwCOBbUeYyIbz1DhwWzuypeQ0lvR0
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: base64
+
+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IGFyaWFsOyBmb250LXNpemU6IDE0cHg7Ij5IZWxsbyw8
+L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogYXJpYWw7IGZvbnQtc2l6ZTogMTRweDsiPjxi
+cj48L2Rpdj4NCjxkaXYgY2xhc3M9InByb3Rvbm1haWxfc2lnbmF0dXJlX2Jsb2NrIiBzdHlsZT0i
+Zm9udC1mYW1pbHk6IGFyaWFsOyBmb250LXNpemU6IDE0cHg7Ij4NCiAgICA8ZGl2IGNsYXNzPSJw
+cm90b25tYWlsX3NpZ25hdHVyZV9ibG9jay11c2VyIHByb3Rvbm1haWxfc2lnbmF0dXJlX2Jsb2Nr
+LWVtcHR5Ij4NCg0KICAgICAgICAgICAgPC9kaXY+DQoNCiAgICAgICAgICAgIDxkaXYgY2xhc3M9
+InByb3Rvbm1haWxfc2lnbmF0dXJlX2Jsb2NrLXByb3RvbiI+PHNwYW4+SSB0cnkgdG8gdXNlIEFw
+cEFybW9yIGluIGNvbmp1bmN0aW9uIHdpdGggZG9ja2VyLCBhcyBpbiB0aGUgZXhhbXBsZSBleHBs
+YWluZWQgaW4gdGhlIGRvY2tlciBkb2NzOjwvc3Bhbj48ZGl2PjxzcGFuPjxhIHRhcmdldD0iX2Js
+YW5rIiByZWw9Im5vcmVmZXJyZXIgbm9mb2xsb3cgbm9vcGVuZXIiIGhyZWY9Imh0dHBzOi8vZG9j
+cy5kb2NrZXIuY29tL2VuZ2luZS9zZWN1cml0eS9hcHBhcm1vci8iPmh0dHBzOi8vZG9jcy5kb2Nr
+ZXIuY29tL2VuZ2luZS9zZWN1cml0eS9hcHBhcm1vci88L2E+PC9zcGFuPjwvZGl2PjxkaXY+PGJy
+PjwvZGl2PjxkaXY+PHNwYW4+SSB3YW50IHRvIGRlc2NyaWJlIG15IHByb2JsZW1zIHdpdGggdGhp
+cyBleGFtcGxlLiBJIGNvcGllZCBvdmVyIHRoZSBleGFtcGxlIHBvbGljeSBmcm9tIHRoaXMgd2Vi
+c2l0ZSB0bzxicj48L3NwYW4+PC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj48c3Bhbj4vZXRjL2Fw
+cGFybW9yLmQvZG9ja2VyLW5naW54PC9zcGFuPjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+PHNw
+YW4+VGhlbiBJIHBhcnNlZCB0aGUgcHJvZmlsZTo8L3NwYW4+PC9kaXY+PGRpdj48c3Bhbj4kIHN1
+ZG8gYXBwYXJtb3JfcGFyc2VyIC1yIC1XIC9ldGMvYXBwYXJtb3IuZC9kb2NrZXItbmdpbng8L3Nw
+YW4+PC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj48c3Bhbj5hbmQgImFhLXN0YXR1cyIgc2hvd3Ms
+IHRoYXQgdGhlIHByb2ZpbGUgaXMgbG9hZGVkLjwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuPlN0YXJ0
+aW5nIGRvY2tlciBsaWtlOjwvc3Bhbj48L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PjxzcGFuPiQg
+c3VkbyBkb2NrZXIgcnVuIC0tc2VjdXJpdHktb3B0ICJhcHBhcm1vcj1kb2NrZXItbmdpbngiIC1w
+IDgwOjgwIC1kIC0tbmFtZSBhcHBhcm1vci1uZ2lueCBuZ2lueDwvc3Bhbj48L2Rpdj48ZGl2Pjxi
+cj48L2Rpdj48ZGl2PjxzcGFuPldvcmtzIGxpa2UgZXhwZWN0ZWQgLSAiYWEtc3RhdHVzIiBzaG93
+cywgdGhhdCB0aGUgcmVzdWx0aW5nIGRvY2tlciBwcm9jZXNzZXMgYXJlIGNvbmZpbmVkIGFuZCBp
+ZiBJIGRvIGUuZy48L3NwYW4+PC9kaXY+PGRpdj48c3Bhbj4kIHN1ZG8gZG9ja2VyIGNvbnRhaW5l
+ciBleGVjIC1pdCBhcHBhcm1vci1uZ2lueCBkYXNoPC9zcGFuPjwvZGl2PjxkaXY+PGJyPjwvZGl2
+PjxkaXY+PHNwYW4+SSdtIGVuZGluZyBpbiBhIHNoZWxsIChkZXNwaXRlICJkYXNoIiBiZWluIGV4
+cGxpY2l0bHkgZGVuaWVkIGluIHRoZSBwcm9maWxlKSwgYnV0IEFwcGFybW9yIHdvcmtzIGFzIGV4
+cGVjdGVkLCBlLmcuIGV4ZWN1dGluZzo8L3NwYW4+PC9kaXY+PGRpdj48c3Bhbj4jIHRvdWNoIC9i
+b290L3Rlc3RmaWxlPC9zcGFuPjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+PHNwYW4+aW4gdGhl
+IGNvbnRhaW5lciBpcyBub3QgcG9zc2libGUgKHBlcm1pc3Npb24gZGVuaWVkKS48L3NwYW4+PC9k
+aXY+PGRpdj48YnI+PC9kaXY+PGRpdj48c3Bhbj5TbyBJIHRyaWVkIHRvIHJlc3RyaWN0IHRoZSBw
+cm9maWxlIGZ1cnRoZXIuIFNpbmNlIEkgZG9uJ3Qgd2FudCB0byBiaW5kIHRoZSBjb250YWluZXIg
+dG8gYSBwcml2aWxlZ2VkIHBvcnQgKCZsdDsgMTAyNCksIEkgdGhvdWdodCBJIGRvbid0IG5lZWQg
+PC9zcGFuPjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+PHNwYW4+Y2FwYWJpbGl0eSBuZXRfYmlu
+ZF9zZXJ2aWNlLDwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuPiZuYnNwOyA8L3NwYW4+PC9kaXY+PGRp
+dj48c3Bhbj5pbiB0aGUgQXBwYXJtb3IgcHJvZmlsZS48L3NwYW4+PC9kaXY+PGRpdj48c3Bhbj5T
+byBJIHJlbW92ZWQgdGhlIGNvcnJlc3BvbmRpbmcgbGluZSBpbiB0aGUgcHJvZmlsZSBhbmQgcmVs
+b2FkZWQgdGhlIHByb2ZpbGUuIFRvIGdldCBzdXJlLCB0aGF0IGV2ZXJ5dGhpbmcgZ29lcyBzbW9v
+dGgsIEkgZGlkIChhZnRlciByZW1vdmluZyB0aGUgY29ycmVzcG9uZGluZyBsaW5lKTo8L3NwYW4+
+PC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj48c3Bhbj4kIHN1ZG8gYWEtdGVhcmRvd248L3NwYW4+
+PC9kaXY+PGRpdj48c3Bhbj4kIHN1ZG8gYXBwYXJtb3JfcGFyc2VyIC1yIC1XIC9ldGMvYXBwYXJt
+b3IuZC9kb2NrZXItbmdpbng8L3NwYW4+PC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj48c3Bhbj5U
+aGVuIEkgc3RvcHBlZCBhbmQgcmVtb3ZlZCB0aGUgY29udGFpbmVyOjwvc3Bhbj48L2Rpdj48ZGl2
+PjxzcGFuPiQgc3VkbyBkb2NrZXIgc3RvcCBhcHBhcm1vci1uZ2lueCAmYW1wOyZhbXA7IHN1ZG8g
+ZG9ja2VyIHJtIGFwcGFybW9yLW5naW54PC9zcGFuPjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+
+PHNwYW4+YW5kIHJlc3RhcnRlZCBpdCAtIGJ1dCBhZ2FpbiBvbiBwb3J0IDgwICh3aGljaCBJIGV4
+cGVjdGVkIG5vdCB0byB3b3JrLCBzaW5jZSB0aGUgY2FwYWJpbGl0eSB3YXMgcmVtb3ZlZCk6PC9z
+cGFuPjwvZGl2PjxkaXY+PHNwYW4+JCBzdWRvIGRvY2tlciBydW4gLS1zZWN1cml0eS1vcHQgImFw
+cGFybW9yPWRvY2tlci1uZ2lueCIgLXAgODA6ODAgLWQgLS1uYW1lIGFwcGFybW9yLW5naW54IG5n
+aW54PC9zcGFuPjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+PHNwYW4+QnV0IGl0IHdvcmtlZC4g
+SSBjb3VsZCBhY2Nlc3MgdGhlIG5naW54IHNlcnZlciBvbiAiPGEgdGFyZ2V0PSJfYmxhbmsiIHJl
+bD0ibm9yZWZlcnJlciBub2ZvbGxvdyBub29wZW5lciIgaHJlZj0iaHR0cDovL2xvY2FsaG9zdDo4
+MCI+aHR0cDovL2xvY2FsaG9zdDo4MDwvYT4iIGluIG15IGhvc3QgYnJvd3Nlci48L3NwYW4+PC9k
+aXY+PGRpdj48YnI+PC9kaXY+PGRpdj48c3Bhbj5JIHRyaWVkIGZ1cnRoZXIgdG8gZGlzYWJsZSBu
+ZXQgYWNjZXNzIGNvbXBsZXRlbHkgYW5kIHJlbW92ZWQgdGhlIGZvbGxvd2luZyBsaW5lczo8L3Nw
+YW4+PC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj48c3Bhbj5uZXR3b3JrIGluZXQgdGNwLDwvc3Bh
+bj48L2Rpdj48ZGl2PjxzcGFuPm5ldHdvcmsgaW5ldCB1ZHAsPC9zcGFuPjwvZGl2PjxkaXY+PHNw
+YW4+bmV0d29yayBpbmV0IGljbXAsPC9zcGFuPjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+PHNw
+YW4+YW5kIHJlcGxhY2VkIGl0IHdpdGg6PC9zcGFuPjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+
+PHNwYW4+ZGVueSBuZXR3b3JrLDwvc3Bhbj48L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PjxzcGFu
+PkFnYWluIEkgcmVsb2FkZWQgdGhlIHByb2ZpbGVzOjwvc3Bhbj48L2Rpdj48ZGl2Pjxicj48L2Rp
+dj48ZGl2PjxzcGFuPiQgc3VkbyBhYS10ZWFyZG93bjwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuPiQg
+c3VkbyBhcHBhcm1vcl9wYXJzZXIgLXIgLVcgL2V0Yy9hcHBhcm1vci5kL2RvY2tlci1uZ2lueDwv
+c3Bhbj48L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PjxzcGFuPnJlc3RhcnRlZCB0aGUgY29udGFp
+bmVyOjwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuPiQgc3VkbyBkb2NrZXIgc3RvcCBhcHBhcm1vci1u
+Z2lueCAmYW1wOyZhbXA7IHN1ZG8gZG9ja2VyIHJtIGFwcGFybW9yLW5naW54PC9zcGFuPjwvZGl2
+PjxkaXY+PHNwYW4+JCBzdWRvIGRvY2tlciBydW4gLS1zZWN1cml0eS1vcHQgImFwcGFybW9yPWRv
+Y2tlci1uZ2lueCIgLXAgODA6ODAgLWQgLS1uYW1lIGFwcGFybW9yLW5naW54IG5naW54PC9zcGFu
+PjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+V2hpY2ggd29ya3MgZmluZSAtIGRlc3BpdGUgdGhl
+IG1pc3NpbmcgY2FwYWJpbGl0aWVzIGFuZCB0aGUgImRlbnkgbmV0d29yayIgZGlyZWN0aXZlLjxi
+cj48L2Rpdj48ZGl2PjxzcGFuPlRoZW4gSSBzdGFydGVkIGFnYWluIGEgc2Vzc2lvbiBpbiB0aGUg
+Y29udGFpbmVyOjwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuPiQgc3VkbyBkb2NrZXIgY29udGFpbmVy
+IGV4ZWMgLWl0IGFwcGFybW9yLW5naW54IGRhc2g8L3NwYW4+PC9kaXY+PGRpdj48YnI+PC9kaXY+
+PGRpdj48c3Bhbj5BbmQgZS5nLiBhPC9zcGFuPjwvZGl2PjxkaXY+PHNwYW4+IyBjdXJsIDxhIHRh
+cmdldD0iX2JsYW5rIiByZWw9Im5vcmVmZXJyZXIgbm9mb2xsb3cgbm9vcGVuZXIiIGhyZWY9Imh0
+dHA6Ly93d3cuZ29vZ2xlLmNvbSI+d3d3Lmdvb2dsZS5jb208L2E+PC9zcGFuPjwvZGl2PjxkaXY+
+PGJyPjwvZGl2PjxkaXY+PHNwYW4+aXMgd29ya2luZyAtIEkgZ2V0IHRoZSBleHBlY3RlZCBvdXRw
+dXQsIGRlc3BpdGUgImRlbnkgbmV0d29yayIuPGJyPjwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuPlNv
+IG15IG1haW4gY29uY2VybnMgYXJlOjwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuPjEuIGRlc3BpdGUg
+ZGlzYWJsaW5nICJjYXBhYmlsaXR5IG5ldF9iaW5kX3NlcnZpY2UiIEkgY2FuIGJpbmQgdG8gcG9y
+dCA4MDwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuPjIuIGRlc3BpdGUgImRlbnkgbmV0d29yayIgSSBj
+YW4gdXNlIGN1cmw8L3NwYW4+PC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj48c3Bhbj5JJ20gdXNp
+bmcgQXJjaCBMaW51eCBvbiB0aGUgaG9zdCwgd2l0aCBBcHBhcm1vciAzLjAuNCBhbmQgZG9ja2Vy
+IDEuMjAuMTAuMTYuPC9zcGFuPjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+PHNwYW4+Q2FuIGFu
+eWJvZHkgaGVscCBtZSB3aXRoIHRoaXMgcHJvYmxlbT8gRnJvbSBteSBwb2ludCBvZiB2aWV3IHRo
+aXMgc2hvdWxkIG5vdCBiZSBwb3NzaWJsZSwgb3IgY2FuIGFueWJvZHkgZ2l2ZSBtZSBhbiBleHBs
+YW5hdGlvbj88YnI+PC9zcGFuPjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+PHNwYW4+VGhhbmtz
+PC9zcGFuPjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxzcGFuPldlcm5lcjwvc3Bhbj48YnI+PC9kaXY+
+DQo8L2Rpdj4NCg==
 
 
-That solved the problem when using Mz Firefox 100.0 (64-bit) and widevine 4=
-.10.2449.0
-
---=20
-You received this bug notification because you are a member of AppArmor
-Developers, which is subscribed to a duplicate bug report (1859361).
-https://bugs.launchpad.net/bugs/1777070
-
-Title:
-  firefox plugin libwidevinecdm.so crashes due to apparmor denial
-
-Status in apparmor package in Ubuntu:
-  Confirmed
-Status in firefox package in Ubuntu:
-  Confirmed
-
-Bug description:
-  Ubuntu 18.04, Firefox 60.0.1+build2-0ubuntu0.18.04.1
-
-  Running firefix, then going to netflix.com and attempting to play a
-  movie.  The widevinecdm plugin crashes, the following is found in
-  syslog:
-
- =20
-  Jun 15 19:13:22 xplt kernel: [301351.553043] audit: type=3D1400 audit(152=
-9046802.585:246): apparmor=3D"DENIED" operation=3D"file_mmap" profile=3D"/u=
-sr/lib/firefox/firefox{,*[^s][^h]}" name=3D"/home/xav/.mozilla/firefox/wiav=
-okxk.default-1510977878171/gmp-widevinecdm/1.4.8.1008/libwidevinecdm.so" pi=
-d=3D16118 comm=3D"plugin-containe" requested_mask=3D"m" denied_mask=3D"m" f=
-suid=3D1000 ouid=3D1000
-  Jun 15 19:13:22 xplt kernel: [301351.553236] audit: type=3D1400 audit(152=
-9046802.585:247): apparmor=3D"DENIED" operation=3D"ptrace" profile=3D"/usr/=
-lib/firefox/firefox{,*[^s][^h]}" pid=3D24714 comm=3D"firefox" requested_mas=
-k=3D"trace" denied_mask=3D"trace" peer=3D"/usr/lib/firefox/firefox{,*[^s][^=
-h]}"
-  Jun 15 19:13:22 xplt kernel: [301351.553259] plugin-containe[16118]: segf=
-ault at 0 ip 00007fcdfdaa76af sp 00007ffc1ff03e28 error 6 in libxul.so[7fcd=
-fb77a000+6111000]
-  Jun 15 19:13:22 xplt snmpd[2334]: error on subcontainer 'ia_addr' insert =
-(-1)
-  Jun 15 19:13:22 xplt /usr/lib/gdm3/gdm-x-session[6549]: ###!!! [Parent][M=
-essageChannel::Call] Error: Channel error: cannot send/recv
-  Jun 15 19:13:24 xplt kernel: [301353.960182] audit: type=3D1400 audit(152=
-9046804.994:248): apparmor=3D"DENIED" operation=3D"file_mmap" profile=3D"/u=
-sr/lib/firefox/firefox{,*[^s][^h]}" name=3D"/home/xav/.mozilla/firefox/wiav=
-okxk.default-1510977878171/gmp-widevinecdm/1.4.8.1008/libwidevinecdm.so" pi=
-d=3D16135 comm=3D"plugin-containe" requested_mask=3D"m" denied_mask=3D"m" f=
-suid=3D1000 ouid=3D1000
-  Jun 15 19:13:24 xplt kernel: [301353.960373] audit: type=3D1400 audit(152=
-9046804.994:249): apparmor=3D"DENIED" operation=3D"ptrace" profile=3D"/usr/=
-lib/firefox/firefox{,*[^s][^h]}" pid=3D24714 comm=3D"firefox" requested_mas=
-k=3D"trace" denied_mask=3D"trace" peer=3D"/usr/lib/firefox/firefox{,*[^s][^=
-h]}"
-  Jun 15 19:13:24 xplt kernel: [301353.960398] plugin-containe[16135]: segf=
-ault at 0 ip 00007fe3b57f46af sp 00007ffe6dc0b488 error 6 in libxul.so[7fe3=
-b34c7000+6111000]
-  Jun 15 19:13:28 xplt kernel: [301357.859177] audit: type=3D1400 audit(152=
-9046808.895:250): apparmor=3D"DENIED" operation=3D"file_mmap" profile=3D"/u=
-sr/lib/firefox/firefox{,*[^s][^h]}" name=3D"/home/xav/.mozilla/firefox/wiav=
-okxk.default-1510977878171/gmp-widevinecdm/1.4.8.1008/libwidevinecdm.so" pi=
-d=3D16139 comm=3D"plugin-containe" requested_mask=3D"m" denied_mask=3D"m" f=
-suid=3D1000 ouid=3D1000
-  Jun 15 19:13:28 xplt kernel: [301357.859328] audit: type=3D1400 audit(152=
-9046808.895:251): apparmor=3D"DENIED" operation=3D"ptrace" profile=3D"/usr/=
-lib/firefox/firefox{,*[^s][^h]}" pid=3D24714 comm=3D"firefox" requested_mas=
-k=3D"trace" denied_mask=3D"trace" peer=3D"/usr/lib/firefox/firefox{,*[^s][^=
-h]}"
-  Jun 15 19:13:28 xplt kernel: [301357.859349] plugin-containe[16139]: segf=
-ault at 0 ip 00007fcf32ae06af sp 00007ffeb8a136c8 error 6 in libxul.so[7fcf=
-307b3000+6111000]
-  Jun 15 19:13:25 xplt /usr/lib/gdm3/gdm-x-session[6549]: ###!!! [Parent][M=
-essageChannel::Call] Error: Channel error: cannot send/recv
-  Jun 15 19:13:29 xplt /usr/lib/gdm3/gdm-x-session[6549]: ERROR block_reap:=
-328: [hamster] bad exit code 1
-  Jun 15 19:13:29 xplt /usr/lib/gdm3/gdm-x-session[6549]: ###!!! [Parent][M=
-essageChannel::Call] Error: Channel error: cannot send/recv
-  Jun 15 19:13:29 xplt kernel: [301358.227635] audit: type=3D1400 audit(152=
-9046809.263:252): apparmor=3D"DENIED" operation=3D"file_mmap" profile=3D"/u=
-sr/lib/firefox/firefox{,*[^s][^h]}" name=3D"/home/xav/.mozilla/firefox/wiav=
-okxk.default-1510977878171/gmp-widevinecdm/1.4.8.1008/libwidevinecdm.so" pi=
-d=3D16188 comm=3D"plugin-containe" requested_mask=3D"m" denied_mask=3D"m" f=
-suid=3D1000 ouid=3D1000
-  Jun 15 19:13:29 xplt kernel: [301358.227811] audit: type=3D1400 audit(152=
-9046809.263:253): apparmor=3D"DENIED" operation=3D"ptrace" profile=3D"/usr/=
-lib/firefox/firefox{,*[^s][^h]}" pid=3D24714 comm=3D"firefox" requested_mas=
-k=3D"trace" denied_mask=3D"trace" peer=3D"/usr/lib/firefox/firefox{,*[^s][^=
-h]}"
-  Jun 15 19:13:29 xplt kernel: [301358.227844] plugin-containe[16188]: segf=
-ault at 0 ip 00007fe5667c66af sp 00007fffe8cc0da8 error 6 in libxul.so[7fe5=
-64499000+6111000]
-  Jun 15 19:13:31 xplt kernel: [301360.574177] audit: type=3D1400 audit(152=
-9046811.608:254): apparmor=3D"DENIED" operation=3D"file_mmap" profile=3D"/u=
-sr/lib/firefox/firefox{,*[^s][^h]}" name=3D"/home/xav/.mozilla/firefox/wiav=
-okxk.default-1510977878171/gmp-widevinecdm/1.4.8.1008/libwidevinecdm.so" pi=
-d=3D16192 comm=3D"plugin-containe" requested_mask=3D"m" denied_mask=3D"m" f=
-suid=3D1000 ouid=3D1000
-  Jun 15 19:13:31 xplt kernel: [301360.574326] audit: type=3D1400 audit(152=
-9046811.608:255): apparmor=3D"DENIED" operation=3D"ptrace" profile=3D"/usr/=
-lib/firefox/firefox{,*[^s][^h]}" pid=3D24714 comm=3D"firefox" requested_mas=
-k=3D"trace" denied_mask=3D"trace" peer=3D"/usr/lib/firefox/firefox{,*[^s][^=
-h]}"
-  Jun 15 19:13:31 xplt kernel: [301360.574352] plugin-containe[16192]: segf=
-ault at 0 ip 00007f83507606af sp 00007ffdb3d22f08 error 6 in libxul.so[7f83=
-4e433000+6111000]
-  Jun 15 19:13:35 xplt kernel: [301364.313727] audit: type=3D1400 audit(152=
-9046815.349:256): apparmor=3D"DENIED" operation=3D"file_mmap" profile=3D"/u=
-sr/lib/firefox/firefox{,*[^s][^h]}" name=3D"/home/xav/.mozilla/firefox/wiav=
-okxk.default-1510977878171/gmp-widevinecdm/1.4.8.1008/libwidevinecdm.so" pi=
-d=3D16206 comm=3D"plugin-containe" requested_mask=3D"m" denied_mask=3D"m" f=
-suid=3D1000 ouid=3D1000
-  Jun 15 19:13:35 xplt kernel: [301364.313896] audit: type=3D1400 audit(152=
-9046815.349:257): apparmor=3D"DENIED" operation=3D"ptrace" profile=3D"/usr/=
-lib/firefox/firefox{,*[^s][^h]}" pid=3D24714 comm=3D"firefox" requested_mas=
-k=3D"trace" denied_mask=3D"trace" peer=3D"/usr/lib/firefox/firefox{,*[^s][^=
-h]}"
-  Jun 15 19:13:35 xplt kernel: [301364.313967] plugin-containe[16206]: segf=
-ault at 0 ip 00007f5ff6f746af sp 00007fff60c9c768 error 6 in libxul.so[7f5f=
-f4c47000+6111000]
-  Jun 15 19:13:35 xplt /usr/lib/gdm3/gdm-x-session[6549]: message repeated =
-3 times: [ ###!!! [Parent][MessageChannel::Call] Error: Channel error: cann=
-ot send/recv]
-
-  If I run Firefox from the snap (rev 60.0.2-1) there's no problem.
-
-To manage notifications about this bug go to:
-https://bugs.launchpad.net/ubuntu/+source/apparmor/+bug/1777070/+subscripti=
-ons
+--b1_9cQgKnVyqE8pkAwCOBbUeYyIbz1DhwWzuypeQ0lvR0--
 
 
