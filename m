@@ -2,38 +2,51 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA61E52FFAC
-	for <lists+apparmor@lfdr.de>; Sat, 21 May 2022 23:56:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F57A530295
+	for <lists+apparmor@lfdr.de>; Sun, 22 May 2022 13:09:51 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1nsX4i-0003hU-4W; Sat, 21 May 2022 21:55:52 +0000
-Received: from mail-4325.protonmail.ch ([185.70.43.25])
+	id 1nsjSw-0002tp-Cj; Sun, 22 May 2022 11:09:42 +0000
+Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
+ helo=smtp-relay-canonical-0.canonical.com)
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <werner_kienzler@protonmail.com>) id 1nsX4f-0003hN-77
- for apparmor@lists.ubuntu.com; Sat, 21 May 2022 21:55:49 +0000
-Date: Sat, 21 May 2022 21:55:40 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail3; t=1653170148; x=1653429348;
- bh=2q1FeeRiEejrNRY6H/b1KdWyIKDC0XaXAeEaF8daP7g=;
- h=Date:To:From:Reply-To:Subject:Message-ID:Feedback-ID:From:To:Cc:
- Date:Subject:Reply-To:Feedback-ID:Message-ID;
- b=JU/BTfUDEiTVUWtfzAhKR8P7CmxuwDP0RLYI+oGeUuaTdJ5ORRamWU6YOU08Z5pGQ
- rRhIsrQ2VR2GbIRVyKKDhCyeuGsHmnAkkExd8P4U5lNWxvaNzLOPF0Q1EmTC2/tKvU
- 5Gl09KUaHzp9Bi1hGyoZMJCwZhkxPqzhVI0/KCIv/JzViLzenmBGWWRaQFctRZky+f
- uIgkUqf7a+pfAr/iYfZrEgH8y0TmQ1q0nmv5Bj3BBmnOBStOrq3MgYLpJjTTD2NBqX
- zVashempRaphxcBv7VDVNThjnCMMisEwTo40WtQmNOV636ttUN/iwp2xSf9G5e88zt
- iaJfuOHArPSgQ==
-To: "apparmor@lists.ubuntu.com" <apparmor@lists.ubuntu.com>
-From: werner_kienzler <werner_kienzler@protonmail.com>
-Message-ID: <acQDNxeIWDb5bYaBDt1z9dL9-E7k3E5rmYznvPuVJWyHl76LFAV-dpuqS5tFv_MykfCIqkIIfsl7uM4bIZxD2cQsAoQUmDCl__PN9h6IRGE=@protonmail.com>
-Feedback-ID: 20364792:user:proton
+ (envelope-from <john.johansen@canonical.com>) id 1nsjSu-0002tg-5F
+ for apparmor@lists.ubuntu.com; Sun, 22 May 2022 11:09:40 +0000
+Received: from [192.168.192.153] (unknown [50.126.114.69])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 298A53F5FF; 
+ Sun, 22 May 2022 11:09:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1653217779;
+ bh=YIHCR+qgU4DqbiAh/471xBl01j4RkA/+N0TZ8asK3qY=;
+ h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+ In-Reply-To:Content-Type;
+ b=g132kBclO0+xOLc9jUCXnkOG3lxokFY3LKrLP/hjlvUronPc1Sbaupxo1ksNIec1b
+ ZGzkrs4rWczfvAMIJUmD6jS3LyJYtClr1KlR196aaKEX3se+XRX7iW03xQ7l4RQbqc
+ TqM8C8sCwfkjGQTNECSSVb4DTwdzP3wTV+OnQDrgjFgTD8FOZmb+z+rdUZe/jsw/Se
+ p8HTbU/aggcR9wvhTVgZktDcB+66SVVG48EctvEROgDaU+/ixuF7GJ52AV6kjuBhux
+ D2UDqVgoLNk7SUhn8UDBF1LC/jOffMDVNdBzAQBBr6UvjSvckJptm3v4ZdVsdzHMNp
+ 7irjaGnDTKJmQ==
+Message-ID: <c7bc314e-46bb-e463-cb52-a71536083a02@canonical.com>
+Date: Sun, 22 May 2022 04:09:27 -0700
 MIME-Version: 1.0
-Content-Type: multipart/alternative;
- boundary="b1_9cQgKnVyqE8pkAwCOBbUeYyIbz1DhwWzuypeQ0lvR0"
-Subject: [apparmor] Apparmor and Docker - capabilities and network flags not
-	working
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Content-Language: en-US
+To: werner_kienzler <werner_kienzler@protonmail.com>,
+ "apparmor@lists.ubuntu.com" <apparmor@lists.ubuntu.com>
+References: <acQDNxeIWDb5bYaBDt1z9dL9-E7k3E5rmYznvPuVJWyHl76LFAV-dpuqS5tFv_MykfCIqkIIfsl7uM4bIZxD2cQsAoQUmDCl__PN9h6IRGE=@protonmail.com>
+From: John Johansen <john.johansen@canonical.com>
+Organization: Canonical
+In-Reply-To: <acQDNxeIWDb5bYaBDt1z9dL9-E7k3E5rmYznvPuVJWyHl76LFAV-dpuqS5tFv_MykfCIqkIIfsl7uM4bIZxD2cQsAoQUmDCl__PN9h6IRGE=@protonmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: Re: [apparmor] Apparmor and Docker - capabilities and network flags
+ not working
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -45,165 +58,95 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Reply-To: werner_kienzler <werner_kienzler@protonmail.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-This is a multi-part message in MIME format.
+On 5/21/22 14:55, werner_kienzler wrote:
+> Hello,
+> 
+> I try to use AppArmor in conjunction with docker, as in the example explained in the docker docs:
+> https://docs.docker.com/engine/security/apparmor/ <https://docs.docker.com/engine/security/apparmor/>
+> 
+> I want to describe my problems with this example. I copied over the example policy from this website to
+> 
+> /etc/apparmor.d/docker-nginx
+> 
+> Then I parsed the profile:
+> $ sudo apparmor_parser -r -W /etc/apparmor.d/docker-nginx
+> 
+> and "aa-status" shows, that the profile is loaded.
+> Starting docker like:
+> 
+> $ sudo docker run --security-opt "apparmor=docker-nginx" -p 80:80 -d --name apparmor-nginx nginx
+> 
+> Works like expected - "aa-status" shows, that the resulting docker processes are confined and if I do e.g.
+> $ sudo docker container exec -it apparmor-nginx dash
+> 
+> I'm ending in a shell (despite "dash" bein explicitly denied in the profile), but Apparmor works as expected, e.g. executing:
+> # touch /boot/testfile
+> 
+> in the container is not possible (permission denied).
+> 
+> So I tried to restrict the profile further. Since I don't want to bind the container to a privileged port (< 1024), I thought I don't need
+> 
+> capability net_bind_service,
+>  
+> in the Apparmor profile.
+> So I removed the corresponding line in the profile and reloaded the profile. To get sure, that everything goes smooth, I did (after removing the corresponding line):
+> 
+> $ sudo aa-teardown
+> $ sudo apparmor_parser -r -W /etc/apparmor.d/docker-nginx
+> 
+> Then I stopped and removed the container:
+> $ sudo docker stop apparmor-nginx && sudo docker rm apparmor-nginx
+> 
+> and restarted it - but again on port 80 (which I expected not to work, since the capability was removed):
+> $ sudo docker run --security-opt "apparmor=docker-nginx" -p 80:80 -d --name apparmor-nginx nginx
+> 
+> But it worked. I could access the nginx server on "http://localhost:80 <http://localhost:80>" in my host browser.
+> 
+> I tried further to disable net access completely and removed the following lines:
+> 
+> network inet tcp,
+> network inet udp,
+> network inet icmp,
+> 
+> and replaced it with:
+> 
+> deny network,
+> 
+> Again I reloaded the profiles:
+> 
+> $ sudo aa-teardown
+> $ sudo apparmor_parser -r -W /etc/apparmor.d/docker-nginx
+> 
+> restarted the container:
+> $ sudo docker stop apparmor-nginx && sudo docker rm apparmor-nginx
+> $ sudo docker run --security-opt "apparmor=docker-nginx" -p 80:80 -d --name apparmor-nginx nginx
+> 
+> Which works fine - despite the missing capabilities and the "deny network" directive.
+> Then I started again a session in the container:
+> $ sudo docker container exec -it apparmor-nginx dash
+> 
 
---b1_9cQgKnVyqE8pkAwCOBbUeYyIbz1DhwWzuypeQ0lvR0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: base64
+is docker using user namespaces, or network namespaces? 
 
-SGVsbG8sCgpJIHRyeSB0byB1c2UgQXBwQXJtb3IgaW4gY29uanVuY3Rpb24gd2l0aCBkb2NrZXIs
-IGFzIGluIHRoZSBleGFtcGxlIGV4cGxhaW5lZCBpbiB0aGUgZG9ja2VyIGRvY3M6Cmh0dHBzOi8v
-ZG9jcy5kb2NrZXIuY29tL2VuZ2luZS9zZWN1cml0eS9hcHBhcm1vci8KCkkgd2FudCB0byBkZXNj
-cmliZSBteSBwcm9ibGVtcyB3aXRoIHRoaXMgZXhhbXBsZS4gSSBjb3BpZWQgb3ZlciB0aGUgZXhh
-bXBsZSBwb2xpY3kgZnJvbSB0aGlzIHdlYnNpdGUgdG8KCi9ldGMvYXBwYXJtb3IuZC9kb2NrZXIt
-bmdpbngKClRoZW4gSSBwYXJzZWQgdGhlIHByb2ZpbGU6CiQgc3VkbyBhcHBhcm1vcl9wYXJzZXIg
-LXIgLVcgL2V0Yy9hcHBhcm1vci5kL2RvY2tlci1uZ2lueAoKYW5kICJhYS1zdGF0dXMiIHNob3dz
-LCB0aGF0IHRoZSBwcm9maWxlIGlzIGxvYWRlZC4KU3RhcnRpbmcgZG9ja2VyIGxpa2U6CgokIHN1
-ZG8gZG9ja2VyIHJ1biAtLXNlY3VyaXR5LW9wdCAiYXBwYXJtb3I9ZG9ja2VyLW5naW54IiAtcCA4
-MDo4MCAtZCAtLW5hbWUgYXBwYXJtb3ItbmdpbnggbmdpbngKCldvcmtzIGxpa2UgZXhwZWN0ZWQg
-LSAiYWEtc3RhdHVzIiBzaG93cywgdGhhdCB0aGUgcmVzdWx0aW5nIGRvY2tlciBwcm9jZXNzZXMg
-YXJlIGNvbmZpbmVkIGFuZCBpZiBJIGRvIGUuZy4KJCBzdWRvIGRvY2tlciBjb250YWluZXIgZXhl
-YyAtaXQgYXBwYXJtb3ItbmdpbnggZGFzaAoKSSdtIGVuZGluZyBpbiBhIHNoZWxsIChkZXNwaXRl
-ICJkYXNoIiBiZWluIGV4cGxpY2l0bHkgZGVuaWVkIGluIHRoZSBwcm9maWxlKSwgYnV0IEFwcGFy
-bW9yIHdvcmtzIGFzIGV4cGVjdGVkLCBlLmcuIGV4ZWN1dGluZzoKIyB0b3VjaCAvYm9vdC90ZXN0
-ZmlsZQoKaW4gdGhlIGNvbnRhaW5lciBpcyBub3QgcG9zc2libGUgKHBlcm1pc3Npb24gZGVuaWVk
-KS4KClNvIEkgdHJpZWQgdG8gcmVzdHJpY3QgdGhlIHByb2ZpbGUgZnVydGhlci4gU2luY2UgSSBk
-b24ndCB3YW50IHRvIGJpbmQgdGhlIGNvbnRhaW5lciB0byBhIHByaXZpbGVnZWQgcG9ydCAoPCAx
-MDI0KSwgSSB0aG91Z2h0IEkgZG9uJ3QgbmVlZAoKY2FwYWJpbGl0eSBuZXRfYmluZF9zZXJ2aWNl
-LAoKaW4gdGhlIEFwcGFybW9yIHByb2ZpbGUuClNvIEkgcmVtb3ZlZCB0aGUgY29ycmVzcG9uZGlu
-ZyBsaW5lIGluIHRoZSBwcm9maWxlIGFuZCByZWxvYWRlZCB0aGUgcHJvZmlsZS4gVG8gZ2V0IHN1
-cmUsIHRoYXQgZXZlcnl0aGluZyBnb2VzIHNtb290aCwgSSBkaWQgKGFmdGVyIHJlbW92aW5nIHRo
-ZSBjb3JyZXNwb25kaW5nIGxpbmUpOgoKJCBzdWRvIGFhLXRlYXJkb3duCiQgc3VkbyBhcHBhcm1v
-cl9wYXJzZXIgLXIgLVcgL2V0Yy9hcHBhcm1vci5kL2RvY2tlci1uZ2lueAoKVGhlbiBJIHN0b3Bw
-ZWQgYW5kIHJlbW92ZWQgdGhlIGNvbnRhaW5lcjoKJCBzdWRvIGRvY2tlciBzdG9wIGFwcGFybW9y
-LW5naW54ICYmIHN1ZG8gZG9ja2VyIHJtIGFwcGFybW9yLW5naW54CgphbmQgcmVzdGFydGVkIGl0
-IC0gYnV0IGFnYWluIG9uIHBvcnQgODAgKHdoaWNoIEkgZXhwZWN0ZWQgbm90IHRvIHdvcmssIHNp
-bmNlIHRoZSBjYXBhYmlsaXR5IHdhcyByZW1vdmVkKToKJCBzdWRvIGRvY2tlciBydW4gLS1zZWN1
-cml0eS1vcHQgImFwcGFybW9yPWRvY2tlci1uZ2lueCIgLXAgODA6ODAgLWQgLS1uYW1lIGFwcGFy
-bW9yLW5naW54IG5naW54CgpCdXQgaXQgd29ya2VkLiBJIGNvdWxkIGFjY2VzcyB0aGUgbmdpbngg
-c2VydmVyIG9uICJodHRwOi8vbG9jYWxob3N0OjgwIiBpbiBteSBob3N0IGJyb3dzZXIuCgpJIHRy
-aWVkIGZ1cnRoZXIgdG8gZGlzYWJsZSBuZXQgYWNjZXNzIGNvbXBsZXRlbHkgYW5kIHJlbW92ZWQg
-dGhlIGZvbGxvd2luZyBsaW5lczoKCm5ldHdvcmsgaW5ldCB0Y3AsCm5ldHdvcmsgaW5ldCB1ZHAs
-Cm5ldHdvcmsgaW5ldCBpY21wLAoKYW5kIHJlcGxhY2VkIGl0IHdpdGg6CgpkZW55IG5ldHdvcmss
-CgpBZ2FpbiBJIHJlbG9hZGVkIHRoZSBwcm9maWxlczoKCiQgc3VkbyBhYS10ZWFyZG93bgokIHN1
-ZG8gYXBwYXJtb3JfcGFyc2VyIC1yIC1XIC9ldGMvYXBwYXJtb3IuZC9kb2NrZXItbmdpbngKCnJl
-c3RhcnRlZCB0aGUgY29udGFpbmVyOgokIHN1ZG8gZG9ja2VyIHN0b3AgYXBwYXJtb3Itbmdpbngg
-JiYgc3VkbyBkb2NrZXIgcm0gYXBwYXJtb3ItbmdpbngKJCBzdWRvIGRvY2tlciBydW4gLS1zZWN1
-cml0eS1vcHQgImFwcGFybW9yPWRvY2tlci1uZ2lueCIgLXAgODA6ODAgLWQgLS1uYW1lIGFwcGFy
-bW9yLW5naW54IG5naW54CgpXaGljaCB3b3JrcyBmaW5lIC0gZGVzcGl0ZSB0aGUgbWlzc2luZyBj
-YXBhYmlsaXRpZXMgYW5kIHRoZSAiZGVueSBuZXR3b3JrIiBkaXJlY3RpdmUuClRoZW4gSSBzdGFy
-dGVkIGFnYWluIGEgc2Vzc2lvbiBpbiB0aGUgY29udGFpbmVyOgokIHN1ZG8gZG9ja2VyIGNvbnRh
-aW5lciBleGVjIC1pdCBhcHBhcm1vci1uZ2lueCBkYXNoCgpBbmQgZS5nLiBhCiMgY3VybCB3d3cu
-Z29vZ2xlLmNvbQoKaXMgd29ya2luZyAtIEkgZ2V0IHRoZSBleHBlY3RlZCBvdXRwdXQsIGRlc3Bp
-dGUgImRlbnkgbmV0d29yayIuClNvIG15IG1haW4gY29uY2VybnMgYXJlOgoxLiBkZXNwaXRlIGRp
-c2FibGluZyAiY2FwYWJpbGl0eSBuZXRfYmluZF9zZXJ2aWNlIiBJIGNhbiBiaW5kIHRvIHBvcnQg
-ODAKMi4gZGVzcGl0ZSAiZGVueSBuZXR3b3JrIiBJIGNhbiB1c2UgY3VybAoKSSdtIHVzaW5nIEFy
-Y2ggTGludXggb24gdGhlIGhvc3QsIHdpdGggQXBwYXJtb3IgMy4wLjQgYW5kIGRvY2tlciAxLjIw
-LjEwLjE2LgoKQ2FuIGFueWJvZHkgaGVscCBtZSB3aXRoIHRoaXMgcHJvYmxlbT8gRnJvbSBteSBw
-b2ludCBvZiB2aWV3IHRoaXMgc2hvdWxkIG5vdCBiZSBwb3NzaWJsZSwgb3IgY2FuIGFueWJvZHkg
-Z2l2ZSBtZSBhbiBleHBsYW5hdGlvbj8KClRoYW5rcwpXZXJuZXI=
+> And e.g. a
+> # curl www.google.com <http://www.google.com>
+> 
+> is working - I get the expected output, despite "deny network".
+> So my main concerns are:
+> 1. despite disabling "capability net_bind_service" I can bind to port 80
+> 2. despite "deny network" I can use curl
+> 
+> I'm using Arch Linux on the host, with Apparmor 3.0.4 and docker 1.20.10.16.
+> 
+What is your kernel version? And do you have any none-upstream patches on it.
 
---b1_9cQgKnVyqE8pkAwCOBbUeYyIbz1DhwWzuypeQ0lvR0
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: base64
-
-PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IGFyaWFsOyBmb250LXNpemU6IDE0cHg7Ij5IZWxsbyw8
-L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogYXJpYWw7IGZvbnQtc2l6ZTogMTRweDsiPjxi
-cj48L2Rpdj4NCjxkaXYgY2xhc3M9InByb3Rvbm1haWxfc2lnbmF0dXJlX2Jsb2NrIiBzdHlsZT0i
-Zm9udC1mYW1pbHk6IGFyaWFsOyBmb250LXNpemU6IDE0cHg7Ij4NCiAgICA8ZGl2IGNsYXNzPSJw
-cm90b25tYWlsX3NpZ25hdHVyZV9ibG9jay11c2VyIHByb3Rvbm1haWxfc2lnbmF0dXJlX2Jsb2Nr
-LWVtcHR5Ij4NCg0KICAgICAgICAgICAgPC9kaXY+DQoNCiAgICAgICAgICAgIDxkaXYgY2xhc3M9
-InByb3Rvbm1haWxfc2lnbmF0dXJlX2Jsb2NrLXByb3RvbiI+PHNwYW4+SSB0cnkgdG8gdXNlIEFw
-cEFybW9yIGluIGNvbmp1bmN0aW9uIHdpdGggZG9ja2VyLCBhcyBpbiB0aGUgZXhhbXBsZSBleHBs
-YWluZWQgaW4gdGhlIGRvY2tlciBkb2NzOjwvc3Bhbj48ZGl2PjxzcGFuPjxhIHRhcmdldD0iX2Js
-YW5rIiByZWw9Im5vcmVmZXJyZXIgbm9mb2xsb3cgbm9vcGVuZXIiIGhyZWY9Imh0dHBzOi8vZG9j
-cy5kb2NrZXIuY29tL2VuZ2luZS9zZWN1cml0eS9hcHBhcm1vci8iPmh0dHBzOi8vZG9jcy5kb2Nr
-ZXIuY29tL2VuZ2luZS9zZWN1cml0eS9hcHBhcm1vci88L2E+PC9zcGFuPjwvZGl2PjxkaXY+PGJy
-PjwvZGl2PjxkaXY+PHNwYW4+SSB3YW50IHRvIGRlc2NyaWJlIG15IHByb2JsZW1zIHdpdGggdGhp
-cyBleGFtcGxlLiBJIGNvcGllZCBvdmVyIHRoZSBleGFtcGxlIHBvbGljeSBmcm9tIHRoaXMgd2Vi
-c2l0ZSB0bzxicj48L3NwYW4+PC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj48c3Bhbj4vZXRjL2Fw
-cGFybW9yLmQvZG9ja2VyLW5naW54PC9zcGFuPjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+PHNw
-YW4+VGhlbiBJIHBhcnNlZCB0aGUgcHJvZmlsZTo8L3NwYW4+PC9kaXY+PGRpdj48c3Bhbj4kIHN1
-ZG8gYXBwYXJtb3JfcGFyc2VyIC1yIC1XIC9ldGMvYXBwYXJtb3IuZC9kb2NrZXItbmdpbng8L3Nw
-YW4+PC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj48c3Bhbj5hbmQgImFhLXN0YXR1cyIgc2hvd3Ms
-IHRoYXQgdGhlIHByb2ZpbGUgaXMgbG9hZGVkLjwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuPlN0YXJ0
-aW5nIGRvY2tlciBsaWtlOjwvc3Bhbj48L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PjxzcGFuPiQg
-c3VkbyBkb2NrZXIgcnVuIC0tc2VjdXJpdHktb3B0ICJhcHBhcm1vcj1kb2NrZXItbmdpbngiIC1w
-IDgwOjgwIC1kIC0tbmFtZSBhcHBhcm1vci1uZ2lueCBuZ2lueDwvc3Bhbj48L2Rpdj48ZGl2Pjxi
-cj48L2Rpdj48ZGl2PjxzcGFuPldvcmtzIGxpa2UgZXhwZWN0ZWQgLSAiYWEtc3RhdHVzIiBzaG93
-cywgdGhhdCB0aGUgcmVzdWx0aW5nIGRvY2tlciBwcm9jZXNzZXMgYXJlIGNvbmZpbmVkIGFuZCBp
-ZiBJIGRvIGUuZy48L3NwYW4+PC9kaXY+PGRpdj48c3Bhbj4kIHN1ZG8gZG9ja2VyIGNvbnRhaW5l
-ciBleGVjIC1pdCBhcHBhcm1vci1uZ2lueCBkYXNoPC9zcGFuPjwvZGl2PjxkaXY+PGJyPjwvZGl2
-PjxkaXY+PHNwYW4+SSdtIGVuZGluZyBpbiBhIHNoZWxsIChkZXNwaXRlICJkYXNoIiBiZWluIGV4
-cGxpY2l0bHkgZGVuaWVkIGluIHRoZSBwcm9maWxlKSwgYnV0IEFwcGFybW9yIHdvcmtzIGFzIGV4
-cGVjdGVkLCBlLmcuIGV4ZWN1dGluZzo8L3NwYW4+PC9kaXY+PGRpdj48c3Bhbj4jIHRvdWNoIC9i
-b290L3Rlc3RmaWxlPC9zcGFuPjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+PHNwYW4+aW4gdGhl
-IGNvbnRhaW5lciBpcyBub3QgcG9zc2libGUgKHBlcm1pc3Npb24gZGVuaWVkKS48L3NwYW4+PC9k
-aXY+PGRpdj48YnI+PC9kaXY+PGRpdj48c3Bhbj5TbyBJIHRyaWVkIHRvIHJlc3RyaWN0IHRoZSBw
-cm9maWxlIGZ1cnRoZXIuIFNpbmNlIEkgZG9uJ3Qgd2FudCB0byBiaW5kIHRoZSBjb250YWluZXIg
-dG8gYSBwcml2aWxlZ2VkIHBvcnQgKCZsdDsgMTAyNCksIEkgdGhvdWdodCBJIGRvbid0IG5lZWQg
-PC9zcGFuPjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+PHNwYW4+Y2FwYWJpbGl0eSBuZXRfYmlu
-ZF9zZXJ2aWNlLDwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuPiZuYnNwOyA8L3NwYW4+PC9kaXY+PGRp
-dj48c3Bhbj5pbiB0aGUgQXBwYXJtb3IgcHJvZmlsZS48L3NwYW4+PC9kaXY+PGRpdj48c3Bhbj5T
-byBJIHJlbW92ZWQgdGhlIGNvcnJlc3BvbmRpbmcgbGluZSBpbiB0aGUgcHJvZmlsZSBhbmQgcmVs
-b2FkZWQgdGhlIHByb2ZpbGUuIFRvIGdldCBzdXJlLCB0aGF0IGV2ZXJ5dGhpbmcgZ29lcyBzbW9v
-dGgsIEkgZGlkIChhZnRlciByZW1vdmluZyB0aGUgY29ycmVzcG9uZGluZyBsaW5lKTo8L3NwYW4+
-PC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj48c3Bhbj4kIHN1ZG8gYWEtdGVhcmRvd248L3NwYW4+
-PC9kaXY+PGRpdj48c3Bhbj4kIHN1ZG8gYXBwYXJtb3JfcGFyc2VyIC1yIC1XIC9ldGMvYXBwYXJt
-b3IuZC9kb2NrZXItbmdpbng8L3NwYW4+PC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj48c3Bhbj5U
-aGVuIEkgc3RvcHBlZCBhbmQgcmVtb3ZlZCB0aGUgY29udGFpbmVyOjwvc3Bhbj48L2Rpdj48ZGl2
-PjxzcGFuPiQgc3VkbyBkb2NrZXIgc3RvcCBhcHBhcm1vci1uZ2lueCAmYW1wOyZhbXA7IHN1ZG8g
-ZG9ja2VyIHJtIGFwcGFybW9yLW5naW54PC9zcGFuPjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+
-PHNwYW4+YW5kIHJlc3RhcnRlZCBpdCAtIGJ1dCBhZ2FpbiBvbiBwb3J0IDgwICh3aGljaCBJIGV4
-cGVjdGVkIG5vdCB0byB3b3JrLCBzaW5jZSB0aGUgY2FwYWJpbGl0eSB3YXMgcmVtb3ZlZCk6PC9z
-cGFuPjwvZGl2PjxkaXY+PHNwYW4+JCBzdWRvIGRvY2tlciBydW4gLS1zZWN1cml0eS1vcHQgImFw
-cGFybW9yPWRvY2tlci1uZ2lueCIgLXAgODA6ODAgLWQgLS1uYW1lIGFwcGFybW9yLW5naW54IG5n
-aW54PC9zcGFuPjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+PHNwYW4+QnV0IGl0IHdvcmtlZC4g
-SSBjb3VsZCBhY2Nlc3MgdGhlIG5naW54IHNlcnZlciBvbiAiPGEgdGFyZ2V0PSJfYmxhbmsiIHJl
-bD0ibm9yZWZlcnJlciBub2ZvbGxvdyBub29wZW5lciIgaHJlZj0iaHR0cDovL2xvY2FsaG9zdDo4
-MCI+aHR0cDovL2xvY2FsaG9zdDo4MDwvYT4iIGluIG15IGhvc3QgYnJvd3Nlci48L3NwYW4+PC9k
-aXY+PGRpdj48YnI+PC9kaXY+PGRpdj48c3Bhbj5JIHRyaWVkIGZ1cnRoZXIgdG8gZGlzYWJsZSBu
-ZXQgYWNjZXNzIGNvbXBsZXRlbHkgYW5kIHJlbW92ZWQgdGhlIGZvbGxvd2luZyBsaW5lczo8L3Nw
-YW4+PC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj48c3Bhbj5uZXR3b3JrIGluZXQgdGNwLDwvc3Bh
-bj48L2Rpdj48ZGl2PjxzcGFuPm5ldHdvcmsgaW5ldCB1ZHAsPC9zcGFuPjwvZGl2PjxkaXY+PHNw
-YW4+bmV0d29yayBpbmV0IGljbXAsPC9zcGFuPjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+PHNw
-YW4+YW5kIHJlcGxhY2VkIGl0IHdpdGg6PC9zcGFuPjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+
-PHNwYW4+ZGVueSBuZXR3b3JrLDwvc3Bhbj48L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PjxzcGFu
-PkFnYWluIEkgcmVsb2FkZWQgdGhlIHByb2ZpbGVzOjwvc3Bhbj48L2Rpdj48ZGl2Pjxicj48L2Rp
-dj48ZGl2PjxzcGFuPiQgc3VkbyBhYS10ZWFyZG93bjwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuPiQg
-c3VkbyBhcHBhcm1vcl9wYXJzZXIgLXIgLVcgL2V0Yy9hcHBhcm1vci5kL2RvY2tlci1uZ2lueDwv
-c3Bhbj48L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PjxzcGFuPnJlc3RhcnRlZCB0aGUgY29udGFp
-bmVyOjwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuPiQgc3VkbyBkb2NrZXIgc3RvcCBhcHBhcm1vci1u
-Z2lueCAmYW1wOyZhbXA7IHN1ZG8gZG9ja2VyIHJtIGFwcGFybW9yLW5naW54PC9zcGFuPjwvZGl2
-PjxkaXY+PHNwYW4+JCBzdWRvIGRvY2tlciBydW4gLS1zZWN1cml0eS1vcHQgImFwcGFybW9yPWRv
-Y2tlci1uZ2lueCIgLXAgODA6ODAgLWQgLS1uYW1lIGFwcGFybW9yLW5naW54IG5naW54PC9zcGFu
-PjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+V2hpY2ggd29ya3MgZmluZSAtIGRlc3BpdGUgdGhl
-IG1pc3NpbmcgY2FwYWJpbGl0aWVzIGFuZCB0aGUgImRlbnkgbmV0d29yayIgZGlyZWN0aXZlLjxi
-cj48L2Rpdj48ZGl2PjxzcGFuPlRoZW4gSSBzdGFydGVkIGFnYWluIGEgc2Vzc2lvbiBpbiB0aGUg
-Y29udGFpbmVyOjwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuPiQgc3VkbyBkb2NrZXIgY29udGFpbmVy
-IGV4ZWMgLWl0IGFwcGFybW9yLW5naW54IGRhc2g8L3NwYW4+PC9kaXY+PGRpdj48YnI+PC9kaXY+
-PGRpdj48c3Bhbj5BbmQgZS5nLiBhPC9zcGFuPjwvZGl2PjxkaXY+PHNwYW4+IyBjdXJsIDxhIHRh
-cmdldD0iX2JsYW5rIiByZWw9Im5vcmVmZXJyZXIgbm9mb2xsb3cgbm9vcGVuZXIiIGhyZWY9Imh0
-dHA6Ly93d3cuZ29vZ2xlLmNvbSI+d3d3Lmdvb2dsZS5jb208L2E+PC9zcGFuPjwvZGl2PjxkaXY+
-PGJyPjwvZGl2PjxkaXY+PHNwYW4+aXMgd29ya2luZyAtIEkgZ2V0IHRoZSBleHBlY3RlZCBvdXRw
-dXQsIGRlc3BpdGUgImRlbnkgbmV0d29yayIuPGJyPjwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuPlNv
-IG15IG1haW4gY29uY2VybnMgYXJlOjwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuPjEuIGRlc3BpdGUg
-ZGlzYWJsaW5nICJjYXBhYmlsaXR5IG5ldF9iaW5kX3NlcnZpY2UiIEkgY2FuIGJpbmQgdG8gcG9y
-dCA4MDwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuPjIuIGRlc3BpdGUgImRlbnkgbmV0d29yayIgSSBj
-YW4gdXNlIGN1cmw8L3NwYW4+PC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj48c3Bhbj5JJ20gdXNp
-bmcgQXJjaCBMaW51eCBvbiB0aGUgaG9zdCwgd2l0aCBBcHBhcm1vciAzLjAuNCBhbmQgZG9ja2Vy
-IDEuMjAuMTAuMTYuPC9zcGFuPjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+PHNwYW4+Q2FuIGFu
-eWJvZHkgaGVscCBtZSB3aXRoIHRoaXMgcHJvYmxlbT8gRnJvbSBteSBwb2ludCBvZiB2aWV3IHRo
-aXMgc2hvdWxkIG5vdCBiZSBwb3NzaWJsZSwgb3IgY2FuIGFueWJvZHkgZ2l2ZSBtZSBhbiBleHBs
-YW5hdGlvbj88YnI+PC9zcGFuPjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+PHNwYW4+VGhhbmtz
-PC9zcGFuPjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxzcGFuPldlcm5lcjwvc3Bhbj48YnI+PC9kaXY+
-DQo8L2Rpdj4NCg==
-
-
---b1_9cQgKnVyqE8pkAwCOBbUeYyIbz1DhwWzuypeQ0lvR0--
+> Can anybody help me with this problem? From my point of view this should not be possible, or can anybody give me an explanation?
+> 
+> Thanks
+> 
+> Werner
 
 
