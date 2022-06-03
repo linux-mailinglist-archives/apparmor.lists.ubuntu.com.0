@@ -2,44 +2,79 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C67653099B
-	for <lists+apparmor@lfdr.de>; Mon, 23 May 2022 08:42:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9707553D36C
+	for <lists+apparmor@lfdr.de>; Fri,  3 Jun 2022 23:59:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1nt1lu-0000u0-FH; Mon, 23 May 2022 06:42:30 +0000
-Received: from mail-4324.protonmail.ch ([185.70.43.24])
+	id 1nxFKN-0007Ym-0o; Fri, 03 Jun 2022 21:59:31 +0000
+Received: from smtp-relay-internal-0.internal ([10.131.114.225]
+ helo=smtp-relay-internal-0.canonical.com)
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <werner_kienzler@protonmail.com>) id 1nt1ls-0000tt-QL
- for apparmor@lists.ubuntu.com; Mon, 23 May 2022 06:42:28 +0000
-Date: Mon, 23 May 2022 06:42:25 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail3; t=1653288148; x=1653547348;
- bh=PRVoY/gzUCCqXcT+fOvGX/lGt/gSCebZS97Wv4L0CKk=;
- h=Date:To:From:Cc:Reply-To:Subject:Message-ID:In-Reply-To:
- References:Feedback-ID:From:To:Cc:Date:Subject:Reply-To:
- Feedback-ID:Message-ID;
- b=S83LQoX9eOET43cU4lb100SbUwSZIbW06xrPjDp6BUsd6SZ+IRaoB+Emsf+jZTKSy
- YbeDv30UnaigLyRb6qYGVhO+iJDy00fjQwHd3D+ZGZLEEtAt8omUzRtYEa/bv4lMBA
- wGc2lSCxb7gBZZfDDT+31vANME7SxSpoyUDKuCKq1x8LegI6M64nGXrNLRL5y6UvOY
- CKV8sRi/0zN0AAR+cK8uqJm9Pb/ZGVqJ5aL/M022QQYJsiCU7F2x59hSx6V5SkytTD
- u3LHSxSeskEVEZuWULMk3C6NZTjBzSIqesD3KYXHHw01DU6XLe4w+KUxT27Aci1rmK
- hgMhWqi4vyt3w==
-To: John Johansen <john.johansen@canonical.com>
-From: werner_kienzler <werner_kienzler@protonmail.com>
-Message-ID: <e5Y9KWb_GwZTxM2j4gJIZ4LzLUvQgiWxD7ZdkugVhCM20e6GPj7Boh6C1vPtODRwz92VT3YaBiBM8xBc47dZGOlxefYeBoJG_VUHFRO0Tp0=@protonmail.com>
-In-Reply-To: <47593cdc-4db1-1975-4a6e-115899095a6e@canonical.com>
-References: <acQDNxeIWDb5bYaBDt1z9dL9-E7k3E5rmYznvPuVJWyHl76LFAV-dpuqS5tFv_MykfCIqkIIfsl7uM4bIZxD2cQsAoQUmDCl__PN9h6IRGE=@protonmail.com>
- <c7bc314e-46bb-e463-cb52-a71536083a02@canonical.com>
- <Y4XUwH0mA3r01nKFQcdPXTvsYqgV-H0Tvk-KF3ENwu2iTj1wATzhc-j8QwaoNXKMQqauhKLzKq0TGKjW8jHNiuMYz8VgQODkn9k-HmBlM8U=@protonmail.com>
- <47593cdc-4db1-1975-4a6e-115899095a6e@canonical.com>
-Feedback-ID: 20364792:user:proton
+ (envelope-from <georgia.garcia@canonical.com>) id 1nxFKL-0007Yd-9T
+ for apparmor@lists.ubuntu.com; Fri, 03 Jun 2022 21:59:29 +0000
+Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com
+ [209.85.160.71])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 7DD9F3F325
+ for <apparmor@lists.ubuntu.com>; Fri,  3 Jun 2022 21:59:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1654293568;
+ bh=AeRbXkPm+xpq2YW4MTS0o9Gae1ZK7upmX2GsajIb3+Q=;
+ h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
+ Content-Type:MIME-Version;
+ b=jZSmedpGK8mTrrfcq/LzqIyGn23FsSEL2Cp0p2fp66Bfh5bdf/rIlBC84WldgeS95
+ Ok199tPrxoxcoL8bRs1/sPamHXz3xDF+y957UwU+yIKYULA4njvXMGSod8i4oHx123
+ bltEEWTnZHM4n4XZ8dqh5XeHUqmrUUaeWb9QOxPS9vqrELOtKjaG7hXyHMCyWsUtoe
+ 2mdYlNYIi9ozICtEBqNIQ4XR10nbzTIfUXd1UVHJRhkrbuhB35xlFTobk4brB9vKKO
+ cjkIOA8wZUUoiSHddw7ywlICmkH1s0SwnGiU88pOfhdtL+m305pOQjKk6Jv1dfjeS/
+ xgpPa2p1dDhSA==
+Received: by mail-oa1-f71.google.com with SMTP id
+ 586e51a60fabf-f5ce935f21so5269318fac.21
+ for <apparmor@lists.ubuntu.com>; Fri, 03 Jun 2022 14:59:28 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
+ :references:organization:user-agent:mime-version
+ :content-transfer-encoding;
+ bh=AeRbXkPm+xpq2YW4MTS0o9Gae1ZK7upmX2GsajIb3+Q=;
+ b=ayBwyWViD5NcnWsPxRiic60Lsq3AvE++8gqG4pyUB/9LcjXdTdJrgU4cZ7k7vQCI1w
+ hBNEyLfIStxorwTslTBAwUW5lbTd7A7jxGM3NIv3y9Qdm7MR1QJzRzjn8wzFkytLcimh
+ 3HtJ4LnXYpC7zxzm7sgrHA4+xRr3Fz93fQYJns5kCDRVFhQjvJbsRU5XvfJhBWmjTw8m
+ mJ8yMAGRpV7b54lenzFdSLaBN4JNEiVBGtqwWPstBk5iEVfAyVHq1Ni/3t6J9IKeJyBY
+ 2hjefB/l6ioG0eLKoB6ygJKPGhK+D2sQRkvOw9kgHcsMtha3eaISjav7s7uz4D5gn1ik
+ YuVA==
+X-Gm-Message-State: AOAM531yjajClkqk0k/KrdsB1Iq4kksOUIKUppY/1b2SXWkzgAroXy4e
+ Kt7VoPSmQpaJ9BIPSFaweTmem2/sTyEsNit6S6koE3DAm1kjePO9L+WgxaNGR35NVVxUC+rAtlN
+ 5sn0D0nHuTLVzsIjtdmAgFwR3yW3XYv1Vxcd3Ag==
+X-Received: by 2002:a05:6808:1285:b0:32b:91f2:248a with SMTP id
+ a5-20020a056808128500b0032b91f2248amr6591946oiw.155.1654293566784; 
+ Fri, 03 Jun 2022 14:59:26 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJycFOP39JDKhxZ9B8mqF+fxLtbAvYn+ZeUTePQt/R8YY1lPGR7Ghsdq7R0/eXvPwBeWae46qQ==
+X-Received: by 2002:a05:6808:1285:b0:32b:91f2:248a with SMTP id
+ a5-20020a056808128500b0032b91f2248amr6591933oiw.155.1654293566446; 
+ Fri, 03 Jun 2022 14:59:26 -0700 (PDT)
+Received: from georgia ([2804:431:c7ef:db09:78e0:7600:141c:8c7a])
+ by smtp.gmail.com with ESMTPSA id
+ t9-20020a056870600900b000f5f4ad194bsm3737986oaa.25.2022.06.03.14.59.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 03 Jun 2022 14:59:25 -0700 (PDT)
+Message-ID: <6b57724644bc6cb5b0972d89813b5090caab8f66.camel@canonical.com>
+From: Georgia Garcia <georgia.garcia@canonical.com>
+To: Jon Tourville <jon.tourville@canonical.com>, apparmor@lists.ubuntu.com
+Date: Fri, 03 Jun 2022 18:59:23 -0300
+In-Reply-To: <20220512173520.855917-1-jon.tourville@canonical.com>
+References: <20220512173520.855917-1-jon.tourville@canonical.com>
+Organization: Canonical
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.36.5-0ubuntu1 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [apparmor] Apparmor and Docker - capabilities and network flags
-	not working
+Content-Transfer-Encoding: 7bit
+Subject: Re: [apparmor] [PATCH] apparmor: use zstd compression for profile
+ data
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -51,54 +86,28 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Reply-To: werner_kienzler <werner_kienzler@protonmail.com>
-Cc: "apparmor@lists.ubuntu.com" <apparmor@lists.ubuntu.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Hello,
+On Thu, 2022-05-12 at 12:35 -0500, Jon Tourville wrote:
+> +       out_len = zstd_compress_cctx(ctx, out, out_len, src, slen, &params);
+> +       if (zstd_is_error(out_len)) {
+> +               ret = -EINVAL;
+> +               goto cleanup;
+>         }
+>  
+> -       *dst = dstbuf;
+> -       *dlen = strm.total_out;
+> +       *dst = out;
+> +       *dlen = out_len;
 
-I just sent you the profile to your private E-Mail. I don't want to clutter=
- the Mailing List here and don't send it to the Mailing List.
+Hi Jon,
 
-Werner
+Should the dst/out buffer be realloced to match the out_len returned by
+zstd_compress_cctx? Or is the estimation made by zstd_compress_bound
+accurate?
 
+Regards,
+Georgia
 
-
-
-Gesendet mittels einer sicheren E-Mail von ProtonMail.
-------- Original Message -------
-John Johansen <john.johansen@canonical.com> schrieb am Montag, 23. Mai 2022=
- um 5:11 vorm.:
-
-
-> On 5/22/22 06:43, werner_kienzler wrote:
->
-> > Hallo,
-> >
-> > > is docker using user namespaces, or network namespaces?
-> > > Good question - I didn't enable "user namespace isolation" in the doc=
-ker daemon (so I don't set "userns-remap" in "/etc/docker/daemon.json"), so=
- I assume I'm using network namespaces? But I don't have deeper knowledge i=
-n this topic - should I run some test here or configure something?
->
->
-> I need to do some digging on the docker side before I can say what config=
-s you need to look at or tests for you to run.
->
-> > > What is your kernel version? And do you have any none-upstream patche=
-s on it.
-> > > I use an up to date kernel of my dirstro, which is 5.17.9. It is 100%=
- vanilla and has no patches applied to it.
->
->
-> Can you dump the loaded profile and send it to me? Basically
->
-> sudo cat /sys/kernel/security/apparmor/policy/profiles/docker-nginx.*/raw=
-_data > /tmp/raw_profile
->
->
-> where * is going to match some unique number and send me the raw_profile =
-file. This will let me pick out how the parser is compiling the profile whi=
-ch will help with figuring out why network deny is not working.
 
