@@ -2,79 +2,71 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9707553D36C
-	for <lists+apparmor@lfdr.de>; Fri,  3 Jun 2022 23:59:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EF8953E444
+	for <lists+apparmor@lfdr.de>; Mon,  6 Jun 2022 13:56:35 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1nxFKN-0007Ym-0o; Fri, 03 Jun 2022 21:59:31 +0000
-Received: from smtp-relay-internal-0.internal ([10.131.114.225]
- helo=smtp-relay-internal-0.canonical.com)
+	id 1nyBLK-00026G-5p; Mon, 06 Jun 2022 11:56:22 +0000
+Received: from smtp-relay-internal-1.internal ([10.131.114.114]
+ helo=smtp-relay-internal-1.canonical.com)
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <georgia.garcia@canonical.com>) id 1nxFKL-0007Yd-9T
- for apparmor@lists.ubuntu.com; Fri, 03 Jun 2022 21:59:29 +0000
-Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com
- [209.85.160.71])
+ (envelope-from <jon.tourville@canonical.com>) id 1nyBLH-000267-N4
+ for apparmor@lists.ubuntu.com; Mon, 06 Jun 2022 11:56:19 +0000
+Received: from mail-yb1-f197.google.com (mail-yb1-f197.google.com
+ [209.85.219.197])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 7DD9F3F325
- for <apparmor@lists.ubuntu.com>; Fri,  3 Jun 2022 21:59:28 +0000 (UTC)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 4B45E3FBF6
+ for <apparmor@lists.ubuntu.com>; Mon,  6 Jun 2022 11:56:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1654293568;
- bh=AeRbXkPm+xpq2YW4MTS0o9Gae1ZK7upmX2GsajIb3+Q=;
- h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
- Content-Type:MIME-Version;
- b=jZSmedpGK8mTrrfcq/LzqIyGn23FsSEL2Cp0p2fp66Bfh5bdf/rIlBC84WldgeS95
- Ok199tPrxoxcoL8bRs1/sPamHXz3xDF+y957UwU+yIKYULA4njvXMGSod8i4oHx123
- bltEEWTnZHM4n4XZ8dqh5XeHUqmrUUaeWb9QOxPS9vqrELOtKjaG7hXyHMCyWsUtoe
- 2mdYlNYIi9ozICtEBqNIQ4XR10nbzTIfUXd1UVHJRhkrbuhB35xlFTobk4brB9vKKO
- cjkIOA8wZUUoiSHddw7ywlICmkH1s0SwnGiU88pOfhdtL+m305pOQjKk6Jv1dfjeS/
- xgpPa2p1dDhSA==
-Received: by mail-oa1-f71.google.com with SMTP id
- 586e51a60fabf-f5ce935f21so5269318fac.21
- for <apparmor@lists.ubuntu.com>; Fri, 03 Jun 2022 14:59:28 -0700 (PDT)
+ s=20210705; t=1654516579;
+ bh=9qb4HKZCZZVK9rQPOlV1DlQN/O9p307sqcdRy0D4cXg=;
+ h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+ To:Cc:Content-Type;
+ b=vkyFbKi5cu9S4Jv0ziXukOt/2w23lgNDVrvbCg4R85mmM/1t5EyVzEuZOJgR0sGes
+ ecAA/pJ45QeHNU72cbxgyh9AJ4ioLoxOM1wI3Ca9mJ+YDqpHT4csK6rVsqzidKObUE
+ F3s1A+RvCTzAGtgrbHXk6R51zUwaRyx4aYZpbFPi9HA4M8g+vWBpTpclmQo0m3sRun
+ DUsELgz2Oqfxk+qysL6wDIldXBMsAhx0vXtS0p30Tq13HRWwWsHv2bqvq4sN+wo/fH
+ 8WLQ9bi74oYSyE4vxEScOGaK9KwRwtQOLbfxwAz/gh95vywcVS4aJleTwKR3U9nLxP
+ DI3StrEnc4LHg==
+Received: by mail-yb1-f197.google.com with SMTP id
+ i17-20020a259d11000000b0064cd3084085so12307428ybp.9
+ for <apparmor@lists.ubuntu.com>; Mon, 06 Jun 2022 04:56:19 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
- :references:organization:user-agent:mime-version
- :content-transfer-encoding;
- bh=AeRbXkPm+xpq2YW4MTS0o9Gae1ZK7upmX2GsajIb3+Q=;
- b=ayBwyWViD5NcnWsPxRiic60Lsq3AvE++8gqG4pyUB/9LcjXdTdJrgU4cZ7k7vQCI1w
- hBNEyLfIStxorwTslTBAwUW5lbTd7A7jxGM3NIv3y9Qdm7MR1QJzRzjn8wzFkytLcimh
- 3HtJ4LnXYpC7zxzm7sgrHA4+xRr3Fz93fQYJns5kCDRVFhQjvJbsRU5XvfJhBWmjTw8m
- mJ8yMAGRpV7b54lenzFdSLaBN4JNEiVBGtqwWPstBk5iEVfAyVHq1Ni/3t6J9IKeJyBY
- 2hjefB/l6ioG0eLKoB6ygJKPGhK+D2sQRkvOw9kgHcsMtha3eaISjav7s7uz4D5gn1ik
- YuVA==
-X-Gm-Message-State: AOAM531yjajClkqk0k/KrdsB1Iq4kksOUIKUppY/1b2SXWkzgAroXy4e
- Kt7VoPSmQpaJ9BIPSFaweTmem2/sTyEsNit6S6koE3DAm1kjePO9L+WgxaNGR35NVVxUC+rAtlN
- 5sn0D0nHuTLVzsIjtdmAgFwR3yW3XYv1Vxcd3Ag==
-X-Received: by 2002:a05:6808:1285:b0:32b:91f2:248a with SMTP id
- a5-20020a056808128500b0032b91f2248amr6591946oiw.155.1654293566784; 
- Fri, 03 Jun 2022 14:59:26 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJycFOP39JDKhxZ9B8mqF+fxLtbAvYn+ZeUTePQt/R8YY1lPGR7Ghsdq7R0/eXvPwBeWae46qQ==
-X-Received: by 2002:a05:6808:1285:b0:32b:91f2:248a with SMTP id
- a5-20020a056808128500b0032b91f2248amr6591933oiw.155.1654293566446; 
- Fri, 03 Jun 2022 14:59:26 -0700 (PDT)
-Received: from georgia ([2804:431:c7ef:db09:78e0:7600:141c:8c7a])
- by smtp.gmail.com with ESMTPSA id
- t9-20020a056870600900b000f5f4ad194bsm3737986oaa.25.2022.06.03.14.59.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Jun 2022 14:59:25 -0700 (PDT)
-Message-ID: <6b57724644bc6cb5b0972d89813b5090caab8f66.camel@canonical.com>
-From: Georgia Garcia <georgia.garcia@canonical.com>
-To: Jon Tourville <jon.tourville@canonical.com>, apparmor@lists.ubuntu.com
-Date: Fri, 03 Jun 2022 18:59:23 -0300
-In-Reply-To: <20220512173520.855917-1-jon.tourville@canonical.com>
-References: <20220512173520.855917-1-jon.tourville@canonical.com>
-Organization: Canonical
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.36.5-0ubuntu1 
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=9qb4HKZCZZVK9rQPOlV1DlQN/O9p307sqcdRy0D4cXg=;
+ b=wfcSiGJIppTYpkxfrt3S4szKHKwsSJ9ZWKnGhRbj497xW819Vy7PswF09IOjPysKJ1
+ 3+vtKhJ9VhMM0zfiEW/mkQFLC05gQ4KxKQC9KKpyCaBf9NSJXC+nE3ANMWp+mMqOcK6c
+ ZsDLoIfeYqYhx4tA44S8sSQHaqDKlKtReHLSb1jUtt7osAq7mJGIz7wmC0W9JI4QcF+b
+ x1zFSsK4sRItXlbcIRFXZJg+NDoEAprUKpADVxbAcLxjj0mX7YNKKDz4Z+xBY8mvasUU
+ PbLZ2/aBjouOoKicwLvZ5guJhR3NusiCzc9sPnYVOMWQ7RmPEKEEAv5YV/uEBiQJ+pPd
+ 2B4w==
+X-Gm-Message-State: AOAM531N8M9iTJkutEgkvgNNDS2jHKQCbq+hWE7YruUZnJVRuaPkWwei
+ BnLDDmX1Ia0F2YfuEkz/F0sTgQRaCOULO+CC4AA2dcPh+I9FAD9KVG0E6COqPsBl9tATjAzb9Ir
+ ONKrVqqzv5kwlHuLIg0Ca3n4oWoroR/cCVcOv1PTWMNyRMNVSDn324A==
+X-Received: by 2002:a25:5986:0:b0:663:b781:7bd0 with SMTP id
+ n128-20020a255986000000b00663b7817bd0mr1746030ybb.191.1654516578266; 
+ Mon, 06 Jun 2022 04:56:18 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJy8fmfS63tfETcuewXM4r07SvYh8GjEdkhrss75VYTZKCg6e4piRfr3hgO3/sUDpnl1aJeGdXcf/OqJLH8vfvo=
+X-Received: by 2002:a25:5986:0:b0:663:b781:7bd0 with SMTP id
+ n128-20020a255986000000b00663b7817bd0mr1746008ybb.191.1654516578039; Mon, 06
+ Jun 2022 04:56:18 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+References: <20220512173520.855917-1-jon.tourville@canonical.com>
+ <6b57724644bc6cb5b0972d89813b5090caab8f66.camel@canonical.com>
+In-Reply-To: <6b57724644bc6cb5b0972d89813b5090caab8f66.camel@canonical.com>
+From: Jon Tourville <jon.tourville@canonical.com>
+Date: Mon, 6 Jun 2022 06:56:07 -0500
+Message-ID: <CAHSjLmwwnWvxhxzbb6EorTRMVLdyT7gQmoFhXgAg67c0bk_6oQ@mail.gmail.com>
+To: Georgia Garcia <georgia.garcia@canonical.com>
+Content-Type: multipart/alternative; boundary="000000000000e8d35f05e0c6286b"
 Subject: Re: [apparmor] [PATCH] apparmor: use zstd compression for profile
- data
+	data
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -86,28 +78,85 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: apparmor@lists.ubuntu.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Thu, 2022-05-12 at 12:35 -0500, Jon Tourville wrote:
-> +       out_len = zstd_compress_cctx(ctx, out, out_len, src, slen, &params);
-> +       if (zstd_is_error(out_len)) {
-> +               ret = -EINVAL;
-> +               goto cleanup;
->         }
->  
-> -       *dst = dstbuf;
-> -       *dlen = strm.total_out;
-> +       *dst = out;
-> +       *dlen = out_len;
+--000000000000e8d35f05e0c6286b
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Jon,
+zstd_compress_bound returns the worst case scenario so that the buffer will
+be guaranteed to be large enough. I will look into reallocating the buffer
+since the worst case could very well be larger than the original size.
+Thanks,
 
-Should the dst/out buffer be realloced to match the out_len returned by
-zstd_compress_cctx? Or is the estimation made by zstd_compress_bound
-accurate?
+Jon
 
-Regards,
-Georgia
+On Fri, Jun 3, 2022 at 4:59 PM Georgia Garcia <georgia.garcia@canonical.com>
+wrote:
 
+> On Thu, 2022-05-12 at 12:35 -0500, Jon Tourville wrote:
+> > +       out_len = zstd_compress_cctx(ctx, out, out_len, src, slen,
+> &params);
+> > +       if (zstd_is_error(out_len)) {
+> > +               ret = -EINVAL;
+> > +               goto cleanup;
+> >         }
+> >
+> > -       *dst = dstbuf;
+> > -       *dlen = strm.total_out;
+> > +       *dst = out;
+> > +       *dlen = out_len;
+>
+> Hi Jon,
+>
+> Should the dst/out buffer be realloced to match the out_len returned by
+> zstd_compress_cctx? Or is the estimation made by zstd_compress_bound
+> accurate?
+>
+> Regards,
+> Georgia
+>
+>
+
+--000000000000e8d35f05e0c6286b
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">zstd_compress_bound returns the worst case scenario so tha=
+t the buffer will be guaranteed to be large enough. I will look into reallo=
+cating the buffer since the worst case could very well be larger than the o=
+riginal size. Thanks,<br><div><br></div><div>Jon</div></div><br><div class=
+=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Jun 3, 2022 =
+at 4:59 PM Georgia Garcia &lt;<a href=3D"mailto:georgia.garcia@canonical.co=
+m">georgia.garcia@canonical.com</a>&gt; wrote:<br></div><blockquote class=
+=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rg=
+b(204,204,204);padding-left:1ex">On Thu, 2022-05-12 at 12:35 -0500, Jon Tou=
+rville wrote:<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0out_len =3D zstd_compress_cctx(ctx, out, o=
+ut_len, src, slen, &amp;params);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (zstd_is_error(out_len)) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D -EINVA=
+L;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto cleanup;<=
+br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt;=C2=A0 <br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0*dst =3D dstbuf;<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0*dlen =3D strm.total_out;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0*dst =3D out;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0*dlen =3D out_len;<br>
+<br>
+Hi Jon,<br>
+<br>
+Should the dst/out buffer be realloced to match the out_len returned by<br>
+zstd_compress_cctx? Or is the estimation made by zstd_compress_bound<br>
+accurate?<br>
+<br>
+Regards,<br>
+Georgia<br>
+<br>
+</blockquote></div>
+
+--000000000000e8d35f05e0c6286b--
 
