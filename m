@@ -2,75 +2,51 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1952E570872
-	for <lists+apparmor@lfdr.de>; Mon, 11 Jul 2022 18:37:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71AAB575BCD
+	for <lists+apparmor@lfdr.de>; Fri, 15 Jul 2022 08:50:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1oAwP3-0006Al-SQ; Mon, 11 Jul 2022 16:36:57 +0000
-Received: from smtp-relay-internal-0.internal ([10.131.114.225]
- helo=smtp-relay-internal-0.canonical.com)
+	id 1oCF9P-0007w0-Fc; Fri, 15 Jul 2022 06:50:11 +0000
+Received: from mga01.intel.com ([192.55.52.88])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <jon.tourville@canonical.com>) id 1oAwP1-00069D-Jd
- for apparmor@lists.ubuntu.com; Mon, 11 Jul 2022 16:36:55 +0000
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 5A8A43F8D8
- for <apparmor@lists.ubuntu.com>; Mon, 11 Jul 2022 16:36:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1657557412;
- bh=c9RWQFag0pTRzZ7ib5EjTtatGf/sGtlzFwTIA1OA1T4=;
- h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
- MIME-Version;
- b=L848tbD0dwl2NH16hTcGZdjMzWO8oN5/lTMrW2Z13spZptWrn37KkoX7xi8+NiDxQ
- PHxDkD+fvl2t/yXOvFyY3U8hwdPPJFYTNIY48PtyGNm8WItoP4imo34Hf0rolk1tPl
- 8OiNypCutruf7u3PxnvNAjcW9ouxZHQD/HPM83QQXYSEKiKDHM2E/J62PF/dq/ju2W
- Pt45wktS3igOwjiAgNUTdp+ZaE3FuBicK18xdR2hl+G22bln/f/0YvsGg3pQ4kvjdD
- sgWW+2HOYtgBjS4ES6oyFxqdDXI95lfW5LU0k38jUnzUkqDtmdq5OnPZsySuSmJKSP
- L5XsMDYI6aHyQ==
-Received: by mail-qk1-f197.google.com with SMTP id
- de4-20020a05620a370400b006a9711bd9f8so5680802qkb.9
- for <apparmor@lists.ubuntu.com>; Mon, 11 Jul 2022 09:36:52 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=c9RWQFag0pTRzZ7ib5EjTtatGf/sGtlzFwTIA1OA1T4=;
- b=SIowBwKcEVPpM79RC/5x6WiLWugJs7JA/ZfOOyusfb2V/tDC+Tan073P0IubdP0vPC
- H/EnWzh7dPotQcUBdwQf7q3wLXsYogopqffmHVVUpn8P42bhAmpo/Mfamgi4rbwIhd0E
- pcFFDtHf/CVqcecVh3IGyH90JvRbPyA6ztdHgq+hXARCCO/7lldmQSOMBsZUDhsdDpPU
- WOW6KCi7OCZWR96TH6tskyV3CIPsvKabkAR8BrmHT+Plh6yea4jf7w/RnMExRmLIlvWp
- sE1Amd8eO9d80fgxHfYXi4R6WuMPp1tL2KG/mAwWveYr6WTyu9YdOriBIToYounkD5Ny
- IUmg==
-X-Gm-Message-State: AJIora/36e0woJVZSPv4W5iLLOhsj0x3DYmA/Y7iyoCf411Zu6bn6IIw
- 6qk/g9giUcDwkZxiOJqtntxUOHoBfzQnK4kdD0VQSEFuzLidWVkDV1vNpp0unD0ZyX1BTr3svWo
- HT+h4awjkg92w+Ql78fnFgFdLRXHkzJ6fi2ZUfg==
-X-Received: by 2002:ad4:5ca4:0:b0:473:4d5b:5af3 with SMTP id
- q4-20020ad45ca4000000b004734d5b5af3mr10274324qvh.12.1657557411202; 
- Mon, 11 Jul 2022 09:36:51 -0700 (PDT)
-X-Google-Smtp-Source: AGRyM1t4GFRa33dPbZ4KklsnkYTMj6nacIohbobtxvgFO8uV4B07GcBnbkBKJgQ1l8S8w9Xv9JAR/A==
-X-Received: by 2002:ad4:5ca4:0:b0:473:4d5b:5af3 with SMTP id
- q4-20020ad45ca4000000b004734d5b5af3mr10274306qvh.12.1657557410953; 
- Mon, 11 Jul 2022 09:36:50 -0700 (PDT)
-Received: from eeloo.lan ([136.53.37.162]) by smtp.gmail.com with ESMTPSA id
- w27-20020ac84d1b000000b003051ea4e7f6sm5569400qtv.48.2022.07.11.09.36.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 Jul 2022 09:36:50 -0700 (PDT)
-From: Jon Tourville <jon.tourville@canonical.com>
-To: apparmor@lists.ubuntu.com
-Date: Mon, 11 Jul 2022 11:36:09 -0500
-Message-Id: <20220711163608.2244985-3-jon.tourville@canonical.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220711163608.2244985-1-jon.tourville@canonical.com>
-References: <20220711163608.2244985-1-jon.tourville@canonical.com>
+ (envelope-from <lkp@intel.com>) id 1oCF9M-0007uh-WE
+ for apparmor@lists.ubuntu.com; Fri, 15 Jul 2022 06:50:09 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1657867809; x=1689403809;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=33ZdI80MJCy7N9zKpMRHryy7Es8BAke9kkY6oGAN+ro=;
+ b=TQw86KJt+x8J8x7b2KAf0l27bWDwBZdhx7zYipazMEc2w1CSAAIJ2tSJ
+ s28wdJcdFGekt9+vGudxCxq99xur/dQMZkFYmMXLc13uBwe9L4N768twa
+ bfa9B1RwcZxxKQ3wbfeJEzUqA4qZ8dRqiOcv5C0ngkl/JqQBJoYEZhpjF
+ zViAAQrl0n8wH/rSCFHvsYaTlyoKzwkVfYqRrJACGtPYay173aAiGdn+N
+ 9uBJjaAjflQHK6Dh5wOVuvwpwAuge4UdvHYYHG6iqVux8VH/LD2O/xEWl
+ oE/vHchKJc4yJwLDQC/s5h4zNembI14yOifXzL5zYAY+f7h80/YE6Kn1I Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10408"; a="311379286"
+X-IronPort-AV: E=Sophos;i="5.92,273,1650956400"; d="scan'208";a="311379286"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jul 2022 23:50:06 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.92,273,1650956400"; d="scan'208";a="923391190"
+Received: from lkp-server01.sh.intel.com (HELO fd2c14d642b4) ([10.239.97.150])
+ by fmsmga005.fm.intel.com with ESMTP; 14 Jul 2022 23:50:04 -0700
+Received: from kbuild by fd2c14d642b4 with local (Exim 4.95)
+ (envelope-from <lkp@intel.com>) id 1oCF9I-0001cL-2s;
+ Fri, 15 Jul 2022 06:50:04 +0000
+Date: Fri, 15 Jul 2022 14:49:40 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Message-ID: <62d10e04.xFaeAbIP2Lzid8n4%lkp@intel.com>
+User-Agent: Heirloom mailx 12.5 6/20/10
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [apparmor] [PATCH 2/2] apparmor: expose compression level limits in
-	sysfs
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Subject: [apparmor] [linux-next:master] BUILD REGRESSION
+ 37b355fdaf31ee18bda9a93c2a438dc1cbf57ec9
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -82,62 +58,174 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: linux-fsdevel@vger.kernel.org, linux-pci@vger.kernel.org,
+ apparmor@lists.ubuntu.com, linux-wireless@vger.kernel.org,
+ Linux Memory Management List <linux-mm@kvack.org>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Create two new files in apparmor's sysfs:
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 37b355fdaf31ee18bda9a93c2a438dc1cbf57ec9  Add linux-next specific files for 20220714
 
-/sys/kernel/security/apparmor/raw_data_compression_level_min
-/sys/kernel/security/apparmor/raw_data_compression_level_max
+Error/Warning reports:
 
-These correspond to the minimum and maximum zstd compression levels
-that can be assigned to the apparmor module parameter
-raw_data_compression_level.
+https://lore.kernel.org/linux-mm/202207142026.qqAoch7S-lkp@intel.com
+https://lore.kernel.org/llvm/202207150057.s8huMpLd-lkp@intel.com
+https://lore.kernel.org/llvm/202207150400.NMBYJFkA-lkp@intel.com
 
-Signed-off-by: Jon Tourville <jon.tourville@canonical.com>
----
- security/apparmor/apparmorfs.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+Error/Warning: (recently discovered and may have been fixed)
 
-diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
-index bb6cb1abf0d3..3a69a1c77efd 100644
---- a/security/apparmor/apparmorfs.c
-+++ b/security/apparmor/apparmorfs.c
-@@ -1194,10 +1194,24 @@ static int seq_ns_name_show(struct seq_file *seq, void *v)
- 	return 0;
- }
- 
-+static int seq_ns_compress_min_show(struct seq_file *seq, void *v)
-+{
-+	seq_printf(seq, "%d\n", zstd_min_clevel());
-+	return 0;
-+}
-+
-+static int seq_ns_compress_max_show(struct seq_file *seq, void *v)
-+{
-+	seq_printf(seq, "%d\n", zstd_max_clevel());
-+	return 0;
-+}
-+
- SEQ_NS_FOPS(stacked);
- SEQ_NS_FOPS(nsstacked);
- SEQ_NS_FOPS(level);
- SEQ_NS_FOPS(name);
-+SEQ_NS_FOPS(compress_min);
-+SEQ_NS_FOPS(compress_max);
- 
- 
- /* policy/raw_data/ * file ops */
-@@ -2368,6 +2382,8 @@ static struct aa_sfs_entry aa_sfs_entry_apparmor[] = {
- 	AA_SFS_FILE_FOPS(".ns_level", 0444, &seq_ns_level_fops),
- 	AA_SFS_FILE_FOPS(".ns_name", 0444, &seq_ns_name_fops),
- 	AA_SFS_FILE_FOPS("profiles", 0444, &aa_sfs_profiles_fops),
-+	AA_SFS_FILE_FOPS("raw_data_compression_level_min", 0444, &seq_ns_compress_min_fops),
-+	AA_SFS_FILE_FOPS("raw_data_compression_level_max", 0444, &seq_ns_compress_max_fops),
- 	AA_SFS_DIR("features", aa_sfs_entry_features),
- 	{ }
- };
+/opt/cross/gcc-12.1.0-nolibc/s390x-linux/bin/s390x-linux-ld: pci-epf-vntb.c:(.text+0x213a): undefined reference to `ntb_link_event'
+aarch64-linux-ld: Unexpected GOT/PLT entries detected!
+aarch64-linux-ld: Unexpected run-time procedure linkages detected!
+drivers/clk/qcom/gpucc-sm8350.c:111:2: error: initializer element is not a compile-time constant
+drivers/net/wireless/mac80211_hwsim.c:1431:37: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+drivers/pci/endpoint/functions/pci-epf-vntb.c:1247: undefined reference to `ntb_register_device'
+drivers/pci/endpoint/functions/pci-epf-vntb.c:174: undefined reference to `ntb_link_event'
+drivers/pci/endpoint/functions/pci-epf-vntb.c:262: undefined reference to `ntb_db_event'
+drivers/pci/endpoint/functions/pci-epf-vntb.c:975:5: warning: no previous prototype for 'pci_read' [-Wmissing-prototypes]
+drivers/pci/endpoint/functions/pci-epf-vntb.c:984:5: warning: no previous prototype for 'pci_write' [-Wmissing-prototypes]
+drivers/scsi/qla2xxx/qla_init.c:171:10: warning: variable 'bail' set but not used [-Wunused-but-set-variable]
+drivers/vfio/vfio_iommu_type1.c:2141:35: warning: cast to smaller integer type 'enum iommu_cap' from 'void *' [-Wvoid-pointer-to-enum-cast]
+security/apparmor/policy_ns.c:83:20: warning: no previous prototype for 'alloc_unconfined' [-Wmissing-prototypes]
+security/apparmor/policy_ns.c:83:20: warning: no previous prototype for function 'alloc_unconfined' [-Wmissing-prototypes]
+
+Unverified Error/Warning (likely false positive, please contact us if interested):
+
+arch/x86/kernel/cpu/rdrand.c:36 x86_init_rdrand() error: uninitialized symbol 'prev'.
+fs/kernel_read_file.c:61 kernel_read_file() warn: impossible condition '(i_size > (((~0) >> 1))) => (s64min-s64max > s64max)'
+
+Error/Warning ids grouped by kconfigs:
+
+gcc_recent_errors
+|-- alpha-allyesconfig
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
+|   `-- security-apparmor-policy_ns.c:warning:no-previous-prototype-for-alloc_unconfined
+|-- arc-allyesconfig
+|   |-- drivers-net-wireless-mac80211_hwsim.c:warning:cast-to-pointer-from-integer-of-different-size
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
+|   `-- security-apparmor-policy_ns.c:warning:no-previous-prototype-for-alloc_unconfined
+|-- arm64-randconfig-c023-20220715
+|   |-- aarch64-linux-ld:Unexpected-GOT-PLT-entries-detected
+|   |-- aarch64-linux-ld:Unexpected-run-time-procedure-linkages-detected
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:undefined-reference-to-ntb_db_event
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:undefined-reference-to-ntb_link_event
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:undefined-reference-to-ntb_register_device
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
+|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
+|-- i386-allyesconfig
+|   |-- drivers-net-wireless-mac80211_hwsim.c:warning:cast-to-pointer-from-integer-of-different-size
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
+|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
+|-- i386-randconfig-a001-20220124
+|   `-- security-apparmor-policy_ns.c:warning:no-previous-prototype-for-alloc_unconfined
+|-- i386-randconfig-c001
+|   `-- security-apparmor-policy_ns.c:warning:no-previous-prototype-for-alloc_unconfined
+|-- i386-randconfig-m021
+|   `-- arch-x86-kernel-cpu-rdrand.c-x86_init_rdrand()-error:uninitialized-symbol-prev-.
+|-- m68k-allmodconfig
+|   |-- drivers-net-wireless-mac80211_hwsim.c:warning:cast-to-pointer-from-integer-of-different-size
+|   `-- security-apparmor-policy_ns.c:warning:no-previous-prototype-for-alloc_unconfined
+|-- m68k-allyesconfig
+|   |-- drivers-net-wireless-mac80211_hwsim.c:warning:cast-to-pointer-from-integer-of-different-size
+|   `-- security-apparmor-policy_ns.c:warning:no-previous-prototype-for-alloc_unconfined
+|-- mips-allyesconfig
+|   |-- drivers-net-wireless-mac80211_hwsim.c:warning:cast-to-pointer-from-integer-of-different-size
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
+|   `-- security-apparmor-policy_ns.c:warning:no-previous-prototype-for-alloc_unconfined
+|-- powerpc-allmodconfig
+|   |-- drivers-net-wireless-mac80211_hwsim.c:warning:cast-to-pointer-from-integer-of-different-size
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
+|   `-- security-apparmor-policy_ns.c:warning:no-previous-prototype-for-alloc_unconfined
+|-- sh-allmodconfig
+|   |-- drivers-net-wireless-mac80211_hwsim.c:warning:cast-to-pointer-from-integer-of-different-size
+|   `-- security-apparmor-policy_ns.c:warning:no-previous-prototype-for-alloc_unconfined
+|-- x86_64-allyesconfig
+|   |-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_read
+|   `-- drivers-pci-endpoint-functions-pci-epf-vntb.c:warning:no-previous-prototype-for-pci_write
+`-- x86_64-randconfig-m001
+clang_recent_errors
+|-- arm-randconfig-r023-20220714
+|   `-- drivers-clk-qcom-gpucc-sm8350.c:error:initializer-element-is-not-a-compile-time-constant
+|-- riscv-randconfig-r002-20220714
+|   `-- drivers-scsi-qla2xxx-qla_init.c:warning:variable-bail-set-but-not-used
+|-- s390-randconfig-r036-20220714
+|   `-- opt-cross-gcc-..-nolibc-s39-linux-bin-s39-linux-ld:pci-epf-vntb.c:(.text):undefined-reference-to-ntb_link_event
+|-- x86_64-randconfig-a001
+|   `-- drivers-vfio-vfio_iommu_type1.c:warning:cast-to-smaller-integer-type-enum-iommu_cap-from-void
+|-- x86_64-randconfig-a005
+|   |-- drivers-vfio-vfio_iommu_type1.c:warning:cast-to-smaller-integer-type-enum-iommu_cap-from-void
+|   `-- security-apparmor-policy_ns.c:warning:no-previous-prototype-for-function-alloc_unconfined
+|-- x86_64-randconfig-a012
+|   `-- drivers-vfio-vfio_iommu_type1.c:warning:cast-to-smaller-integer-type-enum-iommu_cap-from-void
+`-- x86_64-randconfig-a016
+    `-- security-apparmor-policy_ns.c:warning:no-previous-prototype-for-function-alloc_unconfined
+
+elapsed time: 1263m
+
+configs tested: 51
+configs skipped: 3
+
+gcc tested configs:
+i386                          randconfig-c001
+powerpc                          allmodconfig
+mips                             allyesconfig
+powerpc                           allnoconfig
+sh                               allmodconfig
+i386                                defconfig
+i386                             allyesconfig
+alpha                            allyesconfig
+m68k                             allmodconfig
+arc                              allyesconfig
+m68k                             allyesconfig
+x86_64                        randconfig-a004
+x86_64                        randconfig-a002
+x86_64                        randconfig-a006
+i386                          randconfig-a001
+i386                          randconfig-a003
+i386                          randconfig-a005
+x86_64                        randconfig-a013
+x86_64                        randconfig-a011
+x86_64                        randconfig-a015
+i386                          randconfig-a012
+i386                          randconfig-a016
+i386                          randconfig-a014
+um                             i386_defconfig
+um                           x86_64_defconfig
+x86_64                           rhel-8.3-syz
+x86_64                          rhel-8.3-func
+x86_64                         rhel-8.3-kunit
+x86_64                    rhel-8.3-kselftests
+x86_64                              defconfig
+x86_64                               rhel-8.3
+x86_64                           allyesconfig
+
+clang tested configs:
+arm                   milbeaut_m10v_defconfig
+arm                        vexpress_defconfig
+powerpc                 mpc8315_rdb_defconfig
+powerpc                 mpc832x_rdb_defconfig
+arm                         s3c2410_defconfig
+x86_64                        randconfig-a001
+x86_64                        randconfig-a003
+x86_64                        randconfig-a005
+i386                          randconfig-a002
+i386                          randconfig-a006
+i386                          randconfig-a004
+x86_64                        randconfig-a016
+x86_64                        randconfig-a012
+x86_64                        randconfig-a014
+i386                          randconfig-a013
+i386                          randconfig-a011
+i386                          randconfig-a015
+hexagon              randconfig-r045-20220714
+hexagon              randconfig-r041-20220714
+
 -- 
-2.34.1
-
+0-DAY CI Kernel Test Service
+https://01.org/lkp
 
