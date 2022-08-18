@@ -2,69 +2,52 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9247596CFE
-	for <lists+apparmor@lfdr.de>; Wed, 17 Aug 2022 12:50:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96AA2598868
+	for <lists+apparmor@lfdr.de>; Thu, 18 Aug 2022 18:14:29 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1oOGdG-0004tE-MB; Wed, 17 Aug 2022 10:50:42 +0000
-Received: from mail-ed1-f46.google.com ([209.85.208.46])
+	id 1oOi9y-0002dW-J7; Thu, 18 Aug 2022 16:14:18 +0000
+Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
+ helo=smtp-relay-canonical-0.canonical.com)
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <torvalds@linuxfoundation.org>) id 1oO5hA-0004Y0-D4
- for apparmor@lists.ubuntu.com; Tue, 16 Aug 2022 23:10:00 +0000
-Received: by mail-ed1-f46.google.com with SMTP id w3so15407013edc.2
- for <apparmor@lists.ubuntu.com>; Tue, 16 Aug 2022 16:10:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=google;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc;
- bh=AMn3B3jYdCVxak8yksa8T7jS8rFLGuSxkkP5+8axw1A=;
- b=Vm9rZhcUXu8DUu2U13LfpsCp0dP7Fg/9rAJeZp9YtlQ9Rq7Y9VtHRIc4gUGBrf6ABe
- +ZW0OMEq5BRJFyJbSJSx/y9p2lZo+15ohYnjJN9vM+Oe2v51uKNkPu3wDgexSVnVScq8
- +r2XB8pHGFS6YRv4syJ3wdNKjMUHxv1d12zww=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc;
- bh=AMn3B3jYdCVxak8yksa8T7jS8rFLGuSxkkP5+8axw1A=;
- b=2VMM3+BNCN6qXIaNwm5UQcQ0A2ybTg5Z8Jo87q+Oosy5h+STGazGm8Kpotzrkhgyhe
- I1jzQcvbIuwAmYou75ZypnK8EbFrelDgeLW7hooaKrBBEjsHEAtwEl/QIREHLb/iFHri
- /C6pn2jxw3J7cUCPVpTuvHZai9bsBClQvrDve5M7ue3pdNp7oajUa4m/hkxKcPE9+FLY
- W+ytwVNLWdkDY8xFHs/aJpRqilZHy4UAaJN1Xbo381KjFKv4MxyI/QSGjHXDM8V4KCAj
- pyJwRcuB+aAsJH9CqJtuA/VEBBpU2PUwklka4YujJBJzgOV8YhO2qUmF5pN1Cu22visc
- l/Pw==
-X-Gm-Message-State: ACgBeo3WJcLJrBGkAQzuqgeqQVXcaUOUyHligpOc8uS2sOy+O6yE/uH6
- v99hrE61Flvtlucwd+QcVuWymqAnyyCl4n454KY=
-X-Google-Smtp-Source: AA6agR4bzP1xiDVOWIMiuMU2ucBzZoSisVqdXPYpbAxX+MZvWbGeutSgLgN8fdGXLCKH0Lh7iNLJLw==
-X-Received: by 2002:a05:6402:348f:b0:43d:e568:97bd with SMTP id
- v15-20020a056402348f00b0043de56897bdmr20223731edc.279.1660691399777; 
- Tue, 16 Aug 2022 16:09:59 -0700 (PDT)
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com.
- [209.85.128.49]) by smtp.gmail.com with ESMTPSA id
- ot3-20020a170906ccc300b0072ab06bf296sm5835509ejb.23.2022.08.16.16.09.58
- for <apparmor@lists.ubuntu.com>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Aug 2022 16:09:59 -0700 (PDT)
-Received: by mail-wm1-f49.google.com with SMTP id
- r83-20020a1c4456000000b003a5cb389944so144899wma.4
- for <apparmor@lists.ubuntu.com>; Tue, 16 Aug 2022 16:09:58 -0700 (PDT)
-X-Received: by 2002:a05:600c:2195:b0:3a6:b3c:c100 with SMTP id
- e21-20020a05600c219500b003a60b3cc100mr383338wme.8.1660691398572; Tue, 16 Aug
- 2022 16:09:58 -0700 (PDT)
+ (envelope-from <john.johansen@canonical.com>) id 1oOi9x-0002dH-82
+ for apparmor@lists.ubuntu.com; Thu, 18 Aug 2022 16:14:17 +0000
+Received: from [10.0.0.100]
+ (cpe5896308f56e8-cm5896308f56e6.cpe.net.cable.rogers.com [99.255.30.7])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 104733F127; 
+ Thu, 18 Aug 2022 16:14:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1660839256;
+ bh=YZZSkhT+TTALwtfUjy6aWTR//Rq9MQ2cQ72rzDjTaGo=;
+ h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+ In-Reply-To:Content-Type;
+ b=eKZn0EnaLQ3LPA55KId1jrSyN9QJDFoGajfUjb4kCVLZw+GJfPoyEZk5YsBGY9MBs
+ BD5uhH5otcM+iD4WwVifrNr5NL1BUfcSMeQnhx/CHDs9NWQTtQwx1gGwhuoQTCfKMQ
+ uST4xRWXm8MKtsgcqv+2mfMMUaoVq3HafCDVAbqHwknm58OvYYcZd9zEcvuHOCriAW
+ 5f5enAoNjxCzorVuGXsIE8HVJabgP9KqXKSRwJtYh0VtfpPArngeXisaJpK+yDOAEe
+ WaTsYv22CXUAmrDXOQbGO1R7EFcMRumQCCw3nOo7oiJ1DQDXooj3VDnRI/oZGvfm7y
+ iW9MAUvGRwJEw==
+Message-ID: <dc966283-d0b9-b411-0792-c8553b948c2e@canonical.com>
+Date: Thu, 18 Aug 2022 09:14:13 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Content-Language: en-US
+To: Matthew Wilcox <willy@infradead.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>
 References: <YvvBs+7YUcrzwV1a@ZenIV>
  <CAHk-=wgkNwDikLfEkqLxCWR=pLi1rbPZ5eyE8FbfmXP2=r3qcw@mail.gmail.com>
  <Yvvr447B+mqbZAoe@casper.infradead.org>
- <b05cf115-e329-3c4f-dee5-e0d4f61b4cd5@schaufler-ca.com>
-In-Reply-To: <b05cf115-e329-3c4f-dee5-e0d4f61b4cd5@schaufler-ca.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Tue, 16 Aug 2022 16:09:42 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wiRs8k0pKy36cXYnBFVCJDP5DQMf6JM7FnRJz5tF4cMBA@mail.gmail.com>
-Message-ID: <CAHk-=wiRs8k0pKy36cXYnBFVCJDP5DQMf6JM7FnRJz5tF4cMBA@mail.gmail.com>
-To: Casey Schaufler <casey@schaufler-ca.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Wed, 17 Aug 2022 10:50:40 +0000
+From: John Johansen <john.johansen@canonical.com>
+Organization: Canonical
+In-Reply-To: <Yvvr447B+mqbZAoe@casper.infradead.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 Subject: Re: [apparmor] Switching to iterate_shared
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -77,50 +60,92 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: jfs-discussion@lists.sourceforge.net, Hans de Goede <hdegoede@redhat.com>,
- devel@lists.orangefs.org, apparmor@lists.ubuntu.com,
- linux-unionfs@vger.kernel.org, Matthew Wilcox <willy@infradead.org>,
- codalist@coda.cs.cmu.edu, coda@cs.cmu.edu,
- linux-security-module@vger.kernel.org, Al Viro <viro@zeniv.linux.org.uk>,
- linux-fsdevel@vger.kernel.org, ceph-devel@vger.kernel.org,
- Sungjong Seo <sj1557.seo@samsung.com>, Namjae Jeon <linkinjeon@kernel.org>,
- ocfs2-devel@oss.oracle.com
+Cc: jfs-discussion@lists.sourceforge.net, coda@cs.cmu.edu,
+ apparmor@lists.ubuntu.com, linux-unionfs@vger.kernel.org,
+ codalist@coda.cs.cmu.edu, Hans de Goede <hdegoede@redhat.com>,
+ linux-security-module@vger.kernel.org, ocfs2-devel@oss.oracle.com,
+ Al Viro <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org,
+ ceph-devel@vger.kernel.org, Sungjong Seo <sj1557.seo@samsung.com>,
+ Namjae Jeon <linkinjeon@kernel.org>, devel@lists.orangefs.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Tue, Aug 16, 2022 at 3:30 PM Casey Schaufler <casey@schaufler-ca.com> wrote:
->
-> Smack passes all tests and seems perfectly content with the change.
-> I can't say that the tests stress this interface.
+On 8/16/22 12:11, Matthew Wilcox wrote:
+> On Tue, Aug 16, 2022 at 11:58:36AM -0700, Linus Torvalds wrote:
+>> That said, our filldir code is still confusing as hell. And I would
+>> really like to see that "shared vs non-shared" iterator thing go away,
+>> with everybody using the shared one - and filesystems that can't deal
+>> with it using their own lock.
+>>
+>> But that's a completely independent wart in our complicated filldir saga.
+>>
+>> But if somebody were to look at that iterate-vs-iterate_shared, that
+>> would be lovely. A quick grep shows that we don't have *that* many of
+>> the non-shared cases left:
+>>
+>>        git grep '\.iterate\>.*='
+>>
+>> seems to imply that converting them to a "use my own load" wouldn't be
+>> _too_ bad.
+>>
+>> And some of them might actually be perfectly ok with the shared
+>> semantics (ie inode->i_rwsem held just for reading) and they just were
+>> never converted originally.
+> 
+> What's depressing is that some of these are newly added.  It'd be
+> great if we could attach something _like_ __deprecated to things
+> that checkpatch could pick up on.
+> 
+> fs/adfs/dir_f.c:        .iterate        = adfs_f_iterate,
+> fs/adfs/dir_fplus.c:    .iterate        = adfs_fplus_iterate,
+> 
+> ADFS is read-only, so must be safe?
+> 
+> fs/ceph/dir.c:  .iterate = ceph_readdir,
+> fs/ceph/dir.c:  .iterate = ceph_readdir,
+> 
+> At least CEPH has active maintainers, cc'd
+> 
+> fs/coda/dir.c:  .iterate        = coda_readdir,
+> 
+> Would anyone notice if we broke CODA?  Maintainers cc'd anyway.
+> 
+> fs/exfat/dir.c: .iterate        = exfat_iterate,
+> 
+> Exfat is a new addition, but has active maintainers.
+> 
+> fs/jfs/namei.c: .iterate        = jfs_readdir,
+> 
+> Maintainer cc'd
+> 
+> fs/ntfs/dir.c:  .iterate        = ntfs_readdir,         /* Read directory contents. */
+> 
+> Maybe we can get rid of ntfs soon.
+> 
+> fs/ocfs2/file.c:        .iterate        = ocfs2_readdir,
+> fs/ocfs2/file.c:        .iterate        = ocfs2_readdir,
+> 
+> maintainers cc'd
+> 
+> fs/orangefs/dir.c:      .iterate = orangefs_dir_iterate,
+> 
+> New; maintainer cc'd
+> 
+> fs/overlayfs/readdir.c: .iterate        = ovl_iterate,
+> 
+> Active maintainer, cc'd
+> 
+> fs/proc/base.c: .iterate        = proc_##LSM##_attr_dir_iterate, \
+> 
+> Hmm.  We need both SMACK and Apparmor to agree to this ... cc's added.
 
-All the security filesystems really seem to boil down to just calling
-that 'proc_pident_readdir()' function with different sets of 'const
-struct pid_entry' arrays.
+This is fine for AppArmor
 
-And all that does is to make sure the pidents are filled in by that
-proc_fill_cache(), which basically does a filename lookup.
 
-And a filename lookup *already* has to be able to handle being called
-in parallel, because that's how filename lookup works:
+> 
+> fs/vboxsf/dir.c:        .iterate = vboxsf_dir_iterate,
+> 
+> Also newly added.  Maintainer cc'd.
+> 
 
-  [.. miss in dcache ..]
-  lookup_slow ->
-      inode_lock_shared(dir);
-      __lookup_slow -> does the
-      inode_unlock_shared(dir);
-
-so as long as the proc_fill_cache() handles the d_in_lookup()
-situation correctly (where we serialize on one single _name_ in the
-directory), that should all be good.
-
-And proc_fill_cache() does indeed seem to handle it right - and if it
-didn't, it would be fundamentally racy with regular lookups - so I
-think all those security layer proc_##LSM##_attr_dir_iterate cases can
-be moved over to iterate_shared with no code change.
-
-But again, maybe there's something really subtle I'm overlooking. Or
-maybe not something subtle at all, and I'm just missing a big honking
-issue.
-
-            Linus
 
