@@ -2,50 +2,40 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 744795E8AAF
-	for <lists+apparmor@lfdr.de>; Sat, 24 Sep 2022 11:21:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACAED5E8F8B
+	for <lists+apparmor@lfdr.de>; Sat, 24 Sep 2022 21:40:15 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1oc1Lf-0002NH-Gp; Sat, 24 Sep 2022 09:21:23 +0000
-Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
- helo=smtp-relay-canonical-0.canonical.com)
+	id 1ocB0M-0002Fw-AO; Sat, 24 Sep 2022 19:40:02 +0000
+Received: from szxga01-in.huawei.com ([45.249.212.187])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>) id 1oc1Le-0002NA-27
- for apparmor@lists.ubuntu.com; Sat, 24 Sep 2022 09:21:22 +0000
-Received: from [192.168.192.83] (unknown [50.126.114.69])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 2B9943F121; 
- Sat, 24 Sep 2022 09:21:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1664011281;
- bh=o4c3l0kNYfnCILC+LMrCcqunU9BVFBwuA+Uw3QWtLmA=;
- h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
- In-Reply-To:Content-Type;
- b=KplvA8MJ4AapHEy7QV5fKanMj4I6BnyLH/eW4wGYW0/8bQuT0oqTv0tLrA+KFyFPU
- zQW0L1bEyW/jYAE0gUS6RieFgH1FjewpCRru0h+4d056puLLG0k8ZMrAk3ggD9LvkD
- EKBcM2LRrTsJJxJG+6wd+kwGTOm43q8jqpul2w+KGEbo9GAMRIjZOirpsSnbR7+Vqd
- Oq15b3K9S1GWVZlLzFyCpFQIZoWxjKsTdeK6+fZHFg18YcbAuX0hnkyyuFLIP3lekS
- 3gEKeHQZtNlFc6/ADWZn3FIjWDvRDahac6yLg9x4m5Eht4BNXzQE/Z2vlCUAraFZsB
- SlEubRXFwKxHw==
-Message-ID: <b493f609-3dbd-77fd-8290-1e48eb0059f8@canonical.com>
-Date: Sat, 24 Sep 2022 02:21:17 -0700
+ (envelope-from <cuigaosheng1@huawei.com>) id 1obes7-0002Ou-Qi
+ for apparmor@lists.ubuntu.com; Fri, 23 Sep 2022 09:21:24 +0000
+Received: from kwepemi500012.china.huawei.com (unknown [172.30.72.56])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4MYmkY2QnXzlXDr;
+ Fri, 23 Sep 2022 17:17:09 +0800 (CST)
+Received: from cgs.huawei.com (10.244.148.83) by
+ kwepemi500012.china.huawei.com (7.221.188.12) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Fri, 23 Sep 2022 17:21:18 +0800
+From: Gaosheng Cui <cuigaosheng1@huawei.com>
+To: <john.johansen@canonical.com>, <paul@paul-moore.com>, <jmorris@namei.org>, 
+ <serge@hallyn.com>, <cuigaosheng1@huawei.com>
+Date: Fri, 23 Sep 2022 17:21:18 +0800
+Message-ID: <20220923092118.515552-1-cuigaosheng1@huawei.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Content-Language: en-US
-To: Xiu Jianfeng <xiujianfeng@huawei.com>, paul@paul-moore.com,
- jmorris@namei.org, serge@hallyn.com
-References: <20220914074607.194838-1-xiujianfeng@huawei.com>
-From: John Johansen <john.johansen@canonical.com>
-Organization: Canonical
-In-Reply-To: <20220914074607.194838-1-xiujianfeng@huawei.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH] apparmor: make __aa_path_perm() static
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.244.148.83]
+X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
+ kwepemi500012.china.huawei.com (7.221.188.12)
+X-CFilter-Loop: Reflected
+X-Mailman-Approved-At: Sat, 24 Sep 2022 19:40:01 +0000
+Subject: [apparmor] [PATCH v2] apparmor: Simplify obtain the newest label on
+	a cred
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -61,48 +51,56 @@ Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 9/14/22 00:46, Xiu Jianfeng wrote:
-> Make __aa_path_perm() static as it's only used inside apparmor/file.c.
-> 
-> Signed-off-by: Xiu Jianfeng <xiujianfeng@huawei.com>
+In aa_get_task_label(), aa_get_newest_cred_label(__task_cred(task))
+can do the same things as aa_get_newest_label(__aa_task_raw_label(task)),
+so we can replace it and remove __aa_task_raw_label() to simplify the code.
 
-Acked-by: John Johansen <john.johansen@canonical.com>
+Signed-off-by: Gaosheng Cui <cuigaosheng1@huawei.com>
+---
+v2:
+- Fix the commit message, change simply to simplify. Thanks!
+ security/apparmor/include/cred.h | 13 -------------
+ security/apparmor/task.c         |  2 +-
+ 2 files changed, 1 insertion(+), 14 deletions(-)
 
-> ---
->   security/apparmor/file.c         | 6 +++---
->   security/apparmor/include/file.h | 3 ---
->   2 files changed, 3 insertions(+), 6 deletions(-)
-> 
-> diff --git a/security/apparmor/file.c b/security/apparmor/file.c
-> index e1b7e93602e4..14f7d7ef3f54 100644
-> --- a/security/apparmor/file.c
-> +++ b/security/apparmor/file.c
-> @@ -265,9 +265,9 @@ unsigned int aa_str_perms(struct aa_dfa *dfa, unsigned int start,
->   	return state;
->   }
->   
-> -int __aa_path_perm(const char *op, struct aa_profile *profile, const char *name,
-> -		   u32 request, struct path_cond *cond, int flags,
-> -		   struct aa_perms *perms)
-> +static int __aa_path_perm(const char *op, struct aa_profile *profile, const char *name,
-> +			  u32 request, struct path_cond *cond, int flags,
-> +			  struct aa_perms *perms)
->   {
->   	int e = 0;
->   
-> diff --git a/security/apparmor/include/file.h b/security/apparmor/include/file.h
-> index 029cb20e322d..17dca3502230 100644
-> --- a/security/apparmor/include/file.h
-> +++ b/security/apparmor/include/file.h
-> @@ -189,9 +189,6 @@ unsigned int aa_str_perms(struct aa_dfa *dfa, unsigned int start,
->   			  const char *name, struct path_cond *cond,
->   			  struct aa_perms *perms);
->   
-> -int __aa_path_perm(const char *op, struct aa_profile *profile,
-> -		   const char *name, u32 request, struct path_cond *cond,
-> -		   int flags, struct aa_perms *perms);
->   int aa_path_perm(const char *op, struct aa_label *label,
->   		 const struct path *path, int flags, u32 request,
->   		 struct path_cond *cond);
+diff --git a/security/apparmor/include/cred.h b/security/apparmor/include/cred.h
+index 0b9ae4804ef7..58fdc72af664 100644
+--- a/security/apparmor/include/cred.h
++++ b/security/apparmor/include/cred.h
+@@ -63,19 +63,6 @@ static inline struct aa_label *aa_get_newest_cred_label(const struct cred *cred)
+ 	return aa_get_newest_label(aa_cred_raw_label(cred));
+ }
+ 
+-/**
+- * __aa_task_raw_label - retrieve another task's label
+- * @task: task to query  (NOT NULL)
+- *
+- * Returns: @task's label without incrementing its ref count
+- *
+- * If @task != current needs to be called in RCU safe critical section
+- */
+-static inline struct aa_label *__aa_task_raw_label(struct task_struct *task)
+-{
+-	return aa_cred_raw_label(__task_cred(task));
+-}
+-
+ /**
+  * aa_current_raw_label - find the current tasks confining label
+  *
+diff --git a/security/apparmor/task.c b/security/apparmor/task.c
+index 503dc0877fb1..0a8f9fa7ca0a 100644
+--- a/security/apparmor/task.c
++++ b/security/apparmor/task.c
+@@ -31,7 +31,7 @@ struct aa_label *aa_get_task_label(struct task_struct *task)
+ 	struct aa_label *p;
+ 
+ 	rcu_read_lock();
+-	p = aa_get_newest_label(__aa_task_raw_label(task));
++	p = aa_get_newest_cred_label(__task_cred(task));
+ 	rcu_read_unlock();
+ 
+ 	return p;
+-- 
+2.25.1
 
 
