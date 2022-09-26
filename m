@@ -2,29 +2,29 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id D95425E97E6
-	for <lists+apparmor@lfdr.de>; Mon, 26 Sep 2022 04:29:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D88CB5EA4A1
+	for <lists+apparmor@lfdr.de>; Mon, 26 Sep 2022 13:48:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1ocdrT-0008Kn-7f; Mon, 26 Sep 2022 02:28:47 +0000
-Received: from szxga02-in.huawei.com ([45.249.212.188])
+	id 1ocmbM-0003Sa-Lx; Mon, 26 Sep 2022 11:48:44 +0000
+Received: from szxga03-in.huawei.com ([45.249.212.189])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <cuigaosheng1@huawei.com>) id 1ocdrR-0008Kg-A3
- for apparmor@lists.ubuntu.com; Mon, 26 Sep 2022 02:28:45 +0000
-Received: from kwepemi500012.china.huawei.com (unknown [172.30.72.54])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4MbRQL6XCjzHtjK;
- Mon, 26 Sep 2022 10:23:54 +0800 (CST)
+ (envelope-from <cuigaosheng1@huawei.com>) id 1ocmbL-0003ST-Gh
+ for apparmor@lists.ubuntu.com; Mon, 26 Sep 2022 11:48:43 +0000
+Received: from kwepemi500012.china.huawei.com (unknown [172.30.72.57])
+ by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4MbgvN3XlrzHqHS;
+ Mon, 26 Sep 2022 19:46:24 +0800 (CST)
 Received: from cgs.huawei.com (10.244.148.83) by
  kwepemi500012.china.huawei.com (7.221.188.12) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Mon, 26 Sep 2022 10:28:40 +0800
+ 15.1.2375.31; Mon, 26 Sep 2022 19:48:39 +0800
 From: Gaosheng Cui <cuigaosheng1@huawei.com>
 To: <john.johansen@canonical.com>, <paul@paul-moore.com>, <jmorris@namei.org>, 
  <serge@hallyn.com>, <cuigaosheng1@huawei.com>
-Date: Mon, 26 Sep 2022 10:28:39 +0800
-Message-ID: <20220926022839.1504520-1-cuigaosheng1@huawei.com>
+Date: Mon, 26 Sep 2022 19:48:38 +0800
+Message-ID: <20220926114838.1699096-1-cuigaosheng1@huawei.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -33,7 +33,8 @@ X-Originating-IP: [10.244.148.83]
 X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
  kwepemi500012.china.huawei.com (7.221.188.12)
 X-CFilter-Loop: Reflected
-Subject: [apparmor] [PATCH] apparmor: remove useless static inline functions
+Subject: [apparmor] [PATCH] apparmor: fix obsoleted comments for
+	aa_getprocattr() and audit_resource()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -49,66 +50,53 @@ Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Remove the following useless static inline functions:
-
-1. label_is_visible() is a static function in
-security/apparmor/label.c, and it's not used, aa_ns_visible()
-can do the same things as it, so it's redundant.
-
-2. is_deleted() is a static function in security/apparmor/file.c,
-and it's not used since commit aebd873e8d3e ("apparmor: refactor
-path name lookup and permission checks around labels"), so it's
-redundant.
-
-They are redundant, so remove them.
+Update the comments for aa_getprocattr() and audit_resource(), the
+args of them have beed changed since commit 76a1d263aba3 ("apparmor:
+switch getprocattr to using label_print fns()").
 
 Signed-off-by: Gaosheng Cui <cuigaosheng1@huawei.com>
 ---
- security/apparmor/file.c  | 13 -------------
- security/apparmor/label.c |  6 ------
- 2 files changed, 19 deletions(-)
+ security/apparmor/procattr.c | 11 +++++------
+ security/apparmor/resource.c |  2 ++
+ 2 files changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/security/apparmor/file.c b/security/apparmor/file.c
-index e1b7e93602e4..ee43c48b9c3f 100644
---- a/security/apparmor/file.c
-+++ b/security/apparmor/file.c
-@@ -141,19 +141,6 @@ int aa_audit_file(struct aa_profile *profile, struct aa_perms *perms,
- 	return aa_audit(type, profile, &sa, file_audit_cb);
- }
+diff --git a/security/apparmor/procattr.c b/security/apparmor/procattr.c
+index 86ad26ef72ed..197d41f9c32b 100644
+--- a/security/apparmor/procattr.c
++++ b/security/apparmor/procattr.c
+@@ -17,14 +17,13 @@
  
--/**
-- * is_deleted - test if a file has been completely unlinked
-- * @dentry: dentry of file to test for deletion  (NOT NULL)
-- *
-- * Returns: true if deleted else false
-- */
--static inline bool is_deleted(struct dentry *dentry)
--{
--	if (d_unlinked(dentry) && d_backing_inode(dentry)->i_nlink == 0)
--		return true;
--	return false;
--}
--
- static int path_name(const char *op, struct aa_label *label,
- 		     const struct path *path, int flags, char *buffer,
- 		     const char **name, struct path_cond *cond, u32 request)
-diff --git a/security/apparmor/label.c b/security/apparmor/label.c
-index 0f36ee907438..cd2d0242df91 100644
---- a/security/apparmor/label.c
-+++ b/security/apparmor/label.c
-@@ -1254,12 +1254,6 @@ struct aa_label *aa_label_merge(struct aa_label *a, struct aa_label *b,
- 	return label;
- }
  
--static inline bool label_is_visible(struct aa_profile *profile,
--				    struct aa_label *label)
--{
--	return aa_ns_visible(profile->ns, labels_ns(label), true);
--}
--
- /* match a profile and its associated ns component if needed
-  * Assumes visibility test has already been done.
-  * If a subns profile is not to be matched should be prescreened with
+ /**
+- * aa_getprocattr - Return the profile information for @profile
+- * @profile: the profile to print profile info about  (NOT NULL)
+- * @string: Returns - string containing the profile info (NOT NULL)
++ * aa_getprocattr - Return the label information for @label
++ * @label: the label to print label info about  (NOT NULL)
++ * @string: Returns - string containing the label info (NOT NULL)
+  *
+- * Requires: profile != NULL
++ * Requires: label != NULL && string != NULL
+  *
+- * Creates a string containing the namespace_name://profile_name for
+- * @profile.
++ * Creates a string containing the label information for @label.
+  *
+  * Returns: size of string placed in @string else error code on failure
+  */
+diff --git a/security/apparmor/resource.c b/security/apparmor/resource.c
+index 1ae4874251a9..4c1869bb31ec 100644
+--- a/security/apparmor/resource.c
++++ b/security/apparmor/resource.c
+@@ -45,6 +45,8 @@ static void audit_cb(struct audit_buffer *ab, void *va)
+  * @profile: profile being enforced  (NOT NULL)
+  * @resource: rlimit being auditing
+  * @value: value being set
++ * @peer: aa_albel of the task being set
++ * @info: info being auditing
+  * @error: error value
+  *
+  * Returns: 0 or sa->error else other error code on failure
 -- 
 2.25.1
 
