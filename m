@@ -2,52 +2,51 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 832305EF0A8
-	for <lists+apparmor@lfdr.de>; Thu, 29 Sep 2022 10:37:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0D2D5F22F7
+	for <lists+apparmor@lfdr.de>; Sun,  2 Oct 2022 13:36:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1odp39-0006bM-Nq; Thu, 29 Sep 2022 08:37:43 +0000
-Received: from mga09.intel.com ([134.134.136.24])
+	id 1oexGH-0004DE-2l; Sun, 02 Oct 2022 11:35:57 +0000
+Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
+ helo=smtp-relay-canonical-0.canonical.com)
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <lkp@intel.com>) id 1odp35-0006bE-RH
- for apparmor@lists.ubuntu.com; Thu, 29 Sep 2022 08:37:41 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1664440660; x=1695976660;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=Y0T8lpxJFurjnxxDGFDdmqLbfP82UgdNhHjDFAAckvo=;
- b=DH/kUlQ/pbOFgl1N9xie5oBRLyYddBy7uJRq7ptDxvvs3NFuSAcXW5ZI
- oeMi+/L7PniFh3wtsLB5N95GC8Mr8x7esgJtRNg9nYg3RRjXEAoR4P+Qb
- H0ctyufVZ67WlNuhGJeUT7oqmwtNWX/8dliUlDFXuF7MxyAgxSwF2m6s4
- kcLlwBLROGmFLbcJ8g4UV2iQzYz7ahFXQAcxIxPgkxjOlHHWbeJpIzs/a
- eAmeOi8GPMK1QzMZdHYkRqBgbmYRDeI+33I4eFpePBU0JW8IYvfipAyRE
- v3DjF202Dw98oa4mEwrlg+q/HZ6Xyd2RRRZU085FHW51L+3Kn5z/+8LE6 Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10484"; a="302745663"
-X-IronPort-AV: E=Sophos;i="5.93,354,1654585200"; d="scan'208";a="302745663"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Sep 2022 01:37:29 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10484"; a="797473230"
-X-IronPort-AV: E=Sophos;i="5.93,354,1654585200"; d="scan'208";a="797473230"
-Received: from lkp-server01.sh.intel.com (HELO 6126f2790925) ([10.239.97.150])
- by orsmga005.jf.intel.com with ESMTP; 29 Sep 2022 01:37:19 -0700
-Received: from kbuild by 6126f2790925 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1odp2k-0000uK-2Y;
- Thu, 29 Sep 2022 08:37:18 +0000
-Date: Thu, 29 Sep 2022 16:36:47 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Message-ID: <6335591f.BHWTYTiAbxJo9pPx%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+ (envelope-from <john.johansen@canonical.com>) id 1oexGF-0004D0-2G
+ for apparmor@lists.ubuntu.com; Sun, 02 Oct 2022 11:35:55 +0000
+Received: from [192.168.192.83] (unknown [50.126.114.69])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 38C6B3F158; 
+ Sun,  2 Oct 2022 11:35:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1664710554;
+ bh=i05npNUv8AxjzmFIhx4Pi/dxS4BApxW1IpkftrzrgEs=;
+ h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+ In-Reply-To:Content-Type;
+ b=cwKKxaDywzDqU9ZWiUUc7YzoSk0qlrYfZKvn0fKFRnkaN30i4p7oUKIBp5JI7Edw0
+ 8ULAZwfQ4isx9K8qrq3POABZutIFlaKhtcHOiI+TC6udSzv5H0MK2bwvk2uxxyh7o7
+ eJd0zs1kk4xezSZRDvYOkj+Wy8Pw7vhpXG6LDERTm38vTR5L7sGMS3TbcKGHq3kL+R
+ kR7EpONygj3X3AZsW7jbneMMxSaXtlSTMWPZk9+RQJ7uD6t5MC46mp83R+9dWYUXx3
+ vthBh+hljN5mGzXFtloBg+BeAib1Mq/j+J7oGE7j1NkxXVL7ug92I/eVienIr+7J6c
+ B3aqbOdQL8xfQ==
+Message-ID: <3e77ba53-c93a-8361-4125-115d14094b50@canonical.com>
+Date: Sun, 2 Oct 2022 04:35:48 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Content-Language: en-US
+To: Gaosheng Cui <cuigaosheng1@huawei.com>, paul@paul-moore.com,
+ jmorris@namei.org, serge@hallyn.com
+References: <20220926022839.1504520-1-cuigaosheng1@huawei.com>
+From: John Johansen <john.johansen@canonical.com>
+Organization: Canonical
+In-Reply-To: <20220926022839.1504520-1-cuigaosheng1@huawei.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: [apparmor] [linux-next:master] BUILD REGRESSION
- de90d455a35e474a184c898e66a6a108c3a99434
+Subject: Re: [apparmor] [PATCH] apparmor: remove useless static inline
+	functions
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -59,185 +58,75 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, apparmor@lists.ubuntu.com,
- dri-devel@lists.freedesktop.org,
- Linux Memory Management List <linux-mm@kvack.org>, iommu@lists.linux.dev,
- Mark Brown <broonie@kernel.org>, amd-gfx@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: de90d455a35e474a184c898e66a6a108c3a99434  Add linux-next specific files for 20220928
+On 9/25/22 19:28, Gaosheng Cui wrote:
+> Remove the following useless static inline functions:
+> 
+> 1. label_is_visible() is a static function in
+> security/apparmor/label.c, and it's not used, aa_ns_visible()
+> can do the same things as it, so it's redundant.
+> 
+> 2. is_deleted() is a static function in security/apparmor/file.c,
+> and it's not used since commit aebd873e8d3e ("apparmor: refactor
+> path name lookup and permission checks around labels"), so it's
+> redundant.
+> 
+> They are redundant, so remove them.
+> 
+> Signed-off-by: Gaosheng Cui <cuigaosheng1@huawei.com>
 
-Error/Warning reports:
+Acked-by: John.johansen@canonical.com
 
-https://lore.kernel.org/linux-mm/202209150141.WgbAKqmX-lkp@intel.com
-https://lore.kernel.org/llvm/202209220019.Yr2VuXhg-lkp@intel.com
+I have pulled this into my tree
 
-Error/Warning: (recently discovered and may have been fixed)
+> ---
+>   security/apparmor/file.c  | 13 -------------
+>   security/apparmor/label.c |  6 ------
+>   2 files changed, 19 deletions(-)
+> 
+> diff --git a/security/apparmor/file.c b/security/apparmor/file.c
+> index e1b7e93602e4..ee43c48b9c3f 100644
+> --- a/security/apparmor/file.c
+> +++ b/security/apparmor/file.c
+> @@ -141,19 +141,6 @@ int aa_audit_file(struct aa_profile *profile, struct aa_perms *perms,
+>   	return aa_audit(type, profile, &sa, file_audit_cb);
+>   }
+>   
+> -/**
+> - * is_deleted - test if a file has been completely unlinked
+> - * @dentry: dentry of file to test for deletion  (NOT NULL)
+> - *
+> - * Returns: true if deleted else false
+> - */
+> -static inline bool is_deleted(struct dentry *dentry)
+> -{
+> -	if (d_unlinked(dentry) && d_backing_inode(dentry)->i_nlink == 0)
+> -		return true;
+> -	return false;
+> -}
+> -
+>   static int path_name(const char *op, struct aa_label *label,
+>   		     const struct path *path, int flags, char *buffer,
+>   		     const char **name, struct path_cond *cond, u32 request)
+> diff --git a/security/apparmor/label.c b/security/apparmor/label.c
+> index 0f36ee907438..cd2d0242df91 100644
+> --- a/security/apparmor/label.c
+> +++ b/security/apparmor/label.c
+> @@ -1254,12 +1254,6 @@ struct aa_label *aa_label_merge(struct aa_label *a, struct aa_label *b,
+>   	return label;
+>   }
+>   
+> -static inline bool label_is_visible(struct aa_profile *profile,
+> -				    struct aa_label *label)
+> -{
+> -	return aa_ns_visible(profile->ns, labels_ns(label), true);
+> -}
+> -
+>   /* match a profile and its associated ns component if needed
+>    * Assumes visibility test has already been done.
+>    * If a subns profile is not to be matched should be prescreened with
 
-ERROR: modpost: "devm_iio_channel_get_all" [drivers/power/supply/mt6370-charger.ko] undefined!
-ERROR: modpost: "devm_ioremap_resource" [drivers/dma/fsl-edma.ko] undefined!
-ERROR: modpost: "devm_ioremap_resource" [drivers/dma/idma64.ko] undefined!
-ERROR: modpost: "devm_ioremap_resource" [drivers/dma/qcom/hdma.ko] undefined!
-ERROR: modpost: "devm_memremap" [drivers/misc/open-dice.ko] undefined!
-ERROR: modpost: "devm_memunmap" [drivers/misc/open-dice.ko] undefined!
-ERROR: modpost: "devm_platform_ioremap_resource" [drivers/char/xillybus/xillybus_of.ko] undefined!
-ERROR: modpost: "devm_platform_ioremap_resource" [drivers/clk/xilinx/clk-xlnx-clock-wizard.ko] undefined!
-ERROR: modpost: "iio_read_channel_processed" [drivers/power/supply/mt6370-charger.ko] undefined!
-ERROR: modpost: "ioremap" [drivers/tty/ipwireless/ipwireless.ko] undefined!
-ERROR: modpost: "iounmap" [drivers/net/ethernet/8390/pcnet_cs.ko] undefined!
-ERROR: modpost: "iounmap" [drivers/tty/ipwireless/ipwireless.ko] undefined!
-aarch64-linux-ld: security/apparmor/lsm.c:1545: undefined reference to `zstd_max_clevel'
-arch/arm64/kernel/alternative.c:199:6: warning: no previous prototype for 'apply_alternatives_vdso' [-Wmissing-prototypes]
-arch/arm64/kernel/alternative.c:295:14: warning: no previous prototype for 'alt_cb_patch_nops' [-Wmissing-prototypes]
-depmod: ERROR: Cycle detected: nf_conntrack -> nf_nat -> nf_conntrack
-depmod: ERROR: Found 2 modules in dependency cycles!
-drivers/gpu/drm/msm/msm_gem_shrinker.c:29:28: error: '__GFP_ATOMIC' undeclared (first use in this function); did you mean 'GFP_ATOMIC'?
-drivers/gpu/drm/tests/drm_format_helper_test.c:381:31: warning: use of NULL 'buf' where non-null expected [CWE-476] [-Wanalyzer-null-argument]
-drivers/iommu/ipmmu-vmsa.c:946:34: warning: 'ipmmu_of_ids' defined but not used [-Wunused-const-variable=]
-include/linux/compiler_types.h:352:45: error: call to '__compiletime_assert_243' declared with attribute error: FIELD_PREP: mask is not constant
-include/linux/compiler_types.h:352:45: error: call to '__compiletime_assert_256' declared with attribute error: FIELD_PREP: mask is not constant
-include/linux/compiler_types.h:352:45: error: call to '__compiletime_assert_265' declared with attribute error: FIELD_PREP: mask is not constant
-include/linux/compiler_types.h:352:45: error: call to '__compiletime_assert_284' declared with attribute error: FIELD_PREP: mask is not constant
-include/linux/compiler_types.h:352:45: error: call to '__compiletime_assert_290' declared with attribute error: FIELD_PREP: mask is not constant
-include/linux/compiler_types.h:352:45: error: call to '__compiletime_assert_408' declared with attribute error: FIELD_PREP: mask is not constant
-security/apparmor/apparmorfs.c:1204: undefined reference to `zstd_min_clevel'
-security/apparmor/apparmorfs.c:1210: undefined reference to `zstd_max_clevel'
-security/apparmor/lsm.c:1545: undefined reference to `zstd_min_clevel'
-
-Error/Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- arc-randconfig-r043-20220926
-|   |-- drivers-gpu-drm-msm-msm_gem_shrinker.c:error:__GFP_ATOMIC-undeclared-(first-use-in-this-function)
-|   `-- include-linux-compiler_types.h:error:call-to-__compiletime_assert_NNN-declared-with-attribute-error:FIELD_PREP:mask-is-not-constant
-|-- arm-buildonly-randconfig-r001-20220926
-|   `-- include-linux-compiler_types.h:error:call-to-__compiletime_assert_NNN-declared-with-attribute-error:FIELD_PREP:mask-is-not-constant
-|-- arm-randconfig-c002-20220925
-|   `-- drivers-gpu-drm-tests-drm_format_helper_test.c:warning:use-of-NULL-buf-where-non-null-expected-CWE
-|-- arm64-allyesconfig
-|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-alt_cb_patch_nops
-|   `-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-apply_alternatives_vdso
-|-- arm64-buildonly-randconfig-r006-20220926
-|   |-- aarch64-linux-ld:security-apparmor-lsm.c:undefined-reference-to-zstd_max_clevel
-|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-alt_cb_patch_nops
-|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-apply_alternatives_vdso
-|   |-- security-apparmor-apparmorfs.c:undefined-reference-to-zstd_max_clevel
-|   |-- security-apparmor-apparmorfs.c:undefined-reference-to-zstd_min_clevel
-|   `-- security-apparmor-lsm.c:undefined-reference-to-zstd_min_clevel
-|-- arm64-randconfig-r035-20220926
-|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-alt_cb_patch_nops
-|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-apply_alternatives_vdso
-|   `-- include-linux-compiler_types.h:error:call-to-__compiletime_assert_NNN-declared-with-attribute-error:FIELD_PREP:mask-is-not-constant
-|-- i386-buildonly-randconfig-r003-20220926
-|   `-- drivers-iommu-ipmmu-vmsa.c:warning:ipmmu_of_ids-defined-but-not-used
-|-- ia64-allmodconfig
-|   `-- drivers-gpu-drm-msm-msm_gem_shrinker.c:error:__GFP_ATOMIC-undeclared-(first-use-in-this-function)
-|-- nios2-buildonly-randconfig-r005-20220925
-|   `-- include-linux-compiler_types.h:error:call-to-__compiletime_assert_NNN-declared-with-attribute-error:FIELD_PREP:mask-is-not-constant
-|-- openrisc-randconfig-r015-20220925
-|   |-- ERROR:devm_iio_channel_get_all-drivers-power-supply-mt6370-charger.ko-undefined
-|   `-- ERROR:iio_read_channel_processed-drivers-power-supply-mt6370-charger.ko-undefined
-|-- powerpc-buildonly-randconfig-r003-20220925
-|   `-- include-linux-compiler_types.h:error:call-to-__compiletime_assert_NNN-declared-with-attribute-error:FIELD_PREP:mask-is-not-constant
-|-- s390-allmodconfig
-|   |-- ERROR:devm_ioremap_resource-drivers-dma-fsl-edma.ko-undefined
-|   |-- ERROR:devm_ioremap_resource-drivers-dma-idma64.ko-undefined
-|   |-- ERROR:devm_ioremap_resource-drivers-dma-qcom-hdma.ko-undefined
-|   |-- ERROR:devm_memremap-drivers-misc-open-dice.ko-undefined
-|   |-- ERROR:devm_memunmap-drivers-misc-open-dice.ko-undefined
-|   |-- ERROR:devm_platform_ioremap_resource-drivers-char-xillybus-xillybus_of.ko-undefined
-|   |-- ERROR:devm_platform_ioremap_resource-drivers-clk-xilinx-clk-xlnx-clock-wizard.ko-undefined
-|   |-- ERROR:ioremap-drivers-tty-ipwireless-ipwireless.ko-undefined
-|   |-- ERROR:iounmap-drivers-net-ethernet-pcnet_cs.ko-undefined
-|   `-- ERROR:iounmap-drivers-tty-ipwireless-ipwireless.ko-undefined
-|-- sparc-allyesconfig
-|   `-- drivers-gpu-drm-msm-msm_gem_shrinker.c:error:__GFP_ATOMIC-undeclared-(first-use-in-this-function)
-|-- sparc-randconfig-r036-20220926
-|   `-- include-linux-compiler_types.h:error:call-to-__compiletime_assert_NNN-declared-with-attribute-error:FIELD_PREP:mask-is-not-constant
-`-- x86_64-rhel-8.3-kselftests
-    |-- depmod:ERROR:Cycle-detected:nf_conntrack-nf_nat-nf_conntrack
-    `-- depmod:ERROR:Found-modules-in-dependency-cycles
-clang_recent_errors
-`-- s390-randconfig-r044-20220926
-    `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-virtual-virtual_link_hwss.c:warning:no-previous-prototype-for-function-virtual_disable_link_output
-
-elapsed time: 729m
-
-configs tested: 64
-configs skipped: 2
-
-gcc tested configs:
-arc                                 defconfig
-um                             i386_defconfig
-um                           x86_64_defconfig
-alpha                               defconfig
-x86_64                          rhel-8.3-func
-s390                             allmodconfig
-x86_64                           rhel-8.3-syz
-x86_64                    rhel-8.3-kselftests
-x86_64                         rhel-8.3-kunit
-x86_64                           rhel-8.3-kvm
-s390                                defconfig
-s390                             allyesconfig
-x86_64                              defconfig
-arm                                 defconfig
-x86_64               randconfig-a002-20220926
-x86_64               randconfig-a004-20220926
-x86_64                               rhel-8.3
-x86_64               randconfig-a001-20220926
-powerpc                           allnoconfig
-i386                          randconfig-a001
-i386                                defconfig
-i386                          randconfig-a003
-x86_64               randconfig-a003-20220926
-x86_64               randconfig-a005-20220926
-i386                          randconfig-a005
-x86_64               randconfig-a006-20220926
-x86_64                           allyesconfig
-i386                             allyesconfig
-mips                             allyesconfig
-powerpc                          allmodconfig
-sh                               allmodconfig
-arm                              allyesconfig
-arc                  randconfig-r043-20220925
-arm64                            allyesconfig
-riscv                randconfig-r042-20220925
-alpha                            allyesconfig
-arc                  randconfig-r043-20220926
-arc                              allyesconfig
-s390                 randconfig-r044-20220925
-m68k                             allmodconfig
-m68k                             allyesconfig
-ia64                             allmodconfig
-
-clang tested configs:
-i386                          randconfig-a002
-i386                 randconfig-a012-20220926
-i386                 randconfig-a011-20220926
-i386                          randconfig-a006
-i386                 randconfig-a015-20220926
-i386                          randconfig-a004
-i386                 randconfig-a014-20220926
-i386                 randconfig-a013-20220926
-x86_64               randconfig-a012-20220926
-i386                 randconfig-a016-20220926
-x86_64               randconfig-a014-20220926
-x86_64               randconfig-a016-20220926
-x86_64               randconfig-a013-20220926
-hexagon              randconfig-r045-20220925
-x86_64               randconfig-a011-20220926
-hexagon              randconfig-r041-20220926
-x86_64               randconfig-a015-20220926
-hexagon              randconfig-r045-20220926
-hexagon              randconfig-r041-20220925
-riscv                randconfig-r042-20220926
-s390                 randconfig-r044-20220926
-x86_64                          rhel-8.3-rust
-
--- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
 
