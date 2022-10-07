@@ -2,57 +2,45 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96DE55F722A
-	for <lists+apparmor@lfdr.de>; Fri,  7 Oct 2022 02:07:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E208B5F747F
+	for <lists+apparmor@lfdr.de>; Fri,  7 Oct 2022 09:02:12 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1ogatb-0001ba-SE; Fri, 07 Oct 2022 00:07:19 +0000
-Received: from mail-pj1-f50.google.com ([209.85.216.50])
+	id 1oghMq-000754-Uo; Fri, 07 Oct 2022 07:01:56 +0000
+Received: from outgoing-auth-1.mit.edu ([18.9.28.11] helo=outgoing.mit.edu)
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <keescook@chromium.org>) id 1ogXMF-0004A1-5w
- for apparmor@lists.ubuntu.com; Thu, 06 Oct 2022 20:20:39 +0000
-Received: by mail-pj1-f50.google.com with SMTP id 70so2668312pjo.4
- for <apparmor@lists.ubuntu.com>; Thu, 06 Oct 2022 13:20:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
- :to:from:date:from:to:cc:subject:date;
- bh=Rk5zz4A39+pbcgAoB20NzVrsEawygpTbgx4vBx4ppIs=;
- b=BYx3cjQRaQ61qD4kci8lj8sUlKGwxBQTGugOVwVFovwHCmI/LQDbCjb+DkICpsvW4m
- STdWXo4QVJpb8zGJImpu91r/m8zGJm3KZaeFnkzRlgCgjI+0GDcxB5MTmrhucCW633IN
- I6hYYHjSrLy5aixD/PhLwPqvTzNVP1wuQopiQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
- :to:from:date:x-gm-message-state:from:to:cc:subject:date;
- bh=Rk5zz4A39+pbcgAoB20NzVrsEawygpTbgx4vBx4ppIs=;
- b=m7RKdLoujXf1oQB/S/Cb+3UQxPc66NajsHF0wfQcFlEZa83C95vSUd9N9hKd0tHqce
- AAKZd5jE50sx0H4tkW2JLfv6mIx+2SP+z1Fqinkd212J+DLdzZUu04oGRH6/aLfybEPV
- FoI9VUgOAenxK9NSD8efCGu6aCnEzhKMTXv0AMdC8zEl9inpQQla/47+dMNM+ntvMvHS
- +6WyAsZ3c81zvsQOrqBFbcVLKAHQ2VXvPBI0TfGQW/ujL/mq9D429dO1Ycb8TNd4tood
- 4EleB2NrVOtNoFLtEtKwu9EmG5jmGo8UgeN8I+zfYugKRPPPr/Az3AaS/gJQtjmF6yLu
- XAQg==
-X-Gm-Message-State: ACrzQf2VNHmT/lXLNWmJwAHUyri0d03xwH2HYz63Al3mFTXqSSMwmeVU
- ugH8vid4ONkAslOLHf3X49c7RA==
-X-Google-Smtp-Source: AMsMyM6jQK6faWu8ciVNIyHuo5DdhGUHU792hu5M2+fkiWdd1JDFyJ7HN7J/+hDDUVtrL381rrTPHQ==
-X-Received: by 2002:a17:902:864c:b0:179:fe02:611e with SMTP id
- y12-20020a170902864c00b00179fe02611emr1539895plt.10.1665087637621; 
- Thu, 06 Oct 2022 13:20:37 -0700 (PDT)
-Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
- by smtp.gmail.com with ESMTPSA id
- p8-20020a635b08000000b0045328df8bd0sm148201pgb.71.2022.10.06.13.20.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Oct 2022 13:20:36 -0700 (PDT)
-Date: Thu, 6 Oct 2022 13:20:35 -0700
-From: Kees Cook <keescook@chromium.org>
-To: Jorge Merlino <jorge.merlino@canonical.com>
-Message-ID: <202210061301.207A20C8E5@keescook>
+ (envelope-from <tytso@mit.edu>) id 1ogcMm-00081h-V7
+ for apparmor@lists.ubuntu.com; Fri, 07 Oct 2022 01:41:33 +0000
+Received: from cwcc.thunk.org (pool-173-48-120-46.bstnma.fios.verizon.net
+ [173.48.120.46]) (authenticated bits=0)
+ (User authenticated as tytso@ATHENA.MIT.EDU)
+ by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 2971ecnl032685
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 6 Oct 2022 21:40:39 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+ t=1665106847; bh=qaGXQZPJ+DMM6m33/wU4mECLmQpjFLtDJn6CdcOWtKQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=KSalaJnH4Pyw9am3lmnE824Wr2kBhNth9uCO4mXO5AzKtequoJLzjonneUAC8ZhxR
+ 4Hz1eaUw7xthlsGZIvbrKDmeqfMsaZL0mX9jE1bwkYelTLIujVkzCQre3la+eHpRvk
+ jehUy8nGH756ojGWF+Lya0ILI+OcQWLFjLYpTrHqGQ5P8VsLDrkkyMAy5y7ZgOktww
+ VOQvAZIroJGMqt4qSIuhel3Tn9O/0JEpicFLNkngkAJ7T5kP6qkzL5z4U+3ELVIhC1
+ z6ZBz5xcg7Vu7b4LWp9pQf8jyIsi6uPKcXUiiBI32krkxUNWm4c1/xFR2R+71IKcQi
+ mHXaABEZ7m0DA==
+Received: by cwcc.thunk.org (Postfix, from userid 15806)
+ id C2CF515C35F2; Thu,  6 Oct 2022 21:40:38 -0400 (EDT)
+Date: Thu, 6 Oct 2022 21:40:38 -0400
+From: "Theodore Ts'o" <tytso@mit.edu>
+To: Kees Cook <keescook@chromium.org>
+Message-ID: <Yz+Dln7AAMU+Oj9X@mit.edu>
+References: <202209131456.76A13BC5E4@keescook>
+ <202210061301.207A20C8E5@keescook>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <202209131456.76A13BC5E4@keescook>
-X-Mailman-Approved-At: Fri, 07 Oct 2022 00:07:18 +0000
+In-Reply-To: <202210061301.207A20C8E5@keescook>
+X-Mailman-Approved-At: Fri, 07 Oct 2022 07:01:55 +0000
 Subject: Re: [apparmor] [PATCH] Fix race condition when exec'ing setuid files
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -75,7 +63,9 @@ Cc: Micah Morton <mortonm@chromium.org>,
  selinux@vger.kernel.org, apparmor@lists.ubuntu.com,
  linux-fsdevel@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>,
  Andy Lutomirski <luto@kernel.org>, Eric Paris <eparis@parisplace.org>,
- Thomas Gleixner <tglx@linutronix.de>, Christian Brauner <brauner@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Jorge Merlino <jorge.merlino@canonical.com>,
+ Christian Brauner <brauner@kernel.org>,
  Stephen Smalley <stephen.smalley.work@gmail.com>,
  Ondrej Mosnacek <omosnace@redhat.com>,
  Richard Haines <richard_c_haines@btinternet.com>,
@@ -86,71 +76,31 @@ Cc: Micah Morton <mortonm@chromium.org>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Thu, Sep 13, 2022 at 15:03:38 -0700, Kees Cook wrote:
-> It seems quite unusual to have a high-load heavily threaded
-> process decide to exec.
+On Thu, Oct 06, 2022 at 01:20:35PM -0700, Kees Cook wrote:
+> 
+> So the question, then, is "why are they trying to exec while actively
+> spawning new threads?" That appears to be the core problem here, and as
+> far as I can tell, the kernel has behaved this way for a very long time.
+> I don't think the kernel should fix this, either, because it leads to a
+> very weird state for userspace, where the thread spawner may suddenly
+> die due to the exec happening in another thread. This really looks like
+> something userspace needs to handle correctly (i.e. don't try to exec
+> while actively spawning threads).
 
-In looking at this a bunch more, I actually think everything is working
-as intended. If a process is actively launching threads while also trying
-to exec, they're going to create races for themselves.
+One of the classic failure modes is when a threaded program calls a
+library, and that library might try to do a fork/exec (or call
+system(3) to run some command.  e.g., such as running "lvm create ..."
+or to spawn some kind of helper daemon.
 
-So the question, then, is "why are they trying to exec while actively
-spawning new threads?" That appears to be the core problem here, and as
-far as I can tell, the kernel has behaved this way for a very long time.
-I don't think the kernel should fix this, either, because it leads to a
-very weird state for userspace, where the thread spawner may suddenly
-die due to the exec happening in another thread. This really looks like
-something userspace needs to handle correctly (i.e. don't try to exec
-while actively spawning threads).
+There are a number of stack overflow questions about this, and there
+are some solutions to _some_ of the problems, such as using
+pthread_atfork(), and knowing that you are about to call fork/exec,
+and use some out of band mechanism to to make sure no threads get
+spawned until the fork/exec is completed --- but if you don't know
+that a library is going to do a fork/exec, well, life is tough. 
 
-For example, here's a fix to the original PoC:
+One technique even advocated by a stack overflow article is "avoid
+using threads whenver possible".  :-/
 
---- a.c.original        2022-10-06 13:07:13.279845619 -0700
-+++ a.c 2022-10-06 13:10:27.702941645 -0700
-@@ -8,8 +8,10 @@
-        return NULL;
- }
- 
-+int stop_spawning;
-+
- void *target(void *p) {
--       for (;;) {
-+       while (!stop_spawning) {
-                pthread_t t;
-                if (pthread_create(&t, NULL, nothing, NULL) == 0)
-                        pthread_join(t, NULL);
-@@ -17,18 +19,26 @@
-        return NULL;
- }
- 
-+#define MAX_THREADS    10
-+
- int main(void)
- {
-+       pthread_t threads[MAX_THREADS];
-        struct timespec tv;
-        int i;
- 
--       for (i = 0; i < 10; i++) {
--               pthread_t t;
--               pthread_create(&t, NULL, target, NULL);
-+       for (i = 0; i < MAX_THREADS; i++) {
-+               pthread_create(&threads[i], NULL, target, NULL);
-        }
-        tv.tv_sec = 0;
-        tv.tv_nsec = 100000;
-        nanosleep(&tv, NULL);
-+
-+       /* Signal shut down, and collect spawners. */
-+       stop_spawning = 1;
-+       for (i = 0; i < MAX_THREADS; i++)
-+               pthread_join(threads[i], NULL);
-+
-        if (execl("./b", "./b", NULL) < 0)
-                perror("execl");
-        return 0;
-
-
--- 
-Kees Cook
+	       	       	  	   - Ted
 
