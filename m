@@ -2,52 +2,75 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id F04D15FB6CA
-	for <lists+apparmor@lfdr.de>; Tue, 11 Oct 2022 17:18:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB4315FEA4F
+	for <lists+apparmor@lfdr.de>; Fri, 14 Oct 2022 10:18:27 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1oiH1b-00026A-R2; Tue, 11 Oct 2022 15:18:31 +0000
-Received: from mga01.intel.com ([192.55.52.88])
+	id 1ojFtX-0002ov-R7; Fri, 14 Oct 2022 08:18:15 +0000
+Received: from dfw.source.kernel.org ([139.178.84.217])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <lkp@intel.com>) id 1oiH1X-000262-Fz
- for apparmor@lists.ubuntu.com; Tue, 11 Oct 2022 15:18:27 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1665501507; x=1697037507;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=7wSP4TYlAxkaflihOJTFEcb8ISzoiRnXg100vqVWAvo=;
- b=L9pOtDxTV0qz29lU564Poxnvv1g+2IrbFxPhhm6660ghIjb3/Gj3qtRL
- 7cMvDy0Hl1XPbFdWpZC/1dMOMfdX+3DufUH0uMMTdHdiP5W1JN/57wQCa
- 2P+pESJc/KkoH0i7lHaIf1yZvflsf8Az8noPoa9N+EFsH1076GW7pl8VK
- tVgEagXe4NteYZeifxKqe6hYo1spre8FtywEBhGweUvdCRNZ47witPMbF
- NLWiLasJJSG21U6hvlZgm5FV50znz7QLaYytJmhj1Hnq4gBnkOasHbAZ4
- TZix7/xC9L80xPjB1hoSqs6xnSupqDKeCb7+yeKftc5xDyhxVSFr9flnr Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10497"; a="331013435"
-X-IronPort-AV: E=Sophos;i="5.95,176,1661842800"; d="scan'208";a="331013435"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2022 08:18:24 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10497"; a="695098463"
-X-IronPort-AV: E=Sophos;i="5.95,176,1661842800"; d="scan'208";a="695098463"
-Received: from lkp-server01.sh.intel.com (HELO 2af0a69ca4e0) ([10.239.97.150])
- by fmsmga004.fm.intel.com with ESMTP; 11 Oct 2022 08:18:21 -0700
-Received: from kbuild by 2af0a69ca4e0 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1oiH1R-0002wR-00;
- Tue, 11 Oct 2022 15:18:21 +0000
-Date: Tue, 11 Oct 2022 23:17:50 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Message-ID: <6345891e.N8YlqGQ6WJeXXn2f%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Subject: [apparmor] [linux-next:master] BUILD REGRESSION
- b9f85101cad3397ef1e509909602a90e257ab9d8
+ (envelope-from <luto@kernel.org>) id 1ojBDS-00061X-UB
+ for apparmor@lists.ubuntu.com; Fri, 14 Oct 2022 03:18:31 +0000
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D45E3619B9;
+ Fri, 14 Oct 2022 03:18:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6FDAC433D6;
+ Fri, 14 Oct 2022 03:18:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1665717509;
+ bh=XdPGgMOKnebM+bZev/ZKP6wiusPUf6c3wma5ZTnpm0o=;
+ h=In-Reply-To:References:Date:From:To:Cc:Subject:From;
+ b=TCqLtjMUhY3E6hf1ob6xgOd/SwpJweBv3tU3uwDefMm4A/ahGMxIC1fYKYYfBlwsp
+ c4OzGNUkyZI/EWcYPFYJKey7rW0cEUkZE+LOkpGV19buQ6rtAwI/hLX5iw1NyHEOWp
+ FqFekRHYzRsrNlju7lbJW+OBW4KWCrNhryyrvGL4FXB9xq9XMqweABSa7E89pobMDj
+ dhbr4pgnLECh4yJxmSvj30PN6CSkv/1SL630AvtuHSSPF+716FXaWyEJPJV5YfWvUX
+ AcpoA4Go3xPK5zpt0aNt/TWRQOKwqnAINiTRleYiI5qW8pa8hRcvsqQddsl387N9qW
+ FvzX+DBznhG0Q==
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailauth.nyi.internal (Postfix) with ESMTP id 7304527C0054;
+ Thu, 13 Oct 2022 23:18:27 -0400 (EDT)
+Received: from imap48 ([10.202.2.98])
+ by compute2.internal (MEProxy); Thu, 13 Oct 2022 23:18:27 -0400
+X-ME-Sender: <xms:AdVIYzOOj40fYDS1rOvXIoESyi161w0DmwR247bhjuKHqLFeT9OiDA>
+ <xme:AdVIY99529hlGQo-8KK9C30W0jlvvwwm75Z23pVzj3dmAFAsNJ7f6r-P3PWWqRCOA
+ Phzta6qNL1zttkMjs8>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeekuddgieelucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepofgfggfkjghffffhvfevufgtsehttdertderredtnecuhfhrohhmpedftehn
+ ugihucfnuhhtohhmihhrshhkihdfuceolhhuthhosehkvghrnhgvlhdrohhrgheqnecugg
+ ftrfgrthhtvghrnhepgeejhfehkeejleffheetkefhtdduuedtieehheekgfekudeggfff
+ udejuddufeeknecuffhomhgrihhnpegthhhrohhmihhumhdrohhrghenucevlhhushhtvg
+ hrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrnhguhidomhgvshhmthhp
+ rghuthhhphgvrhhsohhnrghlihhthidqudduiedukeehieefvddqvdeifeduieeitdekqd
+ hluhhtoheppehkvghrnhgvlhdrohhrgheslhhinhhugidrlhhuthhordhush
+X-ME-Proxy: <xmx:AdVIYySW5Tdj3xc9QCIj2mq3H0rlkZatHo_4MuZZWFFBYFhYq8rSyA>
+ <xmx:AdVIY3uxuPeTfHWQd84oguwbXb3jq_lpHxPlgcluwo9B3Bp9AzVjRg>
+ <xmx:AdVIY7fXv-y_hn4d5Su6ASkwBxzA9fYhaSJ9rz-aLpvt3ull2hzjEQ>
+ <xmx:A9VIY5GVCHHHXumAGXj3B2GHtzhL21R2t0gobETwrTSxeyRxILj7NXJ9Hqc>
+Feedback-ID: ieff94742:Fastmail
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id 878A331A03F7; Thu, 13 Oct 2022 23:18:25 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.7.0-alpha0-1047-g9e4af4ada4-fm-20221005.001-g9e4af4ad
+Mime-Version: 1.0
+Message-Id: <2032f766-1704-486b-8f24-a670c0b3cb32@app.fastmail.com>
+In-Reply-To: <CAG48ez0sEkmaez9tYqgMXrkREmXZgxC9fdQD3mzF9cGo_=Tfyg@mail.gmail.com>
+References: <20221006082735.1321612-1-keescook@chromium.org>
+ <20221006082735.1321612-2-keescook@chromium.org>
+ <20221006090506.paqjf537cox7lqrq@wittgenstein>
+ <CAG48ez0sEkmaez9tYqgMXrkREmXZgxC9fdQD3mzF9cGo_=Tfyg@mail.gmail.com>
+Date: Thu, 13 Oct 2022 20:18:04 -0700
+From: "Andy Lutomirski" <luto@kernel.org>
+To: "Jann Horn" <jannh@google.com>, "Christian Brauner" <brauner@kernel.org>
+Content-Type: text/plain
+X-Mailman-Approved-At: Fri, 14 Oct 2022 08:18:15 +0000
+Subject: Re: [apparmor] [PATCH 1/2] fs/exec: Explicitly unshare fs_struct on
+	exec
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -59,251 +82,56 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: linux-ext4@vger.kernel.org, linux-iio@vger.kernel.org,
- apparmor@lists.ubuntu.com, linux-nvme@lists.infradead.org,
- linux-perf-users@vger.kernel.org,
- Linux Memory Management List <linux-mm@kvack.org>,
- amd-gfx@lists.freedesktop.org, loongarch@lists.linux.dev,
- ntfs3@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Cc: Micah Morton <mortonm@chromium.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-mm@kvack.org,
+ Andrei Vagin <avagin@gmail.com>, linux-hardening@vger.kernel.org,
+ Xin Long <lucien.xin@gmail.com>, Paul Moore <paul@paul-moore.com>,
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
+ Fenghua Yu <fenghua.yu@intel.com>, Kees Cook <keescook@chromium.org>,
+ selinux@vger.kernel.org, apparmor@lists.ubuntu.com,
+ linux-fsdevel@vger.kernel.org, Al Viro <viro@zeniv.linux.org.uk>,
+ Eric Paris <eparis@parisplace.org>, Thomas Gleixner <tglx@linutronix.de>,
+ Jorge Merlino <jorge.merlino@canonical.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Ondrej Mosnacek <omosnace@redhat.com>,
+ Richard Haines <richard_c_haines@btinternet.com>,
+ linux-security-module@vger.kernel.org,
+ "Eric W. Biederman" <ebiederm@xmission.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ Prashanth Prahlad <pprahlad@redhat.com>, Todd Kjos <tkjos@google.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: b9f85101cad3397ef1e509909602a90e257ab9d8  Add linux-next specific files for 20221011
 
-Error/Warning reports:
 
-https://lore.kernel.org/linux-doc/202209201326.sY9kHOLm-lkp@intel.com
-https://lore.kernel.org/linux-doc/202210070057.NpbaMyxB-lkp@intel.com
-https://lore.kernel.org/linux-mm/202210090954.pTR6m6rj-lkp@intel.com
-https://lore.kernel.org/linux-mm/202210110857.9s0tXVNn-lkp@intel.com
-https://lore.kernel.org/linux-mm/202210111318.mbUfyhps-lkp@intel.com
-https://lore.kernel.org/llvm/202210111438.WT5u8Im6-lkp@intel.com
+On Thu, Oct 6, 2022, at 7:13 AM, Jann Horn wrote:
+> On Thu, Oct 6, 2022 at 11:05 AM Christian Brauner <brauner@kernel.org> wrote:
+>> On Thu, Oct 06, 2022 at 01:27:34AM -0700, Kees Cook wrote:
+>> > The check_unsafe_exec() counting of n_fs would not add up under a heavily
+>> > threaded process trying to perform a suid exec, causing the suid portion
+>> > to fail. This counting error appears to be unneeded, but to catch any
+>> > possible conditions, explicitly unshare fs_struct on exec, if it ends up
+>>
+>> Isn't this a potential uapi break? Afaict, before this change a call to
+>> clone{3}(CLONE_FS) followed by an exec in the child would have the
+>> parent and child share fs information. So if the child e.g., changes the
+>> working directory post exec it would also affect the parent. But after
+>> this change here this would no longer be true. So a child changing a
+>> workding directoro would not affect the parent anymore. IOW, an exec is
+>> accompanied by an unshare(CLONE_FS). Might still be worth trying ofc but
+>> it seems like a non-trivial uapi change but there might be few users
+>> that do clone{3}(CLONE_FS) followed by an exec.
+>
+> I believe the following code in Chromium explicitly relies on this
+> behavior, but I'm not sure whether this code is in active use anymore:
+>
+> https://source.chromium.org/chromium/chromium/src/+/main:sandbox/linux/suid/sandbox.c;l=101?q=CLONE_FS&sq=&ss=chromium
 
-Error/Warning: (recently discovered and may have been fixed)
+Wait, this is absolutely nucking futs.  On a very quick inspection, the sharable things like this are fs, files, sighand, and io.    files and sighand get unshared, which makes sense.  fs supposedly checks for extra refs and prevents gaining privilege.  io is... ignored!  At least it's not immediately obvious that io is a problem.
 
-ERROR: modpost: "dcn20_acquire_dsc" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
-ERROR: modpost: "dcn20_build_mapped_resource" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
-ERROR: modpost: "devm_ioremap_resource" [drivers/dma/fsl-edma.ko] undefined!
-ERROR: modpost: "devm_ioremap_resource" [drivers/dma/idma64.ko] undefined!
-ERROR: modpost: "devm_ioremap_resource" [drivers/dma/qcom/hdma.ko] undefined!
-ERROR: modpost: "devm_memremap" [drivers/misc/open-dice.ko] undefined!
-ERROR: modpost: "devm_memunmap" [drivers/misc/open-dice.ko] undefined!
-ERROR: modpost: "devm_platform_ioremap_resource" [drivers/char/xillybus/xillybus_of.ko] undefined!
-ERROR: modpost: "ioremap" [drivers/net/ethernet/8390/pcnet_cs.ko] undefined!
-ERROR: modpost: "ioremap" [drivers/tty/ipwireless/ipwireless.ko] undefined!
-ERROR: modpost: "iounmap" [drivers/net/ethernet/8390/pcnet_cs.ko] undefined!
-ERROR: modpost: "iounmap" [drivers/tty/ipwireless/ipwireless.ko] undefined!
-Warning: MAINTAINERS references a file that doesn't exist: Documentation/devicetree/bindings/clock/microchip,mpfs.yaml
-Warning: MAINTAINERS references a file that doesn't exist: Documentation/devicetree/bindings/mtd/amlogic,meson-nand.txt
-arch/arm64/kernel/alternative.c:199:6: warning: no previous prototype for 'apply_alternatives_vdso' [-Wmissing-prototypes]
-arch/arm64/kernel/alternative.c:295:14: warning: no previous prototype for 'alt_cb_patch_nops' [-Wmissing-prototypes]
-arch/loongarch/mm/init.c:166:24: warning: variable 'new' set but not used [-Wunused-but-set-variable]
-dc_resource.c:(.text.dc_resource_acquire_secondary_pipe_for_mpc_odm+0x21c): undefined reference to `dcn20_acquire_dsc'
-drivers/iio/adc/mcp3911.c:252 mcp3911_write_raw() error: buffer overflow 'mcp3911_osr_table' 8 <= 31
-drivers/iio/adc/mcp3911.c:499 mcp3911_probe() warn: passing zero to 'PTR_ERR'
-drivers/nvme/target/loop.c:578 nvme_loop_create_ctrl() warn: 'opts->queue_size - 1' 18446744073709551615 can't fit into 65535 'ctrl->ctrl.sqsize'
-drivers/nvme/target/loop.c:578 nvme_loop_create_ctrl() warn: 'opts->queue_size - 1' 4294967295 can't fit into 65535 'ctrl->ctrl.sqsize'
-fs/ext4/super.c:1744:19: warning: 'deprecated_msg' defined but not used [-Wunused-const-variable=]
-fs/ntfs3/namei.c:487 ntfs_d_compare() error: uninitialized symbol 'uni1'.
-include/linux/compiler_types.h:357:45: error: call to '__compiletime_assert_422' declared with attribute error: FIELD_GET: mask is not constant
-mips-linux-ld: dc_resource.c:(.text.dc_resource_acquire_secondary_pipe_for_mpc_odm+0x304): undefined reference to `dcn20_build_mapped_resource'
-mm/mmap.c:802 __vma_adjust() error: uninitialized symbol 'next_next'.
-security/apparmor/policy_unpack.c:1089 unpack_profile() warn: passing zero to 'ERR_PTR'
-security/apparmor/policy_unpack.c:548 unpack_trans_table() error: uninitialized symbol 'table'.
+But seriously, this makes no sense at all.  It should not be possible to exec a program and then, without ptrace, change its cwd out from under it.  Do we really need to preserve this behavior?
 
-Error/Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- arm64-allyesconfig
-|   |-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-alt_cb_patch_nops
-|   `-- arch-arm64-kernel-alternative.c:warning:no-previous-prototype-for-apply_alternatives_vdso
-|-- csky-randconfig-m041-20221010
-|   `-- mm-mmap.c-__vma_adjust()-error:uninitialized-symbol-next_next-.
-|-- i386-allyesconfig
-|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
-|-- i386-defconfig
-|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
-|-- i386-randconfig-a003
-|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
-|-- i386-randconfig-a005
-|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
-|-- i386-randconfig-a011-20221010
-|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
-|-- i386-randconfig-a012-20221010
-|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
-|-- i386-randconfig-a014-20221010
-|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
-|-- i386-randconfig-a016-20221010
-|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
-|-- i386-randconfig-c001-20221010
-|   `-- include-linux-compiler_types.h:error:call-to-__compiletime_assert_NNN-declared-with-attribute-error:FIELD_GET:mask-is-not-constant
-|-- i386-randconfig-c021-20221010
-|   `-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
-|-- i386-randconfig-m021-20221010
-|   |-- arch-x86-kernel-apic-apic.c-generic_processor_info()-warn:always-true-condition-(num_processors-()-)-(-u32max-)
-|   |-- drivers-iio-adc-mcp3911.c-mcp3911_probe()-warn:passing-zero-to-PTR_ERR
-|   |-- drivers-iio-adc-mcp3911.c-mcp3911_write_raw()-error:buffer-overflow-mcp3911_osr_table
-|   |-- drivers-nvme-target-loop.c-nvme_loop_create_ctrl()-warn:opts-queue_size-can-t-fit-into-ctrl-ctrl.sqsize
-|   |-- fs-ext4-super.c:warning:deprecated_msg-defined-but-not-used
-|   `-- mm-mmap.c-__vma_adjust()-error:uninitialized-symbol-next_next-.
-|-- i386-randconfig-s052-20221010
-|   |-- fs-ntfs3-index.c:sparse:sparse:restricted-__le32-degrades-to-integer
-|   |-- fs-ntfs3-namei.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-restricted-__le16-const-usertype-s1-got-unsigned-short
-|   `-- fs-ntfs3-namei.c:sparse:sparse:incorrect-type-in-argument-(different-base-types)-expected-restricted-__le16-const-usertype-s2-got-unsigned-short
-|-- loongarch-randconfig-r012-20221010
-|   `-- arch-loongarch-mm-init.c:warning:variable-new-set-but-not-used
-|-- loongarch-randconfig-s032-20221010
-|   |-- arch-loongarch-kernel-perf_event.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-ptr-got-int-noderef-__percpu
-|   `-- arch-loongarch-kernel-perf_event.c:sparse:sparse:incorrect-type-in-argument-(different-address-spaces)-expected-void-ptr-got-unsigned-int-noderef-__percpu
-|-- mips-allyesconfig
-|   |-- dc_resource.c:(.text.dc_resource_acquire_secondary_pipe_for_mpc_odm):undefined-reference-to-dcn20_acquire_dsc
-|   `-- mips-linux-ld:dc_resource.c:(.text.dc_resource_acquire_secondary_pipe_for_mpc_odm):undefined-reference-to-dcn20_build_mapped_resource
-|-- powerpc-allmodconfig
-|   |-- ERROR:dcn20_acquire_dsc-drivers-gpu-drm-amd-amdgpu-amdgpu.ko-undefined
-|   `-- ERROR:dcn20_build_mapped_resource-drivers-gpu-drm-amd-amdgpu-amdgpu.ko-undefined
-|-- s390-allmodconfig
-|   |-- ERROR:devm_ioremap_resource-drivers-dma-fsl-edma.ko-undefined
-|   |-- ERROR:devm_ioremap_resource-drivers-dma-idma64.ko-undefined
-clang_recent_errors
-|-- arm-ep93xx_defconfig
-|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
-|-- arm-imx_v4_v5_defconfig
-|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
-|-- arm-ixp4xx_defconfig
-|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
-|-- arm-randconfig-r026-20221010
-|   |-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
-|   `-- fs-ntfs3-namei.c:warning:variable-uni1-is-used-uninitialized-whenever-if-condition-is-true
-|-- hexagon-randconfig-r041-20221010
-|   |-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
-|   |-- fs-ntfs3-namei.c:warning:variable-uni1-is-used-uninitialized-whenever-if-condition-is-true
-|   |-- ld.lld:error:vmlinux.a(arch-hexagon-kernel-head.o):(.init.text):relocation-R_HEX_B22_PCREL-out-of-range:is-not-in-references-__vmnewmap
-|   |-- ld.lld:error:vmlinux.a(arch-hexagon-kernel-head.o):(.init.text):relocation-R_HEX_B22_PCREL-out-of-range:is-not-in-references-__vmsetvec
-|   `-- ld.lld:error:vmlinux.a(arch-hexagon-kernel-head.o):(.init.text):relocation-R_HEX_B22_PCREL-out-of-range:is-not-in-references-memset
-|-- i386-buildonly-randconfig-r006-20221010
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-dml-dcn32-dcn32_fpu.c:warning:no-previous-prototype-for-function-dcn32_split_stream_for_mpc_or_odm
-|-- i386-randconfig-a002
-|   |-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
-|   `-- fs-ntfs3-namei.c:warning:variable-uni1-is-used-uninitialized-whenever-if-condition-is-true
-|-- i386-randconfig-a004
-|   |-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
-|   `-- fs-ntfs3-namei.c:warning:variable-uni1-is-used-uninitialized-whenever-if-condition-is-true
-|-- mips-cu1000-neo_defconfig
-|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
-|-- powerpc-fsp2_defconfig
-|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
-|-- riscv-randconfig-r042-20221011
-|   `-- ld.lld:error:undefined-symbol:riscv_cbom_block_size
-|-- riscv-rv32_defconfig
-|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
-|-- x86_64-randconfig-a001-20221010
-|   |-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
-|   `-- fs-ntfs3-namei.c:warning:variable-uni1-is-used-uninitialized-whenever-if-condition-is-true
-|-- x86_64-randconfig-a003-20221010
-|   |-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
-|   `-- fs-ntfs3-namei.c:warning:variable-uni1-is-used-uninitialized-whenever-if-condition-is-true
-|-- x86_64-randconfig-a004-20221010
-|   `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
-`-- x86_64-rhel-8.3-rust
-    `-- fs-ext4-super.c:warning:unused-variable-deprecated_msg
-
-elapsed time: 725m
-
-configs tested: 85
-configs skipped: 3
-
-gcc tested configs:
-x86_64                              defconfig
-arc                                 defconfig
-alpha                               defconfig
-i386                                defconfig
-x86_64                               rhel-8.3
-i386                 randconfig-a011-20221010
-um                             i386_defconfig
-arc                  randconfig-r043-20221010
-s390                             allmodconfig
-x86_64               randconfig-a011-20221010
-um                           x86_64_defconfig
-arm                                 defconfig
-i386                          randconfig-a001
-i386                 randconfig-a013-20221010
-s390                             allyesconfig
-x86_64                          rhel-8.3-func
-i386                 randconfig-a015-20221010
-x86_64               randconfig-a016-20221010
-riscv                randconfig-r042-20221010
-s390                                defconfig
-i386                          randconfig-a003
-x86_64                           allyesconfig
-x86_64                    rhel-8.3-kselftests
-i386                 randconfig-a014-20221010
-x86_64               randconfig-a014-20221010
-i386                          randconfig-a005
-powerpc                           allnoconfig
-s390                 randconfig-r044-20221010
-i386                 randconfig-a016-20221010
-x86_64               randconfig-a015-20221010
-powerpc                     redwood_defconfig
-i386                 randconfig-a012-20221010
-powerpc                          allmodconfig
-xtensa                  cadence_csp_defconfig
-x86_64               randconfig-a012-20221010
-mips                             allyesconfig
-i386                             allyesconfig
-sh                          sdk7780_defconfig
-x86_64               randconfig-a013-20221010
-arm                              allyesconfig
-arc                               allnoconfig
-x86_64                           rhel-8.3-syz
-arm64                            allyesconfig
-sh                               allmodconfig
-alpha                             allnoconfig
-um                                  defconfig
-x86_64                         rhel-8.3-kunit
-xtensa                  audio_kc705_defconfig
-m68k                             allmodconfig
-riscv                             allnoconfig
-x86_64                           rhel-8.3-kvm
-csky                              allnoconfig
-arc                              allyesconfig
-alpha                            allyesconfig
-m68k                        stmark2_defconfig
-arc                 nsimosci_hs_smp_defconfig
-ia64                          tiger_defconfig
-powerpc                     asp8347_defconfig
-m68k                             allyesconfig
-ia64                             allmodconfig
-arm                            pleb_defconfig
-arc                      axs103_smp_defconfig
-m68k                             alldefconfig
-powerpc                  iss476-smp_defconfig
-arm                       omap2plus_defconfig
-i386                 randconfig-c001-20221010
-
-clang tested configs:
-hexagon              randconfig-r045-20221010
-hexagon              randconfig-r041-20221010
-riscv                             allnoconfig
-i386                          randconfig-a002
-x86_64               randconfig-a002-20221010
-x86_64               randconfig-a001-20221010
-x86_64               randconfig-a003-20221010
-i386                          randconfig-a006
-i386                          randconfig-a004
-x86_64               randconfig-a006-20221010
-x86_64               randconfig-a004-20221010
-x86_64               randconfig-a005-20221010
-arm                          ep93xx_defconfig
-mips                          ath25_defconfig
-arm                       imx_v4_v5_defconfig
-arm                          ixp4xx_defconfig
-mips                     cu1000-neo_defconfig
-x86_64                          rhel-8.3-rust
-powerpc                        fsp2_defconfig
-riscv                          rv32_defconfig
-
--- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+--Andy
 
