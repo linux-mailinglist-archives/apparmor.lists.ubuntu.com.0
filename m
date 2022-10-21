@@ -2,50 +2,39 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1117B606DC9
-	for <lists+apparmor@lfdr.de>; Fri, 21 Oct 2022 04:31:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5A886076D5
+	for <lists+apparmor@lfdr.de>; Fri, 21 Oct 2022 14:21:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1olhoR-0004ON-St; Fri, 21 Oct 2022 02:31:07 +0000
-Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
- helo=smtp-relay-canonical-1.canonical.com)
+	id 1olr24-0007Vj-8i; Fri, 21 Oct 2022 12:21:48 +0000
+Received: from szxga02-in.huawei.com ([45.249.212.188])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>) id 1olhoQ-0004OF-Qg
- for apparmor@lists.ubuntu.com; Fri, 21 Oct 2022 02:31:06 +0000
-Received: from [192.168.192.83] (unknown [50.47.134.47])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id E3B7F43229; 
- Fri, 21 Oct 2022 02:31:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1666319466;
- bh=W5ttTTvJhQt4iDiuMC26FByAMmCEgx3KWUE5L8KpP7U=;
- h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
- In-Reply-To:Content-Type;
- b=OZT2127MI30oLkHN/HfKdTDGLMQt/MK5TuvwgCWwAj6Y8lIcGkdXKQzGvR5yDb5L9
- IXkTdgEr+p1xmSr8IuySgzBLW9dpj7MdvNxhm3PH56L512Lemuzi0PEz7AnuDUQOjU
- E4y8uICB1YV/2d9UeuVNxiQh366wAp8hQT0/tbasa0tucRuRXwMeEjqCWyonmfCiND
- JonsSQuXW++EJ28lMTDmjrjFHd6Tt9ikqdS247nJVjOR48gqDMW2sgdYG1P1Zuj1Qh
- DFPV3+uOnKBsDTXI32vCQeCS6ExXPoOyM5P3GlE3ySqtgRc7yyUozP9IPOONiLMoLX
- t/NSPIHdKXHNg==
-Message-ID: <d39df9d7-fc54-7e9b-d4ce-5c0d4fc455d4@canonical.com>
-Date: Thu, 20 Oct 2022 19:31:03 -0700
+ (envelope-from <xiujianfeng@huawei.com>) id 1olgE9-0007Tj-RV
+ for apparmor@lists.ubuntu.com; Fri, 21 Oct 2022 00:49:34 +0000
+Received: from dggpeml500023.china.huawei.com (unknown [172.30.72.56])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4Mtm2V35bQzVj27;
+ Fri, 21 Oct 2022 08:44:50 +0800 (CST)
+Received: from ubuntu1804.huawei.com (10.67.174.58) by
+ dggpeml500023.china.huawei.com (7.185.36.114) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Fri, 21 Oct 2022 08:49:29 +0800
+From: Xiu Jianfeng <xiujianfeng@huawei.com>
+To: <john.johansen@canonical.com>, <paul@paul-moore.com>, <jmorris@namei.org>, 
+ <serge@hallyn.com>, <keescook@chromium.org>, <casey@schaufler-ca.com>
+Date: Fri, 21 Oct 2022 08:46:04 +0800
+Message-ID: <20221021004604.188986-1-xiujianfeng@huawei.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Content-Language: en-US
-To: Yang Li <yang.lee@linux.alibaba.com>
-References: <20221014084255.26103-1-yang.lee@linux.alibaba.com>
-From: John Johansen <john.johansen@canonical.com>
-Organization: Canonical
-In-Reply-To: <20221014084255.26103-1-yang.lee@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH -next] apparmor: Fix spelling of function
- name in comment block
+Content-Type: text/plain
+X-Originating-IP: [10.67.174.58]
+X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
+ dggpeml500023.china.huawei.com (7.185.36.114)
+X-CFilter-Loop: Reflected
+X-Mailman-Approved-At: Fri, 21 Oct 2022 12:21:46 +0000
+Subject: [apparmor] [PATCH v2] apparmor: Use pointer to struct aa_label for
+	lbs_cred
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -57,39 +46,42 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: paul@paul-moore.com, Abaci Robot <abaci@linux.alibaba.com>,
- apparmor@lists.ubuntu.com, linux-kernel@vger.kernel.org, jmorris@namei.org,
- linux-security-module@vger.kernel.org, serge@hallyn.com
+Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
+ linux-kernel@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 10/14/22 01:42, Yang Li wrote:
-> 'resouce' -> 'resource'
-> 
-> Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=2396
-> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-> Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
+According to the implementations of cred_label() and set_cred_label(),
+we should use pointer to struct aa_label for lbs_cred instead of struct
+aa_task_ctx, this patch fixes it.
 
-I have pulled this into my tree
+Fixes: bbd3662a8348 ("Infrastructure management of the cred security blob")
+Signed-off-by: Xiu Jianfeng <xiujianfeng@huawei.com>
 
-Acked-by: John Johansen <john.johansen@canonical.com>
+---
+V2: fixes the comment too
+---
+ security/apparmor/lsm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-> ---
->   security/apparmor/resource.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/security/apparmor/resource.c b/security/apparmor/resource.c
-> index ed543f4edfd9..d7dbacc9a369 100644
-> --- a/security/apparmor/resource.c
-> +++ b/security/apparmor/resource.c
-> @@ -66,7 +66,7 @@ static int audit_resource(struct aa_profile *profile, unsigned int resource,
->   }
->   
->   /**
-> - * aa_map_resouce - map compiled policy resource to internal #
-> + * aa_map_resource - map compiled policy resource to internal #
->    * @resource: flattened policy resource number
->    *
->    * Returns: resource # for the current architecture.
+diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
+index f56070270c69..1e2f40db15c5 100644
+--- a/security/apparmor/lsm.c
++++ b/security/apparmor/lsm.c
+@@ -1194,10 +1194,10 @@ static int apparmor_inet_conn_request(const struct sock *sk, struct sk_buff *skb
+ #endif
+ 
+ /*
+- * The cred blob is a pointer to, not an instance of, an aa_task_ctx.
++ * The cred blob is a pointer to, not an instance of, an aa_label.
+  */
+ struct lsm_blob_sizes apparmor_blob_sizes __lsm_ro_after_init = {
+-	.lbs_cred = sizeof(struct aa_task_ctx *),
++	.lbs_cred = sizeof(struct aa_label *),
+ 	.lbs_file = sizeof(struct aa_file_ctx),
+ 	.lbs_task = sizeof(struct aa_task_ctx),
+ };
+-- 
+2.17.1
 
 
