@@ -2,60 +2,62 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id D304C6178F8
+	by mail.lfdr.de (Postfix) with ESMTPS id D8AED6178F9
 	for <lists+apparmor@lfdr.de>; Thu,  3 Nov 2022 09:42:55 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1oqVoB-0003y5-AN; Thu, 03 Nov 2022 08:42:43 +0000
-Received: from mail-yw1-f202.google.com ([209.85.128.202])
+	id 1oqVoC-0003yK-FB; Thu, 03 Nov 2022 08:42:44 +0000
+Received: from mail-yb1-f201.google.com ([209.85.219.201])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
  (envelope-from
- <3vLBiYwUKCMk613p6v33v0t.r31p44p61360x787.9q9289.r31@flex--rmoar.bounces.google.com>)
- id 1oqI4T-0008P6-RC
- for apparmor@lists.ubuntu.com; Wed, 02 Nov 2022 18:02:37 +0000
-Received: by mail-yw1-f202.google.com with SMTP id
- 00721157ae682-370624ca2e8so82852597b3.16
- for <apparmor@lists.ubuntu.com>; Wed, 02 Nov 2022 11:02:37 -0700 (PDT)
+ <3v7BiYwUKCMw946s9y66y3w.u64s77s946930ABA.CtC5BC.u64@flex--rmoar.bounces.google.com>)
+ id 1oqI4W-0008PP-PA
+ for apparmor@lists.ubuntu.com; Wed, 02 Nov 2022 18:02:40 +0000
+Received: by mail-yb1-f201.google.com with SMTP id
+ y6-20020a25b9c6000000b006c1c6161716so16900182ybj.8
+ for <apparmor@lists.ubuntu.com>; Wed, 02 Nov 2022 11:02:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
- :date:message-id:reply-to;
- bh=dWyi/36idrKf9zvqL8JaBZPjyKB9f1dSHmjzSP1ojwk=;
- b=dJOI0lPorycRsOpZymi9t1TnR2iJs0YJmGpf9Vx5xS8CdlqFk9+pumJSay0Kbj8BKA
- VGjMwvYdP4/tdgbdSELKWvZeYkyL+1ecoOjRm+S1Thx375XXZngssigLnw8oikaKLvqU
- mDjA3ZSmN3/Qs2x89wIhl5vdD3sb9qoBBVk5RyERf/1lzH8VMauxhjxOqmrsCJcU6Pf8
- Fqo7v/sCsmW/6pX/WNY5rQaT1kZpXkHIJ7xZgTPgTYWKekf1sjeWoa3vWG7vyiaNja5H
- D4Tw4N2W60VMFQeCx7v5tevS32JhpA7W6tQmPRZJI7IyryUoP0Vfr2AZdafP7fuXgGkA
- Guug==
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=CAYN6r+yTQvu28IFOFbzBkKteLNKvCbZnYXbZl6k2DY=;
+ b=FrgvbWPhRA4VD87zdgqKKiY5UHCDYtYfe7CjaP2xgmEOG1Y05NjZSf3gzQWW8T0Uct
+ kwK/a9hcGw0YEYKVOJVFR5P9iNYw89sCx6ZHsJggC73BExIAmjho5Pbue4CgNBI3QOgO
+ FoPe42kXbj+qL8yjM5/fdOTg+3rYiSOtiXyjG+vM72l5OUaB8j+A2cgCkgbbQKnrcMOV
+ vjVP5OOJMItX52jvTtAXnPZObQ6EUQSPLAa0t1h0Rw23k0Jw4oAggVMoBX89jk82PyRN
+ zVVthy9iTThict8/JGXYxe/C830qJ3olt0/g7iLirWIKcLukRfjGALBtlSWm2uBgHMk7
+ 3wwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=dWyi/36idrKf9zvqL8JaBZPjyKB9f1dSHmjzSP1ojwk=;
- b=T2eCN+EXNbpyYTBuW6nbLANs4uipHOtB1ae8nuJMJTJ01TJA/AI8w7bpsvl5p1LESm
- mY/tvmGTLho2ZGPD2RnnpnDdRxEcOqe+DH4aPfTEFF8npU7TV8IkERZJTQ2irnfZmDWg
- EWf9M/0tuZ6vaakN3xqHbnY72EeGhMXT8SNCNQHmhG14NSOxnEyeiJ0WAlHpSK8D98G0
- HXb7dzexSpg9A1b6IddUKcGrboDYPJp3BWYralc3ovyfPAVJanJMTlwGE1RB0XNcthe0
- 8XdNzDp05rl+mLPIniYz/DABlq2nnmwC2EQgoDDm+LLi+Lw5qLrDvjNmCB62hC5QKv5J
- 5fAg==
-X-Gm-Message-State: ACrzQf0f4EUYgv+P6nRMzmiTlt5lLM4nfAxubtUQJXPhRfTs1xexQ6E8
- C2qMWsx28jKlKu5dw33mWnDyGPdEhg==
-X-Google-Smtp-Source: AMsMyM4nkGp71lUryvEpctCfZeBQK2w2hUU/0fEQWVZI7plPOH6PoaqnQ3PuELrve4EZR/p73cmB8xo8yQ==
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=CAYN6r+yTQvu28IFOFbzBkKteLNKvCbZnYXbZl6k2DY=;
+ b=KU49LbDxW6RiWfpeNawsNCp2PkYvJIni0QTWQq7N+tUP361zLte1+5v0KzVUIUraaf
+ +AGLA3z18D8EnzKVTStHazw08zfm47vNAoctICguiqsjXlJ8mFlM4vcH89R5ga7k2Daf
+ 00gFEyKd4olw067CugRBT7duhPmoyd7ch3cwz6fegn6oQ5o3YhcFm3X/yJk6l+pu4Ihh
+ T37cg2NhqK3Vo89rcTMChPr3RWI0s9f/aNGKaCHs9KZIVWLDpz7/aPE6TR+USqrbm59V
+ 2uKhrA2IfD+8W0KAruU2cHIsgoNgS2y39A5/sYWc0MGjrI4TNoy66zGKUJoer9WiRWCg
+ vwaw==
+X-Gm-Message-State: ACrzQf2AIbEGAsSTUDXR4XpbTHmJot27PG9pCDfAZVTjXASgg1U2hLiO
+ FHsCWXoi88ldVlbJWS2uG4JVdMm1Ww==
+X-Google-Smtp-Source: AMsMyM64HlkRFhAbArKDmM55aNm5YRW0BBSHLMBYENZZs5lf+VgK/ijoO38lHLz2MMzG8f46iR30Y68UQQ==
 X-Received: from rmoar.c.googlers.com ([fda3:e722:ac3:cc00:2b:7d90:c0a8:4259])
- (user=rmoar job=sendgmr) by 2002:a25:e6d2:0:b0:6ca:6965:6f8 with
- SMTP id
- d201-20020a25e6d2000000b006ca696506f8mr24343136ybh.461.1667412156588; Wed, 02
- Nov 2022 11:02:36 -0700 (PDT)
-Date: Wed,  2 Nov 2022 17:59:57 +0000
+ (user=rmoar job=sendgmr) by 2002:a05:6902:1247:b0:6ca:88e8:6f43
+ with SMTP id
+ t7-20020a056902124700b006ca88e86f43mr24295801ybu.289.1667412159822; Wed, 02
+ Nov 2022 11:02:39 -0700 (PDT)
+Date: Wed,  2 Nov 2022 17:59:58 +0000
+In-Reply-To: <20221102175959.2921063-1-rmoar@google.com>
 Mime-Version: 1.0
+References: <20221102175959.2921063-1-rmoar@google.com>
 X-Mailer: git-send-email 2.38.1.273.g43a17bfeac-goog
-Message-ID: <20221102175959.2921063-1-rmoar@google.com>
+Message-ID: <20221102175959.2921063-2-rmoar@google.com>
 From: Rae Moar <rmoar@google.com>
 To: brendanhiggins@google.com, davidgow@google.com, dlatypov@google.com
 Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Thu, 03 Nov 2022 08:42:42 +0000
-Subject: [apparmor] [PATCH v1 0/2] kunit: add macro to allow conditionally
+Subject: [apparmor] [PATCH v1 1/2] kunit: add macro to allow conditionally
  exposing static symbols to tests
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -75,62 +77,61 @@ Cc: tales.aparecida@gmail.com, apparmor@lists.ubuntu.com,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Currently in order to test a static function, tests must be included in the
-same translation unit as the function. However, this can cause issues with
-including implementation and test code in the same file. As an alternative,
-the first patch in this series creates a macro that will set a function to
-be static or not depending on whether CONFIG_KUNIT is enabled. This allows
-the function to be visible during testing and static otherwise.
+Create two macros:
 
-As an example, the current status quo to test static functions is:
+VISIBLE_IF_KUNIT - A macro that sets symbols to be static if CONFIG_KUNIT
+is not enabled. Otherwise if CONFIG_KUNIT is enabled there is no change
+to the symbol definition.
 
-=== test.c ===
+EXPORT_SYMBOL_IF_KUNIT(symbol) - Exports symbol into
+EXPORTED_FOR_KUNIT_TESTING namespace only if CONFIG_KUNIT is enabled. Must
+use MODULE_IMPORT_NS(EXPORTED_FOR_KUNIT_TESTING) in test file in order to
+use symbols.
 
-static void test_case(struct kunit *test)
-{
-  KUNIT_EXPECT_EQ(test, my_func_to_test(), 2);
-}
-
-Then the tests are included in the implementation file as a workaround to
-the issue of testing static functions:
-
-=== implementation.c ===
-
-static int my_func_to_test() {...}
-...
-#include "test.c"
-
-Instead, the function could be defined with this new macro:
-
-=== implementation.c ===
-
-VISIBLE_IF_KUNIT int my_func_to_test() {...}
-
-The first patch also creates a macro that will export a symbol into a kunit
-testing namespace only if CONFIG_KUNIT is enabled. This follows the logic
-above and allows symbols to be conditionally exported based on the testing
-status.
-
-The second patch in the series updates the policy_unpack test in AppArmor
-to show an example of how to use both of these macros in order to address
-the issue of testing static functions.
-
-Rae Moar (2):
-  kunit: add macro to allow conditionally exposing static symbols to
-    tests
-  apparmor: test: make static symbols visible during kunit testing
-
- include/kunit/visibility.h                | 32 ++++++++++
- security/apparmor/Kconfig                 |  4 +-
- security/apparmor/Makefile                |  2 +
- security/apparmor/include/policy_unpack.h | 50 ++++++++++++++++
- security/apparmor/policy_unpack.c         | 72 +++++++----------------
- security/apparmor/policy_unpack_test.c    |  5 ++
- 6 files changed, 112 insertions(+), 53 deletions(-)
+Signed-off-by: Rae Moar <rmoar@google.com>
+---
+ include/kunit/visibility.h | 32 ++++++++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
  create mode 100644 include/kunit/visibility.h
 
-
-base-commit: 11e76194937b506caf1b49512c42d5c2588681d7
+diff --git a/include/kunit/visibility.h b/include/kunit/visibility.h
+new file mode 100644
+index 000000000000..eb22c9e6b4eb
+--- /dev/null
++++ b/include/kunit/visibility.h
+@@ -0,0 +1,32 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * KUnit API to allow symbols to be conditionally visible during KUnit
++ * testing
++ *
++ * Copyright (C) 2019, Google LLC.
++ * Author: Brendan Higgins <brendanhiggins@google.com>
++ */
++
++#ifndef _KUNIT_VISIBILITY_H
++#define _KUNIT_VISIBILITY_H
++
++/**
++ * VISIBLE_IF_KUNIT - A macro that sets symbols to be static if CONFIG_KUNIT
++ * is not enabled. Otherwise if CONFIG_KUNIT is enabled there is no change
++ * to the symbol definition.
++ *
++ * EXPORT_SYMBOL_IF_KUNIT(symbol) - Exports symbol into
++ * EXPORTED_FOR_KUNIT_TESTING namespace only if CONFIG_KUNIT is
++ * enabled. Must use MODULE_IMPORT_NS(EXPORTED_FOR_KUNIT_TESTING)
++ * in test file in order to use symbols.
++ */
++#if IS_ENABLED(CONFIG_KUNIT)
++    #define VISIBLE_IF_KUNIT
++    #define EXPORT_SYMBOL_IF_KUNIT(symbol) EXPORT_SYMBOL_NS(symbol, \
++	    EXPORTED_FOR_KUNIT_TESTING)
++#else
++    #define VISIBLE_IF_KUNIT static
++    #define EXPORT_SYMBOL_IF_KUNIT(symbol)
++#endif
++
++#endif /* _KUNIT_VISIBILITY_H */
 -- 
 2.38.1.273.g43a17bfeac-goog
 
