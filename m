@@ -2,60 +2,56 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B8A462B5C0
-	for <lists+apparmor@lfdr.de>; Wed, 16 Nov 2022 09:57:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3C5062C95B
+	for <lists+apparmor@lfdr.de>; Wed, 16 Nov 2022 21:00:20 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1ovEEZ-0002HL-8J; Wed, 16 Nov 2022 08:57:27 +0000
-Received: from mail-lj1-f182.google.com ([209.85.208.182])
+	id 1ovOZu-00064Q-V3; Wed, 16 Nov 2022 20:00:10 +0000
+Received: from mail-wr1-f50.google.com ([209.85.221.50])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <sonixxfx@gmail.com>) id 1ovEEW-0002HB-CS
- for apparmor@lists.ubuntu.com; Wed, 16 Nov 2022 08:57:24 +0000
-Received: by mail-lj1-f182.google.com with SMTP id k19so20950391lji.2
- for <apparmor@lists.ubuntu.com>; Wed, 16 Nov 2022 00:57:23 -0800 (PST)
+ (envelope-from <janko.itm@gmail.com>) id 1ovOZs-00063y-Ke
+ for apparmor@lists.ubuntu.com; Wed, 16 Nov 2022 20:00:08 +0000
+Received: by mail-wr1-f50.google.com with SMTP id bs21so31751516wrb.4
+ for <apparmor@lists.ubuntu.com>; Wed, 16 Nov 2022 12:00:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=to:subject:message-id:date:from:in-reply-to:references:mime-version
- :from:to:cc:subject:date:message-id:reply-to;
- bh=YVhUcy6g86PtnU3FIgE19yRvKOj7CSzloFY4NtMRhNY=;
- b=c7hVX5t+YEGuzEx351jaIduyeXjfWnvZ3knmNykjSFnf3GexzM/YL5dSd27owI+Dk9
- q1YTx0Dlj9M2ab+0Gc0bJe3O7Yjbo52Gv4bI7ZUK9uFcRg3pxet50cU2wZvsyA8fDdIV
- rxVMXGmBJ+cURPIMeYDJrWBkGuQK4tfgl7jvN80TAtq//zUdDtOE3svNETQ6Cy4AytKB
- Lj35NEIQ7Lrjfc2AaEOSkkiciwKoWCz2rSpU4n6/zlNmkbYeoD67wnqt1U9Nzn/iZYfC
- w8miqN5lc6T8qyxkgSY70iDW8AoW1rOulh2SZRIZeM2LXLFzWbFBK08nDpmO3NUDw0xp
- Me6g==
+ h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=TgI3SonUfkXVMbinGwDBbiCLAOsniilPdmRYutZSTSw=;
+ b=TWlff/FrE0uax09jIagduRTn+v1OdvZ+Muj70lwGBa9W6bSFSu8IrZUhCFLqarzU86
+ Y1+PKrJWdEFEq8szal0qpHv9o16vfXfbF+nTkmfktNJwr7Kt7VDWgG8v5Wksj+pOeUHo
+ xgL7MO6eUX1NyeExtfvn+uuW3Kn9O0hHUknDX6TrRwA76oEYVf396f6Kk3mRhq+Aoa03
+ BvL6veZ1U2n4nuS4UByNal735/1/QNbxoMdx54u1l3ShZ0+iFIR5X84K/KOrJDh4CrN8
+ +AVm7aaYclpQAc2YzoOD7wlOCzVusRYj7cmuon0MZsF0+A0pIK3XIXMvl6uhsWPJwC2t
+ oOHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=to:subject:message-id:date:from:in-reply-to:references:mime-version
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=YVhUcy6g86PtnU3FIgE19yRvKOj7CSzloFY4NtMRhNY=;
- b=518YcRgpeeEhV3ZqJ6WQrH/Ry1ByOBwTZTwoJsG99ku4Sdytp6cKutloeV6Qlp8t3G
- oVm0MQ0Jn/Au4wR9bru32+9lHwDP7gOwPufDHq84XFF1N2ZZxDNurX/w4AmqypwSJuc1
- 64gYRwE1rEycJAqruzSvx04uw1amJiwrvRxtmHO7JJ3qmKX0nTdcIOKFu8rH+RFi9mib
- NeBdeDun6kEPJwo+uLnCHTMnxaRC4mvUofQd3n1xg3QztLD1mHwAklwswUrtFPW2TYP1
- 9j+6e5Hk/uWaGiRR4cxZ5vkcH4XKHd2Yu4fD+df0Cj/M090KaMhb6/qL482G+lW8Gbh6
- nC+g==
-X-Gm-Message-State: ANoB5pkG3DbsR5VP1B2AVBM87zRMAoNZzJfFM5YkKPjvCjgDqs+EbYkx
- MXJUHnYwsuTpR3FfykPpYgh8Pijqhj5Y9fyUjNs=
-X-Google-Smtp-Source: AA0mqf6pjR37+1beYaGCansB2rwJzdFOu/o/aS7UCZwyw6OpMp4uUamR0ZnGRPP8FgUskZ2WwlltgJHvs65FHEe9GcQ=
-X-Received: by 2002:a05:651c:32f:b0:277:1e9b:2b07 with SMTP id
- b15-20020a05651c032f00b002771e9b2b07mr7958125ljp.242.1668589043106; Wed, 16
- Nov 2022 00:57:23 -0800 (PST)
+ h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=TgI3SonUfkXVMbinGwDBbiCLAOsniilPdmRYutZSTSw=;
+ b=f+C+RwxFf3lF1iM5MX2rbiT+RkLGKjlAkLnjjGpVbDnoyHQUJGA/UEWJK8H16om6aS
+ 7XyB1EIwV49vcl4KiHA8X0gvlJ6Gye4MnrPiomjVIgoIxnpsxc6sIxJscz9yLWxe/Wns
+ gFZvC3bfhKt/yZjkGluiIt7y0zkaXm5Lvy4ZwM27C+IZApVknoyrhUT4KlQmw1iCou1o
+ T0LdA7bsFtmZK1psePhi2QXqtd5l5zMdNMqDOhN9SgilxK+kLdELmmxxkwjDamh9Uvq8
+ eGHMKcv7aN+9Cob4jlj20QIOdPYe6w1Bio2hALDr20GSXluR8aIwq3G+JImcN/rYbY6B
+ HN6Q==
+X-Gm-Message-State: ANoB5pnBlQ0RMGet5TA5TpxCePooqMR5OdvNbqTtoGJ7Im/7ugqGJqtB
+ K3y4OH9x+5LAL59L8KbeWprWk2Ja+UIW5Y8ZdVK0UDt9PCP4qQ==
+X-Google-Smtp-Source: AA0mqf4PqsBzgLx3YNjpQm8wuvdUpAyJ34qO2T3u1+/HUZQS/5cVgc6K9P7b6+E8aKIG4gypEylGa2iKuIshaf0NpJU=
+X-Received: by 2002:adf:d225:0:b0:22e:2efe:3176 with SMTP id
+ k5-20020adfd225000000b0022e2efe3176mr14476494wrh.241.1668628807442; Wed, 16
+ Nov 2022 12:00:07 -0800 (PST)
 MIME-Version: 1.0
-References: <CAKO675mVM316f3jdy+6Fz4MKAkKP+rmEJKqhGPiBPiuM=3jAzQ@mail.gmail.com>
- <afb647b3-e9a7-24ae-0a94-99cdd2b02b49@canonical.com>
- <CAKO675=Pbn42nZ5d5ViqHXK4McPOyK2BXfh4dOFhp4xhUA=Ypg@mail.gmail.com>
- <139fb540-de33-7625-a45d-55eca86b5802@canonical.com>
-In-Reply-To: <139fb540-de33-7625-a45d-55eca86b5802@canonical.com>
-From: Sonixxfx <sonixxfx@gmail.com>
-Date: Wed, 16 Nov 2022 09:57:11 +0100
-Message-ID: <CAKO675npJ6p-on+5tS+qtEK-OfyEKd3kka=6GQrNmdDn0FdEOQ@mail.gmail.com>
-To: John Johansen <john.johansen@canonical.com>, apparmor@lists.ubuntu.com
-Content-Type: multipart/alternative; boundary="00000000000030c7ed05ed92a981"
-Received-SPF: pass client-ip=209.85.208.182; envelope-from=sonixxfx@gmail.com;
- helo=mail-lj1-f182.google.com
-Subject: Re: [apparmor] Snaps are blocked by Apparmor on Ubuntu 22.04
+From: janko metelko <janko.itm@gmail.com>
+Date: Wed, 16 Nov 2022 20:59:55 +0100
+Message-ID: <CAHRxeQ0Mf-mWnNGS1vGa0NMB-=dBvsweaQ-xPkibxC1VNmLmcg@mail.gmail.com>
+To: apparmor@lists.ubuntu.com
+Content-Type: multipart/alternative; boundary="00000000000054637c05ed9bebdf"
+Received-SPF: pass client-ip=209.85.221.50; envelope-from=janko.itm@gmail.com;
+ helo=mail-wr1-f50.google.com
+Subject: [apparmor] any way of denying profiled executable(s) to be ran at
+	all
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -70,245 +66,145 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
---00000000000030c7ed05ed92a981
+--00000000000054637c05ed9bebdf
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Op di 15 nov. 2022 om 23:53 schreef John Johansen <
-john.johansen@canonical.com>:
+Thank you for making AppArmor, if any of the developers are here. I am not
+a security guy, but such a solution seems like it should or will become an
+absolute must-use for any application deployment, locally or on a server.
 
-> On 11/15/22 10:08, Sonixxfx wrote:
-> > Op di 15 nov. 2022 om 18:06 schreef John Johansen <
-> john.johansen@canonical.com <mailto:john.johansen@canonical.com>>:
-> >
-> >     On 11/15/22 06:30, Sonixxfx wrote:
-> >      > Hi,
-> >      >
-> >      > I was trying Apparmor today, but now my snaps won't run anymore.
-> I have tried a couple of things to solve it, including disabling Apparmor=
-,
-> but it didn't help.
-> >      > When i try to start Brave for example dmesg shows me:
-> >      >
-> >
-> >     how did you disable apparmor?
-> >
-> >     systemctl disable apparmor
-> >
-> >     or
-> >
-> >     systemctl disable snapd.apparmor
-> >
-> >     or
-> >
-> >     systemctl stop apparmor
-> >
-> >     or did you edit /etc/grub/defaults
-> >
-> >
-> > I ran
-> >
-> > sudo systemctl stop apparmor.service
-> >
-> this will unload policy and make everything unconfined until reboot or th=
-e
-> service is started again. It is important to note that restarting the
-> service will NOT re-confine applications that are unconfined. They must b=
-e
-> restarted.
->
-> > to disable Apparmor.
-> >
-> > I ran
-> >
-> > sudo systemctl disable apparmor.service
-> >
-> > to unload the kernel module.
->
-> this does not unload the kernel module, as apparmor is built into the
-> kernel. At this time there is no option to make an of the LSMs loadable
-> modules. What this does is partially disable systemd services that load
-> policy/manage state.
->
-> Partially because it only does late stage service disabling, there is
-> early stage that can still run (not used by default on Ubuntu) and this c=
-an
-> really mess up your system.
-> >
-> >
-> > Should I have run:
-> >
-> > sudo systemctl disable snapd.apparmor ?
-> >
->
-> no the only safe way to disable apparmor is to set apparmor=3D0 as a kern=
-el
-> parameter, you can do this temporarily in grub when booting or in
-> /etc/defaults/grub and the update-grub
->
->
->
-Oke, thanks.
+I have a question. I want to make a profile that prevents execution of any
+file from user-writable directories like /home /tmp, *except* if the
+executable has a AA profile.
 
+This would effectively mean that the user (or user level process) can't
+(knowingly or unknowingly) "install" and run anything that wasn't
+"confirmed" by root.
 
-> >      > brave_brave.desktop[9095]: snap-confine has elevated permissions
-> and is not confined but should be. Refusing to continue to avoid permissi=
-on
-> escalation attacks
-> >      > brave_brave.desktop[9095]: Please make sure that the
-> snapd.apparmor service is enabled and started.
-> >      >
-> >      > These messages are also shown when I have Apparmor enabled and
-> started.
-> >      >
-> >
-> >     what does aa-status return?
-> >
-> >
-> > I have already reinstalled my OS, sorry. But I am curious what you
-> answer to my question.
-> >
-> >      > Can someone tell me how I can resolve this?
-> >      >
-> >
-> >     so snaps by-pass the apparmor userspace service and only use the
-> kernel component. They run their own service to manage snap confinement.
-> What do you get for
-> >
-> >     systemctl status snapd.apparmor
-> >
-> >
-> >     and of course if it is not running you can do
-> >
-> >     systemctl start snapd.apparmor
-> >
-> >     or make sure it runs after reboot
-> >
-> >     systemctl enable snapd.apparmor
-> >
-> >
-> > Thanks for the info =F0=9F=98=83
->
->
+It seems I can do this by creating an empty profile for /home/** which
+denies everything and then creating separate AA profiles for specific
+executable files inside /home that I allow to run.
 
---00000000000030c7ed05ed92a981
+If I understand it right, all executables in /home without profiles will in
+this case crash or at least can't do any side effects since they are
+blocked from all IO/shared libs/configs/etc. In practice, they will
+probably just crash. It would be much nicer experience if such apps would
+be prevented to run, not start and crash.
+
+But I can only find directives in AA, that limit or allow certain resorces
+to the executable, and no directive, that would prevent executable to be
+ran in the first place.
+
+Is there any such solution? Am I maybe looking at it all wrong? Should I do
+this on another level, not with AppArmor?
+
+*Example*
+
+Maybe stupid example, but still. Let's say I want to prevent non-root users
+or RCEs from wget-ing into any other directory other than /tmp. I can
+simply create a profile for /usr/bin/wget { ... /tmp w, } and the job is
+done. But user/RCE can then simply do cp /usr/bin/wget ~/mywget and use
+wget for whatever it wants. If we prevent execution of non-profiled
+executables in user writable directories then he/it can't do that and our
+primary objective stands.
+
+I hope it makes some sense ... Thank you again. Ubuntu rocks also, and
+Xubuntu! :)
+
+Janko
+
+--00000000000054637c05ed9bebdf
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div dir=3D"ltr"></div><div class=3D"gmail_quote"><div dir=
-=3D"ltr" class=3D"gmail_attr">Op di 15 nov. 2022 om 23:53 schreef John Joha=
-nsen &lt;<a href=3D"mailto:john.johansen@canonical.com">john.johansen@canon=
-ical.com</a>&gt;:<br></div><blockquote class=3D"gmail_quote" style=3D"margi=
-n:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex=
-">On 11/15/22 10:08, Sonixxfx wrote:<br>
-&gt; Op di 15 nov. 2022 om 18:06 schreef John Johansen &lt;<a href=3D"mailt=
-o:john.johansen@canonical.com" target=3D"_blank">john.johansen@canonical.co=
-m</a> &lt;mailto:<a href=3D"mailto:john.johansen@canonical.com" target=3D"_=
-blank">john.johansen@canonical.com</a>&gt;&gt;:<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0On 11/15/22 06:30, Sonixxfx wrote:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; Hi,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; I was trying Apparmor today, but now my snaps=
- won&#39;t run anymore. I have tried a couple of things to solve it, includ=
-ing=C2=A0disabling=C2=A0Apparmor, but it didn&#39;t help.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; When i try to start Brave for example dmesg s=
-hows me:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0how did you disable apparmor?<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0systemctl disable apparmor<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0or<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0systemctl disable snapd.apparmor<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0or<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0systemctl stop apparmor<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0or did you edit /etc/grub/defaults<br>
-&gt; <br>
-&gt; <br>
-&gt; I ran<br>
-&gt; <br>
-&gt; sudo systemctl stop apparmor.service<br>
-&gt; <br>
-this will unload policy and make everything unconfined until reboot or the =
-service is started again. It is important to note that restarting the servi=
-ce will NOT re-confine applications that are unconfined. They must be resta=
-rted.<br>
-<br>
-&gt; to disable Apparmor.<br>
-&gt; <br>
-&gt; I ran<br>
-&gt; <br>
-&gt; sudo systemctl disable apparmor.service<br>
-&gt; <br>
-&gt; to unload the kernel module.<br>
-<br>
-this does not unload the kernel module, as apparmor is built into the kerne=
-l. At this time there is no option to make an of the LSMs loadable modules.=
- What this does is partially disable systemd services that load policy/mana=
-ge state.<br>
-<br>
-Partially because it only does late stage service disabling, there is early=
- stage that can still run (not used by default on Ubuntu) and this can real=
-ly mess up your system.<br>
-&gt; <br>
-&gt; <br>
-&gt; Should I have run:<br>
-&gt; <br>
-&gt; sudo systemctl disable snapd.apparmor ?<br>
-&gt; <br>
-<br>
-no the only safe way to disable apparmor is to set apparmor=3D0 as a kernel=
- parameter, you can do this temporarily in grub when booting or in /etc/def=
-aults/grub and the update-grub<br>
-<br>
-<br></blockquote><div><br></div><div>Oke, thanks.</div><div>=C2=A0</div><bl=
-ockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-lef=
-t:1px solid rgb(204,204,204);padding-left:1ex">
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; brave_brave.desktop[9095]: snap-confine has e=
-levated permissions and is not confined but should be. Refusing to continue=
- to avoid permission escalation attacks<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; brave_brave.desktop[9095]: Please make sure t=
-hat the snapd.apparmor service is enabled and started.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; These messages are also shown when I have App=
-armor enabled and started.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0what does aa-status return?<br>
-&gt; <br>
-&gt; <br>
-&gt; I have already reinstalled my OS, sorry. But I am curious what you ans=
-wer to my question.<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt; Can someone tell me how I can resolve this?<b=
-r>
-&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0so snaps by-pass the apparmor userspace service and=
- only use the kernel component. They run their own service to manage snap c=
-onfinement. What do you get for<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0systemctl status snapd.apparmor<br>
-&gt; <br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0and of course if it is not running you can do<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0systemctl start snapd.apparmor<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0or make sure it runs after reboot<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0systemctl enable snapd.apparmor<br>
-&gt; <br>
-&gt; <br>
-&gt; Thanks for the info =F0=9F=98=83<br>
-<br>
-</blockquote></div></div>
+<div dir=3D"ltr"><div class=3D"gmail-css-1dbjc4n"><div dir=3D"auto" class=
+=3D"gmail-css-901oao gmail-r-18jsvk2 gmail-r-37j5jr gmail-r-a023e6 gmail-r-=
+16dba41 gmail-r-rjixqe gmail-r-bcqeeo gmail-r-bnwqim gmail-r-qvutc0" id=3D"=
+gmail-id__15trkguzrgp" lang=3D"en"><span class=3D"gmail-css-901oao gmail-cs=
+s-16my406 gmail-r-poiln3 gmail-r-bcqeeo gmail-r-qvutc0">Thank you for makin=
+g AppArmor, if any of the developers are here. I am not a security guy, but=
+ such a solution seems like it should or will become an absolute must-use f=
+or any application deployment, locally or on a server.<br></span></div><div=
+ dir=3D"auto" class=3D"gmail-css-901oao gmail-r-18jsvk2 gmail-r-37j5jr gmai=
+l-r-a023e6 gmail-r-16dba41 gmail-r-rjixqe gmail-r-bcqeeo gmail-r-bnwqim gma=
+il-r-qvutc0" lang=3D"en"><span class=3D"gmail-css-901oao gmail-css-16my406 =
+gmail-r-poiln3 gmail-r-bcqeeo gmail-r-qvutc0"><br></span></div><div class=
+=3D"gmail-css-901oao gmail-r-18jsvk2 gmail-r-37j5jr gmail-r-a023e6 gmail-r-=
+16dba41 gmail-r-rjixqe gmail-r-bcqeeo gmail-r-bnwqim gmail-r-qvutc0" lang=
+=3D"en"><span class=3D"gmail-css-901oao gmail-css-16my406 gmail-r-poiln3 gm=
+ail-r-bcqeeo gmail-r-qvutc0">I have a question. I want to make a profile th=
+at prevents execution of any file from user-writable directories like /home=
+ /tmp, *except* if the executable has a AA profile.</span></div><div class=
+=3D"gmail-css-901oao gmail-r-18jsvk2 gmail-r-37j5jr gmail-r-a023e6 gmail-r-=
+16dba41 gmail-r-rjixqe gmail-r-bcqeeo gmail-r-bnwqim gmail-r-qvutc0" lang=
+=3D"en"><span class=3D"gmail-css-901oao gmail-css-16my406 gmail-r-poiln3 gm=
+ail-r-bcqeeo gmail-r-qvutc0"><br></span></div><div dir=3D"auto" class=3D"gm=
+ail-css-901oao gmail-r-18jsvk2 gmail-r-37j5jr gmail-r-a023e6 gmail-r-16dba4=
+1 gmail-r-rjixqe gmail-r-bcqeeo gmail-r-bnwqim gmail-r-qvutc0" lang=3D"en">=
+<span class=3D"gmail-css-901oao gmail-css-16my406 gmail-r-poiln3 gmail-r-bc=
+qeeo gmail-r-qvutc0">This would effectively mean that the user (or user lev=
+el process) can&#39;t (knowingly or unknowingly) &quot;install&quot; and ru=
+n anything that wasn&#39;t &quot;confirmed&quot; by root.<br><br></span></d=
+iv><div class=3D"gmail-css-901oao gmail-r-18jsvk2 gmail-r-37j5jr gmail-r-a0=
+23e6 gmail-r-16dba41 gmail-r-rjixqe gmail-r-bcqeeo gmail-r-bnwqim gmail-r-q=
+vutc0" lang=3D"en"><span class=3D"gmail-css-901oao gmail-css-16my406 gmail-=
+r-poiln3 gmail-r-bcqeeo gmail-r-qvutc0">It seems I can do this by creating =
+an empty profile for /home/** which denies everything and then creating sep=
+arate AA profiles for specific executable files inside /home that I allow t=
+o run.<br></span></div><div class=3D"gmail-css-901oao gmail-r-18jsvk2 gmail=
+-r-37j5jr gmail-r-a023e6 gmail-r-16dba41 gmail-r-rjixqe gmail-r-bcqeeo gmai=
+l-r-bnwqim gmail-r-qvutc0" lang=3D"en"><span class=3D"gmail-css-901oao gmai=
+l-css-16my406 gmail-r-poiln3 gmail-r-bcqeeo gmail-r-qvutc0"><br></span></di=
+v><div class=3D"gmail-css-901oao gmail-r-18jsvk2 gmail-r-37j5jr gmail-r-a02=
+3e6 gmail-r-16dba41 gmail-r-rjixqe gmail-r-bcqeeo gmail-r-bnwqim gmail-r-qv=
+utc0" lang=3D"en"><span class=3D"gmail-css-901oao gmail-css-16my406 gmail-r=
+-poiln3 gmail-r-bcqeeo gmail-r-qvutc0">If I understand it right, all execut=
+ables in /home without profiles will in this case crash or at least can&#39=
+;t do any side effects since they are blocked from all IO/shared libs/confi=
+gs/etc. In practice, they will probably just crash. It would be much nicer =
+experience if such apps would be prevented to run, not start and crash.<br>=
+<br></span></div><div class=3D"gmail-css-901oao gmail-r-18jsvk2 gmail-r-37j=
+5jr gmail-r-a023e6 gmail-r-16dba41 gmail-r-rjixqe gmail-r-bcqeeo gmail-r-bn=
+wqim gmail-r-qvutc0" lang=3D"en"><span class=3D"gmail-css-901oao gmail-css-=
+16my406 gmail-r-poiln3 gmail-r-bcqeeo gmail-r-qvutc0">But I can only find d=
+irectives in AA, that limit or allow certain resorces to the executable, an=
+d no directive, that would prevent executable to be ran in the first place.=
+ <br><br>Is there any such solution? Am I maybe looking at it all wrong? Sh=
+ould I do this on another level, not with AppArmor?<br><br></span></div><di=
+v class=3D"gmail-css-901oao gmail-r-18jsvk2 gmail-r-37j5jr gmail-r-a023e6 g=
+mail-r-16dba41 gmail-r-rjixqe gmail-r-bcqeeo gmail-r-bnwqim gmail-r-qvutc0"=
+ lang=3D"en"><span class=3D"gmail-css-901oao gmail-css-16my406 gmail-r-poil=
+n3 gmail-r-bcqeeo gmail-r-qvutc0">*Example*<br><br></span></div><div class=
+=3D"gmail-css-901oao gmail-r-18jsvk2 gmail-r-37j5jr gmail-r-a023e6 gmail-r-=
+16dba41 gmail-r-rjixqe gmail-r-bcqeeo gmail-r-bnwqim gmail-r-qvutc0" lang=
+=3D"en"><span class=3D"gmail-css-901oao gmail-css-16my406 gmail-r-poiln3 gm=
+ail-r-bcqeeo gmail-r-qvutc0">Maybe stupid example, but still. Let&#39;s say=
+ I want to prevent non-root users or RCEs from wget-ing into any other dire=
+ctory other than /tmp. I can simply create a profile for /usr/bin/wget { ..=
+. /tmp w, } and the job is done. But user/RCE can then simply do cp /usr/bi=
+n/wget ~/mywget and use wget for whatever it wants. If we prevent execution=
+ of non-profiled executables in user writable directories then he/it can&#3=
+9;t do that and our primary objective stands.<br></span></div><div class=3D=
+"gmail-css-901oao gmail-r-18jsvk2 gmail-r-37j5jr gmail-r-a023e6 gmail-r-16d=
+ba41 gmail-r-rjixqe gmail-r-bcqeeo gmail-r-bnwqim gmail-r-qvutc0" lang=3D"e=
+n"><span class=3D"gmail-css-901oao gmail-css-16my406 gmail-r-poiln3 gmail-r=
+-bcqeeo gmail-r-qvutc0"><br></span></div><div class=3D"gmail-css-901oao gma=
+il-r-18jsvk2 gmail-r-37j5jr gmail-r-a023e6 gmail-r-16dba41 gmail-r-rjixqe g=
+mail-r-bcqeeo gmail-r-bnwqim gmail-r-qvutc0" lang=3D"en"><span class=3D"gma=
+il-css-901oao gmail-css-16my406 gmail-r-poiln3 gmail-r-bcqeeo gmail-r-qvutc=
+0">I hope it makes some sense ... Thank you again. Ubuntu rocks also, and X=
+ubuntu! :)<br></span></div><div class=3D"gmail-css-901oao gmail-r-18jsvk2 g=
+mail-r-37j5jr gmail-r-a023e6 gmail-r-16dba41 gmail-r-rjixqe gmail-r-bcqeeo =
+gmail-r-bnwqim gmail-r-qvutc0" lang=3D"en"><span class=3D"gmail-css-901oao =
+gmail-css-16my406 gmail-r-poiln3 gmail-r-bcqeeo gmail-r-qvutc0"><br></span>=
+</div><div class=3D"gmail-css-901oao gmail-r-18jsvk2 gmail-r-37j5jr gmail-r=
+-a023e6 gmail-r-16dba41 gmail-r-rjixqe gmail-r-bcqeeo gmail-r-bnwqim gmail-=
+r-qvutc0" lang=3D"en"><span class=3D"gmail-css-901oao gmail-css-16my406 gma=
+il-r-poiln3 gmail-r-bcqeeo gmail-r-qvutc0">Janko<br></span></div><div class=
+=3D"gmail-css-901oao gmail-r-18jsvk2 gmail-r-37j5jr gmail-r-a023e6 gmail-r-=
+16dba41 gmail-r-rjixqe gmail-r-bcqeeo gmail-r-bnwqim gmail-r-qvutc0" lang=
+=3D"en"><span class=3D"gmail-css-901oao gmail-css-16my406 gmail-r-poiln3 gm=
+ail-r-bcqeeo gmail-r-qvutc0"><br></span></div></div></div>
 
---00000000000030c7ed05ed92a981--
+--00000000000054637c05ed9bebdf--
 
