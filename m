@@ -2,56 +2,50 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3C5062C95B
-	for <lists+apparmor@lfdr.de>; Wed, 16 Nov 2022 21:00:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42AF462CAE0
+	for <lists+apparmor@lfdr.de>; Wed, 16 Nov 2022 21:31:28 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1ovOZu-00064Q-V3; Wed, 16 Nov 2022 20:00:10 +0000
-Received: from mail-wr1-f50.google.com ([209.85.221.50])
+	id 1ovP45-0005F4-E9; Wed, 16 Nov 2022 20:31:21 +0000
+Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
+ helo=smtp-relay-canonical-1.canonical.com)
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <janko.itm@gmail.com>) id 1ovOZs-00063y-Ke
- for apparmor@lists.ubuntu.com; Wed, 16 Nov 2022 20:00:08 +0000
-Received: by mail-wr1-f50.google.com with SMTP id bs21so31751516wrb.4
- for <apparmor@lists.ubuntu.com>; Wed, 16 Nov 2022 12:00:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=TgI3SonUfkXVMbinGwDBbiCLAOsniilPdmRYutZSTSw=;
- b=TWlff/FrE0uax09jIagduRTn+v1OdvZ+Muj70lwGBa9W6bSFSu8IrZUhCFLqarzU86
- Y1+PKrJWdEFEq8szal0qpHv9o16vfXfbF+nTkmfktNJwr7Kt7VDWgG8v5Wksj+pOeUHo
- xgL7MO6eUX1NyeExtfvn+uuW3Kn9O0hHUknDX6TrRwA76oEYVf396f6Kk3mRhq+Aoa03
- BvL6veZ1U2n4nuS4UByNal735/1/QNbxoMdx54u1l3ShZ0+iFIR5X84K/KOrJDh4CrN8
- +AVm7aaYclpQAc2YzoOD7wlOCzVusRYj7cmuon0MZsF0+A0pIK3XIXMvl6uhsWPJwC2t
- oOHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=TgI3SonUfkXVMbinGwDBbiCLAOsniilPdmRYutZSTSw=;
- b=f+C+RwxFf3lF1iM5MX2rbiT+RkLGKjlAkLnjjGpVbDnoyHQUJGA/UEWJK8H16om6aS
- 7XyB1EIwV49vcl4KiHA8X0gvlJ6Gye4MnrPiomjVIgoIxnpsxc6sIxJscz9yLWxe/Wns
- gFZvC3bfhKt/yZjkGluiIt7y0zkaXm5Lvy4ZwM27C+IZApVknoyrhUT4KlQmw1iCou1o
- T0LdA7bsFtmZK1psePhi2QXqtd5l5zMdNMqDOhN9SgilxK+kLdELmmxxkwjDamh9Uvq8
- eGHMKcv7aN+9Cob4jlj20QIOdPYe6w1Bio2hALDr20GSXluR8aIwq3G+JImcN/rYbY6B
- HN6Q==
-X-Gm-Message-State: ANoB5pnBlQ0RMGet5TA5TpxCePooqMR5OdvNbqTtoGJ7Im/7ugqGJqtB
- K3y4OH9x+5LAL59L8KbeWprWk2Ja+UIW5Y8ZdVK0UDt9PCP4qQ==
-X-Google-Smtp-Source: AA0mqf4PqsBzgLx3YNjpQm8wuvdUpAyJ34qO2T3u1+/HUZQS/5cVgc6K9P7b6+E8aKIG4gypEylGa2iKuIshaf0NpJU=
-X-Received: by 2002:adf:d225:0:b0:22e:2efe:3176 with SMTP id
- k5-20020adfd225000000b0022e2efe3176mr14476494wrh.241.1668628807442; Wed, 16
- Nov 2022 12:00:07 -0800 (PST)
+ (envelope-from <john.johansen@canonical.com>) id 1ovP43-0005Et-ER
+ for apparmor@lists.ubuntu.com; Wed, 16 Nov 2022 20:31:19 +0000
+Received: from [192.168.192.83] (unknown [50.47.159.196])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 9039041D20; 
+ Wed, 16 Nov 2022 20:31:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1668630679;
+ bh=8Z5ZxmjHxwsEJrYU9YdE/iUAC4+zm2psM/IA7wP4lgU=;
+ h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+ In-Reply-To:Content-Type;
+ b=E8HIeGPKZeCfCR06odSkg3b2BGfzTEzqQqgVy95ZN7ZNHHoihZxwRi4kELGv4cptx
+ fi0u/rknz1PLUdNXHWHuZxP7mxsIjF27makWJEIaEE+w+VWBVN+bcIjgWyxNFEow9h
+ AHh/b3JEDaEF9qEX4krGheTZgiSsCzVY3utA2qtW2ErdTKxQGCnys3hYqu1+H9NM8N
+ 3k8ZDoDdVgsc0c0kDn7gAtnt4QWKFqiAlvAmmGnNaTCKwSm8roCBJyK+3vzwdqmvRy
+ 2wjbpibeMMXJ2qRyrWvjbI3TAAehLNECug1qDgYscNZe2bdMyC+4tHtXL8tukZGnOj
+ axUQpTQzXCf4g==
+Message-ID: <cc664f3b-cb4f-51a6-f3f5-5df2313c3c00@canonical.com>
+Date: Wed, 16 Nov 2022 12:31:16 -0800
 MIME-Version: 1.0
-From: janko metelko <janko.itm@gmail.com>
-Date: Wed, 16 Nov 2022 20:59:55 +0100
-Message-ID: <CAHRxeQ0Mf-mWnNGS1vGa0NMB-=dBvsweaQ-xPkibxC1VNmLmcg@mail.gmail.com>
-To: apparmor@lists.ubuntu.com
-Content-Type: multipart/alternative; boundary="00000000000054637c05ed9bebdf"
-Received-SPF: pass client-ip=209.85.221.50; envelope-from=janko.itm@gmail.com;
- helo=mail-wr1-f50.google.com
-Subject: [apparmor] any way of denying profiled executable(s) to be ran at
-	all
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Content-Language: en-US
+To: janko metelko <janko.itm@gmail.com>, apparmor@lists.ubuntu.com
+References: <CAHRxeQ0Mf-mWnNGS1vGa0NMB-=dBvsweaQ-xPkibxC1VNmLmcg@mail.gmail.com>
+From: John Johansen <john.johansen@canonical.com>
+Organization: Canonical
+In-Reply-To: <CAHRxeQ0Mf-mWnNGS1vGa0NMB-=dBvsweaQ-xPkibxC1VNmLmcg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [apparmor] any way of denying profiled executable(s) to be ran
+ at all
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -66,145 +60,83 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
---00000000000054637c05ed9bebdf
-Content-Type: text/plain; charset="UTF-8"
+On 11/16/22 11:59, janko metelko wrote:
+> Thank you for making AppArmor, if any of the developers are here. I am not a security guy, but such a solution seems like it should or will become an absolute must-use for any application deployment, locally or on a server.
+> 
+> I have a question. I want to make a profile that prevents execution of any file from user-writable directories like /home /tmp, *except* if the executable has a AA profile.
+> 
+> This would effectively mean that the user (or user level process) can't (knowingly or unknowingly) "install" and run anything that wasn't "confirmed" by root.
+> 
+> It seems I can do this by creating an empty profile for /home/** which denies everything and then creating separate AA profiles for specific executable files inside /home that I allow to run.
+> 
+> If I understand it right, all executables in /home without profiles will in this case crash or at least can't do any side effects since they are blocked from all IO/shared libs/configs/etc. In practice, they will probably just crash. It would be much nicer experience if such apps would be prevented to run, not start and crash.
+> 
+> But I can only find directives in AA, that limit or allow certain resorces to the executable, and no directive, that would prevent executable to be ran in the first place.
+> 
+> Is there any such solution? Am I maybe looking at it all wrong? Should I do this on another level, not with AppArmor?
+> 
+> *Example*
+> 
+> Maybe stupid example, but still. Let's say I want to prevent non-root users or RCEs from wget-ing into any other directory other than /tmp. I can simply create a profile for /usr/bin/wget { ... /tmp w, } and the job is done. But user/RCE can then simply do cp /usr/bin/wget ~/mywget and use wget for whatever it wants. If we prevent execution of non-profiled executables in user writable directories then he/it can't do that and our primary objective stands.
+> 
+> I hope it makes some sense ... Thank you again. Ubuntu rocks also, and Xubuntu! :)
+> 
 
-Thank you for making AppArmor, if any of the developers are here. I am not
-a security guy, but such a solution seems like it should or will become an
-absolute must-use for any application deployment, locally or on a server.
+So lets split this into two cases.
+1. Executing an application when confined
+2. Executing an application when unconfined
 
-I have a question. I want to make a profile that prevents execution of any
-file from user-writable directories like /home /tmp, *except* if the
-executable has a AA profile.
+there are some differences so it is worth covering
 
-This would effectively mean that the user (or user level process) can't
-(knowingly or unknowingly) "install" and run anything that wasn't
-"confirmed" by root.
+1. Executing an application when confined
 
-It seems I can do this by creating an empty profile for /home/** which
-denies everything and then creating separate AA profiles for specific
-executable files inside /home that I allow to run.
+When an application is confined all execs are covered by the profiles domain transition rules. Those rules require a qualifier to determine what should be done at exec.
+ix - inherit
+px - transition to a profile if it exists, otherwise FAIL the exec
+cx - transition to a child profile if it exists, otherwise FAIL the exec
+ux - transition to unconfined
 
-If I understand it right, all executables in /home without profiles will in
-this case crash or at least can't do any side effects since they are
-blocked from all IO/shared libs/configs/etc. In practice, they will
-probably just crash. It would be much nicer experience if such apps would
-be prevented to run, not start and crash.
+there are currently a set of fallback options available instead of failing the exec
+pix, cix - transition to profile if it exists, otherwise inherit current confinement
+pux, cux - transition to profile if it exists, otherwise transition to unconfined.
 
-But I can only find directives in AA, that limit or allow certain resorces
-to the executable, and no directive, that would prevent executable to be
-ran in the first place.
+you can also explicitly deny an exec with a deny rule
 
-Is there any such solution? Am I maybe looking at it all wrong? Should I do
-this on another level, not with AppArmor?
+   deny x /tmp/*,  # no need for a qualifier on deny rules
 
-*Example*
 
-Maybe stupid example, but still. Let's say I want to prevent non-root users
-or RCEs from wget-ing into any other directory other than /tmp. I can
-simply create a profile for /usr/bin/wget { ... /tmp w, } and the job is
-done. But user/RCE can then simply do cp /usr/bin/wget ~/mywget and use
-wget for whatever it wants. If we prevent execution of non-profiled
-executables in user writable directories then he/it can't do that and our
-primary objective stands.
+So in this case there are a few ways to deny at exec time instead of crashing
 
-I hope it makes some sense ... Thank you again. Ubuntu rocks also, and
-Xubuntu! :)
 
-Janko
+2. Executing an application when unconfined
 
---00000000000054637c05ed9bebdf
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This case is the currently problematic one. Where unconfined tasks essentially use an exec rule of
 
-<div dir=3D"ltr"><div class=3D"gmail-css-1dbjc4n"><div dir=3D"auto" class=
-=3D"gmail-css-901oao gmail-r-18jsvk2 gmail-r-37j5jr gmail-r-a023e6 gmail-r-=
-16dba41 gmail-r-rjixqe gmail-r-bcqeeo gmail-r-bnwqim gmail-r-qvutc0" id=3D"=
-gmail-id__15trkguzrgp" lang=3D"en"><span class=3D"gmail-css-901oao gmail-cs=
-s-16my406 gmail-r-poiln3 gmail-r-bcqeeo gmail-r-qvutc0">Thank you for makin=
-g AppArmor, if any of the developers are here. I am not a security guy, but=
- such a solution seems like it should or will become an absolute must-use f=
-or any application deployment, locally or on a server.<br></span></div><div=
- dir=3D"auto" class=3D"gmail-css-901oao gmail-r-18jsvk2 gmail-r-37j5jr gmai=
-l-r-a023e6 gmail-r-16dba41 gmail-r-rjixqe gmail-r-bcqeeo gmail-r-bnwqim gma=
-il-r-qvutc0" lang=3D"en"><span class=3D"gmail-css-901oao gmail-css-16my406 =
-gmail-r-poiln3 gmail-r-bcqeeo gmail-r-qvutc0"><br></span></div><div class=
-=3D"gmail-css-901oao gmail-r-18jsvk2 gmail-r-37j5jr gmail-r-a023e6 gmail-r-=
-16dba41 gmail-r-rjixqe gmail-r-bcqeeo gmail-r-bnwqim gmail-r-qvutc0" lang=
-=3D"en"><span class=3D"gmail-css-901oao gmail-css-16my406 gmail-r-poiln3 gm=
-ail-r-bcqeeo gmail-r-qvutc0">I have a question. I want to make a profile th=
-at prevents execution of any file from user-writable directories like /home=
- /tmp, *except* if the executable has a AA profile.</span></div><div class=
-=3D"gmail-css-901oao gmail-r-18jsvk2 gmail-r-37j5jr gmail-r-a023e6 gmail-r-=
-16dba41 gmail-r-rjixqe gmail-r-bcqeeo gmail-r-bnwqim gmail-r-qvutc0" lang=
-=3D"en"><span class=3D"gmail-css-901oao gmail-css-16my406 gmail-r-poiln3 gm=
-ail-r-bcqeeo gmail-r-qvutc0"><br></span></div><div dir=3D"auto" class=3D"gm=
-ail-css-901oao gmail-r-18jsvk2 gmail-r-37j5jr gmail-r-a023e6 gmail-r-16dba4=
-1 gmail-r-rjixqe gmail-r-bcqeeo gmail-r-bnwqim gmail-r-qvutc0" lang=3D"en">=
-<span class=3D"gmail-css-901oao gmail-css-16my406 gmail-r-poiln3 gmail-r-bc=
-qeeo gmail-r-qvutc0">This would effectively mean that the user (or user lev=
-el process) can&#39;t (knowingly or unknowingly) &quot;install&quot; and ru=
-n anything that wasn&#39;t &quot;confirmed&quot; by root.<br><br></span></d=
-iv><div class=3D"gmail-css-901oao gmail-r-18jsvk2 gmail-r-37j5jr gmail-r-a0=
-23e6 gmail-r-16dba41 gmail-r-rjixqe gmail-r-bcqeeo gmail-r-bnwqim gmail-r-q=
-vutc0" lang=3D"en"><span class=3D"gmail-css-901oao gmail-css-16my406 gmail-=
-r-poiln3 gmail-r-bcqeeo gmail-r-qvutc0">It seems I can do this by creating =
-an empty profile for /home/** which denies everything and then creating sep=
-arate AA profiles for specific executable files inside /home that I allow t=
-o run.<br></span></div><div class=3D"gmail-css-901oao gmail-r-18jsvk2 gmail=
--r-37j5jr gmail-r-a023e6 gmail-r-16dba41 gmail-r-rjixqe gmail-r-bcqeeo gmai=
-l-r-bnwqim gmail-r-qvutc0" lang=3D"en"><span class=3D"gmail-css-901oao gmai=
-l-css-16my406 gmail-r-poiln3 gmail-r-bcqeeo gmail-r-qvutc0"><br></span></di=
-v><div class=3D"gmail-css-901oao gmail-r-18jsvk2 gmail-r-37j5jr gmail-r-a02=
-3e6 gmail-r-16dba41 gmail-r-rjixqe gmail-r-bcqeeo gmail-r-bnwqim gmail-r-qv=
-utc0" lang=3D"en"><span class=3D"gmail-css-901oao gmail-css-16my406 gmail-r=
--poiln3 gmail-r-bcqeeo gmail-r-qvutc0">If I understand it right, all execut=
-ables in /home without profiles will in this case crash or at least can&#39=
-;t do any side effects since they are blocked from all IO/shared libs/confi=
-gs/etc. In practice, they will probably just crash. It would be much nicer =
-experience if such apps would be prevented to run, not start and crash.<br>=
-<br></span></div><div class=3D"gmail-css-901oao gmail-r-18jsvk2 gmail-r-37j=
-5jr gmail-r-a023e6 gmail-r-16dba41 gmail-r-rjixqe gmail-r-bcqeeo gmail-r-bn=
-wqim gmail-r-qvutc0" lang=3D"en"><span class=3D"gmail-css-901oao gmail-css-=
-16my406 gmail-r-poiln3 gmail-r-bcqeeo gmail-r-qvutc0">But I can only find d=
-irectives in AA, that limit or allow certain resorces to the executable, an=
-d no directive, that would prevent executable to be ran in the first place.=
- <br><br>Is there any such solution? Am I maybe looking at it all wrong? Sh=
-ould I do this on another level, not with AppArmor?<br><br></span></div><di=
-v class=3D"gmail-css-901oao gmail-r-18jsvk2 gmail-r-37j5jr gmail-r-a023e6 g=
-mail-r-16dba41 gmail-r-rjixqe gmail-r-bcqeeo gmail-r-bnwqim gmail-r-qvutc0"=
- lang=3D"en"><span class=3D"gmail-css-901oao gmail-css-16my406 gmail-r-poil=
-n3 gmail-r-bcqeeo gmail-r-qvutc0">*Example*<br><br></span></div><div class=
-=3D"gmail-css-901oao gmail-r-18jsvk2 gmail-r-37j5jr gmail-r-a023e6 gmail-r-=
-16dba41 gmail-r-rjixqe gmail-r-bcqeeo gmail-r-bnwqim gmail-r-qvutc0" lang=
-=3D"en"><span class=3D"gmail-css-901oao gmail-css-16my406 gmail-r-poiln3 gm=
-ail-r-bcqeeo gmail-r-qvutc0">Maybe stupid example, but still. Let&#39;s say=
- I want to prevent non-root users or RCEs from wget-ing into any other dire=
-ctory other than /tmp. I can simply create a profile for /usr/bin/wget { ..=
-. /tmp w, } and the job is done. But user/RCE can then simply do cp /usr/bi=
-n/wget ~/mywget and use wget for whatever it wants. If we prevent execution=
- of non-profiled executables in user writable directories then he/it can&#3=
-9;t do that and our primary objective stands.<br></span></div><div class=3D=
-"gmail-css-901oao gmail-r-18jsvk2 gmail-r-37j5jr gmail-r-a023e6 gmail-r-16d=
-ba41 gmail-r-rjixqe gmail-r-bcqeeo gmail-r-bnwqim gmail-r-qvutc0" lang=3D"e=
-n"><span class=3D"gmail-css-901oao gmail-css-16my406 gmail-r-poiln3 gmail-r=
--bcqeeo gmail-r-qvutc0"><br></span></div><div class=3D"gmail-css-901oao gma=
-il-r-18jsvk2 gmail-r-37j5jr gmail-r-a023e6 gmail-r-16dba41 gmail-r-rjixqe g=
-mail-r-bcqeeo gmail-r-bnwqim gmail-r-qvutc0" lang=3D"en"><span class=3D"gma=
-il-css-901oao gmail-css-16my406 gmail-r-poiln3 gmail-r-bcqeeo gmail-r-qvutc=
-0">I hope it makes some sense ... Thank you again. Ubuntu rocks also, and X=
-ubuntu! :)<br></span></div><div class=3D"gmail-css-901oao gmail-r-18jsvk2 g=
-mail-r-37j5jr gmail-r-a023e6 gmail-r-16dba41 gmail-r-rjixqe gmail-r-bcqeeo =
-gmail-r-bnwqim gmail-r-qvutc0" lang=3D"en"><span class=3D"gmail-css-901oao =
-gmail-css-16my406 gmail-r-poiln3 gmail-r-bcqeeo gmail-r-qvutc0"><br></span>=
-</div><div class=3D"gmail-css-901oao gmail-r-18jsvk2 gmail-r-37j5jr gmail-r=
--a023e6 gmail-r-16dba41 gmail-r-rjixqe gmail-r-bcqeeo gmail-r-bnwqim gmail-=
-r-qvutc0" lang=3D"en"><span class=3D"gmail-css-901oao gmail-css-16my406 gma=
-il-r-poiln3 gmail-r-bcqeeo gmail-r-qvutc0">Janko<br></span></div><div class=
-=3D"gmail-css-901oao gmail-r-18jsvk2 gmail-r-37j5jr gmail-r-a023e6 gmail-r-=
-16dba41 gmail-r-rjixqe gmail-r-bcqeeo gmail-r-bnwqim gmail-r-qvutc0" lang=
-=3D"en"><span class=3D"gmail-css-901oao gmail-css-16my406 gmail-r-poiln3 gm=
-ail-r-bcqeeo gmail-r-qvutc0"><br></span></div></div></div>
+   pix /**,
 
---00000000000054637c05ed9bebdf--
+meaning no exec will fail, it will either transition to a defined profile or allow the exec to continue as unconfined.
+
+Currently the only way to deal with this is indeed create a "trap" profile that doesn't grant permissions, causing the application to fault after exec
+
+profile trap /tmp/** {
+   # no permissions.
+}
+
+
+Obviously this is less than satisfactory. Ideally to avoid this you would be in situation #1, but the reality is that this just isn't how apparmor has been deployed and not all user tasks are confined.
+
+
+There is work going on to fix this, but it has not landed as of upstream kernel 6.1 or Ubuntu 22.10. When it lands (hopefully 23.04) you will be able to specify attachments that should be denied. Instead of having to create a trap profile. It will be a rule similar to what is in the profile.
+
+   deny x /tmp/**,
+
+and will have the longest left match prioritization, that attachments currently have. That is
+
+   deny x /**,
+
+would stop execution of anything that didn't have a profile defined. But since
+   profile example /bin/foo { }
+
+has a more specific attachment match it would take priority and allow exec under that profile.
+
 
