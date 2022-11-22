@@ -2,37 +2,37 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24E8D63351F
-	for <lists+apparmor@lfdr.de>; Tue, 22 Nov 2022 07:13:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACF0C633523
+	for <lists+apparmor@lfdr.de>; Tue, 22 Nov 2022 07:14:04 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1oxMX7-0002zH-Ht; Tue, 22 Nov 2022 06:13:25 +0000
+	id 1oxMXg-00033G-Pi; Tue, 22 Nov 2022 06:14:00 +0000
 Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
  helo=smtp-relay-canonical-0.canonical.com)
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>) id 1oxMX6-0002zA-O4
- for apparmor@lists.ubuntu.com; Tue, 22 Nov 2022 06:13:24 +0000
+ (envelope-from <john.johansen@canonical.com>) id 1oxMXf-000339-3W
+ for apparmor@lists.ubuntu.com; Tue, 22 Nov 2022 06:13:59 +0000
 Received: from [192.168.192.83] (unknown [50.47.159.196])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 274B73FA58; 
- Tue, 22 Nov 2022 06:13:21 +0000 (UTC)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 87E763FA58; 
+ Tue, 22 Nov 2022 06:13:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1669097604;
- bh=u5Cs/fmCOueONRwkwxKrp0/bYjN0HioEdFbc4/tJork=;
+ s=20210705; t=1669097638;
+ bh=4/b1MCIFM013mc1FCJkM3gyJYez6X70iqknZ8/JDI5A=;
  h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
  In-Reply-To:Content-Type;
- b=iQ6C4rJB1WvUGruFd6cAlY01lGkQCHfqpDEZXAPfaxpcL5zeHfN42fBEvspDFHlyt
- OJ5CN1ma+IN+FfffjGAvaYXb+BjkVs8jGUudZVeK5HxjH8nwu1e2iJS0PH3tE1DOfO
- 6DA0ubKKbHZSsrRW7MwuBCbJ8Ws5OLwrpI0iEO1+qR3o+cfA8twqF/svZCYPHUtWT5
- fD7UEnTUw3WREZUzz6aMuw4bV32yYCf0SRCWzwRgeI7KkAg/zWdNL7cVtlq2ZccqcY
- TNwhezurXy7DAR17yaEgs3ST8NSS/f7+rCOqQqAy1p4VFGOopvz1cdhvqn/kjAQ76n
- G2K1szwF6ZTvw==
-Message-ID: <d045d02c-6c8b-88d6-1dad-28e192751d38@canonical.com>
-Date: Mon, 21 Nov 2022 22:13:19 -0800
+ b=C5IQaou2fwknUgSeGBFTvhUBUwWlj1dx6PFZeRumV16ZStQXeBIErLdZnAxt+BwjL
+ UKvcfimfJb5wO23Tgzgw8PUZ5RotKLLOfAb5ijtQW6MZ/AoBqIMKOFRAnUp2uUnjUy
+ YiGwqH45A5LO7exT4qS0hGgT/ixJeyM0n0fpSvuuhqrFeCi9zmJE0lPifFzk9WOaLG
+ CRWa/xjn0SarnQJT4uWIjI3uuZypG+lOFVyV0cH+KpzwcjBI7b3LYCjHSBr74gyYEX
+ tcXQzZfdhgyF0+HJw4+1G0iZ0TjwQ+Hn/tWeUVwRvlQZVqg2x/HOAaAFKyOnN4jsxm
+ YOEBg+NgeOgrw==
+Message-ID: <c9cbef8d-100f-763e-12b2-248dccd812fa@canonical.com>
+Date: Mon, 21 Nov 2022 22:13:54 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.2
@@ -40,12 +40,13 @@ Content-Language: en-US
 To: Rae Moar <rmoar@google.com>, brendanhiggins@google.com,
  davidgow@google.com, dlatypov@google.com
 References: <20221102175959.2921063-1-rmoar@google.com>
+ <20221102175959.2921063-2-rmoar@google.com>
 From: John Johansen <john.johansen@canonical.com>
 Organization: Canonical
-In-Reply-To: <20221102175959.2921063-1-rmoar@google.com>
+In-Reply-To: <20221102175959.2921063-2-rmoar@google.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH v1 0/2] kunit: add macro to allow
+Subject: Re: [apparmor] [PATCH v1 1/2] kunit: add macro to allow
  conditionally exposing static symbols to tests
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -64,69 +65,65 @@ Cc: tales.aparecida@gmail.com, apparmor@lists.ubuntu.com,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-sorry for the delay on this
-
 On 11/2/22 10:59, Rae Moar wrote:
-> Currently in order to test a static function, tests must be included in the
-> same translation unit as the function. However, this can cause issues with
-> including implementation and test code in the same file. As an alternative,
+> Create two macros:
+> 
+> VISIBLE_IF_KUNIT - A macro that sets symbols to be static if CONFIG_KUNIT
+> is not enabled. Otherwise if CONFIG_KUNIT is enabled there is no change
+> to the symbol definition.
+> 
+> EXPORT_SYMBOL_IF_KUNIT(symbol) - Exports symbol into
+> EXPORTED_FOR_KUNIT_TESTING namespace only if CONFIG_KUNIT is enabled. Must
+> use MODULE_IMPORT_NS(EXPORTED_FOR_KUNIT_TESTING) in test file in order to
+> use symbols.
+> 
+> Signed-off-by: Rae Moar <rmoar@google.com>
 
-And the issue is? An ugly include of C file that only happens if kunit is
-built. Also that you can't make the kunit code a module but is that really
-an issue?
-  
-> the first patch in this series creates a macro that will set a function to
-> be static or not depending on whether CONFIG_KUNIT is enabled. This allows
-> the function to be visible during testing and static otherwise.
-> 
-> As an example, the current status quo to test static functions is:
-> 
-> === test.c ===
-> 
-> static void test_case(struct kunit *test)
-> {
->    KUNIT_EXPECT_EQ(test, my_func_to_test(), 2);
-> }
-> 
-> Then the tests are included in the implementation file as a workaround to
-> the issue of testing static functions:
-> 
-> === implementation.c ===
-> 
-> static int my_func_to_test() {...}
-> ...
-> #include "test.c"
-> 
-> Instead, the function could be defined with this new macro:
-> 
-> === implementation.c ===
-> 
-> VISIBLE_IF_KUNIT int my_func_to_test() {...}
-> 
-> The first patch also creates a macro that will export a symbol into a kunit
-> testing namespace only if CONFIG_KUNIT is enabled. This follows the logic
-> above and allows symbols to be conditionally exported based on the testing
-> status.
-> 
-> The second patch in the series updates the policy_unpack test in AppArmor
-> to show an example of how to use both of these macros in order to address
-> the issue of testing static functions.
-> 
-> Rae Moar (2):
->    kunit: add macro to allow conditionally exposing static symbols to
->      tests
->    apparmor: test: make static symbols visible during kunit testing
-> 
->   include/kunit/visibility.h                | 32 ++++++++++
->   security/apparmor/Kconfig                 |  4 +-
->   security/apparmor/Makefile                |  2 +
->   security/apparmor/include/policy_unpack.h | 50 ++++++++++++++++
->   security/apparmor/policy_unpack.c         | 72 +++++++----------------
->   security/apparmor/policy_unpack_test.c    |  5 ++
->   6 files changed, 112 insertions(+), 53 deletions(-)
+This looks fine
+Reviewed-by: John Johansen <john.johansen@canonical.com>
+
+> ---
+>   include/kunit/visibility.h | 32 ++++++++++++++++++++++++++++++++
+>   1 file changed, 32 insertions(+)
 >   create mode 100644 include/kunit/visibility.h
 > 
-> 
-> base-commit: 11e76194937b506caf1b49512c42d5c2588681d7
+> diff --git a/include/kunit/visibility.h b/include/kunit/visibility.h
+> new file mode 100644
+> index 000000000000..eb22c9e6b4eb
+> --- /dev/null
+> +++ b/include/kunit/visibility.h
+> @@ -0,0 +1,32 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * KUnit API to allow symbols to be conditionally visible during KUnit
+> + * testing
+> + *
+> + * Copyright (C) 2019, Google LLC.
+> + * Author: Brendan Higgins <brendanhiggins@google.com>
+> + */
+> +
+> +#ifndef _KUNIT_VISIBILITY_H
+> +#define _KUNIT_VISIBILITY_H
+> +
+> +/**
+> + * VISIBLE_IF_KUNIT - A macro that sets symbols to be static if CONFIG_KUNIT
+> + * is not enabled. Otherwise if CONFIG_KUNIT is enabled there is no change
+> + * to the symbol definition.
+> + *
+> + * EXPORT_SYMBOL_IF_KUNIT(symbol) - Exports symbol into
+> + * EXPORTED_FOR_KUNIT_TESTING namespace only if CONFIG_KUNIT is
+> + * enabled. Must use MODULE_IMPORT_NS(EXPORTED_FOR_KUNIT_TESTING)
+> + * in test file in order to use symbols.
+> + */
+> +#if IS_ENABLED(CONFIG_KUNIT)
+> +    #define VISIBLE_IF_KUNIT
+> +    #define EXPORT_SYMBOL_IF_KUNIT(symbol) EXPORT_SYMBOL_NS(symbol, \
+> +	    EXPORTED_FOR_KUNIT_TESTING)
+> +#else
+> +    #define VISIBLE_IF_KUNIT static
+> +    #define EXPORT_SYMBOL_IF_KUNIT(symbol)
+> +#endif
+> +
+> +#endif /* _KUNIT_VISIBILITY_H */
 
 
