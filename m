@@ -2,53 +2,82 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7E5D637193
-	for <lists+apparmor@lfdr.de>; Thu, 24 Nov 2022 05:49:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 871A063CCBC
+	for <lists+apparmor@lfdr.de>; Wed, 30 Nov 2022 02:12:05 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1oy4BC-0004bG-Vt; Thu, 24 Nov 2022 04:49:42 +0000
-Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
- helo=smtp-relay-canonical-0.canonical.com)
+	id 1p0Bdf-0008V7-MW; Wed, 30 Nov 2022 01:11:51 +0000
+Received: from out02.mta.xmission.com ([166.70.13.232])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>) id 1oy4BA-0004b8-91
- for apparmor@lists.ubuntu.com; Thu, 24 Nov 2022 04:49:40 +0000
-Received: from [192.168.192.83] (unknown [50.47.159.196])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id C67CF3F1D8; 
- Thu, 24 Nov 2022 04:49:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1669265375;
- bh=ALmN89AFAGENuUaIVsJUuFwpftGPMuxhogH15T4hTrw=;
- h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
- In-Reply-To:Content-Type;
- b=IfzCUU3HJ1ouuNjUosR8jPOOyZ8Im8PunJ0elkUlOTZRzjy/VvSy2fgFbEl9qwlPp
- 4brBAQhcebi7wP9kUvJrvkU3byhTcOBhQnA5E7VTd6T3EyeNk3k5GJ6976KbnDKT1c
- YzRXaf6L6cbfzk+hs5MqJ6765mAstC9g8wxWmvIoWasGq4fT28R5w3CTF+rhlEVH4w
- E9QfproyNMuSGT0AS7vXeU/H9ZpS8ioPDt0K+DpfpdLHYw3LI7PNCi30XDZdbjhtCy
- +tsFvwh1UBH+14gM7Cbq7KcmkR0SvJwtJvopFE1Ju6r0OHXecOztoETmYeX2mILBGn
- KQEsVzJ0NkF+Q==
-Message-ID: <d5dec6d1-471c-ca23-bd08-75b499556158@canonical.com>
-Date: Wed, 23 Nov 2022 20:49:30 -0800
+ (envelope-from <ebiederm@xmission.com>) id 1oziGf-0003X2-W7
+ for apparmor@lists.ubuntu.com; Mon, 28 Nov 2022 17:50:10 +0000
+Received: from in01.mta.xmission.com ([166.70.13.51]:35544)
+ by out02.mta.xmission.com with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.93)
+ (envelope-from <ebiederm@xmission.com>)
+ id 1oziGY-00778D-Ki; Mon, 28 Nov 2022 10:50:02 -0700
+Received: from ip68-110-29-46.om.om.cox.net ([68.110.29.46]:58100
+ helo=email.froward.int.ebiederm.org.xmission.com)
+ by in01.mta.xmission.com with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.93)
+ (envelope-from <ebiederm@xmission.com>)
+ id 1oziGW-006oqs-Bm; Mon, 28 Nov 2022 10:50:02 -0700
+From: "Eric W. Biederman" <ebiederm@xmission.com>
+To: David Laight <David.Laight@ACULAB.COM>
+References: <20221006082735.1321612-1-keescook@chromium.org>
+ <20221006082735.1321612-2-keescook@chromium.org>
+ <20221006090506.paqjf537cox7lqrq@wittgenstein>
+ <CAG48ez0sEkmaez9tYqgMXrkREmXZgxC9fdQD3mzF9cGo_=Tfyg@mail.gmail.com>
+ <2032f766-1704-486b-8f24-a670c0b3cb32@app.fastmail.com>
+ <d2a6ccdd8a734d36ae88866a4c16019b@AcuMS.aculab.com>
+Date: Mon, 28 Nov 2022 11:49:07 -0600
+In-Reply-To: <d2a6ccdd8a734d36ae88866a4c16019b@AcuMS.aculab.com> (David
+ Laight's message of "Fri, 14 Oct 2022 22:03:18 +0000")
+Message-ID: <87sfi3rmuk.fsf@email.froward.int.ebiederm.org>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.1 (gnu/linux)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Content-Language: en-US
-To: David Gow <davidgow@google.com>
-References: <20221102175959.2921063-1-rmoar@google.com>
- <20221102175959.2921063-3-rmoar@google.com>
- <3fbf707a-fc9e-18c6-dc40-ec266bd524e5@canonical.com>
- <CABVgOSkTojOjNv05aiD9tV7Vw12QOTtw9H9qCPFjjm_COdKb8w@mail.gmail.com>
-From: John Johansen <john.johansen@canonical.com>
-Organization: Canonical
-In-Reply-To: <CABVgOSkTojOjNv05aiD9tV7Vw12QOTtw9H9qCPFjjm_COdKb8w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH v1 2/2] apparmor: test: make static symbols
- visible during kunit testing
+Content-Type: text/plain
+X-XM-SPF: eid=1oziGW-006oqs-Bm; ; ;
+ mid=<87sfi3rmuk.fsf@email.froward.int.ebiederm.org>; ; ;
+ hst=in01.mta.xmission.com; ; ; ip=68.110.29.46; ; ; frm=ebiederm@xmission.com;
+ ; ; spf=pass
+X-XM-AID: U2FsdGVkX18hSeGIl+yv8nxANHdnXAlOdUtCNX9Vl/s=
+X-SA-Exim-Connect-IP: 68.110.29.46
+X-SA-Exim-Mail-From: ebiederm@xmission.com
+X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on sa06.xmission.com
+X-Spam-Level: **
+X-Spam-Status: No, score=2.0 required=8.0 tests=ALL_TRUSTED,BAYES_50,
+ DCC_CHECK_NEGATIVE,T_TM2_M_HEADER_IN_MSG,T_TooManySym_01,XMNoVowels,
+ XMSubLong shortcircuit=no autolearn=disabled version=3.4.2
+X-Spam-Report: * -1.0 ALL_TRUSTED Passed through trusted hosts only via SMTP
+ *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+ *      [score: 0.5000] *  0.7 XMSubLong Long Subject
+ *  1.5 XMNoVowels Alpha-numberic number with no vowels
+ *  0.0 T_TM2_M_HEADER_IN_MSG BODY: No description available.
+ * -0.0 DCC_CHECK_NEGATIVE Not listed in DCC
+ *      [sa06 1397; Body=1 Fuz1=1 Fuz2=1]
+ *  0.0 T_TooManySym_01 4+ unique symbols in subject
+X-Spam-DCC: XMission; sa06 1397; Body=1 Fuz1=1 Fuz2=1 
+X-Spam-Combo: **;David Laight <David.Laight@ACULAB.COM>
+X-Spam-Relay-Country: 
+X-Spam-Timing: total 1632 ms - load_scoreonly_sql: 0.04 (0.0%),
+ signal_user_changed: 11 (0.7%), b_tie_ro: 10 (0.6%), parse: 1.09
+ (0.1%), extract_message_metadata: 13 (0.8%), get_uri_detail_list: 2.4
+ (0.1%), tests_pri_-1000: 8 (0.5%), tests_pri_-950: 1.25 (0.1%),
+ tests_pri_-900: 1.08 (0.1%), tests_pri_-200: 0.85 (0.1%),
+ tests_pri_-100: 9 (0.6%), tests_pri_-90: 77 (4.7%), check_bayes: 75
+ (4.6%), b_tokenize: 18 (1.1%), b_tok_get_all: 13 (0.8%), b_comp_prob:
+ 4.0 (0.2%), b_tok_touch_all: 36 (2.2%), b_finish: 0.97 (0.1%),
+ tests_pri_0: 527 (32.3%), check_dkim_signature: 0.58 (0.0%),
+ check_dkim_adsp: 3.9 (0.2%), poll_dns_idle: 960 (58.9%), tests_pri_10:
+ 2.1 (0.1%), tests_pri_500: 977 (59.9%), rewrite_mail: 0.00 (0.0%)
+X-SA-Exim-Version: 4.2.1 (built Sat, 08 Feb 2020 21:53:50 +0000)
+X-SA-Exim-Scanned: Yes (on in01.mta.xmission.com)
+X-Mailman-Approved-At: Wed, 30 Nov 2022 01:11:50 +0000
+Subject: Re: [apparmor] [PATCH 1/2] fs/exec: Explicitly unshare fs_struct on
+	exec
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -60,425 +89,155 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: apparmor@lists.ubuntu.com, tales.aparecida@gmail.com, dlatypov@google.com,
- brendanhiggins@google.com, Rae Moar <rmoar@google.com>,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- skhan@linuxfoundation.org, kunit-dev@googlegroups.com
+Cc: Micah Morton <mortonm@chromium.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ "linux-mm@kvack.org" <linux-mm@kvack.org>, Andrei Vagin <avagin@gmail.com>,
+ "linux-hardening@vger.kernel.org" <linux-hardening@vger.kernel.org>,
+ Xin Long <lucien.xin@gmail.com>, Paul Moore <paul@paul-moore.com>,
+ James Morris <jmorris@namei.org>, "Serge E.
+ Hallyn" <serge@hallyn.com>, Fenghua Yu <fenghua.yu@intel.com>,
+ Kees Cook <keescook@chromium.org>, Jann Horn <jannh@google.com>,
+ "selinux@vger.kernel.org" <selinux@vger.kernel.org>,
+ "apparmor@lists.ubuntu.com" <apparmor@lists.ubuntu.com>,
+ "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+ Al Viro <viro@zeniv.linux.org.uk>, 'Andy Lutomirski' <luto@kernel.org>,
+ Eric Paris <eparis@parisplace.org>, Thomas Gleixner <tglx@linutronix.de>,
+ Jorge Merlino <jorge.merlino@canonical.com>,
+ Christian Brauner <brauner@kernel.org>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>, Ondrej
+ Mosnacek <omosnace@redhat.com>,
+ Richard Haines <richard_c_haines@btinternet.com>,
+ "linux-security-module@vger.kernel.org"
+ <linux-security-module@vger.kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, "David S.
+ Miller" <davem@davemloft.net>, Prashanth Prahlad <pprahlad@redhat.com>,
+ Todd Kjos <tkjos@google.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 11/23/22 01:19, David Gow wrote:
-> On Tue, Nov 22, 2022 at 2:20 PM John Johansen
-> <john.johansen@canonical.com> wrote:
->>
->> On 11/2/22 10:59, Rae Moar wrote:
->>> Use macros, VISIBLE_IF_KUNIT and EXPORT_SYMBOL_IF_KUNIT, to allow
->>> static symbols to be conditionally set to be visible during KUnit
->>> testing. Remove the need to include testing file in the implementation
->>> file. Provide example of how static symbols can be dealt with in
->>> testing.
->>>
->>> Signed-off-by: Rae Moar <rmoar@google.com>
->>> ---
->>>    security/apparmor/Kconfig                 |  4 +-
->>>    security/apparmor/Makefile                |  2 +
->>>    security/apparmor/include/policy_unpack.h | 50 ++++++++++++++++
->>>    security/apparmor/policy_unpack.c         | 72 +++++++----------------
->>>    security/apparmor/policy_unpack_test.c    |  5 ++
->>>    5 files changed, 80 insertions(+), 53 deletions(-)
->>>
->>> diff --git a/security/apparmor/Kconfig b/security/apparmor/Kconfig
->>> index cb3496e00d8a..f334e7cccf2d 100644
->>> --- a/security/apparmor/Kconfig
->>> +++ b/security/apparmor/Kconfig
->>> @@ -106,8 +106,8 @@ config SECURITY_APPARMOR_PARANOID_LOAD
->>>          Disabling the check will speed up policy loads.
->>>
->>>    config SECURITY_APPARMOR_KUNIT_TEST
->>> -     bool "Build KUnit tests for policy_unpack.c" if !KUNIT_ALL_TESTS
->>> -     depends on KUNIT=y && SECURITY_APPARMOR
->>> +     tristate "Build KUnit tests for policy_unpack.c" if !KUNIT_ALL_TESTS
->>> +     depends on KUNIT && SECURITY_APPARMOR
->>>        default KUNIT_ALL_TESTS
->>>        help
->>>          This builds the AppArmor KUnit tests.
->>> diff --git a/security/apparmor/Makefile b/security/apparmor/Makefile
->>> index ff23fcfefe19..6a92428375eb 100644
->>> --- a/security/apparmor/Makefile
->>> +++ b/security/apparmor/Makefile
->>> @@ -8,6 +8,8 @@ apparmor-y := apparmorfs.o audit.o capability.o task.o ipc.o lib.o match.o \
->>>                  resource.o secid.o file.o policy_ns.o label.o mount.o net.o
->>>    apparmor-$(CONFIG_SECURITY_APPARMOR_HASH) += crypto.o
->>>
->>> +obj-$(CONFIG_SECURITY_APPARMOR_KUNIT_TEST) += policy_unpack_test.o
->>> +
->>>    clean-files := capability_names.h rlim_names.h net_names.h
->>>
->>>    # Build a lower case string table of address family names
->>> diff --git a/security/apparmor/include/policy_unpack.h b/security/apparmor/include/policy_unpack.h
->>> index eb5f7d7f132b..a963687bcc9b 100644
->>> --- a/security/apparmor/include/policy_unpack.h
->>> +++ b/security/apparmor/include/policy_unpack.h
->>> @@ -48,6 +48,43 @@ enum {
->>>        AAFS_LOADDATA_NDENTS            /* count of entries */
->>>    };
->>>
->>> +/*
->>> + * The AppArmor interface treats data as a type byte followed by the
->>> + * actual data.  The interface has the notion of a named entry
->>> + * which has a name (AA_NAME typecode followed by name string) followed by
->>> + * the entries typecode and data.  Named types allow for optional
->>> + * elements and extensions to be added and tested for without breaking
->>> + * backwards compatibility.
->>> + */
->>> +
->>> +enum aa_code {
->>> +     AA_U8,
->>> +     AA_U16,
->>> +     AA_U32,
->>> +     AA_U64,
->>> +     AA_NAME,                /* same as string except it is items name */
->>> +     AA_STRING,
->>> +     AA_BLOB,
->>> +     AA_STRUCT,
->>> +     AA_STRUCTEND,
->>> +     AA_LIST,
->>> +     AA_LISTEND,
->>> +     AA_ARRAY,
->>> +     AA_ARRAYEND,
->>> +};
->>> +
->>> +/*
->>> + * aa_ext is the read of the buffer containing the serialized profile.  The
->>> + * data is copied into a kernel buffer in apparmorfs and then handed off to
->>> + * the unpack routines.
->>> + */
->>> +struct aa_ext {
->>> +     void *start;
->>> +     void *end;
->>> +     void *pos;              /* pointer to current position in the buffer */
->>> +     u32 version;
->>> +};
->>> +
->>
->> hrmmm, I prefer these symbols to be only available to the unpack code but can
->> live with them being more widely available.
->>
->>>    /*
->>>     * struct aa_loaddata - buffer of policy raw_data set
->>>     *
->>> @@ -126,4 +163,17 @@ static inline void aa_put_loaddata(struct aa_loaddata *data)
->>>                kref_put(&data->count, aa_loaddata_kref);
->>>    }
->>>
->>> +#if IS_ENABLED(CONFIG_KUNIT)
->>> +bool inbounds(struct aa_ext *e, size_t size);
->>> +size_t unpack_u16_chunk(struct aa_ext *e, char **chunk);
->>> +bool unpack_X(struct aa_ext *e, enum aa_code code);
->>> +bool unpack_nameX(struct aa_ext *e, enum aa_code code, const char *name);
->>> +bool unpack_u32(struct aa_ext *e, u32 *data, const char *name);
->>> +bool unpack_u64(struct aa_ext *e, u64 *data, const char *name);
->>> +size_t unpack_array(struct aa_ext *e, const char *name);
->>> +size_t unpack_blob(struct aa_ext *e, char **blob, const char *name);
->>> +int unpack_str(struct aa_ext *e, const char **string, const char *name);
->>> +int unpack_strdup(struct aa_ext *e, char **string, const char *name);
->>
->> So this is a problem. If this symbols are going to be visible outside of the
->> unpack code they need to be prefixed with aa_ to help avoid collisions with
->> other kernel code.
->>
-> 
-> Hmm... I agree we need some sort of way of restricting access to these symbols.
-> 
-> As-is, they're _exported_ to a different symbol namespace, so it
+David Laight <David.Laight@ACULAB.COM> writes:
 
-if by exported you mean static. This particular set of symbols is not
-exported in a header and each function is static. They are accessible
-to the kunit tests because of some what gross
+> From: Andy Lutomirski
+>> Sent: 14 October 2022 04:18
+> ...
+>> But seriously, this makes no sense at all.  It should not be possible to exec a program and then,
+>> without ptrace, change its cwd out from under it.  Do we really need to preserve this behavior?
+>
+> it maybe ok if the exec'ed program also 'bought-in' to the
+> fact that its cwd and open files might get changed.
+> But imagine someone doing it to a login shell!
 
-#ifdef CONFIG_SECURITY_APPARMOR_KUNIT_TEST
-#include "policy_unpack_test.c"
-#endif /* CONFIG_SECURITY_APPARMOR_KUNIT_TEST */
 
-at the end of the file. And of course this means these tests can't be
-built as a module
+I am slowly catching up on my email and I saw this conversation.
 
-> shouldn't be a problem during linking when built as a module, nor if
-> KUnit is disabled (due to the preprocessor step).
-> 
-right
+When I initially saw this thread I was confused and thought this
+might run into an issue with fs/locks.c.  I was close but wrong.
+fs/locks.c uses current->files as a sort of process identifier
+and so is very sensitive to when it is unshared.  Making
+unsharing current->files unconditionally a bug.  Not relevant to
+this conversation.
 
-> One option is to put these in a separate header (that only the test
-> and policy-unpack code include), but even that doesn't solve the
-> linking problem when built-in.
-> 
-a separate header might be as a pseudo documentation step but the
-reality is that I can't see anyone else including the existing header
-so its not really required.
 
-> So I guess namespacing is the only option which solves all of these
-> problems. (It'd be nice if the symbol namespacing system worked for
-> built-ins as well as modules...)
-> 
-yeah
+There are several clone options that were only relevant for the old
+LinuxThreads implementation including CLONE_FS and CLONE_SIGHAND.
+The LinuxThreads implementation has not been needed since
+the introduction of CLONE_THREAD in linux-2.6.0 in 17 Dec 2003.
+Almost 20 years ago.
 
->>> +#endif
->>> +
->>>    #endif /* __POLICY_INTERFACE_H */
->>> diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
->>> index 55d31bac4f35..c23aa70349aa 100644
->>> --- a/security/apparmor/policy_unpack.c
->>> +++ b/security/apparmor/policy_unpack.c
->>> @@ -14,6 +14,7 @@
->>>     */
->>>
->>>    #include <asm/unaligned.h>
->>> +#include <kunit/visibility.h>
->>>    #include <linux/ctype.h>
->>>    #include <linux/errno.h>
->>>    #include <linux/zlib.h>
->>> @@ -37,43 +38,6 @@
->>>    #define v7  7
->>>    #define v8  8       /* full network masking */
->>>
->>> -/*
->>> - * The AppArmor interface treats data as a type byte followed by the
->>> - * actual data.  The interface has the notion of a named entry
->>> - * which has a name (AA_NAME typecode followed by name string) followed by
->>> - * the entries typecode and data.  Named types allow for optional
->>> - * elements and extensions to be added and tested for without breaking
->>> - * backwards compatibility.
->>> - */
->>> -
->>> -enum aa_code {
->>> -     AA_U8,
->>> -     AA_U16,
->>> -     AA_U32,
->>> -     AA_U64,
->>> -     AA_NAME,                /* same as string except it is items name */
->>> -     AA_STRING,
->>> -     AA_BLOB,
->>> -     AA_STRUCT,
->>> -     AA_STRUCTEND,
->>> -     AA_LIST,
->>> -     AA_LISTEND,
->>> -     AA_ARRAY,
->>> -     AA_ARRAYEND,
->>> -};
->>> -
->>> -/*
->>> - * aa_ext is the read of the buffer containing the serialized profile.  The
->>> - * data is copied into a kernel buffer in apparmorfs and then handed off to
->>> - * the unpack routines.
->>> - */
->>> -struct aa_ext {
->>> -     void *start;
->>> -     void *end;
->>> -     void *pos;              /* pointer to current position in the buffer */
->>> -     u32 version;
->>> -};
->>> -
->>>    /* audit callback for unpack fields */
->>>    static void audit_cb(struct audit_buffer *ab, void *va)
->>>    {
->>> @@ -199,10 +163,11 @@ struct aa_loaddata *aa_loaddata_alloc(size_t size)
->>>    }
->>>
->>>    /* test if read will be in packed data bounds */
->>> -static bool inbounds(struct aa_ext *e, size_t size)
->>> +VISIBLE_IF_KUNIT bool inbounds(struct aa_ext *e, size_t size)
->>>    {
->>>        return (size <= e->end - e->pos);
->>>    }
->>> +EXPORT_SYMBOL_IF_KUNIT(inbounds);
->>>
->>>    static void *kvmemdup(const void *src, size_t len)
->>>    {
->>> @@ -220,7 +185,7 @@ static void *kvmemdup(const void *src, size_t len)
->>>     *
->>>     * Returns: the size of chunk found with the read head at the end of the chunk.
->>>     */
->>> -static size_t unpack_u16_chunk(struct aa_ext *e, char **chunk)
->>> +VISIBLE_IF_KUNIT size_t unpack_u16_chunk(struct aa_ext *e, char **chunk)
->>>    {
->>>        size_t size = 0;
->>>        void *pos = e->pos;
->>> @@ -239,9 +204,10 @@ static size_t unpack_u16_chunk(struct aa_ext *e, char **chunk)
->>>        e->pos = pos;
->>>        return 0;
->>>    }
->>> +EXPORT_SYMBOL_IF_KUNIT(unpack_u16_chunk);
->>>
->>>    /* unpack control byte */
->>> -static bool unpack_X(struct aa_ext *e, enum aa_code code)
->>> +VISIBLE_IF_KUNIT bool unpack_X(struct aa_ext *e, enum aa_code code)
->>>    {
->>>        if (!inbounds(e, 1))
->>>                return false;
->>> @@ -250,6 +216,7 @@ static bool unpack_X(struct aa_ext *e, enum aa_code code)
->>>        e->pos++;
->>>        return true;
->>>    }
->>> +EXPORT_SYMBOL_IF_KUNIT(unpack_X);
->>>
->>>    /**
->>>     * unpack_nameX - check is the next element is of type X with a name of @name
->>> @@ -267,7 +234,7 @@ static bool unpack_X(struct aa_ext *e, enum aa_code code)
->>>     *
->>>     * Returns: false if either match fails, the read head does not move
->>>     */
->>> -static bool unpack_nameX(struct aa_ext *e, enum aa_code code, const char *name)
->>> +VISIBLE_IF_KUNIT bool unpack_nameX(struct aa_ext *e, enum aa_code code, const char *name)
->>>    {
->>>        /*
->>>         * May need to reset pos if name or type doesn't match
->>> @@ -296,6 +263,7 @@ static bool unpack_nameX(struct aa_ext *e, enum aa_code code, const char *name)
->>>        e->pos = pos;
->>>        return false;
->>>    }
->>> +EXPORT_SYMBOL_IF_KUNIT(unpack_nameX);
->>>
->>>    static bool unpack_u8(struct aa_ext *e, u8 *data, const char *name)
->>>    {
->>> @@ -315,7 +283,7 @@ static bool unpack_u8(struct aa_ext *e, u8 *data, const char *name)
->>>        return false;
->>>    }
->>>
->>> -static bool unpack_u32(struct aa_ext *e, u32 *data, const char *name)
->>> +VISIBLE_IF_KUNIT bool unpack_u32(struct aa_ext *e, u32 *data, const char *name)
->>>    {
->>>        void *pos = e->pos;
->>>
->>> @@ -332,8 +300,9 @@ static bool unpack_u32(struct aa_ext *e, u32 *data, const char *name)
->>>        e->pos = pos;
->>>        return false;
->>>    }
->>> +EXPORT_SYMBOL_IF_KUNIT(unpack_u32);
->>>
->>> -static bool unpack_u64(struct aa_ext *e, u64 *data, const char *name)
->>> +VISIBLE_IF_KUNIT bool unpack_u64(struct aa_ext *e, u64 *data, const char *name)
->>>    {
->>>        void *pos = e->pos;
->>>
->>> @@ -350,8 +319,9 @@ static bool unpack_u64(struct aa_ext *e, u64 *data, const char *name)
->>>        e->pos = pos;
->>>        return false;
->>>    }
->>> +EXPORT_SYMBOL_IF_KUNIT(unpack_u64);
->>>
->>> -static size_t unpack_array(struct aa_ext *e, const char *name)
->>> +VISIBLE_IF_KUNIT size_t unpack_array(struct aa_ext *e, const char *name)
->>>    {
->>>        void *pos = e->pos;
->>>
->>> @@ -368,8 +338,9 @@ static size_t unpack_array(struct aa_ext *e, const char *name)
->>>        e->pos = pos;
->>>        return 0;
->>>    }
->>> +EXPORT_SYMBOL_IF_KUNIT(unpack_array);
->>>
->>> -static size_t unpack_blob(struct aa_ext *e, char **blob, const char *name)
->>> +VISIBLE_IF_KUNIT size_t unpack_blob(struct aa_ext *e, char **blob, const char *name)
->>>    {
->>>        void *pos = e->pos;
->>>
->>> @@ -390,8 +361,9 @@ static size_t unpack_blob(struct aa_ext *e, char **blob, const char *name)
->>>        e->pos = pos;
->>>        return 0;
->>>    }
->>> +EXPORT_SYMBOL_IF_KUNIT(unpack_blob);
->>>
->>> -static int unpack_str(struct aa_ext *e, const char **string, const char *name)
->>> +VISIBLE_IF_KUNIT int unpack_str(struct aa_ext *e, const char **string, const char *name)
->>>    {
->>>        char *src_str;
->>>        size_t size = 0;
->>> @@ -413,8 +385,9 @@ static int unpack_str(struct aa_ext *e, const char **string, const char *name)
->>>        e->pos = pos;
->>>        return 0;
->>>    }
->>> +EXPORT_SYMBOL_IF_KUNIT(unpack_str);
->>>
->>> -static int unpack_strdup(struct aa_ext *e, char **string, const char *name)
->>> +VISIBLE_IF_KUNIT int unpack_strdup(struct aa_ext *e, char **string, const char *name)
->>>    {
->>>        const char *tmp;
->>>        void *pos = e->pos;
->>> @@ -432,6 +405,7 @@ static int unpack_strdup(struct aa_ext *e, char **string, const char *name)
->>>
->>>        return res;
->>>    }
->>> +EXPORT_SYMBOL_IF_KUNIT(unpack_strdup);
->>>
->> Again if the symbols are going to be exported they need the aa_ prefix
->>
->> But I am not sure this is worth doing, exporting a lot of symbols just so the
->> test code can be built as a module doesn't seem worth it to me.
->>
-> 
-> Again, agreed that we need to namespace these for the non-module case
-> (the symbol namespacing should be okay otherwise).
-> 
-> One of the reasons behind doing this is that there are a few KUnit
-> users who can only run tests which are built as modules. In
-> particular, Android and (IIRC) Red Hat are both configuring all of
-> their kernels with KUnit built as a module, and distributing the KUnit
-> and KUnit test modules in a different package.
-> 
-ah, okay
+I suggest we introduce CONFIG_CLONE_FS and CONFIG_SIGHAND to allow
+disabling support of these clone options.  No known user space will
+care.  The are both getting in the way of kernel maintenance so there
+is a reason to start pushing them out.
 
-> If we kept things the way there are, then it'd not be possible to
-> unconditionally _build_ the apparmor tests, but only load and run them
-> on demand (due to the way they're built into the apparmor module,
-> they'd always run when it loads). This is a no-go for Android/Red Hat,
-> so they won't ship or run the apparmor tests. (There are some other
-> tests with the same problem, notably amdgpu, but apparmor seemed a
-> nice first trial-user, as it were, having a small but non-trivial
-> number of symbols to export.)
-> 
-> Thoughts?
-> 
-I'm not opposed to exporting them. It has a cost and I wanted there to
-be a real need before doing it. Since that need has been explained, my
-only requirement is to make sure they are properly namespaced.
+Further simply not worrying about UNSHARE_FS during exec fixes the
+race so it essentially a bug fix by code removal.
 
->>>
->>>    /**
->>> @@ -1251,7 +1225,3 @@ int aa_unpack(struct aa_loaddata *udata, struct list_head *lh,
->>>
->>>        return error;
->>>    }
->>> -
->>> -#ifdef CONFIG_SECURITY_APPARMOR_KUNIT_TEST
->>> -#include "policy_unpack_test.c"
->>> -#endif /* CONFIG_SECURITY_APPARMOR_KUNIT_TEST */
->>> diff --git a/security/apparmor/policy_unpack_test.c b/security/apparmor/policy_unpack_test.c
->>> index 0a969b2e03db..3474fe2cd922 100644
->>> --- a/security/apparmor/policy_unpack_test.c
->>> +++ b/security/apparmor/policy_unpack_test.c
->>> @@ -4,6 +4,7 @@
->>>     */
->>>
->>>    #include <kunit/test.h>
->>> +#include <kunit/visibility.h>
->>>
->>>    #include "include/policy.h"
->>>    #include "include/policy_unpack.h"
->>> @@ -43,6 +44,8 @@
->>>    #define TEST_ARRAY_BUF_OFFSET \
->>>        (TEST_NAMED_ARRAY_BUF_OFFSET + 3 + strlen(TEST_ARRAY_NAME) + 1)
->>>
->>> +MODULE_IMPORT_NS(EXPORTED_FOR_KUNIT_TESTING);
->>> +
->>>    struct policy_unpack_fixture {
->>>        struct aa_ext *e;
->>>        size_t e_size;
->>> @@ -605,3 +608,5 @@ static struct kunit_suite apparmor_policy_unpack_test_module = {
->>>    };
->>>
->>>    kunit_test_suite(apparmor_policy_unpack_test_module);
->>> +
->>> +MODULE_LICENSE("GPL");
->>
+I believe something like the patch below should get the job done.
 
+diff --git a/fs/exec.c b/fs/exec.c
+index a0b1f0337a62..7ff13c77ad04 100644
+--- a/fs/exec.c
++++ b/fs/exec.c
+@@ -1186,7 +1186,8 @@ static int unshare_sighand(struct task_struct *me)
+ {
+ 	struct sighand_struct *oldsighand = me->sighand;
+ 
+-	if (refcount_read(&oldsighand->count) != 1) {
++	if (IS_ENABLED(CONFIG_CLONE_SIGHAND) &&
++	    refcount_read(&oldsighand->count) != 1) {
+ 		struct sighand_struct *newsighand;
+ 		/*
+ 		 * This ->sighand is shared with the CLONE_SIGHAND
+@@ -1568,6 +1569,9 @@ static void check_unsafe_exec(struct linux_binprm *bprm)
+ 	if (task_no_new_privs(current))
+ 		bprm->unsafe |= LSM_UNSAFE_NO_NEW_PRIVS;
+ 
++	if (!IS_ENABLED(CONFIG_CLONE_FS))
++		return;
++
+ 	t = p;
+ 	n_fs = 1;
+ 	spin_lock(&p->fs->lock);
+diff --git a/init/Kconfig b/init/Kconfig
+index 94125d3b6893..8660a6bcc1cf 100644
+--- a/init/Kconfig
++++ b/init/Kconfig
+@@ -1764,6 +1764,23 @@ config KALLSYMS_BASE_RELATIVE
+ 	  time constants, and no relocation pass is required at runtime to fix
+ 	  up the entries based on the runtime load address of the kernel.
+ 
++config CLONE_FS
++	bool
++	default y
++	help
++	  Support CLONE_FS being passed to clone.  The only known user
++	  is the old LinuxThreads package so it should be safe to disable
++	  this option.
++
++config CLONE_SIGHAND
++	bool
++	default y
++	help
++	  Support CLONE_SIGHAND being passed to clone.  The only known user
++	  is the old LinuxThreads package so it should be safe to disable
++	  this option.
++
++
+ # end of the "standard kernel features (expert users)" menu
+ 
+ # syscall, maps, verifier
+diff --git a/kernel/fork.c b/kernel/fork.c
+index 08969f5aa38d..da9017b51da4 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -2023,6 +2023,16 @@ static __latent_entropy struct task_struct *copy_process(
+ 	if ((clone_flags & CLONE_SIGHAND) && !(clone_flags & CLONE_VM))
+ 		return ERR_PTR(-EINVAL);
+ 
++	/* Don't allow CLONE_FS if not enabled */
++	if (!IS_ENABLED(CONFIG_CLONE_FS) &&
++	    ((clone_flags & (CLONE_THREAD | CLONE_FS)) == CLONE_FS))
++		return ERR_PTR(-EINVAL);
++
++	/* Don't allow CLONE_SIGHAND if not enabled */
++	if (!IS_ENABLED(CONFIG_CLONE_SIGHAND) &&
++	    ((clone_flags & (CLONE_THREAD | CLONE_SIGHAND)) == CLONE_SIGHAND))
++		return ERR_PTR(-EINVAL);
++
+ 	/*
+ 	 * Siblings of global init remain as zombies on exit since they are
+ 	 * not reaped by their parent (swapper). To solve this and to avoid
+@@ -3101,6 +3111,9 @@ static int unshare_fs(unsigned long unshare_flags, struct fs_struct **new_fsp)
+ 	if (fs->users == 1)
+ 		return 0;
+ 
++	if (!IS_ENABLED(CONFIG_CLONE_FS))
++		return -EINVAL;
++
+ 	*new_fsp = copy_fs_struct(fs);
+ 	if (!*new_fsp)
+ 		return -ENOMEM;
+
+Eric
 
