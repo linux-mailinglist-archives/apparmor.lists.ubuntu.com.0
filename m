@@ -2,84 +2,50 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FBFA68198F
-	for <lists+apparmor@lfdr.de>; Mon, 30 Jan 2023 19:47:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99E1B681BB6
+	for <lists+apparmor@lfdr.de>; Mon, 30 Jan 2023 21:47:03 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1pMZBS-0005Ly-FL; Mon, 30 Jan 2023 18:47:14 +0000
-Received: from mx0a-001b2d01.pphosted.com ([148.163.156.1])
+	id 1pMb3D-0003rb-9d; Mon, 30 Jan 2023 20:46:51 +0000
+Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
+ helo=smtp-relay-canonical-0.canonical.com)
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <bgray@linux.ibm.com>) id 1pMMx0-0002Q2-Bw
- for apparmor@lists.ubuntu.com; Mon, 30 Jan 2023 05:43:30 +0000
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 30U2Ccgw022582
- for <apparmor@lists.ubuntu.com>; Mon, 30 Jan 2023 05:43:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-transfer-encoding; s=pp1;
- bh=y/Jq6BDyoN45kdMNzvxztRNjngH+wCe8eYPvphm0jBk=;
- b=nLoAgrh6R8y+kq2ysDLnqIeU+DaITgUkW54isfSYNXa2eSVxzK8/6Nya5P6Oa+t/699q
- 6HvuJsAd2e135iUhGjgu4LbBJ6333pfit/NhzFRvS5di3z86eP6wbI9Yc+ALlTEW9Mm+
- j/oFprRi0eUEWslRZ+bjatwM36xe8dPPMly2M0HgYup9oVjMZybUyZeRUh/11WsDV5v5
- 4U95JfIErENDqWxMq/470lO/hIb0TE1KBirE+/JNCOlhB29ip0BPpbrEvtAPnZau3P13
- SaRrS9mI60vI9qiw6pNlV4Tfj9qEU1AuqeJQwl+1a7apGlSaXKmlBbBF6GmEL9QgaGn+ XA== 
-Received: from ppma04ams.nl.ibm.com (63.31.33a9.ip4.static.sl-reverse.com
- [169.51.49.99])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3nddkk6kwv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <apparmor@lists.ubuntu.com>; Mon, 30 Jan 2023 05:43:28 +0000
-Received: from pps.filterd (ppma04ams.nl.ibm.com [127.0.0.1])
- by ppma04ams.nl.ibm.com (8.17.1.19/8.17.1.19) with ESMTP id 30U51ELQ026867
- for <apparmor@lists.ubuntu.com>; Mon, 30 Jan 2023 05:43:26 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
- by ppma04ams.nl.ibm.com (PPS) with ESMTPS id 3ncvs7hset-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <apparmor@lists.ubuntu.com>; Mon, 30 Jan 2023 05:43:26 +0000
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com
- [10.20.54.104])
- by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 30U5hNUV23658944
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
- for <apparmor@lists.ubuntu.com>; Mon, 30 Jan 2023 05:43:23 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id BAC4D20043
- for <apparmor@lists.ubuntu.com>; Mon, 30 Jan 2023 05:43:23 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 3973820040
- for <apparmor@lists.ubuntu.com>; Mon, 30 Jan 2023 05:43:23 +0000 (GMT)
-Received: from ozlabs.au.ibm.com (unknown [9.192.253.14])
- by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP
- for <apparmor@lists.ubuntu.com>; Mon, 30 Jan 2023 05:43:23 +0000 (GMT)
-Received: from li-0d7fa1cc-2c9d-11b2-a85c-aed20764436d.ibm.com
- (haven.au.ibm.com [9.192.254.114])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (envelope-from <john.johansen@canonical.com>) id 1pMb3B-0003rT-OO
+ for apparmor@lists.ubuntu.com; Mon, 30 Jan 2023 20:46:49 +0000
+Received: from [192.168.192.83] (unknown [50.47.134.245])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by ozlabs.au.ibm.com (Postfix) with ESMTPSA id 8782160425;
- Mon, 30 Jan 2023 16:43:19 +1100 (AEDT)
-From: Benjamin Gray <bgray@linux.ibm.com>
-To: apparmor@lists.ubuntu.com
-Date: Mon, 30 Jan 2023 16:43:11 +1100
-Message-Id: <20230130054311.265038-1-bgray@linux.ibm.com>
-X-Mailer: git-send-email 2.39.1
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 60F753F307; 
+ Mon, 30 Jan 2023 20:46:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1675111609;
+ bh=RXq2UM0+WksUOmibUuTIAvL8Lbl2rVqMKpgMUhz1XeM=;
+ h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+ In-Reply-To:Content-Type;
+ b=ZXDgPGfEC8pCqG7c2Nm0foAQ7q+/b2tORV74ptp1ctfm/vxQARMlBskLaMjKWTjpY
+ GMJVpi21mhw9NFbHsRFuWis3hQ/86sx3V4kLpTK2FsjGkxQMwMiCrnSsbB9wHVXQF6
+ SwZmPQWQermRBQ7ODwuaeMSBQPsDch/QfX0oU8QxhcW8Knxm/xnPlFN7JtpGG/RVIz
+ RZDrjT9BzegIJUEjd2qT05WyY9yvu1uX7+HoeQPiUzveAGOi/t44wJN+KEwf28WYc+
+ 9aceCaeUeSnbeOVGzH1K7T0wntnTVzvyUXv4BpK/WEty1hlaj1i/HNW7H+NS2Hzm8j
+ IgP3Yf0Vhdn7A==
+Message-ID: <94ba4bd9-5aaf-2469-457c-196b864c76f1@canonical.com>
+Date: Mon, 30 Jan 2023 12:46:44 -0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: _nGjPqZcmz5jfFH8ELC1Yu0IqaaLtCpy
-X-Proofpoint-GUID: _nGjPqZcmz5jfFH8ELC1Yu0IqaaLtCpy
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
- definitions=2023-01-30_03,2023-01-27_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0
- impostorscore=0 lowpriorityscore=0 adultscore=0 mlxscore=0 spamscore=0
- clxscore=1011 suspectscore=0 bulkscore=0 phishscore=0 mlxlogscore=823
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2301300052
-X-Mailman-Approved-At: Mon, 30 Jan 2023 18:47:13 +0000
-Subject: [apparmor] [PATCH] apparmor: fix endianness of test data in
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Content-Language: en-US
+To: Rae Moar <rmoar@google.com>, brendanhiggins@google.com,
+ davidgow@google.com, dlatypov@google.com
+References: <20230127201219.775410-1-rmoar@google.com>
+From: John Johansen <john.johansen@canonical.com>
+Organization: Canonical
+In-Reply-To: <20230127201219.775410-1-rmoar@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [apparmor] [PATCH v1] apparmor: fix use of strcpy in
 	policy_unpack_test
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -92,58 +58,87 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Benjamin Gray <bgray@linux.ibm.com>
+Cc: kernel test robot <lkp@intel.com>, apparmor@lists.ubuntu.com,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ skhan@linuxfoundation.org, kunit-dev@googlegroups.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-The test data numbers are expected to be in little endian format
-based on how the tests interact with them, but currently are
-generated using host endianness. This causes several KUnit tests
-to fail when booting a big endian kernel, e.g.
+On 1/27/23 12:12, Rae Moar wrote:
+> Replace the use of strcpy() in build_aa_ext_struct() in
+> policy_unpack_test.c with strscpy().
+> 
+> strscpy() is the safer method to use to ensure the buffer does not
+> overflow. This was found by kernel test robot:
+> https://lore.kernel.org/all/202301040348.NbfVsXO0-lkp@intel.com/.
+> 
+> Reported-by: kernel test robot <lkp@intel.com>
+> 
+> Signed-off-by: Rae Moar <rmoar@google.com>
 
-  # policy_unpack_test_unpack_array_with_null_name: EXPECTATION FAILED at security/apparmor/policy_unpack_test.c:151
-  Expected array_size == (u16)16, but
-      array_size == 4096 (0x1000)
-      (u16)16 == 16 (0x10)
+lgtm
 
-Signed-off-by: Benjamin Gray <bgray@linux.ibm.com>
----
- security/apparmor/policy_unpack_test.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+I have pulled this into apparmor-next
 
-diff --git a/security/apparmor/policy_unpack_test.c b/security/apparmor/policy_unpack_test.c
-index 5c9bde25e56d..506d3f14d1b5 100644
---- a/security/apparmor/policy_unpack_test.c
-+++ b/security/apparmor/policy_unpack_test.c
-@@ -80,14 +80,14 @@ static struct aa_ext *build_aa_ext_struct(struct policy_unpack_fixture *puf,
- 	*(buf + 1) = strlen(TEST_U32_NAME) + 1;
- 	strscpy(buf + 3, TEST_U32_NAME, e->end - (void *)(buf + 3));
- 	*(buf + 3 + strlen(TEST_U32_NAME) + 1) = AA_U32;
--	*((u32 *)(buf + 3 + strlen(TEST_U32_NAME) + 2)) = TEST_U32_DATA;
-+	*((u32 *)(buf + 3 + strlen(TEST_U32_NAME) + 2)) = cpu_to_le32(TEST_U32_DATA);
- 
- 	buf = e->start + TEST_NAMED_U64_BUF_OFFSET;
- 	*buf = AA_NAME;
- 	*(buf + 1) = strlen(TEST_U64_NAME) + 1;
- 	strscpy(buf + 3, TEST_U64_NAME, e->end - (void *)(buf + 3));
- 	*(buf + 3 + strlen(TEST_U64_NAME) + 1) = AA_U64;
--	*((u64 *)(buf + 3 + strlen(TEST_U64_NAME) + 2)) = TEST_U64_DATA;
-+	*((u64 *)(buf + 3 + strlen(TEST_U64_NAME) + 2)) = cpu_to_le64(TEST_U64_DATA);
- 
- 	buf = e->start + TEST_NAMED_BLOB_BUF_OFFSET;
- 	*buf = AA_NAME;
-@@ -103,7 +103,7 @@ static struct aa_ext *build_aa_ext_struct(struct policy_unpack_fixture *puf,
- 	*(buf + 1) = strlen(TEST_ARRAY_NAME) + 1;
- 	strscpy(buf + 3, TEST_ARRAY_NAME, e->end - (void *)(buf + 3));
- 	*(buf + 3 + strlen(TEST_ARRAY_NAME) + 1) = AA_ARRAY;
--	*((u16 *)(buf + 3 + strlen(TEST_ARRAY_NAME) + 2)) = TEST_ARRAY_SIZE;
-+	*((u16 *)(buf + 3 + strlen(TEST_ARRAY_NAME) + 2)) = cpu_to_le16(TEST_ARRAY_SIZE);
- 
- 	return e;
- }
-
-base-commit: cb60752f0c37cba0d4a90fd62dfd3ba425df783f
--- 
-2.39.1
+> ---
+> 
+> Note: This patch is based on the apparmor-next branch. However, the
+> patch should also apply cleanly to the kselftest/kunit branch.
+> 
+>   security/apparmor/policy_unpack_test.c | 13 ++++++-------
+>   1 file changed, 6 insertions(+), 7 deletions(-)
+> 
+> diff --git a/security/apparmor/policy_unpack_test.c b/security/apparmor/policy_unpack_test.c
+> index e1bfdab524b7..5c9bde25e56d 100644
+> --- a/security/apparmor/policy_unpack_test.c
+> +++ b/security/apparmor/policy_unpack_test.c
+> @@ -69,31 +69,30 @@ static struct aa_ext *build_aa_ext_struct(struct policy_unpack_fixture *puf,
+>   
+>   	*buf = AA_NAME;
+>   	*(buf + 1) = strlen(TEST_STRING_NAME) + 1;
+> -	strcpy(buf + 3, TEST_STRING_NAME);
+> +	strscpy(buf + 3, TEST_STRING_NAME, e->end - (void *)(buf + 3));
+>   
+>   	buf = e->start + TEST_STRING_BUF_OFFSET;
+>   	*buf = AA_STRING;
+>   	*(buf + 1) = strlen(TEST_STRING_DATA) + 1;
+> -	strcpy(buf + 3, TEST_STRING_DATA);
+> -
+> +	strscpy(buf + 3, TEST_STRING_DATA, e->end - (void *)(buf + 3));
+>   	buf = e->start + TEST_NAMED_U32_BUF_OFFSET;
+>   	*buf = AA_NAME;
+>   	*(buf + 1) = strlen(TEST_U32_NAME) + 1;
+> -	strcpy(buf + 3, TEST_U32_NAME);
+> +	strscpy(buf + 3, TEST_U32_NAME, e->end - (void *)(buf + 3));
+>   	*(buf + 3 + strlen(TEST_U32_NAME) + 1) = AA_U32;
+>   	*((u32 *)(buf + 3 + strlen(TEST_U32_NAME) + 2)) = TEST_U32_DATA;
+>   
+>   	buf = e->start + TEST_NAMED_U64_BUF_OFFSET;
+>   	*buf = AA_NAME;
+>   	*(buf + 1) = strlen(TEST_U64_NAME) + 1;
+> -	strcpy(buf + 3, TEST_U64_NAME);
+> +	strscpy(buf + 3, TEST_U64_NAME, e->end - (void *)(buf + 3));
+>   	*(buf + 3 + strlen(TEST_U64_NAME) + 1) = AA_U64;
+>   	*((u64 *)(buf + 3 + strlen(TEST_U64_NAME) + 2)) = TEST_U64_DATA;
+>   
+>   	buf = e->start + TEST_NAMED_BLOB_BUF_OFFSET;
+>   	*buf = AA_NAME;
+>   	*(buf + 1) = strlen(TEST_BLOB_NAME) + 1;
+> -	strcpy(buf + 3, TEST_BLOB_NAME);
+> +	strscpy(buf + 3, TEST_BLOB_NAME, e->end - (void *)(buf + 3));
+>   	*(buf + 3 + strlen(TEST_BLOB_NAME) + 1) = AA_BLOB;
+>   	*(buf + 3 + strlen(TEST_BLOB_NAME) + 2) = TEST_BLOB_DATA_SIZE;
+>   	memcpy(buf + 3 + strlen(TEST_BLOB_NAME) + 6,
+> @@ -102,7 +101,7 @@ static struct aa_ext *build_aa_ext_struct(struct policy_unpack_fixture *puf,
+>   	buf = e->start + TEST_NAMED_ARRAY_BUF_OFFSET;
+>   	*buf = AA_NAME;
+>   	*(buf + 1) = strlen(TEST_ARRAY_NAME) + 1;
+> -	strcpy(buf + 3, TEST_ARRAY_NAME);
+> +	strscpy(buf + 3, TEST_ARRAY_NAME, e->end - (void *)(buf + 3));
+>   	*(buf + 3 + strlen(TEST_ARRAY_NAME) + 1) = AA_ARRAY;
+>   	*((u16 *)(buf + 3 + strlen(TEST_ARRAY_NAME) + 2)) = TEST_ARRAY_SIZE;
+>   
+> 
+> base-commit: 1b929c02afd37871d5afb9d498426f83432e71c2
 
 
