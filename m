@@ -2,156 +2,85 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9388F67F683
-	for <lists+apparmor@lfdr.de>; Sat, 28 Jan 2023 10:00:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FBFA68198F
+	for <lists+apparmor@lfdr.de>; Mon, 30 Jan 2023 19:47:24 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1pLh4R-0006cI-W0; Sat, 28 Jan 2023 09:00:23 +0000
-Received: from mga12.intel.com ([192.55.52.136])
+	id 1pMZBS-0005Ly-FL; Mon, 30 Jan 2023 18:47:14 +0000
+Received: from mx0a-001b2d01.pphosted.com ([148.163.156.1])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <fengwei.yin@intel.com>) id 1pLbXj-0000w1-Ki
- for apparmor@lists.ubuntu.com; Sat, 28 Jan 2023 03:06:15 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674875175; x=1706411175;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=+YBanM0q4kBNgVzNYFsKiIceQnTmf+Th/Kp+y+9rNPM=;
- b=MCM2t6sba/Rs4hT1p0xN3VgNi59VoDjDc78H1vaIFepqXnRtiYw2Oaqw
- QnPJOwf1+s4nxZujjcF1zAqI290fkjPHf1TAtY6sqFgjeoLctP1yY4o/1
- kWpzGZvBPsTIGryIA3wGWf6UNa4atQ3m2Eq60udlEqnEulF9Qu4Rm1+q2
- 8KqNLG+fxOZpYOEKL/nKcICJUnXJmKWUh1dbK01QBfCBEys23F/rPq8OV
- 1syuMzwNISDH4yc7S11Z9Raysb6hGFU/LWunZx2yfYXu+J1HBpHF3SBcX
- gSQLxTbpEjytgGOsSSIQfTf5TWyTduIIGXKJwjOoCLTTAZWygx2Ofw+o8 w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10603"; a="306905170"
-X-IronPort-AV: E=Sophos;i="5.97,252,1669104000"; d="scan'208";a="306905170"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jan 2023 19:06:12 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10603"; a="726900679"
-X-IronPort-AV: E=Sophos;i="5.97,252,1669104000"; d="scan'208";a="726900679"
-Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
- by fmsmga008.fm.intel.com with ESMTP; 27 Jan 2023 19:06:12 -0800
-Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
- ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16; Fri, 27 Jan 2023 19:06:12 -0800
-Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
- ORSMSX610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16; Fri, 27 Jan 2023 19:06:11 -0800
-Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
- orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16 via Frontend Transport; Fri, 27 Jan 2023 19:06:11 -0800
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com (104.47.58.168)
- by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.16; Fri, 27 Jan 2023 19:06:11 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eCpOpTGDX15Ha8ivpEGmg2fqOmpc5pnUdaYmNaTv8nvSZ97BgdwNngW7FHK9YtGQwdVSELDlEhpMiNcGNjgmonlTGcKzR3ldHXHDC9G5L4sW6gWICpS/4aAEuSxGX9BxyJfYBXqR0TBtR2nPzy5CQT0qxC6oor3lX2U8JfTm/3nws3KAq8KqlMl0/K4o4R3nqU6Nmoo9Z/rSn6CdjI/GzPF76m/hAl9c+TZgae5HE9F79gWv2mcGEUVKRtb2r144RgLgUGTRHmFuMjVLhjzuS5lBaod59CQEnl/R0unieGR6a5XmaKeGFICNPTjLs5okN3YM1ygzarpi8xB3RUEMcw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5FhKFJUVTkeNiRunWab0a7nF+XFMzxJwTOz3FjWPEf8=;
- b=Zv083wlqep+uSm/DxG3wn3t/XgRP7SbvHk+Ew8fMuuUAc8j5kUWRm8LNvBsP2Ehbv1Ugf1dX8Nf4TJhJ/VaLZKNITGrsV5Z4MwlLDAcYqCl30g7Nq3yF7YcxyXf7kC6G4zfKADQexNYvjP90CPAhHvgs7LU2iDE+MVzMGZOzvGLMjr6ex4/nxw841Tx5Q8pUzA3gDRSF/1zkDQiQrK5HckjzwLrai45UT8SLHlt/sqr2G/IiYvgHnvhhZMEhE0JDM7ZqITJzWRcyhwntfc4xZqTk/dIJyuL3ZZgCWV6kGNsOnVBivtPJ/adbPamoXp0HDvIXu47mFe+dXWvp/NX8Qw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CO1PR11MB4820.namprd11.prod.outlook.com (2603:10b6:303:6f::8)
- by SA1PR11MB6710.namprd11.prod.outlook.com (2603:10b6:806:25a::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.28; Sat, 28 Jan
- 2023 03:06:03 +0000
-Received: from CO1PR11MB4820.namprd11.prod.outlook.com
- ([fe80::1531:707:dec4:68b4]) by CO1PR11MB4820.namprd11.prod.outlook.com
- ([fe80::1531:707:dec4:68b4%3]) with mapi id 15.20.6043.025; Sat, 28 Jan 2023
- 03:06:02 +0000
-Message-ID: <9e4d012f-6ff6-aef4-a70d-cc9f1478921a@intel.com>
-Date: Sat, 28 Jan 2023 11:05:52 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.6.1
-Content-Language: en-US
-To: John Johansen <john.johansen@canonical.com>, kernel test robot
- <oliver.sang@intel.com>
-References: <202212311546.755a3ed7-oliver.sang@intel.com>
- <42194ba4-cc3b-c8b3-06e6-e2938df3a87c@intel.com>
- <4fa85b15-1c55-9050-9cd0-fe66c3b957eb@canonical.com>
-From: "Yin, Fengwei" <fengwei.yin@intel.com>
-In-Reply-To: <4fa85b15-1c55-9050-9cd0-fe66c3b957eb@canonical.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SGBP274CA0008.SGPP274.PROD.OUTLOOK.COM (2603:1096:4:b0::20)
- To CO1PR11MB4820.namprd11.prod.outlook.com
- (2603:10b6:303:6f::8)
+ (envelope-from <bgray@linux.ibm.com>) id 1pMMx0-0002Q2-Bw
+ for apparmor@lists.ubuntu.com; Mon, 30 Jan 2023 05:43:30 +0000
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 30U2Ccgw022582
+ for <apparmor@lists.ubuntu.com>; Mon, 30 Jan 2023 05:43:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-transfer-encoding; s=pp1;
+ bh=y/Jq6BDyoN45kdMNzvxztRNjngH+wCe8eYPvphm0jBk=;
+ b=nLoAgrh6R8y+kq2ysDLnqIeU+DaITgUkW54isfSYNXa2eSVxzK8/6Nya5P6Oa+t/699q
+ 6HvuJsAd2e135iUhGjgu4LbBJ6333pfit/NhzFRvS5di3z86eP6wbI9Yc+ALlTEW9Mm+
+ j/oFprRi0eUEWslRZ+bjatwM36xe8dPPMly2M0HgYup9oVjMZybUyZeRUh/11WsDV5v5
+ 4U95JfIErENDqWxMq/470lO/hIb0TE1KBirE+/JNCOlhB29ip0BPpbrEvtAPnZau3P13
+ SaRrS9mI60vI9qiw6pNlV4Tfj9qEU1AuqeJQwl+1a7apGlSaXKmlBbBF6GmEL9QgaGn+ XA== 
+Received: from ppma04ams.nl.ibm.com (63.31.33a9.ip4.static.sl-reverse.com
+ [169.51.49.99])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3nddkk6kwv-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <apparmor@lists.ubuntu.com>; Mon, 30 Jan 2023 05:43:28 +0000
+Received: from pps.filterd (ppma04ams.nl.ibm.com [127.0.0.1])
+ by ppma04ams.nl.ibm.com (8.17.1.19/8.17.1.19) with ESMTP id 30U51ELQ026867
+ for <apparmor@lists.ubuntu.com>; Mon, 30 Jan 2023 05:43:26 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+ by ppma04ams.nl.ibm.com (PPS) with ESMTPS id 3ncvs7hset-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <apparmor@lists.ubuntu.com>; Mon, 30 Jan 2023 05:43:26 +0000
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com
+ [10.20.54.104])
+ by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 30U5hNUV23658944
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
+ for <apparmor@lists.ubuntu.com>; Mon, 30 Jan 2023 05:43:23 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id BAC4D20043
+ for <apparmor@lists.ubuntu.com>; Mon, 30 Jan 2023 05:43:23 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 3973820040
+ for <apparmor@lists.ubuntu.com>; Mon, 30 Jan 2023 05:43:23 +0000 (GMT)
+Received: from ozlabs.au.ibm.com (unknown [9.192.253.14])
+ by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP
+ for <apparmor@lists.ubuntu.com>; Mon, 30 Jan 2023 05:43:23 +0000 (GMT)
+Received: from li-0d7fa1cc-2c9d-11b2-a85c-aed20764436d.ibm.com
+ (haven.au.ibm.com [9.192.254.114])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ozlabs.au.ibm.com (Postfix) with ESMTPSA id 8782160425;
+ Mon, 30 Jan 2023 16:43:19 +1100 (AEDT)
+From: Benjamin Gray <bgray@linux.ibm.com>
+To: apparmor@lists.ubuntu.com
+Date: Mon, 30 Jan 2023 16:43:11 +1100
+Message-Id: <20230130054311.265038-1-bgray@linux.ibm.com>
+X-Mailer: git-send-email 2.39.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PR11MB4820:EE_|SA1PR11MB6710:EE_
-X-MS-Office365-Filtering-Correlation-Id: ba0b123b-9178-4a3e-ddab-08db00dc96bf
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1e0N3LBESrWB5FGSxJIOPBCkOKM7+s6f9syqOR4nherjd1kMskw+tBM2IjPXAVIkWIhSkRJqt0hNl7zurjzowxEqO7QOHWsqvJtR9mnXc10qpKfXG7JaVOc29UdQBgP9YZWMrnREiEeajnl9dkVapOlM2LXb6+qd2ZzgHtwdcQ5Mj9Vx26WTxBm2AghwJ9Mftfxsldg2MPkiOgoPjdPnXVQOQPB4xyrFFkfNz7KLvBUuQ92nzjxV4qJZv/yNF/iWR8yu+MJN+zTA1HwaVfT/F7hW6LkZgzBuNhA4DuTuqVhBkYEAz+MHfY57YDTqhvnoRcF4wxFKUnucxdlpRMTfFz5WPKp/Ai8Rrs3bR67oJo0soVRQptUcg0gPZ+f00pAqudPAE/q0Mqju7VtEq3eakNmYQR7z+zuhTuWzVdg0XaBSU/oKfBsKTokGINZdybHMn1Sza802iv5fyTvygikwhWlL4QDFW1+aM6UP//xpdeHssbI8nISqxe0mHNE65XbDxgCOXQFig7t7LUTykzeGr75PMEG4TBuwRbkI3ikkshQ4UOu80hxC/N+ebwc6tI1xT/Pj42Kt/OkUlVKzAQkK2yutLSaMzzm7C4+2moom89F0dKhNZJvKLFdPNIsRtCu7UNyatkZJuj9/5K1Fl7bqBXW7bBc19eE15u1eJwqN/BFW0rHrCjKJcL+gHrt2cbLpuy+X5Sb62uZ6sEFBIgSDJLnQmKpgGXZEKAsVCA5hkQiycZ66yjUQhxTz0dRtoknKTwyJF94ZUraBLFRPGz+ODw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO1PR11MB4820.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(366004)(396003)(346002)(39860400002)(136003)(376002)(451199018)(8936002)(316002)(6506007)(6666004)(478600001)(86362001)(966005)(6486002)(31696002)(53546011)(38100700002)(2616005)(82960400001)(26005)(186003)(6512007)(36756003)(6636002)(110136005)(5660300002)(2906002)(83380400001)(66946007)(66556008)(8676002)(41300700001)(66476007)(4326008)(31686004)(45980500001)(43740500002);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TWZWUXpMMENxMnlwMFRaYnZKK2VsMlhSWkljMkhQOGs2dFBydTFCWmQranl5?=
- =?utf-8?B?Z3lNM0VsMVY0d3FUaE5VY1ArODNjS205eVpuNWQzaGs4bXd0RmRrRUxMNTVh?=
- =?utf-8?B?N1FHZmFMNzErT1R2QjdQYTJ2L1lTNzNNNTJYUitkYjdhQUdYYit2NDhYRVU5?=
- =?utf-8?B?WUR6b3NBREJoL3FJalFmRGo4cEZ4OWNGeVFxYjBRdGF3NkprSzJuZXUwWEdm?=
- =?utf-8?B?b2dGTXpkODJ2Mk5NdG9GeEV0RmdzVlhPUkxxQUt4SWQ4ODcyc2xJQjZyc01N?=
- =?utf-8?B?OXJXeTBSMnNSeHRuUkRaM3VqUzZSbmFmWStRdFIyZkRHSDNwdmJVbXVvR1Mv?=
- =?utf-8?B?VmJUbTM3V1J3a05KbmxDdWQvV0d2dkNrNHJzNjNEamhhYVhlTmVsR0J1SE5i?=
- =?utf-8?B?NnlLZUloNkJrT0tjMlliWHNjRmZZVTY5ZHNJWC9FSjhrbUNKY2lSNzhUQUdp?=
- =?utf-8?B?OWlpUWtWM1dGWGtUKzZEVzYvbnJBdHZXdTNxYzNaRDdFQTJDSmZZZHhydVpk?=
- =?utf-8?B?QTlkbER2amNFdTJPN2paUnhPaWZ3N0FGWU14emI0WkdQRHk1TTYvc2gvV0ha?=
- =?utf-8?B?Wm1Pa2p0cXhaTW8vc3l1dkxRODQ3WDRvSDhtRmJUUU1QaEhoRDJjZUU4SGR3?=
- =?utf-8?B?TVJZeUZsbGF1dS9uK2ZHQ25KUkRiNlAycDEvR1lpMWl2L05ZMFk3blVIOTdj?=
- =?utf-8?B?RHJud2g3TjBGdFcwZ045NzNnUXRjTm8yeUtVNFE0dTk1dkF3QlZkMHBjd2pV?=
- =?utf-8?B?MmpzMW81TUh0N1hCZmxvNmJvWmpDd25UV2l0anBuYTNKM3NJNWhPakdiWlVv?=
- =?utf-8?B?bHNCUlczakFiaFZaSUYwVXJKaGZiZmtkdkNFempwbW1xVGI5MTVGR2dsaXB5?=
- =?utf-8?B?Tm9Pa2MxM05KeklXYTJDQTUyZzQzWXYvYmlwS3VoRHhGZlo5N2Izd0dtSnM0?=
- =?utf-8?B?RmZORjF5K3hQQzJFWXd5Z1BKam9pYzNWUDhDdFEyckgrWFBuZCszdU1oNkpR?=
- =?utf-8?B?clNLbHdpdS9yb29xTUVmZVVUOElJSVFoZUV6eGt0N2NHK2NoZDM1QzBVV3I3?=
- =?utf-8?B?WENUMUpYSk5ud2JwRHRHaExka2xvRUJWU3BvL2htRDNaT1dPb3IzenFyRFRs?=
- =?utf-8?B?MW1pV3VCM3Z4TzVOWDlDYzRLaHk5aE4xalVyTjdRaG5rNC8xTUdQTlBxR0Nr?=
- =?utf-8?B?QTdBRzl5djJYamdHcDVGRWZPYnFjVytaU2hJZmtCbXdRR0xGTEx3MktMdkF5?=
- =?utf-8?B?NENBbk5ZaElxbEJ3d0FMWkk2eUVUalpWUHc4MExMRmgzUnBSbWtVYlVabkd3?=
- =?utf-8?B?N3poOG96UWpDSjJ3bEJYaG4rUHF5RnM5VDd0QmZsL1RncmJiRUoyN0FQQ3FJ?=
- =?utf-8?B?cjlRamU1Ni9CRklPSlJ6ZVJpRDVwczNRWFBCdWgwZUMvelE5UVdmRkRPVU5r?=
- =?utf-8?B?eDJiRUtFZWF3aWpHem9rRTBHN1ByNENkTWd0YkE1bHdLRVl0QUZsUmx4Yzlu?=
- =?utf-8?B?YTVPSkg1TDA4SnY0a2FtN3FkUzlYWXp5K2xJWXVNNGdyRFNDaDZDM3dZOVB1?=
- =?utf-8?B?N0JxQy94dnIvZVZUeVV6ay90WnBWYmlST2VCOHdGL0xJUkVjNjZkcnhZU0kz?=
- =?utf-8?B?cVBRdVBEMXo1MEpGamhhbmdzejBoNENlWW1DTEgveFMxUWFjSFNDVWhhbTl6?=
- =?utf-8?B?WXFoaHhoMlkzUDExclJoN2JIbzF0MElsYUlBSmhjbnlOY2ljdEtMRlFKZlRo?=
- =?utf-8?B?TGludk9rd2hrRWl3N2x1YnlKZms4cG1XNEFWZUNSQUFQOXRVSkJmMlNyaWFy?=
- =?utf-8?B?NjZldDIzWUMrK00zTmhDYzNvU01jdWhGTkNUM01mNzV0cDZsOGgwRUhySCtv?=
- =?utf-8?B?MVVRaVcvcnhNTHd1WmxEZkVDWmpFb0RYSTRDbGJRNjRibzdtV2dHYnpFSFFp?=
- =?utf-8?B?UUJYNUN3UG9jblhuaEVTS0t3VzRGakplYTVqZUF0aDlUVFhDMDdaY1VxL0Vw?=
- =?utf-8?B?ZFV1OXR1MjkvMCtJTUxKamd5aTF0TndWN3o5ZmdJMmkzVzlrdklwZ0J0WWgz?=
- =?utf-8?B?TDVBR2Fvc2Jqay80dE9mSEhtQVFwMDJRdy8yRWxCVnNicFM4THdQL1M1WDdv?=
- =?utf-8?Q?TUzghcS1JBLw3gzCaSiJZ6eLM?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: ba0b123b-9178-4a3e-ddab-08db00dc96bf
-X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4820.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2023 03:06:02.7830 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hif2pDj6UAPQGyOl3ddFYodv0hFTz5bY6D1FTgvIz3TrgsC14BJtTGly6zwQ1pd0PqqJhk8SuxYcam/FBPoN9w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR11MB6710
-X-OriginatorOrg: intel.com
-X-Mailman-Approved-At: Sat, 28 Jan 2023 09:00:20 +0000
-Subject: Re: [apparmor] [linus:master] 1ad22fcc4d:
- stress-ng.kill.ops_per_sec -42.5% regression
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: _nGjPqZcmz5jfFH8ELC1Yu0IqaaLtCpy
+X-Proofpoint-GUID: _nGjPqZcmz5jfFH8ELC1Yu0IqaaLtCpy
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.122.1
+ definitions=2023-01-30_03,2023-01-27_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0
+ impostorscore=0 lowpriorityscore=0 adultscore=0 mlxscore=0 spamscore=0
+ clxscore=1011 suspectscore=0 bulkscore=0 phishscore=0 mlxlogscore=823
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2301300052
+X-Mailman-Approved-At: Mon, 30 Jan 2023 18:47:13 +0000
+Subject: [apparmor] [PATCH] apparmor: fix endianness of test data in
+	policy_unpack_test
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -163,48 +92,58 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: feng.tang@intel.com, lkp@intel.com, apparmor@lists.ubuntu.com,
- linux-kernel@vger.kernel.org, zhengjun.xing@linux.intel.com,
- ying.huang@intel.com, oe-lkp@lists.linux.dev
+Cc: Benjamin Gray <bgray@linux.ibm.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
+The test data numbers are expected to be in little endian format
+based on how the tests interact with them, but currently are
+generated using host endianness. This causes several KUnit tests
+to fail when booting a big endian kernel, e.g.
 
+  # policy_unpack_test_unpack_array_with_null_name: EXPECTATION FAILED at security/apparmor/policy_unpack_test.c:151
+  Expected array_size == (u16)16, but
+      array_size == 4096 (0x1000)
+      (u16)16 == 16 (0x10)
 
-On 1/28/2023 10:34 AM, John Johansen wrote:
-> On 1/27/23 17:37, Yin, Fengwei wrote:
->> Hi John,
->>
->> On 12/31/2022 3:18 PM, kernel test robot wrote:
->>>
->>> Greeting,
->>>
->>> FYI, we noticed a -42.5% regression of stress-ng.kill.ops_per_sec due to commit:
->>>
->>>
->>> commit: 1ad22fcc4d0d2fb2e0f35aed555a86d016d5e590 ("apparmor: rework profile->rules to be a list")
->>> https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
->>>
->>> in testcase: stress-ng
->>> on test machine: 96 threads 2 sockets Intel(R) Xeon(R) Gold 6252 CPU @ 2.10GHz (Cascade Lake) with 512G memory
->>> with following parameters:
->>>
->>>     nr_threads: 10%
->>>     disk: 1HDD
->>>     testtime: 60s
->>>     fs: ext4
->>>     class: os
->>>     test: kill
->>>     cpufreq_governor: performance
->> Do you think any other information need be collected for this regression
->> report? Thanks.
->>
-> 
-> no, I know what is causing it, I just haven't had time to fix it yet.
-Great. Let us know if you want us to try something out. Thanks.
+Signed-off-by: Benjamin Gray <bgray@linux.ibm.com>
+---
+ security/apparmor/policy_unpack_test.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Regards
-Yin, Fengwei
+diff --git a/security/apparmor/policy_unpack_test.c b/security/apparmor/policy_unpack_test.c
+index 5c9bde25e56d..506d3f14d1b5 100644
+--- a/security/apparmor/policy_unpack_test.c
++++ b/security/apparmor/policy_unpack_test.c
+@@ -80,14 +80,14 @@ static struct aa_ext *build_aa_ext_struct(struct policy_unpack_fixture *puf,
+ 	*(buf + 1) = strlen(TEST_U32_NAME) + 1;
+ 	strscpy(buf + 3, TEST_U32_NAME, e->end - (void *)(buf + 3));
+ 	*(buf + 3 + strlen(TEST_U32_NAME) + 1) = AA_U32;
+-	*((u32 *)(buf + 3 + strlen(TEST_U32_NAME) + 2)) = TEST_U32_DATA;
++	*((u32 *)(buf + 3 + strlen(TEST_U32_NAME) + 2)) = cpu_to_le32(TEST_U32_DATA);
+ 
+ 	buf = e->start + TEST_NAMED_U64_BUF_OFFSET;
+ 	*buf = AA_NAME;
+ 	*(buf + 1) = strlen(TEST_U64_NAME) + 1;
+ 	strscpy(buf + 3, TEST_U64_NAME, e->end - (void *)(buf + 3));
+ 	*(buf + 3 + strlen(TEST_U64_NAME) + 1) = AA_U64;
+-	*((u64 *)(buf + 3 + strlen(TEST_U64_NAME) + 2)) = TEST_U64_DATA;
++	*((u64 *)(buf + 3 + strlen(TEST_U64_NAME) + 2)) = cpu_to_le64(TEST_U64_DATA);
+ 
+ 	buf = e->start + TEST_NAMED_BLOB_BUF_OFFSET;
+ 	*buf = AA_NAME;
+@@ -103,7 +103,7 @@ static struct aa_ext *build_aa_ext_struct(struct policy_unpack_fixture *puf,
+ 	*(buf + 1) = strlen(TEST_ARRAY_NAME) + 1;
+ 	strscpy(buf + 3, TEST_ARRAY_NAME, e->end - (void *)(buf + 3));
+ 	*(buf + 3 + strlen(TEST_ARRAY_NAME) + 1) = AA_ARRAY;
+-	*((u16 *)(buf + 3 + strlen(TEST_ARRAY_NAME) + 2)) = TEST_ARRAY_SIZE;
++	*((u16 *)(buf + 3 + strlen(TEST_ARRAY_NAME) + 2)) = cpu_to_le16(TEST_ARRAY_SIZE);
+ 
+ 	return e;
+ }
 
-> 
+base-commit: cb60752f0c37cba0d4a90fd62dfd3ba425df783f
+-- 
+2.39.1
+
 
