@@ -2,56 +2,50 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAA8F6A5FD0
-	for <lists+apparmor@lfdr.de>; Tue, 28 Feb 2023 20:39:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A6896A6088
+	for <lists+apparmor@lfdr.de>; Tue, 28 Feb 2023 21:43:31 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1pX5oi-0006ei-Gz; Tue, 28 Feb 2023 19:39:16 +0000
-Received: from mail-ua1-f41.google.com ([209.85.222.41])
+	id 1pX6oj-0003qJ-FR; Tue, 28 Feb 2023 20:43:21 +0000
+Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
+ helo=smtp-relay-canonical-0.canonical.com)
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <murali.selvaraj2003@gmail.com>) id 1pX5og-0006eW-C6
- for apparmor@lists.ubuntu.com; Tue, 28 Feb 2023 19:39:14 +0000
-Received: by mail-ua1-f41.google.com with SMTP id x40so2042569uaf.2
- for <apparmor@lists.ubuntu.com>; Tue, 28 Feb 2023 11:39:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=+urNvWL7tHrvIxKuilVbYgJUzNTsafr9mckoojpPkeo=;
- b=b3s4rbldFXHPfyTPor3YceQvLt0SsvyQBCEOQY8TWqmVRDFKldn0DWFww8NNLDWPMw
- eR+Yyumer/JfmrcriuWJL9T733+KjlV3JlzI2Xkp6rLgF33jkccX9vtjhAxGDnyeRrF7
- fv52eEm3DvWffh8b4B1EAlFDEr6qASvsFI4l09Lj26dSA6Q4kQ0vPuF/x4krRNlFMkH1
- dCdVnNkq+ZfMwm6qzhq5ExsrP6/0v3BbpB+WA58xSA66b4RylphXzUKljsYupA885Ve/
- vYILIThBvoT5yp/vTAyPt0/lk1neUeObA+Gmx+8xfZsj8A7WbZLp7/BHCwvYXhE17JNa
- zJWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=+urNvWL7tHrvIxKuilVbYgJUzNTsafr9mckoojpPkeo=;
- b=AbuolWacmz0GpA/LjS5J6tkFvcO6Pbsx/cH6LhVJJr+5RwMCarS0U8T41hLluzduUx
- q6zZrPo6zs/NTb7Iy3KyObMb/VJDKatbs5xDKr5E9K7+dq+M40p9oS6E6+DW8ab5ERac
- O4ah6K7gdTYur7StH3jWqUZsnxcOLt1L4pXkyw3qnKmybTngHymfBsuEdMYusvthKsVc
- 17weFFNlgVb59O10XV+iW4vyso/8b6q9oRa1zF4lLm6AKyhWPrSfq3fE3GTFPcf/ENd7
- JoVr2l3QKHYfgWtp3OFTIrB3qS4oe5fnYF0aQTh9AUpO6jl4vbisg0DuQiUFWAeK/8l4
- 64Sg==
-X-Gm-Message-State: AO0yUKUUqSQXnwzn4CILOyu3b18JO0gu2zByKDMVl7d/Esu9fKIOBWXW
- p8QO+gH4or7upEypczMYusBmzVGs/D7zQ5FZeSvi0YaxoNA=
-X-Google-Smtp-Source: AK7set/fyXcE+8MbLLTSz2twTghewSrrlof/bWG0m/T2nmtGdCGTyFuTqerM0pBkSZoWMD7nY/Wwc4bc6untwxHtT1Y=
-X-Received: by 2002:a1f:4f86:0:b0:40c:4d1:b550 with SMTP id
- d128-20020a1f4f86000000b0040c04d1b550mr2110228vkb.0.1677613152637; Tue, 28
- Feb 2023 11:39:12 -0800 (PST)
+ (envelope-from <john.johansen@canonical.com>) id 1pX6oh-0003pt-A4
+ for apparmor@lists.ubuntu.com; Tue, 28 Feb 2023 20:43:19 +0000
+Received: from [192.168.192.83] (unknown [50.47.134.245])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 68094408F1; 
+ Tue, 28 Feb 2023 20:43:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1677616997;
+ bh=01Qn+iNEFNE8xKCcccr1GQ7r6Tp50HK8sU1Duw4I8oM=;
+ h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+ In-Reply-To:Content-Type;
+ b=UB5qhKfaTH68pKis7h3ruk6L757Chu1JPK5Zn/h+KK9i2uJdLD5zX2h9XfBJ2gqDl
+ 5wMpUEN1YUssK+gWkCMWCpl4hKnd2VUwpgG6trl4V2t5V4rm7HHVYJYbxu48Gb9Nhe
+ FoF6PpERucL7ShHwWS9FIPz1dMLIEjL0fp+LqRFjRJJ1hWsqxOx4EIulh4BiRSt7Kz
+ gXv98AIunRQpOD1tfpTl0qxfpV74vOrQJ6dix04qsn6WQnM/SC0VJpGXTfdkVVZQWB
+ 2MrcJ+Ve/ozakwSYVlWWpU3hTLjU6kw/FqvZoabSMb9bwGJ5+T1G1gbYD30u0ozN7t
+ 6CCAmAafiXXbQ==
+Message-ID: <f9949f5a-25ce-97b7-782e-c236b38146ab@canonical.com>
+Date: Tue, 28 Feb 2023 12:43:13 -0800
 MIME-Version: 1.0
-From: Murali Selvaraj <murali.selvaraj2003@gmail.com>
-Date: Tue, 28 Feb 2023 14:39:01 -0500
-Message-ID: <CAODFaZ6+kOJcTs6a1_08TCJ6pnqndzKBBWOK0+xb4L2gmB9ffw@mail.gmail.com>
-To: apparmor@lists.ubuntu.com, John Johansen <john.johansen@canonical.com>, 
- Seth Arnold <seth.arnold@canonical.com>
-Content-Type: multipart/alternative; boundary="00000000000008962e05f5c7c07e"
-Received-SPF: pass client-ip=209.85.222.41;
- envelope-from=murali.selvaraj2003@gmail.com; helo=mail-ua1-f41.google.com
-Subject: [apparmor] Reg. Apparmor logging query
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Content-Language: en-US
+To: Murali Selvaraj <murali.selvaraj2003@gmail.com>,
+ apparmor@lists.ubuntu.com, Seth Arnold <seth.arnold@canonical.com>
+References: <CAODFaZ6+kOJcTs6a1_08TCJ6pnqndzKBBWOK0+xb4L2gmB9ffw@mail.gmail.com>
+From: John Johansen <john.johansen@canonical.com>
+Organization: Canonical
+In-Reply-To: <CAODFaZ6+kOJcTs6a1_08TCJ6pnqndzKBBWOK0+xb4L2gmB9ffw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [apparmor] Reg. Apparmor logging query
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -66,45 +60,43 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
---00000000000008962e05f5c7c07e
-Content-Type: text/plain; charset="UTF-8"
+On 2/28/23 11:39, Murali Selvaraj wrote:
+> Hi John,
+> 
+> I added below entries in one of my profiles which runs under complain mode.
+> *audit /var/** wl,*
+> 
 
-Hi John,
+what kernel version? I will note that there are two know bugs around auditing. One of them is fixed, the other is currently being worked on.
+I am not sure if this one would be affected by the second bug but if you are seeing the messages with -a I would say no.
 
-I added below entries in one of my profiles which runs under complain mode.
-*audit /var/** wl,*
+> As per my script to capture Apparmor logs, I am capturing journalctl -k for every 30 mins in my log path (for instance, /tmp/logs/).
+> However, I could NOT see the expected log entry for this rule audit "/var/** wl," from journalctl -k output.
+> 
 
-As per my script to capture Apparmor logs, I am capturing journalctl -k for
-every 30 mins in my log path (for instance, /tmp/logs/).
-However, I could NOT see the expected log entry for this rule audit
-"/var/** wl," from journalctl -k output.
+do you know which path the journal is pulling the apparmor logs? via the audit subsystem (auditd installed) or via the kernel log path.
 
-I could see the logs seen if we use *journalctl -a*, but I do not want to
-copy (to avoid the space) journalctl -a for every 30 mins as it has other
-additional/debug log information.
 
-Do we have any options/configuration to get these logs from
-*journalctl -k *instead
-of* journalctl -a*?
+> I could see the logs seen if we use *journalctl -a*, but I do not want to copy (to avoid the space) journalctl -a for every 30 mins as it has other additional/debug log information.
 
-Thanks
-Murali.S
+This to me says you have auditd installed which means apparmor messages are not going to dmesg, but instead routed through audit. Since AppArmor is using the audit subsystem for logging the decision of where the messages go is up to the audit subsystem, if auditd is installed they will go there
 
---00000000000008962e05f5c7c07e
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Unfortunately at this time apparmor doesn't have finer control over this than what auditd provides. There is work to improve apparmor auditing which will allow more options but that hasn't landed yet, and the portion to would allow the complain redirect isn't even implemented yet.
 
-<div dir=3D"ltr">Hi John,<br><br>I added below entries in one of my profile=
-s which runs under complain mode. <br><b>audit /var/** wl,</b><br><br>As pe=
-r my script to capture Apparmor logs, I am capturing journalctl -k for ever=
-y 30 mins in my log path (for instance, /tmp/logs/).<br>However, I could NO=
-T see the expected log entry for this rule audit &quot;/var/** wl,&quot; fr=
-om=C2=A0journalctl -k=C2=A0output.=C2=A0<br><br>I could see the logs seen i=
-f we use <b>journalctl -a</b>, but I do not want to copy (to avoid the spac=
-e) journalctl -a for every 30 mins as it has other additional/debug=C2=A0lo=
-g information.<br><br>Do we have any options/configuration to get these log=
-s from <b>journalctl -k </b>instead of<b> journalctl -a</b>?<br><br>Thanks<=
-br>Murali.S<br></div>
+> 
+> Do we have any options/configuration to get these logs from *journalctl -k *instead of*journalctl -a*?
+> 
 
---00000000000008962e05f5c7c07e--
+you can try disabling auditd
+
+auditctl-e0
+
+or potentially filtering based on the transport using  journalctl -af _TRANSPORT=audit
+
+
+
+
+> Thanks
+> Murali.S
+
 
