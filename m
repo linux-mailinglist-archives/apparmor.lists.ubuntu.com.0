@@ -2,64 +2,56 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 506E26A8C56
-	for <lists+apparmor@lfdr.de>; Thu,  2 Mar 2023 23:56:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1ACC6A8C61
+	for <lists+apparmor@lfdr.de>; Thu,  2 Mar 2023 23:58:43 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1pXrr5-0006XI-VB; Thu, 02 Mar 2023 22:56:55 +0000
-Received: from mail-pj1-f43.google.com ([209.85.216.43])
+	id 1pXrsl-0006pd-Fb; Thu, 02 Mar 2023 22:58:39 +0000
+Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
+ helo=smtp-relay-canonical-0.canonical.com)
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <keescook@chromium.org>) id 1pXrr4-0006X4-3J
- for apparmor@lists.ubuntu.com; Thu, 02 Mar 2023 22:56:54 +0000
-Received: by mail-pj1-f43.google.com with SMTP id
- p3-20020a17090ad30300b0023a1cd5065fso568326pju.0
- for <apparmor@lists.ubuntu.com>; Thu, 02 Mar 2023 14:56:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1677797812;
- h=in-reply-to:content-disposition:mime-version:references:subject:cc
- :to:from:date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=bh8uEZAD/yvWP1Lrn9R+0QNZba+XTTUTVdSRMgAQcmQ=;
- b=K//SvYScc9/RPlNzAc+bbNZPJfdelma3q9O4bB1wnxAJ4F3+DrxFkHfD9CzyFhzWbQ
- zxzjRce8GzbRVhw5ROu1iovSYFPgJkpXdsVV9KLRuZ+DLM3i6IU1sNlajSgCAnvliBm1
- V57qqveobMxUQT7AgmZQGrEwmKkrWRVbgNjpI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1677797812;
- h=in-reply-to:content-disposition:mime-version:references:subject:cc
- :to:from:date:message-id:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=bh8uEZAD/yvWP1Lrn9R+0QNZba+XTTUTVdSRMgAQcmQ=;
- b=ywtHqAWjp2kQamRpOjqbXyNW3RxSKehSWywqEvlOMdRkXXal02antJyqQxQvvapMSU
- 1r03cb3dwETQvQZ8YC5oSFLBPYC8DxhQNwR+hknScrFzTiNw91hILXhAJZJAEw3Bxqua
- aqmRLS22g/WcFP3xWimXrcUXQo5/9lnPHCCNxWESRPy0xeSqX7pCC0b8e+N6VPwYAC6f
- wUfKsHoZTX2v/UQhRyvGxZErs5VgvZjbwUOa3TBD733HQfi5CwxwIOHBrMrih1qny+Kg
- XGeOj3yrtSRU+P0JdydSX21trSi1TJgvLglB4jf/QE/1OZoeIOFMBU7DZDzR3+E6x9/e
- Fxsg==
-X-Gm-Message-State: AO0yUKXDwVNVnckGmU2fwIdy2tDtno8jVOmGkdFZGb7qVsRbTv+vWL95
- U9M8aaZwNUH9mAqUerqHYUyaAQ==
-X-Google-Smtp-Source: AK7set8NQA8CZRtcwSlTz7C5GCelOHtAp1Ylxj2HvVTT0A4/xUpLXx5v+dscM8DAlm1E4D6F1Zi9ew==
-X-Received: by 2002:a17:902:d2c9:b0:19e:3b41:1828 with SMTP id
- n9-20020a170902d2c900b0019e3b411828mr4267544plc.22.1677797812569; 
- Thu, 02 Mar 2023 14:56:52 -0800 (PST)
-Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
- [198.0.35.241]) by smtp.gmail.com with ESMTPSA id
- kx7-20020a170902f94700b001990028c0c9sm192659plb.68.2023.03.02.14.56.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Mar 2023 14:56:52 -0800 (PST)
-Message-ID: <640129b4.170a0220.e5ce3.0f65@mx.google.com>
-X-Google-Original-Message-ID: <202303021456.@keescook>
-Date: Thu, 2 Mar 2023 14:56:51 -0800
-From: Kees Cook <keescook@chromium.org>
-To: Luis Chamberlain <mcgrof@kernel.org>
-References: <20230302202826.776286-1-mcgrof@kernel.org>
- <20230302202826.776286-7-mcgrof@kernel.org>
+ (envelope-from <john.johansen@canonical.com>) id 1pXrsj-0006pK-Pu
+ for apparmor@lists.ubuntu.com; Thu, 02 Mar 2023 22:58:37 +0000
+Received: from [192.168.192.83] (unknown [50.47.134.245])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 2A9E13F301; 
+ Thu,  2 Mar 2023 22:58:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1677797915;
+ bh=nkU4U7NSmjI2zWgPD+AtYN7NNzpxjnc7tmq01qgN89k=;
+ h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+ In-Reply-To:Content-Type;
+ b=QkcSCzV3s2aj6boz+mHxWsvucqomXVM/UQMrhA8Io4U8bKBeQ81oMS6ckekAuDzcQ
+ nkee4Drs6MUphvNdT3zxLyELL0QBD3OjNecncPrTQ+WRLaN25mbdEPFtaIB/hxBYjZ
+ 6LQWJNNw1PSTwYQ9GiuttKxMpIh3lrywy15enDkd4vPX4jww9qJK/F3V6v+YoVGM8p
+ KwJTSxjKOR0eVcxtl4LhCOnUwTRrQuiV6DbFt5hbn1WrxG7+UhtfmpUHN3F3VQ90D6
+ 3Txt4UavSwO0JpLNRp9W8onES1k7FXy6P1GVHKx0l9OcE5dMacEx5bs89r2WVKcrd2
+ wQtRYLKHRCkVg==
+Message-ID: <257aa5c0-144b-b157-0270-0a7f470c195b@canonical.com>
+Date: Thu, 2 Mar 2023 14:58:28 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230302202826.776286-7-mcgrof@kernel.org>
-Subject: Re: [apparmor] [PATCH 06/11] yama: simplfy sysctls with
-	register_sysctl()
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Content-Language: en-US
+To: Luis Chamberlain <mcgrof@kernel.org>, ebiederm@xmission.com,
+ keescook@chromium.org, yzaikin@google.com, paul@paul-moore.com,
+ jmorris@namei.org, serge@hallyn.com, luto@amacapital.net, wad@chromium.org,
+ dverkamp@chromium.org, paulmck@kernel.org, baihaowen@meizu.com,
+ frederic@kernel.org, jeffxu@google.com, ebiggers@kernel.org, tytso@mit.edu,
+ guoren@kernel.org
+References: <20230302202826.776286-1-mcgrof@kernel.org>
+ <20230302202826.776286-6-mcgrof@kernel.org>
+From: John Johansen <john.johansen@canonical.com>
+Organization: Canonical
+In-Reply-To: <20230302202826.776286-6-mcgrof@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [apparmor] [PATCH 05/11] loadpin: simplify sysctls use with
+ register_sysctl()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -71,27 +63,50 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: j.granados@samsung.com, jeffxu@google.com, guoren@kernel.org,
- linux-csky@vger.kernel.org, dverkamp@chromium.org, baihaowen@meizu.com,
- paul@paul-moore.com, jmorris@namei.org, willy@infradead.org,
- ebiggers@kernel.org, zhangpeng362@huawei.com, yzaikin@google.com,
- serge@hallyn.com, paulmck@kernel.org, linux-kernel@vger.kernel.org,
- frederic@kernel.org, apparmor@lists.ubuntu.com, wad@chromium.org,
- nixiaoming@huawei.com, tytso@mit.edu, sujiaxun@uniontech.com,
- tangmeng@uniontech.com, patches@lists.linux.dev, luto@amacapital.net,
- linux-security-module@vger.kernel.org, ebiederm@xmission.com,
- linux-fsdevel@vger.kernel.org
+Cc: j.granados@samsung.com, sujiaxun@uniontech.com, tangmeng@uniontech.com,
+ apparmor@lists.ubuntu.com, patches@lists.linux.dev, willy@infradead.org,
+ linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
+ linux-csky@vger.kernel.org, zhangpeng362@huawei.com,
+ linux-fsdevel@vger.kernel.org, nixiaoming@huawei.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Thu, Mar 02, 2023 at 12:28:21PM -0800, Luis Chamberlain wrote:
-> register_sysctl_paths() is only need if you have directories with
-> entries, simplify this by using register_sysctl().
+On 3/2/23 12:28, Luis Chamberlain wrote:
+> register_sysctl_paths() is not required, we can just use
+> register_sysctl() with the required path specified.
 > 
 > Signed-off-by: Luis Chamberlain <mcgrof@kernel.org>
+Reviewed-by: John Johansen <john.johansen@canonical.com>
 
-Acked-by: Kees Cook <keescook@chromium.org>
+> ---
+>   security/loadpin/loadpin.c | 8 +-------
+>   1 file changed, 1 insertion(+), 7 deletions(-)
+> 
+> diff --git a/security/loadpin/loadpin.c b/security/loadpin/loadpin.c
+> index d73a281adf86..c971464b4ad5 100644
+> --- a/security/loadpin/loadpin.c
+> +++ b/security/loadpin/loadpin.c
+> @@ -52,12 +52,6 @@ static bool deny_reading_verity_digests;
+>   #endif
+>   
+>   #ifdef CONFIG_SYSCTL
+> -static struct ctl_path loadpin_sysctl_path[] = {
+> -	{ .procname = "kernel", },
+> -	{ .procname = "loadpin", },
+> -	{ }
+> -};
+> -
+>   static struct ctl_table loadpin_sysctl_table[] = {
+>   	{
+>   		.procname       = "enforce",
+> @@ -262,7 +256,7 @@ static int __init loadpin_init(void)
+>   		enforce ? "" : "not ");
+>   	parse_exclude();
+>   #ifdef CONFIG_SYSCTL
+> -	if (!register_sysctl_paths(loadpin_sysctl_path, loadpin_sysctl_table))
+> +	if (!register_sysctl("kernel/loadpin", loadpin_sysctl_table))
+>   		pr_notice("sysctl registration failed!\n");
+>   #endif
+>   	security_add_hooks(loadpin_hooks, ARRAY_SIZE(loadpin_hooks), "loadpin");
 
--- 
-Kees Cook
 
