@@ -2,29 +2,29 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 587446A8BFE
-	for <lists+apparmor@lfdr.de>; Thu,  2 Mar 2023 23:36:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97F926A8BF6
+	for <lists+apparmor@lfdr.de>; Thu,  2 Mar 2023 23:35:56 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1pXrWi-0004GN-VB; Thu, 02 Mar 2023 22:35:53 +0000
+	id 1pXrWT-0003uT-Ni; Thu, 02 Mar 2023 22:35:37 +0000
 Received: from bombadil.infradead.org ([198.137.202.133])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <mcgrof@infradead.org>) id 1pXppE-0007n0-18
- for apparmor@lists.ubuntu.com; Thu, 02 Mar 2023 20:46:52 +0000
+ (envelope-from <mcgrof@infradead.org>) id 1pXppD-0007my-Md
+ for apparmor@lists.ubuntu.com; Thu, 02 Mar 2023 20:46:51 +0000
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20210309; h=Sender:Content-Transfer-Encoding:
  MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
  Reply-To:Content-Type:Content-ID:Content-Description;
- bh=MXqH7HxuGUp4vr/6baVHWsjCOA7cvGA5MJGn2lYMgHY=; b=Wn18YuHvszFD95jKeWngGibMfk
- m0dkZQ/T4wh0lgQnmNyqnPNU8wiR3wNNIOFAQ/uJApiYoYiCX6W4rfGp9dazoMtM2bwoM+0WBiCNC
- Zufdri5+sD3Q341upVXgIu1muzt5P4Jq3In7jEXridJQdLINYWC/lbJZRuwwbCAPQbiRw2Gifn7PV
- 5l4S/BZ9ufO6qSJiEuCDouaynQw+hbOCQIXagyqfer/Tf0CgxPlq9N55pKEXLUt0GgP9bjK+YI+um
- 6CZGflx9Hg4Q3sGl2wesUq57AAJ6djo3BjCYRDNYjrv49f8LE+JOOtmq1J70LFUnI4mMWXgd2vQ2k
- 0Y7scWbg==;
+ bh=TtTbUH5PQh3QevctuMber+EjZGKoMVpZ7Bm0T6SOQ6g=; b=houTJrT5MUluykuM7s1Uc148K3
+ GhLI9ASwlgAnteOvFMS4cTsCdKtG82GtTT4Zcr9HncBDiN2PA/JjUo9peW7g1cx2BhR4//0t/yscv
+ 5IpFo0vcRylXz5s7cE4j0GUn5BKxF1V3uGlaVF0kLGgZuReSbCP/VPJVjuNYboAkpG/PiDxNyDUra
+ cVS+I7dVkXOuXr7xnABfgxQLYK8/WfVd3pUiuNrtYXMwDKui183PRS9ebugKbOpGbY3Y5TBFq3kbQ
+ ndzN/NkOUhn281UgUQr5UWaEuzp2/EgEHwN9hb5K87XzVbBxcVXtt+E3QheP8aaBbeZpR/TXb+Prl
+ oswf6iaA==;
 Received: from mcgrof by bombadil.infradead.org with local (Exim 4.94.2 #2
- (Red Hat Linux)) id 1pXpoc-003HXO-Df; Thu, 02 Mar 2023 20:46:14 +0000
+ (Red Hat Linux)) id 1pXpoc-003HXQ-HE; Thu, 02 Mar 2023 20:46:14 +0000
 From: Luis Chamberlain <mcgrof@kernel.org>
 To: ebiederm@xmission.com, keescook@chromium.org, yzaikin@google.com,
  jejb@linux.ibm.com, martin.petersen@oracle.com, minyard@acm.org,
@@ -34,15 +34,15 @@ To: ebiederm@xmission.com, keescook@chromium.org, yzaikin@google.com,
  gregkh@linuxfoundation.org, jirislaby@kernel.org, jgross@suse.com,
  sstabellini@kernel.org, oleksandr_tyshchenko@epam.com,
  xen-devel@lists.xenproject.org
-Date: Thu,  2 Mar 2023 12:46:07 -0800
-Message-Id: <20230302204612.782387-3-mcgrof@kernel.org>
+Date: Thu,  2 Mar 2023 12:46:08 -0800
+Message-Id: <20230302204612.782387-4-mcgrof@kernel.org>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20230302204612.782387-1-mcgrof@kernel.org>
 References: <20230302204612.782387-1-mcgrof@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 02 Mar 2023 22:35:35 +0000
-Subject: [apparmor] [PATCH 2/7] ipmi: simplify sysctl registration
+Subject: [apparmor] [PATCH 3/7] hv: simplify sysctl registration
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -70,43 +70,38 @@ that.
 
 Signed-off-by: Luis Chamberlain <mcgrof@kernel.org>
 ---
- drivers/char/ipmi/ipmi_poweroff.c | 16 +---------------
- 1 file changed, 1 insertion(+), 15 deletions(-)
+ drivers/hv/vmbus_drv.c | 11 +----------
+ 1 file changed, 1 insertion(+), 10 deletions(-)
 
-diff --git a/drivers/char/ipmi/ipmi_poweroff.c b/drivers/char/ipmi/ipmi_poweroff.c
-index 163ec9749e55..870659d91db2 100644
---- a/drivers/char/ipmi/ipmi_poweroff.c
-+++ b/drivers/char/ipmi/ipmi_poweroff.c
-@@ -659,20 +659,6 @@ static struct ctl_table ipmi_table[] = {
- 	{ }
+diff --git a/drivers/hv/vmbus_drv.c b/drivers/hv/vmbus_drv.c
+index d24dd65b33d4..229353f1e9c2 100644
+--- a/drivers/hv/vmbus_drv.c
++++ b/drivers/hv/vmbus_drv.c
+@@ -1460,15 +1460,6 @@ static struct ctl_table hv_ctl_table[] = {
+ 	{}
  };
  
--static struct ctl_table ipmi_dir_table[] = {
--	{ .procname	= "ipmi",
--	  .mode		= 0555,
--	  .child	= ipmi_table },
--	{ }
+-static struct ctl_table hv_root_table[] = {
+-	{
+-		.procname	= "kernel",
+-		.mode		= 0555,
+-		.child		= hv_ctl_table
+-	},
+-	{}
 -};
 -
--static struct ctl_table ipmi_root_table[] = {
--	{ .procname	= "dev",
--	  .mode		= 0555,
--	  .child	= ipmi_dir_table },
--	{ }
--};
--
- static struct ctl_table_header *ipmi_table_header;
- #endif /* CONFIG_PROC_FS */
+ /*
+  * vmbus_bus_init -Main vmbus driver initialization routine.
+  *
+@@ -1547,7 +1538,7 @@ static int vmbus_bus_init(void)
+ 		 * message recording won't be available in isolated
+ 		 * guests should the following registration fail.
+ 		 */
+-		hv_ctl_table_hdr = register_sysctl_table(hv_root_table);
++		hv_ctl_table_hdr = register_sysctl("kernel", hv_ctl_table);
+ 		if (!hv_ctl_table_hdr)
+ 			pr_err("Hyper-V: sysctl table register error");
  
-@@ -689,7 +675,7 @@ static int __init ipmi_poweroff_init(void)
- 		pr_info("Power cycle is enabled\n");
- 
- #ifdef CONFIG_PROC_FS
--	ipmi_table_header = register_sysctl_table(ipmi_root_table);
-+	ipmi_table_header = register_sysctl("dev/ipmi", ipmi_table);
- 	if (!ipmi_table_header) {
- 		pr_err("Unable to register powercycle sysctl\n");
- 		rv = -ENOMEM;
 -- 
 2.39.1
 
