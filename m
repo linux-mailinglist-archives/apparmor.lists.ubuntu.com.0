@@ -2,42 +2,50 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 989AB6B370A
-	for <lists+apparmor@lfdr.de>; Fri, 10 Mar 2023 08:01:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFD206B5983
+	for <lists+apparmor@lfdr.de>; Sat, 11 Mar 2023 09:35:39 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1paWky-0005NR-D3; Fri, 10 Mar 2023 07:01:36 +0000
-Received: from bombadil.infradead.org ([198.137.202.133])
+	id 1pauhJ-0002Ja-I5; Sat, 11 Mar 2023 08:35:25 +0000
+Received: from dfw.source.kernel.org ([139.178.84.217])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <mcgrof@infradead.org>) id 1paWkw-0005ND-AT
- for apparmor@lists.ubuntu.com; Fri, 10 Mar 2023 07:01:34 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=0N+SCtcY/k9CimqgVMe/YX4md4YEbNQzEDvTCcqt4bw=; b=TbHcAKwtP7qVQnyr4M3BCyYIa9
- /0zMoVu1Ym18t94ZPKH+tFOvb05xiFTdpVwC6jwn/i8aWIfnathj3m2nd+Fz/WuY6K+sj1gnbIrJw
- PLDE5rtBFWDjO8xqpWgtSV+v7c/cZooSVNk+OWZnYWUfuOpDR7H3LV29R6TOwEN1+8fpgTxENcRrN
- Vk5E2dz3TZTGLbzB/xxNiLvMzRNND6Xb1fYjLRDR9K5vOZvqInK/MTtgg8RzRwvLq61MMSRU8Kksp
- qm2jVnkmnbSN62TJt7mvrf5Uw2cddBqIVlrEL4EqgGEdcmBpFlQAduFI+Hsk2g1cx0r2tLMgsSepe
- DNHJzz+A==;
-Received: from mcgrof by bombadil.infradead.org with local (Exim 4.94.2 #2
- (Red Hat Linux)) id 1paWkT-00DKkw-B4; Fri, 10 Mar 2023 07:01:05 +0000
-Date: Thu, 9 Mar 2023 23:01:05 -0800
-From: Luis Chamberlain <mcgrof@kernel.org>
-To: Eric Biggers <ebiggers@kernel.org>
-Message-ID: <ZArVscnCxYfZXwLR@bombadil.infradead.org>
+ (envelope-from <ebiggers@kernel.org>) id 1paU9O-00011D-9r
+ for apparmor@lists.ubuntu.com; Fri, 10 Mar 2023 04:14:38 +0000
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 08A6360C68;
+ Fri, 10 Mar 2023 04:14:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80602C433EF;
+ Fri, 10 Mar 2023 04:14:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1678421676;
+ bh=IHYty/4GTvZcVEJLtsO716Yxd/JYXDChKqHKhiBDzHs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=GzXqPpoGiFMKB4yYHchwmNYtVQ7zrP/Ipp7V8pXYHvSGnBNtKOZZVN7RAlBV+5JrN
+ uF9mdwNrqWIk/BT4de7XsERryKBvBUQC5YpuHhnwNtnAW/Dc20JQLyW6kkzVxCWBWo
+ rdGD7iaNiurnCAnLr/vxP4WQFmB71Gxw+uSBS/vR+uKL5hGFx3lpgqd/Z8PcixUejv
+ i6QAyvFIbclomubfrewfOeWSW9CY2r4zihCd2YyteQMOf93ZyBZ1b6aDQhjer9BtzM
+ 2Jl6xziuv99xXe15KJLp3kPmOCy600ALioiA6hTy26TsENIGNpmtgWUnru8Ok+i4J3
+ Tjqe7TMYbO/vg==
+Date: Thu, 9 Mar 2023 20:14:33 -0800
+From: Eric Biggers <ebiggers@kernel.org>
+To: Luis Chamberlain <mcgrof@kernel.org>
+Message-ID: <ZAquqQg2ZhpKL3x9@sol.localdomain>
 References: <20230302202826.776286-1-mcgrof@kernel.org>
- <20230302202826.776286-12-mcgrof@kernel.org>
- <ZAqvQ57PmdDoNo+F@sol.localdomain>
+ <20230302202826.776286-9-mcgrof@kernel.org>
+ <CALmYWFucv6-9yfS=gamwSsqjgxSKZS0nvVjj_QfBmsLmQD5XOQ@mail.gmail.com>
+ <ZApZj9DmMYKuCQ3g@bombadil.infradead.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <ZAqvQ57PmdDoNo+F@sol.localdomain>
-Subject: Re: [apparmor] [PATCH 11/11] proc_sysctl: deprecate
-	register_sysctl_paths()
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ZApZj9DmMYKuCQ3g@bombadil.infradead.org>
+X-Mailman-Approved-At: Sat, 11 Mar 2023 08:35:24 +0000
+Subject: Re: [apparmor] [PATCH 08/11] kernel: pid_namespace: simplify
+ sysctls with register_sysctl()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -49,7 +57,7 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: j.granados@samsung.com, jeffxu@google.com, guoren@kernel.org,
+Cc: j.granados@samsung.com, Jeff Xu <jeffxu@google.com>, guoren@kernel.org,
  linux-csky@vger.kernel.org, dverkamp@chromium.org, baihaowen@meizu.com,
  paul@paul-moore.com, jmorris@namei.org, willy@infradead.org,
  zhangpeng362@huawei.com, yzaikin@google.com, serge@hallyn.com,
@@ -58,45 +66,40 @@ Cc: j.granados@samsung.com, jeffxu@google.com, guoren@kernel.org,
  nixiaoming@huawei.com, tytso@mit.edu, sujiaxun@uniontech.com,
  tangmeng@uniontech.com, patches@lists.linux.dev, luto@amacapital.net,
  linux-security-module@vger.kernel.org, ebiederm@xmission.com,
- linux-fsdevel@vger.kernel.org
+ linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Thu, Mar 09, 2023 at 08:17:07PM -0800, Eric Biggers wrote:
-> On Thu, Mar 02, 2023 at 12:28:26PM -0800, Luis Chamberlain wrote:
-> > diff --git a/include/linux/sysctl.h b/include/linux/sysctl.h
-> > index 780690dc08cd..e8459fc56b50 100644
-> > --- a/include/linux/sysctl.h
-> > +++ b/include/linux/sysctl.h
-> > @@ -221,13 +221,8 @@ extern void retire_sysctl_set(struct ctl_table_set *set);
-> >  struct ctl_table_header *__register_sysctl_table(
-> >  	struct ctl_table_set *set,
-> >  	const char *path, struct ctl_table *table);
-> > -struct ctl_table_header *__register_sysctl_paths(
-> > -	struct ctl_table_set *set,
-> > -	const struct ctl_path *path, struct ctl_table *table);
-> >  struct ctl_table_header *register_sysctl(const char *path, struct ctl_table *table);
-> >  struct ctl_table_header *register_sysctl_table(struct ctl_table * table);
-> > -struct ctl_table_header *register_sysctl_paths(const struct ctl_path *path,
-> > -						struct ctl_table *table);
-> >  
-> >  void unregister_sysctl_table(struct ctl_table_header * table);
-> >  
-> > @@ -277,12 +272,6 @@ static inline struct ctl_table_header *register_sysctl_mount_point(const char *p
-> >  	return NULL;
-> >  }
-> >  
-> > -static inline struct ctl_table_header *register_sysctl_paths(
-> > -			const struct ctl_path *path, struct ctl_table *table)
-> > -{
-> > -	return NULL;
-> > -}
-> > -
+On Thu, Mar 09, 2023 at 02:11:27PM -0800, Luis Chamberlain wrote:
+> On Thu, Mar 02, 2023 at 03:13:54PM -0800, Jeff Xu wrote:
+> > On Thu, Mar 2, 2023 at 12:28 PM Luis Chamberlain <mcgrof@kernel.org> wrote:
+> > >  kernel/pid_sysctl.h    | 3 +--
+> > >  2 files changed, 2 insertions(+), 4 deletions(-)
+> > >
+> > Acked-by: Jeff Xu <jeffxu@google.com>
 > 
-> Seems that this patch should be titled "remove register_sysctl_paths()", not
-> "deprecate register_sysctl_paths()"?
+> Andrew, kernel/pid_sysctl.h is new, not on v6.3-rc1 and so I cannot
+> carry this on sysctl-next. Can you carry this patch on your tree?
+> 
+> I see Eric Biggers already took in the fs-verity patch, so I will drop
+> that from my queue.
+> 
+> I can take the rest in this series.
+> 
+> I will also hold off on the last patch which deprecates the routine
+> register_sysctl_paths() until after say the first part of the merge
+> window.
+> 
+> This will allow all of our trees to work on linux-next without conflict.
+> 
+> Let me know if this is OK with you and Eric!
+> 
 
-Good call! Will adjust.
+That's fine with me.  I applied the fsverity patch based on your cover letter
+that said it was okay
+(https://lore.kernel.org/r/20230302202826.776286-1-mcgrof@kernel.org).  If you'd
+like to take all the patches so that you can remove register_sysctl_paths() in
+the same cycle, that would be fine too; it's up to you.
 
-  Luis
+- Eric
 
