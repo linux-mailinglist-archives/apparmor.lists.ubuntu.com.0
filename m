@@ -2,41 +2,45 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA2766C04FB
-	for <lists+apparmor@lfdr.de>; Sun, 19 Mar 2023 21:53:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8B1E6C04FC
+	for <lists+apparmor@lfdr.de>; Sun, 19 Mar 2023 21:53:59 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1pe026-0003Uo-K0; Sun, 19 Mar 2023 20:53:38 +0000
-Received: from mail.grenfellbiz.com ([185.237.253.235])
+	id 1pe02F-0003VW-O0; Sun, 19 Mar 2023 20:53:47 +0000
+Received: from bombadil.infradead.org ([198.137.202.133])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <alan.beran@grenfellbiz.com>) id 1pd7ZX-0005Dq-KJ
- for apparmor@lists.ubuntu.com; Fri, 17 Mar 2023 10:44:31 +0000
-Received: by mail.grenfellbiz.com (Postfix, from userid 1001)
- id 94BE69014A0; Fri, 17 Mar 2023 09:40:13 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=grenfellbiz.com;
- s=mail; t=1679042417;
- bh=kOr93YUtOmaqoawWdSt4Cadr3G4wAWVCS6sInmp2p2U=;
- h=Date:From:To:Subject:From;
- b=JqvS4uNLv5scBw+bzmK6NTAsIBdM6LIUCf6B7G9bBQbnrZqhy7ud+Lm75GCqjVeE4
- rZdZsu5SmiJqTV3wMA2rZi8zvVKmRJolG/DRDij71lR3kSY185kMyxOFTOLGdzBHv1
- wx+sOqo/MZqlkQOBcoGT8cNHg57Re4DHvhx6Pl238EHkNNVYRKsRYR5YE31k8Tnbhc
- KqK1BZg1Kiq4SRs4gWg7GkZZJQSjm0c3GBFXrxRwpVHujCIK/v10SdkANTve82a64V
- g8wWNoFq8V9tOhZ5qY99+tUfPozTRWrMguJl2EnFeZuPZ4eY6Gk97dYPxRjbCy+15t
- b+wa4czgOr8VQ==
-Received: by mail.grenfellbiz.com for <apparmor@lists.ubuntu.com>;
- Fri, 17 Mar 2023 08:40:11 GMT
-Message-ID: <20230317084500-0.1.i.xiw.0.k5e1r9f7r0@grenfellbiz.com>
-Date: Fri, 17 Mar 2023 08:40:11 GMT
-From: "Alan Beran" <alan.beran@grenfellbiz.com>
-To: <apparmor@lists.ubuntu.com>
-X-Mailer: mail.grenfellbiz.com
+ (envelope-from <mcgrof@infradead.org>) id 1pdzwb-0003IT-6l
+ for apparmor@lists.ubuntu.com; Sun, 19 Mar 2023 20:47:57 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=bpylSVII1FYDPpIVeV+6MThI+CQatbJ+23qCa7MroYI=; b=h79wg4kJj+IQX0Ct/ULTrC7dxx
+ v0HiZsAxr9rRp7MAlzrIs6Qon3wmZm355l7uwPG+9CwpJ3SVqcIllLqxIVBoQIrKj4NVoM62ach6f
+ sFjamd25p6gWQDmSMtexer35BP89oCUHk6yZk8WHnAIFMegzx9Y6G5iwL5g1M5zV48U7EFd/ZXCBh
+ nv9hgAc7XcvLw8zVCPpn5nakGDILXl34n1bbIamb2erFNDuFs0loLUhRTWSiIHRXWDzvzJK5W0Y2e
+ 2S5BIWC1xBAToDLYy8pqvRXgYTFPUeCO3nUzOC1vlEofgKDXiZeZB7ITDzKmkSu3hb0/hUo2vImMW
+ hF2zuyKw==;
+Received: from mcgrof by bombadil.infradead.org with local (Exim 4.96 #2 (Red
+ Hat Linux)) id 1pdzvo-007PPe-0v; Sun, 19 Mar 2023 20:47:08 +0000
+Date: Sun, 19 Mar 2023 13:47:08 -0700
+From: Luis Chamberlain <mcgrof@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Message-ID: <ZBd0zOqlH2H423ux@bombadil.infradead.org>
+References: <20230302202826.776286-1-mcgrof@kernel.org>
+ <20230302202826.776286-9-mcgrof@kernel.org>
+ <CALmYWFucv6-9yfS=gamwSsqjgxSKZS0nvVjj_QfBmsLmQD5XOQ@mail.gmail.com>
+ <ZApZj9DmMYKuCQ3g@bombadil.infradead.org>
+ <20230309142746.0bc649a31e76bc46fd929304@linux-foundation.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Sun, 19 Mar 2023 20:53:37 +0000
-Subject: [apparmor] =?utf-8?b?T2RsaXRreS1wb8WZw6FkZWs=?=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230309142746.0bc649a31e76bc46fd929304@linux-foundation.org>
+X-Mailman-Approved-At: Sun, 19 Mar 2023 20:53:46 +0000
+Subject: Re: [apparmor] [PATCH 08/11] kernel: pid_namespace: simplify
+ sysctls with register_sysctl()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -48,25 +52,32 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: j.granados@samsung.com, Jeff Xu <jeffxu@google.com>, guoren@kernel.org,
+ linux-csky@vger.kernel.org, dverkamp@chromium.org, baihaowen@meizu.com,
+ paul@paul-moore.com, jmorris@namei.org, willy@infradead.org,
+ Eric Biggers <ebiggers@kernel.org>, zhangpeng362@huawei.com,
+ yzaikin@google.com, serge@hallyn.com, keescook@chromium.org,
+ paulmck@kernel.org, linux-kernel@vger.kernel.org, frederic@kernel.org,
+ apparmor@lists.ubuntu.com, wad@chromium.org, nixiaoming@huawei.com,
+ tytso@mit.edu, sujiaxun@uniontech.com, tangmeng@uniontech.com,
+ patches@lists.linux.dev, luto@amacapital.net,
+ linux-security-module@vger.kernel.org, ebiederm@xmission.com,
+ linux-fsdevel@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Dobr=C3=A9 r=C3=A1no,
+On Thu, Mar 09, 2023 at 02:27:46PM -0800, Andrew Morton wrote:
+> On Thu, 9 Mar 2023 14:11:27 -0800 Luis Chamberlain <mcgrof@kernel.org> wrote:
+> 
+> > Andrew, kernel/pid_sysctl.h is new, not on v6.3-rc1 and so I cannot
+> > carry this on sysctl-next. Can you carry this patch on your tree?
+> 
+> Sure, no probs.
 
-Hled=C3=A1m firmy, kter=C3=A9 jsou ochotn=C3=A9 uva=C5=BEovat o zm=C4=9Bn=
-=C4=9B dodavatele nab=C3=ADzej=C3=ADc=C3=ADho hlin=C3=ADkov=C3=A9 tlakov=C3=
-=A9 odlitky.
+Andrew, this one patch will have to go through your tree as kernel/pid_sysctl.h
+only exist on your tree. I'll drop it on my end!
 
-Garantujeme opakovatelnou kvalitu detail=C5=AF s n=C3=ADzkou drsnost=C3=AD=
- povrchu a vysokou odolnost=C3=AD proti korozi.
+Thanks!
 
-V=C3=BDrobky chr=C3=A1n=C3=ADme pasiva=C4=8Dn=C3=ADm povlakem na b=C3=A1z=
-i chemie Surtec 650 v pln=C4=9B automatizovan=C3=A9m procesu ponoru. Deta=
-ily pr=C3=A1=C5=A1kov=C4=9B lakujeme na robotick=C3=A9 lince od renomovan=
-=C3=A9 =C5=A1v=C3=BDcarsk=C3=A9 firmy.
-
-Pokud vid=C3=ADte p=C5=99=C3=ADle=C5=BEitost ke spolupr=C3=A1ci, kontaktu=
-jte m=C4=9B.
-
-Alan Beran
+  Luis
 
