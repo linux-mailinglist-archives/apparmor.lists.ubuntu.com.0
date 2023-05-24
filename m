@@ -2,50 +2,46 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3FA3701AF8
-	for <lists+apparmor@lfdr.de>; Sun, 14 May 2023 02:45:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E51270F06E
+	for <lists+apparmor@lfdr.de>; Wed, 24 May 2023 10:17:34 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1pxzr9-0006tW-LT; Sun, 14 May 2023 00:44:59 +0000
-Received: from resqmta-c1p-023461.sys.comcast.net ([96.102.19.42])
+	id 1q1jgM-0001Wa-Ah; Wed, 24 May 2023 08:17:18 +0000
+Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
+ helo=smtp-relay-canonical-1.canonical.com)
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <jleivent@comcast.net>) id 1pxzr8-0006t0-5x
- for apparmor@lists.ubuntu.com; Sun, 14 May 2023 00:44:58 +0000
-Received: from resomta-c1p-023265.sys.comcast.net ([96.102.18.226])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 256/256 bits)
- (Client did not present a certificate)
- by resqmta-c1p-023461.sys.comcast.net with ESMTP
- id xzP3peUmwTCqUxzr4pFjwI; Sun, 14 May 2023 00:44:54 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=comcast.net;
- s=20190202a; t=1684025094;
- bh=2NtXo2t+nBbhZurwK7GEF5yNjrGdJMFvc7hySOiNngM=;
- h=Received:Received:Date:From:To:Subject:Message-ID:MIME-Version:
- Content-Type:Xfinity-Spam-Result;
- b=lBXdV79VipBbbziPY9OH7tL+bz7ExxYaOGcQFl0sxA7I9RNnvZ40twHl8/KVM9s/B
- aOLxpgYC4JGqzvdAzfows8MiohBlld3iIxCFxtgDceEpWZfINiA8gxW4UKH97d5T7w
- MPFQ7n6v4/P2eIw9GcKR+bZu3nZeWIyFyHzo85kmuZLfqz4X3MiaJLTYN+HM2r0O0X
- Un+RUbP5J1U18OOOLyyoaVuWM14xBm+fhCsqOfJjZB5kJbjmpr+5yntEOaGoXxxKZF
- k1P8yhjeo5ljCcM6qcz4OwJrll25MH3WJ3w4pFaCioc7qcxq5tSp9MP97cVFSX/DKZ
- QmRdBAORSgfvA==
-Received: from lapdog.hsd1.ma.comcast.net
- ([IPv6:2601:19c:5100:a63b:f76:36c:9f76:9671])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 256/256 bits)
- (Client did not present a certificate)
- by resomta-c1p-023265.sys.comcast.net with ESMTPA
- id xzr3p5foYX3EMxzr4pHwl6; Sun, 14 May 2023 00:44:54 +0000
-X-Xfinity-VMeta: sc=0.00;st=legit
-Date: Sat, 13 May 2023 20:44:52 -0400
-From: jleivent <jleivent@comcast.net>
-To: apparmor@lists.ubuntu.com
-Message-ID: <20230513204452.019edac8@lapdog.hsd1.ma.comcast.net>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-pc-linux-gnu)
+ (envelope-from <john.johansen@canonical.com>) id 1q1jgL-0001WP-2K
+ for apparmor@lists.ubuntu.com; Wed, 24 May 2023 08:17:17 +0000
+Received: from [192.168.192.83] (unknown [50.47.134.245])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 227ED3F182
+ for <apparmor@lists.ubuntu.com>; Wed, 24 May 2023 08:17:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1684916236;
+ bh=xzM/eXen7ERZmWSg3ToobfnvB5ldBpxsr715MBcGZ+8=;
+ h=Message-ID:Date:MIME-Version:From:Subject:To:Content-Type;
+ b=euLTPG021geze3wWcV1PpXmrOQCrpkvQnaKtDm9lICmF7ZkUUBbRS+VxZCuOa+q7e
+ rTaAzBT9DS4usJcDaP0OXgBGYKjummQMvaE+GCuJo6Z9lpEouNQutWt9U90EFnP7C0
+ ilzDbMBWD3aING6X7hlxFY67YOvC4o1yHEZLh6/sVzAfLc06MmBGJhp4jPg2ouwiwJ
+ DI4G1NJtkcP8aC0hQXcFAf8sEUQAFUzgZiAPuO5KQjYB4ZG2wKGq5Tvc1V+WmQYsSo
+ RORD8rit6Fds3Lsl9tq5gye9ZxuG0U3G8RUSG8i9QyCAXL+wfF2fZ2mNaRAqSgBsyO
+ l0RZoUUYTx9FA==
+Message-ID: <3e86540f-ab68-d5e3-a6be-f50d32794c67@canonical.com>
+Date: Wed, 24 May 2023 01:17:13 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+From: John Johansen <john.johansen@canonical.com>
+To: apparmor <apparmor@lists.ubuntu.com>
+Content-Language: en-US
+Organization: Canonical
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: [apparmor] downgrading extended network unix socket rule to generic
- network rule
+Subject: [apparmor]  AppArmor 3.1.4 Released
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -60,19 +56,30 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-I'm getting this warning from apparmor_parser: "Warning from profile foo
-(ns): downgrading extended network unix socket rule to generic network
-rule."  Am I correct that this means the kernel I'm using does not
-support any network rule more complex than just "network" itself,
-meaning all or nothing?
+The AppArmor development team is pleased to announce the 3.1.4 release
+of the AppArmor user space components.
 
-If that's the case, how do I find kernels that support the ability to
-at least differentiate between local host networking (network unix or
-netlink) vs. others?
+The release is available on
 
-I'm using Debian 12.  Would I'd be better off using Ubuntu or openSUSE
-with recent kernels to get the necessary behavior?  Or is there a way
-to get it in Debian?
+gitlab
+     https://gitlab.com/apparmor/apparmor/-/releases/v3.1.4
 
-Thanks in advance.
+
+The release notes are available at
+
+    https://gitlab.com/apparmor/apparmor/-/wikis/Release_Notes_3.1.4
+
+Please report any bugs you may find via the gitlab AppArmor project
+https://gitlab.com/apparmor/apparmor
+
+
+Kudos to everyone who helped make this release possible.
+
+Thanks!
+
+
+
+
+
+
 
