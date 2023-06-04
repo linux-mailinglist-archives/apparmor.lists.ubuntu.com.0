@@ -2,49 +2,36 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB9497213E3
-	for <lists+apparmor@lfdr.de>; Sun,  4 Jun 2023 02:33:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 874CA7213E9
+	for <lists+apparmor@lfdr.de>; Sun,  4 Jun 2023 02:42:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1q5bfz-0004Y2-9y; Sun, 04 Jun 2023 00:32:55 +0000
-Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
- helo=smtp-relay-canonical-0.canonical.com)
+	id 1q5bpX-00052n-MG; Sun, 04 Jun 2023 00:42:47 +0000
+Received: from greymarch.letopolis.de ([37.120.179.78])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>) id 1q5bfx-0004Xu-SC
- for apparmor@lists.ubuntu.com; Sun, 04 Jun 2023 00:32:53 +0000
-Received: from [192.168.192.83] (unknown [50.47.134.245])
+ (envelope-from <jgs-apparmor@letopolis.de>) id 1q5bpW-00052g-KZ
+ for apparmor@lists.ubuntu.com; Sun, 04 Jun 2023 00:42:46 +0000
+Received: from [IPv6:2620:101:f000:3402::d39] (unknown
+ [IPv6:2620:101:f000:3402::d39])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id A17D4412B7; 
- Sun,  4 Jun 2023 00:32:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1685838773;
- bh=ZMJidt9t9K6DC/4tbMZ0b2G5yVtTw7DQcg8AI1eCQJg=;
- h=Message-ID:Date:MIME-Version:Subject:To:References:From:
- In-Reply-To:Content-Type;
- b=RLJjDi/kwuh5E18a2PncYfA/sB6pn8AOCcx4dZOdFFX5Ae87eLMumz99DIcMbDt5N
- nxg/eIYI+0aie6xb71NPejQJrjdehri1TeC4ddEU4YSR8W7rdZC0AIe5kPQAokY07r
- kF8+DWa/R98xc60DHZ30XUrWWKZhhe65ZZXkj+WCfanxIoADdxvd+bkGsuQbBDiYPB
- u/ozGUBbwPXtVxElSIDopMUcPAtymH62wNei6nYICx2T6FX/ikvTK0GVUTU3pDdIcS
- u0szBYMOxzL6xT+e4zaXGCzEo+7aHmigUTPVTnQ6ebGsOODhGVnIS06RHGSn4708vW
- 0Trkt7uVhE8Gg==
-Message-ID: <a60601c8-86a4-eddb-1998-f84d78022ff2@canonical.com>
-Date: Sat, 3 Jun 2023 17:32:49 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-To: =?UTF-8?Q?Jonas_Gro=c3=9fe_Sundrup?= <jgs-apparmor@letopolis.de>,
- apparmor <apparmor@lists.ubuntu.com>
+ key-exchange ECDHE (P-256) server-signature ECDSA (P-384) server-digest
+ SHA384) (No client certificate requested)
+ by greymarch.letopolis.de (Postfix) with ESMTPSA id DA3EE24043C;
+ Sun,  4 Jun 2023 02:42:45 +0200 (CEST)
+Message-ID: <5e5ba1e8265367304b09ff8bf4d2ede6eda68200.camel@grosse-sundrup.com>
+From: Jonas =?ISO-8859-1?Q?Gro=DFe?= Sundrup <jgs-apparmor@letopolis.de>
+To: John Johansen <john.johansen@canonical.com>, apparmor
+ <apparmor@lists.ubuntu.com>
+Date: Sat, 03 Jun 2023 20:42:44 -0400
+In-Reply-To: <a60601c8-86a4-eddb-1998-f84d78022ff2@canonical.com>
 References: <bc33f7d50138c93ebbe47739ef7c3afdf0fbcc80.camel@grosse-sundrup.com>
-Content-Language: en-US
-From: John Johansen <john.johansen@canonical.com>
-Organization: Canonical
-In-Reply-To: <bc33f7d50138c93ebbe47739ef7c3afdf0fbcc80.camel@grosse-sundrup.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ <a60601c8-86a4-eddb-1998-f84d78022ff2@canonical.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.3 
+MIME-Version: 1.0
 Subject: Re: [apparmor] generally allow mount options
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -60,32 +47,13 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 6/3/23 17:25, Jonas Große Sundrup wrote:
-> Hi,
-> 
-> I'm currently trying to bind down some software that spawns processes
-> that will use mount. One instance of this produces the corresponding
-> line
-> 
-> apparmor="DENIED" operation="pivotroot" class="mount" profile="/myapp"
-> name="/tmp/" pid=185566 comm="pv-bwrap" srcname="/tmp/oldroot/"
-> 
-> in dmesg.
-> 
-> For this specific software, I'm basically using apparmor in a "do what
-> you want, but here are some deny-rules for you" fashion, so I'd like to
-> know what exactly the command would be to just generally allow this
-> class of operation.
-> 
-> just "mount,", as I have seen it with "signal,", doesn't seem to do the
-> trick. Is there a way of allowing this in general without hard-
-> specifying every path that exists?
-> 
+On Sat, 2023-06-03 at 17:32 -0700, John Johansen wrote:
+>  =C2=A0=C2=A0 mount,=C2=A0=C2=A0 # allow all mount operations
+> =C2=A0=C2=A0 pivot_root,=C2=A0=C2=A0 # allow all pivot roots
+> =C2=A0=C2=A0 umount,=C2=A0 # allow unmounting
+>=20
+> you can then carve out specific rules if you need to with deny rules.
+>=20
 
-   mount,   # allow all mount operations
-   pivot_root,   # allow all pivot roots
-   umount,  # allow unmounting
-
-you can then carve out specific rules if you need to with deny rules.
-
+Thanks so much, that did exactly what I needed!
 
