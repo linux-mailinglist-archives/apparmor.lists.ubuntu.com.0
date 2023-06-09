@@ -2,34 +2,34 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16894729E5F
-	for <lists+apparmor@lfdr.de>; Fri,  9 Jun 2023 17:26:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13933729E64
+	for <lists+apparmor@lfdr.de>; Fri,  9 Jun 2023 17:26:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1q7e0P-0000Bg-T6; Fri, 09 Jun 2023 15:26:25 +0000
+	id 1q7e0U-0000Db-Dj; Fri, 09 Jun 2023 15:26:30 +0000
 Received: from dfw.source.kernel.org ([139.178.84.217])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <jlayton@kernel.org>) id 1q7bZc-00079E-6r
- for apparmor@lists.ubuntu.com; Fri, 09 Jun 2023 12:50:36 +0000
+ (envelope-from <jlayton@kernel.org>) id 1q7bZf-0007A3-RR
+ for apparmor@lists.ubuntu.com; Fri, 09 Jun 2023 12:50:39 +0000
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 423E664CFD;
- Fri,  9 Jun 2023 12:50:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1EB0C433A0;
- Fri,  9 Jun 2023 12:50:31 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D0017657E1;
+ Fri,  9 Jun 2023 12:50:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFCFFC4339B;
+ Fri,  9 Jun 2023 12:50:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1686315034;
- bh=yUgO0XnKI1BbTfLGM0bCDn9qpGeiaXMDR0HU5CRWhAE=;
+ s=k20201202; t=1686315038;
+ bh=LSV/nyUG8bcrL2oEySUmyLQ2HTPvjddC7F+/lUs3jEU=;
  h=From:To:Subject:Date:In-Reply-To:References:From;
- b=OsfdjrHcHty7OLY/KeXT8tTjMzBp/v/UFPT3HeXd2rL2d2bPqHofhYemos4x86pSA
- erf6NOWo/X2/RzN25PZphi8WmWHmyXXgbPmQhPPz6PDyBGK5QqCcDKetJoaRMcH2r7
- R8nqpIwb2tKNk3CPbpPCHf04ebtNiB53pwoSaST7t24XwcBcigXvTIDc3/UTvCzF+v
- sk71YpnyIcuzVMf+Cadazp7/WcrCWdKB8RCwVM8+FWTl7pYxjLOxdEf2MUk0qU9rnu
- +WfcEM8N4jDGZgE1F53TxLU+5Wo/zZ7eQJT9NlVcnzpRFF+1VxBmnV1S+0Az4/6wQo
- iEtm52+AU8/TA==
+ b=bVReiO8hTnvm8VGrn95dIHsOOPSUJZ8yz9Jc2I7oSveR9pcduDeqYC7J3MCwL0mKh
+ c7oGLr72mXGrKJMJlDzJ6kb3ko2jD5qJ5+jn0ss3X2YSDIv4R+YM/0jMeXi1d/kpew
+ Yv2azGxiKqZez+S/oE/51u+VLNyShKTAN+cKhd3GubmVXALno8rS6IrQURqI9eRE4o
+ o4Q0+JftweyHht3vESfSDB584px9d5fIw2xXaTNGxcixgI27n6XryQSISQrxgPM28w
+ wjMLSlExZFxWDbnW1EFP/RVPfJPqw4sNYJnfgyKbEEj7l/qqXv62+yTTX3FDLaifRq
+ OmgBrefuE7OCA==
 From: Jeff Layton <jlayton@kernel.org>
 To: Christian Brauner <brauner@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
  Brad Warrum <bwarrum@linux.ibm.com>, Ritu Agarwal <rituagar@linux.ibm.com>,
@@ -55,16 +55,16 @@ To: Christian Brauner <brauner@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
  linux-fsdevel@vger.kernel.org, cluster-devel@redhat.com,
  linux-cifs@vger.kernel.org, samba-technical@lists.samba.org,
  apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org
-Date: Fri,  9 Jun 2023 08:50:16 -0400
-Message-Id: <20230609125023.399942-3-jlayton@kernel.org>
+Date: Fri,  9 Jun 2023 08:50:17 -0400
+Message-Id: <20230609125023.399942-4-jlayton@kernel.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230609125023.399942-1-jlayton@kernel.org>
 References: <20230609125023.399942-1-jlayton@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 09 Jun 2023 15:26:25 +0000
-Subject: [apparmor] [PATCH 2/9] usb: update the ctime as well when updating
-	mtime after an ioctl
+Subject: [apparmor] [PATCH 3/9] autofs: set ctime as well when mtime changes
+	on a dir
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -81,82 +81,40 @@ Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- drivers/usb/core/devio.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ fs/autofs/root.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/usb/core/devio.c b/drivers/usb/core/devio.c
-index fcf68818e999..1268d313a8df 100644
---- a/drivers/usb/core/devio.c
-+++ b/drivers/usb/core/devio.c
-@@ -2640,21 +2640,21 @@ static long usbdev_do_ioctl(struct file *file, unsigned int cmd,
- 		snoop(&dev->dev, "%s: CONTROL\n", __func__);
- 		ret = proc_control(ps, p);
- 		if (ret >= 0)
--			inode->i_mtime = current_time(inode);
-+			inode->i_mtime = inode->i_ctime = current_time(inode);
- 		break;
+diff --git a/fs/autofs/root.c b/fs/autofs/root.c
+index 6baf90b08e0e..93046c9dc461 100644
+--- a/fs/autofs/root.c
++++ b/fs/autofs/root.c
+@@ -600,7 +600,7 @@ static int autofs_dir_symlink(struct mnt_idmap *idmap,
+ 	p_ino = autofs_dentry_ino(dentry->d_parent);
+ 	p_ino->count++;
  
- 	case USBDEVFS_BULK:
- 		snoop(&dev->dev, "%s: BULK\n", __func__);
- 		ret = proc_bulk(ps, p);
- 		if (ret >= 0)
--			inode->i_mtime = current_time(inode);
-+			inode->i_mtime = inode->i_ctime = current_time(inode);
- 		break;
+-	dir->i_mtime = current_time(dir);
++	dir->i_mtime = dir->i_ctime = current_time(dir);
  
- 	case USBDEVFS_RESETEP:
- 		snoop(&dev->dev, "%s: RESETEP\n", __func__);
- 		ret = proc_resetep(ps, p);
- 		if (ret >= 0)
--			inode->i_mtime = current_time(inode);
-+			inode->i_mtime = inode->i_ctime = current_time(inode);
- 		break;
+ 	return 0;
+ }
+@@ -633,7 +633,7 @@ static int autofs_dir_unlink(struct inode *dir, struct dentry *dentry)
+ 	d_inode(dentry)->i_size = 0;
+ 	clear_nlink(d_inode(dentry));
  
- 	case USBDEVFS_RESET:
-@@ -2666,7 +2666,7 @@ static long usbdev_do_ioctl(struct file *file, unsigned int cmd,
- 		snoop(&dev->dev, "%s: CLEAR_HALT\n", __func__);
- 		ret = proc_clearhalt(ps, p);
- 		if (ret >= 0)
--			inode->i_mtime = current_time(inode);
-+			inode->i_mtime = inode->i_ctime = current_time(inode);
- 		break;
+-	dir->i_mtime = current_time(dir);
++	dir->i_mtime = dir->i_ctime = current_time(dir);
  
- 	case USBDEVFS_GETDRIVER:
-@@ -2693,7 +2693,7 @@ static long usbdev_do_ioctl(struct file *file, unsigned int cmd,
- 		snoop(&dev->dev, "%s: SUBMITURB\n", __func__);
- 		ret = proc_submiturb(ps, p);
- 		if (ret >= 0)
--			inode->i_mtime = current_time(inode);
-+			inode->i_mtime = inode->i_ctime = current_time(inode);
- 		break;
+ 	spin_lock(&sbi->lookup_lock);
+ 	__autofs_add_expiring(dentry);
+@@ -749,7 +749,7 @@ static int autofs_dir_mkdir(struct mnt_idmap *idmap,
+ 	p_ino = autofs_dentry_ino(dentry->d_parent);
+ 	p_ino->count++;
+ 	inc_nlink(dir);
+-	dir->i_mtime = current_time(dir);
++	dir->i_mtime = dir->i_ctime = current_time(dir);
  
- #ifdef CONFIG_COMPAT
-@@ -2701,14 +2701,14 @@ static long usbdev_do_ioctl(struct file *file, unsigned int cmd,
- 		snoop(&dev->dev, "%s: CONTROL32\n", __func__);
- 		ret = proc_control_compat(ps, p);
- 		if (ret >= 0)
--			inode->i_mtime = current_time(inode);
-+			inode->i_mtime = inode->i_ctime = current_time(inode);
- 		break;
- 
- 	case USBDEVFS_BULK32:
- 		snoop(&dev->dev, "%s: BULK32\n", __func__);
- 		ret = proc_bulk_compat(ps, p);
- 		if (ret >= 0)
--			inode->i_mtime = current_time(inode);
-+			inode->i_mtime = inode->i_ctime = current_time(inode);
- 		break;
- 
- 	case USBDEVFS_DISCSIGNAL32:
-@@ -2720,7 +2720,7 @@ static long usbdev_do_ioctl(struct file *file, unsigned int cmd,
- 		snoop(&dev->dev, "%s: SUBMITURB32\n", __func__);
- 		ret = proc_submiturb_compat(ps, p);
- 		if (ret >= 0)
--			inode->i_mtime = current_time(inode);
-+			inode->i_mtime = inode->i_ctime = current_time(inode);
- 		break;
- 
- 	case USBDEVFS_IOCTL32:
+ 	return 0;
+ }
 -- 
 2.40.1
 
