@@ -2,34 +2,34 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20D9A729E66
+	by mail.lfdr.de (Postfix) with ESMTPS id BBF97729E69
 	for <lists+apparmor@lfdr.de>; Fri,  9 Jun 2023 17:26:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1q7e0Q-0000Bm-0a; Fri, 09 Jun 2023 15:26:26 +0000
+	id 1q7e0U-0000Eq-Sl; Fri, 09 Jun 2023 15:26:30 +0000
 Received: from dfw.source.kernel.org ([139.178.84.217])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <jlayton@kernel.org>) id 1q7bZi-0007AZ-Q2
- for apparmor@lists.ubuntu.com; Fri, 09 Jun 2023 12:50:42 +0000
+ (envelope-from <jlayton@kernel.org>) id 1q7bZm-0007Bi-8v
+ for apparmor@lists.ubuntu.com; Fri, 09 Jun 2023 12:50:46 +0000
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id DF1BC61F40;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 41CD1657CB;
+ Fri,  9 Jun 2023 12:50:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99BB7C433EF;
  Fri,  9 Jun 2023 12:50:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C7A3C4339C;
- Fri,  9 Jun 2023 12:50:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1686315041;
- bh=lJalVbz8bKklhHChaahTE7cD559bFtAruDPThJBYQS8=;
+ s=k20201202; t=1686315044;
+ bh=C+VzTLw0w0g9nKyYEhFUZrnWGPtk5Bk31eEt6nAAZUA=;
  h=From:To:Subject:Date:In-Reply-To:References:From;
- b=sP5cRxejUSzSOBXjAn5IzjLHxWRkzZPOLcpPeyWo+SN3Ti6mf0TF8QaxvnIGW03Ho
- HuXw4nPcjPhlCMC1ovBBKAjxRYqgoRJ1GLwmXnaPDU95jQIw+BVrmehNbj5gEc8/gR
- WPWmcL0Je/F3S43/lJpbrACd0SHYWBXDkgXFxgi9GC9GsaeMooWJV2xQh9n2ogwoaB
- 6YQtCk8PpctEoA1s2Jb8OKuYqjS70QI+YoB0fS0YzuPNTYGoKJfELHjS5ceiVl6JBo
- dceTY/uftWeTosvv/+myjcA438STQDu42pRqtKIxHzjjYydQ4GjiFeo8ICXFhdgv7R
- e4YfJfdoIrfqg==
+ b=UU0QSo/Tqesjy1sfws4iEFGWbc1aWk7WgTcqFHMP/zkXRbTbKg0RIhASJtBj0wj/O
+ 94UxGVPWvkUD+lTjh8/pd9mgd1ex2niBDqkSUwU+jS16RmnnrWCOT/J0GvLH9xwn8C
+ BWzjzjXPlcUgnEi0SDC56NVC06LBeyXGg6z3Fob14cqan5Np7tRBERq4mJuL79nS7v
+ Kv7LWrkcvSwg+6rEeEQkQa2rllPcEmFCl68BWQbd5nrPmAAZiPR8xyXyYEVnXiwVi1
+ Ili690n+HfGsH7jEd0Ri/5bbF4tHd8uY0r4EgtCH5FoE3k5hfztlZN3zrioC5MCzG1
+ OdbuqepssoZhg==
 From: Jeff Layton <jlayton@kernel.org>
 To: Christian Brauner <brauner@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
  Brad Warrum <bwarrum@linux.ibm.com>, Ritu Agarwal <rituagar@linux.ibm.com>,
@@ -55,16 +55,16 @@ To: Christian Brauner <brauner@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
  linux-fsdevel@vger.kernel.org, cluster-devel@redhat.com,
  linux-cifs@vger.kernel.org, samba-technical@lists.samba.org,
  apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org
-Date: Fri,  9 Jun 2023 08:50:18 -0400
-Message-Id: <20230609125023.399942-5-jlayton@kernel.org>
+Date: Fri,  9 Jun 2023 08:50:19 -0400
+Message-Id: <20230609125023.399942-6-jlayton@kernel.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230609125023.399942-1-jlayton@kernel.org>
 References: <20230609125023.399942-1-jlayton@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 09 Jun 2023 15:26:25 +0000
-Subject: [apparmor] [PATCH 4/9] bfs: update ctime in addition to mtime when
-	adding entries
+Subject: [apparmor] [PATCH 5/9] efivarfs: update ctime when mtime changes on
+	a write
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -81,22 +81,22 @@ Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/bfs/dir.c | 2 +-
+ fs/efivarfs/file.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/bfs/dir.c b/fs/bfs/dir.c
-index 040d5140e426..d2e8a2a56b05 100644
---- a/fs/bfs/dir.c
-+++ b/fs/bfs/dir.c
-@@ -294,7 +294,7 @@ static int bfs_add_entry(struct inode *dir, const struct qstr *child, int ino)
- 					dir->i_size += BFS_DIRENT_SIZE;
- 					dir->i_ctime = current_time(dir);
- 				}
--				dir->i_mtime = current_time(dir);
-+				dir->i_mtime = dir->i_ctime = current_time(dir);
- 				mark_inode_dirty(dir);
- 				de->ino = cpu_to_le16((u16)ino);
- 				for (i = 0; i < BFS_NAMELEN; i++)
+diff --git a/fs/efivarfs/file.c b/fs/efivarfs/file.c
+index d57ee15874f9..375576111dc3 100644
+--- a/fs/efivarfs/file.c
++++ b/fs/efivarfs/file.c
+@@ -51,7 +51,7 @@ static ssize_t efivarfs_file_write(struct file *file,
+ 	} else {
+ 		inode_lock(inode);
+ 		i_size_write(inode, datasize + sizeof(attributes));
+-		inode->i_mtime = current_time(inode);
++		inode->i_mtime = inode->i_ctime = current_time(inode);
+ 		inode_unlock(inode);
+ 	}
+ 
 -- 
 2.40.1
 
