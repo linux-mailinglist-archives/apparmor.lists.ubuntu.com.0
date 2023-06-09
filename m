@@ -2,34 +2,34 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 157A1729E65
-	for <lists+apparmor@lfdr.de>; Fri,  9 Jun 2023 17:26:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C15F1729E60
+	for <lists+apparmor@lfdr.de>; Fri,  9 Jun 2023 17:26:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1q7e0Q-0000Bt-2n; Fri, 09 Jun 2023 15:26:26 +0000
+	id 1q7e0Q-0000CE-Cc; Fri, 09 Jun 2023 15:26:26 +0000
 Received: from dfw.source.kernel.org ([139.178.84.217])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <jlayton@kernel.org>) id 1q7bZV-00078F-Sd
- for apparmor@lists.ubuntu.com; Fri, 09 Jun 2023 12:50:30 +0000
+ (envelope-from <jlayton@kernel.org>) id 1q7bZZ-00078a-0N
+ for apparmor@lists.ubuntu.com; Fri, 09 Jun 2023 12:50:33 +0000
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9CD826164C;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 01CFD657CD;
+ Fri,  9 Jun 2023 12:50:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54684C4339B;
  Fri,  9 Jun 2023 12:50:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04CB9C433EF;
- Fri,  9 Jun 2023 12:50:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1686315028;
- bh=gIZwlLvY4sTdkvZELuapNhoOFzzZExwAnWiPWsxbXHo=;
- h=From:To:Subject:Date:From;
- b=dcwqOrVfEIufAkx9HYctn0bCPuNyn/IoA3qeRLEf0QBZaM2ZxNK4fITHocjWjP+BS
- ArXA2HvHcNMCbQoCJLgk3YNktWjq5smDP0btfPqHdZkDkaNlMvMKacJZXz5oGbyybS
- Seh3kB1aYVkF1EaQIzj0KMYE2IM8/UE/RnW4K8gKxJc+5U/2OtM1xACvDi/T8P0Pdc
- Xkm13/IgUo3Vr5PsmuoEohjK9wBWC2RLrPIKKbIGloomJhioPPXWTe43kEqN5X837K
- nGxIOrekLqpwpPCILVczWkex/Sm2OoMe1QXBZj99WR32Ho0RhbyqroHBCWw41oCA3r
- Vj6GOBo2c2fNw==
+ s=k20201202; t=1686315031;
+ bh=hip9OBUVCq8AfrEVIdBD05U3CyPcXD5Vb4CyWwwRC3g=;
+ h=From:To:Subject:Date:In-Reply-To:References:From;
+ b=MQ2ViBoypaWzJIm06BN1Xtsc/qeOFaexGyEEzNtKJanH5XPHZxMVbuSDV1uAyIlU4
+ rbodYRn8EcF+Q2AmfEqxjK7GyHJZ2xmWDBv1YsyfbjumzmCz2ByL26u2fyUJCnJyod
+ ibAOulu974oShLTpyfIEQf8A+54+tiXxg6MGRxQ9DNbTpaIyAjs8D6Y/W/bkDdNGRT
+ 7joDEb/mbY7zrdmS5a0kILBHqLOieXmoNm+OsvaoWwBM+YMYKzDsdQU6+0cmvS+0Nt
+ VEyOYqKAm0U6WIgIpUsgZP+1Y5vqalcMonrvL1MjdTosq1Ge33JXn61E1c8Ah6Ha2S
+ pCTPEiryNspJw==
 From: Jeff Layton <jlayton@kernel.org>
 To: Christian Brauner <brauner@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
  Brad Warrum <bwarrum@linux.ibm.com>, Ritu Agarwal <rituagar@linux.ibm.com>,
@@ -55,13 +55,16 @@ To: Christian Brauner <brauner@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
  linux-fsdevel@vger.kernel.org, cluster-devel@redhat.com,
  linux-cifs@vger.kernel.org, samba-technical@lists.samba.org,
  apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org
-Date: Fri,  9 Jun 2023 08:50:14 -0400
-Message-Id: <20230609125023.399942-1-jlayton@kernel.org>
+Date: Fri,  9 Jun 2023 08:50:15 -0400
+Message-Id: <20230609125023.399942-2-jlayton@kernel.org>
 X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20230609125023.399942-1-jlayton@kernel.org>
+References: <20230609125023.399942-1-jlayton@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 09 Jun 2023 15:26:25 +0000
-Subject: [apparmor] [PATCH 0/9] fs: add some missing ctime updates
+Subject: [apparmor] [PATCH 1/9] ibmvmc: update ctime in conjunction with
+	mtime on write
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -76,42 +79,27 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-While working on a patch series to change how we handle the ctime, I
-found a number of places that update the mtime without a corresponding
-ctime update. POSIX requires that when the mtime is updated that the
-ctime also be updated.
+When updating the mtime for a write, you must always update the ctime as
+well.
 
-Note that these are largely untested other than for compilation, so
-please review carefully. These are a preliminary set for the upcoming
-rework of how we handle the ctime.
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+---
+ drivers/misc/ibmvmc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-None of these seem to be very crucial, but it would be nice if
-various maintainers could pick these up for v6.5. Please let me know if
-you do.
-
-Jeff Layton (9):
-  ibmvmc: update ctime in conjunction with mtime on write
-  usb: update the ctime as well when updating mtime after an ioctl
-  autofs: set ctime as well when mtime changes on a dir
-  bfs: update ctime in addition to mtime when adding entries
-  efivarfs: update ctime when mtime changes on a write
-  exfat: ensure that ctime is updated whenever the mtime is
-  gfs2: update ctime when quota is updated
-  apparmor: update ctime whenever the mtime changes on an inode
-  cifs: update the ctime on a partial page write
-
- drivers/misc/ibmvmc.c             |  2 +-
- drivers/usb/core/devio.c          | 16 ++++++++--------
- fs/autofs/root.c                  |  6 +++---
- fs/bfs/dir.c                      |  2 +-
- fs/efivarfs/file.c                |  2 +-
- fs/exfat/namei.c                  |  8 ++++----
- fs/gfs2/quota.c                   |  2 +-
- fs/smb/client/file.c              |  2 +-
- security/apparmor/apparmorfs.c    |  7 +++++--
- security/apparmor/policy_unpack.c | 11 +++++++----
- 10 files changed, 32 insertions(+), 26 deletions(-)
-
+diff --git a/drivers/misc/ibmvmc.c b/drivers/misc/ibmvmc.c
+index cbaf6d35e854..d7c7f0305257 100644
+--- a/drivers/misc/ibmvmc.c
++++ b/drivers/misc/ibmvmc.c
+@@ -1124,7 +1124,7 @@ static ssize_t ibmvmc_write(struct file *file, const char *buffer,
+ 		goto out;
+ 
+ 	inode = file_inode(file);
+-	inode->i_mtime = current_time(inode);
++	inode->i_mtime = inode->i_ctime = current_time(inode);
+ 	mark_inode_dirty(inode);
+ 
+ 	dev_dbg(adapter->dev, "write: file = 0x%lx, count = 0x%lx\n",
 -- 
 2.40.1
 
