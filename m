@@ -2,34 +2,34 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FB0E72DC49
-	for <lists+apparmor@lfdr.de>; Tue, 13 Jun 2023 10:21:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17B7972DC3F
+	for <lists+apparmor@lfdr.de>; Tue, 13 Jun 2023 10:21:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1q8zHa-0000EE-RG; Tue, 13 Jun 2023 08:21:42 +0000
+	id 1q8zHW-00008S-IE; Tue, 13 Jun 2023 08:21:38 +0000
 Received: from dfw.source.kernel.org ([139.178.84.217])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <jlayton@kernel.org>) id 1q8f3S-0004NX-3V
- for apparmor@lists.ubuntu.com; Mon, 12 Jun 2023 10:45:46 +0000
+ (envelope-from <jlayton@kernel.org>) id 1q8f3V-0004OF-89
+ for apparmor@lists.ubuntu.com; Mon, 12 Jun 2023 10:45:49 +0000
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2728E62448;
- Mon, 12 Jun 2023 10:45:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5433C433D2;
- Mon, 12 Jun 2023 10:45:41 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 4954662447;
+ Mon, 12 Jun 2023 10:45:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDF9EC4339B;
+ Mon, 12 Jun 2023 10:45:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1686566744;
- bh=9ZN85s2F3/oEy5pkv6yI4Tv5XU9EfGqK4A7t1kaGRdY=;
+ s=k20201202; t=1686566747;
+ bh=KX7S7KoBIOHdIFvOtciMzqUF0ZVLgZ3kkDz1+nuzm5g=;
  h=From:To:Subject:Date:In-Reply-To:References:From;
- b=Sv98hIAW85F4HBftzDcqOyvM/R3EukSSckezqktp1nVmTUG16TJv0cTmZ7SZqrheb
- d4IypswNbwiWEDy/oOarsubCsCA3ax3zQ3H9iLKzVTYSmCKzyXYNS/5sahPEso7cuj
- 2VuMf+UQPbv18bzClnCD63+Vm3dpGSjDADvHTxD0cbM7bauFma36sYcKjJBaAT7/JB
- bPGjUyszcMJqtojtlNPoeTxFbjM4KhWRNKx0efDE8UgBAAQbbgtog1Y5rePrnTS841
- IkhITd1epcN0mh1bQ6Jk4cLEMA1nMm2CbuaTOSCBgqEts5gyguTJNTvyuSzqq9k91F
- PZ1odKwWKFr2A==
+ b=oz4WHLbO2jQN18Ove6Yj01Q8O4ys1wPwCmlNiLDNkmgWHI4GseN0zZLHEM92GYoGu
+ boxFJi841L5bbyrUSD3RGup9DgX4l4qriaT0pGf+w6tErLMj+72DpzQ0vSvdMBFlbu
+ KXSDAZv890DWx+cavMPVeGecLZIAIS0tENSJ08AMARyzUalS9uU1veHX9UzzI6FQoK
+ GQ5IcM6JEkKLV02OZ7r4bZ+rjgcKQTK9aoJXpooAwIGA1rf40OBNSpEW02hvFu/dDK
+ 7SNhtVCZvEX/ybEeXtinwolY6QwBsyPmrCP8B9kIeImVk/kMoxXe8UPrCWqnyVaGqr
+ GlER8Exgmr4Sg==
 From: Jeff Layton <jlayton@kernel.org>
 To: Christian Brauner <brauner@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
  Brad Warrum <bwarrum@linux.ibm.com>, Ritu Agarwal <rituagar@linux.ibm.com>,
@@ -54,16 +54,16 @@ To: Christian Brauner <brauner@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
  linux-fsdevel@vger.kernel.org, linux-cifs@vger.kernel.org,
  samba-technical@lists.samba.org, apparmor@lists.ubuntu.com,
  linux-security-module@vger.kernel.org
-Date: Mon, 12 Jun 2023 06:45:21 -0400
-Message-Id: <20230612104524.17058-6-jlayton@kernel.org>
+Date: Mon, 12 Jun 2023 06:45:22 -0400
+Message-Id: <20230612104524.17058-7-jlayton@kernel.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230612104524.17058-1-jlayton@kernel.org>
 References: <20230612104524.17058-1-jlayton@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 13 Jun 2023 08:21:37 +0000
-Subject: [apparmor] [PATCH v2 5/8] efivarfs: update ctime when mtime changes
-	on a write
+Subject: [apparmor] [PATCH v2 6/8] exfat: ensure that ctime is updated
+	whenever the mtime is
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -78,32 +78,54 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-POSIX says:
-
-"Upon successful completion, where nbyte is greater than 0, write()
- shall mark for update the last data modification and last file status
- change timestamps of the file..."
-
-Add the missing ctime update.
+When removing entries from a directory, the ctime must also be updated
+alongside the mtime.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/efivarfs/file.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/exfat/namei.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/fs/efivarfs/file.c b/fs/efivarfs/file.c
-index d57ee15874f9..375576111dc3 100644
---- a/fs/efivarfs/file.c
-+++ b/fs/efivarfs/file.c
-@@ -51,7 +51,7 @@ static ssize_t efivarfs_file_write(struct file *file,
- 	} else {
- 		inode_lock(inode);
- 		i_size_write(inode, datasize + sizeof(attributes));
--		inode->i_mtime = current_time(inode);
-+		inode->i_mtime = inode->i_ctime = current_time(inode);
- 		inode_unlock(inode);
- 	}
+diff --git a/fs/exfat/namei.c b/fs/exfat/namei.c
+index e0ff9d156f6f..d9b46fa36bff 100644
+--- a/fs/exfat/namei.c
++++ b/fs/exfat/namei.c
+@@ -817,7 +817,7 @@ static int exfat_unlink(struct inode *dir, struct dentry *dentry)
+ 	ei->dir.dir = DIR_DELETED;
  
+ 	inode_inc_iversion(dir);
+-	dir->i_mtime = dir->i_atime = current_time(dir);
++	dir->i_mtime = dir->i_atime = dir->i_ctime = current_time(dir);
+ 	exfat_truncate_atime(&dir->i_atime);
+ 	if (IS_DIRSYNC(dir))
+ 		exfat_sync_inode(dir);
+@@ -825,7 +825,7 @@ static int exfat_unlink(struct inode *dir, struct dentry *dentry)
+ 		mark_inode_dirty(dir);
+ 
+ 	clear_nlink(inode);
+-	inode->i_mtime = inode->i_atime = current_time(inode);
++	inode->i_mtime = inode->i_atime = inode->i_ctime = current_time(inode);
+ 	exfat_truncate_atime(&inode->i_atime);
+ 	exfat_unhash_inode(inode);
+ 	exfat_d_version_set(dentry, inode_query_iversion(dir));
+@@ -979,7 +979,7 @@ static int exfat_rmdir(struct inode *dir, struct dentry *dentry)
+ 	ei->dir.dir = DIR_DELETED;
+ 
+ 	inode_inc_iversion(dir);
+-	dir->i_mtime = dir->i_atime = current_time(dir);
++	dir->i_mtime = dir->i_atime = dir->i_ctime = current_time(dir);
+ 	exfat_truncate_atime(&dir->i_atime);
+ 	if (IS_DIRSYNC(dir))
+ 		exfat_sync_inode(dir);
+@@ -988,7 +988,7 @@ static int exfat_rmdir(struct inode *dir, struct dentry *dentry)
+ 	drop_nlink(dir);
+ 
+ 	clear_nlink(inode);
+-	inode->i_mtime = inode->i_atime = current_time(inode);
++	inode->i_mtime = inode->i_atime = inode->i_ctime = current_time(inode);
+ 	exfat_truncate_atime(&inode->i_atime);
+ 	exfat_unhash_inode(inode);
+ 	exfat_d_version_set(dentry, inode_query_iversion(dir));
 -- 
 2.40.1
 
