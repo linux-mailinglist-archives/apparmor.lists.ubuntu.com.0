@@ -2,102 +2,56 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C8AD72DC74
-	for <lists+apparmor@lfdr.de>; Tue, 13 Jun 2023 10:27:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74B5172F81A
+	for <lists+apparmor@lfdr.de>; Wed, 14 Jun 2023 10:43:14 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1q8zNK-0001Kv-H0; Tue, 13 Jun 2023 08:27:38 +0000
-Received: from out2-smtp.messagingengine.com ([66.111.4.26])
+	id 1q9M5o-0004Zv-8o; Wed, 14 Jun 2023 08:43:04 +0000
+Received: from dfw.source.kernel.org ([139.178.84.217])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <raven@themaw.net>) id 1q8yGQ-00016D-7l
- for apparmor@lists.ubuntu.com; Tue, 13 Jun 2023 07:16:26 +0000
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id 4775F5C0135;
- Tue, 13 Jun 2023 03:16:24 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute5.internal (MEProxy); Tue, 13 Jun 2023 03:16:24 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=themaw.net; h=cc
- :content-transfer-encoding:content-type:content-type:date:date
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:sender:subject:subject:to:to; s=fm1; t=
- 1686640584; x=1686726984; bh=Xbb7CLBvZ6siXm88yNIRYyGzYbHYnhDGDiI
- 37u5+Umo=; b=RlDU6F7+WrhdYoA3gxHLlCuZ31yYmxwJnu7MTKItIZWB19HB6JQ
- WzbTK8EKa8nXC7sBc8FJQG74GYdIUBZcb8Yf1NNt7SAEeSyJDPqy4SWzdTbKxM4G
- exq2+ZwVu8U+oCiQz4D9dg2BMdvNtuCi2D1XLx4o/JTcVAZ7rWat7k1Q2gWJ9fuN
- 7hiu3W6CCFgw0BiR95DK5tMK1UcFOcoAJLPJoUF3/ZV4s/SziWcjjUmGtG8EDMlF
- ISxQpckAXm/g8m1g4WvTa8Ri08MzbdMIbBsr008U0B7c/f/BsmPwIA/0hzxjCk1Q
- HqZMJ90M55Ez5D3mEfZdbs4r/8dcoQV5rXg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1686640584; x=
- 1686726984; bh=Xbb7CLBvZ6siXm88yNIRYyGzYbHYnhDGDiI37u5+Umo=; b=c
- mIin3900ja0o0CtgLBQj5Cib36Z+3F9x1jce9eo1ESy/sMIIckCIitDYZZ+Fwyy7
- v1gHy2Aw3ygRkw9YJD+9EGkiEx+lwr8JpV9FgSCqQgJbP7vLT8UIggJyHhO+AAyF
- noBiWxEXUV52IdpSUzaLuFNvcXvVe5q/Yw+MgvHmwq1vyBkRNMIG0XQ3XaLmYYZW
- b3Ixm40jiWw5EbOYRbvlViCzu4wI1DF25hMmxisoQNfTX3Rb2If7GnPTW41XZ7cF
- s8+AIRa9ybodH82hUbWoaPjCfpuTFiwpLl1TgSspH6MtvfND64gWe1OjlkCPgcCW
- 1oAku0Ebc/KGiiC21iaXA==
-X-ME-Sender: <xms:xheIZFiASBjgY5T_FcBZQIfLm21S0oV8ogxDgNOinPVPa3xu0DYrTA>
- <xme:xheIZKDRQ2OVQG8rrApi0o-lHbOpNPPjcepEty5gvdakYAulrq3gz_J1sx0KIwWaP
- o0L5McJNFNS>
-X-ME-Received: <xmr:xheIZFFZFik2fNGf1anmMQhYBkq6QvsmuhJa1d6AIUGZeOiBAO1MHEl9E9HKNrAKpKtRrMyB3_4oK7LdIAVKaN5IaWlp4FdfLegjVyug8rQWDqenuas>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrgeduiedguddvudcutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
- enucfjughrpefkffggfgfuvfhfhfgjtgfgsehtjeertddtfeejnecuhfhrohhmpefkrghn
- ucfmvghnthcuoehrrghvvghnsehthhgvmhgrfidrnhgvtheqnecuggftrfgrthhtvghrnh
- epgfegkedtvddtgeeilefhteffffeukeeggeehvdduleegvdeiieeihfetudehjeelnecu
- vehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheprhgrvhgvnh
- esthhhvghmrgifrdhnvght
-X-ME-Proxy: <xmx:xheIZKQ5UmzKP-60hg5BNqniVrO_VLASRzgKop3PzyNEH89vvPjQcQ>
- <xmx:xheIZCynP5awa7k9st6eGP_1lZ8TeFJxtAP8UmojP-NOODCOEfcu0A>
- <xmx:xheIZA5Swu7xBajj0x8mBkN04LtGBap39euCg-q2Ms6cidoeHczYtQ>
- <xmx:yBeIZFIQ19quJM_9_o4ZdNDXIQGOQkNWf2KvJ9YrUPYoEm71M3y4Qw>
-Feedback-ID: i31e841b0:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 13 Jun 2023 03:16:08 -0400 (EDT)
-Message-ID: <39c762dd-37a9-8ef8-9002-c1eb367946d3@themaw.net>
-Date: Tue, 13 Jun 2023 15:16:04 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-To: Jeff Layton <jlayton@kernel.org>, Christian Brauner <brauner@kernel.org>, 
- Al Viro <viro@zeniv.linux.org.uk>, Brad Warrum <bwarrum@linux.ibm.com>,
- Ritu Agarwal <rituagar@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Tigran A. Aivazian" <aivazian.tigran@gmail.com>,
- Jeremy Kerr <jk@ozlabs.org>, Ard Biesheuvel <ardb@kernel.org>,
- Namjae Jeon <linkinjeon@kernel.org>,
- Sungjong Seo <sj1557.seo@samsung.com>, Steve French <sfrench@samba.org>,
- Paulo Alcantara <pc@manguebit.com>, Ronnie Sahlberg <lsahlber@redhat.com>,
- Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>,
- John Johansen <john.johansen@canonical.com>,
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- "Serge E. Hallyn" <serge@hallyn.com>, Ruihan Li <lrh2000@pku.edu.cn>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Alan Stern <stern@rowland.harvard.edu>,
- Suren Baghdasaryan <surenb@google.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
- autofs@vger.kernel.org, linux-efi@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-cifs@vger.kernel.org,
- samba-technical@lists.samba.org, apparmor@lists.ubuntu.com,
- linux-security-module@vger.kernel.org
+ (envelope-from <brauner@kernel.org>) id 1q9Ltm-0003bq-Eo
+ for apparmor@lists.ubuntu.com; Wed, 14 Jun 2023 08:30:38 +0000
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 4301D60C5B;
+ Wed, 14 Jun 2023 08:30:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C3A5C433C8;
+ Wed, 14 Jun 2023 08:30:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1686731436;
+ bh=5sOkTNkkHBdbRw2JX2dJi2tKIH7ENjxXYhVFqEgiEpg=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=IRZqPUqU0BwUN9jHEoglWuy0xEgoYyag/Ebn+rb0Vkv1pU4YIEbzbp79ipCyUrtxh
+ uu5SSmyKUoI1KIaFNYpCGmYHIXb2asmRHSE1NzBkLRpCt3Lk6SOguRjQnw2e7R7/RE
+ 3jA20kzbdthCOfDkyHAr2RIu4FsSLyLI6XH8DA2HcU29jUMoC2mD9jrm9rg2mkUfCC
+ fiHIUATN1wcmkhYcliwSeMfAeYVI8hK2mr8m3NIMM3pMKtWaDqvzxe5VRX3IwZIRDp
+ k6p3K+ytT5NuIM6/QXPL9ncD1YxYtMcfr5ZIYEUleDDbnRtoLwM75vc9NwENqU3Y1d
+ e+ig0BIIgMwMg==
+From: Christian Brauner <brauner@kernel.org>
+To: Jeff Layton <jlayton@kernel.org>
+Date: Wed, 14 Jun 2023 10:30:13 +0200
+Message-Id: <20230614-marmeladen-blechnapf-873c26e176cb@brauner>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230612104524.17058-4-jlayton@kernel.org>
 References: <20230612104524.17058-1-jlayton@kernel.org>
  <20230612104524.17058-4-jlayton@kernel.org>
-Content-Language: en-US
-From: Ian Kent <raven@themaw.net>
-In-Reply-To: <20230612104524.17058-4-jlayton@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Tue, 13 Jun 2023 08:27:35 +0000
-Subject: Re: [apparmor] [PATCH v2 3/8] autofs: set ctime as well when mtime
- changes on a dir
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=890; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=5sOkTNkkHBdbRw2JX2dJi2tKIH7ENjxXYhVFqEgiEpg=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMaR0VvWrXuWb1qASt//kd4FHqU18By+ppS/RFud89ejpqjjT
+ Z+/1O0pZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACby5Bgjw7qZ1+/qxD5ZFinJah7vuf
+ 6TQM5RjfV3nHf+b3iWcMttHxfDb9bHk9/X5L+18DmgM//eoU3cO9eIMDluPBbqbjtNMHa/Fg8A
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 14 Jun 2023 08:43:02 +0000
+Subject: Re: [apparmor] (subset) [PATCH v2 3/8] autofs: set ctime as well
+	when mtime changes on a dir
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -109,51 +63,51 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: linux-efi@vger.kernel.org,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Ruihan Li <lrh2000@pku.edu.cn>, Ard Biesheuvel <ardb@kernel.org>,
+ Ian Kent <raven@themaw.net>, Paulo Alcantara <pc@manguebit.com>,
+ linux-cifs@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
+ Ritu Agarwal <rituagar@linux.ibm.com>, James Morris <jmorris@namei.org>,
+ Alan Stern <stern@rowland.harvard.edu>, Namjae Jeon <linkinjeon@kernel.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>, Shyam Prasad N <sprasad@microsoft.com>,
+ Arnd Bergmann <arnd@arndb.de>, autofs@vger.kernel.org,
+ apparmor@lists.ubuntu.com, Tom Talpey <tom@talpey.com>,
+ Al Viro <viro@zeniv.linux.org.uk>,
+ "Tigran A. Aivazian" <aivazian.tigran@gmail.com>,
+ Suren Baghdasaryan <surenb@google.com>, Christian Brauner <brauner@kernel.org>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ samba-technical@lists.samba.org, linux-kernel@vger.kernel.org,
+ Ronnie Sahlberg <lsahlber@redhat.com>, Steve French <sfrench@samba.org>,
+ linux-security-module@vger.kernel.org, Jeremy Kerr <jk@ozlabs.org>,
+ linux-fsdevel@vger.kernel.org, Sungjong Seo <sj1557.seo@samsung.com>,
+ Brad Warrum <bwarrum@linux.ibm.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 12/6/23 18:45, Jeff Layton wrote:
+On Mon, 12 Jun 2023 06:45:19 -0400, Jeff Layton wrote:
 > When adding entries to a directory, POSIX generally requires that the
 > ctime also be updated alongside the mtime.
->
-> Signed-off-by: Jeff Layton <jlayton@kernel.org>
+> 
+> 
 
-Acked-by: Ian Kent <raven@themaw.net>
+Can't find a tree for this patch, so picking this patch up unless told otherwise.
 
+---
 
-> ---
->   fs/autofs/root.c | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/fs/autofs/root.c b/fs/autofs/root.c
-> index 6baf90b08e0e..93046c9dc461 100644
-> --- a/fs/autofs/root.c
-> +++ b/fs/autofs/root.c
-> @@ -600,7 +600,7 @@ static int autofs_dir_symlink(struct mnt_idmap *idmap,
->   	p_ino = autofs_dentry_ino(dentry->d_parent);
->   	p_ino->count++;
->   
-> -	dir->i_mtime = current_time(dir);
-> +	dir->i_mtime = dir->i_ctime = current_time(dir);
->   
->   	return 0;
->   }
-> @@ -633,7 +633,7 @@ static int autofs_dir_unlink(struct inode *dir, struct dentry *dentry)
->   	d_inode(dentry)->i_size = 0;
->   	clear_nlink(d_inode(dentry));
->   
-> -	dir->i_mtime = current_time(dir);
-> +	dir->i_mtime = dir->i_ctime = current_time(dir);
->   
->   	spin_lock(&sbi->lookup_lock);
->   	__autofs_add_expiring(dentry);
-> @@ -749,7 +749,7 @@ static int autofs_dir_mkdir(struct mnt_idmap *idmap,
->   	p_ino = autofs_dentry_ino(dentry->d_parent);
->   	p_ino->count++;
->   	inc_nlink(dir);
-> -	dir->i_mtime = current_time(dir);
-> +	dir->i_mtime = dir->i_ctime = current_time(dir);
->   
->   	return 0;
->   }
+Applied to the vfs.misc branch of the vfs/vfs.git tree.
+Patches in the vfs.misc branch should appear in linux-next soon.
+
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
+
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs.misc
+
+[3/8] autofs: set ctime as well when mtime changes on a dir
+      https://git.kernel.org/vfs/vfs/c/9b37b3342a98
 
