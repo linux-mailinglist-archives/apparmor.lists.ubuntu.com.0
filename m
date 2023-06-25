@@ -2,19 +2,19 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FA4373CDB1
+	by mail.lfdr.de (Postfix) with ESMTPS id DC8B173CDB5
 	for <lists+apparmor@lfdr.de>; Sun, 25 Jun 2023 03:14:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qDEKM-0002KW-TX; Sun, 25 Jun 2023 01:14:06 +0000
+	id 1qDEKN-0002LT-Aa; Sun, 25 Jun 2023 01:14:07 +0000
 Received: from szxga02-in.huawei.com ([45.249.212.188])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <cuigaosheng1@huawei.com>) id 1qDEKB-0002Dz-Tx
+ (envelope-from <cuigaosheng1@huawei.com>) id 1qDEKC-0002E0-46
  for apparmor@lists.ubuntu.com; Sun, 25 Jun 2023 01:13:56 +0000
 Received: from kwepemi500012.china.huawei.com (unknown [172.30.72.57])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4QpXz62m7JzTlBq;
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4QpXz65myvzTl0T;
  Sun, 25 Jun 2023 09:13:06 +0800 (CST)
 Received: from cgs.huawei.com (10.244.148.83) by
  kwepemi500012.china.huawei.com (7.221.188.12) with Microsoft SMTP Server
@@ -23,8 +23,8 @@ Received: from cgs.huawei.com (10.244.148.83) by
 From: Gaosheng Cui <cuigaosheng1@huawei.com>
 To: <john.johansen@canonical.com>, <paul@paul-moore.com>, <jmorris@namei.org>, 
  <serge@hallyn.com>, <cuigaosheng1@huawei.com>
-Date: Sun, 25 Jun 2023 09:13:47 +0800
-Message-ID: <20230625011349.1457810-10-cuigaosheng1@huawei.com>
+Date: Sun, 25 Jun 2023 09:13:48 +0800
+Message-ID: <20230625011349.1457810-11-cuigaosheng1@huawei.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230625011349.1457810-1-cuigaosheng1@huawei.com>
 References: <20230625011349.1457810-1-cuigaosheng1@huawei.com>
@@ -35,8 +35,8 @@ X-Originating-IP: [10.244.148.83]
 X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
  kwepemi500012.china.huawei.com (7.221.188.12)
 X-CFilter-Loop: Reflected
-Subject: [apparmor] [PATCH -next 09/11] apparmor: Fix kernel-doc warnings in
-	apparmor/policy_unpack.c
+Subject: [apparmor] [PATCH -next 10/11] apparmor: Fix kernel-doc warnings in
+	apparmor/policy_compat.c
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -54,27 +54,26 @@ Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
 Fix kernel-doc warnings:
 
-security/apparmor/policy_unpack.c:1173: warning: Function parameter
-or member 'table_size' not described in 'verify_dfa_accept_index'
+security/apparmor/policy_compat.c:151: warning: Function parameter
+or member 'size' not described in 'compute_fperms'
 
 Signed-off-by: Gaosheng Cui <cuigaosheng1@huawei.com>
 ---
- security/apparmor/policy_unpack.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ security/apparmor/policy_compat.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
-index 694fb7a09962..d2d740bb5618 100644
---- a/security/apparmor/policy_unpack.c
-+++ b/security/apparmor/policy_unpack.c
-@@ -1167,7 +1167,7 @@ static int verify_header(struct aa_ext *e, int required, const char **ns)
- /**
-  * verify_dfa_accept_index - verify accept indexes are in range of perms table
-  * @dfa: the dfa to check accept indexes are in range
-- * table_size: the permission table size the indexes should be within
-+ * @table_size: the permission table size the indexes should be within
+diff --git a/security/apparmor/policy_compat.c b/security/apparmor/policy_compat.c
+index 0cb02da8a319..18e4ddccf623 100644
+--- a/security/apparmor/policy_compat.c
++++ b/security/apparmor/policy_compat.c
+@@ -143,6 +143,7 @@ static struct aa_perms compute_fperms_other(struct aa_dfa *dfa,
+  * compute_fperms - convert dfa compressed perms to internal perms and store
+  *		    them so they can be retrieved later.
+  * @dfa: a dfa using fperms to remap to internal permissions
++ * @size: the permission table size
+  *
+  * Returns: remapped perm table
   */
- static bool verify_dfa_accept_index(struct aa_dfa *dfa, int table_size)
- {
 -- 
 2.25.1
 
