@@ -2,61 +2,61 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85ABF741D82
+	by mail.lfdr.de (Postfix) with ESMTPS id 5ECE3741D80
 	for <lists+apparmor@lfdr.de>; Thu, 29 Jun 2023 03:07:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qEg7v-0006XL-AC; Thu, 29 Jun 2023 01:07:15 +0000
-Received: from smtp-relay-services-0.internal ([10.131.114.58]
- helo=smtp-relay-services-0.canonical.com)
+	id 1qEg7v-0006XS-CV; Thu, 29 Jun 2023 01:07:15 +0000
+Received: from smtp-relay-services-1.internal ([10.131.114.214]
+ helo=smtp-relay-services-1.canonical.com)
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <noreply@launchpad.net>) id 1qDi50-00082l-Nq
- for apparmor@lists.ubuntu.com; Mon, 26 Jun 2023 09:00:14 +0000
+ (envelope-from <noreply@launchpad.net>) id 1qDj1M-00039s-9F
+ for apparmor@lists.ubuntu.com; Mon, 26 Jun 2023 10:00:32 +0000
 Received: from scripts-1.lp.internal (scripts.lp.internal [10.131.66.196])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-relay-services-0.canonical.com (Postfix) with ESMTPSA id E31063F723
- for <apparmor@lists.ubuntu.com>; Mon, 26 Jun 2023 09:00:13 +0000 (UTC)
+ by smtp-relay-services-1.canonical.com (Postfix) with ESMTPSA id 20C9D3F5B0
+ for <apparmor@lists.ubuntu.com>; Mon, 26 Jun 2023 10:00:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=launchpad.net;
- s=20210803; t=1687770014;
- bh=FY0XspbBal4TDTSCmdpTBqVJ6CIfnuoXMVPez51PSwg=;
+ s=20210803; t=1687773632;
+ bh=eiNZMd6gdr/DQ/2v3y0h7Prc88q99irvxJwBTaq12CE=;
  h=MIME-Version:Content-Type:Date:From:To:Reply-To:References:
  Message-Id:Subject;
- b=m5xjISItAvAXdnRfBVQuByeEVOKTUfa03UYLuXVZBj9NbaA+9CqvplHeMy/oRS4s7
- clxXC+lEBRFh4gcxT1i8qVoOIeopnX/3ppPZqxkDFJhr5QyWxDft3wTbLeBrRmXVnF
- dAaX3Au8rov8xqFjT1TccvClHwY04bilSLDHXxtWr5aKXH8emR4IEuMtJHYPIplDYB
- fyEmyu6uAfVf4CqwqV2Lfu+h0nz4Ndy6iPI0aXmVNbOgrXMuuTTkrFxU+vxcTshMo7
- /g11BzEcrzUKR1StpHiUl7wWlZ/0jLjg1GTLFcSQDw+ue8R3YocgzzRhq4MgDkiw2w
- /SU0s9lxLKliQ==
+ b=BSX6bZFASMok70dGxIXgaT5BqohDcEVvQCKxMiB1cnqf4jIxnZbd0mWsh++MdS8DV
+ eomNfgBcOJDBCAUhpiA597/uQTZPBC9LRKu8INlVZsmyx7Duj0TVdioXlP8wdnvXFt
+ JN27Z0RAqqFQBMaT1gnxEi5/4bC1JTozodp+CWnaIw7StQRG7Mt0aqtRF0dSF3utAO
+ i+2amM+PcTKjKVWbU+04f7x0+w3O8IIos/dPlYb00qiHAVUmKPuRPHEpq6maw97iRp
+ 3OSdhW/TxIYS2cArUaG00e1UEH8cYttyaVEBEVy+h/4A7obK0gmexB3XTFfGYMhO0k
+ lyu7xz9EU6k9g==
 Received: from
  juju-4112d9-prod-launchpad-manual-servers-36.openstack.prodstack5.lan
  (localhost [127.0.0.1])
- by scripts-1.lp.internal (Postfix) with ESMTP id 066D13FFAE
- for <apparmor@lists.ubuntu.com>; Mon, 26 Jun 2023 09:00:12 +0000 (UTC)
+ by scripts-1.lp.internal (Postfix) with ESMTP id 0B34C3FFAA
+ for <apparmor@lists.ubuntu.com>; Mon, 26 Jun 2023 10:00:32 +0000 (UTC)
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 26 Jun 2023 08:53:34 -0000
-From: Michael Vogt <2025030@bugs.launchpad.net>
+Date: Mon, 26 Jun 2023 09:52:48 -0000
+From: John Johansen <2025030@bugs.launchpad.net>
 To: apparmor@lists.ubuntu.com
 X-Launchpad-Notification-Type: bug
 X-Launchpad-Bug: product=snapd; status=New; importance=Undecided; assignee=None;
 X-Launchpad-Bug-Information-Type: Private
 X-Launchpad-Bug-Private: yes
 X-Launchpad-Bug-Security-Vulnerability: no
-X-Launchpad-Bug-Commenters: mvo
+X-Launchpad-Bug-Commenters: jjohansen mvo
 X-Launchpad-Bug-Reporter: Michael Vogt (mvo)
-X-Launchpad-Bug-Modifier: Michael Vogt (mvo)
+X-Launchpad-Bug-Modifier: John Johansen (jjohansen)
 References: <168776916667.3467192.8196122685826530923.malonedeb@juju-98d295-prod-launchpad-7>
-Message-Id: <168776961435.3947138.7968026855610636847.malone@juju-98d295-prod-launchpad-4>
+Message-Id: <168777316837.3992824.11580102588630408301.malone@juju-98d295-prod-launchpad-4>
 X-Launchpad-Message-Rationale: Subscriber @apparmor-dev
 X-Launchpad-Message-For: apparmor-dev
 Precedence: bulk
 X-Generated-By: Launchpad (canonical.com);
  Revision="aedf8597c50c1abc5fb7f9e871e686dfcb381fde"; Instance="production"
-X-Launchpad-Hash: 6a5f013f045b2f673e85ecb79ae79792976cb93e
+X-Launchpad-Hash: 4f56d57e3dcf70b7415b3ff84d1f9fcf5a774d8b
 X-Mailman-Approved-At: Thu, 29 Jun 2023 01:07:14 +0000
 Subject: [apparmor] [Bug 2025030] Re: apparmor_parser -O no-expr-simplify
 	problematic
@@ -74,29 +74,35 @@ Reply-To: Bug 2025030 <2025030@bugs.launchpad.net>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Just another data point, it seems some expressions are quite
-pathological, e.g. removing
+Yes, this is to be expected. The dfa build algorithm can have
+exponential state explosive. Expr simplification is a technique to help
+avoid/mitigate that from happening. There is no reason that expr
+simplification shouldn't be done.
 
-/sys/devices/{,*pcie-controller/,platform/{soc,scb}/*.pcie/}pci[0-9a-f]*/**=
-/config r,
-/sys/devices/{,*pcie-controller/,platform/{soc,scb}/*.pcie/}pci[0-9a-f]*/**=
-/revision r,
-/sys/devices/{,*pcie-controller/,platform/{soc,scb}/*.pcie/}pci[0-9a-f]*/**=
-/resource r,
-/sys/devices/{,*pcie-controller/,platform/{soc,scb}/*.pcie/}pci[0-9a-f]*/**=
-/irq r,
-/sys/devices/{,*pcie-controller/,platform/{soc,scb}/*.pcie/}pci[0-9a-f]*/**=
-/boot_vga r,
-/sys/devices/{,*pcie-controller/,platform/{soc,scb}/*.pcie/}pci[0-9a-f]*/**=
-/{,subsystem_}class r,
-/sys/devices/{,*pcie-controller/,platform/{soc,scb}/*.pcie/}pci[0-9a-f]*/**=
-/{,subsystem_}device r,
-/sys/devices/{,*pcie-controller/,platform/{soc,scb}/*.pcie/}pci[0-9a-f]*/**=
-/{,subsystem_}vendor r,
-/sys/devices/**/drm{,_dp_aux_dev}/** r,
+In the past Jamie had disabled it for a couple of reasons.
 
-makes the profile generation go down from 44s -> 10s so it seems some
-specific lines are most likly causing this issue.
+1. for very simple profiles it isn't needed, and causes compilation to
+slow down a little, vs. not having it. (this was on click, with phones
+slow processor).
+
+2. expr simplification could in its own rights in the past could be
+pathalogical as it makes multiple passes, working on simplifying
+expressions to deal with this explosion issue. In these cases, while it
+would reduce memory overhead of the compile it would slow down the
+compile significantly.
+
+
+Case 2 was taken care of but putting a hard cap on the number of passes sim=
+plification will do, in upstream commit
+
+2809060be parser: limit the number of passes expr tree simplification
+does (MR: https://gitlab.com/apparmor/apparmor/merge_requests/246)
+
+This was found to achieve the majority of simplification gains without
+multiple passes where as few as a single change was made. And there is
+of course MR 711 that mvo has already brought up. There is some other
+work that will further improve expr simplification when it lands, so we
+should see further performance improvements in the future.
 
 --=20
 You received this bug notification because you are a member of AppArmor
