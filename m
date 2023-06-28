@@ -2,61 +2,62 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE8C573EFE2
-	for <lists+apparmor@lfdr.de>; Tue, 27 Jun 2023 02:55:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F388A7415C6
+	for <lists+apparmor@lfdr.de>; Wed, 28 Jun 2023 17:55:27 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qDwz8-0001e4-Rt; Tue, 27 Jun 2023 00:55:10 +0000
+	id 1qEXVm-0007jH-KA; Wed, 28 Jun 2023 15:55:18 +0000
 Received: from smtp-relay-services-0.internal ([10.131.114.58]
  helo=smtp-relay-services-0.canonical.com)
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <noreply@launchpad.net>) id 1qDwz7-0001dw-MN
- for apparmor@lists.ubuntu.com; Tue, 27 Jun 2023 00:55:09 +0000
+ (envelope-from <noreply@launchpad.net>) id 1qEXVl-0007j5-Tt
+ for apparmor@lists.ubuntu.com; Wed, 28 Jun 2023 15:55:17 +0000
 Received: from scripts-1.lp.internal (scripts.lp.internal [10.131.66.196])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-relay-services-0.canonical.com (Postfix) with ESMTPSA id 7B9063F713
- for <apparmor@lists.ubuntu.com>; Tue, 27 Jun 2023 00:55:09 +0000 (UTC)
+ by smtp-relay-services-0.canonical.com (Postfix) with ESMTPSA id E842F4267B
+ for <apparmor@lists.ubuntu.com>; Wed, 28 Jun 2023 15:55:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=launchpad.net;
- s=20210803; t=1687827309;
- bh=gzpQA/eKOKj9BlAJN/kFFzdsD4rLmwwMBxhmx2zeiBk=;
+ s=20210803; t=1687967716;
+ bh=SJPeTsQNnnhd+PAZG/SE7qmVM2xV12DvArdCjdlvZHk=;
  h=MIME-Version:Content-Type:Date:From:To:Reply-To:References:
  Message-Id:Subject;
- b=UD+/HHgd5fCzfiXYnuShMM1alRaPsepbMLKF3Jy4I8Lx+67K3pzmTHpli+XK8oBdz
- AhwhZc/gQ8BVZddSV3TFYUaN2OdFT/Y4Eulb3byUWINBT5Lb7OGEsnljREA1Lx3Zwd
- Yd+jnl/obDcZKbbyrxLuOaUrbknZgQVUK9ddSZtkmlRdYi4We3Av6lYQhcw2r8Oj10
- lKH53Tmo94Pm4y4AxQ8z3KSFV916iB8cxYs63XA620Q56dc7pAcn6K6rd7uCv1luXf
- eZpYvGWC3JSPld4t0erWx7p/6/xW8mj64XAZXoKykIg5Ie33ux6J6nyZNfwPvr0kIa
- n3B6zRMlryi8Q==
+ b=U0jUvf89aQAjjiwZXQqOU0zrySVmVzYQEZkKj6YEqe4etSy/BvpQuolqr2OjS3ei1
+ L4Sjg4XAz7MVV87oVx+XS9zjz47SwSaXX5Nw6li4tFyOpvSijfcUVBidQlTT2icvOD
+ 4VuWoKLoCGvVm299iYX/PK1HEjcz/kOtE1r+a8SClVl982SGMy4duWIt/dAeAwpf6y
+ m/CJ0kEl7uBhd7zyw1/44h3oBX1rw4eEjgxnw9PlaoTU6s1kPPhLaiU5hHfg/Z8TAp
+ 3WtwKhfqf4FRgJ8kxGqrTEda3uEOXO8pdKq1ZC0ReV3oqXR+uvslEarS0QhoIvCwNW
+ 1rnd+k0PWlYjA==
 Received: from
  juju-4112d9-prod-launchpad-manual-servers-36.openstack.prodstack5.lan
  (localhost [127.0.0.1])
- by scripts-1.lp.internal (Postfix) with ESMTP id 6E4353FFAD
- for <apparmor@lists.ubuntu.com>; Tue, 27 Jun 2023 00:55:09 +0000 (UTC)
+ by scripts-1.lp.internal (Postfix) with ESMTP id 358B640495
+ for <apparmor@lists.ubuntu.com>; Wed, 28 Jun 2023 15:55:13 +0000 (UTC)
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 27 Jun 2023 00:46:20 -0000
-From: John Johansen <2025030@bugs.launchpad.net>
+Date: Wed, 28 Jun 2023 15:46:26 -0000
+From: Michael Vogt <2025030@bugs.launchpad.net>
 To: apparmor@lists.ubuntu.com
 X-Launchpad-Notification-Type: bug
-X-Launchpad-Bug: product=snapd; status=New; importance=Undecided; assignee=None;
+X-Launchpad-Bug: product=snapd; status=In Progress; importance=Undecided;
+ assignee=None; 
 X-Launchpad-Bug-Information-Type: Public
 X-Launchpad-Bug-Private: no
 X-Launchpad-Bug-Security-Vulnerability: no
 X-Launchpad-Bug-Commenters: jjohansen mvo
 X-Launchpad-Bug-Reporter: Michael Vogt (mvo)
-X-Launchpad-Bug-Modifier: John Johansen (jjohansen)
+X-Launchpad-Bug-Modifier: Michael Vogt (mvo)
 References: <168776916667.3467192.8196122685826530923.malonedeb@juju-98d295-prod-launchpad-7>
-Message-Id: <168782678051.403027.18211768657419436343.malone@juju-98d295-prod-launchpad-4>
+Message-Id: <168796718695.1952692.15744431783548869344.launchpad@juju-98d295-prod-launchpad-3>
 X-Launchpad-Message-Rationale: Subscriber @apparmor-dev
 X-Launchpad-Message-For: apparmor-dev
 Precedence: bulk
 X-Generated-By: Launchpad (canonical.com);
- Revision="aedf8597c50c1abc5fb7f9e871e686dfcb381fde"; Instance="production"
-X-Launchpad-Hash: ac3daa9d22a83e20387350dd560376b9b242a80b
+ Revision="d6e3bf1b1b4849a91befd7dad9268049d9a506ae"; Instance="production"
+X-Launchpad-Hash: 0cc8132c4faa5e2e48a30e2fb0a7cb24facedb84
 Subject: [apparmor] [Bug 2025030] Re: apparmor_parser -O no-expr-simplify
 	problematic
 X-BeenThere: apparmor@lists.ubuntu.com
@@ -73,13 +74,8 @@ Reply-To: Bug 2025030 <2025030@bugs.launchpad.net>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-sigh, that performance drop is more than I was expecting. I do have a
-set of click/snap profiles I use for testing. Can you send me your set,
-as it obviously is better for this
-
-I will take a peek at the expr simplification series. Its not done, but
-it has several patch in it that are, and we might be able to apply those
-and get a bit of a boost without waiting on the completed set.
+** Changed in: snapd
+       Status: New =3D> In Progress
 
 --=20
 You received this bug notification because you are a member of AppArmor
@@ -90,7 +86,7 @@ Title:
   apparmor_parser -O no-expr-simplify problematic
 
 Status in snapd:
-  New
+  In Progress
 
 Bug description:
   There was a recent issue with a core refresh that caused breakage.
