@@ -2,53 +2,66 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FDFF744B1F
-	for <lists+apparmor@lfdr.de>; Sat,  1 Jul 2023 23:23:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A70CD74573A
+	for <lists+apparmor@lfdr.de>; Mon,  3 Jul 2023 10:21:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qFi3p-0000mm-TI; Sat, 01 Jul 2023 21:23:17 +0000
-Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
- helo=smtp-relay-canonical-0.canonical.com)
+	id 1qGEoN-0005KZ-BX; Mon, 03 Jul 2023 08:21:31 +0000
+Received: from smtp-relay-services-0.internal ([10.131.114.58]
+ helo=smtp-relay-services-0.canonical.com)
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>) id 1qFi3n-0000md-RA
- for apparmor@lists.ubuntu.com; Sat, 01 Jul 2023 21:23:15 +0000
-Received: from [192.168.192.83] (unknown [50.47.134.245])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (envelope-from <noreply@launchpad.net>) id 1qGEoL-0005KB-KK
+ for apparmor@lists.ubuntu.com; Mon, 03 Jul 2023 08:21:29 +0000
+Received: from scripts-1.lp.internal (scripts.lp.internal [10.131.66.196])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 3B5F941499; 
- Sat,  1 Jul 2023 21:23:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1688246594;
- bh=KPwH1nKRAguBg1nOREYocPWWKm8GQE/gTar+oQPlIHA=;
- h=Message-ID:Date:MIME-Version:Subject:To:References:From:
- In-Reply-To:Content-Type;
- b=vaE7GU51gvTyNZZsYHdeRzciZ2GlWp0P2w0PhvpGoITzOYrjiv/PUHBt99euDt1n0
- OqgBv9gj/ulxGfKD20vod61pGKJcLm5NP4QEzwK4GOqZqNCyfjFvsrnh67eLFftzRm
- 5hmNbdCwG03KqvumVMdNnT4lj5t2IWnShq33PJlYo9zRRelI7uYpkDFavWcH2Jp5RB
- RJ1W/meyZt+upnm9ZxrWbau2WDhz0I6b+/KM/xBOgawmlB5wa+2zE2Kcq410iY9a1F
- PWJiI3Ui0Yc3rH4xK4dh6OGMLO276CFm2tfmYYRwu6cp3TMFKdHTpPMlzph8Y8l+bJ
- GBfk/1vWnHevw==
-Message-ID: <6bfe2904-da9a-dc92-a247-917a4650a0fc@canonical.com>
-Date: Sat, 1 Jul 2023 14:23:11 -0700
+ by smtp-relay-services-0.canonical.com (Postfix) with ESMTPSA id CFBB93F84B
+ for <apparmor@lists.ubuntu.com>; Mon,  3 Jul 2023 08:21:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=launchpad.net;
+ s=20210803; t=1688372483;
+ bh=irU9AvyEhnZA8/I8uGMoLe/m4f/O59LOZV6LoTCtvHU=;
+ h=MIME-Version:Content-Type:Date:From:To:Reply-To:References:
+ Message-Id:Subject;
+ b=S/0zfCh8xxjyLflaa74hUN1YJjk3fveZl3TqxAtrCQIbKsy+o2bKFEHM5sI0sFBT9
+ DCituJXv5wSvjWyOlKiP9ZSWxR5CeBVv106HwrCxj2LRcI1GflJQYvuFc1mvU3MqjT
+ lR79HuYrphqajIm+8zliWoYmlK9tGzEULknx2wQOtFXNEjUrbKdF0tAMS9Cprc/RXy
+ dn/tWXh2pHDnBJFXpQZohTOuXeVHlREftphTnZrwaaLMf01NINimoAj0s5inUHkfgF
+ ojet+y7XQtd9DAUdR7h0YnSVGhXBZoDOcOGKReewGDbO8Q2JOmsa6jOERuy9MGdv2U
+ XmC0HQ7cTG+5Q==
+Received: from
+ juju-4112d9-prod-launchpad-manual-servers-36.openstack.prodstack5.lan
+ (localhost [127.0.0.1])
+ by scripts-1.lp.internal (Postfix) with ESMTP id 313C241C96
+ for <apparmor@lists.ubuntu.com>; Mon,  3 Jul 2023 08:20:52 +0000 (UTC)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: me@beroal.in.ua, apparmor@lists.ubuntu.com
-References: <2c7b993c-6bb6-7558-f0aa-ddbc28ebe380@beroal.in.ua>
-From: John Johansen <john.johansen@canonical.com>
-Organization: Canonical
-In-Reply-To: <2c7b993c-6bb6-7558-f0aa-ddbc28ebe380@beroal.in.ua>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] May a GUI program be manipulated via a display
- server socket?
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 03 Jul 2023 08:12:29 -0000
+From: Philip Meulengracht <2025030@bugs.launchpad.net>
+To: apparmor@lists.ubuntu.com
+X-Launchpad-Notification-Type: bug
+X-Launchpad-Bug: product=snapd; status=In Progress; importance=Undecided;
+ assignee=None; 
+X-Launchpad-Bug-Information-Type: Public
+X-Launchpad-Bug-Private: no
+X-Launchpad-Bug-Security-Vulnerability: no
+X-Launchpad-Bug-Commenters: jjohansen mvo the-meulengracht
+X-Launchpad-Bug-Reporter: Michael Vogt (mvo)
+X-Launchpad-Bug-Modifier: Philip Meulengracht (the-meulengracht)
+References: <168776916667.3467192.8196122685826530923.malonedeb@juju-98d295-prod-launchpad-7>
+Message-Id: <168837194961.1818815.7702730675021503928.malone@juju-98d295-prod-launchpad-3>
+X-Launchpad-Message-Rationale: Subscriber @apparmor-dev
+X-Launchpad-Message-For: apparmor-dev
+Precedence: bulk
+X-Generated-By: Launchpad (canonical.com);
+ Revision="0574793d91fb0560c250e5488455be37b7fc4914"; Instance="production"
+X-Launchpad-Hash: 03c9e903ce6223ff3cddc03c498eebadfe167aba
+Subject: [apparmor] [Bug 2025030] Re: apparmor_parser -O no-expr-simplify
+	problematic
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
-Precedence: list
 List-Id: AppArmor discussion <apparmor.lists.ubuntu.com>
 List-Unsubscribe: <https://lists.ubuntu.com/mailman/options/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=unsubscribe>
@@ -57,32 +70,86 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Reply-To: Bug 2025030 <2025030@bugs.launchpad.net>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 7/1/23 09:00, me@beroal.in.ua wrote:
-> Hi. Suppose that a program M (malicious) tries to open a URL in a web browser V (victim). In a typical AppArmor profile for M, V is executed with the `Px` mode, for example:
-> 
-> ```
-> /usr/lib/firefox/firefox Px,
-> ```
-> 
-> Can M give V an environment variable (`WAYLAND_DISPLAY` for Wayland or `DISPLAY` for X11) which tells V to execute user input from a Unix socket which M controls? If yes, then M can do something on websites under the name of a user. In other words, V isn't isolated after all.
+On the encouragement from mvo, I made a small tool that can optimize a
+generated snapd apparmor profile. By using the profile from this bug, I
+can see almost 50% improvement in cpu time and memory time. It was just
+a small side-project while I was working.
 
-potentially. It will depend on your version of apparmor, V, the kernel, and libc. Well and many other factors.
+https://github.com/Meulengracht/aa-preprocess
 
-Lets start with the environment variables
+Profile used (https://launchpadlibrarian.net/674087996/snap.screenly-
+client.command-executor)
 
-Px scrubs unsafe envirnonment variables (sort of). The definition of unsafe is up to libc (or equiv) and is done as part of the application startup (no I don't like this design).
-So libc (or equivalent) is responsible for scrubbing the variables and has the definition of what the variables to scrub. It could choose not to scrub any or the set it is scrubbing may not be sufficient for some applications. V may do its own additional environment scrubbing/sanitization, but that is not likely and we can't rely on it.
+Before running the tool
 
-Depending on your version of apparmor it will mediate unix sockets, not just creation but track security context of who is on each end, and verify that those end points are allowed to communicate. Who can communicate is governed by policy, so it will depend on the policy on the system. It is fully possible that policy will block M from talking to V, but in a system that allows for a lot of unconfined applications, it might be possible. As communication from confined to unconfined is usually allowed (it can be blocked by policy). So it will depend on if M and V are confined and what their confinement allows.
+User time (seconds): 6.73
+Maximum resident set size (kbytes): 294408
+
+After running the tool
+Optimized profile here (https://paste.ubuntu.com/p/GCt6j4zrzW/)
+
+User time (seconds): 3.56
+Maximum resident set size (kbytes): 167712
 
 
-> 
-> I'm worried because this situation is quite common. Many programs are expected to open a URL, and many jobs are controlled via a web browser nowadays.
-> 
-> 
-yep, you are right to be worried, way too much is done through the browser and as such they are generally given way more permissions than is needed for any given task, but it needs to do N different tasks ...
+Both times are run with "apparmor_parser -O no-expr-simplify". The tool is =
+not that sophisticated and simply consolidates lines that match each other =
+in permissions and wildcards to reduce the number of lines in the apparmor =
+profile. Maybe it's something that can be considered somewhere to increase =
+performance?
+
+--=20
+You received this bug notification because you are a member of AppArmor
+Developers, which is subscribed to the bug report.
+https://bugs.launchpad.net/bugs/2025030
+
+Title:
+  apparmor_parser -O no-expr-simplify problematic
+
+Status in snapd:
+  In Progress
+
+Bug description:
+  There was a recent issue with a core refresh that caused breakage.
+  Upon further investigation it turns out that the apparmor_parser uses
+  an substantial of memory.
+
+  Upon some more investigation it turns out that that -O no-expr-
+  simplify makes both time to compile and memory usage increase 10x.
+  Tested with 22.04 but I see the same ballpark results with 16.04:
+
+  $ /usr/bin/time --verbose apparmor_parser -S 2.59/profiles/snap.screenly-=
+client.command-executor > /dev/null
+      Command being timed: "apparmor_parser -S 2.59/profiles/snap.screenly-=
+client.command-executor"
+      User time (seconds): 4.32
+      Maximum resident set size (kbytes): 117392
+
+  $ /usr/bin/time --verbose apparmor_parser  -O no-expr-simplify -S 2.59/pr=
+ofiles/snap.screenly-client.command-executor > /dev/null
+      Command being timed: "apparmor_parser -O no-expr-simplify -S 2.59/pro=
+files/snap.screenly-client.command-executor"
+      User time (seconds): 40.64
+      Maximum resident set size (kbytes): 1015816
+
+  Profile is attached.
+
+ =20
+  It seems like we seriously need to consider dropping "-O no-expr-simplify=
+".=20
+
+  For context:
+  https://bugs.launchpad.net/ubuntu-rtm/+source/apparmor/+bug/1383858
+  is why it was added in the first place
+
+  And some recent work to make things faster:
+  https://gitlab.com/apparmor/apparmor/-/merge_requests/711
+
+To manage notifications about this bug go to:
+https://bugs.launchpad.net/snapd/+bug/2025030/+subscriptions
 
 
