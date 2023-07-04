@@ -2,44 +2,44 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id A70CD74573A
-	for <lists+apparmor@lfdr.de>; Mon,  3 Jul 2023 10:21:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A18CB746794
+	for <lists+apparmor@lfdr.de>; Tue,  4 Jul 2023 04:30:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qGEoN-0005KZ-BX; Mon, 03 Jul 2023 08:21:31 +0000
-Received: from smtp-relay-services-0.internal ([10.131.114.58]
- helo=smtp-relay-services-0.canonical.com)
+	id 1qGVoK-0003DR-ID; Tue, 04 Jul 2023 02:30:36 +0000
+Received: from smtp-relay-services-1.internal ([10.131.114.214]
+ helo=smtp-relay-services-1.canonical.com)
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <noreply@launchpad.net>) id 1qGEoL-0005KB-KK
- for apparmor@lists.ubuntu.com; Mon, 03 Jul 2023 08:21:29 +0000
+ (envelope-from <noreply@launchpad.net>) id 1qGVoI-0003DI-AF
+ for apparmor@lists.ubuntu.com; Tue, 04 Jul 2023 02:30:34 +0000
 Received: from scripts-1.lp.internal (scripts.lp.internal [10.131.66.196])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-relay-services-0.canonical.com (Postfix) with ESMTPSA id CFBB93F84B
- for <apparmor@lists.ubuntu.com>; Mon,  3 Jul 2023 08:21:23 +0000 (UTC)
+ by smtp-relay-services-1.canonical.com (Postfix) with ESMTPSA id D54493F481
+ for <apparmor@lists.ubuntu.com>; Tue,  4 Jul 2023 02:30:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=launchpad.net;
- s=20210803; t=1688372483;
- bh=irU9AvyEhnZA8/I8uGMoLe/m4f/O59LOZV6LoTCtvHU=;
+ s=20210803; t=1688437833;
+ bh=FT0901WpBFgYViqyYR4a/lLoYdzLVI4fVZBsYWt0WkM=;
  h=MIME-Version:Content-Type:Date:From:To:Reply-To:References:
  Message-Id:Subject;
- b=S/0zfCh8xxjyLflaa74hUN1YJjk3fveZl3TqxAtrCQIbKsy+o2bKFEHM5sI0sFBT9
- DCituJXv5wSvjWyOlKiP9ZSWxR5CeBVv106HwrCxj2LRcI1GflJQYvuFc1mvU3MqjT
- lR79HuYrphqajIm+8zliWoYmlK9tGzEULknx2wQOtFXNEjUrbKdF0tAMS9Cprc/RXy
- dn/tWXh2pHDnBJFXpQZohTOuXeVHlREftphTnZrwaaLMf01NINimoAj0s5inUHkfgF
- ojet+y7XQtd9DAUdR7h0YnSVGhXBZoDOcOGKReewGDbO8Q2JOmsa6jOERuy9MGdv2U
- XmC0HQ7cTG+5Q==
+ b=Zo9tzzMsCiOaQa4LFae4Heb33HCBJ1ES15FDGeldSiYKAJErzLrqJd9foafNL1PRN
+ MC7u3T9BOpOtJDSugycIKelEMcKECCeJBYJZXw1u72d9Z01rE8QsflfTzPeZHw2XGS
+ iBNDIcQos5UV3cC8BoM2tOwGO5R1THM+G6wy0ZIO1kaCRPwvBWSQMcveXyWO78RnC0
+ So9SwOatRpgoqdMbC3eM2XFY7cBJcOxwP6c7mMB9T7TqvuvWTDDvH7ZMke4M+0YuWx
+ +og22O9L1YnWB/X9HkUd/4gNqcv1IFsDfN3g0rk02r9pp9BI6cZDy1bZpXEQbAgdFR
+ FESqmiu3t9zUg==
 Received: from
  juju-4112d9-prod-launchpad-manual-servers-36.openstack.prodstack5.lan
  (localhost [127.0.0.1])
- by scripts-1.lp.internal (Postfix) with ESMTP id 313C241C96
- for <apparmor@lists.ubuntu.com>; Mon,  3 Jul 2023 08:20:52 +0000 (UTC)
+ by scripts-1.lp.internal (Postfix) with ESMTP id 18B0C41CEC
+ for <apparmor@lists.ubuntu.com>; Tue,  4 Jul 2023 02:30:26 +0000 (UTC)
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 03 Jul 2023 08:12:29 -0000
-From: Philip Meulengracht <2025030@bugs.launchpad.net>
+Date: Tue, 04 Jul 2023 02:21:33 -0000
+From: Alex Murray <2025030@bugs.launchpad.net>
 To: apparmor@lists.ubuntu.com
 X-Launchpad-Notification-Type: bug
 X-Launchpad-Bug: product=snapd; status=In Progress; importance=Undecided;
@@ -47,17 +47,17 @@ X-Launchpad-Bug: product=snapd; status=In Progress; importance=Undecided;
 X-Launchpad-Bug-Information-Type: Public
 X-Launchpad-Bug-Private: no
 X-Launchpad-Bug-Security-Vulnerability: no
-X-Launchpad-Bug-Commenters: jjohansen mvo the-meulengracht
+X-Launchpad-Bug-Commenters: alexmurray jjohansen mvo the-meulengracht
 X-Launchpad-Bug-Reporter: Michael Vogt (mvo)
-X-Launchpad-Bug-Modifier: Philip Meulengracht (the-meulengracht)
+X-Launchpad-Bug-Modifier: Alex Murray (alexmurray)
 References: <168776916667.3467192.8196122685826530923.malonedeb@juju-98d295-prod-launchpad-7>
-Message-Id: <168837194961.1818815.7702730675021503928.malone@juju-98d295-prod-launchpad-3>
+Message-Id: <168843729349.2081883.2795592030828454899.malone@juju-98d295-prod-launchpad-7>
 X-Launchpad-Message-Rationale: Subscriber @apparmor-dev
 X-Launchpad-Message-For: apparmor-dev
 Precedence: bulk
 X-Generated-By: Launchpad (canonical.com);
  Revision="0574793d91fb0560c250e5488455be37b7fc4914"; Instance="production"
-X-Launchpad-Hash: 03c9e903ce6223ff3cddc03c498eebadfe167aba
+X-Launchpad-Hash: 9b7d86b4233ee0431fe4e01ba58ec167f210f179
 Subject: [apparmor] [Bug 2025030] Re: apparmor_parser -O no-expr-simplify
 	problematic
 X-BeenThere: apparmor@lists.ubuntu.com
@@ -74,33 +74,9 @@ Reply-To: Bug 2025030 <2025030@bugs.launchpad.net>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On the encouragement from mvo, I made a small tool that can optimize a
-generated snapd apparmor profile. By using the profile from this bug, I
-can see almost 50% improvement in cpu time and memory time. It was just
-a small side-project while I was working.
-
-https://github.com/Meulengracht/aa-preprocess
-
-Profile used (https://launchpadlibrarian.net/674087996/snap.screenly-
-client.command-executor)
-
-Before running the tool
-
-User time (seconds): 6.73
-Maximum resident set size (kbytes): 294408
-
-After running the tool
-Optimized profile here (https://paste.ubuntu.com/p/GCt6j4zrzW/)
-
-User time (seconds): 3.56
-Maximum resident set size (kbytes): 167712
-
-
-Both times are run with "apparmor_parser -O no-expr-simplify". The tool is =
-not that sophisticated and simply consolidates lines that match each other =
-in permissions and wildcards to reduce the number of lines in the apparmor =
-profile. Maybe it's something that can be considered somewhere to increase =
-performance?
+FWIW this aa-preprocess tool sounds like it would be good to run via a
+github action so that it can suggest changes to the existing profiles
+which would then be made by hand.
 
 --=20
 You received this bug notification because you are a member of AppArmor
