@@ -2,66 +2,114 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 138AA7467E2
-	for <lists+apparmor@lfdr.de>; Tue,  4 Jul 2023 05:25:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 604D97482E8
+	for <lists+apparmor@lfdr.de>; Wed,  5 Jul 2023 13:31:21 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qGWfF-0005v8-MR; Tue, 04 Jul 2023 03:25:17 +0000
-Received: from smtp-relay-services-0.internal ([10.131.114.58]
- helo=smtp-relay-services-0.canonical.com)
+	id 1qH0j0-00056A-Ms; Wed, 05 Jul 2023 11:31:10 +0000
+Received: from mail-sgaapc01on2113.outbound.protection.outlook.com
+ ([40.107.215.113] helo=APC01-SG2-obe.outbound.protection.outlook.com)
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <noreply@launchpad.net>) id 1qGWfD-0005uu-Do
- for apparmor@lists.ubuntu.com; Tue, 04 Jul 2023 03:25:15 +0000
-Received: from scripts-1.lp.internal (scripts.lp.internal [10.131.66.196])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by smtp-relay-services-0.canonical.com (Postfix) with ESMTPSA id B13C93F751
- for <apparmor@lists.ubuntu.com>; Tue,  4 Jul 2023 03:25:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=launchpad.net;
- s=20210803; t=1688441114;
- bh=aiHHlVLHZAVLzjSDPK8ZZH7r5ozdAFCfk5LhIpfpfUM=;
- h=MIME-Version:Content-Type:Date:From:To:Reply-To:References:
- Message-Id:Subject;
- b=e9AMv6TwruVHvK3dZctO/cbhtvReyBMBqt+4sxMYLyoJZH0XGAyG2pzjOTi3svdYH
- WAR3c5FQJRcTwXHkkgvzCFtPm3hPbEY7sG/0PvZwETccJlw0VGOR6E0MxMZBaf+eMB
- qxW+brc9J8VC63WU6QxH51PILsT/5t82gcXAeLUN2qBtpWYtvuYJnXOyNVP2G/LhMe
- htAoLDR9UQy8NFhpyE/ibEwyaIXjD6/I8557ySH4xJcKkA56mFhE2Xpu/Y/4AE0Iu5
- JbG/lpcQv/Ki9yEF0i+l1pp8sUJLdk8aZkPm6fmM6sbZaa8zrFnO7LVDhXA/xkFngP
- eZ4ZL7wI85ipA==
-Received: from
- juju-4112d9-prod-launchpad-manual-servers-36.openstack.prodstack5.lan
- (localhost [127.0.0.1])
- by scripts-1.lp.internal (Postfix) with ESMTP id 983EA3F164
- for <apparmor@lists.ubuntu.com>; Tue,  4 Jul 2023 03:25:14 +0000 (UTC)
+ (envelope-from <duminjie@vivo.com>) id 1qGbqP-0005ZX-Oa
+ for apparmor@lists.ubuntu.com; Tue, 04 Jul 2023 08:57:10 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=eawNPMEKD9mlVDmgJ1yT4CO/h8PP6E04cgAV9/5QUNhNRSDv3w3GFDC/uUqBFJQPsheG7q7LWoP0BWiMo1FXf+ZbZSBP3PqdemsrufUtj9WQ9qoPT49Ci+53c4xsNZUay+vnQtmjHfl0hWypRV5XeQzQYEuiv6cGpKJcW+Q7HVe3X3wFLgQGEkmuou9CpEwp+J+AQdyY0bDnEDmxkOpNjq7QzGEvp2bGB3kTZ8ZfGj4wVfwaPwEqQY7IG2cidYC28VHQvxUXldut6pa8b4EMLeBc4ac6Ol1Nrg2jhcZ50sDe2wi0ahGMfj5ZAIuhNKtnMwSm3eCqUM4ftH0kI3g3OQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9HkL07nbHLh/ZLx5GiSjvSPMLEM3aqX9HEPbzlbr/Eo=;
+ b=oNO9EMVf/rR93cLufklkWVb+5+nOXt3l3UdONHkn9r1jwLyTWaqXater1DSNOXXdqgR4EwCpePH2ObSXrMu27viIUHWPpeSQ9X7fZLpmPdD1cVvtM15H1l/G4zfCKXpTnzYEp/zrT8R8SChfcmDSy687MTOf5z24irh/15xo7ffKjGQILeQ+PepKGnkyJvPtyCgekC9svX2UL38YRyZc+yZAwgC9lHJiO+pvMERIDMdYvFDVtMuuQ+hJFvG4dQAgi1EdtSXsV/KOn4+e26runDR0gDy0er0P8nWdJj7rEjuNHBVgfGdR8Gf1JeZvGGJXvLKqqYnwT5KUrTv8557I2Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
+ dkim=pass header.d=vivo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9HkL07nbHLh/ZLx5GiSjvSPMLEM3aqX9HEPbzlbr/Eo=;
+ b=lJDaj1aq7IvpATnWhhu7KuyfA81qEPPmcu7usCBfy/QISkcNsJgpHYdF+HMXY6YkD2jDpiMt9bWiW/MfxVOUfRR4HnmpgqZplmEPBdGFGND3l8ZBASxbUj4ZWRLLZ9CeWduEYi9UyAiWVBx2AeHuFs4Pzgvbv4eHfhTjUj9Wt+4Kqc9yVBVi0BgFohcqdSRzFmVuJ6hhqgwFTDd0MhgEJGeSHEIbLPE+Lhh2rgCLVuRbIrf7TQXyRKPFxE5cMv+URuZy7OAEIgFgAoih4+MgA7MtCFC8bKv6LQLeJeJTDUWxZ1GxM8DOHS/UWsD3NpazYLLk0V5M2gzTdQ9wgJXltw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vivo.com;
+Received: from SG2PR06MB5288.apcprd06.prod.outlook.com (2603:1096:4:1dc::9) by
+ TY0PR06MB5659.apcprd06.prod.outlook.com (2603:1096:400:275::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6544.24; Tue, 4 Jul
+ 2023 08:57:04 +0000
+Received: from SG2PR06MB5288.apcprd06.prod.outlook.com
+ ([fe80::c2b:41ab:3b14:f920]) by SG2PR06MB5288.apcprd06.prod.outlook.com
+ ([fe80::c2b:41ab:3b14:f920%6]) with mapi id 15.20.6544.024; Tue, 4 Jul 2023
+ 08:57:04 +0000
+From: Minjie Du <duminjie@vivo.com>
+To: John Johansen <john.johansen@canonical.com>,
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>, Nick Terrell <terrelln@fb.com>,
+ apparmor@lists.ubuntu.com (moderated list:APPARMOR SECURITY MODULE),
+ linux-security-module@vger.kernel.org (open list:SECURITY SUBSYSTEM),
+ linux-kernel@vger.kernel.org (open list)
+Date: Tue,  4 Jul 2023 16:56:52 +0800
+Message-Id: <20230704085653.6443-1-duminjie@vivo.com>
+X-Mailer: git-send-email 2.39.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TYAPR01CA0232.jpnprd01.prod.outlook.com
+ (2603:1096:404:11e::28) To SG2PR06MB5288.apcprd06.prod.outlook.com
+ (2603:1096:4:1dc::9)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Jul 2023 03:16:46 -0000
-From: John Johansen <2025030@bugs.launchpad.net>
-To: apparmor@lists.ubuntu.com
-X-Launchpad-Notification-Type: bug
-X-Launchpad-Bug: product=snapd; status=In Progress; importance=Undecided;
- assignee=None; 
-X-Launchpad-Bug-Information-Type: Public
-X-Launchpad-Bug-Private: no
-X-Launchpad-Bug-Security-Vulnerability: no
-X-Launchpad-Bug-Commenters: alexmurray jjohansen mvo the-meulengracht
-X-Launchpad-Bug-Reporter: Michael Vogt (mvo)
-X-Launchpad-Bug-Modifier: John Johansen (jjohansen)
-References: <168776916667.3467192.8196122685826530923.malonedeb@juju-98d295-prod-launchpad-7>
-Message-Id: <168844060626.2114408.6280408965707597775.malone@juju-98d295-prod-launchpad-7>
-X-Launchpad-Message-Rationale: Subscriber @apparmor-dev
-X-Launchpad-Message-For: apparmor-dev
-Precedence: bulk
-X-Generated-By: Launchpad (canonical.com);
- Revision="0574793d91fb0560c250e5488455be37b7fc4914"; Instance="production"
-X-Launchpad-Hash: c680f03f23fbca51529e0698064b1ce29df56fe3
-Subject: [apparmor] [Bug 2025030] Re: apparmor_parser -O no-expr-simplify
-	problematic
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG2PR06MB5288:EE_|TY0PR06MB5659:EE_
+X-MS-Office365-Filtering-Correlation-Id: 22f29be2-58d9-4417-89f4-08db7c6ca33e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: UENz/a+qqtGbTEc0Sb00NJbDl+/CEO8Wy4UIjgqvWmnfuU6oaUR7y61/u7r7rFkS+xQAJq4u2+WSg3J5FNmZvt4pTssjI2WBHKz6yb9uC4hfe/4B/TKzIIXllAfCg05CPNCGO1GBqexrx7LWAzwVF7wqL7w84tdGqCjC/HqxbKzVEz2yBvPKKwVi5ZIgAgglGjwArIdPKVehM2TaArtC75ngwY+TyW+UM5iFQBWcG8d+83GwH3E0somKkhNwdkWz8wJVNXbneSHPRhzVWhpopVZY5qUCN+F9c4FqKIv3JAjBVg+BHswPCQIekmzbMORsvkkc6lMAt/9PnF1L1G098Mbb59NhEJfXV6IQCxtfxiN+U1M+2lp+05gtSdmqKUPnd1eijknMgUkMEhvrLo353c21il1PBKe2Am2Ryv1iSiuy1eaFdDhts6UABDyUJGBpGUDXahMkGIQHXnGyMieBQf3MFkxVRIYWBkC0Igngn1USu4jRSfF68MAq/ooHltrUG4WpMasfaP45RBdjyFCPRK1zVI8qXZnFvdQMDGlZRv7+7RjsiAkOSKCG68eZgzGYGGjkiBZ0YJbPnm0RVa+ys8sHl0yDVO82RImx58As69XEA1W09CDGjVRXo0OGkuZ2
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SG2PR06MB5288.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(366004)(396003)(136003)(39860400002)(346002)(376002)(451199021)(4744005)(2906002)(41300700001)(8936002)(8676002)(15650500001)(36756003)(5660300002)(86362001)(186003)(2616005)(478600001)(107886003)(26005)(6506007)(6512007)(1076003)(6666004)(6486002)(52116002)(316002)(66556008)(4326008)(66946007)(38100700002)(38350700002)(66476007)(110136005)(83380400001);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?lPw3P8W5b0cEfX5JGVOyhklwi2JZyWZf2y2vRQCPTOAlZJzkwCepPlN7bCz8?=
+ =?us-ascii?Q?SfHM6TbHn/TVvencelG3+Dsk+LHr3UYa27ODaNIyODhZu26FYPZ8mm5KFHKZ?=
+ =?us-ascii?Q?bVPDT0Y9+Wr5b8FwhRbMOdBB8VBquTopj6C6guPL5jwzyp5gtxvV6kSqM/RW?=
+ =?us-ascii?Q?czEjed0AMFBVJuw416jSP5yjqKAE+uCOj8r0+xzNGGtzzmv8gKxJAFyp3KJt?=
+ =?us-ascii?Q?c+L6CbEmaJ6ppGwq1xpgzvedUm0BtQbQEqtv+nCMaTmLWVuZrubZeKDZfWDm?=
+ =?us-ascii?Q?MUktuPQ4qk8lbHHWs0zzrxebyJhNQgXJyhntxtyCNGjuTi9G4M5BdIsG8MCI?=
+ =?us-ascii?Q?ghtsO2ThDEejiVnhnZyZF47C4bvEaHusCmg0TrxLFlwrzKZf5PwVpHSQ3nzM?=
+ =?us-ascii?Q?iVFOO7hfyqxmwE4xyLGq0o3AG5Xv454CcXDJjouU6z36hYBlnleH+BTjveAc?=
+ =?us-ascii?Q?y+DbbyeoapNwEYrx/rYmM7gzd/hheeKug6b+sGFFyGDIWi5irpeLZp6QT7Mr?=
+ =?us-ascii?Q?+e4mFbqxNHEfzilu1Z0K5YGDXB5n6l5HvKDPuEY5l5GF6K2UPpiwh4S4JSEI?=
+ =?us-ascii?Q?pQZ+OGmwP2xsDGIogsz6WeZvQxAbDaDwD+apsvhQuVN6NdWMEcidT9y4vNR6?=
+ =?us-ascii?Q?hfFyxJ4PAn60b7yQHiytGqU5IjV9ZnOZ7yEyhI59dgfqkfZmg3RFKXWFQaEq?=
+ =?us-ascii?Q?H6hXyHhvA2kC2RDRFwJVnk3zHzgHwpWOJ+XFE0U5SR9/syav3VmRp3zQe+5o?=
+ =?us-ascii?Q?H0Ul+El92Ee2b64hOboS4e4SM1fWyYNZKpi4LkWeVpupGgt4Iup4h9wgKOsr?=
+ =?us-ascii?Q?ZF0SiqVvUXfHBFDwVMqEOpr+iyBGgOjYOq/4UfWJZyOvnmGdm3vA50RPBgzX?=
+ =?us-ascii?Q?/+3xe+w3AnREZooFyO6evcpZJM0Du56gyq1NZMF1R4fGLvmGnhfDW2LR/fiG?=
+ =?us-ascii?Q?PxpZnnuX1h55qZnorhWARMP931YIJByrRmND2VrINTCIyVeHnnZOGcusXZrD?=
+ =?us-ascii?Q?4fyxTfwxfcREBWZ1VuZSCNq9UX89hgLke1X+YhgyJ0vxRyNUMLDl/Xe51DDY?=
+ =?us-ascii?Q?QHpDz/FaX8xNSyVrhQzyhZq3A7yqtI1bcFbyKeW00Ww+54WUpxFlm1QNC62B?=
+ =?us-ascii?Q?VCwfRzYFEsSPMqAjj/NTILRMuAj0d+KDIlGQxCb6Gnp1DCF4891fKByx+vzv?=
+ =?us-ascii?Q?+2l/TOF33vQFl3rk3bLCLWnNp4sPdy8VSxNUBSYMEgZ6sE1gGs1eMlqSmhD1?=
+ =?us-ascii?Q?I4I1jVZeXUEsuVP+BScWs4M6HkFEteSJ1y5pbb9vH6dQpGm2NnpMZY5C/xz7?=
+ =?us-ascii?Q?MWCh7+++9nudqwCIruulX0+EjiLmYUk8uW4kUJJvxW25JKKTeYq92zxL7lOA?=
+ =?us-ascii?Q?vGC+XiH737EInscV+XLAA7x66EDGICZvVKvnQO6pMEpWnY+cVCpVBJlmoHkP?=
+ =?us-ascii?Q?HVDPqjB2SowGis8tTL2aNHweVo18/09me8aeKKd7s5Q1DR6aWQAPTsrlgvZg?=
+ =?us-ascii?Q?9Xp4+Oo8v4nLcyzpkd7OI30D+VS1yejKBFCqkGCZkC/XhZy0nWjo1/EbRzTd?=
+ =?us-ascii?Q?kGzWJozP6KqYXxkc6fEOSQL0yKSqTDxe2s/+X2JN?=
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 22f29be2-58d9-4417-89f4-08db7c6ca33e
+X-MS-Exchange-CrossTenant-AuthSource: SG2PR06MB5288.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jul 2023 08:57:04.2521 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gy7Yzvx3acGXjV+7qcWAYyCof9JUM2x371XbejwM92+fR+u8BGpPP4rF7KZRUpfB4ZW7TwUNcb3SwGC4wW/cPg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY0PR06MB5659
+X-Mailman-Approved-At: Wed, 05 Jul 2023 11:31:09 +0000
+Subject: [apparmor] [PATCH v1] security: remove duplicate logical judgments
+	in return
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
+Precedence: list
 List-Id: AppArmor discussion <apparmor.lists.ubuntu.com>
 List-Unsubscribe: <https://lists.ubuntu.com/mailman/options/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=unsubscribe>
@@ -70,61 +118,32 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Reply-To: Bug 2025030 <2025030@bugs.launchpad.net>
+Cc: opensource.kernel@vivo.com, Minjie Du <duminjie@vivo.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-so I think this is largely because the apparmor version snap is using is
-not running rule deduplication on mount rules.
+Fix: delate duplicate logical judgments:
+aa_unpack_u32(e, &perm->allow, NULL);
+Please check this. Thank you!
 
---=20
-You received this bug notification because you are a member of AppArmor
-Developers, which is subscribed to the bug report.
-https://bugs.launchpad.net/bugs/2025030
+Signed-off-by: Minjie Du <duminjie@vivo.com>
+---
+ security/apparmor/policy_unpack.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-Title:
-  apparmor_parser -O no-expr-simplify problematic
-
-Status in snapd:
-  In Progress
-
-Bug description:
-  There was a recent issue with a core refresh that caused breakage.
-  Upon further investigation it turns out that the apparmor_parser uses
-  an substantial of memory.
-
-  Upon some more investigation it turns out that that -O no-expr-
-  simplify makes both time to compile and memory usage increase 10x.
-  Tested with 22.04 but I see the same ballpark results with 16.04:
-
-  $ /usr/bin/time --verbose apparmor_parser -S 2.59/profiles/snap.screenly-=
-client.command-executor > /dev/null
-      Command being timed: "apparmor_parser -S 2.59/profiles/snap.screenly-=
-client.command-executor"
-      User time (seconds): 4.32
-      Maximum resident set size (kbytes): 117392
-
-  $ /usr/bin/time --verbose apparmor_parser  -O no-expr-simplify -S 2.59/pr=
-ofiles/snap.screenly-client.command-executor > /dev/null
-      Command being timed: "apparmor_parser -O no-expr-simplify -S 2.59/pro=
-files/snap.screenly-client.command-executor"
-      User time (seconds): 40.64
-      Maximum resident set size (kbytes): 1015816
-
-  Profile is attached.
-
- =20
-  It seems like we seriously need to consider dropping "-O no-expr-simplify=
-".=20
-
-  For context:
-  https://bugs.launchpad.net/ubuntu-rtm/+source/apparmor/+bug/1383858
-  is why it was added in the first place
-
-  And some recent work to make things faster:
-  https://gitlab.com/apparmor/apparmor/-/merge_requests/711
-
-To manage notifications about this bug go to:
-https://bugs.launchpad.net/snapd/+bug/2025030/+subscriptions
+diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
+index 694fb7a09..2069adf0a 100644
+--- a/security/apparmor/policy_unpack.c
++++ b/security/apparmor/policy_unpack.c
+@@ -646,7 +646,6 @@ static bool unpack_perm(struct aa_ext *e, u32 version, struct aa_perms *perm)
+ 		return false;
+ 
+ 	return	aa_unpack_u32(e, &perm->allow, NULL) &&
+-		aa_unpack_u32(e, &perm->allow, NULL) &&
+ 		aa_unpack_u32(e, &perm->deny, NULL) &&
+ 		aa_unpack_u32(e, &perm->subtree, NULL) &&
+ 		aa_unpack_u32(e, &perm->cond, NULL) &&
+-- 
+2.39.0
 
 
