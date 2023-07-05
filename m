@@ -2,110 +2,67 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 604D97482E8
-	for <lists+apparmor@lfdr.de>; Wed,  5 Jul 2023 13:31:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4308B748501
+	for <lists+apparmor@lfdr.de>; Wed,  5 Jul 2023 15:31:19 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qH0j0-00056A-Ms; Wed, 05 Jul 2023 11:31:10 +0000
-Received: from mail-sgaapc01on2113.outbound.protection.outlook.com
- ([40.107.215.113] helo=APC01-SG2-obe.outbound.protection.outlook.com)
+	id 1qH2b8-0005Ha-Jc; Wed, 05 Jul 2023 13:31:10 +0000
+Received: from mout.web.de ([212.227.17.11])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <duminjie@vivo.com>) id 1qGbqP-0005ZX-Oa
- for apparmor@lists.ubuntu.com; Tue, 04 Jul 2023 08:57:10 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eawNPMEKD9mlVDmgJ1yT4CO/h8PP6E04cgAV9/5QUNhNRSDv3w3GFDC/uUqBFJQPsheG7q7LWoP0BWiMo1FXf+ZbZSBP3PqdemsrufUtj9WQ9qoPT49Ci+53c4xsNZUay+vnQtmjHfl0hWypRV5XeQzQYEuiv6cGpKJcW+Q7HVe3X3wFLgQGEkmuou9CpEwp+J+AQdyY0bDnEDmxkOpNjq7QzGEvp2bGB3kTZ8ZfGj4wVfwaPwEqQY7IG2cidYC28VHQvxUXldut6pa8b4EMLeBc4ac6Ol1Nrg2jhcZ50sDe2wi0ahGMfj5ZAIuhNKtnMwSm3eCqUM4ftH0kI3g3OQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9HkL07nbHLh/ZLx5GiSjvSPMLEM3aqX9HEPbzlbr/Eo=;
- b=oNO9EMVf/rR93cLufklkWVb+5+nOXt3l3UdONHkn9r1jwLyTWaqXater1DSNOXXdqgR4EwCpePH2ObSXrMu27viIUHWPpeSQ9X7fZLpmPdD1cVvtM15H1l/G4zfCKXpTnzYEp/zrT8R8SChfcmDSy687MTOf5z24irh/15xo7ffKjGQILeQ+PepKGnkyJvPtyCgekC9svX2UL38YRyZc+yZAwgC9lHJiO+pvMERIDMdYvFDVtMuuQ+hJFvG4dQAgi1EdtSXsV/KOn4+e26runDR0gDy0er0P8nWdJj7rEjuNHBVgfGdR8Gf1JeZvGGJXvLKqqYnwT5KUrTv8557I2Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
- dkim=pass header.d=vivo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9HkL07nbHLh/ZLx5GiSjvSPMLEM3aqX9HEPbzlbr/Eo=;
- b=lJDaj1aq7IvpATnWhhu7KuyfA81qEPPmcu7usCBfy/QISkcNsJgpHYdF+HMXY6YkD2jDpiMt9bWiW/MfxVOUfRR4HnmpgqZplmEPBdGFGND3l8ZBASxbUj4ZWRLLZ9CeWduEYi9UyAiWVBx2AeHuFs4Pzgvbv4eHfhTjUj9Wt+4Kqc9yVBVi0BgFohcqdSRzFmVuJ6hhqgwFTDd0MhgEJGeSHEIbLPE+Lhh2rgCLVuRbIrf7TQXyRKPFxE5cMv+URuZy7OAEIgFgAoih4+MgA7MtCFC8bKv6LQLeJeJTDUWxZ1GxM8DOHS/UWsD3NpazYLLk0V5M2gzTdQ9wgJXltw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vivo.com;
-Received: from SG2PR06MB5288.apcprd06.prod.outlook.com (2603:1096:4:1dc::9) by
- TY0PR06MB5659.apcprd06.prod.outlook.com (2603:1096:400:275::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6544.24; Tue, 4 Jul
- 2023 08:57:04 +0000
-Received: from SG2PR06MB5288.apcprd06.prod.outlook.com
- ([fe80::c2b:41ab:3b14:f920]) by SG2PR06MB5288.apcprd06.prod.outlook.com
- ([fe80::c2b:41ab:3b14:f920%6]) with mapi id 15.20.6544.024; Tue, 4 Jul 2023
- 08:57:04 +0000
-From: Minjie Du <duminjie@vivo.com>
-To: John Johansen <john.johansen@canonical.com>,
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- "Serge E. Hallyn" <serge@hallyn.com>, Nick Terrell <terrelln@fb.com>,
- apparmor@lists.ubuntu.com (moderated list:APPARMOR SECURITY MODULE),
- linux-security-module@vger.kernel.org (open list:SECURITY SUBSYSTEM),
- linux-kernel@vger.kernel.org (open list)
-Date: Tue,  4 Jul 2023 16:56:52 +0800
-Message-Id: <20230704085653.6443-1-duminjie@vivo.com>
-X-Mailer: git-send-email 2.39.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: TYAPR01CA0232.jpnprd01.prod.outlook.com
- (2603:1096:404:11e::28) To SG2PR06MB5288.apcprd06.prod.outlook.com
- (2603:1096:4:1dc::9)
+ (envelope-from <Markus.Elfring@web.de>) id 1qH2b7-0005HR-7P
+ for apparmor@lists.ubuntu.com; Wed, 05 Jul 2023 13:31:09 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de;
+ s=s29768273; t=1688563852; x=1689168652; i=markus.elfring@web.de;
+ bh=MziP2Be8BXAKxWI5q4yqEdKLvSF1Natsy5Ae96oLbiY=;
+ h=X-UI-Sender-Class:Date:To:Cc:References:Subject:From:In-Reply-To;
+ b=Yurnt1LUUeonCi4LOJr93x/uuki5Kz6PWhRbQyQhDeppbIzDD0+FqwnIlVfCClrLyb8oSQy
+ DHXIVdF9xDI3DlVvdFITy0X7g2BVHw5T5zLhbM49NYfcirJoRXlrIx66BILipBydUBrR8Ltrk
+ BVRdU9gOIxheYdSeDrZhHAsz1aHvDdqK1qWEuUqMIV1FHq5w/zjhxmzr49ErMlZepmTVoB4kR
+ JZfrKPPMn8QYgzI0ZS5+0yxtnzVM7D003XYe6d+fBmpVT5Q1imtG8SPvU1MkXJHU/CsGLDGVU
+ pLZGgRBpLXT/8yTMvvLYdK4g2RNFbRw2cQEYPe7WgPE9O7dxaa8A==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from [192.168.178.21] ([94.31.90.83]) by smtp.web.de (mrweb105
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1Melf5-1pgbub1C9l-00aNfX; Wed, 05
+ Jul 2023 15:30:52 +0200
+Message-ID: <6fa65acb-9750-3ea0-25a0-7e40d57c4613@web.de>
+Date: Wed, 5 Jul 2023 15:30:50 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG2PR06MB5288:EE_|TY0PR06MB5659:EE_
-X-MS-Office365-Filtering-Correlation-Id: 22f29be2-58d9-4417-89f4-08db7c6ca33e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: UENz/a+qqtGbTEc0Sb00NJbDl+/CEO8Wy4UIjgqvWmnfuU6oaUR7y61/u7r7rFkS+xQAJq4u2+WSg3J5FNmZvt4pTssjI2WBHKz6yb9uC4hfe/4B/TKzIIXllAfCg05CPNCGO1GBqexrx7LWAzwVF7wqL7w84tdGqCjC/HqxbKzVEz2yBvPKKwVi5ZIgAgglGjwArIdPKVehM2TaArtC75ngwY+TyW+UM5iFQBWcG8d+83GwH3E0somKkhNwdkWz8wJVNXbneSHPRhzVWhpopVZY5qUCN+F9c4FqKIv3JAjBVg+BHswPCQIekmzbMORsvkkc6lMAt/9PnF1L1G098Mbb59NhEJfXV6IQCxtfxiN+U1M+2lp+05gtSdmqKUPnd1eijknMgUkMEhvrLo353c21il1PBKe2Am2Ryv1iSiuy1eaFdDhts6UABDyUJGBpGUDXahMkGIQHXnGyMieBQf3MFkxVRIYWBkC0Igngn1USu4jRSfF68MAq/ooHltrUG4WpMasfaP45RBdjyFCPRK1zVI8qXZnFvdQMDGlZRv7+7RjsiAkOSKCG68eZgzGYGGjkiBZ0YJbPnm0RVa+ys8sHl0yDVO82RImx58As69XEA1W09CDGjVRXo0OGkuZ2
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SG2PR06MB5288.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(366004)(396003)(136003)(39860400002)(346002)(376002)(451199021)(4744005)(2906002)(41300700001)(8936002)(8676002)(15650500001)(36756003)(5660300002)(86362001)(186003)(2616005)(478600001)(107886003)(26005)(6506007)(6512007)(1076003)(6666004)(6486002)(52116002)(316002)(66556008)(4326008)(66946007)(38100700002)(38350700002)(66476007)(110136005)(83380400001);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?lPw3P8W5b0cEfX5JGVOyhklwi2JZyWZf2y2vRQCPTOAlZJzkwCepPlN7bCz8?=
- =?us-ascii?Q?SfHM6TbHn/TVvencelG3+Dsk+LHr3UYa27ODaNIyODhZu26FYPZ8mm5KFHKZ?=
- =?us-ascii?Q?bVPDT0Y9+Wr5b8FwhRbMOdBB8VBquTopj6C6guPL5jwzyp5gtxvV6kSqM/RW?=
- =?us-ascii?Q?czEjed0AMFBVJuw416jSP5yjqKAE+uCOj8r0+xzNGGtzzmv8gKxJAFyp3KJt?=
- =?us-ascii?Q?c+L6CbEmaJ6ppGwq1xpgzvedUm0BtQbQEqtv+nCMaTmLWVuZrubZeKDZfWDm?=
- =?us-ascii?Q?MUktuPQ4qk8lbHHWs0zzrxebyJhNQgXJyhntxtyCNGjuTi9G4M5BdIsG8MCI?=
- =?us-ascii?Q?ghtsO2ThDEejiVnhnZyZF47C4bvEaHusCmg0TrxLFlwrzKZf5PwVpHSQ3nzM?=
- =?us-ascii?Q?iVFOO7hfyqxmwE4xyLGq0o3AG5Xv454CcXDJjouU6z36hYBlnleH+BTjveAc?=
- =?us-ascii?Q?y+DbbyeoapNwEYrx/rYmM7gzd/hheeKug6b+sGFFyGDIWi5irpeLZp6QT7Mr?=
- =?us-ascii?Q?+e4mFbqxNHEfzilu1Z0K5YGDXB5n6l5HvKDPuEY5l5GF6K2UPpiwh4S4JSEI?=
- =?us-ascii?Q?pQZ+OGmwP2xsDGIogsz6WeZvQxAbDaDwD+apsvhQuVN6NdWMEcidT9y4vNR6?=
- =?us-ascii?Q?hfFyxJ4PAn60b7yQHiytGqU5IjV9ZnOZ7yEyhI59dgfqkfZmg3RFKXWFQaEq?=
- =?us-ascii?Q?H6hXyHhvA2kC2RDRFwJVnk3zHzgHwpWOJ+XFE0U5SR9/syav3VmRp3zQe+5o?=
- =?us-ascii?Q?H0Ul+El92Ee2b64hOboS4e4SM1fWyYNZKpi4LkWeVpupGgt4Iup4h9wgKOsr?=
- =?us-ascii?Q?ZF0SiqVvUXfHBFDwVMqEOpr+iyBGgOjYOq/4UfWJZyOvnmGdm3vA50RPBgzX?=
- =?us-ascii?Q?/+3xe+w3AnREZooFyO6evcpZJM0Du56gyq1NZMF1R4fGLvmGnhfDW2LR/fiG?=
- =?us-ascii?Q?PxpZnnuX1h55qZnorhWARMP931YIJByrRmND2VrINTCIyVeHnnZOGcusXZrD?=
- =?us-ascii?Q?4fyxTfwxfcREBWZ1VuZSCNq9UX89hgLke1X+YhgyJ0vxRyNUMLDl/Xe51DDY?=
- =?us-ascii?Q?QHpDz/FaX8xNSyVrhQzyhZq3A7yqtI1bcFbyKeW00Ww+54WUpxFlm1QNC62B?=
- =?us-ascii?Q?VCwfRzYFEsSPMqAjj/NTILRMuAj0d+KDIlGQxCb6Gnp1DCF4891fKByx+vzv?=
- =?us-ascii?Q?+2l/TOF33vQFl3rk3bLCLWnNp4sPdy8VSxNUBSYMEgZ6sE1gGs1eMlqSmhD1?=
- =?us-ascii?Q?I4I1jVZeXUEsuVP+BScWs4M6HkFEteSJ1y5pbb9vH6dQpGm2NnpMZY5C/xz7?=
- =?us-ascii?Q?MWCh7+++9nudqwCIruulX0+EjiLmYUk8uW4kUJJvxW25JKKTeYq92zxL7lOA?=
- =?us-ascii?Q?vGC+XiH737EInscV+XLAA7x66EDGICZvVKvnQO6pMEpWnY+cVCpVBJlmoHkP?=
- =?us-ascii?Q?HVDPqjB2SowGis8tTL2aNHweVo18/09me8aeKKd7s5Q1DR6aWQAPTsrlgvZg?=
- =?us-ascii?Q?9Xp4+Oo8v4nLcyzpkd7OI30D+VS1yejKBFCqkGCZkC/XhZy0nWjo1/EbRzTd?=
- =?us-ascii?Q?kGzWJozP6KqYXxkc6fEOSQL0yKSqTDxe2s/+X2JN?=
-X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 22f29be2-58d9-4417-89f4-08db7c6ca33e
-X-MS-Exchange-CrossTenant-AuthSource: SG2PR06MB5288.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jul 2023 08:57:04.2521 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gy7Yzvx3acGXjV+7qcWAYyCof9JUM2x371XbejwM92+fR+u8BGpPP4rF7KZRUpfB4ZW7TwUNcb3SwGC4wW/cPg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY0PR06MB5659
-X-Mailman-Approved-At: Wed, 05 Jul 2023 11:31:09 +0000
-Subject: [apparmor] [PATCH v1] security: remove duplicate logical judgments
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+To: Minjie Du <duminjie@vivo.com>, apparmor@lists.ubuntu.com,
+ linux-security-module@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ James Morris <jmorris@namei.org>, John Johansen
+ <john.johansen@canonical.com>, Nick Terrell <terrelln@fb.com>,
+ Paul Moore <paul@paul-moore.com>, "Serge E. Hallyn" <serge@hallyn.com>
+References: <20230704085653.6443-1-duminjie@vivo.com>
+Content-Language: en-GB
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20230704085653.6443-1-duminjie@vivo.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:8cH6GWzJTHyE0qModiviboRgQT2ubd36z0Zums58o2xsReWXwnP
+ cS0drvGQro1spQs0SLV7q26/eWggNoRpAHKUiPPFsfXl9c/+J6Sb6+Aq9mXovSI73oaS499
+ wsfjQWMTBjogovJKyqF+kkk1jPbOpWPXoXpFEYQjLdpO3FpLvuZf5T3uDggk+35m1ZNaKx/
+ 8DrevANv6BaORbAruQ6Sw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:cYFXSa8egCc=;hKZomew+m7o/5G/+Qs966AbGO09
+ XhVm9gnHRguN9h+fyzv/dfeZHgsqyqvyaGnI2BaGM06fEeiUT597HQg2lOuWWK8hhvVy+7c+e
+ KNew35Em9tGTfTXep7CcN4NqGfZNlR0Tq1f/uASmWIJbMOcmyjfFu1TTFGoGa+nqcbApMZeT5
+ bhJcznI9lH4dG0C5TEh2vkMBRZWPKwEpXOAQLtev+ElpSsxKu0HCodb/BLPZn274hJe4rWiVE
+ w5q9g0+aVF94JJzqWXnQaRcp/lNutrEYBj6XrwZwDG2t1tXT98xEo1Nfo4uUx02xPmiHLmmhG
+ NeyNH+V7OwKChOIyejRFQeBfsvjUPbdU3a3GQLBH2YqQgdrYGs9bFGplY8LywgXBv9MeDU6im
+ 5YB4i6AlxL+PlQGdkq+ugu1RYNhof8bs61PR3e6y/0yMJq1VnPAUW/i0HaBmbr9Z2nyUxwGNM
+ WpkhOwtgtWARMgRW5bwO9t+kMUUcM7kk1610bSqNtU3s7Oef4yAhnZppEbUn4FAOFQOfMr+33
+ Ol9OiGFDNZ7ySZj2BL9GuK9loUyXVkwdjp3AL2jGoFJSNIEXGtrGtQFOuTUsUknRwRydUhx/S
+ N/FmyQ34U296ShvSicpxwLfdqHJQHXxClTEXteSQPWY30iEAUbu1uRiC+sivAUq1cczvJzifI
+ zEkVmqZzITdsogVoJ3xrcK4w9NpxXr1mge0kcHdzsjongNw/lmHjDzBwjdoBUrvEvwaDt3sbW
+ P0FA8u2vP/Q3o+dwO4RMDKwuiwaAIk4GWl7ad4kz80JwHKZDvUWVjSpdvep8iJXwKdSB+eEuK
+ 88HcPv8Bo/pWE10Xl9E1nV6p1VSMPMWmZ564Roh08AcNgfkhdUzMXDFWVc/bleQbz6CRdTrRp
+ 8KJW3fGjv5YNU3mEZ1LH7lG2ik+V068p7sIQqTXax/z130ilqWKMvmPCby0GGi0+RxU9TowvW
+ +XnxcA==
+Subject: Re: [apparmor] [PATCH] security: remove duplicate logical judgments
 	in return
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -118,32 +75,30 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: opensource.kernel@vivo.com, Minjie Du <duminjie@vivo.com>
+Cc: opensource.kernel@vivo.com, LKML <linux-kernel@vger.kernel.org>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Fix: delate duplicate logical judgments:
-aa_unpack_u32(e, &perm->allow, NULL);
-Please check this. Thank you!
+Would a subject like =E2=80=9C[PATCH v2] apparmor: Simplify a return state=
+ment in unpack_perm()=E2=80=9D
+be more appropriate?
 
-Signed-off-by: Minjie Du <duminjie@vivo.com>
----
- security/apparmor/policy_unpack.c | 1 -
- 1 file changed, 1 deletion(-)
 
-diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
-index 694fb7a09..2069adf0a 100644
---- a/security/apparmor/policy_unpack.c
-+++ b/security/apparmor/policy_unpack.c
-@@ -646,7 +646,6 @@ static bool unpack_perm(struct aa_ext *e, u32 version, struct aa_perms *perm)
- 		return false;
- 
- 	return	aa_unpack_u32(e, &perm->allow, NULL) &&
--		aa_unpack_u32(e, &perm->allow, NULL) &&
- 		aa_unpack_u32(e, &perm->deny, NULL) &&
- 		aa_unpack_u32(e, &perm->subtree, NULL) &&
- 		aa_unpack_u32(e, &perm->cond, NULL) &&
--- 
-2.39.0
+> Fix: delate duplicate logical judgments:
+> aa_unpack_u32(e, &perm->allow, NULL);
 
+Would the following wording be a bit nicer?
+
+
+A conjunction was used with two identical subexpressions.
+Thus reduce such an expression to a required computation
+in this function implementation.
+
+
+> Please check this. Thank you!
+
+Such information does usually not belong to a change description.
+
+Regards,
+Markus
 
