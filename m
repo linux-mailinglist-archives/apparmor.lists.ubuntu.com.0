@@ -2,67 +2,52 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9435A74A2F3
-	for <lists+apparmor@lfdr.de>; Thu,  6 Jul 2023 19:15:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEC4374A5EA
+	for <lists+apparmor@lfdr.de>; Thu,  6 Jul 2023 23:32:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qHSZV-0003i5-4y; Thu, 06 Jul 2023 17:15:13 +0000
-Received: from smtp-relay-services-0.internal ([10.131.114.58]
- helo=smtp-relay-services-0.canonical.com)
+	id 1qHWaG-0005kD-MS; Thu, 06 Jul 2023 21:32:16 +0000
+Received: from dfw.source.kernel.org ([139.178.84.217])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <noreply@launchpad.net>) id 1qHSZS-0003hy-FB
- for apparmor@lists.ubuntu.com; Thu, 06 Jul 2023 17:15:10 +0000
-Received: from scripts-1.lp.internal (scripts.lp.internal [10.131.66.196])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (envelope-from <jlayton@kernel.org>) id 1qHRdY-0000XY-C3
+ for apparmor@lists.ubuntu.com; Thu, 06 Jul 2023 16:15:20 +0000
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by smtp-relay-services-0.canonical.com (Postfix) with ESMTPSA id 1A2663F481
- for <apparmor@lists.ubuntu.com>; Thu,  6 Jul 2023 17:15:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=launchpad.net;
- s=20210803; t=1688663710;
- bh=T2WoQlrZo9M5qlSSjtZzbJHf9xDSCcBs0Emxd94iWY0=;
- h=MIME-Version:Content-Type:Date:From:To:Reply-To:References:
- Message-Id:Subject;
- b=FHa/WZ2nH7A2T/ZWoDLPxIUfUT8JHaoPUTz/OF7s2sE2dfhGjVfvLCdGpabqXkgNQ
- CSRa7+Hw7p0FYA/JYW/7+YO6HkcdyqOUFwO51WlS/VPAIaiX+4BclHbjqfmihE0x1u
- k1lXE1gC7xwOLmitZhNRhnz2ELtEf1YVtfcc1pIwoUcuKkAHaN7B/2i1ofQIS56vOi
- /5kzVezpILexkNE9URnv7OVelt46L8WtnffYRiR2vyedAqiwJEusD1zoz3uyT7lwzk
- URVuoEEw+F9iH6kKqeNMCI0SoXAwu9N/flYP4ytg+YJz2poZUmDrQfYOZWL9h4gjWP
- ++MclJYmr2cAQ==
-Received: from
- juju-4112d9-prod-launchpad-manual-servers-36.openstack.prodstack5.lan
- (localhost [127.0.0.1])
- by scripts-1.lp.internal (Postfix) with ESMTP id 06E4A404AD
- for <apparmor@lists.ubuntu.com>; Thu,  6 Jul 2023 17:15:10 +0000 (UTC)
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+ by dfw.source.kernel.org (Postfix) with ESMTPS id F322860EEE;
+ Thu,  6 Jul 2023 16:15:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AD63C433C7;
+ Thu,  6 Jul 2023 16:15:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1688660118;
+ bh=r5Eqjb/koo4X65bgDBYxDesIkgsRAdhnfATQ4gt2Esk=;
+ h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+ b=uOgU9evq5o16T6L6tpJH1n8YSQl4p50BjR5wiJPLoKkMzHgO7DWjFII6ePLp5KpdE
+ 3SlBOVBQ0Ayb1Ck5njyhQkfK/lBmsjOnzq7A/dE1stN3VqJX7pH6IQsgFKtN1DalJo
+ E+zh6oq4S0OPw7rIh8zXpFwi+8/fexgoqLXDvhFUUOG0TWnPj5LM1mmg7dIC7PaCB3
+ IOEyQDVn/tGwcs+s3mZaJELn1kEqbOemjyG66rmihhs9u/EaGnd4WvmH/942idbgOQ
+ fgiPtHR0C+lrv0o8CzKEzOTX/CaJMpmdnCKaL0ZpaSmvJsFgbp9PEliTkXRbGZddzd
+ Fm4yxVau37qTQ==
+Message-ID: <3948ae7653d1cb7c51febcca26a35775e71a53b4.camel@kernel.org>
+From: Jeff Layton <jlayton@kernel.org>
+To: "Eric W. Biederman" <ebiederm@xmission.com>
+Date: Thu, 06 Jul 2023 12:14:58 -0400
+In-Reply-To: <87ilaxgjek.fsf@email.froward.int.ebiederm.org>
+References: <20230705185812.579118-1-jlayton@kernel.org>
+ <a4e6cfec345487fc9ac8ab814a817c79a61b123a.camel@kernel.org>
+ <87ilaxgjek.fsf@email.froward.int.ebiederm.org>
+Content-Type: text/plain; charset="ISO-8859-15"
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Jul 2023 17:07:04 -0000
-From: Ondrej Kubik <2025030@bugs.launchpad.net>
-To: apparmor@lists.ubuntu.com
-X-Launchpad-Notification-Type: bug
-X-Launchpad-Bug: product=snapd; status=In Progress; importance=Undecided;
- assignee=None; 
-X-Launchpad-Bug-Information-Type: Public
-X-Launchpad-Bug-Private: no
-X-Launchpad-Bug-Security-Vulnerability: no
-X-Launchpad-Bug-Commenters: alexmurray jjohansen mvo ondrak the-meulengracht
-X-Launchpad-Bug-Reporter: Michael Vogt (mvo)
-X-Launchpad-Bug-Modifier: Ondrej Kubik (ondrak)
-References: <168776916667.3467192.8196122685826530923.malonedeb@juju-98d295-prod-launchpad-7>
- <168844060626.2114408.6280408965707597775.malone@juju-98d295-prod-launchpad-7>
-Message-Id: <CAM+TqApEhHyK1MY4rXL7majkgBV1wQV7MkmQsjueWjS_bRpfdw@mail.gmail.com>
-X-Launchpad-Message-Rationale: Subscriber @apparmor-dev
-X-Launchpad-Message-For: apparmor-dev
-Precedence: bulk
-X-Generated-By: Launchpad (canonical.com);
- Revision="beda0e9dd2b131780db60fe479d4b43618b27243"; Instance="production"
-X-Launchpad-Hash: d9881c67652b050f66489f0edc223b155b9b0d15
-Subject: Re: [apparmor] [Bug 2025030] Re: apparmor_parser -O
-	no-expr-simplify problematic
+User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
+MIME-Version: 1.0
+X-Mailman-Approved-At: Thu, 06 Jul 2023 21:32:15 +0000
+Subject: Re: [apparmor] [PATCH v2 00/89] fs: new accessors for inode->i_ctime
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
+Precedence: list
 List-Id: AppArmor discussion <apparmor.lists.ubuntu.com>
 List-Unsubscribe: <https://lists.ubuntu.com/mailman/options/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=unsubscribe>
@@ -71,128 +56,156 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Reply-To: Bug 2025030 <2025030@bugs.launchpad.net>
+Cc: lucho@ionkov.net, rafael@kernel.org, djwong@kernel.org, al@alarsen.net,
+ cmllamas@google.com, andrii@kernel.org, hughd@google.com,
+ agordeev@linux.ibm.com, hch@lst.de, hubcap@omnibond.com, pc@manguebit.com,
+ linux-xfs@vger.kernel.org, bvanassche@acm.org, jeffxu@chromium.org,
+ mpe@ellerman.id.au, john@keeping.me.uk, yi.zhang@huawei.com, jmorris@namei.org,
+ christophe.leroy@csgroup.eu, code@tyhicks.com, stern@rowland.harvard.edu,
+ borntraeger@linux.ibm.com, devel@lists.orangefs.org, mirimmad17@gmail.com,
+ sprasad@microsoft.com, jaharkes@cs.cmu.edu, linux-um@lists.infradead.org,
+ npiggin@gmail.com, viro@zeniv.linux.org.uk, ericvh@kernel.org,
+ surenb@google.com, trond.myklebust@hammerspace.com, anton@tuxera.com,
+ brauner@kernel.org, wsa+renesas@sang-engineering.com,
+ gregkh@linuxfoundation.org, stephen.smalley.work@gmail.com,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, lsahlber@redhat.com,
+ senozhatsky@chromium.org, arve@android.com, chuck.lever@oracle.com,
+ svens@linux.ibm.com, jolsa@kernel.org, jack@suse.com, tj@kernel.org,
+ akpm@linux-foundation.org, linux-trace-kernel@vger.kernel.org,
+ xu.xin16@zte.com.cn, shaggy@kernel.org, dhavale@google.com,
+ penguin-kernel@I-love.SAKURA.ne.jp, zohar@linux.ibm.com, linux-mm@kvack.org,
+ joel@joelfernandes.org, edumazet@google.com, sdf@google.com, jomajm@gmail.com,
+ linux-s390@vger.kernel.org, linux-nilfs@vger.kernel.org, paul@paul-moore.com,
+ leon@kernel.org, john.fastabend@gmail.com, mcgrof@kernel.org,
+ chi.minghao@zte.com.cn, codalist@coda.cs.cmu.edu, selinux@vger.kernel.org,
+ zhangpeng362@huawei.com, quic_ugoswami@quicinc.com, yhs@fb.com,
+ yzaikin@google.com, linkinjeon@kernel.org, mhiramat@kernel.org,
+ ecryptfs@vger.kernel.org, tkjos@android.com, madkar@cs.stonybrook.edu,
+ gor@linux.ibm.com, yuzhe@nfschina.com, linuxppc-dev@lists.ozlabs.org,
+ reiserfs-devel@vger.kernel.org, miklos@szeredi.hu, huyue2@coolpad.com,
+ jaegeuk@kernel.org, gargaditya08@live.com, maco@android.com,
+ hirofumi@mail.parknet.co.jp, haoluo@google.com, tony.luck@intel.com,
+ tytso@mit.edu, nico@fluxnic.net, linux-ntfs-dev@lists.sourceforge.net,
+ muchun.song@linux.dev, roberto.sassu@huawei.com,
+ linux-f2fs-devel@lists.sourceforge.net, yang.yang29@zte.com.cn,
+ gpiccoli@igalia.com, anna@kernel.org, quic_uaggarwa@quicinc.com,
+ bwarrum@linux.ibm.com, mike.kravetz@oracle.com, jingyuwang_vip@163.com,
+ linux-efi@vger.kernel.org, error27@gmail.com, martin@omnibond.com,
+ trix@redhat.com, ocfs2-devel@lists.linux.dev, ast@kernel.org,
+ sebastian.reichel@collabora.com, clm@fb.com, linux-mtd@lists.infradead.org,
+ willy@infradead.org, marc.dionne@auristor.com, linux-afs@lists.infradead.org,
+ raven@themaw.net, naohiro.aota@wdc.com, daniel@iogearbox.net,
+ dennis.dalessandro@cornelisnetworks.com, linux-rdma@vger.kernel.org,
+ quic_linyyuan@quicinc.com, coda@cs.cmu.edu, slava@dubeyko.com,
+ idryomov@gmail.com, pabeni@redhat.com, adobriyan@gmail.com, serge@hallyn.com,
+ chengzhihao1@huawei.com, axboe@kernel.dk, amir73il@gmail.com,
+ linuszeng@tencent.com, keescook@chromium.org, arnd@arndb.de,
+ autofs@vger.kernel.org, rostedt@goodmis.org, yifeliu@cs.stonybrook.edu,
+ dlemoal@kernel.org, eparis@parisplace.org, ceph-devel@vger.kernel.org,
+ xiang@kernel.org, yijiangshan@kylinos.cn, dhowells@redhat.com,
+ linux-nfs@vger.kernel.org, linux-ext4@vger.kernel.org, kolga@netapp.com,
+ song@kernel.org, samba-technical@lists.samba.org, sfrench@samba.org,
+ jk@ozlabs.org, netdev@vger.kernel.org, rpeterso@redhat.com,
+ linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org, ntfs3@lists.linux.dev,
+ linux-erofs@lists.ozlabs.org, davem@davemloft.net,
+ jfs-discussion@lists.sourceforge.net, princekumarmaurya06@gmail.com,
+ ebiggers@google.com, neilb@suse.de, asmadeus@codewreck.org,
+ linux_oss@crudebyte.com, me@bobcopeland.com, kpsingh@kernel.org,
+ okanatov@gmail.com, almaz.alexandrovich@paragon-software.com,
+ joseph.qi@linux.alibaba.com, hayama@lineo.co.jp, adilger.kernel@dilger.ca,
+ mikulas@artax.karlin.mff.cuni.cz, shaozhengchao@huawei.com,
+ chenzhongjin@huawei.com, ardb@kernel.org, anton.ivanov@cambridgegreys.com,
+ agruenba@redhat.com, richard@nod.at, mark@fasheh.com, shr@devkernel.io,
+ Dai.Ngo@oracle.com, cluster-devel@redhat.com, jgg@ziepe.ca, kuba@kernel.org,
+ riel@surriel.com, salah.triki@gmail.com, dushistov@mail.ru,
+ linux-cifs@vger.kernel.org, hca@linux.ibm.com, chao@kernel.org,
+ apparmor@lists.ubuntu.com, josef@toxicpanda.com, Liam.Howlett@Oracle.com,
+ tom@talpey.com, hdegoede@redhat.com, linux-hardening@vger.kernel.org,
+ aivazian.tigran@gmail.com, dchinner@redhat.com, dsterba@suse.com,
+ xiubli@redhat.com, konishi.ryusuke@gmail.com, jgross@suse.com, jth@kernel.org,
+ rituagar@linux.ibm.com, luisbg@kernel.org, martin.lau@linux.dev,
+ v9fs@lists.linux.dev, fmdefrancesco@gmail.com, linux-unionfs@vger.kernel.org,
+ lrh2000@pku.edu.cn, linux-security-module@vger.kernel.org,
+ ezk@cs.stonybrook.edu, jefflexu@linux.alibaba.com, linux@treblig.org,
+ hannes@cmpxchg.org, phillip@squashfs.org.uk, johannes@sipsolutions.net,
+ sj1557.seo@samsung.com, dwmw2@infradead.org,
+ linux-karma-devel@lists.sourceforge.net, linux-btrfs@vger.kernel.org,
+ jlbec@evilplan.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-@Alex Murray <alex.murray@canonical.com>  github action is good idea to
-optimise on the interface level and PR I open is trying to do that (though
-I have done it manually)
-But this has limitation as this optimisation can be done only per interface.
-Preprocessing the full profile has the potential to optimise
-cross-interfaces when multiple interfaces could define the same expression.
-But one can argue that apparmor_parser should have this as the first step
-before even parsing the profile, dummy dedupe and simplification of the
-profile before building the tree.
-it seems a lot cheaper as pre-processing step
+On Thu, 2023-07-06 at 10:16 -0500, Eric W. Biederman wrote:
+> Jeff Layton <jlayton@kernel.org> writes:
+>=20
+> > On Wed, 2023-07-05 at 14:58 -0400, Jeff Layton wrote:
+> > > v2:
+> > > - prepend patches to add missing ctime updates
+> > > - add simple_rename_timestamp helper function
+> > > - rename ctime accessor functions as inode_get_ctime/inode_set_ctime_=
+*
+> > > - drop individual inode_ctime_set_{sec,nsec} helpers
+> > >=20
+> > > I've been working on a patchset to change how the inode->i_ctime is
+> > > accessed in order to give us conditional, high-res timestamps for the
+> > > ctime and mtime. struct timespec64 has unused bits in it that we can =
+use
+> > > to implement this. In order to do that however, we need to wrap all
+> > > accesses of inode->i_ctime to ensure that bits used as flags are
+> > > appropriately handled.
+> > >=20
+> > > The patchset starts with reposts of some missing ctime updates that I
+> > > spotted in the tree. It then adds a new helper function for updating =
+the
+> > > timestamp after a successful rename, and new ctime accessor
+> > > infrastructure.
+> > >=20
+> > > The bulk of the patchset is individual conversions of different
+> > > subsysteme to use the new infrastructure. Finally, the patchset renam=
+es
+> > > the i_ctime field to __i_ctime to help ensure that I didn't miss
+> > > anything.
+> > >=20
+> > > This should apply cleanly to linux-next as of this morning.
+> > >=20
+> > > Most of this conversion was done via 5 different coccinelle scripts, =
+run
+> > > in succession, with a large swath of by-hand conversions to clean up =
+the
+> > > remainder.
+> > >=20
+> >=20
+> > A couple of other things I should note:
+> >=20
+> > If you sent me an Acked-by or Reviewed-by in the previous set, then I
+> > tried to keep it on the patch here, since the respun patches are mostly
+> > just renaming stuff from v1. Let me know if I've missed any.
+> >=20
+> > I've also pushed the pile to my tree as this tag:
+> >=20
+> >     https://git.kernel.org/pub/scm/linux/kernel/git/jlayton/linux.git/t=
+ag/?h=3Dctime.20230705
+> >=20
+> > In case that's easier to work with.
+>=20
+> Are there any preliminary patches showing what you want your introduced
+> accessors to turn into?  It is hard to judge the sanity of the
+> introduction of wrappers without seeing what the wrappers are ultimately
+> going to do.
+>=20
+> Eric
 
+I have a draft version of the multigrain patches on top of the wrapper
+conversion I've already posted in my "mgctime-experimental" branch:
 
-On Tue, 4 Jul 2023 at 04:25, John Johansen <2025030@bugs.launchpad.net>
-wrote:
+    https://git.kernel.org/pub/scm/linux/kernel/git/jlayton/linux.git/log/?=
+h=3Dmgctime-experimental
 
-> so I think this is largely because the apparmor version snap is using is
-> not running rule deduplication on mount rules.
->
-> --
-> You received this bug notification because you are subscribed to the bug
-> report.
-> https://bugs.launchpad.net/bugs/2025030
->
-> Title:
->   apparmor_parser -O no-expr-simplify problematic
->
-> Status in snapd:
->   In Progress
->
-> Bug description:
->   There was a recent issue with a core refresh that caused breakage.
->   Upon further investigation it turns out that the apparmor_parser uses
->   an substantial of memory.
->
->   Upon some more investigation it turns out that that -O no-expr-
->   simplify makes both time to compile and memory usage increase 10x.
->   Tested with 22.04 but I see the same ballpark results with 16.04:
->
->   $ /usr/bin/time --verbose apparmor_parser -S
-> 2.59/profiles/snap.screenly-client.command-executor > /dev/null
->       Command being timed: "apparmor_parser -S
-> 2.59/profiles/snap.screenly-client.command-executor"
->       User time (seconds): 4.32
->       Maximum resident set size (kbytes): 117392
->
->   $ /usr/bin/time --verbose apparmor_parser  -O no-expr-simplify -S
-> 2.59/profiles/snap.screenly-client.command-executor > /dev/null
->       Command being timed: "apparmor_parser -O no-expr-simplify -S
-> 2.59/profiles/snap.screenly-client.command-executor"
->       User time (seconds): 40.64
->       Maximum resident set size (kbytes): 1015816
->
->   Profile is attached.
->
->
->   It seems like we seriously need to consider dropping "-O
-> no-expr-simplify".
->
->   For context:
->   https://bugs.launchpad.net/ubuntu-rtm/+source/apparmor/+bug/1383858
->   is why it was added in the first place
->
->   And some recent work to make things faster:
->   https://gitlab.com/apparmor/apparmor/-/merge_requests/711
->
-> To manage notifications about this bug go to:
-> https://bugs.launchpad.net/snapd/+bug/2025030/+subscriptions
->
->
+The rationale is best explained in this changelog:
 
+    https://git.kernel.org/pub/scm/linux/kernel/git/jlayton/linux.git/commi=
+t/?h=3Dmgctime-experimental&id=3Dface437a144d3375afb7f70c233b0644b4edccba
+
+The idea will be to enable this on a per-fs basis.
 --=20
-You received this bug notification because you are a member of AppArmor
-Developers, which is subscribed to the bug report.
-https://bugs.launchpad.net/bugs/2025030
-
-Title:
-  apparmor_parser -O no-expr-simplify problematic
-
-Status in snapd:
-  In Progress
-
-Bug description:
-  There was a recent issue with a core refresh that caused breakage.
-  Upon further investigation it turns out that the apparmor_parser uses
-  an substantial of memory.
-
-  Upon some more investigation it turns out that that -O no-expr-
-  simplify makes both time to compile and memory usage increase 10x.
-  Tested with 22.04 but I see the same ballpark results with 16.04:
-
-  $ /usr/bin/time --verbose apparmor_parser -S 2.59/profiles/snap.screenly-=
-client.command-executor > /dev/null
-      Command being timed: "apparmor_parser -S 2.59/profiles/snap.screenly-=
-client.command-executor"
-      User time (seconds): 4.32
-      Maximum resident set size (kbytes): 117392
-
-  $ /usr/bin/time --verbose apparmor_parser  -O no-expr-simplify -S 2.59/pr=
-ofiles/snap.screenly-client.command-executor > /dev/null
-      Command being timed: "apparmor_parser -O no-expr-simplify -S 2.59/pro=
-files/snap.screenly-client.command-executor"
-      User time (seconds): 40.64
-      Maximum resident set size (kbytes): 1015816
-
-  Profile is attached.
-
- =20
-  It seems like we seriously need to consider dropping "-O no-expr-simplify=
-".=20
-
-  For context:
-  https://bugs.launchpad.net/ubuntu-rtm/+source/apparmor/+bug/1383858
-  is why it was added in the first place
-
-  And some recent work to make things faster:
-  https://gitlab.com/apparmor/apparmor/-/merge_requests/711
-
-To manage notifications about this bug go to:
-https://bugs.launchpad.net/snapd/+bug/2025030/+subscriptions
-
+Jeff Layton <jlayton@kernel.org>
 
