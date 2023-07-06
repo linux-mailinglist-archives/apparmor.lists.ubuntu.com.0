@@ -2,63 +2,63 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B15874A0CD
-	for <lists+apparmor@lfdr.de>; Thu,  6 Jul 2023 17:22:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BC2074A020
+	for <lists+apparmor@lfdr.de>; Thu,  6 Jul 2023 16:57:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qHQoT-0003q8-5T; Thu, 06 Jul 2023 15:22:33 +0000
+	id 1qHQPx-0001Ci-V4; Thu, 06 Jul 2023 14:57:13 +0000
 Received: from smtp-out2.suse.de ([195.135.220.29])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <jack@suse.cz>) id 1qHMCZ-0001DK-Kh
- for apparmor@lists.ubuntu.com; Thu, 06 Jul 2023 10:27:07 +0000
+ (envelope-from <jack@suse.cz>) id 1qHQPw-0001CK-4H
+ for apparmor@lists.ubuntu.com; Thu, 06 Jul 2023 14:57:12 +0000
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id D768F2027F;
- Thu,  6 Jul 2023 10:27:06 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id D95081F88F;
+ Thu,  6 Jul 2023 14:57:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1688639226; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1688655431; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=bA8lspzVCI0QkBBZSOZ2NaXyU+WIcRfNoOGE3kPhpJ0=;
- b=cwJXVYMxjabgJAc1WiPXwEoX0OTfi47rAf4OBX1TAQ+OGmO9dcjviKfq9JaMZbP2e77Zft
- ZFGj4L7K2Mk/xcezt5kjd+qP2pHojrW25RMENmZ0z2yxrjNTco/s31l/aUs5F51DaCvlcK
- y6kdxWpKryRTZKsAyjQoNnmkqAh2mzg=
+ bh=NJEM6bD3baXfKwVmrUUZvxYT3AKqRBG+HXOO4JRx2k0=;
+ b=P6Fui+t4vyteVR038WrkFSmdUkghFdvgIPL13ylpec9zRRxuuIdZPsch9fWFrjaLfj6c1/
+ gBTJXEe+iRDhXv/I3gZct5M/9bT9p9WJPtjPibW6hvnmzP3lZcUYxHgxm7sNHhXOiplhC1
+ MHhnN8DKKOJAreIorTawfZI6C8xHle4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1688639226;
+ s=susede2_ed25519; t=1688655431;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=bA8lspzVCI0QkBBZSOZ2NaXyU+WIcRfNoOGE3kPhpJ0=;
- b=NZCT2CDl1JUNY6ijIJLjHssrtsmLEPFUK3ppAhWe46d1TfukNG5xi7VbWtXEv0lhKCq/xt
- xNVG4YexDp28AbCA==
+ bh=NJEM6bD3baXfKwVmrUUZvxYT3AKqRBG+HXOO4JRx2k0=;
+ b=EHsWZw93r7MnEk131Nf6ZZrIx0Ar3jCQjLdBqNT4Dj/cgWVA7OZgiOLowuFnasJWAXWOOI
+ hlwMbfUTl9rlokCg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 94E18138FC;
- Thu,  6 Jul 2023 10:27:06 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C7232138FC;
+ Thu,  6 Jul 2023 14:57:11 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id EJEiJPqWpmTLdAAAMHmgww
- (envelope-from <jack@suse.cz>); Thu, 06 Jul 2023 10:27:06 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id KVWQMEfWpmTDBQAAMHmgww
+ (envelope-from <jack@suse.cz>); Thu, 06 Jul 2023 14:57:11 +0000
 Received: by quack3.suse.cz (Postfix, from userid 1000)
- id 1CB0FA0707; Thu,  6 Jul 2023 12:27:06 +0200 (CEST)
-Date: Thu, 6 Jul 2023 12:27:06 +0200
+ id 525C1A0707; Thu,  6 Jul 2023 16:57:11 +0200 (CEST)
+Date: Thu, 6 Jul 2023 16:57:11 +0200
 From: Jan Kara <jack@suse.cz>
 To: Jeff Layton <jlayton@kernel.org>
-Message-ID: <20230706102706.w7udmbmuwp7hhcry@quack3>
-References: <20230705185812.579118-1-jlayton@kernel.org>
- <20230705185812.579118-3-jlayton@kernel.org>
+Message-ID: <20230706145711.qq6lpczp5zjv7lva@quack3>
+References: <20230705185755.579053-1-jlayton@kernel.org>
+ <20230705190309.579783-1-jlayton@kernel.org>
+ <20230705190309.579783-87-jlayton@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230705185812.579118-3-jlayton@kernel.org>
-X-Mailman-Approved-At: Thu, 06 Jul 2023 15:22:31 +0000
-Subject: Re: [apparmor] [PATCH v2 08/92] fs: new helper:
-	simple_rename_timestamp
+In-Reply-To: <20230705190309.579783-87-jlayton@kernel.org>
+Subject: Re: [apparmor] [PATCH v2 89/92] apparmor: convert to ctime accessor
+	functions
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -70,183 +70,80 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: lucho@ionkov.net, rafael@kernel.org, djwong@kernel.org, al@alarsen.net,
- cmllamas@google.com, andrii@kernel.org, hughd@google.com,
- agordeev@linux.ibm.com, hch@lst.de, hubcap@omnibond.com, pc@manguebit.com,
- linux-xfs@vger.kernel.org, bvanassche@acm.org, jeffxu@chromium.org,
- mpe@ellerman.id.au, john@keeping.me.uk, yi.zhang@huawei.com, jmorris@namei.org,
- christophe.leroy@csgroup.eu, code@tyhicks.com, stern@rowland.harvard.edu,
- borntraeger@linux.ibm.com, devel@lists.orangefs.org, mirimmad17@gmail.com,
- sprasad@microsoft.com, jaharkes@cs.cmu.edu, linux-um@lists.infradead.org,
- npiggin@gmail.com, viro@zeniv.linux.org.uk, ericvh@kernel.org,
- surenb@google.com, trond.myklebust@hammerspace.com, anton@tuxera.com,
- brauner@kernel.org, wsa+renesas@sang-engineering.com,
- gregkh@linuxfoundation.org, stephen.smalley.work@gmail.com,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, lsahlber@redhat.com,
- senozhatsky@chromium.org, arve@android.com, chuck.lever@oracle.com,
- svens@linux.ibm.com, jolsa@kernel.org, jack@suse.com, tj@kernel.org,
- akpm@linux-foundation.org, linux-trace-kernel@vger.kernel.org,
- xu.xin16@zte.com.cn, shaggy@kernel.org, dhavale@google.com,
- penguin-kernel@I-love.SAKURA.ne.jp, zohar@linux.ibm.com, linux-mm@kvack.org,
- joel@joelfernandes.org, edumazet@google.com, sdf@google.com, jomajm@gmail.com,
- linux-s390@vger.kernel.org, linux-nilfs@vger.kernel.org, paul@paul-moore.com,
- leon@kernel.org, john.fastabend@gmail.com, mcgrof@kernel.org,
- chi.minghao@zte.com.cn, codalist@coda.cs.cmu.edu, selinux@vger.kernel.org,
- zhangpeng362@huawei.com, quic_ugoswami@quicinc.com, yhs@fb.com,
- yzaikin@google.com, linkinjeon@kernel.org, mhiramat@kernel.org,
- ecryptfs@vger.kernel.org, tkjos@android.com, madkar@cs.stonybrook.edu,
- gor@linux.ibm.com, yuzhe@nfschina.com, linuxppc-dev@lists.ozlabs.org,
- reiserfs-devel@vger.kernel.org, miklos@szeredi.hu, huyue2@coolpad.com,
- jaegeuk@kernel.org, gargaditya08@live.com, maco@android.com,
- hirofumi@mail.parknet.co.jp, haoluo@google.com, tony.luck@intel.com,
- tytso@mit.edu, nico@fluxnic.net, linux-ntfs-dev@lists.sourceforge.net,
- muchun.song@linux.dev, roberto.sassu@huawei.com,
- linux-f2fs-devel@lists.sourceforge.net, yang.yang29@zte.com.cn,
- gpiccoli@igalia.com, ebiederm@xmission.com, anna@kernel.org,
- quic_uaggarwa@quicinc.com, bwarrum@linux.ibm.com, mike.kravetz@oracle.com,
- jingyuwang_vip@163.com, linux-efi@vger.kernel.org, error27@gmail.com,
- martin@omnibond.com, trix@redhat.com, ocfs2-devel@lists.linux.dev,
- ast@kernel.org, sebastian.reichel@collabora.com, clm@fb.com,
- linux-mtd@lists.infradead.org, willy@infradead.org, marc.dionne@auristor.com,
- linux-afs@lists.infradead.org, raven@themaw.net, naohiro.aota@wdc.com,
- daniel@iogearbox.net, dennis.dalessandro@cornelisnetworks.com,
- linux-rdma@vger.kernel.org, quic_linyyuan@quicinc.com, coda@cs.cmu.edu,
- slava@dubeyko.com, idryomov@gmail.com, pabeni@redhat.com, adobriyan@gmail.com,
- serge@hallyn.com, chengzhihao1@huawei.com, axboe@kernel.dk, amir73il@gmail.com,
- linuszeng@tencent.com, keescook@chromium.org, arnd@arndb.de,
- autofs@vger.kernel.org, rostedt@goodmis.org, yifeliu@cs.stonybrook.edu,
- dlemoal@kernel.org, eparis@parisplace.org, ceph-devel@vger.kernel.org,
- xiang@kernel.org, yijiangshan@kylinos.cn, dhowells@redhat.com,
- linux-nfs@vger.kernel.org, linux-ext4@vger.kernel.org, kolga@netapp.com,
- song@kernel.org, samba-technical@lists.samba.org, sfrench@samba.org,
- jk@ozlabs.org, netdev@vger.kernel.org, rpeterso@redhat.com,
- linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org, ntfs3@lists.linux.dev,
- linux-erofs@lists.ozlabs.org, davem@davemloft.net,
- jfs-discussion@lists.sourceforge.net, princekumarmaurya06@gmail.com,
- ebiggers@google.com, neilb@suse.de, asmadeus@codewreck.org,
- linux_oss@crudebyte.com, me@bobcopeland.com, kpsingh@kernel.org,
- okanatov@gmail.com, almaz.alexandrovich@paragon-software.com,
- joseph.qi@linux.alibaba.com, hayama@lineo.co.jp, adilger.kernel@dilger.ca,
- mikulas@artax.karlin.mff.cuni.cz, shaozhengchao@huawei.com,
- chenzhongjin@huawei.com, ardb@kernel.org, anton.ivanov@cambridgegreys.com,
- agruenba@redhat.com, richard@nod.at, mark@fasheh.com, shr@devkernel.io,
- Dai.Ngo@oracle.com, cluster-devel@redhat.com, jgg@ziepe.ca, kuba@kernel.org,
- riel@surriel.com, salah.triki@gmail.com, dushistov@mail.ru,
- linux-cifs@vger.kernel.org, hca@linux.ibm.com, chao@kernel.org,
- apparmor@lists.ubuntu.com, josef@toxicpanda.com, Liam.Howlett@Oracle.com,
- tom@talpey.com, hdegoede@redhat.com, linux-hardening@vger.kernel.org,
- aivazian.tigran@gmail.com, dchinner@redhat.com, dsterba@suse.com,
- xiubli@redhat.com, konishi.ryusuke@gmail.com, jgross@suse.com, jth@kernel.org,
- rituagar@linux.ibm.com, luisbg@kernel.org, martin.lau@linux.dev,
- v9fs@lists.linux.dev, fmdefrancesco@gmail.com, linux-unionfs@vger.kernel.org,
- lrh2000@pku.edu.cn, linux-security-module@vger.kernel.org,
- ezk@cs.stonybrook.edu, jefflexu@linux.alibaba.com, linux@treblig.org,
- hannes@cmpxchg.org, phillip@squashfs.org.uk, johannes@sipsolutions.net,
- sj1557.seo@samsung.com, dwmw2@infradead.org,
- linux-karma-devel@lists.sourceforge.net, linux-btrfs@vger.kernel.org,
- jlbec@evilplan.org
+Cc: Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Paul Moore <paul@paul-moore.com>, apparmor@lists.ubuntu.com,
+ James Morris <jmorris@namei.org>, linux-kernel@vger.kernel.org,
+ linux-security-module@vger.kernel.org, Al Viro <viro@zeniv.linux.org.uk>,
+ linux-fsdevel@vger.kernel.org, "Serge E. Hallyn" <serge@hallyn.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Wed 05-07-23 14:58:11, Jeff Layton wrote:
-> A rename potentially involves updating 4 different inode timestamps. Add
-> a function that handles the details sanely, and convert the libfs.c
-> callers to use it.
+On Wed 05-07-23 15:01:54, Jeff Layton wrote:
+> In later patches, we're going to change how the inode's ctime field is
+> used. Switch to using accessor functions instead of raw accesses of
+> inode->i_ctime.
 > 
 > Signed-off-by: Jeff Layton <jlayton@kernel.org>
 
-Looks good to me. Feel free to add:
+Looks good. Feel free to add:
 
 Reviewed-by: Jan Kara <jack@suse.cz>
 
 								Honza
 
 > ---
->  fs/libfs.c         | 36 +++++++++++++++++++++++++++---------
->  include/linux/fs.h |  2 ++
->  2 files changed, 29 insertions(+), 9 deletions(-)
+>  security/apparmor/apparmorfs.c    | 6 +++---
+>  security/apparmor/policy_unpack.c | 4 ++--
+>  2 files changed, 5 insertions(+), 5 deletions(-)
 > 
-> diff --git a/fs/libfs.c b/fs/libfs.c
-> index a7e56baf8bbd..9ee79668c909 100644
-> --- a/fs/libfs.c
-> +++ b/fs/libfs.c
-> @@ -692,6 +692,31 @@ int simple_rmdir(struct inode *dir, struct dentry *dentry)
->  }
->  EXPORT_SYMBOL(simple_rmdir);
+> diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
+> index 3d0d370d6ffd..7dbd0a5aaeeb 100644
+> --- a/security/apparmor/apparmorfs.c
+> +++ b/security/apparmor/apparmorfs.c
+> @@ -226,7 +226,7 @@ static int __aafs_setup_d_inode(struct inode *dir, struct dentry *dentry,
 >  
-> +/**
-> + * simple_rename_timestamp - update the various inode timestamps for rename
-> + * @old_dir: old parent directory
-> + * @old_dentry: dentry that is being renamed
-> + * @new_dir: new parent directory
-> + * @new_dentry: target for rename
-> + *
-> + * POSIX mandates that the old and new parent directories have their ctime and
-> + * mtime updated, and that inodes of @old_dentry and @new_dentry (if any), have
-> + * their ctime updated.
-> + */
-> +void simple_rename_timestamp(struct inode *old_dir, struct dentry *old_dentry,
-> +			     struct inode *new_dir, struct dentry *new_dentry)
-> +{
-> +	struct inode *newino = d_inode(new_dentry);
-> +
-> +	old_dir->i_mtime = inode_set_ctime_current(old_dir);
-> +	if (new_dir != old_dir)
-> +		new_dir->i_mtime = inode_set_ctime_current(new_dir);
-> +	inode_set_ctime_current(d_inode(old_dentry));
-> +	if (newino)
-> +		inode_set_ctime_current(newino);
-> +}
-> +EXPORT_SYMBOL_GPL(simple_rename_timestamp);
-> +
->  int simple_rename_exchange(struct inode *old_dir, struct dentry *old_dentry,
->  			   struct inode *new_dir, struct dentry *new_dentry)
->  {
-> @@ -707,11 +732,7 @@ int simple_rename_exchange(struct inode *old_dir, struct dentry *old_dentry,
->  			inc_nlink(old_dir);
+>  	inode->i_ino = get_next_ino();
+>  	inode->i_mode = mode;
+> -	inode->i_atime = inode->i_mtime = inode->i_ctime = current_time(inode);
+> +	inode->i_atime = inode->i_mtime = inode_set_ctime_current(inode);
+>  	inode->i_private = data;
+>  	if (S_ISDIR(mode)) {
+>  		inode->i_op = iops ? iops : &simple_dir_inode_operations;
+> @@ -1557,7 +1557,7 @@ void __aafs_profile_migrate_dents(struct aa_profile *old,
+>  		if (new->dents[i]) {
+>  			struct inode *inode = d_inode(new->dents[i]);
+>  
+> -			inode->i_mtime = inode->i_ctime = current_time(inode);
+> +			inode->i_mtime = inode_set_ctime_current(inode);
 >  		}
+>  		old->dents[i] = NULL;
 >  	}
-> -	old_dir->i_ctime = old_dir->i_mtime =
-> -	new_dir->i_ctime = new_dir->i_mtime =
-> -	d_inode(old_dentry)->i_ctime =
-> -	d_inode(new_dentry)->i_ctime = current_time(old_dir);
-> -
-> +	simple_rename_timestamp(old_dir, old_dentry, new_dir, new_dentry);
->  	return 0;
->  }
->  EXPORT_SYMBOL_GPL(simple_rename_exchange);
-> @@ -720,7 +741,6 @@ int simple_rename(struct mnt_idmap *idmap, struct inode *old_dir,
->  		  struct dentry *old_dentry, struct inode *new_dir,
->  		  struct dentry *new_dentry, unsigned int flags)
->  {
-> -	struct inode *inode = d_inode(old_dentry);
->  	int they_are_dirs = d_is_dir(old_dentry);
+> @@ -2546,7 +2546,7 @@ static int aa_mk_null_file(struct dentry *parent)
 >  
->  	if (flags & ~(RENAME_NOREPLACE | RENAME_EXCHANGE))
-> @@ -743,9 +763,7 @@ int simple_rename(struct mnt_idmap *idmap, struct inode *old_dir,
->  		inc_nlink(new_dir);
+>  	inode->i_ino = get_next_ino();
+>  	inode->i_mode = S_IFCHR | S_IRUGO | S_IWUGO;
+> -	inode->i_atime = inode->i_mtime = inode->i_ctime = current_time(inode);
+> +	inode->i_atime = inode->i_mtime = inode_set_ctime_current(inode);
+>  	init_special_inode(inode, S_IFCHR | S_IRUGO | S_IWUGO,
+>  			   MKDEV(MEM_MAJOR, 3));
+>  	d_instantiate(dentry, inode);
+> diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
+> index ed180722a833..8b8846073e14 100644
+> --- a/security/apparmor/policy_unpack.c
+> +++ b/security/apparmor/policy_unpack.c
+> @@ -89,10 +89,10 @@ void __aa_loaddata_update(struct aa_loaddata *data, long revision)
+>  		struct inode *inode;
+>  
+>  		inode = d_inode(data->dents[AAFS_LOADDATA_DIR]);
+> -		inode->i_mtime = inode->i_ctime = current_time(inode);
+> +		inode->i_mtime = inode_set_ctime_current(inode);
+>  
+>  		inode = d_inode(data->dents[AAFS_LOADDATA_REVISION]);
+> -		inode->i_mtime = inode->i_ctime = current_time(inode);
+> +		inode->i_mtime = inode_set_ctime_current(inode);
 >  	}
->  
-> -	old_dir->i_ctime = old_dir->i_mtime = new_dir->i_ctime =
-> -		new_dir->i_mtime = inode->i_ctime = current_time(old_dir);
-> -
-> +	simple_rename_timestamp(old_dir, old_dentry, new_dir, new_dentry);
->  	return 0;
 >  }
->  EXPORT_SYMBOL(simple_rename);
-> diff --git a/include/linux/fs.h b/include/linux/fs.h
-> index bdfbd11a5811..14e38bd900f1 100644
-> --- a/include/linux/fs.h
-> +++ b/include/linux/fs.h
-> @@ -2979,6 +2979,8 @@ extern int simple_open(struct inode *inode, struct file *file);
->  extern int simple_link(struct dentry *, struct inode *, struct dentry *);
->  extern int simple_unlink(struct inode *, struct dentry *);
->  extern int simple_rmdir(struct inode *, struct dentry *);
-> +void simple_rename_timestamp(struct inode *old_dir, struct dentry *old_dentry,
-> +			     struct inode *new_dir, struct dentry *new_dentry);
->  extern int simple_rename_exchange(struct inode *old_dir, struct dentry *old_dentry,
->  				  struct inode *new_dir, struct dentry *new_dentry);
->  extern int simple_rename(struct mnt_idmap *, struct inode *,
+>  
 > -- 
 > 2.41.0
 > 
