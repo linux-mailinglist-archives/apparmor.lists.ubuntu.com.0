@@ -2,82 +2,43 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 748A574B248
-	for <lists+apparmor@lfdr.de>; Fri,  7 Jul 2023 15:56:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC6C874B361
+	for <lists+apparmor@lfdr.de>; Fri,  7 Jul 2023 16:55:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qHlwu-0006fY-HJ; Fri, 07 Jul 2023 13:56:40 +0000
-Received: from smtp-relay-internal-0.internal ([10.131.114.225]
- helo=smtp-relay-internal-0.canonical.com)
+	id 1qHmri-0003AA-Ai; Fri, 07 Jul 2023 14:55:22 +0000
+Received: from bombadil.infradead.org ([198.137.202.133])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <georgia.garcia@canonical.com>) id 1qHlws-0006f9-0i
- for apparmor@lists.ubuntu.com; Fri, 07 Jul 2023 13:56:38 +0000
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com
- [209.85.210.72])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 889C03F438
- for <apparmor@lists.ubuntu.com>; Fri,  7 Jul 2023 13:56:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1688738197;
- bh=HhoEDvLUHji0H4nkgmBsSeZ1ppMwCe3pxCokQT59sj8=;
- h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
- Content-Type:MIME-Version;
- b=qkLHxKo53O/ne2jR2HO6CeOu67ad/TSc0EV3xUCxLdYo2LlfTgOH+5UNU+nMGhctI
- ujkYmvhU/yxhj9rVDsdwXMP/p5GNpAK5MVymBryyDHF+jC7fjK+mW3NuaE6atZwaD1
- a81j+0u7iYUxeY5BCRZfVndVCefj8fuR5IFTMr8/RemLGVIVhegrFtQ3rE0rrqxBGI
- WOh5wDNIzFyNEH/SdwraEDaUUohdffeNRH3W7fxLU2x6p6hyIX4lrvpewnIPtD6y6V
- VS3BEO+V3wggI38HI9JLMchSjldkdTbcZqs6g/BRMb579FZcEn4tOre3pig1ttA9AR
- r1/wJZE6BtufQ==
-Received: by mail-ot1-f72.google.com with SMTP id
- 46e09a7af769-6b75210454eso1926895a34.2
- for <apparmor@lists.ubuntu.com>; Fri, 07 Jul 2023 06:56:37 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688738196; x=1691330196;
- h=mime-version:user-agent:content-transfer-encoding:organization
- :references:in-reply-to:date:cc:to:from:subject:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=HhoEDvLUHji0H4nkgmBsSeZ1ppMwCe3pxCokQT59sj8=;
- b=H6UbKmSF+8EwoZDeZS7tsAmaHJAdZrII13iDtfc//5EGxk+YmZdKwplzfFDfrnE+Rh
- ATbIFJZF5TMIA/leyeranBgd2fk9XoBETrYfTn1c4KZvF0AAxU2dLLkkqiqiuD63G159
- iFpDrUFM0HgF8bU9qhCOTjkgimKYdp2d33PQyFTAEfdLZOFQGYTJWNtWp1GapEnJQVbb
- u8BvsuZVpL7RFjKR4BqvDvETMreGi37+GNNki0Hc1j3lh5/AygkxHMR8PUpzaAim3BAt
- hxON+s7SUAH8GBfi9Rui94NgHkgYH7GQuAnl0JW3Zr9oaUrTOCGuXuCsdqVOUAjabNqT
- jFsw==
-X-Gm-Message-State: ABy/qLb26R5PWpGsnFUWGQydTtcsZGDVGqVN58d4072NbQ7igyXrLUA1
- dCKXDwSQ/plrLIJKcBgRc74e2UGq3Y+3O3/jbFv6q0gawkfVmFvKAy2NALssbmoR8v8UwKwmUY1
- timWGM+JLRn5/ZzvKdYZxGNkwPxtfqrgawTvwgQ==
-X-Received: by 2002:a9d:5e19:0:b0:6b7:54b1:6524 with SMTP id
- d25-20020a9d5e19000000b006b754b16524mr4557654oti.36.1688738196352; 
- Fri, 07 Jul 2023 06:56:36 -0700 (PDT)
-X-Google-Smtp-Source: APBJJlFT7uVWhdX8H+KII3j64afpzIpjFPfqSi1VhYQ7wQdJmKWCkIZ4/DldFwQnKVCcDHzQ2XJQlg==
-X-Received: by 2002:a9d:5e19:0:b0:6b7:54b1:6524 with SMTP id
- d25-20020a9d5e19000000b006b754b16524mr4557641oti.36.1688738196114; 
- Fri, 07 Jul 2023 06:56:36 -0700 (PDT)
-Received: from ?IPv6:2001:1284:f02e:6c12:3fa7:9073:5b23:9e41?
- ([2001:1284:f02e:6c12:3fa7:9073:5b23:9e41])
- by smtp.gmail.com with ESMTPSA id
- m14-20020a056830328e00b006b71deb7809sm1684336ott.14.2023.07.07.06.56.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Jul 2023 06:56:35 -0700 (PDT)
-Message-ID: <9f12342f083bca94e3b7392c8e3bfbdca4d3e2b4.camel@canonical.com>
-From: Georgia Garcia <georgia.garcia@canonical.com>
-To: Gaosheng Cui <cuigaosheng1@huawei.com>, john.johansen@canonical.com, 
- paul@paul-moore.com, jmorris@namei.org, serge@hallyn.com
-Date: Fri, 07 Jul 2023 10:56:31 -0300
-In-Reply-To: <20230625011349.1457810-11-cuigaosheng1@huawei.com>
-References: <20230625011349.1457810-1-cuigaosheng1@huawei.com>
- <20230625011349.1457810-11-cuigaosheng1@huawei.com>
-Organization: Canonical
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu1 
+ (envelope-from <rdunlap@infradead.org>) id 1qHmrg-0003A1-5n
+ for apparmor@lists.ubuntu.com; Fri, 07 Jul 2023 14:55:20 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+ Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+ bh=O1NoqMhtAQJgT4QBfdt5+/2ZYFc7QVgY2GbwxuDpmuI=; b=WJhiu6Xcy+tUuNmUW+DBF0De7C
+ tqlkA6+PN4TYzPKf3sK4o3ZshV5sx1+Mft30BFOssBA3inUI64oQSqNzFUKGR0u6myH2cHfK4aIJd
+ 3NXOhZim72Qlp4KCd4bWCp+z1KBRAeCxPYAC9AhsHpiPAlezoZzYIOETtiyYe4GaPsOvxgQY1vo2V
+ EXqv/Dhry+HOSFNqyzMK28YUSMgultU+HCRMEM8EKFVKSXlxPSINnEHa0qQ1DuGq4WivRG60hk8G8
+ JOXZW/FKcTuz7xvZN/icDCyKyyQ7FYm2167cPBzziuNAV2kgozdTZ2ZNRZ9LnZ0fqfnSaCifNW1Gb
+ QEiyTxXQ==;
+Received: from [2601:1c2:980:9ec0::2764]
+ by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1qHmrX-004wEc-2r; Fri, 07 Jul 2023 14:55:11 +0000
+Message-ID: <b4173c39-0d6e-a02b-df2f-4f9eb6a1453d@infradead.org>
+Date: Fri, 7 Jul 2023 07:55:08 -0700
 MIME-Version: 1.0
-Subject: Re: [apparmor] [PATCH -next 10/11] apparmor: Fix kernel-doc
- warnings in apparmor/policy_compat.c
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Content-Language: en-US
+To: Yang Li <yang.lee@linux.alibaba.com>, john.johansen@canonical.com
+References: <20230707080737.49899-1-yang.lee@linux.alibaba.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20230707080737.49899-1-yang.lee@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [apparmor] [PATCH -next] apparmor: Fix some kernel-doc comments
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -89,42 +50,53 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com
+Cc: paul@paul-moore.com, apparmor@lists.ubuntu.com,
+ linux-kernel@vger.kernel.org, jmorris@namei.org,
+ linux-security-module@vger.kernel.org, serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Hi, Gaosheng Cui
 
-On Sun, 2023-06-25 at 09:13 +0800, Gaosheng Cui wrote:
-> Fix kernel-doc warnings:
->=20
-> security/apparmor/policy_compat.c:151: warning: Function parameter
-> or member 'size' not described in 'compute_fperms'
->=20
-> Signed-off-by: Gaosheng Cui <cuigaosheng1@huawei.com>
+
+On 7/7/23 01:07, Yang Li wrote:
+> Use colons to separate parameter names from their specific meanings.
+> silencethe warnings:
+> 
+> security/apparmor/resource.c:111: warning: Function parameter or member 'label' not described in 'aa_task_setrlimit'
+> security/apparmor/resource.c:111: warning: Function parameter or member 'task' not described in 'aa_task_setrlimit'
+> security/apparmor/resource.c:111: warning: Function parameter or member 'resource' not described in 'aa_task_setrlimit'
+> security/apparmor/resource.c:111: warning: Function parameter or member 'new_rlim' not described in 'aa_task_setrlimit'
+> 
+> Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
+
+Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
+
+Thanks.
+
 > ---
->  security/apparmor/policy_compat.c | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/security/apparmor/policy_compat.c b/security/apparmor/policy=
-_compat.c
-> index 0cb02da8a319..18e4ddccf623 100644
-> --- a/security/apparmor/policy_compat.c
-> +++ b/security/apparmor/policy_compat.c
-> @@ -143,6 +143,7 @@ static struct aa_perms compute_fperms_other(struct aa=
-_dfa *dfa,
->   * compute_fperms - convert dfa compressed perms to internal perms and s=
-tore
->   *		    them so they can be retrieved later.
->   * @dfa: a dfa using fperms to remap to internal permissions
-> + * @size: the permission table size
-
-I believe the size is returned, right?
-
+>  security/apparmor/resource.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/security/apparmor/resource.c b/security/apparmor/resource.c
+> index e85948164896..2bebc5d9e741 100644
+> --- a/security/apparmor/resource.c
+> +++ b/security/apparmor/resource.c
+> @@ -97,10 +97,10 @@ static int profile_setrlimit(struct aa_profile *profile, unsigned int resource,
+>  
+>  /**
+>   * aa_task_setrlimit - test permission to set an rlimit
+> - * @label - label confining the task  (NOT NULL)
+> - * @task - task the resource is being set on
+> - * @resource - the resource being set
+> - * @new_rlim - the new resource limit  (NOT NULL)
+> + * @label: label confining the task  (NOT NULL)
+> + * @task: task the resource is being set on
+> + * @resource: the resource being set
+> + * @new_rlim: the new resource limit  (NOT NULL)
 >   *
->   * Returns: remapped perm table
->   */
+>   * Control raising the processes hard limit.
+>   *
 
-Thanks,
-Georgia
+-- 
+~Randy
 
