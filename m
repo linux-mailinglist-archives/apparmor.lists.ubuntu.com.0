@@ -2,43 +2,48 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C8C5751D11
-	for <lists+apparmor@lfdr.de>; Thu, 13 Jul 2023 11:21:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1280F752913
+	for <lists+apparmor@lfdr.de>; Thu, 13 Jul 2023 18:49:33 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qJsW6-0002Mn-U0; Thu, 13 Jul 2023 09:21:42 +0000
-Received: from szxga01-in.huawei.com ([45.249.212.187])
+	id 1qJzV1-0002cp-CS; Thu, 13 Jul 2023 16:49:03 +0000
+Received: from bombadil.infradead.org ([198.137.202.133])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <cuigaosheng1@huawei.com>) id 1qJsW5-0002Mg-86
- for apparmor@lists.ubuntu.com; Thu, 13 Jul 2023 09:21:41 +0000
-Received: from kwepemi500012.china.huawei.com (unknown [172.30.72.55])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4R1pv12y9PztRVF;
- Thu, 13 Jul 2023 17:18:37 +0800 (CST)
-Received: from [10.67.110.176] (10.67.110.176) by
- kwepemi500012.china.huawei.com (7.221.188.12) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.27; Thu, 13 Jul 2023 17:21:37 +0800
-To: John Johansen <john.johansen@canonical.com>, <paul@paul-moore.com>,
- <jmorris@namei.org>, <serge@hallyn.com>
-References: <20230625011349.1457810-1-cuigaosheng1@huawei.com>
- <0a3930d7-32a6-13d1-b8a0-3dd9fdfa884d@canonical.com>
-From: cuigaosheng <cuigaosheng1@huawei.com>
-Message-ID: <97d2697c-39fe-f3f0-a079-35fb4debdd46@huawei.com>
-Date: Thu, 13 Jul 2023 17:21:36 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
+ (envelope-from <rdunlap@infradead.org>) id 1qJbv2-0006t2-TW
+ for apparmor@lists.ubuntu.com; Wed, 12 Jul 2023 15:38:21 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:In-Reply-To:From:References:To:Subject:MIME-Version:Date:
+ Message-ID:Sender:Reply-To:Cc:Content-ID:Content-Description;
+ bh=689SEK0ciFY8KgDlRHFBreHHAC2z+cvH0wQ011Q2aMI=; b=df/VKiT91ZqRa0x7ofoJaXGlph
+ PM7CRP4KkwoXZKNJlvYdkig+/LLrQ9LVGVf40H6Qaywx20JwTqHlizlUxF15FF/hdi7QMcfJ88rOM
+ Tk9o3z44pMTcermnTCrLWAF39fzqRsD0ms+1lMmZtzToJzTD0SUcPG6eXBFgIigvbDeEBrSIYXiW/
+ GnykGmmqxl8DWPpBQb6tfrtLGgdO7lnddHDuy7SXW0bC9E1PhpCLadB/V3QSWJPX+bNFvOifeRdsy
+ 3Vg5gSGOgGr74Cyg+9z9dxsezgnvq5bViTggfgF6K6g7cj7jT1ssxpJXUEt4gBcr4IJbEN74vqTce
+ EZsIkLBg==;
+Received: from [2601:1c2:980:9ec0::2764]
+ by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1qJboy-000MRl-20; Wed, 12 Jul 2023 15:32:04 +0000
+Message-ID: <03e153ce-328b-f279-2a40-4074bea2bc8f@infradead.org>
+Date: Wed, 12 Jul 2023 08:31:55 -0700
 MIME-Version: 1.0
-In-Reply-To: <0a3930d7-32a6-13d1-b8a0-3dd9fdfa884d@canonical.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.67.110.176]
-X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
- kwepemi500012.china.huawei.com (7.221.188.12)
-X-CFilter-Loop: Reflected
-Subject: Re: [apparmor] [PATCH -next 00/11] Fix kernel-doc warnings in
-	apparmor
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Content-Language: en-US
+To: Jeff Layton <jlayton@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Linux FS-devel Mailing List <linux-fsdevel@vger.kernel.org>,
+ linux-um <linux-um@lists.infradead.org>
+References: <20230621144507.55591-1-jlayton@kernel.org>
+ <20230621144507.55591-2-jlayton@kernel.org>
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20230621144507.55591-2-jlayton@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Thu, 13 Jul 2023 16:49:01 +0000
+Subject: Re: [apparmor] [PATCH 01/79] fs: add ctime accessors infrastructure
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -50,64 +55,19 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Thanks for taking time to review these patches!
+Hi Jeff,
 
-> I have pulled these into the private testing repo, at
-> https://gitlab.com/jjohansen/apparmor-kernel
->
-> if there aren't revisions to 5/11 andd 10/11 this week
-> I will add a patch ontop to do the suggested revision.
-> If you post new versions I will pull those in and rebase,
-> before pushing these up to the more public repos.
->
-These patches have been pulled into the private testing repo,
-so please add a patch ontop to do the suggested revision，
-thanks again for your work.
+On arch/um/, (subarch i386 or x86_64), hostfs build fails with:
+
+../fs/hostfs/hostfs_kern.c:520:36: error: incompatible type for arg
+ument 2 of 'inode_set_ctime_to_ts'
+../include/linux/fs.h:1499:73: note: expected 'struct timespec64' b
+ut argument is of type 'const struct hostfs_timespec *'
 
 
-On 2023/7/10 16:45, John Johansen wrote:
-> On 6/24/23 18:13, Gaosheng Cui wrote:
->> Fix kernel-doc warnings in apparmor, thanks very much!
->>
-> I have pulled these into the private testing repo, at
-> https://gitlab.com/jjohansen/apparmor-kernel
->
-> if there aren't revisions to 5/11 andd 10/11 this week
-> I will add a patch ontop to do the suggested revision.
-> If you post new versions I will pull those in and rebase,
-> before pushing these up to the more public repos.
->
->
->> Gaosheng Cui (11):
->>    apparmor: Fix kernel-doc warnings in apparmor/audit.c
->>    apparmor: Fix kernel-doc warnings in apparmor/capability.c
->>    apparmor: Fix kernel-doc warnings in apparmor/domain.c
->>    apparmor: Fix kernel-doc warnings in apparmor/file.c
->>    apparmor: Fix kernel-doc warnings in apparmor/label.c
->>    apparmor: Fix kernel-doc warnings in apparmor/lib.c
->>    apparmor: Fix kernel-doc warnings in apparmor/match.c
->>    apparmor: Fix kernel-doc warnings in apparmor/resource.c
->>    apparmor: Fix kernel-doc warnings in apparmor/policy_unpack.c
->>    apparmor: Fix kernel-doc warnings in apparmor/policy_compat.c
->>    apparmor: Fix kernel-doc warnings in apparmor/policy.c
->>
->>   security/apparmor/audit.c         |  1 +
->>   security/apparmor/capability.c    |  4 ++--
->>   security/apparmor/domain.c        | 10 ++++++----
->>   security/apparmor/file.c          |  6 +++---
->>   security/apparmor/label.c         | 20 +++++++++++---------
->>   security/apparmor/lib.c           |  4 ++--
->>   security/apparmor/match.c         |  4 ++--
->>   security/apparmor/policy.c        | 17 ++++++++++-------
->>   security/apparmor/policy_compat.c |  1 +
->>   security/apparmor/policy_unpack.c |  2 +-
->>   security/apparmor/resource.c      |  8 ++++----
->>   11 files changed, 43 insertions(+), 34 deletions(-)
->>
->
-> .
+-- 
+~Randy
 
