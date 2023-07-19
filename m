@@ -2,60 +2,51 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 830707581D6
-	for <lists+apparmor@lfdr.de>; Tue, 18 Jul 2023 18:15:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D09667592EA
+	for <lists+apparmor@lfdr.de>; Wed, 19 Jul 2023 12:26:39 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qLnLg-0002Ug-Sv; Tue, 18 Jul 2023 16:14:52 +0000
-Received: from mail-yw1-f179.google.com ([209.85.128.179])
+	id 1qM4Nz-0006kE-GN; Wed, 19 Jul 2023 10:26:23 +0000
+Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
+ helo=smtp-relay-canonical-0.canonical.com)
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <paul@paul-moore.com>) id 1qLnLe-0002UY-DT
- for apparmor@lists.ubuntu.com; Tue, 18 Jul 2023 16:14:50 +0000
-Received: by mail-yw1-f179.google.com with SMTP id
- 00721157ae682-57764a6bf8cso60790167b3.3
- for <apparmor@lists.ubuntu.com>; Tue, 18 Jul 2023 09:14:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=paul-moore.com; s=google; t=1689696889; x=1692288889;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=aIxbqWruk3tde8GVe4doC/LqINU6BWOqPPtRnKi722g=;
- b=WcRQ65n2jffvRfWCd/0smTGdkn4JwU1AcKC64qNQdLnF+Zl2LddiiFmy/exjJpDO2Q
- kYnOcXQ6NyJ0CamdYVCkvtRg5AdC0+AHUysEq4EqUaP6fvIeIGDWgA++zhM+A1TlH3Ww
- YZSugrPeUDvfPsEBOyxSbOoqoMz8vxjPGJYeBVSSQZZ1Pv57fAsOYMi2g7NLD1qfYcoI
- KunMLrJOhVQSatmpdU9b5b7PcE6Vv8isJ/ceXgrIR9SNbUHuMSVEGzYE9ir1wS2wscVm
- N0pvai/AjXhy70uf1ykJpI3E0j//MKVD5AJLcMS3iO1XJtPWOhc1z0qpHcSizch8FFz6
- g50g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689696889; x=1692288889;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=aIxbqWruk3tde8GVe4doC/LqINU6BWOqPPtRnKi722g=;
- b=YeGY9/Mf4kZ+jtzinvW3a92oPycH31URgBQRVVRCeoIYATyzI8gqTpnTN6OB7Kgu/V
- xdePTWFaEOPdltWxwo90d356NzGSKe77D/ugaMBm4YS4ApWgBLYtw9BPZ4qwvBS5okWt
- cCVOcSzAvzmzkakw3p0md+X7UrfRBdKrC7xA3HgR9BeZp2YbU2VnZScbBkRvzQtAb4WB
- pUZ8rgR6M6bliYaHmY+rBAPzxpIV+bFsp1xSY64YoI5K3UD6LsNLPuPKnDXUeh50Wj/O
- ZeCL6yaLfYT/p+xHNTwcPmMhfX1wuoNdWGAngnMe1ycM4tzKugLg0cqONjubZvsE9i3s
- RXpg==
-X-Gm-Message-State: ABy/qLYPdRrb0t7E60/fzhIWxEyVag49x3jCFi7z5KkDvjOGZyjnwj4f
- kk1sbcZIwmvOrKXH461+Q0DH2dAF8jPJD05rUPHr
-X-Google-Smtp-Source: APBJJlFiIjBtpQQejWvrjQReyY+tBIxRJDFWVT5w7U/heJfhvIbpO+/96V065lnbgvZpVmD5IVL95oW37LKVsskcjTI=
-X-Received: by 2002:a0d:d754:0:b0:582:98f9:a1e3 with SMTP id
- z81-20020a0dd754000000b0058298f9a1e3mr215180ywd.18.1689696889222; Tue, 18 Jul
- 2023 09:14:49 -0700 (PDT)
+ (envelope-from <john.johansen@canonical.com>) id 1qM4Nx-0006g2-5m
+ for apparmor@lists.ubuntu.com; Wed, 19 Jul 2023 10:26:21 +0000
+Received: from [192.168.192.83] (unknown [50.47.134.245])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id BB0AF3F8E2; 
+ Wed, 19 Jul 2023 10:26:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1689762380;
+ bh=1SA3g3ZgVeozSrgi0EDhzpkhqXJRuV6AyMU3I5WhAQY=;
+ h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+ In-Reply-To:Content-Type;
+ b=iepQmyCRBC/2TTHPxrtkdZk9QP/lTHmbn3hZolN5MpBIM3IXW5A1nZdlV000MQCEQ
+ /AQPdelEO1VpO9ylo13JVcu8Vipav5LTUBi+/nwkce2K9zEvRgdaxJflxL6beWUadu
+ wzrgIsMxtFceubK0AiiLBzZdGOsp3Cd18DXgcv3jzfKVrSE68DYq8z5M8iOrgokakf
+ 88k+Ix5I5rcGo6FYQXKLJpA0cII32iALcRoqA2rj0kFFe2azPMWyhr2ksX8IOIh1Pj
+ Xop4IYuzpin7jKOH92qsHYTLe1oQ+6TYILDaxz17clz95VnuSRSiYh0+PARFrBSzyr
+ NhJn+g/NxjM9A==
+Message-ID: <d1f7951d-38a9-3018-ff2d-7ae8c05d85dd@canonical.com>
+Date: Wed, 19 Jul 2023 03:26:16 -0700
 MIME-Version: 1.0
-References: <3076188eb88cca9151a2d12b50ba1e870b11ce09.1689693294.git.geliang.tang@suse.com>
-In-Reply-To: <3076188eb88cca9151a2d12b50ba1e870b11ce09.1689693294.git.geliang.tang@suse.com>
-From: Paul Moore <paul@paul-moore.com>
-Date: Tue, 18 Jul 2023 12:14:38 -0400
-Message-ID: <CAHC9VhS_LKdkEmm5_J5y34RpaRcTbg8==fpz8pMThDCjF6nYtQ@mail.gmail.com>
-To: Geliang Tang <geliang.tang@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [apparmor] [RFC bpf-next v5] bpf: Force to MPTCP
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Content-Language: en-US
+To: Alexandre Pujol <alexandre@pujol.io>, apparmor@lists.ubuntu.com
+References: <2668c644-f67d-21aa-6b97-1ed61471fcea@pujol.io>
+ <fccec1fb-b421-a532-5ee3-027f94b836fc@canonical.com>
+ <7c1b20c5-07a4-cc05-27f6-29e910142e3c@pujol.io>
+From: John Johansen <john.johansen@canonical.com>
+Organization: Canonical
+In-Reply-To: <7c1b20c5-07a4-cc05-27f6-29e910142e3c@pujol.io>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [apparmor] apparmor with large profile set
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -67,97 +58,100 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: selinux@vger.kernel.org, netdev@vger.kernel.org, apparmor@lists.ubuntu.com,
- Alexei Starovoitov <ast@kernel.org>, linux-security-module@vger.kernel.org,
- linux-kselftest@vger.kernel.org, bpf@vger.kernel.org, mptcp@lists.linux.dev
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Tue, Jul 18, 2023 at 11:21=E2=80=AFAM Geliang Tang <geliang.tang@suse.co=
-m> wrote:
->
-> As is described in the "How to use MPTCP?" section in MPTCP wiki [1]:
->
-> "Your app can create sockets with IPPROTO_MPTCP as the proto:
-> ( socket(AF_INET, SOCK_STREAM, IPPROTO_MPTCP); ). Legacy apps can be
-> forced to create and use MPTCP sockets instead of TCP ones via the
-> mptcpize command bundled with the mptcpd daemon."
->
-> But the mptcpize (LD_PRELOAD technique) command has some limitations
-> [2]:
->
->  - it doesn't work if the application is not using libc (e.g. GoLang
-> apps)
->  - in some envs, it might not be easy to set env vars / change the way
-> apps are launched, e.g. on Android
->  - mptcpize needs to be launched with all apps that want MPTCP: we could
-> have more control from BPF to enable MPTCP only for some apps or all the
-> ones of a netns or a cgroup, etc.
->  - it is not in BPF, we cannot talk about it at netdev conf.
->
-> So this patchset attempts to use BPF to implement functions similer to
-> mptcpize.
->
-> The main idea is add a hook in sys_socket() to change the protocol id
-> from IPPROTO_TCP (or 0) to IPPROTO_MPTCP.
->
-> [1]
-> https://github.com/multipath-tcp/mptcp_net-next/wiki
-> [2]
-> https://github.com/multipath-tcp/mptcp_net-next/issues/79
->
-> v5:
->  - add bpf_mptcpify helper.
->
-> v4:
->  - use lsm_cgroup/socket_create
->
-> v3:
->  - patch 8: char cmd[128]; -> char cmd[256];
->
-> v2:
->  - Fix build selftests errors reported by CI
->
-> Closes: https://github.com/multipath-tcp/mptcp_net-next/issues/79
-> Signed-off-by: Geliang Tang <geliang.tang@suse.com>
-> ---
->  include/linux/bpf.h                           |   1 +
->  include/linux/lsm_hook_defs.h                 |   2 +-
->  include/linux/security.h                      |   6 +-
->  include/uapi/linux/bpf.h                      |   7 +
->  kernel/bpf/bpf_lsm.c                          |   2 +
->  net/mptcp/bpf.c                               |  20 +++
->  net/socket.c                                  |   4 +-
->  security/apparmor/lsm.c                       |   8 +-
->  security/security.c                           |   2 +-
->  security/selinux/hooks.c                      |   6 +-
->  tools/include/uapi/linux/bpf.h                |   7 +
->  .../testing/selftests/bpf/prog_tests/mptcp.c  | 128 ++++++++++++++++--
->  tools/testing/selftests/bpf/progs/mptcpify.c  |  17 +++
->  13 files changed, 187 insertions(+), 23 deletions(-)
->  create mode 100644 tools/testing/selftests/bpf/progs/mptcpify.c
+On 7/18/23 03:12, Alexandre Pujol wrote:
+> Hi,
+> 
+> On 18/07/2023 03:02, Seth Arnold wrote:
+>  > What exactly do you mean with "the doc"? The wiki has a lot of syntax
+>  > and semantics around future expansion plans and I've seen dozens, if not
+>  > hundreds, of questions from people who found it and tried to use it on
+>  > live systems, without success.
+> 
+> I was doing reference in the wiki in general and in the policy reference in particular as I am part of the people that tried stuff from it without success ;)
+> 
+> I could work myself on improving it, however I am not myself aware of what is already here or planned. I may have a look at the man page next time, that could save me some time.
+> 
+> 
+> On 18/07/2023 05:01, John Johansen wrote:
+>>
+>> Jul 10 11:51:22 aa-archlinux-gnome gnome-shell[1754]: AT-SPI: Error retrieving accessibility bus address: org.freedesktop.DBus.Error.NoReply: Did not receive a reply. Possible causes include: the remote application did not send a reply, the message bus security policy blocked the reply, the reply timeout expired, or the network connection was broken.
+>>
+>>
+>> And org.freedesktop.systemd1 seems to be an issue, while the non-apparmor log has some failures it successfully starts the service as part of the session
+>> Jul 10 11:52:48 aa-archlinux-gnome dbus-daemon[439]: [session uid=120 pid=439] Successfully activated service 'org.freedesktop.systemd1'
+>> Jul 10
+>>
+>> the apparmor log does not succeed in launching the service, throwing up about 10 more errors around it than the non-apparmor log
+>>
+>> nothing definitive but some avenues to research
+>>
+> 
+> The weird thing is that this is on Archlinux, there is no dbus mediation in place anyway.
+> 
+being ArchLinux, you could very well have dbus mediation in play ;) but it
+doesn't have to be dbus mediation causing the problem. It could be that
+some unix socket mediation is blocking access to dbus, etc.
 
-...
+> 
+>  > this can't change, it would break policy, even if we update all policy
+>  > in the system there is policy being shipping by too many other projects.
+>  > For better or worse the apparmor rules are based on shell globbing not
+>  > RE or eRE. There is a potential for exposing a full RE with special
+>  > syntax. Something like
+>  >
+>  >    ^/foo[1-7]*$
+>  >
+> 
+> I get that breaking 20 years of profile is not a good thing...
+> Adding a new syntax seems a good idea, I wonder how this could be used in variables.
+> 
+Well, there are a couple of ways, some more problematic than others
 
-> diff --git a/security/security.c b/security/security.c
-> index b720424ca37d..bbebcddce420 100644
-> --- a/security/security.c
-> +++ b/security/security.c
-> @@ -4078,7 +4078,7 @@ EXPORT_SYMBOL(security_unix_may_send);
->   *
->   * Return: Returns 0 if permission is granted.
->   */
-> -int security_socket_create(int family, int type, int protocol, int kern)
-> +int security_socket_create(int *family, int *type, int *protocol, int ke=
-rn)
->  {
->         return call_int_hook(socket_create, 0, family, type, protocol, ke=
-rn);
->  }
+the variable could be treated as a straight textual substitution, this
+would however mean what it represents would change depending on which
+rule it is being used in. Which to me makes it worthless.
 
-Using the LSM to change the protocol family is not something we want
-to allow.  I'm sorry, but you will need to take a different approach.
+Variables expansion could detect which form of expression they are being
+expanded in and not allow patterns in the variable when expanding in
+an RE. Not ideal but avoids the madness that is the text substitution
 
---=20
-paul-moore.com
+Variables could be setup to know the type of expression they contain
+and there could be a way to switch between expression forms. Which
+would allow mixing them. Its not something you would want to happen
+often in a regular rule but it would allow the mixing that would be
+needed if we exposed an alternate RE syntax.
+
+Or you force all policy compiled together be in the same syntax. This
+is cleaner in some ways but would effectively mean managing two sets
+of variables, two policy locations, ...
+
+
+>  >> **no-new-privs**
+>  >>
+>  > yeah, another one we need to get upstream. The question has been exactly
+>  > what we can get upstream before we make it available more broadly. This
+>  > should be coming within the next couple kernel releases.
+> 
+> Out of curiosity, do you have a kernel somewhere that I could use to test it?
+> 
+
+I have had a few, I need to go through and fix a few things, rebase and
+get them working again, now that we have extended permissions landed and
+don't have to use hacks to smuggle something into the policy. So not yet
+but soon
+
+>  >> **Snap**
+>  >>
+>  > Any where it exists today with get replaced with a variable with
+>  > a name that has the semantic intent. It may get set to unconfined, but
+>  > it will at least be easier to make changes.
+> 
+> That a nice idea, do you know when this change will be done?
+> 
+I was hoping in a couple weeks, but my backlog just seems to keep getting
+longer.
+
 
