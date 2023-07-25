@@ -2,40 +2,40 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BF33761C26
-	for <lists+apparmor@lfdr.de>; Tue, 25 Jul 2023 16:45:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E580761C25
+	for <lists+apparmor@lfdr.de>; Tue, 25 Jul 2023 16:45:55 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qOJIJ-0000OZ-UY; Tue, 25 Jul 2023 14:45:47 +0000
-Received: from szxga03-in.huawei.com ([45.249.212.189])
+	id 1qOJIH-0000OS-SO; Tue, 25 Jul 2023 14:45:45 +0000
+Received: from szxga01-in.huawei.com ([45.249.212.187])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <xiujianfeng@huawei.com>) id 1qOInd-0003Gt-NE
- for apparmor@lists.ubuntu.com; Tue, 25 Jul 2023 14:14:06 +0000
-Received: from dggpeml100024.china.huawei.com (unknown [172.30.72.55])
- by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4R9JqL1f8mzLnwZ;
- Tue, 25 Jul 2023 22:11:26 +0800 (CST)
+ (envelope-from <xiujianfeng@huawei.com>) id 1qOInx-0003Hi-NY
+ for apparmor@lists.ubuntu.com; Tue, 25 Jul 2023 14:14:26 +0000
+Received: from dggpeml100024.china.huawei.com (unknown [172.30.72.56])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4R9Jsh0Gq7zrRx5;
+ Tue, 25 Jul 2023 22:13:28 +0800 (CST)
 Received: from hulk-vt.huawei.com (10.67.174.26) by
  dggpeml100024.china.huawei.com (7.185.36.115) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.27; Tue, 25 Jul 2023 22:14:00 +0800
+ 15.1.2507.27; Tue, 25 Jul 2023 22:14:20 +0800
 From: Xiu Jianfeng <xiujianfeng@huawei.com>
 To: <john.johansen@canonical.com>, <paul@paul-moore.com>, <jmorris@namei.org>, 
  <serge@hallyn.com>, <mike.salvatore@canonical.com>
-Date: Tue, 25 Jul 2023 14:12:39 +0000
-Message-ID: <20230725141239.233372-1-xiujianfeng@huawei.com>
+Date: Tue, 25 Jul 2023 14:12:59 +0000
+Message-ID: <20230725141259.233391-1-xiujianfeng@huawei.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [10.67.174.26]
-X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
+X-ClientProxiedBy: dggems706-chm.china.huawei.com (10.3.19.183) To
  dggpeml100024.china.huawei.com (7.185.36.115)
 X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Tue, 25 Jul 2023 14:45:45 +0000
-Subject: [apparmor] [PATCH -next] apparmor: cleanup unused declarations in
-	policy.h
+Subject: [apparmor] [PATCH -next] apparmor: cleanup unused functions in
+	file.h
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -52,43 +52,64 @@ Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-The implementions of these declarations do not exist, remove them all.
+After changes in commit 33bf60cabcc7 ("LSM: Infrastructure management of
+the file security"), aa_alloc_file_ctx() and aa_free_file_ctx() are no
+longer used, so remove them, and also remove aa_get_file_label() because
+it seems that it's never been used before.
 
 Signed-off-by: Xiu Jianfeng <xiujianfeng@huawei.com>
 ---
- security/apparmor/include/policy.h | 6 ------
- 1 file changed, 6 deletions(-)
+ security/apparmor/include/file.h | 37 --------------------------------
+ 1 file changed, 37 deletions(-)
 
-diff --git a/security/apparmor/include/policy.h b/security/apparmor/include/policy.h
-index 545f791cabda..6e5ec9c37b48 100644
---- a/security/apparmor/include/policy.h
-+++ b/security/apparmor/include/policy.h
-@@ -227,10 +227,6 @@ extern enum profile_mode aa_g_profile_mode;
- #define profiles_ns(P) ((P)->ns)
- #define name_is_shared(A, B) ((A)->hname && (A)->hname == (B)->hname)
+diff --git a/security/apparmor/include/file.h b/security/apparmor/include/file.h
+index 5be620af33ba..23cb6f9dbe6e 100644
+--- a/security/apparmor/include/file.h
++++ b/security/apparmor/include/file.h
+@@ -45,43 +45,6 @@ struct aa_file_ctx {
+ 	u32 allow;
+ };
  
--void aa_add_profile(struct aa_policy *common, struct aa_profile *profile);
+-/**
+- * aa_alloc_file_ctx - allocate file_ctx
+- * @label: initial label of task creating the file
+- * @gfp: gfp flags for allocation
+- *
+- * Returns: file_ctx or NULL on failure
+- */
+-static inline struct aa_file_ctx *aa_alloc_file_ctx(struct aa_label *label,
+-						    gfp_t gfp)
+-{
+-	struct aa_file_ctx *ctx;
 -
+-	ctx = kzalloc(sizeof(struct aa_file_ctx), gfp);
+-	if (ctx) {
+-		spin_lock_init(&ctx->lock);
+-		rcu_assign_pointer(ctx->label, aa_get_label(label));
+-	}
+-	return ctx;
+-}
 -
--void aa_free_proxy_kref(struct kref *kref);
- struct aa_ruleset *aa_alloc_ruleset(gfp_t gfp);
- struct aa_profile *aa_alloc_profile(const char *name, struct aa_proxy *proxy,
- 				    gfp_t gfp);
-@@ -239,14 +235,12 @@ struct aa_profile *aa_alloc_null(struct aa_profile *parent, const char *name,
- struct aa_profile *aa_new_learning_profile(struct aa_profile *parent, bool hat,
- 					   const char *base, gfp_t gfp);
- void aa_free_profile(struct aa_profile *profile);
--void aa_free_profile_kref(struct kref *kref);
- struct aa_profile *aa_find_child(struct aa_profile *parent, const char *name);
- struct aa_profile *aa_lookupn_profile(struct aa_ns *ns, const char *hname,
- 				      size_t n);
- struct aa_profile *aa_lookup_profile(struct aa_ns *ns, const char *name);
- struct aa_profile *aa_fqlookupn_profile(struct aa_label *base,
- 					const char *fqname, size_t n);
--struct aa_profile *aa_match_profile(struct aa_ns *ns, const char *name);
- 
- ssize_t aa_replace_profiles(struct aa_ns *view, struct aa_label *label,
- 			    u32 mask, struct aa_loaddata *udata);
+-/**
+- * aa_free_file_ctx - free a file_ctx
+- * @ctx: file_ctx to free  (MAYBE_NULL)
+- */
+-static inline void aa_free_file_ctx(struct aa_file_ctx *ctx)
+-{
+-	if (ctx) {
+-		aa_put_label(rcu_access_pointer(ctx->label));
+-		kfree_sensitive(ctx);
+-	}
+-}
+-
+-static inline struct aa_label *aa_get_file_label(struct aa_file_ctx *ctx)
+-{
+-	return aa_get_label_rcu(&ctx->label);
+-}
+-
+ /*
+  * The xindex is broken into 3 parts
+  * - index - an index into either the exec name table or the variable table
 -- 
 2.34.1
 
