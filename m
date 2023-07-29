@@ -2,59 +2,124 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60A81767F5A
-	for <lists+apparmor@lfdr.de>; Sat, 29 Jul 2023 14:57:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FB8F767F54
+	for <lists+apparmor@lfdr.de>; Sat, 29 Jul 2023 14:57:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qPjVH-00025C-S9; Sat, 29 Jul 2023 12:57:03 +0000
-Received: from out-92.mta0.migadu.com ([91.218.175.92])
+	id 1qPjVH-00025J-Vk; Sat, 29 Jul 2023 12:57:03 +0000
+Received: from mail-vi1eur05on2082.outbound.protection.outlook.com
+ ([40.107.21.82] helo=EUR05-VI1-obe.outbound.protection.outlook.com)
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <yonghong.song@linux.dev>) id 1qPRWs-0006kf-IW
- for apparmor@lists.ubuntu.com; Fri, 28 Jul 2023 17:45:30 +0000
-Message-ID: <4cfb1cae-5c25-107f-3f0b-c9538d62bd14@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1690566329; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=djOJ7aCL19RNXe8MF64c4n/fALjFZtWZ/lQcY9gY93c=;
- b=j5qOOAwcCkJHCY+tpKam4iLC6WF0wfvro1pvZmCS6NEVSkx+pvjP1XRnbwHnhZVY+26DhX
- Jy+eKeWSfPGnhF54abvyFS6yxO3U7CuVTz19X4u85lngnyrT9mtTuaHJGaO5vm1nn3AEqk
- XFGxmPjP/gAah8N55wYVQRaJmxGjshM=
-Date: Fri, 28 Jul 2023 10:45:17 -0700
-MIME-Version: 1.0
-Content-Language: en-US
-To: Geliang Tang <geliang.tang@suse.com>, Alexei Starovoitov
- <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Martin KaFai Lau
- <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ (envelope-from <geliang.tang@suse.com>) id 1qPghQ-0004qF-6r
+ for apparmor@lists.ubuntu.com; Sat, 29 Jul 2023 09:57:24 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Ww09lhaRxyUsIIu71prvvLNs1RLbXpio5FKSV8S9IBhPa1bR+wD2PKqUp5A4QiSvcOdyy0B+fajVHsAlOjjq8d9pYqZmLt6OQleRvUr4TZ/MhhUsWrUTnQh6ot6HSy9/1wC0zivT1RFhfi8GGXXhhLlbmRXVvPm5KlJRAbIfnKB+C8og5H3bLGwayUDcE34P1ZsWTcQoWJDPBss1FLne7E/Qlpz1uOLFxsVpI69hfnOnY/z30BtXS43jvxssktqi5KgfqGBUUjaqysLoOLIZHZjPGwtdYmEAyCfBu6IaSlSE4fHbeDJO8fjDPAZb54g+ssL33olqf8cFImdZ7drBbg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/J/yVO7GTFTHpVOQN9Au+19+9A7oXpuoFwB6tLUyzAQ=;
+ b=MUId7YX0VPrURRiLeTNjuCPpmLmfFdX2u+WzLNjSCNrjOnp/whG/TyyyH28TtD1Zmd/oKxJVtagMriMMp/mJu/UatHjnDxOVg77zA3rQMLdZTFSTdlVZ7ehHozoFnEtrhYlvtjQCe2+MGh3Pmlw57lUGDxHPN7qgP7u2GBNVnH7z8KRgnycWxG5XnZtjxy0c5Hs0tdXAYsN19zeBZlqTt6NZvQvCP2HeECQilqpWsTplk8ER+H5TSHLWZcQDeTOWRiofKBtI792S9x6k1Aq8MJuXd7LQ3/kc4K3aUHxur7vK1SVMu9yjbl+Jbgypj0W/ISOfOYZq40SKHAdv8NPAIQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/J/yVO7GTFTHpVOQN9Au+19+9A7oXpuoFwB6tLUyzAQ=;
+ b=ilouPOfBAxdpTRBgsoSkoha0VTdslqPZcq/NzyWmRxt3vXL67AWsQEnKgOL8Ux9oOVSeD3kCgJ7Tj8RiijHIKP/9XaHW58zxkN0HV/vbk1AbeoJkPxToFULQqI6dJ6SKd0YMFeUmUpQPAuPlJMAyRxGEAN0F+fVpUdVrEXwP9PV+p3mC+ncPBaCTW6TxZgFUCNrMWxYFDHpCdlhw00S29w++S3PFtXJ5PGFikrprY/4p6LfKUMW5hK2gzD1mm6gxL+P0ILlfTkTUc9o3w4DZXJk8qOUba1qz10ieFNjweaQ8NMzAkY/UN5WYRHEXpTZ/nb72dVnx2GxECo8j0K4r0A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Received: from HE1PR0402MB3497.eurprd04.prod.outlook.com (2603:10a6:7:83::14)
+ by GVXPR04MB9733.eurprd04.prod.outlook.com (2603:10a6:150:119::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.29; Sat, 29 Jul
+ 2023 09:57:20 +0000
+Received: from HE1PR0402MB3497.eurprd04.prod.outlook.com
+ ([fe80::bf65:a49a:8861:4f92]) by HE1PR0402MB3497.eurprd04.prod.outlook.com
+ ([fe80::bf65:a49a:8861:4f92%2]) with mapi id 15.20.6631.026; Sat, 29 Jul 2023
+ 09:57:19 +0000
+From: Geliang Tang <geliang.tang@suse.com>
+To: Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
  Yonghong Song <yhs@fb.com>, John Fastabend <john.fastabend@gmail.com>,
  KP Singh <kpsingh@kernel.org>, Stanislav Fomichev <sdf@google.com>,
  Hao Luo <haoluo@google.com>, Jiri Olsa <jolsa@kernel.org>,
- Florent Revest <revest@chromium.org>, Brendan Jackman
- <jackmanb@chromium.org>, Matthieu Baerts <matthieu.baerts@tessares.net>,
- Mat Martineau <martineau@kernel.org>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- John Johansen <john.johansen@canonical.com>, Paul Moore
- <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ Florent Revest <revest@chromium.org>,
+ Brendan Jackman <jackmanb@chromium.org>,
+ Matthieu Baerts <matthieu.baerts@tessares.net>,
+ Mat Martineau <martineau@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ John Johansen <john.johansen@canonical.com>,
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
  "Serge E. Hallyn" <serge@hallyn.com>,
  Stephen Smalley <stephen.smalley.work@gmail.com>,
  Eric Paris <eparis@parisplace.org>, Mykola Lysenko <mykolal@fb.com>,
  Shuah Khan <shuah@kernel.org>
-References: <c0647d0d3c7158b96dec4604ba317df311c5012d.1690531142.git.geliang.tang@suse.com>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Yonghong Song <yonghong.song@linux.dev>
-In-Reply-To: <c0647d0d3c7158b96dec4604ba317df311c5012d.1690531142.git.geliang.tang@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+Date: Sat, 29 Jul 2023 17:57:21 +0800
+Message-Id: <cover.1690624340.git.geliang.tang@suse.com>
+X-Mailer: git-send-email 2.35.3
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SG2PR02CA0105.apcprd02.prod.outlook.com
+ (2603:1096:4:92::21) To HE1PR0402MB3497.eurprd04.prod.outlook.com
+ (2603:10a6:7:83::14)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: HE1PR0402MB3497:EE_|GVXPR04MB9733:EE_
+X-MS-Office365-Filtering-Correlation-Id: 54fe800b-5459-4069-2909-08db901a322b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 33BC9xxfFtUgI9qWuCVdX7njJNHi22cGGVUq5ScA1b8rWu5k19A6MJu32BJUW2izC83iNa5ngjp+zhjsIoUCTKgwMdMzdTpY8qNC494zrn5gbpts6fhmMi+t8w3o/YcV34+jBrQzUerpVoIuDyXlUCPe9YVnu7xoytCiYtWL2ELCHygZbn61Q9E56oDkdPDFRQuJhO453vEVrDQXtpy9Ran4hMhNKnQn6jteTb3p4fk3LbDDna85xOeVWZfD90dMTAvsExJjhDhjAiWa0qXRihDxoeF3elERQogs1MGmpLVD0cKEh1QKdKbtScpLR2mXbK+o3/cwyuacsiXscihDBkmviJsaf7/xrU2OnOSWEBNpkWQbH/jcoyU8CfII+kSDJfyXidJ5PV40u+7plHW33dYPzUXTVv5H2yMZ5YN933FJHqyNt4OjL/n1P6N84ulrhkVz7Urg5uVBEXggmEFlReB6r5App+yGQANsZavkQ80dgYGnc5lykbHdGf6YuEqBGFHrNtZIs4N5Z/Ood9rRV/cSPOn0Vq6cMu1EbPZkAtWe2+rrI06RtcqdNLcuuXtCBzOGlIFGQbrb55G8XIl0IGxiY6XoAatrBa8W8qtDsh/OBQkmZPn2UD2AMxMYUwJR
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:HE1PR0402MB3497.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(376002)(346002)(39860400002)(366004)(396003)(136003)(451199021)(316002)(8676002)(110136005)(478600001)(38100700002)(66556008)(921005)(86362001)(5660300002)(4326008)(66946007)(66476007)(966005)(6486002)(6512007)(6666004)(186003)(6506007)(26005)(7416002)(7406005)(8936002)(2906002)(41300700001)(44832011)(2616005)(36756003)(83380400001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?s/ZqYu47HuTc8NCwkJdUJxx9vDvTYbiEmaVWUYOBruZq3LO8QUFHW6SJwLA8?=
+ =?us-ascii?Q?LOyO/GKmTJRlSiUluxyywBD8GvIAr2SULI59qp/DHjsyOSxtM8+YzGxLU/Tj?=
+ =?us-ascii?Q?tboafSBwJDhW0C/rYyD7oKOuSBQmCSZIxo4LHIwRiVUfOWZLZs0i/bisWFKd?=
+ =?us-ascii?Q?qFtlg/va19X2peOU4D+XUa6hlGfzK0lMQ5p5duMtFOn5/EFVinK0qMQd8pT0?=
+ =?us-ascii?Q?9bwqqQH1mrcQLHsWvbzMT07Zz3lc/e7S4jBJyRNKzWEKwnD3HU5q5BlEtwnH?=
+ =?us-ascii?Q?n4uAzz5vlS1DN8QISgIYdIkC/qhvzdsMmapQHtFv+HK0KmxX5RlMfnj1fXVD?=
+ =?us-ascii?Q?VIeuh4gTieFj/+o1zTOqNweMhhkda/CoefT5zjyzj80/vht4Vsp6XGoPPPP4?=
+ =?us-ascii?Q?c73GcqBXSDGynwaEyC/xoM6RnxybY88lTtxPUuktmj1euEBJRX7DFoSd69P/?=
+ =?us-ascii?Q?bkP6XPU7ctZF3WVro+ic9D7LMsftt5Bn3oV7dZKvU4+QgN14XwNeCQa7CANb?=
+ =?us-ascii?Q?tlCkCX+UEivEZTYQp4k/6j/ttcT2/sUHFR5OCaURb8u0FQ5heDgPEa1hzQb0?=
+ =?us-ascii?Q?04t9x6svCmJOv8+5lQvYHAkpbuEQ0ljobr/SzodiLvWPDRIeLX++/7F+KJv4?=
+ =?us-ascii?Q?Nj869jIq/Yt6NJf0ElG80HxDbPcN4jQ7iRCTrBD8X8aEFW1ZzyXy7eULgyVu?=
+ =?us-ascii?Q?p+we6gCw6w5wr/0Vj7C4sdT2g0cP7n5OOh9XPDMmx+YsELcNpNzIuDypXgwJ?=
+ =?us-ascii?Q?IfztTpOrGHplsAFxsj/sfnTFRC5hKPEIqqH+Q1xsvgL48a2/b4U/8QjTJaq5?=
+ =?us-ascii?Q?NcvFrhF2mfaimFwiy8m/OzArb7MTw3SJ3CKTD1O/dOaZmd6mv0GdH7jeZMxM?=
+ =?us-ascii?Q?0G38L46kY62CmE9SmTt9FFKU9fLJbRDjAiE8NuulZ6XcUsKroChXxfAICeFW?=
+ =?us-ascii?Q?wQMgMZsG3Xu/4DY9o606GzFC7at+24rGeMKt1d2KC1of33hsY5u5Pqgds93D?=
+ =?us-ascii?Q?X4Po2jWjdQ0vb1UYmMDc+niEMMI/7o1c9MUbWSEXA3Fe8+XxaYSo5sIesKGb?=
+ =?us-ascii?Q?2reBZOclb7sinSZARjgvEr0zGSYrXy52wiKbEeO66rIMtKzPbjp5LQ9M5MU6?=
+ =?us-ascii?Q?jsDVMFg27xPCaOqig2OBPppzpJvmJsRweqscgNVVv00kVvOG9i0+AtaPKLyS?=
+ =?us-ascii?Q?6hx18Ewhr3R/5r21NcZ6fkfV9JFeAGlLMo2kQoIAC4JZ7eJYISxaj/tUI5c9?=
+ =?us-ascii?Q?ZEd+xCPKt7tv4sUkvPrcj36bXoiV0NwuEZLtrsiKD2caYn/TDXJz+9FzPDFh?=
+ =?us-ascii?Q?2udH5OCsoTcHmS1brkTFxo/9u11IzIK2QUdO8lH5Cima41tMBgMbrFjf/KpS?=
+ =?us-ascii?Q?f7B9E6TqmWAH3cm3dFDb4RI9m3DYcKAq9fLBxchMxVuziDoALSNCm2w5MG9r?=
+ =?us-ascii?Q?bm4BaSvyeBALBl0UV3GD8/xxtU1piR+KGEAz91QuV/frfCtrNZdHCRfpufET?=
+ =?us-ascii?Q?X8MwOx+GGzuwrzg5/ySXmfW0dJZZ1DSLcWCYB4rkb4i/1iYJiFzKwXep+gFw?=
+ =?us-ascii?Q?ZqAkfcEsEBz3861ZCu6FNplnyZF9wx2nklae8asj?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 54fe800b-5459-4069-2909-08db901a322b
+X-MS-Exchange-CrossTenant-AuthSource: HE1PR0402MB3497.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2023 09:57:19.2777 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ab9iTjr7zhoeuNqF0HHf97G1Dx8q0GJ1za6RTieR2JFV/Y1BLpm3c/JRVlMqaePFNSCZr/NnbJ5B+PWTjklpTg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB9733
 X-Mailman-Approved-At: Sat, 29 Jul 2023 12:57:02 +0000
-Subject: Re: [apparmor] [RFC bpf-next v6] bpf: Force to MPTCP
+Subject: [apparmor] [RFC bpf-next v7 0/6] bpf: Force to MPTCP
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -66,182 +131,78 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Reply-To: yonghong.song@linux.dev
 Cc: selinux@vger.kernel.org, netdev@vger.kernel.org, apparmor@lists.ubuntu.com,
- linux-security-module@vger.kernel.org, linux-kselftest@vger.kernel.org,
- bpf@vger.kernel.org, mptcp@lists.linux.dev
+ Geliang Tang <geliang.tang@suse.com>, linux-security-module@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, bpf@vger.kernel.org, mptcp@lists.linux.dev
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
+As is described in the "How to use MPTCP?" section in MPTCP wiki [1]:
 
+"Your app should create sockets with IPPROTO_MPTCP as the proto:
+( socket(AF_INET, SOCK_STREAM, IPPROTO_MPTCP); ). Legacy apps can be
+forced to create and use MPTCP sockets instead of TCP ones via the
+mptcpize command bundled with the mptcpd daemon."
 
-On 7/28/23 12:59 AM, Geliang Tang wrote:
-> As is described in the "How to use MPTCP?" section in MPTCP wiki [1]:
-> 
-> "Your app can create sockets with IPPROTO_MPTCP as the proto:
-> ( socket(AF_INET, SOCK_STREAM, IPPROTO_MPTCP); ). Legacy apps can be
-> forced to create and use MPTCP sockets instead of TCP ones via the
-> mptcpize command bundled with the mptcpd daemon."
-> 
-> But the mptcpize (LD_PRELOAD technique) command has some limitations
-> [2]:
-> 
->   - it doesn't work if the application is not using libc (e.g. GoLang
-> apps)
->   - in some envs, it might not be easy to set env vars / change the way
-> apps are launched, e.g. on Android
->   - mptcpize needs to be launched with all apps that want MPTCP: we could
-> have more control from BPF to enable MPTCP only for some apps or all the
-> ones of a netns or a cgroup, etc.
->   - it is not in BPF, we cannot talk about it at netdev conf.
-> 
-> So this patchset attempts to use BPF to implement functions similer to
-> mptcpize.
-> 
-> The main idea is add a hook in sys_socket() to change the protocol id
-> from IPPROTO_TCP (or 0) to IPPROTO_MPTCP.
-> 
-> [1]
-> https://github.com/multipath-tcp/mptcp_net-next/wiki
-> [2]
-> https://github.com/multipath-tcp/mptcp_net-next/issues/79
-> 
-> v6:
->   - add update_socket_protocol.
-> 
-> v5:
->   - add bpf_mptcpify helper.
-> 
-> v4:
->   - use lsm_cgroup/socket_create
-> 
-> v3:
->   - patch 8: char cmd[128]; -> char cmd[256];
-> 
-> v2:
->   - Fix build selftests errors reported by CI
-> 
-> Closes: https://github.com/multipath-tcp/mptcp_net-next/issues/79
-> Signed-off-by: Geliang Tang <geliang.tang@suse.com>
-> ---
->   net/mptcp/bpf.c                               |  17 +++
->   net/socket.c                                  |   6 +
->   .../testing/selftests/bpf/prog_tests/mptcp.c  | 126 ++++++++++++++++--
->   tools/testing/selftests/bpf/progs/mptcpify.c  |  26 ++++
->   4 files changed, 166 insertions(+), 9 deletions(-)
->   create mode 100644 tools/testing/selftests/bpf/progs/mptcpify.c
-> 
-> diff --git a/net/mptcp/bpf.c b/net/mptcp/bpf.c
-> index 5a0a84ad94af..c43aee31014d 100644
-> --- a/net/mptcp/bpf.c
-> +++ b/net/mptcp/bpf.c
-> @@ -12,6 +12,23 @@
->   #include <linux/bpf.h>
->   #include "protocol.h"
->   
-> +#ifdef CONFIG_BPF_JIT
-> +BTF_SET8_START(bpf_mptcp_fmodret_ids)
-> +BTF_ID_FLAGS(func, update_socket_protocol)
-> +BTF_SET8_END(bpf_mptcp_fmodret_ids)
-> +
-> +static const struct btf_kfunc_id_set bpf_mptcp_fmodret_set = {
-> +	.owner = THIS_MODULE,
-> +	.set   = &bpf_mptcp_fmodret_ids,
-> +};
-> +
-> +static int __init bpf_mptcp_kfunc_init(void)
-> +{
-> +	return register_btf_fmodret_id_set(&bpf_mptcp_fmodret_set);
-> +}
-> +late_initcall(bpf_mptcp_kfunc_init);
-> +#endif /* CONFIG_BPF_JIT */
-> +
->   struct mptcp_sock *bpf_mptcp_sock_from_subflow(struct sock *sk)
->   {
->   	if (sk && sk_fullsock(sk) && sk->sk_protocol == IPPROTO_TCP && sk_is_mptcp(sk))
-> diff --git a/net/socket.c b/net/socket.c
-> index 2b0e54b2405c..4c7b2ff711f0 100644
-> --- a/net/socket.c
-> +++ b/net/socket.c
-> @@ -1644,11 +1644,17 @@ struct file *__sys_socket_file(int family, int type, int protocol)
->   	return sock_alloc_file(sock, flags, NULL);
->   }
->   
-> +noinline int update_socket_protocol(int family, int type, int protocol)
-> +{
-> +	return protocol;
-> +}
+But the mptcpize (LD_PRELOAD technique) command has some limitations
+[2]:
 
-You need to add __weak attribute to the above function, otherwise,
-although compiler will not inline this function, it may still poke
-into this function and if the function body is simply enough, it will
-"inline" it like in this case. Adding a '__weak' attribute can
-prevent this.
+ - it doesn't work if the application is not using libc (e.g. GoLang
+apps)
+ - in some envs, it might not be easy to set env vars / change the way
+apps are launched, e.g. on Android
+ - mptcpize needs to be launched with all apps that want MPTCP: we could
+have more control from BPF to enable MPTCP only for some apps or all the
+ones of a netns or a cgroup, etc.
+ - it is not in BPF, we cannot talk about it at netdev conf.
 
-The following is a snipet of asm code from a clang build kernel.
+So this patchset attempts to use BPF to implement functions similer to
+mptcpize.
 
-ffffffff8206a280 <update_socket_protocol>:
-ffffffff8206a280: f3 0f 1e fa           endbr64
-ffffffff8206a284: 0f 1f 44 00 00        nopl    (%rax,%rax)
-ffffffff8206a289: 89 d0                 movl    %edx, %eax
-ffffffff8206a28b: c3                    retq
-ffffffff8206a28c: 0f 1f 40 00           nopl    (%rax)
+The main idea is to add a hook in sys_socket() to change the protocol id
+from IPPROTO_TCP (or 0) to IPPROTO_MPTCP.
 
-ffffffff8206a290 <__sys_socket>:
-ffffffff8206a290: f3 0f 1e fa           endbr64
-ffffffff8206a294: 0f 1f 44 00 00        nopl    (%rax,%rax)
-ffffffff8206a299: 55                    pushq   %rbp
-ffffffff8206a29a: 41 57                 pushq   %r15
-ffffffff8206a29c: 41 56                 pushq   %r14
-ffffffff8206a29e: 41 54                 pushq   %r12
-ffffffff8206a2a0: 53                    pushq   %rbx
-ffffffff8206a2a1: 50                    pushq   %rax
-ffffffff8206a2a2: f7 c6 f0 f7 f7 ff     testl   $0xfff7f7f0, %esi 
-# imm = 0xFFF7F7F0
-ffffffff8206a2a8: 74 0c                 je      0xffffffff8206a2b6 
-<__sys_socket+0x26>
-ffffffff8206a2aa: 49 c7 c6 ea ff ff ff  movq    $-0x16, %r14
-ffffffff8206a2b1: e9 a5 00 00 00        jmp     0xffffffff8206a35b 
-<__sys_socket+0xcb>
-ffffffff8206a2b6: 89 d3                 movl    %edx, %ebx
-ffffffff8206a2b8: 89 f5                 movl    %esi, %ebp
-ffffffff8206a2ba: 41 89 fe              movl    %edi, %r14d
-ffffffff8206a2bd: 41 89 f7              movl    %esi, %r15d
-ffffffff8206a2c0: 41 83 e7 0f           andl    $0xf, %r15d
-ffffffff8206a2c4: 65 4c 8b 25 74 e9 fc 7d       movq 
-%gs:0x7dfce974(%rip), %r12
-ffffffff8206a2cc: 49 8d bc 24 b0 07 00 00       leaq    0x7b0(%r12), %rdi
-ffffffff8206a2d4: e8 a7 49 41 ff        callq   0xffffffff8147ec80 
-<__asan_load8_noabort>
-ffffffff8206a2d9: 4d 8b a4 24 b0 07 00 00       movq    0x7b0(%r12), %r12
-ffffffff8206a2e1: 49 8d 7c 24 28        leaq    0x28(%r12), %rdi
-ffffffff8206a2e6: e8 95 49 41 ff        callq   0xffffffff8147ec80 
-<__asan_load8_noabort>
-ffffffff8206a2eb: 49 8b 7c 24 28        movq    0x28(%r12), %rdi
-ffffffff8206a2f0: 49 89 e0              movq    %rsp, %r8
-ffffffff8206a2f3: 44 89 f6              movl    %r14d, %esi
-ffffffff8206a2f6: 44 89 fa              movl    %r15d, %edx
-ffffffff8206a2f9: 89 d9                 movl    %ebx, %ecx
-ffffffff8206a2fb: 45 31 c9              xorl    %r9d, %r9d
-ffffffff8206a2fe: e8 1d fa ff ff        callq   0xffffffff82069d20 
-<__sock_create>
+[1]
+https://github.com/multipath-tcp/mptcp_net-next/wiki
+[2]
+https://github.com/multipath-tcp/mptcp_net-next/issues/79
 
-update_socket_protocol() is still there but its content
-has been inlined.
+v7:
+ - add __weak and __diag_* for update_socket_protocol.
 
-Also, do you need a prototype for this global function?
-See kernel/cgroup/rstat.c for an example to use
-'__diag_*' to avoid a prototype.
+v6:
+ - add update_socket_protocol.
 
-> +
->   int __sys_socket(int family, int type, int protocol)
->   {
->   	struct socket *sock;
->   	int flags;
->   
-> +	protocol = update_socket_protocol(family, type, protocol);
->   	sock = __sys_socket_create(family, type, protocol);
->   	if (IS_ERR(sock))
->   		return PTR_ERR(sock);
-[...]
+v5:
+ - add bpf_mptcpify helper.
+
+v4:
+ - use lsm_cgroup/socket_create
+
+v3:
+ - patch 8: char cmd[128]; -> char cmd[256];
+
+v2:
+ - Fix build selftests errors reported by CI
+
+Closes: https://github.com/multipath-tcp/mptcp_net-next/issues/79
+
+Geliang Tang (6):
+  net: socket: add update_socket_protocol hook
+  bpf: Register mptcp modret set
+  selftests/bpf: Add mptcpify program
+  selftests/bpf: use random netns name for mptcp
+  selftests/bpf: add two mptcp netns helpers
+  selftests/bpf: Add mptcpify selftest
+
+ net/mptcp/bpf.c                               |  17 +++
+ net/socket.c                                  |  26 ++++
+ .../testing/selftests/bpf/prog_tests/mptcp.c  | 125 ++++++++++++++++--
+ tools/testing/selftests/bpf/progs/mptcpify.c  |  25 ++++
+ 4 files changed, 184 insertions(+), 9 deletions(-)
+ create mode 100644 tools/testing/selftests/bpf/progs/mptcpify.c
+
+-- 
+2.35.3
+
 
