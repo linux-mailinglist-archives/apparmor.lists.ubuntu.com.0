@@ -2,130 +2,48 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25C0B76EF08
-	for <lists+apparmor@lfdr.de>; Thu,  3 Aug 2023 18:09:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F21476EF13
+	for <lists+apparmor@lfdr.de>; Thu,  3 Aug 2023 18:09:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qRasl-0007Ib-OS; Thu, 03 Aug 2023 16:08:59 +0000
-Received: from mail-ed1-f42.google.com ([209.85.208.42])
+	id 1qRast-0007Pd-0q; Thu, 03 Aug 2023 16:09:07 +0000
+Received: from dfw.source.kernel.org ([139.178.84.217])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <matthieu.baerts@tessares.net>) id 1qRTIe-0004Sd-7r
- for apparmor@lists.ubuntu.com; Thu, 03 Aug 2023 08:03:12 +0000
-Received: by mail-ed1-f42.google.com with SMTP id
- 4fb4d7f45d1cf-5222c5d71b8so781860a12.2
- for <apparmor@lists.ubuntu.com>; Thu, 03 Aug 2023 01:03:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=tessares.net; s=google; t=1691049792; x=1691654592;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=GrJQSNHnWu1Mk5U+4IadqjOBUP3A5seeDYi38nWCivY=;
- b=KwkT2N3PnW/R4BDYOzR+gHZbBvaQbN2DmN4G4cp/vO9MI6hwOw43rB3gJ7xyRvAd2l
- Xzhx0deoBlgSKZTOTDNNaMI70lQzpdhOS+A8n1V6nuBwo74OH63U9ztZQms14YeVUCM6
- X+iC5w6tvwGk9aCZeBWjVmg27727jU47u0+/+INna0wmiQMcF4QfrqvAt1uNoOHDmfkS
- m091u50oCxlPSRc3eUNBlYoSmPcyuYSCb4ZMV5XSGc9KFTqWzX0dERGOj0hRWNNU53ap
- 3OgGo/+Yb8SwQa4H/rX1e4W6ZRM/BuJGtE7/9RWCWeU4NGRiENn9DhIH9sLlvif5tQjZ
- 3Jzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691049792; x=1691654592;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=GrJQSNHnWu1Mk5U+4IadqjOBUP3A5seeDYi38nWCivY=;
- b=Svc3D02ZS/H6iWJ/WtMzXYcNQEbwqR2NYdiaulqRYyObG8siRa5wRS3c+2S5JoN2k5
- 3tV2/zMMV3NHwGzQrn7CjYtxalSUdbGy4ti3LcjAksHVU+tQydFrm5qQS4VV3/KA2q7G
- cZVKwKYH60Ae4eB7hmZ0le6NYGR5iE3u/zmWJF0Vq5i0t7sQ/d/gM+OwyFih/C3/ufs+
- /Wp1YGnIbNP8gzVNmTv2ySPgb0FRlaDJuwKsLRCvJ1LvvE/oP10AmtxHMY55sWlrUxFa
- 33qY/gjmfDBmHRScWcGHuLpCe/4ev88dCWuUNPVkZdvPtM9TtOiaQjizlrb2hgl6RC6+
- Q9Eg==
-X-Gm-Message-State: ABy/qLbkHtYH36Jlf3YHVWkJ8gwLLVJ9lvo+nJDaXC8chs+ckcnV3i95
- rx6wimZ9zvIePnN1VZG4js4RSQ==
-X-Google-Smtp-Source: APBJJlFuoAgOoNZTTSWYdyf/voBRcYNotvUorgT7zRDZV0LpAzuovYP3wZXGHTzDfXBjWUDoRCCLCg==
-X-Received: by 2002:aa7:de14:0:b0:519:6a6a:7659 with SMTP id
- h20-20020aa7de14000000b005196a6a7659mr8036773edv.18.1691049791807; 
- Thu, 03 Aug 2023 01:03:11 -0700 (PDT)
-Received: from ?IPV6:2a02:578:8593:1200:ace8:eb44:12a0:888?
- ([2a02:578:8593:1200:ace8:eb44:12a0:888])
- by smtp.gmail.com with ESMTPSA id
- ay9-20020a056402202900b005223d76a3e3sm9669924edb.85.2023.08.03.01.03.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 03 Aug 2023 01:03:11 -0700 (PDT)
-Message-ID: <6bcd3193-deb2-42b6-9732-48d76eb59913@tessares.net>
-Date: Thu, 3 Aug 2023 10:03:09 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-GB
-To: Geliang Tang <geliang.tang@suse.com>, Alexei Starovoitov
- <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Martin KaFai Lau
- <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yhs@fb.com>, John Fastabend <john.fastabend@gmail.com>,
- KP Singh <kpsingh@kernel.org>, Stanislav Fomichev <sdf@google.com>,
- Hao Luo <haoluo@google.com>, Jiri Olsa <jolsa@kernel.org>,
- Florent Revest <revest@chromium.org>, Brendan Jackman
- <jackmanb@chromium.org>, Mat Martineau <martineau@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- John Johansen <john.johansen@canonical.com>, Paul Moore
- <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- "Serge E. Hallyn" <serge@hallyn.com>,
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Eric Paris <eparis@parisplace.org>, Mykola Lysenko <mykolal@fb.com>,
- Shuah Khan <shuah@kernel.org>
+ (envelope-from <horms@kernel.org>) id 1qRXps-0004Rh-QW
+ for apparmor@lists.ubuntu.com; Thu, 03 Aug 2023 12:53:49 +0000
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8E0B361D69;
+ Thu,  3 Aug 2023 12:53:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4BBEC433C8;
+ Thu,  3 Aug 2023 12:53:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1691067227;
+ bh=r4FB9C3DbyML50THOYSEoMjiyY77SgxV2l1qtwpxE3Q=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=nN0wvvfqkt0Oh2vmUhgUKxgefq2fjGdBl3Xc1C0D1Hv1tbt26iNf+M/ps2GN9QKkh
+ Zzp8aOGK4IJdtlp78ZHErfGc3btpdICVz9a69a8tzFGauOoN8QRlkjiHUSFeerQaeC
+ MdNTQg6Pa+W0RXdTbE4nmWBys5er8hvo3aWE9i+uJVTn1EuIMDRakpkWVWdIvGwVBR
+ u39lif0pHj6/7hYmNeWAWnbvQigCf8NtUwdzAMM1pCGbXbsHLQuRd/S3zTD7E8ZVlf
+ 34m/8LH+0HMVIBO9P+jMC2OqUTOdeAPbVnnepr2zeM4fkSbPChud+iiZ1nHCngAz2C
+ OoZ/H55FwCmhw==
+Date: Thu, 3 Aug 2023 14:53:38 +0200
+From: Simon Horman <horms@kernel.org>
+To: Geliang Tang <geliang.tang@suse.com>
+Message-ID: <ZMujUofDnb8wMb36@kernel.org>
 References: <cover.1691047403.git.geliang.tang@suse.com>
- <4b95511da1a9dfd1a55734e32b7b6510739a7ab7.1691047403.git.geliang.tang@suse.com>
-From: Matthieu Baerts <matthieu.baerts@tessares.net>
-Autocrypt: addr=matthieu.baerts@tessares.net; keydata=
- xsFNBFXj+ekBEADxVr99p2guPcqHFeI/JcFxls6KibzyZD5TQTyfuYlzEp7C7A9swoK5iCvf
- YBNdx5Xl74NLSgx6y/1NiMQGuKeu+2BmtnkiGxBNanfXcnl4L4Lzz+iXBvvbtCbynnnqDDqU
- c7SPFMpMesgpcu1xFt0F6bcxE+0ojRtSCZ5HDElKlHJNYtD1uwY4UYVGWUGCF/+cY1YLmtfb
- WdNb/SFo+Mp0HItfBC12qtDIXYvbfNUGVnA5jXeWMEyYhSNktLnpDL2gBUCsdbkov5VjiOX7
- CRTkX0UgNWRjyFZwThaZADEvAOo12M5uSBk7h07yJ97gqvBtcx45IsJwfUJE4hy8qZqsA62A
- nTRflBvp647IXAiCcwWsEgE5AXKwA3aL6dcpVR17JXJ6nwHHnslVi8WesiqzUI9sbO/hXeXw
- TDSB+YhErbNOxvHqCzZEnGAAFf6ges26fRVyuU119AzO40sjdLV0l6LE7GshddyazWZf0iac
- nEhX9NKxGnuhMu5SXmo2poIQttJuYAvTVUNwQVEx/0yY5xmiuyqvXa+XT7NKJkOZSiAPlNt6
- VffjgOP62S7M9wDShUghN3F7CPOrrRsOHWO/l6I/qJdUMW+MHSFYPfYiFXoLUZyPvNVCYSgs
- 3oQaFhHapq1f345XBtfG3fOYp1K2wTXd4ThFraTLl8PHxCn4ywARAQABzS5NYXR0aGlldSBC
- YWVydHMgPG1hdHRoaWV1LmJhZXJ0c0B0ZXNzYXJlcy5uZXQ+wsGSBBMBCAA8AhsDBgsJCAcD
- AgYVCAIJCgsEFgIDAQIeAQIXgBYhBOjLhfdodwV6bif3eva3gk9CaaBzBQJhI2BOAhkBAAoJ
- EPa3gk9CaaBzlQMQAMa1ZmnZyJlom5NQD3JNASXQws5F+owB1xrQ365GuHA6C/dcxeTjByIW
- pmMWnjBH22Cnu1ckswWPIdunYdxbrahHE+SGYBHhxZLoKbQlotBMTUY+cIHl8HIUjr/PpcWH
- HuuzHwfm3Aabc6uBOlVz4dqyEWr1NRtsoB7l4B2iRv4cAIrZlVF4j5imU0TAwZxBMVW7C4Os
- gxnxr4bwyxQqqXSIFSVhniM5GY2BsM03cmKEuduugtMZq8FCt7p0Ec9uURgNNGuDPntk+mbD
- WoXhxiZpbMrwGbOEYqmSlixqvlonBCxLDxngxYuh66dPeeRRrRy2cJaaiNCZLWDwbZcDGtpk
- NyFakNT0SeURhF23dNPc4rQvz4It0QDQFZucebeZephTNPDXb46WSwNM7242qS7UqfVm1OGa
- Q8967qk36VbRe8LUJOfyNpBtO6t9R2IPJadtiOl62pCmWKUYkxtWjL+ajTkvNUT6cieVLRGz
- UtWT6cjwL1luTT5CKf43+ehCmlefPfXR50ZEC8oh7Yens9m/acnvUL1HkAHa8SUOOoDd4fGP
- 6Tv0T/Cq5m+HijUi5jTHrNWMO9LNbeKpcBVvG8q9B3E2G1iazEf1p4GxSKzFgwtkckhRbiQD
- ZDTqe7aZufQ6LygbiLdjuyXeSkNDwAffVlb5V914Xzx/RzNXWo0AzsFNBFXj+ekBEADn679L
- HWf1qcipyAekDuXlJQI/V7+oXufkMrwuIzXSBiCWBjRcc4GLRLu8emkfyGu2mLPH7u3kMF08
- mBW1HpKKXIrT+an2dYcOFz2vBTcqYdiAUWydfnx4SZnHPaqwhjyO4WivmvuSlwzl1FH1oH4e
- OU44kmDIPFwlPAzV7Lgv/v0/vbC5dGEyJs3XhJfpNnN/79cg6szpOxQtUkQi/X411zNBuzqk
- FOkQr8bZqkwTu9+aNOxlTboTOf4sMxfXqUdOYgmLseWHt6J8IYYz6D8CUNXppYoVL6wFvDL5
- ihLRlzdjPzOt1uIrOfeRsp3733/+bKxJWwdp6RBjJW87QoPYo8oGzVL8iasFvpd5yrEbL/L/
- cdYd2eAYRja/Yg9CjHuYA/OfIrJcR8b7SutWx5lISywqZjTUiyDDBuY31lypQpg2GO/rtYxf
- u03CJVtKsYtmip9eWDDhoB2cgxDJNbycTqEf8jCprLhLay2vgdm1bDJYuK2Ts3576/G4rmq2
- jgDG0HtV2Ka8pSzHqRA7kXdhZwLe8JcKA/DJXzXff58hHYvzVHUvWrezBoS6H3m9aPqKyTF4
- 1ZJPIUBUphhWyQZX45O0HvU/VcKdvoAkJb1wqkLbn7PFCoPZnLR0re7ZG4oStqMoFr9hbO5J
- ooA6Sd4XEbcski8eXuKo8X4kMKMHmwARAQABwsFfBBgBAgAJBQJV4/npAhsMAAoJEPa3gk9C
- aaBzlWcP/1iBsKsdHUVsxubu13nhSti9lX+Lubd0hA1crZ74Ju/k9d/X1x7deW5oT7ADwP6+
- chbmZsACKiO3cxvqnRYlLdDNs5vMc2ACnfPL8viVfBzpZbm+elYDOpcUc/wP09Omq8EAtteo
- vTqyY/jsmpvJDGNd/sPaus94iptiZVj11rUrMw5V/eBF5rNhrz3NlJ1WQyiN9axurTnPBhT5
- IJZLc2LIXpCCFta+jFsXBfWL/TFHAmJf001tGPWG5UpC5LhbuttYDztOtVA9dQB2TJ3sVFgg
- I1b7SB13KwjA+hoqst/HcFrpGnHQnOdutU61eWKGOXgpXya04+NgNj277zHjXbFeeUaXoALg
- cu7YXcQKRqZjgbpTF6Nf4Tq9bpd7ifsf6sRflQWA9F1iRLVMD9fecx6f1ui7E2y8gm/sLpp1
- mYweq7/ZrNftLsi+vHHJLM7D0bGOhVO7NYwpakMY/yfvUgV46i3wm49m0nyibP4Nl6X5YI1k
- xV1U0s853l+uo6+anPRWEUCU1ONTVXLQKe7FfcAznUnx2l03IbRLysAOHoLwAoIM59Sy2mrb
- z/qhNpC/tBl2B7Qljp2CXMYqcKL/Oyanb7XDnn1+vPj4gLuP+KC8kZfgoMMpSzSaWV3wna7a
- wFe/sIbF3NCgdrOXNVsV7t924dsAGZjP1x59Ck7vAMT9
-In-Reply-To: <4b95511da1a9dfd1a55734e32b7b6510739a7ab7.1691047403.git.geliang.tang@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Thu, 03 Aug 2023 16:08:58 +0000
-Subject: Re: [apparmor] [PATCH bpf-next v8 4/4] selftests/bpf: Add mptcpify
-	test
+ <120b307aacd1791fac016d33e112069ffb7db21a.1691047403.git.geliang.tang@suse.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <120b307aacd1791fac016d33e112069ffb7db21a.1691047403.git.geliang.tang@suse.com>
+X-Mailman-Approved-At: Thu, 03 Aug 2023 16:09:04 +0000
+Subject: Re: [apparmor] [PATCH bpf-next v8 1/4] bpf: Add
+	update_socket_protocol hook
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -137,36 +55,68 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: selinux@vger.kernel.org, netdev@vger.kernel.org, apparmor@lists.ubuntu.com,
- linux-security-module@vger.kernel.org, linux-kselftest@vger.kernel.org,
- bpf@vger.kernel.org, mptcp@lists.linux.dev
+Cc: Alexei Starovoitov <ast@kernel.org>, James Morris <jmorris@namei.org>,
+ Song Liu <song@kernel.org>, Eric Dumazet <edumazet@google.com>,
+ Stanislav Fomichev <sdf@google.com>, linux-kselftest@vger.kernel.org,
+ Shuah Khan <shuah@kernel.org>, Mykola Lysenko <mykolal@fb.com>,
+ Paul Moore <paul@paul-moore.com>, Daniel Borkmann <daniel@iogearbox.net>,
+ John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
+ Mat Martineau <martineau@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "Serge E. Hallyn" <serge@hallyn.com>,
+ Florent Revest <revest@chromium.org>, selinux@vger.kernel.org,
+ apparmor@lists.ubuntu.com, KP Singh <kpsingh@kernel.org>,
+ Brendan Jackman <jackmanb@chromium.org>, Yonghong Song <yhs@fb.com>,
+ Eric Paris <eparis@parisplace.org>, mptcp@lists.linux.dev,
+ Hao Luo <haoluo@google.com>, netdev@vger.kernel.org,
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ linux-security-module@vger.kernel.org, Jiri Olsa <jolsa@kernel.org>,
+ Matthieu Baerts <matthieu.baerts@tessares.net>, bpf@vger.kernel.org,
+ Martin KaFai Lau <martin.lau@linux.dev>,
+ "David S. Miller" <davem@davemloft.net>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Hi Geliang,
-
-On 03/08/2023 09:30, Geliang Tang wrote:
-> Implement a new test program mptcpify: if the family is AF_INET or
-> AF_INET6, the type is SOCK_STREAM, and the protocol ID is 0 or
-> IPPROTO_TCP, set it to IPPROTO_MPTCP. It will be hooked in
-> update_socket_protocol().
+On Thu, Aug 03, 2023 at 03:30:39PM +0800, Geliang Tang wrote:
+> Add a hook named update_socket_protocol in __sys_socket(), for bpf
+> progs to attach to and update socket protocol. One user case is to
+> force legacy TCP apps to create and use MPTCP sockets instead of
+> TCP ones.
 > 
-> Extend the MPTCP test base, add a selftest test_mptcpify() for the
-> mptcpify case. Open and load the mptcpify test prog to mptcpify the
-> TCP sockets dynamically, then use start_server() and connect_to_fd()
-> to create a TCP socket, but actually what's created is an MPTCP
-> socket, which can be verified through the outputs of 'ss' and 'nstat'
-> commands.
+> Define a mod_ret set named bpf_mptcp_fmodret_ids, add the hook
+> update_socket_protocol into this set, and register it in
+> bpf_mptcp_kfunc_init().
+> 
+> Signed-off-by: Geliang Tang <geliang.tang@suse.com>
 
-Thank you for the modifications!
+...
 
-For MPTCP related code, it looks good to me:
+> diff --git a/net/socket.c b/net/socket.c
+> index 2b0e54b2405c..586a437d7a5e 100644
+> --- a/net/socket.c
+> +++ b/net/socket.c
+> @@ -1644,11 +1644,36 @@ struct file *__sys_socket_file(int family, int type, int protocol)
+>  	return sock_alloc_file(sock, flags, NULL);
+>  }
+>  
+> +/**
 
-Reviewed-by: Matthieu Baerts <matthieu.baerts@tessares.net>
+Hi Geliang Tang,
 
-Cheers,
-Matt
--- 
-Tessares | Belgium | Hybrid Access Solutions
-www.tessares.net
+nit: The format of the text below is not in kernel doc format,
+     so it is probably better if the comment begins with '/*'
+     rather than '/**'.
+
+> + *	A hook for bpf progs to attach to and update socket protocol.
+> + *
+> + *	A static noinline declaration here could cause the compiler to
+> + *	optimize away the function. A global noinline declaration will
+> + *	keep the definition, but may optimize away the callsite.
+> + *	Therefore, __weak is needed to ensure that the call is still
+> + *	emitted, by telling the compiler that we don't know what the
+> + *	function might eventually be.
+> + *
+> + *	__diag_* below are needed to dismiss the missing prototype warning.
+> + */
+
+...
 
