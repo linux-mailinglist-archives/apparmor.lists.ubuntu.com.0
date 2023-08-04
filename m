@@ -2,29 +2,29 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECAB476F677
-	for <lists+apparmor@lfdr.de>; Fri,  4 Aug 2023 02:18:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F04FF76F91C
+	for <lists+apparmor@lfdr.de>; Fri,  4 Aug 2023 06:45:21 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qRiW3-00014M-Bh; Fri, 04 Aug 2023 00:18:03 +0000
-Received: from out-97.mta0.migadu.com ([91.218.175.97])
+	id 1qRmgX-0007Sw-LG; Fri, 04 Aug 2023 04:45:09 +0000
+Received: from out-95.mta0.migadu.com ([91.218.175.95])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <yonghong.song@linux.dev>) id 1qRhvz-0007tZ-06
- for apparmor@lists.ubuntu.com; Thu, 03 Aug 2023 23:40:47 +0000
-Message-ID: <878f7f70-4158-8200-f6ba-852d18b948e0@linux.dev>
+ (envelope-from <yonghong.song@linux.dev>) id 1qRjY5-0004Gc-FM
+ for apparmor@lists.ubuntu.com; Fri, 04 Aug 2023 01:24:13 +0000
+Message-ID: <1bf7f5cf-a944-a284-28af-83a6603542fb@linux.dev>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1691106046; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ t=1691112252; h=from:from:reply-to:reply-to:subject:subject:date:date:
  message-id:message-id:to:to:cc:cc:mime-version:mime-version:
  content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=70OOEnQNymTwDBG+D/tQnUGjNUZmioQ7nC9Qtp7Y8Ns=;
- b=LYJCbLPQw1uc/Dyz1Jb/q2qVDZHI6COnSC+37k/5h6YPulFyJAipEP1dGow4qdyA5j98iJ
- 7KALLYoQ9BPg8XQJbQpFEmZTT6/g6cqzcYsPZZj+tVfVz0NLKPFcWgK2R0S9KLNrV4BkHA
- 1Pn2Gs3ta0WvKEKlG5MIBZe4L4mN4mg=
-Date: Thu, 3 Aug 2023 16:40:33 -0700
+ bh=TwdQIDXC+f6jYe3ZTrZ/P/Tt5JCmVzAqF6vdm1RcH34=;
+ b=EJq+OHpmy8Ae5Kzsn+Rk9cCzs8Bdjk3+rM9n/ZWHWa7AwJtUTWcIxOiaFJRRI5LXziL3Vy
+ z+MCWlHk4CLZgXiQ3H3ySYUOoC+8O4lI3VE/VFr5uxPUbuaTh7BJdvjkCtShagdtx3ZbXW
+ +BM9KumVGOzPUeECcI9noVdsLG4ETZ8=
+Date: Thu, 3 Aug 2023 18:23:57 -0700
 MIME-Version: 1.0
 Content-Language: en-US
 To: Geliang Tang <geliang.tang@suse.com>, Alexei Starovoitov
@@ -54,7 +54,7 @@ In-Reply-To: <92ee6be5a465601ff3a2df29b6a517086e87ca3c.1691069778.git.geliang.ta
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Migadu-Flow: FLOW_OUT
-X-Mailman-Approved-At: Fri, 04 Aug 2023 00:18:02 +0000
+X-Mailman-Approved-At: Fri, 04 Aug 2023 04:45:09 +0000
 Subject: Re: [apparmor] [PATCH bpf-next v9 4/4] selftests/bpf: Add mptcpify
 	test
 X-BeenThere: apparmor@lists.ubuntu.com
@@ -129,6 +129,12 @@ On 8/3/23 6:41 AM, Geliang Tang wrote:
 > +	snprintf(cmd, sizeof(cmd),
 > +		 "ip netns exec %s ss -tOni | grep -q '%s'",
 > +		 NS_TEST, "tcp-ulp-mptcp");
+
+Could you show what is the expected output from the above command line
+   ip netns exec %s ss -tOni
+?
+This way, users can easily reason about the ss states based on tests.
+
 > +	if (!ASSERT_OK(system(cmd), "No tcp-ulp-mptcp found!"))
 > +		err++;
 > +
@@ -136,119 +142,16 @@ On 8/3/23 6:41 AM, Geliang Tang wrote:
 > +		 "ip netns exec %s nstat -asz %s | awk '%s' | grep -q '%s'",
 > +		 NS_TEST, "MPTcpExtMPCapableSYNACKRX",
 > +		 "NR==1 {next} {print $2}", "1");
+
+The same thing here. Could you show the expected output with
+    ip netns exec %s nstat -asz %s
+?
+
 > +	if (!ASSERT_OK(system(cmd), "No MPTcpExtMPCapableSYNACKRX found!"))
 > +		err++;
 > +
 > +	return err;
 > +}
 > +
-> +static int run_mptcpify(int cgroup_fd)
-> +{
-> +	int server_fd, client_fd, prog_fd, err = 0;
-> +	struct mptcpify *mptcpify_skel;
-> +
-> +	mptcpify_skel = mptcpify__open_and_load();
-> +	if (!ASSERT_OK_PTR(mptcpify_skel, "skel_open_load"))
-> +		return -EIO;
-> +
-> +	err = mptcpify__attach(mptcpify_skel);
-> +	if (!ASSERT_OK(err, "skel_attach"))
-> +		goto out;
-> +
-> +	prog_fd = bpf_program__fd(mptcpify_skel->progs.mptcpify);
-> +	if (!ASSERT_GE(prog_fd, 0, "bpf_program__fd")) {
-> +		err = -EIO;
-> +		goto out;
-> +	}
-
-load success means prog_fd is always valid. So above
-ASSERT_GE not needed.
-
-> +
-> +	/* without MPTCP */
-> +	server_fd = start_server(AF_INET, SOCK_STREAM, NULL, 0, 0);
-> +	if (!ASSERT_GE(server_fd, 0, "start_server")) {
-> +		err = -EIO;
-> +		goto out;
-> +	}
-> +
-> +	client_fd = connect_to_fd(server_fd, 0);
-> +	if (!ASSERT_GE(client_fd, 0, "connect to fd")) {
-> +		err = -EIO;
-> +		goto close_server;
-> +	}
-> +
-> +	send_byte(client_fd);
-> +	err += verify_mptcpify();
-> +
-> +	close(client_fd);
-> +close_server:
-> +	close(server_fd);
-> +out:
-> +	mptcpify__destroy(mptcpify_skel);
-> +	return err;
-> +}
-> +
-> +static void test_mptcpify(void)
-> +{
-> +	struct nstoken *nstoken = NULL;
-> +	int cgroup_fd;
-> +
-> +	cgroup_fd = test__join_cgroup("/mptcpify");
-> +	if (!ASSERT_GE(cgroup_fd, 0, "test__join_cgroup"))
-> +		return;
-> +
-> +	nstoken = create_netns();
-> +	if (!ASSERT_OK_PTR(nstoken, "create_netns"))
-> +		goto fail;
-> +
-> +	ASSERT_OK(run_mptcpify(cgroup_fd), "run_mptcpify");
-> +
-> +fail:
-> +	cleanup_netns(nstoken);
-> +	close(cgroup_fd);
-> +}
-> +
->   void test_mptcp(void)
->   {
->   	if (test__start_subtest("base"))
->   		test_base();
-> +	if (test__start_subtest("mptcpify"))
-> +		test_mptcpify();
->   }
-> diff --git a/tools/testing/selftests/bpf/progs/mptcpify.c b/tools/testing/selftests/bpf/progs/mptcpify.c
-> new file mode 100644
-> index 000000000000..9cf1febe982d
-> --- /dev/null
-> +++ b/tools/testing/selftests/bpf/progs/mptcpify.c
-> @@ -0,0 +1,25 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/* Copyright (c) 2023, SUSE. */
-> +
-> +#include <linux/bpf.h>
-> +#include <bpf/bpf_tracing.h>
-> +
-> +char _license[] SEC("license") = "GPL";
-> +
-> +#define	AF_INET		2
-> +#define	AF_INET6	10
-> +#define	SOCK_STREAM	1
-> +#define	IPPROTO_TCP	6
-> +#define	IPPROTO_MPTCP	262
-
-To avoid the above macros, you can use
-vmlinux.h and bpf_tracing_net.h.
-
-> +
-> +SEC("fmod_ret/update_socket_protocol")
-> +int BPF_PROG(mptcpify, int family, int type, int protocol)
-> +{
-> +	if ((family == AF_INET || family == AF_INET6) &&
-> +	    type == SOCK_STREAM &&
-> +	    (!protocol || protocol == IPPROTO_TCP)) {
-> +		return IPPROTO_MPTCP;
-> +	}
-> +
-> +	return protocol;
-> +}
+[...]
 
