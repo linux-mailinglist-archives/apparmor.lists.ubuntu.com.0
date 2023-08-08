@@ -2,51 +2,63 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A719774B09
-	for <lists+apparmor@lfdr.de>; Tue,  8 Aug 2023 22:39:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB3A8774BD3
+	for <lists+apparmor@lfdr.de>; Tue,  8 Aug 2023 22:57:26 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qTTUJ-0001kB-0S; Tue, 08 Aug 2023 20:39:31 +0000
-Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
- helo=smtp-relay-canonical-1.canonical.com)
+	id 1qTTlU-0003E9-P8; Tue, 08 Aug 2023 20:57:16 +0000
+Received: from mail-oo1-f51.google.com ([209.85.161.51])
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <john.johansen@canonical.com>) id 1qTTUH-0001jw-JV
- for apparmor@lists.ubuntu.com; Tue, 08 Aug 2023 20:39:29 +0000
-Received: from [192.168.192.83] (unknown [50.47.134.245])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id DF2BB3F7B7; 
- Tue,  8 Aug 2023 20:39:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1691527169;
- bh=rwhgNCgCm4EhMb9h8pB1jFw10fTpnGr8gIdPRM1+pEY=;
- h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
- In-Reply-To:Content-Type;
- b=PqIUVK41G9gdA+HLd9j1+rmGhkiPrUIPA5JI0T4bTxKpjkVths1rYgL2vCGnSBGIS
- YQIp6TNMjys9A7yJCjF0QvNB8kmDP2R7d09HRCNqEi/p+2DPre2PZfGLU03tq+IWXg
- 1ML2AJX8NUT7crONFxMGxua+Su5EoELYLx6ae0zvRVTaaRio0bWD9936UJE18pUJ6L
- AF2/1JvIiDZQwhnt+ZuX7gWsgd9nGmZsZb8iHGQWNdK7jg+MO3IPqmlkETn/axtAl5
- pw7hAQsLIXZK36iAlWGEKrZzQl0h0UzD3XaG3h9JvlZknxvqmE/b4aq3GYxxN57rCa
- sgEwMonqbTeAA==
-Message-ID: <2c3a9d22-4e7b-ccf9-d43e-8e785401945f@canonical.com>
-Date: Tue, 8 Aug 2023 13:39:26 -0700
+ (envelope-from <paul@paul-moore.com>) id 1qTTlT-0003E2-TZ
+ for apparmor@lists.ubuntu.com; Tue, 08 Aug 2023 20:57:16 +0000
+Received: by mail-oo1-f51.google.com with SMTP id
+ 006d021491bc7-56cb1e602e7so3898430eaf.1
+ for <apparmor@lists.ubuntu.com>; Tue, 08 Aug 2023 13:57:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=paul-moore.com; s=google; t=1691528234; x=1692133034;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=TS5jj+LJIlaFmebXscgv7ALonGJ5hEAqrVobn+h6tkY=;
+ b=Y9hnaF54b9OdWRu8Mgo3/Um7XsJJt1IeTsHVaRqVcf1uJTYzuVx8plDvnbGPQQj30O
+ nuYIxW1noSDzKhQn1bQvSQjWSQiphGrfkmDI07IJvzTyThMAKGpcSqKUnJEXOZIy4UfX
+ kXhFh2CXld2Se0q0gmX+7ubme4nz6vRkqdHfLaSNTcgpkdiCs2y3lAwXmLZFgAKvIYhL
+ tdmIKD6prK1gA2c3AyFva39ZjOX8CAU9OsRde34oHqg4rDAv7Z8snLfK96+XkNaGF3Gy
+ KXOAdkwWxfBvmL9pFbiIERAOmX3yVhxYD3nsKV0Ml3S+yxxPlRvZ2OxG5MQgQmsS/j3a
+ ewuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1691528234; x=1692133034;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=TS5jj+LJIlaFmebXscgv7ALonGJ5hEAqrVobn+h6tkY=;
+ b=bpZMw1ehXXDYaeHYXU7VM5DhZoV0hDus/pBoi50w0cUIvXSaUtm5Krz0jHvtklQdMV
+ elenaf2Fh6/C0Gn+6AlIBu7Wzrj4zc6PvpzGHfoWSUY5H92/5OxZv7Y4D5uARm33Yy1S
+ D2hu66VoT2GVSfB1yUD2TYKEjb1fo29ysPGBi4yd0TAQyv8ieYi1gpwmFiRg3BD/5UZi
+ vt73kvcRUzeg9Tcwf3EhyJBstVg9mT8RxuvSw5N+SHP34870l8Ne2xqmrj5E44Gb4EMd
+ /Z/57jdeSpKZjNAuWEJ06xsRp4BkAw2SjXs+00r3aSZtIJKz5PaSewDz8TRj2Gr2hRN1
+ seHg==
+X-Gm-Message-State: AOJu0YwUJXFCTjv4iTt3Xntgo4d5ijHjdGMKdJ4OkT3isL6WaFLKLq1r
+ f+cVmJjW16sqiWKmeMZRiyP6Cwc9P7wxzqNxFep9
+X-Google-Smtp-Source: AGHT+IF6at6g2JHJkuRBhYYtMLf3GXfKz3mwW2gLejTNbDRqI3v7TYVl5ylxtV0uehKkfpThdRY8EvckgK0r71MA1+k=
+X-Received: by 2002:a05:6358:8820:b0:139:a866:4155 with SMTP id
+ hv32-20020a056358882000b00139a8664155mr503973rwb.5.1691528234358; Tue, 08 Aug
+ 2023 13:57:14 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Content-Language: en-US
-To: Xiu Jianfeng <xiujianfeng@huawei.com>, paul@paul-moore.com,
- jmorris@namei.org, serge@hallyn.com, mike.salvatore@canonical.com
-References: <20230725141239.233372-1-xiujianfeng@huawei.com>
-From: John Johansen <john.johansen@canonical.com>
-Organization: Canonical
-In-Reply-To: <20230725141239.233372-1-xiujianfeng@huawei.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH -next] apparmor: cleanup unused declarations
-	in policy.h
+References: <ZNCWUQXKrZnCeB/5@gmail.com>
+ <CAHC9VhT+DPRrSnmh_2PCAf05jPCE-EPaMU_TLB=jJ+mJ+NALsw@mail.gmail.com>
+ <ZNHTuHFDVdCNPXj+@gmail.com>
+In-Reply-To: <ZNHTuHFDVdCNPXj+@gmail.com>
+From: Paul Moore <paul@paul-moore.com>
+Date: Tue, 8 Aug 2023 16:57:03 -0400
+Message-ID: <CAHC9VhTUZe0khZCy7oow4RZYgk-9wh18_78gQY1+ikSqECNq6A@mail.gmail.com>
+To: Khadija Kamran <kamrankhadijadj@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [apparmor] [PATCH v2] lsm: constify the 'target' parameter in
+	security_capget()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -58,54 +70,36 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
- linux-kernel@vger.kernel.org
+Cc: Alison Schofield <alison.schofield@intel.com>, selinux@vger.kernel.org,
+ stephen.smalley.work@gmail.com, apparmor@lists.ubuntu.com, jmorris@namei.org,
+ linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
+ eparis@parisplace.org, ztarkhani@microsoft.com, serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 7/25/23 07:12, Xiu Jianfeng wrote:
-> The implementions of these declarations do not exist, remove them all.
-> 
-> Signed-off-by: Xiu Jianfeng <xiujianfeng@huawei.com>
+On Tue, Aug 8, 2023 at 1:33=E2=80=AFAM Khadija Kamran <kamrankhadijadj@gmai=
+l.com> wrote:
+>
+> On Mon, Aug 07, 2023 at 07:09:33PM -0400, Paul Moore wrote:
+> > On Mon, Aug 7, 2023 at 2:59=E2=80=AFAM Khadija Kamran <kamrankhadijadj@=
+gmail.com> wrote:
+> > >
+> > >
+> > >
+> > > cap_capget() LSM hook declaration exceeds the 80 characters per line
+> > > limit. Split the function declaration to multple lines to decrease th=
+e
+> >
+> > "multiple" :)
+> >
+> > Don't worry, I'll fix that in the merge.
+> >
+>
+> Hey Paul,
+> Thank you. :)
 
-Acked-by: John Johansen <john.johansen@canonical.com>
+... and now it's merged :)
 
-this has been pulled into apparmor-next
-
-
-> ---
->   security/apparmor/include/policy.h | 6 ------
->   1 file changed, 6 deletions(-)
-> 
-> diff --git a/security/apparmor/include/policy.h b/security/apparmor/include/policy.h
-> index 545f791cabda..6e5ec9c37b48 100644
-> --- a/security/apparmor/include/policy.h
-> +++ b/security/apparmor/include/policy.h
-> @@ -227,10 +227,6 @@ extern enum profile_mode aa_g_profile_mode;
->   #define profiles_ns(P) ((P)->ns)
->   #define name_is_shared(A, B) ((A)->hname && (A)->hname == (B)->hname)
->   
-> -void aa_add_profile(struct aa_policy *common, struct aa_profile *profile);
-> -
-> -
-> -void aa_free_proxy_kref(struct kref *kref);
->   struct aa_ruleset *aa_alloc_ruleset(gfp_t gfp);
->   struct aa_profile *aa_alloc_profile(const char *name, struct aa_proxy *proxy,
->   				    gfp_t gfp);
-> @@ -239,14 +235,12 @@ struct aa_profile *aa_alloc_null(struct aa_profile *parent, const char *name,
->   struct aa_profile *aa_new_learning_profile(struct aa_profile *parent, bool hat,
->   					   const char *base, gfp_t gfp);
->   void aa_free_profile(struct aa_profile *profile);
-> -void aa_free_profile_kref(struct kref *kref);
->   struct aa_profile *aa_find_child(struct aa_profile *parent, const char *name);
->   struct aa_profile *aa_lookupn_profile(struct aa_ns *ns, const char *hname,
->   				      size_t n);
->   struct aa_profile *aa_lookup_profile(struct aa_ns *ns, const char *name);
->   struct aa_profile *aa_fqlookupn_profile(struct aa_label *base,
->   					const char *fqname, size_t n);
-> -struct aa_profile *aa_match_profile(struct aa_ns *ns, const char *name);
->   
->   ssize_t aa_replace_profiles(struct aa_ns *view, struct aa_label *label,
->   			    u32 mask, struct aa_loaddata *udata);
-
+--=20
+paul-moore.com
 
