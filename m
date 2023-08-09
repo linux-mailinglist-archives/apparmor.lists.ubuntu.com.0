@@ -2,46 +2,52 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63EBB7753FA
-	for <lists+apparmor@lfdr.de>; Wed,  9 Aug 2023 09:19:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4AFF7753FC
+	for <lists+apparmor@lfdr.de>; Wed,  9 Aug 2023 09:19:35 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qTdTZ-0003pP-Dm; Wed, 09 Aug 2023 07:19:25 +0000
-Received: from out-92.mta1.migadu.com ([95.215.58.92])
+	id 1qTdTZ-0003pI-9f; Wed, 09 Aug 2023 07:19:25 +0000
+Received: from [45.249.212.51] (helo=dggsgout11.his.huawei.com)
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <martin.lau@linux.dev>) id 1qTcIG-0000Kd-Gw
- for apparmor@lists.ubuntu.com; Wed, 09 Aug 2023 06:03:40 +0000
-Message-ID: <9a84e026-402d-b6d9-b6d1-57d91455da47@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1691561020;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=vZ6V615A2KqrskAOUp1MTFIPzrZmCi/maZKOac3W810=;
- b=HLvjH2ogbvNYgLBEabSq0L0ndbjsUYoxG9XBVixYUkq93imGD6SmYSCQGkkV3UE5OhTso+
- EuynVJbQyP4jlk0+SYzMeAGPHKZZGPYdtE87MUq04XqOcWW6VK/1DeTlun8ADzQ1RMsYo7
- mF0JvS5dGjKv44EceTfYn+WeOH08Kg0=
-Date: Tue, 8 Aug 2023 23:03:30 -0700
+ (envelope-from <xiujianfeng@huaweicloud.com>) id 1qTYXG-0005Hl-42
+ for apparmor@lists.ubuntu.com; Wed, 09 Aug 2023 02:02:54 +0000
+Received: from mail02.huawei.com (unknown [172.30.67.143])
+ by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4RLCxg5R30z4f3pGC
+ for <apparmor@lists.ubuntu.com>; Wed,  9 Aug 2023 10:02:47 +0800 (CST)
+Received: from huaweicloud.com (unknown [10.67.174.26])
+ by APP4 (Coremail) with SMTP id gCh0CgD3hqnH89Jk6rUUAQ--.53787S4;
+ Wed, 09 Aug 2023 10:02:48 +0800 (CST)
+From: Xiu Jianfeng <xiujianfeng@huaweicloud.com>
+To: john.johansen@canonical.com, paul@paul-moore.com, jmorris@namei.org,
+ serge@hallyn.com, terrelln@fb.com
+Date: Wed,  9 Aug 2023 10:02:44 +0000
+Message-Id: <20230809100244.342530-1-xiujianfeng@huaweicloud.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Language: en-US
-To: Geliang Tang <geliang.tang@suse.com>
-References: <cover.1691125344.git.geliang.tang@suse.com>
- <15d7646940fcbb8477b1be1aa11a5d5485d10b48.1691125344.git.geliang.tang@suse.com>
- <8b706f66-2afa-b3d0-a13a-11f1ffb452fe@linux.dev>
- <20230807064044.GA11180@localhost.localdomain>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Martin KaFai Lau <martin.lau@linux.dev>
-In-Reply-To: <20230807064044.GA11180@localhost.localdomain>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: gCh0CgD3hqnH89Jk6rUUAQ--.53787S4
+X-Coremail-Antispam: 1UD129KBjvdXoWruFW8Xr4xuF13GF4fCw1DAwb_yoWDXrg_G3
+ 4vkay8Ar42vF43tw1Fyay8XFyv9r18JFZI9a4vyr9xZ34UGrs5JF9rZws3XrWrXw47K395
+ Gan8AFWaqFnrGjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUb7AYFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I6I8E6xAIw20E
+ Y4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l87I20VAvwVAaII0Ic2I_JFv_Gryl8c
+ AvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq
+ 3wA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_Gc
+ CE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxI
+ r21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87
+ Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l42xK82IY
+ c2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s
+ 026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF
+ 0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0x
+ vE42xK8VAvwI8IcIk0rVWrZr1j6s0DMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2
+ jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU0VnQUUUUUU==
+X-CM-SenderInfo: x0lxyxpdqiv03j6k3tpzhluzxrxghudrp/
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Wed, 09 Aug 2023 07:19:24 +0000
-Subject: Re: [apparmor] [PATCH bpf-next v11 2/5] selftests/bpf: Use random
- netns name for mptcp
+Subject: [apparmor] [PATCH -next] apparmor: remove unneeded #ifdef in
+	decompress_zstd()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -53,64 +59,42 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Alexei Starovoitov <ast@kernel.org>, James Morris <jmorris@namei.org>,
- Song Liu <song@kernel.org>, Eric Dumazet <edumazet@google.com>,
- Stanislav Fomichev <sdf@google.com>, linux-kselftest@vger.kernel.org,
- Shuah Khan <shuah@kernel.org>, Mykola Lysenko <mykolal@fb.com>,
- Paul Moore <paul@paul-moore.com>, Daniel Borkmann <daniel@iogearbox.net>,
- John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
- Mat Martineau <martineau@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "Serge E. Hallyn" <serge@hallyn.com>,
- Florent Revest <revest@chromium.org>, Simon Horman <horms@kernel.org>,
- selinux@vger.kernel.org, apparmor@lists.ubuntu.com,
- KP Singh <kpsingh@kernel.org>, Brendan Jackman <jackmanb@chromium.org>,
- Yonghong Song <yhs@fb.com>, Eric Paris <eparis@parisplace.org>,
- mptcp@lists.linux.dev, Hao Luo <haoluo@google.com>, netdev@vger.kernel.org,
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- linux-security-module@vger.kernel.org, Jiri Olsa <jolsa@kernel.org>,
- Matthieu Baerts <matthieu.baerts@tessares.net>, bpf@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>
+Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
+ xiujianfeng@huawei.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 8/6/23 11:40 PM, Geliang Tang wrote:
-> On Fri, Aug 04, 2023 at 05:23:32PM -0700, Martin KaFai Lau wrote:
->> On 8/3/23 10:07 PM, Geliang Tang wrote:
->>> Use rand() to generate a random netns name instead of using the fixed
->>> name "mptcp_ns" for every test.
->>>
->>> By doing that, we can re-launch the test even if there was an issue
->>> removing the previous netns or if by accident, a netns with this generic
->>> name already existed on the system.
->>>
->>> Note that using a different name each will also help adding more
->>> subtests in future commits.
-> 
-> Hi Martin,
-> 
-> I tried to run mptcp tests simultaneously, and got "Cannot create
-> namespace file "/var/run/netns/mptcp_ns": File exists" errors sometimes.
-> So I add this patch to fix it.
-> 
-> It's easy to reproduce, just run this commands in multiple terminals:
->   > for i in `seq 1 100`; do sudo ./test_progs -t mptcp; done
+From: Xiu Jianfeng <xiujianfeng@huawei.com>
 
-Not only the "-t mptcp" test. Other tests in test_progs also don't support 
-running parallel in multiple terminals. Does it really help to test the bpf part 
-of the prog_tests/mptcp.c test by running like this? If it wants to exercise the 
-other mptcp networking specific code like this, a separate mptcp test is needed 
-outside of test_progs and it won't be run in the bpf CI.
+The whole function is guarded by CONFIG_SECURITY_APPARMOR_EXPORT_BINARY,
+so the #ifdef here is redundant, remove it.
 
-If you agree, can you please avoid introducing unnecessary randomness to the 
-test_progs where bpf CI and most users don't run in this way?
+Signed-off-by: Xiu Jianfeng <xiujianfeng@huawei.com>
+---
+ security/apparmor/apparmorfs.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-Also, please don't resend the patches too fast until the discussion is 
-concluded. Please give reasonable time for others to reply.
-
-I have a high level question. In LPC 2022 
-(https://lpc.events/event/16/contributions/1354/), I recall there was idea in 
-using bpf to make other mptcp decision/policy. Any thought and progress on this? 
-This set which only uses bpf to change the protocol feels like an incomplete 
-solution.
+diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
+index c198a8a2047b..7ee8f4bb7733 100644
+--- a/security/apparmor/apparmorfs.c
++++ b/security/apparmor/apparmorfs.c
+@@ -1314,7 +1314,6 @@ SEQ_RAWDATA_FOPS(compressed_size);
+ 
+ static int decompress_zstd(char *src, size_t slen, char *dst, size_t dlen)
+ {
+-#ifdef CONFIG_SECURITY_APPARMOR_EXPORT_BINARY
+ 	if (slen < dlen) {
+ 		const size_t wksp_len = zstd_dctx_workspace_bound();
+ 		zstd_dctx *ctx;
+@@ -1341,7 +1340,6 @@ static int decompress_zstd(char *src, size_t slen, char *dst, size_t dlen)
+ 		kvfree(wksp);
+ 		return ret;
+ 	}
+-#endif
+ 
+ 	if (dlen < slen)
+ 		return -EINVAL;
+-- 
+2.34.1
 
 
