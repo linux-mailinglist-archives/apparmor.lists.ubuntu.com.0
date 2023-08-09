@@ -2,63 +2,51 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from huckleberry.canonical.com (huckleberry.canonical.com [91.189.94.19])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB3A8774BD3
-	for <lists+apparmor@lfdr.de>; Tue,  8 Aug 2023 22:57:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DC687751E5
+	for <lists+apparmor@lfdr.de>; Wed,  9 Aug 2023 06:22:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=huckleberry.canonical.com)
 	by huckleberry.canonical.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qTTlU-0003E9-P8; Tue, 08 Aug 2023 20:57:16 +0000
-Received: from mail-oo1-f51.google.com ([209.85.161.51])
+	id 1qTai6-0002kX-Q0; Wed, 09 Aug 2023 04:22:14 +0000
+Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
+ helo=smtp-relay-canonical-1.canonical.com)
  by huckleberry.canonical.com with esmtps
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <paul@paul-moore.com>) id 1qTTlT-0003E2-TZ
- for apparmor@lists.ubuntu.com; Tue, 08 Aug 2023 20:57:16 +0000
-Received: by mail-oo1-f51.google.com with SMTP id
- 006d021491bc7-56cb1e602e7so3898430eaf.1
- for <apparmor@lists.ubuntu.com>; Tue, 08 Aug 2023 13:57:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=paul-moore.com; s=google; t=1691528234; x=1692133034;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=TS5jj+LJIlaFmebXscgv7ALonGJ5hEAqrVobn+h6tkY=;
- b=Y9hnaF54b9OdWRu8Mgo3/Um7XsJJt1IeTsHVaRqVcf1uJTYzuVx8plDvnbGPQQj30O
- nuYIxW1noSDzKhQn1bQvSQjWSQiphGrfkmDI07IJvzTyThMAKGpcSqKUnJEXOZIy4UfX
- kXhFh2CXld2Se0q0gmX+7ubme4nz6vRkqdHfLaSNTcgpkdiCs2y3lAwXmLZFgAKvIYhL
- tdmIKD6prK1gA2c3AyFva39ZjOX8CAU9OsRde34oHqg4rDAv7Z8snLfK96+XkNaGF3Gy
- KXOAdkwWxfBvmL9pFbiIERAOmX3yVhxYD3nsKV0Ml3S+yxxPlRvZ2OxG5MQgQmsS/j3a
- ewuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691528234; x=1692133034;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=TS5jj+LJIlaFmebXscgv7ALonGJ5hEAqrVobn+h6tkY=;
- b=bpZMw1ehXXDYaeHYXU7VM5DhZoV0hDus/pBoi50w0cUIvXSaUtm5Krz0jHvtklQdMV
- elenaf2Fh6/C0Gn+6AlIBu7Wzrj4zc6PvpzGHfoWSUY5H92/5OxZv7Y4D5uARm33Yy1S
- D2hu66VoT2GVSfB1yUD2TYKEjb1fo29ysPGBi4yd0TAQyv8ieYi1gpwmFiRg3BD/5UZi
- vt73kvcRUzeg9Tcwf3EhyJBstVg9mT8RxuvSw5N+SHP34870l8Ne2xqmrj5E44Gb4EMd
- /Z/57jdeSpKZjNAuWEJ06xsRp4BkAw2SjXs+00r3aSZtIJKz5PaSewDz8TRj2Gr2hRN1
- seHg==
-X-Gm-Message-State: AOJu0YwUJXFCTjv4iTt3Xntgo4d5ijHjdGMKdJ4OkT3isL6WaFLKLq1r
- f+cVmJjW16sqiWKmeMZRiyP6Cwc9P7wxzqNxFep9
-X-Google-Smtp-Source: AGHT+IF6at6g2JHJkuRBhYYtMLf3GXfKz3mwW2gLejTNbDRqI3v7TYVl5ylxtV0uehKkfpThdRY8EvckgK0r71MA1+k=
-X-Received: by 2002:a05:6358:8820:b0:139:a866:4155 with SMTP id
- hv32-20020a056358882000b00139a8664155mr503973rwb.5.1691528234358; Tue, 08 Aug
- 2023 13:57:14 -0700 (PDT)
+ (envelope-from <john.johansen@canonical.com>) id 1qTai4-0002kK-K8
+ for apparmor@lists.ubuntu.com; Wed, 09 Aug 2023 04:22:12 +0000
+Received: from [192.168.192.83] (unknown [50.47.134.245])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 8070542834; 
+ Wed,  9 Aug 2023 04:22:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1691554932;
+ bh=DGpYgUa8dbFlzxVHEOICpko7jFA3qUT0Je0Vs6Bqyco=;
+ h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+ In-Reply-To:Content-Type;
+ b=S9ADsMFrJYBMs+3E5mv3ZDYI41Lr5/EBWutCaDEDoF189psJMqEzAS/w+Iikb2slH
+ ubhPVSKgQNEzycA7bGTuYYgEDZBZ25mUr4TMWbbnAigtjpdTjcsmCXvBV//PsUv/zp
+ fdPjeNcr70sT9k4rmlR/sllfV3hp36OHyz+nAexo1h7384i5rvCNk2AAKtLw+Ebagv
+ wIeI15hy2Ykr8Tg/DEN1iTarYA1Gjg57O8hykMFk0o7WBTygkXUXSD2+/BCI1IFf9Z
+ 4C82kdQgFhoLi9ejtQCXRnCH+Np+bnixIHiiTAbn5IIbAN+Op1IBGtOdvL9FthnxaE
+ a5AjGExfXclCg==
+Message-ID: <ea365010-1cb9-1bdb-3014-7e67a59daff2@canonical.com>
+Date: Tue, 8 Aug 2023 21:22:07 -0700
 MIME-Version: 1.0
-References: <ZNCWUQXKrZnCeB/5@gmail.com>
- <CAHC9VhT+DPRrSnmh_2PCAf05jPCE-EPaMU_TLB=jJ+mJ+NALsw@mail.gmail.com>
- <ZNHTuHFDVdCNPXj+@gmail.com>
-In-Reply-To: <ZNHTuHFDVdCNPXj+@gmail.com>
-From: Paul Moore <paul@paul-moore.com>
-Date: Tue, 8 Aug 2023 16:57:03 -0400
-Message-ID: <CAHC9VhTUZe0khZCy7oow4RZYgk-9wh18_78gQY1+ikSqECNq6A@mail.gmail.com>
-To: Khadija Kamran <kamrankhadijadj@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [apparmor] [PATCH v2] lsm: constify the 'target' parameter in
-	security_capget()
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Content-Language: en-US
+To: Xiu Jianfeng <xiujianfeng@huaweicloud.com>, paul@paul-moore.com,
+ jmorris@namei.org, serge@hallyn.com, terrelln@fb.com
+References: <20230809100244.342530-1-xiujianfeng@huaweicloud.com>
+From: John Johansen <john.johansen@canonical.com>
+Organization: Canonical
+In-Reply-To: <20230809100244.342530-1-xiujianfeng@huaweicloud.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [apparmor] [PATCH -next] apparmor: remove unneeded #ifdef in
+ decompress_zstd()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -70,36 +58,49 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Alison Schofield <alison.schofield@intel.com>, selinux@vger.kernel.org,
- stephen.smalley.work@gmail.com, apparmor@lists.ubuntu.com, jmorris@namei.org,
- linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
- eparis@parisplace.org, ztarkhani@microsoft.com, serge@hallyn.com
+Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
+ xiujianfeng@huawei.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Tue, Aug 8, 2023 at 1:33=E2=80=AFAM Khadija Kamran <kamrankhadijadj@gmai=
-l.com> wrote:
->
-> On Mon, Aug 07, 2023 at 07:09:33PM -0400, Paul Moore wrote:
-> > On Mon, Aug 7, 2023 at 2:59=E2=80=AFAM Khadija Kamran <kamrankhadijadj@=
-gmail.com> wrote:
-> > >
-> > >
-> > >
-> > > cap_capget() LSM hook declaration exceeds the 80 characters per line
-> > > limit. Split the function declaration to multple lines to decrease th=
-e
-> >
-> > "multiple" :)
-> >
-> > Don't worry, I'll fix that in the merge.
-> >
->
-> Hey Paul,
-> Thank you. :)
+On 8/9/23 03:02, Xiu Jianfeng wrote:
+> From: Xiu Jianfeng <xiujianfeng@huawei.com>
+> 
+> The whole function is guarded by CONFIG_SECURITY_APPARMOR_EXPORT_BINARY,
+> so the #ifdef here is redundant, remove it.
+> 
 
-... and now it's merged :)
+indeed
 
---=20
-paul-moore.com
+> Signed-off-by: Xiu Jianfeng <xiujianfeng@huawei.com>
+Acked-by: John Johansen <john.johansen@canonical.com>
+
+I have pulled this into apparmor-next
+
+
+> ---
+>   security/apparmor/apparmorfs.c | 2 --
+>   1 file changed, 2 deletions(-)
+> 
+> diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
+> index c198a8a2047b..7ee8f4bb7733 100644
+> --- a/security/apparmor/apparmorfs.c
+> +++ b/security/apparmor/apparmorfs.c
+> @@ -1314,7 +1314,6 @@ SEQ_RAWDATA_FOPS(compressed_size);
+>   
+>   static int decompress_zstd(char *src, size_t slen, char *dst, size_t dlen)
+>   {
+> -#ifdef CONFIG_SECURITY_APPARMOR_EXPORT_BINARY
+>   	if (slen < dlen) {
+>   		const size_t wksp_len = zstd_dctx_workspace_bound();
+>   		zstd_dctx *ctx;
+> @@ -1341,7 +1340,6 @@ static int decompress_zstd(char *src, size_t slen, char *dst, size_t dlen)
+>   		kvfree(wksp);
+>   		return ret;
+>   	}
+> -#endif
+>   
+>   	if (dlen < slen)
+>   		return -EINVAL;
+
 
