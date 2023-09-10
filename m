@@ -2,50 +2,50 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F65C799DEE
-	for <lists+apparmor@lfdr.de>; Sun, 10 Sep 2023 13:54:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 778B8799DF9
+	for <lists+apparmor@lfdr.de>; Sun, 10 Sep 2023 14:00:04 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qfJ1C-0000ar-Bs; Sun, 10 Sep 2023 11:54:22 +0000
+	id 1qfJ6R-00011z-LU; Sun, 10 Sep 2023 11:59:47 +0000
 Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
  helo=smtp-relay-canonical-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1qfJ16-0000aX-6X
- for apparmor@lists.ubuntu.com; Sun, 10 Sep 2023 11:54:16 +0000
+ id 1qfJ6N-00011m-2k
+ for apparmor@lists.ubuntu.com; Sun, 10 Sep 2023 11:59:43 +0000
 Received: from [192.168.192.83] (unknown [50.39.103.33])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 615DA3F111; 
- Sun, 10 Sep 2023 11:54:15 +0000 (UTC)
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 6220A3F111; 
+ Sun, 10 Sep 2023 11:59:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1694346856;
- bh=xlXnWypCFPYC81LPfQWebS5jhmXh94DgzMUTsCikYXE=;
- h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+ s=20210705; t=1694347182;
+ bh=16JwYNCL5oSr1YvxK+oCIjWltg0xyFyQBHW3zUaU8bk=;
+ h=Message-ID:Date:MIME-Version:Subject:From:To:References:
  In-Reply-To:Content-Type;
- b=vkybdS3sjvRhFCwuY344SAkxLXKmvH8jY6+gDdKmI0/vDf2Urb6TG+SPdqH1ZDOgV
- cboyfG5Ftjf8BHNDHr8RZkTzD8Idv3pjYXeBIlV9cvyMUtBDxN6mqSVN/PXY3mfyc0
- 0L2nASgbIU5qJX/NUiCeYh9MZA0AWtHnTZ0z16rTZbejsgdcj7dwFVZ+mq7y6VgZsv
- 12T7XOiAU4aZSIBwSlFkuh6y4VXgVlL9x7HaBdnTA1ECZ/4n2eLq1Xq707S7WESs+v
- LVlHnsLU8YYerkJ4qgPRQMJ8WunzC5IQmtArt0iCFWMC50rpWdpsy+E/1+P2D4TUmk
- 07mOdxfbUrVgQ==
-Message-ID: <35f763fe-9a16-2194-6a51-13515f52598a@canonical.com>
-Date: Sun, 10 Sep 2023 04:54:12 -0700
+ b=vyROMZwgU/7TIYyp7T8WDq3zcJ/EsohX3eKxhdIHwMgIIrzjODx6jqn1IK0zpG1MO
+ +DNA0cc3JBq7l6Sb5zNzNgYF3Z5yvg0ChSTtlCsmdMIKgueArCi/FVUWBEuMW3tCQp
+ kDelrpqb7m0oRrTzhreQ8v96Hkj8ZoLufDD5gkQOlYNNm3ZaGpEs3ozjKD/GpTtAMQ
+ 7M91vUv41fEBScW6aVCD6iNc+1CwzQq0hXjgyU1WvPRs8lbZH3S73l3MLfu5nHA+JD
+ n8bx+3zHlFMoPoAyYzvjhacjoLdqrs9NcKWI1jJJx1uce5f43MWD6oN4FipSckqjUv
+ 7+6JBKfSS0AtQ==
+Message-ID: <ce5eeb0b-1de7-05bc-292a-38dc09f23536@canonical.com>
+Date: Sun, 10 Sep 2023 04:59:40 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
 Content-Language: en-US
+From: John Johansen <john.johansen@canonical.com>
 To: Andreas Steinmetz <anstein99@googlemail.com>, apparmor@lists.ubuntu.com
 References: <CAOTMNwtt9=ig9dtOxqyLVBthh+tJJkZEv64qpGN43+-sCBtRrw@mail.gmail.com>
-From: John Johansen <john.johansen@canonical.com>
+ <35f763fe-9a16-2194-6a51-13515f52598a@canonical.com>
 Organization: Canonical
-In-Reply-To: <CAOTMNwtt9=ig9dtOxqyLVBthh+tJJkZEv64qpGN43+-sCBtRrw@mail.gmail.com>
+In-Reply-To: <35f763fe-9a16-2194-6a51-13515f52598a@canonical.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] move_mount not handled by AppArmor completely
- subverts security
+Subject: [apparmor] apparmor: Fix regression in mount mediation
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -60,79 +60,164 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 9/5/23 07:42, Andreas Steinmetz wrote:
-> Tested with kernel 6.4.12-arch1-1
-> 
-> AppArmor seemingly doesn't handle the move_mount system call. Thus
+this is a first pass, I am going to work at reducing the diff size
 
-correct,
+ From 09f20f314dc252bec4d8b21d84d60c0847b98b2a Mon Sep 17 00:00:00 2001
+From: John Johansen <john.johansen@canonical.com>
+Date: Sun, 10 Sep 2023 03:35:22 -0700
+Subject: [PATCH] apparmor: Fix regression in mount mediation
+
 commit 2db154b3ea8e ("vfs: syscall: Add move_mount(2) to move mounts around")
 
-added the move_mount syscall and a new LSM hook, but did not provide
-even stub implementations to existing LSMs, introducing a regression
-in all LSMs implementing mount mediation.
+introduced a new move_mount(2) system call and a corresponding new LSM
+security_move_mount hook but did not implement this hook for any
+existing LSM. This creates a regression for AppArmor mediation of
+mount. This patch provides a base mapping of the move_mount syscall to
+the existing mount mediation. In the future we may introduce
+additional mediations around the new mount calls.
 
-Unfortunately a fix has not landed in apparmor.
+Fixes: 2db154b3ea8e ("vfs: syscall: Add move_mount(2) to move mounts around")
+Signed-off-by: John Johansen <john.johansen@canonical.com>
+---
+  security/apparmor/include/mount.h |  6 ++--
+  security/apparmor/lsm.c           | 17 ++++++++++-
+  security/apparmor/mount.c         | 47 ++++++++++++++++++-------------
+  3 files changed, 48 insertions(+), 22 deletions(-)
 
-> only CAP_SYS_ADMIN is required to bind mount any directory anywhere.
+diff --git a/security/apparmor/include/mount.h b/security/apparmor/include/mount.h
+index a710683b2496..3e2f974841e4 100644
+--- a/security/apparmor/include/mount.h
++++ b/security/apparmor/include/mount.h
+@@ -35,8 +35,10 @@ int aa_bind_mount(struct aa_label *label, const struct path *path,
+  int aa_mount_change_type(struct aa_label *label, const struct path *path,
+  			 unsigned long flags);
+  
+-int aa_move_mount(struct aa_label *label, const struct path *path,
+-		  const char *old_name);
++int aa_move_mount_old(struct aa_label *label, const struct path *path,
++		      const char *old_name);
++int aa_move_mount(struct aa_label *label, const struct path *from_path,
++		  const struct path *to_path);
+  
+  int aa_new_mount(struct aa_label *label, const char *dev_name,
+  		 const struct path *path, const char *type, unsigned long flags,
+diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
+index c9463bd0307d..4fa4d60a59fd 100644
+--- a/security/apparmor/lsm.c
++++ b/security/apparmor/lsm.c
+@@ -592,7 +592,7 @@ static int apparmor_sb_mount(const char *dev_name, const struct path *path,
+  				  MS_UNBINDABLE))
+  			error = aa_mount_change_type(label, path, flags);
+  		else if (flags & MS_MOVE)
+-			error = aa_move_mount(label, path, dev_name);
++			error = aa_move_mount_old(label, path, dev_name);
+  		else
+  			error = aa_new_mount(label, dev_name, path, type,
+  					     flags, data);
+@@ -602,6 +602,20 @@ static int apparmor_sb_mount(const char *dev_name, const struct path *path,
+  	return error;
+  }
+  
++static int apparmor_move_mount(const struct path *from_path,
++			       const struct path *to_path)
++{
++	struct aa_label *label;
++	int error = 0;
++
++	label = __begin_current_label_crit_section();
++	if (!unconfined(label))
++		error = aa_move_mount(label, from_path, to_path);
++	__end_current_label_crit_section(label);
++
++	return error;
++}
++
+  static int apparmor_sb_umount(struct vfsmount *mnt, int flags)
+  {
+  	struct aa_label *label;
+@@ -1221,6 +1235,7 @@ static struct security_hook_list apparmor_hooks[] __ro_after_init = {
+  	LSM_HOOK_INIT(capget, apparmor_capget),
+  	LSM_HOOK_INIT(capable, apparmor_capable),
+  
++	LSM_HOOK_INIT(move_mount, apparmor_move_mount),
+  	LSM_HOOK_INIT(sb_mount, apparmor_sb_mount),
+  	LSM_HOOK_INIT(sb_umount, apparmor_sb_umount),
+  	LSM_HOOK_INIT(sb_pivotroot, apparmor_sb_pivotroot),
+diff --git a/security/apparmor/mount.c b/security/apparmor/mount.c
+index cdfa430ae216..e992473b8d4a 100644
+--- a/security/apparmor/mount.c
++++ b/security/apparmor/mount.c
+@@ -468,40 +468,49 @@ int aa_mount_change_type(struct aa_label *label, const struct path *path,
+  	return error;
+  }
+  
+-int aa_move_mount(struct aa_label *label, const struct path *path,
+-		  const char *orig_name)
++
++int aa_move_mount(struct aa_label *label, const struct path *from_path,
++		  const struct path *to_path)
+  {
+  	struct aa_profile *profile;
+-	char *buffer = NULL, *old_buffer = NULL;
+-	struct path old_path;
++	char *to_buffer = NULL, *from_buffer = NULL;
+  	int error;
+  
+  	AA_BUG(!label);
+-	AA_BUG(!path);
+-
+-	if (!orig_name || !*orig_name)
+-		return -EINVAL;
++	AA_BUG(!from_path);
++	AA_BUG(!to_path);
+  
+-	error = kern_path(orig_name, LOOKUP_FOLLOW, &old_path);
+-	if (error)
+-		return error;
+-
+-	buffer = aa_get_buffer(false);
+-	old_buffer = aa_get_buffer(false);
++	to_buffer = aa_get_buffer(false);
++	from_buffer = aa_get_buffer(false);
+  	error = -ENOMEM;
+-	if (!buffer || !old_buffer)
++	if (!to_buffer || !from_buffer)
+  		goto out;
+  	error = fn_for_each_confined(label, profile,
+-			match_mnt(profile, path, buffer, &old_path, old_buffer,
++			match_mnt(profile, to_path, to_buffer,
++				  from_path, from_buffer,
+  				  NULL, MS_MOVE, NULL, false));
+  out:
+-	aa_put_buffer(buffer);
+-	aa_put_buffer(old_buffer);
+-	path_put(&old_path);
++	aa_put_buffer(to_buffer);
++	aa_put_buffer(from_buffer);
+  
+  	return error;
+  }
+  
++int aa_move_mount_old(struct aa_label *label, const struct path *path,
++		  const char *orig_name)
++{
++	struct path old_path;
++	int error;
++
++	if (!orig_name || !*orig_name)
++		return -EINVAL;
++	error = kern_path(orig_name, LOOKUP_FOLLOW, &old_path);
++	if (error)
++		return error;
++
++	return aa_move_mount(label, &old_path, path);
++}
++
+  int aa_new_mount(struct aa_label *label, const char *dev_name,
+  		 const struct path *path, const char *type, unsigned long flags,
+  		 void *data)
+-- 
+2.34.1
 
-correct. It requires cap_sys_admin in the capability set, and the
-profile. Unfortunately if relying on mount mitigations in the profile
-this is a by-pass
-
-
-> This allows to completely subvert security including e.g. rootkit
-> installation for a process that actually should be confined by an
-> enforced AppArmor policy.
-> 
-correct. Though it is mitigated to a degree by requiring cap_sys_admin
-within the profile.
-
-> Simple policy that should deny mounts and prevent system modification:
-> 
-> abi <abi/3.0>,
-> profile minimal {
->   capability sys_admin,
->   /bin/bash mr,
->   /etc/** mrlk,
->   /mnt/** mrwlk,
->   /usr/** mrlkix,
->   /proc/*/attr/apparmor/current r,
-> }
-> 
-> The following test then run as root:
-> 
-> [root /]# aa-exec -p minimal /bin/bash
-> bash: /dev/null: Permission denied
-> bash: /root/.bashrc: Permission denied
-> [root /]# cat /proc/self/attr/apparmor/current
-> minimal (enforce)
-> [root /]# ls -l /etc/malicious_software
-> ls: cannot access '/etc/malicious_software': No such file or directory
-> [root /]# touch /etc/malicious_software
-> touch: cannot touch '/etc/malicious_software': Permission denied
-> [root /]# mount --bind / /mnt
-> [root /]# touch /mnt/etc/malicious_software
-> [root /]# ls -l /etc/malicious_software
-> -rw-r--r-- 1 root root 0 Sep  5 16:27 /etc/malicious_software
-> [root /]#
-> 
-> This test case is very legitimate as it shows that the MAC enforcement
-> by AppArmor is completely bypassed, resulting is standard DAC access
-> control, which is not supposed to happen, especially as the enforced
-> profile does not allow for any mount operation.
-> 
-correct
-
-> Probably the whole set of system calls mentioned in
-> https://lwn.net/Articles/759499/ is probably not handled and thus
-> affected.
-> 
-
-yes and no - there is certainly a need for additional mediation on
-them. I need to dig deeper to establish exactly what needs to be
-done.
-
-I will reply to this with a first pass at addressing move_mount.
 
 
