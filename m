@@ -2,46 +2,30 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88582799FF9
-	for <lists+apparmor@lfdr.de>; Sun, 10 Sep 2023 22:54:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E4E379C4BC
+	for <lists+apparmor@lfdr.de>; Tue, 12 Sep 2023 06:24:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qfRRY-0001js-A0; Sun, 10 Sep 2023 20:54:08 +0000
-Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
- helo=smtp-relay-canonical-1.canonical.com)
- by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1qfRRQ-0001ix-Lj
- for apparmor@lists.ubuntu.com; Sun, 10 Sep 2023 20:54:00 +0000
-Received: from [192.168.192.83] (unknown [50.39.103.33])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id BE6AF3F111
- for <apparmor@lists.ubuntu.com>; Sun, 10 Sep 2023 20:53:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1694379239;
- bh=a8J1SgwELS3rTxelLPXSGCM4TbPEzYV/nx7UAJQQkzI=;
- h=Message-ID:Date:MIME-Version:From:Subject:To:Content-Type;
- b=pqX0Y7lK47/7ebO2u2OckJ/PVa/ffTCeUts7PrqcvaAX76BseZlCwm6qUAnyRSOxe
- jbfiC7tfvsgz35/ZljRnbXK74fOPombcI/uxMR0Y/JcX9iTCAvYVdctalO+Rf0y/SL
- BhkrgMPmKdO4M2L+6VzfveWKw55QQmhwDsOLELysdovRLhAUqJL1CeSK+FjwVqF0Vb
- 94E4U1/Th1Pns/1xCWHWkD+0YnkgtC+weAC9DAK1ZST0w0Uu63dFHINVrp79oc6tdr
- pnJQ/3l1KuvaliG9bKabXNVkr+vka3hVhifypWf/iHvMg5xR8DEEiqkSWCAXXqGoTj
- nUW+afhY3mvAA==
-Message-ID: <65d3f8af-bb77-08ce-eb7d-106f490b5e9b@canonical.com>
-Date: Sun, 10 Sep 2023 13:53:55 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-From: John Johansen <john.johansen@canonical.com>
-To: apparmor <apparmor@lists.ubuntu.com>
-Content-Language: en-US
-Organization: Canonical
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: [apparmor] irc meeting Tues Sept 12
+	id 1qfux8-0005zC-9t; Tue, 12 Sep 2023 04:24:42 +0000
+Received: from [42.101.60.195] (helo=mail.nfschina.com)
+ by lists.ubuntu.com with smtp (Exim 4.86_2)
+ (envelope-from <kunyu@nfschina.com>) id 1qfsLv-00063Y-6N
+ for apparmor@lists.ubuntu.com; Tue, 12 Sep 2023 01:38:08 +0000
+Received: from localhost.localdomain (unknown [219.141.250.2])
+ by mail.nfschina.com (Maildata Gateway V2.8.8) with ESMTPA id 149016059CE35;
+ Tue, 12 Sep 2023 09:37:50 +0800 (CST)
+X-MD-Sfrom: kunyu@nfschina.com
+X-MD-SrcIP: 219.141.250.2
+From: Li kunyu <kunyu@nfschina.com>
+To: john.johansen@canonical.com, paul@paul-moore.com, jmorris@namei.org,
+ serge@hallyn.com
+Date: Thu, 14 Sep 2023 02:09:03 +0800
+Message-Id: <20230913180903.3776-1-kunyu@nfschina.com>
+X-Mailer: git-send-email 2.18.2
+X-Mailman-Approved-At: Tue, 12 Sep 2023 04:24:40 +0000
+Subject: [apparmor] [PATCH] apparmor/file: Removing unnecessary initial
+	values for variable pointers
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -53,12 +37,42 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: linux-security-module@vger.kernel.org, Li kunyu <kunyu@nfschina.com>,
+ apparmor@lists.ubuntu.com, linux-kernel@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-The next irc meeting is Tuesday Sept 12, at 18:00 UTC in #apparmor on oftc.net
+These variable pointers are assigned during use and do not need to be
+initialized for assignment.
 
-Please update the agenda https://gitlab.com/apparmor/apparmor/wikis/MeetingAgenda or reply to this mail if you have items you want to add
+Signed-off-by: Li kunyu <kunyu@nfschina.com>
+---
+ security/apparmor/file.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/security/apparmor/file.c b/security/apparmor/file.c
+index 698b124e649f..12eafdf18fc0 100644
+--- a/security/apparmor/file.c
++++ b/security/apparmor/file.c
+@@ -264,7 +264,7 @@ int aa_path_perm(const char *op, struct aa_label *label,
+ {
+ 	struct aa_perms perms = {};
+ 	struct aa_profile *profile;
+-	char *buffer = NULL;
++	char *buffer;
+ 	int error;
+ 
+ 	flags |= PATH_DELEGATE_DELETED | (S_ISDIR(cond->mode) ? PATH_IS_DIR :
+@@ -412,7 +412,7 @@ int aa_path_link(struct aa_label *label, struct dentry *old_dentry,
+ 		d_backing_inode(old_dentry)->i_uid,
+ 		d_backing_inode(old_dentry)->i_mode
+ 	};
+-	char *buffer = NULL, *buffer2 = NULL;
++	char *buffer, *buffer2;
+ 	struct aa_profile *profile;
+ 	int error;
+ 
+-- 
+2.18.2
 
 
