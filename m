@@ -2,48 +2,39 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id A24897AD34D
-	for <lists+apparmor@lfdr.de>; Mon, 25 Sep 2023 10:28:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 081037AE296
+	for <lists+apparmor@lfdr.de>; Tue, 26 Sep 2023 01:49:47 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qkgwg-0000GO-8J; Mon, 25 Sep 2023 08:27:58 +0000
-Received: from mail-oi1-f175.google.com ([209.85.167.175])
+	id 1qkvKX-0005jf-TY; Mon, 25 Sep 2023 23:49:33 +0000
+Received: from mgamail.intel.com ([192.55.52.136])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <mjguzik@gmail.com>) id 1qjnYZ-0004Ew-Pw
- for apparmor@lists.ubuntu.com; Fri, 22 Sep 2023 21:19:23 +0000
-Received: by mail-oi1-f175.google.com with SMTP id
- 5614622812f47-3aca0934e74so1588418b6e.0
- for <apparmor@lists.ubuntu.com>; Fri, 22 Sep 2023 14:19:23 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695417562; x=1696022362;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=33plBw2S6RxLVTFtd8vbQkwkLM7hKUemGtBycCXA6jA=;
- b=CQgABBVung8acdk1WHsnt0N6qu6TR9tuuk6UAGKxijhq40k//icjZeH35kS9+f2vqB
- CBsNwCC0lBDqoUac5Ridczd3awobhY6qJPQRg7PlTlahqD39kndGM5elW7WIYgvSfsVJ
- 5X/Js7crfXh5K4r+MPQchEAi0DnwJnhpoWrL7tdwdjVmpL74E07hYpw76L26z6OPen3B
- XXWMjgMIvcjHp4zXZRsH+C0H2e1v/toE5ySP6ZC2BxH2pe4CWKODwoBWFW5Pe69DO2Y1
- Jq/x95SVNP8x8lXHM+qT17v9+f+SotzTWCEWvEVY/3Ocr0SzQTSm3aj7hfmxyJvOuil+
- y9aw==
-X-Gm-Message-State: AOJu0YyoSCjY3xWCqFeMKt5gw0oT40hlSPPGpgCoIGCQHPA93WDgWyaI
- KSPcr7RB++nU/YxHDVXpUJBEeXSQr5421IRHjEM=
-X-Google-Smtp-Source: AGHT+IEYL77hJxK6Usm7w5Mx7ub+ceAqRbev1H58TlAkTLpno6EgQQCAoipS/BPBlCKgfN735T3QADZuX7LDc0xvryo=
-X-Received: by 2002:aca:2101:0:b0:3a7:4802:c3f with SMTP id
- 1-20020aca2101000000b003a748020c3fmr821282oiz.52.1695417562384; Fri, 22 Sep
- 2023 14:19:22 -0700 (PDT)
+ (Exim 4.86_2) (envelope-from <vinicius.gomes@intel.com>)
+ id 1qkvKT-0005jR-62
+ for apparmor@lists.ubuntu.com; Mon, 25 Sep 2023 23:49:29 +0000
+X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="360821170"
+X-IronPort-AV: E=Sophos;i="6.03,176,1694761200"; d="scan'208";a="360821170"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2023 16:49:27 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="922200708"
+X-IronPort-AV: E=Sophos;i="6.03,176,1694761200"; d="scan'208";a="922200708"
+Received: from jbuzinsk-mobl1.amr.corp.intel.com (HELO vcostago-mobl3)
+ ([10.212.11.99])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2023 16:49:26 -0700
+From: Vinicius Costa Gomes <vinicius.gomes@intel.com>
+To: Mateusz Guzik <mjguzik@gmail.com>, John Johansen
+ <john.johansen@canonical.com>
+In-Reply-To: <CAGudoHFfG7mARwSqcoLNwV81-KX4Bici5FQHjoNG4f9m83oLyg@mail.gmail.com>
+References: <CAGudoHFfG7mARwSqcoLNwV81-KX4Bici5FQHjoNG4f9m83oLyg@mail.gmail.com>
+Date: Mon, 25 Sep 2023 16:49:25 -0700
+Message-ID: <87a5t9bypm.fsf@intel.com>
 MIME-Version: 1.0
-Received: by 2002:ac9:5dc9:0:b0:4f0:1250:dd51 with HTTP; Fri, 22 Sep 2023
- 14:19:21 -0700 (PDT)
-From: Mateusz Guzik <mjguzik@gmail.com>
-Date: Fri, 22 Sep 2023 23:19:21 +0200
-Message-ID: <CAGudoHFfG7mARwSqcoLNwV81-KX4Bici5FQHjoNG4f9m83oLyg@mail.gmail.com>
-To: John Johansen <john.johansen@canonical.com>
-Content-Type: text/plain; charset="UTF-8"
-Received-SPF: pass client-ip=209.85.167.175; envelope-from=mjguzik@gmail.com;
- helo=mail-oi1-f175.google.com
-X-Mailman-Approved-At: Mon, 25 Sep 2023 08:27:55 +0000
-Subject: [apparmor] use per-cpu refcounts for apparmor labels?
+Content-Type: text/plain
+Subject: Re: [apparmor] use per-cpu refcounts for apparmor labels?
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -60,27 +51,46 @@ Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-I'm sanity-checking perf in various microbenchmarks and I found
-apparmor to be the main bottleneck in some of them.
+Hi Mateusz,
 
-For example: will-it-scale open1_processes -t 16, top of the profile:
-  20.17%  [kernel]                   [k] apparmor_file_alloc_security
-  20.08%  [kernel]                   [k] apparmor_file_open
-  20.05%  [kernel]                   [k] apparmor_file_free_security
-  18.39%  [kernel]                   [k] apparmor_current_getsecid_subj
-[snip]
+Mateusz Guzik <mjguzik@gmail.com> writes:
 
-This serializes on refing/unrefing apparmor objs, sounds like a great
-candidate for per-cpu refcounting instead (I'm assuming they are
-expected to be long-lived).
+> I'm sanity-checking perf in various microbenchmarks and I found
+> apparmor to be the main bottleneck in some of them.
+>
+> For example: will-it-scale open1_processes -t 16, top of the profile:
+>   20.17%  [kernel]                   [k] apparmor_file_alloc_security
+>   20.08%  [kernel]                   [k] apparmor_file_open
+>   20.05%  [kernel]                   [k] apparmor_file_free_security
+>   18.39%  [kernel]                   [k] apparmor_current_getsecid_subj
+> [snip]
+>
+> This serializes on refing/unrefing apparmor objs, sounds like a great
+> candidate for per-cpu refcounting instead (I'm assuming they are
+> expected to be long-lived).
+>
+> I would hack it up myself, but I failed to find a clear spot to switch
+> back from per-cpu to centalized operation and don't want to put
+> serious effort into it.
+>
+> Can you sort this out?
 
-I would hack it up myself, but I failed to find a clear spot to switch
-back from per-cpu to centalized operation and don't want to put
-serious effort into it.
+I was looking at this same workload, and proposed a patch[1] some time
+ago, see if it helps:
 
-Can you sort this out?
+https://lists.ubuntu.com/archives/apparmor/2023-August/012914.html
 
-Thanks,
+But my idea was different, in many cases, we are looking at the label
+associated with the current task, and there's no need to take the
+refcount.
+
+>
+> Thanks,
+> -- 
+> Mateusz Guzik <mjguzik gmail.com>
+>
+
+Cheers,
 -- 
-Mateusz Guzik <mjguzik gmail.com>
+Vinicius
 
