@@ -2,51 +2,35 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D38D7B1BCB
-	for <lists+apparmor@lfdr.de>; Thu, 28 Sep 2023 14:10:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A20A27B1BCD
+	for <lists+apparmor@lfdr.de>; Thu, 28 Sep 2023 14:10:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qlpqa-0001Ih-Lq; Thu, 28 Sep 2023 12:10:25 +0000
-Received: from mail-vs1-f52.google.com ([209.85.217.52])
+	id 1qlpqo-0001T2-9P; Thu, 28 Sep 2023 12:10:40 +0000
+Received: from ams.source.kernel.org ([145.40.68.75])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <amir73il@gmail.com>)
- id 1qlpIk-0005RU-0l
- for apparmor@lists.ubuntu.com; Thu, 28 Sep 2023 11:35:27 +0000
-Received: by mail-vs1-f52.google.com with SMTP id
- ada2fe7eead31-452527dded1so5628372137.0
- for <apparmor@lists.ubuntu.com>; Thu, 28 Sep 2023 04:35:25 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695900924; x=1696505724;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=c3oHHfr+yAdtkrxVkV3qE0VFTbMzK/MU2TZf7sFiWp8=;
- b=E1MY2L0R8OqhEjqIAHNw+nccL1Any/Apc+TfmFgA3hEhD/Y3VHtQU9rgLrBVr6fV5E
- Sn7Oo0zXe0i7NQh/Etxyd1SoLQlgheCOXGcwjIVVZRhHdJOmHxOIf0iq/glVY14Dw2FP
- 0As9H7RDdc+hEyGv9sAHWNE4P3TTToibwOJnA8wkow2RZgVDqJOgy//oUxM562082INQ
- OUBVp1YsmBECKkFqhZUtovLHvrfuHKTqV2YLkYYmi9eSzF3H7+RhSIMQwKRPFU9ZcJ3Y
- n3JClrWPYWsIss4oYcHqerLE0G/6pRyM7HRpIYNVndO3twMXR2rDTIiSxptEvnGThCVD
- 3ibA==
-X-Gm-Message-State: AOJu0YxH1OUTSH9QyX3C2CRJAdD6nN9YxPsf8OxICFWsB3r4Bv9k6TAU
- IzoFKk755EDosVHGpQ5UVRbVfu9eMKlvaKP9r80=
-X-Google-Smtp-Source: AGHT+IHhHz7xARweFavd1XDLqmOlGZR89qjTYiX4UH69lO2YZAJePIkqF9BJYGYmOq/G1/CVWLpaXpMDMsrrAqgyB+o=
-X-Received: by 2002:a67:ec16:0:b0:452:63b7:2f6d with SMTP id
- d22-20020a67ec16000000b0045263b72f6dmr830755vso.34.1695900924494; Thu, 28 Sep
- 2023 04:35:24 -0700 (PDT)
-MIME-Version: 1.0
+ (Exim 4.86_2) (envelope-from <jlayton@kernel.org>)
+ id 1qlpiY-0006ye-Vo
+ for apparmor@lists.ubuntu.com; Thu, 28 Sep 2023 12:02:08 +0000
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by ams.source.kernel.org (Postfix) with ESMTP id 63305B81BE2;
+ Thu, 28 Sep 2023 12:02:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DA9FC433C8;
+ Thu, 28 Sep 2023 12:01:51 +0000 (UTC)
+Message-ID: <f88106b26a2b647a1541d049999d5546d2ee3e51.camel@kernel.org>
+From: Jeff Layton <jlayton@kernel.org>
+To: Amir Goldstein <amir73il@gmail.com>
+Date: Thu, 28 Sep 2023 08:01:50 -0400
+In-Reply-To: <CAOQ4uxjSrgGr+6UOs4ADGYCderpQ7hAaPjNmB1DExAPLQQsHSg@mail.gmail.com>
 References: <20230928110554.34758-1-jlayton@kernel.org>
  <20230928110554.34758-3-jlayton@kernel.org>
-In-Reply-To: <20230928110554.34758-3-jlayton@kernel.org>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Thu, 28 Sep 2023 14:35:13 +0300
-Message-ID: <CAOQ4uxjSrgGr+6UOs4ADGYCderpQ7hAaPjNmB1DExAPLQQsHSg@mail.gmail.com>
-To: Jeff Layton <jlayton@kernel.org>
+ <CAOQ4uxjSrgGr+6UOs4ADGYCderpQ7hAaPjNmB1DExAPLQQsHSg@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=209.85.217.52; envelope-from=amir73il@gmail.com;
- helo=mail-vs1-f52.google.com
-X-Mailman-Approved-At: Thu, 28 Sep 2023 12:09:32 +0000
+User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
+MIME-Version: 1.0
+X-Mailman-Approved-At: Thu, 28 Sep 2023 12:09:35 +0000
 Subject: Re: [apparmor] [PATCH 87/87] fs: move i_blocks up a few places in
 	struct inode
 X-BeenThere: apparmor@lists.ubuntu.com
@@ -61,8 +45,8 @@ List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
 Cc: Latchesar Ionkov <lucho@ionkov.net>,
- Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, "Darrick J. Wong" <djwong@kernel.org>,
+ Konstantin Komarov <almaz.alexandrovich@paragon-software.com>, "Rafael
+ J. Wysocki" <rafael@kernel.org>, "Darrick J. Wong" <djwong@kernel.org>,
  Anders Larsen <al@alarsen.net>, Carlos Llamas <cmllamas@google.com>,
  Andrii Nakryiko <andrii@kernel.org>, Mattia Dongili <malattia@linux.it>,
  Hugh Dickins <hughd@google.com>, Yonghong Song <yonghong.song@linux.dev>,
@@ -83,7 +67,7 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>,
  Stephen Smalley <stephen.smalley.work@gmail.com>, linux-usb@vger.kernel.org,
  linux-kernel@vger.kernel.org, Ronnie Sahlberg <lsahlber@redhat.com>,
  Sergey Senozhatsky <senozhatsky@chromium.org>,
- =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>,
+ Arve =?ISO-8859-1?Q?Hj=F8nnev=E5g?= <arve@android.com>,
  Chuck Lever <chuck.lever@oracle.com>, Sven Schnelle <svens@linux.ibm.com>,
  Jiri Olsa <jolsa@kernel.org>, Jan Kara <jack@suse.com>,
  Tejun Heo <tj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
@@ -117,7 +101,7 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>,
  Naohiro Aota <naohiro.aota@wdc.com>, Daniel Borkmann <daniel@iogearbox.net>,
  Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
  linux-rdma@vger.kernel.org, coda@cs.cmu.edu,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Ilpo =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
  Ilya Dryomov <idryomov@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
  "Serge E. Hallyn" <serge@hallyn.com>, Kees Cook <keescook@chromium.org>,
  Arnd Bergmann <arnd@arndb.de>, autofs@vger.kernel.org,
@@ -130,10 +114,10 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>,
  Steve French <sfrench@samba.org>, Jeremy Kerr <jk@ozlabs.org>,
  netdev@vger.kernel.org, Bob Peterson <rpeterso@redhat.com>,
  linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org, ntfs3@lists.linux.dev,
- linux-erofs@lists.ozlabs.org, "David S. Miller" <davem@davemloft.net>,
- Chandan Babu R <chandan.babu@oracle.com>, jfs-discussion@lists.sourceforge.net,
- Jan Kara <jack@suse.cz>, Neil Brown <neilb@suse.de>,
- Dominique Martinet <asmadeus@codewreck.org>,
+ linux-erofs@lists.ozlabs.org, "David S.
+ Miller" <davem@davemloft.net>, Chandan Babu R <chandan.babu@oracle.com>,
+ jfs-discussion@lists.sourceforge.net, Jan Kara <jack@suse.cz>,
+ Neil Brown <neilb@suse.de>, Dominique Martinet <asmadeus@codewreck.org>,
  Christian Schoenebeck <linux_oss@crudebyte.com>,
  Bob Copeland <me@bobcopeland.com>, KP Singh <kpsingh@kernel.org>,
  linux-unionfs@vger.kernel.org, David Howells <dhowells@redhat.com>,
@@ -166,51 +150,32 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Thu, Sep 28, 2023 at 2:06=E2=80=AFPM Jeff Layton <jlayton@kernel.org> wr=
-ote:
->
-> The recent change to use discrete integers instead of struct timespec64
-> in struct inode shaved 8 bytes off of it, but it also moves the i_lock
-> into the previous cacheline, away from the fields that it protects.
->
-> Move i_blocks up above the i_lock, which moves the new 4 byte hole to
-> just after the timestamps, without changing the size of the structure.
->
+On Thu, 2023-09-28 at 14:35 +0300, Amir Goldstein wrote:
+> On Thu, Sep 28, 2023 at 2:06=E2=80=AFPM Jeff Layton <jlayton@kernel.org> =
+wrote:
+> >=20
+> > The recent change to use discrete integers instead of struct timespec64
+> > in struct inode shaved 8 bytes off of it, but it also moves the i_lock
+> > into the previous cacheline, away from the fields that it protects.
+> >=20
+> > Move i_blocks up above the i_lock, which moves the new 4 byte hole to
+> > just after the timestamps, without changing the size of the structure.
+> >=20
+>=20
+> Instead of creating an implicit hole, can you please move i_generation
+> to fill the 4 bytes hole.
+>=20
+> It makes sense in the same cache line with i_ino and I could
+> use the vacant 4 bytes hole above i_fsnotify_mask to expand the
+> mask to 64bit (the 32bit event mask space is running out).
+>=20
+> Thanks,
+> Amir.
+>=20
 
-Instead of creating an implicit hole, can you please move i_generation
-to fill the 4 bytes hole.
-
-It makes sense in the same cache line with i_ino and I could
-use the vacant 4 bytes hole above i_fsnotify_mask to expand the
-mask to 64bit (the 32bit event mask space is running out).
-
-Thanks,
-Amir.
-
-> Signed-off-by: Jeff Layton <jlayton@kernel.org>
-> ---
->  include/linux/fs.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/include/linux/fs.h b/include/linux/fs.h
-> index de902ff2938b..3e0fe0f52e7c 100644
-> --- a/include/linux/fs.h
-> +++ b/include/linux/fs.h
-> @@ -677,11 +677,11 @@ struct inode {
->         u32                     i_atime_nsec;
->         u32                     i_mtime_nsec;
->         u32                     i_ctime_nsec;
-> +       blkcnt_t                i_blocks;
->         spinlock_t              i_lock; /* i_blocks, i_bytes, maybe i_siz=
-e */
->         unsigned short          i_bytes;
->         u8                      i_blkbits;
->         u8                      i_write_hint;
-> -       blkcnt_t                i_blocks;
->
->  #ifdef __NEED_I_SIZE_ORDERED
->         seqcount_t              i_size_seqcount;
-> --
-> 2.41.0
->
+Sounds like a plan. Resulting struct inode size is the same (616 bytes
+with my kdevops kconfig). BTW: all of these changes are in my "amtime"
+branch if anyone wants to pull them down.
+--
+Jeff Layton <jlayton@kernel.org>
 
