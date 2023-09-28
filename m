@@ -2,22 +2,22 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9694C7B1BC5
-	for <lists+apparmor@lfdr.de>; Thu, 28 Sep 2023 14:09:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E9EB7B1BC8
+	for <lists+apparmor@lfdr.de>; Thu, 28 Sep 2023 14:10:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qlppw-00019Q-Ss; Thu, 28 Sep 2023 12:09:45 +0000
-Received: from dfw.source.kernel.org ([139.178.84.217])
+	id 1qlpqB-0001DJ-Cl; Thu, 28 Sep 2023 12:10:01 +0000
+Received: from ams.source.kernel.org ([145.40.68.75])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <jlayton@kernel.org>)
- id 1qlont-0003TC-Sl
- for apparmor@lists.ubuntu.com; Thu, 28 Sep 2023 11:03:39 +0000
+ id 1qloqR-0004GW-Sg
+ for apparmor@lists.ubuntu.com; Thu, 28 Sep 2023 11:06:15 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id C8B4E61348;
- Thu, 28 Sep 2023 11:03:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBF2CC433CD;
- Thu, 28 Sep 2023 11:03:16 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id 69215B81BB2;
+ Thu, 28 Sep 2023 11:06:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B45DC433C8;
+ Thu, 28 Sep 2023 11:05:56 +0000 (UTC)
 From: Jeff Layton <jlayton@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>,
  Christian Brauner <brauner@kernel.org>,
@@ -116,16 +116,14 @@ To: Alexander Viro <viro@zeniv.linux.org.uk>,
  "Serge E. Hallyn" <serge@hallyn.com>,
  Stephen Smalley <stephen.smalley.work@gmail.com>,
  Eric Paris <eparis@parisplace.org>
-Date: Thu, 28 Sep 2023 07:03:00 -0400
-Message-ID: <20230928110300.32891-2-jlayton@kernel.org>
+Date: Thu, 28 Sep 2023 07:05:52 -0400
+Message-ID: <20230928110554.34758-1-jlayton@kernel.org>
 X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20230928110300.32891-1-jlayton@kernel.org>
-References: <20230928110300.32891-1-jlayton@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 28 Sep 2023 12:09:35 +0000
-Subject: [apparmor] [PATCH 01/87] fs: new accessor methods for atime and
-	mtime
+Subject: [apparmor] [PATCH 85/87] fs: rename i_atime and i_mtime fields to
+	__i_atime and __i_mtime
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -160,94 +158,63 @@ Cc: jfs-discussion@lists.sourceforge.net, linux-efi@vger.kernel.org,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Recently, we converted the ctime accesses in the kernel to use new
-accessor functions. Linus recently pointed out though that if we add
-accessors for the atime and mtime, then that would allow us to
-seamlessly change how these timestamps are stored in the inode.
-
-Add new accessor functions for the atime and mtime that mirror the
-accessors for the ctime.
+Make it clear that these fields are private now, and that the accessors
+should be used instead.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/libfs.c         | 13 +++++++++++++
- include/linux/fs.h | 42 ++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 55 insertions(+)
+ include/linux/fs.h | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/fs/libfs.c b/fs/libfs.c
-index 37f2d34ee090..f5cdc7f7f5b5 100644
---- a/fs/libfs.c
-+++ b/fs/libfs.c
-@@ -1912,3 +1912,16 @@ ssize_t direct_write_fallback(struct kiocb *iocb, struct iov_iter *iter,
- 	return direct_written + buffered_written;
- }
- EXPORT_SYMBOL_GPL(direct_write_fallback);
-+
-+/**
-+ * simple_inode_init_ts - initialize the timestamps for a new inode
-+ * @inode: inode to be initialized
-+ *
-+ * When a new inode is created, most filesystems set the timestamps to the
-+ * current time. Add a helper to do this.
-+ */
-+struct timespec64 simple_inode_init_ts(struct inode *inode);
-+{
-+	return inode->i_atime = inode->i_mtime = inode_set_ctime_current(inode);
-+}
-+EXPORT_SYMBOL(simple_inode_init_ts);
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index b528f063e8ff..12d247b82aa0 100644
+index 12d247b82aa0..831657011036 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
-@@ -1553,6 +1553,48 @@ static inline struct timespec64 inode_set_ctime(struct inode *inode,
- 	return inode_set_ctime_to_ts(inode, ts);
+@@ -671,9 +671,9 @@ struct inode {
+ 	};
+ 	dev_t			i_rdev;
+ 	loff_t			i_size;
+-	struct timespec64	i_atime;
+-	struct timespec64	i_mtime;
+-	struct timespec64	__i_ctime; /* use inode_*_ctime accessors! */
++	struct timespec64	__i_atime; /* use inode_*_atime accessors */
++	struct timespec64	__i_mtime; /* use inode_*_mtime accessors */
++	struct timespec64	__i_ctime; /* use inode_*_ctime accessors */
+ 	spinlock_t		i_lock;	/* i_blocks, i_bytes, maybe i_size */
+ 	unsigned short          i_bytes;
+ 	u8			i_blkbits;
+@@ -1555,13 +1555,13 @@ static inline struct timespec64 inode_set_ctime(struct inode *inode,
+ 
+ static inline struct timespec64 inode_get_atime(const struct inode *inode)
+ {
+-	return inode->i_atime;
++	return inode->__i_atime;
  }
  
-+static inline struct timespec64 inode_get_atime(const struct inode *inode)
-+{
-+	return inode->i_atime;
-+}
-+
-+static inline struct timespec64 inode_set_atime_to_ts(struct inode *inode,
-+						      struct timespec64 ts)
-+{
-+	inode->i_atime = ts;
-+	return ts;
-+}
-+
-+static inline struct timespec64 inode_set_atime(struct inode *inode,
-+						time64_t sec, long nsec)
-+{
-+	struct timespec64 ts = { .tv_sec  = sec,
-+				 .tv_nsec = nsec };
-+	return inode_set_atime_to_ts(inode, ts);
-+}
-+
-+static inline struct timespec64 inode_get_mtime(const struct inode *inode)
-+{
-+	return inode->i_mtime;
-+}
-+
-+static inline struct timespec64 inode_set_mtime_to_ts(struct inode *inode,
-+						      struct timespec64 ts)
-+{
-+	inode->i_mtime = ts;
-+	return ts;
-+}
-+
-+static inline struct timespec64 inode_set_mtime(struct inode *inode,
-+						time64_t sec, long nsec)
-+{
-+	struct timespec64 ts = { .tv_sec  = sec,
-+				 .tv_nsec = nsec };
-+	return inode_set_mtime_to_ts(inode, ts);
-+}
-+
-+struct timespec64 simple_inode_init_ts(struct inode *inode);
-+
- /*
-  * Snapshotting support.
-  */
+ static inline struct timespec64 inode_set_atime_to_ts(struct inode *inode,
+ 						      struct timespec64 ts)
+ {
+-	inode->i_atime = ts;
++	inode->__i_atime = ts;
+ 	return ts;
+ }
+ 
+@@ -1575,13 +1575,13 @@ static inline struct timespec64 inode_set_atime(struct inode *inode,
+ 
+ static inline struct timespec64 inode_get_mtime(const struct inode *inode)
+ {
+-	return inode->i_mtime;
++	return inode->__i_mtime;
+ }
+ 
+ static inline struct timespec64 inode_set_mtime_to_ts(struct inode *inode,
+ 						      struct timespec64 ts)
+ {
+-	inode->i_mtime = ts;
++	inode->__i_mtime = ts;
+ 	return ts;
+ }
+ 
 -- 
 2.41.0
 
