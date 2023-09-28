@@ -2,37 +2,57 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 931167B26FA
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D7657B26F9
 	for <lists+apparmor@lfdr.de>; Thu, 28 Sep 2023 23:04:17 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qlyAq-0001vt-1t; Thu, 28 Sep 2023 21:03:52 +0000
-Received: from ams.source.kernel.org ([145.40.68.75])
+	id 1qlyAr-0001yw-NC; Thu, 28 Sep 2023 21:03:54 +0000
+Received: from new2-smtp.messagingengine.com ([66.111.4.224])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <jlayton@kernel.org>)
- id 1qlvKg-00010U-FH
- for apparmor@lists.ubuntu.com; Thu, 28 Sep 2023 18:01:50 +0000
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id D6EECB81DC1;
- Thu, 28 Sep 2023 18:01:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6C1DC433C7;
- Thu, 28 Sep 2023 18:01:34 +0000 (UTC)
-Message-ID: <00ca2e3997cc86401f7fb65d936fe5403abd5627.camel@kernel.org>
-From: Jeff Layton <jlayton@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Thu, 28 Sep 2023 14:01:33 -0400
-In-Reply-To: <CAHk-=wij_42Q9WHY898r-gugmT5c-1JJKRh3C+nTUd1hc1aeqQ@mail.gmail.com>
-References: <20230928110554.34758-1-jlayton@kernel.org>
- <20230928110554.34758-3-jlayton@kernel.org>
- <CAHk-=wij_42Q9WHY898r-gugmT5c-1JJKRh3C+nTUd1hc1aeqQ@mail.gmail.com>
-Content-Type: text/plain; charset="ISO-8859-15"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
+ (Exim 4.86_2) (envelope-from <arnd@arndb.de>) id 1qlxW2-0000PX-3D
+ for apparmor@lists.ubuntu.com; Thu, 28 Sep 2023 20:21:46 +0000
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 9B93D580A36;
+ Thu, 28 Sep 2023 16:21:38 -0400 (EDT)
+Received: from imap51 ([10.202.2.101])
+ by compute6.internal (MEProxy); Thu, 28 Sep 2023 16:21:38 -0400
+X-ME-Sender: <xms:T-AVZR1ewCLCXJciXTv2KS-VQFM8EZxgmqu8KX5sRw8jOhB8t5mvmg>
+ <xme:T-AVZYE8KNFU-zX2fowtiSk8k5TTEy-zLpg6l7ViaO7u-M9i4sLyeo9mKHRv89wiK
+ kzQfQCBm98jHSFK2M0>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvkedrtddtgdduudejucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepofgfggfkjghffffhvfevufgtsehttdertderredtnecuhfhrohhmpedftehr
+ nhguuceuvghrghhmrghnnhdfuceorghrnhgusegrrhhnuggsrdguvgeqnecuggftrfgrth
+ htvghrnhepffehueegteeihfegtefhjefgtdeugfegjeelheejueethfefgeeghfektdek
+ teffnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheprg
+ hrnhgusegrrhhnuggsrdguvg
+X-ME-Proxy: <xmx:T-AVZR4BytDV9lwZdqqjrwhvP5vsz3ug46UBzGAT-ICPIHtzTDxhvA>
+ <xmx:T-AVZe3ZjrPtzvGRB3XDvCcCYDyZkQmX1RQr8DvYh6NceadI1nsPoQ>
+ <xmx:T-AVZUF8XXSEejnBdY9XFbo8HcXvGUcaI9j91XApMIv7k8MhAYrhSQ>
+ <xmx:UuAVZaefJHshgpCzU_sLowO2Cv2ngdqlPUqFPg8bJlwHCV_nHAorAQ>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id 360CCB60089; Thu, 28 Sep 2023 16:21:35 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.9.0-alpha0-958-g1b1b911df8-fm-20230927.002-g1b1b911d
 MIME-Version: 1.0
-X-Mailman-Approved-At: Thu, 28 Sep 2023 21:03:39 +0000
-Subject: Re: [apparmor] [PATCH 87/87] fs: move i_blocks up a few places in
-	struct inode
+Message-Id: <ded0ef74-bdad-42f2-b0a7-5d867e446c19@app.fastmail.com>
+In-Reply-To: <6a6f37d16b55a3003af3f3dbb7778a367f68cd8d.camel@kernel.org>
+References: <20230928110554.34758-1-jlayton@kernel.org>
+ <20230928110554.34758-2-jlayton@kernel.org>
+ <6020d6e7-b187-4abb-bf38-dc09d8bd0f6d@app.fastmail.com>
+ <af047e4a1c6947c59d4a13d4ae221c784a5386b4.camel@kernel.org>
+ <20230928171943.GK11439@frogsfrogsfrogs>
+ <6a6f37d16b55a3003af3f3dbb7778a367f68cd8d.camel@kernel.org>
+Date: Thu, 28 Sep 2023 16:21:12 -0400
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Jeff Layton" <jlayton@kernel.org>, "Darrick J. Wong" <djwong@kernel.org>
+Content-Type: text/plain
+X-Mailman-Approved-At: Thu, 28 Sep 2023 21:03:41 +0000
+Subject: Re: [apparmor] [PATCH 86/87] fs: switch timespec64 fields in inode
+	to discrete integers
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -45,11 +65,11 @@ List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
 Cc: Latchesar Ionkov <lucho@ionkov.net>,
- Konstantin Komarov <almaz.alexandrovich@paragon-software.com>, "Rafael
- J. Wysocki" <rafael@kernel.org>, "Darrick J. Wong" <djwong@kernel.org>,
+ Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, Hugh Dickins <hughd@google.com>,
  Anders Larsen <al@alarsen.net>, Carlos Llamas <cmllamas@google.com>,
  Andrii Nakryiko <andrii@kernel.org>, Mattia Dongili <malattia@linux.it>,
- Hugh Dickins <hughd@google.com>, Yonghong Song <yonghong.song@linux.dev>,
+ Yonghong Song <yonghong.song@linux.dev>,
  Alexander Gordeev <agordeev@linux.ibm.com>, Christoph Hellwig <hch@lst.de>,
  Mike Marshall <hubcap@omnibond.com>, Paulo Alcantara <pc@manguebit.com>,
  linux-xfs@vger.kernel.org, Michael Ellerman <mpe@ellerman.id.au>,
@@ -67,16 +87,17 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>,
  Stephen Smalley <stephen.smalley.work@gmail.com>, linux-usb@vger.kernel.org,
  linux-kernel@vger.kernel.org, Ronnie Sahlberg <lsahlber@redhat.com>,
  Sergey Senozhatsky <senozhatsky@chromium.org>,
- Arve =?ISO-8859-1?Q?Hj=F8nnev=E5g?= <arve@android.com>,
+ =?UTF-8?Q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>,
  Chuck Lever <chuck.lever@oracle.com>, Sven Schnelle <svens@linux.ibm.com>,
  Jiri Olsa <jolsa@kernel.org>, Jan Kara <jack@suse.com>,
  Tejun Heo <tj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- linux-trace-kernel@vger.kernel.org, Dave Kleikamp <shaggy@kernel.org>,
- linux-mm@kvack.org, Joel Fernandes <joel@joelfernandes.org>,
- Eric Dumazet <edumazet@google.com>, Stanislav Fomichev <sdf@google.com>,
- linux-s390@vger.kernel.org, linux-nilfs@vger.kernel.org,
- Paul Moore <paul@paul-moore.com>, Leon Romanovsky <leon@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>,
+ linux-trace-kernel@vger.kernel.org,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Dave Kleikamp <shaggy@kernel.org>, linux-mm@kvack.org,
+ Joel Fernandes <joel@joelfernandes.org>, Eric Dumazet <edumazet@google.com>,
+ Stanislav Fomichev <sdf@google.com>, linux-s390@vger.kernel.org,
+ linux-nilfs@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
+ Leon Romanovsky <leon@kernel.org>, John Fastabend <john.fastabend@gmail.com>,
  Luis Chamberlain <mcgrof@kernel.org>, codalist@coda.cs.cmu.edu,
  Iurii Zaikin <yzaikin@google.com>, Namjae Jeon <linkinjeon@kernel.org>,
  Masami Hiramatsu <mhiramat@kernel.org>, Todd Kjos <tkjos@android.com>,
@@ -89,7 +110,7 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>,
  Nicolas Pitre <nico@fluxnic.net>, linux-ntfs-dev@lists.sourceforge.net,
  Muchun Song <muchun.song@linux.dev>, linux-f2fs-devel@lists.sourceforge.net,
  "Guilherme G. Piccoli" <gpiccoli@igalia.com>, gfs2@lists.linux.dev,
- Eric Biederman <ebiederm@xmission.com>, Anna Schumaker <anna@kernel.org>,
+ "Eric W. Biederman" <ebiederm@xmission.com>, Anna Schumaker <anna@kernel.org>,
  Brad Warrum <bwarrum@linux.ibm.com>, Mike Kravetz <mike.kravetz@oracle.com>,
  linux-efi@vger.kernel.org, Martin Brandenburg <martin@omnibond.com>,
  ocfs2-devel@lists.linux.dev, Alexei Starovoitov <ast@kernel.org>,
@@ -100,25 +121,24 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>,
  Naohiro Aota <naohiro.aota@wdc.com>, Daniel Borkmann <daniel@iogearbox.net>,
  Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
  linux-rdma@vger.kernel.org, coda@cs.cmu.edu,
- Ilpo =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
  Ilya Dryomov <idryomov@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
  "Serge E. Hallyn" <serge@hallyn.com>,
  Christian Schoenebeck <linux_oss@crudebyte.com>,
- Kees Cook <keescook@chromium.org>, Arnd Bergmann <arnd@arndb.de>,
- autofs@vger.kernel.org, Steven Rostedt <rostedt@goodmis.org>,
- Mark Gross <markgross@kernel.org>, Damien Le Moal <dlemoal@kernel.org>,
- Eric Paris <eparis@parisplace.org>, ceph-devel@vger.kernel.org,
- Gao Xiang <xiang@kernel.org>, Jan Harkes <jaharkes@cs.cmu.edu>,
- linux-nfs@vger.kernel.org, linux-ext4@vger.kernel.org,
- Olga Kornievskaia <kolga@netapp.com>, Song Liu <song@kernel.org>,
- samba-technical@lists.samba.org, Steve French <sfrench@samba.org>,
- Jeremy Kerr <jk@ozlabs.org>, netdev@vger.kernel.org,
- Bob Peterson <rpeterso@redhat.com>, linux-fsdevel@vger.kernel.org,
- bpf@vger.kernel.org, ntfs3@lists.linux.dev, linux-erofs@lists.ozlabs.org,
- "David S.
- Miller" <davem@davemloft.net>, Chandan Babu R <chandan.babu@oracle.com>,
- jfs-discussion@lists.sourceforge.net, Jan Kara <jack@suse.cz>,
- Neil Brown <neilb@suse.de>, Dominique Martinet <asmadeus@codewreck.org>,
+ Kees Cook <keescook@chromium.org>, autofs@vger.kernel.org,
+ Steven Rostedt <rostedt@goodmis.org>, Mark Gross <markgross@kernel.org>,
+ Damien Le Moal <dlemoal@kernel.org>, Eric Paris <eparis@parisplace.org>,
+ ceph-devel@vger.kernel.org, Gao Xiang <xiang@kernel.org>,
+ Jan Harkes <jaharkes@cs.cmu.edu>, linux-nfs@vger.kernel.org,
+ linux-ext4@vger.kernel.org, Olga Kornievskaia <kolga@netapp.com>,
+ Song Liu <song@kernel.org>, samba-technical@lists.samba.org,
+ Steve French <sfrench@samba.org>, Jeremy Kerr <jk@ozlabs.org>,
+ Netdev <netdev@vger.kernel.org>, Bob Peterson <rpeterso@redhat.com>,
+ linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org, ntfs3@lists.linux.dev,
+ linux-erofs@lists.ozlabs.org, "David S . Miller" <davem@davemloft.net>,
+ Chandan Babu R <chandan.babu@oracle.com>, jfs-discussion@lists.sourceforge.net,
+ Jan Kara <jack@suse.cz>, Neil Brown <neilb@suse.de>,
+ Dominique Martinet <asmadeus@codewreck.org>,
  Amir Goldstein <amir73il@gmail.com>, Bob Copeland <me@bobcopeland.com>,
  KP Singh <kpsingh@kernel.org>, linux-unionfs@vger.kernel.org,
  David Howells <dhowells@redhat.com>, Joseph Qi <joseph.qi@linux.alibaba.com>,
@@ -150,42 +170,45 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Thu, 2023-09-28 at 10:41 -0700, Linus Torvalds wrote:
-> On Thu, 28 Sept 2023 at 04:06, Jeff Layton <jlayton@kernel.org> wrote:
-> >=20
-> > Move i_blocks up above the i_lock, which moves the new 4 byte hole to
-> > just after the timestamps, without changing the size of the structure.
->=20
-> I'm sure others have mentioned this, but 'struct inode' is marked with
-> __randomize_layout, so the actual layout may end up being very
-> different.
->=20
-> I'm personally not convinced the whole structure randomization is
-> worth it - it's easy enough to figure out for any distro kernel since
-> the seed has to be the same across machines for modules to work, so
-> even if the seed isn't "public", any layout is bound to be fairly
-> easily discoverable.
->=20
-> So the whole randomization only really works for private kernel
-> builds, and it adds this kind of pain where "optimizing" the structure
-> layout is kind of pointless depending on various options.
->=20
-> I certainly *hope* no distro enables that pointless thing, but it's a wor=
-ry.
->=20
+On Thu, Sep 28, 2023, at 13:40, Jeff Layton wrote:
+> On Thu, 2023-09-28 at 10:19 -0700, Darrick J. Wong wrote:
+>>
+>> > I remember seeing those patches go by. I don't remember that change
+>> > being NaK'ed, but I wasn't paying close attention at the time 
+>> > 
+>> > Looking at it objectively now, I think it's worth it to recover 8 bytes
+>> > per inode and open a 4 byte hole that Amir can use to grow the
+>> > i_fsnotify_mask. We might even able to shave off another 12 bytes
+>> > eventually if we can move to a single 64-bit word per timestamp. 
+>> 
+>> I don't think you can, since btrfs timestamps utilize s64 seconds
+>> counting in both directions from the Unix epoch.  They also support ns
+>> resolution:
+>> 
+>> 	struct btrfs_timespec {
+>> 		__le64 sec;
+>> 		__le32 nsec;
+>> 	} __attribute__ ((__packed__));
+>> 
+>
+> Correct. We'd lose some fidelity in currently stored timestamps, but as
+> Linus and Ted pointed out, anything below ~100ns granularity is
+> effectively just noise, as that's the floor overhead for calling into
+> the kernel. It's hard to argue that any application needs that sort of
+> timestamp resolution, at least with contemporary hardware. 
 
-I've never enabled struct randomization and don't know anyone who does.
-I figure if you turn that on, you get to keep all of the pieces when you
-start seeing weird performance problems.
+There are probably applications that have come up with creative
+ways to use the timestamp fields of file systems that 94 bits
+of data, with both the MSB of the seconds and the LSB of the
+nanoseconds carrying information that they expect to be preserved.
 
-I think that we have to optimize for that being disabled. Even without
-that though, turning on and off options can change the layout...and then
-there are different arches, etc.
+Dropping any information in the nanoseconds other than the top two
+bits would trivially change the 'ls -t' output when two files have
+the same timestamp in one kernel but slightly different timestamps
+in another one. For large values of 'tv_sec', there are fewer
+obvious things that break, but if current kernels are able to
+retrieve arbitrary times that were stored with utimensat(), then we
+should probably make sure future kernels can see the same.
 
-I'm using a config derived from the Fedora x86_64 kernel images and hope
-that represents a reasonably common configuration. The only conditional
-members before the timestamps are based on CONFIG_FS_POSIX_ACL and
-CONFIG_SECURITY, which are almost always turned on with most distros.
---=20
-Jeff Layton <jlayton@kernel.org>
+        Arnd
 
