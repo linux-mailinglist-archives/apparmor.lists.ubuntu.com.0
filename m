@@ -2,35 +2,37 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C29D7B2FF2
-	for <lists+apparmor@lfdr.de>; Fri, 29 Sep 2023 12:18:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22AEC7B2FF3
+	for <lists+apparmor@lfdr.de>; Fri, 29 Sep 2023 12:18:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qmAZB-0005LA-Tn; Fri, 29 Sep 2023 10:17:50 +0000
-Received: from dfw.source.kernel.org ([139.178.84.217])
+	id 1qmAZe-0005YC-Kp; Fri, 29 Sep 2023 10:18:19 +0000
+Received: from ams.source.kernel.org ([145.40.68.75])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <brauner@kernel.org>)
- id 1qmA3j-0005It-Vm
- for apparmor@lists.ubuntu.com; Fri, 29 Sep 2023 09:45:20 +0000
+ (Exim 4.86_2) (envelope-from <jlayton@kernel.org>)
+ id 1qmAYc-0005FT-6F
+ for apparmor@lists.ubuntu.com; Fri, 29 Sep 2023 10:17:14 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 59C9F61D59;
- Fri, 29 Sep 2023 09:45:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CB9BC433C8;
- Fri, 29 Sep 2023 09:44:29 +0000 (UTC)
-Date: Fri, 29 Sep 2023 11:44:15 +0200
-From: Christian Brauner <brauner@kernel.org>
-To: Jeff Layton <jlayton@kernel.org>
-Message-ID: <20230929-yuppie-unzweifelhaft-434bf13bc964@brauner>
+ by ams.source.kernel.org (Postfix) with ESMTP id 8BAA9B81E85;
+ Fri, 29 Sep 2023 10:17:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C55EAC433C7;
+ Fri, 29 Sep 2023 10:16:58 +0000 (UTC)
+Message-ID: <d52b4330cd26e8ef9b2999281b05e50bd7106b3a.camel@kernel.org>
+From: Jeff Layton <jlayton@kernel.org>
+To: Christian Brauner <brauner@kernel.org>
+Date: Fri, 29 Sep 2023 06:16:57 -0400
+In-Reply-To: <20230929-yuppie-unzweifelhaft-434bf13bc964@brauner>
 References: <20230928110554.34758-1-jlayton@kernel.org>
  <20230928110554.34758-2-jlayton@kernel.org>
  <6020d6e7-b187-4abb-bf38-dc09d8bd0f6d@app.fastmail.com>
  <af047e4a1c6947c59d4a13d4ae221c784a5386b4.camel@kernel.org>
+ <20230929-yuppie-unzweifelhaft-434bf13bc964@brauner>
+Content-Type: text/plain; charset="ISO-8859-15"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <af047e4a1c6947c59d4a13d4ae221c784a5386b4.camel@kernel.org>
-X-Mailman-Approved-At: Fri, 29 Sep 2023 10:17:24 +0000
+X-Mailman-Approved-At: Fri, 29 Sep 2023 10:17:58 +0000
 Subject: Re: [apparmor] [PATCH 86/87] fs: switch timespec64 fields in inode
  to discrete integers
 X-BeenThere: apparmor@lists.ubuntu.com
@@ -45,12 +47,11 @@ List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
 Cc: Latchesar Ionkov <lucho@ionkov.net>,
- Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- "Darrick J. Wong" <djwong@kernel.org>, Anders Larsen <al@alarsen.net>,
- Carlos Llamas <cmllamas@google.com>, Andrii Nakryiko <andrii@kernel.org>,
- Mattia Dongili <malattia@linux.it>, Hugh Dickins <hughd@google.com>,
- Yonghong Song <yonghong.song@linux.dev>,
+ Konstantin Komarov <almaz.alexandrovich@paragon-software.com>, "Rafael J
+ . Wysocki" <rafael@kernel.org>, "Darrick J. Wong" <djwong@kernel.org>,
+ Anders Larsen <al@alarsen.net>, Carlos Llamas <cmllamas@google.com>,
+ Andrii Nakryiko <andrii@kernel.org>, Mattia Dongili <malattia@linux.it>,
+ Hugh Dickins <hughd@google.com>, Yonghong Song <yonghong.song@linux.dev>,
  Alexander Gordeev <agordeev@linux.ibm.com>, Christoph Hellwig <hch@lst.de>,
  Mike Marshall <hubcap@omnibond.com>, Paulo Alcantara <pc@manguebit.com>,
  linux-xfs@vger.kernel.org, Michael Ellerman <mpe@ellerman.id.au>,
@@ -68,7 +69,7 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>,
  Stephen Smalley <stephen.smalley.work@gmail.com>, linux-usb@vger.kernel.org,
  linux-kernel@vger.kernel.org, Ronnie Sahlberg <lsahlber@redhat.com>,
  Sergey Senozhatsky <senozhatsky@chromium.org>,
- Arve =?utf-8?B?SGrDuG5uZXbDpWc=?= <arve@android.com>,
+ Arve =?ISO-8859-1?Q?Hj=F8nnev=E5g?= <arve@android.com>,
  Chuck Lever <chuck.lever@oracle.com>, Sven Schnelle <svens@linux.ibm.com>,
  Jiri Olsa <jolsa@kernel.org>, Jan Kara <jack@suse.com>,
  Tejun Heo <tj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
@@ -102,7 +103,7 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>,
  Naohiro Aota <naohiro.aota@wdc.com>, Daniel Borkmann <daniel@iogearbox.net>,
  Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
  linux-rdma@vger.kernel.org, coda@cs.cmu.edu,
- Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+ Ilpo =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
  Ilya Dryomov <idryomov@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
  "Serge E. Hallyn" <serge@hallyn.com>,
  Christian Schoenebeck <linux_oss@crudebyte.com>,
@@ -117,10 +118,10 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>,
  Jeremy Kerr <jk@ozlabs.org>, Netdev <netdev@vger.kernel.org>,
  Bob Peterson <rpeterso@redhat.com>, linux-fsdevel@vger.kernel.org,
  bpf@vger.kernel.org, ntfs3@lists.linux.dev, linux-erofs@lists.ozlabs.org,
- "David S . Miller" <davem@davemloft.net>,
- Chandan Babu R <chandan.babu@oracle.com>, jfs-discussion@lists.sourceforge.net,
- Jan Kara <jack@suse.cz>, Neil Brown <neilb@suse.de>,
- Dominique Martinet <asmadeus@codewreck.org>,
+ "David S .
+ Miller" <davem@davemloft.net>, Chandan Babu R <chandan.babu@oracle.com>,
+ jfs-discussion@lists.sourceforge.net, Jan Kara <jack@suse.cz>,
+ Neil Brown <neilb@suse.de>, Dominique Martinet <asmadeus@codewreck.org>,
  Amir Goldstein <amir73il@gmail.com>, Bob Copeland <me@bobcopeland.com>,
  KP Singh <kpsingh@kernel.org>, linux-unionfs@vger.kernel.org,
  David Howells <dhowells@redhat.com>, Joseph Qi <joseph.qi@linux.alibaba.com>,
@@ -152,25 +153,37 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-> It is a lot of churn though.
+On Fri, 2023-09-29 at 11:44 +0200, Christian Brauner wrote:
+> > It is a lot of churn though.
+>=20
+> I think that i_{a,c,m}time shouldn't be accessed directly by
+> filesystems same as no filesystem should really access i_{g,u}id which
+> we also provide i_{g,u}id_{read,write}() accessors for. The mode is
+> another example where really most often should use helpers because of all
+> the set*id stripping that we need to do (and the bugs that we had
+> because of this...).
+>=20
+> The interdependency between ctime and mtime is enough to hide this in
+> accessors. The other big advantage is simply grepability. So really I
+> would like to see this change even without the type switch.
+>=20
+> In other words, there's no need to lump the two changes together. Do the
+> conversion part and we can argue about the switch to discrete integers
+> separately.
+>=20
+> The other adavantage is that we have a cycle to see any possible
+> regression from the conversion.
+>=20
+> Thoughts anyone?
 
-I think that i_{a,c,m}time shouldn't be accessed directly by
-filesystems same as no filesystem should really access i_{g,u}id which
-we also provide i_{g,u}id_{read,write}() accessors for. The mode is
-another example where really most often should use helpers because of all
-the set*id stripping that we need to do (and the bugs that we had
-because of this...).
+That works for me, and sort of what I was planning anyway. I mostly just
+did the change to timestamp storage to see what it would look like
+afterward.
 
-The interdependency between ctime and mtime is enough to hide this in
-accessors. The other big advantage is simply grepability. So really I
-would like to see this change even without the type switch.
-
-In other words, there's no need to lump the two changes together. Do the
-conversion part and we can argue about the switch to discrete integers
-separately.
-
-The other adavantage is that we have a cycle to see any possible
-regression from the conversion.
-
-Thoughts anyone?
+FWIW, I'm planning to do a v2 patchbomb early next week, with the
+changes that Chuck suggested (specific helpers for fetching the _sec and
+_nsec fields). For now, I'll drop the change from timespec64 to discrete
+fields. We can do that in a separate follow-on set.
+--=20
+Jeff Layton <jlayton@kernel.org>
 
