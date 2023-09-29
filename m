@@ -2,41 +2,68 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39A667B279A
-	for <lists+apparmor@lfdr.de>; Thu, 28 Sep 2023 23:38:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA7527B2A22
+	for <lists+apparmor@lfdr.de>; Fri, 29 Sep 2023 03:17:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qlyhe-0006Wj-Fs; Thu, 28 Sep 2023 21:37:46 +0000
-Received: from outgoing-auth-1.mit.edu ([18.9.28.11] helo=outgoing.mit.edu)
+	id 1qm282-0004T5-EL; Fri, 29 Sep 2023 01:17:14 +0000
+Received: from mail-ej1-f48.google.com ([209.85.218.48])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <tytso@mit.edu>) id 1qlyYE-0002nZ-St
- for apparmor@lists.ubuntu.com; Thu, 28 Sep 2023 21:28:05 +0000
-Received: from cwcc.thunk.org (pool-173-48-111-87.bstnma.fios.verizon.net
- [173.48.111.87]) (authenticated bits=0)
- (User authenticated as tytso@ATHENA.MIT.EDU)
- by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 38SLQv6B021535
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 28 Sep 2023 17:26:58 -0400
-Received: by cwcc.thunk.org (Postfix, from userid 15806)
- id 06AD715C0266; Thu, 28 Sep 2023 17:26:57 -0400 (EDT)
-Date: Thu, 28 Sep 2023 17:26:56 -0400
-From: "Theodore Ts'o" <tytso@mit.edu>
-To: Jeff Layton <jlayton@kernel.org>
-Message-ID: <20230928212656.GC189345@mit.edu>
+ (Exim 4.86_2) (envelope-from <torvalds@linuxfoundation.org>)
+ id 1qm1JN-0007Sz-7j
+ for apparmor@lists.ubuntu.com; Fri, 29 Sep 2023 00:24:53 +0000
+Received: by mail-ej1-f48.google.com with SMTP id
+ a640c23a62f3a-9b281a2aa94so1186111466b.2
+ for <apparmor@lists.ubuntu.com>; Thu, 28 Sep 2023 17:24:53 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1695947092; x=1696551892;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=bvzvBt54YKz6rxhAovyc5UddK2JDmyrig02MAqmRW1o=;
+ b=tGQTl/qGzmLZ0JZIX/2/3Mye0AkwBAqFHtqbju7C44zSJCutvHH72BgWUTs3QOZLyB
+ DpHp6XlVJYuYLMWYqIOxuTHWAWY6948MoPwhx8HMT5vnp77In3CFvcXHrZUm/RYFZoJj
+ CEM823DB8u6a+xSR+A0UFF+qY1HVZT4mONJSP0o0vFnSKd0iuFIfZOegwMnw8sPS2X/I
+ Bq6Z3QmE/2Ejv2OwHM27r0MdQSyMF1bK1jTrGZjRtRZdzRCwmlpAZJt0RfvJqv/rC502
+ o3Ff3dIjauCV+2hZ9jskKNZx2RGuC8SnlOMD0tT34dxTYRELKwSimDyo3/8czrX35LIf
+ Yybg==
+X-Gm-Message-State: AOJu0YzEIlI6GnctwhwGKdFq1TOlEl7whozxCX9W2faQIaHnXF+si90R
+ QCHgbyFEvt5/mVVp74qM+GU88QgLSnVnvTmh5cC9ns6Ajho=
+X-Google-Smtp-Source: AGHT+IGiSP/QapEErA8icZV9iHA3YlSw2C++XQ91E7HxTFZQg0RvZcVLf9ELE8Tmk2aZijVtyEEdFw==
+X-Received: by 2002:a17:906:738b:b0:9a2:86a:f9b7 with SMTP id
+ f11-20020a170906738b00b009a2086af9b7mr2428851ejl.59.1695947092617; 
+ Thu, 28 Sep 2023 17:24:52 -0700 (PDT)
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com.
+ [209.85.218.50]) by smtp.gmail.com with ESMTPSA id
+ e8-20020a170906374800b0099cf840527csm11592597ejc.153.2023.09.28.17.24.52
+ for <apparmor@lists.ubuntu.com>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 28 Sep 2023 17:24:52 -0700 (PDT)
+Received: by mail-ej1-f50.google.com with SMTP id
+ a640c23a62f3a-9ad8d47ef2fso1737851966b.1
+ for <apparmor@lists.ubuntu.com>; Thu, 28 Sep 2023 17:24:52 -0700 (PDT)
+X-Received: by 2002:aa7:d807:0:b0:530:52d2:f656 with SMTP id
+ v7-20020aa7d807000000b0053052d2f656mr2404674edq.21.1695946739584; Thu, 28 Sep
+ 2023 17:18:59 -0700 (PDT)
+MIME-Version: 1.0
 References: <20230928110554.34758-1-jlayton@kernel.org>
  <20230928110554.34758-2-jlayton@kernel.org>
  <6020d6e7-b187-4abb-bf38-dc09d8bd0f6d@app.fastmail.com>
  <af047e4a1c6947c59d4a13d4ae221c784a5386b4.camel@kernel.org>
  <20230928171943.GK11439@frogsfrogsfrogs>
  <6a6f37d16b55a3003af3f3dbb7778a367f68cd8d.camel@kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6a6f37d16b55a3003af3f3dbb7778a367f68cd8d.camel@kernel.org>
-X-Mailman-Approved-At: Thu, 28 Sep 2023 21:37:34 +0000
+ <20230928212656.GC189345@mit.edu>
+In-Reply-To: <20230928212656.GC189345@mit.edu>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Thu, 28 Sep 2023 17:18:42 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wjTynK9BdGbi+8eShU77nkPvipFwRxEd1TSBrw2+LiuDg@mail.gmail.com>
+Message-ID: <CAHk-=wjTynK9BdGbi+8eShU77nkPvipFwRxEd1TSBrw2+LiuDg@mail.gmail.com>
+To: "Theodore Ts'o" <tytso@mit.edu>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Fri, 29 Sep 2023 01:17:09 +0000
 Subject: Re: [apparmor] [PATCH 86/87] fs: switch timespec64 fields in inode
- to discrete integers
+	to discrete integers
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -72,13 +99,12 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>,
  Stephen Smalley <stephen.smalley.work@gmail.com>, linux-usb@vger.kernel.org,
  linux-kernel@vger.kernel.org, Ronnie Sahlberg <lsahlber@redhat.com>,
  Sergey Senozhatsky <senozhatsky@chromium.org>,
- Arve =?iso-8859-1?B?SGr4bm5lduVn?= <arve@android.com>,
+ =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>,
  Chuck Lever <chuck.lever@oracle.com>, Sven Schnelle <svens@linux.ibm.com>,
  Jiri Olsa <jolsa@kernel.org>, Jan Kara <jack@suse.com>,
  Tejun Heo <tj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- linux-trace-kernel@vger.kernel.org,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Dave Kleikamp <shaggy@kernel.org>, linux-mm@kvack.org,
+ linux-trace-kernel@vger.kernel.org, Dave Kleikamp <shaggy@kernel.org>,
+ samba-technical@lists.samba.org, linux-mm@kvack.org,
  Joel Fernandes <joel@joelfernandes.org>, Eric Dumazet <edumazet@google.com>,
  Stanislav Fomichev <sdf@google.com>, codalist@telemann.coda.cs.cmu.edu,
  linux-s390@vger.kernel.org, linux-nilfs@vger.kernel.org,
@@ -106,7 +132,7 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>,
  Naohiro Aota <naohiro.aota@wdc.com>, Daniel Borkmann <daniel@iogearbox.net>,
  Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
  linux-rdma@vger.kernel.org, coda@cs.cmu.edu,
- Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
  Ilya Dryomov <idryomov@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
  "Serge E. Hallyn" <serge@hallyn.com>,
  Christian Schoenebeck <linux_oss@crudebyte.com>,
@@ -117,7 +143,7 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>,
  Gao Xiang <xiang@kernel.org>, Jan Harkes <jaharkes@cs.cmu.edu>,
  linux-nfs@vger.kernel.org, linux-ext4@vger.kernel.org,
  Olga Kornievskaia <kolga@netapp.com>, Song Liu <song@kernel.org>,
- samba-technical@lists.samba.org, Steve French <sfrench@samba.org>,
+ Jeff Layton <jlayton@kernel.org>, Steve French <sfrench@samba.org>,
  Jeremy Kerr <jk@ozlabs.org>, Netdev <netdev@vger.kernel.org>,
  Bob Peterson <rpeterso@redhat.com>, linux-fsdevel@vger.kernel.org,
  bpf@vger.kernel.org, ntfs3@lists.linux.dev, linux-erofs@lists.ozlabs.org,
@@ -157,38 +183,55 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Thu, Sep 28, 2023 at 01:40:55PM -0400, Jeff Layton wrote:
-> 
-> Correct. We'd lose some fidelity in currently stored timestamps, but as
-> Linus and Ted pointed out, anything below ~100ns granularity is
-> effectively just noise, as that's the floor overhead for calling into
-> the kernel. It's hard to argue that any application needs that sort of
-> timestamp resolution, at least with contemporary hardware. 
-> 
-> Doing that would mean that tests that store specific values in the
-> atime/mtime and expect to be able to fetch exactly that value back would
-> break though, so we'd have to be OK with that if we want to try it. The
-> good news is that it's relatively easy to experiment with new ways to
-> store timestamps with these wrappers in place.
+On Thu, 28 Sept 2023 at 14:28, Theodore Ts'o <tytso@mit.edu> wrote:
+>
+> I don't think anyone will complain about breaking the userspace API
+> --- especially since if, say, the CIA was using this for their spies'
+> drop boxes, they probably wouldn't want to admit it.  :-)
 
-The reason why we store 1ns granularity in ext4's on-disk format (and
-accept that we only support times only a couple of centuries into the
-future, as opposed shooting for an on-disk format good for several
-millennia :-), was in case there was userspace that might try to store
-a very fine-grained timestamp and want to be able to get it back
-bit-for-bit identical.
+Well, you will find that real apps do kind of of care.
 
-For example, what if someone was trying to implement some kind of
-steganographic scheme where they going store a secret message (or more
-likely, a 256-bit AES key) in the nanosecond fields of the file's
-{c,m,a,cr}time timestamps, "hiding in plain sight".  Not that I think
-that we have to support something like that, since the field is for
-*timestamps* not cryptographic bits, so if we break someone who is
-doing that, do we care?
+Just to take a very real example, "git" will very much notice time
+granularity issues and care - because git will cache the 'stat' times
+in the index.
 
-I don't think anyone will complain about breaking the userspace API
---- especially since if, say, the CIA was using this for their spies'
-drop boxes, they probably wouldn't want to admit it.  :-)
+So if you get a different stat time (because the vfs layer has changed
+some granularity), git will then have to check the files carefully
+again and update the index.
 
-       	    	     	      	      	    - Ted
+You can simulate this "re-check all files" with something like this:
+
+    $ time git diff
+
+    real 0m0.040s
+    user 0m0.035s
+    sys 0m0.264s
+
+    $ rm .git/index && git read-tree HEAD
+
+    $ time git diff
+
+    real 0m9.595s
+    user 0m7.287s
+    sys 0m2.810s
+
+so the difference between just doing a "look, index information
+matches current 'stat' information" and "oops, index does not have the
+stat data" is "40 milliseconds" vs "10 seconds".
+
+That's a big difference, and you'd see that each time the granularity
+changes. But then once the index file has been updated, it's back to
+the good case.
+
+So yes, real programs to cache stat information, and it matters for performance.
+
+But I don't think any actual reasonable program will have
+*correctness* issues, though - because there are certainly filesystems
+out there that don't do nanosecond resolution (and other operations
+like copying trees around will obviously also change times).
+
+Anybody doing steganography in the timestamps is already not going to
+have a great time, really.
+
+                 Linus
 
