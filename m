@@ -2,36 +2,37 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55E517B2FEF
-	for <lists+apparmor@lfdr.de>; Fri, 29 Sep 2023 12:18:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C29D7B2FF2
+	for <lists+apparmor@lfdr.de>; Fri, 29 Sep 2023 12:18:14 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qmAZ2-0005HV-QW; Fri, 29 Sep 2023 10:17:41 +0000
+	id 1qmAZB-0005LA-Tn; Fri, 29 Sep 2023 10:17:50 +0000
 Received: from dfw.source.kernel.org ([139.178.84.217])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <brauner@kernel.org>)
- id 1qm9sL-0004Ic-TO
- for apparmor@lists.ubuntu.com; Fri, 29 Sep 2023 09:33:34 +0000
+ id 1qmA3j-0005It-Vm
+ for apparmor@lists.ubuntu.com; Fri, 29 Sep 2023 09:45:20 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 2FAEC61E8C;
- Fri, 29 Sep 2023 09:33:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D9F8C433C8;
- Fri, 29 Sep 2023 09:32:52 +0000 (UTC)
-Date: Fri, 29 Sep 2023 11:32:49 +0200
+ by dfw.source.kernel.org (Postfix) with ESMTP id 59C9F61D59;
+ Fri, 29 Sep 2023 09:45:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CB9BC433C8;
+ Fri, 29 Sep 2023 09:44:29 +0000 (UTC)
+Date: Fri, 29 Sep 2023 11:44:15 +0200
 From: Christian Brauner <brauner@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <20230929-keimt-umspannen-bfd12d2c2033@brauner>
+To: Jeff Layton <jlayton@kernel.org>
+Message-ID: <20230929-yuppie-unzweifelhaft-434bf13bc964@brauner>
 References: <20230928110554.34758-1-jlayton@kernel.org>
- <20230928110554.34758-3-jlayton@kernel.org>
- <CAHk-=wij_42Q9WHY898r-gugmT5c-1JJKRh3C+nTUd1hc1aeqQ@mail.gmail.com>
+ <20230928110554.34758-2-jlayton@kernel.org>
+ <6020d6e7-b187-4abb-bf38-dc09d8bd0f6d@app.fastmail.com>
+ <af047e4a1c6947c59d4a13d4ae221c784a5386b4.camel@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <CAHk-=wij_42Q9WHY898r-gugmT5c-1JJKRh3C+nTUd1hc1aeqQ@mail.gmail.com>
-X-Mailman-Approved-At: Fri, 29 Sep 2023 10:17:23 +0000
-Subject: Re: [apparmor] [PATCH 87/87] fs: move i_blocks up a few places in
-	struct inode
+In-Reply-To: <af047e4a1c6947c59d4a13d4ae221c784a5386b4.camel@kernel.org>
+X-Mailman-Approved-At: Fri, 29 Sep 2023 10:17:24 +0000
+Subject: Re: [apparmor] [PATCH 86/87] fs: switch timespec64 fields in inode
+ to discrete integers
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -45,10 +46,11 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
 Cc: Latchesar Ionkov <lucho@ionkov.net>,
  Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, "Darrick J. Wong" <djwong@kernel.org>,
- Anders Larsen <al@alarsen.net>, Carlos Llamas <cmllamas@google.com>,
- Andrii Nakryiko <andrii@kernel.org>, Mattia Dongili <malattia@linux.it>,
- Hugh Dickins <hughd@google.com>, Yonghong Song <yonghong.song@linux.dev>,
+ "Rafael J . Wysocki" <rafael@kernel.org>,
+ "Darrick J. Wong" <djwong@kernel.org>, Anders Larsen <al@alarsen.net>,
+ Carlos Llamas <cmllamas@google.com>, Andrii Nakryiko <andrii@kernel.org>,
+ Mattia Dongili <malattia@linux.it>, Hugh Dickins <hughd@google.com>,
+ Yonghong Song <yonghong.song@linux.dev>,
  Alexander Gordeev <agordeev@linux.ibm.com>, Christoph Hellwig <hch@lst.de>,
  Mike Marshall <hubcap@omnibond.com>, Paulo Alcantara <pc@manguebit.com>,
  linux-xfs@vger.kernel.org, Michael Ellerman <mpe@ellerman.id.au>,
@@ -70,8 +72,9 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>,
  Chuck Lever <chuck.lever@oracle.com>, Sven Schnelle <svens@linux.ibm.com>,
  Jiri Olsa <jolsa@kernel.org>, Jan Kara <jack@suse.com>,
  Tejun Heo <tj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- linux-trace-kernel@vger.kernel.org, Dave Kleikamp <shaggy@kernel.org>,
- samba-technical@lists.samba.org, linux-mm@kvack.org,
+ linux-trace-kernel@vger.kernel.org,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Dave Kleikamp <shaggy@kernel.org>, linux-mm@kvack.org,
  Joel Fernandes <joel@joelfernandes.org>, Eric Dumazet <edumazet@google.com>,
  Stanislav Fomichev <sdf@google.com>, linux-s390@vger.kernel.org,
  linux-nilfs@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
@@ -88,7 +91,7 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>,
  Nicolas Pitre <nico@fluxnic.net>, linux-ntfs-dev@lists.sourceforge.net,
  Muchun Song <muchun.song@linux.dev>, linux-f2fs-devel@lists.sourceforge.net,
  "Guilherme G. Piccoli" <gpiccoli@igalia.com>, gfs2@lists.linux.dev,
- Eric Biederman <ebiederm@xmission.com>, Anna Schumaker <anna@kernel.org>,
+ "Eric W. Biederman" <ebiederm@xmission.com>, Anna Schumaker <anna@kernel.org>,
  Brad Warrum <bwarrum@linux.ibm.com>, Mike Kravetz <mike.kravetz@oracle.com>,
  linux-efi@vger.kernel.org, Martin Brandenburg <martin@omnibond.com>,
  ocfs2-devel@lists.linux.dev, Alexei Starovoitov <ast@kernel.org>,
@@ -110,11 +113,11 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>,
  Gao Xiang <xiang@kernel.org>, Jan Harkes <jaharkes@cs.cmu.edu>,
  linux-nfs@vger.kernel.org, linux-ext4@vger.kernel.org,
  Olga Kornievskaia <kolga@netapp.com>, Song Liu <song@kernel.org>,
- Jeff Layton <jlayton@kernel.org>, Steve French <sfrench@samba.org>,
- Jeremy Kerr <jk@ozlabs.org>, netdev@vger.kernel.org,
+ samba-technical@lists.samba.org, Steve French <sfrench@samba.org>,
+ Jeremy Kerr <jk@ozlabs.org>, Netdev <netdev@vger.kernel.org>,
  Bob Peterson <rpeterso@redhat.com>, linux-fsdevel@vger.kernel.org,
  bpf@vger.kernel.org, ntfs3@lists.linux.dev, linux-erofs@lists.ozlabs.org,
- "David S. Miller" <davem@davemloft.net>,
+ "David S . Miller" <davem@davemloft.net>,
  Chandan Babu R <chandan.babu@oracle.com>, jfs-discussion@lists.sourceforge.net,
  Jan Kara <jack@suse.cz>, Neil Brown <neilb@suse.de>,
  Dominique Martinet <asmadeus@codewreck.org>,
@@ -149,30 +152,25 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Thu, Sep 28, 2023 at 10:41:34AM -0700, Linus Torvalds wrote:
-> On Thu, 28 Sept 2023 at 04:06, Jeff Layton <jlayton@kernel.org> wrote:
-> >
-> > Move i_blocks up above the i_lock, which moves the new 4 byte hole to
-> > just after the timestamps, without changing the size of the structure.
-> 
-> I'm sure others have mentioned this, but 'struct inode' is marked with
-> __randomize_layout, so the actual layout may end up being very
-> different.
-> 
-> I'm personally not convinced the whole structure randomization is
-> worth it - it's easy enough to figure out for any distro kernel since
-> the seed has to be the same across machines for modules to work, so
-> even if the seed isn't "public", any layout is bound to be fairly
-> easily discoverable.
-> 
-> So the whole randomization only really works for private kernel
-> builds, and it adds this kind of pain where "optimizing" the structure
-> layout is kind of pointless depending on various options.
-> 
-> I certainly *hope* no distro enables that pointless thing, but it's a worry.
+> It is a lot of churn though.
 
-They don't last we checked. Just last cycle we moved stuff in struct
-file around to optimize things and we explicitly said we don't give a
-damn about struct randomization. Anyone who enables this will bleed
-performance pretty badly, I would reckon.
+I think that i_{a,c,m}time shouldn't be accessed directly by
+filesystems same as no filesystem should really access i_{g,u}id which
+we also provide i_{g,u}id_{read,write}() accessors for. The mode is
+another example where really most often should use helpers because of all
+the set*id stripping that we need to do (and the bugs that we had
+because of this...).
+
+The interdependency between ctime and mtime is enough to hide this in
+accessors. The other big advantage is simply grepability. So really I
+would like to see this change even without the type switch.
+
+In other words, there's no need to lump the two changes together. Do the
+conversion part and we can argue about the switch to discrete integers
+separately.
+
+The other adavantage is that we have a cycle to see any possible
+regression from the conversion.
+
+Thoughts anyone?
 
