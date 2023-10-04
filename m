@@ -2,22 +2,22 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F13E7B8C42
-	for <lists+apparmor@lfdr.de>; Wed,  4 Oct 2023 21:06:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D3A37B8C46
+	for <lists+apparmor@lfdr.de>; Wed,  4 Oct 2023 21:07:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qo7Cr-0005Mi-9H; Wed, 04 Oct 2023 19:06:49 +0000
-Received: from dfw.source.kernel.org ([139.178.84.217])
+	id 1qo7DI-0005Vx-Jq; Wed, 04 Oct 2023 19:07:16 +0000
+Received: from sin.source.kernel.org ([145.40.73.55])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <jlayton@kernel.org>)
- id 1qo72R-0004UC-NI
- for apparmor@lists.ubuntu.com; Wed, 04 Oct 2023 18:56:04 +0000
+ id 1qo72h-0004W9-Mv
+ for apparmor@lists.ubuntu.com; Wed, 04 Oct 2023 18:56:20 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 431A661681;
+ by sin.source.kernel.org (Postfix) with ESMTP id E28BDCE1E77;
+ Wed,  4 Oct 2023 18:56:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 675C9C433D9;
  Wed,  4 Oct 2023 18:56:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C352C116A3;
- Wed,  4 Oct 2023 18:55:47 +0000 (UTC)
 From: Jeff Layton <jlayton@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>,
  Christian Brauner <brauner@kernel.org>,
@@ -118,16 +118,16 @@ To: Alexander Viro <viro@zeniv.linux.org.uk>,
  Eric Paris <eparis@parisplace.org>,
  Kent Overstreet <kent.overstreet@linux.dev>,
  Brian Foster <bfoster@redhat.com>
-Date: Wed,  4 Oct 2023 14:55:29 -0400
-Message-ID: <20231004185530.82088-2-jlayton@kernel.org>
+Date: Wed,  4 Oct 2023 14:55:30 -0400
+Message-ID: <20231004185530.82088-3-jlayton@kernel.org>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20231004185530.82088-1-jlayton@kernel.org>
 References: <20231004185530.82088-1-jlayton@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 04 Oct 2023 19:06:45 +0000
-Subject: [apparmor] [PATCH v2 88/89] fs: switch timespec64 fields in inode
-	to discrete integers
+Subject: [apparmor] [PATCH v2 89/89] fs: move i_generation into new hole
+	created after timestamp conversion
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -162,146 +162,39 @@ Cc: jfs-discussion@lists.sourceforge.net, linux-efi@vger.kernel.org,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-This shaves 8 bytes off struct inode with a garden-variety Fedora
-Kconfig.
+The recent change to use discrete integers instead of struct timespec64
+shaved 8 bytes off of struct inode, but it also moves the i_lock
+into the previous cacheline, away from the fields that it protects.
 
+Move i_generation above the i_lock, which moves the new 4 byte hole to
+just after the i_fsnotify_mask in my setup.
+
+Suggested-by: Amir Goldstein <amir73il@gmail.com>
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- include/linux/fs.h | 53 ++++++++++++++++++++++++++--------------------
- 1 file changed, 30 insertions(+), 23 deletions(-)
+ include/linux/fs.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 84fdaf399fbe..485b5e21c8e5 100644
+index 485b5e21c8e5..686c9f33e725 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
-@@ -671,9 +671,12 @@ struct inode {
- 	};
- 	dev_t			i_rdev;
- 	loff_t			i_size;
--	struct timespec64	__i_atime;
--	struct timespec64	__i_mtime;
--	struct timespec64	__i_ctime; /* use inode_*_ctime accessors! */
-+	time64_t		i_atime_sec;
-+	time64_t		i_mtime_sec;
-+	time64_t		i_ctime_sec;
-+	u32			i_atime_nsec;
-+	u32			i_mtime_nsec;
-+	u32			i_ctime_nsec;
+@@ -677,6 +677,7 @@ struct inode {
+ 	u32			i_atime_nsec;
+ 	u32			i_mtime_nsec;
+ 	u32			i_ctime_nsec;
++	u32			i_generation;
  	spinlock_t		i_lock;	/* i_blocks, i_bytes, maybe i_size */
  	unsigned short          i_bytes;
  	u8			i_blkbits;
-@@ -1517,23 +1520,27 @@ struct timespec64 inode_set_ctime_current(struct inode *inode);
+@@ -733,7 +734,6 @@ struct inode {
+ 		unsigned		i_dir_seq;
+ 	};
  
- static inline time64_t inode_get_atime_sec(const struct inode *inode)
- {
--	return inode->__i_atime.tv_sec;
-+	return inode->i_atime_sec;
- }
+-	__u32			i_generation;
  
- static inline long inode_get_atime_nsec(const struct inode *inode)
- {
--	return inode->__i_atime.tv_nsec;
-+	return inode->i_atime_nsec;
- }
- 
- static inline struct timespec64 inode_get_atime(const struct inode *inode)
- {
--	return inode->__i_atime;
-+	struct timespec64 ts = { .tv_sec  = inode_get_atime_sec(inode),
-+				 .tv_nsec = inode_get_atime_nsec(inode) };
-+
-+	return ts;
- }
- 
- static inline struct timespec64 inode_set_atime_to_ts(struct inode *inode,
- 						      struct timespec64 ts)
- {
--	inode->__i_atime = ts;
-+	inode->i_atime_sec = ts.tv_sec;
-+	inode->i_atime_nsec = ts.tv_nsec;
- 	return ts;
- }
- 
-@@ -1542,28 +1549,32 @@ static inline struct timespec64 inode_set_atime(struct inode *inode,
- {
- 	struct timespec64 ts = { .tv_sec  = sec,
- 				 .tv_nsec = nsec };
-+
- 	return inode_set_atime_to_ts(inode, ts);
- }
- 
- static inline time64_t inode_get_mtime_sec(const struct inode *inode)
- {
--	return inode->__i_mtime.tv_sec;
-+	return inode->i_mtime_sec;
- }
- 
- static inline long inode_get_mtime_nsec(const struct inode *inode)
- {
--	return inode->__i_mtime.tv_nsec;
-+	return inode->i_mtime_nsec;
- }
- 
- static inline struct timespec64 inode_get_mtime(const struct inode *inode)
- {
--	return inode->__i_mtime;
-+	struct timespec64 ts = { .tv_sec  = inode_get_mtime_sec(inode),
-+				 .tv_nsec = inode_get_mtime_nsec(inode) };
-+	return ts;
- }
- 
- static inline struct timespec64 inode_set_mtime_to_ts(struct inode *inode,
- 						      struct timespec64 ts)
- {
--	inode->__i_mtime = ts;
-+	inode->i_mtime_sec = ts.tv_sec;
-+	inode->i_mtime_nsec = ts.tv_nsec;
- 	return ts;
- }
- 
-@@ -1577,34 +1588,30 @@ static inline struct timespec64 inode_set_mtime(struct inode *inode,
- 
- static inline time64_t inode_get_ctime_sec(const struct inode *inode)
- {
--	return inode->__i_ctime.tv_sec;
-+	return inode->i_ctime_sec;
- }
- 
- static inline long inode_get_ctime_nsec(const struct inode *inode)
- {
--	return inode->__i_ctime.tv_nsec;
-+	return inode->i_ctime_nsec;
- }
- 
- static inline struct timespec64 inode_get_ctime(const struct inode *inode)
- {
--	return inode->__i_ctime;
-+	struct timespec64 ts = { .tv_sec  = inode_get_ctime_sec(inode),
-+				 .tv_nsec = inode_get_ctime_nsec(inode) };
-+
-+	return ts;
- }
- 
- static inline struct timespec64 inode_set_ctime_to_ts(struct inode *inode,
- 						      struct timespec64 ts)
- {
--	inode->__i_ctime = ts;
-+	inode->i_ctime_sec = ts.tv_sec;
-+	inode->i_ctime_nsec = ts.tv_nsec;
- 	return ts;
- }
- 
--/**
-- * inode_set_ctime - set the ctime in the inode
-- * @inode: inode in which to set the ctime
-- * @sec: tv_sec value to set
-- * @nsec: tv_nsec value to set
-- *
-- * Set the ctime in @inode to { @sec, @nsec }
-- */
- static inline struct timespec64 inode_set_ctime(struct inode *inode,
- 						time64_t sec, long nsec)
- {
+ #ifdef CONFIG_FSNOTIFY
+ 	__u32			i_fsnotify_mask; /* all events this inode cares about */
 -- 
 2.41.0
 
