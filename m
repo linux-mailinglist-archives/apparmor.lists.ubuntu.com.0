@@ -2,49 +2,77 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 063CC7BC339
-	for <lists+apparmor@lfdr.de>; Sat,  7 Oct 2023 02:08:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 222457BD15A
+	for <lists+apparmor@lfdr.de>; Mon,  9 Oct 2023 01:59:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qourD-0006YZ-FS; Sat, 07 Oct 2023 00:07:47 +0000
-Received: from mail-yw1-f178.google.com ([209.85.128.178])
+	id 1qpdgD-0003pS-P2; Sun, 08 Oct 2023 23:59:25 +0000
+Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
+ helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <paul@paul-moore.com>)
- id 1qour1-0006Y5-Qk
- for apparmor@lists.ubuntu.com; Sat, 07 Oct 2023 00:07:36 +0000
-Received: by mail-yw1-f178.google.com with SMTP id
- 00721157ae682-5a22f9e2f40so31810177b3.1
- for <apparmor@lists.ubuntu.com>; Fri, 06 Oct 2023 17:07:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696637255; x=1697242055;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=qHD+x7Oh+0e4y3jkxNsQUc1AqCuOyOBHea4bJSZQ5Jc=;
- b=C/xVxFUhcCPb6xELOQxFeHFzvdOG5/x9iYntlDXZw/AZfKPI6rd4zVGQu+SZ+5AV0y
- 6ILFoChmd/WC+IZp8FkHZfaRbQlETHS/AMpGUTm3AGcBaPI10RUdqIn2udAIZAuyBhdo
- gLZ4uzcqBAO73ZaLgavmqB7PZVayVtdC15zRYoe59KCMao39h8RFBN66qIgmg9ICHXLg
- swoaqMyczrCU/etuQLS4f5id1Dgt9JU0FhERmmQHDDe2KDdfonBfUFAUj55FNKQLZ/D/
- Om4I+YHwXxKtUtxDYe4H7Du/3x5Vb7++3fUS5/DkQHlPtmYHGvm7PXk/XBoTKwVHqfvN
- dAUA==
-X-Gm-Message-State: AOJu0YwjOFTnL3v8oOqZvwUn/h8xd7BXW9DjGuJHOtCz6DrXlRQL3F5Q
- Q5hzGjQrJBwJHYyeFLLoeOfCsbyrClENld3dLPPO
-X-Google-Smtp-Source: AGHT+IGMbcbhKR5JWKZAHYDpunJnIyLxNHlcgtMmlQpupe+9la3RMBig2mWSjPeHiH2RjFQs83sxugLVXPbrudQtIXk=
-X-Received: by 2002:a25:1502:0:b0:d81:5d5a:25a3 with SMTP id
- 2-20020a251502000000b00d815d5a25a3mr8294959ybv.43.1696637254733; Fri, 06 Oct
- 2023 17:07:34 -0700 (PDT)
+ (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
+ id 1qpdg6-0003pE-RE
+ for apparmor@lists.ubuntu.com; Sun, 08 Oct 2023 23:59:19 +0000
+Received: from [192.168.192.84] (unknown [50.39.103.33])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id DB21C3F733
+ for <apparmor@lists.ubuntu.com>; Sun,  8 Oct 2023 23:59:17 +0000 (UTC)
+Message-ID: <cd9ef8ef-3061-42e7-a17e-ce38c18dc3bb@canonical.com>
+Date: Sun, 8 Oct 2023 16:59:13 -0700
 MIME-Version: 1.0
-References: <CAOTMNwuhq9Fc1PW4Y6ZOyP8H7nCk3+9gsxRapRuScZ2-a+14hA@mail.gmail.com>
- <668dd928-b00d-4f7a-5e6a-b6efc6a9c08f@canonical.com>
-In-Reply-To: <668dd928-b00d-4f7a-5e6a-b6efc6a9c08f@canonical.com>
-From: Paul Moore <paul@paul-moore.com>
-Date: Fri, 6 Oct 2023 20:07:23 -0400
-Message-ID: <CAHC9VhSQ2U0jhW5Goa+OTTPtx64viGjFWFJy7Y7CsetOaWs6jg@mail.gmail.com>
-To: John Johansen <john.johansen@canonical.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [apparmor] AppArmor kernel audit locks up system
+User-Agent: Mozilla Thunderbird
+From: John Johansen <john.johansen@canonical.com>
+To: apparmor <apparmor@lists.ubuntu.com>
+Content-Language: en-US
+Autocrypt: addr=john.johansen@canonical.com; keydata=
+ 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 lT9Q
+Organization: Canonical
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: [apparmor] irc meeting Tues Oct 10
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -56,80 +84,13 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: audit@vger.kernel.org, apparmor@lists.ubuntu.com,
- Andreas Steinmetz <anstein99@googlemail.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Wed, Sep 27, 2023 at 8:20=E2=80=AFAM John Johansen
-<john.johansen@canonical.com> wrote:
->
-> adding paul and the audit list
->
-> On 9/26/23 05:56, Andreas Steinmetz wrote:
-> > Hi,
-> > it happen from time to time while setting up AppArmor properly that
-> > instead of creating an audit message AppArmor locks up the system. In
-> > most cases I couldn't even get any information, but this time I got
-> > some.
-> > I don't yet know if this is the case here but in case of "systemd
-> > --user" it was a missing grant of cap_sys_resource that caused the
-> > lockup. I don't know the exact capability causing the below problem
-> > but granting cap_sys_admin, cap_setuid, cap_setgid and
-> > cap_sys_resource prevents the lockup so it is definitely capability
-> > related. dmesg output follows. Kernel is 6.5.3, distro is Arch Linux.
-> >
->
-> just to double check, you are using auditd and have some audit filters
-> loaded, the code trace indicates yes.
->
-> so at a first pass it appears this come when the task calls prlimit64,
-> the capability check is denied and apparmor (or really any lsm).
-> generates an audit message. The audit message goes into the audit
-> subsystems, and there an exe filter which tries to get the task_exe_file
-> resulting in deadlock.
->
-> do_prlimit()
->         task_lock(tsk->group_leader);
->             ...
->                         if (new_rlim->rlim_max > rlim->rlim_max &&
->                                 !capable(CAP_SYS_RESOURCE))
->                                         ...
->                                         case AUDIT_EXE:
->                                                 result =3D audit_exe_comp=
-are(current, e->rule.exe)
->                                                         ...
->                                                         struct file *get_=
-task_exe_file(struct task_struct *task)
->                                                                 ...
->                                                                 task_lock=
-(task);
->                                                                 ...
->             ...
->         task_unlock(tsk->group_leader);
->
->
-> I am not sure how best to handle this.
+The next irc meeting is Tuesday Oct 10, at 18:00 UTC in #apparmor on oftc.net
 
-My apologies for the delay in responding, unfortunately this email was
-a bit buried in my inbox and it took me a while to get to it.
+Please update the agenda https://gitlab.com/apparmor/apparmor/wikis/MeetingAgenda or reply to this mail if you have items you want to add
 
-Unfortunately, like John, I'm struggling a bit to see how we might
-resolve this.  Unfortunately, we don't always know the context in
-which audit_filter() is going to be called; in some cases we would
-need to ensure the task_lock() was held, in others we may already be
-holding it on the current CPU.  The only thing I'm reasonably certain
-about is that audit_exe_compare() can't safely use
-get_task_exe_file().
 
-I imagine we could think about grabbing a reference to the mm_struct
-and stashing it in the audit_context so that we could access
-mm_struct::exe_file with only a RCU lock, but then we have to manage
-the mm_struct reference in audit_context and I worry that will be ugly
-and/or expensive (likely "and").
 
-Does anyone else have any bright ideas or crazy thoughts on this?
-
---=20
-paul-moore.com
 
