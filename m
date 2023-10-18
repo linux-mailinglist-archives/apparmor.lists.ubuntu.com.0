@@ -2,38 +2,38 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 862A67BE8B3
-	for <lists+apparmor@lfdr.de>; Mon,  9 Oct 2023 19:51:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F279E7CE872
+	for <lists+apparmor@lfdr.de>; Wed, 18 Oct 2023 22:04:07 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1qpuPv-0003eW-Pu; Mon, 09 Oct 2023 17:51:43 +0000
-Received: from mail-yb1-f173.google.com ([209.85.219.173])
+	id 1qtCli-0007bR-7s; Wed, 18 Oct 2023 20:03:50 +0000
+Received: from mail-yb1-f176.google.com ([209.85.219.176])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <paul@paul-moore.com>)
- id 1qpuPn-0003eA-0f
- for apparmor@lists.ubuntu.com; Mon, 09 Oct 2023 17:51:35 +0000
-Received: by mail-yb1-f173.google.com with SMTP id
- 3f1490d57ef6-d9a518d66a1so7443276.0
- for <apparmor@lists.ubuntu.com>; Mon, 09 Oct 2023 10:51:34 -0700 (PDT)
+ id 1qtCla-0007b7-R8
+ for apparmor@lists.ubuntu.com; Wed, 18 Oct 2023 20:03:43 +0000
+Received: by mail-yb1-f176.google.com with SMTP id
+ 3f1490d57ef6-d9a3d737d66so7708771276.2
+ for <apparmor@lists.ubuntu.com>; Wed, 18 Oct 2023 13:03:42 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696873894; x=1697478694;
+ d=1e100.net; s=20230601; t=1697659422; x=1698264222;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=2+SQFLOVL26ISAamx07pqwYfNUbmzEOzTQvF4d1QDaE=;
- b=xMP8ATAajWr7Wri4UBGNddm3P7xZ9cHL+zDwWxrFtdok4WFVRr9+2MoGoYF+B+uXmF
- 200pTx1H42tDIlkgHHWuEvtW+ssz2tS3bnkhdCGAXBmVVmk4xpOP5YgNsPZgcG2Fs6AH
- MZg332E0J37L82iRQ7FivYE7Nezj8yfb2RUZ0nzmYiJ2A2MJvGjyUXJ0pIYF04v7J1p2
- dKGybODF+7WLWbstaOGDBcfZp4CmW8xvYowiUnINjU60I6Dmq3JS7rB44cQO+AdnPS/Q
- alIlKluDUVT6GFrAO4eGFHCquhWsqxIagMmfB7hwWmDE9hUddyVBshZJIQHic1c+RkNR
- ltMQ==
-X-Gm-Message-State: AOJu0YzvLGbp1iVbKNPWvI28AxrcPe20nYvldZjzJAW927ehkRdVU3t6
- TmnY7L5wWlGNBpz/SL4swX4QxPCT9XUKroUTwCqX
-X-Google-Smtp-Source: AGHT+IGzoL+NbJqZw7oG5q5gMEu/Eho2XM2TlPXvREYmtRVqwoJefN/f5Lpb9kdbL4ttrvBxqXN7rv/WBpgG+5iGocw=
-X-Received: by 2002:a25:4903:0:b0:d81:9cdf:1795 with SMTP id
- w3-20020a254903000000b00d819cdf1795mr13548112yba.57.1696873893792; Mon, 09
- Oct 2023 10:51:33 -0700 (PDT)
+ bh=w4Gxw1C8KcIs53WSGBMfXhJG2TCDEjZFtIERU3MURUA=;
+ b=ZFOAnl5mXC4yL5NPJ0Y6FNmxq7Lrd+qzu+YoPBVMGcAgejdZhh4vYvZ9krl4SGkp4t
+ +Lj1PXhJ+R+nnIowElCPXK1t/yY0IQGA8sjJg8258J5bD2EMpH4Zd3POtjgtc4aYPT3N
+ o7ZxhyEX85HRlxsVdrpUqeGag/wH7DBf/tFMnvNZNoLhEiVe4CcqajUXXT4uD7p6kSb1
+ +tRE22d7gqR5jX09yMYGlko+dgM5RGl3zdX24rjJ/tiVo1YPTNlaxAMo9Xu1jc0SlzAr
+ pzGsfMi2qRu6dynt9JMsEpyI/vAm8jQXtbUfHhNJF1gp9H5VjSGRuaWkQPleqvxG0Nib
+ Barg==
+X-Gm-Message-State: AOJu0Yw/Z1QIl5EWhgpRcfYHFJCqIfC5aWpG8d3z6qhODROhaFTG0Z0T
+ kvnvLjUuouLQCElG2AuDZEKCsUSeZbUsyrwQNJEA
+X-Google-Smtp-Source: AGHT+IG+JHFLaubNRx8yq+mgVsUfH7/oin1xEPgvhRmNHownjZYLVap7Gi16lGJ+fOWv9Oft51bGkuhMW93w8m7l84w=
+X-Received: by 2002:a25:abf2:0:b0:d9c:66d1:958f with SMTP id
+ v105-20020a25abf2000000b00d9c66d1958fmr391386ybi.55.1697659421574; Wed, 18
+ Oct 2023 13:03:41 -0700 (PDT)
 MIME-Version: 1.0
 References: <CAOTMNwuhq9Fc1PW4Y6ZOyP8H7nCk3+9gsxRapRuScZ2-a+14hA@mail.gmail.com>
  <668dd928-b00d-4f7a-5e6a-b6efc6a9c08f@canonical.com>
@@ -41,10 +41,11 @@ References: <CAOTMNwuhq9Fc1PW4Y6ZOyP8H7nCk3+9gsxRapRuScZ2-a+14hA@mail.gmail.com>
  <CAOTMNwsca-CuzOdmc5HeUCtBGWJVKb2GB_r1QEF-TnJv1Kkhyg@mail.gmail.com>
  <CAHC9VhQNTiX=na2a1QsAQWwPfjuvd2xnFGHAPxTs=wQXNt6eZg@mail.gmail.com>
  <6da3d0b6-aaae-4586-bd71-749d6fb38708@canonical.com>
-In-Reply-To: <6da3d0b6-aaae-4586-bd71-749d6fb38708@canonical.com>
+ <CAHC9VhToqz-hs8vuUhd=vNKOXNc_iXOAbtuVTNGWJUvbbzq_kQ@mail.gmail.com>
+In-Reply-To: <CAHC9VhToqz-hs8vuUhd=vNKOXNc_iXOAbtuVTNGWJUvbbzq_kQ@mail.gmail.com>
 From: Paul Moore <paul@paul-moore.com>
-Date: Mon, 9 Oct 2023 13:51:22 -0400
-Message-ID: <CAHC9VhToqz-hs8vuUhd=vNKOXNc_iXOAbtuVTNGWJUvbbzq_kQ@mail.gmail.com>
+Date: Wed, 18 Oct 2023 16:03:29 -0400
+Message-ID: <CAHC9VhQyb_SfA0_=fqrVLZjYj76gLzwnf2Gs3j73FRVD-0vGeg@mail.gmail.com>
 To: John Johansen <john.johansen@canonical.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -65,67 +66,52 @@ Cc: audit@vger.kernel.org, apparmor@lists.ubuntu.com,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Mon, Oct 9, 2023 at 1:41=E2=80=AFPM John Johansen
-<john.johansen@canonical.com> wrote:
-> On 10/9/23 10:06, Paul Moore wrote:
-> > I don't think anyone is objecting to resolving this, it's more a
-> > matter of *how* we can resolve it.
+On Mon, Oct 9, 2023 at 1:51=E2=80=AFPM Paul Moore <paul@paul-moore.com> wro=
+te:
+> On Mon, Oct 9, 2023 at 1:41=E2=80=AFPM John Johansen
+> <john.johansen@canonical.com> wrote:
+> > On 10/9/23 10:06, Paul Moore wrote:
+> > > I don't think anyone is objecting to resolving this, it's more a
+> > > matter of *how* we can resolve it.
+> >
+> > currently I am see four crazy/stupid paths forward, each with their own
+> > pain points.
+
+...
+
+> > 4. caching a reference in the audit_context as paul has suggested.
 >
-> currently I am see four crazy/stupid paths forward, each with their own
-> pain points.
->
->
-> 1. lift the capable() and security_task_setrlimit() calls out of the lock=
-.
->
-> this might be possible, it should be fine for capable() but does open
-> a potential race window for security_task_setrlimit() if the LSM hooks
-> mediation looks at the tasks current resource value.
+> I don't like this idea, but I'm struggling to come up with something
+> less awful.  Below is a quick, untested patch to describe the concept
+> with code.  It is worth noting that we don't take a mm_struct
+> reference in the io_uring entry point because I'm not sure filtering
+> on the executable file makes much sense there given the async nature
+> of io_uring, however I'm open to comments here (as well as pretty much
+> everything else in this pseudo-patch).
 
-Ignoring the race for a moment, I worry that even if we solve it for
-this particular case it could easily come back to bite us somewhere
-else.
+Looking at this a bit more, I'm now wondering if there is a fifth
+option: call mmget() directly and skip the task_lock().
 
-> 2. rework get_task_exe_file() to not need the task lock. That looks
-> like a major under taking, and I don't currently see it as viable.
+Take a look at the move_pages(2) code path:
 
-Agreed.
+ SYSCALL_DEFINE6(move_pages, ...)
+   -> kernel_move_pages(...)
+     -> find_mm_struct(...)
+       -> mmget(...)
 
-> 3. get the task lock switch to a recursive spin_lock. Another large
-> piece of work that I don't currently see as viable.
+In find_mm_struct(), if the task being manipulated is *not* the
+current task then get_task_mm() is called, which takes task_lock().
+However, if the task being manipulated *is* the current task then the
+task_lock() can be avoided and a direct call to get_mm() is used;
+get_mm() does a simple atomic_inc() without any additional locking.
 
-Agreed.
+What do you think of this approach (untested, copy-n-pasted patch):
 
-> 4. caching a reference in the audit_context as paul has suggested.
-
-I don't like this idea, but I'm struggling to come up with something
-less awful.  Below is a quick, untested patch to describe the concept
-with code.  It is worth noting that we don't take a mm_struct
-reference in the io_uring entry point because I'm not sure filtering
-on the executable file makes much sense there given the async nature
-of io_uring, however I'm open to comments here (as well as pretty much
-everything else in this pseudo-patch).
-
-WARNING: this is a cut-n-paste so it's probably mangled.
-
-diff --git a/kernel/audit.h b/kernel/audit.h
-index a60d2840559e..eac470aaca4f 100644
---- a/kernel/audit.h
-+++ b/kernel/audit.h
-@@ -146,6 +146,8 @@ struct audit_context {
-       u32                 target_sid;
-       char                target_comm[TASK_COMM_LEN];
-
-+       struct mm_struct    *mm;
-+
-       struct audit_tree_refs *trees, *first_trees;
-       struct list_head killed_trees;
-       int tree_count;
 diff --git a/kernel/audit_watch.c b/kernel/audit_watch.c
-index 65075f1e4ac8..a619394530bd 100644
+index 65075f1e4ac8..ffd17ad97324 100644
 --- a/kernel/audit_watch.c
 +++ b/kernel/audit_watch.c
-@@ -526,8 +526,12 @@ int audit_exe_compare(struct task_struct *tsk, struct =
+@@ -526,8 +526,19 @@ int audit_exe_compare(struct task_struct *tsk, struct =
 audit
 _fsnotify_mark *mark)
        struct file *exe_file;
@@ -134,43 +120,22 @@ _fsnotify_mark *mark)
 +       struct mm_struct *mm;
 
 -       exe_file =3D get_task_exe_file(tsk);
-+       mm =3D tsk->audit_context->mm;
-+       if (!mm)
-+               return 0;
++       /* almost always (always?) comparing @current, but handle both case=
+s */
++       if (likely(tsk =3D=3D current)) {
++               mmget(current->mm);
++               mm =3D current->mm;
++       } else {
++               mm =3D get_task_mm(tsk);
++               if (!mm)
++                       return 0;
++       }
 +       exe_file =3D get_mm_exe_file(mm);
++       mmput(mm);
        if (!exe_file)
                return 0;
        ino =3D file_inode(exe_file)->i_ino;
-diff --git a/kernel/auditsc.c b/kernel/auditsc.c
-index 21d2fa815e78..edeff28a4bab 100644
---- a/kernel/auditsc.c
-+++ b/kernel/auditsc.c
-@@ -1019,6 +1019,10 @@ static void audit_reset_context(struct audit_context=
- *ctx
-)
-       ctx->target_sessionid =3D 0;
-       ctx->target_sid =3D 0;
-       ctx->target_comm[0] =3D '\0';
-+       if (ctx->mm) {
-+               mmput(ctx->mm);
-+               ctx->mm =3D NULL;
-+       }
-       unroll_tree_refs(ctx, NULL, 0);
-       WARN_ON(!list_empty(&ctx->killed_trees));
-       audit_free_module(ctx);
-@@ -2035,6 +2039,9 @@ void __audit_syscall_entry(int major, unsigned long a=
-1, un
-signed long a2,
-                       return;
-       }
 
-+       /* get mm as it requires task_lock() which may not be safe later */
-+       context->mm =3D get_task_mm(current);
-+
-       context->arch       =3D syscall_get_arch(current);
-       context->major      =3D major;
-       context->argv[0]    =3D a1;
-
---=20
+--
 paul-moore.com
 
