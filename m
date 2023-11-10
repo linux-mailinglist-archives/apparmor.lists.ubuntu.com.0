@@ -2,31 +2,33 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B9277E7BF4
-	for <lists+apparmor@lfdr.de>; Fri, 10 Nov 2023 12:47:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 857BD7E7BFD
+	for <lists+apparmor@lfdr.de>; Fri, 10 Nov 2023 12:52:36 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1r1Pyv-0002cJ-FY; Fri, 10 Nov 2023 11:47:25 +0000
+	id 1r1Q3l-0003gF-VM; Fri, 10 Nov 2023 11:52:26 +0000
 Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
  helo=smtp-relay-canonical-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1r1Pyr-0002bY-52
- for apparmor@lists.ubuntu.com; Fri, 10 Nov 2023 11:47:21 +0000
+ id 1r1Q3h-0003fh-V5
+ for apparmor@lists.ubuntu.com; Fri, 10 Nov 2023 11:52:22 +0000
 Received: from [10.30.9.95] (unknown [195.13.248.78])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id BF453401DC
- for <apparmor@lists.ubuntu.com>; Fri, 10 Nov 2023 11:47:20 +0000 (UTC)
-Message-ID: <a0e4e1ce-0a2e-4deb-9abb-8c6a149ef14d@canonical.com>
-Date: Fri, 10 Nov 2023 03:47:18 -0800
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id E5431401DD; 
+ Fri, 10 Nov 2023 11:52:20 +0000 (UTC)
+Message-ID: <9a2daab5-c9c8-4f62-8012-b851631d2b26@canonical.com>
+Date: Fri, 10 Nov 2023 03:52:18 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-To: apparmor@lists.ubuntu.com
-References: <8cc5da00-8ad0-49ce-b475-75537e03b7f3@pujol.io>
+To: Dimitri John Ledkov <dimitri.ledkov@canonical.com>,
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>
+References: <20231022194026.313584-1-dimitri.ledkov@canonical.com>
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
  xsFNBE5mrPoBEADAk19PsgVgBKkImmR2isPQ6o7KJhTTKjJdwVbkWSnNn+o6Up5knKP1f49E
@@ -71,10 +73,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <8cc5da00-8ad0-49ce-b475-75537e03b7f3@pujol.io>
+In-Reply-To: <20231022194026.313584-1-dimitri.ledkov@canonical.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] what is the best way to write apparmor dbus rules
+Subject: Re: [apparmor] [PATCH] apparmor: switch SECURITY_APPARMOR_HASH from
+ sha1 to sha256
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -86,91 +89,147 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
+ linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 11/7/23 03:34, Alexandre Pujol wrote:
-> Hi all,
+On 10/22/23 12:40, Dimitri John Ledkov wrote:
+> sha1 is insecure and has colisions, thus it is not useful for even
+> lightweight policy hash checks. Switch to sha256, which on modern
+> hardware is fast enough.
 > 
-> I am working on rewriting dbus rules for the apparmor.d [0] projects.
-> And it let me to the general question on what is the best way to write
-> dbus rule in apparmor.
+> Separately as per NIST Policy on Hash Functions, sha1 usage must be
+> withdrawn by 2030. This config option currently is one of many that
+> holds up sha1 usage.
 > 
-> The current implementation could be summed up as simply adding to a
-> profile whatever dbus rule has been raised in the log. It is simple as
-> it is mostly automatic (thanks to `aa-log -r`). However, it can generate
-> a lot of rule [1] and, it is not maintainable.
-> 
-> I had a look at how dbus are managed on flatpak [2] and snap [3], and I
-> was wondering if a similar construction could be used in apparmor profile.
-> 
-> For instance, the profile polkitd [4] owns the interface
-> org.freedesktop.PolicyKit1*, so the rules in the polkitd profile could
-> be setup as:
-> 
-> ```
->     dbus (bind) bus=system name=org.freedesktop.PolicyKit1,
-> 
->     dbus (send,receive) bus=system
->          interface=org.freedesktop.PolicyKit1*
->          peer=(name=:*),
-> ```
-> 
-> while program sending request to polkitd could have rules such as:
-> ```
->     dbus send bus=system
->          interface=org.freedesktop.PolicyKit1*
->          peer=(name=:*, label=polkitd),
-> ```
-> 
-Indeed this is actually what should be done. The issue is so far
-its mostly Ubuntu using dbus (yes, my fault, kernel issues ... but it is
-finally coming), and Ubuntu has chosen so far to not even loosely confine
-the end points. If the end points even just do
+> Signed-off-by: Dimitri John Ledkov <dimitri.ledkov@canonical.com>
 
-   profile polkitd { allow all, }
+Acked-by: John Johansen <john.johansen@canonical.com>
 
-then at least we have end point labeling and can use that to simplify
-some. The other part of the intention is that dbus rules would get
-grouped into include files, so common sets of rules become
+I am pulling this into apparmor-next-queue and plan to drop this into
+apparmor-next as soon as 6.7-r1 is released.
 
-   include <abstraction/PolicyKit/XXX>
-
-where if you want all PolicyKit access you could do a dir inclue
-
-
+> ---
+>   security/apparmor/Kconfig      | 12 ++++++------
+>   security/apparmor/apparmorfs.c | 16 ++++++++--------
+>   security/apparmor/crypto.c     |  6 +++---
+>   3 files changed, 17 insertions(+), 17 deletions(-)
 > 
-> I am not an expert in dbus at all, therefore I was wondering if such a
-> setup could be useful. Do we need more/less restriction in the rule? Do
-> any of you have other recommendations on how these dbus rules should be
-> managed.
-> 
-what we need is to get the endpoints labeled with something more than
-unconfined (you have a good start at that), and then we need to start
-creating abstractions.
-
-Some of the rules could be like you proposed with
-> ```
->     dbus send bus=system
->          interface=org.freedesktop.PolicyKit1*
->       
-
-but there are services that you may not want to grant all methods,
-and we should have a set of abstractions for. The issue is then
-figuring out which rule need to be grouped together for an abstraction
-and how fine grained the abstractions should be.
-
-> Regards,
-> Alex
-> 
-> [0]: https://github.com/roddhjav/apparmor.d
-> [1]:
-> https://github.com/roddhjav/apparmor.d/blob/4df3f2e52f846d66dd9bf0e45dce4063e315005d/apparmor.d/groups/gnome/gnome-shell#L59-L462
-> [2]: https://docs.flatpak.org/en/latest/sandbox-permissions.html#gvfs-access
-> [3]: https://forum.snapcraft.io/t/the-dbus-interface/2038
-> [4]:
-> https://github.com/roddhjav/apparmor.d/blob/4df3f2e52f846d66dd9bf0e45dce4063e315005d/apparmor.d/groups/freedesktop/polkitd
-> 
-> 
+> diff --git a/security/apparmor/Kconfig b/security/apparmor/Kconfig
+> index e0d1dd0a19..64cc3044a4 100644
+> --- a/security/apparmor/Kconfig
+> +++ b/security/apparmor/Kconfig
+> @@ -57,10 +57,10 @@ config SECURITY_APPARMOR_INTROSPECT_POLICY
+>   	  cpu is paramount.
+>   
+>   config SECURITY_APPARMOR_HASH
+> -	bool "Enable introspection of sha1 hashes for loaded profiles"
+> +	bool "Enable introspection of sha256 hashes for loaded profiles"
+>   	depends on SECURITY_APPARMOR_INTROSPECT_POLICY
+>   	select CRYPTO
+> -	select CRYPTO_SHA1
+> +	select CRYPTO_SHA256
+>   	default y
+>   	help
+>   	  This option selects whether introspection of loaded policy
+> @@ -74,10 +74,10 @@ config SECURITY_APPARMOR_HASH_DEFAULT
+>          depends on SECURITY_APPARMOR_HASH
+>          default y
+>          help
+> -         This option selects whether sha1 hashing of loaded policy
+> -	 is enabled by default. The generation of sha1 hashes for
+> -	 loaded policy provide system administrators a quick way
+> -	 to verify that policy in the kernel matches what is expected,
+> +	 This option selects whether sha256 hashing of loaded policy
+> +	 is enabled by default. The generation of sha256 hashes for
+> +	 loaded policy provide system administrators a quick way to
+> +	 verify that policy in the kernel matches what is expected,
+>   	 however it can slow down policy load on some devices. In
+>   	 these cases policy hashing can be disabled by default and
+>   	 enabled only if needed.
+> diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
+> index a608a6bd76..082581397d 100644
+> --- a/security/apparmor/apparmorfs.c
+> +++ b/security/apparmor/apparmorfs.c
+> @@ -1474,7 +1474,7 @@ int __aa_fs_create_rawdata(struct aa_ns *ns, struct aa_loaddata *rawdata)
+>   	rawdata->dents[AAFS_LOADDATA_REVISION] = dent;
+>   
+>   	if (aa_g_hash_policy) {
+> -		dent = aafs_create_file("sha1", S_IFREG | 0444, dir,
+> +		dent = aafs_create_file("sha256", S_IFREG | 0444, dir,
+>   					      rawdata, &seq_rawdata_hash_fops);
+>   		if (IS_ERR(dent))
+>   			goto fail;
+> @@ -1644,11 +1644,11 @@ static const char *rawdata_get_link_base(struct dentry *dentry,
+>   	return target;
+>   }
+>   
+> -static const char *rawdata_get_link_sha1(struct dentry *dentry,
+> +static const char *rawdata_get_link_sha256(struct dentry *dentry,
+>   					 struct inode *inode,
+>   					 struct delayed_call *done)
+>   {
+> -	return rawdata_get_link_base(dentry, inode, done, "sha1");
+> +	return rawdata_get_link_base(dentry, inode, done, "sha256");
+>   }
+>   
+>   static const char *rawdata_get_link_abi(struct dentry *dentry,
+> @@ -1665,8 +1665,8 @@ static const char *rawdata_get_link_data(struct dentry *dentry,
+>   	return rawdata_get_link_base(dentry, inode, done, "raw_data");
+>   }
+>   
+> -static const struct inode_operations rawdata_link_sha1_iops = {
+> -	.get_link	= rawdata_get_link_sha1,
+> +static const struct inode_operations rawdata_link_sha256_iops = {
+> +	.get_link	= rawdata_get_link_sha256,
+>   };
+>   
+>   static const struct inode_operations rawdata_link_abi_iops = {
+> @@ -1739,7 +1739,7 @@ int __aafs_profile_mkdir(struct aa_profile *profile, struct dentry *parent)
+>   	profile->dents[AAFS_PROF_ATTACH] = dent;
+>   
+>   	if (profile->hash) {
+> -		dent = create_profile_file(dir, "sha1", profile,
+> +		dent = create_profile_file(dir, "sha256", profile,
+>   					   &seq_profile_hash_fops);
+>   		if (IS_ERR(dent))
+>   			goto fail;
+> @@ -1749,9 +1749,9 @@ int __aafs_profile_mkdir(struct aa_profile *profile, struct dentry *parent)
+>   #ifdef CONFIG_SECURITY_APPARMOR_EXPORT_BINARY
+>   	if (profile->rawdata) {
+>   		if (aa_g_hash_policy) {
+> -			dent = aafs_create("raw_sha1", S_IFLNK | 0444, dir,
+> +			dent = aafs_create("raw_sha256", S_IFLNK | 0444, dir,
+>   					   profile->label.proxy, NULL, NULL,
+> -					   &rawdata_link_sha1_iops);
+> +					   &rawdata_link_sha256_iops);
+>   			if (IS_ERR(dent))
+>   				goto fail;
+>   			aa_get_proxy(profile->label.proxy);
+> diff --git a/security/apparmor/crypto.c b/security/apparmor/crypto.c
+> index 6724e2ff6d..aad486b2fc 100644
+> --- a/security/apparmor/crypto.c
+> +++ b/security/apparmor/crypto.c
+> @@ -106,16 +106,16 @@ static int __init init_profile_hash(void)
+>   	if (!apparmor_initialized)
+>   		return 0;
+>   
+> -	tfm = crypto_alloc_shash("sha1", 0, 0);
+> +	tfm = crypto_alloc_shash("sha256", 0, 0);
+>   	if (IS_ERR(tfm)) {
+>   		int error = PTR_ERR(tfm);
+> -		AA_ERROR("failed to setup profile sha1 hashing: %d\n", error);
+> +		AA_ERROR("failed to setup profile sha256 hashing: %d\n", error);
+>   		return error;
+>   	}
+>   	apparmor_tfm = tfm;
+>   	apparmor_hash_size = crypto_shash_digestsize(apparmor_tfm);
+>   
+> -	aa_info_message("AppArmor sha1 policy hashing enabled");
+> +	aa_info_message("AppArmor sha256 policy hashing enabled");
+>   
+>   	return 0;
+>   }
 
 
