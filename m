@@ -2,32 +2,33 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 250B77F04E5
-	for <lists+apparmor@lfdr.de>; Sun, 19 Nov 2023 10:09:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCBC47F04E9
+	for <lists+apparmor@lfdr.de>; Sun, 19 Nov 2023 10:09:44 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1r4dnp-0004pB-HU; Sun, 19 Nov 2023 09:09:17 +0000
+	id 1r4do8-0004u2-PQ; Sun, 19 Nov 2023 09:09:36 +0000
 Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
  helo=smtp-relay-canonical-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1r4dnk-0004oD-8g
- for apparmor@lists.ubuntu.com; Sun, 19 Nov 2023 09:09:12 +0000
+ id 1r4do1-0004sb-GN
+ for apparmor@lists.ubuntu.com; Sun, 19 Nov 2023 09:09:29 +0000
 Received: from [192.168.192.84] (unknown [50.39.103.33])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id A145F42F25; 
- Sun, 19 Nov 2023 09:09:07 +0000 (UTC)
-Message-ID: <83b3c0ea-6e17-4fec-8887-0691e7d84185@canonical.com>
-Date: Sun, 19 Nov 2023 01:09:07 -0800
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 0ED3B42F25; 
+ Sun, 19 Nov 2023 09:09:26 +0000 (UTC)
+Message-ID: <ee067771-2cbb-404b-a54f-24a0e42d17ab@canonical.com>
+Date: Sun, 19 Nov 2023 01:09:26 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
 To: Yang Li <yang.lee@linux.alibaba.com>, paul@paul-moore.com,
  jmorris@namei.org, serge@hallyn.com
 References: <20231023011124.19034-1-yang.lee@linux.alibaba.com>
+ <20231023011124.19034-2-yang.lee@linux.alibaba.com>
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
  xsFNBE5mrPoBEADAk19PsgVgBKkImmR2isPQ6o7KJhTTKjJdwVbkWSnNn+o6Up5knKP1f49E
@@ -72,11 +73,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20231023011124.19034-1-yang.lee@linux.alibaba.com>
+In-Reply-To: <20231023011124.19034-2-yang.lee@linux.alibaba.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH -next 1/2] apparmor: Fix one kernel-doc
-	comment
+Subject: Re: [apparmor] [PATCH -next 2/2] apparmor: Fix some kernel-doc
+	comments
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -95,33 +96,43 @@ Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
 On 10/22/23 18:11, Yang Li wrote:
-> Fix one kernel-doc comment to silence the warnings:
-> security/apparmor/domain.c:46: warning: Function parameter or member 'to_cred' not described in 'may_change_ptraced_domain'
-> security/apparmor/domain.c:46: warning: Excess function parameter 'cred' description in 'may_change_ptraced_domain'
+> Fix some kernel-doc comments to silence the warnings:
+> security/apparmor/policy.c:117: warning: Function parameter or member 'kref' not described in 'aa_pdb_free_kref'
+> security/apparmor/policy.c:117: warning: Excess function parameter 'kr' description in 'aa_pdb_free_kref'
+> security/apparmor/policy.c:882: warning: Function parameter or member 'subj_cred' not described in 'aa_may_manage_policy'
 > 
 > Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-> Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=7036
+> Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=7037
 > Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
 
 sorry I missed replying to this. It was pulled into apparmor-next and merged upstream during the 6.7 merge window
 
 
 > ---
->   security/apparmor/domain.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+>   security/apparmor/policy.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> diff --git a/security/apparmor/domain.c b/security/apparmor/domain.c
-> index ed4a13d44894..89fbeab4b33b 100644
-> --- a/security/apparmor/domain.c
-> +++ b/security/apparmor/domain.c
-> @@ -31,7 +31,7 @@
+> diff --git a/security/apparmor/policy.c b/security/apparmor/policy.c
+> index a441d96adcbf..ed4c9803c8fa 100644
+> --- a/security/apparmor/policy.c
+> +++ b/security/apparmor/policy.c
+> @@ -111,7 +111,7 @@ static void aa_free_pdb(struct aa_policydb *policy)
 >   
 >   /**
->    * may_change_ptraced_domain - check if can change profile on ptraced task
-> - * @cred: cred of task changing domain
-> + * @to_cred: cred of task changing domain
->    * @to_label: profile to change to  (NOT NULL)
->    * @info: message if there is an error
->    *
+>    * aa_pdb_free_kref - free aa_policydb by kref (called by aa_put_pdb)
+> - * @kr: kref callback for freeing of a dfa  (NOT NULL)
+> + * @kref: kref callback for freeing of a dfa  (NOT NULL)
+>    */
+>   void aa_pdb_free_kref(struct kref *kref)
+>   {
+> @@ -870,7 +870,7 @@ bool aa_current_policy_admin_capable(struct aa_ns *ns)
+>   
+>   /**
+>    * aa_may_manage_policy - can the current task manage policy
+> - * @subj_cred; subjects cred
+> + * @subj_cred: subjects cred
+>    * @label: label to check if it can manage policy
+>    * @ns: namespace being managed by @label (may be NULL if @label's ns)
+>    * @mask: contains the policy manipulation operation being done
 
 
