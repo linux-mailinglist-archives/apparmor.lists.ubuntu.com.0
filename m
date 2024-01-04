@@ -2,31 +2,31 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E544823ED1
-	for <lists+apparmor@lfdr.de>; Thu,  4 Jan 2024 10:41:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63986823ED5
+	for <lists+apparmor@lfdr.de>; Thu,  4 Jan 2024 10:42:44 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rLKDw-0005lx-Uz; Thu, 04 Jan 2024 09:41:13 +0000
+	id 1rLKFI-0005tS-7j; Thu, 04 Jan 2024 09:42:36 +0000
 Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
  helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1rLKDq-0005la-SY
- for apparmor@lists.ubuntu.com; Thu, 04 Jan 2024 09:41:06 +0000
+ id 1rLKFE-0005t8-CL
+ for apparmor@lists.ubuntu.com; Thu, 04 Jan 2024 09:42:32 +0000
 Received: from [192.168.192.85] (unknown [50.39.103.33])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 960893F282; 
- Thu,  4 Jan 2024 09:41:04 +0000 (UTC)
-Message-ID: <eaf76a45-3217-47c2-bf69-bdd765062e69@canonical.com>
-Date: Thu, 4 Jan 2024 01:41:04 -0800
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id D198E3F282; 
+ Thu,  4 Jan 2024 09:42:30 +0000 (UTC)
+Message-ID: <5daba923-de64-41c1-8706-2b77939c5e3e@canonical.com>
+Date: Thu, 4 Jan 2024 01:42:30 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-To: Fedor Pchelkin <pchelkin@ispras.ru>
-References: <20231204181945.5903-1-pchelkin@ispras.ru>
+To: Ben Dooks <ben.dooks@codethink.co.uk>, apparmor@lists.ubuntu.com
+References: <20231122115611.285625-1-ben.dooks@codethink.co.uk>
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
  xsFNBE5mrPoBEADAk19PsgVgBKkImmR2isPQ6o7KJhTTKjJdwVbkWSnNn+o6Up5knKP1f49E
@@ -71,11 +71,10 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20231204181945.5903-1-pchelkin@ispras.ru>
+In-Reply-To: <20231122115611.285625-1-ben.dooks@codethink.co.uk>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH] apparmor: fix possible memory leak in
-	unpack_trans_table
+Subject: Re: [apparmor] [PATCH] apparmor: make stack_msg static
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -87,96 +86,36 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: lvc-project@linuxtesting.org, Paul Moore <paul@paul-moore.com>,
- apparmor@lists.ubuntu.com, linux-kernel@vger.kernel.org,
- James Morris <jmorris@namei.org>, linux-security-module@vger.kernel.org,
- Alexey Khoroshilov <khoroshilov@ispras.ru>,
- "Serge E. Hallyn" <serge@hallyn.com>
+Cc: linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 12/4/23 10:19, Fedor Pchelkin wrote:
-> If we fail to unpack the transition table then the table elements which
-> have been already allocated are not freed on error path.
+On 11/22/23 03:56, Ben Dooks wrote:
+> The stack_msg is not exported out of security/apparmor/domain.c so
+> make it static to avoid the following sparse warning:
 > 
-> unreferenced object 0xffff88802539e000 (size 128):
->    comm "apparmor_parser", pid 903, jiffies 4294914938 (age 35.085s)
->    hex dump (first 32 bytes):
->      20 73 6f 6d 65 20 6e 61 73 74 79 20 73 74 72 69   some nasty stri
->      6e 67 20 73 6f 6d 65 20 6e 61 73 74 79 20 73 74  ng some nasty st
->    backtrace:
->      [<ffffffff81ddb312>] __kmem_cache_alloc_node+0x1e2/0x2d0
->      [<ffffffff81c47194>] __kmalloc_node_track_caller+0x54/0x170
->      [<ffffffff81c225b9>] kmemdup+0x29/0x60
->      [<ffffffff83e1ee65>] aa_unpack_strdup+0xe5/0x1b0
->      [<ffffffff83e20808>] unpack_pdb+0xeb8/0x2700
->      [<ffffffff83e23567>] unpack_profile+0x1507/0x4a30
->      [<ffffffff83e27bfa>] aa_unpack+0x36a/0x1560
->      [<ffffffff83e194c3>] aa_replace_profiles+0x213/0x33c0
->      [<ffffffff83de9461>] policy_update+0x261/0x370
->      [<ffffffff83de978e>] profile_replace+0x20e/0x2a0
->      [<ffffffff81eac8bf>] vfs_write+0x2af/0xe00
->      [<ffffffff81eaddd6>] ksys_write+0x126/0x250
->      [<ffffffff88f34fb6>] do_syscall_64+0x46/0xf0
->      [<ffffffff890000ea>] entry_SYSCALL_64_after_hwframe+0x6e/0x76
+> security/apparmor/domain.c:1314:12: warning: symbol 'stack_msg' was not declared. Should it be static?
 > 
-> Call aa_free_str_table() on error path as was done before the blamed
-> commit. It implements all necessary checks, frees str_table if it is
-> available and nullifies the pointers.
-> 
-> Found by Linux Verification Center (linuxtesting.org).
-> 
-> Fixes: a0792e2ceddc ("apparmor: make transition table unpack generic so it can be reused")
-> Signed-off-by: Fedor Pchelkin <pchelkin@ispras.ru>
+> Signed-off-by: Ben Dooks <ben.dooks@codethink.co.uk>
 
-thanks, I have pulled this into my tree
-Acked-by: John Johansen <john.johansen@canonical.com>
+thankyou for your contribution, unfortunately an the same patch went into apparmor-next on November 11
 
 > ---
->   security/apparmor/lib.c           | 1 +
->   security/apparmor/policy_unpack.c | 7 +++----
->   2 files changed, 4 insertions(+), 4 deletions(-)
+>   security/apparmor/domain.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/security/apparmor/lib.c b/security/apparmor/lib.c
-> index 4c198d273f09..cd569fbbfe36 100644
-> --- a/security/apparmor/lib.c
-> +++ b/security/apparmor/lib.c
-> @@ -41,6 +41,7 @@ void aa_free_str_table(struct aa_str_table *t)
->   			kfree_sensitive(t->table[i]);
->   		kfree_sensitive(t->table);
->   		t->table = NULL;
-> +		t->size = 0;
->   	}
+> diff --git a/security/apparmor/domain.c b/security/apparmor/domain.c
+> index 89fbeab4b33b..571158ec6188 100644
+> --- a/security/apparmor/domain.c
+> +++ b/security/apparmor/domain.c
+> @@ -1311,7 +1311,7 @@ static int change_profile_perms_wrapper(const char *op, const char *name,
+>   	return error;
 >   }
 >   
-> diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
-> index fc21952aca6b..887010692538 100644
-> --- a/security/apparmor/policy_unpack.c
-> +++ b/security/apparmor/policy_unpack.c
-> @@ -478,6 +478,8 @@ static bool unpack_trans_table(struct aa_ext *e, struct aa_str_table *strs)
->   		if (!table)
->   			goto fail;
+> -const char *stack_msg = "change_profile unprivileged unconfined converted to stacking";
+> +static const char *stack_msg = "change_profile unprivileged unconfined converted to stacking";
 >   
-> +		strs->table = table;
-> +		strs->size = size;
->   		for (i = 0; i < size; i++) {
->   			char *str;
->   			int c, j, pos, size2 = aa_unpack_strdup(e, &str, NULL);
-> @@ -520,14 +522,11 @@ static bool unpack_trans_table(struct aa_ext *e, struct aa_str_table *strs)
->   			goto fail;
->   		if (!aa_unpack_nameX(e, AA_STRUCTEND, NULL))
->   			goto fail;
-> -
-> -		strs->table = table;
-> -		strs->size = size;
->   	}
->   	return true;
->   
->   fail:
-> -	kfree_sensitive(table);
-> +	aa_free_str_table(strs);
->   	e->pos = saved_pos;
->   	return false;
->   }
+>   /**
+>    * aa_change_profile - perform a one-way profile transition
 
 
