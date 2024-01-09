@@ -2,31 +2,33 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DBC0828008
-	for <lists+apparmor@lfdr.de>; Tue,  9 Jan 2024 09:03:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54137828374
+	for <lists+apparmor@lfdr.de>; Tue,  9 Jan 2024 10:49:04 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rN75A-0000F2-31; Tue, 09 Jan 2024 08:03:32 +0000
+	id 1rN8j8-0000KZ-36; Tue, 09 Jan 2024 09:48:54 +0000
 Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
  helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1rN74h-0008Tn-1F
- for apparmor@lists.ubuntu.com; Tue, 09 Jan 2024 08:03:03 +0000
+ id 1rN8j4-0000KJ-8Q
+ for apparmor@lists.ubuntu.com; Tue, 09 Jan 2024 09:48:50 +0000
 Received: from [192.168.192.85] (unknown [50.39.103.33])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 7E7953FB41
- for <apparmor@lists.ubuntu.com>; Tue,  9 Jan 2024 08:03:02 +0000 (UTC)
-Message-ID: <523977a7-019b-4cd7-aa61-dcc1cd141dc3@canonical.com>
-Date: Tue, 9 Jan 2024 00:03:00 -0800
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id DC1EB3F6E0; 
+ Tue,  9 Jan 2024 09:48:48 +0000 (UTC)
+Message-ID: <de306707-7406-4f5a-8827-ea6ed2cc68bc@canonical.com>
+Date: Tue, 9 Jan 2024 01:48:46 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: John Johansen <john.johansen@canonical.com>
-To: apparmor <apparmor@lists.ubuntu.com>
 Content-Language: en-US
+To: Gaosheng Cui <cuigaosheng1@huawei.com>, paul@paul-moore.com,
+ jmorris@namei.org, serge@hallyn.com, georgia.garcia@canonical.com
+References: <20240105020126.315700-1-cuigaosheng1@huawei.com>
+From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
  xsFNBE5mrPoBEADAk19PsgVgBKkImmR2isPQ6o7KJhTTKjJdwVbkWSnNn+o6Up5knKP1f49E
  BQlceWg1yp/NwbR8ad+eSEO/uma/K+PqWvBptKC9SWD97FG4uB4/caomLEU97sLQMtnvGWdx
@@ -70,9 +72,10 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
+In-Reply-To: <20240105020126.315700-1-cuigaosheng1@huawei.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: [apparmor]  irc meeting Tues Jan 9
+Subject: Re: [apparmor] [PATCH] apparmor: Fix memory leak in unpack_profile()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -84,14 +87,64 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-The next irc meeting is Tuesday Jan 9, at 18:00 UTC in #apparmor on oftc.net
+On 1/4/24 18:01, Gaosheng Cui wrote:
+> The aa_put_pdb(rules->file) should be called when rules->file is
+> reassigned, otherwise there may be a memory leak.
+> 
+> This was found via kmemleak:
+> 
+> unreferenced object 0xffff986c17056600 (size 192):
+>    comm "apparmor_parser", pid 875, jiffies 4294893488
+>    hex dump (first 32 bytes):
+>      00 00 00 00 00 00 00 00 00 89 14 04 6c 98 ff ff  ............l...
+>      00 00 8c 11 6c 98 ff ff bc 0c 00 00 00 00 00 00  ....l...........
+>    backtrace (crc e28c80c4):
+>      [<ffffffffba25087f>] kmemleak_alloc+0x4f/0x90
+>      [<ffffffffb95ecd42>] kmalloc_trace+0x2d2/0x340
+>      [<ffffffffb98a7b3d>] aa_alloc_pdb+0x4d/0x90
+>      [<ffffffffb98ab3b8>] unpack_pdb+0x48/0x660
+>      [<ffffffffb98ac073>] unpack_profile+0x693/0x1090
+>      [<ffffffffb98acf5a>] aa_unpack+0x10a/0x6e0
+>      [<ffffffffb98a93e3>] aa_replace_profiles+0xa3/0x1210
+>      [<ffffffffb989a183>] policy_update+0x163/0x2a0
+>      [<ffffffffb989a381>] profile_replace+0xb1/0x130
+>      [<ffffffffb966cb64>] vfs_write+0xd4/0x3d0
+>      [<ffffffffb966d05b>] ksys_write+0x6b/0xf0
+>      [<ffffffffb966d10e>] __x64_sys_write+0x1e/0x30
+>      [<ffffffffba242316>] do_syscall_64+0x76/0x120
+>      [<ffffffffba4000e5>] entry_SYSCALL_64_after_hwframe+0x6c/0x74
+> 
+> So add aa_put_pdb(rules->file) to fix it when rules->file is reassigned.
+> 
+> Fixes: 98b824ff8984 ("apparmor: refcount the pdb")
+> Signed-off-by: Gaosheng Cui <cuigaosheng1@huawei.com>
 
-Please update the agenda https://gitlab.com/apparmor/apparmor/wikis/MeetingAgenda or reply to this mail if you have items you want to add
+yep, thanks. I have pulled this into the apparmor tree
 
+Acked-by: John Johansen <john.johansen@canonical.com>
 
-
+> ---
+>   security/apparmor/policy_unpack.c | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
+> index 47ec097d6741..16afe992a724 100644
+> --- a/security/apparmor/policy_unpack.c
+> +++ b/security/apparmor/policy_unpack.c
+> @@ -1022,8 +1022,10 @@ static struct aa_profile *unpack_profile(struct aa_ext *e, char **ns_name)
+>   		}
+>   	} else if (rules->policy->dfa &&
+>   		   rules->policy->start[AA_CLASS_FILE]) {
+> +		aa_put_pdb(rules->file);
+>   		rules->file = aa_get_pdb(rules->policy);
+>   	} else {
+> +		aa_put_pdb(rules->file);
+>   		rules->file = aa_get_pdb(nullpdb);
+>   	}
+>   	error = -EPROTO;
 
 
