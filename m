@@ -2,34 +2,33 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C77B82B5B3
-	for <lists+apparmor@lfdr.de>; Thu, 11 Jan 2024 21:10:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 200D982B599
+	for <lists+apparmor@lfdr.de>; Thu, 11 Jan 2024 20:59:59 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rO1No-0002Ww-Lt; Thu, 11 Jan 2024 20:10:32 +0000
+	id 1rO1DR-0006Mc-0s; Thu, 11 Jan 2024 19:59:49 +0000
 Received: from smtp-relay-services-1.internal ([10.131.114.214]
  helo=smtp-relay-services-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <noreply@launchpad.net>)
- id 1rO1Nk-0002Wo-7N
- for apparmor@lists.ubuntu.com; Thu, 11 Jan 2024 20:10:28 +0000
-Received: from juju-98d295-prod-launchpad-16.localdomain (scripts.lp.internal
- [10.131.215.246])
+ id 1rO1D9-0006LJ-1X
+ for apparmor@lists.ubuntu.com; Thu, 11 Jan 2024 19:59:32 +0000
+Received: from juju-98d295-prod-launchpad-3.localdomain
+ (appserver-2.lp.internal [10.131.215.183])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-services-1.canonical.com (Postfix) with ESMTPSA id 81D943F4D3
- for <apparmor@lists.ubuntu.com>; Thu, 11 Jan 2024 20:10:23 +0000 (UTC)
-Received: from [10.131.215.246] (localhost [127.0.0.1])
- by juju-98d295-prod-launchpad-16.localdomain (Postfix) with ESMTP id
- 267A37E025
- for <apparmor@lists.ubuntu.com>; Thu, 11 Jan 2024 20:10:19 +0000 (UTC)
+ by smtp-relay-services-1.canonical.com (Postfix) with ESMTPSA id C6FF23F658
+ for <apparmor@lists.ubuntu.com>; Thu, 11 Jan 2024 19:59:30 +0000 (UTC)
+Received: from [10.131.215.183] (localhost [127.0.0.1])
+ by juju-98d295-prod-launchpad-3.localdomain (Postfix) with ESMTP id 69A4F7E08F
+ for <apparmor@lists.ubuntu.com>; Thu, 11 Jan 2024 19:59:30 +0000 (UTC)
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 11 Jan 2024 19:59:13 -0000
-From: Marc Oppenheimer <2049099@bugs.launchpad.net>
+Date: Thu, 11 Jan 2024 19:59:30 -0000
+From: Launchpad Bug Tracker <2049099@bugs.launchpad.net>
 To: apparmor@lists.ubuntu.com
 X-Launchpad-Notification-Type: bug
 X-Launchpad-Bug: product=snapd; status=New; importance=Undecided; assignee=None;
@@ -38,15 +37,15 @@ X-Launchpad-Bug-Private: no
 X-Launchpad-Bug-Security-Vulnerability: no
 X-Launchpad-Bug-Commenters: marcoppenheimer
 X-Launchpad-Bug-Reporter: Marc Oppenheimer (marcoppenheimer)
-X-Launchpad-Bug-Modifier: Marc Oppenheimer (marcoppenheimer)
-Message-Id: <170500315357.2951651.15872417683793394378.malonedeb@juju-98d295-prod-launchpad-4>
+References: <170500315357.2951651.15872417683793394378.malonedeb@juju-98d295-prod-launchpad-4>
 X-Launchpad-Message-Rationale: Subscriber @apparmor-dev
 X-Launchpad-Message-For: apparmor-dev
+Message-Id: <170500317038.2577901.13239766445887670659.launchpad@juju-98d295-prod-launchpad-3>
 Precedence: bulk
 X-Generated-By: Launchpad (canonical.com);
  Revision="e1eeab5b20e19239bd7d5f36676f7a52988db88b";
- Instance="launchpad-scripts"
-X-Launchpad-Hash: 5502bfac557652d2fc983881bd615bd82e350025
+ Instance="launchpad-appserver"
+X-Launchpad-Hash: debdf42e6a2b005c9975536c551b95170da0c0f1
 Subject: [apparmor] [Bug 2049099] [NEW] AppArmor blocking snap install
 	nested in LXD container
 X-BeenThere: apparmor@lists.ubuntu.com
@@ -63,7 +62,8 @@ Reply-To: Bug 2049099 <2049099@bugs.launchpad.net>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Public bug reported:
+You have been subscribed to a public bug by Marc Oppenheimer (marcoppenheim=
+er):
 
 ##### Context
 I'm on a non-Ubuntu OS (Arch), trying to use Juju on LXD. In doing so, Juju=
@@ -76,9 +76,6 @@ er my head. It's not clear to me what is causing these, but I **suspect** t=
 hat Ubuntu patches some host-system AppArmor profiles to support this use-c=
 ase, that isn't replicated on other OSs? Not sure, and I don't know who to =
 ask or where to look.
-
-If any additional information is needed I'd be more than happy to
-provide.
 
 ##### Logs + Additional Info
 `snappy-debug` journalctl logs - https://pastebin.canonical.com/p/N5wxYggMy=
@@ -93,9 +90,7 @@ D?h=3Dsnapd
 ##### Reproduce Steps
 Assuming you're running on a vanilla (minimal tweaking) Arch machine with A=
 ppArmor enabled:
-
-
-```bash
+```
 cd /tmp && git clone https://aur.archlinux.org/snapd.git && cd snapd
 makepkg -si
 sudo systemctl enable --now snapd.socket
@@ -116,210 +111,9 @@ juju bootstrap localhost lh --debug --bootstrap-timeout=3D180
      Importance: Undecided
          Status: New
 
-** Description changed:
-
-  ##### Context
-  I'm on a non-Ubuntu OS (Arch), trying to use Juju on LXD. In doing so, Ju=
-ju uses a snap inside an LXD container, and so needs the system to support =
-nested AppArmor profiles. `juju-db` is the snap in question, if that helps.
- =20
-  ##### Issue
-  When I try to do this, I get a bunch of AppArmor violations, that go way =
-over my head. It's not clear to me what is causing these, but I **suspect**=
- that Ubuntu patches some host-system AppArmor profiles to support this use=
--case, that isn't replicated on other OSs? Not sure, and I don't know who t=
-o ask or where to look.
-+=20
-+ If any additional information is needed I'd be more than happy to
-+ provide.
- =20
-  ##### Logs + Additional Info
-  `snappy-debug` journalctl logs - https://pastebin.canonical.com/p/N5wxYgg=
-Myz/
-  A rough grab from dmesg - https://pastebin.canonical.com/p/4JhTX38GBF/
-  Snapd installed using - https://aur.archlinux.org/cgit/aur.git/tree/PKGBU=
-ILD?h=3Dsnapd
-  `juju-db` snap - https://github.com/juju/juju-db-snap/tree/5.3
-  `usr.lib.snapd.snap-confine` default on Arch, in case it's useful - https=
-://pastebin.canonical.com/p/84WGfgrCz6/
- =20
-  ##### Reproduce Steps
-  Assuming you're running on a vanilla (minimal tweaking) Arch machine with=
- AppArmor enabled:
-  ```
-  cd /tmp && git clone https://aur.archlinux.org/snapd.git && cd snapd
-  makepkg -si
-  sudo systemctl enable --now snapd.socket
- =20
-  # log-out, log-in
- =20
-  sudo snap install lxd --channel latest/edge
-  lxd init --auto
- =20
-  sudo snap install juju --channel 3.3/stable
- =20
-  juju bootstrap localhost lh --debug --bootstrap-timeout=3D180
- =20
-  # check snappy-debug or dmesg for AppArmor denials
-  ```
-
-** Description changed:
-
-  ##### Context
-  I'm on a non-Ubuntu OS (Arch), trying to use Juju on LXD. In doing so, Ju=
-ju uses a snap inside an LXD container, and so needs the system to support =
-nested AppArmor profiles. `juju-db` is the snap in question, if that helps.
- =20
-  ##### Issue
-  When I try to do this, I get a bunch of AppArmor violations, that go way =
-over my head. It's not clear to me what is causing these, but I **suspect**=
- that Ubuntu patches some host-system AppArmor profiles to support this use=
--case, that isn't replicated on other OSs? Not sure, and I don't know who t=
-o ask or where to look.
- =20
-  If any additional information is needed I'd be more than happy to
-  provide.
- =20
-  ##### Logs + Additional Info
-  `snappy-debug` journalctl logs - https://pastebin.canonical.com/p/N5wxYgg=
-Myz/
-  A rough grab from dmesg - https://pastebin.canonical.com/p/4JhTX38GBF/
-  Snapd installed using - https://aur.archlinux.org/cgit/aur.git/tree/PKGBU=
-ILD?h=3Dsnapd
-  `juju-db` snap - https://github.com/juju/juju-db-snap/tree/5.3
-  `usr.lib.snapd.snap-confine` default on Arch, in case it's useful - https=
-://pastebin.canonical.com/p/84WGfgrCz6/
- =20
-  ##### Reproduce Steps
-  Assuming you're running on a vanilla (minimal tweaking) Arch machine with=
- AppArmor enabled:
-- ```
-+ ```bash
-  cd /tmp && git clone https://aur.archlinux.org/snapd.git && cd snapd
-  makepkg -si
-  sudo systemctl enable --now snapd.socket
- =20
-  # log-out, log-in
- =20
-  sudo snap install lxd --channel latest/edge
-  lxd init --auto
- =20
-  sudo snap install juju --channel 3.3/stable
- =20
-  juju bootstrap localhost lh --debug --bootstrap-timeout=3D180
- =20
-  # check snappy-debug or dmesg for AppArmor denials
-  ```
-
-** Description changed:
-
-  ##### Context
-  I'm on a non-Ubuntu OS (Arch), trying to use Juju on LXD. In doing so, Ju=
-ju uses a snap inside an LXD container, and so needs the system to support =
-nested AppArmor profiles. `juju-db` is the snap in question, if that helps.
- =20
-  ##### Issue
-  When I try to do this, I get a bunch of AppArmor violations, that go way =
-over my head. It's not clear to me what is causing these, but I **suspect**=
- that Ubuntu patches some host-system AppArmor profiles to support this use=
--case, that isn't replicated on other OSs? Not sure, and I don't know who t=
-o ask or where to look.
- =20
-  If any additional information is needed I'd be more than happy to
-  provide.
- =20
-  ##### Logs + Additional Info
-  `snappy-debug` journalctl logs - https://pastebin.canonical.com/p/N5wxYgg=
-Myz/
-  A rough grab from dmesg - https://pastebin.canonical.com/p/4JhTX38GBF/
-  Snapd installed using - https://aur.archlinux.org/cgit/aur.git/tree/PKGBU=
-ILD?h=3Dsnapd
-  `juju-db` snap - https://github.com/juju/juju-db-snap/tree/5.3
-  `usr.lib.snapd.snap-confine` default on Arch, in case it's useful - https=
-://pastebin.canonical.com/p/84WGfgrCz6/
- =20
-  ##### Reproduce Steps
-  Assuming you're running on a vanilla (minimal tweaking) Arch machine with=
- AppArmor enabled:
-+=20
-+=20
-  ```bash
-  cd /tmp && git clone https://aur.archlinux.org/snapd.git && cd snapd
-  makepkg -si
-  sudo systemctl enable --now snapd.socket
- =20
-  # log-out, log-in
- =20
-  sudo snap install lxd --channel latest/edge
-  lxd init --auto
- =20
-  sudo snap install juju --channel 3.3/stable
- =20
-  juju bootstrap localhost lh --debug --bootstrap-timeout=3D180
- =20
-  # check snappy-debug or dmesg for AppArmor denials
-  ```
-
 --=20
-You received this bug notification because you are a member of AppArmor
-Developers, which is subscribed to the bug report.
+AppArmor blocking snap install nested in LXD container
 https://bugs.launchpad.net/bugs/2049099
-
-Title:
-  AppArmor blocking snap install nested in LXD container
-
-Status in snapd:
-  New
-
-Bug description:
-  ##### Context
-  I'm on a non-Ubuntu OS (Arch), trying to use Juju on LXD. In doing so, Ju=
-ju uses a snap inside an LXD container, and so needs the system to support =
-nested AppArmor profiles. `juju-db` is the snap in question, if that helps.
-
-  ##### Issue
-  When I try to do this, I get a bunch of AppArmor violations, that go way =
-over my head. It's not clear to me what is causing these, but I **suspect**=
- that Ubuntu patches some host-system AppArmor profiles to support this use=
--case, that isn't replicated on other OSs? Not sure, and I don't know who t=
-o ask or where to look.
-
-  If any additional information is needed I'd be more than happy to
-  provide.
-
-  ##### Logs + Additional Info
-  `snappy-debug` journalctl logs - https://pastebin.canonical.com/p/N5wxYgg=
-Myz/
-  A rough grab from dmesg - https://pastebin.canonical.com/p/4JhTX38GBF/
-  Snapd installed using - https://aur.archlinux.org/cgit/aur.git/tree/PKGBU=
-ILD?h=3Dsnapd
-  `juju-db` snap - https://github.com/juju/juju-db-snap/tree/5.3
-  `usr.lib.snapd.snap-confine` default on Arch, in case it's useful - https=
-://pastebin.canonical.com/p/84WGfgrCz6/
-
-  ##### Reproduce Steps
-  Assuming you're running on a vanilla (minimal tweaking) Arch machine with=
- AppArmor enabled:
-
- =20
-  ```bash
-  cd /tmp && git clone https://aur.archlinux.org/snapd.git && cd snapd
-  makepkg -si
-  sudo systemctl enable --now snapd.socket
-
-  # log-out, log-in
-
-  sudo snap install lxd --channel latest/edge
-  lxd init --auto
-
-  sudo snap install juju --channel 3.3/stable
-
-  juju bootstrap localhost lh --debug --bootstrap-timeout=3D180
-
-  # check snappy-debug or dmesg for AppArmor denials
-  ```
-
-To manage notifications about this bug go to:
-https://bugs.launchpad.net/snapd/+bug/2049099/+subscriptions
-
+You received this bug notification because you are a member of AppArmor Dev=
+elopers, which is subscribed to the bug report.
 
