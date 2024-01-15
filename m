@@ -2,33 +2,28 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD88882CD02
-	for <lists+apparmor@lfdr.de>; Sat, 13 Jan 2024 15:24:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B31D82D3B1
+	for <lists+apparmor@lfdr.de>; Mon, 15 Jan 2024 05:38:06 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rOevj-00033C-9B; Sat, 13 Jan 2024 14:24:11 +0000
-Received: from mail.ispras.ru ([83.149.199.84])
+	id 1rPEjN-0007t2-OV; Mon, 15 Jan 2024 04:37:49 +0000
+Received: from bombadil.infradead.org ([198.137.202.133])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <pchelkin@ispras.ru>)
- id 1rOcvv-0002JG-Lp
- for apparmor@lists.ubuntu.com; Sat, 13 Jan 2024 12:16:15 +0000
-Received: from localhost.ispras.ru (unknown [10.10.165.8])
- by mail.ispras.ru (Postfix) with ESMTPSA id E84F740762E4;
- Sat, 13 Jan 2024 12:16:14 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ispras.ru E84F740762E4
-From: Fedor Pchelkin <pchelkin@ispras.ru>
-To: John Johansen <john.johansen@canonical.com>
-Date: Sat, 13 Jan 2024 15:15:52 +0300
-Message-ID: <20240113121556.12948-3-pchelkin@ispras.ru>
+ (Exim 4.86_2) (envelope-from <rdunlap@infradead.org>)
+ id 1rPEjG-0007rq-BC
+ for apparmor@lists.ubuntu.com; Mon, 15 Jan 2024 04:37:42 +0000
+Received: from [50.53.46.231] (helo=bombadil.infradead.org)
+ by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1rPEjA-007ktb-05; Mon, 15 Jan 2024 04:37:36 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Date: Sun, 14 Jan 2024 20:37:35 -0800
+Message-ID: <20240115043735.7751-1-rdunlap@infradead.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240113121556.12948-1-pchelkin@ispras.ru>
-References: <20240113121556.12948-1-pchelkin@ispras.ru>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sat, 13 Jan 2024 14:24:04 +0000
-Subject: [apparmor] [PATCH 2/2] apparmor: fix namespace check in serialized
-	stream headers from the same policy load
+Subject: [apparmor] [PATCH] apparmor: lsm: fix kernel-doc typo
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -40,111 +35,41 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: lvc-project@linuxtesting.org, Paul Moore <paul@paul-moore.com>,
- linux-kernel@vger.kernel.org, apparmor@lists.ubuntu.com,
- James Morris <jmorris@namei.org>, Fedor Pchelkin <pchelkin@ispras.ru>,
- linux-security-module@vger.kernel.org,
- Alexey Khoroshilov <khoroshilov@ispras.ru>,
+Cc: Paul Moore <paul@paul-moore.com>, John Johansen <john@apparmor.net>,
+ Randy Dunlap <rdunlap@infradead.org>, apparmor@lists.ubuntu.com,
+ James Morris <jmorris@namei.org>, linux-security-module@vger.kernel.org,
  "Serge E. Hallyn" <serge@hallyn.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Per commit 04dc715e24d0 ("apparmor: audit policy ns specified in policy
-load"), profiles in a single load must specify the same namespace. It is
-supposed to be detected inside aa_replace_profiles() and verify_header(),
-but seems not to be implemented correctly in the second function.
+Correct a kernel-doc function parameter name to resolve two
+kernel-doc warnings:
 
-Consider we have the following profile load
+lsm.c:1136: warning: Function parameter or struct member 'protocol' not described in 'apparmor_socket_post_create'
+lsm.c:1136: warning: Excess function parameter 'ptotocol' description in 'apparmor_socket_post_create'
 
-  profile :ns1:profile1 ... {}
-  profile :ns2:profile2 ... {}
-
-The profiles specify different policy namespaces but if they are loaded as
-a single binary where the serialized stream headers contain different
-namespace values, it eventually leads to the profiles specified with
-different namespaces be included into the same one without any specific
-indication to user.
-
-*ns is assigned NULL in verify_header(), and the branch indicating an
-"invalid ns change" message is a dead code.
-
-Moreover, some of *ns strings is leaked as they are allocated every time
-verify_header() reads a namespace string.
-
-Actually, *ns is already assigned NULL in aa_unpack(), before the multiple
-profiles unpacking loop. So make verify_header() check if every new
-unpacked namespace declaration differs from the previous one in the same
-load.
-
-Note that similar to the namespace check in aa_replace_profiles(), if
-one profile in the load specifies some namespace declaration in the header
-and the other one doesn't specify any namespace in the header - it is also
-considered invalid, e.g. the following multiple profiles load will fail
-after this patch
-
-  profile profile1 ... {}
-  profile :ns:profile2 ... {}
-
-Found by Linux Verification Center (linuxtesting.org).
-
-Fixes: dd51c8485763 ("apparmor: provide base for multiple profiles to be replaced at once")
-Signed-off-by: Fedor Pchelkin <pchelkin@ispras.ru>
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Cc: John Johansen <john.johansen@canonical.com>
+Cc: John Johansen <john@apparmor.net>
+Cc: apparmor@lists.ubuntu.com
+Cc: Paul Moore <paul@paul-moore.com>
+Cc: James Morris <jmorris@namei.org>
+Cc: "Serge E. Hallyn" <serge@hallyn.com>
+Cc: linux-security-module@vger.kernel.org
 ---
- security/apparmor/policy_unpack.c | 22 ++++++++++++++++++----
- 1 file changed, 18 insertions(+), 4 deletions(-)
+ security/apparmor/lsm.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
-index 54f7b4346506..5bd8ab7f1c88 100644
---- a/security/apparmor/policy_unpack.c
-+++ b/security/apparmor/policy_unpack.c
-@@ -1120,7 +1120,6 @@ static int verify_header(struct aa_ext *e, int start, const char **ns)
- {
- 	int error = -EPROTONOSUPPORT;
- 	const char *name = NULL;
--	*ns = NULL;
- 
- 	/* get the interface version */
- 	if (!aa_unpack_u32(e, &e->version, "version")) {
-@@ -1142,20 +1141,35 @@ static int verify_header(struct aa_ext *e, int start, const char **ns)
- 		return error;
- 	}
- 
--	/* read the namespace if present */
-+	/* read the namespace if present and check it against policy load
-+	 * namespace specified in the data start header
-+	 */
- 	if (aa_unpack_str(e, &name, "namespace")) {
- 		if (*name == '\0') {
- 			audit_iface(NULL, NULL, NULL, "invalid namespace name",
- 				    e, error);
- 			return error;
- 		}
-+
-+		/* don't allow different namespaces be specified in the same
-+		 * policy load set
-+		 */
-+		error = -EACCES;
- 		if (*ns && strcmp(*ns, name)) {
--			audit_iface(NULL, NULL, NULL, "invalid ns change", e,
-+			audit_iface(NULL, NULL, NULL,
-+				    "policy load has mixed namespaces", e,
- 				    error);
--		} else if (!*ns) {
-+			return error;
-+		} else if (!*ns && start) {
-+			/* fill current policy load namespace at data start */
- 			*ns = kstrdup(name, GFP_KERNEL);
- 			if (!*ns)
- 				return -ENOMEM;
-+		} else if (!*ns) {
-+			audit_iface(NULL, NULL, NULL,
-+				    "policy load has mixed namespaces", e,
-+				    error);
-+			return error;
- 		}
- 	}
- 
--- 
-2.43.0
-
+diff -- a/security/apparmor/lsm.c b/security/apparmor/lsm.c
+--- a/security/apparmor/lsm.c
++++ b/security/apparmor/lsm.c
+@@ -1122,7 +1122,7 @@ static int apparmor_socket_create(int fa
+  * @sock: socket that is being setup
+  * @family: family of socket being created
+  * @type: type of the socket
+- * @ptotocol: protocol of the socket
++ * @protocol: protocol of the socket
+  * @kern: socket is a special kernel socket
+  *
+  * Note:
 
