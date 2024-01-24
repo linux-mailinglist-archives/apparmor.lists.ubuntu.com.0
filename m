@@ -2,67 +2,47 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6990C83B28E
-	for <lists+apparmor@lfdr.de>; Wed, 24 Jan 2024 20:52:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96D1583B2A4
+	for <lists+apparmor@lfdr.de>; Wed, 24 Jan 2024 20:59:44 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rSjHw-0005bV-Aa; Wed, 24 Jan 2024 19:51:56 +0000
-Received: from mail-pl1-f174.google.com ([209.85.214.174])
+	id 1rSjPN-0006Ep-4v; Wed, 24 Jan 2024 19:59:37 +0000
+Received: from mail-ed1-f45.google.com ([209.85.208.45])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <keescook@chromium.org>)
- id 1rSjHs-0005bB-9C
- for apparmor@lists.ubuntu.com; Wed, 24 Jan 2024 19:51:52 +0000
-Received: by mail-pl1-f174.google.com with SMTP id
- d9443c01a7336-1d71207524dso25863405ad.1
- for <apparmor@lists.ubuntu.com>; Wed, 24 Jan 2024 11:51:52 -0800 (PST)
+ (Exim 4.86_2) (envelope-from <jannh@google.com>) id 1rSjPI-0006EK-Eq
+ for apparmor@lists.ubuntu.com; Wed, 24 Jan 2024 19:59:32 +0000
+Received: by mail-ed1-f45.google.com with SMTP id
+ 4fb4d7f45d1cf-55818b7053eso3536a12.0
+ for <apparmor@lists.ubuntu.com>; Wed, 24 Jan 2024 11:59:32 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706125911; x=1706730711;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=kA0mFxG1k0QSiOKDeUD/WDcdNFn8yF9DrGJFsA48PEc=;
- b=NcUq4Z+LUOT0PEJzRuc5Z1syE99/q+blS/2kwiFvwJpC0Zgs6Ep03BUjXJxKnJvrgL
- 39EQivqJRrc19s3k7S2cLhttpZNj1xwuDSvHuam4Pp68PiwGR9AXfH1IRP4FjPiRs3cD
- lqyVcvdC/3KXzwS8GaBwN1a11Et5p4pty1wkfHWz1UM0swEfe88DWFin2IDi24hPS6mk
- UuQvhKDPtDemdgIg/HCH1I/UvhILalkuuK7wRD9z/muCqjxolt5QXBQFgfGNfX5ahvkU
- qr1mwiMkvOekUk687/WGq/VGgoGy3NthqjHZCxkeF/Hp2samMgQvaL9HOYg4oIRx/FkO
- Xr7Q==
-X-Gm-Message-State: AOJu0Yxu3B/btG74mveRSFIPP9bIb02QwK7xmFmoqhMQEabMDWe+10iB
- VQT2Y1C/ItzFtk//xdE/MMSmqlPeGwVALGPq8A6IVVUP9HZ/MTrBU+5joTUPmw==
-X-Google-Smtp-Source: AGHT+IHOo2S4XZPrJkJAVWNIUu5O2sihiMmNygdfJCCs51/i38ljraqICbhZ/brbhlRxs5RoeWJoDA==
-X-Received: by 2002:a17:902:8685:b0:1d7:70d7:c05a with SMTP id
- g5-20020a170902868500b001d770d7c05amr1210754plo.98.1706125910737; 
- Wed, 24 Jan 2024 11:51:50 -0800 (PST)
-Received: from www.outflux.net ([198.0.35.241])
- by smtp.gmail.com with ESMTPSA id
- d9-20020a170902c18900b001d707163122sm10456896pld.7.2024.01.24.11.51.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Jan 2024 11:51:50 -0800 (PST)
-Date: Wed, 24 Jan 2024 11:51:49 -0800
-From: Kees Cook <keescook@chromium.org>
-To: Kevin Locke <kevin@kevinlocke.name>, Josh Triplett <josh@joshtriplett.org>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- John Johansen <john.johansen@canonical.com>,
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- "Serge E. Hallyn" <serge@hallyn.com>,
- Kentaro Takeda <takedakn@nttdata.co.jp>,
- Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Eric Biederman <ebiederm@xmission.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
- apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Message-ID: <202401241151.25D468FE@keescook>
-References: <20240124192228.work.788-kees@kernel.org>
- <ZbFneq3URF5lLAT7@kevinlocke.name>
+ d=1e100.net; s=20230601; t=1706126372; x=1706731172;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=IbNRc2tTI3uRJ4hOoUG/LLCmL8sxwzKLKOM6UpHlIBE=;
+ b=vyv/KwScD6ddQOeE7gcfjbmmlki3HpDrYqXAbshvm/oCeSiuoBAcHcVWfxixIfaT3i
+ uqPcqEuppXohSuuDe289GTRktwJEF5VdtoLZQY8fTjcYf4LafFMYZkTZ2kpkjfTISemG
+ pJS0iAg/3gjnWS7p7eDn9labeK1ANZQwvZkWTZYuqIbu8ipwzoAOuUGy7VJfBMngWLwe
+ 1GbuNn5dvfWWJiZS4P5wdJjhWcYcTohps58m3N3vEJZ/1BTx9lhr8JcYyC8fj7oDJP0n
+ Z+k7rkbLrvYKzsvbgzrBU0NTX0OkeGCqCs5ATOxpGIf7UTIl9UtrR45D9bQev8lU/QKu
+ 3Jkg==
+X-Gm-Message-State: AOJu0YxUJo41y5atBaBIhYtz/E1XZiTX2/tRO29ne1TyhK8OCMxP3DoE
+ RhbnXBfi4Ue0d/OkkAm4w7L2aYmcTiy6TntXpp77WHvyMP7eLuNkJwNYkIVE4Z4mS5m0ciGEoHM
+ AoazIvWNQ0+J/U9qJ9JywWYYa4sEkH1lHjUmB
+X-Google-Smtp-Source: AGHT+IHnF4f0O7cgArzhqXohHk8DKWdbCZVXNqyko/Yg6gnRAIJ7ffyT6vZhUBC9TtgW0kqc22Osp9E7+o4qEnIEp44=
+X-Received: by 2002:a05:6402:1bc9:b0:55c:8eda:6e19 with SMTP id
+ ch9-20020a0564021bc900b0055c8eda6e19mr34873edb.2.1706126371819; Wed, 24 Jan
+ 2024 11:59:31 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ZbFneq3URF5lLAT7@kevinlocke.name>
+References: <20240124192228.work.788-kees@kernel.org>
+In-Reply-To: <20240124192228.work.788-kees@kernel.org>
+From: Jann Horn <jannh@google.com>
+Date: Wed, 24 Jan 2024 20:58:55 +0100
+Message-ID: <CAG48ez017tTwxXbxdZ4joVDv5i8FLWEjk=K_z1Vf=pf0v1=cTg@mail.gmail.com>
+To: Kees Cook <keescook@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Subject: Re: [apparmor] [PATCH] exec: Check __FMODE_EXEC instead of
 	in_execve for LSMs
 X-BeenThere: apparmor@lists.ubuntu.com
@@ -76,32 +56,37 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: Eric Biederman <ebiederm@xmission.com>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Paul Moore <paul@paul-moore.com>,
+ Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>,
+ Kevin Locke <kevin@kevinlocke.name>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, apparmor@lists.ubuntu.com,
+ James Morris <jmorris@namei.org>, Josh Triplett <josh@joshtriplett.org>,
+ linux-mm@kvack.org, linux-security-module@vger.kernel.org,
+ linux-hardening@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>,
+ linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Kentaro Takeda <takedakn@nttdata.co.jp>,
+ Linus Torvalds <torvalds@linux-foundation.org>, linux-kernel@vger.kernel.org,
+ "Serge E. Hallyn" <serge@hallyn.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Wed, Jan 24, 2024 at 12:39:38PM -0700, Kevin Locke wrote:
-> On Wed, 2024-01-24 at 11:22 -0800, Kees Cook wrote:
-> > After commit 978ffcbf00d8 ("execve: open the executable file before
-> > doing anything else"), current->in_execve was no longer in sync with the
-> > open(). This broke AppArmor and TOMOYO which depend on this flag to
-> > distinguish "open" operations from being "exec" operations.
-> > 
-> > Instead of moving around in_execve, switch to using __FMODE_EXEC, which
-> > is where the "is this an exec?" intent is stored. Note that TOMOYO still
-> > uses in_execve around cred handling.
-> 
-> It solves the AppArmor issue I was experiencing and I don't notice any
-> other issues.
-> 
-> Tested-by: Kevin Locke <kevin@kevinlocke.name>
+On Wed, Jan 24, 2024 at 8:22=E2=80=AFPM Kees Cook <keescook@chromium.org> w=
+rote:
+> After commit 978ffcbf00d8 ("execve: open the executable file before
+> doing anything else"), current->in_execve was no longer in sync with the
+> open(). This broke AppArmor and TOMOYO which depend on this flag to
+> distinguish "open" operations from being "exec" operations.
+>
+> Instead of moving around in_execve, switch to using __FMODE_EXEC, which
+> is where the "is this an exec?" intent is stored. Note that TOMOYO still
+> uses in_execve around cred handling.
 
-Thanks!
+I think this is wrong. When CONFIG_USELIB is enabled, the uselib()
+syscall will open a file with __FMODE_EXEC but without going through
+execve(). From what I can tell, there are no bprm hooks on this path.
 
-Sounds like Linus has taken the patch directly, and I'll send a follow-up
-PR with other clean-ups.
-
--Kees
-
--- 
-Kees Cook
+I don't know if it _matters_ much, given that it'll only let you
+read/execute stuff from files with valid ELF headers, but still.
 
