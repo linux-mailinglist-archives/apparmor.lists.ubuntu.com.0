@@ -2,33 +2,33 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B2E883D4B6
-	for <lists+apparmor@lfdr.de>; Fri, 26 Jan 2024 09:31:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5357383D4B5
+	for <lists+apparmor@lfdr.de>; Fri, 26 Jan 2024 09:31:02 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rTHbw-000599-Gb; Fri, 26 Jan 2024 08:30:52 +0000
-Received: from smtp-relay-services-0.internal ([10.131.114.58]
- helo=smtp-relay-services-0.canonical.com)
+	id 1rTHbn-000572-F4; Fri, 26 Jan 2024 08:30:44 +0000
+Received: from smtp-relay-services-1.internal ([10.131.114.214]
+ helo=smtp-relay-services-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <noreply@launchpad.net>)
- id 1rTHbj-00056e-5u
- for apparmor@lists.ubuntu.com; Fri, 26 Jan 2024 08:30:39 +0000
+ id 1rTHbZ-00056P-9K
+ for apparmor@lists.ubuntu.com; Fri, 26 Jan 2024 08:30:30 +0000
 Received: from juju-98d295-prod-launchpad-16.localdomain (scripts.lp.internal
  [10.131.215.246])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-services-0.canonical.com (Postfix) with ESMTPSA id BFFD142417
- for <apparmor@lists.ubuntu.com>; Fri, 26 Jan 2024 08:30:30 +0000 (UTC)
+ by smtp-relay-services-1.canonical.com (Postfix) with ESMTPSA id 01C6C3F3CA
+ for <apparmor@lists.ubuntu.com>; Fri, 26 Jan 2024 08:30:29 +0000 (UTC)
 Received: from [10.131.215.246] (localhost [127.0.0.1])
  by juju-98d295-prod-launchpad-16.localdomain (Postfix) with ESMTP id
- 2E1F07E02C
+ 887517E682
  for <apparmor@lists.ubuntu.com>; Fri, 26 Jan 2024 08:30:26 +0000 (UTC)
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 26 Jan 2024 08:18:51 -0000
+Date: Fri, 26 Jan 2024 08:22:58 -0000
 From: Maciej Borzecki <2049099@bugs.launchpad.net>
 To: apparmor@lists.ubuntu.com
 X-Launchpad-Notification-Type: bug
@@ -40,14 +40,14 @@ X-Launchpad-Bug-Commenters: maciek-borzecki marcoppenheimer
 X-Launchpad-Bug-Reporter: Marc Oppenheimer (marcoppenheimer)
 X-Launchpad-Bug-Modifier: Maciej Borzecki (maciek-borzecki)
 References: <170500315357.2951651.15872417683793394378.malonedeb@juju-98d295-prod-launchpad-4>
-Message-Id: <170625713113.829500.3826895460608179535.malone@juju-98d295-prod-launchpad-3>
+Message-Id: <170625737831.831820.17106465441006570635.malone@juju-98d295-prod-launchpad-3>
 X-Launchpad-Message-Rationale: Subscriber @apparmor-dev
 X-Launchpad-Message-For: apparmor-dev
 Precedence: bulk
 X-Generated-By: Launchpad (canonical.com);
  Revision="666c6bd52ccc7c38c7d6806b807b117caa7d8b6e";
  Instance="launchpad-scripts"
-X-Launchpad-Hash: c9d811f04423260319d31819d5bf0394da35133a
+X-Launchpad-Hash: 62fc9b5763a7be6016458606aaf9f423aa347392
 Subject: [apparmor] [Bug 2049099] Re: AppArmor blocking snap install nested
 	in LXD container
 X-BeenThere: apparmor@lists.ubuntu.com
@@ -64,63 +64,9 @@ Reply-To: Bug 2049099 <2049099@bugs.launchpad.net>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Indeed starting of lxd services inside the container failed for me:
-
-```
-$ snap change 1
-...
-Done    yesterday at 02:10 UTC  today at 08:03 UTC  Ensure prerequisites fo=
-r "lxd" are available
-Undone  yesterday at 02:10 UTC  today at 08:03 UTC  Prepare snap "/var/lib/=
-snapd/seed/snaps/lxd_24322.snap" (24322)
-Undone  yesterday at 02:10 UTC  today at 08:03 UTC  Mount snap "lxd" (24322)
-Error   yesterday at 02:10 UTC  today at 08:03 UTC  Copy snap "lxd" data
-Undone  yesterday at 02:10 UTC  today at 08:03 UTC  Setup snap "lxd" (24322=
-) security profiles
-..
-Undone  yesterday at 02:10 UTC  today at 08:03 UTC  Run default-configure h=
-ook of "lxd" snap if present
-Error   yesterday at 02:10 UTC  today at 08:03 UTC  Start snap "lxd" (24322=
-) services
-Hold    yesterday at 02:10 UTC  today at 08:03 UTC  Run configure hook of "=
-lxd" snap if present
-Hold    yesterday at 02:10 UTC  today at 08:03 UTC  Run health check of "lx=
-d" snap
-Done    yesterday at 02:10 UTC  today at 08:03 UTC  Mark system pre-seeded
-Hold    yesterday at 02:10 UTC  today at 08:03 UTC  Mark system seeded
-Undone  yesterday at 02:10 UTC  today at 08:03 UTC  Connect lxd:lxd-support=
- to snapd:lxd-support
-Undone  yesterday at 02:10 UTC  today at 08:03 UTC  Connect lxd:network to =
-snapd:network
-Undone  yesterday at 02:10 UTC  today at 08:03 UTC  Connect lxd:network-bin=
-d to snapd:network-bind
-Undone  yesterday at 02:10 UTC  today at 08:03 UTC  Connect lxd:system-obse=
-rve to snapd:system-observe
-Undone  yesterday at 02:10 UTC  today at 08:03 UTC  Setup snap "lxd" (24322=
-) security profiles for auto-connections
-
-......................................................................
-Make snap "snapd" (20671) available to the system
-
-2024-01-26T08:03:29Z INFO Requested daemon restart (snapd snap).
-
-......................................................................
-Copy snap "lxd" data
-
-2024-01-26T08:03:28Z ERROR unlinkat
-/var/snap/lxd/common/var/lib/lxcfs/proc/cpuinfo: function not
-implemented
-
-......................................................................
-Start snap "lxd" (24322) services
-
-2024-01-26T08:03:27Z ERROR systemctl command [start snap.lxd.activate.servi=
-ce] failed with exit status 1: stderr:
-Job for snap.lxd.activate.service failed because the control process exited=
- with error code.
-See "systemctl status snap.lxd.activate.service" and "journalctl -xeu snap.=
-lxd.activate.service" for details.
-```
+Another observation, I have another lxc container instance, this time
+it's ubuntu:24.04 which has been initialized properly and no issues so
+far were observed.
 
 --=20
 You received this bug notification because you are a member of AppArmor
