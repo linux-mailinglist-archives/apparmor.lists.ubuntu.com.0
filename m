@@ -2,33 +2,33 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A18783D4B4
-	for <lists+apparmor@lfdr.de>; Fri, 26 Jan 2024 09:31:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B2E883D4B6
+	for <lists+apparmor@lfdr.de>; Fri, 26 Jan 2024 09:31:11 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rTHbr-000583-O8; Fri, 26 Jan 2024 08:30:47 +0000
+	id 1rTHbw-000599-Gb; Fri, 26 Jan 2024 08:30:52 +0000
 Received: from smtp-relay-services-0.internal ([10.131.114.58]
  helo=smtp-relay-services-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <noreply@launchpad.net>)
- id 1rTHbe-00056R-Kl
- for apparmor@lists.ubuntu.com; Fri, 26 Jan 2024 08:30:36 +0000
+ id 1rTHbj-00056e-5u
+ for apparmor@lists.ubuntu.com; Fri, 26 Jan 2024 08:30:39 +0000
 Received: from juju-98d295-prod-launchpad-16.localdomain (scripts.lp.internal
  [10.131.215.246])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-services-0.canonical.com (Postfix) with ESMTPSA id 1651F422AA
- for <apparmor@lists.ubuntu.com>; Fri, 26 Jan 2024 08:30:29 +0000 (UTC)
+ by smtp-relay-services-0.canonical.com (Postfix) with ESMTPSA id BFFD142417
+ for <apparmor@lists.ubuntu.com>; Fri, 26 Jan 2024 08:30:30 +0000 (UTC)
 Received: from [10.131.215.246] (localhost [127.0.0.1])
  by juju-98d295-prod-launchpad-16.localdomain (Postfix) with ESMTP id
- D297C7E15F
- for <apparmor@lists.ubuntu.com>; Fri, 26 Jan 2024 08:30:25 +0000 (UTC)
+ 2E1F07E02C
+ for <apparmor@lists.ubuntu.com>; Fri, 26 Jan 2024 08:30:26 +0000 (UTC)
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 26 Jan 2024 08:16:02 -0000
+Date: Fri, 26 Jan 2024 08:18:51 -0000
 From: Maciej Borzecki <2049099@bugs.launchpad.net>
 To: apparmor@lists.ubuntu.com
 X-Launchpad-Notification-Type: bug
@@ -40,14 +40,14 @@ X-Launchpad-Bug-Commenters: maciek-borzecki marcoppenheimer
 X-Launchpad-Bug-Reporter: Marc Oppenheimer (marcoppenheimer)
 X-Launchpad-Bug-Modifier: Maciej Borzecki (maciek-borzecki)
 References: <170500315357.2951651.15872417683793394378.malonedeb@juju-98d295-prod-launchpad-4>
-Message-Id: <170625696206.916273.10042018932425493615.malone@juju-98d295-prod-launchpad-2>
+Message-Id: <170625713113.829500.3826895460608179535.malone@juju-98d295-prod-launchpad-3>
 X-Launchpad-Message-Rationale: Subscriber @apparmor-dev
 X-Launchpad-Message-For: apparmor-dev
 Precedence: bulk
 X-Generated-By: Launchpad (canonical.com);
  Revision="666c6bd52ccc7c38c7d6806b807b117caa7d8b6e";
  Instance="launchpad-scripts"
-X-Launchpad-Hash: 9ed96a0aebeeb254741874a01152500641eac9d0
+X-Launchpad-Hash: c9d811f04423260319d31819d5bf0394da35133a
 Subject: [apparmor] [Bug 2049099] Re: AppArmor blocking snap install nested
 	in LXD container
 X-BeenThere: apparmor@lists.ubuntu.com
@@ -64,84 +64,63 @@ Reply-To: Bug 2049099 <2049099@bugs.launchpad.net>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Also on Arch, for the record I see some of the denials even without
-installing anything under LXD, simply launching a container is enough:
+Indeed starting of lxd services inside the container failed for me:
 
-sty 26 09:03:27 galeon kernel: audit: type=3D1400 audit(1706256207.310:1706=
-): apparmor=3D"DENIED" operation=3D"file_inherit" class=3D"net" namespace=
-=3D"root//lxd-snapcraft_classic-meerkat_<var-snap-lxd-common-lxd>" profile=
-=3D"/snap/snapd/20671/usr/lib/snapd/snap-confine" pid=3D3225810 comm=3D"sna=
-p-confine" family=3D"netlink" sock_type=3D
-"raw" protocol=3D15 requested_mask=3D"send receive" denied_mask=3D"send rec=
-eive"                                                                      =
-                                                                           =
-                                                                           =
-                        =20
-sty 26 09:03:27 galeon kernel: audit: type=3D1400 audit(1706256207.320:1707=
-): apparmor=3D"DENIED" operation=3D"file_inherit" class=3D"file" namespace=
-=3D"root//lxd-snapcraft_classic-meerkat_<var-snap-lxd-common-lxd>" profile=
-=3D"snap-update-ns.lxd" name=3D"/apparmor/.null" pid=3D3225828 comm=3D"6" r=
-equested_mask=3D"wr" denied_mask=3D"wr" fsu
-id=3D1000000 ouid=3D0                                                      =
-                                                                           =
-                                                                           =
-                                                                           =
-                      =20
-sty 26 09:03:27 galeon kernel: audit: type=3D1400 audit(1706256207.457:1708=
-): apparmor=3D"DENIED" operation=3D"file_inherit" class=3D"file" namespace=
-=3D"root//lxd-snapcraft_classic-meerkat_<var-snap-lxd-common-lxd>" profile=
-=3D"snap.lxd.hook.install" name=3D"/apparmor/.null" pid=3D3225810 comm=3D"s=
-nap-exec" requested_mask=3D"wr" denied_ma
-sk=3D"wr" fsuid=3D1000000 ouid=3D0
-sty 26 09:03:27 galeon kernel: audit: type=3D1400 audit(1706256207.820:1709=
-): apparmor=3D"DENIED" operation=3D"file_inherit" class=3D"net" namespace=
-=3D"root//lxd-snapcraft_classic-meerkat_<var-snap-lxd-common-lxd>" profile=
-=3D"/snap/snapd/20671/usr/lib/snapd/snap-confine" pid=3D3225872 comm=3D"sna=
-p-confine" family=3D"unix" sock_type=3D"st
-ream" protocol=3D0 requested_mask=3D"send receive" denied_mask=3D"send rece=
-ive"
-sty 26 09:03:27 galeon kernel: audit: type=3D1400 audit(1706256207.820:1710=
-): apparmor=3D"DENIED" operation=3D"file_inherit" class=3D"net" namespace=
-=3D"root//lxd-snapcraft_classic-meerkat_<var-snap-lxd-common-lxd>" profile=
-=3D"/snap/snapd/20671/usr/lib/snapd/snap-confine" pid=3D3225872 comm=3D"sna=
-p-confine" family=3D"unix" sock_type=3D"st
-ream" protocol=3D0 requested_mask=3D"send receive" denied_mask=3D"send rece=
-ive"
-sty 26 09:03:27 galeon kernel: audit: type=3D1400 audit(1706256207.820:1711=
-): apparmor=3D"DENIED" operation=3D"file_inherit" class=3D"file" namespace=
-=3D"root//lxd-snapcraft_classic-meerkat_<var-snap-lxd-common-lxd>" profile=
-=3D"snap.lxd.activate" name=3D"/apparmor/.null" pid=3D3225872 comm=3D"snap-=
-exec" requested_mask=3D"wr" denied_mask=3D"
-wr" fsuid=3D1000000 ouid=3D0
-sty 26 09:03:27 galeon kernel: audit: type=3D1400 audit(1706256207.820:1712=
-): apparmor=3D"DENIED" operation=3D"file_inherit" class=3D"file" namespace=
-=3D"root//lxd-snapcraft_classic-meerkat_<var-snap-lxd-common-lxd>" profile=
-=3D"snap.lxd.activate" name=3D"/apparmor/.null" pid=3D3225872 comm=3D"snap-=
-exec" requested_mask=3D"wr" denied_mask=3D"
-wr" fsuid=3D1000000 ouid=3D0
-sty 26 09:03:27 galeon kernel: audit: type=3D1400 audit(1706256207.830:1713=
-): apparmor=3D"DENIED" operation=3D"file_inherit" class=3D"file" namespace=
-=3D"root//lxd-snapcraft_classic-meerkat_<var-snap-lxd-common-lxd>" profile=
-=3D"/snap/snapd/20671/usr/lib/snapd/snap-confine" name=3D"/apparmor/.null" =
-pid=3D3225872 comm=3D"aa-exec" requeste
-d_mask=3D"wr" denied_mask=3D"wr" fsuid=3D1000000 ouid=3D0
-sty 26 09:03:27 galeon kernel: audit: type=3D1400 audit(1706256207.830:1714=
-): apparmor=3D"DENIED" operation=3D"file_inherit" class=3D"file" namespace=
-=3D"root//lxd-snapcraft_classic-meerkat_<var-snap-lxd-common-lxd>" profile=
-=3D"/snap/snapd/20671/usr/lib/snapd/snap-confine" name=3D"/apparmor/.null" =
-pid=3D3225872 comm=3D"aa-exec" requeste
-d_mask=3D"wr" denied_mask=3D"wr" fsuid=3D1000000 ouid=3D0
-sty 26 09:03:28 galeon kernel: audit: type=3D1400 audit(1706256208.027:1715=
-): apparmor=3D"STATUS" operation=3D"profile_replace" info=3D"same as curren=
-t profile, skipping" label=3D"lxd-snapcraft_classic-meerkat_</var/snap/lxd/=
-common/lxd>//&:lxd-snapcraft_classic-meerkat_<var-snap-lxd-common-lxd>:unco=
-nfined" name=3D"/snap/snapd/206
-71/usr/lib/snapd/snap-confine" pid=3D3225947 comm=3D"apparmor_parser"
+```
+$ snap change 1
+...
+Done    yesterday at 02:10 UTC  today at 08:03 UTC  Ensure prerequisites fo=
+r "lxd" are available
+Undone  yesterday at 02:10 UTC  today at 08:03 UTC  Prepare snap "/var/lib/=
+snapd/seed/snaps/lxd_24322.snap" (24322)
+Undone  yesterday at 02:10 UTC  today at 08:03 UTC  Mount snap "lxd" (24322)
+Error   yesterday at 02:10 UTC  today at 08:03 UTC  Copy snap "lxd" data
+Undone  yesterday at 02:10 UTC  today at 08:03 UTC  Setup snap "lxd" (24322=
+) security profiles
+..
+Undone  yesterday at 02:10 UTC  today at 08:03 UTC  Run default-configure h=
+ook of "lxd" snap if present
+Error   yesterday at 02:10 UTC  today at 08:03 UTC  Start snap "lxd" (24322=
+) services
+Hold    yesterday at 02:10 UTC  today at 08:03 UTC  Run configure hook of "=
+lxd" snap if present
+Hold    yesterday at 02:10 UTC  today at 08:03 UTC  Run health check of "lx=
+d" snap
+Done    yesterday at 02:10 UTC  today at 08:03 UTC  Mark system pre-seeded
+Hold    yesterday at 02:10 UTC  today at 08:03 UTC  Mark system seeded
+Undone  yesterday at 02:10 UTC  today at 08:03 UTC  Connect lxd:lxd-support=
+ to snapd:lxd-support
+Undone  yesterday at 02:10 UTC  today at 08:03 UTC  Connect lxd:network to =
+snapd:network
+Undone  yesterday at 02:10 UTC  today at 08:03 UTC  Connect lxd:network-bin=
+d to snapd:network-bind
+Undone  yesterday at 02:10 UTC  today at 08:03 UTC  Connect lxd:system-obse=
+rve to snapd:system-observe
+Undone  yesterday at 02:10 UTC  today at 08:03 UTC  Setup snap "lxd" (24322=
+) security profiles for auto-connections
 
-Looking at the apparmor namespace, I'd say this is triggered by
-processes executing already inside the container. AFAIU the image (say
-ubuntu:22.04) contains a seed which installs lxd inside and so there may
-be hooks and services of lxd being run inside the container.
+......................................................................
+Make snap "snapd" (20671) available to the system
+
+2024-01-26T08:03:29Z INFO Requested daemon restart (snapd snap).
+
+......................................................................
+Copy snap "lxd" data
+
+2024-01-26T08:03:28Z ERROR unlinkat
+/var/snap/lxd/common/var/lib/lxcfs/proc/cpuinfo: function not
+implemented
+
+......................................................................
+Start snap "lxd" (24322) services
+
+2024-01-26T08:03:27Z ERROR systemctl command [start snap.lxd.activate.servi=
+ce] failed with exit status 1: stderr:
+Job for snap.lxd.activate.service failed because the control process exited=
+ with error code.
+See "systemctl status snap.lxd.activate.service" and "journalctl -xeu snap.=
+lxd.activate.service" for details.
+```
 
 --=20
 You received this bug notification because you are a member of AppArmor
