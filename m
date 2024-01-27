@@ -2,36 +2,32 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D7CF83EB1C
-	for <lists+apparmor@lfdr.de>; Sat, 27 Jan 2024 05:54:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8976A83EC0A
+	for <lists+apparmor@lfdr.de>; Sat, 27 Jan 2024 09:31:19 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rTahm-0008Sy-At; Sat, 27 Jan 2024 04:54:10 +0000
+	id 1rTe5k-0002ln-1V; Sat, 27 Jan 2024 08:31:08 +0000
 Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
  helo=smtp-relay-canonical-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1rTahi-0008Sp-Ew
- for apparmor@lists.ubuntu.com; Sat, 27 Jan 2024 04:54:06 +0000
+ id 1rTe5e-0002lb-JG
+ for apparmor@lists.ubuntu.com; Sat, 27 Jan 2024 08:31:02 +0000
 Received: from [192.168.192.85] (unknown [50.39.103.33])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id D151B3FE86; 
- Sat, 27 Jan 2024 04:54:00 +0000 (UTC)
-Message-ID: <4bb5dd09-9e09-477b-9ea8-d7b9d2fb4760@canonical.com>
-Date: Fri, 26 Jan 2024 20:53:58 -0800
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id DE3013FE92
+ for <apparmor@lists.ubuntu.com>; Sat, 27 Jan 2024 08:31:01 +0000 (UTC)
+Message-ID: <0bc10795-335b-4156-9cd0-c8d294fa66b3@canonical.com>
+Date: Sat, 27 Jan 2024 00:30:59 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-To: =?UTF-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>,
- Kees Cook <keescook@chromium.org>
-References: <20240124192228.work.788-kees@kernel.org>
- <CAG48ez017tTwxXbxdZ4joVDv5i8FLWEjk=K_z1Vf=pf0v1=cTg@mail.gmail.com>
- <202401241206.031E2C75B@keescook>
- <CAHk-=wiUwRG7LuR=z5sbkFVGQh+7qVB6_1NM0Ny9SVNL1Un4Sw@mail.gmail.com>
- <202401241310.0A158998@keescook> <20240125.bais0ieKahz7@digikod.net>
+To: apparmor@lists.ubuntu.com
+References: <20130206233135.28570.36525.malonedeb@soybean.canonical.com>
+ <170420351872.3057163.6330425444406965422.malone@juju-98d295-prod-launchpad-2>
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
  xsFNBE5mrPoBEADAk19PsgVgBKkImmR2isPQ6o7KJhTTKjJdwVbkWSnNn+o6Up5knKP1f49E
@@ -76,11 +72,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20240125.bais0ieKahz7@digikod.net>
+In-Reply-To: <170420351872.3057163.6330425444406965422.malone@juju-98d295-prod-launchpad-2>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [apparmor] [PATCH] exec: Check __FMODE_EXEC instead of
-	in_execve for LSMs
+Content-Transfer-Encoding: 7bit
+Subject: Re: [apparmor] [Bug 1117804] Re: ausearch doesn't show AppArmor
+ denial messages
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -92,116 +88,28 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Christian Brauner <brauner@kernel.org>,
- Eric Biederman <ebiederm@xmission.com>, Jan Kara <jack@suse.cz>,
- Paul Moore <paul@paul-moore.com>, Jann Horn <jannh@google.com>,
- Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, apparmor@lists.ubuntu.com,
- James Morris <jmorris@namei.org>, Josh Triplett <josh@joshtriplett.org>,
- linux-mm@kvack.org, linux-security-module@vger.kernel.org,
- linux-hardening@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>,
- linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- Kentaro Takeda <takedakn@nttdata.co.jp>, Kevin Locke <kevin@kevinlocke.name>,
- linux-kernel@vger.kernel.org, "Serge E. Hallyn" <serge@hallyn.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 1/25/24 08:38, Mickaël Salaün wrote:
-> On Wed, Jan 24, 2024 at 01:32:02PM -0800, Kees Cook wrote:
->> On Wed, Jan 24, 2024 at 12:47:34PM -0800, Linus Torvalds wrote:
->>> On Wed, 24 Jan 2024 at 12:15, Kees Cook <keescook@chromium.org> wrote:
->>>>
->>>> Hmpf, and frustratingly Ubuntu (and Debian) still builds with
->>>> CONFIG_USELIB, even though it was reported[2] to them almost 4 years ago.
->>
->> For completeness, Fedora hasn't had CONFIG_USELIB for a while now.
->>
->>> Well, we could just remove the __FMODE_EXEC from uselib.
->>>
->>> It's kind of wrong anyway.
->>
->> Yeah.
->>
->>> So I think just removing __FMODE_EXEC would just do the
->>> RightThing(tm), and changes nothing for any sane situation.
->>
->> Agreed about these:
->>
->> - fs/fcntl.c is just doing a bitfield sanity check.
->>
->> - nfs_open_permission_mask(), as you say, is only checking for
->>    unreadable case.
->>
->> - fsnotify would also see uselib() as a read, but afaict,
->>    that's what it would see for an mmap(), so this should
->>    be functionally safe.
->>
->> This one, though, I need some more time to examine:
->>
->> - AppArmor, TOMOYO, and LandLock will see uselib() as an
->>    open-for-read, so that might still be a problem? As you
->>    say, it's more of a mmap() call, but that would mean
->>    adding something a call like security_mmap_file() into
->>    uselib()...
-> 
-> If user space can emulate uselib() without opening a file with
-> __FMODE_EXEC, then there is no security reason to keep __FMODE_EXEC for
-> uselib().
-> 
-agreed
-
-> Removing __FMODE_EXEC from uselib() looks OK for Landlock.  We use
-> __FMODE_EXEC to infer if a file is being open for execution i.e., by
-> execve(2).
+On 1/2/24 05:51, Jarkko Toivonen wrote:
+> Any news on this? It has been open for over ten years now. AppArmor is
+> on by default on Ubuntu, and if auditd is used, then the events are
+> logged using it. Isn't it a security bug if the events don't show up
+> when queried using ausearch?
 > 
 
-apparmor the hint should be to avoid doing permission work again that we
-are doing in exec. That it regressed anything more than performance here
-is a bug, that will get fixed.
+Yes it can be considered a security bug, but the messages are available
+and can be found, so the priority has been lower than other work. The
+issue isn't entirely straight forward, and there was work towards fixing
+this a few years ago, but it didn't go any where.
+The issue itself was introduced when apparmor was switched over from
+an audit ID of 1500 to 1400 which is the AVC message out of the common
+LSM audit infrastructure.
 
+I would love for this to be fixed, but I haven't been able to get to it,
+and no one else has either. It is not something that I will be able to
+get to soon either, but I will make an effort to review patches if they
+show up.
 
-> If __FMODE_EXEC is removed from uselib(), I think it should also be
-> backported to all stable kernels for consistency though.
-> 
-hrmmm, I am not opposed to it being backported but I don't know that
-it should be backported. Consistency is good but its not a serious
-bug fix either
-
-> 
->>
->> The issue isn't an insane "support uselib() under AppArmor" case, but
->> rather "Can uselib() be used to bypass exec/mmap checks?"
->>
->> This totally untested patch might give appropriate coverage:
->>
->> diff --git a/fs/exec.c b/fs/exec.c
->> index d179abb78a1c..0c9265312c8d 100644
->> --- a/fs/exec.c
->> +++ b/fs/exec.c
->> @@ -143,6 +143,10 @@ SYSCALL_DEFINE1(uselib, const char __user *, library)
->>   	if (IS_ERR(file))
->>   		goto out;
->>   
->> +	error = security_mmap_file(file, PROT_READ | PROT_EXEC, MAP_FIXED | MAP_SHARED);
->> +	if (error)
->> +		goto exit;
->> +
->>   	/*
->>   	 * may_open() has already checked for this, so it should be
->>   	 * impossible to trip now. But we need to be extra cautious
->>
->>> Of course, as you say, not having CONFIG_USELIB enabled at all is the
->>> _truly_ sane thing, but the only thing that used the FMODE_EXEC bit
->>> were landlock and some special-case nfs stuff.
->>
->> Do we want to attempt deprecation again? This was suggested last time:
->> https://lore.kernel.org/lkml/20200518130251.zih2s32q2rxhxg6f@wittgenstein/
->>
->> -Kees
->>
->> -- 
->> Kees Cook
->>
 
 
