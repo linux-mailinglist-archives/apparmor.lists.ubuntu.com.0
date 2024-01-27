@@ -2,32 +2,42 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8976A83EC0A
-	for <lists+apparmor@lfdr.de>; Sat, 27 Jan 2024 09:31:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3ADA83F07E
+	for <lists+apparmor@lfdr.de>; Sat, 27 Jan 2024 23:09:22 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rTe5k-0002ln-1V; Sat, 27 Jan 2024 08:31:08 +0000
-Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
- helo=smtp-relay-canonical-1.canonical.com)
+	id 1rTqrP-0005iN-2g; Sat, 27 Jan 2024 22:09:11 +0000
+Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
+ helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1rTe5e-0002lb-JG
- for apparmor@lists.ubuntu.com; Sat, 27 Jan 2024 08:31:02 +0000
+ id 1rTqrL-0005iD-No
+ for apparmor@lists.ubuntu.com; Sat, 27 Jan 2024 22:09:07 +0000
 Received: from [192.168.192.85] (unknown [50.39.103.33])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id DE3013FE92
- for <apparmor@lists.ubuntu.com>; Sat, 27 Jan 2024 08:31:01 +0000 (UTC)
-Message-ID: <0bc10795-335b-4156-9cd0-c8d294fa66b3@canonical.com>
-Date: Sat, 27 Jan 2024 00:30:59 -0800
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id D63DD3F27C; 
+ Sat, 27 Jan 2024 22:09:05 +0000 (UTC)
+Message-ID: <54357df6-693d-4575-acf7-d95680b6358e@canonical.com>
+Date: Sat, 27 Jan 2024 14:09:03 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-To: apparmor@lists.ubuntu.com
-References: <20130206233135.28570.36525.malonedeb@soybean.canonical.com>
- <170420351872.3057163.6330425444406965422.malone@juju-98d295-prod-launchpad-2>
+To: Salvatore Bonaccorso <carnil@debian.org>,
+ Mathias Gibbens <gibmat@debian.org>, 1050256@bugs.debian.org,
+ John Johansen <john@apparmor.net>
+References: <da160344-8135-4eab-9261-bb1552238ad3@debian.org>
+ <8f68c83b-1856-4fa2-8408-06ae36696698@debian.org>
+ <8f68c83b-1856-4fa2-8408-06ae36696698@debian.org>
+ <169271330498.34427.2191706613553030083.reportbug@pluto.milchstrasse.xx>
+ <38461b24-1b42-45f7-98d6-e6e353c0d203@debian.org>
+ <169271330498.34427.2191706613553030083.reportbug@pluto.milchstrasse.xx>
+ <ZXDsAecCKiSuHsO2@eldamar.lan> <ZZA69zQAzpzPojD5@eldamar.lan>
+ <169271330498.34427.2191706613553030083.reportbug@pluto.milchstrasse.xx>
+ <9d6a5b2368016e2ef7b11c64b7c9db69419318ec.camel@debian.org>
+ <ZbTLCN8zi8xZ4KsG@eldamar.lan>
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
  xsFNBE5mrPoBEADAk19PsgVgBKkImmR2isPQ6o7KJhTTKjJdwVbkWSnNn+o6Up5knKP1f49E
@@ -72,11 +82,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <170420351872.3057163.6330425444406965422.malone@juju-98d295-prod-launchpad-2>
+In-Reply-To: <ZbTLCN8zi8xZ4KsG@eldamar.lan>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [Bug 1117804] Re: ausearch doesn't show AppArmor
- denial messages
+Content-Transfer-Encoding: 8bit
+Subject: Re: [apparmor] Bug#1050256: AppArmor breaks locking non-fs Unix
+	sockets
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -88,28 +98,64 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: pkg-systemd-maintainers <pkg-systemd-maintainers@lists.alioth.debian.org>,
+ apparmor@lists.ubuntu.com, Antonio Terceiro <terceiro@debian.org>,
+ Harald Dunkel <harri@afaics.de>, Paul Gevers <elbrus@debian.org>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 1/2/24 05:51, Jarkko Toivonen wrote:
-> Any news on this? It has been open for over ten years now. AppArmor is
-> on by default on Ubuntu, and if auditd is used, then the events are
-> logged using it. Isn't it a security bug if the events don't show up
-> when queried using ausearch?
+On 1/27/24 01:21, Salvatore Bonaccorso wrote:
+> Hi John,
 > 
-
-Yes it can be considered a security bug, but the messages are available
-and can be found, so the priority has been lower than other work. The
-issue isn't entirely straight forward, and there was work towards fixing
-this a few years ago, but it didn't go any where.
-The issue itself was introduced when apparmor was switched over from
-an audit ID of 1500 to 1400 which is the AVC message out of the common
-LSM audit infrastructure.
-
-I would love for this to be fixed, but I haven't been able to get to it,
-and no one else has either. It is not something that I will be able to
-get to soon either, but I will make an effort to review patches if they
-show up.
-
+> On Sun, Dec 31, 2023 at 04:24:47AM +0000, Mathias Gibbens wrote:
+>> On Sat, 2023-12-30 at 16:44 +0100, Salvatore Bonaccorso wrote:
+>>> John, did you had a chance to work on this backport for 6.1.y stable
+>>> upstream so we could pick it downstream in Debian in one of the next
+>>> stable imports? Cherry-picking 1cf26c3d2c4c ("apparmor: fix apparmor
+>>> mediating locking non-fs unix sockets") does not work, if not
+>>> havinging the work around e2967ede2297 ("apparmor: compute policydb
+>>> permission on profile load") AFAICS, so that needs a 6.1.y specific
+>>> backport submitted to stable@vger.kernel.org ?
+>>>
+>>> I think we could have people from this bug as well providing a
+>>> Tested-by when necessary. I'm not feeling confident enough to be able
+>>> to provide myself such a patch to sent to stable (and you only giving
+>>> an Acked-by/Reviewed-by), so if you can help out here with your
+>>> upstream hat on that would be more than appreciated and welcome :)
+>>>
+>>> Thanks a lot for your work!
+>>
+>>    I played around with this a bit the past week as well, and came to
+>> the same conclusion as Salvatore did that commits e2967ede2297 and
+>> 1cf26c3d2c4c need to be cherry-picked back to the 6.1 stable tree.
+>>
+>>    I've attached the two commits rebased onto 6.1.y as patches to this
+>> message. Commit e2967ede2297 needed a little bit of touchup to apply
+>> cleanly, and 1cf26c3d2c4c just needed adjustments for line number
+>> changes. I included some comments at the top of each patch.
+>>
+>>    With these two commits cherry-picked on top of the 6.1.69 kernel, I
+>> can boot a bookworm system and successfully start a service within a
+>> container that utilizes `PrivateNetwork=yes`. Rebooting back into an
+>> unpatched vanilla 6.1.69 kernel continues to show the problem.
+>>
+>>    While I didn't see any immediate issues (ie, `aa-status` and log
+>> files looked OK), I don't understand the changes in the first commit
+>> well enough to be confident in sending these patches for inclusion in
+>> the upstream stable tree on my own.
+> 
+> Do you had a chance to look at this for 6.1.y upstream?
+> 
+> Asking/Poking since the point release dates are now clear:
+> 
+> https://lists.debian.org/debian-security/2024/01/msg00005.html
+> 
+> if possible I would like to include those fixes, but only if they are
+> at least queued fror 6.1.y itself to not diverge from upstream.
+> 
+> Otherwise we will wait another round, but which means usually 2 months
+> for the point release cadence.
+> 
+I am looking at it right now, I should be done with it today
 
 
