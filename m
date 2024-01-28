@@ -2,56 +2,72 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78FA283F4B5
-	for <lists+apparmor@lfdr.de>; Sun, 28 Jan 2024 10:05:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86F3F83F50D
+	for <lists+apparmor@lfdr.de>; Sun, 28 Jan 2024 11:49:11 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rU16e-0002vD-2X; Sun, 28 Jan 2024 09:05:36 +0000
-Received: from smtp-relay-services-0.internal ([10.131.114.58]
- helo=smtp-relay-services-0.canonical.com)
+	id 1rU2iZ-0003FA-Q2; Sun, 28 Jan 2024 10:48:52 +0000
+Received: from mail-wr1-f45.google.com ([209.85.221.45])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <noreply@launchpad.net>)
- id 1rU16N-0002ur-FV
- for apparmor@lists.ubuntu.com; Sun, 28 Jan 2024 09:05:19 +0000
-Received: from juju-98d295-prod-launchpad-16.localdomain (scripts.lp.internal
- [10.131.215.246])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-services-0.canonical.com (Postfix) with ESMTPSA id E453F3F8B4
- for <apparmor@lists.ubuntu.com>; Sun, 28 Jan 2024 09:05:18 +0000 (UTC)
-Received: from [10.131.215.246] (localhost [127.0.0.1])
- by juju-98d295-prod-launchpad-16.localdomain (Postfix) with ESMTP id
- DA9537E161
- for <apparmor@lists.ubuntu.com>; Sun, 28 Jan 2024 09:05:17 +0000 (UTC)
+ (Exim 4.86_2) (envelope-from <salvatore.bonaccorso@gmail.com>)
+ id 1rU1uV-0007Bu-5q
+ for apparmor@lists.ubuntu.com; Sun, 28 Jan 2024 09:57:07 +0000
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-33ae3154cf8so796783f8f.3
+ for <apparmor@lists.ubuntu.com>; Sun, 28 Jan 2024 01:57:06 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1706435826; x=1707040626;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:date:from
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=2Ud8TZcBqh93/4qPkrsJV4VlusZyuhk6bb71FqjjLrk=;
+ b=H6UtJwK4zbFzEYQbJnC2m6biaKLrUkn1tGH11EsGGwXki/gKHo1dJfu4honpCH//zb
+ JaPaQFfv6LxrJYt2zI2Wq9pyPAQXIXgjlH6z8otGHLCcubIIl2HgaAyvCokiqUZhOAL5
+ wrsQQy3PA9SxxR08XyvqqdOBqTx7xpsNWXdL27sItm8POebdyhDZcMxdVvz1chHqO9dK
+ X8KHtliBBktcvQ/5p1EGqSiE+kPJv5/De+H8zYUjwa2/dpeZeWCLvAcGqzUW57rXVOna
+ oRf94MDNLw9iGaLA6xn1kJdAd6L3WkKzk6xQiI12kNX0U6/OFHOZv+OyiABuqUKWI1Lb
+ iPrw==
+X-Gm-Message-State: AOJu0YxsQSzFdnWNcLmtwYK41nW4+ONWO/YV+u07Uoh5+LZKnn2YRBVQ
+ KxXCLcJXL6RPNvl+oaKqoCAXA8tIz3RxAWlrQ0lE2IasZjrCqld7
+X-Google-Smtp-Source: AGHT+IHVx2SbunG+twXTLDTGR+3jmVaYt5le4qQRxshJPYE92knfjMYJcEgZfYipdddqil7MCNXP7Q==
+X-Received: by 2002:adf:f607:0:b0:33a:ea33:641d with SMTP id
+ t7-20020adff607000000b0033aea33641dmr773437wrp.4.1706435826333; 
+ Sun, 28 Jan 2024 01:57:06 -0800 (PST)
+Received: from eldamar.lan (c-82-192-242-114.customer.ggaweb.ch.
+ [82.192.242.114]) by smtp.gmail.com with ESMTPSA id
+ bo17-20020a056000069100b0033930068ca8sm5282962wrb.21.2024.01.28.01.57.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 28 Jan 2024 01:57:04 -0800 (PST)
+From: Salvatore Bonaccorso <salvatore.bonaccorso@gmail.com>
+X-Google-Original-From: Salvatore Bonaccorso <salvi@eldamar.lan>
+Received: by eldamar.lan (Postfix, from userid 1000)
+ id B1F06BE2DE0; Sun, 28 Jan 2024 10:57:03 +0100 (CET)
+Date: Sun, 28 Jan 2024 10:57:03 +0100
+To: John Johansen <john.johansen@canonical.com>
+Message-ID: <ZbYk7yOaAq0O8Rid@eldamar.lan>
+References: <da160344-8135-4eab-9261-bb1552238ad3@debian.org>
+ <8f68c83b-1856-4fa2-8408-06ae36696698@debian.org>
+ <8f68c83b-1856-4fa2-8408-06ae36696698@debian.org>
+ <169271330498.34427.2191706613553030083.reportbug@pluto.milchstrasse.xx>
+ <38461b24-1b42-45f7-98d6-e6e353c0d203@debian.org>
+ <169271330498.34427.2191706613553030083.reportbug@pluto.milchstrasse.xx>
+ <ZXDsAecCKiSuHsO2@eldamar.lan> <ZZA69zQAzpzPojD5@eldamar.lan>
+ <9d6a5b2368016e2ef7b11c64b7c9db69419318ec.camel@debian.org>
+ <b8bb1a0e-9b50-4f78-8473-4f0151677f25@canonical.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 28 Jan 2024 08:58:26 -0000
-From: John Johansen <2049099@bugs.launchpad.net>
-To: apparmor@lists.ubuntu.com
-X-Launchpad-Notification-Type: bug
-X-Launchpad-Bug: product=snapd; status=New; importance=Undecided; assignee=None;
-X-Launchpad-Bug-Information-Type: Public
-X-Launchpad-Bug-Private: no
-X-Launchpad-Bug-Security-Vulnerability: no
-X-Launchpad-Bug-Commenters: jjohansen maciek-borzecki marcoppenheimer
-X-Launchpad-Bug-Reporter: Marc Oppenheimer (marcoppenheimer)
-X-Launchpad-Bug-Modifier: John Johansen (jjohansen)
-References: <170500315357.2951651.15872417683793394378.malonedeb@juju-98d295-prod-launchpad-4>
-Message-Id: <170643230621.3361517.2534941970807024642.malone@juju-98d295-prod-launchpad-2>
-X-Launchpad-Message-Rationale: Subscriber @apparmor-dev
-X-Launchpad-Message-For: apparmor-dev
-Precedence: bulk
-X-Generated-By: Launchpad (canonical.com);
- Revision="666c6bd52ccc7c38c7d6806b807b117caa7d8b6e";
- Instance="launchpad-scripts"
-X-Launchpad-Hash: 12cfbb3c955031e055bd3a03fbccb2650038d264
-Subject: [apparmor] [Bug 2049099] Re: AppArmor blocking snap install nested
-	in LXD container
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <b8bb1a0e-9b50-4f78-8473-4f0151677f25@canonical.com>
+Received-SPF: pass client-ip=209.85.221.45;
+ envelope-from=salvatore.bonaccorso@gmail.com; helo=mail-wr1-f45.google.com
+X-Mailman-Approved-At: Sun, 28 Jan 2024 10:48:45 +0000
+Subject: Re: [apparmor] Bug#1050256: AppArmor breaks locking non-fs Unix
+	sockets
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
+Precedence: list
 List-Id: AppArmor discussion <apparmor.lists.ubuntu.com>
 List-Unsubscribe: <https://lists.ubuntu.com/mailman/options/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=unsubscribe>
@@ -60,582 +76,91 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Reply-To: Bug 2049099 <2049099@bugs.launchpad.net>
+Cc: Harald Dunkel <harri@afaics.de>, John Johansen <john@apparmor.net>,
+ Mathias Gibbens <gibmat@debian.org>, apparmor@lists.ubuntu.com,
+ Antonio Terceiro <terceiro@debian.org>, Paul Gevers <elbrus@debian.org>,
+ pkg-systemd-maintainers <pkg-systemd-maintainers@lists.alioth.debian.org>,
+ 1050256@bugs.debian.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-So this is a tough one. The denied messages are due to a difference in
-running the application in the container vs. running it on a host.
+Hi John,
 
-Certain files are being passed into the container from a separate
-namespace and the profile is not setup to deal with this. Unfortunately
-this is not currently handled well, there is work to improve both
-mapping and delegation around this but atm the only solution at this
-point is for the snap profile to be given the permissions necessary to
-work under both environments. Despite LXD setting up an apparmor policy
-namespace the container environment is not entirely transparent to the
-apparmor policy within the container.
+On Sun, Jan 28, 2024 at 12:43:33AM -0800, John Johansen wrote:
+> On 12/30/23 20:24, Mathias Gibbens wrote:
+> > On Sat, 2023-12-30 at 16:44 +0100, Salvatore Bonaccorso wrote:
+> > > John, did you had a chance to work on this backport for 6.1.y stable
+> > > upstream so we could pick it downstream in Debian in one of the next
+> > > stable imports? Cherry-picking 1cf26c3d2c4c ("apparmor: fix apparmor
+> > > mediating locking non-fs unix sockets") does not work, if not
+> > > havinging the work around e2967ede2297 ("apparmor: compute policydb
+> > > permission on profile load") AFAICS, so that needs a 6.1.y specific
+> > > backport submitted to stable@vger.kernel.org ?
+> > > 
+> > > I think we could have people from this bug as well providing a
+> > > Tested-by when necessary. I'm not feeling confident enough to be able
+> > > to provide myself such a patch to sent to stable (and you only giving
+> > > an Acked-by/Reviewed-by), so if you can help out here with your
+> > > upstream hat on that would be more than appreciated and welcome :)
+> > > 
+> > > Thanks a lot for your work!
+> > 
+> >    I played around with this a bit the past week as well, and came to
+> > the same conclusion as Salvatore did that commits e2967ede2297 and
+> > 1cf26c3d2c4c need to be cherry-picked back to the 6.1 stable tree.
+> > 
+> >    I've attached the two commits rebased onto 6.1.y as patches to this
+> > message. Commit e2967ede2297 needed a little bit of touchup to apply
+> > cleanly, and 1cf26c3d2c4c just needed adjustments for line number
+> > changes. I included some comments at the top of each patch.
+> > 
+> >    With these two commits cherry-picked on top of the 6.1.69 kernel, I
+> > can boot a bookworm system and successfully start a service within a
+> > container that utilizes `PrivateNetwork=yes`. Rebooting back into an
+> > unpatched vanilla 6.1.69 kernel continues to show the problem.
+> > 
+> >    While I didn't see any immediate issues (ie, `aa-status` and log
+> > files looked OK), I don't understand the changes in the first commit
+> > well enough to be confident in sending these patches for inclusion in
+> > the upstream stable tree on my own.
+> > 
+> > Mathias
+> 
+> Your backports look good to me, and you can stick my acked-by on them.
+> The changes are strictly more than necessary for the fix. They are
+> part of a larger change set that is trying to cleanup the runtime
+> code by changing the permission mapping from a runtime operation
+> to something that is done only at policy load/unpack time.
+> 
+> The advantage of this approach is that while it is a larger change
+> than strictly necessary. It is backporting patches that are already
+> upstream, keep the code closer and making backports easier.
+> 
+> Georgia did a minimal backport fix by keeping the version as part
+> of policy and doing the permission mapping at runtime. I have
+> included that patch below. Its advantage is it is a minimal
+> change to fix the issue.
+> 
+> I am happy with either version going into stable. Do you want to
+> send them or do you want me to do it?
+> 
+> Acked-by: John Johansen <john.johansen@canonical.com>
 
-So without having looked at 24.04 my guess is that either LXD changed
-something in the environment setup or that snap's profile has been
-updated.
+Thanks a lot, that is *really* much appreicated!
 
---=20
-You received this bug notification because you are a member of AppArmor
-Developers, which is subscribed to the bug report.
-https://bugs.launchpad.net/bugs/2049099
+if you can send them that would be great, because think then they come
+directly from you, the trust from Greg or Sasha is higher. otherwise I
+think they will then explicitly want an ack on that submission thread
+from you (or pointing to this Debian downstream bug).
 
-Title:
-  AppArmor blocking snap install nested in LXD container
+Greg will probably want the backport apporach of the two commits if it
+feasible and we do not expect regression from it. But you are
+definitively in a better position to judge this :)
 
-Status in snapd:
-  New
+Thanks again!
 
-Bug description:
-  ##### Context
-  I'm on a non-Ubuntu OS (Arch), trying to use Juju on LXD. In doing so, Ju=
-ju uses a snap inside an LXD container, and so needs the system to support =
-nested AppArmor profiles. `juju-db` is the snap in question, if that helps.
+Regards,
+Salvatore
 
-  ##### Issue
-  When I try to do this, I get a bunch of AppArmor violations, that go way =
-over my head. It's not clear to me what is causing these, but I **suspect**=
- that Ubuntu patches some host-system AppArmor profiles to support this use=
--case, that isn't replicated on other OSs? Not sure, and I don't know who t=
-o ask or where to look.
-
-  If any additional information is needed I'd be more than happy to
-  provide.
-
-  ###### `snappy-debug` journalctl logs
-  [  411.702391] loop11: detected capacity change from 0 to 33408
-  [  411.882088] audit: type=3D1400 audit(1704822630.613:257): apparmor=3D"=
-STATUS" operation=3D"profile_load" profile=3D"unconfined" name=3D"snap-upda=
-te-ns.snappy-debug" pid=3D8545 comm=3D"apparmor_parser"
-  [  411.927376] audit: type=3D1400 audit(1704822630.659:258): apparmor=3D"=
-STATUS" operation=3D"profile_load" profile=3D"unconfined" name=3D"snap.snap=
-py-debug.scanlog" pid=3D8548 comm=3D"apparmor_parser"
-  [  411.927408] audit: type=3D1400 audit(1704822630.659:259): apparmor=3D"=
-STATUS" operation=3D"profile_load" profile=3D"unconfined" name=3D"snap.snap=
-py-debug.audit-arch" pid=3D8546 comm=3D"apparmor_parser"
-  [  411.927511] audit: type=3D1400 audit(1704822630.659:260): apparmor=3D"=
-STATUS" operation=3D"profile_load" profile=3D"unconfined" name=3D"snap.snap=
-py-debug.security" pid=3D8550 comm=3D"apparmor_parser"
-  [  411.927592] audit: type=3D1400 audit(1704822630.659:261): apparmor=3D"=
-STATUS" operation=3D"profile_load" profile=3D"unconfined" name=3D"snap.snap=
-py-debug.snappy-debug" pid=3D8551 comm=3D"apparmor_parser"
-  [  411.927637] audit: type=3D1400 audit(1704822630.659:262): apparmor=3D"=
-STATUS" operation=3D"profile_load" profile=3D"unconfined" name=3D"snap.snap=
-py-debug.id-range" pid=3D8547 comm=3D"apparmor_parser"
-  [  411.928038] audit: type=3D1400 audit(1704822630.659:263): apparmor=3D"=
-STATUS" operation=3D"profile_load" profile=3D"unconfined" name=3D"snap.snap=
-py-debug.scmp-sys-resolver" pid=3D8549 comm=3D"apparmor_parser"
-  [  412.245557] audit: type=3D1400 audit(1704822630.976:264): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" profile=3D"unconfined" name=3D"/var/lib/snapd/snap/snapd/20671/usr/li=
-b/snapd/snap-confine" pid=3D8573 comm=3D"apparmor_parser"
-  [  412.245562] audit: type=3D1400 audit(1704822630.976:265): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" profile=3D"unconfined" name=3D"/var/lib/snapd/snap/snapd/20671/usr/li=
-b/snapd/snap-confine//mount-namespace-capture-helper" pid=3D8573 comm=3D"ap=
-parmor_parser"
-  [  412.251680] audit: type=3D1400 audit(1704822630.983:266): apparmor=3D"=
-STATUS" operation=3D"profile_replace" profile=3D"unconfined" name=3D"snap-u=
-pdate-ns.snappy-debug" pid=3D8575 comm=3D"apparmor_parser"
-  [  436.594532] audit: type=3D1400 audit(1704822655.326:273): apparmor=3D"=
-DENIED" operation=3D"open" class=3D"file" profile=3D"snap.juju.juju" name=
-=3D"/var/lib/snapd/hostfs/etc/ca-certificates/extracted/tls-ca-bundle.pem" =
-pid=3D8866 comm=3D"juju" requested_mask=3D"r" denied_mask=3D"r" fsuid=3D100=
-0 ouid=3D0
-  [  436.955742] audit: type=3D1400 audit(1704822655.686:274): apparmor=3D"=
-STATUS" operation=3D"profile_load" profile=3D"unconfined" name=3D"lxd_archi=
-ve-var-snap-lxd-common-lxd-storage-pools-default-containers-juju-98527a-0" =
-pid=3D8915 comm=3D"apparmor_parser"
-  [  437.001597] audit: type=3D1400 audit(1704822655.733:275): apparmor=3D"=
-STATUS" operation=3D"profile_remove" profile=3D"unconfined" name=3D"lxd_arc=
-hive-var-snap-lxd-common-lxd-storage-pools-default-containers-juju-98527a-0=
-" pid=3D8920 comm=3D"apparmor_parser"
-  [  437.047127] audit: type=3D1400 audit(1704822655.779:276): apparmor=3D"=
-STATUS" operation=3D"profile_load" profile=3D"unconfined" name=3D"lxd_archi=
-ve-var-snap-lxd-common-lxd-storage-pools-default-containers-juju-98527a-0-r=
-ootfs" pid=3D8924 comm=3D"apparmor_parser"
-  [  438.662197] audit: type=3D1400 audit(1704822657.393:277): apparmor=3D"=
-STATUS" operation=3D"profile_remove" profile=3D"unconfined" name=3D"lxd_arc=
-hive-var-snap-lxd-common-lxd-storage-pools-default-containers-juju-98527a-0=
--rootfs" pid=3D8947 comm=3D"apparmor_parser"
-  [  438.726353] lxdbr0: port 1(vethe8cdef92) entered blocking state
-  [  438.726357] lxdbr0: port 1(vethe8cdef92) entered disabled state
-  [  438.726363] vethe8cdef92: entered allmulticast mode
-  [  438.726404] vethe8cdef92: entered promiscuous mode
-  [  438.836408] audit: type=3D1400 audit(1704822657.566:278): apparmor=3D"=
-STATUS" operation=3D"profile_load" profile=3D"unconfined" name=3D"lxd-juju-=
-98527a-0_</var/snap/lxd/common/lxd>" pid=3D9022 comm=3D"apparmor_parser"
-  [  438.936964] physF3pxUH: renamed from vethd8d1dfa0
-  [  438.967393] eth0: renamed from physF3pxUH
-  [  438.983981] lxdbr0: port 1(vethe8cdef92) entered blocking state
-  [  438.983985] lxdbr0: port 1(vethe8cdef92) entered forwarding state
-  [  439.220648] NOHZ tick-stop error: local softirq work is pending, handl=
-er #200!!!
-  [  439.262605] audit: type=3D1400 audit(1704822657.993:279): apparmor=3D"=
-STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
-d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
-me=3D"nvidia_modprobe" pid=3D9151 comm=3D"apparmor_parser"
-  [  439.262990] audit: type=3D1400 audit(1704822657.993:280): apparmor=3D"=
-STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
-d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
-me=3D"lsb_release" pid=3D9150 comm=3D"apparmor_parser"
-  [  439.263026] audit: type=3D1400 audit(1704822657.993:281): apparmor=3D"=
-STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
-d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
-me=3D"nvidia_modprobe//kmod" pid=3D9151 comm=3D"apparmor_parser"
-  [  439.271998] audit: type=3D1400 audit(1704822658.003:282): apparmor=3D"=
-STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
-d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
-me=3D"tcpdump" pid=3D9154 comm=3D"apparmor_parser"
-  [  439.275799] audit: type=3D1400 audit(1704822658.006:283): apparmor=3D"=
-STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
-d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
-me=3D"/usr/bin/man" pid=3D9153 comm=3D"apparmor_parser"
-  [  439.275958] audit: type=3D1400 audit(1704822658.006:284): apparmor=3D"=
-STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
-d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
-me=3D"man_filter" pid=3D9153 comm=3D"apparmor_parser"
-  [  439.276194] audit: type=3D1400 audit(1704822658.006:285): apparmor=3D"=
-STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
-d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
-me=3D"man_groff" pid=3D9153 comm=3D"apparmor_parser"
-  [  439.325135] audit: type=3D1400 audit(1704822658.056:286): apparmor=3D"=
-STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
-d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
-me=3D"/usr/lib/NetworkManager/nm-dhcp-client.action" pid=3D9152 comm=3D"app=
-armor_parser"
-  [  439.325403] audit: type=3D1400 audit(1704822658.056:287): apparmor=3D"=
-STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
-d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
-me=3D"/usr/lib/NetworkManager/nm-dhcp-helper" pid=3D9152 comm=3D"apparmor_p=
-arser"
-  [  439.325644] audit: type=3D1400 audit(1704822658.056:288): apparmor=3D"=
-STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
-d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
-me=3D"/usr/lib/connman/scripts/dhclient-script" pid=3D9152 comm=3D"apparmor=
-_parser"
-  [  439.326140] audit: type=3D1400 audit(1704822658.056:289): apparmor=3D"=
-STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
-d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
-me=3D"/{,usr/}sbin/dhclient" pid=3D9152 comm=3D"apparmor_parser"
-  [  439.356289] audit: type=3D1400 audit(1704822658.086:290): apparmor=3D"=
-STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
-d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
-me=3D"/usr/lib/snapd/snap-confine" pid=3D9155 comm=3D"apparmor_parser"
-  [  439.356526] audit: type=3D1400 audit(1704822658.086:291): apparmor=3D"=
-STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
-d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
-me=3D"/usr/lib/snapd/snap-confine//mount-namespace-capture-helper" pid=3D91=
-55 comm=3D"apparmor_parser"
-  [  439.531185] audit: type=3D1400 audit(1704822658.263:292): apparmor=3D"=
-STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
-d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
-me=3D"snap-update-ns.lxd" pid=3D9178 comm=3D"apparmor_parser"
-  [  439.593477] audit: type=3D1400 audit(1704822658.319:293): apparmor=3D"=
-STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
-d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
-me=3D"/snap/snapd/20290/usr/lib/snapd/snap-confine" pid=3D9177 comm=3D"appa=
-rmor_parser"
-  [  439.593486] audit: type=3D1400 audit(1704822658.319:294): apparmor=3D"=
-STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
-d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
-me=3D"/snap/snapd/20290/usr/lib/snapd/snap-confine//mount-namespace-capture=
--helper" pid=3D9177 comm=3D"apparmor_parser"
-  [  439.594919] audit: type=3D1400 audit(1704822658.326:295): apparmor=3D"=
-STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
-d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
-me=3D"snap.lxd.activate" pid=3D9179 comm=3D"apparmor_parser"
-  [  439.609341] audit: type=3D1400 audit(1704822658.339:296): apparmor=3D"=
-STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
-d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
-me=3D"snap.lxd.hook.install" pid=3D9185 comm=3D"apparmor_parser"
-  [  439.617405] audit: type=3D1400 audit(1704822658.349:297): apparmor=3D"=
-STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
-d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
-me=3D"snap.lxd.benchmark" pid=3D9180 comm=3D"apparmor_parser"
-  [  439.621261] audit: type=3D1400 audit(1704822658.353:298): apparmor=3D"=
-STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
-d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
-me=3D"snap.lxd.hook.remove" pid=3D9186 comm=3D"apparmor_parser"
-  [  439.625205] audit: type=3D1400 audit(1704822658.356:299): apparmor=3D"=
-STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
-d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
-me=3D"snap.lxd.buginfo" pid=3D9181 comm=3D"apparmor_parser"
-  [  439.625267] audit: type=3D1400 audit(1704822658.356:300): apparmor=3D"=
-STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
-d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
-me=3D"snap.lxd.check-kernel" pid=3D9182 comm=3D"apparmor_parser"
-  [  439.625861] audit: type=3D1400 audit(1704822658.356:301): apparmor=3D"=
-STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
-d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
-me=3D"snap.lxd.lxc-to-lxd" pid=3D9188 comm=3D"apparmor_parser"
-  [  439.626255] audit: type=3D1400 audit(1704822658.356:302): apparmor=3D"=
-STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
-d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
-me=3D"snap.lxd.migrate" pid=3D9190 comm=3D"apparmor_parser"
-  [  439.626606] audit: type=3D1400 audit(1704822658.356:303): apparmor=3D"=
-STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
-d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
-me=3D"snap.lxd.lxc" pid=3D9187 comm=3D"apparmor_parser"
-  [  439.627179] audit: type=3D1400 audit(1704822658.359:304): apparmor=3D"=
-STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
-d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
-me=3D"snap.lxd.lxd" pid=3D9189 comm=3D"apparmor_parser"
-  [  439.639671] audit: type=3D1400 audit(1704822658.369:305): apparmor=3D"=
-STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
-d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
-me=3D"snap.lxd.hook.configure" pid=3D9184 comm=3D"apparmor_parser"
-  [  439.642412] audit: type=3D1400 audit(1704822658.373:306): apparmor=3D"=
-STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
-d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
-me=3D"snap.lxd.daemon" pid=3D9183 comm=3D"apparmor_parser"
-  [  439.645081] audit: type=3D1400 audit(1704822658.376:307): apparmor=3D"=
-STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
-d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
-me=3D"snap.lxd.user-daemon" pid=3D9191 comm=3D"apparmor_parser"
-  [  439.713482] NOHZ tick-stop error: local softirq work is pending, handl=
-er #200!!!
-  [  441.714898] audit: type=3D1400 audit(1704822660.446:308): apparmor=3D"=
-STATUS" operation=3D"profile_replace" label=3D"lxd-juju-98527a-0_</var/snap=
-/lxd/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined"=
- name=3D"/snap/snapd/20290/usr/lib/snapd/snap-confine" pid=3D9421 comm=3D"a=
-pparmor_parser"
-  [  441.756809] audit: type=3D1400 audit(1704822660.489:309): apparmor=3D"=
-STATUS" operation=3D"profile_replace" label=3D"lxd-juju-98527a-0_</var/snap=
-/lxd/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined"=
- name=3D"/snap/snapd/20290/usr/lib/snapd/snap-confine//mount-namespace-capt=
-ure-helper" pid=3D9421 comm=3D"apparmor_parser"
-  [  441.760434] audit: type=3D1400 audit(1704822660.493:310): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
-27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap-update-ns.lxd" pid=
-=3D9423 comm=3D"apparmor_parser"
-  [  441.762440] audit: type=3D1400 audit(1704822660.493:311): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
-27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.activate" pid=
-=3D9424 comm=3D"apparmor_parser"
-  [  441.762939] audit: type=3D1400 audit(1704822660.493:312): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
-27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.benchmark" pid=
-=3D9425 comm=3D"apparmor_parser"
-  [  441.763142] audit: type=3D1400 audit(1704822660.493:313): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
-27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.buginfo" pid=
-=3D9426 comm=3D"apparmor_parser"
-  [  441.763213] audit: type=3D1400 audit(1704822660.493:314): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
-27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.hook.remove" p=
-id=3D9431 comm=3D"apparmor_parser"
-  [  441.763364] audit: type=3D1400 audit(1704822660.493:315): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
-27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.check-kernel" =
-pid=3D9427 comm=3D"apparmor_parser"
-  [  441.763491] audit: type=3D1400 audit(1704822660.496:316): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
-27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.hook.install" =
-pid=3D9430 comm=3D"apparmor_parser"
-  [  441.763665] audit: type=3D1400 audit(1704822660.496:317): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
-27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.lxc-to-lxd" pi=
-d=3D9433 comm=3D"apparmor_parser"
-  [  441.763688] audit: type=3D1400 audit(1704822660.496:318): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
-27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.lxd" pid=3D943=
-4 comm=3D"apparmor_parser"
-  [  441.763742] audit: type=3D1400 audit(1704822660.496:319): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
-27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.migrate" pid=
-=3D9435 comm=3D"apparmor_parser"
-  [  441.763869] audit: type=3D1400 audit(1704822660.496:320): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
-27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.lxc" pid=3D943=
-2 comm=3D"apparmor_parser"
-  [  441.764036] audit: type=3D1400 audit(1704822660.496:321): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
-27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.hook.configure=
-" pid=3D9429 comm=3D"apparmor_parser"
-  [  441.764117] audit: type=3D1400 audit(1704822660.496:322): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
-27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.daemon" pid=3D=
-9428 comm=3D"apparmor_parser"
-  [  441.764418] audit: type=3D1400 audit(1704822660.496:323): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
-27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.user-daemon" p=
-id=3D9436 comm=3D"apparmor_parser"
-  [  442.313495] audit: type=3D1400 audit(1704822661.046:324): apparmor=3D"=
-DENIED" operation=3D"file_inherit" class=3D"net" namespace=3D"root//lxd-juj=
-u-98527a-0_<var-snap-lxd-common-lxd>" profile=3D"/snap/snapd/20290/usr/lib/=
-snapd/snap-confine" pid=3D9458 comm=3D"snap-confine" family=3D"netlink" soc=
-k_type=3D"raw" protocol=3D15 requested_mask=3D"send receive" denied_mask=3D=
-"send receive"
-  [  442.323720] audit: type=3D1400 audit(1704822661.056:325): apparmor=3D"=
-DENIED" operation=3D"file_inherit" class=3D"file" namespace=3D"root//lxd-ju=
-ju-98527a-0_<var-snap-lxd-common-lxd>" profile=3D"snap-update-ns.lxd" name=
-=3D"/apparmor/.null" pid=3D9478 comm=3D"6" requested_mask=3D"wr" denied_mas=
-k=3D"wr" fsuid=3D1000000 ouid=3D0
-  [  442.477442] audit: type=3D1400 audit(1704822661.209:326): apparmor=3D"=
-DENIED" operation=3D"file_inherit" class=3D"file" namespace=3D"root//lxd-ju=
-ju-98527a-0_<var-snap-lxd-common-lxd>" profile=3D"snap.lxd.hook.install" na=
-me=3D"/apparmor/.null" pid=3D9458 comm=3D"snap-exec" requested_mask=3D"wr" =
-denied_mask=3D"wr" fsuid=3D1000000 ouid=3D0
-  [  442.884305] audit: type=3D1400 audit(1704822661.616:327): apparmor=3D"=
-DENIED" operation=3D"file_inherit" class=3D"net" namespace=3D"root//lxd-juj=
-u-98527a-0_<var-snap-lxd-common-lxd>" profile=3D"/snap/snapd/20290/usr/lib/=
-snapd/snap-confine" pid=3D9525 comm=3D"snap-confine" family=3D"unix" sock_t=
-ype=3D"stream" protocol=3D0 requested_mask=3D"send receive" denied_mask=3D"=
-send receive"
-  [  442.884311] audit: type=3D1400 audit(1704822661.616:328): apparmor=3D"=
-DENIED" operation=3D"file_inherit" class=3D"net" namespace=3D"root//lxd-juj=
-u-98527a-0_<var-snap-lxd-common-lxd>" profile=3D"/snap/snapd/20290/usr/lib/=
-snapd/snap-confine" pid=3D9525 comm=3D"snap-confine" family=3D"unix" sock_t=
-ype=3D"stream" protocol=3D0 requested_mask=3D"send receive" denied_mask=3D"=
-send receive"
-  [  442.886474] audit: type=3D1400 audit(1704822661.616:329): apparmor=3D"=
-DENIED" operation=3D"file_inherit" class=3D"file" namespace=3D"root//lxd-ju=
-ju-98527a-0_<var-snap-lxd-common-lxd>" profile=3D"snap.lxd.activate" name=
-=3D"/apparmor/.null" pid=3D9525 comm=3D"snap-exec" requested_mask=3D"wr" de=
-nied_mask=3D"wr" fsuid=3D1000000 ouid=3D0
-  [  442.886479] audit: type=3D1400 audit(1704822661.616:330): apparmor=3D"=
-DENIED" operation=3D"file_inherit" class=3D"file" namespace=3D"root//lxd-ju=
-ju-98527a-0_<var-snap-lxd-common-lxd>" profile=3D"snap.lxd.activate" name=
-=3D"/apparmor/.null" pid=3D9525 comm=3D"snap-exec" requested_mask=3D"wr" de=
-nied_mask=3D"wr" fsuid=3D1000000 ouid=3D0
-  [  442.897436] audit: type=3D1400 audit(1704822661.629:331): apparmor=3D"=
-DENIED" operation=3D"file_inherit" class=3D"file" namespace=3D"root//lxd-ju=
-ju-98527a-0_<var-snap-lxd-common-lxd>" profile=3D"/snap/snapd/20290/usr/lib=
-/snapd/snap-confine" name=3D"/apparmor/.null" pid=3D9525 comm=3D"aa-exec" r=
-equested_mask=3D"wr" denied_mask=3D"wr" fsuid=3D1000000 ouid=3D0
-  [  442.897439] audit: type=3D1400 audit(1704822661.629:332): apparmor=3D"=
-DENIED" operation=3D"file_inherit" class=3D"file" namespace=3D"root//lxd-ju=
-ju-98527a-0_<var-snap-lxd-common-lxd>" profile=3D"/snap/snapd/20290/usr/lib=
-/snapd/snap-confine" name=3D"/apparmor/.null" pid=3D9525 comm=3D"aa-exec" r=
-equested_mask=3D"wr" denied_mask=3D"wr" fsuid=3D1000000 ouid=3D0
-  [  442.926817] NOHZ tick-stop error: local softirq work is pending, handl=
-er #200!!!
-  [  442.976813] NOHZ tick-stop error: local softirq work is pending, handl=
-er #200!!!
-  [  443.263929] audit: type=3D1400 audit(1704822661.996:333): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
-27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"/snap/snapd/20290/usr/l=
-ib/snapd/snap-confine" pid=3D9602 comm=3D"apparmor_parser"
-  [  443.263934] audit: type=3D1400 audit(1704822661.996:334): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
-27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"/snap/snapd/20290/usr/l=
-ib/snapd/snap-confine//mount-namespace-capture-helper" pid=3D9602 comm=3D"a=
-pparmor_parser"
-  [  443.267568] audit: type=3D1400 audit(1704822661.999:335): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
-27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap-update-ns.lxd" pid=
-=3D9604 comm=3D"apparmor_parser"
-  [  443.270731] audit: type=3D1400 audit(1704822662.003:336): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
-27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.activate" pid=
-=3D9605 comm=3D"apparmor_parser"
-  [  443.270893] audit: type=3D1400 audit(1704822662.003:337): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
-27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.buginfo" pid=
-=3D9607 comm=3D"apparmor_parser"
-  [  443.271121] audit: type=3D1400 audit(1704822662.003:338): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
-27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.benchmark" pid=
-=3D9606 comm=3D"apparmor_parser"
-  [  443.271208] audit: type=3D1400 audit(1704822662.003:339): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
-27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.hook.install" =
-pid=3D9611 comm=3D"apparmor_parser"
-  [  443.271319] audit: type=3D1400 audit(1704822662.003:340): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
-27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.check-
-  kernel" pid=3D9608 comm=3D"apparmor_parser"
-  [  443.271426] audit: type=3D1400 audit(1704822662.003:341): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
-27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.hook.remove" p=
-id=3D9612 comm=3D"apparmor_parser"
-  [  443.271595] audit: type=3D1400 audit(1704822662.003:342): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
-27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.lxc" pid=3D961=
-3 comm=3D"apparmor_parser"
-  [  443.271815] audit: type=3D1400 audit(1704822662.003:343): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
-27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.lxc-to-lxd" pi=
-d=3D9614 comm=3D"apparmor_parser"
-  [  443.271827] audit: type=3D1400 audit(1704822662.003:344): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
-27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.lxd" pid=3D961=
-5 comm=3D"apparmor_parser"
-  [  443.271901] audit: type=3D1400 audit(1704822662.003:345): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
-27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.migrate" pid=
-=3D9616 comm=3D"apparmor_parser"
-  [  443.271915] audit: type=3D1400 audit(1704822662.003:346): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
-27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.daemon" pid=3D=
-9609 comm=3D"apparmor_parser"
-  [  443.272098] audit: type=3D1400 audit(1704822662.003:347): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
-27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.hook.configure=
-" pid=3D9610 comm=3D"apparmor_parser"
-  [  443.272532] audit: type=3D1400 audit(1704822662.003:348): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
-27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.user-daemon" p=
-id=3D9617 comm=3D"apparmor_parser"
-  [  445.556120] audit: type=3D1400 audit(1704822664.286:349): apparmor=3D"=
-STATUS" operation=3D"profile_replace" label=3D"lxd-juju-98527a-0_</var/snap=
-/lxd/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined"=
- name=3D"/usr/lib/snapd/snap-confine" pid=3D9767 comm=3D"apparmor_parser"
-  [  445.570529] audit: type=3D1400 audit(1704822664.303:350): apparmor=3D"=
-STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
-ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
-27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"/usr/lib/snapd/snap-con=
-fine//mount-namespace-capture-helper" pid=3D9767 comm=3D"apparmor_parser"
-
-  ##### A rough grab from dmesg
-  ~ =E2=9D=AF sudo journalctl --output=3Dshort --follow --all | sudo snappy=
--debug
-
-  kernel.printk_ratelimit =3D 0
-  =3D AppArmor =3D
-  Time: Jan 09 17:50:55
-  Log: apparmor=3D"DENIED" operation=3D"open" class=3D"file" profile=3D"sna=
-p.juju.juju" name=3D"/var/lib/snapd/hostfs/etc/ca-certificates/extracted/tl=
-s-ca-bundle.pem" pid=3D8866 comm=3D"juju" requested_mask=3D"r" denied_mask=
-=3D"r" fsuid=3D1000 ouid=3D0
-  File: /var/lib/snapd/hostfs/etc/ca-certificates/extracted/tls-ca-bundle.p=
-em (read)
-  Suggestions:
-  * adjust program to read necessary files from $SNAP, $SNAP_DATA, $SNAP_CO=
-MMON, $SNAP_USER_DATA or $SNAP_USER_COMMON
-  * adjust snap to use snap layouts (https://forum.snapcraft.io/t/snap-layo=
-uts/7207)
-
-  =3D AppArmor =3D
-  Time: Jan 09 17:51:01
-  Log: apparmor=3D"DENIED" operation=3D"file_inherit" class=3D"net" namespa=
-ce=3D"root//lxd-juju-98527a-0_<var-snap-lxd-common-lxd>" profile=3D"/snap/s=
-napd/20290/usr/lib/snapd/snap-confine" pid=3D9458 comm=3D"snap-confine" fam=
-ily=3D"netlink" sock_type=3D"raw" protocol=3D15 requested_mask=3D"send rece=
-ive" denied_mask=3D"send receive"
-  Suggestion:
-  * add one of 'account-control, hardware-observe, kernel-crypto-api, netwo=
-rk-control, network-observe, raw-input, unity7, x11' to 'plugs'
-
-  =3D AppArmor =3D
-  Time: Jan 09 17:51:01
-  Log: apparmor=3D"DENIED" operation=3D"file_inherit" class=3D"file" namesp=
-ace=3D"root//lxd-juju-98527a-0_<var-snap-lxd-common-lxd>" profile=3D"snap-u=
-pdate-ns.lxd" name=3D"/apparmor/.null" pid=3D9478 comm=3D"6" requested_mask=
-=3D"wr" denied_mask=3D"wr" fsuid=3D1000000 ouid=3D0
-  File: /apparmor/.null (write)
-  Suggestion:
-  * adjust program to write to $SNAP_DATA, $SNAP_COMMON, $SNAP_USER_DATA or=
- $SNAP_USER_COMMON
-
-  =3D AppArmor =3D
-  Time: Jan 09 17:51:01
-  Log: apparmor=3D"DENIED" operation=3D"file_inherit" class=3D"file" namesp=
-ace=3D"root//lxd-juju-98527a-0_<var-snap-lxd-common-lxd>" profile=3D"snap.l=
-xd.hook.install" name=3D"/apparmor/.null" pid=3D9458 comm=3D"snap-exec" req=
-uested_mask=3D"wr" denied_mask=3D"wr" fsuid=3D1000000 ouid=3D0
-  File: /apparmor/.null (write)
-  Suggestion:
-  * adjust program to write to $SNAP_DATA, $SNAP_COMMON, $SNAP_USER_DATA or=
- $SNAP_USER_COMMON
-
-  =3D AppArmor =3D
-  Time: Jan 09 17:51:01
-  Log: apparmor=3D"DENIED" operation=3D"file_inherit" class=3D"net" namespa=
-ce=3D"root//lxd-juju-98527a-0_<var-snap-lxd-common-lxd>" profile=3D"/snap/s=
-napd/20290/usr/lib/snapd/snap-confine" pid=3D9525 comm=3D"snap-confine" fam=
-ily=3D"unix" sock_type=3D"stream" protocol=3D0 requested_mask=3D"send recei=
-ve" denied_mask=3D"send receive"
-
-  =3D AppArmor =3D
-  Time: Jan 09 17:51:01
-  Log: apparmor=3D"DENIED" operation=3D"file_inherit" class=3D"file" namesp=
-ace=3D"root//lxd-juju-98527a-0_<var-snap-lxd-common-lxd>" profile=3D"snap.l=
-xd.activate" name=3D"/apparmor/.null" pid=3D9525 comm=3D"snap-exec" request=
-ed_mask=3D"wr" denied_mask=3D"wr" fsuid=3D1000000 ouid=3D0
-  File: /apparmor/.null (write)
-  Suggestion:
-  * adjust program to write to $SNAP_DATA, $SNAP_COMMON, $SNAP_USER_DATA or=
- $SNAP_USER_COMMON
-
-  =3D AppArmor =3D
-  Time: Jan 09 17:51:01
-  Log: apparmor=3D"DENIED" operation=3D"file_inherit" class=3D"file" namesp=
-ace=3D"root//lxd-juju-98527a-0_<var-snap-lxd-common-lxd>" profile=3D"/snap/=
-snapd/20290/usr/lib/snapd/snap-confine" name=3D"/apparmor/.null" pid=3D9525=
- comm=3D"aa-exec" requested_mask=3D"wr" denied_mask=3D"wr" fsuid=3D1000000 =
-ouid=3D0
-  File: /apparmor/.null (write)
-  Suggestion:
-  * adjust program to write to $SNAP_DATA, $SNAP_COMMON, $SNAP_USER_DATA or=
- $SNAP_USER_COMMON
-
-  ##### Snapd installed using -
-  https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=3Dsnapd
-
-  ##### `juju-db` snap - https://github.com/juju/juju-db-snap/tree/5.3
-
-  ##### `usr.lib.snapd.snap-confine` default on Arch, in case it's useful
-  https://pastebin.com/M5t6gySa
-
-  ##### Reproduce Steps
-  Assuming you're running on a vanilla (minimal tweaking) Arch machine with=
- AppArmor enabled:
-
-  ```bash
-  cd /tmp && git clone https://aur.archlinux.org/snapd.git && cd snapd
-  makepkg -si
-  sudo systemctl enable --now snapd.socket
-
-  # log-out, log-in
-
-  sudo snap install lxd --channel latest/edge
-  lxd init --auto
-
-  sudo snap install juju --channel 3.3/stable
-
-  juju bootstrap localhost lh --debug --bootstrap-timeout=3D180
-
-  # check snappy-debug or dmesg for AppArmor denials
-  ```
-
-To manage notifications about this bug go to:
-https://bugs.launchpad.net/snapd/+bug/2049099/+subscriptions
-
+p.s.: feel free to CC us as well in the upstream stable submission.
 
