@@ -2,94 +2,56 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BE2F83F4A5
-	for <lists+apparmor@lfdr.de>; Sun, 28 Jan 2024 09:43:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78FA283F4B5
+	for <lists+apparmor@lfdr.de>; Sun, 28 Jan 2024 10:05:51 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rU0lU-0000yB-FX; Sun, 28 Jan 2024 08:43:44 +0000
-Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
- helo=smtp-relay-canonical-0.canonical.com)
+	id 1rU16e-0002vD-2X; Sun, 28 Jan 2024 09:05:36 +0000
+Received: from smtp-relay-services-0.internal ([10.131.114.58]
+ helo=smtp-relay-services-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1rU0lP-0000xt-3G
- for apparmor@lists.ubuntu.com; Sun, 28 Jan 2024 08:43:39 +0000
-Received: from [192.168.192.85] (unknown [50.39.103.33])
+ (Exim 4.86_2) (envelope-from <noreply@launchpad.net>)
+ id 1rU16N-0002ur-FV
+ for apparmor@lists.ubuntu.com; Sun, 28 Jan 2024 09:05:19 +0000
+Received: from juju-98d295-prod-launchpad-16.localdomain (scripts.lp.internal
+ [10.131.215.246])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 6623E3F27C; 
- Sun, 28 Jan 2024 08:43:35 +0000 (UTC)
-Content-Type: multipart/mixed; boundary="------------0XSS5ureDoL96UaBQrKfMMVL"
-Message-ID: <b8bb1a0e-9b50-4f78-8473-4f0151677f25@canonical.com>
-Date: Sun, 28 Jan 2024 00:43:33 -0800
+ by smtp-relay-services-0.canonical.com (Postfix) with ESMTPSA id E453F3F8B4
+ for <apparmor@lists.ubuntu.com>; Sun, 28 Jan 2024 09:05:18 +0000 (UTC)
+Received: from [10.131.215.246] (localhost [127.0.0.1])
+ by juju-98d295-prod-launchpad-16.localdomain (Postfix) with ESMTP id
+ DA9537E161
+ for <apparmor@lists.ubuntu.com>; Sun, 28 Jan 2024 09:05:17 +0000 (UTC)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Mathias Gibbens <gibmat@debian.org>,
- Salvatore Bonaccorso <carnil@debian.org>, 1050256@bugs.debian.org,
- John Johansen <john@apparmor.net>
-References: <ZPMX8Wo1+2ICj8+K@debian.org>
- <d5a0d568-8666-4f4a-a426-757d68215724@debian.org>
- <aea599a6-219c-4158-850f-d7168a595d21@debian.org>
- <da160344-8135-4eab-9261-bb1552238ad3@debian.org>
- <8f68c83b-1856-4fa2-8408-06ae36696698@debian.org>
- <8f68c83b-1856-4fa2-8408-06ae36696698@debian.org>
- <169271330498.34427.2191706613553030083.reportbug@pluto.milchstrasse.xx>
- <38461b24-1b42-45f7-98d6-e6e353c0d203@debian.org>
- <169271330498.34427.2191706613553030083.reportbug@pluto.milchstrasse.xx>
- <ZXDsAecCKiSuHsO2@eldamar.lan> <ZZA69zQAzpzPojD5@eldamar.lan>
- <9d6a5b2368016e2ef7b11c64b7c9db69419318ec.camel@debian.org>
-From: John Johansen <john.johansen@canonical.com>
-Autocrypt: addr=john.johansen@canonical.com; keydata=
- xsFNBE5mrPoBEADAk19PsgVgBKkImmR2isPQ6o7KJhTTKjJdwVbkWSnNn+o6Up5knKP1f49E
- BQlceWg1yp/NwbR8ad+eSEO/uma/K+PqWvBptKC9SWD97FG4uB4/caomLEU97sLQMtnvGWdx
- rxVRGM4anzWYMgzz5TZmIiVTZ43Ou5VpaS1Vz1ZSxP3h/xKNZr/TcW5WQai8u3PWVnbkjhSZ
- PHv1BghN69qxEPomrJBm1gmtx3ZiVmFXluwTmTgJOkpFol7nbJ0ilnYHrA7SX3CtR1upeUpM
- a/WIanVO96WdTjHHIa43fbhmQube4txS3FcQLOJVqQsx6lE9B7qAppm9hQ10qPWwdfPy/+0W
- 6AWtNu5ASiGVCInWzl2HBqYd/Zll93zUq+NIoCn8sDAM9iH+wtaGDcJywIGIn+edKNtK72AM
- gChTg/j1ZoWH6ZeWPjuUfubVzZto1FMoGJ/SF4MmdQG1iQNtf4sFZbEgXuy9cGi2bomF0zvy
- BJSANpxlKNBDYKzN6Kz09HUAkjlFMNgomL/cjqgABtAx59L+dVIZfaF281pIcUZzwvh5+JoG
- eOW5uBSMbE7L38nszooykIJ5XrAchkJxNfz7k+FnQeKEkNzEd2LWc3QF4BQZYRT6PHHga3Rg
- ykW5+1wTMqJILdmtaPbXrF3FvnV0LRPcv4xKx7B3fGm7ygdoowARAQABzStKb2huIEpvaGFu
- c2VuIDxqb2huLmpvaGFuc2VuQGNhbm9uaWNhbC5jb20+wsF3BBMBCgAhBQJOjRdaAhsDBQsJ
- CAcDBRUKCQgLBRYCAwEAAh4BAheAAAoJEAUvNnAY1cPYi0wP/2PJtzzt0zi4AeTrI0w3Rj8E
- Waa1NZWw4GGo6ehviLfwGsM7YLWFAI8JB7gsuzX/im16i9C3wHYXKs9WPCDuNlMc0rvivqUI
- JXHHfK7UHtT0+jhVORyyVVvX+qZa7HxdZw3jK+ROqUv4bGnImf31ll99clzo6HpOY59soa8y
- 66/lqtIgDckcUt/1ou9m0DWKwlSvulL1qmD25NQZSnvB9XRZPpPd4bea1RTa6nklXjznQvTm
- MdLq5aJ79j7J8k5uLKvE3/pmpbkaieEsGr+azNxXm8FPcENV7dG8Xpd0z06E+fX5jzXHnj69
- DXXc3yIvAXsYZrXhnIhUA1kPQjQeNG9raT9GohFPMrK48fmmSVwodU8QUyY7MxP4U6jE2O9L
- 7v7AbYowNgSYc+vU8kFlJl4fMrX219qU8ymkXGL6zJgtqA3SYHskdDBjtytS44OHJyrrRhXP
- W1oTKC7di/bb8jUQIYe8ocbrBz3SjjcL96UcQJecSHu0qmUNykgL44KYzEoeFHjr5dxm+DDg
- OBvtxrzd5BHcIbz0u9ClbYssoQQEOPuFmGQtuSQ9FmbfDwljjhrDxW2DFZ2dIQwIvEsg42Hq
- 5nv/8NhW1whowliR5tpm0Z0KnQiBRlvbj9V29kJhs7rYeT/dWjWdfAdQSzfoP+/VtPRFkWLr
- 0uCwJw5zHiBgzsFNBE5mrPoBEACirDqSQGFbIzV++BqYBWN5nqcoR+dFZuQL3gvUSwku6ndZ
- vZfQAE04dKRtIPikC4La0oX8QYG3kI/tB1UpEZxDMB3pvZzUh3L1EvDrDiCL6ef93U+bWSRi
- GRKLnNZoiDSblFBST4SXzOR/m1wT/U3Rnk4rYmGPAW7ltfRrSXhwUZZVARyJUwMpG3EyMS2T
- dLEVqWbpl1DamnbzbZyWerjNn2Za7V3bBrGLP5vkhrjB4NhrufjVRFwERRskCCeJwmQm0JPD
- IjEhbYqdXI6uO+RDMgG9o/QV0/a+9mg8x2UIjM6UiQ8uDETQha55Nd4EmE2zTWlvxsuqZMgy
- W7gu8EQsD+96JqOPmzzLnjYf9oex8F/gxBSEfE78FlXuHTopJR8hpjs6ACAq4Y0HdSJohRLn
- 5r2CcQ5AsPEpHL9rtDW/1L42/H7uPyIfeORAmHFPpkGFkZHHSCQfdP4XSc0Obk1olSxqzCAm
- uoVmRQZ3YyubWqcrBeIC3xIhwQ12rfdHQoopELzReDCPwmffS9ctIb407UYfRQxwDEzDL+m+
- TotTkkaNlHvcnlQtWEfgwtsOCAPeY9qIbz5+i1OslQ+qqGD2HJQQ+lgbuyq3vhefv34IRlyM
- sfPKXq8AUTZbSTGUu1C1RlQc7fpp8W/yoak7dmo++MFS5q1cXq29RALB/cfpcwARAQABwsFf
- BBgBCgAJBQJOZqz6AhsMAAoJEAUvNnAY1cPYP9cP/R10z/hqLVv5OXWPOcpqNfeQb4x4Rh4j
- h/jS9yjes4uudEYU5xvLJ9UXr0wp6mJ7g7CgjWNxNTQAN5ydtacM0emvRJzPEEyujduesuGy
- a+O6dNgi+ywFm0HhpUmO4sgs9SWeEWprt9tWrRlCNuJX+u3aMEQ12b2lslnoaOelghwBs8IJ
- r998vj9JBFJgdeiEaKJLjLmMFOYrmW197As7DTZ+R7Ef4gkWusYFcNKDqfZKDGef740Xfh9d
- yb2mJrDeYqwgKb7SF02Hhp8ZnohZXw8ba16ihUOnh1iKH77Ff9dLzMEJzU73DifOU/aArOWp
- JZuGJamJ9EkEVrha0B4lN1dh3fuP8EjhFZaGfLDtoA80aPffK0Yc1R/pGjb+O2Pi0XXL9AVe
- qMkb/AaOl21F9u1SOosciy98800mr/3nynvid0AKJ2VZIfOP46nboqlsWebA07SmyJSyeG8c
- XA87+8BuXdGxHn7RGj6G+zZwSZC6/2v9sOUJ+nOna3dwr6uHFSqKw7HwNl/PUGeRqgJEVu++
- +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
- p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
-Organization: Canonical
-In-Reply-To: <9d6a5b2368016e2ef7b11c64b7c9db69419318ec.camel@debian.org>
-Subject: Re: [apparmor] Bug#1050256: AppArmor breaks locking non-fs Unix
-	sockets
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 28 Jan 2024 08:58:26 -0000
+From: John Johansen <2049099@bugs.launchpad.net>
+To: apparmor@lists.ubuntu.com
+X-Launchpad-Notification-Type: bug
+X-Launchpad-Bug: product=snapd; status=New; importance=Undecided; assignee=None;
+X-Launchpad-Bug-Information-Type: Public
+X-Launchpad-Bug-Private: no
+X-Launchpad-Bug-Security-Vulnerability: no
+X-Launchpad-Bug-Commenters: jjohansen maciek-borzecki marcoppenheimer
+X-Launchpad-Bug-Reporter: Marc Oppenheimer (marcoppenheimer)
+X-Launchpad-Bug-Modifier: John Johansen (jjohansen)
+References: <170500315357.2951651.15872417683793394378.malonedeb@juju-98d295-prod-launchpad-4>
+Message-Id: <170643230621.3361517.2534941970807024642.malone@juju-98d295-prod-launchpad-2>
+X-Launchpad-Message-Rationale: Subscriber @apparmor-dev
+X-Launchpad-Message-For: apparmor-dev
+Precedence: bulk
+X-Generated-By: Launchpad (canonical.com);
+ Revision="666c6bd52ccc7c38c7d6806b807b117caa7d8b6e";
+ Instance="launchpad-scripts"
+X-Launchpad-Hash: 12cfbb3c955031e055bd3a03fbccb2650038d264
+Subject: [apparmor] [Bug 2049099] Re: AppArmor blocking snap install nested
+	in LXD container
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
-Precedence: list
 List-Id: AppArmor discussion <apparmor.lists.ubuntu.com>
 List-Unsubscribe: <https://lists.ubuntu.com/mailman/options/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=unsubscribe>
@@ -98,222 +60,582 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: pkg-systemd-maintainers <pkg-systemd-maintainers@lists.alioth.debian.org>,
- apparmor@lists.ubuntu.com, Antonio Terceiro <terceiro@debian.org>,
- Harald Dunkel <harri@afaics.de>, Paul Gevers <elbrus@debian.org>
+Reply-To: Bug 2049099 <2049099@bugs.launchpad.net>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-This is a multi-part message in MIME format.
---------------0XSS5ureDoL96UaBQrKfMMVL
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+So this is a tough one. The denied messages are due to a difference in
+running the application in the container vs. running it on a host.
 
-On 12/30/23 20:24, Mathias Gibbens wrote:
-> On Sat, 2023-12-30 at 16:44 +0100, Salvatore Bonaccorso wrote:
->> John, did you had a chance to work on this backport for 6.1.y stable
->> upstream so we could pick it downstream in Debian in one of the next
->> stable imports? Cherry-picking 1cf26c3d2c4c ("apparmor: fix apparmor
->> mediating locking non-fs unix sockets") does not work, if not
->> havinging the work around e2967ede2297 ("apparmor: compute policydb
->> permission on profile load") AFAICS, so that needs a 6.1.y specific
->> backport submitted to stable@vger.kernel.org ?
->>
->> I think we could have people from this bug as well providing a
->> Tested-by when necessary. I'm not feeling confident enough to be able
->> to provide myself such a patch to sent to stable (and you only giving
->> an Acked-by/Reviewed-by), so if you can help out here with your
->> upstream hat on that would be more than appreciated and welcome :)
->>
->> Thanks a lot for your work!
-> 
->    I played around with this a bit the past week as well, and came to
-> the same conclusion as Salvatore did that commits e2967ede2297 and
-> 1cf26c3d2c4c need to be cherry-picked back to the 6.1 stable tree.
-> 
->    I've attached the two commits rebased onto 6.1.y as patches to this
-> message. Commit e2967ede2297 needed a little bit of touchup to apply
-> cleanly, and 1cf26c3d2c4c just needed adjustments for line number
-> changes. I included some comments at the top of each patch.
-> 
->    With these two commits cherry-picked on top of the 6.1.69 kernel, I
-> can boot a bookworm system and successfully start a service within a
-> container that utilizes `PrivateNetwork=yes`. Rebooting back into an
-> unpatched vanilla 6.1.69 kernel continues to show the problem.
-> 
->    While I didn't see any immediate issues (ie, `aa-status` and log
-> files looked OK), I don't understand the changes in the first commit
-> well enough to be confident in sending these patches for inclusion in
-> the upstream stable tree on my own.
-> 
-> Mathias
+Certain files are being passed into the container from a separate
+namespace and the profile is not setup to deal with this. Unfortunately
+this is not currently handled well, there is work to improve both
+mapping and delegation around this but atm the only solution at this
+point is for the snap profile to be given the permissions necessary to
+work under both environments. Despite LXD setting up an apparmor policy
+namespace the container environment is not entirely transparent to the
+apparmor policy within the container.
 
-Your backports look good to me, and you can stick my acked-by on them.
-The changes are strictly more than necessary for the fix. They are
-part of a larger change set that is trying to cleanup the runtime
-code by changing the permission mapping from a runtime operation
-to something that is done only at policy load/unpack time.
+So without having looked at 24.04 my guess is that either LXD changed
+something in the environment setup or that snap's profile has been
+updated.
 
-The advantage of this approach is that while it is a larger change
-than strictly necessary. It is backporting patches that are already
-upstream, keep the code closer and making backports easier.
+--=20
+You received this bug notification because you are a member of AppArmor
+Developers, which is subscribed to the bug report.
+https://bugs.launchpad.net/bugs/2049099
 
-Georgia did a minimal backport fix by keeping the version as part
-of policy and doing the permission mapping at runtime. I have
-included that patch below. Its advantage is it is a minimal
-change to fix the issue.
+Title:
+  AppArmor blocking snap install nested in LXD container
 
-I am happy with either version going into stable. Do you want to
-send them or do you want me to do it?
+Status in snapd:
+  New
 
-Acked-by: John Johansen <john.johansen@canonical.com>
+Bug description:
+  ##### Context
+  I'm on a non-Ubuntu OS (Arch), trying to use Juju on LXD. In doing so, Ju=
+ju uses a snap inside an LXD container, and so needs the system to support =
+nested AppArmor profiles. `juju-db` is the snap in question, if that helps.
 
---------------0XSS5ureDoL96UaBQrKfMMVL
-Content-Type: text/x-patch; charset=UTF-8;
- name="0001-apparmor-backport-fix-apparmor-mediating-locking-non.patch"
-Content-Disposition: attachment;
- filename*0="0001-apparmor-backport-fix-apparmor-mediating-locking-non.pa";
- filename*1="tch"
-Content-Transfer-Encoding: base64
+  ##### Issue
+  When I try to do this, I get a bunch of AppArmor violations, that go way =
+over my head. It's not clear to me what is causing these, but I **suspect**=
+ that Ubuntu patches some host-system AppArmor profiles to support this use=
+-case, that isn't replicated on other OSs? Not sure, and I don't know who t=
+o ask or where to look.
 
-RnJvbSBkNzE2ZDhlNmU4YjZkYzJmYTFkYjJlNzJlZTk1YzcyMWFlZjEyMDY0IE1vbiBTZXAg
-MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBHZW9yZ2lhIEdhcmNpYSA8Z2VvcmdpYS5nYXJjaWFA
-Y2Fub25pY2FsLmNvbT4KRGF0ZTogVHVlLCA5IEphbiAyMDI0IDE3OjU0OjUyIC0wMzAwClN1
-YmplY3Q6IFtQQVRDSF0gYXBwYXJtb3I6IGJhY2twb3J0IGZpeCBhcHBhcm1vciBtZWRpYXRp
-bmcgbG9ja2luZyBub24tZnMsCiB1bml4IHNvY2tldHMKClRoaXMgaXMgYSBtaW5pbWFsIGJh
-Y2twb3J0IG9mCjFjZjI2YzNkMmM0YyBhcHBhcm1vcjogZml4IGFwcGFybW9yIG1lZGlhdGlu
-ZyBsb2NraW5nIG5vbi1mcyB1bml4IHNvY2tldHMKCmluc3RlYWQgb2YgcHVsbGluZyBpbiB0
-aGUgZGVwZW5kZW5jeSBwYXRjaAplMjk2N2VkZTIyOTcgYXBwYXJtb3I6IGNvbXB1dGUgcG9s
-aWN5ZGIgcGVybWlzc2lvbiBvbiBwcm9maWxlIGxvYWQKCndoaWNoIG1vdmVzIHRoZSBwZXJt
-aXNzaW9uIG1hcHBpbmcgdG8gdW5wYWNrIHRpbWUuIFdlIHB1c2ggdGhlIHZlcnNpb24KaW5m
-b3JtYXRpb24gaW50byB0aGUgcHJvZmlsZSBzbyB0aGUgcGVybWlzc2lvbiBtYXBwaW5nIGZp
-eCBjYW4gYmUKZG9uZSBpbiB0aGUgcnVuIHRpbWUgYWFfY29tcHV0ZV9wZXJtcygpIGluc3Rl
-YWQgb2YgdGhlIGxvYWQgdGltZQplcXVpdmFsZW50IGluIGNvbXB1dGVfcGVybXNfZW50cnko
-KSBpbnRyb2R1Y2VkIGJ5IGUyOTY3ZWRlMjI5Ny4KClNpZ25lZC1vZmYtYnk6IEdlb3JnaWEg
-R2FyY2lhIDxnZW9yZ2lhLmdhcmNpYUBjYW5vbmljYWwuY29tPgpBY2tlZC1ieTogSm9obiBK
-b2hhbnNlbiA8am9obi5qb2hhbnNlbkBjYW5vbmljYWwuY29tPgotLS0KIHNlY3VyaXR5L2Fw
-cGFybW9yL2FwcGFybW9yZnMuYyAgICAgfCAgMyArKy0KIHNlY3VyaXR5L2FwcGFybW9yL2lu
-Y2x1ZGUvcGVybXMuaCAgfCAgMiArLQogc2VjdXJpdHkvYXBwYXJtb3IvaW5jbHVkZS9wb2xp
-Y3kuaCB8IDEyICsrKysrKysrKysrKwogc2VjdXJpdHkvYXBwYXJtb3IvbGFiZWwuYyAgICAg
-ICAgICB8ICA5ICsrKysrKy0tLQogc2VjdXJpdHkvYXBwYXJtb3IvbGliLmMgICAgICAgICAg
-ICB8ICA0ICsrKy0KIHNlY3VyaXR5L2FwcGFybW9yL25ldC5jICAgICAgICAgICAgfCAgMyAr
-Ky0KIHNlY3VyaXR5L2FwcGFybW9yL3BvbGljeV91bnBhY2suYyAgfCAxMSArLS0tLS0tLS0t
-LQogNyBmaWxlcyBjaGFuZ2VkLCAyNyBpbnNlcnRpb25zKCspLCAxNyBkZWxldGlvbnMoLSkK
-CmRpZmYgLS1naXQgYS9zZWN1cml0eS9hcHBhcm1vci9hcHBhcm1vcmZzLmMgYi9zZWN1cml0
-eS9hcHBhcm1vci9hcHBhcm1vcmZzLmMKaW5kZXggNzE2MGU3YWE1OGI5Li44MTMxYzkzNDU5
-MDAgMTAwNjQ0Ci0tLSBhL3NlY3VyaXR5L2FwcGFybW9yL2FwcGFybW9yZnMuYworKysgYi9z
-ZWN1cml0eS9hcHBhcm1vci9hcHBhcm1vcmZzLmMKQEAgLTYzMyw3ICs2MzMsOCBAQCBzdGF0
-aWMgdm9pZCBwcm9maWxlX3F1ZXJ5X2NiKHN0cnVjdCBhYV9wcm9maWxlICpwcm9maWxlLCBz
-dHJ1Y3QgYWFfcGVybXMgKnBlcm1zLAogCQlzdGF0ZSA9IGFhX2RmYV9tYXRjaF9sZW4oZGZh
-LCBwcm9maWxlLT5wb2xpY3kuc3RhcnRbMF0sCiAJCQkJCSBtYXRjaF9zdHIsIG1hdGNoX2xl
-bik7CiAJCWlmIChzdGF0ZSkKLQkJCWFhX2NvbXB1dGVfcGVybXMoZGZhLCBzdGF0ZSwgJnRt
-cCk7CisJCQlhYV9jb21wdXRlX3Blcm1zKGRmYSwgc3RhdGUsICZ0bXAsCisJCQkJCSBwcm9m
-aWxlLT5wb2xpY3kudmVyc2lvbik7CiAJfQogCWFhX2FwcGx5X21vZGVzX3RvX3Blcm1zKHBy
-b2ZpbGUsICZ0bXApOwogCWFhX3Blcm1zX2FjY3VtX3JhdyhwZXJtcywgJnRtcCk7CmRpZmYg
-LS1naXQgYS9zZWN1cml0eS9hcHBhcm1vci9pbmNsdWRlL3Blcm1zLmggYi9zZWN1cml0eS9h
-cHBhcm1vci9pbmNsdWRlL3Blcm1zLmgKaW5kZXggMTNmMjBjNTk4NDQ4Li43ZDVjMGMwMDQ5
-NzggMTAwNjQ0Ci0tLSBhL3NlY3VyaXR5L2FwcGFybW9yL2luY2x1ZGUvcGVybXMuaAorKysg
-Yi9zZWN1cml0eS9hcHBhcm1vci9pbmNsdWRlL3Blcm1zLmgKQEAgLTE0Miw3ICsxNDIsNyBA
-QCB2b2lkIGFhX2F1ZGl0X3Blcm1fbWFzayhzdHJ1Y3QgYXVkaXRfYnVmZmVyICphYiwgdTMy
-IG1hc2ssIGNvbnN0IGNoYXIgKmNocnMsCiB2b2lkIGFhX2FwcGx5X21vZGVzX3RvX3Blcm1z
-KHN0cnVjdCBhYV9wcm9maWxlICpwcm9maWxlLAogCQkJICAgICBzdHJ1Y3QgYWFfcGVybXMg
-KnBlcm1zKTsKIHZvaWQgYWFfY29tcHV0ZV9wZXJtcyhzdHJ1Y3QgYWFfZGZhICpkZmEsIHVu
-c2lnbmVkIGludCBzdGF0ZSwKLQkJICAgICAgc3RydWN0IGFhX3Blcm1zICpwZXJtcyk7CisJ
-CSAgICAgIHN0cnVjdCBhYV9wZXJtcyAqcGVybXMsIHUzMiB2ZXJzaW9uKTsKIHZvaWQgYWFf
-cGVybXNfYWNjdW0oc3RydWN0IGFhX3Blcm1zICphY2N1bSwgc3RydWN0IGFhX3Blcm1zICph
-ZGRlbmQpOwogdm9pZCBhYV9wZXJtc19hY2N1bV9yYXcoc3RydWN0IGFhX3Blcm1zICphY2N1
-bSwgc3RydWN0IGFhX3Blcm1zICphZGRlbmQpOwogdm9pZCBhYV9wcm9maWxlX21hdGNoX2xh
-YmVsKHN0cnVjdCBhYV9wcm9maWxlICpwcm9maWxlLCBzdHJ1Y3QgYWFfbGFiZWwgKmxhYmVs
-LApkaWZmIC0tZ2l0IGEvc2VjdXJpdHkvYXBwYXJtb3IvaW5jbHVkZS9wb2xpY3kuaCBiL3Nl
-Y3VyaXR5L2FwcGFybW9yL2luY2x1ZGUvcG9saWN5LmgKaW5kZXggNjM5YjViMjQ4ZTYzLi5l
-Nzk3M2FlZGMzODIgMTAwNjQ0Ci0tLSBhL3NlY3VyaXR5L2FwcGFybW9yL2luY2x1ZGUvcG9s
-aWN5LmgKKysrIGIvc2VjdXJpdHkvYXBwYXJtb3IvaW5jbHVkZS9wb2xpY3kuaApAQCAtNTYs
-NiArNTYsMTcgQEAgZXh0ZXJuIGNvbnN0IGNoYXIgKmNvbnN0IGFhX3Byb2ZpbGVfbW9kZV9u
-YW1lc1tdOwogCiAjZGVmaW5lIG9uX2xpc3RfcmN1KFgpICghbGlzdF9lbXB0eShYKSAmJiAo
-WCktPnByZXYgIT0gTElTVF9QT0lTT04yKQogCisjZGVmaW5lIEtfQUJJX01BU0sgMHgzZmYK
-KyNkZWZpbmUgRk9SQ0VfQ09NUExBSU5fRkxBRyAweDgwMAorI2RlZmluZSBWRVJTSU9OX0xU
-KFgsIFkpICgoKFgpICYgS19BQklfTUFTSykgPCAoKFkpICYgS19BQklfTUFTSykpCisjZGVm
-aW5lIFZFUlNJT05fTEUoWCwgWSkgKCgoWCkgJiBLX0FCSV9NQVNLKSA8PSAoKFkpICYgS19B
-QklfTUFTSykpCisjZGVmaW5lIFZFUlNJT05fR1QoWCwgWSkgKCgoWCkgJiBLX0FCSV9NQVNL
-KSA+ICgoWSkgJiBLX0FCSV9NQVNLKSkKKworI2RlZmluZSB2NQk1CS8qIGJhc2UgdmVyc2lv
-biAqLworI2RlZmluZSB2Ngk2CS8qIHBlciBlbnRyeSBwb2xpY3lkYiBtZWRpYXRpb24gY2hl
-Y2sgKi8KKyNkZWZpbmUgdjcJNworI2RlZmluZSB2OAk4CS8qIGZ1bGwgbmV0d29yayBtYXNr
-aW5nICovCisKIC8qCiAgKiBGSVhNRTogY3VycmVudGx5IG5lZWQgYSBjbGVhbiB3YXkgdG8g
-cmVwbGFjZSBhbmQgcmVtb3ZlIHByb2ZpbGVzIGFzIGEKICAqIHNldC4gIEl0IHNob3VsZCBi
-ZSBkb25lIGF0IHRoZSBuYW1lc3BhY2UgbGV2ZWwuCkBAIC03OCw2ICs4OSw3IEBAIHN0cnVj
-dCBhYV9wb2xpY3lkYiB7CiAJLyogR2VuZXJpYyBwb2xpY3kgREZBIHNwZWNpZmljIHJ1bGUg
-dHlwZXMgd2lsbCBiZSBzdWJzZWN0aW9ucyBvZiBpdCAqLwogCXN0cnVjdCBhYV9kZmEgKmRm
-YTsKIAl1bnNpZ25lZCBpbnQgc3RhcnRbQUFfQ0xBU1NfTEFTVCArIDFdOworCXUzMiB2ZXJz
-aW9uOwogCiB9OwogCmRpZmYgLS1naXQgYS9zZWN1cml0eS9hcHBhcm1vci9sYWJlbC5jIGIv
-c2VjdXJpdHkvYXBwYXJtb3IvbGFiZWwuYwppbmRleCBhNjdjNTg5N2VlMjUuLjMxNjI5M2Rm
-MDdlMCAxMDA2NDQKLS0tIGEvc2VjdXJpdHkvYXBwYXJtb3IvbGFiZWwuYworKysgYi9zZWN1
-cml0eS9hcHBhcm1vci9sYWJlbC5jCkBAIC0xMzMwLDcgKzEzMzAsOCBAQCBzdGF0aWMgaW50
-IGxhYmVsX2NvbXBvdW5kX21hdGNoKHN0cnVjdCBhYV9wcm9maWxlICpwcm9maWxlLAogCQlp
-ZiAoIXN0YXRlKQogCQkJZ290byBmYWlsOwogCX0KLQlhYV9jb21wdXRlX3Blcm1zKHByb2Zp
-bGUtPnBvbGljeS5kZmEsIHN0YXRlLCBwZXJtcyk7CisJYWFfY29tcHV0ZV9wZXJtcyhwcm9m
-aWxlLT5wb2xpY3kuZGZhLCBzdGF0ZSwgcGVybXMsCisJCQkgcHJvZmlsZS0+cG9saWN5LnZl
-cnNpb24pOwogCWFhX2FwcGx5X21vZGVzX3RvX3Blcm1zKHByb2ZpbGUsIHBlcm1zKTsKIAlp
-ZiAoKHBlcm1zLT5hbGxvdyAmIHJlcXVlc3QpICE9IHJlcXVlc3QpCiAJCXJldHVybiAtRUFD
-Q0VTOwpAQCAtMTM4MSw3ICsxMzgyLDggQEAgc3RhdGljIGludCBsYWJlbF9jb21wb25lbnRz
-X21hdGNoKHN0cnVjdCBhYV9wcm9maWxlICpwcm9maWxlLAogCXJldHVybiAwOwogCiBuZXh0
-OgotCWFhX2NvbXB1dGVfcGVybXMocHJvZmlsZS0+cG9saWN5LmRmYSwgc3RhdGUsICZ0bXAp
-OworCWFhX2NvbXB1dGVfcGVybXMocHJvZmlsZS0+cG9saWN5LmRmYSwgc3RhdGUsICZ0bXAs
-CisJCQkgcHJvZmlsZS0+cG9saWN5LnZlcnNpb24pOwogCWFhX2FwcGx5X21vZGVzX3RvX3Bl
-cm1zKHByb2ZpbGUsICZ0bXApOwogCWFhX3Blcm1zX2FjY3VtKHBlcm1zLCAmdG1wKTsKIAls
-YWJlbF9mb3JfZWFjaF9jb250KGksIGxhYmVsLCB0cCkgewpAQCAtMTM5MCw3ICsxMzkyLDgg
-QEAgc3RhdGljIGludCBsYWJlbF9jb21wb25lbnRzX21hdGNoKHN0cnVjdCBhYV9wcm9maWxl
-ICpwcm9maWxlLAogCQlzdGF0ZSA9IG1hdGNoX2NvbXBvbmVudChwcm9maWxlLCB0cCwgc3Rh
-cnQpOwogCQlpZiAoIXN0YXRlKQogCQkJZ290byBmYWlsOwotCQlhYV9jb21wdXRlX3Blcm1z
-KHByb2ZpbGUtPnBvbGljeS5kZmEsIHN0YXRlLCAmdG1wKTsKKwkJYWFfY29tcHV0ZV9wZXJt
-cyhwcm9maWxlLT5wb2xpY3kuZGZhLCBzdGF0ZSwgJnRtcCwKKwkJCQkgcHJvZmlsZS0+cG9s
-aWN5LnZlcnNpb24pOwogCQlhYV9hcHBseV9tb2Rlc190b19wZXJtcyhwcm9maWxlLCAmdG1w
-KTsKIAkJYWFfcGVybXNfYWNjdW0ocGVybXMsICZ0bXApOwogCX0KZGlmZiAtLWdpdCBhL3Nl
-Y3VyaXR5L2FwcGFybW9yL2xpYi5jIGIvc2VjdXJpdHkvYXBwYXJtb3IvbGliLmMKaW5kZXgg
-MWM3MmE2MTEwOGQzLi5mODdkNDY4ZDAyYTcgMTAwNjQ0Ci0tLSBhL3NlY3VyaXR5L2FwcGFy
-bW9yL2xpYi5jCisrKyBiL3NlY3VyaXR5L2FwcGFybW9yL2xpYi5jCkBAIC0zMjksNyArMzI5
-LDcgQEAgc3RhdGljIHUzMiBtYXBfeGJpdHModTMyIHgpCiB9CiAKIHZvaWQgYWFfY29tcHV0
-ZV9wZXJtcyhzdHJ1Y3QgYWFfZGZhICpkZmEsIHVuc2lnbmVkIGludCBzdGF0ZSwKLQkJICAg
-ICAgc3RydWN0IGFhX3Blcm1zICpwZXJtcykKKwkJICAgICAgc3RydWN0IGFhX3Blcm1zICpw
-ZXJtcywgdTMyIHZlcnNpb24pCiB7CiAJLyogVGhpcyBtYXBwaW5nIGlzIGNvbnZ1bGF0ZWQg
-ZHVlIHRvIGhpc3RvcnkuCiAJICogdjEtdjQ6IG9ubHkgZmlsZSBwZXJtcwpAQCAtMzUzLDYg
-KzM1Myw4IEBAIHZvaWQgYWFfY29tcHV0ZV9wZXJtcyhzdHJ1Y3QgYWFfZGZhICpkZmEsIHVu
-c2lnbmVkIGludCBzdGF0ZSwKIAkgKiB0byBleHRlbmQgdGhlIGdlbmVyYWwgcGVybSBzZXQK
-IAkgKi8KIAlwZXJtcy0+YWxsb3cgfD0gbWFwX290aGVyKGRmYV9vdGhlcl9hbGxvdyhkZmEs
-IHN0YXRlKSk7CisJaWYgKFZFUlNJT05fTEUodmVyc2lvbiwgdjgpKQorCQlwZXJtcy0+YWxs
-b3cgfD0gQUFfTUFZX0xPQ0s7CiAJcGVybXMtPmF1ZGl0IHw9IG1hcF9vdGhlcihkZmFfb3Ro
-ZXJfYXVkaXQoZGZhLCBzdGF0ZSkpOwogCXBlcm1zLT5xdWlldCB8PSBtYXBfb3RoZXIoZGZh
-X290aGVyX3F1aWV0KGRmYSwgc3RhdGUpKTsKIH0KZGlmZiAtLWdpdCBhL3NlY3VyaXR5L2Fw
-cGFybW9yL25ldC5jIGIvc2VjdXJpdHkvYXBwYXJtb3IvbmV0LmMKaW5kZXggN2VmZTRkMTcy
-NzNkLi44M2M5YjFlYmRjZGEgMTAwNjQ0Ci0tLSBhL3NlY3VyaXR5L2FwcGFybW9yL25ldC5j
-CisrKyBiL3NlY3VyaXR5L2FwcGFybW9yL25ldC5jCkBAIC0xMjUsNyArMTI1LDggQEAgaW50
-IGFhX3Byb2ZpbGVfYWZfcGVybShzdHJ1Y3QgYWFfcHJvZmlsZSAqcHJvZmlsZSwgc3RydWN0
-IGNvbW1vbl9hdWRpdF9kYXRhICpzYSwKIAlidWZmZXJbMV0gPSBjcHVfdG9fYmUxNigodTE2
-KSB0eXBlKTsKIAlzdGF0ZSA9IGFhX2RmYV9tYXRjaF9sZW4ocHJvZmlsZS0+cG9saWN5LmRm
-YSwgc3RhdGUsIChjaGFyICopICZidWZmZXIsCiAJCQkJIDQpOwotCWFhX2NvbXB1dGVfcGVy
-bXMocHJvZmlsZS0+cG9saWN5LmRmYSwgc3RhdGUsICZwZXJtcyk7CisJYWFfY29tcHV0ZV9w
-ZXJtcyhwcm9maWxlLT5wb2xpY3kuZGZhLCBzdGF0ZSwgJnBlcm1zLAorCQkJIHByb2ZpbGUt
-PnBvbGljeS52ZXJzaW9uKTsKIAlhYV9hcHBseV9tb2Rlc190b19wZXJtcyhwcm9maWxlLCAm
-cGVybXMpOwogCiAJcmV0dXJuIGFhX2NoZWNrX3Blcm1zKHByb2ZpbGUsICZwZXJtcywgcmVx
-dWVzdCwgc2EsIGF1ZGl0X25ldF9jYik7CmRpZmYgLS1naXQgYS9zZWN1cml0eS9hcHBhcm1v
-ci9wb2xpY3lfdW5wYWNrLmMgYi9zZWN1cml0eS9hcHBhcm1vci9wb2xpY3lfdW5wYWNrLmMK
-aW5kZXggOWMzZmVjMmM3Y2Y2Li44M2I2ZTZlY2RhNTYgMTAwNjQ0Ci0tLSBhL3NlY3VyaXR5
-L2FwcGFybW9yL3BvbGljeV91bnBhY2suYworKysgYi9zZWN1cml0eS9hcHBhcm1vci9wb2xp
-Y3lfdW5wYWNrLmMKQEAgLTI3LDE2ICsyNyw2IEBACiAjaW5jbHVkZSAiaW5jbHVkZS9wb2xp
-Y3kuaCIKICNpbmNsdWRlICJpbmNsdWRlL3BvbGljeV91bnBhY2suaCIKIAotI2RlZmluZSBL
-X0FCSV9NQVNLIDB4M2ZmCi0jZGVmaW5lIEZPUkNFX0NPTVBMQUlOX0ZMQUcgMHg4MDAKLSNk
-ZWZpbmUgVkVSU0lPTl9MVChYLCBZKSAoKChYKSAmIEtfQUJJX01BU0spIDwgKChZKSAmIEtf
-QUJJX01BU0spKQotI2RlZmluZSBWRVJTSU9OX0dUKFgsIFkpICgoKFgpICYgS19BQklfTUFT
-SykgPiAoKFkpICYgS19BQklfTUFTSykpCi0KLSNkZWZpbmUgdjUJNQkvKiBiYXNlIHZlcnNp
-b24gKi8KLSNkZWZpbmUgdjYJNgkvKiBwZXIgZW50cnkgcG9saWN5ZGIgbWVkaWF0aW9uIGNo
-ZWNrICovCi0jZGVmaW5lIHY3CTcKLSNkZWZpbmUgdjgJOAkvKiBmdWxsIG5ldHdvcmsgbWFz
-a2luZyAqLwotCiAvKgogICogVGhlIEFwcEFybW9yIGludGVyZmFjZSB0cmVhdHMgZGF0YSBh
-cyBhIHR5cGUgYnl0ZSBmb2xsb3dlZCBieSB0aGUKICAqIGFjdHVhbCBkYXRhLiAgVGhlIGlu
-dGVyZmFjZSBoYXMgdGhlIG5vdGlvbiBvZiBhIG5hbWVkIGVudHJ5CkBAIC04NTcsNiArODQ3
-LDcgQEAgc3RhdGljIHN0cnVjdCBhYV9wcm9maWxlICp1bnBhY2tfcHJvZmlsZShzdHJ1Y3Qg
-YWFfZXh0ICplLCBjaGFyICoqbnNfbmFtZSkKIAkJfQogCQlpZiAoIXVucGFja19uYW1lWChl
-LCBBQV9TVFJVQ1RFTkQsIE5VTEwpKQogCQkJZ290byBmYWlsOworCQlwcm9maWxlLT5wb2xp
-Y3kudmVyc2lvbiA9IGUtPnZlcnNpb247CiAJfSBlbHNlCiAJCXByb2ZpbGUtPnBvbGljeS5k
-ZmEgPSBhYV9nZXRfZGZhKG51bGxkZmEpOwogCi0tIAoyLjM0LjEKCg==
+  If any additional information is needed I'd be more than happy to
+  provide.
 
---------------0XSS5ureDoL96UaBQrKfMMVL--
+  ###### `snappy-debug` journalctl logs
+  [  411.702391] loop11: detected capacity change from 0 to 33408
+  [  411.882088] audit: type=3D1400 audit(1704822630.613:257): apparmor=3D"=
+STATUS" operation=3D"profile_load" profile=3D"unconfined" name=3D"snap-upda=
+te-ns.snappy-debug" pid=3D8545 comm=3D"apparmor_parser"
+  [  411.927376] audit: type=3D1400 audit(1704822630.659:258): apparmor=3D"=
+STATUS" operation=3D"profile_load" profile=3D"unconfined" name=3D"snap.snap=
+py-debug.scanlog" pid=3D8548 comm=3D"apparmor_parser"
+  [  411.927408] audit: type=3D1400 audit(1704822630.659:259): apparmor=3D"=
+STATUS" operation=3D"profile_load" profile=3D"unconfined" name=3D"snap.snap=
+py-debug.audit-arch" pid=3D8546 comm=3D"apparmor_parser"
+  [  411.927511] audit: type=3D1400 audit(1704822630.659:260): apparmor=3D"=
+STATUS" operation=3D"profile_load" profile=3D"unconfined" name=3D"snap.snap=
+py-debug.security" pid=3D8550 comm=3D"apparmor_parser"
+  [  411.927592] audit: type=3D1400 audit(1704822630.659:261): apparmor=3D"=
+STATUS" operation=3D"profile_load" profile=3D"unconfined" name=3D"snap.snap=
+py-debug.snappy-debug" pid=3D8551 comm=3D"apparmor_parser"
+  [  411.927637] audit: type=3D1400 audit(1704822630.659:262): apparmor=3D"=
+STATUS" operation=3D"profile_load" profile=3D"unconfined" name=3D"snap.snap=
+py-debug.id-range" pid=3D8547 comm=3D"apparmor_parser"
+  [  411.928038] audit: type=3D1400 audit(1704822630.659:263): apparmor=3D"=
+STATUS" operation=3D"profile_load" profile=3D"unconfined" name=3D"snap.snap=
+py-debug.scmp-sys-resolver" pid=3D8549 comm=3D"apparmor_parser"
+  [  412.245557] audit: type=3D1400 audit(1704822630.976:264): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" profile=3D"unconfined" name=3D"/var/lib/snapd/snap/snapd/20671/usr/li=
+b/snapd/snap-confine" pid=3D8573 comm=3D"apparmor_parser"
+  [  412.245562] audit: type=3D1400 audit(1704822630.976:265): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" profile=3D"unconfined" name=3D"/var/lib/snapd/snap/snapd/20671/usr/li=
+b/snapd/snap-confine//mount-namespace-capture-helper" pid=3D8573 comm=3D"ap=
+parmor_parser"
+  [  412.251680] audit: type=3D1400 audit(1704822630.983:266): apparmor=3D"=
+STATUS" operation=3D"profile_replace" profile=3D"unconfined" name=3D"snap-u=
+pdate-ns.snappy-debug" pid=3D8575 comm=3D"apparmor_parser"
+  [  436.594532] audit: type=3D1400 audit(1704822655.326:273): apparmor=3D"=
+DENIED" operation=3D"open" class=3D"file" profile=3D"snap.juju.juju" name=
+=3D"/var/lib/snapd/hostfs/etc/ca-certificates/extracted/tls-ca-bundle.pem" =
+pid=3D8866 comm=3D"juju" requested_mask=3D"r" denied_mask=3D"r" fsuid=3D100=
+0 ouid=3D0
+  [  436.955742] audit: type=3D1400 audit(1704822655.686:274): apparmor=3D"=
+STATUS" operation=3D"profile_load" profile=3D"unconfined" name=3D"lxd_archi=
+ve-var-snap-lxd-common-lxd-storage-pools-default-containers-juju-98527a-0" =
+pid=3D8915 comm=3D"apparmor_parser"
+  [  437.001597] audit: type=3D1400 audit(1704822655.733:275): apparmor=3D"=
+STATUS" operation=3D"profile_remove" profile=3D"unconfined" name=3D"lxd_arc=
+hive-var-snap-lxd-common-lxd-storage-pools-default-containers-juju-98527a-0=
+" pid=3D8920 comm=3D"apparmor_parser"
+  [  437.047127] audit: type=3D1400 audit(1704822655.779:276): apparmor=3D"=
+STATUS" operation=3D"profile_load" profile=3D"unconfined" name=3D"lxd_archi=
+ve-var-snap-lxd-common-lxd-storage-pools-default-containers-juju-98527a-0-r=
+ootfs" pid=3D8924 comm=3D"apparmor_parser"
+  [  438.662197] audit: type=3D1400 audit(1704822657.393:277): apparmor=3D"=
+STATUS" operation=3D"profile_remove" profile=3D"unconfined" name=3D"lxd_arc=
+hive-var-snap-lxd-common-lxd-storage-pools-default-containers-juju-98527a-0=
+-rootfs" pid=3D8947 comm=3D"apparmor_parser"
+  [  438.726353] lxdbr0: port 1(vethe8cdef92) entered blocking state
+  [  438.726357] lxdbr0: port 1(vethe8cdef92) entered disabled state
+  [  438.726363] vethe8cdef92: entered allmulticast mode
+  [  438.726404] vethe8cdef92: entered promiscuous mode
+  [  438.836408] audit: type=3D1400 audit(1704822657.566:278): apparmor=3D"=
+STATUS" operation=3D"profile_load" profile=3D"unconfined" name=3D"lxd-juju-=
+98527a-0_</var/snap/lxd/common/lxd>" pid=3D9022 comm=3D"apparmor_parser"
+  [  438.936964] physF3pxUH: renamed from vethd8d1dfa0
+  [  438.967393] eth0: renamed from physF3pxUH
+  [  438.983981] lxdbr0: port 1(vethe8cdef92) entered blocking state
+  [  438.983985] lxdbr0: port 1(vethe8cdef92) entered forwarding state
+  [  439.220648] NOHZ tick-stop error: local softirq work is pending, handl=
+er #200!!!
+  [  439.262605] audit: type=3D1400 audit(1704822657.993:279): apparmor=3D"=
+STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
+d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
+me=3D"nvidia_modprobe" pid=3D9151 comm=3D"apparmor_parser"
+  [  439.262990] audit: type=3D1400 audit(1704822657.993:280): apparmor=3D"=
+STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
+d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
+me=3D"lsb_release" pid=3D9150 comm=3D"apparmor_parser"
+  [  439.263026] audit: type=3D1400 audit(1704822657.993:281): apparmor=3D"=
+STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
+d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
+me=3D"nvidia_modprobe//kmod" pid=3D9151 comm=3D"apparmor_parser"
+  [  439.271998] audit: type=3D1400 audit(1704822658.003:282): apparmor=3D"=
+STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
+d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
+me=3D"tcpdump" pid=3D9154 comm=3D"apparmor_parser"
+  [  439.275799] audit: type=3D1400 audit(1704822658.006:283): apparmor=3D"=
+STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
+d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
+me=3D"/usr/bin/man" pid=3D9153 comm=3D"apparmor_parser"
+  [  439.275958] audit: type=3D1400 audit(1704822658.006:284): apparmor=3D"=
+STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
+d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
+me=3D"man_filter" pid=3D9153 comm=3D"apparmor_parser"
+  [  439.276194] audit: type=3D1400 audit(1704822658.006:285): apparmor=3D"=
+STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
+d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
+me=3D"man_groff" pid=3D9153 comm=3D"apparmor_parser"
+  [  439.325135] audit: type=3D1400 audit(1704822658.056:286): apparmor=3D"=
+STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
+d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
+me=3D"/usr/lib/NetworkManager/nm-dhcp-client.action" pid=3D9152 comm=3D"app=
+armor_parser"
+  [  439.325403] audit: type=3D1400 audit(1704822658.056:287): apparmor=3D"=
+STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
+d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
+me=3D"/usr/lib/NetworkManager/nm-dhcp-helper" pid=3D9152 comm=3D"apparmor_p=
+arser"
+  [  439.325644] audit: type=3D1400 audit(1704822658.056:288): apparmor=3D"=
+STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
+d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
+me=3D"/usr/lib/connman/scripts/dhclient-script" pid=3D9152 comm=3D"apparmor=
+_parser"
+  [  439.326140] audit: type=3D1400 audit(1704822658.056:289): apparmor=3D"=
+STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
+d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
+me=3D"/{,usr/}sbin/dhclient" pid=3D9152 comm=3D"apparmor_parser"
+  [  439.356289] audit: type=3D1400 audit(1704822658.086:290): apparmor=3D"=
+STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
+d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
+me=3D"/usr/lib/snapd/snap-confine" pid=3D9155 comm=3D"apparmor_parser"
+  [  439.356526] audit: type=3D1400 audit(1704822658.086:291): apparmor=3D"=
+STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
+d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
+me=3D"/usr/lib/snapd/snap-confine//mount-namespace-capture-helper" pid=3D91=
+55 comm=3D"apparmor_parser"
+  [  439.531185] audit: type=3D1400 audit(1704822658.263:292): apparmor=3D"=
+STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
+d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
+me=3D"snap-update-ns.lxd" pid=3D9178 comm=3D"apparmor_parser"
+  [  439.593477] audit: type=3D1400 audit(1704822658.319:293): apparmor=3D"=
+STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
+d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
+me=3D"/snap/snapd/20290/usr/lib/snapd/snap-confine" pid=3D9177 comm=3D"appa=
+rmor_parser"
+  [  439.593486] audit: type=3D1400 audit(1704822658.319:294): apparmor=3D"=
+STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
+d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
+me=3D"/snap/snapd/20290/usr/lib/snapd/snap-confine//mount-namespace-capture=
+-helper" pid=3D9177 comm=3D"apparmor_parser"
+  [  439.594919] audit: type=3D1400 audit(1704822658.326:295): apparmor=3D"=
+STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
+d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
+me=3D"snap.lxd.activate" pid=3D9179 comm=3D"apparmor_parser"
+  [  439.609341] audit: type=3D1400 audit(1704822658.339:296): apparmor=3D"=
+STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
+d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
+me=3D"snap.lxd.hook.install" pid=3D9185 comm=3D"apparmor_parser"
+  [  439.617405] audit: type=3D1400 audit(1704822658.349:297): apparmor=3D"=
+STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
+d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
+me=3D"snap.lxd.benchmark" pid=3D9180 comm=3D"apparmor_parser"
+  [  439.621261] audit: type=3D1400 audit(1704822658.353:298): apparmor=3D"=
+STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
+d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
+me=3D"snap.lxd.hook.remove" pid=3D9186 comm=3D"apparmor_parser"
+  [  439.625205] audit: type=3D1400 audit(1704822658.356:299): apparmor=3D"=
+STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
+d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
+me=3D"snap.lxd.buginfo" pid=3D9181 comm=3D"apparmor_parser"
+  [  439.625267] audit: type=3D1400 audit(1704822658.356:300): apparmor=3D"=
+STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
+d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
+me=3D"snap.lxd.check-kernel" pid=3D9182 comm=3D"apparmor_parser"
+  [  439.625861] audit: type=3D1400 audit(1704822658.356:301): apparmor=3D"=
+STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
+d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
+me=3D"snap.lxd.lxc-to-lxd" pid=3D9188 comm=3D"apparmor_parser"
+  [  439.626255] audit: type=3D1400 audit(1704822658.356:302): apparmor=3D"=
+STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
+d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
+me=3D"snap.lxd.migrate" pid=3D9190 comm=3D"apparmor_parser"
+  [  439.626606] audit: type=3D1400 audit(1704822658.356:303): apparmor=3D"=
+STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
+d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
+me=3D"snap.lxd.lxc" pid=3D9187 comm=3D"apparmor_parser"
+  [  439.627179] audit: type=3D1400 audit(1704822658.359:304): apparmor=3D"=
+STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
+d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
+me=3D"snap.lxd.lxd" pid=3D9189 comm=3D"apparmor_parser"
+  [  439.639671] audit: type=3D1400 audit(1704822658.369:305): apparmor=3D"=
+STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
+d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
+me=3D"snap.lxd.hook.configure" pid=3D9184 comm=3D"apparmor_parser"
+  [  439.642412] audit: type=3D1400 audit(1704822658.373:306): apparmor=3D"=
+STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
+d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
+me=3D"snap.lxd.daemon" pid=3D9183 comm=3D"apparmor_parser"
+  [  439.645081] audit: type=3D1400 audit(1704822658.376:307): apparmor=3D"=
+STATUS" operation=3D"profile_load" label=3D"lxd-juju-98527a-0_</var/snap/lx=
+d/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined" na=
+me=3D"snap.lxd.user-daemon" pid=3D9191 comm=3D"apparmor_parser"
+  [  439.713482] NOHZ tick-stop error: local softirq work is pending, handl=
+er #200!!!
+  [  441.714898] audit: type=3D1400 audit(1704822660.446:308): apparmor=3D"=
+STATUS" operation=3D"profile_replace" label=3D"lxd-juju-98527a-0_</var/snap=
+/lxd/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined"=
+ name=3D"/snap/snapd/20290/usr/lib/snapd/snap-confine" pid=3D9421 comm=3D"a=
+pparmor_parser"
+  [  441.756809] audit: type=3D1400 audit(1704822660.489:309): apparmor=3D"=
+STATUS" operation=3D"profile_replace" label=3D"lxd-juju-98527a-0_</var/snap=
+/lxd/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined"=
+ name=3D"/snap/snapd/20290/usr/lib/snapd/snap-confine//mount-namespace-capt=
+ure-helper" pid=3D9421 comm=3D"apparmor_parser"
+  [  441.760434] audit: type=3D1400 audit(1704822660.493:310): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
+27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap-update-ns.lxd" pid=
+=3D9423 comm=3D"apparmor_parser"
+  [  441.762440] audit: type=3D1400 audit(1704822660.493:311): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
+27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.activate" pid=
+=3D9424 comm=3D"apparmor_parser"
+  [  441.762939] audit: type=3D1400 audit(1704822660.493:312): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
+27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.benchmark" pid=
+=3D9425 comm=3D"apparmor_parser"
+  [  441.763142] audit: type=3D1400 audit(1704822660.493:313): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
+27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.buginfo" pid=
+=3D9426 comm=3D"apparmor_parser"
+  [  441.763213] audit: type=3D1400 audit(1704822660.493:314): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
+27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.hook.remove" p=
+id=3D9431 comm=3D"apparmor_parser"
+  [  441.763364] audit: type=3D1400 audit(1704822660.493:315): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
+27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.check-kernel" =
+pid=3D9427 comm=3D"apparmor_parser"
+  [  441.763491] audit: type=3D1400 audit(1704822660.496:316): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
+27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.hook.install" =
+pid=3D9430 comm=3D"apparmor_parser"
+  [  441.763665] audit: type=3D1400 audit(1704822660.496:317): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
+27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.lxc-to-lxd" pi=
+d=3D9433 comm=3D"apparmor_parser"
+  [  441.763688] audit: type=3D1400 audit(1704822660.496:318): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
+27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.lxd" pid=3D943=
+4 comm=3D"apparmor_parser"
+  [  441.763742] audit: type=3D1400 audit(1704822660.496:319): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
+27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.migrate" pid=
+=3D9435 comm=3D"apparmor_parser"
+  [  441.763869] audit: type=3D1400 audit(1704822660.496:320): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
+27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.lxc" pid=3D943=
+2 comm=3D"apparmor_parser"
+  [  441.764036] audit: type=3D1400 audit(1704822660.496:321): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
+27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.hook.configure=
+" pid=3D9429 comm=3D"apparmor_parser"
+  [  441.764117] audit: type=3D1400 audit(1704822660.496:322): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
+27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.daemon" pid=3D=
+9428 comm=3D"apparmor_parser"
+  [  441.764418] audit: type=3D1400 audit(1704822660.496:323): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
+27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.user-daemon" p=
+id=3D9436 comm=3D"apparmor_parser"
+  [  442.313495] audit: type=3D1400 audit(1704822661.046:324): apparmor=3D"=
+DENIED" operation=3D"file_inherit" class=3D"net" namespace=3D"root//lxd-juj=
+u-98527a-0_<var-snap-lxd-common-lxd>" profile=3D"/snap/snapd/20290/usr/lib/=
+snapd/snap-confine" pid=3D9458 comm=3D"snap-confine" family=3D"netlink" soc=
+k_type=3D"raw" protocol=3D15 requested_mask=3D"send receive" denied_mask=3D=
+"send receive"
+  [  442.323720] audit: type=3D1400 audit(1704822661.056:325): apparmor=3D"=
+DENIED" operation=3D"file_inherit" class=3D"file" namespace=3D"root//lxd-ju=
+ju-98527a-0_<var-snap-lxd-common-lxd>" profile=3D"snap-update-ns.lxd" name=
+=3D"/apparmor/.null" pid=3D9478 comm=3D"6" requested_mask=3D"wr" denied_mas=
+k=3D"wr" fsuid=3D1000000 ouid=3D0
+  [  442.477442] audit: type=3D1400 audit(1704822661.209:326): apparmor=3D"=
+DENIED" operation=3D"file_inherit" class=3D"file" namespace=3D"root//lxd-ju=
+ju-98527a-0_<var-snap-lxd-common-lxd>" profile=3D"snap.lxd.hook.install" na=
+me=3D"/apparmor/.null" pid=3D9458 comm=3D"snap-exec" requested_mask=3D"wr" =
+denied_mask=3D"wr" fsuid=3D1000000 ouid=3D0
+  [  442.884305] audit: type=3D1400 audit(1704822661.616:327): apparmor=3D"=
+DENIED" operation=3D"file_inherit" class=3D"net" namespace=3D"root//lxd-juj=
+u-98527a-0_<var-snap-lxd-common-lxd>" profile=3D"/snap/snapd/20290/usr/lib/=
+snapd/snap-confine" pid=3D9525 comm=3D"snap-confine" family=3D"unix" sock_t=
+ype=3D"stream" protocol=3D0 requested_mask=3D"send receive" denied_mask=3D"=
+send receive"
+  [  442.884311] audit: type=3D1400 audit(1704822661.616:328): apparmor=3D"=
+DENIED" operation=3D"file_inherit" class=3D"net" namespace=3D"root//lxd-juj=
+u-98527a-0_<var-snap-lxd-common-lxd>" profile=3D"/snap/snapd/20290/usr/lib/=
+snapd/snap-confine" pid=3D9525 comm=3D"snap-confine" family=3D"unix" sock_t=
+ype=3D"stream" protocol=3D0 requested_mask=3D"send receive" denied_mask=3D"=
+send receive"
+  [  442.886474] audit: type=3D1400 audit(1704822661.616:329): apparmor=3D"=
+DENIED" operation=3D"file_inherit" class=3D"file" namespace=3D"root//lxd-ju=
+ju-98527a-0_<var-snap-lxd-common-lxd>" profile=3D"snap.lxd.activate" name=
+=3D"/apparmor/.null" pid=3D9525 comm=3D"snap-exec" requested_mask=3D"wr" de=
+nied_mask=3D"wr" fsuid=3D1000000 ouid=3D0
+  [  442.886479] audit: type=3D1400 audit(1704822661.616:330): apparmor=3D"=
+DENIED" operation=3D"file_inherit" class=3D"file" namespace=3D"root//lxd-ju=
+ju-98527a-0_<var-snap-lxd-common-lxd>" profile=3D"snap.lxd.activate" name=
+=3D"/apparmor/.null" pid=3D9525 comm=3D"snap-exec" requested_mask=3D"wr" de=
+nied_mask=3D"wr" fsuid=3D1000000 ouid=3D0
+  [  442.897436] audit: type=3D1400 audit(1704822661.629:331): apparmor=3D"=
+DENIED" operation=3D"file_inherit" class=3D"file" namespace=3D"root//lxd-ju=
+ju-98527a-0_<var-snap-lxd-common-lxd>" profile=3D"/snap/snapd/20290/usr/lib=
+/snapd/snap-confine" name=3D"/apparmor/.null" pid=3D9525 comm=3D"aa-exec" r=
+equested_mask=3D"wr" denied_mask=3D"wr" fsuid=3D1000000 ouid=3D0
+  [  442.897439] audit: type=3D1400 audit(1704822661.629:332): apparmor=3D"=
+DENIED" operation=3D"file_inherit" class=3D"file" namespace=3D"root//lxd-ju=
+ju-98527a-0_<var-snap-lxd-common-lxd>" profile=3D"/snap/snapd/20290/usr/lib=
+/snapd/snap-confine" name=3D"/apparmor/.null" pid=3D9525 comm=3D"aa-exec" r=
+equested_mask=3D"wr" denied_mask=3D"wr" fsuid=3D1000000 ouid=3D0
+  [  442.926817] NOHZ tick-stop error: local softirq work is pending, handl=
+er #200!!!
+  [  442.976813] NOHZ tick-stop error: local softirq work is pending, handl=
+er #200!!!
+  [  443.263929] audit: type=3D1400 audit(1704822661.996:333): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
+27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"/snap/snapd/20290/usr/l=
+ib/snapd/snap-confine" pid=3D9602 comm=3D"apparmor_parser"
+  [  443.263934] audit: type=3D1400 audit(1704822661.996:334): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
+27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"/snap/snapd/20290/usr/l=
+ib/snapd/snap-confine//mount-namespace-capture-helper" pid=3D9602 comm=3D"a=
+pparmor_parser"
+  [  443.267568] audit: type=3D1400 audit(1704822661.999:335): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
+27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap-update-ns.lxd" pid=
+=3D9604 comm=3D"apparmor_parser"
+  [  443.270731] audit: type=3D1400 audit(1704822662.003:336): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
+27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.activate" pid=
+=3D9605 comm=3D"apparmor_parser"
+  [  443.270893] audit: type=3D1400 audit(1704822662.003:337): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
+27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.buginfo" pid=
+=3D9607 comm=3D"apparmor_parser"
+  [  443.271121] audit: type=3D1400 audit(1704822662.003:338): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
+27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.benchmark" pid=
+=3D9606 comm=3D"apparmor_parser"
+  [  443.271208] audit: type=3D1400 audit(1704822662.003:339): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
+27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.hook.install" =
+pid=3D9611 comm=3D"apparmor_parser"
+  [  443.271319] audit: type=3D1400 audit(1704822662.003:340): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
+27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.check-
+  kernel" pid=3D9608 comm=3D"apparmor_parser"
+  [  443.271426] audit: type=3D1400 audit(1704822662.003:341): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
+27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.hook.remove" p=
+id=3D9612 comm=3D"apparmor_parser"
+  [  443.271595] audit: type=3D1400 audit(1704822662.003:342): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
+27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.lxc" pid=3D961=
+3 comm=3D"apparmor_parser"
+  [  443.271815] audit: type=3D1400 audit(1704822662.003:343): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
+27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.lxc-to-lxd" pi=
+d=3D9614 comm=3D"apparmor_parser"
+  [  443.271827] audit: type=3D1400 audit(1704822662.003:344): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
+27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.lxd" pid=3D961=
+5 comm=3D"apparmor_parser"
+  [  443.271901] audit: type=3D1400 audit(1704822662.003:345): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
+27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.migrate" pid=
+=3D9616 comm=3D"apparmor_parser"
+  [  443.271915] audit: type=3D1400 audit(1704822662.003:346): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
+27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.daemon" pid=3D=
+9609 comm=3D"apparmor_parser"
+  [  443.272098] audit: type=3D1400 audit(1704822662.003:347): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
+27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.hook.configure=
+" pid=3D9610 comm=3D"apparmor_parser"
+  [  443.272532] audit: type=3D1400 audit(1704822662.003:348): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
+27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"snap.lxd.user-daemon" p=
+id=3D9617 comm=3D"apparmor_parser"
+  [  445.556120] audit: type=3D1400 audit(1704822664.286:349): apparmor=3D"=
+STATUS" operation=3D"profile_replace" label=3D"lxd-juju-98527a-0_</var/snap=
+/lxd/common/lxd>//&:lxd-juju-98527a-0_<var-snap-lxd-common-lxd>:unconfined"=
+ name=3D"/usr/lib/snapd/snap-confine" pid=3D9767 comm=3D"apparmor_parser"
+  [  445.570529] audit: type=3D1400 audit(1704822664.303:350): apparmor=3D"=
+STATUS" operation=3D"profile_replace" info=3D"same as current profile, skip=
+ping" label=3D"lxd-juju-98527a-0_</var/snap/lxd/common/lxd>//&:lxd-juju-985=
+27a-0_<var-snap-lxd-common-lxd>:unconfined" name=3D"/usr/lib/snapd/snap-con=
+fine//mount-namespace-capture-helper" pid=3D9767 comm=3D"apparmor_parser"
+
+  ##### A rough grab from dmesg
+  ~ =E2=9D=AF sudo journalctl --output=3Dshort --follow --all | sudo snappy=
+-debug
+
+  kernel.printk_ratelimit =3D 0
+  =3D AppArmor =3D
+  Time: Jan 09 17:50:55
+  Log: apparmor=3D"DENIED" operation=3D"open" class=3D"file" profile=3D"sna=
+p.juju.juju" name=3D"/var/lib/snapd/hostfs/etc/ca-certificates/extracted/tl=
+s-ca-bundle.pem" pid=3D8866 comm=3D"juju" requested_mask=3D"r" denied_mask=
+=3D"r" fsuid=3D1000 ouid=3D0
+  File: /var/lib/snapd/hostfs/etc/ca-certificates/extracted/tls-ca-bundle.p=
+em (read)
+  Suggestions:
+  * adjust program to read necessary files from $SNAP, $SNAP_DATA, $SNAP_CO=
+MMON, $SNAP_USER_DATA or $SNAP_USER_COMMON
+  * adjust snap to use snap layouts (https://forum.snapcraft.io/t/snap-layo=
+uts/7207)
+
+  =3D AppArmor =3D
+  Time: Jan 09 17:51:01
+  Log: apparmor=3D"DENIED" operation=3D"file_inherit" class=3D"net" namespa=
+ce=3D"root//lxd-juju-98527a-0_<var-snap-lxd-common-lxd>" profile=3D"/snap/s=
+napd/20290/usr/lib/snapd/snap-confine" pid=3D9458 comm=3D"snap-confine" fam=
+ily=3D"netlink" sock_type=3D"raw" protocol=3D15 requested_mask=3D"send rece=
+ive" denied_mask=3D"send receive"
+  Suggestion:
+  * add one of 'account-control, hardware-observe, kernel-crypto-api, netwo=
+rk-control, network-observe, raw-input, unity7, x11' to 'plugs'
+
+  =3D AppArmor =3D
+  Time: Jan 09 17:51:01
+  Log: apparmor=3D"DENIED" operation=3D"file_inherit" class=3D"file" namesp=
+ace=3D"root//lxd-juju-98527a-0_<var-snap-lxd-common-lxd>" profile=3D"snap-u=
+pdate-ns.lxd" name=3D"/apparmor/.null" pid=3D9478 comm=3D"6" requested_mask=
+=3D"wr" denied_mask=3D"wr" fsuid=3D1000000 ouid=3D0
+  File: /apparmor/.null (write)
+  Suggestion:
+  * adjust program to write to $SNAP_DATA, $SNAP_COMMON, $SNAP_USER_DATA or=
+ $SNAP_USER_COMMON
+
+  =3D AppArmor =3D
+  Time: Jan 09 17:51:01
+  Log: apparmor=3D"DENIED" operation=3D"file_inherit" class=3D"file" namesp=
+ace=3D"root//lxd-juju-98527a-0_<var-snap-lxd-common-lxd>" profile=3D"snap.l=
+xd.hook.install" name=3D"/apparmor/.null" pid=3D9458 comm=3D"snap-exec" req=
+uested_mask=3D"wr" denied_mask=3D"wr" fsuid=3D1000000 ouid=3D0
+  File: /apparmor/.null (write)
+  Suggestion:
+  * adjust program to write to $SNAP_DATA, $SNAP_COMMON, $SNAP_USER_DATA or=
+ $SNAP_USER_COMMON
+
+  =3D AppArmor =3D
+  Time: Jan 09 17:51:01
+  Log: apparmor=3D"DENIED" operation=3D"file_inherit" class=3D"net" namespa=
+ce=3D"root//lxd-juju-98527a-0_<var-snap-lxd-common-lxd>" profile=3D"/snap/s=
+napd/20290/usr/lib/snapd/snap-confine" pid=3D9525 comm=3D"snap-confine" fam=
+ily=3D"unix" sock_type=3D"stream" protocol=3D0 requested_mask=3D"send recei=
+ve" denied_mask=3D"send receive"
+
+  =3D AppArmor =3D
+  Time: Jan 09 17:51:01
+  Log: apparmor=3D"DENIED" operation=3D"file_inherit" class=3D"file" namesp=
+ace=3D"root//lxd-juju-98527a-0_<var-snap-lxd-common-lxd>" profile=3D"snap.l=
+xd.activate" name=3D"/apparmor/.null" pid=3D9525 comm=3D"snap-exec" request=
+ed_mask=3D"wr" denied_mask=3D"wr" fsuid=3D1000000 ouid=3D0
+  File: /apparmor/.null (write)
+  Suggestion:
+  * adjust program to write to $SNAP_DATA, $SNAP_COMMON, $SNAP_USER_DATA or=
+ $SNAP_USER_COMMON
+
+  =3D AppArmor =3D
+  Time: Jan 09 17:51:01
+  Log: apparmor=3D"DENIED" operation=3D"file_inherit" class=3D"file" namesp=
+ace=3D"root//lxd-juju-98527a-0_<var-snap-lxd-common-lxd>" profile=3D"/snap/=
+snapd/20290/usr/lib/snapd/snap-confine" name=3D"/apparmor/.null" pid=3D9525=
+ comm=3D"aa-exec" requested_mask=3D"wr" denied_mask=3D"wr" fsuid=3D1000000 =
+ouid=3D0
+  File: /apparmor/.null (write)
+  Suggestion:
+  * adjust program to write to $SNAP_DATA, $SNAP_COMMON, $SNAP_USER_DATA or=
+ $SNAP_USER_COMMON
+
+  ##### Snapd installed using -
+  https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=3Dsnapd
+
+  ##### `juju-db` snap - https://github.com/juju/juju-db-snap/tree/5.3
+
+  ##### `usr.lib.snapd.snap-confine` default on Arch, in case it's useful
+  https://pastebin.com/M5t6gySa
+
+  ##### Reproduce Steps
+  Assuming you're running on a vanilla (minimal tweaking) Arch machine with=
+ AppArmor enabled:
+
+  ```bash
+  cd /tmp && git clone https://aur.archlinux.org/snapd.git && cd snapd
+  makepkg -si
+  sudo systemctl enable --now snapd.socket
+
+  # log-out, log-in
+
+  sudo snap install lxd --channel latest/edge
+  lxd init --auto
+
+  sudo snap install juju --channel 3.3/stable
+
+  juju bootstrap localhost lh --debug --bootstrap-timeout=3D180
+
+  # check snappy-debug or dmesg for AppArmor denials
+  ```
+
+To manage notifications about this bug go to:
+https://bugs.launchpad.net/snapd/+bug/2049099/+subscriptions
+
 
