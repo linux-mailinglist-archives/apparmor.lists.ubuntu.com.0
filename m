@@ -2,32 +2,33 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85EBF841245
-	for <lists+apparmor@lfdr.de>; Mon, 29 Jan 2024 19:40:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC171841278
+	for <lists+apparmor@lfdr.de>; Mon, 29 Jan 2024 19:45:07 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rUWYO-0006Qr-Vy; Mon, 29 Jan 2024 18:40:21 +0000
+	id 1rUWct-00009e-Mb; Mon, 29 Jan 2024 18:45:00 +0000
 Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
  helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1rUWYJ-0006Qi-9y
- for apparmor@lists.ubuntu.com; Mon, 29 Jan 2024 18:40:15 +0000
+ id 1rUWch-0008Vk-3N
+ for apparmor@lists.ubuntu.com; Mon, 29 Jan 2024 18:44:47 +0000
 Received: from [192.168.192.85] (unknown [50.39.103.33])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id BFC403F2F9
- for <apparmor@lists.ubuntu.com>; Mon, 29 Jan 2024 18:40:14 +0000 (UTC)
-Message-ID: <64055a22-1510-4e9c-9f0e-30257cf7cc95@canonical.com>
-Date: Mon, 29 Jan 2024 10:40:12 -0800
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 70B363F5DD
+ for <apparmor@lists.ubuntu.com>; Mon, 29 Jan 2024 18:44:46 +0000 (UTC)
+Message-ID: <82306d02-4e70-47a3-a052-2343d1ebb51d@canonical.com>
+Date: Mon, 29 Jan 2024 10:44:43 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
 To: apparmor@lists.ubuntu.com
-References: <170500315357.2951651.15872417683793394378.malonedeb@juju-98d295-prod-launchpad-4>
- <170655223188.964296.4595061958161819535.malone@juju-98d295-prod-launchpad-2>
+References: <d5ffa21c-c3ca-4b34-9402-9437e64488ad@canonical.com>
+ <a992b887-24fd-4f9a-a663-3c8363ecce0c@canonical.com>
+ <292f48bb-4ec2-45ca-8683-1eda53b0d7a3@canonical.com>
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
  xsFNBE5mrPoBEADAk19PsgVgBKkImmR2isPQ6o7KJhTTKjJdwVbkWSnNn+o6Up5knKP1f49E
@@ -72,11 +73,10 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <170655223188.964296.4595061958161819535.malone@juju-98d295-prod-launchpad-2>
+In-Reply-To: <292f48bb-4ec2-45ca-8683-1eda53b0d7a3@canonical.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [Bug 2049099] Re: AppArmor blocking snap install
- nested in LXD container
+Content-Transfer-Encoding: 8bit
+Subject: Re: [apparmor] ENOPROTOOPT error when calling aa_getpeercon()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -91,44 +91,26 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 1/29/24 10:17, Marc Oppenheimer wrote:
-> What would cause the divergence in behavior on different host OS's do
-> you think?
+On 1/29/24 09:26, Sergio Costas Rodriguez wrote:
+> El 29/1/24 a las 17:48, John Johansen escribió:
+>> On 1/29/24 08:31, Sergio Costas Rodriguez wrote:
+>>> Hi all,
+>>>
+>>> I'm using aa_getpeercon() to get info about a socket, but in some kernels with odd apparmor configurations it returns ENOPROTOOPT. But the manpage doesn't list that error in the possible errors of this call. Under which circumstances can that error be returned?
+>>>
+>>
+>> to use aa_getpeercon() your kernel will need the fine grained unix mediation which hasn't land in upstream kernels yet. So current upstream kernels will return -ENOPROTOOPT because SO_PEERLABEL is not a supported protocol option.
+>>
+>> Additionally note that with LSM stacking, with apparmor stacked with another LSM, even if you have the fine grained af_unix mediation, that aa_getpeercon() will either return an error or the wrong LSM info (it will depend on the version aa_getpeercon() that is in use.
+>>
+>>
+> Mmm... does that mean that Ubuntu kernels have that patch included? Do you know since which version?
 > 
-> When using a pinned snap revision for everything, the behavior is
-> different between Ubuntu and Arch, so I am not sure it's LXD's profile
-> differences, if I understood correctly.
-> 
 
-There could be LXD profile differences, unfortunately grabbing those is
-harder than it should be. LXD does some dynamic profile generation based
-on kernel and apparmor version.
+yes, variation iterations of it for a long time. Unfortunately the patches took some liberties that really weren't appropriate for upstream, and also had some inconsistencies around fs vs non-fs variants of unix sockets making it not suitable for upstream.
 
-So even when LXD is fixed, the apparmor policy compiler version and kernel
-come into play. AppArmor will also likely be adapting policy to what is
-supported in the kernel so, even if the text policy LXD generates is
-the same between hosts, what the kernel enforces could be different.
-
-LXD might also be doing some setup of the container differently based on
-the kernel, so its not just apparmor policy setup that might vary.
+There needed to be work on the apparmor core to fix those issues, that work is now largely done and a new variant of the fine grained unix mediation patch will hopefully land soon.
 
 
-Being more familiar with apparmor, I would start with comparing the
-text and the binary policy. I don't remember where LXD stores the policy
-it generates, I will need to dig. The binaries that are loaded into
-the kernel can be found through
-
-/sys/kernel/security/apparmor/policy/profiles/
-
-eg.
-/sys/kernel/security/apparmor/policy/profiles/snap.cups.gs.59/raw_data
-
-or just the hash
-/sys/kernel/security/apparmor/policy/profiles/snap.cups.gs.59/raw_sha1
-
-
-then I would start looking for differences in what the kernels support.
-If the kernels are the same version that helps narrow the difference
-down.
 
 
