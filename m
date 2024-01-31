@@ -2,81 +2,47 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC171841278
-	for <lists+apparmor@lfdr.de>; Mon, 29 Jan 2024 19:45:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0174843457
+	for <lists+apparmor@lfdr.de>; Wed, 31 Jan 2024 04:05:33 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rUWct-00009e-Mb; Mon, 29 Jan 2024 18:45:00 +0000
-Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
- helo=smtp-relay-canonical-0.canonical.com)
+	id 1rV0ui-0003tb-7K; Wed, 31 Jan 2024 03:05:24 +0000
+Received: from mail-lf1-f53.google.com ([209.85.167.53])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1rUWch-0008Vk-3N
- for apparmor@lists.ubuntu.com; Mon, 29 Jan 2024 18:44:47 +0000
-Received: from [192.168.192.85] (unknown [50.39.103.33])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 70B363F5DD
- for <apparmor@lists.ubuntu.com>; Mon, 29 Jan 2024 18:44:46 +0000 (UTC)
-Message-ID: <82306d02-4e70-47a3-a052-2343d1ebb51d@canonical.com>
-Date: Mon, 29 Jan 2024 10:44:43 -0800
+ (Exim 4.86_2) (envelope-from <murali.selvaraj2003@gmail.com>)
+ id 1rV0ue-0003t0-Ao
+ for apparmor@lists.ubuntu.com; Wed, 31 Jan 2024 03:05:20 +0000
+Received: by mail-lf1-f53.google.com with SMTP id
+ 2adb3069b0e04-5111ef545bfso2013168e87.1
+ for <apparmor@lists.ubuntu.com>; Tue, 30 Jan 2024 19:05:20 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1706670319; x=1707275119;
+ h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=bws648MuxV/7AnO8yMyr+IPCmYyJyzrwbzB012Tp+cg=;
+ b=GO/hp5JdagHFH9pPo9SvClQWb0GetMPsmp0SxmoFyg79KhpZNY4k743eznJBiQl85O
+ 3ahnct6Udo3YVlBT6EW+Qr7XCU6r1PAI2/6Ogrk1typYMJCav+VnlDPTyMPUU2I1/bYQ
+ /SReWWOHKSt86FTr/jAkxIAYvWAm9i70puP15WcpRmwNWsabla+GQc95GSD+FdKLyW74
+ vInmRan6mm/PvPnlmKT38S+csaUotP2I25wEe9TGj8ZTCs7mGwlp4M8waBXxH5W1npYF
+ JGm0Ritzp3nLCaEj4sRw8CEWB+/B+Ttc9dGhK1Qu+ujOzZ5Tqdk3qLKBzlTBSDkExZ+X
+ l/Hw==
+X-Gm-Message-State: AOJu0YxDMKNbRn2UdEqJo0Pb9Qapd7uNqpbMIrSa85x8nwH2FMIOdtAs
+ qrCBxV+Rb2UB9ZUPqsK0OoLC5VOpIbxpzzN+FpqQ3PPJniSak+BpzdrmBEJnFsghWH7of6fqDqS
+ 3UmtHrUXUxtYt0SlrbNPak1kWqPYqcvel4bw=
+X-Google-Smtp-Source: AGHT+IFl0WF72czsDkhDakdd9UZLND7Jx7kHns5nCn/jHrwBdevOXvqNxAtymnGV+yzBESBHwlBAd+eVquHvFPumElQ=
+X-Received: by 2002:a2e:9d9a:0:b0:2cc:d8ec:4e1 with SMTP id
+ c26-20020a2e9d9a000000b002ccd8ec04e1mr270284ljj.22.1706670318733; Tue, 30 Jan
+ 2024 19:05:18 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
+From: Murali Selvaraj <murali.selvaraj2003@gmail.com>
+Date: Tue, 30 Jan 2024 22:05:07 -0500
+Message-ID: <CAODFaZ47MYEqxL8AYErn5rsvsTz-xCr70SyTc=P=u8k=w7cCoQ@mail.gmail.com>
 To: apparmor@lists.ubuntu.com
-References: <d5ffa21c-c3ca-4b34-9402-9437e64488ad@canonical.com>
- <a992b887-24fd-4f9a-a663-3c8363ecce0c@canonical.com>
- <292f48bb-4ec2-45ca-8683-1eda53b0d7a3@canonical.com>
-From: John Johansen <john.johansen@canonical.com>
-Autocrypt: addr=john.johansen@canonical.com; keydata=
- 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 lT9Q
-Organization: Canonical
-In-Reply-To: <292f48bb-4ec2-45ca-8683-1eda53b0d7a3@canonical.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [apparmor] ENOPROTOOPT error when calling aa_getpeercon()
+Content-Type: multipart/alternative; boundary="00000000000018cce30610352610"
+Received-SPF: pass client-ip=209.85.167.53;
+ envelope-from=murali.selvaraj2003@gmail.com; helo=mail-lf1-f53.google.com
+Subject: [apparmor] systemd AppArmorProfile
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -91,26 +57,82 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 1/29/24 09:26, Sergio Costas Rodriguez wrote:
-> El 29/1/24 a las 17:48, John Johansen escribió:
->> On 1/29/24 08:31, Sergio Costas Rodriguez wrote:
->>> Hi all,
->>>
->>> I'm using aa_getpeercon() to get info about a socket, but in some kernels with odd apparmor configurations it returns ENOPROTOOPT. But the manpage doesn't list that error in the possible errors of this call. Under which circumstances can that error be returned?
->>>
->>
->> to use aa_getpeercon() your kernel will need the fine grained unix mediation which hasn't land in upstream kernels yet. So current upstream kernels will return -ENOPROTOOPT because SO_PEERLABEL is not a supported protocol option.
->>
->> Additionally note that with LSM stacking, with apparmor stacked with another LSM, even if you have the fine grained af_unix mediation, that aa_getpeercon() will either return an error or the wrong LSM info (it will depend on the version aa_getpeercon() that is in use.
->>
->>
-> Mmm... does that mean that Ubuntu kernels have that patch included? Do you know since which version?
-> 
+--00000000000018cce30610352610
+Content-Type: text/plain; charset="UTF-8"
 
-yes, variation iterations of it for a long time. Unfortunately the patches took some liberties that really weren't appropriate for upstream, and also had some inconsistencies around fs vs non-fs variants of unix sockets making it not suitable for upstream.
+Hi All,
 
-There needed to be work on the apparmor core to fix those issues, that work is now largely done and a new variant of the fine grained unix mediation patch will hopefully land soon.
+Systemd provides this variable *AppArmorProfile=* for the unit files
 
+I have enabled Apparmor support in systemd and confirmed it is enabled as
+per below output.
 
+# systemctl  --version
+systemd 250 (250.5+)
+-PAM -AUDIT -SELINUX *+APPARMOR* +IMA -SMACK -SECCOMP -GCRYPT -GNUTLS
+-OPENSSL -ACL +BLKID -CURL -ELFUTILS -FIDO2 -IDN2 -IDN -IPTC +KMOD
+-LIBCRYPTSETUP +LIBFDISK -PCRE2 -PWQUALITY -P11KIT -QRENCODE -BZIP2 -LZ4
+-XZ -ZLIB +ZSTD -BPF_FRAMEWORK -XKBCOMMON +UTMP +SYSVINIT
+default-hierarchy=hybrid
 
+*test.service*
+[Service]
+Type=forking
+WorkingDirectory=/usr/local/
+*AppArmorProfile-=foo*
+ExecStart=/usr/bin/test
+Restart=on-failure
+
+During boot-up, profile "foo" is NOT loaded while executing
+test.service. However, I am observing below logs
+
+grep -rni DENIED /var/logs/messages.txt
+431:1970 Jan 01 00:00:33 localhost: audit: type=1400 audit(33.089:2):
+apparmor="DENIED" operation="change_onexec" info="label not found" error=-2
+profile="unconfined" name="foo" pid=2970 comm="(sh)"
+
+As per my understanding,  if prefixed by "-", all errors will be ignored.
+But I am still observing the above logs.
+Do we need to update this line *AppArmorProfile-=foo* in the unit file?
+
+I would like to understand the difference between    *AppArmorProfile=foo
+, * *AppArmorProfile-=foo ?*
+
+Please share your views.
+
+Thanks
+Murali.S
+
+--00000000000018cce30610352610
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi All,<br><br>Systemd provides this variable <b>AppArmorP=
+rofile=3D</b> for the unit files<br><br>I have enabled Apparmor support in =
+systemd and confirmed it is enabled as per below output.<br><br># systemctl=
+ =C2=A0--version<br>systemd 250 (250.5+)<br>-PAM -AUDIT -SELINUX <b>+APPARM=
+OR</b> +IMA -SMACK -SECCOMP -GCRYPT -GNUTLS -OPENSSL -ACL +BLKID -CURL -ELF=
+UTILS -FIDO2 -IDN2 -IDN -IPTC +KMOD -LIBCRYPTSETUP +LIBFDISK -PCRE2 -PWQUAL=
+ITY -P11KIT -QRENCODE -BZIP2 -LZ4 -XZ -ZLIB +ZSTD -BPF_FRAMEWORK -XKBCOMMON=
+ +UTMP +SYSVINIT default-hierarchy=3Dhybrid<br><br><b>test.service</b><br>[=
+Service]<br>Type=3Dforking<br>WorkingDirectory=3D/usr/local/<br><b>AppArmor=
+Profile-=3Dfoo</b><br>ExecStart=3D/usr/bin/test<br>Restart=3Don-failure<br>=
+<br>During boot-up, profile &quot;foo&quot; is NOT loaded while executing t=
+est.service.=C2=A0However, I am observing below logs<br><br>grep -rni DENIE=
+D /var/logs/messages.txt<br>431:1970 Jan 01 00:00:33 localhost: audit: type=
+=3D1400 audit(33.089:2): apparmor=3D&quot;DENIED&quot; operation=3D&quot;ch=
+ange_onexec&quot; info=3D&quot;label not found&quot; error=3D-2 profile=3D&=
+quot;unconfined&quot; name=3D&quot;foo&quot; pid=3D2970 comm=3D&quot;(sh)&q=
+uot;<br><br>As per my understanding, =C2=A0if prefixed by &quot;-&quot;, al=
+l errors will be ignored. But I am still observing the above logs.<br>Do we=
+ need to update this line <b>AppArmorProfile-=3Dfoo</b> in the unit file?<d=
+iv><br></div><div>I would like to understand the difference between=C2=A0 =
+=C2=A0
+
+<b>AppArmorProfile=3Dfoo ,=C2=A0</b>
+
+<b>AppArmorProfile-=3Dfoo ?</b><br><br>Please share your views.<div><br></d=
+iv><div>Thanks</div><div>Murali.S<br><br></div></div></div>
+
+--00000000000018cce30610352610--
 
