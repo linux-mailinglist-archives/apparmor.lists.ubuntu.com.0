@@ -2,43 +2,30 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72DAF844D15
-	for <lists+apparmor@lfdr.de>; Thu,  1 Feb 2024 00:40:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60B7B845F45
+	for <lists+apparmor@lfdr.de>; Thu,  1 Feb 2024 19:06:59 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rVKBY-0004IJ-Rs; Wed, 31 Jan 2024 23:40:05 +0000
-Received: from mail.cboltz.de ([65.21.65.108])
+	id 1rVbSY-0004o1-PI; Thu, 01 Feb 2024 18:06:46 +0000
+Received: from mail.ispras.ru ([83.149.199.84])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <apparmor@cboltz.de>)
- id 1rVKBU-0004HK-MS
- for apparmor@lists.ubuntu.com; Wed, 31 Jan 2024 23:40:00 +0000
-X-sprachakt.com-SMTP-Auth: no
-Received: from localhost (localhost [127.0.0.1])
- by mail.cboltz.de (Postfix) with ESMTP id 19AEB859EA;
- Thu,  1 Feb 2024 00:40:00 +0100 (CET)
-X-Virus-Scanned: amavisd-new at mail.cboltz.de
-Received: from mail.cboltz.de ([127.0.0.1])
- by localhost (mail.cboltz.de [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id emlVU0xmqtwG; Thu,  1 Feb 2024 00:39:59 +0100 (CET)
-Received: from home.cboltz.de (unknown [10.10.0.6])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (Client did not present a certificate)
- by mail.cboltz.de (Postfix) with ESMTPSA;
- Thu,  1 Feb 2024 00:39:59 +0100 (CET)
-From: Christian Boltz <apparmor@cboltz.de>
-To: apparmor@lists.ubuntu.com
-Date: Thu, 01 Feb 2024 00:39:53 +0100
-Message-ID: <19399923.fSG56mABFh@tux.boltz.de.vu>
-In-Reply-To: <CAODFaZ47MYEqxL8AYErn5rsvsTz-xCr70SyTc=P=u8k=w7cCoQ@mail.gmail.com>
-References: <CAODFaZ47MYEqxL8AYErn5rsvsTz-xCr70SyTc=P=u8k=w7cCoQ@mail.gmail.com>
+ (Exim 4.86_2) (envelope-from <pchelkin@ISPRAS.ru>)
+ id 1rVY0L-0005X7-QW
+ for apparmor@lists.ubuntu.com; Thu, 01 Feb 2024 14:25:26 +0000
+Received: from localhost.localdomain (unknown [46.242.8.170])
+ by mail.ispras.ru (Postfix) with ESMTPSA id A966D40737B5;
+ Thu,  1 Feb 2024 14:25:23 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ispras.ru A966D40737B5
+From: Fedor Pchelkin <pchelkin@ispras.ru>
+To: John Johansen <john.johansen@canonical.com>
+Date: Thu,  1 Feb 2024 17:24:48 +0300
+Message-ID: <20240201142450.30510-1-pchelkin@ispras.ru>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPart2204513.hkbZ0PkbqX";
- micalg="pgp-sha256"; protocol="application/pgp-signature"
-X-Face: #?nL0}JpqNtLQy@q#bRm?B?pGS8[mx6r.6[91zp@*2DZ?18)haWs5wgvi, ,
- wF/JWMTUh+6x, b7_`pW3)m~0606sDW0&'EKA}_-W+)Bz~d]k>4E9TyU}k@b&1=%yk\
-Subject: Re: [apparmor] systemd AppArmorProfile
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 01 Feb 2024 18:06:44 +0000
+Subject: [apparmor] [PATCH] apparmor: use kvfree_sensitive to free data->data
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -50,65 +37,58 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Murali Selvaraj <murali.selvaraj2003@gmail.com>
+Cc: lvc-project@linuxtesting.org, Paul Moore <paul@paul-moore.com>,
+ linux-kernel@vger.kernel.org, apparmor@lists.ubuntu.com,
+ James Morris <jmorris@namei.org>, stable@vger.kernel.org,
+ Fedor Pchelkin <pchelkin@ispras.ru>, linux-security-module@vger.kernel.org,
+ William Hua <william.hua@canonical.com>,
+ Alexey Khoroshilov <khoroshilov@ispras.ru>,
+ "Serge E. Hallyn" <serge@hallyn.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
---nextPart2204513.hkbZ0PkbqX
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"; protected-headers="v1"
-From: Christian Boltz <apparmor@cboltz.de>
-To: apparmor@lists.ubuntu.com
-Cc: Murali Selvaraj <murali.selvaraj2003@gmail.com>
-Subject: Re: [apparmor] systemd AppArmorProfile
-Date: Thu, 01 Feb 2024 00:39:53 +0100
-Message-ID: <19399923.fSG56mABFh@tux.boltz.de.vu>
-MIME-Version: 1.0
+Inside unpack_profile() data->data is allocated using kvmemdup() so it
+should be freed with the corresponding kvfree_sensitive().
 
-Hello,
+Also add missing data->data release for rhashtable insertion failure path
+in unpack_profile().
 
-Am Mittwoch, 31. Januar 2024, 04:05:07 CET schrieb Murali Selvaraj:
-> *AppArmorProfile-=foo*
+Found by Linux Verification Center (linuxtesting.org).
 
-Your syntax is slightly wrong, AFAIK it has to be
+Fixes: e025be0f26d5 ("apparmor: support querying extended trusted helper extra data")
+Cc: stable@vger.kernel.org
+Signed-off-by: Fedor Pchelkin <pchelkin@ispras.ru>
+---
+ security/apparmor/policy.c        | 2 +-
+ security/apparmor/policy_unpack.c | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
-AppArmorProfile=-foo
-
-In case you don't spot the difference: not   -=   but  =-
-
-
-Regards,
-
-Christian Boltz
+diff --git a/security/apparmor/policy.c b/security/apparmor/policy.c
+index 957654d253dd..14df15e35695 100644
+--- a/security/apparmor/policy.c
++++ b/security/apparmor/policy.c
+@@ -225,7 +225,7 @@ static void aa_free_data(void *ptr, void *arg)
+ {
+ 	struct aa_data *data = ptr;
+ 
+-	kfree_sensitive(data->data);
++	kvfree_sensitive(data->data, data->size);
+ 	kfree_sensitive(data->key);
+ 	kfree_sensitive(data);
+ }
+diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
+index 5e578ef0ddff..75452acd0e35 100644
+--- a/security/apparmor/policy_unpack.c
++++ b/security/apparmor/policy_unpack.c
+@@ -1071,6 +1071,7 @@ static struct aa_profile *unpack_profile(struct aa_ext *e, char **ns_name)
+ 
+ 			if (rhashtable_insert_fast(profile->data, &data->head,
+ 						   profile->data->p)) {
++				kvfree_sensitive(data->data, data->size);
+ 				kfree_sensitive(data->key);
+ 				kfree_sensitive(data);
+ 				info = "failed to insert data to table";
 -- 
-And if the majority here feels mlmmj should respond in Klingon,
-that's what we should consider.  As long as it uses proper MIME
-headers, of course. ;-)    [Gerald Pfeifer in opensuse-project]
-
---nextPart2204513.hkbZ0PkbqX
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEcMqgYN4EKq6xsVGWxqaC6mPILxwFAmW62koACgkQxqaC6mPI
-LxxtYA/9HcgkSOjnnALkJ2fdy8yBISS+UHf4huotr8cO5RwPatZddsNdBP2iqR+c
-Qmthl6+rIpmEnsrxIzLTratZtOUr0Dcx+6kdUCQU6A1wNYWLonRvY4gI1aL/2kaP
-GXLP1dXdwIOWc2LljT7dTWVYvIl8oSrWYOMM2Lf9hejWNlV85QcIzTqZLpkYx1qa
-svs/LFH2IFK9gUedfS0hOQbbCUyquojcG8qztY8NeP/zU3S9nIl7EXAasKeX+HxY
-V1k56Y6FgpUY/tC7wLUlNJvkeF/nEf+yRVTMnrnfLx88vjuRTZOdcAix9Bq8U061
-xgFrE0SlWhobaU2ESIMA3fc6wKyGs4TteUp3H1BMgcbps3kFqpCkMCdRf6TqWoc8
-0KIwDbSXDH/zXPxjmp6zc52Q3HfUPyL3w6Dzhp1XP8g05N1VFjV7OMobWlhEzNmZ
-UFh5gc4P5uHfyzxdiXTXje1SZXkXMXCQuuvDhDmVB8v42U96ge1aXFOzDQjsP+4Z
-namianqhlNystOEg/VV7zJFdcv+o1scubwGjWrvQYpryqC1khovRexIZiJUctiNT
-stVH75lyCoBCleZ2kbFnJ5EHR6QVVoouhNORrTS3FJYjYacebRCFD0LtIAc83NGI
-jNbX+CqOIkhettdH7vLGb09eDOX/MP3M4z/ByafjdFRIWh/DvFQ=
-=eX4+
------END PGP SIGNATURE-----
-
---nextPart2204513.hkbZ0PkbqX--
-
-
+2.43.0
 
 
