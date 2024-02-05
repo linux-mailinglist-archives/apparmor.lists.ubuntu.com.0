@@ -2,26 +2,26 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7F3984A8D1
-	for <lists+apparmor@lfdr.de>; Mon,  5 Feb 2024 23:12:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1461184A8EF
+	for <lists+apparmor@lfdr.de>; Mon,  5 Feb 2024 23:15:58 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rX7CY-0006zo-Uh; Mon, 05 Feb 2024 22:12:31 +0000
+	id 1rX7FW-0007AF-8g; Mon, 05 Feb 2024 22:15:35 +0000
 Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
  helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1rX7CN-0006yh-DE
- for apparmor@lists.ubuntu.com; Mon, 05 Feb 2024 22:12:19 +0000
+ id 1rX7F3-00079Z-Lm
+ for apparmor@lists.ubuntu.com; Mon, 05 Feb 2024 22:15:06 +0000
 Received: from [192.168.192.85] (unknown [50.39.103.33])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 63B3B4095A
- for <apparmor@lists.ubuntu.com>; Mon,  5 Feb 2024 22:12:18 +0000 (UTC)
-Message-ID: <2e7ff8c5-0c26-4801-a80a-219c7376414e@canonical.com>
-Date: Mon, 5 Feb 2024 14:12:14 -0800
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 9103C40935
+ for <apparmor@lists.ubuntu.com>; Mon,  5 Feb 2024 22:15:04 +0000 (UTC)
+Message-ID: <a16d52d1-01ad-4db4-896e-6726d3a2f31d@canonical.com>
+Date: Mon, 5 Feb 2024 14:15:02 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: John Johansen <john.johansen@canonical.com>
@@ -72,7 +72,7 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
 Organization: Canonical
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: [apparmor]  AppArmor 3.0.13 Released
+Subject: [apparmor]  AppArmor 2.13.11 Released
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -87,18 +87,18 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-The AppArmor development team is pleased to announce the 3.0.13 release
+The AppArmor development team is pleased to announce the 2.13.11 release
 of the AppArmor user space components.
 
 The release is available on
 
 gitlab
-     https://gitlab.com/apparmor/apparmor/-/releases/v3.0.13
+     https://gitlab.com/apparmor/apparmor/-/releases/v2.13.11
 
 
 The release notes are available at
 
-    https://gitlab.com/apparmor/apparmor/-/wikis/Release_Notes_3.0.13
+    https://gitlab.com/apparmor/apparmor/-/wikis/Release_Notes_2.13.11
 
 Please report any bugs you may find via the gitlab AppArmor project
 https://gitlab.com/apparmor/apparmor
