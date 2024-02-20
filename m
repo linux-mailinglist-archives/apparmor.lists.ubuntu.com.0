@@ -2,77 +2,70 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 273EB850C2A
-	for <lists+apparmor@lfdr.de>; Mon, 12 Feb 2024 00:16:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E2FA85B871
+	for <lists+apparmor@lfdr.de>; Tue, 20 Feb 2024 11:01:17 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rZJ3a-00020Q-Ev; Sun, 11 Feb 2024 23:16:18 +0000
-Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
- helo=smtp-relay-canonical-1.canonical.com)
+	id 1rcMvt-00074Q-LA; Tue, 20 Feb 2024 10:01:02 +0000
+Received: from smtp-out2.suse.de ([195.135.223.131])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1rZJ3Y-00020I-I3
- for apparmor@lists.ubuntu.com; Sun, 11 Feb 2024 23:16:16 +0000
-Received: from [192.168.192.85] (unknown [50.39.103.33])
+ (Exim 4.86_2) (envelope-from <jack@suse.cz>)
+ id 1rcMvl-00073g-LA; Tue, 20 Feb 2024 10:00:53 +0000
+Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:98])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id D5A383FB5C
- for <apparmor@lists.ubuntu.com>; Sun, 11 Feb 2024 23:16:14 +0000 (UTC)
-Message-ID: <78b42803-ee94-44c7-8311-eb6ace6d4d7d@canonical.com>
-Date: Sun, 11 Feb 2024 15:16:08 -0800
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 0B8EE1F867;
+ Tue, 20 Feb 2024 10:00:53 +0000 (UTC)
+Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id ECA5E1358A;
+ Tue, 20 Feb 2024 10:00:52 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+ by imap2.dmz-prg2.suse.org with ESMTPSA id q1xsOVR41GWkbwAAn2gu4w
+ (envelope-from <jack@suse.cz>); Tue, 20 Feb 2024 10:00:52 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+ id 8853BA0807; Tue, 20 Feb 2024 11:00:52 +0100 (CET)
+Date: Tue, 20 Feb 2024 11:00:52 +0100
+From: Jan Kara <jack@suse.cz>
+To: syzbot <syzbot+7d5fa8eb99155f439221@syzkaller.appspotmail.com>
+Message-ID: <20240220100052.gbuy6dopqql7m7yl@quack3>
+References: <000000000000ae0abc0600e0d534@google.com>
+ <000000000000af682a0611c9a06f@google.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: John Johansen <john.johansen@canonical.com>
-To: apparmor <apparmor@lists.ubuntu.com>
-Content-Language: en-US
-Autocrypt: addr=john.johansen@canonical.com; keydata=
- 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 lT9Q
-Organization: Canonical
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: [apparmor]  irc meeting Tues Feb 13 - Canceled
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <000000000000af682a0611c9a06f@google.com>
+X-Spam-Level: *
+X-Spamd-Bar: +
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [1.49 / 50.00]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ TO_DN_SOME(0.00)[];
+ R_RATELIMIT(0.00)[to_ip_from(RLrqdkzci5prbpfh8ttufrg9xb)];
+ RCVD_COUNT_THREE(0.00)[3]; DKIM_TRACE(0.00)[suse.cz:+];
+ MX_GOOD(-0.01)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ FROM_EQ_ENVFROM(0.00)[]; MIME_TRACE(0.00)[0:+];
+ BAYES_HAM(-0.00)[44.04%]; SUBJECT_HAS_QUESTION(0.00)[];
+ ARC_NA(0.00)[];
+ R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ URI_HIDDEN_PATH(1.00)[https://syzkaller.appspot.com/x/.config?x=6769a69bd0e144b4];
+ TAGGED_RCPT(0.00)[7d5fa8eb99155f439221];
+ MIME_GOOD(-0.10)[text/plain]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ RCPT_COUNT_TWELVE(0.00)[19];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.cz:dkim,suse.cz:email];
+ FUZZY_BLOCKED(0.00)[rspamd.com]; MID_RHS_NOT_FQDN(0.50)[];
+ RCVD_TLS_ALL(0.00)[]; SUSPICIOUS_RECIPS(1.50)[]
+X-Spam-Score: 1.49
+X-Rspamd-Queue-Id: 0B8EE1F867
+X-Spam-Flag: NO
+Subject: Re: [apparmor] [syzbot] [apparmor?] [ext4?] general protection
+ fault in common_perm_cond
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -84,19 +77,40 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: axboe@kernel.dk, brauner@kernel.org, jack@suse.cz, paul@paul-moore.com,
+ john@apparmor.net, apparmor@lists.ubuntu.com, jmorris@namei.org,
+ terrelln@fb.com, linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com,
+ linux-fsdevel@vger.kernel.org, linux-security-module@vger.kernel.org,
+ adilger.kernel@dilger.ca, apparmor-owner@lists.ubuntu.com, tytso@mit.edu,
+ linux-ext4@vger.kernel.org, serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-The Tuesday Feb 13 irc meeting is canceled.
+On Mon 19-02-24 21:39:02, syzbot wrote:
+> syzbot suspects this issue was fixed by commit:
+> 
+> commit 6f861765464f43a71462d52026fbddfc858239a5
+> Author: Jan Kara <jack@suse.cz>
+> Date:   Wed Nov 1 17:43:10 2023 +0000
+> 
+>     fs: Block writes to mounted block devices
+> 
+> bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=1644f22c180000
+> start commit:   b6e6cc1f78c7 Merge tag 'x86_urgent_for_6.5_rc2' of git://g..
+> git tree:       upstream
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=6769a69bd0e144b4
+> dashboard link: https://syzkaller.appspot.com/bug?extid=7d5fa8eb99155f439221
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=137b16dca80000
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=14153b7ca80000
+> 
+> If the result looks correct, please mark the issue as fixed by replying with:
 
-If there is a need, a new meeting can be scheduled by replying to this email or asking on irc
+Makes sense.
+ 
+#syz fix: fs: Block writes to mounted block devices
 
-
-
-
-
-
-
-
-
+								Honza
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
 
