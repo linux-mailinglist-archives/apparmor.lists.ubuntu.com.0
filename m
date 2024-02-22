@@ -2,55 +2,57 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id F040285F95E
-	for <lists+apparmor@lfdr.de>; Thu, 22 Feb 2024 14:15:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9895785F95C
+	for <lists+apparmor@lfdr.de>; Thu, 22 Feb 2024 14:15:57 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rd8vV-0003fo-F7; Thu, 22 Feb 2024 13:15:49 +0000
-Received: from frasgout11.his.huawei.com ([14.137.139.23])
+	id 1rd8vS-0003fG-L7; Thu, 22 Feb 2024 13:15:46 +0000
+Received: from frasgout13.his.huawei.com ([14.137.139.46])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <petrtesarik@huaweicloud.com>)
- id 1rd8t4-0003Gq-Gh
- for apparmor@lists.ubuntu.com; Thu, 22 Feb 2024 13:13:18 +0000
-Received: from mail.maildlp.com (unknown [172.18.186.51])
- by frasgout11.his.huawei.com (SkyGuard) with ESMTP id 4TgY8X3z82z9xrck
- for <apparmor@lists.ubuntu.com>; Thu, 22 Feb 2024 20:57:48 +0800 (CST)
+ id 1rd8tT-0003Il-Ky
+ for apparmor@lists.ubuntu.com; Thu, 22 Feb 2024 13:13:43 +0000
+Received: from mail.maildlp.com (unknown [172.18.186.29])
+ by frasgout13.his.huawei.com (SkyGuard) with ESMTP id 4TgY964yXHz9y3DV
+ for <apparmor@lists.ubuntu.com>; Thu, 22 Feb 2024 20:58:18 +0800 (CST)
 Received: from mail02.huawei.com (unknown [7.182.16.47])
- by mail.maildlp.com (Postfix) with ESMTP id 12E0614097E
- for <apparmor@lists.ubuntu.com>; Thu, 22 Feb 2024 21:13:14 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTP id 80C6B140AA0
+ for <apparmor@lists.ubuntu.com>; Thu, 22 Feb 2024 21:13:32 +0800 (CST)
 Received: from huaweicloud.com (unknown [10.45.157.235])
- by APP1 (Coremail) with SMTP id LxC2BwDXzhdSSNdlhi4AAw--.34998S2;
- Thu, 22 Feb 2024 14:13:12 +0100 (CET)
+ by APP1 (Coremail) with SMTP id LxC2BwDXzhdSSNdlhi4AAw--.34998S3;
+ Thu, 22 Feb 2024 14:13:31 +0100 (CET)
 From: Petr Tesarik <petrtesarik@huaweicloud.com>
 To: Dave Hansen <dave.hansen@intel.com>
-Date: Thu, 22 Feb 2024 14:12:25 +0100
-Message-Id: <20240222131230.635-1-petrtesarik@huaweicloud.com>
+Date: Thu, 22 Feb 2024 14:12:26 +0100
+Message-Id: <20240222131230.635-2-petrtesarik@huaweicloud.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <fb4a40c7-af9a-406a-95ab-406595f3ffe5@intel.com>
+In-Reply-To: <20240222131230.635-1-petrtesarik@huaweicloud.com>
 References: <fb4a40c7-af9a-406a-95ab-406595f3ffe5@intel.com>
+ <20240222131230.635-1-petrtesarik@huaweicloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: LxC2BwDXzhdSSNdlhi4AAw--.34998S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Kw1DWF4UuF4kuFWkWF43GFg_yoW8tw1UpF
- n3ta15GF4kJF92yws3AF1F93yFqw4rCw13GFsrKw1Yy3WYqa18XryS9r43uay5ur98Ka43
- tF4avF1jg3WUJa7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUv214x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
- 6F4UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJV
- WxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
- 2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
- W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
- Y2ka0xkIwI1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
- xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26rWY6r4U
- JwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
- 0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_WFyUJVCq3wCI42IY6I8E87Iv67AK
- xVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa
- 7VUbJ73DUUUUU==
+X-CM-TRANSID: LxC2BwDXzhdSSNdlhi4AAw--.34998S3
+X-Coremail-Antispam: 1UD129KBjvJXoW7Kw1DWF1rJw4kJFW3Kr45ZFb_yoW8Gry5pF
+ nrC3Z7JF40vrySyw1fG3W8ZFZ8ua90gF45CFn7Kw1ft3W5t34UGr10k397W34furykGa4r
+ XF1YvF1jy3WUAaDanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUPF14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jr4l82xGYIkIc2
+ x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
+ Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UM2
+ 8EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJVWxJr1l
+ e2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI
+ 8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwAC
+ jcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0x
+ kIwI1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AK
+ xVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26rWY6r4UJwCIc4
+ 0Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AK
+ xVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r
+ 4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfUOR6z
+ UUUUU
 X-CM-SenderInfo: hshw23xhvd2x3n6k3tpzhluzxrxghudrp/
 X-Mailman-Approved-At: Thu, 22 Feb 2024 13:15:45 +0000
-Subject: [apparmor] [RFC 0/5] PoC: convert AppArmor parser to SandBox Mode
+Subject: [apparmor] [RFC 1/5] sbm: x86: fix SBM error entry path
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -94,56 +96,45 @@ Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
 From: Petr Tesarik <petr.tesarik1@huawei-partners.com>
 
-[ For people newly added to Cc, this RFC is a reply to subsystem
-  maintainers who asked for a real-world demonstration of how
-  SandBox Mode could be used in practice. SandBox Mode itself
-  was proposed in these two series (generic and x86):
+Normal interrupt entry from SBM should be generally treated as entry from
+kernel mode (no swapgs, no speculation mitigations), but since there is a
+CPL change, the interrupt handler runs on the trampoline stack, which may
+get reused if the current task is re-scheduled.
 
-* https://lore.kernel.org/lkml/20240214113516.2307-1-petrtesarik@huaweicloud.com/T/
-* https://lore.kernel.org/lkml/20240214113035.2117-1-petrtesarik@huaweicloud.com/T/
-]
+Make sure to switch to the SBM exception stack.
 
-This patch series provides an example of running existing kernel code in
-a sandbox. It also adds some fixes and infrastructure to the base series.
-If you only want to see how the conversion itself might look like, skip
-straight to patch 5/5.
+Signed-off-by: Petr Tesarik <petr.tesarik1@huawei-partners.com>
+---
+ arch/x86/entry/entry_64.S | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-Patches 1 and 2 amend the base patch series. Patches 3 and 4 are ported
-from my earlier proof of concept and adapted to work without adding too
-much other code. I am sending a complete WIP patch series so you can
-actually build and run the code.
-
-Disclaimer: This code is not ready for submission. It is incomplete and
-may contain bugs. It is provided here for the sole purpose of demonstrating
-how existing kernel code would be modified to run in a sandbox.
-
-PATCH 1/5 is a bug fix discovered after sending patch series v1.
-PATCH 2/5 allows to map a buffer into the sandbox at its kernel address.
-PATCH 3/5 is required to intercept calls to pre-selected kernel functions.
-PATCH 4/5 implements dynamic allocation in sandbox mode.
-PATCH 5/5 demonstrates how to convert existing kernel code to use SBM.
-
-Petr Tesarik (5):
-  sbm: x86: fix SBM error entry path
-  sbm: enhance buffer mapping API
-  sbm: x86: infrastructure to fix up sandbox faults
-  sbm: fix up calls to dynamic memory allocators
-  apparmor: parse profiles in sandbox mode
-
- arch/x86/entry/entry_64.S     |  10 ++-
- arch/x86/kernel/sbm/call_64.S |  20 +++++
- arch/x86/kernel/sbm/core.c    | 161 +++++++++++++++++++++++++++++++++-
- arch/x86/kernel/vmlinux.lds.S |   9 ++
- include/linux/sbm.h           |  77 ++++++++++++++++
- kernel/sbm.c                  |  34 +++++++
- mm/slab_common.c              |   3 +-
- mm/slub.c                     |  17 ++--
- mm/vmalloc.c                  |  11 +--
- security/apparmor/crypto.c    |   7 +-
- security/apparmor/policy.c    |  29 ++++--
- security/apparmor/secid.c     |   3 +-
- 12 files changed, 352 insertions(+), 29 deletions(-)
-
+diff --git a/arch/x86/entry/entry_64.S b/arch/x86/entry/entry_64.S
+index 4ba3eea38102..96830591302d 100644
+--- a/arch/x86/entry/entry_64.S
++++ b/arch/x86/entry/entry_64.S
+@@ -1062,14 +1062,20 @@ SYM_CODE_START(error_entry)
+ 	/*
+ 	 * If sandbox mode was active, adjust the saved CS,
+ 	 * unconditionally switch to kernel CR3 and continue
+-	 * as if the interrupt was from kernel space.
++	 * as if the interrupt was from kernel space, but
++	 * switch away from the trampoline stack.
+ 	 */
+ 	movq	x86_sbm_state + SBM_kernel_cr3, %rcx
+ 	jrcxz	.Lerror_swapgs
+ 
+ 	andb	$~3, CS+8(%rsp)
+ 	movq	%rcx, %cr3
+-	jmp	.Lerror_entry_done_lfence
++
++	FENCE_SWAPGS_KERNEL_ENTRY
++	CALL_DEPTH_ACCOUNT
++	leaq	8(%rsp), %rdi
++	/* Put us onto the SBM exception stack. */
++	jmp	sync_regs
+ #endif
+ 
+ .Lerror_swapgs:
 -- 
 2.34.1
 
