@@ -2,57 +2,88 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 157BB85F960
-	for <lists+apparmor@lfdr.de>; Thu, 22 Feb 2024 14:16:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7464285FE20
+	for <lists+apparmor@lfdr.de>; Thu, 22 Feb 2024 17:34:06 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rd8vS-0003fO-RO; Thu, 22 Feb 2024 13:15:46 +0000
-Received: from frasgout13.his.huawei.com ([14.137.139.46])
+	id 1rdC19-0005N3-8h; Thu, 22 Feb 2024 16:33:51 +0000
+Received: from mgamail.intel.com ([198.175.65.20])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <petrtesarik@huaweicloud.com>)
- id 1rd8uf-0003Vx-M7
- for apparmor@lists.ubuntu.com; Thu, 22 Feb 2024 13:14:58 +0000
-Received: from mail.maildlp.com (unknown [172.18.186.29])
- by frasgout13.his.huawei.com (SkyGuard) with ESMTP id 4TgYBX2HYYz9y3D2
- for <apparmor@lists.ubuntu.com>; Thu, 22 Feb 2024 20:59:32 +0800 (CST)
-Received: from mail02.huawei.com (unknown [7.182.16.47])
- by mail.maildlp.com (Postfix) with ESMTP id 77063140A92
- for <apparmor@lists.ubuntu.com>; Thu, 22 Feb 2024 21:14:46 +0800 (CST)
-Received: from huaweicloud.com (unknown [10.45.157.235])
- by APP1 (Coremail) with SMTP id LxC2BwDXzhdSSNdlhi4AAw--.34998S7;
- Thu, 22 Feb 2024 14:14:45 +0100 (CET)
-From: Petr Tesarik <petrtesarik@huaweicloud.com>
-To: Dave Hansen <dave.hansen@intel.com>
-Date: Thu, 22 Feb 2024 14:12:30 +0100
-Message-Id: <20240222131230.635-6-petrtesarik@huaweicloud.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240222131230.635-1-petrtesarik@huaweicloud.com>
+ (Exim 4.86_2) (envelope-from <dave.hansen@intel.com>)
+ id 1rdBLk-0000ls-2o
+ for apparmor@lists.ubuntu.com; Thu, 22 Feb 2024 15:51:05 +0000
+X-IronPort-AV: E=McAfee;i="6600,9927,10992"; a="2721428"
+X-IronPort-AV: E=Sophos;i="6.06,179,1705392000"; 
+   d="scan'208";a="2721428"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Feb 2024 07:51:02 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.06,179,1705392000"; d="scan'208";a="10208817"
+Received: from jwbates1-mobl.amr.corp.intel.com (HELO [10.209.48.22])
+ ([10.209.48.22])
+ by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Feb 2024 07:51:02 -0800
+Message-ID: <f6135f2c-bc8f-41c3-9c6a-8346d685e4dc@intel.com>
+Date: Thu, 22 Feb 2024 07:51:00 -0800
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Petr Tesarik <petrtesarik@huaweicloud.com>
 References: <fb4a40c7-af9a-406a-95ab-406595f3ffe5@intel.com>
  <20240222131230.635-1-petrtesarik@huaweicloud.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: LxC2BwDXzhdSSNdlhi4AAw--.34998S7
-X-Coremail-Antispam: 1UD129KBjvJXoW3Xw48Cryrtw48tFWxGw17ZFb_yoW3JF4UpF
- srCFWDGF4kCF9FvrsxJa1akrWSv3yrXw1av39xGa4Yy3Zxtr4kGr47AFyjkFyrZ3ykC3WF
- gFW7Kr95ur1DArJanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUPq14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
- kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
- z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F
- 4UJwA2z4x0Y4vEx4A2jsIE14v26r4j6F4UM28EF7xvwVC2z280aVCY1x0267AKxVW8Jr0_
- Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6x
- IIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_
- Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8c
- xan2IY04v7MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8C
- rVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWrXVW8Jr
- 1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7Cj
- xVAFwI0_Gr1j6F4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI
- 0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x
- 0JUQSdkUUUUU=
-X-CM-SenderInfo: hshw23xhvd2x3n6k3tpzhluzxrxghudrp/
-X-Mailman-Approved-At: Thu, 22 Feb 2024 13:15:45 +0000
-Subject: [apparmor] [RFC 5/5] apparmor: parse profiles in sandbox mode
+ <20240222131230.635-5-petrtesarik@huaweicloud.com>
+From: Dave Hansen <dave.hansen@intel.com>
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <20240222131230.635-5-petrtesarik@huaweicloud.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Thu, 22 Feb 2024 16:33:50 +0000
+Subject: Re: [apparmor] [RFC 4/5] sbm: fix up calls to dynamic memory
+	allocators
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -88,221 +119,47 @@ Cc: "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
  Roberto Sassu <roberto.sassu@huaweicloud.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  Rick Edgecombe <rick.p.edgecombe@intel.com>,
- Petr Tesarik <petrtesarik@huaweicloud.com>,
  David Woodhouse <dwmw@amazon.co.uk>,
  "Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-From: Petr Tesarik <petr.tesarik1@huawei-partners.com>
+On 2/22/24 05:12, Petr Tesarik wrote:
+>  static const struct sbm_fixup fixups[] =
+>  {
+> +	/* kmalloc() and friends */
+> +	{ kmalloc_trace, proxy_alloc3 },
+> +	{ __kmalloc, proxy_alloc1 },
+> +	{ __kmalloc_node, proxy_alloc1 },
+> +	{ __kmalloc_node_track_caller, proxy_alloc1 },
+> +	{ kmalloc_large, proxy_alloc1 },
+> +	{ kmalloc_large_node, proxy_alloc1 },
+> +	{ krealloc, proxy_alloc2 },
+> +	{ kfree, proxy_free },
+> +
+> +	/* vmalloc() and friends */
+> +	{ vmalloc, proxy_alloc1 },
+> +	{ __vmalloc, proxy_alloc1 },
+> +	{ __vmalloc_node, proxy_alloc1 },
+> +	{ vzalloc, proxy_alloc1 },
+> +	{ vfree, proxy_free },
+> +
+>  	{ }
+>  };
 
-Run aa_unpack() in sandbox mode. Map the input data read-only and then walk
-the resulting list created in sandbox mode.
+Petr, thanks for sending this.  This _is_ a pretty concise example of
+what it means to convert kernel code to run in your sandbox mode.  But,
+from me, it's still "no thanks".
 
-Hashes are calculated in kernel mode, because crypto routines are not
-sandboxed. The fixups should sanitize the parameters of AppArmor functions
-and they should be defined close to the target functions. Both requires
-extending the generic API and adding some more arch hooks, which would grow
-this patch series too much.
+Establishing and maintaining this proxy list will be painful.  Folks
+will change the code to call something new and break this *constantly*.
 
-For demonstration purposes, the fixups blindly trust the input from sandbox
-mode and are hard-wired in the arch code.
+That goes for infrastructure like the allocators and for individual
+sandbox instances like apparmor.
 
-Signed-off-by: Petr Tesarik <petr.tesarik1@huawei-partners.com>
----
- arch/x86/kernel/sbm/core.c | 15 +++++++++++++++
- security/apparmor/crypto.c |  7 ++++---
- security/apparmor/policy.c | 29 ++++++++++++++++++++++-------
- security/apparmor/secid.c  |  3 ++-
- 4 files changed, 43 insertions(+), 11 deletions(-)
+It's also telling that sandboxing a bit of apparmor took four fixups.
+That tells me we're probably still only looking at the tip of the icebeg
+if we were to convert a bunch more sites.
 
-diff --git a/arch/x86/kernel/sbm/core.c b/arch/x86/kernel/sbm/core.c
-index 3cf3842292b9..3268c00da873 100644
---- a/arch/x86/kernel/sbm/core.c
-+++ b/arch/x86/kernel/sbm/core.c
-@@ -40,6 +40,16 @@ extern char __nosbm_text_start[], __nosbm_text_end[];
-  * HACK: PROOF-OF-CONCEPT FIXUP CODE STARTS HERE
-  */
- 
-+/*
-+ * HACK: These declarations are needed to make a proxy call, but in the
-+ * final version, AppArmor itself will define the proxies. At least, do
-+ * not make the functions callable from here. All we need are their
-+ * entry point addresses.
-+ */
-+extern char aa_alloc_secid[];
-+extern char aa_calc_hash[];
-+extern char aa_calc_profile_hash[];
-+
- typedef unsigned long (*sbm_proxy_call_fn)(struct x86_sbm_state *,
- 					   unsigned long func,
- 					   struct pt_regs *);
-@@ -135,6 +145,11 @@ static const struct sbm_fixup fixups[] =
- 	{ vzalloc, proxy_alloc1 },
- 	{ vfree, proxy_free },
- 
-+	/* AppArmor */
-+	{ aa_alloc_secid, x86_sbm_proxy_call },
-+	{ aa_calc_hash, x86_sbm_proxy_call },
-+	{ aa_calc_profile_hash, x86_sbm_proxy_call },
-+
- 	{ }
- };
- 
-diff --git a/security/apparmor/crypto.c b/security/apparmor/crypto.c
-index aad486b2fca6..db349cd4e467 100644
---- a/security/apparmor/crypto.c
-+++ b/security/apparmor/crypto.c
-@@ -12,6 +12,7 @@
-  */
- 
- #include <crypto/hash.h>
-+#include <linux/sbm.h>
- 
- #include "include/apparmor.h"
- #include "include/crypto.h"
-@@ -25,7 +26,7 @@ unsigned int aa_hash_size(void)
- 	return apparmor_hash_size;
- }
- 
--char *aa_calc_hash(void *data, size_t len)
-+char * __nosbm aa_calc_hash(void *data, size_t len)
- {
- 	SHASH_DESC_ON_STACK(desc, apparmor_tfm);
- 	char *hash;
-@@ -58,8 +59,8 @@ char *aa_calc_hash(void *data, size_t len)
- 	return ERR_PTR(error);
- }
- 
--int aa_calc_profile_hash(struct aa_profile *profile, u32 version, void *start,
--			 size_t len)
-+int __nosbm aa_calc_profile_hash(struct aa_profile *profile, u32 version, void *start,
-+				 size_t len)
- {
- 	SHASH_DESC_ON_STACK(desc, apparmor_tfm);
- 	int error;
-diff --git a/security/apparmor/policy.c b/security/apparmor/policy.c
-index 957654d253dd..f2b9bf851be0 100644
---- a/security/apparmor/policy.c
-+++ b/security/apparmor/policy.c
-@@ -74,6 +74,7 @@
- #include <linux/cred.h>
- #include <linux/rculist.h>
- #include <linux/user_namespace.h>
-+#include <linux/sbm.h>
- 
- #include "include/apparmor.h"
- #include "include/capability.h"
-@@ -1040,6 +1041,11 @@ static struct aa_profile *update_to_newest_parent(struct aa_profile *new)
- 	return newest;
- }
- 
-+static SBM_DEFINE_CALL(aa_unpack, struct aa_loaddata *, udata,
-+		       struct list_head *, lh, const char **, ns);
-+static SBM_DEFINE_THUNK(aa_unpack, struct aa_loaddata *, udata,
-+		       struct list_head *, lh, const char **, ns);
-+
- /**
-  * aa_replace_profiles - replace profile(s) on the profile list
-  * @policy_ns: namespace load is occurring on
-@@ -1063,12 +1069,20 @@ ssize_t aa_replace_profiles(struct aa_ns *policy_ns, struct aa_label *label,
- 	struct aa_loaddata *rawdata_ent;
- 	const char *op;
- 	ssize_t count, error;
--	LIST_HEAD(lh);
-+	struct list_head lh, *sbm_lh;
-+	struct sbm sbm;
- 
- 	op = mask & AA_MAY_REPLACE_POLICY ? OP_PROF_REPL : OP_PROF_LOAD;
- 	aa_get_loaddata(udata);
- 	/* released below */
--	error = aa_unpack(udata, &lh, &ns_name);
-+	sbm_init(&sbm);
-+	SBM_MAP_READONLY(&sbm, udata->data, udata->size);
-+	/* TODO: Handling of list heads could be improved */
-+	sbm_lh = SBM_COPY_OUT(&sbm, &lh, sizeof(lh));
-+	INIT_LIST_HEAD(sbm_lh);
-+	error = sbm_call(&sbm, aa_unpack,
-+			 SBM_COPY_INOUT(&sbm, udata, sizeof(*udata)), sbm_lh,
-+			 SBM_COPY_OUT(&sbm, &ns_name, sizeof(ns_name)));
- 	if (error)
- 		goto out;
- 
-@@ -1078,7 +1092,7 @@ ssize_t aa_replace_profiles(struct aa_ns *policy_ns, struct aa_label *label,
- 	 *       fail. Sort ent list and take ns locks in hierarchy order
- 	 */
- 	count = 0;
--	list_for_each_entry(ent, &lh, list) {
-+	list_for_each_entry(ent, sbm_lh, list) {
- 		if (ns_name) {
- 			if (ent->ns_name &&
- 			    strcmp(ent->ns_name, ns_name) != 0) {
-@@ -1128,7 +1142,7 @@ ssize_t aa_replace_profiles(struct aa_ns *policy_ns, struct aa_label *label,
- 		}
- 	}
- 	/* setup parent and ns info */
--	list_for_each_entry(ent, &lh, list) {
-+	list_for_each_entry(ent, sbm_lh, list) {
- 		struct aa_policy *policy;
- 		struct aa_profile *p;
- 
-@@ -1159,7 +1173,7 @@ ssize_t aa_replace_profiles(struct aa_ns *policy_ns, struct aa_label *label,
- 		policy = __lookup_parent(ns, ent->new->base.hname);
- 		if (!policy) {
- 			/* first check for parent in the load set */
--			p = __list_lookup_parent(&lh, ent->new);
-+			p = __list_lookup_parent(sbm_lh, ent->new);
- 			if (!p) {
- 				/*
- 				 * fill in missing parent with null
-@@ -1198,7 +1212,7 @@ ssize_t aa_replace_profiles(struct aa_ns *policy_ns, struct aa_label *label,
- 			goto fail_lock;
- 		}
- 	}
--	list_for_each_entry(ent, &lh, list) {
-+	list_for_each_entry(ent, sbm_lh, list) {
- 		if (!ent->old) {
- 			struct dentry *parent;
- 			if (rcu_access_pointer(ent->new->parent)) {
-@@ -1220,7 +1234,7 @@ ssize_t aa_replace_profiles(struct aa_ns *policy_ns, struct aa_label *label,
- 	__aa_bump_ns_revision(ns);
- 	if (aa_g_export_binary)
- 		__aa_loaddata_update(udata, ns->revision);
--	list_for_each_entry_safe(ent, tmp, &lh, list) {
-+	list_for_each_entry_safe(ent, tmp, sbm_lh, list) {
- 		list_del_init(&ent->list);
- 		op = (!ent->old && !ent->rename) ? OP_PROF_LOAD : OP_PROF_REPL;
- 
-@@ -1265,6 +1279,7 @@ ssize_t aa_replace_profiles(struct aa_ns *policy_ns, struct aa_label *label,
- 	mutex_unlock(&ns->lock);
- 
- out:
-+	sbm_destroy(&sbm);
- 	aa_put_ns(ns);
- 	aa_put_loaddata(udata);
- 	kfree(ns_name);
-diff --git a/security/apparmor/secid.c b/security/apparmor/secid.c
-index 83d3d1e6d9dc..4190666d2dee 100644
---- a/security/apparmor/secid.c
-+++ b/security/apparmor/secid.c
-@@ -16,6 +16,7 @@
- #include <linux/slab.h>
- #include <linux/spinlock.h>
- #include <linux/xarray.h>
-+#include <linux/sbm.h>
- 
- #include "include/cred.h"
- #include "include/lib.h"
-@@ -116,7 +117,7 @@ void apparmor_release_secctx(char *secdata, u32 seclen)
-  * Returns: 0 with @label->secid initialized
-  *          <0 returns error with @label->secid set to AA_SECID_INVALID
-  */
--int aa_alloc_secid(struct aa_label *label, gfp_t gfp)
-+int __nosbm aa_alloc_secid(struct aa_label *label, gfp_t gfp)
- {
- 	unsigned long flags;
- 	int ret;
--- 
-2.34.1
-
+That's on top of everything I was concerned about before.
 
