@@ -2,59 +2,55 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57D8A85C1DD
-	for <lists+apparmor@lfdr.de>; Tue, 20 Feb 2024 17:58:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F040285F95E
+	for <lists+apparmor@lfdr.de>; Thu, 22 Feb 2024 14:15:58 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rcTRq-0000Yc-6M; Tue, 20 Feb 2024 16:58:26 +0000
-Received: from mail-io1-f71.google.com ([209.85.166.71])
+	id 1rd8vV-0003fo-F7; Thu, 22 Feb 2024 13:15:49 +0000
+Received: from frasgout11.his.huawei.com ([14.137.139.23])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from
- <39jrUZQkbAPElrsdTeeXkTiibW.ZhhZeXnlXkVhgmXgm.Vhf@M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com>)
- id 1rcIqN-0001Ze-IB
- for apparmor@lists.ubuntu.com; Tue, 20 Feb 2024 05:39:03 +0000
-Received: by mail-io1-f71.google.com with SMTP id
- ca18e2360f4ac-7c7490332deso163285339f.1
- for <apparmor@lists.ubuntu.com>; Mon, 19 Feb 2024 21:39:03 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708407542; x=1709012342;
- h=to:from:subject:message-id:in-reply-to:date:mime-version
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=UzEimjTxUiPK8QlGUDIMCLBh+dSodnszw3pR8qbBUsU=;
- b=YUvD0u8L0PzNU4h5D0moQkI5eg8l8z5dY9ULPtwd11v4j3XcKDFjMfCnSEJ9AzVE3E
- N5JRQPBwSvosiMfHhR4rJOfLPgE0SIMeE7jo6zX2XEo/z6u5isYRa0Dl7MD34SMsey9c
- QKjjUYq2VPcTzrCI+bWfbe9Iw/rn1tllv8i4KdUlIPzZkCHAWSKFokmajf0vxIJw/Brc
- ew1LAeVP2CZIpm7xIVoMZdJ1o2WU+lRSlxjyeec4a6TOR5W+wvo+PGsT5uVcelg/jvGu
- ZAeX0mxDGjga6gLAEm+z0X0A2rWNxfPBePJ9pbgES1YNBPA7fIZXwouo5z984PlJh49P
- jPGA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVs7egc2Z6UjXuWb5/BIwMyDDz1aF2HZAkZMlHFHK12bPVmq3TMCphlJtmAltTZ7mbadWTPQ9ehbJr1bp+Mqgs0xBIUNY+71YTB
-X-Gm-Message-State: AOJu0YzvrvcGy2YBg0pNSGCghKKFAEG+uv3nRuPzqJXskcIQFTDNnOkr
- vjl7PqaS4oauDWNac/dwZRvF2S9xYqwJp+A+rL628JVxk95B79/XqDr9ahPm580jpfWK4c0Rs1Q
- XVZ0Hn6vVDDO9kepd5/luIilZBwkWwBvQQSuMj10gEWd5+uPvMtlq4Ec=
-X-Google-Smtp-Source: AGHT+IEOpIm03ZiZ2lJ/lHSHFI+Mm8U5WA8Q/IrAgn3qmmy4iCtGItZ/O8nuHuz2UprhExvnzs9gW9Vv5lJb7mKBrqgvWKGHB8LF
+ (Exim 4.86_2) (envelope-from <petrtesarik@huaweicloud.com>)
+ id 1rd8t4-0003Gq-Gh
+ for apparmor@lists.ubuntu.com; Thu, 22 Feb 2024 13:13:18 +0000
+Received: from mail.maildlp.com (unknown [172.18.186.51])
+ by frasgout11.his.huawei.com (SkyGuard) with ESMTP id 4TgY8X3z82z9xrck
+ for <apparmor@lists.ubuntu.com>; Thu, 22 Feb 2024 20:57:48 +0800 (CST)
+Received: from mail02.huawei.com (unknown [7.182.16.47])
+ by mail.maildlp.com (Postfix) with ESMTP id 12E0614097E
+ for <apparmor@lists.ubuntu.com>; Thu, 22 Feb 2024 21:13:14 +0800 (CST)
+Received: from huaweicloud.com (unknown [10.45.157.235])
+ by APP1 (Coremail) with SMTP id LxC2BwDXzhdSSNdlhi4AAw--.34998S2;
+ Thu, 22 Feb 2024 14:13:12 +0100 (CET)
+From: Petr Tesarik <petrtesarik@huaweicloud.com>
+To: Dave Hansen <dave.hansen@intel.com>
+Date: Thu, 22 Feb 2024 14:12:25 +0100
+Message-Id: <20240222131230.635-1-petrtesarik@huaweicloud.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <fb4a40c7-af9a-406a-95ab-406595f3ffe5@intel.com>
+References: <fb4a40c7-af9a-406a-95ab-406595f3ffe5@intel.com>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6638:4905:b0:473:edc2:9589 with SMTP id
- cx5-20020a056638490500b00473edc29589mr271909jab.3.1708407542209; Mon, 19 Feb
- 2024 21:39:02 -0800 (PST)
-Date: Mon, 19 Feb 2024 21:39:02 -0800
-In-Reply-To: <000000000000ae0abc0600e0d534@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <000000000000af682a0611c9a06f@google.com>
-From: syzbot <syzbot+7d5fa8eb99155f439221@syzkaller.appspotmail.com>
-To: adilger.kernel@dilger.ca, apparmor-owner@lists.ubuntu.com, 
- apparmor@lists.ubuntu.com, axboe@kernel.dk, brauner@kernel.org, jack@suse.cz, 
- jmorris@namei.org, john.johansen@canonical.com, john@apparmor.net, 
- linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org, 
- paul@paul-moore.com, serge@hallyn.com, syzkaller-bugs@googlegroups.com, 
- terrelln@fb.com, tytso@mit.edu
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Tue, 20 Feb 2024 16:58:23 +0000
-Subject: Re: [apparmor] [syzbot] [apparmor?] [ext4?] general protection
-	fault in common_perm_cond
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: LxC2BwDXzhdSSNdlhi4AAw--.34998S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Kw1DWF4UuF4kuFWkWF43GFg_yoW8tw1UpF
+ n3ta15GF4kJF92yws3AF1F93yFqw4rCw13GFsrKw1Yy3WYqa18XryS9r43uay5ur98Ka43
+ tF4avF1jg3WUJa7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUv214x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+ 6F4UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJV
+ WxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+ 2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+ W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+ Y2ka0xkIwI1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
+ xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26rWY6r4U
+ JwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
+ 0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_WFyUJVCq3wCI42IY6I8E87Iv67AK
+ xVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa
+ 7VUbJ73DUUUUU==
+X-CM-SenderInfo: hshw23xhvd2x3n6k3tpzhluzxrxghudrp/
+X-Mailman-Approved-At: Thu, 22 Feb 2024 13:15:45 +0000
+Subject: [apparmor] [RFC 0/5] PoC: convert AppArmor parser to SandBox Mode
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -66,28 +62,89 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ open list <linux-kernel@vger.kernel.org>, Kai Huang <kai.huang@intel.com>,
+ Jacob Pan <jacob.jun.pan@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ linux-security-module@vger.kernel.org, Ze Gao <zegao2021@gmail.com>,
+ Jonathan Corbet <corbet@lwn.net>,
+ "maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>,
+ James Morris <jmorris@namei.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Ingo Molnar <mingo@redhat.com>, "Serge E. Hallyn" <serge@hallyn.com>,
+ Joerg Roedel <jroedel@suse.de>, Kees Cook <keescook@chromium.org>,
+ Arnd Bergmann <arnd@arndb.de>,
+ =?UTF-8?B?UGV0ciBUZXNhxZnDrWs=?= <petr@tesarici.cz>,
+ Brian Gerst <brgerst@gmail.com>, Xin Li <xin3.li@intel.com>,
+ apparmor@lists.ubuntu.com, Borislav Petkov <bp@alien8.de>,
+ "Mike Rapoport \(IBM\)" <rppt@kernel.org>, Andy Lutomirski <luto@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Josh Poimboeuf <jpoimboe@kernel.org>,
+ Paul Moore <paul@paul-moore.com>, Oleg Nesterov <oleg@redhat.com>,
+ Tina Zhang <tina.zhang@intel.com>, Pengfei Xu <pengfei.xu@intel.com>,
+ "Masami Hiramatsu \(Google\)" <mhiramat@kernel.org>,
+ Petr Tesarik <petr.tesarik1@huawei-partners.com>,
+ Roberto Sassu <roberto.sassu@huaweicloud.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>,
+ Petr Tesarik <petrtesarik@huaweicloud.com>,
+ David Woodhouse <dwmw@amazon.co.uk>,
+ "Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-syzbot suspects this issue was fixed by commit:
+From: Petr Tesarik <petr.tesarik1@huawei-partners.com>
 
-commit 6f861765464f43a71462d52026fbddfc858239a5
-Author: Jan Kara <jack@suse.cz>
-Date:   Wed Nov 1 17:43:10 2023 +0000
+[ For people newly added to Cc, this RFC is a reply to subsystem
+  maintainers who asked for a real-world demonstration of how
+  SandBox Mode could be used in practice. SandBox Mode itself
+  was proposed in these two series (generic and x86):
 
-    fs: Block writes to mounted block devices
+* https://lore.kernel.org/lkml/20240214113516.2307-1-petrtesarik@huaweicloud.com/T/
+* https://lore.kernel.org/lkml/20240214113035.2117-1-petrtesarik@huaweicloud.com/T/
+]
 
-bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=1644f22c180000
-start commit:   b6e6cc1f78c7 Merge tag 'x86_urgent_for_6.5_rc2' of git://g..
-git tree:       upstream
-kernel config:  https://syzkaller.appspot.com/x/.config?x=6769a69bd0e144b4
-dashboard link: https://syzkaller.appspot.com/bug?extid=7d5fa8eb99155f439221
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=137b16dca80000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=14153b7ca80000
+This patch series provides an example of running existing kernel code in
+a sandbox. It also adds some fixes and infrastructure to the base series.
+If you only want to see how the conversion itself might look like, skip
+straight to patch 5/5.
 
-If the result looks correct, please mark the issue as fixed by replying with:
+Patches 1 and 2 amend the base patch series. Patches 3 and 4 are ported
+from my earlier proof of concept and adapted to work without adding too
+much other code. I am sending a complete WIP patch series so you can
+actually build and run the code.
 
-#syz fix: fs: Block writes to mounted block devices
+Disclaimer: This code is not ready for submission. It is incomplete and
+may contain bugs. It is provided here for the sole purpose of demonstrating
+how existing kernel code would be modified to run in a sandbox.
 
-For information about bisection process see: https://goo.gl/tpsmEJ#bisection
+PATCH 1/5 is a bug fix discovered after sending patch series v1.
+PATCH 2/5 allows to map a buffer into the sandbox at its kernel address.
+PATCH 3/5 is required to intercept calls to pre-selected kernel functions.
+PATCH 4/5 implements dynamic allocation in sandbox mode.
+PATCH 5/5 demonstrates how to convert existing kernel code to use SBM.
+
+Petr Tesarik (5):
+  sbm: x86: fix SBM error entry path
+  sbm: enhance buffer mapping API
+  sbm: x86: infrastructure to fix up sandbox faults
+  sbm: fix up calls to dynamic memory allocators
+  apparmor: parse profiles in sandbox mode
+
+ arch/x86/entry/entry_64.S     |  10 ++-
+ arch/x86/kernel/sbm/call_64.S |  20 +++++
+ arch/x86/kernel/sbm/core.c    | 161 +++++++++++++++++++++++++++++++++-
+ arch/x86/kernel/vmlinux.lds.S |   9 ++
+ include/linux/sbm.h           |  77 ++++++++++++++++
+ kernel/sbm.c                  |  34 +++++++
+ mm/slab_common.c              |   3 +-
+ mm/slub.c                     |  17 ++--
+ mm/vmalloc.c                  |  11 +--
+ security/apparmor/crypto.c    |   7 +-
+ security/apparmor/policy.c    |  29 ++++--
+ security/apparmor/secid.c     |   3 +-
+ 12 files changed, 352 insertions(+), 29 deletions(-)
+
+-- 
+2.34.1
+
 
