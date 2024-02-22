@@ -2,37 +2,87 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96A5286676B
-	for <lists+apparmor@lfdr.de>; Mon, 26 Feb 2024 02:04:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C3F186676C
+	for <lists+apparmor@lfdr.de>; Mon, 26 Feb 2024 02:04:26 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rePPW-00059Q-65; Mon, 26 Feb 2024 01:04:02 +0000
-Received: from bee.tesarici.cz ([77.93.223.253])
+	id 1rePPf-0005BH-6m; Mon, 26 Feb 2024 01:04:12 +0000
+Received: from mgamail.intel.com ([192.198.163.15])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <petr@tesarici.cz>) id 1rdDKN-0004DM-BQ
- for apparmor@lists.ubuntu.com; Thu, 22 Feb 2024 17:57:47 +0000
-Received: from meshulam.tesarici.cz
- (dynamic-2a00-1028-83b8-1e7a-4427-cc85-6706-c595.ipv6.o2.cz
- [IPv6:2a00:1028:83b8:1e7a:4427:cc85:6706:c595])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by bee.tesarici.cz (Postfix) with ESMTPSA id EB4591B4022;
- Thu, 22 Feb 2024 18:57:45 +0100 (CET)
-Date: Thu, 22 Feb 2024 18:57:44 +0100
-From: Petr =?UTF-8?B?VGVzYcWZw61r?= <petr@tesarici.cz>
-To: Dave Hansen <dave.hansen@intel.com>
-Message-ID: <20240222185744.509e4958@meshulam.tesarici.cz>
-In-Reply-To: <f6135f2c-bc8f-41c3-9c6a-8346d685e4dc@intel.com>
+ (Exim 4.86_2) (envelope-from <dave.hansen@intel.com>)
+ id 1rdDPa-00050f-SA
+ for apparmor@lists.ubuntu.com; Thu, 22 Feb 2024 18:03:11 +0000
+X-IronPort-AV: E=McAfee;i="6600,9927,10992"; a="3010768"
+X-IronPort-AV: E=Sophos;i="6.06,179,1705392000"; 
+   d="scan'208";a="3010768"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Feb 2024 10:03:08 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.06,179,1705392000"; d="scan'208";a="10188836"
+Received: from jwbates1-mobl.amr.corp.intel.com (HELO [10.209.48.22])
+ ([10.209.48.22])
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Feb 2024 10:03:05 -0800
+Message-ID: <5de7d665-7047-497b-94fb-76ec2af3c9e2@intel.com>
+Date: Thu, 22 Feb 2024 10:03:03 -0800
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: =?UTF-8?B?UGV0ciBUZXNhxZnDrWs=?= <petr@tesarici.cz>
 References: <fb4a40c7-af9a-406a-95ab-406595f3ffe5@intel.com>
  <20240222131230.635-1-petrtesarik@huaweicloud.com>
  <20240222131230.635-5-petrtesarik@huaweicloud.com>
  <f6135f2c-bc8f-41c3-9c6a-8346d685e4dc@intel.com>
-X-Mailer: Claws Mail 4.2.0 (GTK 3.24.39; x86_64-suse-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+ <20240222185744.509e4958@meshulam.tesarici.cz>
+From: Dave Hansen <dave.hansen@intel.com>
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ xsFNBE6HMP0BEADIMA3XYkQfF3dwHlj58Yjsc4E5y5G67cfbt8dvaUq2fx1lR0K9h1bOI6fC
+ oAiUXvGAOxPDsB/P6UEOISPpLl5IuYsSwAeZGkdQ5g6m1xq7AlDJQZddhr/1DC/nMVa/2BoY
+ 2UnKuZuSBu7lgOE193+7Uks3416N2hTkyKUSNkduyoZ9F5twiBhxPJwPtn/wnch6n5RsoXsb
+ ygOEDxLEsSk/7eyFycjE+btUtAWZtx+HseyaGfqkZK0Z9bT1lsaHecmB203xShwCPT49Blxz
+ VOab8668QpaEOdLGhtvrVYVK7x4skyT3nGWcgDCl5/Vp3TWA4K+IofwvXzX2ON/Mj7aQwf5W
+ iC+3nWC7q0uxKwwsddJ0Nu+dpA/UORQWa1NiAftEoSpk5+nUUi0WE+5DRm0H+TXKBWMGNCFn
+ c6+EKg5zQaa8KqymHcOrSXNPmzJuXvDQ8uj2J8XuzCZfK4uy1+YdIr0yyEMI7mdh4KX50LO1
+ pmowEqDh7dLShTOif/7UtQYrzYq9cPnjU2ZW4qd5Qz2joSGTG9eCXLz5PRe5SqHxv6ljk8mb
+ ApNuY7bOXO/A7T2j5RwXIlcmssqIjBcxsRRoIbpCwWWGjkYjzYCjgsNFL6rt4OL11OUF37wL
+ QcTl7fbCGv53KfKPdYD5hcbguLKi/aCccJK18ZwNjFhqr4MliQARAQABzUVEYXZpZCBDaHJp
+ c3RvcGhlciBIYW5zZW4gKEludGVsIFdvcmsgQWRkcmVzcykgPGRhdmUuaGFuc2VuQGludGVs
+ LmNvbT7CwXgEEwECACIFAlQ+9J0CGwMGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAAoJEGg1
+ lTBwyZKwLZUP/0dnbhDc229u2u6WtK1s1cSd9WsflGXGagkR6liJ4um3XCfYWDHvIdkHYC1t
+ MNcVHFBwmQkawxsYvgO8kXT3SaFZe4ISfB4K4CL2qp4JO+nJdlFUbZI7cz/Td9z8nHjMcWYF
+ IQuTsWOLs/LBMTs+ANumibtw6UkiGVD3dfHJAOPNApjVr+M0P/lVmTeP8w0uVcd2syiaU5jB
+ aht9CYATn+ytFGWZnBEEQFnqcibIaOrmoBLu2b3fKJEd8Jp7NHDSIdrvrMjYynmc6sZKUqH2
+ I1qOevaa8jUg7wlLJAWGfIqnu85kkqrVOkbNbk4TPub7VOqA6qG5GCNEIv6ZY7HLYd/vAkVY
+ E8Plzq/NwLAuOWxvGrOl7OPuwVeR4hBDfcrNb990MFPpjGgACzAZyjdmYoMu8j3/MAEW4P0z
+ F5+EYJAOZ+z212y1pchNNauehORXgjrNKsZwxwKpPY9qb84E3O9KYpwfATsqOoQ6tTgr+1BR
+ CCwP712H+E9U5HJ0iibN/CDZFVPL1bRerHziuwuQuvE0qWg0+0SChFe9oq0KAwEkVs6ZDMB2
+ P16MieEEQ6StQRlvy2YBv80L1TMl3T90Bo1UUn6ARXEpcbFE0/aORH/jEXcRteb+vuik5UGY
+ 5TsyLYdPur3TXm7XDBdmmyQVJjnJKYK9AQxj95KlXLVO38lczsFNBFRjzmoBEACyAxbvUEhd
+ GDGNg0JhDdezyTdN8C9BFsdxyTLnSH31NRiyp1QtuxvcqGZjb2trDVuCbIzRrgMZLVgo3upr
+ MIOx1CXEgmn23Zhh0EpdVHM8IKx9Z7V0r+rrpRWFE8/wQZngKYVi49PGoZj50ZEifEJ5qn/H
+ Nsp2+Y+bTUjDdgWMATg9DiFMyv8fvoqgNsNyrrZTnSgoLzdxr89FGHZCoSoAK8gfgFHuO54B
+ lI8QOfPDG9WDPJ66HCodjTlBEr/Cwq6GruxS5i2Y33YVqxvFvDa1tUtl+iJ2SWKS9kCai2DR
+ 3BwVONJEYSDQaven/EHMlY1q8Vln3lGPsS11vSUK3QcNJjmrgYxH5KsVsf6PNRj9mp8Z1kIG
+ qjRx08+nnyStWC0gZH6NrYyS9rpqH3j+hA2WcI7De51L4Rv9pFwzp161mvtc6eC/GxaiUGuH
+ BNAVP0PY0fqvIC68p3rLIAW3f97uv4ce2RSQ7LbsPsimOeCo/5vgS6YQsj83E+AipPr09Caj
+ 0hloj+hFoqiticNpmsxdWKoOsV0PftcQvBCCYuhKbZV9s5hjt9qn8CE86A5g5KqDf83Fxqm/
+ vXKgHNFHE5zgXGZnrmaf6resQzbvJHO0Fb0CcIohzrpPaL3YepcLDoCCgElGMGQjdCcSQ+Ci
+ FCRl0Bvyj1YZUql+ZkptgGjikQARAQABwsFfBBgBAgAJBQJUY85qAhsMAAoJEGg1lTBwyZKw
+ l4IQAIKHs/9po4spZDFyfDjunimEhVHqlUt7ggR1Hsl/tkvTSze8pI1P6dGp2XW6AnH1iayn
+ yRcoyT0ZJ+Zmm4xAH1zqKjWplzqdb/dO28qk0bPso8+1oPO8oDhLm1+tY+cOvufXkBTm+whm
+ +AyNTjaCRt6aSMnA/QHVGSJ8grrTJCoACVNhnXg/R0g90g8iV8Q+IBZyDkG0tBThaDdw1B2l
+ asInUTeb9EiVfL/Zjdg5VWiF9LL7iS+9hTeVdR09vThQ/DhVbCNxVk+DtyBHsjOKifrVsYep
+ WpRGBIAu3bK8eXtyvrw1igWTNs2wazJ71+0z2jMzbclKAyRHKU9JdN6Hkkgr2nPb561yjcB8
+ sIq1pFXKyO+nKy6SZYxOvHxCcjk2fkw6UmPU6/j/nQlj2lfOAgNVKuDLothIxzi8pndB8Jju
+ KktE5HJqUUMXePkAYIxEQ0mMc8Po7tuXdejgPMwgP7x65xtfEqI0RuzbUioFltsp1jUaRwQZ
+ MTsCeQDdjpgHsj+P2ZDeEKCbma4m6Ez/YWs4+zDm1X8uZDkZcfQlD9NldbKDJEXLIjYWo1PH
+ hYepSffIWPyvBMBTW2W5FRjJ4vLRrJSUoEfJuPQ3vW9Y73foyo/qFoURHO48AinGPZ7PC7TF
+ vUaNOTjKedrqHkaOcqB185ahG2had0xnFsDPlx5y
+In-Reply-To: <20240222185744.509e4958@meshulam.tesarici.cz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 23 Feb 2024 18:39:09 +0000
 Subject: Re: [apparmor] [RFC 4/5] sbm: fix up calls to dynamic memory
 	allocators
@@ -53,18 +103,19 @@ Cc: "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
  open list <linux-kernel@vger.kernel.org>, Kai Huang <kai.huang@intel.com>,
  Jacob Pan <jacob.jun.pan@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
  linux-security-module@vger.kernel.org, Ze Gao <zegao2021@gmail.com>,
- Jonathan Corbet <corbet@lwn.net>, "maintainer:X86 ARCHITECTURE \(32-BIT AND
- 64-BIT\)" <x86@kernel.org>, James Morris <jmorris@namei.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, Ingo Molnar <mingo@redhat.com>,
- "Serge E. Hallyn" <serge@hallyn.com>, Joerg Roedel <jroedel@suse.de>,
- Kees Cook <keescook@chromium.org>, Arnd Bergmann <arnd@arndb.de>,
- Brian Gerst <brgerst@gmail.com>, Xin Li <xin3.li@intel.com>,
- apparmor@lists.ubuntu.com, Borislav Petkov <bp@alien8.de>, "Mike Rapoport
- \(IBM\)" <rppt@kernel.org>, Andy Lutomirski <luto@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, Josh Poimboeuf <jpoimboe@kernel.org>,
- Paul Moore <paul@paul-moore.com>, Oleg Nesterov <oleg@redhat.com>,
- Tina Zhang <tina.zhang@intel.com>, Pengfei Xu <pengfei.xu@intel.com>, "Masami
- Hiramatsu \(Google\)" <mhiramat@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>,
+ "maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>,
+ James Morris <jmorris@namei.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Ingo Molnar <mingo@redhat.com>, "Serge E. Hallyn" <serge@hallyn.com>,
+ Joerg Roedel <jroedel@suse.de>, Kees Cook <keescook@chromium.org>,
+ Arnd Bergmann <arnd@arndb.de>, Brian Gerst <brgerst@gmail.com>,
+ Xin Li <xin3.li@intel.com>, apparmor@lists.ubuntu.com,
+ Borislav Petkov <bp@alien8.de>, "Mike Rapoport \(IBM\)" <rppt@kernel.org>,
+ Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
+ Josh Poimboeuf <jpoimboe@kernel.org>, Paul Moore <paul@paul-moore.com>,
+ Oleg Nesterov <oleg@redhat.com>, Tina Zhang <tina.zhang@intel.com>,
+ Pengfei Xu <pengfei.xu@intel.com>,
+ "Masami Hiramatsu \(Google\)" <mhiramat@kernel.org>,
  Petr Tesarik <petr.tesarik1@huawei-partners.com>,
  Roberto Sassu <roberto.sassu@huaweicloud.com>,
  Andrew Morton <akpm@linux-foundation.org>,
@@ -75,163 +126,19 @@ Cc: "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Thu, 22 Feb 2024 07:51:00 -0800
-Dave Hansen <dave.hansen@intel.com> wrote:
-
-> On 2/22/24 05:12, Petr Tesarik wrote:
-> >  static const struct sbm_fixup fixups[] =
-> >  {
-> > +	/* kmalloc() and friends */
-> > +	{ kmalloc_trace, proxy_alloc3 },
-> > +	{ __kmalloc, proxy_alloc1 },
-> > +	{ __kmalloc_node, proxy_alloc1 },
-> > +	{ __kmalloc_node_track_caller, proxy_alloc1 },
-> > +	{ kmalloc_large, proxy_alloc1 },
-> > +	{ kmalloc_large_node, proxy_alloc1 },
-> > +	{ krealloc, proxy_alloc2 },
-> > +	{ kfree, proxy_free },
-> > +
-> > +	/* vmalloc() and friends */
-> > +	{ vmalloc, proxy_alloc1 },
-> > +	{ __vmalloc, proxy_alloc1 },
-> > +	{ __vmalloc_node, proxy_alloc1 },
-> > +	{ vzalloc, proxy_alloc1 },
-> > +	{ vfree, proxy_free },
-> > +
-> >  	{ }
-> >  };  
+On 2/22/24 09:57, Petr Tesařík wrote:
+> * Hardware designers are adding (other) hardware security defenses to
+>   ring-0 that are not applied to ring-3.
 > 
-> Petr, thanks for sending this.  This _is_ a pretty concise example of
-> what it means to convert kernel code to run in your sandbox mode.  But,
-> from me, it's still "no thanks".
-> 
-> Establishing and maintaining this proxy list will be painful.  Folks
-> will change the code to call something new and break this *constantly*.
-> 
-> That goes for infrastructure like the allocators and for individual
-> sandbox instances like apparmor.
+>   Could you give an example of these other security defenses, please?
 
-Understood.
+Here's one example:
 
-OTOH the proxy list is here for the PoC so I could send something that
-builds and runs without making it an overly big patch series. As
-explained in patch 5/5, the goal is not to make a global list. Instead,
-each instance should define what it needs and that way define its
-specific policy of interfacing with the rest of the kernel.
+> https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/technical-documentation/data-dependent-prefetcher.html
 
-To give an example, these AppArmor fixups would be added only to the
-sandbox which runs aa_unpack(), but not to the one which runs
-unpack_to_rootfs(), which is another PoC I did (but required porting
-more patches).
+"DDP is neither trained by nor triggered by supervisor-mode accesses."
 
-If more fixups are needed after you change your code, you know you've
-just added a new dependency. It's then up to you to decide if it was
-intentional.
-
-> It's also telling that sandboxing a bit of apparmor took four fixups.
-> That tells me we're probably still only looking at the tip of the icebeg
-> if we were to convert a bunch more sites.
-
-Yes, it is the cost paid for getting code and data flows under control.
-
-In your opinion this kind of memory safety is not worth the effort of
-explicitly defining the interface between a sandboxed component and the
-rest of the kernel, because it increases maintenance costs. Correct?
-
-> That's on top of everything I was concerned about before.
-
-Good, I think I can understand the new concern, but regarding
-everything you were concerned about before, this part is still not
-quite clear to me. I'll try to summarize the points:
-
-* Running code in ring-0 is inherently safer than running code in
-  ring-3.
-
-  Since what I'm trying to do is protect kernel data structures
-  from memory safety bugs in another part of the kernel, it roughly
-  translates to: "Kernel data structures are better protected from
-  rogue kernel modules than from userspace applications." This cannot
-  possibly be what you are trying to say.
-
-* SMAP, SMEP and/or LASS can somehow protect one part of the kernel
-  from memory safety bugs in another part of the kernel.
-
-  I somehow can't see how that is the case. I have always thought that:
-
-  * SMEP prevents the kernel to execute code from user pages.
-  * SMAP prevents the kernel to read from or write into user pages.
-  * LASS does pretty much the same job as SMEP+SMAP, but instead of
-    using page table protection bits, it uses the highest bit of the
-    virtual address because that's much faster.
-
-* Hardware designers are adding (other) hardware security defenses to
-  ring-0 that are not applied to ring-3.
-
-  Could you give an example of these other security defenses, please?
-
-* Ring-3 is more exposed to attacks.
-
-  This statement sounds a bit too vague on its own. What attack vectors
-  are we talking about? The primary attack vector that SBM is trying to
-  address are exploits of kernel code vulnerabilities triggered by data
-  from sources outside the kernel (boot loader, userspace, etc.).
-
-H. Peter Anvin added a few other points:
-
-* SBM has all the downsides of a microkernel without the upsides.
-
-  I can only guess what would be the downsides and upsides...
-
-  One notorious downside is performance. Agreed, there is some overhead.
-  I'm not promoting SBM for time-critical operations. But compared to
-  user-mode helpers (which was suggested as an alternative for one of
-  the proposed scenarios), the overhead of SBM is at least an order of
-  magnitude less.
-
-  IPC and the need to define how servers interact with each other is
-  another downside I can think of. Yes, there is a bit of it in SBM, as
-  you have correctly noted above.
-
-* SBM introduces architectural changes that are most definitely *very*
-  harmful both to maintainers and users.
-
-  It is very difficult to learn something from this statement. Could
-  you give some examples of how SBM harms either group, please?
-
-* SBM feels like paravirtualization all over again.
-
-  All right, hpa, you've had lots of pain with paravirtualization. I
-  feel with you, I've had my part of it too. Can you imagine how much
-  trouble I could have spared myself for the libkdumpfile project if I
-  didn't have to deal with the difference between "physical addresses"
-  and "machine addresses"?
-
-  However, this is hardly a relevant point. The Linux kernel community
-  is respected for making decisions based on facts, not feelings.
-
-* SBM exposes kernel memory to user space.
-
-  This is a misunderstanding. Sandbox mode does not share anything at
-  all with user mode. It does share some CPU state with kernel mode,
-  but not with user mode. If "user space" was intended to mean "Ring-3",
-  then it doesn't explain how that is a really bad idea.
-
-* SBM is not needed, because there is already eBPF.
-
-  Well, yes, but I believe they work on a different level. For example,
-  eBPF needs a verifier to ensure memory safety. If you run eBPF code
-  itself in a sandbox instead, that verifier is not needed, because
-  memory safety is enforced by CPU hardware.
-
-When hpa says that SandBox Mode is "an enormous step in the wrong
-direction", I want to understand why this direction is wrong, so I can
-take a step in the right direction next time.
-
-So far there has been only one objective concern: the need to track code
-(and data) dependencies explicitly. AFAICS this is an inherent drawback
-of any kind of program decomposition.
-
-Is decomposition considered harmful?
-
-Petr T
+But seriously, this is going to be my last message on this topic.  I
+appreciate your enthusiasm, but I don't see any viable way forward for
+this approach.
 
