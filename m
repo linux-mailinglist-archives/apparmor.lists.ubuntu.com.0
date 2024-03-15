@@ -2,23 +2,23 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id F380A87D6B0
-	for <lists+apparmor@lfdr.de>; Fri, 15 Mar 2024 23:38:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E65AC87D6B2
+	for <lists+apparmor@lfdr.de>; Fri, 15 Mar 2024 23:38:53 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rlGCA-0002Tk-5h; Fri, 15 Mar 2024 22:38:34 +0000
+	id 1rlGCE-0002Tz-Ve; Fri, 15 Mar 2024 22:38:39 +0000
 Received: from todd.t-8ch.de ([159.69.126.157])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <linux@weissschuh.net>)
- id 1rlETU-0000V4-RD
+ id 1rlETV-0000VD-Mt
  for apparmor@lists.ubuntu.com; Fri, 15 Mar 2024 20:48:22 +0000
 From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Date: Fri, 15 Mar 2024 21:48:00 +0100
+Date: Fri, 15 Mar 2024 21:48:01 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20240315-sysctl-const-handler-v1-2-1322ac7cb03d@weissschuh.net>
+Message-Id: <20240315-sysctl-const-handler-v1-3-1322ac7cb03d@weissschuh.net>
 References: <20240315-sysctl-const-handler-v1-0-1322ac7cb03d@weissschuh.net>
 In-Reply-To: <20240315-sysctl-const-handler-v1-0-1322ac7cb03d@weissschuh.net>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -95,18 +95,18 @@ To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  "Serge E. Hallyn" <serge@hallyn.com>, 
  Alexander Popov <alex.popov@linux.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1710535695; l=686;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1710535695; l=1138;
  i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=71R8uSwybXZePn/hRWXZmFtBWgxzbTZn7lLN/sI0ct8=;
- b=1p7QVCfT76tMKe2lhkLAnq+rZy1Hhj119ioAiiSdaA/KcTCdEQiKcZfPuzjhQVMIgFHQpgyqi
- 8KV8JuqLJSRB3yPnZuNAH/QOQJporNVr2ZASPvZ5f6myZthtsTyJC9S
+ bh=ZA8n2/koLk8T5EEGrZrQe3HTqPjD2IuDJPJOoTgLjZQ=;
+ b=boZ4t6eOPk3Dljh4IP0PKWoLOxGtOLAXof5Zxa1r9XXXItitoJuOMZutWnuJAn75hjXtWjz0B
+ 7PQefNn5iOMATogPVExj5hPohFmPOE42B/+MU7bt9FL5JEbL5sxkIfe
 X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
  pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 Received-SPF: pass client-ip=159.69.126.157; envelope-from=linux@weissschuh.net;
  helo=todd.t-8ch.de
 X-Mailman-Approved-At: Fri, 15 Mar 2024 22:38:31 +0000
-Subject: [apparmor] [PATCH 02/11] cgroup: bpf: constify ctl_table arguments
-	and fields
+Subject: [apparmor] [PATCH 03/11] hugetlb: constify ctl_table arguments of
+ utility functions
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -134,28 +134,37 @@ Cc: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-In a future commit the sysctl core will only use
-"const struct ctl_table". As a preparation for that adapt the cgroup-bpf
-code.
+In a future commit the proc_handlers themselves will change to
+"const struct ctl_table". As a preparation for that adapt the internal
+helpers.
 
 Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
 ---
- include/linux/filter.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ mm/hugetlb.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/filter.h b/include/linux/filter.h
-index c99bc3df2d28..3238dcff5703 100644
---- a/include/linux/filter.h
-+++ b/include/linux/filter.h
-@@ -1366,7 +1366,7 @@ struct bpf_sock_ops_kern {
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 23ef240ba48a..b0d89ab98eaa 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -4929,7 +4929,7 @@ static unsigned int allowed_mems_nr(struct hstate *h)
+ }
  
- struct bpf_sysctl_kern {
- 	struct ctl_table_header *head;
--	struct ctl_table *table;
-+	const struct ctl_table *table;
- 	void *cur_val;
- 	size_t cur_len;
- 	void *new_val;
+ #ifdef CONFIG_SYSCTL
+-static int proc_hugetlb_doulongvec_minmax(struct ctl_table *table, int write,
++static int proc_hugetlb_doulongvec_minmax(const struct ctl_table *table, int write,
+ 					  void *buffer, size_t *length,
+ 					  loff_t *ppos, unsigned long *out)
+ {
+@@ -4946,7 +4946,7 @@ static int proc_hugetlb_doulongvec_minmax(struct ctl_table *table, int write,
+ }
+ 
+ static int hugetlb_sysctl_handler_common(bool obey_mempolicy,
+-			 struct ctl_table *table, int write,
++			 const struct ctl_table *table, int write,
+ 			 void *buffer, size_t *length, loff_t *ppos)
+ {
+ 	struct hstate *h = &default_hstate;
 
 -- 
 2.44.0
