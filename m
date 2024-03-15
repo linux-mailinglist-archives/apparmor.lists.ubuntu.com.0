@@ -2,23 +2,23 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B9E687D6AD
-	for <lists+apparmor@lfdr.de>; Fri, 15 Mar 2024 23:38:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F380A87D6B0
+	for <lists+apparmor@lfdr.de>; Fri, 15 Mar 2024 23:38:49 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rlGC9-0002Tb-NY; Fri, 15 Mar 2024 22:38:33 +0000
+	id 1rlGCA-0002Tk-5h; Fri, 15 Mar 2024 22:38:34 +0000
 Received: from todd.t-8ch.de ([159.69.126.157])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <linux@weissschuh.net>)
- id 1rlETT-0000V1-CN
- for apparmor@lists.ubuntu.com; Fri, 15 Mar 2024 20:48:20 +0000
+ id 1rlETU-0000V4-RD
+ for apparmor@lists.ubuntu.com; Fri, 15 Mar 2024 20:48:22 +0000
 From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Date: Fri, 15 Mar 2024 21:47:59 +0100
+Date: Fri, 15 Mar 2024 21:48:00 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20240315-sysctl-const-handler-v1-1-1322ac7cb03d@weissschuh.net>
+Message-Id: <20240315-sysctl-const-handler-v1-2-1322ac7cb03d@weissschuh.net>
 References: <20240315-sysctl-const-handler-v1-0-1322ac7cb03d@weissschuh.net>
 In-Reply-To: <20240315-sysctl-const-handler-v1-0-1322ac7cb03d@weissschuh.net>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -95,17 +95,18 @@ To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  "Serge E. Hallyn" <serge@hallyn.com>, 
  Alexander Popov <alex.popov@linux.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1710535695; l=1205;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1710535695; l=686;
  i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=H2m3CgyPxKp8J+A7s6etu+nqQuMydVMaRq2xUBYcaE4=;
- b=DLCpjj80ePju45B1sM6SeMu3SU3+SovEAF9F+apF8HUTZcbHxhK7sFWDz+WraIYUf5lzi8ctP
- 25gNqwcr0i1CjOhkjNKarmdmKbieJ/tL+nZegKGxX2K6TvuJVTedQUi
+ bh=71R8uSwybXZePn/hRWXZmFtBWgxzbTZn7lLN/sI0ct8=;
+ b=1p7QVCfT76tMKe2lhkLAnq+rZy1Hhj119ioAiiSdaA/KcTCdEQiKcZfPuzjhQVMIgFHQpgyqi
+ 8KV8JuqLJSRB3yPnZuNAH/QOQJporNVr2ZASPvZ5f6myZthtsTyJC9S
 X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
  pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 Received-SPF: pass client-ip=159.69.126.157; envelope-from=linux@weissschuh.net;
  helo=todd.t-8ch.de
 X-Mailman-Approved-At: Fri, 15 Mar 2024 22:38:31 +0000
-Subject: [apparmor] [PATCH 01/11] stackleak: don't modify ctl_table argument
+Subject: [apparmor] [PATCH 02/11] cgroup: bpf: constify ctl_table arguments
+	and fields
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -133,37 +134,28 @@ Cc: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-In a future commit the proc_handlers will change to
-"const struct ctl_table".
-As a preparation for that adapt the logic to work with a temporary
-variable, similar to how it is done in other parts of the kernel.
+In a future commit the sysctl core will only use
+"const struct ctl_table". As a preparation for that adapt the cgroup-bpf
+code.
 
-Fixes: 964c9dff0091 ("stackleak: Allow runtime disabling of kernel stack erasing")
-Acked-by: Kees Cook <keescook@chromium.org>
 Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
 ---
- kernel/stackleak.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ include/linux/filter.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/stackleak.c b/kernel/stackleak.c
-index 34c9d81eea94..b292e5ca0b7d 100644
---- a/kernel/stackleak.c
-+++ b/kernel/stackleak.c
-@@ -27,10 +27,11 @@ static int stack_erasing_sysctl(struct ctl_table *table, int write,
- 	int ret = 0;
- 	int state = !static_branch_unlikely(&stack_erasing_bypass);
- 	int prev_state = state;
-+	struct ctl_table tmp = *table;
+diff --git a/include/linux/filter.h b/include/linux/filter.h
+index c99bc3df2d28..3238dcff5703 100644
+--- a/include/linux/filter.h
++++ b/include/linux/filter.h
+@@ -1366,7 +1366,7 @@ struct bpf_sock_ops_kern {
  
--	table->data = &state;
--	table->maxlen = sizeof(int);
--	ret = proc_dointvec_minmax(table, write, buffer, lenp, ppos);
-+	tmp.data = &state;
-+	tmp.maxlen = sizeof(int);
-+	ret = proc_dointvec_minmax(&tmp, write, buffer, lenp, ppos);
- 	state = !!state;
- 	if (ret || !write || state == prev_state)
- 		return ret;
+ struct bpf_sysctl_kern {
+ 	struct ctl_table_header *head;
+-	struct ctl_table *table;
++	const struct ctl_table *table;
+ 	void *cur_val;
+ 	size_t cur_len;
+ 	void *new_val;
 
 -- 
 2.44.0
