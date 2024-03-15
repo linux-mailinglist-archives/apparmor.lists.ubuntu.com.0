@@ -2,23 +2,23 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB86087D6B3
-	for <lists+apparmor@lfdr.de>; Fri, 15 Mar 2024 23:38:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 856A787D6B5
+	for <lists+apparmor@lfdr.de>; Fri, 15 Mar 2024 23:39:03 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rlGCL-0002Vf-6I; Fri, 15 Mar 2024 22:38:45 +0000
+	id 1rlGCX-0002ea-1g; Fri, 15 Mar 2024 22:38:57 +0000
 Received: from todd.t-8ch.de ([159.69.126.157])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <linux@weissschuh.net>)
- id 1rlETd-0000Wb-JL
- for apparmor@lists.ubuntu.com; Fri, 15 Mar 2024 20:48:30 +0000
+ id 1rlETg-0000Ww-53
+ for apparmor@lists.ubuntu.com; Fri, 15 Mar 2024 20:48:32 +0000
 From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Date: Fri, 15 Mar 2024 21:48:04 +0100
+Date: Fri, 15 Mar 2024 21:48:05 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20240315-sysctl-const-handler-v1-6-1322ac7cb03d@weissschuh.net>
+Message-Id: <20240315-sysctl-const-handler-v1-7-1322ac7cb03d@weissschuh.net>
 References: <20240315-sysctl-const-handler-v1-0-1322ac7cb03d@weissschuh.net>
 In-Reply-To: <20240315-sysctl-const-handler-v1-0-1322ac7cb03d@weissschuh.net>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -95,18 +95,18 @@ To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  "Serge E. Hallyn" <serge@hallyn.com>, 
  Alexander Popov <alex.popov@linux.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1710535695; l=1269;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1710535695; l=1733;
  i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=yGyEnmkHG4K/QBZUE+wYC6PI0MysqQBf2jxKv03Uqeg=;
- b=WplrulYKd7B5TGswqzcDZbw2m/RyDv+HhOXZKHSfdG38pZxdNlsfrZeeItPHEYHA5eD5Kt+EM
- V7+s8EbXwZLDElxohBqz8CxV4en1zqMOoIPQsYqfboOMLt8tzBvHJKe
+ bh=7M7T8qGemL/J5YUUwWJ0cC9nJ/50fjpcJlm81ezvXMY=;
+ b=tDrRFBvycsbBg1b0VjT1utAvA72vW/Pfn/OG8rmdlBPllpN3zp995mmaLodLsZ9cR6UItDzEG
+ 934FLotKWacC+9a11IwVotmGV7cUQDZTwgtBLcNNphSOBq2Q6lt1ZQr
 X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
  pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 Received-SPF: pass client-ip=159.69.126.157; envelope-from=linux@weissschuh.net;
  helo=todd.t-8ch.de
 X-Mailman-Approved-At: Fri, 15 Mar 2024 22:38:31 +0000
-Subject: [apparmor] [PATCH 06/11] ipv4/sysctl: constify ctl_table arguments
- of utility functions
+Subject: [apparmor] [PATCH 07/11] ipv6/addrconf: constify ctl_table
+ arguments of utility functions
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -140,33 +140,49 @@ helpers.
 
 Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
 ---
- net/ipv4/sysctl_net_ipv4.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ net/ipv6/addrconf.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/net/ipv4/sysctl_net_ipv4.c b/net/ipv4/sysctl_net_ipv4.c
-index 7e4f16a7dcc1..363dc2a487ac 100644
---- a/net/ipv4/sysctl_net_ipv4.c
-+++ b/net/ipv4/sysctl_net_ipv4.c
-@@ -130,7 +130,8 @@ static int ipv4_privileged_ports(struct ctl_table *table, int write,
- 	return ret;
+diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
+index 247bd4d8ee45..c72f3b63e41d 100644
+--- a/net/ipv6/addrconf.c
++++ b/net/ipv6/addrconf.c
+@@ -862,7 +862,7 @@ static void addrconf_forward_change(struct net *net, __s32 newf)
+ 	}
  }
  
--static void inet_get_ping_group_range_table(struct ctl_table *table, kgid_t *low, kgid_t *high)
-+static void inet_get_ping_group_range_table(const struct ctl_table *table,
-+					    kgid_t *low, kgid_t *high)
+-static int addrconf_fixup_forwarding(struct ctl_table *table, int *p, int newf)
++static int addrconf_fixup_forwarding(const struct ctl_table *table, int *p, int newf)
  {
- 	kgid_t *data = table->data;
- 	struct net *net =
-@@ -145,7 +146,8 @@ static void inet_get_ping_group_range_table(struct ctl_table *table, kgid_t *low
+ 	struct net *net;
+ 	int old;
+@@ -930,7 +930,7 @@ static void addrconf_linkdown_change(struct net *net, __s32 newf)
+ 	}
  }
  
- /* Update system visible IP port range */
--static void set_ping_group_range(struct ctl_table *table, kgid_t low, kgid_t high)
-+static void set_ping_group_range(const struct ctl_table *table,
-+				 kgid_t low, kgid_t high)
+-static int addrconf_fixup_linkdown(struct ctl_table *table, int *p, int newf)
++static int addrconf_fixup_linkdown(const struct ctl_table *table, int *p, int newf)
  {
- 	kgid_t *data = table->data;
- 	struct net *net =
+ 	struct net *net;
+ 	int old;
+@@ -6375,7 +6375,7 @@ static void addrconf_disable_change(struct net *net, __s32 newf)
+ 	}
+ }
+ 
+-static int addrconf_disable_ipv6(struct ctl_table *table, int *p, int newf)
++static int addrconf_disable_ipv6(const struct ctl_table *table, int *p, int newf)
+ {
+ 	struct net *net = (struct net *)table->extra2;
+ 	int old;
+@@ -6666,7 +6666,7 @@ void addrconf_disable_policy_idev(struct inet6_dev *idev, int val)
+ }
+ 
+ static
+-int addrconf_disable_policy(struct ctl_table *ctl, int *valp, int val)
++int addrconf_disable_policy(const struct ctl_table *ctl, int *valp, int val)
+ {
+ 	struct net *net = (struct net *)ctl->extra2;
+ 	struct inet6_dev *idev;
 
 -- 
 2.44.0
