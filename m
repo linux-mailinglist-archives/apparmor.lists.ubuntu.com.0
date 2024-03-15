@@ -2,23 +2,23 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id B931887D6B8
-	for <lists+apparmor@lfdr.de>; Fri, 15 Mar 2024 23:39:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB86087D6B3
+	for <lists+apparmor@lfdr.de>; Fri, 15 Mar 2024 23:38:56 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rlGCb-0002nK-98; Fri, 15 Mar 2024 22:39:01 +0000
+	id 1rlGCL-0002Vf-6I; Fri, 15 Mar 2024 22:38:45 +0000
 Received: from todd.t-8ch.de ([159.69.126.157])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <linux@weissschuh.net>)
- id 1rlETc-0000WS-4N
- for apparmor@lists.ubuntu.com; Fri, 15 Mar 2024 20:48:29 +0000
+ id 1rlETd-0000Wb-JL
+ for apparmor@lists.ubuntu.com; Fri, 15 Mar 2024 20:48:30 +0000
 From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Date: Fri, 15 Mar 2024 21:48:03 +0100
+Date: Fri, 15 Mar 2024 21:48:04 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20240315-sysctl-const-handler-v1-5-1322ac7cb03d@weissschuh.net>
+Message-Id: <20240315-sysctl-const-handler-v1-6-1322ac7cb03d@weissschuh.net>
 References: <20240315-sysctl-const-handler-v1-0-1322ac7cb03d@weissschuh.net>
 In-Reply-To: <20240315-sysctl-const-handler-v1-0-1322ac7cb03d@weissschuh.net>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -95,18 +95,18 @@ To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  "Serge E. Hallyn" <serge@hallyn.com>, 
  Alexander Popov <alex.popov@linux.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1710535695; l=808;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1710535695; l=1269;
  i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=oevlPOUTno1lzAS8VyWx7MVuhqnxcH7itmP3/5hwz20=;
- b=nal6nqzlOqju6KoSlkSXv2irkXSIQB1hPxMMvRw5/3x5Pl0PJC8iZv6mLbrbrwrTwJiwMMOTx
- vrmE29LSkJlAudC9x/ESIVrRSshIpjIXJbLqbScnLDsQB6DzgzZYtRY
+ bh=yGyEnmkHG4K/QBZUE+wYC6PI0MysqQBf2jxKv03Uqeg=;
+ b=WplrulYKd7B5TGswqzcDZbw2m/RyDv+HhOXZKHSfdG38pZxdNlsfrZeeItPHEYHA5eD5Kt+EM
+ V7+s8EbXwZLDElxohBqz8CxV4en1zqMOoIPQsYqfboOMLt8tzBvHJKe
 X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
  pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 Received-SPF: pass client-ip=159.69.126.157; envelope-from=linux@weissschuh.net;
  helo=todd.t-8ch.de
 X-Mailman-Approved-At: Fri, 15 Mar 2024 22:38:31 +0000
-Subject: [apparmor] [PATCH 05/11] neighbour: constify ctl_table arguments of
- utility function
+Subject: [apparmor] [PATCH 06/11] ipv4/sysctl: constify ctl_table arguments
+ of utility functions
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -136,26 +136,37 @@ Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
 In a future commit the proc_handlers themselves will change to
 "const struct ctl_table". As a preparation for that adapt the internal
-helper.
+helpers.
 
 Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
 ---
- net/core/neighbour.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/ipv4/sysctl_net_ipv4.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/net/core/neighbour.c b/net/core/neighbour.c
-index 552719c3bbc3..1fb71107accf 100644
---- a/net/core/neighbour.c
-+++ b/net/core/neighbour.c
-@@ -3573,7 +3573,7 @@ static void neigh_copy_dflt_parms(struct net *net, struct neigh_parms *p,
- 	rcu_read_unlock();
+diff --git a/net/ipv4/sysctl_net_ipv4.c b/net/ipv4/sysctl_net_ipv4.c
+index 7e4f16a7dcc1..363dc2a487ac 100644
+--- a/net/ipv4/sysctl_net_ipv4.c
++++ b/net/ipv4/sysctl_net_ipv4.c
+@@ -130,7 +130,8 @@ static int ipv4_privileged_ports(struct ctl_table *table, int write,
+ 	return ret;
  }
  
--static void neigh_proc_update(struct ctl_table *ctl, int write)
-+static void neigh_proc_update(const struct ctl_table *ctl, int write)
+-static void inet_get_ping_group_range_table(struct ctl_table *table, kgid_t *low, kgid_t *high)
++static void inet_get_ping_group_range_table(const struct ctl_table *table,
++					    kgid_t *low, kgid_t *high)
  {
- 	struct net_device *dev = ctl->extra1;
- 	struct neigh_parms *p = ctl->extra2;
+ 	kgid_t *data = table->data;
+ 	struct net *net =
+@@ -145,7 +146,8 @@ static void inet_get_ping_group_range_table(struct ctl_table *table, kgid_t *low
+ }
+ 
+ /* Update system visible IP port range */
+-static void set_ping_group_range(struct ctl_table *table, kgid_t low, kgid_t high)
++static void set_ping_group_range(const struct ctl_table *table,
++				 kgid_t low, kgid_t high)
+ {
+ 	kgid_t *data = table->data;
+ 	struct net *net =
 
 -- 
 2.44.0
