@@ -2,23 +2,23 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D0F487D6AF
-	for <lists+apparmor@lfdr.de>; Fri, 15 Mar 2024 23:38:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B931887D6B8
+	for <lists+apparmor@lfdr.de>; Fri, 15 Mar 2024 23:39:11 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rlGCB-0002Ts-5b; Fri, 15 Mar 2024 22:38:35 +0000
+	id 1rlGCb-0002nK-98; Fri, 15 Mar 2024 22:39:01 +0000
 Received: from todd.t-8ch.de ([159.69.126.157])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <linux@weissschuh.net>)
- id 1rlETX-0000W4-EY
- for apparmor@lists.ubuntu.com; Fri, 15 Mar 2024 20:48:23 +0000
+ id 1rlETc-0000WS-4N
+ for apparmor@lists.ubuntu.com; Fri, 15 Mar 2024 20:48:29 +0000
 From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Date: Fri, 15 Mar 2024 21:48:02 +0100
+Date: Fri, 15 Mar 2024 21:48:03 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20240315-sysctl-const-handler-v1-4-1322ac7cb03d@weissschuh.net>
+Message-Id: <20240315-sysctl-const-handler-v1-5-1322ac7cb03d@weissschuh.net>
 References: <20240315-sysctl-const-handler-v1-0-1322ac7cb03d@weissschuh.net>
 In-Reply-To: <20240315-sysctl-const-handler-v1-0-1322ac7cb03d@weissschuh.net>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -95,17 +95,17 @@ To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  "Serge E. Hallyn" <serge@hallyn.com>, 
  Alexander Popov <alex.popov@linux.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1710535695; l=696;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1710535695; l=808;
  i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=N3YQ+74nNXsZKp7PEdJnsfg+4VEg1y14khiTCB8rEVY=;
- b=xEm0d8CYQV6qN7oZA7EuQpgHjbZrMfPqjThMCUp02NAIP8Ff1lQTYCA5z6GSB4NPcFQzy/2jj
- Y0NcUklMzOzC1as2M3524rbivhNsj1cwIIJnIozArSnSxvsTxxWEUrP
+ bh=oevlPOUTno1lzAS8VyWx7MVuhqnxcH7itmP3/5hwz20=;
+ b=nal6nqzlOqju6KoSlkSXv2irkXSIQB1hPxMMvRw5/3x5Pl0PJC8iZv6mLbrbrwrTwJiwMMOTx
+ vrmE29LSkJlAudC9x/ESIVrRSshIpjIXJbLqbScnLDsQB6DzgzZYtRY
 X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
  pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 Received-SPF: pass client-ip=159.69.126.157; envelope-from=linux@weissschuh.net;
  helo=todd.t-8ch.de
 X-Mailman-Approved-At: Fri, 15 Mar 2024 22:38:31 +0000
-Subject: [apparmor] [PATCH 04/11] utsname: constify ctl_table arguments of
+Subject: [apparmor] [PATCH 05/11] neighbour: constify ctl_table arguments of
  utility function
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -140,22 +140,22 @@ helper.
 
 Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
 ---
- kernel/utsname_sysctl.c | 2 +-
+ net/core/neighbour.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/utsname_sysctl.c b/kernel/utsname_sysctl.c
-index 019e3a1566cf..46590d4addc8 100644
---- a/kernel/utsname_sysctl.c
-+++ b/kernel/utsname_sysctl.c
-@@ -15,7 +15,7 @@
+diff --git a/net/core/neighbour.c b/net/core/neighbour.c
+index 552719c3bbc3..1fb71107accf 100644
+--- a/net/core/neighbour.c
++++ b/net/core/neighbour.c
+@@ -3573,7 +3573,7 @@ static void neigh_copy_dflt_parms(struct net *net, struct neigh_parms *p,
+ 	rcu_read_unlock();
+ }
  
- #ifdef CONFIG_PROC_SYSCTL
- 
--static void *get_uts(struct ctl_table *table)
-+static void *get_uts(const struct ctl_table *table)
+-static void neigh_proc_update(struct ctl_table *ctl, int write)
++static void neigh_proc_update(const struct ctl_table *ctl, int write)
  {
- 	char *which = table->data;
- 	struct uts_namespace *uts_ns;
+ 	struct net_device *dev = ctl->extra1;
+ 	struct neigh_parms *p = ctl->extra2;
 
 -- 
 2.44.0
