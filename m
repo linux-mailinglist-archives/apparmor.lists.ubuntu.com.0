@@ -2,37 +2,112 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F8B687D4C4
-	for <lists+apparmor@lfdr.de>; Fri, 15 Mar 2024 20:59:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4180787D6B7
+	for <lists+apparmor@lfdr.de>; Fri, 15 Mar 2024 23:39:07 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rlDiJ-0003Si-Ie; Fri, 15 Mar 2024 19:59:35 +0000
-Received: from mail.hallyn.com ([178.63.66.53])
+	id 1rlGCa-0002jv-8X; Fri, 15 Mar 2024 22:39:00 +0000
+Received: from todd.t-8ch.de ([159.69.126.157])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <serge@hallyn.com>) id 1rlDi9-0003SP-9l
- for apparmor@lists.ubuntu.com; Fri, 15 Mar 2024 19:59:25 +0000
-Received: from serge-l-PF3DENS3 (unknown [72.163.2.238])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: serge)
- by mail.hallyn.com (Postfix) with ESMTPSA id 8AAB0888;
- Fri, 15 Mar 2024 14:59:21 -0500 (CDT)
-Date: Fri, 15 Mar 2024 14:59:19 -0500
-From: Serge Hallyn <serge@hallyn.com>
-To: Christian =?iso-8859-1?Q?G=F6ttsche?= <cgzones@googlemail.com>
-Message-ID: <ZfSol9llgsKWj1p9@serge-l-PF3DENS3>
-References: <20240315113828.258005-1-cgzones@googlemail.com>
+ (Exim 4.86_2) (envelope-from <linux@weissschuh.net>)
+ id 1rlETR-0000Ue-Ti
+ for apparmor@lists.ubuntu.com; Fri, 15 Mar 2024 20:48:18 +0000
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Date: Fri, 15 Mar 2024 21:47:58 +0100
+Message-Id: <20240315-sysctl-const-handler-v1-0-1322ac7cb03d@weissschuh.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240315113828.258005-1-cgzones@googlemail.com>
-Received-SPF: pass client-ip=178.63.66.53; envelope-from=serge@hallyn.com;
- helo=mail.hallyn.com
-Subject: Re: [apparmor] [PATCH 01/10] capability: introduce new capable flag
- CAP_OPT_NOAUDIT_ONDENY
+X-B4-Tracking: v=1; b=H4sIAP+z9GUC/x2MQQqAIBAAvxJ7bqGUSvpKdFDbakEs3Igi+nvSc
+ WBmHhBKTAJ98UCik4W3mKEuC/CrjQshT5lBVUrXSrUot/gjoN+iHJiNKVBCY7RryNmOTAU53RP
+ NfP3bYXzfDzWhXLJmAAAA
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Kees Cook <keescook@chromium.org>, Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, 
+ John Fastabend <john.fastabend@gmail.com>, 
+ Andrii Nakryiko <andrii@kernel.org>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, 
+ Eduard Zingerman <eddyz87@gmail.com>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, KP Singh <kpsingh@kernel.org>, 
+ Stanislav Fomichev <sdf@google.com>, Hao Luo <haoluo@google.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ David Ahern <dsahern@kernel.org>, Simon Horman <horms@verge.net.au>, 
+ Julian Anastasov <ja@ssi.bg>, Pablo Neira Ayuso <pablo@netfilter.org>, 
+ Jozsef Kadlecsik <kadlec@netfilter.org>, Florian Westphal <fw@strlen.de>, 
+ Luis Chamberlain <mcgrof@kernel.org>, 
+ Joel Granados <j.granados@samsung.com>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Phillip Potter <phil@philpotter.co.uk>, Theodore Ts'o <tytso@mit.edu>, 
+ "Jason A. Donenfeld" <Jason@zx2c4.com>, 
+ Sudip Mukherjee <sudipm.mukherjee@gmail.com>, 
+ Mark Rutland <mark.rutland@arm.com>, Atish Patra <atishp@atishpatra.org>, 
+ Anup Patel <anup@brainfault.org>, Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Eric Biederman <ebiederm@xmission.com>, 
+ Chandan Babu R <chandan.babu@oracle.com>, 
+ "Darrick J. Wong" <djwong@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, 
+ Peter Zijlstra <peterz@infradead.org>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+ Balbir Singh <bsingharora@gmail.com>, 
+ "Naveen N. Rao" <naveen.n.rao@linux.ibm.com>, 
+ Anil S Keshavamurthy <anil.s.keshavamurthy@intel.com>, 
+ Petr Mladek <pmladek@suse.com>, John Ogness <john.ogness@linutronix.de>, 
+ Sergey Senozhatsky <senozhatsky@chromium.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+ Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+ Daniel Bristot de Oliveira <bristot@redhat.com>, 
+ Valentin Schneider <vschneid@redhat.com>, 
+ Andy Lutomirski <luto@amacapital.net>, Will Drewry <wad@chromium.org>, 
+ John Stultz <jstultz@google.com>, Stephen Boyd <sboyd@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+ Roopa Prabhu <roopa@nvidia.com>, Nikolay Aleksandrov <razor@blackwall.org>, 
+ Remi Denis-Courmont <courmisch@gmail.com>, 
+ Allison Henderson <allison.henderson@oracle.com>, 
+ Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, 
+ Xin Long <lucien.xin@gmail.com>, Chuck Lever <chuck.lever@oracle.com>, 
+ Jeff Layton <jlayton@kernel.org>, Neil Brown <neilb@suse.de>, 
+ Olga Kornievskaia <kolga@netapp.com>, Dai Ngo <Dai.Ngo@oracle.com>, 
+ Tom Talpey <tom@talpey.com>, 
+ Trond Myklebust <trond.myklebust@hammerspace.com>, 
+ Anna Schumaker <anna@kernel.org>, 
+ John Johansen <john.johansen@canonical.com>, 
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
+ "Serge E. Hallyn" <serge@hallyn.com>, 
+ Alexander Popov <alex.popov@linux.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1710535695; l=6875;
+ i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
+ bh=UQpx8/b/XTKLmVj1eXwhJn/1lYtutU5drdFjuhtFc8Q=;
+ b=bVuYFtDUnQnTEuvf1YPhVHCMGvQdlkNbjMU3q96YFVTF+/BakIUECyvigrykuveXZ44uroO53
+ +PypwG0ixxgAcYPFaz0HjaUa6FY1M4K7insg4HvI7YV0Uo2rCOzuB/j
+X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
+ pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
+Received-SPF: pass client-ip=159.69.126.157; envelope-from=linux@weissschuh.net;
+ helo=todd.t-8ch.de
+X-Mailman-Approved-At: Fri, 15 Mar 2024 22:38:30 +0000
+Subject: [apparmor] [PATCH 00/11] sysctl: treewide: constify ctl_table
+ argument of sysctl handlers
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -44,124 +119,155 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Christian Brauner <brauner@kernel.org>, Paul Moore <paul@paul-moore.com>,
- selinux@vger.kernel.org, linux-kernel@vger.kernel.org,
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Roberto Sassu <roberto.sassu@huawei.com>, James Morris <jmorris@namei.org>,
- Mimi Zohar <zohar@linux.ibm.com>, Ondrej Mosnacek <omosnace@redhat.com>,
- linux-block@vger.kernel.org, Andrii Nakryiko <andrii@kernel.org>,
- linux-security-module@vger.kernel.org,
- Khadija Kamran <kamrankhadijadj@gmail.com>, apparmor@lists.ubuntu.com,
- bpf@vger.kernel.org
+Cc: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+ linux-mm@kvack.org, linux-sctp@vger.kernel.org,
+ linux-hardening@vger.kernel.org, linux-riscv@lists.infradead.org,
+ linux-s390@vger.kernel.org, rds-devel@oss.oracle.com,
+ linux-rdma@vger.kernel.org, lvs-devel@vger.kernel.org, coreteam@netfilter.org,
+ linux-trace-kernel@vger.kernel.org, bridge@lists.linux.dev,
+ apparmor@lists.ubuntu.com, linux-xfs@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-nfs@vger.kernel.org,
+ netdev@vger.kernel.org, kexec@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ linux-security-module@vger.kernel.org, netfilter-devel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Fri, Mar 15, 2024 at 12:37:22PM +0100, Christian Gˆttsche wrote:
-> Introduce a new capable flag, CAP_OPT_NOAUDIT_ONDENY, to not generate
-> an audit event if the requested capability is not granted.  This will be
-> used in a new capable_any() functionality to reduce the number of
-> necessary capable calls.
-> 
-> Handle the flag accordingly in AppArmor and SELinux.
-> 
-> CC: linux-block@vger.kernel.org
-> Suggested-by: Paul Moore <paul@paul-moore.com>
-> Signed-off-by: Christian Gˆttsche <cgzones@googlemail.com>
+* Patch 1 is a bugfix for the stack_erasing sysctl handler
+* Patches 2-10 change various helper functions throughout the kernel to
+  be able to handle 'const ctl_table'.
+* Patch 11 changes the signatures of all proc handlers through the tree.
+  Some other signatures are also adapted, for details see the commit
+  message.
 
-Thanks.
+Only patch 1 changes any code at all.
 
-Reviewed-by: Serge Hallyn <serge@hallyn.com>
+The series was compile-tested on top of next-20230315 for
+i386, x86_64, arm, arm64, riscv, loongarch and s390.
 
-> ---
-> v5:
->    rename flag to CAP_OPT_NOAUDIT_ONDENY, suggested by Serge:
->      https://lore.kernel.org/all/20230606190013.GA640488@mail.hallyn.com/
-> ---
->  include/linux/security.h       |  2 ++
->  security/apparmor/capability.c |  8 +++++---
->  security/selinux/hooks.c       | 14 ++++++++------
->  3 files changed, 15 insertions(+), 9 deletions(-)
-> 
-> diff --git a/include/linux/security.h b/include/linux/security.h
-> index 41a8f667bdfa..c60cae78ff8b 100644
-> --- a/include/linux/security.h
-> +++ b/include/linux/security.h
-> @@ -70,6 +70,8 @@ struct lsm_ctx;
->  #define CAP_OPT_NOAUDIT BIT(1)
->  /* If capable is being called by a setid function */
->  #define CAP_OPT_INSETID BIT(2)
-> +/* If capable should audit the security request for authorized requests only */
-> +#define CAP_OPT_NOAUDIT_ONDENY BIT(3)
->  
->  /* LSM Agnostic defines for security_sb_set_mnt_opts() flags */
->  #define SECURITY_LSM_NATIVE_LABELS	1
-> diff --git a/security/apparmor/capability.c b/security/apparmor/capability.c
-> index 9934df16c843..08c9c9a0fc19 100644
-> --- a/security/apparmor/capability.c
-> +++ b/security/apparmor/capability.c
-> @@ -108,7 +108,8 @@ static int audit_caps(struct apparmor_audit_data *ad, struct aa_profile *profile
->   * profile_capable - test if profile allows use of capability @cap
->   * @profile: profile being enforced    (NOT NULL, NOT unconfined)
->   * @cap: capability to test if allowed
-> - * @opts: CAP_OPT_NOAUDIT bit determines whether audit record is generated
-> + * @opts: CAP_OPT_NOAUDIT/CAP_OPT_NOAUDIT_ONDENY bit determines whether audit
-> + *	record is generated
->   * @ad: audit data (MAY BE NULL indicating no auditing)
->   *
->   * Returns: 0 if allowed else -EPERM
-> @@ -126,7 +127,7 @@ static int profile_capable(struct aa_profile *profile, int cap,
->  	else
->  		error = -EPERM;
->  
-> -	if (opts & CAP_OPT_NOAUDIT) {
-> +	if ((opts & CAP_OPT_NOAUDIT) || ((opts & CAP_OPT_NOAUDIT_ONDENY) && error)) {
->  		if (!COMPLAIN_MODE(profile))
->  			return error;
->  		/* audit the cap request in complain mode but note that it
-> @@ -143,7 +144,8 @@ static int profile_capable(struct aa_profile *profile, int cap,
->   * @subj_cred: cred we are testing capability against
->   * @label: label being tested for capability (NOT NULL)
->   * @cap: capability to be tested
-> - * @opts: CAP_OPT_NOAUDIT bit determines whether audit record is generated
-> + * @opts: CAP_OPT_NOAUDIT/CAP_OPT_NOAUDIT_ONDENY bit determines whether audit
-> + *	record is generated
->   *
->   * Look up capability in profile capability set.
->   *
-> diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-> index 3448454c82d0..1a2c7c1a89be 100644
-> --- a/security/selinux/hooks.c
-> +++ b/security/selinux/hooks.c
-> @@ -1624,7 +1624,7 @@ static int cred_has_capability(const struct cred *cred,
->  	u16 sclass;
->  	u32 sid = cred_sid(cred);
->  	u32 av = CAP_TO_MASK(cap);
-> -	int rc;
-> +	int rc, rc2;
->  
->  	ad.type = LSM_AUDIT_DATA_CAP;
->  	ad.u.cap = cap;
-> @@ -1643,11 +1643,13 @@ static int cred_has_capability(const struct cred *cred,
->  	}
->  
->  	rc = avc_has_perm_noaudit(sid, sid, sclass, av, 0, &avd);
-> -	if (!(opts & CAP_OPT_NOAUDIT)) {
-> -		int rc2 = avc_audit(sid, sid, sclass, av, &avd, rc, &ad);
-> -		if (rc2)
-> -			return rc2;
-> -	}
-> +	if ((opts & CAP_OPT_NOAUDIT) || ((opts & CAP_OPT_NOAUDIT_ONDENY) && rc))
-> +		return rc;
-> +
-> +	rc2 = avc_audit(sid, sid, sclass, av, &avd, rc, &ad);
-> +	if (rc2)
-> +		return rc2;
-> +
->  	return rc;
->  }
->  
-> -- 
-> 2.43.0
-> 
-> 
+This series was split from my larger series sysctl-const series [0].
+It only focusses on the proc_handlers but is an important step to be
+able to move all static definitions of ctl_table into .rodata.
+
+[0] https://lore.kernel.org/lkml/20231204-const-sysctl-v2-0-7a5060b11447@weissschuh.net/
+
+Signed-off-by: Thomas Wei√üschuh <linux@weissschuh.net>
+---
+Thomas Wei√üschuh (11):
+      stackleak: don't modify ctl_table argument
+      cgroup: bpf: constify ctl_table arguments and fields
+      hugetlb: constify ctl_table arguments of utility functions
+      utsname: constify ctl_table arguments of utility function
+      neighbour: constify ctl_table arguments of utility function
+      ipv4/sysctl: constify ctl_table arguments of utility functions
+      ipv6/addrconf: constify ctl_table arguments of utility functions
+      ipv6/ndisc: constify ctl_table arguments of utility function
+      ipvs: constify ctl_table arguments of utility functions
+      sysctl: constify ctl_table arguments of utility function
+      sysctl: treewide: constify the ctl_table argument of handlers
+
+ arch/arm64/kernel/armv8_deprecated.c      |   2 +-
+ arch/arm64/kernel/fpsimd.c                |   2 +-
+ arch/s390/appldata/appldata_base.c        |  10 +--
+ arch/s390/kernel/debug.c                  |   2 +-
+ arch/s390/kernel/topology.c               |   2 +-
+ arch/s390/mm/cmm.c                        |   6 +-
+ arch/x86/kernel/itmt.c                    |   2 +-
+ drivers/cdrom/cdrom.c                     |   6 +-
+ drivers/char/random.c                     |   5 +-
+ drivers/macintosh/mac_hid.c               |   2 +-
+ drivers/net/vrf.c                         |   2 +-
+ drivers/parport/procfs.c                  |  14 ++--
+ drivers/perf/arm_pmuv3.c                  |   6 +-
+ drivers/perf/riscv_pmu_sbi.c              |   2 +-
+ fs/coredump.c                             |   4 +-
+ fs/dcache.c                               |   3 +-
+ fs/drop_caches.c                          |   4 +-
+ fs/exec.c                                 |   6 +-
+ fs/file_table.c                           |   3 +-
+ fs/fs-writeback.c                         |   2 +-
+ fs/inode.c                                |   3 +-
+ fs/pipe.c                                 |   2 +-
+ fs/quota/dquot.c                          |   4 +-
+ fs/xfs/xfs_sysctl.c                       |  33 ++++-----
+ include/linux/filter.h                    |   2 +-
+ include/linux/ftrace.h                    |   4 +-
+ include/linux/mm.h                        |   8 +--
+ include/linux/perf_event.h                |   6 +-
+ include/linux/security.h                  |   2 +-
+ include/linux/sysctl.h                    |  36 +++++-----
+ include/linux/vmstat.h                    |   6 +-
+ include/linux/writeback.h                 |   2 +-
+ include/net/ndisc.h                       |   2 +-
+ include/net/neighbour.h                   |   6 +-
+ include/net/netfilter/nf_hooks_lwtunnel.h |   2 +-
+ ipc/ipc_sysctl.c                          |  14 ++--
+ kernel/bpf/syscall.c                      |   4 +-
+ kernel/delayacct.c                        |   5 +-
+ kernel/events/callchain.c                 |   2 +-
+ kernel/events/core.c                      |   9 ++-
+ kernel/fork.c                             |   2 +-
+ kernel/hung_task.c                        |   7 +-
+ kernel/kexec_core.c                       |   2 +-
+ kernel/kprobes.c                          |   2 +-
+ kernel/latencytop.c                       |   5 +-
+ kernel/pid_namespace.c                    |   4 +-
+ kernel/pid_sysctl.h                       |   2 +-
+ kernel/printk/internal.h                  |   2 +-
+ kernel/printk/printk.c                    |   2 +-
+ kernel/printk/sysctl.c                    |   6 +-
+ kernel/sched/core.c                       |  15 ++--
+ kernel/sched/rt.c                         |  20 +++---
+ kernel/sched/topology.c                   |   6 +-
+ kernel/seccomp.c                          |   7 +-
+ kernel/stackleak.c                        |  12 ++--
+ kernel/sysctl.c                           | 109 ++++++++++++++++--------------
+ kernel/time/timer.c                       |   4 +-
+ kernel/trace/ftrace.c                     |   2 +-
+ kernel/trace/trace.c                      |   2 +-
+ kernel/trace/trace_events_user.c          |   3 +-
+ kernel/trace/trace_stack.c                |   2 +-
+ kernel/umh.c                              |   4 +-
+ kernel/utsname_sysctl.c                   |   6 +-
+ kernel/watchdog.c                         |  15 ++--
+ mm/compaction.c                           |  17 +++--
+ mm/hugetlb.c                              |  20 +++---
+ mm/page-writeback.c                       |  27 +++++---
+ mm/page_alloc.c                           |  43 ++++++++----
+ mm/util.c                                 |  15 ++--
+ mm/vmstat.c                               |   6 +-
+ net/bridge/br_netfilter_hooks.c           |   2 +-
+ net/core/neighbour.c                      |  26 ++++---
+ net/core/sysctl_net_core.c                |  24 ++++---
+ net/ipv4/devinet.c                        |   6 +-
+ net/ipv4/route.c                          |   4 +-
+ net/ipv4/sysctl_net_ipv4.c                |  40 ++++++-----
+ net/ipv6/addrconf.c                       |  38 ++++++-----
+ net/ipv6/ndisc.c                          |   7 +-
+ net/ipv6/route.c                          |   4 +-
+ net/ipv6/sysctl_net_ipv6.c                |   6 +-
+ net/mpls/af_mpls.c                        |   4 +-
+ net/netfilter/ipvs/ip_vs_ctl.c            |  19 +++---
+ net/netfilter/nf_conntrack_standalone.c   |   2 +-
+ net/netfilter/nf_hooks_lwtunnel.c         |   2 +-
+ net/netfilter/nf_log.c                    |   4 +-
+ net/phonet/sysctl.c                       |   2 +-
+ net/rds/tcp.c                             |   4 +-
+ net/sctp/sysctl.c                         |  30 ++++----
+ net/sunrpc/sysctl.c                       |   5 +-
+ net/sunrpc/xprtrdma/svc_rdma.c            |   2 +-
+ security/apparmor/lsm.c                   |   2 +-
+ security/min_addr.c                       |   2 +-
+ security/yama/yama_lsm.c                  |   2 +-
+ 93 files changed, 467 insertions(+), 376 deletions(-)
+---
+base-commit: a1e7655b77e3391b58ac28256789ea45b1685abb
+change-id: 20231226-sysctl-const-handler-883b5eba7e80
+
+Best regards,
+-- 
+Thomas Wei√üschuh <linux@weissschuh.net>
+
 
