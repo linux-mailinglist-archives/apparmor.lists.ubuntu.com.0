@@ -2,23 +2,23 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id B593587D6B4
-	for <lists+apparmor@lfdr.de>; Fri, 15 Mar 2024 23:39:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1962487D6B6
+	for <lists+apparmor@lfdr.de>; Fri, 15 Mar 2024 23:39:04 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rlGCU-0002Ym-N9; Fri, 15 Mar 2024 22:38:55 +0000
+	id 1rlGCY-0002he-DZ; Fri, 15 Mar 2024 22:38:58 +0000
 Received: from todd.t-8ch.de ([159.69.126.157])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <linux@weissschuh.net>)
- id 1rlETf-0000Wm-A6
- for apparmor@lists.ubuntu.com; Fri, 15 Mar 2024 20:48:31 +0000
+ id 1rlEUZ-0000bk-RL
+ for apparmor@lists.ubuntu.com; Fri, 15 Mar 2024 20:49:28 +0000
 From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Date: Fri, 15 Mar 2024 21:48:06 +0100
+Date: Fri, 15 Mar 2024 21:48:07 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20240315-sysctl-const-handler-v1-8-1322ac7cb03d@weissschuh.net>
+Message-Id: <20240315-sysctl-const-handler-v1-9-1322ac7cb03d@weissschuh.net>
 References: <20240315-sysctl-const-handler-v1-0-1322ac7cb03d@weissschuh.net>
 In-Reply-To: <20240315-sysctl-const-handler-v1-0-1322ac7cb03d@weissschuh.net>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -95,18 +95,18 @@ To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  "Serge E. Hallyn" <serge@hallyn.com>, 
  Alexander Popov <alex.popov@linux.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1710535695; l=778;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1710535695; l=1292;
  i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=m+K+pCOcUIKDJXVlXdIjxkNCOOD+02kNnAffkd4pv3g=;
- b=d4zm13k2OQna/NlK3uekXkMo7hwOBupIjvbXHKdSXoSk2DsIK+yuhbmEQr0VAeaARyLv14HqX
- 0Z4woBXtUp1D7/pq8L0Ybaa/TZAKfXvfcMgjftD2Zr5aqWsk6Mdkffo
+ bh=odMbVtXputh1B0wvO7gtV7cKLTLD5qqVWgyPwr4fby8=;
+ b=7GpUccAEuc2xBmXqEFNwFbz0XLotyU5tmG9v17gkewwd7Qns7NOwDWHSnZv3ofT48IWObeYTu
+ 7RChjCUP9KPAHqCOBeJFTfx/E5jUeficzF5rmf2RzH6o0IYBCrGbbwP
 X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
  pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 Received-SPF: pass client-ip=159.69.126.157; envelope-from=linux@weissschuh.net;
  helo=todd.t-8ch.de
 X-Mailman-Approved-At: Fri, 15 Mar 2024 22:38:31 +0000
-Subject: [apparmor] [PATCH 08/11] ipv6/ndisc: constify ctl_table arguments
- of utility function
+Subject: [apparmor] [PATCH 09/11] ipvs: constify ctl_table arguments of
+ utility functions
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -136,26 +136,38 @@ Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
 In a future commit the proc_handlers themselves will change to
 "const struct ctl_table". As a preparation for that adapt the internal
-helper.
+helpers.
 
 Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
 ---
- net/ipv6/ndisc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/netfilter/ipvs/ip_vs_ctl.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/net/ipv6/ndisc.c b/net/ipv6/ndisc.c
-index ae134634c323..945d5f5ca039 100644
---- a/net/ipv6/ndisc.c
-+++ b/net/ipv6/ndisc.c
-@@ -1936,7 +1936,7 @@ static struct notifier_block ndisc_netdev_notifier = {
- };
+diff --git a/net/netfilter/ipvs/ip_vs_ctl.c b/net/netfilter/ipvs/ip_vs_ctl.c
+index 143a341bbc0a..689ac521ea2d 100644
+--- a/net/netfilter/ipvs/ip_vs_ctl.c
++++ b/net/netfilter/ipvs/ip_vs_ctl.c
+@@ -1924,7 +1924,8 @@ proc_do_sync_ports(struct ctl_table *table, int write,
+ 	return rc;
+ }
  
- #ifdef CONFIG_SYSCTL
--static void ndisc_warn_deprecated_sysctl(struct ctl_table *ctl,
-+static void ndisc_warn_deprecated_sysctl(const struct ctl_table *ctl,
- 					 const char *func, const char *dev_name)
+-static int ipvs_proc_est_cpumask_set(struct ctl_table *table, void *buffer)
++static int ipvs_proc_est_cpumask_set(const struct ctl_table *table,
++				     void *buffer)
  {
- 	static char warncomm[TASK_COMM_LEN];
+ 	struct netns_ipvs *ipvs = table->extra2;
+ 	cpumask_var_t *valp = table->data;
+@@ -1962,8 +1963,8 @@ static int ipvs_proc_est_cpumask_set(struct ctl_table *table, void *buffer)
+ 	return ret;
+ }
+ 
+-static int ipvs_proc_est_cpumask_get(struct ctl_table *table, void *buffer,
+-				     size_t size)
++static int ipvs_proc_est_cpumask_get(const struct ctl_table *table,
++				     void *buffer, size_t size)
+ {
+ 	struct netns_ipvs *ipvs = table->extra2;
+ 	cpumask_var_t *valp = table->data;
 
 -- 
 2.44.0
