@@ -2,58 +2,72 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73662890CF1
-	for <lists+apparmor@lfdr.de>; Thu, 28 Mar 2024 23:07:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6260C895D3C
+	for <lists+apparmor@lfdr.de>; Tue,  2 Apr 2024 22:03:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rpxto-0004ZW-7v; Thu, 28 Mar 2024 22:07:07 +0000
-Received: from mail-pf1-f172.google.com ([209.85.210.172])
+	id 1rrkMC-0005yJ-B9; Tue, 02 Apr 2024 20:03:44 +0000
+Received: from mail-pj1-f51.google.com ([209.85.216.51])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <keescook@chromium.org>)
- id 1rpxte-0004W0-0l
- for apparmor@lists.ubuntu.com; Thu, 28 Mar 2024 22:06:54 +0000
-Received: by mail-pf1-f172.google.com with SMTP id
- d2e1a72fcca58-6e6b729669bso1305569b3a.3
- for <apparmor@lists.ubuntu.com>; Thu, 28 Mar 2024 15:06:53 -0700 (PDT)
+ (Exim 4.86_2) (envelope-from <axboe@kernel.dk>) id 1rpyoF-000306-Mc
+ for apparmor@lists.ubuntu.com; Thu, 28 Mar 2024 23:05:24 +0000
+Received: by mail-pj1-f51.google.com with SMTP id
+ 98e67ed59e1d1-29f8ae4eae5so406862a91.0
+ for <apparmor@lists.ubuntu.com>; Thu, 28 Mar 2024 16:05:23 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711663612; x=1712268412;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=FawcQ0+/Re5CGM1VyfGak6NYsr/nN1VT9V2EvlsawhQ=;
- b=WhxiOuy9r8h6+aAcHM/pvn0FOIMv8oqCee7xGlFGAb7cgd1o/whdNi+85xDUjeZ297
- mr0qyRAMd196mtu4L3wF8lIaztGHXQsvSdF9ZPumaj+PMagfM/N06CcEGvBBU2C5YZMv
- /ZAdbc59x3Yu8KItL9NVTcIWH90SpkWcOu3NzkY4NNcnA4KbDCCyztAzf6OF4oB2+k3T
- Q6eF7WSa7BxQFrMBzflJAwUiX9Q2lqOKGVwHO4hBAsseyTGC5eBNhiVfvy7gnOZNes+a
- ygAK0C3B5+iezlOeOLH3jjbgZDSh/T7lw7Cg4wwEHLp9/x6O872PHdV5XGOqKBPnZIcW
- DV9w==
+ d=1e100.net; s=20230601; t=1711667122; x=1712271922;
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=/3aFzydSyExlB9BmbA34QemVRJ/ZXxJRv4umeOt6fqw=;
+ b=MEzw6dg/fKKDpWDI1sm/jhHXRFRIYNKvfUv2HhegLaEiYf0lytXL91IxaItFtyHZqM
+ NzEIR0w7awROFNIrTl2Ncwq+7sGi+Y+HVFZm5jjzlDFZXVBUOor58Gf4GHmuIhzWKgKj
+ 7bF6/rI9elrJ4ROV+GnbeBFskj4cjmGMyTWf9G1xkHIuF6lSbnCtys3/0cv6+JfNoqlz
+ 8BEdSFneYCQB/syydkN6CiWB7HMtaa5BwYHJOgwMCP2DQVxtrZLHlfsp2yFCq2sB3/l2
+ xl8iiV9ahOyPG/Sfj6E3UzuHpXEPx3Ix7kwouO6dyJX16LubWhp8xqOTIP+Iet8s5azm
+ kJEA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXPO83dPyZO1Z8y4W/oK4W1aFqyDBtjahtEOjFy5wI8fpntRwnJ248XtYsl9pLjh5WPquR4dLm8M3YK68FuqLO0YcZAEVb8cLeV
-X-Gm-Message-State: AOJu0YyZqmyxWKjIcbR4ewekqZ+kcND68TuqWC1JGAf2DhCTGH00zW65
- VdKRmikAytRrbfgKrk8Ha6FY0mqSabk9iaZ+WS/zmixtsQfITNGiR7VV5KM4Kw==
-X-Google-Smtp-Source: AGHT+IG28FKoAE9GwUDPDbAhJpDSQvO83TTQaELwCTDF264wtxqHJW3X538E+oFBl7uIp2mx5xeCig==
-X-Received: by 2002:a05:6a00:2d11:b0:6ea:749c:7849 with SMTP id
- fa17-20020a056a002d1100b006ea749c7849mr707745pfb.13.1711663612175; 
- Thu, 28 Mar 2024 15:06:52 -0700 (PDT)
-Received: from www.outflux.net ([198.0.35.241])
- by smtp.gmail.com with ESMTPSA id
- g21-20020aa78755000000b006e71aec34a8sm1870864pfo.167.2024.03.28.15.06.51
+ AJvYcCW4tWvxgI2a3dzWblvuLa9CTlV68/aWXQx6tHodU54NGPt1Rq+SNt+chhPxkcGcjhsV9LdrJzmcIf66u65PdoRbjX7eEA1Cg0AZ
+X-Gm-Message-State: AOJu0YzJf6Zi3tSrklczlLxYwLXuk46WRun7O9l0U8bw9Sfu5oA4FkG7
+ 8N2reSx0Pm15cu+0fDikjwua4GeYiBtoKY2nJSPj7jNyKas4ZAbkCNvvujihFzY=
+X-Google-Smtp-Source: AGHT+IGt0gkc119snKbJARF7UnrFMVXsS7gpTXjZzbZBfCEKd0wr8mr1SMS6Ds7kY42qafqSBM/uug==
+X-Received: by 2002:a17:90b:3504:b0:29b:780c:c671 with SMTP id
+ ls4-20020a17090b350400b0029b780cc671mr907698pjb.0.1711667121826; 
+ Thu, 28 Mar 2024 16:05:21 -0700 (PDT)
+Received: from [127.0.0.1] ([50.234.116.5]) by smtp.gmail.com with ESMTPSA id
+ cx18-20020a17090afd9200b0029d7e7b7b41sm4013902pjb.33.2024.03.28.16.05.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Mar 2024 15:06:51 -0700 (PDT)
-Date: Thu, 28 Mar 2024 15:06:51 -0700
-From: Kees Cook <keescook@chromium.org>
-To: Christian =?iso-8859-1?Q?G=F6ttsche?= <cgzones@googlemail.com>
-Message-ID: <202403281506.6E7F782@keescook>
-References: <20240315125418.273104-1-cgzones@googlemail.com>
+ Thu, 28 Mar 2024 16:05:21 -0700 (PDT)
+From: Jens Axboe <axboe@kernel.dk>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Muchun Song <muchun.song@linux.dev>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <naoya.horiguchi@nec.com>, 
+ John Johansen <john.johansen@canonical.com>, 
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
+ "Serge E. Hallyn" <serge@hallyn.com>, David Howells <dhowells@redhat.com>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, Kees Cook <keescook@chromium.org>, 
+ Herbert Xu <herbert@gondor.apana.org.au>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Pavel Begunkov <asml.silence@gmail.com>, 
+ Atish Patra <atishp@atishpatra.org>, Anup Patel <anup@brainfault.org>, 
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Joel Granados <j.granados@samsung.com>
+In-Reply-To: <20240328-jag-sysctl_remset_misc-v1-0-47c1463b3af2@samsung.com>
+References: <20240328-jag-sysctl_remset_misc-v1-0-47c1463b3af2@samsung.com>
+Message-Id: <171166712004.796545.8747989552701562593.b4-ty@kernel.dk>
+Date: Thu, 28 Mar 2024 17:05:20 -0600
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240315125418.273104-1-cgzones@googlemail.com>
-Received-SPF: pass client-ip=209.85.210.172;
- envelope-from=keescook@chromium.org; helo=mail-pf1-f172.google.com
-Subject: Re: [apparmor] [PATCH 2/2] apparmor: fix typo in kernel doc
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.12.5-dev-2aabd
+Received-SPF: pass client-ip=209.85.216.51; envelope-from=axboe@kernel.dk;
+ helo=mail-pj1-f51.google.com
+X-Mailman-Approved-At: Tue, 02 Apr 2024 20:03:42 +0000
+Subject: Re: [apparmor] (subset) [PATCH 0/7] sysctl: Remove sentinel
+ elements from misc directories
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -65,20 +79,37 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Paul Moore <paul@paul-moore.com>, apparmor@lists.ubuntu.com,
- James Morris <jmorris@namei.org>, linux-kernel@vger.kernel.org,
- linux-security-module@vger.kernel.org, "Serge E. Hallyn" <serge@hallyn.com>
+Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ Luis Chamberlain <mcgrof@kernel.org>, keyrings@vger.kernel.org,
+ linux-crypto@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-riscv@lists.infradead.org, io-uring@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Fri, Mar 15, 2024 at 01:54:09PM +0100, Christian Göttsche wrote:
-> Fix the typo in the function documentation to please kernel doc
-> warnings.
+
+On Thu, 28 Mar 2024 16:57:47 +0100, Joel Granados wrote:
+> What?
+> These commits remove the sentinel element (last empty element) from the
+> sysctl arrays of all the files under the "mm/", "security/", "ipc/",
+> "init/", "io_uring/", "drivers/perf/" and "crypto/" directories that
+> register a sysctl array. The inclusion of [4] to mainline allows the
+> removal of sentinel elements without behavioral change. This is safe
+> because the sysctl registration code (register_sysctl() and friends) use
+> the array size in addition to checking for a sentinel [1].
 > 
-> Signed-off-by: Christian Göttsche <cgzones@googlemail.com>
+> [...]
 
-Reviewed-by: Kees Cook <keescook@chromium.org>
+Applied, thanks!
 
+[6/7] io_uring: Remove the now superfluous sentinel elements from ctl_table array
+      (no commit info)
+
+Best regards,
 -- 
-Kees Cook
+Jens Axboe
+
+
+
 
