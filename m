@@ -2,64 +2,40 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABF1C897AD2
-	for <lists+apparmor@lfdr.de>; Wed,  3 Apr 2024 23:34:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C97A489A3D8
+	for <lists+apparmor@lfdr.de>; Fri,  5 Apr 2024 20:04:51 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rs8Ey-0006Vr-8S; Wed, 03 Apr 2024 21:33:52 +0000
-Received: from smtp-relay-services-1.internal ([10.131.114.214]
- helo=smtp-relay-services-1.canonical.com)
+	id 1rsnvZ-0003ax-8j; Fri, 05 Apr 2024 18:04:37 +0000
+Received: from abb.hmeau.com ([144.6.53.87])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <noreply@launchpad.net>)
- id 1rs8Ex-0006Rs-F3
- for apparmor@lists.ubuntu.com; Wed, 03 Apr 2024 21:33:51 +0000
-Received: from juju-98d295-prod-launchpad-16.localdomain (scripts.lp.internal
- [10.131.215.246])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-services-1.canonical.com (Postfix) with ESMTPSA id 90D3E472FD
- for <apparmor@lists.ubuntu.com>; Wed,  3 Apr 2024 21:33:07 +0000 (UTC)
-Received: from [10.131.215.246] (localhost [127.0.0.1])
- by juju-98d295-prod-launchpad-16.localdomain (Postfix) with ESMTP id
- 6A5D485F2C
- for <apparmor@lists.ubuntu.com>; Wed,  3 Apr 2024 20:41:15 +0000 (UTC)
+ (Exim 4.86_2) (envelope-from <herbert@gondor.apana.org.au>)
+ id 1rseSB-0007H2-Br
+ for apparmor@lists.ubuntu.com; Fri, 05 Apr 2024 07:57:39 +0000
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+ by formenos.hmeau.com with smtp (Exim 4.94.2 #2 (Debian))
+ id 1rseRA-00FUA8-A3; Fri, 05 Apr 2024 15:56:37 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation);
+ Fri, 05 Apr 2024 15:56:53 +0800
+Date: Fri, 5 Apr 2024 15:56:53 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: j.granados@samsung.com
+Message-ID: <Zg+uxQxlhC6OcoVd@gondor.apana.org.au>
+References: <20240328-jag-sysctl_remset_misc-v1-0-47c1463b3af2@samsung.com>
+ <20240328-jag-sysctl_remset_misc-v1-3-47c1463b3af2@samsung.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 03 Apr 2024 20:33:28 -0000
-From: =?utf-8?b?1JzQsNOAdNC1ciDihazQsNGA0YHSu9GDbtGVa9GW?=
- <1928360@bugs.launchpad.net>
-To: apparmor@lists.ubuntu.com
-X-Launchpad-Notification-Type: bug
-X-Launchpad-Bug: product=snappy; status=Invalid; importance=Undecided;
- assignee=None; 
-X-Launchpad-Bug: product=ubuntukylin; status=In Progress; importance=Undecided;
- assignee=None; 
-X-Launchpad-Bug: distribution=ubuntu; sourcepackage=im-config; component=main;
- status=Fix Released; importance=Undecided; assignee=None; 
-X-Launchpad-Bug: distribution=ubuntu; sourcepackage=language-selector;
- component=main; status=Fix Released; importance=Undecided;
- assignee=gunnarhj@ubuntu.com; 
-X-Launchpad-Bug-Information-Type: Public
-X-Launchpad-Bug-Private: no
-X-Launchpad-Bug-Security-Vulnerability: no
-X-Launchpad-Bug-Commenters: feng-kylin gunnarhj jamesh janitor seth-arnold
-X-Launchpad-Bug-Reporter: Gunnar Hjalmarsson (gunnarhj)
-X-Launchpad-Bug-Modifier: =?utf-8?b?1JzQsNOAdNC1ciDihazQsNGA0YHSu9GDbtGVa9GWICh3eGwp?=
-References: <162092271688.7693.3046118231154125647.malonedeb@gac.canonical.com>
-Message-Id: <171217640854.140888.11946562543733900825.launchpad@juju-98d295-prod-launchpad-7>
-X-Launchpad-Message-Rationale: Subscriber @apparmor-dev
-X-Launchpad-Message-For: apparmor-dev
-Precedence: bulk
-X-Generated-By: Launchpad (canonical.com);
- Revision="aec24aef7a9042c99ef3e238d8b0ca01df9e1a9f";
- Instance="launchpad-scripts"
-X-Launchpad-Hash: b6d4838034190ca23fed89e146cd022e5a4028ff
-Subject: [apparmor] [Bug 1928360] Re: Switch to Fcitx 5 for Chinese
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240328-jag-sysctl_remset_misc-v1-3-47c1463b3af2@samsung.com>
+Received-SPF: pass client-ip=144.6.53.87;
+ envelope-from=herbert@gondor.apana.org.au; helo=abb.hmeau.com
+X-Mailman-Approved-At: Fri, 05 Apr 2024 18:04:35 +0000
+Subject: Re: [apparmor] [PATCH 3/7] crypto: Remove the now superfluous
+ sentinel element from ctl_table array
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
+Precedence: list
 List-Id: AppArmor discussion <apparmor.lists.ubuntu.com>
 List-Unsubscribe: <https://lists.ubuntu.com/mailman/options/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=unsubscribe>
@@ -68,38 +44,44 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Reply-To: Bug 1928360 <1928360@bugs.launchpad.net>
+Cc: Miaohe Lin <linmiaohe@huawei.com>, Mark Rutland <mark.rutland@arm.com>,
+ Atish Patra <atishp@atishpatra.org>, David Howells <dhowells@redhat.com>,
+ linux-mm@kvack.org, keyrings@vger.kernel.org,
+ Luis Chamberlain <mcgrof@kernel.org>, linux-riscv@lists.infradead.org,
+ Will Deacon <will@kernel.org>, linux-security-module@vger.kernel.org,
+ Paul Moore <paul@paul-moore.com>, Anup Patel <anup@brainfault.org>,
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Kees Cook <keescook@chromium.org>,
+ apparmor@lists.ubuntu.com, Paul Walmsley <paul.walmsley@sifive.com>,
+ io-uring@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Jens Axboe <axboe@kernel.dk>, Muchun Song <muchun.song@linux.dev>,
+ Naoya Horiguchi <naoya.horiguchi@nec.com>, linux-kernel@vger.kernel.org,
+ "David S. Miller" <davem@davemloft.net>, Jarkko Sakkinen <jarkko@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, linux-crypto@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Pavel Begunkov <asml.silence@gmail.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-** No longer affects: lubuntu-default-settings
+On Thu, Mar 28, 2024 at 04:57:50PM +0100, Joel Granados via B4 Relay wrote:
+> From: Joel Granados <j.granados@samsung.com>
+> 
+> This commit comes at the tail end of a greater effort to remove the
+> empty elements at the end of the ctl_table arrays (sentinels) which will
+> reduce the overall build time size of the kernel and run time memory
+> bloat by ~64 bytes per sentinel (further information Link :
+> https://lore.kernel.org/all/ZO5Yx5JFogGi%2FcBo@bombadil.infradead.org/)
+> 
+> Remove sentinel from crypto_sysctl_table
+> 
+> Signed-off-by: Joel Granados <j.granados@samsung.com>
+> ---
+>  crypto/fips.c | 1 -
+>  1 file changed, 1 deletion(-)
 
---=20
-You received this bug notification because you are a member of AppArmor
-Developers, which is subscribed to the bug report.
-https://bugs.launchpad.net/bugs/1928360
-
-Title:
-  Switch to Fcitx 5 for Chinese
-
-Status in Snappy:
-  Invalid
-Status in Ubuntu Kylin:
-  In Progress
-Status in im-config package in Ubuntu:
-  Fix Released
-Status in language-selector package in Ubuntu:
-  Fix Released
-
-Bug description:
-  In Debian 11 Fcitx 5 will be the default IM framework for Chinese on
-  non-GNOME desktops. I can think it's time to make the equivalent
-  changes in Ubuntu 21.10 as well.
-
-  I'd appreciate input on the topic from the Ubuntu Kylin team as well
-  as other Chinese speaking users.
-
-To manage notifications about this bug go to:
-https://bugs.launchpad.net/snappy/+bug/1928360/+subscriptions
-
+Patch applied.  Thanks.
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
 
