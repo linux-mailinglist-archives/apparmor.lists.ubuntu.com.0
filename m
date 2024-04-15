@@ -2,56 +2,58 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7FD58A5697
-	for <lists+apparmor@lfdr.de>; Mon, 15 Apr 2024 17:38:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 617A58A6638
+	for <lists+apparmor@lfdr.de>; Tue, 16 Apr 2024 10:36:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rwOPa-0001R4-CA; Mon, 15 Apr 2024 15:38:26 +0000
-Received: from mail-yw1-f176.google.com ([209.85.128.176])
+	id 1rweIC-0005tB-43; Tue, 16 Apr 2024 08:35:52 +0000
+Received: from mail-pg1-f177.google.com ([209.85.215.177])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <paul@paul-moore.com>)
- id 1rwN9t-0000CI-O8
- for apparmor@lists.ubuntu.com; Mon, 15 Apr 2024 14:18:09 +0000
-Received: by mail-yw1-f176.google.com with SMTP id
- 00721157ae682-6157c30fbc9so32213407b3.0
- for <apparmor@lists.ubuntu.com>; Mon, 15 Apr 2024 07:18:09 -0700 (PDT)
+ (Exim 4.86_2) (envelope-from <keescook@chromium.org>)
+ id 1rwOqw-00069q-2K
+ for apparmor@lists.ubuntu.com; Mon, 15 Apr 2024 16:06:42 +0000
+Received: by mail-pg1-f177.google.com with SMTP id
+ 41be03b00d2f7-5bdbe2de25fso2829461a12.3
+ for <apparmor@lists.ubuntu.com>; Mon, 15 Apr 2024 09:06:41 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1713190688; x=1713795488;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=mqqqjCa8OZ82zdxbWAvkpK8zvR3ppQ2NndSIF2x4rXo=;
- b=kRMiBQf6bbaB8KXoUho/feMvrfgt144puRR/A3AGIXtBIwUuDHXEM9u1+N2Dya7iFE
- nVTdlp69qZ9PihXxPzcTIlckALvVUfVM4ZcZONAUAsw3LbkN74NEEwyc4LQknjEaKdAv
- YqD08MdYcYx/b98ZLDFRzkRK91/ekzLATdT4dAlJNM1qyMT/AVPAvLirGHL+xzVJfD8G
- 2aDwzN4Sd0bs0Df1WOVfRVF5KOLY0JiLYEBiviDacqiUkk0gICMKzDIIkNDyG96r+6TZ
- lRFX2atnMTSUJVsHRwQg4kgX0Cu0fvC/m5YL9Cnao0ymuG7WgCssQkFyOXwghsnyMX6O
- 0TRQ==
+ d=1e100.net; s=20230601; t=1713197200; x=1713802000;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=W9YkT2PBxlsTiQpc9k80Xb2w2qGzzlQLFXvx15ENFSo=;
+ b=lH44g0lwWpqo7D+uxE27S3RwPhI5LYN0leMjgzHPKRMHbL8ZFPsQt09UkuuKDzF9wM
+ M9FL6nqS4BmN0e0we/e5HqrgWNJ89EsC3zLvtG6S/XnR4SfwBwiKZQeUM4KuhhCicUiU
+ z3qMg8BvIIyYyMKgiQFs/+ssBbtKJruEIFskDX/gWigHSwe/zH0FNAcEng29blY1ixML
+ jYkNTKngosJHhCNQJGjKwDuCExmCA+emOdK3KZlaBd2Md0KjT2k+ZUldJ9faHqih6Ncf
+ 0FDlKUb1ZqbnoUsrXDksbBZVBjYAi1U/jgN+JTMjO+WA64rkPh+F7DT25mvYk0DqtkTy
+ Avxw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXHzbjplyuF8m9hcM9zkyXpvmWnrtHZx06eUz4EYIGVbWQAV9R65MdNXaWZteqqPM8qyyGyf4XkudtY/Jr8I3fwhFBryNHN5ib5
-X-Gm-Message-State: AOJu0YwCLAfqtUm8eE94b/tZiA716wuDgc+NL6pg1/VRKQPmCnNB5mJK
- j+4nh9ijTVg6R4bk1II6eraRW4xBDPuiebE2IFuFnLan02/1dFNjfXfqG8p8XI9JmkzNI54zwHb
- yWqbEUWdWA3OQH4XabqU+6x4GSdU0orFwXV14
-X-Google-Smtp-Source: AGHT+IFLkqpounEUU/2bE6dJh6q9whX/HjDtCGadHGTvaVHifyPAFZys4Iq+yJ+GbVJMCc2FKsEdAoulZVngTb0CJTg=
-X-Received: by 2002:a0d:eb02:0:b0:615:3996:5c86 with SMTP id
- u2-20020a0deb02000000b0061539965c86mr9873358ywe.21.1713190688256; Mon, 15 Apr
- 2024 07:18:08 -0700 (PDT)
-MIME-Version: 1.0
+ AJvYcCXRvvqdvQOTRq+8WIggFQeoWOxOiFhfFf29ReETGSSjGo1UdYAawOhwKP6MSfM6nHEUXW4ztikDfp2jHuQeDZ8Mr5Wvy6hhEe+L
+X-Gm-Message-State: AOJu0YzaFKrjgawAnlp0Q5vSCPaeZiIp32XW8M+vUFlDYNTV2ufP/cCe
+ Hf+ulwhltAg6QAYD1jAlK172xd/8g62jVagVDEzx8+kr4hGDQLJonRr03biGSw==
+X-Google-Smtp-Source: AGHT+IEOd/x1N/CPtx25Nf+PUqf1rfZqa2mTy1XxaxcS7HXEzP+ucQDv/NhrafY/fDlqqKtbbV3LWA==
+X-Received: by 2002:a17:90b:3d3:b0:2a5:ba9d:a06b with SMTP id
+ go19-20020a17090b03d300b002a5ba9da06bmr10113697pjb.5.1713197200332; 
+ Mon, 15 Apr 2024 09:06:40 -0700 (PDT)
+Received: from www.outflux.net ([198.0.35.241])
+ by smtp.gmail.com with ESMTPSA id
+ l6-20020a17090a49c600b002a46b925e99sm8796108pjm.18.2024.04.15.09.06.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 15 Apr 2024 09:06:39 -0700 (PDT)
+Date: Mon, 15 Apr 2024 09:06:39 -0700
+From: Kees Cook <keescook@chromium.org>
+To: j.granados@samsung.com
+Message-ID: <202404150906.C37D8D9DA1@keescook>
 References: <20240328-jag-sysctl_remset_misc-v1-0-47c1463b3af2@samsung.com>
- <CGME20240328155911eucas1p23472e0c6505ca73df5c76fe019fdd483@eucas1p2.samsung.com>
  <20240328-jag-sysctl_remset_misc-v1-2-47c1463b3af2@samsung.com>
- <20240415134406.5l6ygkl55yvioxgs@joelS2.panther.com>
-In-Reply-To: <20240415134406.5l6ygkl55yvioxgs@joelS2.panther.com>
-From: Paul Moore <paul@paul-moore.com>
-Date: Mon, 15 Apr 2024 10:17:57 -0400
-Message-ID: <CAHC9VhTE+85xLytWD8LYrmdV8xcXdi-Tygy5fVvokaLCfk9bUQ@mail.gmail.com>
-To: Joel Granados <j.granados@samsung.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=209.85.128.176; envelope-from=paul@paul-moore.com;
- helo=mail-yw1-f176.google.com
-X-Mailman-Approved-At: Mon, 15 Apr 2024 15:38:25 +0000
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240328-jag-sysctl_remset_misc-v1-2-47c1463b3af2@samsung.com>
+Received-SPF: pass client-ip=209.85.215.177;
+ envelope-from=keescook@chromium.org; helo=mail-pg1-f177.google.com
+X-Mailman-Approved-At: Tue, 16 Apr 2024 08:35:50 +0000
 Subject: Re: [apparmor] [PATCH 2/7] security: Remove the now superfluous
  sentinel element from ctl_table array
 X-BeenThere: apparmor@lists.ubuntu.com
@@ -70,11 +72,11 @@ Cc: Miaohe Lin <linmiaohe@huawei.com>, Mark Rutland <mark.rutland@arm.com>,
  linux-mm@kvack.org, keyrings@vger.kernel.org,
  Luis Chamberlain <mcgrof@kernel.org>, linux-riscv@lists.infradead.org,
  Will Deacon <will@kernel.org>, linux-security-module@vger.kernel.org,
- Herbert Xu <herbert@gondor.apana.org.au>, Anup Patel <anup@brainfault.org>,
+ Paul Moore <paul@paul-moore.com>, Anup Patel <anup@brainfault.org>,
  James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Kees Cook <keescook@chromium.org>,
- apparmor@lists.ubuntu.com, Paul Walmsley <paul.walmsley@sifive.com>,
- io-uring@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Albert Ou <aou@eecs.berkeley.edu>, apparmor@lists.ubuntu.com,
+ Paul Walmsley <paul.walmsley@sifive.com>, io-uring@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, Herbert Xu <herbert@gondor.apana.org.au>,
  Jens Axboe <axboe@kernel.dk>, Muchun Song <muchun.song@linux.dev>,
  Naoya Horiguchi <naoya.horiguchi@nec.com>, linux-kernel@vger.kernel.org,
  "David S. Miller" <davem@davemloft.net>, Jarkko Sakkinen <jarkko@kernel.org>,
@@ -84,22 +86,22 @@ Cc: Miaohe Lin <linmiaohe@huawei.com>, Mark Rutland <mark.rutland@arm.com>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Mon, Apr 15, 2024 at 9:44=E2=80=AFAM Joel Granados <j.granados@samsung.c=
-om> wrote:
->
-> Hey
->
-> This is the only patch that I have not seen added to the next tree.
-> I'll put this in the sysctl-next
-> https://git.kernel.org/pub/scm/linux/kernel/git/sysctl/sysctl.git/log/?h=
-=3Dsysctl-next
-> for testing. Please let me know if It is lined up to be upstream through
-> another path.
+On Thu, Mar 28, 2024 at 04:57:49PM +0100, Joel Granados via B4 Relay wrote:
+> From: Joel Granados <j.granados@samsung.com>
+> 
+> This commit comes at the tail end of a greater effort to remove the
+> empty elements at the end of the ctl_table arrays (sentinels) which will
+> reduce the overall build time size of the kernel and run time memory
+> bloat by ~64 bytes per sentinel (further information Link :
+> https://lore.kernel.org/all/ZO5Yx5JFogGi%2FcBo@bombadil.infradead.org/)
+> 
+> Remove the sentinel from all files under security/ that register a
+> sysctl table.
+> 
+> Signed-off-by: Joel Granados <j.granados@samsung.com>
 
-I was hoping to see some ACKs from the associated LSM maintainers, but
-it's minor enough I'll go ahead and pull it into the lsm/dev tree this
-week.  I'll send a note later when I do the merge.
+Acked-by: Kees Cook <keescook@chromium.org> # loadpin & yama
 
---=20
-paul-moore.com
+-- 
+Kees Cook
 
