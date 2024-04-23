@@ -2,117 +2,42 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 896DE8A6639
-	for <lists+apparmor@lfdr.de>; Tue, 16 Apr 2024 10:36:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 873C28AEB09
+	for <lists+apparmor@lfdr.de>; Tue, 23 Apr 2024 17:29:15 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rweIB-0005t0-QG; Tue, 16 Apr 2024 08:35:51 +0000
-Received: from mailout1.w1.samsung.com ([210.118.77.11])
+	id 1rzI4x-0005aP-7Z; Tue, 23 Apr 2024 15:29:07 +0000
+Received: from todd.t-8ch.de ([159.69.126.157])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <j.granados@samsung.com>)
- id 1rwdwv-00031g-Pp
- for apparmor@lists.ubuntu.com; Tue, 16 Apr 2024 08:13:54 +0000
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20240416081348euoutp01e986ae0c0420cbaa6fc619f69deca38c~GtI2QdGVB1646716467euoutp01L;
- Tue, 16 Apr 2024 08:13:48 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20240416081348euoutp01e986ae0c0420cbaa6fc619f69deca38c~GtI2QdGVB1646716467euoutp01L
-Received: from eusmges3new.samsung.com (unknown [203.254.199.245]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTP id
- 20240416081348eucas1p21cb60b08f416405e6a309e4ef595fa28~GtI1_WOdJ1606116061eucas1p26;
- Tue, 16 Apr 2024 08:13:48 +0000 (GMT)
-Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
- eusmges3new.samsung.com (EUCPMTA) with SMTP id D9.06.09620.B333E166; Tue, 16
- Apr 2024 09:13:47 +0100 (BST)
-Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20240416081347eucas1p2328252cc35f468c42c0954eaa09d59eb~GtI1f3yuF1895218952eucas1p2U;
- Tue, 16 Apr 2024 08:13:47 +0000 (GMT)
-Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
- eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
- 20240416081347eusmtrp140e4080a0a0dac1890e78f8bb14248ff~GtI1dsrEb2457724577eusmtrp1W;
- Tue, 16 Apr 2024 08:13:47 +0000 (GMT)
-X-AuditID: cbfec7f5-d1bff70000002594-a1-661e333b54e0
-Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
- eusmgms2.samsung.com (EUCPMTA) with SMTP id 18.75.09010.B333E166; Tue, 16
- Apr 2024 09:13:47 +0100 (BST)
-Received: from CAMSVWEXC02.scsc.local (unknown [106.1.227.72]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20240416081347eusmtip12c7c7c247154a41e8dc385754f42215a~GtI1M5Wo13269232692eusmtip1G;
- Tue, 16 Apr 2024 08:13:47 +0000 (GMT)
-Received: from localhost (106.210.248.128) by CAMSVWEXC02.scsc.local
- (2002:6a01:e348::6a01:e348) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Tue, 16 Apr 2024 09:13:46 +0100
-Date: Tue, 16 Apr 2024 09:53:36 +0200
-From: Joel Granados <j.granados@samsung.com>
-To: Paul Moore <paul@paul-moore.com>
-Message-ID: <20240416075336.stuemtkatjdz4rqe@joelS2.panther.com>
+ (Exim 4.86_2) (envelope-from <linux@weissschuh.net>)
+ id 1rzB0V-0005Jk-Sf
+ for apparmor@lists.ubuntu.com; Tue, 23 Apr 2024 07:56:03 +0000
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Date: Tue, 23 Apr 2024 09:54:35 +0200
+Message-Id: <20240423-sysctl-const-handler-v3-0-e0beccb836e2@weissschuh.net>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="zfniyufgrrisfuqi"
-Content-Disposition: inline
-In-Reply-To: <CAHC9VhT1ykCKnijSbsgPXO9o-5_LHAtSm=q=cdQ8N9QH+WA+tw@mail.gmail.com>
-X-Originating-IP: [106.210.248.128]
-X-ClientProxiedBy: CAMSVWEXC01.scsc.local (2002:6a01:e347::6a01:e347) To
- CAMSVWEXC02.scsc.local (2002:6a01:e348::6a01:e348)
-X-Brightmail-Tracker: H4sIAAAAAAAAA1WTfVBUVRjGO/eevXdBgctHcUCzXKQUFGyIPKOSMCrdP/zDoqYxJnODKzDC
- wuyKkdEItNIuH4Igs7au8ikou4EtsCpiEQlCIggkrMQugW7Fp8iHRNtgbBfL/vs97/s8M897
- Zo6QdHlCeQpjJIc5qUQcK6LsoaFloWPTtoA1Bzf/2rcFa6p1FJZPTQpwnVVN49SWIgHWVBoA
- VnSEYq0ph8KaTjnEk2lWiDNHV+PJ4x0Q5y3kAlxVXUrg1tnjFG7PjMN1A2kUVs6fh1h/v1eA
- B80LBG643gZxT72GwmbdEwE2zMgpPJU1TOHzfV0ENuZaAC6/OgRxV2ojwCM9WSROVzvhn/NU
- EHfe6aCxfCAweC2rO6cDbK/iG8gWWNshq07JptgzKV2QHR8ZgWztxXsE+4Nilmavqk00a2j0
- Znuv7WPlNyYEbM/tRFZfqaRY/XQezbaetsK9Hh/Yb4/kYmOOcFL/Nw/YR2dOyImEbKeka3Ny
- IgVMr8wAdkLEvI7qzUoyA9gLXZgLAPW1DVO8mAWoK/Ux5MUMQH+11hBPI/ON3TS/qABo4Pb3
- 1L+umeIbAl7UAVSY3QJtEch4o0nDCGljitmIOscH/mE3Zh0qtVQDG5NMoR1q/jrGxq4Mh+aV
- nZSNHZhgpMo9KeDZGbV99QDy/iR0vfn+EguXeBWqWBTa0I55G/2RxfBFvVDacJmA58/Rj7X9
- hK0aYk6tQKbC9OXFLpR71wh5dkWjN2tpnlejW/lZkA/kA/Td4hTNCy1A5alzy2+xDcl/erCc
- CEE5f+oEthaIcUTGCWe+pyPKM6hIfuyAFOkuvPsVpDWPw1zgpX7mMvUzl6n/u4zHDai63v9/
- U5vZF5UXj5E8B6GqqoewCNCVwJ1LlMVFcbIACfeJn0wcJ0uURPlFxMfpwdK/uLV4c+4KuDD6
- yK8JEELQBNYthYcvae8ATyiJl3AiNwe564sHXRwixZ8e5aTxH0kTYzlZE1glhCJ3B+/IlzgX
- Jkp8mDvEcQmc9OmWENp5phDvzEZt3Kr9bZNkopjMnJ0ym77ITl5vfW775SBL6bHwiApLWdDY
- LxEPvUK6Q5nPRkP0ycSXDW2qoaEwUcKezYPRRSWPj5xs1pcwZFpTXfDLpNZpPGil4/r3usL0
- SBYWSM1EtkV/23k3y/joqNKDe0twdj51Q8jg1v72feFKY8GhAxMnnqeNSWaf0/kvSKpMOwfm
- h/yDfUtO0GyY3bvuY9M71vQrM1pnYk7VuJ/dD+5d7rAPf0M4new4/THrI67Z0uMbVBX1amhE
- Q5/zlWiPvTpF/Ic7QsMvWQJ81Wuz2/cPZ2pWuDlfVHkk7vp99zFloDWnSEmY4lRJBbsrFf5N
- ZcXv7+kWQVm0+DUfUioT/w3sC6XnkgQAAA==
-X-Brightmail-Tracker: H4sIAAAAAAAAA2WSbUxTVxiAc3pvb1szxl0p41iVQQXNYBRaKB6QEseSefWHDMiybMBYA7eA
- 0hb74cY2F8TCgGJWiAbXNcKGhYEEhEAjc4sMFxSElo+AcxQWUDBFRJxExAqs0C0z2b/nvB/P
- ++bkZWNcM8Fn5yq1tFopyxMQ2/Bb6zcmw/ZH+ssjOs74IXNrM4H0S4tM1OkysdCp3lomMjdZ
- ASq1vYsuTX5DILNdj6PFIheODPM70WKxDUdVq0aAWlrrGOjmcjGBBgwK1OkoIlDZigVH7XfH
- mejPqVUG+vmXPhyN/mQm0FTzBhNZn+gJtFQxQyDL7WEG+t04C1B91zSOhk91A+QcrcBQickb
- TVRV48g+ZGMhvUNyIJBqvtAMqPHSNpw65xrAKVPhGYL6rnAYpxacTpzqaLzDoK6XLrOoLtMk
- i7J2B1PjVz+k9L89ZFKjgzqqvamMoNr/qmJRN8+78Pe2fySMU6t0WjogR6XRSgWpIiQWimKQ
- UBwVIxRF7kuPFUsE4fFxWXRe7glaHR7/iTDn/rVFLN/g/VlXDa8QLL1SDjhsSEbBle4RVjnY
- xuaSFgBLr/YRnsRO2LY8xvSwD3wxXk54ih4DOL1mwjyPTgAnvl7GN6twMhguWp3YJhPkW9C+
- 4NhiHhkE62ZbwWYDRtZw4IOuwS2tD0nDlTL71jgv8gCsNlYyPdZ6DLZ1FgJP4jXY9+29rQkY
- eQL2N/e4rWw374AN6+xN5JBJ8FkF6dl0NyyaufjP1ifhk7U5YAQ+ppdEppdEpv9EnvBe+OLC
- yP/DobD++weYh6WwpeURXgtYTYBH6zSKbIVGLNTIFBqdMluYqVK0A/dpWntXO66AxvnHwh7A
- YIMeEOTunLl8aQjwcaVKSQt4XnqfXXKuV5as4HNarcpQ6/JoTQ+QuH+xEuP7Zqrcd67UZoii
- IySiqOiYCElMdKTAz+tQfqmMS2bLtPQxms6n1f/2MdgcfiGjZuRgdpyjsvaN7csnMx3Pn6XP
- cVPuWn9th0cXDtZZshpe95N4BdhW9xy22YPjGMf0az8MKnM+vciXPsJ2DIWNpHGS/phZOU7a
- 05PW/davBDSk7sl2vb+voqVE0ZtQHHtt/5Gze2efHr8/JZYaePKVRE7o6YxkueOGI7ZoY+rj
- 8FjX00NBIe8UXLeGGjZWv8q99eVt//w034LGkqW0DNv0wFD887bilIcVvBFHSpOxNbkkskr2
- BU8eVkl3wMRX55x3TGNs/5AsnU9CdbX6vNXCCowXefu+3S8/fMTCT3pzgnfUeU6qTZQuGO71
- X07OEvYOnN7N25UwJk6dPzv945T5g0ABrsmRiUIwtUb2Ny6p+ksvBAAA
-X-CMS-MailID: 20240416081347eucas1p2328252cc35f468c42c0954eaa09d59eb
-X-Msg-Generator: CA
-X-RootMTR: 20240328155911eucas1p23472e0c6505ca73df5c76fe019fdd483
-X-EPHeader: CA
-CMS-TYPE: 201P
-X-CMS-RootMailID: 20240328155911eucas1p23472e0c6505ca73df5c76fe019fdd483
-References: <20240328-jag-sysctl_remset_misc-v1-0-47c1463b3af2@samsung.com>
- <CGME20240328155911eucas1p23472e0c6505ca73df5c76fe019fdd483@eucas1p2.samsung.com>
- <20240328-jag-sysctl_remset_misc-v1-2-47c1463b3af2@samsung.com>
- <20240415134406.5l6ygkl55yvioxgs@joelS2.panther.com>
- <CAHC9VhTE+85xLytWD8LYrmdV8xcXdi-Tygy5fVvokaLCfk9bUQ@mail.gmail.com>
- <CAHC9VhT1ykCKnijSbsgPXO9o-5_LHAtSm=q=cdQ8N9QH+WA+tw@mail.gmail.com>
-Received-SPF: pass client-ip=210.118.77.11;
- envelope-from=j.granados@samsung.com; helo=mailout1.w1.samsung.com
-X-Mailman-Approved-At: Tue, 16 Apr 2024 08:35:50 +0000
-Subject: Re: [apparmor] [PATCH 2/7] security: Remove the now superfluous
- sentinel element from ctl_table array
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIADtpJ2YC/3XOwQ7CIAwG4FdZOIuB4oR48j2Mh411QrIwQxFdl
+ r27bCcT9fg3/b92ZoTRI7FTNbOI2ZMfQwlqVzHrmnBD7ruSGQhQEuDIaSKbBm7HQImXjW7AyI1
+ RbY1to9EIVqr3iL1/bezlWrLzlMY4bVeyXKcreBBK1r/BLLngUgE0VttWqO78RE9E1j3cPmBiq
+ 5rhQwL1R4IilbdaqU0vNegvaVmWN33FrUoHAQAA
+To: Luis Chamberlain <mcgrof@kernel.org>, 
+ Joel Granados <j.granados@samsung.com>, Kees Cook <keescook@chromium.org>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1713858961; l=7199;
+ i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
+ bh=O54mll2lZcxHuSuV6IhzlmRJxXGkXc6uykp5lefHyQg=;
+ b=SEVrV4QL0aRQf4sZAyD6Lh+KIYjBicAEwKhtJ0PUAXQvKQVj+Lo8XxYFfez7YZFSvNW40HQoh
+ r7IOwglEOGsCcMSO1z8xH6fte/UGc8Ay9QjWTKXdmQpGpMwPGKciBsV
+X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
+ pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
+Received-SPF: pass client-ip=159.69.126.157; envelope-from=linux@weissschuh.net;
+ helo=todd.t-8ch.de
+X-Mailman-Approved-At: Tue, 23 Apr 2024 15:29:04 +0000
+Subject: [apparmor] [PATCH v3 00/11] sysctl: treewide: constify ctl_table
+ argument of sysctl handlers
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -124,79 +49,168 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Miaohe Lin <linmiaohe@huawei.com>, Mark Rutland <mark.rutland@arm.com>,
- Atish Patra <atishp@atishpatra.org>, David Howells <dhowells@redhat.com>,
- linux-mm@kvack.org, keyrings@vger.kernel.org,
- Luis Chamberlain <mcgrof@kernel.org>, linux-riscv@lists.infradead.org,
- Will Deacon <will@kernel.org>, linux-security-module@vger.kernel.org,
- Herbert Xu <herbert@gondor.apana.org.au>, Anup Patel <anup@brainfault.org>,
- James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Kees Cook <keescook@chromium.org>,
- apparmor@lists.ubuntu.com, Paul Walmsley <paul.walmsley@sifive.com>,
- io-uring@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Jens Axboe <axboe@kernel.dk>, Muchun Song <muchun.song@linux.dev>,
- Naoya Horiguchi <naoya.horiguchi@nec.com>, linux-kernel@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>, Jarkko Sakkinen <jarkko@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, linux-crypto@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- Pavel Begunkov <asml.silence@gmail.com>
+Cc: Dave Chinner <david@fromorbit.com>,
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>, linux-mm@kvack.org,
+ Eric Dumazet <edumazet@google.com>, linux-hardening@vger.kernel.org,
+ linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+ rds-devel@oss.oracle.com, linux-rdma@vger.kernel.org,
+ linux-sctp@vger.kernel.org, lvs-devel@vger.kernel.org, coreteam@netfilter.org,
+ linux-trace-kernel@vger.kernel.org, bridge@lists.linux.dev,
+ apparmor@lists.ubuntu.com, linux-xfs@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-nfs@vger.kernel.org,
+ netdev@vger.kernel.org, kexec@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ linux-security-module@vger.kernel.org, netfilter-devel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
---zfniyufgrrisfuqi
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+* Patch 1 is a bugfix for the stack_erasing sysctl handler
+* Patches 2-10 change various helper functions throughout the kernel to
+  be able to handle 'const ctl_table'.
+* Patch 11 changes the signatures of all proc handlers through the tree.
+  Some other signatures are also adapted, for details see the commit
+  message.
 
-On Mon, Apr 15, 2024 at 03:02:43PM -0400, Paul Moore wrote:
-> On Mon, Apr 15, 2024 at 10:17=E2=80=AFAM Paul Moore <paul@paul-moore.com>=
- wrote:
-> > On Mon, Apr 15, 2024 at 9:44=E2=80=AFAM Joel Granados <j.granados@samsu=
-ng.com> wrote:
-> > >
-> > > Hey
-> > >
-> > > This is the only patch that I have not seen added to the next tree.
-> > > I'll put this in the sysctl-next
-> > > https://git.kernel.org/pub/scm/linux/kernel/git/sysctl/sysctl.git/log=
-/?h=3Dsysctl-next
-> > > for testing. Please let me know if It is lined up to be upstream thro=
-ugh
-> > > another path.
-> >
-> > I was hoping to see some ACKs from the associated LSM maintainers, but
-> > it's minor enough I'll go ahead and pull it into the lsm/dev tree this
-> > week.  I'll send a note later when I do the merge.
->=20
-> ... and now it's merged, it should be in the next cut of the
-> linux-next tree.  Thanks!
+Only patch 1 changes any code at all.
 
-Awesome. I'll remove it from sysctl-next then to avoid any potential
-crashes.
+The series was compile-tested on top of next-20230423 for
+i386, x86_64, arm, arm64, riscv, loongarch, s390 and m68k.
 
-Thx
+The series was split from my larger series sysctl-const series [0].
+It only focusses on the proc_handlers but is an important step to be
+able to move all static definitions of ctl_table into .rodata.
 
---=20
+[0] https://lore.kernel.org/lkml/20231204-const-sysctl-v2-0-7a5060b11447@weissschuh.net/
 
-Joel Granados
+Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
+---
+Changes in v3:
+- Rebase on current -next
+- Cc affected mailing lists again to gather feedback
+- Link to v2: https://lore.kernel.org/r/20240323-sysctl-const-handler-v2-0-e80b178f1727@weissschuh.net
 
---zfniyufgrrisfuqi
-Content-Type: application/pgp-signature; name="signature.asc"
+Changes in v2:
+- Reduce recipient list
+- Fix source formatting
+- Rebase onto next-20240322
+- Link to v1: https://lore.kernel.org/r/20240315-sysctl-const-handler-v1-0-1322ac7cb03d@weissschuh.net
 
------BEGIN PGP SIGNATURE-----
+---
+Thomas Weißschuh (11):
+      stackleak: don't modify ctl_table argument
+      cgroup: bpf: constify ctl_table arguments and fields
+      hugetlb: constify ctl_table arguments of utility functions
+      utsname: constify ctl_table arguments of utility function
+      neighbour: constify ctl_table arguments of utility function
+      ipv4/sysctl: constify ctl_table arguments of utility functions
+      ipv6/addrconf: constify ctl_table arguments of utility functions
+      ipv6/ndisc: constify ctl_table arguments of utility function
+      ipvs: constify ctl_table arguments of utility functions
+      sysctl: constify ctl_table arguments of utility function
+      sysctl: treewide: constify the ctl_table argument of handlers
 
-iQGzBAABCgAdFiEErkcJVyXmMSXOyyeQupfNUreWQU8FAmYeLoAACgkQupfNUreW
-QU+Ongv9G1IzPsRmO5Fp8LNQGL3RVW2HEJRFRdhkpCF3CIV4X8DYxzsnolosycOY
-2BNak77S7o9TcL6MXnhQXS2tS8WNNdo1Yk9lpBb7Y1YlZhkjpXgaVj0lhoJiLskG
-tuFbgn+QlMbWUmTPbHcX5Y0ZMp/zA28aWtUEY7b3UD1o7RzOvio6Im7IchVCl3Mw
-xFsdxWtgzXO4dEsrwNg8RczshBE2lKLAiHAo5l8/EOw0bvdl8EtWP4wHnDlIWnkQ
-p6Ms7mmp/iSOogETWZ9pxejUaZvcnX1mL2TBTAKnsqw9/JNA5vOjgdrP1O37DEs1
-iUIVKlY8UqoUBYskAzCfwJFe5O5Unl4Y/hzWTTu0Vq75ZfkD9RN09R/ZUem1NxrZ
-5rZ5yYTloIANF7PhUkTmYQKqoNInjtY1m3VUdw9rypOjJQ80cdwOOpYdE5xMS1O9
-g+Ad9WDVhpCWhCsjONZ+GrRodtRsMlzOpQEd5HRqFWD8ciyCtWbcHgCBCffWLU0D
-R6qovg//
-=QO0O
------END PGP SIGNATURE-----
+ arch/arm64/kernel/armv8_deprecated.c      |  2 +-
+ arch/arm64/kernel/fpsimd.c                |  2 +-
+ arch/s390/appldata/appldata_base.c        | 10 ++--
+ arch/s390/kernel/debug.c                  |  2 +-
+ arch/s390/kernel/topology.c               |  2 +-
+ arch/s390/mm/cmm.c                        |  6 +--
+ arch/x86/kernel/itmt.c                    |  2 +-
+ drivers/cdrom/cdrom.c                     |  4 +-
+ drivers/char/random.c                     |  6 +--
+ drivers/macintosh/mac_hid.c               |  2 +-
+ drivers/net/vrf.c                         |  2 +-
+ drivers/parport/procfs.c                  | 12 ++---
+ drivers/perf/arm_pmuv3.c                  |  4 +-
+ drivers/perf/riscv_pmu_sbi.c              |  2 +-
+ fs/coredump.c                             |  2 +-
+ fs/dcache.c                               |  4 +-
+ fs/drop_caches.c                          |  2 +-
+ fs/exec.c                                 |  4 +-
+ fs/file_table.c                           |  4 +-
+ fs/fs-writeback.c                         |  2 +-
+ fs/inode.c                                |  4 +-
+ fs/pipe.c                                 |  2 +-
+ fs/quota/dquot.c                          |  2 +-
+ fs/xfs/xfs_sysctl.c                       |  6 +--
+ include/linux/filter.h                    |  2 +-
+ include/linux/ftrace.h                    |  4 +-
+ include/linux/mm.h                        |  8 +--
+ include/linux/perf_event.h                |  6 +--
+ include/linux/security.h                  |  2 +-
+ include/linux/sysctl.h                    | 36 ++++++-------
+ include/linux/vmstat.h                    |  6 +--
+ include/linux/writeback.h                 |  2 +-
+ include/net/ndisc.h                       |  2 +-
+ include/net/neighbour.h                   |  6 +--
+ include/net/netfilter/nf_hooks_lwtunnel.h |  2 +-
+ ipc/ipc_sysctl.c                          |  8 +--
+ kernel/bpf/syscall.c                      |  4 +-
+ kernel/delayacct.c                        |  4 +-
+ kernel/events/callchain.c                 |  2 +-
+ kernel/events/core.c                      |  4 +-
+ kernel/fork.c                             |  2 +-
+ kernel/hung_task.c                        |  6 +--
+ kernel/kexec_core.c                       |  2 +-
+ kernel/kprobes.c                          |  2 +-
+ kernel/latencytop.c                       |  4 +-
+ kernel/pid_namespace.c                    |  2 +-
+ kernel/pid_sysctl.h                       |  2 +-
+ kernel/printk/internal.h                  |  2 +-
+ kernel/printk/printk.c                    |  2 +-
+ kernel/printk/sysctl.c                    |  5 +-
+ kernel/sched/core.c                       |  8 +--
+ kernel/sched/rt.c                         | 16 +++---
+ kernel/sched/topology.c                   |  2 +-
+ kernel/seccomp.c                          | 10 ++--
+ kernel/stackleak.c                        |  9 ++--
+ kernel/sysctl.c                           | 89 ++++++++++++++++---------------
+ kernel/time/timer.c                       |  2 +-
+ kernel/trace/ftrace.c                     |  2 +-
+ kernel/trace/trace.c                      |  2 +-
+ kernel/trace/trace_events_user.c          |  2 +-
+ kernel/trace/trace_stack.c                |  2 +-
+ kernel/umh.c                              |  2 +-
+ kernel/utsname_sysctl.c                   |  4 +-
+ kernel/watchdog.c                         | 12 ++---
+ mm/compaction.c                           |  6 +--
+ mm/hugetlb.c                              | 12 ++---
+ mm/page-writeback.c                       | 18 +++----
+ mm/page_alloc.c                           | 14 ++---
+ mm/util.c                                 | 12 ++---
+ mm/vmstat.c                               |  4 +-
+ net/bridge/br_netfilter_hooks.c           |  2 +-
+ net/core/neighbour.c                      | 20 +++----
+ net/core/sysctl_net_core.c                | 20 +++----
+ net/ipv4/devinet.c                        |  6 +--
+ net/ipv4/route.c                          |  2 +-
+ net/ipv4/sysctl_net_ipv4.c                | 38 ++++++-------
+ net/ipv6/addrconf.c                       | 27 +++++-----
+ net/ipv6/ndisc.c                          |  4 +-
+ net/ipv6/route.c                          |  2 +-
+ net/ipv6/sysctl_net_ipv6.c                |  4 +-
+ net/mpls/af_mpls.c                        |  4 +-
+ net/netfilter/ipvs/ip_vs_ctl.c            | 19 +++----
+ net/netfilter/nf_conntrack_standalone.c   |  2 +-
+ net/netfilter/nf_hooks_lwtunnel.c         |  2 +-
+ net/netfilter/nf_log.c                    |  2 +-
+ net/phonet/sysctl.c                       |  2 +-
+ net/rds/tcp.c                             |  4 +-
+ net/sctp/sysctl.c                         | 32 +++++------
+ net/sunrpc/sysctl.c                       |  6 +--
+ net/sunrpc/xprtrdma/svc_rdma.c            |  2 +-
+ security/apparmor/lsm.c                   |  2 +-
+ security/min_addr.c                       |  2 +-
+ security/yama/yama_lsm.c                  |  2 +-
+ 93 files changed, 329 insertions(+), 322 deletions(-)
+---
+base-commit: a59668a9397e7245b26e9be85d23f242ff757ae8
+change-id: 20231226-sysctl-const-handler-883b5eba7e80
 
---zfniyufgrrisfuqi--
+Best regards,
+-- 
+Thomas Weißschuh <linux@weissschuh.net>
+
 
