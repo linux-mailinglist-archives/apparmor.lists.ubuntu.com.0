@@ -2,32 +2,33 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 864D88AF697
-	for <lists+apparmor@lfdr.de>; Tue, 23 Apr 2024 20:32:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 937CD8B4818
+	for <lists+apparmor@lfdr.de>; Sat, 27 Apr 2024 22:49:49 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1rzKvq-0002pE-8l; Tue, 23 Apr 2024 18:31:54 +0000
-Received: from bombadil.infradead.org ([198.137.202.133])
+	id 1s0ozM-0002HF-Bk; Sat, 27 Apr 2024 20:49:40 +0000
+Received: from dfw.source.kernel.org ([139.178.84.217])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <mcgrof@infradead.org>)
- id 1rzKvn-0002ox-4J
- for apparmor@lists.ubuntu.com; Tue, 23 Apr 2024 18:31:51 +0000
-Received: from mcgrof by bombadil.infradead.org with local (Exim 4.97.1 #2
- (Red Hat Linux)) id 1rzKvd-000000018V6-22Td;
- Tue, 23 Apr 2024 18:31:41 +0000
-Date: Tue, 23 Apr 2024 11:31:41 -0700
-From: Luis Chamberlain <mcgrof@kernel.org>
-To: Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>
-Message-ID: <Zif-jf8Takojtq7x@bombadil.infradead.org>
+ (Exim 4.86_2) (envelope-from <kuba@kernel.org>) id 1rzpXK-0003OS-3t
+ for apparmor@lists.ubuntu.com; Thu, 25 Apr 2024 03:12:38 +0000
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id ABCB261D28;
+ Thu, 25 Apr 2024 03:12:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55C57C113CD;
+ Thu, 25 Apr 2024 03:12:35 +0000 (UTC)
+Date: Wed, 24 Apr 2024 20:12:34 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Thomas =?UTF-8?B?V2Vpw59zY2h1aA==?= <linux@weissschuh.net>
+Message-ID: <20240424201234.3cc2b509@kernel.org>
+In-Reply-To: <20240423-sysctl-const-handler-v3-0-e0beccb836e2@weissschuh.net>
 References: <20240423-sysctl-const-handler-v3-0-e0beccb836e2@weissschuh.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240423-sysctl-const-handler-v3-0-e0beccb836e2@weissschuh.net>
-Received-SPF: none client-ip=198.137.202.133;
- envelope-from=mcgrof@infradead.org; helo=bombadil.infradead.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=139.178.84.217; envelope-from=kuba@kernel.org;
+ helo=dfw.source.kernel.org
+X-Mailman-Approved-At: Sat, 27 Apr 2024 20:49:39 +0000
 Subject: Re: [apparmor] [PATCH v3 00/11] sysctl: treewide: constify
  ctl_table argument of sysctl handlers
 X-BeenThere: apparmor@lists.ubuntu.com
@@ -45,8 +46,8 @@ Cc: Joel Granados <j.granados@samsung.com>, Dave Chinner <david@fromorbit.com>,
  linux-mm@kvack.org, Eric Dumazet <edumazet@google.com>,
  linux-hardening@vger.kernel.org, linux-riscv@lists.infradead.org,
  linux-s390@vger.kernel.org, rds-devel@oss.oracle.com,
- linux-rdma@vger.kernel.org, linux-sctp@vger.kernel.org,
- lvs-devel@vger.kernel.org, coreteam@netfilter.org,
+ linux-rdma@vger.kernel.org, Luis Chamberlain <mcgrof@kernel.org>,
+ linux-sctp@vger.kernel.org, lvs-devel@vger.kernel.org, coreteam@netfilter.org,
  linux-trace-kernel@vger.kernel.org, Kees Cook <keescook@chromium.org>,
  bridge@lists.linux.dev, apparmor@lists.ubuntu.com, linux-xfs@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-nfs@vger.kernel.org,
@@ -58,32 +59,10 @@ Cc: Joel Granados <j.granados@samsung.com>, Dave Chinner <david@fromorbit.com>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Tue, Apr 23, 2024 at 09:54:35AM +0200, Thomas Weiﬂschuh wrote:
-> * Patch 1 is a bugfix for the stack_erasing sysctl handler
-> * Patches 2-10 change various helper functions throughout the kernel to
->   be able to handle 'const ctl_table'.
-> * Patch 11 changes the signatures of all proc handlers through the tree.
->   Some other signatures are also adapted, for details see the commit
->   message.
-> 
-> Only patch 1 changes any code at all.
-> 
-> The series was compile-tested on top of next-20230423 for
-> i386, x86_64, arm, arm64, riscv, loongarch, s390 and m68k.
-> 
+On Tue, 23 Apr 2024 09:54:35 +0200 Thomas Wei=C3=9Fschuh wrote:
 > The series was split from my larger series sysctl-const series [0].
 > It only focusses on the proc_handlers but is an important step to be
 > able to move all static definitions of ctl_table into .rodata.
-> 
-> [0] https://lore.kernel.org/lkml/20231204-const-sysctl-v2-0-7a5060b11447@weissschuh.net/
-> 
-> Signed-off-by: Thomas Weiﬂschuh <linux@weissschuh.net>
 
-Cover letters don't need SOBS we only use them for patches.
-
-But anyway:
-
-Reviewed-by: Luis Chamberlain <mcgrof@kernel.org>
-
-  Luis
+Split this per subsystem, please.
 
