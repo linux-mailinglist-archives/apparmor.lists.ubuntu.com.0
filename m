@@ -2,84 +2,113 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DA938BF925
-	for <lists+apparmor@lfdr.de>; Wed,  8 May 2024 10:59:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B26BF8BFC57
+	for <lists+apparmor@lfdr.de>; Wed,  8 May 2024 13:41:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1s4d9K-0002X5-VL; Wed, 08 May 2024 08:59:42 +0000
-Received: from mx0b-001b2d01.pphosted.com ([148.163.158.5])
+	id 1s4ffI-0007mA-3G; Wed, 08 May 2024 11:40:52 +0000
+Received: from mailout1.w1.samsung.com ([210.118.77.11])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <zohar@linux.ibm.com>)
- id 1s4RXB-0002Cp-Gu
- for apparmor@lists.ubuntu.com; Tue, 07 May 2024 20:35:33 +0000
-Received: from pps.filterd (m0353723.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 447KOGod016540; Tue, 7 May 2024 20:35:24 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3xyua1r16w-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 07 May 2024 20:35:23 +0000
-Received: from m0353723.ppops.net (m0353723.ppops.net [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 447KZNnh004017;
- Tue, 7 May 2024 20:35:23 GMT
-Received: from ppma23.wdc07v.mail.ibm.com
- (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3xyua1r16u-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 07 May 2024 20:35:23 +0000
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma23.wdc07v.mail.ibm.com (8.17.1.19/8.17.1.19) with ESMTP id
- 447ILSTc003964; Tue, 7 May 2024 20:35:22 GMT
-Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
- by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 3xysgs8nnx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 07 May 2024 20:35:22 +0000
-Received: from smtpav02.dal12v.mail.ibm.com (smtpav02.dal12v.mail.ibm.com
- [10.241.53.101])
- by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 447KZJxx28050034
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 7 May 2024 20:35:22 GMT
-Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id C04E65805A;
- Tue,  7 May 2024 20:35:19 +0000 (GMT)
-Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id DD4B85805E;
- Tue,  7 May 2024 20:35:18 +0000 (GMT)
-Received: from li-5cd3c5cc-21f9-11b2-a85c-a4381f30c2f3.watson.ibm.com (unknown
- [9.31.110.109]) by smtpav02.dal12v.mail.ibm.com (Postfix) with ESMTP;
- Tue,  7 May 2024 20:35:18 +0000 (GMT)
-Message-ID: <a8dbecc2ae70d9ee00d44a7a1c7b1151eeba93cb.camel@linux.ibm.com>
-From: Mimi Zohar <zohar@linux.ibm.com>
-To: GUO Zihua <guozihua@huawei.com>, paul@paul-moore.com,
- john.johansen@canonical.com, jmorris@namei.org, serge@hallyn.com,
- roberto.sassu@huawei.com, dmitry.kasatkin@gmail.com,
- stephen.smalley.work@gmail.com, casey@schaufler-ca.com, eparis@redhat.com
-Date: Tue, 07 May 2024 16:35:18 -0400
-In-Reply-To: <20240507012541.796421-1-guozihua@huawei.com>
-References: <20240507012541.796421-1-guozihua@huawei.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5 (3.28.5-25.el8_9) 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: HwohNo-AYcaw3f3Un-66RODftgTlEsup
-X-Proofpoint-ORIG-GUID: 1mi1uAOuzInkcZUp0OARcpoYCaSlS7WX
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.650,FMLib:17.11.176.26
- definitions=2024-05-07_12,2024-05-06_02,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0
- priorityscore=1501 impostorscore=0 bulkscore=0 adultscore=0
- lowpriorityscore=0 clxscore=1015 mlxscore=0 mlxlogscore=999 phishscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2405010000 definitions=main-2405070143
-Received-SPF: pass client-ip=148.163.158.5; envelope-from=zohar@linux.ibm.com;
- helo=mx0b-001b2d01.pphosted.com
-X-Mailman-Approved-At: Wed, 08 May 2024 08:59:41 +0000
-Subject: Re: [apparmor] [PATCH v3] ima: Avoid blocking in RCU read-side
-	critical section
+ (Exim 4.86_2) (envelope-from <j.granados@samsung.com>)
+ id 1s4ffE-0007lv-RR
+ for apparmor@lists.ubuntu.com; Wed, 08 May 2024 11:40:48 +0000
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20240508114046euoutp01c37f593f2a27b20f7d0fd2731027a54b~NgJ1CqoWY2038520385euoutp01U;
+ Wed,  8 May 2024 11:40:46 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
+ 20240508114046euoutp01c37f593f2a27b20f7d0fd2731027a54b~NgJ1CqoWY2038520385euoutp01U
+Received: from eusmges2new.samsung.com (unknown [203.254.199.244]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTP id
+ 20240508114045eucas1p2008b107d5bc84df1055d3c8f6f665522~NgJ00-QmY1758717587eucas1p26;
+ Wed,  8 May 2024 11:40:45 +0000 (GMT)
+Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
+ eusmges2new.samsung.com (EUCPMTA) with SMTP id DE.2B.09875.DB46B366; Wed,  8
+ May 2024 12:40:45 +0100 (BST)
+Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20240508114044eucas1p1bafa4ded49711d101a6ec02ee4cb497d~NgJ0CfQx03085530855eucas1p1l;
+ Wed,  8 May 2024 11:40:44 +0000 (GMT)
+Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
+ eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
+ 20240508114044eusmtrp12f636116d09000caf814157fd2f0936e~NgJ0BWWL81100011000eusmtrp10;
+ Wed,  8 May 2024 11:40:44 +0000 (GMT)
+X-AuditID: cbfec7f4-11bff70000002693-36-663b64bda894
+Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
+ eusmgms2.samsung.com (EUCPMTA) with SMTP id 77.0C.09010.CB46B366; Wed,  8
+ May 2024 12:40:44 +0100 (BST)
+Received: from CAMSVWEXC02.scsc.local (unknown [106.1.227.72]) by
+ eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20240508114044eusmtip2fa7284d181f2b50d0064e9cbaa2aaf8d~NgJz0FG2t1990419904eusmtip2H;
+ Wed,  8 May 2024 11:40:44 +0000 (GMT)
+Received: from localhost (106.110.32.44) by CAMSVWEXC02.scsc.local
+ (2002:6a01:e348::6a01:e348) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
+ Wed, 8 May 2024 12:40:43 +0100
+Date: Wed, 8 May 2024 13:40:38 +0200
+From: Joel Granados <j.granados@samsung.com>
+To: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Message-ID: <20240508114038.vnx2hchpxeimuqz2@joelS2.panther.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="t6g7ogcm2uwc3jep"
+Content-Disposition: inline
+In-Reply-To: <4cda5d2d-dd92-44ef-9e7b-7b780ec795ab@t-8ch.de>
+X-Originating-IP: [106.110.32.44]
+X-ClientProxiedBy: CAMSVWEXC01.scsc.local (2002:6a01:e347::6a01:e347) To
+ CAMSVWEXC02.scsc.local (2002:6a01:e348::6a01:e348)
+X-Brightmail-Tracker: H4sIAAAAAAAAA2WSfUxTVxjGc+5XS7fipYiegGAoaNzcyocyTsSBRJ03/rEsBjMDy2wdF3RC
+ q21RtuisgeH4UgQNFgwrVMBJC1hqBTajI1CkTMCprNsQAhTcBCNSOkZAWJuLm8n++z3PeZ43
+ 75scPi56TPnzD8nVrFIuSxNTAsJinet591ZyTEp4lVaMTlt1JHK2d1LIos/H0MuWMzgyWwcB
+ GrOO8NBP+eno+24Xhkyj/ST64VYXgSoa5gB60HqZQoOGJRL13ekm0cMb9QQabyskkMWZTaGi
+ yiwcjekmSDRVMEKh9oZ7BGpdaOah+b/HMTQ/u0iirG+ncWQvGgPIqluFiuptBOppcpLbAply
+ zX2CsVVBRmfKYEzXcinGNF3MY5qunGL+aNICpvdSJWD67UME82z+Lsb01UxSjNMUxJzLt/I+
+ EiYKtiazaYeOscqwWKng4PSFAexIuV9mdn+sBtz3yQNefEhvhjnTLjIPCPgi+iqAo84XOCdm
+ 3EI3BTjhBNBZXUq9qvSU3Vt+qAXQUN5H/psa6phY7psAtLWNuWN8PkGHwmHjek+bot+BvZMD
+ uIdX0lvhd385eR7G6Ys8WH5T6mFfWgrN1SXAw0J6G5wrHCE59oFdWgfB5TNh652bpGc8TgfA
+ 2kW+x/Zyj/z5bDvBLRoMXfrBZT4JbebfMM9qkJ4SwJahYcrThfQOWDCygcv4wqedZh7Ha2B3
+ SQHB5UsAvL04xeNEHYA1p10Yl4qB2Q8dy414ONj7K+CGekP7Mx9uT29YbCnFOVsIv8kRcen1
+ sG5wkigCIWWvXVb22mVl/13G2RJov3iB+p+9EdZUTuAcvw/r658TOsC7BlazGar0VFYVKWeP
+ S1SydFWGPFXymSLdBNy/vnuxc6YZ1D59IWkDGB+0gVB3eaSxrg/4E3KFnBWvFHaciU4RCZNl
+ X3zJKhX7lRlprKoNBPAJ8WrhuuS1rIhOlanZwyx7hFW+esX4Xv4abBcTU0HtS9keFxRtb9V4
+ gzy/4vCrzXvWGQP2tigchsadvwc/YCQr3tR/kNGcULLFJbNej0saVhSr/tSYy6IS5pJc1rip
+ 2X0Vvn7SVd7BupCciPEfN+dvtEc2RvvqE4+GSXbcNQaIwn5xfE7R8dnHonJHd+//uPxE4IzX
+ E7XPrKZ6bdBugzr2uu3ABrKr9FH8Jn1y5NfanQWZ2BNacbSmpoqQrnje8WiXhH2r/Y0c4+1A
+ Z3dIw8ntVnWkUVCq3LKwlGTXai491hjAV2vGXi5VHd4UTg6cyPrkrLa/028hlIhi+i6fMxbe
+ YGsT3pvtsFkSA04NHDhuTsj9MMJRev7TKw4xoTooi3gbV6pk/wAtwQFpcAQAAA==
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrNKsWRmVeSWpSXmKPExsVy+t/xe7p7UqzTDM5cMLJoPLaA1eLzkeNs
+ FtsWdzNZ/N3Zzmyx5dg9Rounxx6xW5zpzrXYffork8Wmx9dYLfbsPcliMW/9T0aLy7vmsFnc
+ W/Of1eLCgdOsFle2rmOxeHaol8Vi2+cWNosJC5uZLZ4ueM1q8aHnEZvFkfVnWSx2/dnBbvH7
+ xzMmi9/f/7FaNM//xGxxY8JTRotjC8QsJqw7xWJxbvNnVgdZj9kNF1k8Ti2S8FiwqdRj06pO
+ No9Nnyaxe2xeUu/xYvNMRo/zMxYyely7cZ/F4+3vE0weF5a9YfP4vEnOo7/7GHsAb5SeTVF+
+ aUmqQkZ+cYmtUrShhZGeoaWFnpGJpZ6hsXmslZGpkr6dTUpqTmZZapG+XYJexuEXE9gKZopW
+ PD7WztzAeF6wi5GTQ0LAROLcrLOMXYxcHEICSxkllk6bzwSRkJHY+OUqK4QtLPHnWhcbRNFH
+ RokXG9cxQzibGCX2TdwE5HBwsAioSDxcqwbSwCagI3H+zR1mEFtEwEZi5bfP7CA2s8BUdonZ
+ 2xNAbGGBBIktSyczgti8Ag4SP3sfsULM7GSS2H73FFRCUOLkzCcsEM1lEpuXzmcF2cUsIC2x
+ /B8HSJgTaP6lviMsEIcqSnxdfA/KrpX4/PcZ4wRG4VlIJs1CMmkWwiSIsI7Ezq132DCEtSWW
+ LXzNDGHbSqxb955lASP7KkaR1NLi3PTcYiO94sTc4tK8dL3k/NxNjMCUt+3Yzy07GFe++qh3
+ iJGJg/EQowpQ56MNqy8wSrHk5eelKonwHm03TxPiTUmsrEotyo8vKs1JLT7EaAoMxInMUqLJ
+ +cBknFcSb2hmYGpoYmZpYGppZqwkzutZ0JEoJJCeWJKanZpakFoE08fEwSnVwLRXjfWeXbv/
+ 21OMW8McPK51fmtbYLsovVerk2O1TEjn2fWSxz8eWOETlWmeVlS8tYVf+Nit5JO3/DZ8eZ1p
+ wL9ll9gp72/TxZadjf8Q6X4wj72pTP3U0QuKj22vGZdy5t2+u39/zELOi0c+71pYJ3fzgkSf
+ xoYtlaF1vi+uN2xeUSC5xfKMf59VVu+jrc63e8KbbRZwc0q+Ttgvs9qupyNmTjO/Wfzu6m3T
+ 59doib3buXTm0yfX9k4Km7HwS+HHA1ukpEyileXTGEwnnZxq+/zqsvUGHNb/kzcxGW85cDaI
+ 592LvTUOP1ymHSq8V8strvt6W9vL2k0iMsX7vk491H1GY0ZMh4vPk9il685ccExSYinOSDTU
+ Yi4qTgQA//bFNQ4EAAA=
+X-CMS-MailID: 20240508114044eucas1p1bafa4ded49711d101a6ec02ee4cb497d
+X-Msg-Generator: CA
+X-RootMTR: 20240423075608eucas1p265e7c90f3efd6995cb240b3d2688b803
+X-EPHeader: CA
+CMS-TYPE: 201P
+X-CMS-RootMailID: 20240423075608eucas1p265e7c90f3efd6995cb240b3d2688b803
+References: <CGME20240423075608eucas1p265e7c90f3efd6995cb240b3d2688b803@eucas1p2.samsung.com>
+ <20240423-sysctl-const-handler-v3-0-e0beccb836e2@weissschuh.net>
+ <20240503090332.irkiwn73dgznjflz@joelS2.panther.com>
+ <4cda5d2d-dd92-44ef-9e7b-7b780ec795ab@t-8ch.de>
+Received-SPF: pass client-ip=210.118.77.11;
+ envelope-from=j.granados@samsung.com; helo=mailout1.w1.samsung.com
+Subject: Re: [apparmor] [PATCH v3 00/11] sysctl: treewide: constify
+ ctl_table argument of sysctl handlers
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -91,93 +120,100 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: eric.snowberg@oracle.com, selinux@vger.kernel.org,
- apparmor@lists.ubuntu.com, omosnace@redhat.com, audit@vger.kernel.org,
- linux-security-module@vger.kernel.org, linux-integrity@vger.kernel.org
+Cc: Dave Chinner <david@fromorbit.com>, linux-mm@kvack.org,
+ Eric Dumazet <edumazet@google.com>, linux-hardening@vger.kernel.org,
+ linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+ rds-devel@oss.oracle.com, linux-rdma@vger.kernel.org,
+ Luis Chamberlain <mcgrof@kernel.org>, linux-sctp@vger.kernel.org,
+ lvs-devel@vger.kernel.org, coreteam@netfilter.org,
+ linux-trace-kernel@vger.kernel.org, Kees Cook <keescook@chromium.org>,
+ bridge@lists.linux.dev, apparmor@lists.ubuntu.com, linux-xfs@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-nfs@vger.kernel.org,
+ netdev@vger.kernel.org, kexec@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ linux-security-module@vger.kernel.org, netfilter-devel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Hi Scott,
+--t6g7ogcm2uwc3jep
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2024-05-07 at 01:25 +0000, GUO Zihua wrote:
-> A panic happens in ima_match_policy:
-> 
-> BUG: unable to handle kernel NULL pointer dereference at 0000000000000010
-> PGD 42f873067 P4D 0
-> Oops: 0000 [#1] SMP NOPTI
-> CPU: 5 PID: 1286325 Comm: kubeletmonit.sh Kdump: loaded Tainted: P
-> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 0.0.0 02/06/2015
-> RIP: 0010:ima_match_policy+0x84/0x450
-> Code: 49 89 fc 41 89 cf 31 ed 89 44 24 14 eb 1c 44 39 7b 18 74 26 41 83 ff 05 74 20 48 8b 1b 48 3b 1d f2 b9 f4 00 0f 84 9c 01 00 00 <44> 85 73 10 74 ea 44 8b 6b 14 41 f6 c5 01 75 d4 41 f6 c5 02 74 0f
-> RSP: 0018:ff71570009e07a80 EFLAGS: 00010207
-> RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000200
-> RDX: ffffffffad8dc7c0 RSI: 0000000024924925 RDI: ff3e27850dea2000
-> RBP: 0000000000000000 R08: 0000000000000000 R09: ffffffffabfce739
-> R10: ff3e27810cc42400 R11: 0000000000000000 R12: ff3e2781825ef970
-> R13: 00000000ff3e2785 R14: 000000000000000c R15: 0000000000000001
-> FS:  00007f5195b51740(0000) GS:ff3e278b12d40000(0000) knlGS:0000000000000000
-> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 0000000000000010 CR3: 0000000626d24002 CR4: 0000000000361ee0
-> DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-> DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-> Call Trace:
->  ima_get_action+0x22/0x30
->  process_measurement+0xb0/0x830
->  ? page_add_file_rmap+0x15/0x170
->  ? alloc_set_pte+0x269/0x4c0
->  ? prep_new_page+0x81/0x140
->  ? simple_xattr_get+0x75/0xa0
->  ? selinux_file_open+0x9d/0xf0
->  ima_file_check+0x64/0x90
->  path_openat+0x571/0x1720
->  do_filp_open+0x9b/0x110
->  ? page_counter_try_charge+0x57/0xc0
->  ? files_cgroup_alloc_fd+0x38/0x60
->  ? __alloc_fd+0xd4/0x250
->  ? do_sys_open+0x1bd/0x250
->  do_sys_open+0x1bd/0x250
->  do_syscall_64+0x5d/0x1d0
->  entry_SYSCALL_64_after_hwframe+0x65/0xca
-> 
-> Commit c7423dbdbc9e ("ima: Handle -ESTALE returned by
-> ima_filter_rule_match()") introduced call to ima_lsm_copy_rule within a
-> RCU read-side critical section which contains kmalloc with GFP_KERNEL.
-> This implies a possible sleep and violates limitations of RCU read-side
-> critical sections on non-PREEMPT systems.
+On Fri, May 03, 2024 at 04:09:40PM +0200, Thomas Wei=DFschuh wrote:
+> Hey Joel,
+>=20
+=2E..
+> > # Motivation
+> > As I read it, the motivation for these constification efforts are:
+> > 1. It provides increased safety: Having things in .rodata section reduc=
+es the
+> >    attack surface. This is especially relevant for structures that have=
+ function
+> >    pointers (like ctl_table); having these in .rodata means that these =
+pointers
+> >    always point to the "intended" function and cannot be changed.
+> > 2. Compiler optimizations: This was just a comment in the patchsets tha=
+t I have
+> >    mentioned ([3,4,5]). Do you know what optimizations specifically? Do=
+es it
+> >    have to do with enhancing locality for the data in .rodata? Do you h=
+ave other
+> >    specific optimizations in mind?
+>=20
+> I don't know about anything that would make it faster.
+> It's more about safety and transmission of intent to API users,
+> especially callback implementers.
+Noted.
 
-I would move the problem description before the traceback.
+=2E..
+> > # Show the move
+> > I created [8] because there is no easy way to validate which objects ma=
+de it
+> > into .rodata. I ran [8] for your Dec 2nd patcheset [7] and there are le=
+ss in
+> > .rodata than I expected (the results are in [9]) Why is that? Is it som=
+ething
+> > that has not been posted to the lists yet?=20
+>=20
+> Constifying the APIs only *allows* the actual table to be constified
+> themselves.
+> Then each table definition will have to be touched and "const" added.
+That is what I thought. thx for clarifying.
 
-> 
-> Sleeping within RCU read-side critical section might cause
-> synchronize_rcu() returning early and break RCU protection, allowing a
-> UAF to happen.
-> 
-> The root cause of this issue could be described as follows:
-> > 	Thread A	|	Thread B	|
-> > 			|ima_match_policy	|
-> > 			|  rcu_read_lock	|
-> > ima_lsm_update_rule	|			|
-> >  synchronize_rcu	|			|
-> > 			|    kmalloc(GFP_KERNEL)|
-> > 			|      sleep		|
-> ==> synchronize_rcu returns early
-> >  kfree(entry)		|			|
-> > 			|    entry = entry->next|
-> ==> UAF happens and entry now becomes NULL (or could be anything).
-> > 			|    entry->action	|
-> ==> Accessing entry might cause panic.
-> 
-> To fix this issue, we are converting all kmalloc that is called within
-> RCU read-side critical section to use GFP_ATOMIC.
-> 
-> Fixes: c7423dbdbc9e ("ima: Handle -ESTALE returned by ima_filter_rule_match()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: GUO Zihua <guozihua@huawei.com>
+>=20
+> See patches 17 and 18 in [7] for two examples.
+>=20
+> Some tables in net/ are already "const" as the static definitions are
+> never registered themselves but only their copies are.
+>=20
+=2E..
 
-Reviewed-by: Mimi Zohar <zohar@linux.ibm.com>
+best
 
-thanks,
+--=20
 
-Mimi
+Joel Granados
 
+--t6g7ogcm2uwc3jep
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQGzBAABCgAdFiEErkcJVyXmMSXOyyeQupfNUreWQU8FAmY7ZLUACgkQupfNUreW
+QU8gUgv+JUZin5OAF3NMj7s3DmErLOcek/iw2Q4tXtrCSrstF9AEp1KJR4h7cMPe
+Nh/NrY7roszof3ADLw9QcvijqtC2/YxQqtu+PqVfRYn15Tv7/eFIYRElCTK3Xdxj
+xMkZb9Afo5tMvUqCXLuy7hsa5GxNrpk5wLv3OEQnaOQPriuI0fAdMxQEFZXtRFst
+ZNvVqOVbGzH5fZhv6YS21SHWAIbki2fKfu9etPSftEhi5TQ60KT0GfnNLhonPMES
+3q2s+Ox+m8zkKdpI8YZK/KYO7u7qM2aEGCcKQejM4cdJs8Ii0VVQT5lwyEipveYM
+5d+sAYm/dF/FfZ6ocaC7REDrCC2P3+IxskN73CNRhwkkiUBSzXu52QdTzaAUF09Z
+azXiYxq/FpInFPHbBRWHRoeLkknyIlNmKUvVW+H6EHoMxgio7Pn2ERgGo4on6m8Z
+DX/ExB4ksH+M9m8Mw5niW9tzCilWV1c6EvwQ+9FlNY0szADvScD0Ocv3M0FVfvcx
+BVIXt1UD
+=UpYq
+-----END PGP SIGNATURE-----
+
+--t6g7ogcm2uwc3jep--
 
