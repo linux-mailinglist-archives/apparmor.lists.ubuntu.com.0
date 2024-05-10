@@ -2,33 +2,31 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F5168C2820
-	for <lists+apparmor@lfdr.de>; Fri, 10 May 2024 17:46:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B9348C2843
+	for <lists+apparmor@lfdr.de>; Fri, 10 May 2024 17:55:23 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1s5SSB-0004ex-Vc; Fri, 10 May 2024 15:46:35 +0000
+	id 1s5SaZ-0005RQ-Et; Fri, 10 May 2024 15:55:15 +0000
 Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
  helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1s5SSB-0004en-7h
- for apparmor@lists.ubuntu.com; Fri, 10 May 2024 15:46:35 +0000
+ id 1s5SaY-0005RF-Dz
+ for apparmor@lists.ubuntu.com; Fri, 10 May 2024 15:55:14 +0000
 Received: from [10.8.193.2] (unknown [50.39.103.33])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id C236F4113A; 
- Fri, 10 May 2024 15:46:29 +0000 (UTC)
-Message-ID: <6200bc6e-6903-4a01-a3d9-74f90c6de2b7@canonical.com>
-Date: Fri, 10 May 2024 08:46:25 -0700
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id C20FF40ECA; 
+ Fri, 10 May 2024 15:55:10 +0000 (UTC)
+Message-ID: <771cf26b-071f-490c-9335-d8c78c2bb189@canonical.com>
+Date: Fri, 10 May 2024 08:55:06 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Colin Ian King <colin.i.king@gmail.com>, Paul Moore
- <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- "Serge E . Hallyn" <serge@hallyn.com>, apparmor@lists.ubuntu.com,
+To: =?UTF-8?Q?Christian_G=C3=B6ttsche?= <cgzones@googlemail.com>,
  linux-security-module@vger.kernel.org
-References: <20240304163655.771616-1-colin.i.king@gmail.com>
+References: <20240315125418.273104-1-cgzones@googlemail.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -74,11 +72,10 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20240304163655.771616-1-colin.i.king@gmail.com>
+In-Reply-To: <20240315125418.273104-1-cgzones@googlemail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH][next] apparmor: remove useless static inline
- function is_deleted
+Content-Transfer-Encoding: 8bit
+Subject: Re: [apparmor] [PATCH 2/2] apparmor: fix typo in kernel doc
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -90,51 +87,38 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Paul Moore <paul@paul-moore.com>, Kees Cook <keescook@chromium.org>,
+ apparmor@lists.ubuntu.com, linux-kernel@vger.kernel.org,
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 3/4/24 08:36, Colin Ian King wrote:
-> The inlined function is_deleted is redundant, it is not called at all
-> from any function in security/apparmor/file.c and so it can be removed.
+On 3/15/24 05:54, Christian Göttsche wrote:
+> Fix the typo in the function documentation to please kernel doc
+> warnings.
 > 
-> Cleans up clang scan build warning:
-> security/apparmor/file.c:153:20: warning: unused function
-> 'is_deleted' [-Wunused-function]
-> 
-> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+> Signed-off-by: Christian Göttsche <cgzones@googlemail.com>
 
-Acked-by: John Johansen <john.johanse@canonical.com>
+Acked-by: John Johansen <john.johansen@canonical.com>
 
 I have pulled this into my tree
 
 > ---
->   security/apparmor/file.c | 13 -------------
->   1 file changed, 13 deletions(-)
+>   security/apparmor/lsm.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/security/apparmor/file.c b/security/apparmor/file.c
-> index c03eb7c19f16..d52a5b14dad4 100644
-> --- a/security/apparmor/file.c
-> +++ b/security/apparmor/file.c
-> @@ -144,19 +144,6 @@ int aa_audit_file(const struct cred *subj_cred,
->   	return aa_audit(type, profile, &ad, file_audit_cb);
->   }
->   
-> -/**
-> - * is_deleted - test if a file has been completely unlinked
-> - * @dentry: dentry of file to test for deletion  (NOT NULL)
-> - *
-> - * Returns: true if deleted else false
-> - */
-> -static inline bool is_deleted(struct dentry *dentry)
-> -{
-> -	if (d_unlinked(dentry) && d_backing_inode(dentry)->i_nlink == 0)
-> -		return true;
-> -	return false;
-> -}
-> -
->   static int path_name(const char *op, const struct cred *subj_cred,
->   		     struct aa_label *label,
->   		     const struct path *path, int flags, char *buffer,
+> diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
+> index cef8c466af80..d0485fb0ed63 100644
+> --- a/security/apparmor/lsm.c
+> +++ b/security/apparmor/lsm.c
+> @@ -1124,7 +1124,7 @@ static int apparmor_socket_create(int family, int type, int protocol, int kern)
+>    * @sock: socket that is being setup
+>    * @family: family of socket being created
+>    * @type: type of the socket
+> - * @ptotocol: protocol of the socket
+> + * @protocol: protocol of the socket
+>    * @kern: socket is a special kernel socket
+>    *
+>    * Note:
 
 
