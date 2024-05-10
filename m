@@ -2,37 +2,80 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id E54208C0B37
-	for <lists+apparmor@lfdr.de>; Thu,  9 May 2024 07:53:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7ECE8C27EF
+	for <lists+apparmor@lfdr.de>; Fri, 10 May 2024 17:36:44 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1s4wip-0006WF-Mv; Thu, 09 May 2024 05:53:39 +0000
-Received: from dfw.source.kernel.org ([139.178.84.217])
+	id 1s5SIS-0003np-55; Fri, 10 May 2024 15:36:32 +0000
+Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
+ helo=smtp-relay-canonical-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <kuba@kernel.org>) id 1s4s8l-0008DV-Ki
- for apparmor@lists.ubuntu.com; Thu, 09 May 2024 01:00:07 +0000
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 4637561A3C;
- Thu,  9 May 2024 01:00:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5827C113CC;
- Thu,  9 May 2024 01:00:04 +0000 (UTC)
-Date: Wed, 8 May 2024 18:00:03 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Kees Cook <keescook@chromium.org>
-Message-ID: <20240508180003.548af21b@kernel.org>
-In-Reply-To: <202405080959.104A73A914@keescook>
-References: <20240423-sysctl-const-handler-v3-0-e0beccb836e2@weissschuh.net>
- <20240424201234.3cc2b509@kernel.org>
- <202405080959.104A73A914@keescook>
+ (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
+ id 1s5SIQ-0003nd-D5
+ for apparmor@lists.ubuntu.com; Fri, 10 May 2024 15:36:30 +0000
+Received: from [10.55.0.156] (unknown [149.11.192.251])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id A48743F771; 
+ Fri, 10 May 2024 15:36:29 +0000 (UTC)
+Message-ID: <2a9553a9-47b9-4eb9-ae55-a77bdd14e8c4@canonical.com>
+Date: Fri, 10 May 2024 08:36:28 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+To: Fedor Pchelkin <pchelkin@ispras.ru>
+References: <20240201142450.30510-1-pchelkin@ispras.ru>
+Content-Language: en-US
+From: John Johansen <john.johansen@canonical.com>
+Autocrypt: addr=john.johansen@canonical.com; keydata=
+ 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 lT9Q
+Organization: Canonical
+In-Reply-To: <20240201142450.30510-1-pchelkin@ispras.ru>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=139.178.84.217; envelope-from=kuba@kernel.org;
- helo=dfw.source.kernel.org
-X-Mailman-Approved-At: Thu, 09 May 2024 05:53:39 +0000
-Subject: Re: [apparmor] [PATCH v3 00/11] sysctl: treewide: constify
- ctl_table argument of sysctl handlers
+Subject: Re: [apparmor] [PATCH] apparmor: use kvfree_sensitive to free
+	data->data
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -44,35 +87,61 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Joel Granados <j.granados@samsung.com>, Dave Chinner <david@fromorbit.com>,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- Eric Dumazet <edumazet@google.com>, linux-hardening@vger.kernel.org,
- linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
- rds-devel@oss.oracle.com, linux-rdma@vger.kernel.org,
- Luis Chamberlain <mcgrof@kernel.org>, linux-sctp@vger.kernel.org,
- lvs-devel@vger.kernel.org, coreteam@netfilter.org,
- linux-trace-kernel@vger.kernel.org, bridge@lists.linux.dev,
- apparmor@lists.ubuntu.com, linux-xfs@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-nfs@vger.kernel.org,
- netdev@vger.kernel.org, kexec@lists.infradead.org,
- Thomas =?UTF-8?B?V2Vpw59zY2h1aA==?= <linux@weissschuh.net>,
- linux-perf-users@vger.kernel.org, linux-security-module@vger.kernel.org,
- netfilter-devel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- bpf@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+Cc: lvc-project@linuxtesting.org, Paul Moore <paul@paul-moore.com>,
+ apparmor@lists.ubuntu.com, James Morris <jmorris@namei.org>,
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-security-module@vger.kernel.org, William Hua <william.hua@canonical.com>,
+ Alexey Khoroshilov <khoroshilov@ispras.ru>,
+ "Serge E. Hallyn" <serge@hallyn.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Wed, 8 May 2024 10:11:35 -0700 Kees Cook wrote:
-> > Split this per subsystem, please.  
+On 2/1/24 06:24, Fedor Pchelkin wrote:
+> Inside unpack_profile() data->data is allocated using kvmemdup() so it
+> should be freed with the corresponding kvfree_sensitive().
 > 
-> I've done a few painful API transitions before, and I don't think the
-> complexity of these changes needs a per-subsystem constification pass. I
-> think this series is the right approach, but that patch 11 will need
-> coordination with Linus. We regularly do system-wide prototype changes
-> like this right at the end of the merge window before -rc1 comes out.
+> Also add missing data->data release for rhashtable insertion failure path
+> in unpack_profile().
+> 
+> Found by Linux Verification Center (linuxtesting.org).
+> 
+> Fixes: e025be0f26d5 ("apparmor: support querying extended trusted helper extra data")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Fedor Pchelkin <pchelkin@ispras.ru>
 
-Right. I didn't read the code closely enough before responding.
-Chalk my response up to being annoyed by the constant stream of
-cross-tree changes in procfs without proper cover letter explaining 
-how they will be merged :|
+Acked-by: John Johansen <john.johansen@canonical.com>
+
+I have pulled this into my tree
+
+> ---
+>   security/apparmor/policy.c        | 2 +-
+>   security/apparmor/policy_unpack.c | 1 +
+>   2 files changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/security/apparmor/policy.c b/security/apparmor/policy.c
+> index 957654d253dd..14df15e35695 100644
+> --- a/security/apparmor/policy.c
+> +++ b/security/apparmor/policy.c
+> @@ -225,7 +225,7 @@ static void aa_free_data(void *ptr, void *arg)
+>   {
+>   	struct aa_data *data = ptr;
+>   
+> -	kfree_sensitive(data->data);
+> +	kvfree_sensitive(data->data, data->size);
+>   	kfree_sensitive(data->key);
+>   	kfree_sensitive(data);
+>   }
+> diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
+> index 5e578ef0ddff..75452acd0e35 100644
+> --- a/security/apparmor/policy_unpack.c
+> +++ b/security/apparmor/policy_unpack.c
+> @@ -1071,6 +1071,7 @@ static struct aa_profile *unpack_profile(struct aa_ext *e, char **ns_name)
+>   
+>   			if (rhashtable_insert_fast(profile->data, &data->head,
+>   						   profile->data->p)) {
+> +				kvfree_sensitive(data->data, data->size);
+>   				kfree_sensitive(data->key);
+>   				kfree_sensitive(data);
+>   				info = "failed to insert data to table";
+
 
