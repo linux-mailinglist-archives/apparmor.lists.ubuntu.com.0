@@ -2,31 +2,32 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B9348C2843
-	for <lists+apparmor@lfdr.de>; Fri, 10 May 2024 17:55:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 369758C2851
+	for <lists+apparmor@lfdr.de>; Fri, 10 May 2024 17:58:29 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1s5SaZ-0005RQ-Et; Fri, 10 May 2024 15:55:15 +0000
+	id 1s5SdX-0005ph-8M; Fri, 10 May 2024 15:58:19 +0000
 Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
  helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1s5SaY-0005RF-Dz
- for apparmor@lists.ubuntu.com; Fri, 10 May 2024 15:55:14 +0000
+ id 1s5SdV-0005pa-RQ
+ for apparmor@lists.ubuntu.com; Fri, 10 May 2024 15:58:17 +0000
 Received: from [10.8.193.2] (unknown [50.39.103.33])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id C20FF40ECA; 
- Fri, 10 May 2024 15:55:10 +0000 (UTC)
-Message-ID: <771cf26b-071f-490c-9335-d8c78c2bb189@canonical.com>
-Date: Fri, 10 May 2024 08:55:06 -0700
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id EF28640ECA; 
+ Fri, 10 May 2024 15:58:14 +0000 (UTC)
+Message-ID: <00107f4f-9a14-43b0-8204-45978a487e33@canonical.com>
+Date: Fri, 10 May 2024 08:58:10 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: =?UTF-8?Q?Christian_G=C3=B6ttsche?= <cgzones@googlemail.com>,
- linux-security-module@vger.kernel.org
-References: <20240315125418.273104-1-cgzones@googlemail.com>
+To: Jeff Johnson <quic_jjohnson@quicinc.com>, Paul Moore
+ <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>
+References: <20240505-apparmor_socket_post_create-kdoc-v1-1-1fd88e546e92@quicinc.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -72,10 +73,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20240315125418.273104-1-cgzones@googlemail.com>
+In-Reply-To: <20240505-apparmor_socket_post_create-kdoc-v1-1-1fd88e546e92@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [apparmor] [PATCH 2/2] apparmor: fix typo in kernel doc
+Subject: Re: [apparmor] [PATCH] apparmor: fix apparmor_socket_post_create()
+	kernel-doc
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -87,21 +89,21 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Paul Moore <paul@paul-moore.com>, Kees Cook <keescook@chromium.org>,
- apparmor@lists.ubuntu.com, linux-kernel@vger.kernel.org,
- James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>
+Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
+ linux-kernel@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 3/15/24 05:54, Christian Göttsche wrote:
-> Fix the typo in the function documentation to please kernel doc
-> warnings.
+On 5/5/24 15:39, Jeff Johnson wrote:
+> make C=1 reports:
 > 
-> Signed-off-by: Christian Göttsche <cgzones@googlemail.com>
+> security/apparmor/lsm.c:1138: warning: Function parameter or struct member 'protocol' not described in 'apparmor_socket_post_create'
+> 
+> Fix this by correcting the misspelling of 'protocol'.
+> 
+> Signed-off-by: Jeff Johnson <quic_jjohnson@quicinc.com>
 
-Acked-by: John Johansen <john.johansen@canonical.com>
-
-I have pulled this into my tree
+Hey Jeff, thanks for the patch, unfortunately Christian Göttsche version of the patch came in before yours so that is the one I committed
 
 > ---
 >   security/apparmor/lsm.c | 2 +-
@@ -120,5 +122,10 @@ I have pulled this into my tree
 >    * @kern: socket is a special kernel socket
 >    *
 >    * Note:
+> 
+> ---
+> base-commit: 2c4d8e19cf060744a9db466ffbaea13ab37f25ca
+> change-id: 20240505-apparmor_socket_post_create-kdoc-897c7ad5d007
+> 
 
 
