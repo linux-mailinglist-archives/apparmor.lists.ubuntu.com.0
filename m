@@ -2,33 +2,37 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D3AC8FBC94
-	for <lists+apparmor@lfdr.de>; Tue,  4 Jun 2024 21:31:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B0788FBC96
+	for <lists+apparmor@lfdr.de>; Tue,  4 Jun 2024 21:31:33 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1sEZsS-00050R-BJ; Tue, 04 Jun 2024 19:31:24 +0000
-Received: from sin.source.kernel.org ([145.40.73.55])
+	id 1sEZsS-00050Y-GE; Tue, 04 Jun 2024 19:31:24 +0000
+Received: from dfw.source.kernel.org ([139.178.84.217])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <andi.shyti@kernel.org>)
- id 1sEUPv-0006IM-IF
- for apparmor@lists.ubuntu.com; Tue, 04 Jun 2024 13:41:36 +0000
+ (Exim 4.86_2)
+ (envelope-from <SRS0=dfpp=NG=goodmis.org=rostedt@kernel.org>)
+ id 1sEWTX-0007QL-BB
+ for apparmor@lists.ubuntu.com; Tue, 04 Jun 2024 15:53:28 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 29380CE1160;
- Tue,  4 Jun 2024 13:41:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BE38C2BBFC;
- Tue,  4 Jun 2024 13:41:29 +0000 (UTC)
-Date: Tue, 4 Jun 2024 14:41:26 +0100
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Message-ID: <3ojs6btxgava4dcasys5tnrg5vsrqlshagcg7otvrdgfcwwje4@lcrd3r6gkfcs>
+ by dfw.source.kernel.org (Postfix) with ESMTP id 8618E6134C;
+ Tue,  4 Jun 2024 15:53:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D41BC2BBFC;
+ Tue,  4 Jun 2024 15:52:38 +0000 (UTC)
+Date: Tue, 4 Jun 2024 11:52:35 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Message-ID: <20240604115235.044acfd6@gandalf.local.home>
+In-Reply-To: <87tti9cfry.fsf@intel.com>
 References: <20240603211538.289765-1-andriy.shevchenko@linux.intel.com>
+ <87tti9cfry.fsf@intel.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240603211538.289765-1-andriy.shevchenko@linux.intel.com>
-Received-SPF: pass client-ip=145.40.73.55; envelope-from=andi.shyti@kernel.org;
- helo=sin.source.kernel.org
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Received-SPF: pass client-ip=139.178.84.217;
+ envelope-from=SRS0=dfpp=NG=goodmis.org=rostedt@kernel.org;
+ helo=dfw.source.kernel.org
 X-Mailman-Approved-At: Tue, 04 Jun 2024 19:31:23 +0000
 Subject: Re: [apparmor] [PATCH v1 1/1] treewide: Align match_string() with
  sysfs_match_string()
@@ -53,7 +57,7 @@ Cc: Juri Lelli <juri.lelli@redhat.com>, Andrew Lunn <andrew@lunn.ch>,
  Pavel Machek <pavel@ucw.cz>,
  Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
  linux-clk@vger.kernel.org, Kishon Vijay Abraham I <kishon@kernel.org>,
- Abel Wu <wuyun.abel@bytedance.com>, linux-omap@vger.kernel.org,
+ Abel Wu <wuyun.abel@bytedance.com>,
  Vincent Guittot <vincent.guittot@linaro.org>,
  Karol Herbst <kherbst@redhat.com>, Samuel Holland <samuel@sholland.org>,
  Michael Ellerman <mpe@ellerman.id.au>,
@@ -65,7 +69,7 @@ Cc: Juri Lelli <juri.lelli@redhat.com>, Andrew Lunn <andrew@lunn.ch>,
  Jean Delvare <jdelvare@suse.com>, linux-pm@vger.kernel.org,
  Potnuri Bharat Teja <bharat@chelsio.com>, James Morris <jmorris@namei.org>,
  linux-sound@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
- platform-driver-x86@vger.kernel.org, Zhihao Cheng <chengzhihao1@huawei.com>,
+ linux-omap@vger.kernel.org, Zhihao Cheng <chengzhihao1@huawei.com>,
  Dietmar Eggemann <dietmar.eggemann@arm.com>, Niklas Cassel <cassel@kernel.org>,
  Scott Branden <sbranden@broadcom.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -88,7 +92,7 @@ Cc: Juri Lelli <juri.lelli@redhat.com>, Andrew Lunn <andrew@lunn.ch>,
  Gregory Clement <gregory.clement@bootlin.com>, Lee Jones <lee@kernel.org>,
  Hugh Dickins <hughd@google.com>, Jonathan Hunter <jonathanh@nvidia.com>,
  linux-rockchip@lists.infradead.org, linux-trace-kernel@vger.kernel.org,
- Robert Richter <rrichter@amd.com>,
+ Andi Shyti <andi.shyti@kernel.org>, Robert Richter <rrichter@amd.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Brian Foster <bfoster@redhat.com>, Maxime Ripard <mripard@kernel.org>,
  linux-gpio@vger.kernel.org, Jason Baron <jbaron@akamai.com>,
@@ -115,11 +119,10 @@ Cc: Juri Lelli <juri.lelli@redhat.com>, Andrew Lunn <andrew@lunn.ch>,
  Chen-Yu Tsai <wens@csie.org>, Abdel Alkuor <abdelalkuor@geotab.com>,
  Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
  "Naveen N. Rao" <naveen.n.rao@linux.ibm.com>,
- Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+ Ilpo =?UTF-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
  Paolo Abeni <pabeni@redhat.com>, "Serge E. Hallyn" <serge@hallyn.com>,
  Lyude Paul <lyude@redhat.com>, Kees Cook <keescook@chromium.org>,
  Ray Jui <rjui@broadcom.com>, intel-gfx@lists.freedesktop.org,
- "Steven Rostedt \(Google\)" <rostedt@goodmis.org>,
  Johannes Berg <johannes.berg@intel.com>, Paul Moore <paul@paul-moore.com>,
  Mark Brown <broonie@kernel.org>, Borislav Petkov <bp@alien8.de>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
@@ -144,16 +147,17 @@ Cc: Juri Lelli <juri.lelli@redhat.com>, Andrew Lunn <andrew@lunn.ch>,
  Herbert Xu <herbert@gondor.apana.org.au>,
  Florian Fainelli <florian.fainelli@broadcom.com>,
  Richard Weinberger <richard@nod.at>, x86@kernel.org, qat-linux@intel.com,
- linux-bcachefs@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Ingo Molnar <mingo@redhat.com>, Chunfeng Yun <chunfeng.yun@mediatek.com>,
- Jakub Kicinski <kuba@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ linux-bcachefs@vger.kernel.org, Ingo Molnar <mingo@redhat.com>,
+ Chunfeng Yun <chunfeng.yun@mediatek.com>, Jakub Kicinski <kuba@kernel.org>,
+ Zhang Rui <rui.zhang@intel.com>,
  Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
+ platform-driver-x86@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
  Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
  Miquel Raynal <miquel.raynal@bootlin.com>, Kalle Valo <kvalo@kernel.org>,
  apparmor@lists.ubuntu.com, Hans de Goede <hdegoede@redhat.com>,
  linux-mediatek@lists.infradead.org, Nicholas Piggin <npiggin@gmail.com>,
  Benjamin Berg <benjamin.berg@intel.com>, linux-tegra@vger.kernel.org,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  intel-xe@lists.freedesktop.org,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
  Liam Girdwood <lgirdwood@gmail.com>, netdev@vger.kernel.org,
@@ -169,234 +173,58 @@ Cc: Juri Lelli <juri.lelli@redhat.com>, Andrew Lunn <andrew@lunn.ch>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Hi Andy,
+On Tue, 04 Jun 2024 10:45:37 +0300
+Jani Nikula <jani.nikula@linux.intel.com> wrote:
 
-On Sun, Jun 02, 2024 at 06:57:12PM +0300, Andy Shevchenko wrote:
-> Make two APIs look similar. Hence convert match_string() to be
-> a 2-argument macro. In order to avoid unneeded churn, convert
-> all users as well. There is no functional change intended.
+> On Sun, 02 Jun 2024, Andy Shevchenko <andriy.shevchenko@linux.intel.com> wrote:
+> > Make two APIs look similar. Hence convert match_string() to be
+> > a 2-argument macro. In order to avoid unneeded churn, convert
+> > all users as well. There is no functional change intended.  
 > 
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-
-nice patch, I checked some (maybe most) of your changes. There
-are a few unrelated changes which I don't mind, but there are two
-errors where the error value changes from ENODEV to EINVAL.
-
-Find the comments through the line.
-
-...
-
-> diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
-> index 1b7e82a0ad2e..b6f52f44625f 100644
-> --- a/drivers/cpufreq/amd-pstate.c
-> +++ b/drivers/cpufreq/amd-pstate.c
-> @@ -1117,9 +1117,9 @@ static ssize_t store_energy_performance_preference(
->  	if (ret != 1)
->  		return -EINVAL;
->  
-> -	ret = match_string(energy_perf_strings, -1, str_preference);
-> +	ret = __match_string(energy_perf_strings, -1, str_preference);
->  	if (ret < 0)
-> -		return -EINVAL;
-> +		return ret;
-
-a bit of unrelated changes here, but I guess no one will complain :-)
-
->  
->  	mutex_lock(&amd_pstate_limits_lock);
->  	ret = amd_pstate_set_energy_pref_index(cpudata, ret);
-
-...
-
-> diff --git a/drivers/mmc/host/sdhci-xenon-phy.c b/drivers/mmc/host/sdhci-xenon-phy.c
-> index cc9d28b75eb9..1865e26ae736 100644
-> --- a/drivers/mmc/host/sdhci-xenon-phy.c
-> +++ b/drivers/mmc/host/sdhci-xenon-phy.c
-> @@ -135,15 +135,14 @@ struct xenon_emmc_phy_regs {
->  	u32 logic_timing_val;
->  };
->  
-> -static const char * const phy_types[] = {
-> -	"emmc 5.0 phy",
-> -	"emmc 5.1 phy"
-> -};
-> -
->  enum xenon_phy_type_enum {
->  	EMMC_5_0_PHY,
->  	EMMC_5_1_PHY,
-> -	NR_PHY_TYPES
-> +};
-> +
-> +static const char * const phy_types[] = {
-> +	[EMMC_5_0_PHY] = "emmc 5.0 phy",
-> +	[EMMC_5_1_PHY] = "emmc 5.1 phy",
->  };
-
-Another unrelated cleanup, but I don't complain
-
->  enum soc_pad_ctrl_type {
-
-...
-
-> -	tablet_found = match_string(tablet_chassis_types,
-> -				    ARRAY_SIZE(tablet_chassis_types),
-> -				    chassis_type) >= 0;
-> -	if (!tablet_found)
-> -		return -ENODEV;
-> +	ret = match_string(tablet_chassis_types, chassis_type);
-> +	if (ret < 0)
-> +		return ret;
-
-This is a logical change though, because we are changing from
--ENODEV to -EINVAL. Even if it might look the right thing, but
-still, it's a logical change.
-
->  
->  	ret = hp_wmi_perform_query(HPWMI_SYSTEM_DEVICE_MODE, HPWMI_READ,
->  				   system_device_mode, zero_if_sup(system_device_mode),
-> @@ -490,9 +487,7 @@ static bool is_omen_thermal_profile(void)
->  	if (!board_name)
->  		return false;
->  
-> -	return match_string(omen_thermal_profile_boards,
-> -			    ARRAY_SIZE(omen_thermal_profile_boards),
-> -			    board_name) >= 0;
-> +	return match_string(omen_thermal_profile_boards, board_name) >= 0;
->  }
->  
->  static int omen_get_thermal_policy_version(void)
-
-...
-
-> diff --git a/drivers/thermal/intel/int340x_thermal/processor_thermal_rfim.c b/drivers/thermal/intel/int340x_thermal/processor_thermal_rfim.c
-> index e56db75a94fb..dbd176b0fb1f 100644
-> --- a/drivers/thermal/intel/int340x_thermal/processor_thermal_rfim.c
-> +++ b/drivers/thermal/intel/int340x_thermal/processor_thermal_rfim.c
-> @@ -111,7 +111,7 @@ static ssize_t suffix##_show(struct device *dev,\
->  		match_strs = (const char **)fivr_strings;\
->  		mmio_regs = tgl_fivr_mmio_regs;\
->  	} \
-> -	ret = match_string(match_strs, -1, attr->attr.name);\
-> +	ret = __match_string(match_strs, -1, attr->attr.name);\
->  	if (ret < 0)\
->  		return ret;\
->  	reg_val = readl((void __iomem *) (proc_priv->mmio_base + mmio_regs[ret].offset));\
-> @@ -145,7 +145,7 @@ static ssize_t suffix##_store(struct device *dev,\
->  		mmio_regs = tgl_fivr_mmio_regs;\
->  	} \
->  	\
-> -	ret = match_string(match_strs, -1, attr->attr.name);\
-> +	ret = __match_string(match_strs, -1, attr->attr.name);\
->  	if (ret < 0)\
->  		return ret;\
->  	if (mmio_regs[ret].read_only)\
-> diff --git a/drivers/thermal/intel/int340x_thermal/processor_thermal_wt_req.c b/drivers/thermal/intel/int340x_thermal/processor_thermal_wt_req.c
-> index f298e7442662..57f456befb34 100644
-> --- a/drivers/thermal/intel/int340x_thermal/processor_thermal_wt_req.c
-> +++ b/drivers/thermal/intel/int340x_thermal/processor_thermal_wt_req.c
-> @@ -50,7 +50,7 @@ static ssize_t workload_type_store(struct device *dev,
->  	if (ret != 1)
->  		return -EINVAL;
->  
-> -	ret = match_string(workload_types, -1, str_preference);
-> +	ret = __match_string(workload_types, -1, str_preference);
-
-We could even thing of a "match_string_terminated" (or a better
-name), but maybe it's too much?
-
->  	if (ret < 0)
->  		return ret;
->  
-
-...
-
-> -	c->auth_hash_algo = match_string(hash_algo_name, HASH_ALGO__LAST,
-> -					 c->auth_hash_name);
-> -	if ((int)c->auth_hash_algo < 0) {
-> +	err = __match_string(hash_algo_name, HASH_ALGO__LAST, c->auth_hash_name);
-> +	if (err < 0) {
->  		ubifs_err(c, "Unknown hash algo %s specified",
->  			  c->auth_hash_name);
-> -		return -EINVAL;
-> +		return err;
-
-This is correct!
-
->  	}
-> +	c->auth_hash_algo = err;
->  
->  	snprintf(hmac_name, CRYPTO_MAX_ALG_NAME, "hmac(%s)",
->  		 c->auth_hash_name);
-
-...
-
-> +int __match_string(const char * const *array, size_t n, const char *string);
-> +
-> +/**
-> + * match_string - matches given string in an array
-> + * @_a: array of strings
-> + * @_s: string to match with
-> + *
-> + * Helper for __match_string(). Calculates the size of @a automatically.
-
-/@a/@_a/
-
-> + */
-> +#define match_string(_a, _s) __match_string(_a, ARRAY_SIZE(_a), _s)
-> +
-
-...
-
-> diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
-> index 6239777090c4..e3fc94b4c7e5 100644
-> --- a/security/apparmor/lsm.c
-> +++ b/security/apparmor/lsm.c
-> @@ -1820,9 +1820,9 @@ static int param_set_audit(const char *val, const struct kernel_param *kp)
->  	if (apparmor_initialized && !aa_current_policy_admin_capable(NULL))
->  		return -EPERM;
->  
-> -	i = match_string(audit_mode_names, AUDIT_MAX_INDEX, val);
-> +	i = __match_string(audit_mode_names, AUDIT_MAX_INDEX, val);
-
-pity here... this could have been a match_string, but the
-MAX_INDEX is hardcoded outside the enum.
-
->  	if (i < 0)
-> -		return -EINVAL;
-> +		return i;
->  
->  	aa_g_audit = i;
->  	return 0;
-
-...
-
-> diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
-> index 16dad4a45443..7064f4cae549 100644
-> --- a/sound/soc/soc-dapm.c
-> +++ b/sound/soc/soc-dapm.c
-> @@ -769,14 +769,13 @@ static int dapm_connect_mux(struct snd_soc_dapm_context *dapm,
->  		item = 0;
->  	}
->  
-> -	i = match_string(e->texts, e->items, control_name);
-> +	i = __match_string(e->texts, e->items, control_name);
->  	if (i < 0)
-> -		return -ENODEV;
-> +		return i;
-
-Also this return value is wrong.
-
-Andi
-
->  
->  	path->name = e->texts[i];
->  	path->connect = (i == item);
->  	return 0;
-> -
->  }
->  
->  /* set up initial codec paths */
-> -- 
-> 2.43.0.rc1.1336.g36b5255a03ac
+> Why do we think it's a good idea to increase and normalize the use of
+> double-underscore function names across the kernel, like
+> __match_string() in this case? It should mean "reserved for the
+> implementation, not to be called directly".
 > 
+> If it's to be used directly, it should be named accordingly, right?
+> 
+> Being in line with __sysfs_match_string() isn't a great argument alone,
+> because this adds three times the number of __match_string() calls than
+> there are __sysfs_match_string() calls. It's not a good model to follow.
+> Arguably both should be renamed.
+
+Agreed. I want to get rid of any functions starting with an underscore
+except for those that are basically the same function used internally for
+convenience.
+
+Perhaps "match_string_dynamic()"? Where it is used for dynamically
+allocated arrays without known size. Or, allow a third parameter for
+dynamic arrays.
+
+#define match_string(_a, _s, ...)
+	char _______STR[] = __stringify((__VA_ARGS__));	\
+	if (sizeof(_______STR) > 3)			\
+		__match_string(_a, _s, ##__VA_ARGS__);  \
+	else						\
+		__match_string(_a, _s, ARRAY_SIZE(_a));
+
+What the above stringify((__VA_ARGS__)) does is to check the size of any
+args added to match_string(). if there isn't any, it will turn into:
+"()\0", which is of size 3. If you add an argument, it will be:
+"(<arg>)\0", which will have a size greater than three.
+
+(trace_printk() does this trick in include/linux/kernel.h).
+
+This way, both:
+
+ match_string(array, sting);
+
+or
+
+ match_string(array, string, size);
+
+will work.
+
+-- Steve
+
 
