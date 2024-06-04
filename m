@@ -2,98 +2,97 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9C868FA86A
-	for <lists+apparmor@lfdr.de>; Tue,  4 Jun 2024 04:52:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78E5A8FACB0
+	for <lists+apparmor@lfdr.de>; Tue,  4 Jun 2024 09:56:19 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1sEKHH-0000c1-Ks; Tue, 04 Jun 2024 02:51:59 +0000
-Received: from szxga01-in.huawei.com ([45.249.212.187])
+	id 1sEP1d-0007Gs-UB; Tue, 04 Jun 2024 07:56:09 +0000
+Received: from sin.source.kernel.org ([145.40.73.55])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <chengzhihao1@huawei.com>)
- id 1sEJ80-0001Yg-1p
- for apparmor@lists.ubuntu.com; Tue, 04 Jun 2024 01:38:20 +0000
-Received: from mail.maildlp.com (unknown [172.19.163.252])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4VtY6M5szWzwRV0;
- Tue,  4 Jun 2024 09:34:19 +0800 (CST)
-Received: from kwepemm600013.china.huawei.com (unknown [7.193.23.68])
- by mail.maildlp.com (Postfix) with ESMTPS id 7C016180069;
- Tue,  4 Jun 2024 09:38:14 +0800 (CST)
-Received: from [10.174.178.46] (10.174.178.46) by
- kwepemm600013.china.huawei.com (7.193.23.68) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.39; Tue, 4 Jun 2024 09:38:02 +0800
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, "Rafael J. Wysocki"
- <rafael.j.wysocki@intel.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Corey Minyard <minyard@acm.org>, Allen Pais
- <apais@linux.microsoft.com>, Sebastian Reichel
- <sebastian.reichel@collabora.com>, Perry Yuan <perry.yuan@amd.com>, Giovanni
- Cabiddu <giovanni.cabiddu@intel.com>, Herbert Xu
- <herbert@gondor.apana.org.au>, Nuno Sa <nuno.sa@analog.com>, Guenter Roeck
- <linux@roeck-us.net>, Randy Dunlap <rdunlap@infradead.org>, Andi Shyti
- <andi.shyti@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>, Lee Jones
- <lee@kernel.org>, Samuel Holland <samuel@sholland.org>, Elad Nachman
- <enachman@marvell.com>, Arseniy Krasnov <AVKrasnov@sberdevices.ru>, Johannes
- Berg <johannes.berg@intel.com>, Gregory Greenman
- <gregory.greenman@intel.com>, Benjamin Berg <benjamin.berg@intel.com>, Bjorn
- Helgaas <bhelgaas@google.com>, Robert Richter <rrichter@amd.com>, Vinod Koul
- <vkoul@kernel.org>, Chunfeng Yun <chunfeng.yun@mediatek.com>, Linus Walleij
- <linus.walleij@linaro.org>, Hans de Goede <hdegoede@redhat.com>,
- =?UTF-8?Q?Ilpo_J=c3=a4rvinen?= <ilpo.jarvinen@linux.intel.com>, Nikita
- Kravets <teackot@gmail.com>, Jiri Slaby <jirislaby@kernel.org>, Srinivas
- Pandruvada <srinivas.pandruvada@linux.intel.com>, Stanley Chang
- <stanley_chang@realtek.com>, Heikki Krogerus
- <heikki.krogerus@linux.intel.com>, Abdel Alkuor <abdelalkuor@geotab.com>,
- Kent Overstreet <kent.overstreet@linux.dev>, Eric Biggers
- <ebiggers@google.com>, Kees Cook <keescook@chromium.org>, Ingo Molnar
- <mingo@kernel.org>, "Steven Rostedt (Google)" <rostedt@goodmis.org>, Daniel
- Bristot de Oliveira <bristot@kernel.org>, Andrew Morton
- <akpm@linux-foundation.org>, Hugh Dickins <hughd@google.com>, Abel Wu
- <wuyun.abel@bytedance.com>, John Johansen <john.johansen@canonical.com>, Mimi
- Zohar <zohar@linux.ibm.com>, Stefan Berger <stefanb@linux.ibm.com>, Roberto
- Sassu <roberto.sassu@huawei.com>, Eric Snowberg <eric.snowberg@oracle.com>,
- Takashi Iwai <tiwai@suse.de>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
- Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, Mark Brown
- <broonie@kernel.org>, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- <linuxppc-dev@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
- <keyrings@vger.kernel.org>, <linux-crypto@vger.kernel.org>,
- <linux-acpi@vger.kernel.org>, <linux-ide@vger.kernel.org>,
- <openipmi-developer@lists.sourceforge.net>, <linux-clk@vger.kernel.org>,
- <linux-rpi-kernel@lists.infradead.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-rockchip@lists.infradead.org>, 
- <linux-tegra@vger.kernel.org>, <linux-pm@vger.kernel.org>,
- <qat-linux@intel.com>, <dri-devel@lists.freedesktop.org>,
- <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <nouveau@lists.freedesktop.org>, <linux-hwmon@vger.kernel.org>,
- <linux-i2c@vger.kernel.org>, <linux-leds@vger.kernel.org>,
- <linux-sunxi@lists.linux.dev>, <linux-omap@vger.kernel.org>,
- <linux-mmc@vger.kernel.org>, <linux-mtd@lists.infradead.org>,
- <netdev@vger.kernel.org>, <linux-wireless@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <linux-mediatek@lists.infradead.org>,
- <linux-phy@lists.infradead.org>, <linux-gpio@vger.kernel.org>,
- <platform-driver-x86@vger.kernel.org>, <linux-staging@lists.linux.dev>,
- <linux-usb@vger.kernel.org>, <linux-fbdev@vger.kernel.org>,
- <linux-bcachefs@vger.kernel.org>, <linux-hardening@vger.kernel.org>,
- <cgroups@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>,
- <linux-mm@kvack.org>, <apparmor@lists.ubuntu.com>,
- <linux-security-module@vger.kernel.org>, <linux-integrity@vger.kernel.org>,
- <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>
-References: <20240603211538.289765-1-andriy.shevchenko@linux.intel.com>
-From: Zhihao Cheng <chengzhihao1@huawei.com>
-Message-ID: <a6cff4d3-821a-3723-b261-3699053b5a51@huawei.com>
-Date: Tue, 4 Jun 2024 09:37:50 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+ (Exim 4.86_2) (envelope-from <bristot@kernel.org>)
+ id 1sENtw-0008PG-Rs
+ for apparmor@lists.ubuntu.com; Tue, 04 Jun 2024 06:44:09 +0000
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 87C00CE0F1E;
+ Tue,  4 Jun 2024 06:44:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDE40C2BBFC;
+ Tue,  4 Jun 2024 06:43:09 +0000 (UTC)
+Message-ID: <0ea564fa-5405-444a-befb-ca4372817e33@kernel.org>
+Date: Tue, 4 Jun 2024 08:42:41 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Corey Minyard <minyard@acm.org>, Allen Pais <apais@linux.microsoft.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Perry Yuan <perry.yuan@amd.com>,
+ Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>, Nuno Sa <nuno.sa@analog.com>,
+ Guenter Roeck <linux@roeck-us.net>, Randy Dunlap <rdunlap@infradead.org>,
+ Andi Shyti <andi.shyti@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Lee Jones <lee@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ Elad Nachman <enachman@marvell.com>,
+ Arseniy Krasnov <AVKrasnov@sberdevices.ru>,
+ Johannes Berg <johannes.berg@intel.com>,
+ Gregory Greenman <gregory.greenman@intel.com>,
+ Benjamin Berg <benjamin.berg@intel.com>, Bjorn Helgaas
+ <bhelgaas@google.com>, Robert Richter <rrichter@amd.com>,
+ Vinod Koul <vkoul@kernel.org>, Chunfeng Yun <chunfeng.yun@mediatek.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Hans de Goede
+ <hdegoede@redhat.com>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?=
+ <ilpo.jarvinen@linux.intel.com>, Nikita Kravets <teackot@gmail.com>,
+ Jiri Slaby <jirislaby@kernel.org>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Stanley Chang <stanley_chang@realtek.com>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Abdel Alkuor <abdelalkuor@geotab.com>,
+ Kent Overstreet <kent.overstreet@linux.dev>,
+ Eric Biggers <ebiggers@google.com>, Kees Cook <keescook@chromium.org>,
+ Ingo Molnar <mingo@kernel.org>, "Steven Rostedt (Google)"
+ <rostedt@goodmis.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Hugh Dickins <hughd@google.com>, Abel Wu <wuyun.abel@bytedance.com>,
+ John Johansen <john.johansen@canonical.com>, Mimi Zohar
+ <zohar@linux.ibm.com>, Stefan Berger <stefanb@linux.ibm.com>,
+ Roberto Sassu <roberto.sassu@huawei.com>,
+ Eric Snowberg <eric.snowberg@oracle.com>, Takashi Iwai <tiwai@suse.de>,
+ Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+ Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
+ Mark Brown <broonie@kernel.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ keyrings@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-acpi@vger.kernel.org, linux-ide@vger.kernel.org,
+ openipmi-developer@lists.sourceforge.net, linux-clk@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-pm@vger.kernel.org, qat-linux@intel.com,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-hwmon@vger.kernel.org, linux-i2c@vger.kernel.org,
+ linux-leds@vger.kernel.org, linux-sunxi@lists.linux.dev,
+ linux-omap@vger.kernel.org, linux-mmc@vger.kernel.org,
+ linux-mtd@lists.infradead.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org,
+ linux-gpio@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-usb@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, linux-bcachefs@vger.kernel.org,
+ linux-hardening@vger.kernel.org, cgroups@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-mm@kvack.org,
+ apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
+ linux-integrity@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-sound@vger.kernel.org
+References: <20240603211538.289765-1-andriy.shevchenko@linux.intel.com>
+Content-Language: en-US, pt-BR, it-IT
+From: Daniel Bristot de Oliveira <bristot@kernel.org>
 In-Reply-To: <20240603211538.289765-1-andriy.shevchenko@linux.intel.com>
-Content-Type: text/plain; charset="gbk"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.174.178.46]
-X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
- kwepemm600013.china.huawei.com (7.193.23.68)
-Received-SPF: pass client-ip=45.249.212.187;
- envelope-from=chengzhihao1@huawei.com; helo=szxga01-in.huawei.com
-X-Mailman-Approved-At: Tue, 04 Jun 2024 02:51:58 +0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Received-SPF: pass client-ip=145.40.73.55; envelope-from=bristot@kernel.org;
+ helo=sin.source.kernel.org
+X-Mailman-Approved-At: Tue, 04 Jun 2024 07:56:09 +0000
 Subject: Re: [apparmor] [PATCH v1 1/1] treewide: Align match_string() with
  sysfs_match_string()
 X-BeenThere: apparmor@lists.ubuntu.com
@@ -120,13 +119,13 @@ Cc: Juri Lelli <juri.lelli@redhat.com>, Andrew Lunn <andrew@lunn.ch>,
  Tvrtko Ursulin <tursulin@ursulin.net>, Danilo Krummrich <dakr@redhat.com>,
  Mel Gorman <mgorman@suse.de>, Jean Delvare <jdelvare@suse.com>,
  Potnuri Bharat Teja <bharat@chelsio.com>, Nicholas Piggin <npiggin@gmail.com>,
- Thomas Gleixner <tglx@linutronix.de>,
+ Thomas Gleixner <tglx@linutronix.de>, Zhihao Cheng <chengzhihao1@huawei.com>,
  Dietmar Eggemann <dietmar.eggemann@arm.com>,
  Scott Branden <sbranden@broadcom.com>,
  Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
  Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
- Masami Hiramatsu <mhiramat@kernel.org>, "Gautham R.
- Shenoy" <gautham.shenoy@amd.com>, Tejun Heo <tj@kernel.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ "Gautham R. Shenoy" <gautham.shenoy@amd.com>, Tejun Heo <tj@kernel.org>,
  Linus Torvalds <torvalds@linux-foundation.org>,
  Lukasz Luba <lukasz.luba@arm.com>, Zefan Li <lizefan.x@bytedance.com>,
  Dave Hansen <dave.hansen@linux.intel.com>,
@@ -151,8 +150,7 @@ Cc: Juri Lelli <juri.lelli@redhat.com>, Andrew Lunn <andrew@lunn.ch>,
  Jernej Skrabec <jernej.skrabec@gmail.com>,
  Peter Zijlstra <peterz@infradead.org>, Chen-Yu Tsai <wens@csie.org>,
  Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- "Naveen
- N. Rao" <naveen.n.rao@linux.ibm.com>, Paolo Abeni <pabeni@redhat.com>,
+ "Naveen N. Rao" <naveen.n.rao@linux.ibm.com>, Paolo Abeni <pabeni@redhat.com>,
  "Serge E. Hallyn" <serge@hallyn.com>, Lyude Paul <lyude@redhat.com>,
  Ray Jui <rjui@broadcom.com>, Damien Le Moal <dlemoal@kernel.org>,
  Borislav Petkov <bp@alien8.de>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
@@ -181,41 +179,26 @@ Cc: Juri Lelli <juri.lelli@redhat.com>, Andrew Lunn <andrew@lunn.ch>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-ÔÚ 2024/6/2 23:57, Andy Shevchenko Ð´µÀ:
-> Make two APIs look similar. Hence convert match_string() to be
-> a 2-argument macro. In order to avoid unneeded churn, convert
-> all users as well. There is no functional change intended.
-> 
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> ---
-> 
-> Compile tested with `make allyesconfig` and `make allmodconfig`
-> on x86_64, arm, aarch64, powerpc64 (8 builds total).
-> 
-
-[...]
-> diff --git a/fs/ubifs/auth.c b/fs/ubifs/auth.c
-> index a4a0158f712d..fc0da18bfa65 100644
-> --- a/fs/ubifs/auth.c
-> +++ b/fs/ubifs/auth.c
-> @@ -264,13 +264,13 @@ int ubifs_init_authentication(struct ubifs_info *c)
->   		return -EINVAL;
->   	}
->   
-> -	c->auth_hash_algo = match_string(hash_algo_name, HASH_ALGO__LAST,
-> -					 c->auth_hash_name);
-> -	if ((int)c->auth_hash_algo < 0) {
-> +	err = __match_string(hash_algo_name, HASH_ALGO__LAST, c->auth_hash_name);
-> +	if (err < 0) {
->   		ubifs_err(c, "Unknown hash algo %s specified",
->   			  c->auth_hash_name);
+On 6/2/24 17:57, Andy Shevchenko wrote:
+> diff --git a/kernel/trace/trace_osnoise.c b/kernel/trace/trace_osnoise.c
+> index a8e28f9b9271..7bed499effd3 100644
+> --- a/kernel/trace/trace_osnoise.c
+> +++ b/kernel/trace/trace_osnoise.c
+> @@ -2230,9 +2230,9 @@ static ssize_t osnoise_options_write(struct file *filp, const char __user *ubuf,
+>  		enable = false;
+>  	}
+>  
+> -	option = match_string(osnoise_options_str, OSN_MAX, option_str);
+> +	option = match_string(osnoise_options_str, option_str);
+>  	if (option < 0)
 > -		return -EINVAL;
-> +		return err;
->   	}
-> +	c->auth_hash_algo = err;
->   
->   	snprintf(hmac_name, CRYPTO_MAX_ALG_NAME, "hmac(%s)",
->   		 c->auth_hash_name);
+> +		return option;
+>  
+>  	/*
+>  	 * trace_types_lock is taken to avoid concurrency on start/stop.
 
-Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>  # fs/ubifs
+Acked-by: Daniel Bristot de Oliveira <bristot@kernel.org>
+
+Thanks!
+-- Daniel
 
