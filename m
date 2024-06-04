@@ -2,26 +2,22 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78E5A8FACB0
+	by mail.lfdr.de (Postfix) with ESMTPS id BE5AC8FACB1
 	for <lists+apparmor@lfdr.de>; Tue,  4 Jun 2024 09:56:19 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1sEP1d-0007Gs-UB; Tue, 04 Jun 2024 07:56:09 +0000
-Received: from sin.source.kernel.org ([145.40.73.55])
+	id 1sEP1e-0007Gz-1E; Tue, 04 Jun 2024 07:56:10 +0000
+Received: from gloria.sntech.de ([185.11.138.130])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <bristot@kernel.org>)
- id 1sENtw-0008PG-Rs
- for apparmor@lists.ubuntu.com; Tue, 04 Jun 2024 06:44:09 +0000
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 87C00CE0F1E;
- Tue,  4 Jun 2024 06:44:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDE40C2BBFC;
- Tue,  4 Jun 2024 06:43:09 +0000 (UTC)
-Message-ID: <0ea564fa-5405-444a-befb-ca4372817e33@kernel.org>
-Date: Tue, 4 Jun 2024 08:42:41 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+ (Exim 4.86_2) (envelope-from <heiko@sntech.de>) id 1sEOa6-0003Tn-Vl
+ for apparmor@lists.ubuntu.com; Tue, 04 Jun 2024 07:27:43 +0000
+Received: from i53875b65.versanet.de ([83.135.91.101] helo=diego.localnet)
+ by gloria.sntech.de with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <heiko@sntech.de>)
+ id 1sEOYO-00059Y-9F; Tue, 04 Jun 2024 09:25:56 +0200
+From: Heiko =?ISO-8859-1?Q?St=FCbner?= <heiko@sntech.de>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -37,24 +33,26 @@ To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Arseniy Krasnov <AVKrasnov@sberdevices.ru>,
  Johannes Berg <johannes.berg@intel.com>,
  Gregory Greenman <gregory.greenman@intel.com>,
- Benjamin Berg <benjamin.berg@intel.com>, Bjorn Helgaas
- <bhelgaas@google.com>, Robert Richter <rrichter@amd.com>,
- Vinod Koul <vkoul@kernel.org>, Chunfeng Yun <chunfeng.yun@mediatek.com>,
- Linus Walleij <linus.walleij@linaro.org>, Hans de Goede
- <hdegoede@redhat.com>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?=
- <ilpo.jarvinen@linux.intel.com>, Nikita Kravets <teackot@gmail.com>,
- Jiri Slaby <jirislaby@kernel.org>,
+ Benjamin Berg <benjamin.berg@intel.com>, Bjorn Helgaas <bhelgaas@google.com>, 
+ Robert Richter <rrichter@amd.com>, Vinod Koul <vkoul@kernel.org>,
+ Chunfeng Yun <chunfeng.yun@mediatek.com>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Hans de Goede <hdegoede@redhat.com>,
+ Ilpo =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Nikita Kravets <teackot@gmail.com>, Jiri Slaby <jirislaby@kernel.org>,
  Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
  Stanley Chang <stanley_chang@realtek.com>,
  Heikki Krogerus <heikki.krogerus@linux.intel.com>,
  Abdel Alkuor <abdelalkuor@geotab.com>,
  Kent Overstreet <kent.overstreet@linux.dev>,
  Eric Biggers <ebiggers@google.com>, Kees Cook <keescook@chromium.org>,
- Ingo Molnar <mingo@kernel.org>, "Steven Rostedt (Google)"
- <rostedt@goodmis.org>, Andrew Morton <akpm@linux-foundation.org>,
- Hugh Dickins <hughd@google.com>, Abel Wu <wuyun.abel@bytedance.com>,
- John Johansen <john.johansen@canonical.com>, Mimi Zohar
- <zohar@linux.ibm.com>, Stefan Berger <stefanb@linux.ibm.com>,
+ Ingo Molnar <mingo@kernel.org>,
+ "Steven Rostedt (Google)" <rostedt@goodmis.org>,
+ Daniel Bristot de Oliveira <bristot@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Hugh Dickins <hughd@google.com>,
+ Abel Wu <wuyun.abel@bytedance.com>,
+ John Johansen <john.johansen@canonical.com>,
+ Mimi Zohar <zohar@linux.ibm.com>, Stefan Berger <stefanb@linux.ibm.com>,
  Roberto Sassu <roberto.sassu@huawei.com>,
  Eric Snowberg <eric.snowberg@oracle.com>, Takashi Iwai <tiwai@suse.de>,
  Takashi Sakamoto <o-takashi@sakamocchi.jp>,
@@ -83,18 +81,20 @@ To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  linux-trace-kernel@vger.kernel.org, linux-mm@kvack.org,
  apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
  linux-integrity@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-sound@vger.kernel.org
-References: <20240603211538.289765-1-andriy.shevchenko@linux.intel.com>
-Content-Language: en-US, pt-BR, it-IT
-From: Daniel Bristot de Oliveira <bristot@kernel.org>
+ linux-sound@vger.kernel.org,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Date: Tue, 04 Jun 2024 09:25:48 +0200
+Message-ID: <10804325.aFP6jjVeTY@diego>
 In-Reply-To: <20240603211538.289765-1-andriy.shevchenko@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=145.40.73.55; envelope-from=bristot@kernel.org;
- helo=sin.source.kernel.org
+References: <20240603211538.289765-1-andriy.shevchenko@linux.intel.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Received-SPF: pass client-ip=185.11.138.130; envelope-from=heiko@sntech.de;
+ helo=gloria.sntech.de
 X-Mailman-Approved-At: Tue, 04 Jun 2024 07:56:09 +0000
-Subject: Re: [apparmor] [PATCH v1 1/1] treewide: Align match_string() with
- sysfs_match_string()
+Subject: [apparmor] Re: [PATCH v1 1/1] treewide: Align match_string() with
+	sysfs_match_string()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -107,7 +107,7 @@ List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
 Cc: Juri Lelli <juri.lelli@redhat.com>, Andrew Lunn <andrew@lunn.ch>,
- Prashant Gaikwad <pgaikwad@nvidia.com>, Heiko Stuebner <heiko@sntech.de>,
+ Prashant Gaikwad <pgaikwad@nvidia.com>,
  "Rafael J. Wysocki" <rafael@kernel.org>,
  Viresh Kumar <viresh.kumar@linaro.org>, Jaroslav Kysela <perex@perex.cz>,
  Ben Segall <bsegall@google.com>, Pavel Machek <pavel@ucw.cz>,
@@ -126,12 +126,10 @@ Cc: Juri Lelli <juri.lelli@redhat.com>, Andrew Lunn <andrew@lunn.ch>,
  Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
  Masami Hiramatsu <mhiramat@kernel.org>,
  "Gautham R. Shenoy" <gautham.shenoy@amd.com>, Tejun Heo <tj@kernel.org>,
- Linus Torvalds <torvalds@linux-foundation.org>,
  Lukasz Luba <lukasz.luba@arm.com>, Zefan Li <lizefan.x@bytedance.com>,
  Dave Hansen <dave.hansen@linux.intel.com>,
- Clemens Ladisch <clemens@ladisch.de>, Liam Girdwood <lgirdwood@gmail.com>,
- Hu Ziji <huziji@marvell.com>, Eric Dumazet <edumazet@google.com>,
- Thierry Reding <thierry.reding@gmail.com>,
+ Clemens Ladisch <clemens@ladisch.de>, Hu Ziji <huziji@marvell.com>,
+ Eric Dumazet <edumazet@google.com>, Thierry Reding <thierry.reding@gmail.com>,
  Oliver O'Halloran <oohall@gmail.com>,
  Mario Limonciello <mario.limonciello@amd.com>,
  Valentin Schneider <vschneid@redhat.com>, Paul Moore <paul@paul-moore.com>,
@@ -158,10 +156,10 @@ Cc: Juri Lelli <juri.lelli@redhat.com>, Andrew Lunn <andrew@lunn.ch>,
  Sebastian Reichel <sre@kernel.org>, Daniel Scally <djrscally@gmail.com>,
  JC Kuo <jckuo@nvidia.com>, Sakari Ailus <sakari.ailus@linux.intel.com>,
  "David S. Miller" <davem@davemloft.net>, Vignesh Raghavendra <vigneshr@ti.com>,
- Tony Lindgren <tony@atomide.com>, Takashi Iwai <tiwai@suse.com>,
- David Howells <dhowells@redhat.com>, Niklas Cassel <cassel@kernel.org>,
- Huang Rui <ray.huang@amd.com>, "H. Peter Anvin" <hpa@zytor.com>,
- David Airlie <airlied@gmail.com>, Jim Cromie <jim.cromie@gmail.com>,
+ Tony Lindgren <tony@atomide.com>, David Howells <dhowells@redhat.com>,
+ Niklas Cassel <cassel@kernel.org>, Huang Rui <ray.huang@amd.com>,
+ "H. Peter Anvin" <hpa@zytor.com>, David Airlie <airlied@gmail.com>,
+ Jim Cromie <jim.cromie@gmail.com>,
  Florian Fainelli <florian.fainelli@broadcom.com>,
  Richard Weinberger <richard@nod.at>, x86@kernel.org,
  Ingo Molnar <mingo@redhat.com>, Jakub Kicinski <kuba@kernel.org>,
@@ -179,26 +177,47 @@ Cc: Juri Lelli <juri.lelli@redhat.com>, Andrew Lunn <andrew@lunn.ch>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 6/2/24 17:57, Andy Shevchenko wrote:
-> diff --git a/kernel/trace/trace_osnoise.c b/kernel/trace/trace_osnoise.c
-> index a8e28f9b9271..7bed499effd3 100644
-> --- a/kernel/trace/trace_osnoise.c
-> +++ b/kernel/trace/trace_osnoise.c
-> @@ -2230,9 +2230,9 @@ static ssize_t osnoise_options_write(struct file *filp, const char __user *ubuf,
->  		enable = false;
->  	}
->  
-> -	option = match_string(osnoise_options_str, OSN_MAX, option_str);
-> +	option = match_string(osnoise_options_str, option_str);
->  	if (option < 0)
-> -		return -EINVAL;
-> +		return option;
->  
->  	/*
->  	 * trace_types_lock is taken to avoid concurrency on start/stop.
+Am Sonntag, 2. Juni 2024, 17:57:12 CEST schrieb Andy Shevchenko:
+> Make two APIs look similar. Hence convert match_string() to be
+> a 2-argument macro. In order to avoid unneeded churn, convert
+> all users as well. There is no functional change intended.
+> 
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> ---
+> 
+> Compile tested with `make allyesconfig` and `make allmodconfig`
+> on x86_64, arm, aarch64, powerpc64 (8 builds total).
+> 
+> I guess the best is to apply it to Linus' tree directly.
+> And now it seems a good timing as there are no new users
+> of this API either in v6.10-rcX, or in Linux Next.
+> 
+> But if you think differently, tell me.
+> 
 
-Acked-by: Daniel Bristot de Oliveira <bristot@kernel.org>
+For the Rockchip clock part
 
-Thanks!
--- Daniel
+>  drivers/clk/rockchip/clk.c                    |  4 +--
+
+[...]
+
+> diff --git a/drivers/clk/rockchip/clk.c b/drivers/clk/rockchip/clk.c
+> index 73d2cbdc716b..30414d081f46 100644
+> --- a/drivers/clk/rockchip/clk.c
+> +++ b/drivers/clk/rockchip/clk.c
+> @@ -266,8 +266,8 @@ static struct clk *rockchip_clk_register_frac_branch(
+>  		struct clk *mux_clk;
+>  		int ret;
+>  
+> -		frac->mux_frac_idx = match_string(child->parent_names,
+> -						  child->num_parents, name);
+> +		frac->mux_frac_idx = __match_string(child->parent_names,
+> +						    child->num_parents, name);
+>  		frac->mux_ops = &clk_mux_ops;
+>  		frac->clk_nb.notifier_call = rockchip_clk_frac_notifier_cb;
+>  
+
+Acked-by: Heiko Stuebner <heiko@sntech.de>
+
+
 
