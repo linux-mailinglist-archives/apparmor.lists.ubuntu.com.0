@@ -2,103 +2,72 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id E681D8FD2BD
-	for <lists+apparmor@lfdr.de>; Wed,  5 Jun 2024 18:19:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D85E901998
+	for <lists+apparmor@lfdr.de>; Mon, 10 Jun 2024 05:47:39 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1sEtMH-0001g2-KD; Wed, 05 Jun 2024 16:19:29 +0000
-Received: from madrid.collaboradmins.com ([46.235.227.194])
+	id 1sGW0B-0005SD-Q5; Mon, 10 Jun 2024 03:47:23 +0000
+Received: from flow3-smtp.messagingengine.com ([103.168.172.138])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2)
- (envelope-from <angelogioacchino.delregno@collabora.com>)
- id 1sEodq-0007Wb-95
- for apparmor@lists.ubuntu.com; Wed, 05 Jun 2024 11:17:18 +0000
-Received: from [100.113.186.2] (cola.collaboradmins.com [195.201.22.229])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: kholk11)
- by madrid.collaboradmins.com (Postfix) with ESMTPSA id 31E0437804C9;
- Wed,  5 Jun 2024 11:17:05 +0000 (UTC)
-Message-ID: <b017841b-0e52-4699-af1d-3620f35f79e0@collabora.com>
-Date: Wed, 5 Jun 2024 13:17:03 +0200
+ (Exim 4.86_2) (envelope-from <jcalmels@3xx0.net>) id 1sGFxj-0001zh-2z
+ for apparmor@lists.ubuntu.com; Sun, 09 Jun 2024 10:39:47 +0000
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
+ by mailflow.nyi.internal (Postfix) with ESMTP id E12AC200151;
+ Sun,  9 Jun 2024 06:39:45 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute6.internal (MEProxy); Sun, 09 Jun 2024 06:39:45 -0400
+X-ME-Sender: <xms:cYZlZk0NrIt22oj_PCTv7GPk8BKAdSC4CvBNBtXMlKrOds-jXCX6kg>
+ <xme:cYZlZvHzJl2uMqjDCy3roIoo-wPALzr84HqJipIzv4B8BezJaghk90YZwAoLHZaiY
+ m6JB2LvR0uL0Rgub5A>
+X-ME-Received: <xmr:cYZlZs67TIAQXuRvS4LNJsxIfRhJCMyiWqLUXp3W9CszFQYAOSHyy3BskIrFs2z4wP4f_IFOCGRfLW-6pzjocKeQK7xB5wKEeX-c2uzDAIy6Cw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrfedtjedgfedtucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhephffvvefufffkofggtgfgsehtkeertdertdejnecuhfhrohhmpeflohhnrght
+ hhgrnhcuvegrlhhmvghlshcuoehjtggrlhhmvghlshesfeiggidtrdhnvghtqeenucggtf
+ frrghtthgvrhhnpefhieevtdektdekvdfftdetudejvdejudekffelvdegteejueeujeeu
+ fefhieegfeenucffohhmrghinhepphgrmhgptggrphdrshhopdhkvghrnhgvlhdrohhrgh
+ enucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehjtggr
+ lhhmvghlshesfeiggidtrdhnvght
+X-ME-Proxy: <xmx:cYZlZt12MpxahFlMi53JTtlMs2HyPQa9_US94TsFreIjarv_5keVTg>
+ <xmx:cYZlZnHuRk7vWBuaU_r-RtQjzMj_tt4zI_yGC5SVMw6LoOjX-kDXRA>
+ <xmx:cYZlZm-of11IqdzrJfcOfQNEqi19HaNDmVivU5F753rXVxPN1UYGtw>
+ <xmx:cYZlZskCoHs4JNkY3J6Og298J1wP6jL-wswP_utkz1mzpGJkfCz-1Q>
+ <xmx:cYZlZnGSnk2LavPUrcuXBV7haSMyAl3K3F7V8QEGPjlkJBm2S4l_yIuo>
+Feedback-ID: i76614979:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 9 Jun 2024 06:39:41 -0400 (EDT)
+From: Jonathan Calmels <jcalmels@3xx0.net>
+To: brauner@kernel.org,	ebiederm@xmission.com,
+ Jonathan Corbet <corbet@lwn.net>,	Paul Moore <paul@paul-moore.com>,
+ James Morris <jmorris@namei.org>,	"Serge E. Hallyn" <serge@hallyn.com>,
+ KP Singh <kpsingh@kernel.org>,	Matt Bobrowski <mattbobrowski@google.com>,
+ Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>,
+ Martin KaFai Lau <martin.lau@linux.dev>,
+ Eduard Zingerman <eddyz87@gmail.com>,	Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>,
+ John Fastabend <john.fastabend@gmail.com>,
+ Stanislav Fomichev <sdf@google.com>,	Hao Luo <haoluo@google.com>,
+ Jiri Olsa <jolsa@kernel.org>,	Luis Chamberlain <mcgrof@kernel.org>,
+ Kees Cook <kees@kernel.org>,	Joel Granados <j.granados@samsung.com>,
+ John Johansen <john.johansen@canonical.com>,
+ David Howells <dhowells@redhat.com>,	Jarkko Sakkinen <jarkko@kernel.org>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Ondrej Mosnacek <omosnace@redhat.com>,	Mykola Lysenko <mykolal@fb.com>,
+ Shuah Khan <shuah@kernel.org>
+Date: Sun,  9 Jun 2024 03:43:33 -0700
+Message-ID: <20240609104355.442002-1-jcalmels@3xx0.net>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Corey Minyard <minyard@acm.org>, Allen Pais <apais@linux.microsoft.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Perry Yuan <perry.yuan@amd.com>,
- Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
- Herbert Xu <herbert@gondor.apana.org.au>, Nuno Sa <nuno.sa@analog.com>,
- Guenter Roeck <linux@roeck-us.net>, Randy Dunlap <rdunlap@infradead.org>,
- Andi Shyti <andi.shyti@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
- Lee Jones <lee@kernel.org>, Samuel Holland <samuel@sholland.org>,
- Elad Nachman <enachman@marvell.com>,
- Arseniy Krasnov <AVKrasnov@sberdevices.ru>,
- Johannes Berg <johannes.berg@intel.com>,
- Gregory Greenman <gregory.greenman@intel.com>,
- Benjamin Berg <benjamin.berg@intel.com>, Bjorn Helgaas
- <bhelgaas@google.com>, Robert Richter <rrichter@amd.com>,
- Vinod Koul <vkoul@kernel.org>, Chunfeng Yun <chunfeng.yun@mediatek.com>,
- Linus Walleij <linus.walleij@linaro.org>, Hans de Goede
- <hdegoede@redhat.com>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?=
- <ilpo.jarvinen@linux.intel.com>, Nikita Kravets <teackot@gmail.com>,
- Jiri Slaby <jirislaby@kernel.org>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- Stanley Chang <stanley_chang@realtek.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Abdel Alkuor <abdelalkuor@geotab.com>,
- Kent Overstreet <kent.overstreet@linux.dev>,
- Eric Biggers <ebiggers@google.com>, Kees Cook <keescook@chromium.org>,
- Ingo Molnar <mingo@kernel.org>, "Steven Rostedt (Google)"
- <rostedt@goodmis.org>, Daniel Bristot de Oliveira <bristot@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Hugh Dickins <hughd@google.com>,
- Abel Wu <wuyun.abel@bytedance.com>,
- John Johansen <john.johansen@canonical.com>, Mimi Zohar
- <zohar@linux.ibm.com>, Stefan Berger <stefanb@linux.ibm.com>,
- Roberto Sassu <roberto.sassu@huawei.com>,
- Eric Snowberg <eric.snowberg@oracle.com>, Takashi Iwai <tiwai@suse.de>,
- Takashi Sakamoto <o-takashi@sakamocchi.jp>,
- Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- Mark Brown <broonie@kernel.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- keyrings@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-acpi@vger.kernel.org, linux-ide@vger.kernel.org,
- openipmi-developer@lists.sourceforge.net, linux-clk@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
- linux-pm@vger.kernel.org, qat-linux@intel.com,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-hwmon@vger.kernel.org, linux-i2c@vger.kernel.org,
- linux-leds@vger.kernel.org, linux-sunxi@lists.linux.dev,
- linux-omap@vger.kernel.org, linux-mmc@vger.kernel.org,
- linux-mtd@lists.infradead.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org,
- linux-gpio@vger.kernel.org, platform-driver-x86@vger.kernel.org,
- linux-staging@lists.linux.dev, linux-usb@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-bcachefs@vger.kernel.org,
- linux-hardening@vger.kernel.org, cgroups@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-mm@kvack.org,
- apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
- linux-integrity@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-sound@vger.kernel.org
-References: <20240603211538.289765-1-andriy.shevchenko@linux.intel.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20240603211538.289765-1-andriy.shevchenko@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=46.235.227.194;
- envelope-from=angelogioacchino.delregno@collabora.com;
- helo=madrid.collaboradmins.com
-X-Mailman-Approved-At: Wed, 05 Jun 2024 16:19:29 +0000
-Subject: Re: [apparmor] [PATCH v1 1/1] treewide: Align match_string() with
- sysfs_match_string()
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=103.168.172.138; envelope-from=jcalmels@3xx0.net;
+ helo=flow3-smtp.messagingengine.com
+X-Mailman-Approved-At: Mon, 10 Jun 2024 03:47:22 +0000
+Subject: [apparmor] [PATCH v2 0/4] Introduce user namespace capabilities
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -110,88 +79,108 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Juri Lelli <juri.lelli@redhat.com>, Andrew Lunn <andrew@lunn.ch>,
- Prashant Gaikwad <pgaikwad@nvidia.com>, Heiko Stuebner <heiko@sntech.de>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, Jaroslav Kysela <perex@perex.cz>,
- Ben Segall <bsegall@google.com>, Pavel Machek <pavel@ucw.cz>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Michael Ellerman <mpe@ellerman.id.au>, James Morris <jmorris@namei.org>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Danilo Krummrich <dakr@redhat.com>,
- Mel Gorman <mgorman@suse.de>, Jean Delvare <jdelvare@suse.com>,
- Potnuri Bharat Teja <bharat@chelsio.com>, Nicholas Piggin <npiggin@gmail.com>,
- Thomas Gleixner <tglx@linutronix.de>, Zhihao Cheng <chengzhihao1@huawei.com>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Scott Branden <sbranden@broadcom.com>,
- Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
- Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- "Gautham R. Shenoy" <gautham.shenoy@amd.com>, Tejun Heo <tj@kernel.org>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Lukasz Luba <lukasz.luba@arm.com>, Zefan Li <lizefan.x@bytedance.com>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- Clemens Ladisch <clemens@ladisch.de>, Liam Girdwood <lgirdwood@gmail.com>,
- Hu Ziji <huziji@marvell.com>, Eric Dumazet <edumazet@google.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Oliver O'Halloran <oohall@gmail.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Valentin Schneider <vschneid@redhat.com>, Paul Moore <paul@paul-moore.com>,
- Gregory Clement <gregory.clement@bootlin.com>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- Jonathan Hunter <jonathanh@nvidia.com>, Len Brown <lenb@kernel.org>,
- Brian Foster <bfoster@redhat.com>, Maxime Ripard <mripard@kernel.org>,
- Jason Baron <jbaron@akamai.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- Stephen Boyd <sboyd@kernel.org>,
- Daniel Bristot de Oliveira <bristot@redhat.com>,
- Miri Korenblit <miriam.rachel.korenblit@intel.com>,
- Ulf Hansson <ulf.hansson@linaro.org>, Karol Herbst <kherbst@redhat.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Michael Turquette <mturquette@baylibre.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Peter Zijlstra <peterz@infradead.org>, Chen-Yu Tsai <wens@csie.org>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- "Naveen N. Rao" <naveen.n.rao@linux.ibm.com>, Paolo Abeni <pabeni@redhat.com>,
- "Serge E. Hallyn" <serge@hallyn.com>, Lyude Paul <lyude@redhat.com>,
- Ray Jui <rjui@broadcom.com>, Damien Le Moal <dlemoal@kernel.org>,
- Borislav Petkov <bp@alien8.de>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Sergey Shtylyov <s.shtylyov@omp.ru>, Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
- Sebastian Reichel <sre@kernel.org>, Daniel Scally <djrscally@gmail.com>,
- JC Kuo <jckuo@nvidia.com>, Sakari Ailus <sakari.ailus@linux.intel.com>,
- "David S. Miller" <davem@davemloft.net>, Vignesh Raghavendra <vigneshr@ti.com>,
- Tony Lindgren <tony@atomide.com>, Takashi Iwai <tiwai@suse.com>,
- David Howells <dhowells@redhat.com>, Niklas Cassel <cassel@kernel.org>,
- Huang Rui <ray.huang@amd.com>, "H. Peter Anvin" <hpa@zytor.com>,
- David Airlie <airlied@gmail.com>, Jim Cromie <jim.cromie@gmail.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Richard Weinberger <richard@nod.at>, x86@kernel.org,
- Ingo Molnar <mingo@redhat.com>, Jakub Kicinski <kuba@kernel.org>,
- Zhang Rui <rui.zhang@intel.com>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Kalle Valo <kvalo@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Peter De Schrijver <pdeschrijver@nvidia.com>,
- Adrian Hunter <adrian.hunter@intel.com>, Daniel Vetter <daniel@ffwll.ch>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Helge Deller <deller@gmx.de>
+Cc: Jonathan Calmels <jcalmels@3xx0.net>, linux-kselftest@vger.kernel.org,
+ linux-doc@vger.kernel.org, selinux@vger.kernel.org, apparmor@lists.ubuntu.com,
+ linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
+ keyrings@vger.kernel.org, containers@lists.linux.dev,
+ linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Il 02/06/24 17:57, Andy Shevchenko ha scritto:
-> Make two APIs look similar. Hence convert match_string() to be
-> a 2-argument macro. In order to avoid unneeded churn, convert
-> all users as well. There is no functional change intended.
-> 
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+This patch series introduces a new user namespace capability set, as
+well as some plumbing around it (i.e. sysctl, secbit, lsm support).
 
-For MediaTek
+First patch goes over the motivations for this as well as prior art.
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+In summary, while user namespaces are a great success today in that they
+avoid running a lot of code as root, they also expand the attack surface
+of the kernel substantially which is often abused by attackers. 
+Methods exist to limit the creation of such namespaces [1], however,
+application developers often need to assume that user namespaces are
+available for various tasks such as sandboxing. Thus, instead of
+restricting the creation of user namespaces, we offer ways for userspace
+to limit the capabilities granted to them.
 
+Why a new capability set and not something specific to the userns (e.g.
+ioctl_ns)?
+
+    1. We can't really expect userspace to patch every single callsite
+    and opt-in this new security mechanism. 
+
+    2. We don't necessarily want policies enforced at said callsites.
+    For example a service like systemd-machined or a PAM session need to
+    be able to place restrictions on any namespace spawned under it.
+
+    3. We would need to come up with inheritance rules, querying
+    capabilities, etc. At this point we're just reinventing capability
+    sets.
+
+    4. We can easily define interactions between capability sets, thus
+    helping with adoption (patch 2 is an example of this)
+
+Some examples of how this could be leveraged in userspace:
+
+    - Prevent user from getting CAP_NET_ADMIN in user namespaces under SSH:
+        echo "auth optional pam_cap.so" >> /etc/pam.d/sshd
+        echo "!cap_net_admin $USER"     >> /etc/security/capability.conf
+        capsh --secbits=$((1 << 8)) -- -c /usr/sbin/sshd
+
+    - Prevent containers from ever getting CAP_DAC_OVERRIDE:
+        systemd-run -p CapabilityBoundingSet=~CAP_DAC_OVERRIDE \
+                    -p SecureBits=userns-strict-caps \
+                    /usr/bin/dockerd
+        systemd-run -p UserNSCapabilities=~CAP_DAC_OVERRIDE \
+                    /usr/bin/incusd
+
+    - Kernel could be vulnerable to CAP_SYS_RAWIO exploits, prevent it:
+        sysctl -w cap_bound_userns_mask=0x1fffffdffff
+
+    - Drop CAP_SYS_ADMIN for this shell and all the user namespaces below it:
+        bwrap --unshare-user --cap-drop CAP_SYS_ADMIN /bin/sh
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=7cd4c5c2101cb092db00f61f69d24380cf7a0ee8
+
+---
+Changes since v1:
+- Add documentation
+- Change commit wording
+- Cleanup various aspects of the code based on feedback
+- Add new CAP_SYS_CONTROL capability for sysctl check
+- Add BPF-LSM support for modifying userns capabilities
+---
+Jonathan Calmels (4):
+  capabilities: Add user namespace capabilities
+  capabilities: Add securebit to restrict userns caps
+  capabilities: Add sysctl to mask off userns caps
+  bpf,lsm: Allow editing capabilities in BPF-LSM hooks
+
+ Documentation/filesystems/proc.rst            |  1 +
+ Documentation/security/credentials.rst        |  6 ++
+ fs/proc/array.c                               |  9 +++
+ include/linux/cred.h                          |  3 +
+ include/linux/lsm_hook_defs.h                 |  2 +-
+ include/linux/securebits.h                    |  1 +
+ include/linux/security.h                      |  4 +-
+ include/linux/user_namespace.h                |  7 ++
+ include/uapi/linux/capability.h               |  6 +-
+ include/uapi/linux/prctl.h                    |  7 ++
+ include/uapi/linux/securebits.h               | 11 ++-
+ kernel/bpf/bpf_lsm.c                          | 55 +++++++++++++
+ kernel/cred.c                                 |  3 +
+ kernel/sysctl.c                               | 10 +++
+ kernel/umh.c                                  | 15 ++++
+ kernel/user_namespace.c                       | 80 +++++++++++++++++--
+ security/apparmor/lsm.c                       |  2 +-
+ security/commoncap.c                          | 62 +++++++++++++-
+ security/keys/process_keys.c                  |  3 +
+ security/security.c                           |  6 +-
+ security/selinux/hooks.c                      |  2 +-
+ security/selinux/include/classmap.h           |  5 +-
+ .../selftests/bpf/prog_tests/deny_namespace.c | 12 ++-
+ .../selftests/bpf/progs/test_deny_namespace.c |  7 +-
+ 24 files changed, 291 insertions(+), 28 deletions(-)
+
+-- 
+2.45.2
 
 
