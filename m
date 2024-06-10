@@ -2,56 +2,57 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37D7F902681
+	by mail.lfdr.de (Postfix) with ESMTPS id D166A902686
 	for <lists+apparmor@lfdr.de>; Mon, 10 Jun 2024 18:20:27 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1sGhkp-0007nD-3t; Mon, 10 Jun 2024 16:20:19 +0000
-Received: from mail-lf1-f46.google.com ([209.85.167.46])
+	id 1sGhkp-0007nK-7I; Mon, 10 Jun 2024 16:20:19 +0000
+Received: from flow1-smtp.messagingengine.com ([103.168.172.136])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <linus.walleij@linaro.org>)
- id 1sGa4b-0002AJ-P6
- for apparmor@lists.ubuntu.com; Mon, 10 Jun 2024 08:08:13 +0000
-Received: by mail-lf1-f46.google.com with SMTP id
- 2adb3069b0e04-52c525257feso2195164e87.1
- for <apparmor@lists.ubuntu.com>; Mon, 10 Jun 2024 01:08:13 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718006893; x=1718611693;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=/L5y1Dv6ivY3eszYnYmdXRYc401x9YYY2yBAmmyUG/k=;
- b=wyT3wSU+/u5yjA9jEwbKSgj3YkP7MpkZMGR+IlbDU/ZhT7Mvn5+CdQc5B08He0KfuS
- hRyJe8nSwvE0NXw75KarHEEyphWbAheDZ9I8/Umq4s5YQ7vdICDvoM975q4wt/9eeiAV
- thBacLdv7ocFpcHBm+0N4Hq1AstV6tOqelaDAb56oPHH7OiEJ+R0miZf1CQdBrdIoWCw
- PCAgj0nOMMhYrjbaZBJt+IkwZ6W7hnteblQ3fHg7YFpcHQ4yTMupUttMWnJw1XBX/K2R
- VnVZuMQwR9/12O2fFUTQUYVJX6LeCDLV63JvTogNYZDBGRoGvQjjgcMJ7c5kPVSDfNnV
- k19w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWtLrho+enoydRnWg2gesg71cpFQNooBgTTtftROgl6C8AgtIx5DqCxMADHyfhH0+1byFyfHTr10RQ0SKOTYDujQvSoqGniKNzu
-X-Gm-Message-State: AOJu0Yyqr9mCY3vkZkHaBBMd0JoyXcybtfvkTQJ7MVP1gNS6tKpcAKAD
- 0j8QC9fiNB06//1OsR+GoYvO8oQmC6I/AskaDNyYGwzZc2N6cvtS8CoKKVPtfceTWwj3ncGXbjv
- t0GxXRC4j/9lZ6I5vxNgsOIN/gl+OHKnjfJxo8A==
-X-Google-Smtp-Source: AGHT+IEoIIaopVbMhKiBzu+ZFeFG117iZrYhuaSy1PLsnicMvCE0nAaF1iUL9hhnUeVtUHqe9i20V059/u6XmSWe6yI=
-X-Received: by 2002:a05:6512:234d:b0:52b:be9b:cafe with SMTP id
- 2adb3069b0e04-52bbe9bcbadmr5940256e87.21.1718006892189; Mon, 10 Jun 2024
- 01:08:12 -0700 (PDT)
+ (Exim 4.86_2) (envelope-from <jcalmels@3xx0.net>) id 1sGabP-0006rS-EK
+ for apparmor@lists.ubuntu.com; Mon, 10 Jun 2024 08:42:07 +0000
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailflow.nyi.internal (Postfix) with ESMTP id 5B03E200404;
+ Mon, 10 Jun 2024 04:42:06 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Mon, 10 Jun 2024 04:42:06 -0400
+X-ME-Sender: <xms:XrxmZvzZP7xbrkP_X1Z_DJfplTPafejtRtkJI4A43LClUzmSIHIS5w>
+ <xme:XrxmZnRUTkndK9sE_BuuYIUb3li2sZXgcdw5psio_zlMRycF1h7dtvtqc0gXr60x-
+ dYdIq0OVEdPTi7AuKY>
+X-ME-Received: <xmr:XrxmZpWFigCDMyF99Q0x1VukZuZF0pDyfj4v2qucOFZZZDNBIvxynahcR2xUygWLyodScN7TnSc7OL_2djL-qWE>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrfedutddgtdejucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvfevuffkfhggtggujgesthdtsfdttddtjeenucfhrhhomheplfhonhgr
+ thhhrghnucevrghlmhgvlhhsuceojhgtrghlmhgvlhhsseefgiigtddrnhgvtheqnecugg
+ ftrfgrthhtvghrnhepkeekteegfefgvdefgfefffeufeffjedvudeijeehjeehffekjeek
+ leffueelgffgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrh
+ homhepjhgtrghlmhgvlhhsseefgiigtddrnhgvth
+X-ME-Proxy: <xmx:XrxmZpgqPk_6F3e5JQ18-ltyf9uNdIpk3jU47q9k4RC_A1m-HkSIAA>
+ <xmx:XrxmZhB3IOiTK8sDG3QzU35vcUkoWUzUhlt1H4t01NxV3RSUPw8VgA>
+ <xmx:XrxmZiKucST3S9pfjfKdDEsNV54urVKt3wVhxz_XrYt_KNl9GdSMGg>
+ <xmx:XrxmZgBCzxwwvZvceM4u8WKtEVlmeP_3n1PIWsMJ5HQgJ1N61m6WRg>
+ <xmx:XrxmZtzmO1peIdr1owfiir_hApCQU2o9fIR5wZQfJTTv79xrcvqQ4J7P>
+Feedback-ID: i76614979:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 10 Jun 2024 04:42:02 -0400 (EDT)
+Date: Mon, 10 Jun 2024 01:47:13 -0700
+From: Jonathan Calmels <jcalmels@3xx0.net>
+To: "Serge E. Hallyn" <serge@hallyn.com>
+Message-ID: <6pwskrbtmxjy2ti3xabfslmupjhat7dhrnbftinzhxgxnsveum@5jq5l6ws7hls>
+References: <20240609104355.442002-1-jcalmels@3xx0.net>
+ <20240609104355.442002-2-jcalmels@3xx0.net>
+ <20240610015024.GA2182786@mail.hallyn.com>
 MIME-Version: 1.0
-References: <20240603211538.289765-1-andriy.shevchenko@linux.intel.com>
- <87tti9cfry.fsf@intel.com>
-In-Reply-To: <87tti9cfry.fsf@intel.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Mon, 10 Jun 2024 10:08:00 +0200
-Message-ID: <CACRpkdZFPG_YLici-BmYfk9HZ36f4WavCN3JNotkk8cPgCODCg@mail.gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=209.85.167.46;
- envelope-from=linus.walleij@linaro.org; helo=mail-lf1-f46.google.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20240610015024.GA2182786@mail.hallyn.com>
+Received-SPF: pass client-ip=103.168.172.136; envelope-from=jcalmels@3xx0.net;
+ helo=flow1-smtp.messagingengine.com
 X-Mailman-Approved-At: Mon, 10 Jun 2024 16:20:17 +0000
-Subject: Re: [apparmor] [PATCH v1 1/1] treewide: Align match_string() with
-	sysfs_match_string()
+Subject: Re: [apparmor] [PATCH v2 1/4] capabilities: Add user namespace
+	capabilities
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -63,165 +64,55 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Juri Lelli <juri.lelli@redhat.com>, Andrew Lunn <andrew@lunn.ch>,
- "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
- Heiko Stuebner <heiko@sntech.de>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Takashi Iwai <tiwai@suse.de>, Viresh Kumar <viresh.kumar@linaro.org>,
- dri-devel@lists.freedesktop.org, Jaroslav Kysela <perex@perex.cz>,
- Ben Segall <bsegall@google.com>, Perry Yuan <perry.yuan@amd.com>,
- Prashant Gaikwad <pgaikwad@nvidia.com>, Pavel Machek <pavel@ucw.cz>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- linux-clk@vger.kernel.org, Kishon Vijay Abraham I <kishon@kernel.org>,
- Abel Wu <wuyun.abel@bytedance.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Karol Herbst <kherbst@redhat.com>, Samuel Holland <samuel@sholland.org>,
- Michael Ellerman <mpe@ellerman.id.au>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Tvrtko Ursulin <tursulin@ursulin.net>, linux-acpi@vger.kernel.org,
- Danilo Krummrich <dakr@redhat.com>, Mel Gorman <mgorman@suse.de>,
- linux-sunxi@lists.linux.dev, Guenter Roeck <linux@roeck-us.net>,
- Jean Delvare <jdelvare@suse.com>, linux-pm@vger.kernel.org,
- Potnuri Bharat Teja <bharat@chelsio.com>, James Morris <jmorris@namei.org>,
- linux-sound@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
- linux-omap@vger.kernel.org, Zhihao Cheng <chengzhihao1@huawei.com>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>, Niklas Cassel <cassel@kernel.org>,
- Scott Branden <sbranden@broadcom.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
- "Gautham R. Shenoy" <gautham.shenoy@amd.com>,
- Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, Tejun Heo <tj@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Elad Nachman <enachman@marvell.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Lukasz Luba <lukasz.luba@arm.com>, linux-fbdev@vger.kernel.org,
- linux-usb@vger.kernel.org, Zefan Li <lizefan.x@bytedance.com>,
- nouveau@lists.freedesktop.org, Dave Hansen <dave.hansen@linux.intel.com>,
- Clemens Ladisch <clemens@ladisch.de>, Mimi Zohar <zohar@linux.ibm.com>,
- Mahesh J Salgaonkar <mahesh@linux.ibm.com>, Hu Ziji <huziji@marvell.com>,
- Eric Dumazet <edumazet@google.com>, keyrings@vger.kernel.org,
- Oliver O'Halloran <oohall@gmail.com>, linux-i2c@vger.kernel.org,
- Gregory Greenman <gregory.greenman@intel.com>, Ingo Molnar <mingo@kernel.org>,
- linux-security-module@vger.kernel.org,
- Valentin Schneider <vschneid@redhat.com>, Corey Minyard <minyard@acm.org>,
- Gregory Clement <gregory.clement@bootlin.com>, Lee Jones <lee@kernel.org>,
- Hugh Dickins <hughd@google.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- linux-rockchip@lists.infradead.org, linux-trace-kernel@vger.kernel.org,
- Andi Shyti <andi.shyti@kernel.org>, Robert Richter <rrichter@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Brian Foster <bfoster@redhat.com>, Maxime Ripard <mripard@kernel.org>,
- linux-gpio@vger.kernel.org, Jason Baron <jbaron@akamai.com>,
- linux-rpi-kernel@lists.infradead.org, Bjorn Helgaas <bhelgaas@google.com>,
- cgroups@vger.kernel.org, Allen Pais <apais@linux.microsoft.com>,
- linux-arm-kernel@lists.infradead.org,
- Daniel Lezcano <daniel.lezcano@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
- Roberto Sassu <roberto.sassu@huawei.com>, linux-integrity@vger.kernel.org,
- Daniel Bristot de Oliveira <bristot@redhat.com>, Len Brown <lenb@kernel.org>,
- Heiner Kallweit <hkallweit1@gmail.com>,
- Miri Korenblit <miriam.rachel.korenblit@intel.com>,
- Arseniy Krasnov <AVKrasnov@sberdevices.ru>,
- Ulf Hansson <ulf.hansson@linaro.org>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- linux-pci@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, alsa-devel@alsa-project.org,
- Nuno Sa <nuno.sa@analog.com>, Matthias Brugger <matthias.bgg@gmail.com>,
- linux-mtd@lists.infradead.org, linux-hardening@vger.kernel.org,
- linux-phy@lists.infradead.org, Jiri Slaby <jirislaby@kernel.org>,
- linux-staging@lists.linux.dev, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Nikita Kravets <teackot@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Chen-Yu Tsai <wens@csie.org>, Abdel Alkuor <abdelalkuor@geotab.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- "Naveen N. Rao" <naveen.n.rao@linux.ibm.com>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Paolo Abeni <pabeni@redhat.com>, "Serge E. Hallyn" <serge@hallyn.com>,
- Lyude Paul <lyude@redhat.com>, Kees Cook <keescook@chromium.org>,
- Ray Jui <rjui@broadcom.com>, intel-gfx@lists.freedesktop.org,
- "Steven Rostedt \(Google\)" <rostedt@goodmis.org>,
- Johannes Berg <johannes.berg@intel.com>, Paul Moore <paul@paul-moore.com>,
- Mark Brown <broonie@kernel.org>, Borislav Petkov <bp@alien8.de>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Stanley Chang <stanley_chang@realtek.com>, Daniel Vetter <daniel@ffwll.ch>,
- openipmi-developer@lists.sourceforge.net, linux-hwmon@vger.kernel.org,
- Sergey Shtylyov <s.shtylyov@omp.ru>, linux-mm@kvack.org,
- Thinh Nguyen <Thinh.Nguyen@synopsys.com>, linux-mmc@vger.kernel.org,
- Sebastian Reichel <sre@kernel.org>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
- Daniel Scally <djrscally@gmail.com>, JC Kuo <jckuo@nvidia.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- "David S. Miller" <davem@davemloft.net>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
- Vignesh Raghavendra <vigneshr@ti.com>, Eric Biggers <ebiggers@google.com>,
- Tony Lindgren <tony@atomide.com>, Takashi Iwai <tiwai@suse.com>,
- David Howells <dhowells@redhat.com>, linux-ide@vger.kernel.org,
- Huang Rui <ray.huang@amd.com>, "H. Peter Anvin" <hpa@zytor.com>,
- David Airlie <airlied@gmail.com>, Jim Cromie <jim.cromie@gmail.com>,
- linux-leds@vger.kernel.org, Eric Snowberg <eric.snowberg@oracle.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Richard Weinberger <richard@nod.at>, x86@kernel.org, qat-linux@intel.com,
- linux-bcachefs@vger.kernel.org, Ingo Molnar <mingo@redhat.com>,
- Chunfeng Yun <chunfeng.yun@mediatek.com>, Jakub Kicinski <kuba@kernel.org>,
- Zhang Rui <rui.zhang@intel.com>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- platform-driver-x86@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>, Kalle Valo <kvalo@kernel.org>,
- apparmor@lists.ubuntu.com, Hans de Goede <hdegoede@redhat.com>,
- linux-mediatek@lists.infradead.org, Nicholas Piggin <npiggin@gmail.com>,
- Benjamin Berg <benjamin.berg@intel.com>, linux-tegra@vger.kernel.org,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- intel-xe@lists.freedesktop.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Liam Girdwood <lgirdwood@gmail.com>, netdev@vger.kernel.org,
- Peter De Schrijver <pdeschrijver@nvidia.com>,
- Kent Overstreet <kent.overstreet@linux.dev>,
- Adrian Hunter <adrian.hunter@intel.com>, Vinod Koul <vkoul@kernel.org>,
- Damien Le Moal <dlemoal@kernel.org>,
- Daniel Bristot de Oliveira <bristot@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- linuxppc-dev@lists.ozlabs.org, Helge Deller <deller@gmx.de>,
- Stefan Berger <stefanb@linux.ibm.com>
+Cc: Matt Bobrowski <mattbobrowski@google.com>,
+ Joel Granados <j.granados@samsung.com>, linux-kselftest@vger.kernel.org,
+ linux-doc@vger.kernel.org, Kees Cook <kees@kernel.org>,
+ Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andrii@kernel.org>,
+ David Howells <dhowells@redhat.com>, Song Liu <song@kernel.org>,
+ keyrings@vger.kernel.org, Stanislav Fomichev <sdf@google.com>,
+ Yonghong Song <yonghong.song@linux.dev>, Shuah Khan <shuah@kernel.org>,
+ linux-security-module@vger.kernel.org, Mykola Lysenko <mykolal@fb.com>,
+ Paul Moore <paul@paul-moore.com>, Daniel Borkmann <daniel@iogearbox.net>,
+ Jonathan Corbet <corbet@lwn.net>, John Fastabend <john.fastabend@gmail.com>,
+ James Morris <jmorris@namei.org>, Jarkko Sakkinen <jarkko@kernel.org>,
+ Andrew Morgan <morgan@kernel.org>, selinux@vger.kernel.org,
+ apparmor@lists.ubuntu.com, KP Singh <kpsingh@kernel.org>,
+ containers@lists.linux.dev, Hao Luo <haoluo@google.com>, brauner@kernel.org,
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Ondrej Mosnacek <omosnace@redhat.com>, linux-kernel@vger.kernel.org,
+ Eduard Zingerman <eddyz87@gmail.com>, Luis Chamberlain <mcgrof@kernel.org>,
+ ebiederm@xmission.com, Jiri Olsa <jolsa@kernel.org>,
+ linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org,
+ Martin KaFai Lau <martin.lau@linux.dev>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Tue, Jun 4, 2024 at 9:46=E2=80=AFAM Jani Nikula <jani.nikula@linux.intel=
-.com> wrote:
+On Sun, Jun 09, 2024 at 08:50:24PM GMT, Serge E. Hallyn wrote:
+> On Sun, Jun 09, 2024 at 03:43:34AM -0700, Jonathan Calmels wrote:
+> > Attackers often rely on user namespaces to get elevated (yet confined)
+> > privileges in order to target specific subsystems (e.g. [1]). Distributions
+> 
+> I'd modify this to say "in order to target *bugs* in specific subsystems" :)
 
-[Maybe slightly off-topic, ranty]
+Ack
 
-> Why do we think it's a good idea to increase and normalize the use of
-> double-underscore function names across the kernel, like
-> __match_string() in this case? It should mean "reserved for the
-> implementation, not to be called directly".
->
-> If it's to be used directly, it should be named accordingly, right?
+> > This effectively mimics the inheritable set rules and means that, by
+> > default, only root in the user namespace can regain userns capabilities
+> > previously dropped:
+> 
+> Something about this last sentence feels wrong, but I'm not sure what
+> the best alternative would be.  As is, though, it makes it sound as though
+> root in the userns can always regain previously dropped capabilities, but
+> that's not true if dropped in ancestor ns, or if root also dropped the
+> bits from its bounding set (right?).
 
-It's a huge mess. "__" prefix is just so ambiguous I think it just
-shouldn't be used or prolifierated, and it usually breaks Rusty Russells
-API rules times over.
+Right, the wording is a little bit confusing here I admit.
+What I meant to say is that if a cap is dropped in a *given* namespace,
+then it can only be regained by root there. But yes, caps can never be
+regained from ancestors ns. I'll try to rephrase it.
 
-Consider __set_bit() from <linux/bitops.h>, used all over the place,
-in contrast with set_bit() for example, what does "__" represent in
-this context that makes __set_bit() different from set_bit()?
-
-It means "non-atomic"...
-
-How does a random contributor know this?
-
-Yeah, you guess it. By the token of "everybody knows that".
-(Grep, google, repeat for the number of contributors to the kernel.)
-
-I was considering to send a script to Torvalds to just change all
-this to set_bit_nonatomic() (etc) but was hesitating because that
-makes the name unambiguous but long. I think I stayed off it
-because changing stuff like that all over the place creates churn
-and churn is bad.
-
-Yours,
-Linus Walleij
+BTW, this is rather strict, but I think that's what we want right,
+something simple? Alternative would be to have a new cap masked off by
+default, but if granted to a userns, allows you to regain ancestors
+caps.
 
