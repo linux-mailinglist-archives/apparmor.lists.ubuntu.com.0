@@ -2,58 +2,54 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id D04239029F8
-	for <lists+apparmor@lfdr.de>; Mon, 10 Jun 2024 22:29:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C294902A50
+	for <lists+apparmor@lfdr.de>; Mon, 10 Jun 2024 22:56:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1sGldp-0002p0-5J; Mon, 10 Jun 2024 20:29:21 +0000
-Received: from mail-yw1-f172.google.com ([209.85.128.172])
+	id 1sGm4P-0005JG-Fi; Mon, 10 Jun 2024 20:56:49 +0000
+Received: from mail-yw1-f176.google.com ([209.85.128.176])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <josef@toxicpanda.com>)
- id 1sGlNV-0001Hi-IT
- for apparmor@lists.ubuntu.com; Mon, 10 Jun 2024 20:12:29 +0000
-Received: by mail-yw1-f172.google.com with SMTP id
- 00721157ae682-62a08099115so49196877b3.0
- for <apparmor@lists.ubuntu.com>; Mon, 10 Jun 2024 13:12:29 -0700 (PDT)
+ (Exim 4.86_2) (envelope-from <paul@paul-moore.com>)
+ id 1sGm4N-0005J7-KY
+ for apparmor@lists.ubuntu.com; Mon, 10 Jun 2024 20:56:47 +0000
+Received: by mail-yw1-f176.google.com with SMTP id
+ 00721157ae682-627ea4e0becso53197217b3.0
+ for <apparmor@lists.ubuntu.com>; Mon, 10 Jun 2024 13:56:47 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718050348; x=1718655148;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=q8U88OhWZh1tCo+0WQ1tID8xLxoIwnJftDZHFtRwK3o=;
- b=b3J4/TZRIFBoMh5/HbFzmwt9LmNYEFLw1vSLjwti3LJHe5v7INZtJ0o+gKCpj9fOCX
- TJVyH1GFmKaauKKyf0V9d6iTHKen1y7w3DjvDMIASuZWKk/1PD+K0wY+eB22qaU2he45
- 61kgA5OIwb/U5bi0Hm0BLP/gxBLNvpLFnUPHoYHvuNKw6BSJYm6oVkfHondWdEYiwzg+
- ssgG0S1Y51I5duxAOev/IRkSmWvcYftioOK6kckulJ6eUkxaOHsseYlgc35kxOp6TVpH
- wEotSbriMyImVJ5xEYk1SjZiRXRCJOAG8t+xkOxRHTYYCVmMdsuQGfR3PMACpTixCr6z
- jHiQ==
+ d=1e100.net; s=20230601; t=1718053006; x=1718657806;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=YCHlrp1sqWxXkENQgyX1SA6e/23clY3UwLtIBI7esY0=;
+ b=Aa8kib+AVIHBaBc+j6jbCuotgt3Mv2GERoWThFPTq/8XFI35mN0o5kNzQs9BsERUj9
+ J+P/U6fiuIZHgXLhSCyK7cphxEy1B9g/diAWPL9WLvoM8TO5O/ws4GwfSgXLAmVZ4R4r
+ sfTQ+2lJj0lTT0G4EiCMohzGTHpf0Mbpsm3KNHGei6ZZ9koAZ4Obx88RGWjpFrp2zwTW
+ yKG39L2GB1VkPfqeztHWvqLY4RNImcwt8r584Gs5Z8DiGTlsDWf2QZGrY5t1ndBvqPTG
+ pdYbFTd5SPSbkhexujdu4NqsI4hrYNu9CzpHom5SHTeP/eJFNQdXdkLtzmYjp+OokBeC
+ uRUA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUtzQdA0TOJtNxJ/SewY1U+ctdalPpK8E8A6hP1D5zXSBSA5tyGgTopn6CRLsJPrdDbUJKtbZndJc4JohVZulZsHaEMu2xcubFS
-X-Gm-Message-State: AOJu0YyoMmuenklgYEWbpzetafexPvqfmd3MIQBbvdvJWVFMl+073+bR
- snFTiS+PfAOdVDNlV9gH4mcrbkPxhXfX3DocmgpvPG+gOifavcEFrWQVe9tN7ho=
-X-Google-Smtp-Source: AGHT+IHAq2uat/BxStlvycvWIMemf9chq6bKvr5RgwVh7JekY7oKEJ33MFsCJYBOa4s18l+17nIrDA==
-X-Received: by 2002:a81:ef0e:0:b0:61a:f206:bad6 with SMTP id
- 00721157ae682-62cd55f6755mr90104707b3.30.1718050348318; 
- Mon, 10 Jun 2024 13:12:28 -0700 (PDT)
-Received: from localhost (syn-076-182-020-124.res.spectrum.com.
- [76.182.20.124]) by smtp.gmail.com with ESMTPSA id
- 00721157ae682-62ccaef2825sm17372997b3.139.2024.06.10.13.12.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 10 Jun 2024 13:12:27 -0700 (PDT)
-Date: Mon, 10 Jun 2024 16:12:27 -0400
-From: Josef Bacik <josef@toxicpanda.com>
-To: Jonathan Calmels <jcalmels@3xx0.net>
-Message-ID: <20240610201227.GD235772@perftesting>
-References: <20240609104355.442002-1-jcalmels@3xx0.net>
+ AJvYcCXwOA79HNnQy8w//4URC5Fe2/KsDgM7DRT73gJrP7kjSnGJ+yU0BibTjXISraLD3VQbYlg2Q0lZfYsuh49LvZ0meD5/818eVSZC
+X-Gm-Message-State: AOJu0Yw0cT2Vxm07B4UGLBDCN9yHiLI/96BPrNRF1eh69Mnt7em9OHUr
+ tbo8oKhvVpJxwOLK61mNeiAak3UxEOg9NWtbpZ1wPAKXc0Yra41WQ8q5YDlboLoZmN4tZCFxnwS
+ 74gpMuK5YBptZrD1lZrErKzZXleA07LCwp//A
+X-Google-Smtp-Source: AGHT+IFvfIOmbU92tIEUP97U962ZwkX+dae5pNDe8HVsVV2fINnzI7Cy6PJ/dYbQrp9/0zG0WtFUc6q1Xyv7UapuZHg=
+X-Received: by 2002:a0d:c186:0:b0:62d:355:5b34 with SMTP id
+ 00721157ae682-62d03555e3fmr47903587b3.20.1718053006262; Mon, 10 Jun 2024
+ 13:56:46 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240609104355.442002-1-jcalmels@3xx0.net>
-Received-SPF: none client-ip=209.85.128.172; envelope-from=josef@toxicpanda.com;
- helo=mail-yw1-f172.google.com
-X-Mailman-Approved-At: Mon, 10 Jun 2024 20:29:19 +0000
-Subject: Re: [apparmor] [PATCH v2 0/4] Introduce user namespace capabilities
+References: <20240315113828.258005-1-cgzones@googlemail.com>
+In-Reply-To: <20240315113828.258005-1-cgzones@googlemail.com>
+From: Paul Moore <paul@paul-moore.com>
+Date: Mon, 10 Jun 2024 16:56:35 -0400
+Message-ID: <CAHC9VhRekFEc5HHAEhp52tNT6NLnLw__fpy7F0Yq=Qry0Jk_-Q@mail.gmail.com>
+To: =?UTF-8?Q?Christian_G=C3=B6ttsche?= <cgzones@googlemail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=209.85.128.176; envelope-from=paul@paul-moore.com;
+ helo=mail-yw1-f176.google.com
+Subject: Re: [apparmor] [PATCH 01/10] capability: introduce new capable flag
+	CAP_OPT_NOAUDIT_ONDENY
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -65,85 +61,42 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Matt Bobrowski <mattbobrowski@google.com>,
- Joel Granados <j.granados@samsung.com>, linux-kselftest@vger.kernel.org,
- linux-doc@vger.kernel.org, Kees Cook <kees@kernel.org>,
- Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andrii@kernel.org>,
- David Howells <dhowells@redhat.com>, Song Liu <song@kernel.org>,
- keyrings@vger.kernel.org, Stanislav Fomichev <sdf@google.com>,
- Yonghong Song <yonghong.song@linux.dev>, Shuah Khan <shuah@kernel.org>,
- linux-security-module@vger.kernel.org, Mykola Lysenko <mykolal@fb.com>,
- Paul Moore <paul@paul-moore.com>, Daniel Borkmann <daniel@iogearbox.net>,
- Jonathan Corbet <corbet@lwn.net>, John Fastabend <john.fastabend@gmail.com>,
- James Morris <jmorris@namei.org>, Jarkko Sakkinen <jarkko@kernel.org>,
- "Serge E. Hallyn" <serge@hallyn.com>, selinux@vger.kernel.org,
- apparmor@lists.ubuntu.com, KP Singh <kpsingh@kernel.org>,
- containers@lists.linux.dev, Hao Luo <haoluo@google.com>, brauner@kernel.org,
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Ondrej Mosnacek <omosnace@redhat.com>, linux-kernel@vger.kernel.org,
- Eduard Zingerman <eddyz87@gmail.com>, Luis Chamberlain <mcgrof@kernel.org>,
- ebiederm@xmission.com, Jiri Olsa <jolsa@kernel.org>,
- linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org,
- Martin KaFai Lau <martin.lau@linux.dev>
+Cc: Christian Brauner <brauner@kernel.org>, selinux@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Roberto Sassu <roberto.sassu@huawei.com>, James Morris <jmorris@namei.org>,
+ Mimi Zohar <zohar@linux.ibm.com>, Ondrej Mosnacek <omosnace@redhat.com>,
+ linux-block@vger.kernel.org, Andrii Nakryiko <andrii@kernel.org>,
+ linux-security-module@vger.kernel.org,
+ Khadija Kamran <kamrankhadijadj@gmail.com>, apparmor@lists.ubuntu.com,
+ bpf@vger.kernel.org, "Serge E. Hallyn" <serge@hallyn.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Sun, Jun 09, 2024 at 03:43:33AM -0700, Jonathan Calmels wrote:
-> This patch series introduces a new user namespace capability set, as
-> well as some plumbing around it (i.e. sysctl, secbit, lsm support).
-> 
-> First patch goes over the motivations for this as well as prior art.
-> 
-> In summary, while user namespaces are a great success today in that they
-> avoid running a lot of code as root, they also expand the attack surface
-> of the kernel substantially which is often abused by attackers. 
-> Methods exist to limit the creation of such namespaces [1], however,
-> application developers often need to assume that user namespaces are
-> available for various tasks such as sandboxing. Thus, instead of
-> restricting the creation of user namespaces, we offer ways for userspace
-> to limit the capabilities granted to them.
-> 
-> Why a new capability set and not something specific to the userns (e.g.
-> ioctl_ns)?
-> 
->     1. We can't really expect userspace to patch every single callsite
->     and opt-in this new security mechanism. 
-> 
->     2. We don't necessarily want policies enforced at said callsites.
->     For example a service like systemd-machined or a PAM session need to
->     be able to place restrictions on any namespace spawned under it.
-> 
->     3. We would need to come up with inheritance rules, querying
->     capabilities, etc. At this point we're just reinventing capability
->     sets.
-> 
->     4. We can easily define interactions between capability sets, thus
->     helping with adoption (patch 2 is an example of this)
-> 
-> Some examples of how this could be leveraged in userspace:
-> 
->     - Prevent user from getting CAP_NET_ADMIN in user namespaces under SSH:
->         echo "auth optional pam_cap.so" >> /etc/pam.d/sshd
->         echo "!cap_net_admin $USER"     >> /etc/security/capability.conf
->         capsh --secbits=$((1 << 8)) -- -c /usr/sbin/sshd
-> 
->     - Prevent containers from ever getting CAP_DAC_OVERRIDE:
->         systemd-run -p CapabilityBoundingSet=~CAP_DAC_OVERRIDE \
->                     -p SecureBits=userns-strict-caps \
->                     /usr/bin/dockerd
->         systemd-run -p UserNSCapabilities=~CAP_DAC_OVERRIDE \
->                     /usr/bin/incusd
-> 
->     - Kernel could be vulnerable to CAP_SYS_RAWIO exploits, prevent it:
->         sysctl -w cap_bound_userns_mask=0x1fffffdffff
-> 
->     - Drop CAP_SYS_ADMIN for this shell and all the user namespaces below it:
->         bwrap --unshare-user --cap-drop CAP_SYS_ADMIN /bin/sh
-> 
+On Fri, Mar 15, 2024 at 7:38=E2=80=AFAM Christian G=C3=B6ttsche
+<cgzones@googlemail.com> wrote:
+>
+> Introduce a new capable flag, CAP_OPT_NOAUDIT_ONDENY, to not generate
+> an audit event if the requested capability is not granted.  This will be
+> used in a new capable_any() functionality to reduce the number of
+> necessary capable calls.
+>
+> Handle the flag accordingly in AppArmor and SELinux.
+>
+> CC: linux-block@vger.kernel.org
+> Suggested-by: Paul Moore <paul@paul-moore.com>
+> Signed-off-by: Christian G=C3=B6ttsche <cgzones@googlemail.com>
+> ---
+> v5:
+>    rename flag to CAP_OPT_NOAUDIT_ONDENY, suggested by Serge:
+>      https://lore.kernel.org/all/20230606190013.GA640488@mail.hallyn.com/
+> ---
+>  include/linux/security.h       |  2 ++
+>  security/apparmor/capability.c |  8 +++++---
+>  security/selinux/hooks.c       | 14 ++++++++------
+>  3 files changed, 15 insertions(+), 9 deletions(-)
 
-Where are the tests for this patchset?  I see you updated the bpf tests for the
-bpf lsm bits, but there's nothing to validate this new behavior or exercise the
-new ioctl you've added.  Thanks,
+Acked-by: Paul Moore <paul@paul-moore.com>
 
-Josef
+--=20
+paul-moore.com
 
