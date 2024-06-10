@@ -2,54 +2,81 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C294902A50
-	for <lists+apparmor@lfdr.de>; Mon, 10 Jun 2024 22:56:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C2E3902A70
+	for <lists+apparmor@lfdr.de>; Mon, 10 Jun 2024 23:12:17 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1sGm4P-0005JG-Fi; Mon, 10 Jun 2024 20:56:49 +0000
-Received: from mail-yw1-f176.google.com ([209.85.128.176])
+	id 1sGmJF-0006fM-NE; Mon, 10 Jun 2024 21:12:09 +0000
+Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
+ helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <paul@paul-moore.com>)
- id 1sGm4N-0005J7-KY
- for apparmor@lists.ubuntu.com; Mon, 10 Jun 2024 20:56:47 +0000
-Received: by mail-yw1-f176.google.com with SMTP id
- 00721157ae682-627ea4e0becso53197217b3.0
- for <apparmor@lists.ubuntu.com>; Mon, 10 Jun 2024 13:56:47 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718053006; x=1718657806;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=YCHlrp1sqWxXkENQgyX1SA6e/23clY3UwLtIBI7esY0=;
- b=Aa8kib+AVIHBaBc+j6jbCuotgt3Mv2GERoWThFPTq/8XFI35mN0o5kNzQs9BsERUj9
- J+P/U6fiuIZHgXLhSCyK7cphxEy1B9g/diAWPL9WLvoM8TO5O/ws4GwfSgXLAmVZ4R4r
- sfTQ+2lJj0lTT0G4EiCMohzGTHpf0Mbpsm3KNHGei6ZZ9koAZ4Obx88RGWjpFrp2zwTW
- yKG39L2GB1VkPfqeztHWvqLY4RNImcwt8r584Gs5Z8DiGTlsDWf2QZGrY5t1ndBvqPTG
- pdYbFTd5SPSbkhexujdu4NqsI4hrYNu9CzpHom5SHTeP/eJFNQdXdkLtzmYjp+OokBeC
- uRUA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXwOA79HNnQy8w//4URC5Fe2/KsDgM7DRT73gJrP7kjSnGJ+yU0BibTjXISraLD3VQbYlg2Q0lZfYsuh49LvZ0meD5/818eVSZC
-X-Gm-Message-State: AOJu0Yw0cT2Vxm07B4UGLBDCN9yHiLI/96BPrNRF1eh69Mnt7em9OHUr
- tbo8oKhvVpJxwOLK61mNeiAak3UxEOg9NWtbpZ1wPAKXc0Yra41WQ8q5YDlboLoZmN4tZCFxnwS
- 74gpMuK5YBptZrD1lZrErKzZXleA07LCwp//A
-X-Google-Smtp-Source: AGHT+IFvfIOmbU92tIEUP97U962ZwkX+dae5pNDe8HVsVV2fINnzI7Cy6PJ/dYbQrp9/0zG0WtFUc6q1Xyv7UapuZHg=
-X-Received: by 2002:a0d:c186:0:b0:62d:355:5b34 with SMTP id
- 00721157ae682-62d03555e3fmr47903587b3.20.1718053006262; Mon, 10 Jun 2024
- 13:56:46 -0700 (PDT)
+ (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
+ id 1sGmJE-0006fF-BT
+ for apparmor@lists.ubuntu.com; Mon, 10 Jun 2024 21:12:08 +0000
+Received: from [192.168.192.83] (unknown [50.39.103.33])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id EA0BE40FC9; 
+ Mon, 10 Jun 2024 21:12:03 +0000 (UTC)
+Message-ID: <4cfca86d-ceb7-4abe-8b6b-35194fc55565@canonical.com>
+Date: Mon, 10 Jun 2024 14:12:01 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: =?UTF-8?Q?Christian_G=C3=B6ttsche?= <cgzones@googlemail.com>,
+ linux-security-module@vger.kernel.org
 References: <20240315113828.258005-1-cgzones@googlemail.com>
+Content-Language: en-US
+From: John Johansen <john.johansen@canonical.com>
+Autocrypt: addr=john.johansen@canonical.com; keydata=
+ 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 lT9Q
+Organization: Canonical
 In-Reply-To: <20240315113828.258005-1-cgzones@googlemail.com>
-From: Paul Moore <paul@paul-moore.com>
-Date: Mon, 10 Jun 2024 16:56:35 -0400
-Message-ID: <CAHC9VhRekFEc5HHAEhp52tNT6NLnLw__fpy7F0Yq=Qry0Jk_-Q@mail.gmail.com>
-To: =?UTF-8?Q?Christian_G=C3=B6ttsche?= <cgzones@googlemail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=209.85.128.176; envelope-from=paul@paul-moore.com;
- helo=mail-yw1-f176.google.com
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 Subject: Re: [apparmor] [PATCH 01/10] capability: introduce new capable flag
-	CAP_OPT_NOAUDIT_ONDENY
+ CAP_OPT_NOAUDIT_ONDENY
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -61,42 +88,118 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Christian Brauner <brauner@kernel.org>, selinux@vger.kernel.org,
+Cc: Christian Brauner <brauner@kernel.org>, apparmor@lists.ubuntu.com,
+ Paul Moore <paul@paul-moore.com>, selinux@vger.kernel.org,
  linux-kernel@vger.kernel.org, Stephen Smalley <stephen.smalley.work@gmail.com>,
- Roberto Sassu <roberto.sassu@huawei.com>, James Morris <jmorris@namei.org>,
- Mimi Zohar <zohar@linux.ibm.com>, Ondrej Mosnacek <omosnace@redhat.com>,
- linux-block@vger.kernel.org, Andrii Nakryiko <andrii@kernel.org>,
- linux-security-module@vger.kernel.org,
- Khadija Kamran <kamrankhadijadj@gmail.com>, apparmor@lists.ubuntu.com,
- bpf@vger.kernel.org, "Serge E. Hallyn" <serge@hallyn.com>
+ Roberto Sassu <roberto.sassu@huawei.com>,
+ Ondrej Mosnacek <omosnace@redhat.com>, Mimi Zohar <zohar@linux.ibm.com>,
+ James Morris <jmorris@namei.org>, linux-block@vger.kernel.org,
+ Andrii Nakryiko <andrii@kernel.org>,
+ Khadija Kamran <kamrankhadijadj@gmail.com>, bpf@vger.kernel.org,
+ "Serge E. Hallyn" <serge@hallyn.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Fri, Mar 15, 2024 at 7:38=E2=80=AFAM Christian G=C3=B6ttsche
-<cgzones@googlemail.com> wrote:
->
+On 3/15/24 04:37, Christian Göttsche wrote:
 > Introduce a new capable flag, CAP_OPT_NOAUDIT_ONDENY, to not generate
 > an audit event if the requested capability is not granted.  This will be
 > used in a new capable_any() functionality to reduce the number of
 > necessary capable calls.
->
+> 
 > Handle the flag accordingly in AppArmor and SELinux.
->
+> 
 > CC: linux-block@vger.kernel.org
 > Suggested-by: Paul Moore <paul@paul-moore.com>
-> Signed-off-by: Christian G=C3=B6ttsche <cgzones@googlemail.com>
+> Signed-off-by: Christian Göttsche <cgzones@googlemail.com>
+Acked-by: John Johansen <john.johansen@canonical.com>
+
 > ---
 > v5:
->    rename flag to CAP_OPT_NOAUDIT_ONDENY, suggested by Serge:
->      https://lore.kernel.org/all/20230606190013.GA640488@mail.hallyn.com/
+>     rename flag to CAP_OPT_NOAUDIT_ONDENY, suggested by Serge:
+>       https://lore.kernel.org/all/20230606190013.GA640488@mail.hallyn.com/
 > ---
->  include/linux/security.h       |  2 ++
->  security/apparmor/capability.c |  8 +++++---
->  security/selinux/hooks.c       | 14 ++++++++------
->  3 files changed, 15 insertions(+), 9 deletions(-)
+>   include/linux/security.h       |  2 ++
+>   security/apparmor/capability.c |  8 +++++---
+>   security/selinux/hooks.c       | 14 ++++++++------
+>   3 files changed, 15 insertions(+), 9 deletions(-)
+> 
+> diff --git a/include/linux/security.h b/include/linux/security.h
+> index 41a8f667bdfa..c60cae78ff8b 100644
+> --- a/include/linux/security.h
+> +++ b/include/linux/security.h
+> @@ -70,6 +70,8 @@ struct lsm_ctx;
+>   #define CAP_OPT_NOAUDIT BIT(1)
+>   /* If capable is being called by a setid function */
+>   #define CAP_OPT_INSETID BIT(2)
+> +/* If capable should audit the security request for authorized requests only */
+> +#define CAP_OPT_NOAUDIT_ONDENY BIT(3)
+>   
+>   /* LSM Agnostic defines for security_sb_set_mnt_opts() flags */
+>   #define SECURITY_LSM_NATIVE_LABELS	1
+> diff --git a/security/apparmor/capability.c b/security/apparmor/capability.c
+> index 9934df16c843..08c9c9a0fc19 100644
+> --- a/security/apparmor/capability.c
+> +++ b/security/apparmor/capability.c
+> @@ -108,7 +108,8 @@ static int audit_caps(struct apparmor_audit_data *ad, struct aa_profile *profile
+>    * profile_capable - test if profile allows use of capability @cap
+>    * @profile: profile being enforced    (NOT NULL, NOT unconfined)
+>    * @cap: capability to test if allowed
+> - * @opts: CAP_OPT_NOAUDIT bit determines whether audit record is generated
+> + * @opts: CAP_OPT_NOAUDIT/CAP_OPT_NOAUDIT_ONDENY bit determines whether audit
+> + *	record is generated
+>    * @ad: audit data (MAY BE NULL indicating no auditing)
+>    *
+>    * Returns: 0 if allowed else -EPERM
+> @@ -126,7 +127,7 @@ static int profile_capable(struct aa_profile *profile, int cap,
+>   	else
+>   		error = -EPERM;
+>   
+> -	if (opts & CAP_OPT_NOAUDIT) {
+> +	if ((opts & CAP_OPT_NOAUDIT) || ((opts & CAP_OPT_NOAUDIT_ONDENY) && error)) {
+>   		if (!COMPLAIN_MODE(profile))
+>   			return error;
+>   		/* audit the cap request in complain mode but note that it
+> @@ -143,7 +144,8 @@ static int profile_capable(struct aa_profile *profile, int cap,
+>    * @subj_cred: cred we are testing capability against
+>    * @label: label being tested for capability (NOT NULL)
+>    * @cap: capability to be tested
+> - * @opts: CAP_OPT_NOAUDIT bit determines whether audit record is generated
+> + * @opts: CAP_OPT_NOAUDIT/CAP_OPT_NOAUDIT_ONDENY bit determines whether audit
+> + *	record is generated
+>    *
+>    * Look up capability in profile capability set.
+>    *
+> diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+> index 3448454c82d0..1a2c7c1a89be 100644
+> --- a/security/selinux/hooks.c
+> +++ b/security/selinux/hooks.c
+> @@ -1624,7 +1624,7 @@ static int cred_has_capability(const struct cred *cred,
+>   	u16 sclass;
+>   	u32 sid = cred_sid(cred);
+>   	u32 av = CAP_TO_MASK(cap);
+> -	int rc;
+> +	int rc, rc2;
+>   
+>   	ad.type = LSM_AUDIT_DATA_CAP;
+>   	ad.u.cap = cap;
+> @@ -1643,11 +1643,13 @@ static int cred_has_capability(const struct cred *cred,
+>   	}
+>   
+>   	rc = avc_has_perm_noaudit(sid, sid, sclass, av, 0, &avd);
+> -	if (!(opts & CAP_OPT_NOAUDIT)) {
+> -		int rc2 = avc_audit(sid, sid, sclass, av, &avd, rc, &ad);
+> -		if (rc2)
+> -			return rc2;
+> -	}
+> +	if ((opts & CAP_OPT_NOAUDIT) || ((opts & CAP_OPT_NOAUDIT_ONDENY) && rc))
+> +		return rc;
+> +
+> +	rc2 = avc_audit(sid, sid, sclass, av, &avd, rc, &ad);
+> +	if (rc2)
+> +		return rc2;
+> +
+>   	return rc;
+>   }
+>   
 
-Acked-by: Paul Moore <paul@paul-moore.com>
-
---=20
-paul-moore.com
 
