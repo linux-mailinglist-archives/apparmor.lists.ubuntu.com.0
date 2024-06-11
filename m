@@ -2,81 +2,59 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C2E3902A70
-	for <lists+apparmor@lfdr.de>; Mon, 10 Jun 2024 23:12:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22864903F5C
+	for <lists+apparmor@lfdr.de>; Tue, 11 Jun 2024 16:58:52 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1sGmJF-0006fM-NE; Mon, 10 Jun 2024 21:12:09 +0000
-Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
- helo=smtp-relay-canonical-0.canonical.com)
+	id 1sH2xQ-0003ut-Bo; Tue, 11 Jun 2024 14:58:44 +0000
+Received: from wflow1-smtp.messagingengine.com ([64.147.123.136])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1sGmJE-0006fF-BT
- for apparmor@lists.ubuntu.com; Mon, 10 Jun 2024 21:12:08 +0000
-Received: from [192.168.192.83] (unknown [50.39.103.33])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id EA0BE40FC9; 
- Mon, 10 Jun 2024 21:12:03 +0000 (UTC)
-Message-ID: <4cfca86d-ceb7-4abe-8b6b-35194fc55565@canonical.com>
-Date: Mon, 10 Jun 2024 14:12:01 -0700
+ (Exim 4.86_2) (envelope-from <jcalmels@3xx0.net>) id 1sGwUM-0004GZ-J7
+ for apparmor@lists.ubuntu.com; Tue, 11 Jun 2024 08:04:19 +0000
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailflow.west.internal (Postfix) with ESMTP id 282092CC0167;
+ Tue, 11 Jun 2024 04:04:12 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute4.internal (MEProxy); Tue, 11 Jun 2024 04:04:14 -0400
+X-ME-Sender: <xms:-wRoZpXrMrwrS2LBoRUf1CscHpzfEOrNAJKNPFtQhnL2ou4ekXBebw>
+ <xme:-wRoZplIqIz-jLey3ypWwohXbLo_axCWylNtXJSop0FrUIU_rmjonZ32jdlWwBPFT
+ iyChc6HdYd2moNtCsY>
+X-ME-Received: <xmr:-wRoZla3TKdjigG_1iaNu_jfnqUKH-kmyaTaQ8PEpjIy_KzdOf026xrOdaJZbZ3hsIKHSjAW1_0YIc-XzHE-Kz8>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrfeduuddguddvfecutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ enucfjughrpeffhffvvefukfhfgggtugfgjgestheksfdttddtjeenucfhrhhomheplfho
+ nhgrthhhrghnucevrghlmhgvlhhsuceojhgtrghlmhgvlhhsseefgiigtddrnhgvtheqne
+ cuggftrfgrthhtvghrnhepleekffehueelieehveekjeeggfdufefffeeuvdetkeeigefg
+ veekvedtfeegffegnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghdplhgruhhntghhph
+ grugdrnhgvthenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhr
+ ohhmpehjtggrlhhmvghlshesfeiggidtrdhnvght
+X-ME-Proxy: <xmx:-wRoZsW_jAS-81zAUR-g6jdd9E8ilJENs9OUd1rRv-1c8UA21Ym8_A>
+ <xmx:-wRoZjlpGEBpk6d50L2m4A98pvBaAsuSdPz6BQm4X_y5dld9sd84LA>
+ <xmx:-wRoZpefYCike81RvCyTXCdE9YDoVGo62yxfwbbeJ0ekaL6W3FmwhA>
+ <xmx:-wRoZtEuV4QOEfDqcw9_xN4BTBgS0yEpp8zMtZ8VcYlL1hMBle_ObQ>
+ <xmx:-wRoZtmBixysWk2mkeQa9y_IPYYypQgmdhR9RwxVXuUx8F-uV7TEZXxX>
+Feedback-ID: i76614979:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 11 Jun 2024 04:04:07 -0400 (EDT)
+Date: Tue, 11 Jun 2024 01:09:18 -0700
+From: Jonathan Calmels <jcalmels@3xx0.net>
+To: Paul Moore <paul@paul-moore.com>
+Message-ID: <z2bgjrzeq7crqx24chdbxnaanuhczbjnq6da3xw6al6omjj5xz@mqbzzzfva5sw>
+References: <20240609104355.442002-1-jcalmels@3xx0.net>
+ <20240609104355.442002-5-jcalmels@3xx0.net>
+ <CAHC9VhT5XWbhoY2Nw5jQz4GxpDriUdHw=1YsQ4xLVUtSnFxciA@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: =?UTF-8?Q?Christian_G=C3=B6ttsche?= <cgzones@googlemail.com>,
- linux-security-module@vger.kernel.org
-References: <20240315113828.258005-1-cgzones@googlemail.com>
-Content-Language: en-US
-From: John Johansen <john.johansen@canonical.com>
-Autocrypt: addr=john.johansen@canonical.com; keydata=
- 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 lT9Q
-Organization: Canonical
-In-Reply-To: <20240315113828.258005-1-cgzones@googlemail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: Re: [apparmor] [PATCH 01/10] capability: introduce new capable flag
- CAP_OPT_NOAUDIT_ONDENY
+In-Reply-To: <CAHC9VhT5XWbhoY2Nw5jQz4GxpDriUdHw=1YsQ4xLVUtSnFxciA@mail.gmail.com>
+Received-SPF: pass client-ip=64.147.123.136; envelope-from=jcalmels@3xx0.net;
+ helo=wflow1-smtp.messagingengine.com
+X-Mailman-Approved-At: Tue, 11 Jun 2024 14:58:43 +0000
+Subject: Re: [apparmor] [PATCH v2 4/4] bpf,
+ lsm: Allow editing capabilities in BPF-LSM hooks
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -88,118 +66,71 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Christian Brauner <brauner@kernel.org>, apparmor@lists.ubuntu.com,
- Paul Moore <paul@paul-moore.com>, selinux@vger.kernel.org,
- linux-kernel@vger.kernel.org, Stephen Smalley <stephen.smalley.work@gmail.com>,
- Roberto Sassu <roberto.sassu@huawei.com>,
- Ondrej Mosnacek <omosnace@redhat.com>, Mimi Zohar <zohar@linux.ibm.com>,
- James Morris <jmorris@namei.org>, linux-block@vger.kernel.org,
- Andrii Nakryiko <andrii@kernel.org>,
- Khadija Kamran <kamrankhadijadj@gmail.com>, bpf@vger.kernel.org,
- "Serge E. Hallyn" <serge@hallyn.com>
+Cc: Matt Bobrowski <mattbobrowski@google.com>,
+ Joel Granados <j.granados@samsung.com>, linux-kselftest@vger.kernel.org,
+ linux-doc@vger.kernel.org, Kees Cook <kees@kernel.org>,
+ Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andrii@kernel.org>,
+ David Howells <dhowells@redhat.com>, Song Liu <song@kernel.org>,
+ keyrings@vger.kernel.org, Stanislav Fomichev <sdf@google.com>,
+ Yonghong Song <yonghong.song@linux.dev>, Shuah Khan <shuah@kernel.org>,
+ linux-security-module@vger.kernel.org, Mykola Lysenko <mykolal@fb.com>,
+ Daniel Borkmann <daniel@iogearbox.net>, Jonathan Corbet <corbet@lwn.net>,
+ John Fastabend <john.fastabend@gmail.com>, James Morris <jmorris@namei.org>,
+ Jarkko Sakkinen <jarkko@kernel.org>, "Serge E. Hallyn" <serge@hallyn.com>,
+ selinux@vger.kernel.org, apparmor@lists.ubuntu.com,
+ KP Singh <kpsingh@kernel.org>, containers@lists.linux.dev,
+ Hao Luo <haoluo@google.com>, brauner@kernel.org,
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Ondrej Mosnacek <omosnace@redhat.com>, linux-kernel@vger.kernel.org,
+ Eduard Zingerman <eddyz87@gmail.com>, Luis Chamberlain <mcgrof@kernel.org>,
+ ebiederm@xmission.com, Jiri Olsa <jolsa@kernel.org>,
+ linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org,
+ Martin KaFai Lau <martin.lau@linux.dev>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 3/15/24 04:37, Christian Göttsche wrote:
-> Introduce a new capable flag, CAP_OPT_NOAUDIT_ONDENY, to not generate
-> an audit event if the requested capability is not granted.  This will be
-> used in a new capable_any() functionality to reduce the number of
-> necessary capable calls.
+On Sun, Jun 09, 2024 at 08:18:48PM GMT, Paul Moore wrote:
+> On Sun, Jun 9, 2024 at 6:40 AM Jonathan Calmels <jcalmels@3xx0.net> wrote:
+> >
+> > This patch allows modifying the various capabilities of the struct cred
+> > in BPF-LSM hooks. More specifically, the userns_create hook called
+> > prior to creating a new user namespace.
+> >
+> > With the introduction of userns capabilities, this effectively provides
+> > a simple way for LSMs to control the capabilities granted to a user
+> > namespace and all its descendants.
+> >
+> > Update the selftests accordingly by dropping CAP_SYS_ADMIN in
+> > namespaces and checking the resulting task's bounding set.
+> >
+> > Signed-off-by: Jonathan Calmels <jcalmels@3xx0.net>
+> > ---
+> >  include/linux/lsm_hook_defs.h                 |  2 +-
+> >  include/linux/security.h                      |  4 +-
+> >  kernel/bpf/bpf_lsm.c                          | 55 +++++++++++++++++++
+> >  security/apparmor/lsm.c                       |  2 +-
+> >  security/security.c                           |  6 +-
+> >  security/selinux/hooks.c                      |  2 +-
+> >  .../selftests/bpf/prog_tests/deny_namespace.c | 12 ++--
+> >  .../selftests/bpf/progs/test_deny_namespace.c |  7 ++-
+> >  8 files changed, 76 insertions(+), 14 deletions(-)
 > 
-> Handle the flag accordingly in AppArmor and SELinux.
-> 
-> CC: linux-block@vger.kernel.org
-> Suggested-by: Paul Moore <paul@paul-moore.com>
-> Signed-off-by: Christian Göttsche <cgzones@googlemail.com>
-Acked-by: John Johansen <john.johansen@canonical.com>
+> I'm not sure we want to go down the path of a LSM modifying the POSIX
+> capabilities of a task, other than the capabilities/commoncap LSM.  It
+> sets a bad precedent and could further complicate issues around LSM
+> ordering.
 
-> ---
-> v5:
->     rename flag to CAP_OPT_NOAUDIT_ONDENY, suggested by Serge:
->       https://lore.kernel.org/all/20230606190013.GA640488@mail.hallyn.com/
-> ---
->   include/linux/security.h       |  2 ++
->   security/apparmor/capability.c |  8 +++++---
->   security/selinux/hooks.c       | 14 ++++++++------
->   3 files changed, 15 insertions(+), 9 deletions(-)
-> 
-> diff --git a/include/linux/security.h b/include/linux/security.h
-> index 41a8f667bdfa..c60cae78ff8b 100644
-> --- a/include/linux/security.h
-> +++ b/include/linux/security.h
-> @@ -70,6 +70,8 @@ struct lsm_ctx;
->   #define CAP_OPT_NOAUDIT BIT(1)
->   /* If capable is being called by a setid function */
->   #define CAP_OPT_INSETID BIT(2)
-> +/* If capable should audit the security request for authorized requests only */
-> +#define CAP_OPT_NOAUDIT_ONDENY BIT(3)
->   
->   /* LSM Agnostic defines for security_sb_set_mnt_opts() flags */
->   #define SECURITY_LSM_NATIVE_LABELS	1
-> diff --git a/security/apparmor/capability.c b/security/apparmor/capability.c
-> index 9934df16c843..08c9c9a0fc19 100644
-> --- a/security/apparmor/capability.c
-> +++ b/security/apparmor/capability.c
-> @@ -108,7 +108,8 @@ static int audit_caps(struct apparmor_audit_data *ad, struct aa_profile *profile
->    * profile_capable - test if profile allows use of capability @cap
->    * @profile: profile being enforced    (NOT NULL, NOT unconfined)
->    * @cap: capability to test if allowed
-> - * @opts: CAP_OPT_NOAUDIT bit determines whether audit record is generated
-> + * @opts: CAP_OPT_NOAUDIT/CAP_OPT_NOAUDIT_ONDENY bit determines whether audit
-> + *	record is generated
->    * @ad: audit data (MAY BE NULL indicating no auditing)
->    *
->    * Returns: 0 if allowed else -EPERM
-> @@ -126,7 +127,7 @@ static int profile_capable(struct aa_profile *profile, int cap,
->   	else
->   		error = -EPERM;
->   
-> -	if (opts & CAP_OPT_NOAUDIT) {
-> +	if ((opts & CAP_OPT_NOAUDIT) || ((opts & CAP_OPT_NOAUDIT_ONDENY) && error)) {
->   		if (!COMPLAIN_MODE(profile))
->   			return error;
->   		/* audit the cap request in complain mode but note that it
-> @@ -143,7 +144,8 @@ static int profile_capable(struct aa_profile *profile, int cap,
->    * @subj_cred: cred we are testing capability against
->    * @label: label being tested for capability (NOT NULL)
->    * @cap: capability to be tested
-> - * @opts: CAP_OPT_NOAUDIT bit determines whether audit record is generated
-> + * @opts: CAP_OPT_NOAUDIT/CAP_OPT_NOAUDIT_ONDENY bit determines whether audit
-> + *	record is generated
->    *
->    * Look up capability in profile capability set.
->    *
-> diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-> index 3448454c82d0..1a2c7c1a89be 100644
-> --- a/security/selinux/hooks.c
-> +++ b/security/selinux/hooks.c
-> @@ -1624,7 +1624,7 @@ static int cred_has_capability(const struct cred *cred,
->   	u16 sclass;
->   	u32 sid = cred_sid(cred);
->   	u32 av = CAP_TO_MASK(cap);
-> -	int rc;
-> +	int rc, rc2;
->   
->   	ad.type = LSM_AUDIT_DATA_CAP;
->   	ad.u.cap = cap;
-> @@ -1643,11 +1643,13 @@ static int cred_has_capability(const struct cred *cred,
->   	}
->   
->   	rc = avc_has_perm_noaudit(sid, sid, sclass, av, 0, &avd);
-> -	if (!(opts & CAP_OPT_NOAUDIT)) {
-> -		int rc2 = avc_audit(sid, sid, sclass, av, &avd, rc, &ad);
-> -		if (rc2)
-> -			return rc2;
-> -	}
-> +	if ((opts & CAP_OPT_NOAUDIT) || ((opts & CAP_OPT_NOAUDIT_ONDENY) && rc))
-> +		return rc;
-> +
-> +	rc2 = avc_audit(sid, sid, sclass, av, &avd, rc, &ad);
-> +	if (rc2)
-> +		return rc2;
-> +
->   	return rc;
->   }
->   
+Well unless I'm misunderstanding, this does allow modifying the
+capabilities/commoncap LSM through BTF. The reason for allowing
+`userns_create` to be modified is that it is functionally very similar
+to `cred_prepare` in that it operates with new creds (but specific to
+user namespaces because of reasons detailed in [1]). 
 
+There were some concerns in previous threads that the userns caps by
+themselves wouldn't be granular enough, hence the LSM integration.
+Ubuntu for example, currently has to resort to a hardcoded profile
+transition to achieve this [2].
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=7cd4c5c2101cb092db00f61f69d24380cf7a0ee8
+[2] https://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/noble/commit/?id=43a6c29532f517179fea8c94949d657d71f4fc13
 
