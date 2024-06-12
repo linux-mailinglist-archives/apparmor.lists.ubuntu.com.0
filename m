@@ -2,63 +2,62 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C96A905637
-	for <lists+apparmor@lfdr.de>; Wed, 12 Jun 2024 17:04:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A44E2905E70
+	for <lists+apparmor@lfdr.de>; Thu, 13 Jun 2024 00:25:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1sHPWZ-0005Nh-M2; Wed, 12 Jun 2024 15:04:31 +0000
-Received: from wflow5-smtp.messagingengine.com ([64.147.123.140])
+	id 1sHWPD-0000sT-2Z; Wed, 12 Jun 2024 22:25:23 +0000
+Received: from mail-yw1-f169.google.com ([209.85.128.169])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <jcalmels@3xx0.net>) id 1sHJ93-0001qW-It
- for apparmor@lists.ubuntu.com; Wed, 12 Jun 2024 08:15:50 +0000
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailflow.west.internal (Postfix) with ESMTP id 56FE02CC01F5;
- Wed, 12 Jun 2024 04:15:43 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Wed, 12 Jun 2024 04:15:45 -0400
-X-ME-Sender: <xms:LllpZr8xON2t8JBtvP8z2r9RPYAmVXKWxpra7VsoLzksHIWrVAqsTw>
- <xme:LllpZnvkqHMbLn7nTwJpStwes9BHkU7PymLNoNE0gBFFBIWcXFG3r7Wg35DH8sg6E
- Ww3SmzOnbYfBIBkWs8>
-X-ME-Received: <xmr:LllpZpAi9D44gg8B35OwmmG863qQRbZ6qMZRrXVT34TXUCAV6qQheTcH-4QZDZnznyXra_ThPng13sWtDhfFg7Y>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrfedugedgtdduucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvfevuffkfhggtggugfgjsehtkefstddttdejnecuhfhrohhmpeflohhn
- rghthhgrnhcuvegrlhhmvghlshcuoehjtggrlhhmvghlshesfeiggidtrdhnvghtqeenuc
- ggtffrrghtthgvrhhnpeetgedutdfggeetleefhfeuhedtheduteekieduvdeigeegvdev
- vddtieekiedvheenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfh
- hrohhmpehjtggrlhhmvghlshesfeiggidtrdhnvght
-X-ME-Proxy: <xmx:LllpZneDoyZ-RX3X4rVUuUmiN2s53H0HQpEPmjarSlJmdbeNsrC-cg>
- <xmx:LllpZgOos_vdtrYhH4zy-fXOAUsMnhJPoF2-A5YI2fB8xlNbQzKhqQ>
- <xmx:LllpZpnXG5LqLB-ZltLJVdyjPBFYDlsy8SHeGNxT_BRuOggOAb-DYg>
- <xmx:LllpZqvTNxszjuD5ehQbJyHiu7_SOSqdldAZXDNby64nJkUiYieeqQ>
- <xmx:LllpZquORTNviG0fl8x754yxTGr1qD6L8k5YykdTsQFtiAHXFTPbkZnD>
-Feedback-ID: i76614979:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 12 Jun 2024 04:15:38 -0400 (EDT)
-Date: Wed, 12 Jun 2024 01:20:49 -0700
-From: Jonathan Calmels <jcalmels@3xx0.net>
-To: Paul Moore <paul@paul-moore.com>
-Message-ID: <rgzhcsblub7wedm734n56cw2qf6czjb4jgck6l5miur6odhovo@n5tgrco74zce>
-References: <20240609104355.442002-1-jcalmels@3xx0.net>
- <20240609104355.442002-5-jcalmels@3xx0.net>
- <CAHC9VhT5XWbhoY2Nw5jQz4GxpDriUdHw=1YsQ4xLVUtSnFxciA@mail.gmail.com>
- <z2bgjrzeq7crqx24chdbxnaanuhczbjnq6da3xw6al6omjj5xz@mqbzzzfva5sw>
- <887a3658-2d8d-4f9e-98f2-27124bb6f8e6@canonical.com>
- <CAHC9VhQFNPJTOct5rUv3HT6Z2S20mYdW75seiG8no5=fZd7JjA@mail.gmail.com>
- <uuvwcdsy7o4ulmrdzwffr6uywfacmlkjrontmjdj44luantpok@dtatxaa6tzyv>
- <CAHC9VhRnthf8+KgfuzFHXWEAc9RShDO0G_g0kc1OJ-UTih1ywg@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+ (Exim 4.86_2) (envelope-from <paul@paul-moore.com>)
+ id 1sHVkr-0006pr-L4
+ for apparmor@lists.ubuntu.com; Wed, 12 Jun 2024 21:43:41 +0000
+Received: by mail-yw1-f169.google.com with SMTP id
+ 00721157ae682-62f518bbab1so4091717b3.2
+ for <apparmor@lists.ubuntu.com>; Wed, 12 Jun 2024 14:43:41 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1718228620; x=1718833420;
+ h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
+ :content-disposition:mime-version:message-id:date:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=H5P+IbdHtppUszGApidFOa9Hm6YpZkzCVF9qJbTn8jo=;
+ b=SGoxf+iOZziATrEXQGHOpMDuMbprkZevB8IyuFYDQfbA3aQ0TRLpXBj7GC/y68Hvpt
+ 4xl8HnJ8rKYVc4gdydnsSSzYHUFqe5kHutP1m1YovUkoxL0pELwr04/xd1BYGQNgshxJ
+ WJUjXRg1o3yz0DTB4coqy9YPLXItw+4TT6fRC1iba/mJD4Co8BI8JxNpiAk2Jt3khg/C
+ 7QGzaa8cArQkyke7v+Dz4Ou5Lq4525PC9ZGrCCR1gWIkmqCaFWsnGvzxarEX6aEmHznY
+ v0MROZ5ULBd8S2V1+sb3y2AK1F3RehVldcUgk1KcOv6p4irle8oZZUo8grR1Ee7HYTbB
+ IBIA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU5hFaUmiZphuqaKgtqE0CcUlZZ4K3IfY+qWAXLXE1VqPZLZiCR2ZNB9HSiSBJ3bscb5eqbQvV01+TJBbe+mQmyfEu9sIge575u
+X-Gm-Message-State: AOJu0YyNMmW3b8zEWP3a2AGUBU1nviYiWE2naAUqvWAAm0+he8VKNX5/
+ I5nljSTB+9pVTb6/yrVd3n4yqpba6wxc3aBE75t8/LL1ixSmGa9mugQdC422dg==
+X-Google-Smtp-Source: AGHT+IEzCkGmcURuwumylkliwQQS7tKCwphHhO+nQwNDPDQUW3WVTWS6GxOh4TbgC9Y2HEAECiLJvA==
+X-Received: by 2002:a81:c546:0:b0:61a:cd65:3010 with SMTP id
+ 00721157ae682-62fb91269a1mr30015217b3.30.1718228620242; 
+ Wed, 12 Jun 2024 14:43:40 -0700 (PDT)
+Received: from localhost ([70.22.175.108]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-441f2d6e933sm190801cf.44.2024.06.12.14.43.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 12 Jun 2024 14:43:39 -0700 (PDT)
+Date: Wed, 12 Jun 2024 17:43:39 -0400
+Message-ID: <00d88046025c611f2bf94708ffc65ecc@paul-moore.com>
+MIME-Version: 1.0 
+Content-Type: text/plain; charset=utf-8 
+Content-Disposition: inline 
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAHC9VhRnthf8+KgfuzFHXWEAc9RShDO0G_g0kc1OJ-UTih1ywg@mail.gmail.com>
-Received-SPF: pass client-ip=64.147.123.140; envelope-from=jcalmels@3xx0.net;
- helo=wflow5-smtp.messagingengine.com
-X-Mailman-Approved-At: Wed, 12 Jun 2024 15:04:30 +0000
-Subject: Re: [apparmor] [PATCH v2 4/4] bpf,
- lsm: Allow editing capabilities in BPF-LSM hooks
+From: Paul Moore <paul@paul-moore.com>
+To: GUO Zihua <guozihua@huawei.com>, <john.johansen@canonical.com>,
+ <jmorris@namei.org>, <serge@hallyn.com>, <zohar@linux.ibm.com>,
+ <roberto.sassu@huawei.com>, <dmitry.kasatkin@gmail.com>,
+ <stephen.smalley.work@gmail.com>, <casey@schaufler-ca.com>,
+ <eparis@redhat.com>
+References: <20240507012541.796421-1-guozihua@huawei.com>
+In-Reply-To: <20240507012541.796421-1-guozihua@huawei.com>
+Received-SPF: pass client-ip=209.85.128.169; envelope-from=paul@paul-moore.com;
+ helo=mail-yw1-f169.google.com
+Subject: Re: [apparmor] [PATCH v3] ima: Avoid blocking in RCU read-side
+	critical section
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -70,164 +69,136 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Matt Bobrowski <mattbobrowski@google.com>,
- Joel Granados <j.granados@samsung.com>, linux-kselftest@vger.kernel.org,
- linux-doc@vger.kernel.org, Kees Cook <kees@kernel.org>,
- Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andrii@kernel.org>,
- David Howells <dhowells@redhat.com>, Song Liu <song@kernel.org>,
- keyrings@vger.kernel.org, Stanislav Fomichev <sdf@google.com>,
- Yonghong Song <yonghong.song@linux.dev>, Shuah Khan <shuah@kernel.org>,
- linux-security-module@vger.kernel.org, Mykola Lysenko <mykolal@fb.com>,
- Daniel Borkmann <daniel@iogearbox.net>, Jonathan Corbet <corbet@lwn.net>,
- John Fastabend <john.fastabend@gmail.com>, James Morris <jmorris@namei.org>,
- Jarkko Sakkinen <jarkko@kernel.org>, "Serge E. Hallyn" <serge@hallyn.com>,
- selinux@vger.kernel.org, apparmor@lists.ubuntu.com,
- KP Singh <kpsingh@kernel.org>, containers@lists.linux.dev,
- Hao Luo <haoluo@google.com>, brauner@kernel.org,
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Ondrej Mosnacek <omosnace@redhat.com>, linux-kernel@vger.kernel.org,
- Eduard Zingerman <eddyz87@gmail.com>, Luis Chamberlain <mcgrof@kernel.org>,
- ebiederm@xmission.com, Jiri Olsa <jolsa@kernel.org>,
- linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org,
- Martin KaFai Lau <martin.lau@linux.dev>
+Cc: eric.snowberg@oracle.com, selinux@vger.kernel.org,
+ apparmor@lists.ubuntu.com, omosnace@redhat.com, audit@vger.kernel.org,
+ linux-security-module@vger.kernel.org, linux-integrity@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Tue, Jun 11, 2024 at 06:38:31PM GMT, Paul Moore wrote:
-> On Tue, Jun 11, 2024 at 6:15 PM Jonathan Calmels <jcalmels@3xx0.net> wrote:
-> > On Tue, Jun 11, 2024 at 03:01:01PM GMT, Paul Moore wrote:
-> > > On Tue, Jun 11, 2024 at 6:32 AM John Johansen
-> > > <john.johansen@canonical.com> wrote:
-> > > >
-> > > > On 6/11/24 01:09, Jonathan Calmels wrote:
-> > > > > On Sun, Jun 09, 2024 at 08:18:48PM GMT, Paul Moore wrote:
-> > > > >> On Sun, Jun 9, 2024 at 6:40 AM Jonathan Calmels <jcalmels@3xx0.net> wrote:
-> > > > >>>
-> > > > >>> This patch allows modifying the various capabilities of the struct cred
-> > > > >>> in BPF-LSM hooks. More specifically, the userns_create hook called
-> > > > >>> prior to creating a new user namespace.
-> > > > >>>
-> > > > >>> With the introduction of userns capabilities, this effectively provides
-> > > > >>> a simple way for LSMs to control the capabilities granted to a user
-> > > > >>> namespace and all its descendants.
-> > > > >>>
-> > > > >>> Update the selftests accordingly by dropping CAP_SYS_ADMIN in
-> > > > >>> namespaces and checking the resulting task's bounding set.
-> > > > >>>
-> > > > >>> Signed-off-by: Jonathan Calmels <jcalmels@3xx0.net>
-> > > > >>> ---
-> > > > >>>   include/linux/lsm_hook_defs.h                 |  2 +-
-> > > > >>>   include/linux/security.h                      |  4 +-
-> > > > >>>   kernel/bpf/bpf_lsm.c                          | 55 +++++++++++++++++++
-> > > > >>>   security/apparmor/lsm.c                       |  2 +-
-> > > > >>>   security/security.c                           |  6 +-
-> > > > >>>   security/selinux/hooks.c                      |  2 +-
-> > > > >>>   .../selftests/bpf/prog_tests/deny_namespace.c | 12 ++--
-> > > > >>>   .../selftests/bpf/progs/test_deny_namespace.c |  7 ++-
-> > > > >>>   8 files changed, 76 insertions(+), 14 deletions(-)
-> > > > >>
-> > > > >> I'm not sure we want to go down the path of a LSM modifying the POSIX
-> > > > >> capabilities of a task, other than the capabilities/commoncap LSM.  It
-> > > > >> sets a bad precedent and could further complicate issues around LSM
-> > > > >> ordering.
-> > > > >
-> > > > > Well unless I'm misunderstanding, this does allow modifying the
-> > > > > capabilities/commoncap LSM through BTF. The reason for allowing
-> > > > > `userns_create` to be modified is that it is functionally very similar
-> > > > > to `cred_prepare` in that it operates with new creds (but specific to
-> > > > > user namespaces because of reasons detailed in [1]).
-> > > >
-> > > > yes
-> > > >
-> > > > > There were some concerns in previous threads that the userns caps by
-> > > > > themselves wouldn't be granular enough, hence the LSM integration.
-> > > >
-> > > > > Ubuntu for example, currently has to resort to a hardcoded profile
-> > > > > transition to achieve this [2].
-> > > > >
-> > > >
-> > > > The hard coded profile transition, is because the more generic solution
-> > > > as part of policy just wasn't ready. The hard coding will go away before
-> > > > it is upstreamed.
-> > > >
-> > > > But yes, updating the cred really is necessary for the flexibility needed
-> > > > whether it is modifying the POSIX capabilities of the task or the LSM
-> > > > modifying its own security blob.
-> > > >
-> > > > I do share some of Paul's concerns about the LSM modifying the POSIX
-> > > > capabilities of the task, but also thing the LSM here needs to be
-> > > > able to modify its own blob.
-> > >
-> > > To be clear, this isn't about a generic LSM needing to update its own
-> > > blob (LSM state), it is about the BPF LSM updating the capability
-> > > sets.  While we obviously must support a LSM updating its own state,
-> > > I'm currently of the opinion that allowing one LSM to update the state
-> > > of another LSM is only going to lead to problems.  We wouldn't want to
-> > > allow Smack to update AppArmor state, and from my current perspective
-> > > allowing the BPF LSM to update the capability state is no different.
-> > >
-> > > It's also important to keep in mind that if we allow one LSM to do
-> > > something, we need to allow all LSMs to do something.  If we allow
-> > > multiple LSMs to manipulate the capability sets, how do we reconcile
-> > > differences in the desired capability state?  Does that resolution
-> > > change depending on what LSMs are enabled at build time?  Enabled at
-> > > boot?  Similarly, what about custom LSM ordering?
-> > >
-> > > What about those LSMs that use a task's capabilities as an input to an
-> > > access control decision?  If those LSMs allow an access based on a
-> > > given capability set only to have a LSM later in the ordering modify
-> > > that capability set to something which would have resulted in an
-> > > access denial, do we risk a security regression?
-> >
-> > I understand the concerns, what I fail to understand however, is how is
-> > it any different from say the `cred_prepare` hook today?
+On May  6, 2024 GUO Zihua <guozihua@huawei.com> wrote:
 > 
-> The existing cred_prepare hooks only operate on their own small
-> portion of the cred::security blob.  What you are proposing would be
-> the BPF LSM operating on the capability sets that it does not "own"
-> (they belong to the capability LSM).
+> A panic happens in ima_match_policy:
 > 
-> If you see that as a minor difference, please understand that if you
-> skip past that you have all the issues I mentioned in my previous
-> message to deal with.
+> BUG: unable to handle kernel NULL pointer dereference at 0000000000000010
+> PGD 42f873067 P4D 0
+> Oops: 0000 [#1] SMP NOPTI
+> CPU: 5 PID: 1286325 Comm: kubeletmonit.sh Kdump: loaded Tainted: P
+> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 0.0.0 02/06/2015
+> RIP: 0010:ima_match_policy+0x84/0x450
+> Code: 49 89 fc 41 89 cf 31 ed 89 44 24 14 eb 1c 44 39 7b 18 74 26 41 83 ff 05 74 20 48 8b 1b 48 3b 1d f2 b9 f4 00 0f 84 9c 01 00 00 <44> 85 73 10 74 ea 44 8b 6b 14 41 f6 c5 01 75 d4 41 f6 c5 02 74 0f
+> RSP: 0018:ff71570009e07a80 EFLAGS: 00010207
+> RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000200
+> RDX: ffffffffad8dc7c0 RSI: 0000000024924925 RDI: ff3e27850dea2000
+> RBP: 0000000000000000 R08: 0000000000000000 R09: ffffffffabfce739
+> R10: ff3e27810cc42400 R11: 0000000000000000 R12: ff3e2781825ef970
+> R13: 00000000ff3e2785 R14: 000000000000000c R15: 0000000000000001
+> FS:  00007f5195b51740(0000) GS:ff3e278b12d40000(0000) knlGS:0000000000000000
+> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> CR2: 0000000000000010 CR3: 0000000626d24002 CR4: 0000000000361ee0
+> DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+> DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+> Call Trace:
+>  ima_get_action+0x22/0x30
+>  process_measurement+0xb0/0x830
+>  ? page_add_file_rmap+0x15/0x170
+>  ? alloc_set_pte+0x269/0x4c0
+>  ? prep_new_page+0x81/0x140
+>  ? simple_xattr_get+0x75/0xa0
+>  ? selinux_file_open+0x9d/0xf0
+>  ima_file_check+0x64/0x90
+>  path_openat+0x571/0x1720
+>  do_filp_open+0x9b/0x110
+>  ? page_counter_try_charge+0x57/0xc0
+>  ? files_cgroup_alloc_fd+0x38/0x60
+>  ? __alloc_fd+0xd4/0x250
+>  ? do_sys_open+0x1bd/0x250
+>  do_sys_open+0x1bd/0x250
+>  do_syscall_64+0x5d/0x1d0
+>  entry_SYSCALL_64_after_hwframe+0x65/0xca
 > 
-> > > Our current approach to handling multiple LSMs is that each LSM is
-> > > limited to modifying its own state, and I'm pretty confident that we
-> > > stick to this model if we have any hope of preserving the sanity of
-> > > the LSM layer as a whole.  If you want to modify the capability set
-> > > you need to do so within the confines of the capability LSM and/or
-> > > modify the other related kernel subsystems (which I'm guessing will
-> > > likely necessitate a change in the LSMs, but that avenue is very
-> > > unclear if such an option even exists).
-> >
-> > What do you mean by "within the confines of the capability LSM" here?
+> Commit c7423dbdbc9e ("ima: Handle -ESTALE returned by
+> ima_filter_rule_match()") introduced call to ima_lsm_copy_rule within a
+> RCU read-side critical section which contains kmalloc with GFP_KERNEL.
+> This implies a possible sleep and violates limitations of RCU read-side
+> critical sections on non-PREEMPT systems.
 > 
-> Basically security/commoncap.c.  One could make a lot of arguments
-> about if it is, or isn't, a LSM, but commoncap.c registers LSM hooks
-> which is pretty much the definition of a LSM from an implementation
-> point of view.
+> Sleeping within RCU read-side critical section might cause
+> synchronize_rcu() returning early and break RCU protection, allowing a
+> UAF to happen.
+> 
+> The root cause of this issue could be described as follows:
+> |	Thread A	|	Thread B	|
+> |			|ima_match_policy	|
+> |			|  rcu_read_lock	|
+> |ima_lsm_update_rule	|			|
+> |  synchronize_rcu	|			|
+> |			|    kmalloc(GFP_KERNEL)|
+> |			|      sleep		|
+> ==> synchronize_rcu returns early
+> |  kfree(entry)		|			|
+> |			|    entry = entry->next|
+> ==> UAF happens and entry now becomes NULL (or could be anything).
+> |			|    entry->action	|
+> ==> Accessing entry might cause panic.
+>
+> To fix this issue, we are converting all kmalloc that is called within
+> RCU read-side critical section to use GFP_ATOMIC.
+> 
+> Fixes: c7423dbdbc9e ("ima: Handle -ESTALE returned by ima_filter_rule_match()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: GUO Zihua <guozihua@huawei.com>
+> Acked-by: John Johansen <john.johansen@canonical.com>
+> Reviewed-by: Mimi Zohar <zohar@linux.ibm.com>
+> Reviewed-by: Casey Schaufler <casey@schaufler-ca.com>
+> ---
+> v3:
+>   ima_lsm_copy_rule takes a GFP flag as input as well.
+> v2:
+>   Changed the audit_rule_init security hook to accept a new GFP flag, as
+> per Stephen's suggestion.
+> 
+> ---
+>  include/linux/lsm_hook_defs.h       |  2 +-
+>  include/linux/security.h            |  5 +++--
+>  kernel/auditfilter.c                |  5 +++--
+>  security/apparmor/audit.c           |  6 +++---
+>  security/apparmor/include/audit.h   |  2 +-
+>  security/integrity/ima/ima_policy.c | 15 +++++++++------
+>  security/security.c                 |  6 ++++--
+>  security/selinux/include/audit.h    |  4 +++-
+>  security/selinux/ss/services.c      |  5 +++--
+>  security/smack/smack_lsm.c          |  3 ++-
+>  10 files changed, 32 insertions(+), 21 deletions(-)
 
-Yes, hence the proposal to give it more fine-grained controls than
-what's currently available. But to your point, unlike the others,
-its own state (i.e. capsets) is shared, so this gets questionable.
+With the exception of one small gotcha (see below), this looks okay to
+me.  At Mimi's request I'm going to merge this into the LSM tree, via
+lsm/stable-6.10, where I'll give it a few days in linux-next before
+sending it up to Linus.
 
-> > Arguably, if we do want fine-grained userns policies, we need LSMs to
-> > influence the userns capset at some point.
-> 
-> One could always use, or develop, a LSM that offers additional
-> controls around exercising capabilities.  There are currently four
-> in-tree LSMs, including the capabilities LSM, which supply a
-> security_capable() hook that is used by the capability-based access
-> controls in the kernel; all of these hook implementations work
-> together within the LSM framework and provide an additional level of
-> control/granularity beyond the existing capabilities.
+Thanks everyone :)
 
-Right, but the idea was to have a simple and easy way to reuse/trigger
-as much of the commoncap one as possible from BPF. If we're saying we
-need to reimplement and/or use a whole new framework, then there is
-little value.
+> diff --git a/security/smack/smack_lsm.c b/security/smack/smack_lsm.c
+> index 146667937811..a4943628d75a 100644
+> --- a/security/smack/smack_lsm.c
+> +++ b/security/smack/smack_lsm.c
+> @@ -4696,7 +4696,8 @@ static int smack_post_notification(const struct cred *w_cred,
+>   * Prepare to audit cases where (@field @op @rulestr) is true.
+>   * The label to be audited is created if necessay.
+>   */
+> -static int smack_audit_rule_init(u32 field, u32 op, char *rulestr, void **vrule)
+> +static int smack_audit_rule_init(u32 field, u32 op, char *rulestr, void **vrule,
+> +				 gfp_t gfp)
 
-TBH, I don't feel strongly about this, which is why it is absent from
-v1. However, as John pointed out, we should at least be able to modify
-the blob if we want flexible userns caps policies down the road.
+You forgot to add the new @gfp parameter to the function's header
+comment block.  I'm going to add the following as the text is used in
+other Smack functions, if anyone has any objections please let me know.
+
+  " * @gfp: type of the memory for the allocation"
+
+>  {
+>  	struct smack_known *skp;
+>  	char **rule = (char **)vrule;
+
+--
+paul-moore.com
 
