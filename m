@@ -2,63 +2,36 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7F5E909C73
-	for <lists+apparmor@lfdr.de>; Sun, 16 Jun 2024 10:15:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65BBC909C76
+	for <lists+apparmor@lfdr.de>; Sun, 16 Jun 2024 10:15:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1sIl31-0001rC-UM; Sun, 16 Jun 2024 08:15:35 +0000
-Received: from frasgout13.his.huawei.com ([14.137.139.46])
+	id 1sIl32-0001rJ-0r; Sun, 16 Jun 2024 08:15:36 +0000
+Received: from mail.hallyn.com ([178.63.66.53])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <roberto.sassu@huaweicloud.com>)
- id 1sI3a7-0004J3-5I
- for apparmor@lists.ubuntu.com; Fri, 14 Jun 2024 09:50:51 +0000
-Received: from mail.maildlp.com (unknown [172.18.186.29])
- by frasgout13.his.huawei.com (SkyGuard) with ESMTP id 4W0vGH0Gp3z9v7Hp
- for <apparmor@lists.ubuntu.com>; Fri, 14 Jun 2024 17:33:11 +0800 (CST)
-Received: from mail02.huawei.com (unknown [7.182.16.27])
- by mail.maildlp.com (Postfix) with ESMTP id 7A14A140443
- for <apparmor@lists.ubuntu.com>; Fri, 14 Jun 2024 17:50:44 +0800 (CST)
-Received: from [127.0.0.1] (unknown [10.204.63.22])
- by APP2 (Coremail) with SMTP id GxC2BwCHDjleEmxmCXJlAA--.52264S2;
- Fri, 14 Jun 2024 10:50:43 +0100 (CET)
-Message-ID: <8e898e2f5ae479ab08be61048481404d12cb6ea4.camel@huaweicloud.com>
-From: Roberto Sassu <roberto.sassu@huaweicloud.com>
-To: Paul Moore <paul@paul-moore.com>, GUO Zihua <guozihua@huawei.com>, 
- john.johansen@canonical.com, jmorris@namei.org, serge@hallyn.com, 
- zohar@linux.ibm.com, roberto.sassu@huawei.com, dmitry.kasatkin@gmail.com, 
- stephen.smalley.work@gmail.com, casey@schaufler-ca.com, eparis@redhat.com
-Date: Fri, 14 Jun 2024 11:50:18 +0200
-In-Reply-To: <CAHC9VhRqvBsdy+U-wr+X6QmawLv6DnB32nwAO7Ex6L7cdR=mSg@mail.gmail.com>
-References: <20240507012541.796421-1-guozihua@huawei.com>
- <00d88046025c611f2bf94708ffc65ecc@paul-moore.com>
- <CAHC9VhRqvBsdy+U-wr+X6QmawLv6DnB32nwAO7Ex6L7cdR=mSg@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2 
+ (Exim 4.86_2) (envelope-from <serge@mail.hallyn.com>)
+ id 1sIVBN-0007wD-Ks
+ for apparmor@lists.ubuntu.com; Sat, 15 Jun 2024 15:19:09 +0000
+Received: by mail.hallyn.com (Postfix, from userid 1001)
+ id B241C66D; Sat, 15 Jun 2024 10:19:08 -0500 (CDT)
+Date: Sat, 15 Jun 2024 10:19:08 -0500
+From: "Serge E. Hallyn" <serge@hallyn.com>
+To: Jonathan Calmels <jcalmels@3xx0.net>
+Message-ID: <20240615151908.GA44653@mail.hallyn.com>
+References: <20240609104355.442002-1-jcalmels@3xx0.net>
+ <20240609104355.442002-2-jcalmels@3xx0.net>
+ <20240610130057.GB2193924@mail.hallyn.com>
+ <o5llgu7tzei7g2alssdqvy4g2gn66b73tcsir3xqktfqs765ke@wyofd2abvdbj>
 MIME-Version: 1.0
-X-CM-TRANSID: GxC2BwCHDjleEmxmCXJlAA--.52264S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxtFWfJFy5WF4DWFykWF1kGrg_yoWxGr45pF
- WUKF1jkr48JFyUArsFvrnFgF1j93yUCF1UXrn3ur1UAF9IqF1kGr17Jr1jkry5Xr4rCr1I
- qrsFqwsI9r1qy3DanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUkjb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k2
- 6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
- vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7Cj
- xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxV
- AFwI0_Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
- x7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
- 0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l42xK82IYc2Ij
- 64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x
- 8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE
- 2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42
- xK8VAvwI8IcIk0rVWrZr1j6s0DMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIE
- c7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07UZ18PUUUUU=
-X-CM-SenderInfo: purev21wro2thvvxqx5xdzvxpfor3voofrz/1tbiAQAOBF1jj58tDQABsE
-Received-SPF: pass client-ip=14.137.139.46;
- envelope-from=roberto.sassu@huaweicloud.com; helo=frasgout13.his.huawei.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <o5llgu7tzei7g2alssdqvy4g2gn66b73tcsir3xqktfqs765ke@wyofd2abvdbj>
+Received-SPF: pass client-ip=178.63.66.53; envelope-from=serge@mail.hallyn.com;
+ helo=mail.hallyn.com
 X-Mailman-Approved-At: Sun, 16 Jun 2024 08:15:33 +0000
-Subject: Re: [apparmor] [PATCH v3] ima: Avoid blocking in RCU read-side
-	critical section
+Subject: Re: [apparmor] [PATCH v2 1/4] capabilities: Add user namespace
+	capabilities
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -70,177 +43,53 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: eric.snowberg@oracle.com, selinux@vger.kernel.org,
- apparmor@lists.ubuntu.com, omosnace@redhat.com, audit@vger.kernel.org,
- linux-security-module@vger.kernel.org, linux-integrity@vger.kernel.org
+Cc: Matt Bobrowski <mattbobrowski@google.com>,
+ Joel Granados <j.granados@samsung.com>, linux-kselftest@vger.kernel.org,
+ linux-doc@vger.kernel.org, Kees Cook <kees@kernel.org>,
+ Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andrii@kernel.org>,
+ David Howells <dhowells@redhat.com>, Song Liu <song@kernel.org>,
+ keyrings@vger.kernel.org, Stanislav Fomichev <sdf@google.com>,
+ Yonghong Song <yonghong.song@linux.dev>, Shuah Khan <shuah@kernel.org>,
+ linux-security-module@vger.kernel.org, Mykola Lysenko <mykolal@fb.com>,
+ Paul Moore <paul@paul-moore.com>, Daniel Borkmann <daniel@iogearbox.net>,
+ Jonathan Corbet <corbet@lwn.net>, John Fastabend <john.fastabend@gmail.com>,
+ James Morris <jmorris@namei.org>, Jarkko Sakkinen <jarkko@kernel.org>,
+ Andrew Morgan <morgan@kernel.org>, "Serge E. Hallyn" <serge@hallyn.com>,
+ selinux@vger.kernel.org, apparmor@lists.ubuntu.com,
+ KP Singh <kpsingh@kernel.org>, containers@lists.linux.dev,
+ Hao Luo <haoluo@google.com>, brauner@kernel.org,
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Ondrej Mosnacek <omosnace@redhat.com>, linux-kernel@vger.kernel.org,
+ Eduard Zingerman <eddyz87@gmail.com>, Luis Chamberlain <mcgrof@kernel.org>,
+ ebiederm@xmission.com, Jiri Olsa <jolsa@kernel.org>,
+ linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org,
+ Martin KaFai Lau <martin.lau@linux.dev>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Thu, 2024-06-13 at 14:26 -0400, Paul Moore wrote:
-> On Wed, Jun 12, 2024 at 5:43=E2=80=AFPM Paul Moore <paul@paul-moore.com> =
-wrote:
-> > On May  6, 2024 GUO Zihua <guozihua@huawei.com> wrote:
-> > >=20
-> > > A panic happens in ima_match_policy:
-> > >=20
-> > > BUG: unable to handle kernel NULL pointer dereference at 000000000000=
-0010
-> > > PGD 42f873067 P4D 0
-> > > Oops: 0000 [#1] SMP NOPTI
-> > > CPU: 5 PID: 1286325 Comm: kubeletmonit.sh Kdump: loaded Tainted: P
-> > > Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 0.0.0 02/=
-06/2015
-> > > RIP: 0010:ima_match_policy+0x84/0x450
-> > > Code: 49 89 fc 41 89 cf 31 ed 89 44 24 14 eb 1c 44 39 7b 18 74 26 41 =
-83 ff 05 74 20 48 8b 1b 48 3b 1d f2 b9 f4 00 0f 84 9c 01 00 00 <44> 85 73 1=
-0 74 ea 44 8b 6b 14 41 f6 c5 01 75 d4 41 f6 c5 02 74 0f
-> > > RSP: 0018:ff71570009e07a80 EFLAGS: 00010207
-> > > RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000200
-> > > RDX: ffffffffad8dc7c0 RSI: 0000000024924925 RDI: ff3e27850dea2000
-> > > RBP: 0000000000000000 R08: 0000000000000000 R09: ffffffffabfce739
-> > > R10: ff3e27810cc42400 R11: 0000000000000000 R12: ff3e2781825ef970
-> > > R13: 00000000ff3e2785 R14: 000000000000000c R15: 0000000000000001
-> > > FS:  00007f5195b51740(0000) GS:ff3e278b12d40000(0000) knlGS:000000000=
-0000000
-> > > CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> > > CR2: 0000000000000010 CR3: 0000000626d24002 CR4: 0000000000361ee0
-> > > DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-> > > DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-> > > Call Trace:
-> > >  ima_get_action+0x22/0x30
-> > >  process_measurement+0xb0/0x830
-> > >  ? page_add_file_rmap+0x15/0x170
-> > >  ? alloc_set_pte+0x269/0x4c0
-> > >  ? prep_new_page+0x81/0x140
-> > >  ? simple_xattr_get+0x75/0xa0
-> > >  ? selinux_file_open+0x9d/0xf0
-> > >  ima_file_check+0x64/0x90
-> > >  path_openat+0x571/0x1720
-> > >  do_filp_open+0x9b/0x110
-> > >  ? page_counter_try_charge+0x57/0xc0
-> > >  ? files_cgroup_alloc_fd+0x38/0x60
-> > >  ? __alloc_fd+0xd4/0x250
-> > >  ? do_sys_open+0x1bd/0x250
-> > >  do_sys_open+0x1bd/0x250
-> > >  do_syscall_64+0x5d/0x1d0
-> > >  entry_SYSCALL_64_after_hwframe+0x65/0xca
-> > >=20
-> > > Commit c7423dbdbc9e ("ima: Handle -ESTALE returned by
-> > > ima_filter_rule_match()") introduced call to ima_lsm_copy_rule within=
- a
-> > > RCU read-side critical section which contains kmalloc with GFP_KERNEL=
-.
-> > > This implies a possible sleep and violates limitations of RCU read-si=
-de
-> > > critical sections on non-PREEMPT systems.
-> > >=20
-> > > Sleeping within RCU read-side critical section might cause
-> > > synchronize_rcu() returning early and break RCU protection, allowing =
-a
-> > > UAF to happen.
-> > >=20
-> > > The root cause of this issue could be described as follows:
-> > > >     Thread A        |       Thread B        |
-> > > >                     |ima_match_policy       |
-> > > >                     |  rcu_read_lock        |
-> > > > ima_lsm_update_rule  |                       |
-> > > >  synchronize_rcu    |                       |
-> > > >                     |    kmalloc(GFP_KERNEL)|
-> > > >                     |      sleep            |
-> > > =3D=3D> synchronize_rcu returns early
-> > > >  kfree(entry)               |                       |
-> > > >                     |    entry =3D entry->next|
-> > > =3D=3D> UAF happens and entry now becomes NULL (or could be anything)=
-.
-> > > >                     |    entry->action      |
-> > > =3D=3D> Accessing entry might cause panic.
-> > >=20
-> > > To fix this issue, we are converting all kmalloc that is called withi=
-n
-> > > RCU read-side critical section to use GFP_ATOMIC.
-> > >=20
-> > > Fixes: c7423dbdbc9e ("ima: Handle -ESTALE returned by ima_filter_rule=
-_match()")
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: GUO Zihua <guozihua@huawei.com>
-> > > Acked-by: John Johansen <john.johansen@canonical.com>
-> > > Reviewed-by: Mimi Zohar <zohar@linux.ibm.com>
-> > > Reviewed-by: Casey Schaufler <casey@schaufler-ca.com>
-> > > ---
-> > > v3:
-> > >   ima_lsm_copy_rule takes a GFP flag as input as well.
-> > > v2:
-> > >   Changed the audit_rule_init security hook to accept a new GFP flag,=
- as
-> > > per Stephen's suggestion.
-> > >=20
-> > > ---
-> > >  include/linux/lsm_hook_defs.h       |  2 +-
-> > >  include/linux/security.h            |  5 +++--
-> > >  kernel/auditfilter.c                |  5 +++--
-> > >  security/apparmor/audit.c           |  6 +++---
-> > >  security/apparmor/include/audit.h   |  2 +-
-> > >  security/integrity/ima/ima_policy.c | 15 +++++++++------
-> > >  security/security.c                 |  6 ++++--
-> > >  security/selinux/include/audit.h    |  4 +++-
-> > >  security/selinux/ss/services.c      |  5 +++--
-> > >  security/smack/smack_lsm.c          |  3 ++-
-> > >  10 files changed, 32 insertions(+), 21 deletions(-)
-> >=20
-> > With the exception of one small gotcha (see below), this looks okay to
-> > me.  At Mimi's request I'm going to merge this into the LSM tree, via
-> > lsm/stable-6.10, where I'll give it a few days in linux-next before
-> > sending it up to Linus.
->=20
-> I also had to apply the following fix to this patch to resolve the
-> !CONFIG_IMA_LSM_RULES ca
-> se ... grrrrr.
+On Tue, Jun 11, 2024 at 01:20:40AM -0700, Jonathan Calmels wrote:
+> On Mon, Jun 10, 2024 at 08:00:57AM GMT, Serge E. Hallyn wrote:
+> > 
+> > Now, one thing that does occur to me here is that there is a
+> > very mild form of sendmail-capabilities vulnerability that
+> > could happen here.  Unpriv user joe can drop CAP_SYS_ADMIN
+> > from cap_userns, then run a setuid-root program which starts
+> > a container which expects CAP_SYS_ADMIN.  This could be a
+> > shared container, and so joe could be breaking expected
+> > behavior there.
+> > 
+> > I *think* we want to say we don't care about this case, but
+> > if we did, I suppose we could say that the normal cap raise
+> > rules on setuid should apply to cap_userns?
+> > 
+> 
+> Right, good catch. If we do want to fix it, we could just check for
+> setuid no? Or do we want to follow the normal root inheritance rules
+> too? Essentially something like this:
+> 
+> pU' = is_suid(root) ? X : pU
 
-Argh, sorry...
+Yeah, I think that makes sense.  Thanks.
 
-Thanks Paul!
-
-Roberto
-
-> diff --git a/security/integrity/ima/ima.h b/security/integrity/ima/ima.h
-> index 3e568126cd48..c51e24d24d1e 100644
-> --- a/security/integrity/ima/ima.h
-> +++ b/security/integrity/ima/ima.h
-> @@ -546,7 +546,7 @@ static inline void ima_free_modsig(struct modsig *mod=
-sig)
-> #else
->=20
-> static inline int ima_filter_rule_init(u32 field, u32 op, char *rulestr,
-> -                                      void **lsmrule)
-> +                                      void **lsmrule, gfp_t gfp)
-> {
->        return -EINVAL;
-> }
->=20
-> > > diff --git a/security/smack/smack_lsm.c b/security/smack/smack_lsm.c
-> > > index 146667937811..a4943628d75a 100644
-> > > --- a/security/smack/smack_lsm.c
-> > > +++ b/security/smack/smack_lsm.c
-> > > @@ -4696,7 +4696,8 @@ static int smack_post_notification(const struct=
- cred *w_cred,
-> > >   * Prepare to audit cases where (@field @op @rulestr) is true.
-> > >   * The label to be audited is created if necessay.
-> > >   */
-> > > -static int smack_audit_rule_init(u32 field, u32 op, char *rulestr, v=
-oid **vrule)
-> > > +static int smack_audit_rule_init(u32 field, u32 op, char *rulestr, v=
-oid **vrule,
-> > > +                              gfp_t gfp)
-> >=20
-> > You forgot to add the new @gfp parameter to the function's header
-> > comment block.  I'm going to add the following as the text is used in
-> > other Smack functions, if anyone has any objections please let me know.
-> >=20
-> >   " * @gfp: type of the memory for the allocation"
-> >=20
-> > >  {
-> > >       struct smack_known *skp;
-> > >       char **rule =3D (char **)vrule;
->=20
-
+-serge
 
