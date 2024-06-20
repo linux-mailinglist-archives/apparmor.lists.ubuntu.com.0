@@ -2,59 +2,56 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBA5D911EE2
-	for <lists+apparmor@lfdr.de>; Fri, 21 Jun 2024 10:36:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37057911EE5
+	for <lists+apparmor@lfdr.de>; Fri, 21 Jun 2024 10:36:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1sKZkY-0004ar-OH; Fri, 21 Jun 2024 08:36:02 +0000
-Received: from mail-ej1-f48.google.com ([209.85.218.48])
+	id 1sKZkX-0004aB-No; Fri, 21 Jun 2024 08:36:01 +0000
+Received: from mail-wr1-f42.google.com ([209.85.221.42])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <mjguzik@gmail.com>) id 1sKKqp-00009P-On
- for apparmor@lists.ubuntu.com; Thu, 20 Jun 2024 16:41:31 +0000
-Received: by mail-ej1-f48.google.com with SMTP id
- a640c23a62f3a-a6fc30e3237so120329966b.1
- for <apparmor@lists.ubuntu.com>; Thu, 20 Jun 2024 09:41:31 -0700 (PDT)
+ (Exim 4.86_2) (envelope-from <mjguzik@gmail.com>) id 1sKMdg-0005rx-8z
+ for apparmor@lists.ubuntu.com; Thu, 20 Jun 2024 18:36:04 +0000
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-35f06861ae6so960494f8f.2
+ for <apparmor@lists.ubuntu.com>; Thu, 20 Jun 2024 11:36:04 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1718901691; x=1719506491;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=PVqFMf+YA6WaCF8UVxLhtLxGRBqYbo7Uv1IbfXsLd0I=;
- b=fnfx59nlgwg3pJQ/1w7NslEOi5+ClChBAQb76xhTgO50hH8w7tELM/acbiegpTtLup
- IdO9+LXj7YEB5AgJP1DfVTaLEsYKV8qghdgZxtwQ36cWDrysZiQdQLtKv3ZfARJk0qRX
- fI0gmGXQT8yUa12cbynNoILfA5fMW1fiTCW9tkpGT5lIql8Lnt96XX5A4azcel0xNMa2
- 1MopxpRePbm8DZsLEkWGOnCXTVThb4rhyaEUerUQOnm58TM44nBuzhk3U7zB28ifFdAB
- YOajEsT2YJKqqZhVF//ni9kfC97Dq0MMfNzW+CPa6XpDKUVm+gdklw3eo850PWdoSq/i
- 8JQQ==
+ d=1e100.net; s=20230601; t=1718908563; x=1719513363;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=aYg/fQs2+kuc4laJDOi7nR98E30rR5KMEuEzLwwwI/U=;
+ b=kK3PKEmwJ4orBeBIdZFBdil7XuL0kuHen5ZGKTkumnyuKR+v+LhPfgILM/6xkas1Gu
+ RaxIWYbsgKTHPPHi6mvJw9MhOJuhsnEJz2KrtYJ0VNMT6kLXYk5nD+fo7w4jYXqJ+/1M
+ JNFuCVNBmrLhuRj9FYW3FecGd8nlr310L4PNUJbWjPzH70CTEdN/tySiWvL+UPUgyOHS
+ WIVWDFnzejiUMU/kTgFrAZYcfRnBi6gM6kHZjfu9K5R93bV3WyhEAnN9BHOUZBBNiZRF
+ tGfjDZounkdxnjldt6t5lQvY2vHKE9vSRx9A7MIb60KBS7CBi2pfNEQiIeR4avEX0+o0
+ qR0w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUL9TBXf4aRL3vM5p5B60RE80KymJk4TYlI9oaKFjIYWWY7dUf8H9ZTYwuSneh35mpvJhvdq2URq6x4bdgSQwqdpQ+E8YxWndlw
-X-Gm-Message-State: AOJu0YzLfFDSoc/x9GCim7WFBU0MLjBvmSLvZv2PjEUw3b3uyJTdqBpi
- KCz7q4Oi7wXlNv+bmU1q0QT0WrGEs/eJmActG+Pp6Xvt52VLAB8A
-X-Google-Smtp-Source: AGHT+IFYCMPJHTVF90AK5hSCiAHLK5/uxoQ/V6aN3/XvBLsizCv+mz3Iu4ITX/MA7fl1zsEVva7nEQ==
-X-Received: by 2002:a17:906:dfe2:b0:a6f:ffa:9596 with SMTP id
- a640c23a62f3a-a6fab7d0b8dmr345856866b.63.1718901690803; 
- Thu, 20 Jun 2024 09:41:30 -0700 (PDT)
-Received: from f (cst-prg-30-39.cust.vodafone.cz. [46.135.30.39])
+ AJvYcCUA8F4KbfsOVbMYhRgbzoHJ9CTSUqGG/+nnwcRPTMfLoW3xPkEqgaCm1K8f7xjcCp4vhAi0hgX5pxHGplkxzREfkfgZM8W56cIp
+X-Gm-Message-State: AOJu0YzCY+J4Sc1OWTQ9YV1cp49G+cbJsh41dPaQkXh+jNMe/oRvzGZw
+ SjBgX8E+dwZm6ul3krGtTwfdqc69YZ4Lh9zjLhDFX9iqgrgORUwEx/PDY8SZ
+X-Google-Smtp-Source: AGHT+IEiryEnHRn0pakoC9f3F0xz4DDlqEixJnJvkaTjsTfaWq0cDwBI+U6mRxj1AIyUk52rmV5xKg==
+X-Received: by 2002:a2e:80c9:0:b0:2eb:1ac4:c9cc with SMTP id
+ 38308e7fff4ca-2ec3cfe1c38mr35389951fa.52.1718903736064; 
+ Thu, 20 Jun 2024 10:15:36 -0700 (PDT)
+Received: from f.. (cst-prg-30-39.cust.vodafone.cz. [46.135.30.39])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a6f56ecd666sm784693266b.135.2024.06.20.09.41.28
+ 4fb4d7f45d1cf-57cd449efd6sm6333746a12.45.2024.06.20.10.15.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Jun 2024 09:41:30 -0700 (PDT)
-Date: Thu, 20 Jun 2024 18:41:22 +0200
+ Thu, 20 Jun 2024 10:15:35 -0700 (PDT)
 From: Mateusz Guzik <mjguzik@gmail.com>
-To: John Johansen <john.johansen@canonical.com>
-Message-ID: <3ijkwqkrynfxi6t5bj2jingkpebsnomdcwduhe4pgl6pu25sfs@smvxx7ewexkc>
-References: <20240620131524.156312-1-mjguzik@gmail.com>
- <71c0ea18-8b8b-402b-b03c-029aeedc2747@canonical.com>
+To: john.johansen@canonical.com
+Date: Thu, 20 Jun 2024 19:15:27 +0200
+Message-ID: <20240620171528.167997-1-mjguzik@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <71c0ea18-8b8b-402b-b03c-029aeedc2747@canonical.com>
-Received-SPF: pass client-ip=209.85.218.48; envelope-from=mjguzik@gmail.com;
- helo=mail-ej1-f48.google.com
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=209.85.221.42; envelope-from=mjguzik@gmail.com;
+ helo=mail-wr1-f42.google.com
 X-Mailman-Approved-At: Fri, 21 Jun 2024 08:36:00 +0000
-Subject: Re: [apparmor] [PATCH] apparmor: try to avoid refing the label in
- apparmor_file_open
+Subject: [apparmor] [PATCH v2] apparmor: try to avoid refing the label in
+	apparmor_file_open
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -66,67 +63,100 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: paul@paul-moore.com, Neeraj.Upadhyay@amd.com, apparmor@lists.ubuntu.com,
+Cc: Mateusz Guzik <mjguzik@gmail.com>, paul@paul-moore.com,
+ Neeraj.Upadhyay@amd.com, apparmor@lists.ubuntu.com,
  linux-kernel@vger.kernel.org, jmorris@namei.org,
  linux-security-module@vger.kernel.org, serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Thu, Jun 20, 2024 at 09:26:00AM -0700, John Johansen wrote:
-> On 6/20/24 06:15, Mateusz Guzik wrote:
-> > It can be done in the common case.
-> > > A 24-way open1_processes from will-it-scale (separate file open) shows:
-> >    29.37%  [kernel]           [k] apparmor_file_open
-> >    26.84%  [kernel]           [k] apparmor_file_alloc_security
-> >    26.62%  [kernel]           [k] apparmor_file_free_security
-> >     1.32%  [kernel]           [k] clear_bhb_loop
-> > 
-> > apparmor_file_open is eliminated from the profile with the patch.
-> > 
-> > Throughput (ops/s):
-> > before:	6092196
-> > after:	8309726 (+36%)
-> > 
-> > Signed-off-by: Mateusz Guzik <mjguzik@gmail.com>
-> can you cleanup the commit message and I will pull this in
-> 
-
-First of all thanks for a timely review.
-
-I thought that's a decent commit message though. ;)
-
-Would something like this work:
-<cm>
 apparmor: try to avoid refing the label in apparmor_file_open
 
-In the common case it can be avoided, which in turn reduces the
-performance impact apparmor on parallel open() invocations.
+If the label is not stale (which is the common case), the fact that the
+passed file object holds a reference can be leverged to avoid the
+ref/unref cycle. Doing so reduces performance impact of apparmor on
+parallel open() invocations.
 
-When benchmarking on 24-core vm using will-it-scale's open1_process
+When benchmarking on a 24-core vm using will-it-scale's open1_process
 ("Separate file open"), the results are (ops/s):
 before: 6092196
 after:  8309726 (+36%)
-</cm>
 
-If this is fine I'll send a v2.
+Signed-off-by: Mateusz Guzik <mjguzik@gmail.com>
+---
 
-If you are looking for something fundamentally different I would say it
-will be the fastest if you write your own commit message while borrowing
-the numbers and denoting all the wording is yours. I'm trying to reduce
-back and forth over email here.
+v2:
+- reword the commit message
 
-> > Am I missing something which makes the approach below not work to begin
-> > with?
-> > 
-> no this will work in the short term. Long term there is work that will
-> break this. Both replacing unconfined and the object delegation work
-> will cause a performance regression as I am not sure we will be able
-> to conditionally get the label but that is something for those patch
-> series to work out. My biggest concern being people objecting to necessary
-> changes that regress performance, if it can't be worked out, but
-> that really isn't a reason to stop this now.
-> 
+If you want any changes made to it can you just do them on your own
+accord? :) Will be faster for both of us than another mail trip.
 
-hrm. I was looking at going a step further, now I'm going to have to
-poke around.
+ security/apparmor/include/cred.h | 20 ++++++++++++++++++++
+ security/apparmor/lsm.c          |  5 +++--
+ 2 files changed, 23 insertions(+), 2 deletions(-)
+
+diff --git a/security/apparmor/include/cred.h b/security/apparmor/include/cred.h
+index 58fdc72af664..7265d2f81dd5 100644
+--- a/security/apparmor/include/cred.h
++++ b/security/apparmor/include/cred.h
+@@ -63,6 +63,26 @@ static inline struct aa_label *aa_get_newest_cred_label(const struct cred *cred)
+ 	return aa_get_newest_label(aa_cred_raw_label(cred));
+ }
+ 
++static inline struct aa_label *aa_get_newest_cred_label_condref(const struct cred *cred,
++								bool *needput)
++{
++	struct aa_label *l = aa_cred_raw_label(cred);
++
++	if (unlikely(label_is_stale(l))) {
++		*needput = true;
++		return aa_get_newest_label(l);
++	}
++
++	*needput = false;
++	return l;
++}
++
++static inline void aa_put_label_condref(struct aa_label *l, bool needput)
++{
++	if (unlikely(needput))
++		aa_put_label(l);
++}
++
+ /**
+  * aa_current_raw_label - find the current tasks confining label
+  *
+diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
+index 2cea34657a47..4bf87eac4a56 100644
+--- a/security/apparmor/lsm.c
++++ b/security/apparmor/lsm.c
+@@ -461,6 +461,7 @@ static int apparmor_file_open(struct file *file)
+ 	struct aa_file_ctx *fctx = file_ctx(file);
+ 	struct aa_label *label;
+ 	int error = 0;
++	bool needput;
+ 
+ 	if (!path_mediated_fs(file->f_path.dentry))
+ 		return 0;
+@@ -477,7 +478,7 @@ static int apparmor_file_open(struct file *file)
+ 		return 0;
+ 	}
+ 
+-	label = aa_get_newest_cred_label(file->f_cred);
++	label = aa_get_newest_cred_label_condref(file->f_cred, &needput);
+ 	if (!unconfined(label)) {
+ 		struct mnt_idmap *idmap = file_mnt_idmap(file);
+ 		struct inode *inode = file_inode(file);
+@@ -494,7 +495,7 @@ static int apparmor_file_open(struct file *file)
+ 		/* todo cache full allowed permissions set and state */
+ 		fctx->allow = aa_map_file_to_perms(file);
+ 	}
+-	aa_put_label(label);
++	aa_put_label_condref(label, needput);
+ 
+ 	return error;
+ }
+-- 
+2.43.0
+
 
