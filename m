@@ -2,31 +2,33 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id B32C3910C5D
-	for <lists+apparmor@lfdr.de>; Thu, 20 Jun 2024 18:26:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F25A910E1E
+	for <lists+apparmor@lfdr.de>; Thu, 20 Jun 2024 19:09:19 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1sKKc9-0006wg-I0; Thu, 20 Jun 2024 16:26:21 +0000
+	id 1sKLHY-0002BX-Nw; Thu, 20 Jun 2024 17:09:08 +0000
 Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
  helo=smtp-relay-canonical-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1sKKbs-0006vk-HV
- for apparmor@lists.ubuntu.com; Thu, 20 Jun 2024 16:26:04 +0000
+ id 1sKLHS-0002B6-19
+ for apparmor@lists.ubuntu.com; Thu, 20 Jun 2024 17:09:02 +0000
 Received: from [10.0.0.100] (pool-99-255-30-7.cpe.net.cable.rogers.com
  [99.255.30.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 5747A3F0FE; 
- Thu, 20 Jun 2024 16:26:02 +0000 (UTC)
-Message-ID: <71c0ea18-8b8b-402b-b03c-029aeedc2747@canonical.com>
-Date: Thu, 20 Jun 2024 09:26:00 -0700
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id EBC4A3F210; 
+ Thu, 20 Jun 2024 17:08:59 +0000 (UTC)
+Message-ID: <c9f55357-029b-4799-8072-f5c96216d60c@canonical.com>
+Date: Thu, 20 Jun 2024 10:08:58 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Mateusz Guzik <mjguzik@gmail.com>
 References: <20240620131524.156312-1-mjguzik@gmail.com>
+ <71c0ea18-8b8b-402b-b03c-029aeedc2747@canonical.com>
+ <3ijkwqkrynfxi6t5bj2jingkpebsnomdcwduhe4pgl6pu25sfs@smvxx7ewexkc>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -72,7 +74,7 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20240620131524.156312-1-mjguzik@gmail.com>
+In-Reply-To: <3ijkwqkrynfxi6t5bj2jingkpebsnomdcwduhe4pgl6pu25sfs@smvxx7ewexkc>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Subject: Re: [apparmor] [PATCH] apparmor: try to avoid refing the label in
@@ -94,115 +96,67 @@ Cc: paul@paul-moore.com, Neeraj.Upadhyay@amd.com, apparmor@lists.ubuntu.com,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 6/20/24 06:15, Mateusz Guzik wrote:
-> It can be done in the common case.
-> > A 24-way open1_processes from will-it-scale (separate file open) shows:
->    29.37%  [kernel]           [k] apparmor_file_open
->    26.84%  [kernel]           [k] apparmor_file_alloc_security
->    26.62%  [kernel]           [k] apparmor_file_free_security
->     1.32%  [kernel]           [k] clear_bhb_loop
+On 6/20/24 09:41, Mateusz Guzik wrote:
+> On Thu, Jun 20, 2024 at 09:26:00AM -0700, John Johansen wrote:
+>> On 6/20/24 06:15, Mateusz Guzik wrote:
+>>> It can be done in the common case.
+>>>> A 24-way open1_processes from will-it-scale (separate file open) shows:
+>>>     29.37%  [kernel]           [k] apparmor_file_open
+>>>     26.84%  [kernel]           [k] apparmor_file_alloc_security
+>>>     26.62%  [kernel]           [k] apparmor_file_free_security
+>>>      1.32%  [kernel]           [k] clear_bhb_loop
+>>>
+>>> apparmor_file_open is eliminated from the profile with the patch.
+>>>
+>>> Throughput (ops/s):
+>>> before:	6092196
+>>> after:	8309726 (+36%)
+>>>
+>>> Signed-off-by: Mateusz Guzik <mjguzik@gmail.com>
+>> can you cleanup the commit message and I will pull this in
+>>
 > 
-> apparmor_file_open is eliminated from the profile with the patch.
+> First of all thanks for a timely review.
 > 
-> Throughput (ops/s):
-> before:	6092196
-> after:	8309726 (+36%)
+> I thought that's a decent commit message though. ;)
 > 
-> Signed-off-by: Mateusz Guzik <mjguzik@gmail.com>
-can you cleanup the commit message and I will pull this in
-
-> ---
+> Would something like this work:
+> <cm>
+> apparmor: try to avoid refing the label in apparmor_file_open
 > 
-> I think this is a worthwhile touch up regardless of what happens with
-> label refcouting in the long run. It does not of course does not fully
-> fix the problem.
+> In the common case it can be avoided, which in turn reduces the
+> performance impact apparmor on parallel open() invocations.
 > 
-I have no objections to incremental improvements.
-
-> I concede the naming is not consistent with other stuff in the file and
-> I'm not going to argue about it -- happy to name it whatever as long as
-> the problem is sorted out.
+> When benchmarking on 24-core vm using will-it-scale's open1_process
+> ("Separate file open"), the results are (ops/s):
+> before: 6092196
+> after:  8309726 (+36%)
+> </cm>
 > 
-its fine, we could use crit_section here like with the current_label but
-I don't think we really gain anything by doing so.
-
-> Am I missing something which makes the approach below not work to begin
-> with?
+> If this is fine I'll send a v2.
 > 
-no this will work in the short term. Long term there is work that will
-break this. Both replacing unconfined and the object delegation work
-will cause a performance regression as I am not sure we will be able
-to conditionally get the label but that is something for those patch
-series to work out. My biggest concern being people objecting to necessary
-changes that regress performance, if it can't be worked out, but
-that really isn't a reason to stop this now.
-
+it will do, largely, I was just looking for something that explains
+a little more than. "It can be done in the common case"
 
 
->   security/apparmor/include/cred.h | 20 ++++++++++++++++++++
->   security/apparmor/lsm.c          |  5 +++--
->   2 files changed, 23 insertions(+), 2 deletions(-)
+> If you are looking for something fundamentally different I would say it
+> will be the fastest if you write your own commit message while borrowing
+> the numbers and denoting all the wording is yours. I'm trying to reduce
+> back and forth over email here.
 > 
-> diff --git a/security/apparmor/include/cred.h b/security/apparmor/include/cred.h
-> index 58fdc72af664..7265d2f81dd5 100644
-> --- a/security/apparmor/include/cred.h
-> +++ b/security/apparmor/include/cred.h
-> @@ -63,6 +63,26 @@ static inline struct aa_label *aa_get_newest_cred_label(const struct cred *cred)
->   	return aa_get_newest_label(aa_cred_raw_label(cred));
->   }
->   
-> +static inline struct aa_label *aa_get_newest_cred_label_condref(const struct cred *cred,
-> +								bool *needput)
-> +{
-> +	struct aa_label *l = aa_cred_raw_label(cred);
-> +
-> +	if (unlikely(label_is_stale(l))) {
-> +		*needput = true;
-> +		return aa_get_newest_label(l);
-> +	}
-> +
-> +	*needput = false;
-> +	return l;
-> +}
-> +
-> +static inline void aa_put_label_condref(struct aa_label *l, bool needput)
-> +{
-> +	if (unlikely(needput))
-> +		aa_put_label(l);
-> +}
-> +
->   /**
->    * aa_current_raw_label - find the current tasks confining label
->    *
-> diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
-> index 2cea34657a47..4bf87eac4a56 100644
-> --- a/security/apparmor/lsm.c
-> +++ b/security/apparmor/lsm.c
-> @@ -461,6 +461,7 @@ static int apparmor_file_open(struct file *file)
->   	struct aa_file_ctx *fctx = file_ctx(file);
->   	struct aa_label *label;
->   	int error = 0;
-> +	bool needput;
->   
->   	if (!path_mediated_fs(file->f_path.dentry))
->   		return 0;
-> @@ -477,7 +478,7 @@ static int apparmor_file_open(struct file *file)
->   		return 0;
->   	}
->   
-> -	label = aa_get_newest_cred_label(file->f_cred);
-> +	label = aa_get_newest_cred_label_condref(file->f_cred, &needput);
->   	if (!unconfined(label)) {
->   		struct mnt_idmap *idmap = file_mnt_idmap(file);
->   		struct inode *inode = file_inode(file);
-> @@ -494,7 +495,7 @@ static int apparmor_file_open(struct file *file)
->   		/* todo cache full allowed permissions set and state */
->   		fctx->allow = aa_map_file_to_perms(file);
->   	}
-> -	aa_put_label(label);
-> +	aa_put_label_condref(label, needput);
->   
->   	return error;
->   }
+>>> Am I missing something which makes the approach below not work to begin
+>>> with?
+>>>
+>> no this will work in the short term. Long term there is work that will
+>> break this. Both replacing unconfined and the object delegation work
+>> will cause a performance regression as I am not sure we will be able
+>> to conditionally get the label but that is something for those patch
+>> series to work out. My biggest concern being people objecting to necessary
+>> changes that regress performance, if it can't be worked out, but
+>> that really isn't a reason to stop this now.
+>>
+> 
+> hrm. I was looking at going a step further, now I'm going to have to
+> poke around.
 
 
