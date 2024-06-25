@@ -2,33 +2,34 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3ABF3916115
-	for <lists+apparmor@lfdr.de>; Tue, 25 Jun 2024 10:26:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EC02916119
+	for <lists+apparmor@lfdr.de>; Tue, 25 Jun 2024 10:26:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1sM1VB-0000d3-Lk; Tue, 25 Jun 2024 08:26:09 +0000
+	id 1sM1Vh-0000i8-3q; Tue, 25 Jun 2024 08:26:41 +0000
 Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
  helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1sM1VA-0000cv-IG
- for apparmor@lists.ubuntu.com; Tue, 25 Jun 2024 08:26:08 +0000
+ id 1sM1Vf-0000i0-OU
+ for apparmor@lists.ubuntu.com; Tue, 25 Jun 2024 08:26:39 +0000
 Received: from [10.0.0.100] (pool-99-255-30-7.cpe.net.cable.rogers.com
  [99.255.30.7])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 801F940FAD; 
- Tue, 25 Jun 2024 08:26:06 +0000 (UTC)
-Message-ID: <17dad6b9-9dc3-4b0f-bd3d-34e9e22e7627@canonical.com>
-Date: Tue, 25 Jun 2024 01:26:04 -0700
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 36B4640FAD; 
+ Tue, 25 Jun 2024 08:26:36 +0000 (UTC)
+Message-ID: <640381ed-4db2-43e1-b742-2e7d2c7c1adf@canonical.com>
+Date: Tue, 25 Jun 2024 01:26:34 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Jeff Johnson <quic_jjohnson@quicinc.com>, Paul Moore
  <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
  "Serge E. Hallyn" <serge@hallyn.com>
 References: <20240529-md-apparmor_policy_unpack_test-v1-1-9efc582078c4@quicinc.com>
+ <66425403-66fc-4250-9642-5b29dc821b39@quicinc.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -74,7 +75,7 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20240529-md-apparmor_policy_unpack_test-v1-1-9efc582078c4@quicinc.com>
+In-Reply-To: <66425403-66fc-4250-9642-5b29dc821b39@quicinc.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Subject: Re: [apparmor] [PATCH] apparmor: test: add MODULE_DESCRIPTION()
@@ -94,34 +95,34 @@ Cc: kernel-janitors@vger.kernel.org, linux-security-module@vger.kernel.org,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 5/29/24 18:21, Jeff Johnson wrote:
-> Fix the 'make W=1' warning:
-> WARNING: modpost: missing MODULE_DESCRIPTION() in security/apparmor/apparmor_policy_unpack_test.o
+On 6/20/24 09:21, Jeff Johnson wrote:
+> On 5/29/2024 6:21 PM, Jeff Johnson wrote:
+>> Fix the 'make W=1' warning:
+>> WARNING: modpost: missing MODULE_DESCRIPTION() in security/apparmor/apparmor_policy_unpack_test.o
+>>
+>> Signed-off-by: Jeff Johnson <quic_jjohnson@quicinc.com>
+>> ---
+>>   security/apparmor/policy_unpack_test.c | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/security/apparmor/policy_unpack_test.c b/security/apparmor/policy_unpack_test.c
+>> index 5c9bde25e56d..874fcf97794e 100644
+>> --- a/security/apparmor/policy_unpack_test.c
+>> +++ b/security/apparmor/policy_unpack_test.c
+>> @@ -604,4 +604,5 @@ static struct kunit_suite apparmor_policy_unpack_test_module = {
+>>   
+>>   kunit_test_suite(apparmor_policy_unpack_test_module);
+>>   
+>> +MODULE_DESCRIPTION("KUnit tests for AppArmor's policy unpack");
+>>   MODULE_LICENSE("GPL");
+>>
+>> ---
+>> base-commit: 4a4be1ad3a6efea16c56615f31117590fd881358
+>> change-id: 20240529-md-apparmor_policy_unpack_test-7657c4f11591
+>>
 > 
-> Signed-off-by: Jeff Johnson <quic_jjohnson@quicinc.com>
+> Following up to see if anything else is needed to get this merged.
 
-Acked-by: John Johansen <john.johansen@canonical.com>
-
-I will pull this into my tree
-
-> ---
->   security/apparmor/policy_unpack_test.c | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/security/apparmor/policy_unpack_test.c b/security/apparmor/policy_unpack_test.c
-> index 5c9bde25e56d..874fcf97794e 100644
-> --- a/security/apparmor/policy_unpack_test.c
-> +++ b/security/apparmor/policy_unpack_test.c
-> @@ -604,4 +604,5 @@ static struct kunit_suite apparmor_policy_unpack_test_module = {
->   
->   kunit_test_suite(apparmor_policy_unpack_test_module);
->   
-> +MODULE_DESCRIPTION("KUnit tests for AppArmor's policy unpack");
->   MODULE_LICENSE("GPL");
-> 
-> ---
-> base-commit: 4a4be1ad3a6efea16c56615f31117590fd881358
-> change-id: 20240529-md-apparmor_policy_unpack_test-7657c4f11591
-> 
+sorry, just me catching up on my backlog
 
 
