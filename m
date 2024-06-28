@@ -2,72 +2,67 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74F4791E4D0
+	by mail.lfdr.de (Postfix) with ESMTPS id C964591E4D1
 	for <lists+apparmor@lfdr.de>; Mon,  1 Jul 2024 18:08:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1sOJZg-0005xO-I1; Mon, 01 Jul 2024 16:08:16 +0000
-Received: from meesny.iki.fi ([195.140.195.201])
+	id 1sOJZi-0005xW-Ug; Mon, 01 Jul 2024 16:08:18 +0000
+Received: from smtp-relay-internal-1.internal ([10.131.114.114]
+ helo=smtp-relay-internal-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <jarkko.sakkinen@iki.fi>)
- id 1sNCrP-0001yQ-9E
- for apparmor@lists.ubuntu.com; Fri, 28 Jun 2024 14:45:59 +0000
-Received: from [192.168.1.215] (83-245-197-232.elisa-laajakaista.fi
- [83.245.197.232])
+ (Exim 4.86_2) (envelope-from <aleksandr.mikhalitsyn@canonical.com>)
+ id 1sNDfp-0007jf-Fh
+ for apparmor@lists.ubuntu.com; Fri, 28 Jun 2024 15:38:05 +0000
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
+ [209.85.208.71])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: sakkinen)
- by meesny.iki.fi (Postfix) with ESMTPSA id 4W9dXd425vzyQb;
- Fri, 28 Jun 2024 17:45:53 +0300 (EEST)
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
- s=meesny; t=1719585957;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=WWKHLgmudvMlwluvp3Stzu4k/6CZp2skiMXIPd54CxY=;
- b=RxUpuY06Tm7bdQ+ZP2YSeV2sZ0d26kGW+yfvErGUjN0RqKtm0McdqrYuekNb0pGvzE+qm7
- iuNlXj2O8FbpJDeehRl+K0JeKQeaRmeSYauJacKq29s6uBRrtri7KjBnhn89xVkrtvvaVt
- 5hMvMcoH5A/jWQetK3y8OT94tMYIngU=
-ARC-Authentication-Results: i=1; ORIGINATING;
- auth=pass smtp.auth=sakkinen smtp.mailfrom=jarkko.sakkinen@iki.fi
-ARC-Seal: i=1; s=meesny; d=iki.fi; t=1719585957; a=rsa-sha256; cv=none;
- b=wz7CPul/aLpW+AkOpy+q+2hOgYuNK2/HqS/jHykc4lXi7fbJVcsx4BSPq1RSy4MXAK4YCL
- YMEG6IroCIxVWFa5vosVXJ7wmDo9nZEnRkcQT2Nc2HYn4VErl62+Oyb3XbEnCw7Tw+qsRn
- X2ennwOnY7aYQMkNbAXIm+aPPy2PuKs=
-Message-ID: <177e16dafed37ab361cf0ccc436573be1d717d94.camel@iki.fi>
-From: Jarkko Sakkinen <jarkko.sakkinen@iki.fi>
-To: Jonathan Calmels <jcalmels@3xx0.net>, brauner@kernel.org, 
- ebiederm@xmission.com, Jonathan Corbet <corbet@lwn.net>, Paul Moore
- <paul@paul-moore.com>, James Morris <jmorris@namei.org>, "Serge E. Hallyn"
- <serge@hallyn.com>, KP Singh <kpsingh@kernel.org>, Matt Bobrowski
- <mattbobrowski@google.com>, Alexei Starovoitov <ast@kernel.org>, Daniel
- Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Martin KaFai Lau <martin.lau@linux.dev>, Eduard Zingerman
- <eddyz87@gmail.com>, Song Liu <song@kernel.org>, Yonghong Song
- <yonghong.song@linux.dev>, John Fastabend <john.fastabend@gmail.com>,
- Stanislav Fomichev <sdf@google.com>, Hao Luo <haoluo@google.com>, Jiri Olsa
- <jolsa@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, Kees Cook
- <kees@kernel.org>, Joel Granados <j.granados@samsung.com>, John Johansen
- <john.johansen@canonical.com>, David Howells <dhowells@redhat.com>, Jarkko
- Sakkinen <jarkko@kernel.org>, Stephen Smalley
- <stephen.smalley.work@gmail.com>, Ondrej Mosnacek <omosnace@redhat.com>, 
- Mykola Lysenko <mykolal@fb.com>, Shuah Khan <shuah@kernel.org>
-Date: Fri, 28 Jun 2024 17:45:52 +0300
-In-Reply-To: <f4de777099b0dff819ee6277b3b7cd7e18d96c78.camel@iki.fi>
-References: <20240609104355.442002-1-jcalmels@3xx0.net>
- <20240609104355.442002-3-jcalmels@3xx0.net>
- <f4de777099b0dff819ee6277b3b7cd7e18d96c78.camel@iki.fi>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.2 (3.52.2-1.fc40) 
+ (No client certificate requested)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id EE91541333
+ for <apparmor@lists.ubuntu.com>; Fri, 28 Jun 2024 15:38:04 +0000 (UTC)
+Received: by mail-ed1-f71.google.com with SMTP id
+ 4fb4d7f45d1cf-57ca45d7664so164688a12.1
+ for <apparmor@lists.ubuntu.com>; Fri, 28 Jun 2024 08:38:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1719589084; x=1720193884;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=MsEnv/M0byq8XC93iPUcxrjaR6EQLTcXh9kYUPdB+BE=;
+ b=XR6STU2eRrCpoW4ZokAUkknwqOAJtB5OH3OTlSFzd57wQEh4FFBCOdK8+8dxEfQuOT
+ zWph4QckCRzlYe+POoY6Ih2rWH4wxt3yJuI8ElDezB164mKHZWtl71malpP4twmFVLfx
+ N88qBa9/wGEMUxiO2j/uZKI4TqMdFvBT7W0S3ehHEXJIc6AUL80KrZaunh3YpsgPNTIb
+ u65AwUWaN9tSaBVBzL2ezxwsjpuDppCxrDHZCmwc2Xl0hWEiBZAegavYNz8VYXygLVi6
+ ti54QYIx2CrVFshlOJQLNqtInxUtp0i+DHy5ZiYhzqJCju2y6IIWhbQIX6PsZvnsSfSO
+ aVtw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVOo6EzJ/vrsqqubWrLO1bpmRVQwfS9BwAJIMWiMI6atH6zR3K1tR3SAjYLWHXdjTTQldWj6KTrYsgDD3YoP7hD/zNZ+RqnK2bf
+X-Gm-Message-State: AOJu0Yyyn0Ok8L7rfz1KqtaVQEGW0q4bH34tDP7uG2zJ2y84YENGJS0O
+ 6N6tvZ7HtR9Z3/9iwgtNoX5EqiWPKWeOUDRN+6UWmP1NgVGwvYqQyCOarnT79IJIiD8Alqi9nwp
+ g9NNLdMI7Zo3t+SX6AzAy1acgA3OclByjNGPkvRm5onZF7OgcQzFh+FARsA3qdZMDR14YjZVpsg
+ ==
+X-Received: by 2002:a50:9ea6:0:b0:582:6eb6:2526 with SMTP id
+ 4fb4d7f45d1cf-5826eb6b1edmr10770153a12.27.1719589084178; 
+ Fri, 28 Jun 2024 08:38:04 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHcMeBrqelm0UsCNdD0vrQxedxQWDUu+xpgEbL98RcEO1wN4zX2klzsubVREOWWNGw8QAgCTw==
+X-Received: by 2002:a50:9ea6:0:b0:582:6eb6:2526 with SMTP id
+ 4fb4d7f45d1cf-5826eb6b1edmr10770133a12.27.1719589083838; 
+ Fri, 28 Jun 2024 08:38:03 -0700 (PDT)
+Received: from localhost.localdomain ([91.64.91.101])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-58614d50593sm1164329a12.60.2024.06.28.08.38.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 28 Jun 2024 08:38:03 -0700 (PDT)
+From: Alexander Mikhalitsyn <aleksandr.mikhalitsyn@canonical.com>
+To: john.johansen@canonical.com
+Date: Fri, 28 Jun 2024 17:37:12 +0200
+Message-Id: <20240628153712.288166-1-aleksandr.mikhalitsyn@canonical.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Received-SPF: pass client-ip=195.140.195.201;
- envelope-from=jarkko.sakkinen@iki.fi; helo=meesny.iki.fi
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 01 Jul 2024 16:08:15 +0000
-Subject: Re: [apparmor] [PATCH v2 2/4] capabilities: Add securebit to
- restrict userns caps
+Subject: [apparmor] [PATCH] apparmor: take nosymfollow flag into account
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -79,176 +74,38 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org,
- selinux@vger.kernel.org, apparmor@lists.ubuntu.com,
- linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
- keyrings@vger.kernel.org, containers@lists.linux.dev,
- linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org
+Cc: Alexander Mikhalitsyn <aleksandr.mikhalitsyn@canonical.com>,
+ stgraber@stgraber.org, brauner@kernel.org, apparmor@lists.ubuntu.com,
+ linux-kernel@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Fri, 2024-06-28 at 17:43 +0300, Jarkko Sakkinen wrote:
-> On Sun, 2024-06-09 at 03:43 -0700, Jonathan Calmels wrote:
-> > This patch adds a new capability security bit designed to constrain
-> > a
->=20
->=20
-> nit: if you think of it "This patch adds" could be just "add", right?
-> :-)
->=20
-> Also name the exact thing/symbol/whatever here. This is not a HBO
-> series.
->=20
-> > task=E2=80=99s userns capability set to its bounding set. The reason fo=
-r
-> > this
-> > is
-> > twofold:
-> >=20
-> > - This serves as a quick and easy way to lock down a set of
-> > capabilities
-> > =C2=A0 for a task, thus ensuring that any namespace it creates will
-> > never
-> > be
-> > =C2=A0 more privileged than itself is.
-> > - This helps userspace transition to more secure defaults by not
-> > requiring
-> > =C2=A0 specific logic for the userns capability set, or libcap support.
-> >=20
-> > Example:
-> >=20
-> > =C2=A0=C2=A0=C2=A0 # capsh --secbits=3D$((1 << 8)) --drop=3Dcap_sys_raw=
-io -- \
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 -c '=
-unshare -r grep Cap /proc/self/status'
-> > =C2=A0=C2=A0=C2=A0 CapInh: 0000000000000000
-> > =C2=A0=C2=A0=C2=A0 CapPrm: 000001fffffdffff
-> > =C2=A0=C2=A0=C2=A0 CapEff: 000001fffffdffff
-> > =C2=A0=C2=A0=C2=A0 CapBnd: 000001fffffdffff
-> > =C2=A0=C2=A0=C2=A0 CapAmb: 0000000000000000
-> > =C2=A0=C2=A0=C2=A0 CapUNs: 000001fffffdffff
-> >=20
-> > Signed-off-by: Jonathan Calmels <jcalmels@3xx0.net>
-> > ---
-> > =C2=A0include/linux/securebits.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 =
-1 +
-> > =C2=A0include/uapi/linux/securebits.h | 11 ++++++++++-
-> > =C2=A0kernel/user_namespace.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 |=C2=A0 5 +++++
-> > =C2=A03 files changed, 16 insertions(+), 1 deletion(-)
-> >=20
-> > diff --git a/include/linux/securebits.h
-> > b/include/linux/securebits.h
-> > index 656528673983..5f9d85cd69c3 100644
-> > --- a/include/linux/securebits.h
-> > +++ b/include/linux/securebits.h
-> > @@ -5,4 +5,5 @@
-> > =C2=A0#include <uapi/linux/securebits.h>
-> > =C2=A0
-> > =C2=A0#define issecure(X)		(issecure_mask(X) &
-> > current_cred_xxx(securebits))
-> > +#define iscredsecure(cred, X)	(issecure_mask(X) & cred-
-> > > securebits)
-> > =C2=A0#endif /* !_LINUX_SECUREBITS_H */
-> > diff --git a/include/uapi/linux/securebits.h
-> > b/include/uapi/linux/securebits.h
-> > index d6d98877ff1a..2da3f4be4531 100644
-> > --- a/include/uapi/linux/securebits.h
-> > +++ b/include/uapi/linux/securebits.h
-> > @@ -52,10 +52,19 @@
-> > =C2=A0#define SECBIT_NO_CAP_AMBIENT_RAISE_LOCKED \
-> > =C2=A0			(issecure_mask(SECURE_NO_CAP_AMBIENT_RAISE
-> > _L
-> > OCKED))
-> > =C2=A0
-> > +/* When set, user namespace capabilities are restricted to their
-> > parent's bounding set. */
-> > +#define SECURE_USERNS_STRICT_CAPS			8
-> > +#define SECURE_USERNS_STRICT_CAPS_LOCKED		9=C2=A0 /* make
->=20
->=20
->=20
-> > bit-8 immutable */
-> > +
-> > +#define SECBIT_USERNS_STRICT_CAPS
-> > (issecure_mask(SECURE_USERNS_STRICT_CAPS))
-> > +#define SECBIT_USERNS_STRICT_CAPS_LOCKED \
-> > +			(issecure_mask(SECURE_USERNS_STRICT_CAPS_L
-> > OC
-> > KED))
-> > +
-> > =C2=A0#define
-> > SECURE_ALL_BITS		(issecure_mask(SECURE_NOROOT) | \
-> > =C2=A0			=09
-> > issecure_mask(SECURE_NO_SETUID_FIXUP) | \
-> > =C2=A0				 issecure_mask(SECURE_KEEP_CAPS) |
-> > \
-> > -			=09
-> > issecure_mask(SECURE_NO_CAP_AMBIENT_RAISE))
-> > +			=09
-> > issecure_mask(SECURE_NO_CAP_AMBIENT_RAISE) | \
-> > +			=09
->=20
-> spurious new lines in the diff
->=20
-> please as first priority aim for absolute minimal diff or at least
-> do grow diff proactively like this.
->=20
-> If we really think after that, that we need some "extras" to the
-> patch set, then we decide that. These only take energy away from
-> reviewers.
->=20
->=20
-> > issecure_mask(SECURE_USERNS_STRICT_CAPS))
-> > =C2=A0#define SECURE_ALL_LOCKS	(SECURE_ALL_BITS << 1)
-> > =C2=A0
-> > =C2=A0#endif /* _UAPI_LINUX_SECUREBITS_H */
-> > diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
-> > index 7e624607330b..53848e2b68cd 100644
-> > --- a/kernel/user_namespace.c
-> > +++ b/kernel/user_namespace.c
-> > @@ -10,6 +10,7 @@
-> > =C2=A0#include <linux/cred.h>
-> > =C2=A0#include <linux/securebits.h>
-> > =C2=A0#include <linux/security.h>
-> > +#include <linux/capability.h>
-> > =C2=A0#include <linux/keyctl.h>
-> > =C2=A0#include <linux/key-type.h>
-> > =C2=A0#include <keys/user-type.h>
-> > @@ -42,6 +43,10 @@ static void dec_user_namespaces(struct ucounts
-> > *ucounts)
-> > =C2=A0
-> > =C2=A0static void set_cred_user_ns(struct cred *cred, struct
-> > user_namespace *user_ns)
-> > =C2=A0{
-> > +	/* Limit userns capabilities to our parent's bounding set.
-> > */
-> > +	if (iscredsecure(cred, SECURE_USERNS_STRICT_CAPS))
-> > +		cred->cap_userns =3D cap_intersect(cred->cap_userns,
-> > cred->cap_bset);
-> > +
-> > =C2=A0	/* Start with the capabilities defined in the userns set.
-> > */
-> > =C2=A0	cred->cap_bset =3D cred->cap_userns;
-> > =C2=A0	cred->cap_permitted =3D cred->cap_userns;
->=20
-> Going for 4 week holiday starting for next week so focus in on nits
-> but since this is something to do access control:
->=20
-> 1. Please go surgical with the diff's because this type of patches
-> also require a surgical review. Now reviewing this like riding on=20
-> a bumpy road with a car of which suspension mechanics is broken
-> ;-)
->=20
-> Hope you grab my argument here. I only want to look at the problem
-> and solution for that not random stuff..
+A "nosymfollow" flag was added in commit
+dab741e0e02b ("Add a "nosymfollow" mount option.")
 
-I skip the other patches because of my eager to get on holiday but
-my instinct tells me that at least some of this feedback applies
-to all of the patches.
+While we don't need to implement any special logic on
+the AppArmor kernel side to handle it, we should provide
+user with a correct list of mount flags in audit logs.
 
-So put your solution in sight, not clean ups.
+Signed-off-by: Alexander Mikhalitsyn <aleksandr.mikhalitsyn@canonical.com>
+---
+ security/apparmor/mount.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
+diff --git a/security/apparmor/mount.c b/security/apparmor/mount.c
+index 49fe8da6fea4..bf8863253e07 100644
+--- a/security/apparmor/mount.c
++++ b/security/apparmor/mount.c
+@@ -44,6 +44,8 @@ static void audit_mnt_flags(struct audit_buffer *ab, unsigned long flags)
+ 		audit_log_format(ab, ", mand");
+ 	if (flags & MS_DIRSYNC)
+ 		audit_log_format(ab, ", dirsync");
++	if (flags & MS_NOSYMFOLLOW)
++		audit_log_format(ab, ", nosymfollow");
+ 	if (flags & MS_NOATIME)
+ 		audit_log_format(ab, ", noatime");
+ 	if (flags & MS_NODIRATIME)
+-- 
+2.34.1
 
-BR, Jarkko
 
