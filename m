@@ -2,44 +2,44 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B62992E6E4
-	for <lists+apparmor@lfdr.de>; Thu, 11 Jul 2024 13:34:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6345E92E6D5
+	for <lists+apparmor@lfdr.de>; Thu, 11 Jul 2024 13:34:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1sRs4B-0004An-GM; Thu, 11 Jul 2024 11:34:27 +0000
+	id 1sRs4B-0004Av-Iu; Thu, 11 Jul 2024 11:34:27 +0000
 Received: from dggsgout12.his.huawei.com ([45.249.212.56])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <xukuohai@huaweicloud.com>)
- id 1sRs0H-0003kJ-QN
+ id 1sRs0H-0003kK-RI
  for apparmor@lists.ubuntu.com; Thu, 11 Jul 2024 11:30:26 +0000
 Received: from mail.maildlp.com (unknown [172.19.163.216])
- by dggsgout12.his.huawei.com (SkyGuard) with ESMTP id 4WKXCr5mqyz4f3jdn
- for <apparmor@lists.ubuntu.com>; Thu, 11 Jul 2024 19:13:44 +0800 (CST)
+ by dggsgout12.his.huawei.com (SkyGuard) with ESMTP id 4WKXCs1FVLz4f3jsG
+ for <apparmor@lists.ubuntu.com>; Thu, 11 Jul 2024 19:13:45 +0800 (CST)
 Received: from mail02.huawei.com (unknown [10.116.40.128])
- by mail.maildlp.com (Postfix) with ESMTP id 7B6741A01B9
+ by mail.maildlp.com (Postfix) with ESMTP id D2CA41A0189
  for <apparmor@lists.ubuntu.com>; Thu, 11 Jul 2024 19:13:56 +0800 (CST)
 Received: from k01.huawei.com (unknown [10.67.174.197])
- by APP4 (Coremail) with SMTP id gCh0CgCHjPVxvo9mulQgBw--.25300S3;
+ by APP4 (Coremail) with SMTP id gCh0CgCHjPVxvo9mulQgBw--.25300S5;
  Thu, 11 Jul 2024 19:13:56 +0800 (CST)
 From: Xu Kuohai <xukuohai@huaweicloud.com>
 To: bpf@vger.kernel.org, netdev@vger.kernel.org,
  linux-security-module@vger.kernel.org, linux-kselftest@vger.kernel.org,
  linux-integrity@vger.kernel.org, apparmor@lists.ubuntu.com,
  selinux@vger.kernel.org
-Date: Thu, 11 Jul 2024 19:18:49 +0800
-Message-Id: <20240711111908.3817636-2-xukuohai@huaweicloud.com>
+Date: Thu, 11 Jul 2024 19:18:51 +0800
+Message-Id: <20240711111908.3817636-4-xukuohai@huaweicloud.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20240711111908.3817636-1-xukuohai@huaweicloud.com>
 References: <20240711111908.3817636-1-xukuohai@huaweicloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: gCh0CgCHjPVxvo9mulQgBw--.25300S3
-X-Coremail-Antispam: 1UD129KBjvJXoWxur48GF1DAw17Kr47ur1rWFg_yoW7Gr4kpF
- s5Ka13KrWvkFyxZrs7GanxC3W3t34fWF4UGrWUu34Fk3ZFvr17KF4UAw1Y9r1UtrW8tasF
- qFW29rs3Ca1qq37anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUBFb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
- 6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUGw
+X-CM-TRANSID: gCh0CgCHjPVxvo9mulQgBw--.25300S5
+X-Coremail-Antispam: 1UD129KBjvJXoWxtry5AryUJF1fKF1xXryrZwb_yoWfuF4kpF
+ 45KanxGr4fXFyUWrn2yF17u3WSvFWfGrWUCrWq9wnxAFnFvr10qF12kF17CF1rGrW8Cr12
+ q3ZF9wsxCw4UJrDanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUBIb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
+ 6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUWw
  A2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
  w2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
  W8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
@@ -48,15 +48,15 @@ X-Coremail-Antispam: 1UD129KBjvJXoWxur48GF1DAw17Kr47ur1rWFg_yoW7Gr4kpF
  Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l42xK82IYc2Ij64
  vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
  jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26rWY6r4UJwCIc40Y0x0EwIxGrwCI42IY6x
- IIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF
- 04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7
- CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07UAHUDUUUUU=
+ IIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE
+ 42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6x
+ kF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU1c4S7UUUUU==
 X-CM-SenderInfo: 50xn30hkdlqx5xdzvxpfor3voofrz/
 Received-SPF: pass client-ip=45.249.212.56;
  envelope-from=xukuohai@huaweicloud.com; helo=dggsgout12.his.huawei.com
 X-Mailman-Approved-At: Thu, 11 Jul 2024 11:34:25 +0000
-Subject: [apparmor] [PATCH bpf-next v4 01/20] lsm: Refactor return value of
-	LSM hook vm_enough_memory
+Subject: [apparmor] [PATCH bpf-next v4 03/20] lsm: Refactor return value of
+	LSM hook inode_getsecurity
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -93,134 +93,283 @@ Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 From: Xu Kuohai <xukuohai@huawei.com>
 
 To be consistent with most LSM hooks, convert the return value of
-hook vm_enough_memory to 0 or a negative error code.
+hook inode_getsecurity to 0 or a negative error code.
 
 Before:
-- Hook vm_enough_memory returns 1 if permission is granted, 0 if not.
-- LSM_RET_DEFAULT(vm_enough_memory_mm) is 1.
+- Hook inode_getsecurity returns size of buffer on success or a
+  negative error code on failure.
 
 After:
-- Hook vm_enough_memory reutrns 0 if permission is granted, negative
-  error code if not.
-- LSM_RET_DEFAULT(vm_enough_memory_mm) is 0.
+- Hook inode_getsecurity returns 0 on success or a negative error
+  code on failure. An output parameter @len is introduced to hold
+  the buffer size on success.
 
 Signed-off-by: Xu Kuohai <xukuohai@huawei.com>
 ---
- include/linux/lsm_hook_defs.h |  2 +-
- include/linux/security.h      |  2 +-
- security/commoncap.c          | 11 +++--------
- security/security.c           | 11 +++++------
- security/selinux/hooks.c      | 15 ++++-----------
- 5 files changed, 14 insertions(+), 27 deletions(-)
+ fs/xattr.c                    | 19 ++++++++++---------
+ include/linux/lsm_hook_defs.h |  3 ++-
+ include/linux/security.h      | 12 ++++++------
+ security/commoncap.c          |  9 ++++++---
+ security/security.c           | 11 ++++++-----
+ security/selinux/hooks.c      | 16 ++++++----------
+ security/smack/smack_lsm.c    | 14 +++++++-------
+ 7 files changed, 43 insertions(+), 41 deletions(-)
 
-diff --git a/include/linux/lsm_hook_defs.h b/include/linux/lsm_hook_defs.h
-index 44488b1ab9a9..e6e6f8473955 100644
---- a/include/linux/lsm_hook_defs.h
-+++ b/include/linux/lsm_hook_defs.h
-@@ -48,7 +48,7 @@ LSM_HOOK(int, 0, quota_on, struct dentry *dentry)
- LSM_HOOK(int, 0, syslog, int type)
- LSM_HOOK(int, 0, settime, const struct timespec64 *ts,
- 	 const struct timezone *tz)
--LSM_HOOK(int, 1, vm_enough_memory, struct mm_struct *mm, long pages)
-+LSM_HOOK(int, 0, vm_enough_memory, struct mm_struct *mm, long pages)
- LSM_HOOK(int, 0, bprm_creds_for_exec, struct linux_binprm *bprm)
- LSM_HOOK(int, 0, bprm_creds_from_file, struct linux_binprm *bprm, const struct file *file)
- LSM_HOOK(int, 0, bprm_check_security, struct linux_binprm *bprm)
-diff --git a/include/linux/security.h b/include/linux/security.h
-index de3af33e6ff5..454f96307cb9 100644
---- a/include/linux/security.h
-+++ b/include/linux/security.h
-@@ -634,7 +634,7 @@ static inline int security_settime64(const struct timespec64 *ts,
- 
- static inline int security_vm_enough_memory_mm(struct mm_struct *mm, long pages)
+diff --git a/fs/xattr.c b/fs/xattr.c
+index f8b643f91a98..f4e3bedf7272 100644
+--- a/fs/xattr.c
++++ b/fs/xattr.c
+@@ -339,27 +339,28 @@ xattr_getsecurity(struct mnt_idmap *idmap, struct inode *inode,
+ 		  const char *name, void *value, size_t size)
  {
--	return __vm_enough_memory(mm, pages, cap_vm_enough_memory(mm, pages));
-+	return __vm_enough_memory(mm, pages, !cap_vm_enough_memory(mm, pages));
+ 	void *buffer = NULL;
+-	ssize_t len;
++	int error;
++	u32 len;
+ 
+ 	if (!value || !size) {
+-		len = security_inode_getsecurity(idmap, inode, name,
+-						 &buffer, false);
++		error = security_inode_getsecurity(idmap, inode, name,
++						   false, &buffer, &len);
+ 		goto out_noalloc;
+ 	}
+ 
+-	len = security_inode_getsecurity(idmap, inode, name, &buffer,
+-					 true);
+-	if (len < 0)
+-		return len;
++	error = security_inode_getsecurity(idmap, inode, name, true,
++					   &buffer, &len);
++	if (error)
++		return error;
+ 	if (size < len) {
+-		len = -ERANGE;
++		error = -ERANGE;
+ 		goto out;
+ 	}
+ 	memcpy(value, buffer, len);
+ out:
+ 	kfree(buffer);
+ out_noalloc:
+-	return len;
++	return error < 0 ? error : len;
  }
  
- static inline int security_bprm_creds_for_exec(struct linux_binprm *bprm)
+ /*
+diff --git a/include/linux/lsm_hook_defs.h b/include/linux/lsm_hook_defs.h
+index 964849de424b..4f056f2613af 100644
+--- a/include/linux/lsm_hook_defs.h
++++ b/include/linux/lsm_hook_defs.h
+@@ -169,7 +169,8 @@ LSM_HOOK(int, 0, inode_need_killpriv, struct dentry *dentry, bool *need)
+ LSM_HOOK(int, 0, inode_killpriv, struct mnt_idmap *idmap,
+ 	 struct dentry *dentry)
+ LSM_HOOK(int, -EOPNOTSUPP, inode_getsecurity, struct mnt_idmap *idmap,
+-	 struct inode *inode, const char *name, void **buffer, bool alloc)
++	 struct inode *inode, const char *name, bool alloc, void **buffer,
++	 u32 *len)
+ LSM_HOOK(int, -EOPNOTSUPP, inode_setsecurity, struct inode *inode,
+ 	 const char *name, const void *value, size_t size, int flags)
+ LSM_HOOK(int, 0, inode_listsecurity, struct inode *inode, char *buffer,
+diff --git a/include/linux/security.h b/include/linux/security.h
+index 1614ef5b2dd2..b6d296d21438 100644
+--- a/include/linux/security.h
++++ b/include/linux/security.h
+@@ -164,8 +164,8 @@ int cap_inode_removexattr(struct mnt_idmap *idmap,
+ int cap_inode_need_killpriv(struct dentry *dentry, bool *need);
+ int cap_inode_killpriv(struct mnt_idmap *idmap, struct dentry *dentry);
+ int cap_inode_getsecurity(struct mnt_idmap *idmap,
+-			  struct inode *inode, const char *name, void **buffer,
+-			  bool alloc);
++			  struct inode *inode, const char *name, bool alloc,
++			  void **buffer, u32 *len);
+ extern int cap_mmap_addr(unsigned long addr);
+ extern int cap_mmap_file(struct file *file, unsigned long reqprot,
+ 			 unsigned long prot, unsigned long flags);
+@@ -393,7 +393,7 @@ int security_inode_need_killpriv(struct dentry *dentry, int *attr);
+ int security_inode_killpriv(struct mnt_idmap *idmap, struct dentry *dentry);
+ int security_inode_getsecurity(struct mnt_idmap *idmap,
+ 			       struct inode *inode, const char *name,
+-			       void **buffer, bool alloc);
++			       bool alloc, void **buffer, u32 *len);
+ int security_inode_setsecurity(struct inode *inode, const char *name, const void *value, size_t size, int flags);
+ int security_inode_listsecurity(struct inode *inode, char *buffer, size_t buffer_size);
+ void security_inode_getsecid(struct inode *inode, u32 *secid);
+@@ -996,10 +996,10 @@ static inline int security_inode_killpriv(struct mnt_idmap *idmap,
+ 
+ static inline int security_inode_getsecurity(struct mnt_idmap *idmap,
+ 					     struct inode *inode,
+-					     const char *name, void **buffer,
+-					     bool alloc)
++					     const char *name, bool alloc,
++					     void **buffer, u32 *len)
+ {
+-	return cap_inode_getsecurity(idmap, inode, name, buffer, alloc);
++	return cap_inode_getsecurity(idmap, inode, name, alloc, buffer, len);
+ }
+ 
+ static inline int security_inode_setsecurity(struct inode *inode, const char *name, const void *value, size_t size, int flags)
 diff --git a/security/commoncap.c b/security/commoncap.c
-index 162d96b3a676..cefad323a0b1 100644
+index 17d6188d22cf..ff82e2ab6f8f 100644
 --- a/security/commoncap.c
 +++ b/security/commoncap.c
-@@ -1396,17 +1396,12 @@ int cap_task_prctl(int option, unsigned long arg2, unsigned long arg3,
-  * Determine whether the allocation of a new virtual mapping by the current
-  * task is permitted.
-  *
-- * Return: 1 if permission is granted, 0 if not.
-+ * Return: 0 if permission granted, negative error code if not.
+@@ -383,8 +383,8 @@ static bool is_v3header(int size, const struct vfs_cap_data *cap)
+  * so that's good.
   */
- int cap_vm_enough_memory(struct mm_struct *mm, long pages)
+ int cap_inode_getsecurity(struct mnt_idmap *idmap,
+-			  struct inode *inode, const char *name, void **buffer,
+-			  bool alloc)
++			  struct inode *inode, const char *name,
++			  bool alloc, void **buffer, u32 *len)
  {
--	int cap_sys_admin = 0;
--
--	if (cap_capable(current_cred(), &init_user_ns,
--				CAP_SYS_ADMIN, CAP_OPT_NOAUDIT) == 0)
--		cap_sys_admin = 1;
--
--	return cap_sys_admin;
-+	return cap_capable(current_cred(), &init_user_ns, CAP_SYS_ADMIN,
-+			   CAP_OPT_NOAUDIT);
+ 	int size;
+ 	kuid_t kroot;
+@@ -485,7 +485,10 @@ int cap_inode_getsecurity(struct mnt_idmap *idmap,
+ 	}
+ out_free:
+ 	kfree(tmpbuf);
+-	return size;
++	if (size < 0)
++		return size;
++	*len = size;
++	return 0;
  }
  
  /**
 diff --git a/security/security.c b/security/security.c
-index e5ca08789f74..3475f0cab3da 100644
+index a4abcd86eb36..614f14cbfff7 100644
 --- a/security/security.c
 +++ b/security/security.c
-@@ -1115,15 +1115,14 @@ int security_vm_enough_memory_mm(struct mm_struct *mm, long pages)
- 	int rc;
+@@ -2544,8 +2544,9 @@ int security_inode_killpriv(struct mnt_idmap *idmap,
+  * @idmap: idmap of the mount
+  * @inode: inode
+  * @name: xattr name
+- * @buffer: security label buffer
+  * @alloc: allocation flag
++ * @buffer: security label buffer
++ * @len: security label length
+  *
+  * Retrieve a copy of the extended attribute representation of the security
+  * label associated with @name for @inode via @buffer.  Note that @name is the
+@@ -2553,17 +2554,17 @@ int security_inode_killpriv(struct mnt_idmap *idmap,
+  * @alloc is used to specify if the call should return a value via the buffer
+  * or just the value length.
+  *
+- * Return: Returns size of buffer on success.
++ * Return: Returns 0 on success or a negative error code on failure.
+  */
+ int security_inode_getsecurity(struct mnt_idmap *idmap,
+ 			       struct inode *inode, const char *name,
+-			       void **buffer, bool alloc)
++			       bool alloc, void **buffer, u32 *len)
+ {
+ 	if (unlikely(IS_PRIVATE(inode)))
+ 		return LSM_RET_DEFAULT(inode_getsecurity);
  
- 	/*
--	 * The module will respond with a positive value if
--	 * it thinks the __vm_enough_memory() call should be
--	 * made with the cap_sys_admin set. If all of the modules
--	 * agree that it should be set it will. If any module
--	 * thinks it should not be set it won't.
-+	 * The module will respond with 0 if it thinks the __vm_enough_memory()
-+	 * call should be made with the cap_sys_admin set. If all of the modules
-+	 * agree that it should be set it will. If any module thinks it should
-+	 * not be set it won't.
- 	 */
- 	hlist_for_each_entry(hp, &security_hook_heads.vm_enough_memory, list) {
- 		rc = hp->hook.vm_enough_memory(mm, pages);
--		if (rc <= 0) {
-+		if (rc < 0) {
- 			cap_sys_admin = 0;
- 			break;
- 		}
+-	return call_int_hook(inode_getsecurity, idmap, inode, name, buffer,
+-			     alloc);
++	return call_int_hook(inode_getsecurity, idmap, inode, name, alloc,
++			     buffer, len);
+ }
+ 
+ /**
 diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-index 7eed331e90f0..9cd5a8f1f6a3 100644
+index 9cd5a8f1f6a3..70792bba24d9 100644
 --- a/security/selinux/hooks.c
 +++ b/security/selinux/hooks.c
-@@ -2202,23 +2202,16 @@ static int selinux_syslog(int type)
- }
- 
- /*
-- * Check that a process has enough memory to allocate a new virtual
-- * mapping. 0 means there is enough memory for the allocation to
-- * succeed and -ENOMEM implies there is not.
-+ * Check permission for allocating a new virtual mapping. Returns
-+ * 0 if permission is granted, negative error code if not.
-  *
-  * Do not audit the selinux permission check, as this is applied to all
-  * processes that allocate mappings.
+@@ -3407,7 +3407,7 @@ static int selinux_path_notify(const struct path *path, u64 mask,
   */
- static int selinux_vm_enough_memory(struct mm_struct *mm, long pages)
+ static int selinux_inode_getsecurity(struct mnt_idmap *idmap,
+ 				     struct inode *inode, const char *name,
+-				     void **buffer, bool alloc)
++				     bool alloc, void **buffer, u32 *len)
  {
--	int rc, cap_sys_admin = 0;
--
--	rc = cred_has_capability(current_cred(), CAP_SYS_ADMIN,
--				 CAP_OPT_NOAUDIT, true);
--	if (rc == 0)
--		cap_sys_admin = 1;
--
--	return cap_sys_admin;
-+	return cred_has_capability(current_cred(), CAP_SYS_ADMIN,
-+				   CAP_OPT_NOAUDIT, true);
+ 	u32 size;
+ 	int error;
+@@ -3440,14 +3440,14 @@ static int selinux_inode_getsecurity(struct mnt_idmap *idmap,
+ 						&context, &size);
+ 	if (error)
+ 		return error;
+-	error = size;
++	*len = size;
+ 	if (alloc) {
+ 		*buffer = context;
+ 		goto out_nofree;
+ 	}
+ 	kfree(context);
+ out_nofree:
+-	return error;
++	return 0;
  }
  
- /* binprm security operations */
+ static int selinux_inode_setsecurity(struct inode *inode, const char *name,
+@@ -6644,13 +6644,9 @@ static int selinux_inode_setsecctx(struct dentry *dentry, void *ctx, u32 ctxlen)
+ 
+ static int selinux_inode_getsecctx(struct inode *inode, void **ctx, u32 *ctxlen)
+ {
+-	int len = 0;
+-	len = selinux_inode_getsecurity(&nop_mnt_idmap, inode,
+-					XATTR_SELINUX_SUFFIX, ctx, true);
+-	if (len < 0)
+-		return len;
+-	*ctxlen = len;
+-	return 0;
++	return selinux_inode_getsecurity(&nop_mnt_idmap, inode,
++					 XATTR_SELINUX_SUFFIX,
++					 true, ctx, ctxlen);
+ }
+ #ifdef CONFIG_KEYS
+ 
+diff --git a/security/smack/smack_lsm.c b/security/smack/smack_lsm.c
+index f5cbec1e6a92..e7a5f6fd9a2d 100644
+--- a/security/smack/smack_lsm.c
++++ b/security/smack/smack_lsm.c
+@@ -1543,14 +1543,15 @@ static int smack_inode_remove_acl(struct mnt_idmap *idmap,
+  * @idmap: idmap of the mount
+  * @inode: the object
+  * @name: attribute name
+- * @buffer: where to put the result
+  * @alloc: duplicate memory
++ * @buffer: where to put the result
++ * @len: where to put the result length
+  *
+- * Returns the size of the attribute or an error code
++ * Returns 0 on success or a negative error code on failure
+  */
+ static int smack_inode_getsecurity(struct mnt_idmap *idmap,
+ 				   struct inode *inode, const char *name,
+-				   void **buffer, bool alloc)
++				   bool alloc, void **buffer, u32 *len)
+ {
+ 	struct socket_smack *ssp;
+ 	struct socket *sock;
+@@ -1558,7 +1559,6 @@ static int smack_inode_getsecurity(struct mnt_idmap *idmap,
+ 	struct inode *ip = inode;
+ 	struct smack_known *isp;
+ 	struct inode_smack *ispp;
+-	size_t label_len;
+ 	char *label = NULL;
+ 
+ 	if (strcmp(name, XATTR_SMACK_SUFFIX) == 0) {
+@@ -1594,15 +1594,15 @@ static int smack_inode_getsecurity(struct mnt_idmap *idmap,
+ 	if (!label)
+ 		label = isp->smk_known;
+ 
+-	label_len = strlen(label);
+-
+ 	if (alloc) {
+ 		*buffer = kstrdup(label, GFP_KERNEL);
+ 		if (*buffer == NULL)
+ 			return -ENOMEM;
+ 	}
+ 
+-	return label_len;
++	*len = strlen(label);
++
++	return 0;
+ }
+ 
+ 
 -- 
 2.30.2
 
