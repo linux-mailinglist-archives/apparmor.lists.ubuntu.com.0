@@ -2,61 +2,61 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD2AF92E6D7
-	for <lists+apparmor@lfdr.de>; Thu, 11 Jul 2024 13:34:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BC3D92EA1A
+	for <lists+apparmor@lfdr.de>; Thu, 11 Jul 2024 16:02:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1sRs4C-0004BU-06; Thu, 11 Jul 2024 11:34:28 +0000
+	id 1sRuMx-0002Kj-9x; Thu, 11 Jul 2024 14:01:59 +0000
 Received: from dggsgout11.his.huawei.com ([45.249.212.51])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <xukuohai@huaweicloud.com>)
- id 1sRs33-00042u-3q
- for apparmor@lists.ubuntu.com; Thu, 11 Jul 2024 11:33:17 +0000
+ id 1sRs4E-0004CT-F2
+ for apparmor@lists.ubuntu.com; Thu, 11 Jul 2024 11:34:30 +0000
 Received: from mail.maildlp.com (unknown [172.19.163.216])
- by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4WKXf42F9sz4f3mJB
- for <apparmor@lists.ubuntu.com>; Thu, 11 Jul 2024 19:33:00 +0800 (CST)
+ by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4WKXCw73y1z4f3k6M
+ for <apparmor@lists.ubuntu.com>; Thu, 11 Jul 2024 19:13:48 +0800 (CST)
 Received: from mail02.huawei.com (unknown [10.116.40.128])
- by mail.maildlp.com (Postfix) with ESMTP id 3AB931A0189
- for <apparmor@lists.ubuntu.com>; Thu, 11 Jul 2024 19:33:13 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTP id A90241A01D2
+ for <apparmor@lists.ubuntu.com>; Thu, 11 Jul 2024 19:13:56 +0800 (CST)
 Received: from k01.huawei.com (unknown [10.67.174.197])
- by APP4 (Coremail) with SMTP id gCh0CgDXKvT0wo9mzI8hBw--.25380S9;
- Thu, 11 Jul 2024 19:33:12 +0800 (CST)
+ by APP4 (Coremail) with SMTP id gCh0CgCHjPVxvo9mulQgBw--.25300S4;
+ Thu, 11 Jul 2024 19:13:56 +0800 (CST)
 From: Xu Kuohai <xukuohai@huaweicloud.com>
 To: bpf@vger.kernel.org, netdev@vger.kernel.org,
  linux-security-module@vger.kernel.org, linux-kselftest@vger.kernel.org,
  linux-integrity@vger.kernel.org, apparmor@lists.ubuntu.com,
  selinux@vger.kernel.org
-Date: Thu, 11 Jul 2024 19:38:28 +0800
-Message-Id: <20240711113828.3818398-8-xukuohai@huaweicloud.com>
+Date: Thu, 11 Jul 2024 19:18:50 +0800
+Message-Id: <20240711111908.3817636-3-xukuohai@huaweicloud.com>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20240711113828.3818398-1-xukuohai@huaweicloud.com>
-References: <20240711113828.3818398-1-xukuohai@huaweicloud.com>
+In-Reply-To: <20240711111908.3817636-1-xukuohai@huaweicloud.com>
+References: <20240711111908.3817636-1-xukuohai@huaweicloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: gCh0CgDXKvT0wo9mzI8hBw--.25380S9
-X-Coremail-Antispam: 1UD129KBjvJXoW3WFykZw4UXFWDJr43Ww47XFb_yoW3try3pF
- nFk34DGF95Ar9xWFWxCFWxuF1fGFn2qF1rXa1FvF1jyFs3Jr97XFW8GF1DX34fJ3Z3uw4Y
- vFZIyayakr1UuaDanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUBSb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
- 6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAV
- Cq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0
- rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267
- AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E
- 14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7
- xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Y
- z7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l42xK82IYc2
- Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s02
- 6x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26rWY6r4UJwCIc40Y0x0EwIxGrwCI42
- IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF
- 0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87
- Iv6xkF7I0E14v26F4UJVW0obIYCTnIWIevJa73UjIFyTuYvjxUFgAwUUUUU
+X-CM-TRANSID: gCh0CgCHjPVxvo9mulQgBw--.25300S4
+X-Coremail-Antispam: 1UD129KBjvJXoW3AFWfGw4xWFW5Ary7Gr4xXrb_yoW3XFy7pF
+ 4UKF13Gws5XFy7Wrn7tFsru34SvFWfWrW7JFZ09w12yFnrJr1xKr4ak3yUCryrCr1j9rnI
+ v3ZFkw4rCr15JrUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUBIb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
+ 6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUXw
+ A2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
+ w2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
+ W8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+ 6rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMc
+ Ij6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_
+ Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l42xK82IYc2Ij64
+ vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
+ jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26rWY6r4UJwCIc40Y0x0EwIxGrwCI42IY6x
+ IIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE
+ 42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6x
+ kF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU1sa9DUUUUU==
 X-CM-SenderInfo: 50xn30hkdlqx5xdzvxpfor3voofrz/
 Received-SPF: pass client-ip=45.249.212.51;
  envelope-from=xukuohai@huaweicloud.com; helo=dggsgout11.his.huawei.com
-X-Mailman-Approved-At: Thu, 11 Jul 2024 11:34:25 +0000
-Subject: [apparmor] [PATCH bpf-next v4 20/20] selftests/bpf: Add verifier
-	tests for bpf lsm
+X-Mailman-Approved-At: Thu, 11 Jul 2024 14:01:58 +0000
+Subject: [apparmor] [PATCH bpf-next v4 02/20] lsm: Refactor return value of
+	LSM hook inode_need_killpriv
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -92,316 +92,207 @@ Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
 From: Xu Kuohai <xukuohai@huawei.com>
 
-Add verifier tests to check bpf lsm return values, output parameter
-access and disabled hooks.
+To be consistent with most LSM hooks, convert the return value of
+hook inode_need_killpriv to 0 or a negative error code.
+
+Before:
+- Both hook inode_need_killpriv and func security_inode_need_killpriv
+  return > 0 if security_inode_killpriv is required, 0 if not, and < 0
+  to abort the operation.
+
+After:
+- Both hook inode_need_killpriv and func security_inode_need_killpriv
+  return 0 on success and a negative error code on failure.
+  On success, hook inode_need_killpriv sets output param @need to true
+  if security_inode_killpriv is required, and false if not. When @need
+  is true, func security_inode_need_killpriv sets ATTR_KILL_PRIV flag
+  in @attr; when false, it clears the flag.
+  On failure, @need and @attr remains unchanged.
 
 Signed-off-by: Xu Kuohai <xukuohai@huawei.com>
 ---
- .../selftests/bpf/prog_tests/verifier.c       |   2 +
- .../selftests/bpf/progs/verifier_lsm.c        | 274 ++++++++++++++++++
- 2 files changed, 276 insertions(+)
- create mode 100644 tools/testing/selftests/bpf/progs/verifier_lsm.c
+ fs/attr.c                     |  5 ++---
+ fs/inode.c                    |  4 +---
+ include/linux/lsm_hook_defs.h |  2 +-
+ include/linux/security.h      | 20 ++++++++++++++++----
+ security/commoncap.c          | 12 ++++++++----
+ security/security.c           | 29 ++++++++++++++++++++++++-----
+ 6 files changed, 52 insertions(+), 20 deletions(-)
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/verifier.c b/tools/testing/selftests/bpf/prog_tests/verifier.c
-index 9dc3687bc406..ff1c7da1d06e 100644
---- a/tools/testing/selftests/bpf/prog_tests/verifier.c
-+++ b/tools/testing/selftests/bpf/prog_tests/verifier.c
-@@ -88,6 +88,7 @@
- #include "verifier_xdp.skel.h"
- #include "verifier_xdp_direct_packet_access.skel.h"
- #include "verifier_bits_iter.skel.h"
-+#include "verifier_lsm.skel.h"
+diff --git a/fs/attr.c b/fs/attr.c
+index 960a310581eb..aaadc721c982 100644
+--- a/fs/attr.c
++++ b/fs/attr.c
+@@ -427,11 +427,10 @@ int notify_change(struct mnt_idmap *idmap, struct dentry *dentry,
+ 		attr->ia_mtime = timestamp_truncate(attr->ia_mtime, inode);
  
- #define MAX_ENTRIES 11
+ 	if (ia_valid & ATTR_KILL_PRIV) {
+-		error = security_inode_need_killpriv(dentry);
++		error = security_inode_need_killpriv(dentry, &ia_valid);
+ 		if (error < 0)
+ 			return error;
+-		if (error == 0)
+-			ia_valid = attr->ia_valid &= ~ATTR_KILL_PRIV;
++		attr->ia_valid = ia_valid;
+ 	}
  
-@@ -206,6 +207,7 @@ void test_verifier_xadd(void)                 { RUN(verifier_xadd); }
- void test_verifier_xdp(void)                  { RUN(verifier_xdp); }
- void test_verifier_xdp_direct_packet_access(void) { RUN(verifier_xdp_direct_packet_access); }
- void test_verifier_bits_iter(void) { RUN(verifier_bits_iter); }
-+void test_verifier_lsm(void)                  { RUN(verifier_lsm); }
+ 	/*
+diff --git a/fs/inode.c b/fs/inode.c
+index 3a41f83a4ba5..cd335dc3a3bc 100644
+--- a/fs/inode.c
++++ b/fs/inode.c
+@@ -2012,11 +2012,9 @@ int dentry_needs_remove_privs(struct mnt_idmap *idmap,
+ 		return 0;
  
- static int init_test_val_map(struct bpf_object *obj, char *map_name)
+ 	mask = setattr_should_drop_suidgid(idmap, inode);
+-	ret = security_inode_need_killpriv(dentry);
++	ret = security_inode_need_killpriv(dentry, &mask);
+ 	if (ret < 0)
+ 		return ret;
+-	if (ret)
+-		mask |= ATTR_KILL_PRIV;
+ 	return mask;
+ }
+ 
+diff --git a/include/linux/lsm_hook_defs.h b/include/linux/lsm_hook_defs.h
+index e6e6f8473955..964849de424b 100644
+--- a/include/linux/lsm_hook_defs.h
++++ b/include/linux/lsm_hook_defs.h
+@@ -165,7 +165,7 @@ LSM_HOOK(int, 0, inode_remove_acl, struct mnt_idmap *idmap,
+ 	 struct dentry *dentry, const char *acl_name)
+ LSM_HOOK(void, LSM_RET_VOID, inode_post_remove_acl, struct mnt_idmap *idmap,
+ 	 struct dentry *dentry, const char *acl_name)
+-LSM_HOOK(int, 0, inode_need_killpriv, struct dentry *dentry)
++LSM_HOOK(int, 0, inode_need_killpriv, struct dentry *dentry, bool *need)
+ LSM_HOOK(int, 0, inode_killpriv, struct mnt_idmap *idmap,
+ 	 struct dentry *dentry)
+ LSM_HOOK(int, -EOPNOTSUPP, inode_getsecurity, struct mnt_idmap *idmap,
+diff --git a/include/linux/security.h b/include/linux/security.h
+index 454f96307cb9..1614ef5b2dd2 100644
+--- a/include/linux/security.h
++++ b/include/linux/security.h
+@@ -161,7 +161,7 @@ int cap_inode_setxattr(struct dentry *dentry, const char *name,
+ 		       const void *value, size_t size, int flags);
+ int cap_inode_removexattr(struct mnt_idmap *idmap,
+ 			  struct dentry *dentry, const char *name);
+-int cap_inode_need_killpriv(struct dentry *dentry);
++int cap_inode_need_killpriv(struct dentry *dentry, bool *need);
+ int cap_inode_killpriv(struct mnt_idmap *idmap, struct dentry *dentry);
+ int cap_inode_getsecurity(struct mnt_idmap *idmap,
+ 			  struct inode *inode, const char *name, void **buffer,
+@@ -389,7 +389,7 @@ int security_inode_listxattr(struct dentry *dentry);
+ int security_inode_removexattr(struct mnt_idmap *idmap,
+ 			       struct dentry *dentry, const char *name);
+ void security_inode_post_removexattr(struct dentry *dentry, const char *name);
+-int security_inode_need_killpriv(struct dentry *dentry);
++int security_inode_need_killpriv(struct dentry *dentry, int *attr);
+ int security_inode_killpriv(struct mnt_idmap *idmap, struct dentry *dentry);
+ int security_inode_getsecurity(struct mnt_idmap *idmap,
+ 			       struct inode *inode, const char *name,
+@@ -971,9 +971,21 @@ static inline void security_inode_post_removexattr(struct dentry *dentry,
+ 						   const char *name)
+ { }
+ 
+-static inline int security_inode_need_killpriv(struct dentry *dentry)
++static inline int security_inode_need_killpriv(struct dentry *dentry, int *attr)
  {
-diff --git a/tools/testing/selftests/bpf/progs/verifier_lsm.c b/tools/testing/selftests/bpf/progs/verifier_lsm.c
-new file mode 100644
-index 000000000000..fcc74efe46c6
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/verifier_lsm.c
-@@ -0,0 +1,274 @@
-+// SPDX-License-Identifier: GPL-2.0
+-	return cap_inode_need_killpriv(dentry);
++	int rc;
++	bool need = false;
 +
-+#include <linux/bpf.h>
-+#include <bpf/bpf_helpers.h>
-+#include "bpf_misc.h"
++	rc = cap_inode_need_killpriv(dentry, &need);
++	if (rc < 0)
++		return rc;
 +
-+SEC("lsm/file_alloc_security")
-+__description("lsm bpf prog with -4095~0 retval. test 1")
-+__success
-+__naked int errno_zero_retval_test1(void *ctx)
-+{
-+	asm volatile (
-+	"r0 = 0;"
-+	"exit;"
-+	::: __clobber_all);
-+}
++	if (need)
++		*attr |= ATTR_KILL_PRIV;
++	else
++		*attr &= ~ATTR_KILL_PRIV;
 +
-+SEC("lsm/file_alloc_security")
-+__description("lsm bpf prog with -4095~0 retval. test 2")
-+__success
-+__naked int errno_zero_retval_test2(void *ctx)
-+{
-+	asm volatile (
-+	"r0 = -4095;"
-+	"exit;"
-+	::: __clobber_all);
-+}
++	return 0;
+ }
+ 
+ static inline int security_inode_killpriv(struct mnt_idmap *idmap,
+diff --git a/security/commoncap.c b/security/commoncap.c
+index cefad323a0b1..17d6188d22cf 100644
+--- a/security/commoncap.c
++++ b/security/commoncap.c
+@@ -286,21 +286,25 @@ int cap_capset(struct cred *new,
+ /**
+  * cap_inode_need_killpriv - Determine if inode change affects privileges
+  * @dentry: The inode/dentry in being changed with change marked ATTR_KILL_PRIV
++ * @need: If inode_killpriv() is needed
+  *
+  * Determine if an inode having a change applied that's marked ATTR_KILL_PRIV
+  * affects the security markings on that inode, and if it is, should
+  * inode_killpriv() be invoked or the change rejected.
+  *
+- * Return: 1 if security.capability has a value, meaning inode_killpriv()
+- * is required, 0 otherwise, meaning inode_killpriv() is not required.
++ * Return: Always returns 0. If security.capability has a value, meaning
++ * inode_killpriv() is required, @need is set to true.
+  */
+-int cap_inode_need_killpriv(struct dentry *dentry)
++int cap_inode_need_killpriv(struct dentry *dentry, bool *need)
+ {
+ 	struct inode *inode = d_backing_inode(dentry);
+ 	int error;
+ 
+ 	error = __vfs_getxattr(dentry, inode, XATTR_NAME_CAPS, NULL, 0);
+-	return error > 0;
++	if (error > 0)
++		*need = true;
 +
-+SEC("lsm/file_alloc_security")
-+__description("lsm bpf prog with -4095~0 retval. test 3")
-+__success
-+__naked int errno_zero_retval_test3(void *ctx)
-+{
-+	asm volatile (
-+	"call %[bpf_get_prandom_u32];"
-+	"r0 <<= 63;"
-+	"r0 s>>= 63;"
-+	"r0 &= -13;"
-+	"exit;"
-+	:
-+	: __imm(bpf_get_prandom_u32)
-+	: __clobber_all);
-+}
++	return 0;
+ }
+ 
+ /**
+diff --git a/security/security.c b/security/security.c
+index 3475f0cab3da..a4abcd86eb36 100644
+--- a/security/security.c
++++ b/security/security.c
+@@ -2490,17 +2490,36 @@ void security_inode_post_removexattr(struct dentry *dentry, const char *name)
+ /**
+  * security_inode_need_killpriv() - Check if security_inode_killpriv() required
+  * @dentry: associated dentry
++ * @attr: attribute flags
+  *
+  * Called when an inode has been changed to determine if
+  * security_inode_killpriv() should be called.
+  *
+- * Return: Return <0 on error to abort the inode change operation, return 0 if
+- *         security_inode_killpriv() does not need to be called, return >0 if
+- *         security_inode_killpriv() does need to be called.
++ * Return: Return 0 on success, negative error code on failure.
++ *         On success, set ATTR_KILL_PRIV flag in @attr when @need is true,
++ *         clears it when false.
+  */
+-int security_inode_need_killpriv(struct dentry *dentry)
++int security_inode_need_killpriv(struct dentry *dentry, int *attr)
+ {
+-	return call_int_hook(inode_need_killpriv, dentry);
++	int rc;
++	bool need = false;
++	struct security_hook_list *hp;
 +
-+SEC("lsm/file_mprotect")
-+__description("lsm bpf prog with -4095~0 retval. test 4")
-+__failure __msg("R0 has smin=-4096 smax=-4096 should have been in [-4095, 0]")
-+__naked int errno_zero_retval_test4(void *ctx)
-+{
-+	asm volatile (
-+	"r0 = -4096;"
-+	"exit;"
-+	::: __clobber_all);
-+}
++	hlist_for_each_entry(hp, &security_hook_heads.inode_need_killpriv,
++			     list) {
++		rc = hp->hook.inode_need_killpriv(dentry, &need);
++		if (rc < 0)
++			return rc;
++		if (need)
++			break;
++	}
 +
-+SEC("lsm/file_mprotect")
-+__description("lsm bpf prog with -4095~0 retval. test 5")
-+__failure __msg("R0 has smin=4096 smax=4096 should have been in [-4095, 0]")
-+__naked int errno_zero_retval_test5(void *ctx)
-+{
-+	asm volatile (
-+	"r0 = 4096;"
-+	"exit;"
-+	::: __clobber_all);
-+}
++	if (need)
++		*attr |= ATTR_KILL_PRIV;
++	else
++		*attr &= ~ATTR_KILL_PRIV;
 +
-+SEC("lsm/vm_enough_memory")
-+__description("lsm bpf prog with -4095~0 retval. test 6")
-+__failure __msg("R0 has smin=1 smax=1 should have been in [-4095, 0]")
-+__naked int errno_zero_retval_test6(void *ctx)
-+{
-+	asm volatile (
-+	"r0 = 1;"
-+	"exit;"
-+	::: __clobber_all);
-+}
-+
-+SEC("lsm/audit_rule_known")
-+__description("lsm bpf prog with bool retval. test 1")
-+__success
-+__naked int bool_retval_test1(void *ctx)
-+{
-+	asm volatile (
-+	"r0 = 1;"
-+	"exit;"
-+	::: __clobber_all);
-+}
-+
-+SEC("lsm/audit_rule_known")
-+__description("lsm bpf prog with bool retval. test 2")
-+__success
-+__success
-+__naked int bool_retval_test2(void *ctx)
-+{
-+	asm volatile (
-+	"r0 = 0;"
-+	"exit;"
-+	::: __clobber_all);
-+}
-+
-+SEC("lsm/audit_rule_known")
-+__description("lsm bpf prog with bool retval. test 3")
-+__failure __msg("R0 has smin=-1 smax=-1 should have been in [0, 1]")
-+__naked int bool_retval_test3(void *ctx)
-+{
-+	asm volatile (
-+	"r0 = -1;"
-+	"exit;"
-+	::: __clobber_all);
-+}
-+
-+SEC("lsm/audit_rule_known")
-+__description("lsm bpf prog with bool retval. test 4")
-+__failure __msg("R0 has smin=2 smax=2 should have been in [0, 1]")
-+__naked int bool_retval_test4(void *ctx)
-+{
-+	asm volatile (
-+	"r0 = 2;"
-+	"exit;"
-+	::: __clobber_all);
-+}
-+
-+SEC("lsm/file_free_security")
-+__success
-+__description("lsm bpf prog with void retval. test 1")
-+__naked int void_retval_test1(void *ctx)
-+{
-+	asm volatile (
-+	"r0 = -4096;"
-+	"exit;"
-+	::: __clobber_all);
-+}
-+
-+SEC("lsm/file_free_security")
-+__success
-+__description("lsm bpf prog with void retval. test 2")
-+__naked int void_retval_test2(void *ctx)
-+{
-+	asm volatile (
-+	"r0 = 4096;"
-+	"exit;"
-+	::: __clobber_all);
-+}
-+
-+SEC("lsm/audit_rule_match")
-+__description("lsm bpf prog read write valid output parameter success")
-+__success
-+__naked int outparam_valid_test(void *ctx)
-+{
-+	asm volatile (
-+	"r1 = *(u64 *)(r1 + 0x20);"
-+	"r2 = *(u8 *)(r1 + 0x0);"
-+	"r2 &= 0x1;"
-+	"*(u8 *)(r1 + 0x0) = r2;"
-+	"r0 = 0;"
-+	"exit;"
-+	::: __clobber_all);
-+}
-+
-+SEC("lsm/audit_rule_match")
-+__description("lsm bpf prog read write output parameter, invalid read offset")
-+__failure __msg("invalid read offset: 1 (expected 0, type=_Bool)")
-+__naked int outparam_invalid_read_offset(void *ctx)
-+{
-+	asm volatile (
-+	"r1 = *(u64 *)(r1 + 0x20);"
-+	"r2 = *(u8 *)(r1 + 0x1);"
-+	"r2 &= 0x1;"
-+	"*(u8 *)(r1 + 0x0) = r2;"
-+	"r0 = 0;"
-+	"exit;"
-+	::: __clobber_all);
-+}
-+
-+SEC("lsm/audit_rule_match")
-+__description("lsm bpf prog read write invalid output parameter, invalid read size")
-+__failure __msg("invalid read size: 2 (expected 1, type=_Bool)")
-+__naked int outparam_invalid_read_size(void *ctx)
-+{
-+	asm volatile (
-+	"r1 = *(u64 *)(r1 + 0x20);"
-+	"r2 = *(u16 *)(r1 + 0x0);"
-+	"r2 &= 0x1;"
-+	"*(u8 *)(r1 + 0x0) = r2;"
-+	"r0 = 0;"
-+	"exit;"
-+	::: __clobber_all);
-+}
-+
-+SEC("lsm/audit_rule_match")
-+__description("lsm bpf prog read write invalid output parameter, invalid write offset")
-+__failure __msg("invalid write offset: 1 (expected 0, type=_Bool)")
-+__naked int outparam_invalid_write_offset(void *ctx)
-+{
-+	asm volatile (
-+	"r1 = *(u64 *)(r1 + 0x20);"
-+	"r2 = *(u8 *)(r1 + 0x0);"
-+	"r2 &= 0x1;"
-+	"*(u8 *)(r1 + 0x1) = r2;"
-+	"r0 = 0;"
-+	"exit;"
-+	::: __clobber_all);
-+}
-+
-+SEC("lsm/audit_rule_match")
-+__description("lsm bpf prog read write invalid output parameter, invalid write size")
-+__failure __msg("invalid write size: 2 (expected 1, type=_Bool)")
-+__naked int outparam_invalid_write_size(void *ctx)
-+{
-+	asm volatile (
-+	"r1 = *(u64 *)(r1 + 0x20);"
-+	"r2 = *(u8 *)(r1 + 0x0);"
-+	"r2 &= 0x1;"
-+	"*(u16 *)(r1 + 0x0) = r2;"
-+	"r0 = 0;"
-+	"exit;"
-+	::: __clobber_all);
-+}
-+
-+/* hook prototype:
-+ * int bpf_lsm_secctx_to_secid(const char *secdata, u32 seclen, u32 *secid)
-+ *
-+ * although the last param is a pointer to u32, it iss not the output param for
-+ * return value.
-+ */
-+SEC("lsm/secctx_to_secid")
-+__description("lsm bpf prog read write invalid output parameter, not output param hook")
-+__failure __msg("invalid mem access 'scalar'")
-+__naked int outparam_invalid_hook(void *ctx)
-+{
-+	asm volatile (
-+	"r1 = *(u64 *)(r1 + 0x10);"
-+	"r2 = *(u32 *)(r1 + 0x0);"
-+	"r2 &= 0x1;"
-+	"*(u32 *)(r1 + 0x0) = r2;"
-+	"r0 = 0;"
-+	"exit;"
-+	::: __clobber_all);
-+}
-+
-+SEC("lsm/getprocattr")
-+__description("lsm disabled hook: getprocattr")
-+__failure __msg("points to disabled hook")
-+__naked int disabled_hook_test1(void *ctx)
-+{
-+	asm volatile (
-+	"r0 = 0;"
-+	"exit;"
-+	::: __clobber_all);
-+}
-+
-+SEC("lsm/setprocattr")
-+__description("lsm disabled hook: setprocattr")
-+__failure __msg("points to disabled hook")
-+__naked int disabled_hook_test2(void *ctx)
-+{
-+	asm volatile (
-+	"r0 = 0;"
-+	"exit;"
-+	::: __clobber_all);
-+}
-+
-+SEC("lsm/ismaclabel")
-+__description("lsm disabled hook: ismaclabel")
-+__failure __msg("points to disabled hook")
-+__naked int disabled_hook_test3(void *ctx)
-+{
-+	asm volatile (
-+	"r0 = 0;"
-+	"exit;"
-+	::: __clobber_all);
-+}
-+
-+char _license[] SEC("license") = "GPL";
++	return 0;
+ }
+ 
+ /**
 -- 
 2.30.2
 
