@@ -2,42 +2,42 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13D5A92E6DB
-	for <lists+apparmor@lfdr.de>; Thu, 11 Jul 2024 13:34:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A5E392E6D4
+	for <lists+apparmor@lfdr.de>; Thu, 11 Jul 2024 13:34:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1sRs4B-0004AX-Ay; Thu, 11 Jul 2024 11:34:27 +0000
-Received: from dggsgout11.his.huawei.com ([45.249.212.51])
+	id 1sRs4B-0004AQ-84; Thu, 11 Jul 2024 11:34:27 +0000
+Received: from dggsgout12.his.huawei.com ([45.249.212.56])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <xukuohai@huaweicloud.com>)
- id 1sRrzP-0003dB-1A
- for apparmor@lists.ubuntu.com; Thu, 11 Jul 2024 11:29:31 +0000
+ id 1sRrm4-0001qX-Bo
+ for apparmor@lists.ubuntu.com; Thu, 11 Jul 2024 11:15:45 +0000
 Received: from mail.maildlp.com (unknown [172.19.163.235])
- by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4WKXCx6KmBz4f3kKp
- for <apparmor@lists.ubuntu.com>; Thu, 11 Jul 2024 19:13:49 +0800 (CST)
+ by dggsgout12.his.huawei.com (SkyGuard) with ESMTP id 4WKXCt0YYVz4f3jrf
+ for <apparmor@lists.ubuntu.com>; Thu, 11 Jul 2024 19:13:46 +0800 (CST)
 Received: from mail02.huawei.com (unknown [10.116.40.128])
- by mail.maildlp.com (Postfix) with ESMTP id 8E06F1A0568
+ by mail.maildlp.com (Postfix) with ESMTP id BF8581A06D7
  for <apparmor@lists.ubuntu.com>; Thu, 11 Jul 2024 19:13:57 +0800 (CST)
 Received: from k01.huawei.com (unknown [10.67.174.197])
- by APP4 (Coremail) with SMTP id gCh0CgCHjPVxvo9mulQgBw--.25300S9;
+ by APP4 (Coremail) with SMTP id gCh0CgCHjPVxvo9mulQgBw--.25300S10;
  Thu, 11 Jul 2024 19:13:57 +0800 (CST)
 From: Xu Kuohai <xukuohai@huaweicloud.com>
 To: bpf@vger.kernel.org, netdev@vger.kernel.org,
  linux-security-module@vger.kernel.org, linux-kselftest@vger.kernel.org,
  linux-integrity@vger.kernel.org, apparmor@lists.ubuntu.com,
  selinux@vger.kernel.org
-Date: Thu, 11 Jul 2024 19:18:55 +0800
-Message-Id: <20240711111908.3817636-8-xukuohai@huaweicloud.com>
+Date: Thu, 11 Jul 2024 19:18:56 +0800
+Message-Id: <20240711111908.3817636-9-xukuohai@huaweicloud.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20240711111908.3817636-1-xukuohai@huaweicloud.com>
 References: <20240711111908.3817636-1-xukuohai@huaweicloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: gCh0CgCHjPVxvo9mulQgBw--.25300S9
-X-Coremail-Antispam: 1UD129KBjvJXoW3Ww4fXr4kCw4kAFyrJr48tFb_yoWxuw4DpF
- s8K3W3Gr48GFy7XF4vyFnxCa1a93yrGr17J39xCwnFyFy7Jw4Igay3GFyjkFWfCw18Wr18
- KanFqrW3Cr4UAr7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID: gCh0CgCHjPVxvo9mulQgBw--.25300S10
+X-Coremail-Antispam: 1UD129KBjvJXoW3GrWUWr4xGFyfGFyfZFy7ZFb_yoWxZw48pF
+ s5K3ZrGrW8WFy7ZF4vyFnxCa1Sv3yrWr13J398Cw1IyFy2qw4xWa45GFyY9rWrCw1DuF1D
+ tanFqr45Cr4DAF7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
  9KBjDU0xBIdaVrnRJUUUBqb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
  6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAV
  Cq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0
@@ -52,11 +52,11 @@ X-Coremail-Antispam: 1UD129KBjvJXoW3Ww4fXr4kCw4kAFyrJr48tFb_yoWxuw4DpF
  0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87
  Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU13l1DUUUUU==
 X-CM-SenderInfo: 50xn30hkdlqx5xdzvxpfor3voofrz/
-Received-SPF: pass client-ip=45.249.212.51;
- envelope-from=xukuohai@huaweicloud.com; helo=dggsgout11.his.huawei.com
+Received-SPF: pass client-ip=45.249.212.56;
+ envelope-from=xukuohai@huaweicloud.com; helo=dggsgout12.his.huawei.com
 X-Mailman-Approved-At: Thu, 11 Jul 2024 11:34:25 +0000
-Subject: [apparmor] [PATCH bpf-next v4 07/20] lsm: Refactor return value of
-	LSM hook setprocattr
+Subject: [apparmor] [PATCH bpf-next v4 08/20] lsm: Refactor return value of
+	LSM hook getprocattr
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -93,203 +93,207 @@ Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 From: Xu Kuohai <xukuohai@huawei.com>
 
 To be consistent with most LSM hooks, convert the return value of
-hook setprocattr to 0 or a negative error code.
+hook getprocattr to 0 or a negative error code.
 
 Before:
-- Hook setprocattr returns the number of bytes written on success
-  or a negative error code on failure.
+- Hook getprocattr returns length of value on success or a negative
+  error code on failure.
 
 After:
-- Hook setprocattr returns 0 on success or a negative error code
-  on failure. An output parameter @wbytes is introduced to hold
-  the number of bytes written on success.
+- Hook getprocattr returns 0 on success or a negative error code on
+  failure. An output parameter @len is introduced to hold the
+  length of value on success.
 
 Signed-off-by: Xu Kuohai <xukuohai@huawei.com>
 ---
- fs/proc/base.c                |  5 +++--
- include/linux/lsm_hook_defs.h |  3 ++-
+ fs/proc/base.c                |  5 ++++-
+ include/linux/lsm_hook_defs.h |  2 +-
  include/linux/security.h      |  5 +++--
- security/apparmor/lsm.c       | 10 +++++++---
+ security/apparmor/lsm.c       |  7 +++++--
  security/security.c           |  8 +++++---
- security/selinux/hooks.c      | 11 ++++++++---
- security/smack/smack_lsm.c    | 14 ++++++++++----
- 7 files changed, 38 insertions(+), 18 deletions(-)
+ security/selinux/hooks.c      | 16 +++++++++-------
+ security/smack/smack_lsm.c    | 11 ++++++-----
+ 7 files changed, 33 insertions(+), 21 deletions(-)
 
 diff --git a/fs/proc/base.c b/fs/proc/base.c
-index 72a1acd03675..9e1cf6cc674d 100644
+index 9e1cf6cc674d..516a00f6ce36 100644
 --- a/fs/proc/base.c
 +++ b/fs/proc/base.c
-@@ -2740,6 +2740,7 @@ static ssize_t proc_pid_attr_write(struct file * file, const char __user * buf,
- {
- 	struct inode * inode = file_inode(file);
- 	struct task_struct *task;
-+	size_t wbytes;
- 	void *page;
- 	int rv;
+@@ -2721,13 +2721,16 @@ static ssize_t proc_pid_attr_read(struct file * file, char __user * buf,
+ 	char *p = NULL;
+ 	ssize_t length;
+ 	struct task_struct *task = get_proc_task(inode);
++	u32 n;
  
-@@ -2785,12 +2786,12 @@ static ssize_t proc_pid_attr_write(struct file * file, const char __user * buf,
+ 	if (!task)
+ 		return -ESRCH;
  
- 	rv = security_setprocattr(PROC_I(inode)->op.lsmid,
- 				  file->f_path.dentry->d_name.name, page,
--				  count);
-+				  count, &wbytes);
- 	mutex_unlock(&current->signal->cred_guard_mutex);
- out_free:
- 	kfree(page);
- out:
--	return rv;
-+	return rv < 0 ? rv : wbytes;
- }
- 
- static const struct file_operations proc_pid_attr_operations = {
+ 	length = security_getprocattr(task, PROC_I(inode)->op.lsmid,
+ 				      file->f_path.dentry->d_name.name,
+-				      &p);
++				      &p, &n);
++	if (!length)
++		length = n;
+ 	put_task_struct(task);
+ 	if (length > 0)
+ 		length = simple_read_from_buffer(buf, count, ppos, p, length);
 diff --git a/include/linux/lsm_hook_defs.h b/include/linux/lsm_hook_defs.h
-index dbc16f14f42f..2628514bb19c 100644
+index 2628514bb19c..b0e3cf3fc33f 100644
 --- a/include/linux/lsm_hook_defs.h
 +++ b/include/linux/lsm_hook_defs.h
-@@ -287,7 +287,8 @@ LSM_HOOK(int, -EOPNOTSUPP, setselfattr, unsigned int attr,
+@@ -286,7 +286,7 @@ LSM_HOOK(int, -EOPNOTSUPP, getselfattr, unsigned int attr,
+ LSM_HOOK(int, -EOPNOTSUPP, setselfattr, unsigned int attr,
  	 struct lsm_ctx *ctx, u32 size, u32 flags)
  LSM_HOOK(int, -EINVAL, getprocattr, struct task_struct *p, const char *name,
- 	 char **value)
--LSM_HOOK(int, -EINVAL, setprocattr, const char *name, void *value, size_t size)
-+LSM_HOOK(int, -EINVAL, setprocattr, const char *name, void *value, size_t size,
-+	 size_t *wbytes)
+-	 char **value)
++	 char **value, u32 *len)
+ LSM_HOOK(int, -EINVAL, setprocattr, const char *name, void *value, size_t size,
+ 	 size_t *wbytes)
  LSM_HOOK(int, 0, ismaclabel, const char *name)
- LSM_HOOK(int, -EOPNOTSUPP, secid_to_secctx, u32 secid, char **secdata,
- 	 u32 *seclen)
 diff --git a/include/linux/security.h b/include/linux/security.h
-index 96a63e132abf..1f1a9696e65d 100644
+index 1f1a9696e65d..616047030a89 100644
 --- a/include/linux/security.h
 +++ b/include/linux/security.h
-@@ -496,7 +496,8 @@ int security_setselfattr(unsigned int attr, struct lsm_ctx __user *ctx,
+@@ -495,7 +495,7 @@ int security_getselfattr(unsigned int attr, struct lsm_ctx __user *ctx,
+ int security_setselfattr(unsigned int attr, struct lsm_ctx __user *ctx,
  			 u32 size, u32 flags);
  int security_getprocattr(struct task_struct *p, int lsmid, const char *name,
- 			 char **value);
--int security_setprocattr(int lsmid, const char *name, void *value, size_t size);
-+int security_setprocattr(int lsmid, const char *name, void *value, size_t size,
-+			 size_t *wbytes);
+-			 char **value);
++			 char **value, u32 *len);
+ int security_setprocattr(int lsmid, const char *name, void *value, size_t size,
+ 			 size_t *wbytes);
  int security_netlink_send(struct sock *sk, struct sk_buff *skb);
- int security_ismaclabel(const char *name);
- int security_secid_to_secctx(u32 secid, char **secdata, u32 *seclen);
-@@ -1440,7 +1441,7 @@ static inline int security_getprocattr(struct task_struct *p, int lsmid,
+@@ -1435,7 +1435,8 @@ static inline int security_setselfattr(unsigned int attr,
  }
  
- static inline int security_setprocattr(int lsmid, char *name, void *value,
--				       size_t size)
-+				       size_t size, size_t *wbytes)
+ static inline int security_getprocattr(struct task_struct *p, int lsmid,
+-				       const char *name, char **value)
++				       const char *name, char **value,
++				       u32 *len)
  {
  	return -EINVAL;
  }
 diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
-index 72dd09993f28..6c8b1f8c5781 100644
+index 6c8b1f8c5781..0454f3f1af06 100644
 --- a/security/apparmor/lsm.c
 +++ b/security/apparmor/lsm.c
-@@ -939,13 +939,17 @@ static int apparmor_setselfattr(unsigned int attr, struct lsm_ctx *ctx,
+@@ -820,7 +820,7 @@ static int apparmor_getselfattr(unsigned int attr, struct lsm_ctx __user *lx,
  }
  
- static int apparmor_setprocattr(const char *name, void *value,
--				size_t size)
-+				size_t size, size_t *wbytes)
+ static int apparmor_getprocattr(struct task_struct *task, const char *name,
+-				char **value)
++				char **value, u32 *len)
  {
-+	int rc = -EINVAL;
- 	int attr = lsm_name_to_attr(name);
+ 	int error = -ENOENT;
+ 	/* released below */
+@@ -843,7 +843,10 @@ static int apparmor_getprocattr(struct task_struct *task, const char *name,
+ 	aa_put_label(label);
+ 	put_cred(cred);
  
- 	if (attr)
--		return do_setattr(attr, value, size);
--	return -EINVAL;
-+		rc = do_setattr(attr, value, size);
-+	if (rc < 0)
-+		return rc;
-+	*wbytes = rc;
+-	return error;
++	if (error < 0)
++		return error;
++	*len = error;
 +	return 0;
  }
  
- /**
+ static int do_setattr(u64 attr, void *value, size_t size)
 diff --git a/security/security.c b/security/security.c
-index 095e78efcb32..9685096dbf16 100644
+index 9685096dbf16..9dd2ae6cf763 100644
 --- a/security/security.c
 +++ b/security/security.c
-@@ -4141,20 +4141,22 @@ int security_getprocattr(struct task_struct *p, int lsmid, const char *name,
+@@ -4117,20 +4117,22 @@ int security_setselfattr(unsigned int attr, struct lsm_ctx __user *uctx,
+  * @lsmid: LSM identification
   * @name: attribute name
   * @value: attribute value
-  * @size: attribute value size
-+ * @wbytes: bytes written on success
++ * @len: length of @value
   *
-  * Write (set) the current task's attribute @name to @value, size @size if
-  * allowed.
+  * Read attribute @name for task @p and store it into @value if allowed.
   *
-- * Return: Returns bytes written on success, a negative value otherwise.
-+ * Return: Returns 0 on success, a negative error code otherwise.
+- * Return: Returns the length of @value on success, a negative value otherwise.
++ * Return: Returns 0 on success or a negative error code on failure.
++ *         @len is set to the length of @value on success.
   */
--int security_setprocattr(int lsmid, const char *name, void *value, size_t size)
-+int security_setprocattr(int lsmid, const char *name, void *value, size_t size,
-+			 size_t *wbytes)
+ int security_getprocattr(struct task_struct *p, int lsmid, const char *name,
+-			 char **value)
++			 char **value, u32 *len)
  {
  	struct security_hook_list *hp;
  
- 	hlist_for_each_entry(hp, &security_hook_heads.setprocattr, list) {
+ 	hlist_for_each_entry(hp, &security_hook_heads.getprocattr, list) {
  		if (lsmid != 0 && lsmid != hp->lsmid->id)
  			continue;
--		return hp->hook.setprocattr(name, value, size);
-+		return hp->hook.setprocattr(name, value, size, wbytes);
+-		return hp->hook.getprocattr(p, name, value);
++		return hp->hook.getprocattr(p, name, value, len);
  	}
- 	return LSM_RET_DEFAULT(setprocattr);
+ 	return LSM_RET_DEFAULT(getprocattr);
  }
 diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-index 0d35bb93baca..7a73f3710025 100644
+index 7a73f3710025..16cd336aab3d 100644
 --- a/security/selinux/hooks.c
 +++ b/security/selinux/hooks.c
-@@ -6589,13 +6589,18 @@ static int selinux_getprocattr(struct task_struct *p,
- 	return -EINVAL;
+@@ -6574,19 +6574,21 @@ static int selinux_setselfattr(unsigned int attr, struct lsm_ctx *ctx,
+ 	return rc;
  }
  
--static int selinux_setprocattr(const char *name, void *value, size_t size)
-+static int selinux_setprocattr(const char *name, void *value, size_t size,
-+			       size_t *wbytes)
+-static int selinux_getprocattr(struct task_struct *p,
+-			       const char *name, char **value)
++static int selinux_getprocattr(struct task_struct *p, const char *name,
++			       char **value, u32 *len)
  {
+ 	unsigned int attr = lsm_name_to_attr(name);
+-	int rc;
 +	int rc = -EINVAL;
- 	int attr = lsm_name_to_attr(name);
  
- 	if (attr)
--		return selinux_lsm_setattr(attr, value, size);
+ 	if (attr) {
+ 		rc = selinux_lsm_getattr(attr, p, value);
+-		if (rc != -EOPNOTSUPP)
+-			return rc;
++		if (rc == -EOPNOTSUPP)
++			rc = -EINVAL;
+ 	}
+-
 -	return -EINVAL;
-+		rc = selinux_lsm_setattr(attr, value, size);
 +	if (rc < 0)
 +		return rc;
-+	*wbytes = rc;
++	*len = rc;
 +	return 0;
  }
  
- static int selinux_ismaclabel(const char *name)
+ static int selinux_setprocattr(const char *name, void *value, size_t size,
 diff --git a/security/smack/smack_lsm.c b/security/smack/smack_lsm.c
-index 63d9c5f456c1..4265f2639106 100644
+index 4265f2639106..8a352bd05565 100644
 --- a/security/smack/smack_lsm.c
 +++ b/security/smack/smack_lsm.c
-@@ -3797,19 +3797,25 @@ static int smack_setselfattr(unsigned int attr, struct lsm_ctx *ctx,
+@@ -3681,16 +3681,17 @@ static int smack_getselfattr(unsigned int attr, struct lsm_ctx __user *ctx,
+  * @p: the object task
   * @name: the name of the attribute in /proc/.../attr
-  * @value: the value to set
-  * @size: the size of the value
-+ * @wbytes: the length of the smack label written
+  * @value: where to put the result
++ * @len: where to put the length of the result
   *
-  * Sets the Smack value of the task. Only setting self
-  * is permitted and only with privilege
+  * Places a copy of the task Smack into value
   *
 - * Returns the length of the smack label or an error code
-+ * Returns 0 on success or a negative error code
++ * Returns 0 on success or a negative error code on failure.
   */
--static int smack_setprocattr(const char *name, void *value, size_t size)
-+static int smack_setprocattr(const char *name, void *value, size_t size,
-+			     size_t *wbytes)
+-static int smack_getprocattr(struct task_struct *p, const char *name, char **value)
++static int smack_getprocattr(struct task_struct *p, const char *name,
++			     char **value, u32 *len)
  {
-+	int rc = -EINVAL;
- 	int attr = lsm_name_to_attr(name);
+ 	struct smack_known *skp = smk_of_task_struct_obj(p);
+ 	char *cp;
+-	int slen;
  
- 	if (attr != LSM_ATTR_UNDEF)
--		return do_setattr(attr, value, size);
--	return -EINVAL;
-+		rc = do_setattr(attr, value, size);
-+	if (rc < 0)
-+		return rc;
-+	*wbytes = rc;
+ 	if (strcmp(name, "current") != 0)
+ 		return -EINVAL;
+@@ -3699,9 +3700,9 @@ static int smack_getprocattr(struct task_struct *p, const char *name, char **val
+ 	if (cp == NULL)
+ 		return -ENOMEM;
+ 
+-	slen = strlen(cp);
++	*len = strlen(cp);
+ 	*value = cp;
+-	return slen;
 +	return 0;
  }
  
