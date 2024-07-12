@@ -2,56 +2,60 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D9A6930093
-	for <lists+apparmor@lfdr.de>; Fri, 12 Jul 2024 20:49:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C324893008F
+	for <lists+apparmor@lfdr.de>; Fri, 12 Jul 2024 20:49:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1sSLKM-000561-6O; Fri, 12 Jul 2024 18:49:06 +0000
-Received: from mail-yb1-f174.google.com ([209.85.219.174])
+	id 1sSLKN-00056F-IP; Fri, 12 Jul 2024 18:49:07 +0000
+Received: from mail-pf1-f175.google.com ([209.85.210.175])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <paul@paul-moore.com>)
- id 1sSIh4-0007pv-OF
- for apparmor@lists.ubuntu.com; Fri, 12 Jul 2024 16:00:22 +0000
-Received: by mail-yb1-f174.google.com with SMTP id
- 3f1490d57ef6-dfef5980a69so2290578276.3
- for <apparmor@lists.ubuntu.com>; Fri, 12 Jul 2024 09:00:22 -0700 (PDT)
+ (Exim 4.86_2) (envelope-from <alexei.starovoitov@gmail.com>)
+ id 1sSKVk-0000vz-QI
+ for apparmor@lists.ubuntu.com; Fri, 12 Jul 2024 17:56:48 +0000
+Received: by mail-pf1-f175.google.com with SMTP id
+ d2e1a72fcca58-70af3d9169bso2011147b3a.1
+ for <apparmor@lists.ubuntu.com>; Fri, 12 Jul 2024 10:56:48 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1720800021; x=1721404821;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=fnIdY8cOUw38JAafq5wFUGBK6m5NkxtUKb6vV5qaE/U=;
- b=p86W+qxTbLBaT/DkCC6yBqjy3aWH1zAIVdm/ftGmocPdlAFix3j06ghMeOEO8uvfeA
- Uah9GXULxgosZ2XQqvKw0J0BgfNaT98BoGZaoUB5nyM7qZv+g7juA3HanS3dQ8/FmEja
- cM5i4oU/LV6ME8kHJ/st2g8ODoP9cKGY3HONIJanueC2q0nONUFt106968fi/0IT0Cb7
- VFx/76b0YE46DOwojRSKG3TcnANGwZYKS0YkSqRSz/4GcaUwDoQayOhIRLhkN7nkaKq6
- 6efgqsZySlqJN9/DqfDZSUsPB/wzlFPWbV6GPIWcPjPSIrxTuvhdc8C27b9QSf49eZHh
- +uHA==
+ d=1e100.net; s=20230601; t=1720807007; x=1721411807;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=hvJqMz2g+QWTR/26uvM7LO7+R0enQZRj5mYnnkzzRMo=;
+ b=R5SNC8PcwKqoKjU16i4dFdLd7tRml5UiZASDklzocEJp8NVw2CHt+ZOK3anzIogtUA
+ Q6mOalSDtD0GXOZC9zWhP+fSuHJA41/mKF3VOQxrqOSdbaW0bh2qVEboiLVfvqZEdzlD
+ h8XalV2RwxlUmQY+ImIYJWulB4LN4GaPor5Zi6wkNn5cxbPwBQXKtXJT9Bw8PF+PXsSC
+ S8XIB6/mm7WQrurSiQEUnNhLDTWNe5W+LW4HCvGeVYYFQVMyhZvRErnb3mtqiYNSyYhf
+ VyLPxlGj44aFQEMkZYM6kAq9V49TuIv50u7mVHjJlZhuOCoTtsVQdbIo7sod1NFF8G7E
+ lxtA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU/oDxY0l9tyVDkpliEvCNsHZ4ClinedBKS4rgMzzmmg08Xmtsv/hos4jhbGIjF8jvQayhbOf8uaVIvCZJtzNwATcv1L4AS41eY
-X-Gm-Message-State: AOJu0YzfJynkRPtm6MvorFBxzdLIvNqkGtq7bRkbc+vOGZ48xluF9ZzB
- j/ZswrVGUXqYUFlmfMeiPRbc3UPkG4cbHQPE6JLZngwu0onJo0HJKL1rgq1LHOLVnzzEydeGWU7
- 2JBYTittO0FvEfvBRP/JCkxEWbtav5tSrXSBB
-X-Google-Smtp-Source: AGHT+IHMT0du6hnJIItX/6mTkJFxNvw+z/Qex7BmduSDlDVCO3FlfK9m+2jlZrQudmjY8vONYjC0fSXRiUdwhit5XPg=
-X-Received: by 2002:a0d:eec6:0:b0:646:fe8e:f03b with SMTP id
- 00721157ae682-658ee791211mr112675977b3.2.1720800021231; Fri, 12 Jul 2024
- 09:00:21 -0700 (PDT)
-MIME-Version: 1.0
-References: <20240711111908.3817636-1-xukuohai@huaweicloud.com>
- <CAHC9VhSBg7qf81O+mC1EDSUhZ4xR57jfY4h0P6Vy1PO++JqMBw@mail.gmail.com>
-In-Reply-To: <CAHC9VhSBg7qf81O+mC1EDSUhZ4xR57jfY4h0P6Vy1PO++JqMBw@mail.gmail.com>
-From: Paul Moore <paul@paul-moore.com>
-Date: Fri, 12 Jul 2024 12:00:09 -0400
-Message-ID: <CAHC9VhQ9tevCE5MDXxqmErSayHe12XKd=VEVGyPKL0TMxwLC8w@mail.gmail.com>
+ AJvYcCX4KSblo8dg9JISa+hJUgb60gI26R2uicKXa5zeKR7fDkjqhTIu9kWzYuji6tgF6hytXFmTQBLJCXSgCqGJCChLahSUqvv/E18Y
+X-Gm-Message-State: AOJu0YzAnWLeE8hyWWrGCYYBfI/M/EYQfgV4w8AOviqpXmK3DMIyI5Hl
+ IE5rM3lnX5ErcFfZRCDms4Lrp53juLoGU0UVIysQ6a6pPGw6jU5s
+X-Google-Smtp-Source: AGHT+IEQhOEcyJo9nymze7EJcWUmb0pa0RPK5Sh5riMCUcRm7lnBoF6POikeGeyiWKlGRHtmtiu3qw==
+X-Received: by 2002:a05:6a21:6704:b0:1c0:f080:ed5b with SMTP id
+ adf61e73a8af0-1c2984ce612mr12926893637.54.1720807006607; 
+ Fri, 12 Jul 2024 10:56:46 -0700 (PDT)
+Received: from MacBook-Pro-49.local ([2620:10d:c090:500::7:44ce])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-1fbb6ab8041sm69662725ad.135.2024.07.12.10.56.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 12 Jul 2024 10:56:46 -0700 (PDT)
+Date: Fri, 12 Jul 2024 10:56:41 -0700
+From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
 To: Xu Kuohai <xukuohai@huaweicloud.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=209.85.219.174; envelope-from=paul@paul-moore.com;
- helo=mail-yb1-f174.google.com
-X-Mailman-Approved-At: Fri, 12 Jul 2024 18:49:04 +0000
-Subject: Re: [apparmor] [PATCH bpf-next v4 00/20] Add return value range
-	check for BPF LSM
+Message-ID: <qjrf5c6f24b6ef5tpvpz75uxp6ro6mhos34ovssinv4yxjwyz3@nvs75o5sywgx>
+References: <20240711111908.3817636-1-xukuohai@huaweicloud.com>
+ <20240711111908.3817636-12-xukuohai@huaweicloud.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240711111908.3817636-12-xukuohai@huaweicloud.com>
+Received-SPF: pass client-ip=209.85.210.175;
+ envelope-from=alexei.starovoitov@gmail.com; helo=mail-pf1-f175.google.com
+X-Mailman-Approved-At: Fri, 12 Jul 2024 18:49:05 +0000
+Subject: Re: [apparmor] [PATCH bpf-next v4 11/20] bpf,
+ lsm: Add disabled BPF LSM hook list
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -68,7 +72,8 @@ Cc: Matt Bobrowski <mattbobrowski@google.com>, linux-kselftest@vger.kernel.org,
  James Morris <jmorris@namei.org>, Song Liu <song@kernel.org>,
  Eric Dumazet <edumazet@google.com>, Stanislav Fomichev <sdf@google.com>,
  Yonghong Song <yonghong.song@linux.dev>, Anna Schumaker <anna@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Edward Cree <ecree.xilinx@gmail.com>,
+ Paul Moore <paul@paul-moore.com>, Daniel Borkmann <daniel@iogearbox.net>,
+ Edward Cree <ecree.xilinx@gmail.com>,
  John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
  Trond Myklebust <trond.myklebust@hammerspace.com>,
  Lukas Bulwahn <lukas.bulwahn@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
@@ -87,54 +92,19 @@ Cc: Matt Bobrowski <mattbobrowski@google.com>, linux-kselftest@vger.kernel.org,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Fri, Jul 12, 2024 at 11:56=E2=80=AFAM Paul Moore <paul@paul-moore.com> w=
-rote:
-> On Thu, Jul 11, 2024 at 7:13=E2=80=AFAM Xu Kuohai <xukuohai@huaweicloud.c=
-om> wrote:
-> >
-> > From: Xu Kuohai <xukuohai@huawei.com>
-> >
-> > LSM BPF prog returning a positive number attached to the hook
-> > file_alloc_security makes kernel panic.
->
-> ...
->
-> > Xu Kuohai (20):
-> >   lsm: Refactor return value of LSM hook vm_enough_memory
-> >   lsm: Refactor return value of LSM hook inode_need_killpriv
-> >   lsm: Refactor return value of LSM hook inode_getsecurity
-> >   lsm: Refactor return value of LSM hook inode_listsecurity
-> >   lsm: Refactor return value of LSM hook inode_copy_up_xattr
-> >   lsm: Refactor return value of LSM hook getselfattr
-> >   lsm: Refactor return value of LSM hook setprocattr
-> >   lsm: Refactor return value of LSM hook getprocattr
-> >   lsm: Refactor return value of LSM hook key_getsecurity
-> >   lsm: Refactor return value of LSM hook audit_rule_match
-> >   bpf, lsm: Add disabled BPF LSM hook list
-> >   bpf, lsm: Enable BPF LSM prog to read/write return value parameters
-> >   bpf, lsm: Add check for BPF LSM return value
-> >   bpf: Prevent tail call between progs attached to different hooks
-> >   bpf: Fix compare error in function retval_range_within
-> >   bpf: Add a special case for bitwise AND on range [-1, 0]
-> >   selftests/bpf: Avoid load failure for token_lsm.c
-> >   selftests/bpf: Add return value checks for failed tests
-> >   selftests/bpf: Add test for lsm tail call
-> >   selftests/bpf: Add verifier tests for bpf lsm
->
-> I'm not quite sure what happened, but it looks like patches 13/20
-> through 20/20 did not hit the mailing lists, see lore link below; did
-> you have any mail failures when sending the patchset?  Regardless, can
-> you sort this out and resend the patchset?
->
-> https://lore.kernel.org/all/20240711111908.3817636-1-xukuohai@huaweicloud=
-.com
+On Thu, Jul 11, 2024 at 07:18:59PM +0800, Xu Kuohai wrote:
+> From: Xu Kuohai <xukuohai@huawei.com>
+> 
+> Add a disabled hooks list for BPF LSM. progs being attached to the
+> listed hooks will be rejected by the verifier.
+> 
+> Suggested-by: KP Singh <kpsingh@kernel.org>
+> Signed-off-by: Xu Kuohai <xukuohai@huawei.com>
 
-Oh wait, it looks like the patchset was split in lore somehow,
-nevermind.  The "missing" patches are here:
+Xu,
 
-https://lore.kernel.org/all/20240711113828.3818398-1-xukuohai@huaweicloud.c=
-om
-
---=20
-paul-moore.com
+The patches 11 and higher are mostly independent from lsm refactoring.
+Please send them as a separate patchset for bpf-next.
+While lsm cleanups are being reviewed this lsm_disabled list can be
+a bit larger temporarily.
 
