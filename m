@@ -2,36 +2,55 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58CD9930094
-	for <lists+apparmor@lfdr.de>; Fri, 12 Jul 2024 20:49:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33D28930090
+	for <lists+apparmor@lfdr.de>; Fri, 12 Jul 2024 20:49:14 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1sSLKU-0005Bx-TF; Fri, 12 Jul 2024 18:49:14 +0000
-Received: from dfw.source.kernel.org ([139.178.84.217])
+	id 1sSLKM-00055u-1n; Fri, 12 Jul 2024 18:49:06 +0000
+Received: from mail-yw1-f176.google.com ([209.85.128.176])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <horms@kernel.org>) id 1sSGNM-0007PW-4l
- for apparmor@lists.ubuntu.com; Fri, 12 Jul 2024 13:31:52 +0000
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id A1A9461EFB;
- Fri, 12 Jul 2024 13:31:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24D23C32786;
- Fri, 12 Jul 2024 13:31:42 +0000 (UTC)
-Date: Fri, 12 Jul 2024 14:31:41 +0100
-From: Simon Horman <horms@kernel.org>
-To: Xu Kuohai <xukuohai@huaweicloud.com>
-Message-ID: <20240712133141.GB120802@kernel.org>
-References: <20240711111908.3817636-1-xukuohai@huaweicloud.com>
- <20240711111908.3817636-4-xukuohai@huaweicloud.com>
+ (Exim 4.86_2) (envelope-from <paul@paul-moore.com>)
+ id 1sSIdR-0007Xr-Hj
+ for apparmor@lists.ubuntu.com; Fri, 12 Jul 2024 15:56:37 +0000
+Received: by mail-yw1-f176.google.com with SMTP id
+ 00721157ae682-64d408a5d01so21164597b3.1
+ for <apparmor@lists.ubuntu.com>; Fri, 12 Jul 2024 08:56:37 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1720799796; x=1721404596;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=w0+yKauGBfVgztiyzO4psOZ39jXUy61P0Z2otIutEDo=;
+ b=kzcFzThExgw2PRei01oNlr1uBB9ZmjZ6K2ZPA16/6oaScnzcy2SrDDF6AHZ/CTeiVN
+ ByGQwzrO8Ua/6abUvJgkfs9Ty6epZ+m5Fog/K4CBGzKpeyl+XRyljKrHyhqz5pE+iU5g
+ cGHzVkvfmxCzf6TBwmFhWVbIStSG/EYpwiKsOR5A6ZvFLVWJx19bdh6WGbtQwlD3So/o
+ eH4t5ASvSNxQu7Stgl1U5iPMQ6xQceMAvE6CX6aGCmlNQ5OZGnz6y8We3jj7xham0+Wy
+ Xi1hYhNVGls98kZexBcxUlMQrSWB9uKQ7+mTs7Cx4W6NYxOsjoBiACYLX3YbBtjI0Wwx
+ zp+w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXqdfpF8+Ewvx8YsEPxVMQ32B9JVZR/eGHFX0Zxiy70vxbDqDu/y9s0Yl+4N80uACiwMV23xSFUol5rE+yZgZRXMam8YoMzqW2N
+X-Gm-Message-State: AOJu0YxKsQ/of1GnyRiJHUmeqaeRHIBwGEbvyzh1aOBEPK9NXhjtGESd
+ 1D1d0GU1Re7sHmTXKyeAqTC4EVlg/TLbyhfJCyBpOhcEVjEo2DpQbvbX0LDrtRvTg0kwa5DjeIK
+ YF7Ho+CqVXqSG2i0fRxhWo5d8CRKZS0H1qpF5
+X-Google-Smtp-Source: AGHT+IF+g3vVIQGlu+DNJrMzZR5GHCzdBLPdnG5032hms9DBcj/kbAYdQFAnbzbxP88gJHMhlwAUxx/RSDis8DM3exE=
+X-Received: by 2002:a81:ae07:0:b0:62c:e6c0:e887 with SMTP id
+ 00721157ae682-658ee790cedmr131373017b3.9.1720799796245; Fri, 12 Jul 2024
+ 08:56:36 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240711111908.3817636-4-xukuohai@huaweicloud.com>
-Received-SPF: pass client-ip=139.178.84.217; envelope-from=horms@kernel.org;
- helo=dfw.source.kernel.org
-X-Mailman-Approved-At: Fri, 12 Jul 2024 18:49:13 +0000
-Subject: Re: [apparmor] [PATCH bpf-next v4 03/20] lsm: Refactor return value
- of LSM hook inode_getsecurity
+References: <20240711111908.3817636-1-xukuohai@huaweicloud.com>
+In-Reply-To: <20240711111908.3817636-1-xukuohai@huaweicloud.com>
+From: Paul Moore <paul@paul-moore.com>
+Date: Fri, 12 Jul 2024 11:56:25 -0400
+Message-ID: <CAHC9VhSBg7qf81O+mC1EDSUhZ4xR57jfY4h0P6Vy1PO++JqMBw@mail.gmail.com>
+To: Xu Kuohai <xukuohai@huaweicloud.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=209.85.128.176; envelope-from=paul@paul-moore.com;
+ helo=mail-yw1-f176.google.com
+X-Mailman-Approved-At: Fri, 12 Jul 2024 18:49:04 +0000
+Subject: Re: [apparmor] [PATCH bpf-next v4 00/20] Add return value range
+	check for BPF LSM
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -48,8 +67,7 @@ Cc: Matt Bobrowski <mattbobrowski@google.com>, linux-kselftest@vger.kernel.org,
  James Morris <jmorris@namei.org>, Song Liu <song@kernel.org>,
  Eric Dumazet <edumazet@google.com>, Stanislav Fomichev <sdf@google.com>,
  Yonghong Song <yonghong.song@linux.dev>, Anna Schumaker <anna@kernel.org>,
- Paul Moore <paul@paul-moore.com>, Daniel Borkmann <daniel@iogearbox.net>,
- Edward Cree <ecree.xilinx@gmail.com>,
+ Daniel Borkmann <daniel@iogearbox.net>, Edward Cree <ecree.xilinx@gmail.com>,
  John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
  Trond Myklebust <trond.myklebust@hammerspace.com>,
  Lukas Bulwahn <lukas.bulwahn@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
@@ -68,84 +86,46 @@ Cc: Matt Bobrowski <mattbobrowski@google.com>, linux-kselftest@vger.kernel.org,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Thu, Jul 11, 2024 at 07:18:51PM +0800, Xu Kuohai wrote:
+On Thu, Jul 11, 2024 at 7:13=E2=80=AFAM Xu Kuohai <xukuohai@huaweicloud.com=
+> wrote:
+>
 > From: Xu Kuohai <xukuohai@huawei.com>
-> 
-> To be consistent with most LSM hooks, convert the return value of
-> hook inode_getsecurity to 0 or a negative error code.
-> 
-> Before:
-> - Hook inode_getsecurity returns size of buffer on success or a
->   negative error code on failure.
-> 
-> After:
-> - Hook inode_getsecurity returns 0 on success or a negative error
->   code on failure. An output parameter @len is introduced to hold
->   the buffer size on success.
-> 
-> Signed-off-by: Xu Kuohai <xukuohai@huawei.com>
-> ---
->  fs/xattr.c                    | 19 ++++++++++---------
->  include/linux/lsm_hook_defs.h |  3 ++-
->  include/linux/security.h      | 12 ++++++------
->  security/commoncap.c          |  9 ++++++---
->  security/security.c           | 11 ++++++-----
->  security/selinux/hooks.c      | 16 ++++++----------
->  security/smack/smack_lsm.c    | 14 +++++++-------
->  7 files changed, 43 insertions(+), 41 deletions(-)
-> 
-> diff --git a/fs/xattr.c b/fs/xattr.c
-> index f8b643f91a98..f4e3bedf7272 100644
-> --- a/fs/xattr.c
-> +++ b/fs/xattr.c
-> @@ -339,27 +339,28 @@ xattr_getsecurity(struct mnt_idmap *idmap, struct inode *inode,
->  		  const char *name, void *value, size_t size)
->  {
->  	void *buffer = NULL;
-> -	ssize_t len;
-> +	int error;
-> +	u32 len;
->  
->  	if (!value || !size) {
-> -		len = security_inode_getsecurity(idmap, inode, name,
-> -						 &buffer, false);
-> +		error = security_inode_getsecurity(idmap, inode, name,
-> +						   false, &buffer, &len);
->  		goto out_noalloc;
->  	}
->  
-> -	len = security_inode_getsecurity(idmap, inode, name, &buffer,
-> -					 true);
-> -	if (len < 0)
-> -		return len;
-> +	error = security_inode_getsecurity(idmap, inode, name, true,
-> +					   &buffer, &len);
-> +	if (error)
-> +		return error;
->  	if (size < len) {
-> -		len = -ERANGE;
-> +		error = -ERANGE;
->  		goto out;
->  	}
->  	memcpy(value, buffer, len);
->  out:
->  	kfree(buffer);
->  out_noalloc:
-> -	return len;
-> +	return error < 0 ? error : len;
-
-Hi Xu Kuohai,
-
-len is an unsigned 32-bit entity, but the return type of this function
-is an unsigned value (ssize_t). So in theory, if len is very large,
-a negative error value error will be returned.
-
->  }
-
-Similarly for the handling of nattr in lsm_get_self_attr in
-lsm_syscalls.c in a subsequent patch.
-
-Flagged by Smatch.
+>
+> LSM BPF prog returning a positive number attached to the hook
+> file_alloc_security makes kernel panic.
 
 ...
+
+> Xu Kuohai (20):
+>   lsm: Refactor return value of LSM hook vm_enough_memory
+>   lsm: Refactor return value of LSM hook inode_need_killpriv
+>   lsm: Refactor return value of LSM hook inode_getsecurity
+>   lsm: Refactor return value of LSM hook inode_listsecurity
+>   lsm: Refactor return value of LSM hook inode_copy_up_xattr
+>   lsm: Refactor return value of LSM hook getselfattr
+>   lsm: Refactor return value of LSM hook setprocattr
+>   lsm: Refactor return value of LSM hook getprocattr
+>   lsm: Refactor return value of LSM hook key_getsecurity
+>   lsm: Refactor return value of LSM hook audit_rule_match
+>   bpf, lsm: Add disabled BPF LSM hook list
+>   bpf, lsm: Enable BPF LSM prog to read/write return value parameters
+>   bpf, lsm: Add check for BPF LSM return value
+>   bpf: Prevent tail call between progs attached to different hooks
+>   bpf: Fix compare error in function retval_range_within
+>   bpf: Add a special case for bitwise AND on range [-1, 0]
+>   selftests/bpf: Avoid load failure for token_lsm.c
+>   selftests/bpf: Add return value checks for failed tests
+>   selftests/bpf: Add test for lsm tail call
+>   selftests/bpf: Add verifier tests for bpf lsm
+
+I'm not quite sure what happened, but it looks like patches 13/20
+through 20/20 did not hit the mailing lists, see lore link below; did
+you have any mail failures when sending the patchset?  Regardless, can
+you sort this out and resend the patchset?
+
+https://lore.kernel.org/all/20240711111908.3817636-1-xukuohai@huaweicloud.c=
+om
+
+--=20
+paul-moore.com
 
