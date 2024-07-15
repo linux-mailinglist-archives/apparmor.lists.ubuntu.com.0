@@ -2,61 +2,72 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52C6A93049D
-	for <lists+apparmor@lfdr.de>; Sat, 13 Jul 2024 10:59:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53C72931688
+	for <lists+apparmor@lfdr.de>; Mon, 15 Jul 2024 16:19:32 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1sSYb0-0008He-9X; Sat, 13 Jul 2024 08:59:10 +0000
-Received: from dggsgout11.his.huawei.com ([45.249.212.51])
+	id 1sTMXv-0000MD-NE; Mon, 15 Jul 2024 14:19:19 +0000
+Received: from smtp-relay-internal-0.internal ([10.131.114.225]
+ helo=smtp-relay-internal-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <xukuohai@huaweicloud.com>)
- id 1sSXqb-0004w2-P1
- for apparmor@lists.ubuntu.com; Sat, 13 Jul 2024 08:11:14 +0000
-Received: from mail.maildlp.com (unknown [172.19.163.235])
- by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4WLh45101rz4f3jYp
- for <apparmor@lists.ubuntu.com>; Sat, 13 Jul 2024 16:11:01 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.128])
- by mail.maildlp.com (Postfix) with ESMTP id E3E5D1A0568
- for <apparmor@lists.ubuntu.com>; Sat, 13 Jul 2024 16:11:08 +0800 (CST)
-Received: from [10.67.111.192] (unknown [10.67.111.192])
- by APP4 (Coremail) with SMTP id gCh0CgAnLfacNpJmR8bRBw--.46904S2;
- Sat, 13 Jul 2024 16:11:08 +0800 (CST)
-Message-ID: <92b895d4-8831-404b-98f3-3f42edbc5331@huaweicloud.com>
-Date: Sat, 13 Jul 2024 16:11:08 +0800
+ (Exim 4.86_2) (envelope-from <georgia.garcia@canonical.com>)
+ id 1sTMXt-0000Lp-Rt
+ for apparmor@lists.ubuntu.com; Mon, 15 Jul 2024 14:19:17 +0000
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
+ [209.85.214.199])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 6D0DC3F2C4
+ for <apparmor@lists.ubuntu.com>; Mon, 15 Jul 2024 14:19:17 +0000 (UTC)
+Received: by mail-pl1-f199.google.com with SMTP id
+ d9443c01a7336-1fb1759e34dso26381905ad.2
+ for <apparmor@lists.ubuntu.com>; Mon, 15 Jul 2024 07:19:17 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1721053154; x=1721657954;
+ h=mime-version:user-agent:content-transfer-encoding:organization
+ :references:in-reply-to:date:cc:to:from:subject:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=q/8pG/3FBfOWhh8pwkTWdbaExfS1+bWjS0N8YwTRlOM=;
+ b=eH985YduVdACZ6mDsWGOzaOoisvJUMSwKwqAhMurJTlc+0is6Ba3/EYrnB68Sx4qyn
+ hDeHXbOSKEwkBRU74EuXVWfkjP72JnsV1MEoHQuVBiq+qWPoMzZ64qntMTVARZC0FtjG
+ eVrXKmSpX9EiCgAUk7D939Kv0Ng3B7VQH47pnfBRoQmxkQoXIjkd5qowbzyUrtbZ2viN
+ uNagzGX8tdOaKP+3aLhimRPD6zD6xTFxQnOyhOSdyM5osZU0GiY0LKnADJv7Zdd/iMtY
+ WymBikRkyeDb+ravD6bTnnEmCQbmYxPc2HkntUD2YADCcgObOf7DUUrMXtpKtjWkGWWs
+ bA1w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXSRSL26KOAMcy9ukItsqQ3z9RvkdSqCDBfnzTGW5702EKKLnMIIneqFjVfbb/JNjdD01h76+fAtlxq8O9bTvPTURbaP9APIthC
+X-Gm-Message-State: AOJu0YwiBAzCyQ9MsEXlXJpSj9kaE1MaApyPjIjdjb1u8aCqIKOjr3YA
+ EAZ4OrtJJm/azUzR35yAfgntq9Cc3nsiKXiMZ//QnrYiorhSRZhkHCnGKNXTKXHF0wVsX4YnXYx
+ tMyOm4SAFkiGWFiWBhdEZ5ErGzwLFt4klCIpVXydL3Cns7Ilj+l26QoLBWvBXrAXwgz61eG9fi5
+ +gRnyGzK+h
+X-Received: by 2002:a17:902:e549:b0:1fa:2277:f56c with SMTP id
+ d9443c01a7336-1fbb6d6017fmr141802805ad.41.1721053154340; 
+ Mon, 15 Jul 2024 07:19:14 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGa5zIXe44WgjgbmKW9wuCDMVI6G8tAyTj0CAw3IeyU0yvLCNw/FI/O00VtOkdGmDH4JnNJMg==
+X-Received: by 2002:a17:902:e549:b0:1fa:2277:f56c with SMTP id
+ d9443c01a7336-1fbb6d6017fmr141802585ad.41.1721053153849; 
+ Mon, 15 Jul 2024 07:19:13 -0700 (PDT)
+Received: from ?IPv6:2001:1284:f502:e16:f7e7:cd8:d514:3617?
+ ([2001:1284:f502:e16:f7e7:cd8:d514:3617])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-1fc0bb70060sm42426165ad.58.2024.07.15.07.19.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 15 Jul 2024 07:19:13 -0700 (PDT)
+Message-ID: <8217ce983bcd4eebd43f3deb1461fb8880df7f0d.camel@canonical.com>
+From: Georgia Garcia <georgia.garcia@canonical.com>
+To: Alexander Mikhalitsyn <aleksandr.mikhalitsyn@canonical.com>, 
+ john.johansen@canonical.com
+Date: Mon, 15 Jul 2024 11:19:09 -0300
+In-Reply-To: <20240628153712.288166-1-aleksandr.mikhalitsyn@canonical.com>
+References: <20240628153712.288166-1-aleksandr.mikhalitsyn@canonical.com>
+Organization: Canonical
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-References: <20240711111908.3817636-1-xukuohai@huaweicloud.com>
- <20240711111908.3817636-12-xukuohai@huaweicloud.com>
- <qjrf5c6f24b6ef5tpvpz75uxp6ro6mhos34ovssinv4yxjwyz3@nvs75o5sywgx>
-From: Xu Kuohai <xukuohai@huaweicloud.com>
-In-Reply-To: <qjrf5c6f24b6ef5tpvpz75uxp6ro6mhos34ovssinv4yxjwyz3@nvs75o5sywgx>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID: gCh0CgAnLfacNpJmR8bRBw--.46904S2
-X-Coremail-Antispam: 1UD129KBjvdXoWruFyDtrWxuF1rKw4kXFWDJwb_yoW3GFb_ur
- yjv3srtw1ftwn3AF4F9F42gFWUuw4vgFy5W345Wr98XryfZF95Za1kGrs5AFWUJFWvvFy2
- 9F1fJanFgw42qjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUb28YFVCjjxCrM7AC8VAFwI0_Wr0E3s1l1xkIjI8I6I8E6xAIw20E
- Y4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwV
- A0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcVCY1x02
- 67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I
- 0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
- x7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
- 0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l42xK82IYc2Ij
- 64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x
- 8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26rWY6r4UJwCIc40Y0x0EwIxGrwCI42IY
- 6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0x
- vE42xK8VAvwI8IcIk0rVW3JVWrJr1lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280
- aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07UQZ2-UUUUU=
-X-CM-SenderInfo: 50xn30hkdlqx5xdzvxpfor3voofrz/
-Received-SPF: pass client-ip=45.249.212.51;
- envelope-from=xukuohai@huaweicloud.com; helo=dggsgout11.his.huawei.com
-X-Mailman-Approved-At: Sat, 13 Jul 2024 08:59:08 +0000
-Subject: Re: [apparmor] [PATCH bpf-next v4 11/20] bpf,
- lsm: Add disabled BPF LSM hook list
+Subject: Re: [apparmor] [PATCH] apparmor: take nosymfollow flag into account
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -68,50 +79,41 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Matt Bobrowski <mattbobrowski@google.com>, linux-kselftest@vger.kernel.org,
- Shung-Hsi Yu <shung-hsi.yu@suse.com>, Alexei Starovoitov <ast@kernel.org>,
- James Morris <jmorris@namei.org>, Song Liu <song@kernel.org>,
- Eric Dumazet <edumazet@google.com>, Stanislav Fomichev <sdf@google.com>,
- Yonghong Song <yonghong.song@linux.dev>, Anna Schumaker <anna@kernel.org>,
- Paul Moore <paul@paul-moore.com>, Daniel Borkmann <daniel@iogearbox.net>,
- Edward Cree <ecree.xilinx@gmail.com>,
- John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
- Trond Myklebust <trond.myklebust@hammerspace.com>,
- Lukas Bulwahn <lukas.bulwahn@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
- "Serge E . Hallyn" <serge@hallyn.com>, Kees Cook <keescook@chromium.org>,
- selinux@vger.kernel.org, apparmor@lists.ubuntu.com,
- KP Singh <kpsingh@kernel.org>, Brendan Jackman <jackmanb@chromium.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>, Jakub Kicinski <kuba@kernel.org>,
- linux-integrity@vger.kernel.org, Hao Luo <haoluo@google.com>,
- Christian Brauner <brauner@kernel.org>, netdev@vger.kernel.org,
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Roberto Sassu <roberto.sassu@huawei.com>,
- Ondrej Mosnacek <omosnace@redhat.com>, Eduard Zingerman <eddyz87@gmail.com>,
- linux-security-module@vger.kernel.org,
- Khadija Kamran <kamrankhadijadj@gmail.com>, Jiri Olsa <jolsa@kernel.org>,
- bpf@vger.kernel.org, Martin KaFai Lau <martin.lau@linux.dev>
+Cc: stgraber@stgraber.org, brauner@kernel.org, apparmor@lists.ubuntu.com,
+ linux-kernel@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 7/13/2024 1:56 AM, Alexei Starovoitov wrote:
-> On Thu, Jul 11, 2024 at 07:18:59PM +0800, Xu Kuohai wrote:
->> From: Xu Kuohai <xukuohai@huawei.com>
->>
->> Add a disabled hooks list for BPF LSM. progs being attached to the
->> listed hooks will be rejected by the verifier.
->>
->> Suggested-by: KP Singh <kpsingh@kernel.org>
->> Signed-off-by: Xu Kuohai <xukuohai@huawei.com>
-> 
-> Xu,
-> 
-> The patches 11 and higher are mostly independent from lsm refactoring.
-> Please send them as a separate patchset for bpf-next.
-> While lsm cleanups are being reviewed this lsm_disabled list can be
-> a bit larger temporarily.
-> 
+On Fri, 2024-06-28 at 17:37 +0200, Alexander Mikhalitsyn wrote:
+> A "nosymfollow" flag was added in commit
+> dab741e0e02b ("Add a "nosymfollow" mount option.")
+>=20
+> While we don't need to implement any special logic on
+> the AppArmor kernel side to handle it, we should provide
+> user with a correct list of mount flags in audit logs.
+>=20
 
-It's great to separate patches unrelated to bpf by temporarily extending
-the lsm disabled list. I'll post an update. Thanks!
+Reviewed-by: Georgia Garcia <georgia.garcia@canonical.com>
+
+> Signed-off-by: Alexander Mikhalitsyn <aleksandr.mikhalitsyn@canonical.com=
+>
+> ---
+>  security/apparmor/mount.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>=20
+> diff --git a/security/apparmor/mount.c b/security/apparmor/mount.c
+> index 49fe8da6fea4..bf8863253e07 100644
+> --- a/security/apparmor/mount.c
+> +++ b/security/apparmor/mount.c
+> @@ -44,6 +44,8 @@ static void audit_mnt_flags(struct audit_buffer *ab, un=
+signed long flags)
+>  		audit_log_format(ab, ", mand");
+>  	if (flags & MS_DIRSYNC)
+>  		audit_log_format(ab, ", dirsync");
+> +	if (flags & MS_NOSYMFOLLOW)
+> +		audit_log_format(ab, ", nosymfollow");
+>  	if (flags & MS_NOATIME)
+>  		audit_log_format(ab, ", noatime");
+>  	if (flags & MS_NODIRATIME)
 
 
