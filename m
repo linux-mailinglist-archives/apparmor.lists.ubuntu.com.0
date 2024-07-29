@@ -2,37 +2,37 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E26A941EFD
-	for <lists+apparmor@lfdr.de>; Tue, 30 Jul 2024 19:47:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD295941EFC
+	for <lists+apparmor@lfdr.de>; Tue, 30 Jul 2024 19:47:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1sYqwh-0005U5-W5; Tue, 30 Jul 2024 17:47:36 +0000
-Received: from dfw.source.kernel.org ([139.178.84.217])
+	id 1sYqwi-0005UD-3R; Tue, 30 Jul 2024 17:47:36 +0000
+Received: from sin.source.kernel.org ([145.40.73.55])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <patchwork-bot+linux-riscv@kernel.org>)
- id 1sYTPR-0002k1-Jk
- for apparmor@lists.ubuntu.com; Mon, 29 Jul 2024 16:39:41 +0000
+ id 1sYTSJ-0003E2-Hk
+ for apparmor@lists.ubuntu.com; Mon, 29 Jul 2024 16:42:39 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 3915361B45;
- Mon, 29 Jul 2024 16:39:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D5937C4AF0C;
- Mon, 29 Jul 2024 16:39:39 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id E2FECCE0E04;
+ Mon, 29 Jul 2024 16:42:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 219B9C4AF09;
+ Mon, 29 Jul 2024 16:42:37 +0000 (UTC)
 Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
  (localhost.localdomain [127.0.0.1])
  by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- BBA0BC43613; Mon, 29 Jul 2024 16:39:39 +0000 (UTC)
+ 0CA11C43445; Mon, 29 Jul 2024 16:42:37 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 From: patchwork-bot+linux-riscv@kernel.org
-Message-Id: <172227117976.3603.14526183264046270376.git-patchwork-notify@kernel.org>
-Date: Mon, 29 Jul 2024 16:39:39 +0000
+Message-Id: <172227135704.3603.7348565051958076479.git-patchwork-notify@kernel.org>
+Date: Mon, 29 Jul 2024 16:42:37 +0000
 References: <20240724210014.mc6nima6cekgiukx@joelS2.panther.com>
 In-Reply-To: <20240724210014.mc6nima6cekgiukx@joelS2.panther.com>
 To: Joel Granados <j.granados@samsung.com>
-Received-SPF: pass client-ip=139.178.84.217;
- envelope-from=patchwork-bot+linux-riscv@kernel.org; helo=dfw.source.kernel.org
+Received-SPF: pass client-ip=145.40.73.55;
+ envelope-from=patchwork-bot+linux-riscv@kernel.org; helo=sin.source.kernel.org
 X-Mailman-Approved-At: Tue, 30 Jul 2024 17:47:34 +0000
 Subject: Re: [apparmor] [GIT PULL] sysctl constification changes for
 	v6.11-rc1
@@ -65,7 +65,7 @@ Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
 Hello:
 
-This pull request was applied to riscv/linux.git (fixes)
+This pull request was applied to riscv/linux.git (for-next)
 by Linus Torvalds <torvalds@linux-foundation.org>:
 
 On Wed, 24 Jul 2024 23:00:14 +0200 you wrote:
@@ -84,7 +84,7 @@ On Wed, 24 Jul 2024 23:00:14 +0200 you wrote:
 
 Here is the summary with links:
   - [GIT,PULL] sysctl constification changes for v6.11-rc1
-    https://git.kernel.org/riscv/c/f8a8b94d0698
+    https://git.kernel.org/riscv/c/b485625078ca
 
 You are awesome, thank you!
 -- 
