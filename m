@@ -2,36 +2,36 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12BF5945840
+	by mail.lfdr.de (Postfix) with ESMTPS id 23B77945842
 	for <lists+apparmor@lfdr.de>; Fri,  2 Aug 2024 08:53:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1sZmAQ-00032g-DG; Fri, 02 Aug 2024 06:53:34 +0000
+	id 1sZmAQ-00032n-Np; Fri, 02 Aug 2024 06:53:34 +0000
 Received: from dfw.source.kernel.org ([139.178.84.217])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <sashal@kernel.org>) id 1sZJAs-0005JF-TZ
- for apparmor@lists.ubuntu.com; Wed, 31 Jul 2024 23:56:07 +0000
+ (Exim 4.86_2) (envelope-from <sashal@kernel.org>) id 1sZJAy-0005KI-98
+ for apparmor@lists.ubuntu.com; Wed, 31 Jul 2024 23:56:12 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id B0BA862665;
- Wed, 31 Jul 2024 23:56:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D99AC32786;
- Wed, 31 Jul 2024 23:56:04 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 208D062608;
+ Wed, 31 Jul 2024 23:56:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 894F0C116B1;
+ Wed, 31 Jul 2024 23:56:09 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Wed, 31 Jul 2024 19:56:01 -0400
-Message-ID: <20240731235602.3929485-1-sashal@kernel.org>
+Date: Wed, 31 Jul 2024 19:56:06 -0400
+Message-ID: <20240731235608.3929537-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.6.43
+X-stable-base: Linux 6.1.102
 Content-Transfer-Encoding: 8bit
 Received-SPF: pass client-ip=139.178.84.217; envelope-from=sashal@kernel.org;
  helo=dfw.source.kernel.org
 X-Mailman-Approved-At: Fri, 02 Aug 2024 06:53:32 +0000
-Subject: [apparmor] [PATCH AUTOSEL 6.6 1/2] apparmor: fix possible NULL
+Subject: [apparmor] [PATCH AUTOSEL 6.1 1/2] apparmor: fix possible NULL
 	pointer dereference
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -135,10 +135,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 4 insertions(+)
 
 diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
-index 63ddefb6ddd1c..23b2853ce3c42 100644
+index 7160e7aa58b94..ce7b2f43c3193 100644
 --- a/security/apparmor/apparmorfs.c
 +++ b/security/apparmor/apparmorfs.c
-@@ -1698,6 +1698,10 @@ int __aafs_profile_mkdir(struct aa_profile *profile, struct dentry *parent)
+@@ -1687,6 +1687,10 @@ int __aafs_profile_mkdir(struct aa_profile *profile, struct dentry *parent)
  		struct aa_profile *p;
  		p = aa_deref_parent(profile);
  		dent = prof_dir(p);
