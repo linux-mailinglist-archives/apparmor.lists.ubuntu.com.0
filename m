@@ -2,37 +2,59 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EAE3945846
-	for <lists+apparmor@lfdr.de>; Fri,  2 Aug 2024 08:53:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E4A5945843
+	for <lists+apparmor@lfdr.de>; Fri,  2 Aug 2024 08:53:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1sZmAR-000333-FH; Fri, 02 Aug 2024 06:53:35 +0000
-Received: from sin.source.kernel.org ([145.40.73.55])
+	id 1sZmAR-00033A-Qb; Fri, 02 Aug 2024 06:53:35 +0000
+Received: from mail-pj1-f52.google.com ([209.85.216.52])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <sashal@kernel.org>) id 1sZJBK-0005Ob-J2
- for apparmor@lists.ubuntu.com; Wed, 31 Jul 2024 23:56:34 +0000
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id C10E7CE13BC;
- Wed, 31 Jul 2024 23:56:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD6CAC32786;
- Wed, 31 Jul 2024 23:56:30 +0000 (UTC)
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Wed, 31 Jul 2024 19:56:27 -0400
-Message-ID: <20240731235629.3929769-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.43.0
+ (Exim 4.86_2) (envelope-from <simeddon@gmail.com>)
+ id 1sZTCL-0000Q4-36
+ for apparmor@lists.ubuntu.com; Thu, 01 Aug 2024 10:38:17 +0000
+Received: by mail-pj1-f52.google.com with SMTP id
+ 98e67ed59e1d1-2cb576db1c5so4435729a91.1
+ for <apparmor@lists.ubuntu.com>; Thu, 01 Aug 2024 03:38:16 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1722508695; x=1723113495;
+ h=content-transfer-encoding:commitdate:authordate:author:mime-version
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=8OddAGnogMzwyUywxt75MAgs7i5xQVWsmf4N9UvPIx4=;
+ b=U+1QCVcXQyvo8YyjoEij2R0aEWNH+C99Asyh97GF42usyUjSh8VbgiJCjeU+2MzcGW
+ Q3kBXLs9gMwBpqArvayR0M8bTai+y+4YDMBF3JnCc/5Kr3adWiee+Kla3Dozlxm9cudX
+ /75ZM/9fTFGMfPoaGP2VY4ek56L+0ohHQKSJ7a9zNiblWOQZ35/DwcQ3GGxSyvnj79zK
+ 3tvOFl4K6itE9hP+j/reTYHsHOOeDQnYDQUGGVPhhOHJlQMEwtXeAyMl7rFKVHcNtCw4
+ 6Z80YK7ZPsQMIhnFLdNEp2J9CAYPt6mRdijhjeBVlN3rYe5ORUZpCh7DXe45sEDZi4JC
+ 8X+A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXmn4AVEOtHtqFS9qtTW5y1IXO1hoQ5zOpSsr6/qvSFJ0jzLlHM+qQ/g+K0DFXKhEVgg9W2udIEY50bdzDJYIxpXN9hCZr9IAFb
+X-Gm-Message-State: AOJu0YxB2fSdwQGirhPvdUCsodfuAhfGZmFU9qxqR7o6nczOI1sMsFv3
+ iqAC6AuJ66Xm8xyr7NOoUcwgnQfD0/p1jWsNg5LopBrYndPSfnkA
+X-Google-Smtp-Source: AGHT+IFBI0DHScbC6amgBlVxn2J2zKkK3OutMUhQqP09Suo5Mh50hQluUVwU+3AmXk5ocswYWrT2SA==
+X-Received: by 2002:a17:90b:380d:b0:2cd:27be:8218 with SMTP id
+ 98e67ed59e1d1-2cfe774a1e7mr2420917a91.8.1722508695210; 
+ Thu, 01 Aug 2024 03:38:15 -0700 (PDT)
+Received: from BiscuitBobby.am.students.amrita.edu ([175.184.253.10])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-2cfdc4add69sm2895495a91.47.2024.08.01.03.38.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 01 Aug 2024 03:38:14 -0700 (PDT)
+From: Siddharth Menon <simeddon@gmail.com>
+To: =corbet@lwn.net
+Date: Thu,  1 Aug 2024 15:53:57 +0530
+Message-Id: <20240801102356.93591-1-simeddon@gmail.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 4.19.319
+Author: Siddharth Menon <simeddon@gmail.com>
+AuthorDate: Fri Jul 26 23:43:49 2024 +0530
+CommitDate: Thu Aug 1 15:35:52 2024 +0530
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=145.40.73.55; envelope-from=sashal@kernel.org;
- helo=sin.source.kernel.org
+Received-SPF: pass client-ip=209.85.216.52; envelope-from=simeddon@gmail.com;
+ helo=mail-pj1-f52.google.com
 X-Mailman-Approved-At: Fri, 02 Aug 2024 06:53:32 +0000
-Subject: [apparmor] [PATCH AUTOSEL 4.19 1/2] apparmor: fix possible NULL
-	pointer dereference
+Subject: [apparmor] [PATCH v2 1/1] Docs: Update LSM/apparmor.rst
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -44,112 +66,46 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, paul@paul-moore.com,
- apparmor@lists.ubuntu.com, Leesoo Ahn <lsahn@ooseel.net>, jmorris@namei.org,
- linux-security-module@vger.kernel.org, serge@hallyn.com
+Cc: Siddharth Menon <simeddon@gmail.com>,
+ linux-kernel-mentees@lists.linuxfoundation.org, apparmor@lists.ubuntu.com,
+ =linux-doc@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-From: Leesoo Ahn <lsahn@ooseel.net>
+Docs: Update LSM/apparmor.rst
 
-[ Upstream commit 3dd384108d53834002be5630132ad5c3f32166ad ]
+After the deprecation of CONFIG_DEFAULT_SECURITY, it is no longer used
+to enable and configuring AppArmor.
+Since kernel 5.0, `CONFIG_SECURITY_APPARMOR_BOOTPARAM_VALUE` is not
+used either. Instead, the CONFIG_LSM parameter manages the order and
+selection of LSMs.
 
-profile->parent->dents[AAFS_PROF_DIR] could be NULL only if its parent is made
-from __create_missing_ancestors(..) and 'ent->old' is NULL in
-aa_replace_profiles(..).
-In that case, it must return an error code and the code, -ENOENT represents
-its state that the path of its parent is not existed yet.
-
-BUG: kernel NULL pointer dereference, address: 0000000000000030
-PGD 0 P4D 0
-PREEMPT SMP PTI
-CPU: 4 PID: 3362 Comm: apparmor_parser Not tainted 6.8.0-24-generic #24
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.15.0-1 04/01/2014
-RIP: 0010:aafs_create.constprop.0+0x7f/0x130
-Code: 4c 63 e0 48 83 c4 18 4c 89 e0 5b 41 5c 41 5d 41 5e 41 5f 5d 31 d2 31 c9 31 f6 31 ff 45 31 c0 45 31 c9 45 31 d2 c3 cc cc cc cc <4d> 8b 55 30 4d 8d ba a0 00 00 00 4c 89 55 c0 4c 89 ff e8 7a 6a ae
-RSP: 0018:ffffc9000b2c7c98 EFLAGS: 00010246
-RAX: 0000000000000000 RBX: 00000000000041ed RCX: 0000000000000000
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: ffffc9000b2c7cd8 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000000 R12: ffffffff82baac10
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
-FS:  00007be9f22cf740(0000) GS:ffff88817bc00000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000000000000030 CR3: 0000000134b08000 CR4: 00000000000006f0
-Call Trace:
- <TASK>
- ? show_regs+0x6d/0x80
- ? __die+0x24/0x80
- ? page_fault_oops+0x99/0x1b0
- ? kernelmode_fixup_or_oops+0xb2/0x140
- ? __bad_area_nosemaphore+0x1a5/0x2c0
- ? find_vma+0x34/0x60
- ? bad_area_nosemaphore+0x16/0x30
- ? do_user_addr_fault+0x2a2/0x6b0
- ? exc_page_fault+0x83/0x1b0
- ? asm_exc_page_fault+0x27/0x30
- ? aafs_create.constprop.0+0x7f/0x130
- ? aafs_create.constprop.0+0x51/0x130
- __aafs_profile_mkdir+0x3d6/0x480
- aa_replace_profiles+0x83f/0x1270
- policy_update+0xe3/0x180
- profile_load+0xbc/0x150
- ? rw_verify_area+0x47/0x140
- vfs_write+0x100/0x480
- ? __x64_sys_openat+0x55/0xa0
- ? syscall_exit_to_user_mode+0x86/0x260
- ksys_write+0x73/0x100
- __x64_sys_write+0x19/0x30
- x64_sys_call+0x7e/0x25c0
- do_syscall_64+0x7f/0x180
- entry_SYSCALL_64_after_hwframe+0x78/0x80
-RIP: 0033:0x7be9f211c574
-Code: c7 00 16 00 00 00 b8 ff ff ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 f3 0f 1e fa 80 3d d5 ea 0e 00 00 74 13 b8 01 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 54 c3 0f 1f 00 55 48 89 e5 48 83 ec 20 48 89
-RSP: 002b:00007ffd26f2b8c8 EFLAGS: 00000202 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 00005d504415e200 RCX: 00007be9f211c574
-RDX: 0000000000001fc1 RSI: 00005d504418bc80 RDI: 0000000000000004
-RBP: 0000000000001fc1 R08: 0000000000001fc1 R09: 0000000080000000
-R10: 0000000000000000 R11: 0000000000000202 R12: 00005d504418bc80
-R13: 0000000000000004 R14: 00007ffd26f2b9b0 R15: 00007ffd26f2ba30
- </TASK>
-Modules linked in: snd_seq_dummy snd_hrtimer qrtr snd_hda_codec_generic snd_hda_intel snd_intel_dspcfg snd_intel_sdw_acpi snd_hda_codec snd_hda_core snd_hwdep snd_pcm snd_seq_midi snd_seq_midi_event snd_rawmidi snd_seq snd_seq_device i2c_i801 snd_timer i2c_smbus qxl snd soundcore drm_ttm_helper lpc_ich ttm joydev input_leds serio_raw mac_hid binfmt_misc msr parport_pc ppdev lp parport efi_pstore nfnetlink dmi_sysfs qemu_fw_cfg ip_tables x_tables autofs4 hid_generic usbhid hid ahci libahci psmouse virtio_rng xhci_pci xhci_pci_renesas
-CR2: 0000000000000030
----[ end trace 0000000000000000 ]---
-RIP: 0010:aafs_create.constprop.0+0x7f/0x130
-Code: 4c 63 e0 48 83 c4 18 4c 89 e0 5b 41 5c 41 5d 41 5e 41 5f 5d 31 d2 31 c9 31 f6 31 ff 45 31 c0 45 31 c9 45 31 d2 c3 cc cc cc cc <4d> 8b 55 30 4d 8d ba a0 00 00 00 4c 89 55 c0 4c 89 ff e8 7a 6a ae
-RSP: 0018:ffffc9000b2c7c98 EFLAGS: 00010246
-RAX: 0000000000000000 RBX: 00000000000041ed RCX: 0000000000000000
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: ffffc9000b2c7cd8 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000000 R12: ffffffff82baac10
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
-FS:  00007be9f22cf740(0000) GS:ffff88817bc00000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000000000000030 CR3: 0000000134b08000 CR4: 00000000000006f0
-
-Signed-off-by: Leesoo Ahn <lsahn@ooseel.net>
-Signed-off-by: John Johansen <john.johansen@canonical.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Siddharth Menon <simeddon@gmail.com>
 ---
- security/apparmor/apparmorfs.c | 4 ++++
- 1 file changed, 4 insertions(+)
+V1 -> V2: Removed historical information and addressed review comments
+ 
+ Documentation/admin-guide/LSM/apparmor.rst | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
-index 80012d21f0386..1223b2648a549 100644
---- a/security/apparmor/apparmorfs.c
-+++ b/security/apparmor/apparmorfs.c
-@@ -1593,6 +1593,10 @@ int __aafs_profile_mkdir(struct aa_profile *profile, struct dentry *parent)
- 		struct aa_profile *p;
- 		p = aa_deref_parent(profile);
- 		dent = prof_dir(p);
-+		if (!dent) {
-+			error = -ENOENT;
-+			goto fail2;
-+		}
- 		/* adding to parent that previously didn't have children */
- 		dent = aafs_create_dir("profiles", dent);
- 		if (IS_ERR(dent))
+diff --git a/Documentation/admin-guide/LSM/apparmor.rst b/Documentation/admin-guide/LSM/apparmor.rst
+index 6cf81bbd7ce8..47939ee89d74 100644
+--- a/Documentation/admin-guide/LSM/apparmor.rst
++++ b/Documentation/admin-guide/LSM/apparmor.rst
+@@ -18,8 +18,11 @@ set ``CONFIG_SECURITY_APPARMOR=y``
+ 
+ If AppArmor should be selected as the default security module then set::
+ 
+-   CONFIG_DEFAULT_SECURITY="apparmor"
+-   CONFIG_SECURITY_APPARMOR_BOOTPARAM_VALUE=1
++   CONFIG_DEFAULT_SECURITY_APPARMOR=y
++
++The CONFIG_LSM parameter manages the order and selection of LSMs.
++Specify apparmor as the first "major" module (e.g. AppArmor, SELinux, Smack)
++in the list.
+ 
+ Build the kernel
+ 
 -- 
-2.43.0
+2.39.2
 
 
