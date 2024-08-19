@@ -2,40 +2,58 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAB52956008
-	for <lists+apparmor@lfdr.de>; Mon, 19 Aug 2024 01:08:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61D0495753D
+	for <lists+apparmor@lfdr.de>; Mon, 19 Aug 2024 22:05:52 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1sfp0n-0007E2-Oe; Sun, 18 Aug 2024 23:08:37 +0000
-Received: from sin.source.kernel.org ([145.40.73.55])
+	id 1sg8dG-0005p3-5g; Mon, 19 Aug 2024 20:05:38 +0000
+Received: from smtp-relay-internal-1.internal ([10.131.114.114]
+ helo=smtp-relay-internal-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <jarkko@kernel.org>) id 1seuYx-0001vb-Be
- for apparmor@lists.ubuntu.com; Fri, 16 Aug 2024 10:52:07 +0000
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 211C0CE1E63;
- Fri, 16 Aug 2024 10:52:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4294C4AF09;
- Fri, 16 Aug 2024 10:52:03 +0000 (UTC)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 16 Aug 2024 13:52:00 +0300
-Message-Id: <D3HA23RMEIJ8.2AHOMIYR3J6F3@kernel.org>
-From: "Jarkko Sakkinen" <jarkko@kernel.org>
-To: "Jann Horn" <jannh@google.com>, "David Howells" <dhowells@redhat.com>
-X-Mailer: aerc 0.17.0
-References: <20240805-remove-cred-transfer-v2-0-a2aa1d45e6b8@google.com>
- <20240805-remove-cred-transfer-v2-1-a2aa1d45e6b8@google.com>
- <2494949.1723751188@warthog.procyon.org.uk>
- <CAG48ez2LBmS91fQVLYRYEaBHssj22NyUjB0HVtkDHUXDvDZ6EA@mail.gmail.com>
-In-Reply-To: <CAG48ez2LBmS91fQVLYRYEaBHssj22NyUjB0HVtkDHUXDvDZ6EA@mail.gmail.com>
-Received-SPF: pass client-ip=145.40.73.55; envelope-from=jarkko@kernel.org;
- helo=sin.source.kernel.org
-X-Mailman-Approved-At: Sun, 18 Aug 2024 23:08:35 +0000
-Subject: Re: [apparmor] Can KEYCTL_SESSION_TO_PARENT be dropped entirely? --
- was Re: [PATCH v2 1/2] KEYS: use synchronous task work for changing parent
- credentials
+ (Exim 4.86_2) (envelope-from <ryan.lee@canonical.com>)
+ id 1sg8dE-0005oW-En
+ for apparmor@lists.ubuntu.com; Mon, 19 Aug 2024 20:05:36 +0000
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
+ [209.85.210.197])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id DFB3C3F31C
+ for <apparmor@lists.ubuntu.com>; Mon, 19 Aug 2024 20:05:35 +0000 (UTC)
+Received: by mail-pf1-f197.google.com with SMTP id
+ d2e1a72fcca58-70eab26e146so3783191b3a.3
+ for <apparmor@lists.ubuntu.com>; Mon, 19 Aug 2024 13:05:35 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1724097934; x=1724702734;
+ h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=/Falp4aO2BWB0fiM3nqjO0XVD1BT/6SieGDjMwqXmnE=;
+ b=Q+2irU+teXQfLpxNU6xLfzRzHY4g119bNuTYRhzpt195RQCKoNVPBBA1JFoXYSKT5G
+ jJiPIE/WRCJe/Oounl5J4yaw9QfOPpA25vlmP/LzsUqIFfKV32Gw1B5rs/xc8Dcda4PR
+ 03Ct6k6NmLbZae6XGNAAz6ZsZ+1rVIGdyh8xnjlzRwBbp9TlAwkMzpPXQfKNW8y9/tLA
+ +KbfaQRH/6kdHf9jkwi5GUiEmLjSAojo+q0ZqZy0AFkncm7SBCqwMEtZHOWotn2PoJa1
+ gbdGxrbRNHsGPYyQQGBBN61ibnNVR8A54bWyH1q8pumt7Sq+2Z9EfDvk8w5IILC1q10u
+ YCwQ==
+X-Gm-Message-State: AOJu0YwJzEc7z+MY/vgUiANthCgvuX5cZtvuCrUbuQeMDzPSyAiWHcuM
+ s7MGAwcF7lmGzyl0U39/p+u6Qx0P3MOyDxU5g4XE6+i2il9SGVxNV3sK2ZtvqJ25GWYAQiU3HBZ
+ pHe2vE5vkKZmRuEcw9GWB4SY12evut9OW9adjM9PnvQBufqbuRyzbcYLGEX9srg/PRlBbqHJTiQ
+ +TBqotGLNY1ebnQBN29VFafnoH1Wb0k75V2HKS9liEw5zNXz5YwpmtQsQGhQQ=
+X-Received: by 2002:a05:6a00:66cf:b0:712:74b3:b24f with SMTP id
+ d2e1a72fcca58-713c4e6fe3bmr10066107b3a.16.1724097934349; 
+ Mon, 19 Aug 2024 13:05:34 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IH1d09BmtskK3ivjus9JVwFuQlizZAoivS7mXouVXxvecXayQTD+0E/4/9mKpaX8XZSoGZrh34lmCcOnHlw+co=
+X-Received: by 2002:a05:6a00:66cf:b0:712:74b3:b24f with SMTP id
+ d2e1a72fcca58-713c4e6fe3bmr10066075b3a.16.1724097933711; Mon, 19 Aug 2024
+ 13:05:33 -0700 (PDT)
+MIME-Version: 1.0
+From: Ryan Lee <ryan.lee@canonical.com>
+Date: Mon, 19 Aug 2024 13:05:21 -0700
+Message-ID: <CAKCV-6sG6apr7WRBEhSqkeOEhF+h1UmgA4ur=RPDBoL7r-q3uw@mail.gmail.com>
+To: apparmor@lists.ubuntu.com
+Content-Type: multipart/mixed; boundary="000000000000e6047e06200ed466"
+Subject: [apparmor] [PATCH] apparmor: fix null pointer deref in find_attach
+ when xmatch is null
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -47,53 +65,55 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Jeffrey Altman <jaltman@auristor.com>, selinux@vger.kernel.org,
- Stephen Smalley <stephen.smalley.work@gmail.com>, apparmor@lists.ubuntu.com,
- James Morris <jmorris@namei.org>, Ondrej Mosnacek <omosnace@redhat.com>,
- Paul Moore <paul@paul-moore.com>, linux-security-module@vger.kernel.org,
- keyrings@vger.kernel.org, =?utf-8?q?G=C3=BCnther_Noack?= <gnoack@google.com>,
- =?utf-8?q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>,
- openafs-devel@openafs.org, linux-afs@lists.infradead.org,
- linux-kernel@vger.kernel.org, "Serge E. Hallyn" <serge@hallyn.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Thu Aug 15, 2024 at 10:59 PM EEST, Jann Horn wrote:
-> On Thu, Aug 15, 2024 at 9:46=E2=80=AFPM David Howells <dhowells@redhat.co=
-m> wrote:
-> > Jann Horn <jannh@google.com> wrote:
-> >
-> > > Rewrite keyctl_session_to_parent() to run task work on the parent
-> > > synchronously, so that any errors that happen in the task work can be
-> > > plumbed back into the syscall return value in the child.
-> >
-> > The main thing I worry about is if there's a way to deadlock the child =
-and the
-> > parent against each other.  vfork() for example.
->
-> Yes - I think it would work fine for scenarios like using
-> KEYCTL_SESSION_TO_PARENT from a helper binary against the shell that
-> launched the helper (which I think is the intended usecase?), but
-> there could theoretically be constellations where it would cause an
-> (interruptible) hang if the parent is stuck in
-> uninterruptible/killable sleep.
->
-> I think vfork() is rather special in that it does a killable wait for
-> the child to exit or execute; and based on my understanding of the
-> intended usecase of KEYCTL_SESSION_TO_PARENT, I think normally
-> KEYCTL_SESSION_TO_PARENT would only be used by a child that has gone
-> through execve?
+--000000000000e6047e06200ed466
+Content-Type: text/plain; charset="UTF-8"
 
-Could this encapsulated to a kselftest? Like having host process
-that forks the payload and send SIGINT. That could be deployed e.g
-to tools/testing/selftests/keys. Would be nice to be able to try
-this out with a low barrier.
+find_attach loops over profile entries and first checks for a DFA, falling
+back onto a strcmp otherwise. However, the check if (attach->xmatch->dfa)
+did not account for the possibility that (attach->xmatch) could be null.
+This occured with a sequence of profile replacements that resulted in a
+kernel BUG print due to the null pointer dereference.
 
-Doing this type of testing is different axis than keyutils test suite
-IMHO. That would be also great starting point for adding concurrency
-tests in future.
+To avoid this issue, first check that (attach->xmatch) is not null.
 
-Could be done either in C or Python.
+The one-line patch is attached to the email.
 
-BR, Jarkko
+Ryan
+
+--000000000000e6047e06200ed466
+Content-Type: text/x-patch; charset="US-ASCII"; 
+	name="0001-apparmor-fix-null-pointer-deref-in-find_attach.patch"
+Content-Disposition: attachment; 
+	filename="0001-apparmor-fix-null-pointer-deref-in-find_attach.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_m01fcg0p0>
+X-Attachment-Id: f_m01fcg0p0
+
+RnJvbSBiMWFjMmY2ZTExMGIwMjgxYTE5YjY1YjkwMDViMDE5YzBlOTk2YjEyIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBSeWFuIExlZSA8cnlhbi5sZWVAY2Fub25pY2FsLmNvbT4KRGF0
+ZTogTW9uLCAxOSBBdWcgMjAyNCAxMTowNDowOCAtMDcwMApTdWJqZWN0OiBbUEFUQ0hdIGFwcGFy
+bW9yOiBmaXggbnVsbCBwb2ludGVyIGRlcmVmIGluIGZpbmRfYXR0YWNoIHdoZW4geG1hdGNoCiBp
+cyBudWxsCgpmaW5kX2F0dGFjaCBsb29wcyBvdmVyIHByb2ZpbGUgZW50cmllcyBhbmQgZmlyc3Qg
+Y2hlY2tzIGZvciBhIERGQSwgZmFsbGluZwpiYWNrIG9udG8gYSBzdHJjbXAgb3RoZXJ3aXNlLiBI
+b3dldmVyLCB0aGUgY2hlY2sgaWYgKGF0dGFjaC0+eG1hdGNoLT5kZmEpCmRpZCBub3QgYWNjb3Vu
+dCBmb3IgdGhlIHBvc3NpYmlsaXR5IHRoYXQgKGF0dGFjaC0+eG1hdGNoKSBjb3VsZCBiZSBudWxs
+LgpUaGlzIG9jY3VyZWQgd2l0aCBhIHNlcXVlbmNlIG9mIHByb2ZpbGUgcmVwbGFjZW1lbnRzIHRo
+YXQgcmVzdWx0ZWQgaW4gYQprZXJuZWwgQlVHIHByaW50IGR1ZSB0byB0aGUgbnVsbCBwb2ludGVy
+IGRlcmVmZXJlbmNlLgoKVG8gYXZvaWQgdGhpcyBpc3N1ZSwgZmlyc3QgY2hlY2sgdGhhdCAoYXR0
+YWNoLT54bWF0Y2gpIGlzIG5vdCBudWxsLgoKU2lnbmVkLW9mZi1ieTogUnlhbiBMZWUgPHJ5YW4u
+bGVlQGNhbm9uaWNhbC5jb20+Ci0tLQogc2VjdXJpdHkvYXBwYXJtb3IvZG9tYWluLmMgfCAyICst
+CiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1n
+aXQgYS9zZWN1cml0eS9hcHBhcm1vci9kb21haW4uYyBiL3NlY3VyaXR5L2FwcGFybW9yL2RvbWFp
+bi5jCmluZGV4IGRkNDU3ZWFlZGFiOC4uOTg1YTVhOWNkYmQwIDEwMDY0NAotLS0gYS9zZWN1cml0
+eS9hcHBhcm1vci9kb21haW4uYworKysgYi9zZWN1cml0eS9hcHBhcm1vci9kb21haW4uYwpAQCAt
+NDE1LDcgKzQxNSw3IEBAIHN0YXRpYyBzdHJ1Y3QgYWFfbGFiZWwgKmZpbmRfYXR0YWNoKGNvbnN0
+IHN0cnVjdCBsaW51eF9iaW5wcm0gKmJwcm0sCiAJCSAqIGFzIGFub3RoZXIgcHJvZmlsZSwgc2ln
+bmFsIGEgY29uZmxpY3QgYW5kIHJlZnVzZSB0bwogCQkgKiBtYXRjaC4KIAkJICovCi0JCWlmIChh
+dHRhY2gtPnhtYXRjaC0+ZGZhKSB7CisJCWlmIChhdHRhY2gtPnhtYXRjaCAmJiBhdHRhY2gtPnht
+YXRjaC0+ZGZhKSB7CiAJCQl1bnNpZ25lZCBpbnQgY291bnQ7CiAJCQlhYV9zdGF0ZV90IHN0YXRl
+OwogCQkJc3RydWN0IGFhX3Blcm1zICpwZXJtczsKLS0gCjIuNDMuMAoK
+--000000000000e6047e06200ed466--
 
