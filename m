@@ -2,128 +2,61 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75209959640
-	for <lists+apparmor@lfdr.de>; Wed, 21 Aug 2024 10:03:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD0DC95A486
+	for <lists+apparmor@lfdr.de>; Wed, 21 Aug 2024 20:12:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1sggIn-0004K2-9d; Wed, 21 Aug 2024 08:02:45 +0000
-Received: from mail-psaapc01on2083.outbound.protection.outlook.com
- ([40.107.255.83] helo=APC01-PSA-obe.outbound.protection.outlook.com)
+	id 1sgpot-0005sG-HN; Wed, 21 Aug 2024 18:12:31 +0000
+Received: from smtp-relay-internal-1.internal ([10.131.114.114]
+ helo=smtp-relay-internal-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <shenlichuan@vivo.com>)
- id 1sgfgJ-0006Wv-E3
- for apparmor@lists.ubuntu.com; Wed, 21 Aug 2024 07:22:59 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CESI+pkg6FGn5JD3uXvy7GySbdFmM/vggE4c9zYTWMYICxYMSMrbrYknpPsapcR/HGwcaFYRKNMCcuXFLsOhdUQYOoUi51uTaIBV5Vaa/O4rotehfuynl2xGoRVr6qsGWpmliD1f45RVOnDqTaOQPSnJ+eJxhWEltCf8Z/SHtFXqnO1o0FVHMnTZR2zTi4RyV5MXciCHqLMYTtLNumKMnXdxVYZSgr3qudWvYY1G/G76yo26B9t2RvGSQHSSOuNn9aupb6UDotPL9naYqMCZBwQfqTD3MrmrxIYv+qQ6XXELPcIZRo7x7vtJIvCxrA0Mx37/OANE047Ce4MnPqlkeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PobSDjULB452e2UmkrK5PkJrqQR9imyUF6eaBkRo1D8=;
- b=ecEH9KgwTqhf+QaWy/1/AcJejgY3LVoRuMBdbP7KPPy+WZtr/RVMHwz8J59ujcWHC4/Si0WPLZDkYfTRD7lvZyzbv/0KuNgwTJfaNyd2Q7KXQsIPQE1R1wySBsIGmfShi+5Hy/PyGBNeTArZCmGbAlpLVecAD4uD0068o/VzgiK1YyiHpVSeUYJ/AC1qAC4MCP9HGcZWubfiBGKqbZHHY81Neo0dkVGe1bf+PhTMiSFBonto4BdtXSGp+smf8lFALhLPrDPvHkFRbT53adiZJhk0kKEpiyOWGQvTZ5WUIz6iU0D+zV9sUu+Fuzn5iedOOAaCHHtTb5V8et1HfCGW+g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
- dkim=pass header.d=vivo.com; arc=none
-Received: from SEZPR06MB5899.apcprd06.prod.outlook.com (2603:1096:101:e3::16)
- by JH0PR06MB6386.apcprd06.prod.outlook.com (2603:1096:990:17::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7875.21; Wed, 21 Aug
- 2024 07:22:53 +0000
-Received: from SEZPR06MB5899.apcprd06.prod.outlook.com
- ([fe80::8bfc:f1ee:8923:77ce]) by SEZPR06MB5899.apcprd06.prod.outlook.com
- ([fe80::8bfc:f1ee:8923:77ce%3]) with mapi id 15.20.7875.019; Wed, 21 Aug 2024
- 07:22:53 +0000
-From: Shen Lichuan <shenlichuan@vivo.com>
-To: John Johansen <john.johansen@canonical.com>,
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- "Serge E. Hallyn" <serge@hallyn.com>, apparmor@lists.ubuntu.com,
- linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Wed, 21 Aug 2024 15:22:38 +0800
-Message-Id: <20240821072238.3028-1-shenlichuan@vivo.com>
-X-Mailer: git-send-email 2.17.1
-Content-Type: text/plain
-X-ClientProxiedBy: SG2PR04CA0196.apcprd04.prod.outlook.com
- (2603:1096:4:14::34) To SEZPR06MB5899.apcprd06.prod.outlook.com
- (2603:1096:101:e3::16)
+ (Exim 4.86_2) (envelope-from <ryan.lee@canonical.com>)
+ id 1sgpor-0005s7-PA
+ for apparmor@lists.ubuntu.com; Wed, 21 Aug 2024 18:12:29 +0000
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
+ [209.85.218.72])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 985C03F0F8
+ for <apparmor@lists.ubuntu.com>; Wed, 21 Aug 2024 18:12:29 +0000 (UTC)
+Received: by mail-ej1-f72.google.com with SMTP id
+ a640c23a62f3a-a7aa7e86b5eso587789366b.2
+ for <apparmor@lists.ubuntu.com>; Wed, 21 Aug 2024 11:12:29 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1724263949; x=1724868749;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=1uWLkKWIpx8bPr8qs3PNE2aQjpNxNiaRO8WZbqJro9Y=;
+ b=mk2UQmwKE29DIrm+cO+58XARXDjx5wDBXeCfH4BayG8iL8zkahUPB6InlGU9BUqVa4
+ i0c+QDuoL/ZPPaWRIczX3gvNgSPFR2DlrJGsk2aVVz6fFCriBivLqwoMv5VWKD/ZrxJv
+ fcEfjPOdTCzrZx/w5JAWsVrOF9K22w5ngJD/Op01ahY2VMM8Jor+p66MA6+pyyzUTMiF
+ v3PGIHVJ95ACJsuMhp895i/Y39ItLyjhyQyQazvIF0VhhZ9M6cIt05XPLAThogljNjpc
+ LozstcnFScEEticOOM6IUfATkobGxMhW8gjp0EiHS2u9IQAZkm85+PFN8jz5JeXoMRTP
+ amHQ==
+X-Gm-Message-State: AOJu0YzYty/hxZZVuNG76mySCo6OaK7gSD7BKhOP2JCOKK32DkwNU/ZO
+ oPr8/c3F9d+zkR0WmndcIFJUv2pxiTobddQhFqk0ABOdFoczo+dyQZtxOAqO0V3IHA8WCzhNwZs
+ KnF/FJQhkW07ygLzKlaOVZffiQLFoVw5A2+9WY7pI3alhSLrGIvs0xe7qOXjiCEmkNDVAKBkDJ7
+ bjpeKzRPj8DvOCkKALYg+yCjrWEbrJPtHfXyKLoXsu6DPAMApIihY5mIY+
+X-Received: by 2002:a17:907:1c84:b0:a86:746a:dced with SMTP id
+ a640c23a62f3a-a86746adf6dmr239221366b.19.1724263949148; 
+ Wed, 21 Aug 2024 11:12:29 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEK/W6yhIj955Qy47yITEBP1Xs4V5THdPQd2YAKtLxg2rdDFEB2kAhjO6IT+zZ98KsO5O5clyNFeKRPK3k04sk=
+X-Received: by 2002:a17:907:1c84:b0:a86:746a:dced with SMTP id
+ a640c23a62f3a-a86746adf6dmr239218366b.19.1724263948199; Wed, 21 Aug 2024
+ 11:12:28 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SEZPR06MB5899:EE_|JH0PR06MB6386:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6dd09110-0e17-4a86-7eaf-08dcc1b211a7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|52116014|38350700014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?hlGT7ftCXksBFcUX4rA0Kdz5kul4kb69vH2OKwQ/W7n++lyK5TMgaV16ch/d?=
- =?us-ascii?Q?scKriFI8dinG95lWHzempikAU3lLzz7EqWBgz42qq2pbl0wnWk01Tr8MGMa1?=
- =?us-ascii?Q?8cb1hcdUkpLNaaE7da4gHT+tCXFXQnHbNJ9Dlj6ogAkcat7S8w2hEzGR79ag?=
- =?us-ascii?Q?fKiUBXCPuSIvLfiqA8UHy7ebq87NfO8BrQzCVlMGlzuyFezA6vkZ6W6tumfi?=
- =?us-ascii?Q?CLXjP291uGJHS+UdlZUU2pOY9KJmJ5Y8Jwp5plVikKpdHhr0jE1K1bUFuB7A?=
- =?us-ascii?Q?nu7OPx+f9pDV1JHAUNcISh5N35ONeFoNRYa1jJ0lDanh2I3CLMraThHpJDaE?=
- =?us-ascii?Q?6rbW+LBHQaCQMxhbVNOA8rK5CDzApA5lpJPgaFdqLoSdaO64AlmNjvGWezZX?=
- =?us-ascii?Q?d7r64ufK/uBzZL6nHVLkM1qQw94QH1Gbn7VK4GQSBm6ZhRHeR9rLyxGr1D6l?=
- =?us-ascii?Q?RRd1jFyVDH8KSD458bt8mU7MAyQwiYo87VoBxTkCj669KOl/11TEBJeCvMWq?=
- =?us-ascii?Q?yhuHsMq3QfCgoXtQnpAYYbGnaupe4sayKl6XusEaV5cMGd1S+yLU6tc3QkeL?=
- =?us-ascii?Q?5vL/RlWhLVjs/Zj3WoXthAqjtofhboS+Xr0Y6dJHFUNEfFN3yTJBemt6QVe7?=
- =?us-ascii?Q?eiBY6cIyctXEBdtVPPsnt0h+fLcdbRvzGZaj7Oyt9HJKucnx7AQX1WNQiJsH?=
- =?us-ascii?Q?hJ8CTWoJVqOhkMTq+1CN/fz8w1QQVWcra/IBSTm07WpEuPhHtLZ0k2WoLTGB?=
- =?us-ascii?Q?Y4VP+cTE2U8yBvtPvS7SVJEhsEJPcIMDf9/147KDpqthAE9jr1jmSpX2w4pi?=
- =?us-ascii?Q?HXwoQSI8QYTZ6+W6vRqRhuG9RQg7SklC3UkRss+2oWlxIWspSvyOHhzxp5m+?=
- =?us-ascii?Q?GXiCDXd8drqb46ZAYaXhKC5pnCfWnpIjvtOHenZ4c3JKYAUg28ufryFAIlcB?=
- =?us-ascii?Q?Q8JhL3OQCpwZ6B+07BWMd2AmiQBF+HoxwOIaJZ0jDwpTyszBDWgwoGh95S0s?=
- =?us-ascii?Q?7g3Nwat5KYE444p+87UJRTuvaFw4gBGtfWhBemJzCQQQ2njzDIkPnYoaqkBj?=
- =?us-ascii?Q?zVoI8tHId17Nk5PP8rshi/dZR2VwZUd1oxT1deP2dosoOHRLUNgt+dDb/G8G?=
- =?us-ascii?Q?I08et08InkNqKctkhqAOjjJYQrWSlwX8PG/olJSKq2ZXLKZKTI5v3xl5bUii?=
- =?us-ascii?Q?+a6X2qx2fgSxa7qQE8LwOvf2ULe/m43c63W+kDn9s3uRGvgvqMFusat61e49?=
- =?us-ascii?Q?S60NQDISL9pRjygot9rObklqTgTvKgfS+HD74ESBPbzo9PxbsanKyiMe37EI?=
- =?us-ascii?Q?wb7SDfrbrW9zLyIT7yu3pYxKk3Es7+/jWpdLWELtFT3jbI2K4jld+jS/ENdY?=
- =?us-ascii?Q?gcX7VlNgtVRruAUO+Enz+nuLmlhH62YXXcJRLX6IRPV6McbXng=3D=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SEZPR06MB5899.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(52116014)(38350700014); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?8JVrdx1lzZbOMxhvoXIL9I8ZUTnQMzAfoxTwITre0JdSX98kqVZBDsDT/ed1?=
- =?us-ascii?Q?HMx09tOK6HNO6NY4AB9GsdBMr+ZGGxjdNO2gEj3w5J59dg2fUhC61OT1A62y?=
- =?us-ascii?Q?fg8OFtUyBq+YgwXY82jHcT/9CtRpjYxKHKQeyf/sL3yzhC+sKTrUMduiEdRQ?=
- =?us-ascii?Q?WcvXZ3H/K0bquloaQrtl2ZvARYwu/5mIkITrgWnL8CndW6QXoTKzHmkwH/nq?=
- =?us-ascii?Q?APmlEzDCdiTUZqDc8pwWvZgsce7OD5WtL/VtT6OH7yuuM8WrKQpauxCtONNV?=
- =?us-ascii?Q?yAaEoTKgy3Bs4+VEYdPxlTpRTF4ZVqUOTTMbubKPsZZyk5pVhZXd/cQVkjtf?=
- =?us-ascii?Q?gc1syHSRutqIAXrqGL2ELN4vYDhC5AxLCePwOMznA/hCtwWfchECR8DqV2RW?=
- =?us-ascii?Q?igVoiWGCUdKVR6e0EbNgqqqRo0jolZRNVs1fZZ63662+SHrguI0h0Bmlz9jf?=
- =?us-ascii?Q?NltS4rFyupuEgKuDAR+GIncMKyyYrzQ9wtYZ5OfKTh//aqPFgk02WOU18fT3?=
- =?us-ascii?Q?F4bBggmBCE0GEEHOKuK3Za0BRotbJy4hcx5CFZmaBX4awPgdDsl8cHK651pv?=
- =?us-ascii?Q?LghclYHhJ77z5wolWzYyIo1eD3EP9MNLWxr2U9tKC8pZIiPp6HhBZzu5wDeq?=
- =?us-ascii?Q?HzDc95ppTqem16tB6yfYOUnKQehWjYpKiB4GkuAIWTq2wFyYMw2jBM9ajgWx?=
- =?us-ascii?Q?U8tKqXUcglVg0erjGTA9O748bH4KWLfZ/AnF+IGhQpW5WDBoFNSThy5CGl82?=
- =?us-ascii?Q?tloqya9q+dBngCUdWf2QbuGg0qP29cqcw2CEv54oZ1EpeOBq4GYdXBqEaB7v?=
- =?us-ascii?Q?3xytMzhoRgj09eEElFS20IIly5NNPK5ge7xLEFFyZfflm8GLCczoLlhDIFiH?=
- =?us-ascii?Q?1wfSfzjoST0lz418hA8n+6OHYowQ7VHffydqHDq6/iFYhB6QX9zKnJtYQKVy?=
- =?us-ascii?Q?Nrrqg84Uasy8FP3fGYsHTeqLHU/iBhhpBuyyjOXqhRMPUkcg1KCo3Vnw+FRD?=
- =?us-ascii?Q?fWXypjWDzsQicVI0kBFxGyhAo4hjQDki+roVclAlywNEv+nGp84dRos0wAWg?=
- =?us-ascii?Q?DwBcR6izSZVGkK/ChqBQ1TmQYRsOvEhwFVGyrvV06rQPh2OVInFmqHPcE+bG?=
- =?us-ascii?Q?TBmaSY0FopvcxYfxaJRXGwXQVlVa0JPZG6+IKxUf3q5U7r9iRjKwcLKX/PEu?=
- =?us-ascii?Q?Pz0kHwgti4vFpfSrJYqyjAiaTnrI3HLl5Xraqbq8Kr2Tzz89VckhQOtUd3yN?=
- =?us-ascii?Q?r9ypakz9gmF4KWShrr69GsPO0ox7FpEy1W4qLdnVb7B8a/UGwMWxKqbC/lP/?=
- =?us-ascii?Q?U0dAL5jC2d3b8jKXCOdTScm1TWVptCi1kG5IEggt5JGmMm//YHfAoQZU0kS/?=
- =?us-ascii?Q?gCBkl2AapTGAPS1ymSruQJa7XOlbaKN5dDv463qUwHS/D4LdSDqJf8bEVP1I?=
- =?us-ascii?Q?s121PHv/PuxGlEJdBHf81Q2E3YogMDMh3ESLOqHH3SOPCG4NJQ+YOosCZK5c?=
- =?us-ascii?Q?8OKrd41iVf9BXoDsrtPomwNX13rbroXsdn19JsMVzOHcrbjre2dE+sF4+NLw?=
- =?us-ascii?Q?3WoB0l/dqeDe0Y3EvUjRI35y2bwbdJWSMIOAU/mn?=
-X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6dd09110-0e17-4a86-7eaf-08dcc1b211a7
-X-MS-Exchange-CrossTenant-AuthSource: SEZPR06MB5899.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2024 07:22:52.7771 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sPOVc0l5lRaIZAmyKkaepRDDVpezDI1e+Bh5KNcnoLrr/NTQwOKNeMC6H8/oqA0Pz2BD4MPoRdPPKIrkuzhhQw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: JH0PR06MB6386
-Received-SPF: pass client-ip=40.107.255.83; envelope-from=shenlichuan@vivo.com;
- helo=APC01-PSA-obe.outbound.protection.outlook.com
-X-Mailman-Approved-At: Wed, 21 Aug 2024 08:02:44 +0000
-Subject: [apparmor] [PATCH v1] security/apparmor: remove duplicate unpacking
-	in unpack_perm function
+References: <CAKCV-6sG6apr7WRBEhSqkeOEhF+h1UmgA4ur=RPDBoL7r-q3uw@mail.gmail.com>
+In-Reply-To: <CAKCV-6sG6apr7WRBEhSqkeOEhF+h1UmgA4ur=RPDBoL7r-q3uw@mail.gmail.com>
+From: Ryan Lee <ryan.lee@canonical.com>
+Date: Wed, 21 Aug 2024 11:12:16 -0700
+Message-ID: <CAKCV-6tSbdTJv6WYC4NQv630qzycYSh6ou_9CrU3k8GsdD4fHA@mail.gmail.com>
+To: apparmor@lists.ubuntu.com
+Content-Type: multipart/mixed; boundary="00000000000021eb920620357c82"
+Subject: Re: [apparmor] [PATCH] apparmor: fix null pointer deref in
+ find_attach when xmatch is null
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -135,31 +68,66 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: opensource.kernel@vivo.com, Shen Lichuan <shenlichuan@vivo.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-The code was unpacking the 'allow' parameter twice.
-This change removes the duplicate part.
+--00000000000021eb920620357c82
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Shen Lichuan <shenlichuan@vivo.com>
----
- security/apparmor/policy_unpack.c | 1 -
- 1 file changed, 1 deletion(-)
+After further analysis, the root cause turned out to be the xmatch not
+being set up properly when allocating a null profile for learning in
+complain mode. Thus, I am withdrawing the above patch and instead
+attaching a new patch that does this setup in aa_alloc_null.
 
-diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
-index 5a570235427d..4ec1e1251012 100644
---- a/security/apparmor/policy_unpack.c
-+++ b/security/apparmor/policy_unpack.c
-@@ -649,7 +649,6 @@ static bool unpack_perm(struct aa_ext *e, u32 version, struct aa_perms *perm)
- 		return false;
- 
- 	return	aa_unpack_u32(e, &perm->allow, NULL) &&
--		aa_unpack_u32(e, &perm->allow, NULL) &&
- 		aa_unpack_u32(e, &perm->deny, NULL) &&
- 		aa_unpack_u32(e, &perm->subtree, NULL) &&
- 		aa_unpack_u32(e, &perm->cond, NULL) &&
--- 
-2.17.1
+Ryan
 
+On Mon, Aug 19, 2024 at 1:05=E2=80=AFPM Ryan Lee <ryan.lee@canonical.com> w=
+rote:
+>
+> find_attach loops over profile entries and first checks for a DFA, fallin=
+g
+> back onto a strcmp otherwise. However, the check if (attach->xmatch->dfa)
+> did not account for the possibility that (attach->xmatch) could be null.
+> This occured with a sequence of profile replacements that resulted in a
+> kernel BUG print due to the null pointer dereference.
+>
+> To avoid this issue, first check that (attach->xmatch) is not null.
+>
+> The one-line patch is attached to the email.
+>
+> Ryan
+
+--00000000000021eb920620357c82
+Content-Type: text/x-patch; charset="US-ASCII"; 
+	name="0001-apparmor-allocate-xmatch-for-nullpdf-inside-aa_alloc.patch"
+Content-Disposition: attachment; 
+	filename="0001-apparmor-allocate-xmatch-for-nullpdf-inside-aa_alloc.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_m0467tvr0>
+X-Attachment-Id: f_m0467tvr0
+
+RnJvbSA0NzlkYTM2YmM1ZmYxNzEzOGM5ODlmODY2MjFhYzkyZmUyZDQwMjFhIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBSeWFuIExlZSA8cnlhbi5sZWVAY2Fub25pY2FsLmNvbT4KRGF0
+ZTogV2VkLCAyMSBBdWcgMjAyNCAxMTowMTo1NiAtMDcwMApTdWJqZWN0OiBbUEFUQ0hdIGFwcGFy
+bW9yOiBhbGxvY2F0ZSB4bWF0Y2ggZm9yIG51bGxwZGYgaW5zaWRlIGFhX2FsbG9jX251bGwKCmF0
+dGFjaC0+eG1hdGNoIHdhcyBub3Qgc2V0IHdoZW4gYWxsb2NhdGluZyBhIG51bGwgcHJvZmlsZSwg
+d2hpY2ggaXMgdXNlZCBpbgpjb21wbGFpbiBtb2RlIHRvIGFsbG9jYXRlIGEgbGVhcm5pbmcgcHJv
+ZmlsZS4gVGhpcyB3YXMgY2F1c2luZyBkb3duc3RyZWFtCmZhaWx1cmVzIGluIGZpbmRfYXR0YWNo
+LCB3aGljaCBleHBlY3RlZCBhIHZhbGlkIHhtYXRjaCBidXQgZGlkIG5vdCBmaW5kCm9uZSB1bmRl
+ciBhIGNlcnRhaW4gc2VxdWVuY2Ugb2YgcHJvZmlsZSB0cmFuc2l0aW9ucyBpbiBjb21wbGFpbiBt
+b2RlLgoKVGhpcyBwYXRjaCBlbnN1cmVzIHRoZSB4bWF0Y2ggaXMgc2V0IHVwIHByb3Blcmx5IGZv
+ciBudWxsIHByb2ZpbGVzLgotLS0KIHNlY3VyaXR5L2FwcGFybW9yL3BvbGljeS5jIHwgMSArCiAx
+IGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykKCmRpZmYgLS1naXQgYS9zZWN1cml0eS9hcHBh
+cm1vci9wb2xpY3kuYyBiL3NlY3VyaXR5L2FwcGFybW9yL3BvbGljeS5jCmluZGV4IGY1MDNkY2Qz
+YWM3NC4uNjM4YjBkNjc1M2VmIDEwMDY0NAotLS0gYS9zZWN1cml0eS9hcHBhcm1vci9wb2xpY3ku
+YworKysgYi9zZWN1cml0eS9hcHBhcm1vci9wb2xpY3kuYwpAQCAtNjU5LDYgKzY1OSw3IEBAIHN0
+cnVjdCBhYV9wcm9maWxlICphYV9hbGxvY19udWxsKHN0cnVjdCBhYV9wcm9maWxlICpwYXJlbnQs
+IGNvbnN0IGNoYXIgKm5hbWUsCiAKIAkvKiBUT0RPOiBpZGVhbGx5IHdlIHNob3VsZCBpbmhlcml0
+IGFiaSBmcm9tIHBhcmVudCAqLwogCXByb2ZpbGUtPmxhYmVsLmZsYWdzIHw9IEZMQUdfTlVMTDsK
+Kwlwcm9maWxlLT5hdHRhY2gueG1hdGNoID0gYWFfZ2V0X3BkYihudWxscGRiKTsKIAlydWxlcyA9
+IGxpc3RfZmlyc3RfZW50cnkoJnByb2ZpbGUtPnJ1bGVzLCB0eXBlb2YoKnJ1bGVzKSwgbGlzdCk7
+CiAJcnVsZXMtPmZpbGUgPSBhYV9nZXRfcGRiKG51bGxwZGIpOwogCXJ1bGVzLT5wb2xpY3kgPSBh
+YV9nZXRfcGRiKG51bGxwZGIpOwotLSAKMi40My4wCgo=
+--00000000000021eb920620357c82--
 
