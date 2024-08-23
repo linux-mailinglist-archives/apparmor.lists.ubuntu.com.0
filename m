@@ -2,62 +2,58 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 164E095C126
-	for <lists+apparmor@lfdr.de>; Fri, 23 Aug 2024 00:53:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C578095D8A6
+	for <lists+apparmor@lfdr.de>; Fri, 23 Aug 2024 23:49:14 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1shGgW-0003to-Hi; Thu, 22 Aug 2024 22:53:40 +0000
-Received: from smtp-relay-internal-1.internal ([10.131.114.114]
- helo=smtp-relay-internal-1.canonical.com)
+	id 1shc9V-0004ue-Jr; Fri, 23 Aug 2024 21:49:01 +0000
+Received: from smtp-relay-internal-0.internal ([10.131.114.225]
+ helo=smtp-relay-internal-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <ryan.lee@canonical.com>)
- id 1shGgU-0003te-Ib
- for apparmor@lists.ubuntu.com; Thu, 22 Aug 2024 22:53:38 +0000
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
- [209.85.218.70])
+ id 1shc9T-0004uV-Q1
+ for apparmor@lists.ubuntu.com; Fri, 23 Aug 2024 21:48:59 +0000
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
+ [209.85.218.71])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id E42C23F283
- for <apparmor@lists.ubuntu.com>; Thu, 22 Aug 2024 22:53:37 +0000 (UTC)
-Received: by mail-ej1-f70.google.com with SMTP id
- a640c23a62f3a-a868403dbdeso121970866b.1
- for <apparmor@lists.ubuntu.com>; Thu, 22 Aug 2024 15:53:37 -0700 (PDT)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id E866B3FD49
+ for <apparmor@lists.ubuntu.com>; Fri, 23 Aug 2024 21:48:58 +0000 (UTC)
+Received: by mail-ej1-f71.google.com with SMTP id
+ a640c23a62f3a-a869078ff9bso266969466b.2
+ for <apparmor@lists.ubuntu.com>; Fri, 23 Aug 2024 14:48:58 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1724367217; x=1724972017;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=j67XjmtbDynXstOHtehBju1p7R/p/XZdekc6+FjY7Rw=;
- b=fxVmxsoGtNrfzI0jO7o37vhPUdNTM8spYfiB6W/AUAnZRTVEOrCKAC+rO9eCNqeMA4
- 5fKXmJpCPL9nel0VKb5gEJ8n+PPOMfsb8iRUC45Hxgc7PfzTHuJG/pTy3dlZ+Rj//+/8
- vCv1KhGEEPJijpXGDMwPwxtb4pndl/VWO+GA6QGwVeSUXjBh0i77K2KB13dxdwZLaD6D
- aaATdUqeAx1vQCSxa6ro/HwW96KCiGoIxm2V9aWWZIIRPZyS2wmTnRWpoxODke2Tu0rz
- dKHkAePlu5QeEJjyXMoYjeSiN6ugSvv7l+VPWkNSHYStnzTXXzae6fCfhWhtOybdbqi9
- IzCA==
-X-Gm-Message-State: AOJu0YwA9gMk+enPpuXLr/g78rEsnagoaNsmnbKkPwnGeXJA8Jcf7eWb
- Fvr5dqDhuw55Y02lZBWtyDbfE1mHvcWvFvL/iveRnmkLph5LhlNF0F1z68uRTOWNQD0a3dWHwsP
- FmaRWp226CMOBeQkLuzoLbh3jTlkUE+xBbXRYoz4lc7qw1/cgPHDABWj86r/GlOS5kPAr068+Pi
- lDawBNW7AHCyn6PRE2jkub2Xg3uxgjuJPIEGVFgKwKeowzF3bh0jrBVPeT
-X-Received: by 2002:a17:907:e269:b0:a77:cf9d:f495 with SMTP id
- a640c23a62f3a-a86a52ec097mr14791266b.40.1724367217419; 
- Thu, 22 Aug 2024 15:53:37 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEgXW8XvSnAvZ+EChvc0Eiv4XFO6QfLDUVOcJi6X8Gr2wgcgzosF3rwlnGtgHyrTuKV9DmlkAnjfvGQ5k0Ze0c=
-X-Received: by 2002:a17:907:e269:b0:a77:cf9d:f495 with SMTP id
- a640c23a62f3a-a86a52ec097mr14789166b.40.1724367216653; Thu, 22 Aug 2024
- 15:53:36 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1724449738; x=1725054538;
+ h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=t8g5Fy5I6aGAdbh9eTCL2soekbMZeWv+4uSfpjF+jUs=;
+ b=Vjkli4ryXSnJq2/2+fnSY+GwCXZTz0VrC+3639huh0TQKDBgkVvAIQrK6SEYtQ/raV
+ yInbNzQ62XHCQerTnQZcCtmglKWqd8HHT8etn9cWl8LTp1Gdb3j1MR3tj6Sc9W+8G8R1
+ qbWgSFAuO3u4yo3dzeCpg77eJPfJsxfDepsR5aYXR3VRxhLlVFVgNhmXa1Jp5WMqlIoZ
+ ym0KRPaqX4EtWaapLjzdHfSBe+AQ9bMBwOQtid7Bt/dnlL0Et7JXrkHfWuFHNCCjuIWv
+ ZoOM2T7H94spXEf3Uzt7RKF3WYeRWaoxoNaUIHsUIZBMnsHm6UM3Lm3TMOvQx3YNSTKm
+ mPLg==
+X-Gm-Message-State: AOJu0YyGPj6gOtq6IgoA54hpz7wTs2Wyx3x17EM0G0xp3Jg/6B+MljRT
+ bQfECxXVBibgbaub8AyD6jiLGUyUlB1T/9NwupGQ9tyHQBEDSMgYwKDKjeyzAheT8zPal5sAr6D
+ CYlytmwqRcMEVdNpMExxLVsCQ0fkQ4iAbk+fbBOeRk7mofb0zyyuISF87j+FhcERPkSU769FS64
+ R4lcutsJERaQtFgtVwHt6TIm1r7Dp5+l9VRPnPRYNCBwSuqABSe1af4PIIyWQ=
+X-Received: by 2002:a17:907:3e90:b0:a77:b3c4:cd28 with SMTP id
+ a640c23a62f3a-a86a518b759mr265973166b.9.1724449738068; 
+ Fri, 23 Aug 2024 14:48:58 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEzyF37V6RTVQdIUcC7JEJqzQQP1/Ji+MN2mODP8f8E767LWFQ7WsKLpF7uiWrwfAyOKrJirFsON98bYEJ/NIQ=
+X-Received: by 2002:a17:907:3e90:b0:a77:b3c4:cd28 with SMTP id
+ a640c23a62f3a-a86a518b759mr265971866b.9.1724449737316; Fri, 23 Aug 2024
+ 14:48:57 -0700 (PDT)
 MIME-Version: 1.0
-References: <CAKCV-6sG6apr7WRBEhSqkeOEhF+h1UmgA4ur=RPDBoL7r-q3uw@mail.gmail.com>
- <CAKCV-6tSbdTJv6WYC4NQv630qzycYSh6ou_9CrU3k8GsdD4fHA@mail.gmail.com>
-In-Reply-To: <CAKCV-6tSbdTJv6WYC4NQv630qzycYSh6ou_9CrU3k8GsdD4fHA@mail.gmail.com>
 From: Ryan Lee <ryan.lee@canonical.com>
-Date: Thu, 22 Aug 2024 15:53:25 -0700
-Message-ID: <CAKCV-6s3W2u9C37c35JxUgRMuK=+srLxmP-B3MeA5rXxYOkEfQ@mail.gmail.com>
-To: apparmor@lists.ubuntu.com
-Content-Type: multipart/mixed; boundary="000000000000695e4106204d8700"
-Subject: Re: [apparmor] [PATCH] apparmor: fix null pointer deref in
- find_attach when xmatch is null
+Date: Fri, 23 Aug 2024 14:48:46 -0700
+Message-ID: <CAKCV-6u7WWx+vDc0TAfKrXMJV2kTH7aHW4gwQGJ4HXPd+JhMnA@mail.gmail.com>
+To: apparmor@lists.ubuntu.com, John Johansen <john.johansen@canonical.com>
+Content-Type: multipart/mixed; boundary="00000000000006cb09062060beaa"
+Subject: [apparmor] [PATCH] apparmor: properly handle cx/px lookup failure
+ for complain mode profiles
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -72,72 +68,52 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
---000000000000695e4106204d8700
+--00000000000006cb09062060beaa
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-I just realized that I forgot to add sign off on my patch, so I'm
-resending it with the Signed-off-by line added.
+When a cx/px lookup fails, apparmor would deny execution of the binary
+even in complain mode (where it would audit as allowing execution while
+actually denying it). Instead, in complain mode, create a new learning
+profile, just as would have been done if the cx/px line wasn't there.
 
-On Wed, Aug 21, 2024 at 11:12=E2=80=AFAM Ryan Lee <ryan.lee@canonical.com> =
-wrote:
->
-> After further analysis, the root cause turned out to be the xmatch not
-> being set up properly when allocating a null profile for learning in
-> complain mode. Thus, I am withdrawing the above patch and instead
-> attaching a new patch that does this setup in aa_alloc_null.
->
-> Ryan
->
-> On Mon, Aug 19, 2024 at 1:05=E2=80=AFPM Ryan Lee <ryan.lee@canonical.com>=
- wrote:
-> >
-> > find_attach loops over profile entries and first checks for a DFA, fall=
-ing
-> > back onto a strcmp otherwise. However, the check if (attach->xmatch->df=
-a)
-> > did not account for the possibility that (attach->xmatch) could be null=
-.
-> > This occured with a sequence of profile replacements that resulted in a
-> > kernel BUG print due to the null pointer dereference.
-> >
-> > To avoid this issue, first check that (attach->xmatch) is not null.
-> >
-> > The one-line patch is attached to the email.
-> >
-> > Ryan
+Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
 
---000000000000695e4106204d8700
+--00000000000006cb09062060beaa
 Content-Type: text/x-patch; charset="US-ASCII"; 
-	name="0001-apparmor-allocate-xmatch-for-nullpdf-inside-aa_alloc_signed.patch"
+	name="0001-apparmor-properly-handle-cx-px-lookup-failure-for-co.patch"
 Content-Disposition: attachment; 
-	filename="0001-apparmor-allocate-xmatch-for-nullpdf-inside-aa_alloc_signed.patch"
+	filename="0001-apparmor-properly-handle-cx-px-lookup-failure-for-co.patch"
 Content-Transfer-Encoding: base64
-Content-ID: <f_m05votzl0>
-X-Attachment-Id: f_m05votzl0
+Content-ID: <f_m078sycm0>
+X-Attachment-Id: f_m078sycm0
 
-RnJvbSA0NzlkYTM2YmM1ZmYxNzEzOGM5ODlmODY2MjFhYzkyZmUyZDQwMjFhIE1vbiBTZXAgMTcg
+RnJvbSAwMTBhMDFiYTU5N2VlYWU4N2QzNDYxN2RhNDUzNjY0ZDg0ZTY5NmIxIE1vbiBTZXAgMTcg
 MDA6MDA6MDAgMjAwMQpGcm9tOiBSeWFuIExlZSA8cnlhbi5sZWVAY2Fub25pY2FsLmNvbT4KRGF0
-ZTogV2VkLCAyMSBBdWcgMjAyNCAxMTowMTo1NiAtMDcwMApTdWJqZWN0OiBbUEFUQ0hdIGFwcGFy
-bW9yOiBhbGxvY2F0ZSB4bWF0Y2ggZm9yIG51bGxwZGYgaW5zaWRlIGFhX2FsbG9jX251bGwKCmF0
-dGFjaC0+eG1hdGNoIHdhcyBub3Qgc2V0IHdoZW4gYWxsb2NhdGluZyBhIG51bGwgcHJvZmlsZSwg
-d2hpY2ggaXMgdXNlZCBpbgpjb21wbGFpbiBtb2RlIHRvIGFsbG9jYXRlIGEgbGVhcm5pbmcgcHJv
-ZmlsZS4gVGhpcyB3YXMgY2F1c2luZyBkb3duc3RyZWFtCmZhaWx1cmVzIGluIGZpbmRfYXR0YWNo
-LCB3aGljaCBleHBlY3RlZCBhIHZhbGlkIHhtYXRjaCBidXQgZGlkIG5vdCBmaW5kCm9uZSB1bmRl
-ciBhIGNlcnRhaW4gc2VxdWVuY2Ugb2YgcHJvZmlsZSB0cmFuc2l0aW9ucyBpbiBjb21wbGFpbiBt
-b2RlLgoKVGhpcyBwYXRjaCBlbnN1cmVzIHRoZSB4bWF0Y2ggaXMgc2V0IHVwIHByb3Blcmx5IGZv
-ciBudWxsIHByb2ZpbGVzLgoKU2lnbmVkLW9mZi1ieTogUnlhbiBMZWUgPHJ5YW4ubGVlQGNhbm9u
-aWNhbC5jb20+Ci0tLQogc2VjdXJpdHkvYXBwYXJtb3IvcG9saWN5LmMgfCAxICsKIDEgZmlsZSBj
-aGFuZ2VkLCAxIGluc2VydGlvbigrKQoKZGlmZiAtLWdpdCBhL3NlY3VyaXR5L2FwcGFybW9yL3Bv
-bGljeS5jIGIvc2VjdXJpdHkvYXBwYXJtb3IvcG9saWN5LmMKaW5kZXggZjUwM2RjZDNhYzc0Li42
-MzhiMGQ2NzUzZWYgMTAwNjQ0Ci0tLSBhL3NlY3VyaXR5L2FwcGFybW9yL3BvbGljeS5jCisrKyBi
-L3NlY3VyaXR5L2FwcGFybW9yL3BvbGljeS5jCkBAIC02NTksNiArNjU5LDcgQEAgc3RydWN0IGFh
-X3Byb2ZpbGUgKmFhX2FsbG9jX251bGwoc3RydWN0IGFhX3Byb2ZpbGUgKnBhcmVudCwgY29uc3Qg
-Y2hhciAqbmFtZSwKIAogCS8qIFRPRE86IGlkZWFsbHkgd2Ugc2hvdWxkIGluaGVyaXQgYWJpIGZy
-b20gcGFyZW50ICovCiAJcHJvZmlsZS0+bGFiZWwuZmxhZ3MgfD0gRkxBR19OVUxMOworCXByb2Zp
-bGUtPmF0dGFjaC54bWF0Y2ggPSBhYV9nZXRfcGRiKG51bGxwZGIpOwogCXJ1bGVzID0gbGlzdF9m
-aXJzdF9lbnRyeSgmcHJvZmlsZS0+cnVsZXMsIHR5cGVvZigqcnVsZXMpLCBsaXN0KTsKIAlydWxl
-cy0+ZmlsZSA9IGFhX2dldF9wZGIobnVsbHBkYik7CiAJcnVsZXMtPnBvbGljeSA9IGFhX2dldF9w
-ZGIobnVsbHBkYik7Ci0tIAoyLjQzLjAKCg==
---000000000000695e4106204d8700--
+ZTogRnJpLCAyMyBBdWcgMjAyNCAxMDoxNDowMiAtMDcwMApTdWJqZWN0OiBbUEFUQ0hdIGFwcGFy
+bW9yOiBwcm9wZXJseSBoYW5kbGUgY3gvcHggbG9va3VwIGZhaWx1cmUgZm9yIGNvbXBsYWluCm1v
+ZGUgcHJvZmlsZXMKCldoZW4gYSBjeC9weCBsb29rdXAgZmFpbHMsIGFwcGFybW9yIHdvdWxkIGRl
+bnkgZXhlY3V0aW9uIG9mIHRoZSBiaW5hcnkKZXZlbiBpbiBjb21wbGFpbiBtb2RlICh3aGVyZSBp
+dCB3b3VsZCBhdWRpdCBhcyBhbGxvd2luZyBleGVjdXRpb24gd2hpbGUKYWN0dWFsbHkgZGVueWlu
+ZyBpdCkuIEluc3RlYWQsIGluIGNvbXBsYWluIG1vZGUsIGNyZWF0ZSBhIG5ldyBsZWFybmluZwpw
+cm9maWxlLCBqdXN0IGFzIHdvdWxkIGhhdmUgYmVlbiBkb25lIGlmIHRoZSBjeC9weCBsaW5lIHdh
+c24ndCB0aGVyZS4KClNpZ25lZC1vZmYtYnk6IFJ5YW4gTGVlIDxyeWFuLmxlZUBjYW5vbmljYWwu
+Y29tPgotLS0KIHNlY3VyaXR5L2FwcGFybW9yL2RvbWFpbi5jIHwgOSArKysrKysrLS0KIDEgZmls
+ZSBjaGFuZ2VkLCA3IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEv
+c2VjdXJpdHkvYXBwYXJtb3IvZG9tYWluLmMgYi9zZWN1cml0eS9hcHBhcm1vci9kb21haW4uYwpp
+bmRleCBkZDQ1N2VhZWRhYjguLjk5MTRhMmIxMzBkZSAxMDA2NDQKLS0tIGEvc2VjdXJpdHkvYXBw
+YXJtb3IvZG9tYWluLmMKKysrIGIvc2VjdXJpdHkvYXBwYXJtb3IvZG9tYWluLmMKQEAgLTY4Niwx
+MiArNjg2LDE3IEBAIHN0YXRpYyBzdHJ1Y3QgYWFfbGFiZWwgKnByb2ZpbGVfdHJhbnNpdGlvbihj
+b25zdCBzdHJ1Y3QgY3JlZCAqc3Vial9jcmVkLAogCQkJLyogaGFjayBpeCBmYWxsYmFjayAtIGlt
+cHJvdmUgaG93IHRoaXMgaXMgZGV0ZWN0ZWQgKi8KIAkJCWdvdG8gYXVkaXQ7CiAJCX0gZWxzZSBp
+ZiAoIW5ldykgewotCQkJZXJyb3IgPSAtRUFDQ0VTOwogCQkJaW5mbyA9ICJwcm9maWxlIHRyYW5z
+aXRpb24gbm90IGZvdW5kIjsKLQkJCS8qIHJlbW92ZSBNQVlfRVhFQyB0byBhdWRpdCBhcyBmYWls
+dXJlICovCisJCQkvKiByZW1vdmUgTUFZX0VYRUMgdG8gYXVkaXQgYXMgZmFpbHVyZSBvciBjb21w
+bGFpbnQgKi8KIAkJCXBlcm1zLmFsbG93ICY9IH5NQVlfRVhFQzsKKwkJCWlmIChDT01QTEFJTl9N
+T0RFKHByb2ZpbGUpKSB7CisJCQkJLyogY3JlYXRlIG51bGwgcHJvZmlsZSBpbnN0ZWFkIG9mIGZh
+aWxpbmcgKi8KKwkJCQlnb3RvIGNyZWF0ZV9sZWFybmluZ19wcm9maWxlOworCQkJfQorCQkJZXJy
+b3IgPSAtRUFDQ0VTOwogCQl9CiAJfSBlbHNlIGlmIChDT01QTEFJTl9NT0RFKHByb2ZpbGUpKSB7
+CitjcmVhdGVfbGVhcm5pbmdfcHJvZmlsZToKIAkJLyogbm8gZXhlYyBwZXJtaXNzaW9uIC0gbGVh
+cm5pbmcgbW9kZSAqLwogCQlzdHJ1Y3QgYWFfcHJvZmlsZSAqbmV3X3Byb2ZpbGUgPSBOVUxMOwog
+Ci0tIAoyLjQzLjAKCg==
+--00000000000006cb09062060beaa--
 
