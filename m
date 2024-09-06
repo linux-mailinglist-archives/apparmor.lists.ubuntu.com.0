@@ -2,57 +2,82 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF5E596C8A7
-	for <lists+apparmor@lfdr.de>; Wed,  4 Sep 2024 22:37:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EB1C96FB3B
+	for <lists+apparmor@lfdr.de>; Fri,  6 Sep 2024 20:32:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1slwka-000249-U0; Wed, 04 Sep 2024 20:37:12 +0000
-Received: from mail-yw1-f180.google.com ([209.85.128.180])
+	id 1smdke-0003t1-Is; Fri, 06 Sep 2024 18:32:08 +0000
+Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
+ helo=smtp-relay-canonical-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <paul@paul-moore.com>)
- id 1slwkZ-00023x-Kc
- for apparmor@lists.ubuntu.com; Wed, 04 Sep 2024 20:37:11 +0000
-Received: by mail-yw1-f180.google.com with SMTP id
- 00721157ae682-6d6a3ab427aso35826127b3.2
- for <apparmor@lists.ubuntu.com>; Wed, 04 Sep 2024 13:37:11 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1725482230; x=1726087030;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=+uSNgAoLeuNZ3XWdQeqcMJZ932reV/H1BZ/60TxYWNg=;
- b=kBhEu43dsBzclawFtZ93FbgacWYW9UhfTUipqFFInpKlsaR7WjIcQZ/Ek/+i5VcSu5
- ocSwwltV0/ryPyXZKLkowdnZHEmZST4mGvniljldeNCVy+tdljm3XmC2hthZUOHxxrBp
- gPLtL0AxfIhQH/fIya3Qh+YRiRisQM9AeoIOqPwuXXh5A2L1TjG8x4/OtAEGMBmLNwOx
- S40IMhcCJQjdJHmZRYfobCVw7FaGnAAy3AR4VBRUFh5XyZERHRJJw1gB8Y5xiF/Zzcl0
- 0Dc1R1UzGguR2EUwyn1qoZ5t2DDmzlFujmPtKdG+T+VWen6DPOG4m2kH2AuAfXNjJGOI
- v2OQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU7D4jGO+40vioMH7MtzT5S1BBoXUjl1KS4j1pDxZxXkckZNJ1KbSrZ7/XF5Oo3HxVc3u3WYxx7jQ==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0YyLuKA/P/0PLnbOVbTjT7mlhLN8aAEblPElR6jKPAKbNhA+8Xnc
- EjRBp8fEwg9184VPBZzLjruFaiKz7uh0wUhhKXkcm4rMMZvCT80hCKbKXuhtUMWHwF+2J7IlFia
- 12btZV1mzhVwBA3NGYa9hEOdhJsITjsmr7Udj
-X-Google-Smtp-Source: AGHT+IG9r5awwLWDaSa/SS1wlz6GDBVERagOH9s3xymO+3hCHtxHEKujYrlOkzwl7hougrLaBBg55clsy/6UTBUp4qs=
-X-Received: by 2002:a05:690c:4589:b0:6d4:f41d:de2f with SMTP id
- 00721157ae682-6d4f42d2475mr143212667b3.39.1725482230428; Wed, 04 Sep 2024
- 13:37:10 -0700 (PDT)
+ (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
+ id 1smdkc-0003sp-QY
+ for apparmor@lists.ubuntu.com; Fri, 06 Sep 2024 18:32:06 +0000
+Received: from [192.168.192.84] (unknown [50.39.103.33])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 228393F387; 
+ Fri,  6 Sep 2024 18:32:05 +0000 (UTC)
+Message-ID: <d6f8bf53-2db7-49bf-96aa-a117eddbf904@canonical.com>
+Date: Fri, 6 Sep 2024 11:32:04 -0700
 MIME-Version: 1.0
-References: <20240830003411.16818-2-casey@schaufler-ca.com>
- <0a6ba6a6dbd423b56801b84b01fa8c41@paul-moore.com>
- <b444ffb9-3ea3-4ef4-b53c-954ea66f7037@schaufler-ca.com>
- <CAHC9VhQ8QDAGc9BsxvPMi6=okwj+euLC+QXL1sgMsr8eHOcx2w@mail.gmail.com>
- <93952b9f-2e40-42fc-9a61-749b9c8ee306@schaufler-ca.com>
-In-Reply-To: <93952b9f-2e40-42fc-9a61-749b9c8ee306@schaufler-ca.com>
-From: Paul Moore <paul@paul-moore.com>
-Date: Wed, 4 Sep 2024 16:36:59 -0400
-Message-ID: <CAHC9VhTwYftY4nLauF8A9AOawAGKdU-+TGoVfM7Paf23x1Vm8w@mail.gmail.com>
-To: Casey Schaufler <casey@schaufler-ca.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=209.85.128.180; envelope-from=paul@paul-moore.com;
- helo=mail-yw1-f180.google.com
-Subject: Re: [apparmor] [PATCH v2 1/13] LSM: Add the lsmblob data structure.
+User-Agent: Mozilla Thunderbird
+To: Ryan Lee <ryan.lee@canonical.com>, apparmor@lists.ubuntu.com
+References: <CAKCV-6sG6apr7WRBEhSqkeOEhF+h1UmgA4ur=RPDBoL7r-q3uw@mail.gmail.com>
+ <CAKCV-6tSbdTJv6WYC4NQv630qzycYSh6ou_9CrU3k8GsdD4fHA@mail.gmail.com>
+ <CAKCV-6s3W2u9C37c35JxUgRMuK=+srLxmP-B3MeA5rXxYOkEfQ@mail.gmail.com>
+Content-Language: en-US
+From: John Johansen <john.johansen@canonical.com>
+Autocrypt: addr=john.johansen@canonical.com; keydata=
+ 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 lT9Q
+Organization: Canonical
+In-Reply-To: <CAKCV-6s3W2u9C37c35JxUgRMuK=+srLxmP-B3MeA5rXxYOkEfQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [apparmor] [PATCH] apparmor: fix null pointer deref in
+ find_attach when xmatch is null
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -64,97 +89,38 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: keescook@chromium.org, penguin-kernel@i-love.sakura.ne.jp,
- stephen.smalley.work@gmail.com, apparmor@lists.ubuntu.com, jmorris@namei.org,
- linux-kernel@vger.kernel.org, selinux@vger.kernel.org,
- linux-security-module@vger.kernel.org, mic@digikod.net, bpf@vger.kernel.org,
- serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Wed, Sep 4, 2024 at 4:28=E2=80=AFPM Casey Schaufler <casey@schaufler-ca.=
-com> wrote:
-> On 9/4/2024 1:00 PM, Paul Moore wrote:
-> > On Tue, Sep 3, 2024 at 8:53=E2=80=AFPM Casey Schaufler <casey@schaufler=
--ca.com> wrote:
-> >> On 9/3/2024 5:18 PM, Paul Moore wrote:
-> >>> On Aug 29, 2024 Casey Schaufler <casey@schaufler-ca.com> wrote:
-> > ..
-> >
-> >>>> +/*
-> >>>> + * Data exported by the security modules
-> >>>> + */
-> >>>> +struct lsmblob {
-> >>>> +    struct lsmblob_selinux selinux;
-> >>>> +    struct lsmblob_smack smack;
-> >>>> +    struct lsmblob_apparmor apparmor;
-> >>>> +    struct lsmblob_bpf bpf;
-> >>>> +    struct lsmblob_scaffold scaffold;
-> >>>> +};
-> >>> Warning, top shelf bikeshedding follows ...
-> >> Not unexpected. :)
-> >>
-> >>> I believe that historically when we've talked about the "LSM blob" we=
-'ve
-> >>> usually been referring to the opaque buffers used to store LSM state =
-that
-> >>> we attach to a number of kernel structs using the `void *security` fi=
-eld.
-> >>>
-> >>> At least that is what I think of when I read "struct lsmblob", and I'=
-d
-> >>> like to get ahead of the potential confusion while we still can.
-> >>>
-> >>> Casey, I'm sure you're priority is simply getting this merged and you
-> >>> likely care very little about the name (as long as it isn't too horri=
-ble),
-> >> I would reject lsmlatefordinner out of hand.
-> > Fair enough :)
-> >
-> >>> but what about "lsm_ref"?  Other ideas are most definitely welcome.
-> >> I'm not a fan of the underscore, and ref seems to imply memory managem=
-ent.
-> >> How about "struct lsmsecid", which is a nod to the past "u32 secid"?
-> >> Or, "struct lsmdata", "struct lsmid", "struct lsmattr".
-> >> I could live with "struct lsmref", I suppose, although it pulls me tow=
-ard
-> >> "struct lsmreference", which is a bit long.
-> > For what it's worth, I do agree that "ref" is annoyingly similar to a
-> > reference counter, I don't love it here, but I'm having a hard time
-> > coming up with something appropriate.
-> >
-> > I also tend to like the underscore, at least in the struct name, as it
-> > matches well with the "lsm_ctx" struct we have as part of the UAPI.
-> > When we use the struct name in function names, feel free to drop the
-> > underscore, for example: "lsm_foo" -> "security_get_lsmfoo()".
-> >
-> > My first thought was for something like "lsmid" (ignoring the
-> > underscore debate), but we already have the LSM_ID_XXX defines which
-> > are something entirely different and I felt like we would be trading
-> > one source of confusion for another.  There is a similar problem with
-> > the LSM_ATTR_XXX defines.
-> >
-> > We also already have a "lsm_ctx" struct which sort of rules out
-> > "lsmctx" for what are hopefully obvious reasons.
-> >
-> > I'd also like to avoid anything involving "secid" or "secctx" simply
-> > because the whole point of this struct is to move past the idea of a
-> > single integer or string representing all of the LSM properties for an
-> > entity.
-> >
-> > I can understand "lsm_data", but that is more ambiguous than I would li=
-ke.
-> >
-> > What about "lsm_prop" or "lsm_cred"?
->
-> If we ever do the same sort of thing for the existing blobs we're
-> going to need to have lsm_cred for the cred blob, so I shan't use
-> it here. I can live with lsm_prop, which shouldn't confuse too many
-> developers. We can start saying "property" in place of secid, which
-> would be a good thing.
+On 8/22/24 15:53, Ryan Lee wrote:
+> I just realized that I forgot to add sign off on my patch, so I'm
+> resending it with the Signed-off-by line added.
+> 
+> On Wed, Aug 21, 2024 at 11:12 AM Ryan Lee <ryan.lee@canonical.com> wrote:
+>>
+>> After further analysis, the root cause turned out to be the xmatch not
+>> being set up properly when allocating a null profile for learning in
+>> complain mode. Thus, I am withdrawing the above patch and instead
+>> attaching a new patch that does this setup in aa_alloc_null.
+>>
+>> Ryan
+>>
+>> On Mon, Aug 19, 2024 at 1:05 PM Ryan Lee <ryan.lee@canonical.com> wrote:
+>>>
+>>> find_attach loops over profile entries and first checks for a DFA, falling
+>>> back onto a strcmp otherwise. However, the check if (attach->xmatch->dfa)
+>>> did not account for the possibility that (attach->xmatch) could be null.
+>>> This occured with a sequence of profile replacements that resulted in a
+>>> kernel BUG print due to the null pointer dereference.
+>>>
+>>> To avoid this issue, first check that (attach->xmatch) is not null.
+>>>
+>>> The one-line patch is attached to the email.
+>>>
+>>> Ryan
 
-Works for me, thanks Casey.
+this has been applied to the apparmor tree
 
---=20
-paul-moore.com
+thanks
+
 
