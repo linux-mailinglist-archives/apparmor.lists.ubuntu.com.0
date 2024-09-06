@@ -2,32 +2,30 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EB1C96FB3B
-	for <lists+apparmor@lfdr.de>; Fri,  6 Sep 2024 20:32:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0646796FB45
+	for <lists+apparmor@lfdr.de>; Fri,  6 Sep 2024 20:35:23 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1smdke-0003t1-Is; Fri, 06 Sep 2024 18:32:08 +0000
+	id 1smdne-00047i-Em; Fri, 06 Sep 2024 18:35:14 +0000
 Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
  helo=smtp-relay-canonical-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1smdkc-0003sp-QY
- for apparmor@lists.ubuntu.com; Fri, 06 Sep 2024 18:32:06 +0000
+ id 1smdnd-00047U-0J
+ for apparmor@lists.ubuntu.com; Fri, 06 Sep 2024 18:35:13 +0000
 Received: from [192.168.192.84] (unknown [50.39.103.33])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 228393F387; 
- Fri,  6 Sep 2024 18:32:05 +0000 (UTC)
-Message-ID: <d6f8bf53-2db7-49bf-96aa-a117eddbf904@canonical.com>
-Date: Fri, 6 Sep 2024 11:32:04 -0700
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 2D22F3F38B; 
+ Fri,  6 Sep 2024 18:35:12 +0000 (UTC)
+Message-ID: <0d08ffdb-45a1-4637-a014-5b3e8a5928ff@canonical.com>
+Date: Fri, 6 Sep 2024 11:35:10 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Ryan Lee <ryan.lee@canonical.com>, apparmor@lists.ubuntu.com
-References: <CAKCV-6sG6apr7WRBEhSqkeOEhF+h1UmgA4ur=RPDBoL7r-q3uw@mail.gmail.com>
- <CAKCV-6tSbdTJv6WYC4NQv630qzycYSh6ou_9CrU3k8GsdD4fHA@mail.gmail.com>
- <CAKCV-6s3W2u9C37c35JxUgRMuK=+srLxmP-B3MeA5rXxYOkEfQ@mail.gmail.com>
+References: <CAKCV-6u7WWx+vDc0TAfKrXMJV2kTH7aHW4gwQGJ4HXPd+JhMnA@mail.gmail.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -73,11 +71,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <CAKCV-6s3W2u9C37c35JxUgRMuK=+srLxmP-B3MeA5rXxYOkEfQ@mail.gmail.com>
+In-Reply-To: <CAKCV-6u7WWx+vDc0TAfKrXMJV2kTH7aHW4gwQGJ4HXPd+JhMnA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [apparmor] [PATCH] apparmor: fix null pointer deref in
- find_attach when xmatch is null
+Content-Transfer-Encoding: 7bit
+Subject: Re: [apparmor] [PATCH] apparmor: properly handle cx/px lookup
+ failure for complain mode profiles
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -92,35 +90,14 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 8/22/24 15:53, Ryan Lee wrote:
-> I just realized that I forgot to add sign off on my patch, so I'm
-> resending it with the Signed-off-by line added.
+On 8/23/24 14:48, Ryan Lee wrote:
+> When a cx/px lookup fails, apparmor would deny execution of the binary
+> even in complain mode (where it would audit as allowing execution while
+> actually denying it). Instead, in complain mode, create a new learning
+> profile, just as would have been done if the cx/px line wasn't there.
 > 
-> On Wed, Aug 21, 2024 at 11:12 AM Ryan Lee <ryan.lee@canonical.com> wrote:
->>
->> After further analysis, the root cause turned out to be the xmatch not
->> being set up properly when allocating a null profile for learning in
->> complain mode. Thus, I am withdrawing the above patch and instead
->> attaching a new patch that does this setup in aa_alloc_null.
->>
->> Ryan
->>
->> On Mon, Aug 19, 2024 at 1:05 PM Ryan Lee <ryan.lee@canonical.com> wrote:
->>>
->>> find_attach loops over profile entries and first checks for a DFA, falling
->>> back onto a strcmp otherwise. However, the check if (attach->xmatch->dfa)
->>> did not account for the possibility that (attach->xmatch) could be null.
->>> This occured with a sequence of profile replacements that resulted in a
->>> kernel BUG print due to the null pointer dereference.
->>>
->>> To avoid this issue, first check that (attach->xmatch) is not null.
->>>
->>> The one-line patch is attached to the email.
->>>
->>> Ryan
+> Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
 
-this has been applied to the apparmor tree
-
-thanks
+Acked-by: John Johansen <john.johansen@canonical.com>
 
 
