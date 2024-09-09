@@ -2,32 +2,31 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0646796FB45
-	for <lists+apparmor@lfdr.de>; Fri,  6 Sep 2024 20:35:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 390DF97242D
+	for <lists+apparmor@lfdr.de>; Mon,  9 Sep 2024 23:06:07 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1smdne-00047i-Em; Fri, 06 Sep 2024 18:35:14 +0000
+	id 1snla5-0001Vt-A0; Mon, 09 Sep 2024 21:05:53 +0000
 Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
  helo=smtp-relay-canonical-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1smdnd-00047U-0J
- for apparmor@lists.ubuntu.com; Fri, 06 Sep 2024 18:35:13 +0000
+ id 1snla3-0001Vg-V3
+ for apparmor@lists.ubuntu.com; Mon, 09 Sep 2024 21:05:51 +0000
 Received: from [192.168.192.84] (unknown [50.39.103.33])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 2D22F3F38B; 
- Fri,  6 Sep 2024 18:35:12 +0000 (UTC)
-Message-ID: <0d08ffdb-45a1-4637-a014-5b3e8a5928ff@canonical.com>
-Date: Fri, 6 Sep 2024 11:35:10 -0700
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 3CE233F385
+ for <apparmor@lists.ubuntu.com>; Mon,  9 Sep 2024 21:05:51 +0000 (UTC)
+Message-ID: <26b05be6-5922-453a-9b0a-66510c1e4565@canonical.com>
+Date: Mon, 9 Sep 2024 14:05:49 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Ryan Lee <ryan.lee@canonical.com>, apparmor@lists.ubuntu.com
-References: <CAKCV-6u7WWx+vDc0TAfKrXMJV2kTH7aHW4gwQGJ4HXPd+JhMnA@mail.gmail.com>
-Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
+To: apparmor <apparmor@lists.ubuntu.com>
+Content-Language: en-US
 Autocrypt: addr=john.johansen@canonical.com; keydata=
  xsFNBE5mrPoBEADAk19PsgVgBKkImmR2isPQ6o7KJhTTKjJdwVbkWSnNn+o6Up5knKP1f49E
  BQlceWg1yp/NwbR8ad+eSEO/uma/K+PqWvBptKC9SWD97FG4uB4/caomLEU97sLQMtnvGWdx
@@ -71,11 +70,9 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <CAKCV-6u7WWx+vDc0TAfKrXMJV2kTH7aHW4gwQGJ4HXPd+JhMnA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH] apparmor: properly handle cx/px lookup
- failure for complain mode profiles
+Subject: [apparmor] irc meeting Tues Sept 10
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -90,14 +87,12 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 8/23/24 14:48, Ryan Lee wrote:
-> When a cx/px lookup fails, apparmor would deny execution of the binary
-> even in complain mode (where it would audit as allowing execution while
-> actually denying it). Instead, in complain mode, create a new learning
-> profile, just as would have been done if the cx/px line wasn't there.
-> 
-> Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
+The next irc meeting is Tuesday Sept 10, at 18:00 UTC in #apparmor on oftc.net
 
-Acked-by: John Johansen <john.johansen@canonical.com>
+Please update the agenda https://gitlab.com/apparmor/apparmor/wikis/MeetingAgenda or reply to this mail if you have items you want to add
+
+
+
+
 
 
