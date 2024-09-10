@@ -2,74 +2,58 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B4DD974265
-	for <lists+apparmor@lfdr.de>; Tue, 10 Sep 2024 20:41:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E62DA974450
+	for <lists+apparmor@lfdr.de>; Tue, 10 Sep 2024 22:49:29 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1so5o1-0006lX-16; Tue, 10 Sep 2024 18:41:37 +0000
-Received: from sonic314-27.consmr.mail.ne1.yahoo.com ([66.163.189.153])
+	id 1so7na-0002o5-DR; Tue, 10 Sep 2024 20:49:18 +0000
+Received: from mail-yb1-f172.google.com ([209.85.219.172])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <casey@schaufler-ca.com>)
- id 1so5nz-0006lP-3J
- for apparmor@lists.ubuntu.com; Tue, 10 Sep 2024 18:41:35 +0000
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1725993693; bh=n12FCoypRRL3Qp+LHhtAw0m7jJ/ozXtNnhJ8Cctq4rT=;
- h=X-Sonic-MF:From:To:Subject:Date:From:Subject;
- b=rHKLJ8OrHVJttv3nwVTEpLrxUA7ISExNQ7nItO8m9yifObp2eLIZBn2++s0m5Q8ugvx2Dihd7iPEOefcoA8UjLFHrnBlosU8LSFDma8l/Va5qjkP8X1KXwghEgg70M9R5yGn6JJINK/smAcoz9C24glr2lGlPnrU3rfXg0M1eb/XT0YFD0ot5Hxy/v5aFA/KRZvDekL4F5tooBc+jnaTqJYydgw2YWH8QT9XJGv1cyDBNyw6HIdrPzP89Mn/8dfXOUhj3O41CkRfJdFN5cj2Rec4UObupOZNAyOqlVM8OvcKzAj29r37L6cgPScG2I2vTrXSNybaw7dWxX/vg6juqw==
-X-YMail-OSG: lYsK.8gVM1mhUSBIE.5ARCA_jMSVJfJ3x60AfolUYHGmnP_bku7kMTV3CtECNxn
- FgS0e020Uhksp0G1m7AlynBsiKEeM1dctUk2zHoSP5Yu1ioDo0GsiShqxGLQNQZwQODlZKKaji5w
- PfgkZq6pOij3.8qJaN19zyphN4VXjmXvq.NjWTPpmY3py_L8i2VI9Nxfj2KT796Tz9AFwwL1lhG4
- .Wao0mQ4lxf7BdnE5ys_8XYx6vmDqaGnPmRIW0B9gEEZbthPz_Cn.NhEPNdAU1.TOveDo212qWrT
- oZT_is_Md8GjvZFaiNSqva7J5ru5d3pXgnc5z4poWYcZmlyypymlhjZmkh0ACz__eLqdq2Uven7P
- wlHF1gzNto8Nav2As9BC7CKo0YeTgsZ3jyGl8xKtzmul4txbDoh0vz_PCvtRueh0yXKPKmYUvw1b
- 2m16lrHzGYRztn_r6zS2QbSGJAEF.BVtDFFXO6ZPJNHrsBC_gg2pjn9qrB19GrfcBn1kfNcwwUMO
- 8Gdlm7GDwLsyKrMo2ZWnDjikCxyxKi4C_JzqvSgnx_vi4jyTUALlNBIwI0kJaV4kHAURhJhGFm1F
- Xnb9VCbdkiDV7PdLJwDdVyYTaj8Fihq2jVXjlkM_b5oZ7zBHCuGx3ke0hvUqX0H2cn_8MMcs3mlE
- .0xwtouVCtsF06UJbIRJjzfFqHwzQ1dbex1QUU4dTQaUi.lOLmrrWW5fpURQhDTU92lPXQ6XRfQA
- 9oxpdt3Awdfzm58N5GhcNTHOE.wljkRvD5wo12NoJ41uCgWIEpOG9kO1tHU9TR2ghwhp1rnKYnhc
- 5fGCvoSowJvW137jnfzFD0pzZqtgaCss0.hd.CDckJWWJi7e2ijuAqR5GycHd_aGESHG6AhFDUTR
- QTX4I0lqFVfjFhCnfYvLn2n2WUSJEd_gXsAjYOOAkzFZ3t2kRRoU9UADZCcCFsmLCdlyGUnucTIx
- dJRvSo6PZlEb6N9f.JTLQ7ZPSeIVbpVTvAmKaK20SOKSdmbdLzZwbn0_f2pXXN4usKExhW9SUIqM
- cOByB5mdTsZLyKOHX4vk49nkXWkyCrpccO7Rx9cuoohGIdOqeHrUpK9HpreDy9aZiVsLVwGNI7P.
- .qM.M96X45Hg7.JGyJr6uFKL_mtiaZnl5kIyGOaxfTUQaDZUKcJUZ3AX6Pxe0tf.VWwVK1wk23Dg
- uxIzfD0NjCfUjoIvrWna.g6SBVjbZRqa76pwA6WJbm2r0AmKD45AmQz0DXCiclTNIKf5A3shuDG2
- Aj1dS5kPAXB.nArf3QdDYvR8cx45dhp8fgRwhZmdntHgw0GfS5MxRU.ZxdvxBySZ1Y760pUU9cKa
- NYU5q1Dp1oizsp_HSYPq4da4ypNgXd4RK9Npvs8kmPuTYgkUlbOzF8SgdLaKJq4lBafyD7ozdDdW
- TFmke5roYc.QmDj5O8JS4U5O0LK6.ErMOWo.JVnxsAJBbK0.A0WcEcu_FC2zb1Gv5oNY0weBRLQv
- 6IFhBDutOmX0QMv_lhlf2hamN6eu3sWdtF53Q1k2sj_gHRGIiw_RvWptGZ_XBQdA3H2Tt034opSv
- WwaZfdxjgFCYz5JKdpdpiZ4_4lNpw4NJH_ptx6pXDGDmcYpL7xYB0PxoK7Jq09sr_8JukJN_X2U.
- 9.40W4oyt6DOXrdfzzEJqkQffFhTDQdiGQmVSQAt4zB6RImZSar3oBtyIN_iTX0nAwxXF.oMX8qS
- grzxOoL9GpgqscNFkHhA_BhemBnkW6eM7byCCxdxrOKNLumeft4pBr9tcZrcSZsFhJYv0Q5mXjaa
- mSgG9MV48IGhM_tpWwT5eS9ocExE9wb_hvrY4GwfV.Ef0OJW0BaT5j9BkosuPSac221m9s48BoND
- w2pNSWcjlRfm5iPX4k7EIo3dzOE_RdfhIQaecLzYDzJO27jxwfZWVGgDPlUU5bnxAlZIauQwHoYB
- ylEEBetC3MyGz1YlwKJ2L1Rj08MlMttelw76R.bC1n4UqVH1LBRgy2EBTihRGhdsxTd4T6kspSt6
- fJ7if2I4kbdisTGxnrHW04Y9rTEqkDyQ1ZHdMJdiEB1pM6tXK.jxrfz1mdLWnmkvvHhbtiMZVfPh
- 8ZeCANfZN4eNvKPPQug9a_WusZDpZzEsHz.zOxGAX.AhVGzdgVHCwSrLiCPYB9QUz4CVL2yVJVxC
- WM3FAPOBarCz6M4nhWUsUieZ47QwnCSTECZpk7Pg4kHD.QUqZnCQsXYZDSklAaWrw.FIa1ZHpWPj
- PjO30jrnahGYSOB60wXG0kOnb78zaG4GPvCSZWXCVR7cT5Suk_DKuSgD_P8Ll9_Si0p7pMRrBHeF
- a9G5cW0M..4wch5wVjB_x2k7FZvTvMuJEPhS7
-X-Sonic-MF: <casey@schaufler-ca.com>
-X-Sonic-ID: 2352b9a3-2409-4959-89b3-d3c615c9372b
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic314.consmr.mail.ne1.yahoo.com with HTTP; Tue, 10 Sep 2024 18:41:33 +0000
-Received: by hermes--production-gq1-5d95dc458-rvnnh (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID 0f4d83cf88f6912abe79246c392d6ed4; 
- Tue, 10 Sep 2024 18:41:31 +0000 (UTC)
-From: Casey Schaufler <casey@schaufler-ca.com>
-To: casey@schaufler-ca.com, paul@paul-moore.com,
- linux-security-module@vger.kernel.org
-Date: Tue, 10 Sep 2024 11:41:13 -0700
-Message-ID: <20240910184125.224651-2-casey@schaufler-ca.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20240910184125.224651-1-casey@schaufler-ca.com>
-References: <20240910184125.224651-1-casey@schaufler-ca.com>
+ (Exim 4.86_2) (envelope-from <paul@paul-moore.com>)
+ id 1so7nX-0002nw-O9
+ for apparmor@lists.ubuntu.com; Tue, 10 Sep 2024 20:49:15 +0000
+Received: by mail-yb1-f172.google.com with SMTP id
+ 3f1490d57ef6-e1a9f84699cso1164335276.3
+ for <apparmor@lists.ubuntu.com>; Tue, 10 Sep 2024 13:49:15 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1726001354; x=1726606154;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=WYjARXF5iHHpTlh5hyqO8bTT4ZmLx2A0R6UF7JUY+9c=;
+ b=hDyee4n9iKRmP9eebLgDpgi+ONTB081EQGio4F5LcwjmsKqYChkrxNEQIqYFiDQWFU
+ jGHduzrzJPqhI9j+1MckbN1dCEABEkMPKYEuMrU/xF47MB9j63kE+Z0JUSBJoNZdLSpT
+ +qztLMFicJzD69bm6k2CBPx8HGkCi0MKpZCmWsNOWWWz8M+eTlWftNKCkw+8kzfT9bFo
+ +nZjvOJ9UGNzk9coXlwbTjGlr6ymuUvJNfcmlE6X8NW+rtXZvOdu8W9YbywFCNovw1Os
+ 5LHT+Gokpwu6oEtvp9ChGN7GUzHP5rjjkqZbBdJyv5HjcxFyqpiJvbjF6vyliVbTnkIX
+ Ew5Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXgvoqW7jJgQEZnMXoAHe3i5n6O37TNj4WJ/qmWg+l3OhNJt9aIF3jIMtujhu5fDrDSjQST9Uc3lQ==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0YxvSJmgpvU+KTRhnsYh95v1RuGRv1VwScVNEz0V7KG528Y5uWb+
+ M1e4zZX3e6GGqGjCJdWXw8ch8dHk/uE7XO/Cl7EpbJAQaEFVAqJF0/I0B83mNqQNId3hvPHibLn
+ uTbGXmBcwIgt0r/CrPnHOlKVsdxqjR1f4sxiZ
+X-Google-Smtp-Source: AGHT+IFgMK6PeTDRSiV3IUUm82K2jugYC/SvYQbL/2kIQWJ6vCR0av/sG1KukB6SNfhmqpD5QEYFAa0dGswS6AalsdQ=
+X-Received: by 2002:a05:690c:6812:b0:6c9:9341:1c45 with SMTP id
+ 00721157ae682-6dba6d98f5fmr12360207b3.14.1726001354371; Tue, 10 Sep 2024
+ 13:49:14 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Received-SPF: none client-ip=66.163.189.153;
- envelope-from=casey@schaufler-ca.com;
- helo=sonic314-27.consmr.mail.ne1.yahoo.com
-Subject: [apparmor] [PATCH v3 01/13] LSM: Add the lsm_prop data structure.
+References: <20240805-remove-cred-transfer-v2-0-a2aa1d45e6b8@google.com>
+ <20240805-remove-cred-transfer-v2-1-a2aa1d45e6b8@google.com>
+ <2494949.1723751188@warthog.procyon.org.uk>
+ <CAG48ez2LBmS91fQVLYRYEaBHssj22NyUjB0HVtkDHUXDvDZ6EA@mail.gmail.com>
+In-Reply-To: <CAG48ez2LBmS91fQVLYRYEaBHssj22NyUjB0HVtkDHUXDvDZ6EA@mail.gmail.com>
+From: Paul Moore <paul@paul-moore.com>
+Date: Tue, 10 Sep 2024 16:49:03 -0400
+Message-ID: <CAHC9VhSPcy-xZ=X_CF8PRsAFMSeP8-VppxKr3Sz3EqMWTEs-Cw@mail.gmail.com>
+To: Jann Horn <jannh@google.com>, David Howells <dhowells@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=209.85.219.172; envelope-from=paul@paul-moore.com;
+ helo=mail-yb1-f172.google.com
+Subject: Re: [apparmor] Can KEYCTL_SESSION_TO_PARENT be dropped entirely? --
+ was Re: [PATCH v2 1/2] KEYS: use synchronous task work for changing parent
+ credentials
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -81,173 +65,48 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: keescook@chromium.org, penguin-kernel@i-love.sakura.ne.jp,
- stephen.smalley.work@gmail.com, apparmor@lists.ubuntu.com, jmorris@namei.org,
- linux-kernel@vger.kernel.org, selinux@vger.kernel.org, mic@digikod.net,
- bpf@vger.kernel.org, serge@hallyn.com
+Cc: linux-security-module@vger.kernel.org,
+ Jeffrey Altman <jaltman@auristor.com>, selinux@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Stephen Smalley <stephen.smalley.work@gmail.com>,
+ apparmor@lists.ubuntu.com, James Morris <jmorris@namei.org>,
+ Ondrej Mosnacek <omosnace@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>,
+ keyrings@vger.kernel.org, =?UTF-8?Q?G=C3=BCnther_Noack?= <gnoack@google.com>,
+ =?UTF-8?B?TWlja2HDq2wgU2FsYcO8bg==?= <mic@digikod.net>,
+ openafs-devel@openafs.org, linux-afs@lists.infradead.org,
+ "Serge E. Hallyn" <serge@hallyn.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-When more than one security module is exporting data to audit and
-networking sub-systems a single 32 bit integer is no longer
-sufficient to represent the data. Add a structure to be used instead.
+On Thu, Aug 15, 2024 at 4:00=E2=80=AFPM Jann Horn <jannh@google.com> wrote:
+> On Thu, Aug 15, 2024 at 9:46=E2=80=AFPM David Howells <dhowells@redhat.co=
+m> wrote:
+> > Jann Horn <jannh@google.com> wrote:
+> >
+> > > Rewrite keyctl_session_to_parent() to run task work on the parent
+> > > synchronously, so that any errors that happen in the task work can be
+> > > plumbed back into the syscall return value in the child.
+> >
+> > The main thing I worry about is if there's a way to deadlock the child =
+and the
+> > parent against each other.  vfork() for example.
+>
+> Yes - I think it would work fine for scenarios like using
+> KEYCTL_SESSION_TO_PARENT from a helper binary against the shell that
+> launched the helper (which I think is the intended usecase?), but
+> there could theoretically be constellations where it would cause an
+> (interruptible) hang if the parent is stuck in
+> uninterruptible/killable sleep.
+>
+> I think vfork() is rather special in that it does a killable wait for
+> the child to exit or execute; and based on my understanding of the
+> intended usecase of KEYCTL_SESSION_TO_PARENT, I think normally
+> KEYCTL_SESSION_TO_PARENT would only be used by a child that has gone
+> through execve?
 
-The lsm_prop structure definition is intended to keep the LSM
-specific information private to the individual security modules.
-The module specific information is included in a new set of
-header files under include/lsm. Each security module is allowed
-to define the information included for its use in the lsm_prop.
-SELinux includes a u32 secid. Smack includes a pointer into its
-global label list. The conditional compilation based on feature
-inclusion is contained in the include/lsm files.
+Where did we land on all of this?  Unless I missed a thread somewhere,
+it looks like the discussion trailed off without any resolution on if
+we are okay with a potentially (interruptible) deadlock?
 
-Suggested-by: Paul Moore <paul@paul-moore.com>
-Signed-off-by: Casey Schaufler <casey@schaufler-ca.com>
-Cc: apparmor@lists.ubuntu.com
-Cc: bpf@vger.kernel.org
-Cc: selinux@vger.kernel.org
-Cc: linux-security-module@vger.kernel.org
----
- include/linux/lsm/apparmor.h | 17 +++++++++++++++++
- include/linux/lsm/bpf.h      | 16 ++++++++++++++++
- include/linux/lsm/selinux.h  | 16 ++++++++++++++++
- include/linux/lsm/smack.h    | 17 +++++++++++++++++
- include/linux/security.h     | 20 ++++++++++++++++++++
- 5 files changed, 86 insertions(+)
- create mode 100644 include/linux/lsm/apparmor.h
- create mode 100644 include/linux/lsm/bpf.h
- create mode 100644 include/linux/lsm/selinux.h
- create mode 100644 include/linux/lsm/smack.h
-
-diff --git a/include/linux/lsm/apparmor.h b/include/linux/lsm/apparmor.h
-new file mode 100644
-index 000000000000..612cbfacb072
---- /dev/null
-+++ b/include/linux/lsm/apparmor.h
-@@ -0,0 +1,17 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Linux Security Module interface to other subsystems.
-+ * AppArmor presents single pointer to an aa_label structure.
-+ */
-+#ifndef __LINUX_LSM_APPARMOR_H
-+#define __LINUX_LSM_APPARMOR_H
-+
-+struct aa_label;
-+
-+struct lsm_prop_apparmor {
-+#ifdef CONFIG_SECURITY_APPARMOR
-+	struct aa_label *label;
-+#endif
-+};
-+
-+#endif /* ! __LINUX_LSM_APPARMOR_H */
-diff --git a/include/linux/lsm/bpf.h b/include/linux/lsm/bpf.h
-new file mode 100644
-index 000000000000..8106e206fcef
---- /dev/null
-+++ b/include/linux/lsm/bpf.h
-@@ -0,0 +1,16 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Linux Security Module interface to other subsystems.
-+ * BPF may present a single u32 value.
-+ */
-+#ifndef __LINUX_LSM_BPF_H
-+#define __LINUX_LSM_BPF_H
-+#include <linux/types.h>
-+
-+struct lsm_prop_bpf {
-+#ifdef CONFIG_BPF_LSM
-+	u32 secid;
-+#endif
-+};
-+
-+#endif /* ! __LINUX_LSM_BPF_H */
-diff --git a/include/linux/lsm/selinux.h b/include/linux/lsm/selinux.h
-new file mode 100644
-index 000000000000..9455a6b5b910
---- /dev/null
-+++ b/include/linux/lsm/selinux.h
-@@ -0,0 +1,16 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Linux Security Module interface to other subsystems.
-+ * SELinux presents a single u32 value which is known as a secid.
-+ */
-+#ifndef __LINUX_LSM_SELINUX_H
-+#define __LINUX_LSM_SELINUX_H
-+#include <linux/types.h>
-+
-+struct lsm_prop_selinux {
-+#ifdef CONFIG_SECURITY_SELINUX
-+	u32 secid;
-+#endif
-+};
-+
-+#endif /* ! __LINUX_LSM_SELINUX_H */
-diff --git a/include/linux/lsm/smack.h b/include/linux/lsm/smack.h
-new file mode 100644
-index 000000000000..ff730dd7a734
---- /dev/null
-+++ b/include/linux/lsm/smack.h
-@@ -0,0 +1,17 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Linux Security Module interface to other subsystems.
-+ * Smack presents a pointer into the global Smack label list.
-+ */
-+#ifndef __LINUX_LSM_SMACK_H
-+#define __LINUX_LSM_SMACK_H
-+
-+struct smack_known;
-+
-+struct lsm_prop_smack {
-+#ifdef CONFIG_SECURITY_SMACK
-+	struct smack_known *skp;
-+#endif
-+};
-+
-+#endif /* ! __LINUX_LSM_SMACK_H */
-diff --git a/include/linux/security.h b/include/linux/security.h
-index 1390f1efb4f0..1027c802cc8c 100644
---- a/include/linux/security.h
-+++ b/include/linux/security.h
-@@ -34,6 +34,10 @@
- #include <linux/sockptr.h>
- #include <linux/bpf.h>
- #include <uapi/linux/lsm.h>
-+#include <linux/lsm/selinux.h>
-+#include <linux/lsm/smack.h>
-+#include <linux/lsm/apparmor.h>
-+#include <linux/lsm/bpf.h>
- 
- struct linux_binprm;
- struct cred;
-@@ -140,6 +144,22 @@ enum lockdown_reason {
- 	LOCKDOWN_CONFIDENTIALITY_MAX,
- };
- 
-+/* scaffolding */
-+struct lsm_prop_scaffold {
-+	u32 secid;
-+};
-+
-+/*
-+ * Data exported by the security modules
-+ */
-+struct lsm_prop {
-+	struct lsm_prop_selinux selinux;
-+	struct lsm_prop_smack smack;
-+	struct lsm_prop_apparmor apparmor;
-+	struct lsm_prop_bpf bpf;
-+	struct lsm_prop_scaffold scaffold;
-+};
-+
- extern const char *const lockdown_reasons[LOCKDOWN_CONFIDENTIALITY_MAX+1];
- extern u32 lsm_active_cnt;
- extern const struct lsm_id *lsm_idlist[];
--- 
-2.46.0
-
+--=20
+paul-moore.com
 
