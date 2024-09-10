@@ -2,30 +2,33 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D9AD9729A3
-	for <lists+apparmor@lfdr.de>; Tue, 10 Sep 2024 08:37:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9914B9729E2
+	for <lists+apparmor@lfdr.de>; Tue, 10 Sep 2024 08:57:21 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1snuVR-00007u-3T; Tue, 10 Sep 2024 06:37:41 +0000
+	id 1snuoJ-0002Bd-Hn; Tue, 10 Sep 2024 06:57:11 +0000
 Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
  helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1snuVO-00007g-Qu
- for apparmor@lists.ubuntu.com; Tue, 10 Sep 2024 06:37:38 +0000
+ id 1snuoI-0002BS-3z
+ for apparmor@lists.ubuntu.com; Tue, 10 Sep 2024 06:57:10 +0000
 Received: from [192.168.192.84] (unknown [50.39.103.33])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id C7A7B3F815; 
- Tue, 10 Sep 2024 06:37:36 +0000 (UTC)
-Message-ID: <41b11740-65aa-4015-86d1-c98f8354846e@canonical.com>
-Date: Mon, 9 Sep 2024 23:37:34 -0700
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 2BAB23F2E4; 
+ Tue, 10 Sep 2024 06:57:07 +0000 (UTC)
+Message-ID: <46fc455c-385c-44fb-b194-0fd046f6d21c@canonical.com>
+Date: Mon, 9 Sep 2024 23:57:05 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Leesoo Ahn <lsahn@ooseel.net>
-References: <20240709030751.3825748-1-lsahn@wewakecorp.com>
+To: Shen Lichuan <shenlichuan@vivo.com>, Paul Moore <paul@paul-moore.com>,
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
+ apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20240821072238.3028-1-shenlichuan@vivo.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -71,11 +74,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20240709030751.3825748-1-lsahn@wewakecorp.com>
+In-Reply-To: <20240821072238.3028-1-shenlichuan@vivo.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH] apparmor: domain: clean up duplicated parts
- of handle_onexec()
+Subject: Re: [apparmor] [PATCH v1] security/apparmor: remove duplicate
+ unpacking in unpack_perm function
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -87,85 +90,36 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Paul Moore <paul@paul-moore.com>, linux-kernel@vger.kernel.org,
- apparmor@lists.ubuntu.com, James Morris <jmorris@namei.org>,
- linux-security-module@vger.kernel.org, "Serge E. Hallyn" <serge@hallyn.com>
+Cc: opensource.kernel@vivo.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 7/8/24 20:07, Leesoo Ahn wrote:
-> Regression test of AppArmor finished without any failures.
+On 8/21/24 00:22, Shen Lichuan wrote:
+> The code was unpacking the 'allow' parameter twice.
+> This change removes the duplicate part.
 > 
-> PASSED: aa_exec access attach_disconnected at_secure introspect capabilities
-> changeprofile onexec changehat changehat_fork changehat_misc chdir clone
-> coredump deleted e2e environ exec exec_qual fchdir fd_inheritance fork i18n
-> link link_subset mkdir mmap mount mult_mount named_pipe namespaces net_raw
-> open openat pipe pivot_root posix_ipc ptrace pwrite query_label regex rename
-> readdir rw socketpair swap sd_flags setattr symlink syscall sysv_ipc tcp
-> unix_fd_server unix_socket_pathname unix_socket_abstract unix_socket_unnamed
-> unix_socket_autobind unlink userns xattrs xattrs_profile longpath nfs
-> exec_stack aa_policy_cache nnp stackonexec stackprofile
-> FAILED:
-> make: Leaving directory '/apparmor/tests/regression/apparmor'
-> 
-> Signed-off-by: Leesoo Ahn <lsahn@ooseel.net>
+> Signed-off-by: Shen Lichuan <shenlichuan@vivo.com>
 
-Acked-by: John Johansen <john.johansen@canonical.com>
+NAK, this would break the unpack. The first entry is actually a reserved
+value and is just being thrown away atm. Instead of double unpacking to
+perms->allow we could unpack it to a temp variable that just gets discarded
 
-this was pulled into my tree, sorry for missing the reply earlier
 
 > ---
->   security/apparmor/domain.c | 37 +++++++++++--------------------------
->   1 file changed, 11 insertions(+), 26 deletions(-)
+>   security/apparmor/policy_unpack.c | 1 -
+>   1 file changed, 1 deletion(-)
 > 
-> diff --git a/security/apparmor/domain.c b/security/apparmor/domain.c
-> index 571158ec6188..b73e01b512c2 100644
-> --- a/security/apparmor/domain.c
-> +++ b/security/apparmor/domain.c
-> @@ -822,33 +822,18 @@ static struct aa_label *handle_onexec(const struct cred *subj_cred,
->   	AA_BUG(!bprm);
->   	AA_BUG(!buffer);
+> diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
+> index 5a570235427d..4ec1e1251012 100644
+> --- a/security/apparmor/policy_unpack.c
+> +++ b/security/apparmor/policy_unpack.c
+> @@ -649,7 +649,6 @@ static bool unpack_perm(struct aa_ext *e, u32 version, struct aa_perms *perm)
+>   		return false;
 >   
-> -	if (!stack) {
-> -		error = fn_for_each_in_ns(label, profile,
-> -				profile_onexec(subj_cred, profile, onexec, stack,
-> -					       bprm, buffer, cond, unsafe));
-> -		if (error)
-> -			return ERR_PTR(error);
-> -		new = fn_label_build_in_ns(label, profile, GFP_KERNEL,
-> -				aa_get_newest_label(onexec),
-> -				profile_transition(subj_cred, profile, bprm,
-> -						   buffer,
-> -						   cond, unsafe));
-> -
-> -	} else {
-> -		/* TODO: determine how much we want to loosen this */
-> -		error = fn_for_each_in_ns(label, profile,
-> -				profile_onexec(subj_cred, profile, onexec, stack, bprm,
-> -					       buffer, cond, unsafe));
-> -		if (error)
-> -			return ERR_PTR(error);
-> -		new = fn_label_build_in_ns(label, profile, GFP_KERNEL,
-> -				aa_label_merge(&profile->label, onexec,
-> -					       GFP_KERNEL),
-> -				profile_transition(subj_cred, profile, bprm,
-> -						   buffer,
-> -						   cond, unsafe));
-> -	}
-> +	/* TODO: determine how much we want to loosen this */
-> +	error = fn_for_each_in_ns(label, profile,
-> +			profile_onexec(subj_cred, profile, onexec, stack,
-> +				       bprm, buffer, cond, unsafe));
-> +	if (error)
-> +		return ERR_PTR(error);
->   
-> +	new = fn_label_build_in_ns(label, profile, GFP_KERNEL,
-> +			stack ? aa_label_merge(&profile->label, onexec, GFP_KERNEL)
-> +			      : aa_get_newest_label(onexec),
-> +			profile_transition(subj_cred, profile, bprm,
-> +					   buffer, cond, unsafe));
->   	if (new)
->   		return new;
->   
+>   	return	aa_unpack_u32(e, &perm->allow, NULL) &&
+> -		aa_unpack_u32(e, &perm->allow, NULL) &&
+>   		aa_unpack_u32(e, &perm->deny, NULL) &&
+>   		aa_unpack_u32(e, &perm->subtree, NULL) &&
+>   		aa_unpack_u32(e, &perm->cond, NULL) &&
 
 
