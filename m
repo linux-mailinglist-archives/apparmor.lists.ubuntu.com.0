@@ -2,31 +2,33 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 390DF97242D
-	for <lists+apparmor@lfdr.de>; Mon,  9 Sep 2024 23:06:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 877AB972976
+	for <lists+apparmor@lfdr.de>; Tue, 10 Sep 2024 08:22:47 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1snla5-0001Vt-A0; Mon, 09 Sep 2024 21:05:53 +0000
-Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
- helo=smtp-relay-canonical-1.canonical.com)
+	id 1snuGo-0006xK-KV; Tue, 10 Sep 2024 06:22:34 +0000
+Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
+ helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1snla3-0001Vg-V3
- for apparmor@lists.ubuntu.com; Mon, 09 Sep 2024 21:05:51 +0000
+ id 1snuGn-0006x9-Ao
+ for apparmor@lists.ubuntu.com; Tue, 10 Sep 2024 06:22:33 +0000
 Received: from [192.168.192.84] (unknown [50.39.103.33])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 3CE233F385
- for <apparmor@lists.ubuntu.com>; Mon,  9 Sep 2024 21:05:51 +0000 (UTC)
-Message-ID: <26b05be6-5922-453a-9b0a-66510c1e4565@canonical.com>
-Date: Mon, 9 Sep 2024 14:05:49 -0700
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id C6E1E3F2C6; 
+ Tue, 10 Sep 2024 06:22:31 +0000 (UTC)
+Message-ID: <26d111d1-f625-43f3-8521-9636ffa34768@canonical.com>
+Date: Mon, 9 Sep 2024 23:22:29 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: John Johansen <john.johansen@canonical.com>
-To: apparmor <apparmor@lists.ubuntu.com>
+To: Hongbo Li <lihongbo22@huawei.com>, paul@paul-moore.com,
+ jmorris@namei.org, serge@hallyn.com
+References: <20240828122618.3697392-1-lihongbo22@huawei.com>
 Content-Language: en-US
+From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
  xsFNBE5mrPoBEADAk19PsgVgBKkImmR2isPQ6o7KJhTTKjJdwVbkWSnNn+o6Up5knKP1f49E
  BQlceWg1yp/NwbR8ad+eSEO/uma/K+PqWvBptKC9SWD97FG4uB4/caomLEU97sLQMtnvGWdx
@@ -70,9 +72,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
+In-Reply-To: <20240828122618.3697392-1-lihongbo22@huawei.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: [apparmor] irc meeting Tues Sept 10
+Subject: Re: [apparmor] [PATCH -next] apparmor: Use IS_ERR_OR_NULL() helper
+	function
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -84,15 +88,37 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-The next irc meeting is Tuesday Sept 10, at 18:00 UTC in #apparmor on oftc.net
+On 8/28/24 05:26, Hongbo Li wrote:
+> Use the IS_ERR_OR_NULL() helper instead of open-coding a
+> NULL and an error pointer checks to simplify the code and
+> improve readability.
+> 
+> Signed-off-by: Hongbo Li <lihongbo22@huawei.com>
 
-Please update the agenda https://gitlab.com/apparmor/apparmor/wikis/MeetingAgenda or reply to this mail if you have items you want to add
+Acked-by: John Johansen <john.johansen@canonical.com>
 
+I have pulled this into my tree
 
-
-
+> ---
+>   security/apparmor/path.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/security/apparmor/path.c b/security/apparmor/path.c
+> index 45ec994b558d..d6c74c357ffd 100644
+> --- a/security/apparmor/path.c
+> +++ b/security/apparmor/path.c
+> @@ -130,7 +130,7 @@ static int d_namespace_path(const struct path *path, char *buf, char **name,
+>   	/* handle error conditions - and still allow a partial path to
+>   	 * be returned.
+>   	 */
+> -	if (!res || IS_ERR(res)) {
+> +	if (IS_ERR_OR_NULL(res)) {
+>   		if (PTR_ERR(res) == -ENAMETOOLONG) {
+>   			error = -ENAMETOOLONG;
+>   			*name = buf;
 
 
