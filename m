@@ -2,67 +2,59 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A962978BD1
-	for <lists+apparmor@lfdr.de>; Sat, 14 Sep 2024 01:21:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0ED0B979FAE
+	for <lists+apparmor@lfdr.de>; Mon, 16 Sep 2024 12:46:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1spFbb-000507-Py; Fri, 13 Sep 2024 23:21:35 +0000
-Received: from smtp-relay-internal-0.internal ([10.131.114.225]
- helo=smtp-relay-internal-0.canonical.com)
+	id 1sq9FR-0006Y4-Lv; Mon, 16 Sep 2024 10:46:25 +0000
+Received: from mail-yb1-f175.google.com ([209.85.219.175])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <ryan.lee@canonical.com>)
- id 1spFba-0004zR-1A
- for apparmor@lists.ubuntu.com; Fri, 13 Sep 2024 23:21:34 +0000
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com
- [209.85.215.199])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id B6F473F68D
- for <apparmor@lists.ubuntu.com>; Fri, 13 Sep 2024 23:21:33 +0000 (UTC)
-Received: by mail-pg1-f199.google.com with SMTP id
- 41be03b00d2f7-7d50c3d0f1aso1226291a12.3
- for <apparmor@lists.ubuntu.com>; Fri, 13 Sep 2024 16:21:33 -0700 (PDT)
+ (Exim 4.86_2) (envelope-from <paul@paul-moore.com>)
+ id 1sq9FO-0006X9-UN
+ for apparmor@lists.ubuntu.com; Mon, 16 Sep 2024 10:46:23 +0000
+Received: by mail-yb1-f175.google.com with SMTP id
+ 3f1490d57ef6-e026a2238d8so2637968276.0
+ for <apparmor@lists.ubuntu.com>; Mon, 16 Sep 2024 03:46:22 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1726269692; x=1726874492;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1726483582; x=1727088382;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=DjKX833wQjlQnNYvFehkB5ncwRsrmZKplKm5tqChim8=;
- b=OFr7RnA3m/47yAhoJ+d7g7hN/Jb8VaOySR28tl4lByNzYMAOdUIWtTy/2pzKYKonLZ
- lnQFaeY4vOic8dL4hhcFZCFxvPGVtRRa5OUfxS4A/r1WPy/1Dj607oY3lDDFsxfLBJ3F
- bUEan6YMuniOnZkIK/pN6ID61AgGxqt4/etxO/5+FsYz6fktYj5qCz6+rV1y3Wzz4AYC
- fVQ4reFBdzgxxzdo0E5EROxrTmIynM0wHnRrqlFqhDClroDqIfcUckRz3JgrBxWwuXhn
- hT0Ggcy2fzLhO/+EJX26+WRbp6EnTT3ceZotAy7wVPAytge9MFcPkNpv34upJaQocCGl
- aPFg==
-X-Gm-Message-State: AOJu0Yw4N+QfP2Ys7Lt4HFmxhjKef6MfnM7U98iHejomY+kU4Ghlaj7z
- SVm9eI+kbhQ7d3zlzGLo1otXtBEnOHEvUIPQoTqROH0QrlqqwWhjdv8WSk2cWLUbRLf7yCnexwH
- c9U3Pt2RDlZ6KsMnJy0zPFkgV/lh+v9DndjBMy/DgpPGttyyFdKPEOt22fsBgvpo6V+kVbx415y
- 0vNzDXCQ==
-X-Received: by 2002:a05:6300:42:b0:1cf:6c87:89e5 with SMTP id
- adf61e73a8af0-1d112eaf2f9mr6630391637.48.1726269692235; 
- Fri, 13 Sep 2024 16:21:32 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IExKKTxSoeNeazDPSFMgk1fGNcIbju/IjS17e1/t9NlIKt52rMPARUnsAcObyYRThvqgccS0g==
-X-Received: by 2002:a05:6300:42:b0:1cf:6c87:89e5 with SMTP id
- adf61e73a8af0-1d112eaf2f9mr6630360637.48.1726269691725; 
- Fri, 13 Sep 2024 16:21:31 -0700 (PDT)
-Received: from ryan-lee-laptop-13-amd.. (c-76-103-38-92.hsd1.ca.comcast.net.
- [76.103.38.92]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-71944ab507asm112103b3a.50.2024.09.13.16.21.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Sep 2024 16:21:31 -0700 (PDT)
-From: Ryan Lee <ryan.lee@canonical.com>
-To: apparmor@lists.ubuntu.com
-Date: Fri, 13 Sep 2024 16:21:00 -0700
-Message-ID: <20240913232104.1632869-3-ryan.lee@canonical.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240913232104.1632869-1-ryan.lee@canonical.com>
-References: <20240913232104.1632869-1-ryan.lee@canonical.com>
+ bh=hOot1WAmO0n8LqJvNiku2kLrm8KQvY7N+dDNwBSEg74=;
+ b=KAQd4DpyGg2lwLeIuTB7MopmG1VhSCqJlPYjGmF9zWDhr0FxyrTHRLph2RG85Fspy4
+ KJ6koVC0eC2H0DQevnTdL0PE3STTLraWmp9C3Srrkq7z5xGvK0Gnt8g9HnbM1CZyDLiH
+ 9vLSfzqgs8vjNMmeUiC0lUluhrcrsWFCbTnovOkeYk5MXfzr+E/v7bU/EDJDH1wCLqY8
+ nfBQkLCi8kAU4brV3QcxxHCVsdAy9Q5aitGfXePTp6GVII4HE9qkP+3QflB59bEgGKvX
+ /FkCNs0xxJ5mrCOb3pE1qK6LlDhxJ7I4Y2B8U8PRK2V9KIM3xGHYRiYY6wMin/y+eJhb
+ z/QA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXc088EvCIv909diih4JxTa9uS1aAHb6rKHJUMLwlIfLztGy7AfWI7GQcsOboA98o/VfccSmjDLzQ==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0Ywo1vucJwMXMAwV6yb0jYRK7osxY9iKRna2eR2CTbNbAmuPJ4vC
+ zvtYqo/WMaTzN14vw67NG8vB8v9nppj7wPe9hEBSguj30hKh6kT2Zf+FfaZlVML4SdKSLWgNNAp
+ xW03YdFEvC8wtYt0s+09ge6PzvtaqQPxy3Llb
+X-Google-Smtp-Source: AGHT+IFPT7p70pyzFPnGYf9oumwIpGAwqpVNEQ2qCQe0d4QnaPMyQB86xSQEpMCg12204Y4OQ+FOje+z2iOX3Dd9gQg=
+X-Received: by 2002:a05:6902:1883:b0:e1a:8e31:e451 with SMTP id
+ 3f1490d57ef6-e1daff6229bmr8957471276.10.1726483581486; Mon, 16 Sep 2024
+ 03:46:21 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [apparmor] [RFC,
-	PATCH 3/3] apparmor: Make the audit cap cache timeout a sysctl
+References: <20240805-remove-cred-transfer-v2-0-a2aa1d45e6b8@google.com>
+ <20240805-remove-cred-transfer-v2-1-a2aa1d45e6b8@google.com>
+ <2494949.1723751188@warthog.procyon.org.uk>
+ <CAG48ez2LBmS91fQVLYRYEaBHssj22NyUjB0HVtkDHUXDvDZ6EA@mail.gmail.com>
+ <CAHC9VhSPcy-xZ=X_CF8PRsAFMSeP8-VppxKr3Sz3EqMWTEs-Cw@mail.gmail.com>
+In-Reply-To: <CAHC9VhSPcy-xZ=X_CF8PRsAFMSeP8-VppxKr3Sz3EqMWTEs-Cw@mail.gmail.com>
+From: Paul Moore <paul@paul-moore.com>
+Date: Mon, 16 Sep 2024 06:46:10 -0400
+Message-ID: <CAHC9VhS5ar0aU8Q6Ky133o=zYMHYRf=wxzTpxP+dtA=qunhcmw@mail.gmail.com>
+To: Jann Horn <jannh@google.com>, David Howells <dhowells@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=209.85.219.175; envelope-from=paul@paul-moore.com;
+ helo=mail-yb1-f175.google.com
+Subject: Re: [apparmor] Can KEYCTL_SESSION_TO_PARENT be dropped entirely? --
+ was Re: [PATCH v2 1/2] KEYS: use synchronous task work for changing parent
+ credentials
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -74,95 +66,65 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: linux-security-module@vger.kernel.org,
+ Jeffrey Altman <jaltman@auristor.com>, selinux@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Stephen Smalley <stephen.smalley.work@gmail.com>,
+ apparmor@lists.ubuntu.com, James Morris <jmorris@namei.org>,
+ Ondrej Mosnacek <omosnace@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>,
+ keyrings@vger.kernel.org, =?UTF-8?Q?G=C3=BCnther_Noack?= <gnoack@google.com>,
+ =?UTF-8?B?TWlja2HDq2wgU2FsYcO8bg==?= <mic@digikod.net>,
+ openafs-devel@openafs.org, linux-afs@lists.infradead.org,
+ "Serge E. Hallyn" <serge@hallyn.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Instead of hardcoding the Apparmor capability audit cache timeout, expose
-it as a sysctl. This uses the helper introduced in the previous patch of
-this series.
+On Tue, Sep 10, 2024 at 4:49=E2=80=AFPM Paul Moore <paul@paul-moore.com> wr=
+ote:
+> On Thu, Aug 15, 2024 at 4:00=E2=80=AFPM Jann Horn <jannh@google.com> wrot=
+e:
+> > On Thu, Aug 15, 2024 at 9:46=E2=80=AFPM David Howells <dhowells@redhat.=
+com> wrote:
+> > > Jann Horn <jannh@google.com> wrote:
+> > >
+> > > > Rewrite keyctl_session_to_parent() to run task work on the parent
+> > > > synchronously, so that any errors that happen in the task work can =
+be
+> > > > plumbed back into the syscall return value in the child.
+> > >
+> > > The main thing I worry about is if there's a way to deadlock the chil=
+d and the
+> > > parent against each other.  vfork() for example.
+> >
+> > Yes - I think it would work fine for scenarios like using
+> > KEYCTL_SESSION_TO_PARENT from a helper binary against the shell that
+> > launched the helper (which I think is the intended usecase?), but
+> > there could theoretically be constellations where it would cause an
+> > (interruptible) hang if the parent is stuck in
+> > uninterruptible/killable sleep.
+> >
+> > I think vfork() is rather special in that it does a killable wait for
+> > the child to exit or execute; and based on my understanding of the
+> > intended usecase of KEYCTL_SESSION_TO_PARENT, I think normally
+> > KEYCTL_SESSION_TO_PARENT would only be used by a child that has gone
+> > through execve?
+>
+> Where did we land on all of this?  Unless I missed a thread somewhere,
+> it looks like the discussion trailed off without any resolution on if
+> we are okay with a potentially (interruptible) deadlock?
 
-Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
----
- security/apparmor/capability.c         | 6 ++++--
- security/apparmor/include/capability.h | 2 ++
- security/apparmor/lsm.c                | 7 +++++++
- 3 files changed, 13 insertions(+), 2 deletions(-)
+As a potential tweak to this, what if we gave up on the idea of
+returning the error code so we could avoid the signal deadlock issue?
+I suppose there could be an issue if the parent was
+expecting/depending on keyring change from the child, but honestly, if
+the parent is relying on the kernel keyring and spawning a child
+process without restring the KEYCTL_SESSION_TO_PARENT then the parent
+really should be doing some sanity checks on the keyring after the
+child returns anyway.
 
-diff --git a/security/apparmor/capability.c b/security/apparmor/capability.c
-index 64005b3d0fcc..764b5dd93366 100644
---- a/security/apparmor/capability.c
-+++ b/security/apparmor/capability.c
-@@ -25,6 +25,8 @@
-  */
- #include "capability_names.h"
- 
-+unsigned int audit_cap_cache_timeout_us = 100;
-+
- struct aa_sfs_entry aa_sfs_entry_caps[] = {
- 	AA_SFS_FILE_STRING("mask", AA_SFS_CAPS_MASK),
- 	AA_SFS_FILE_BOOLEAN("extended", 1),
-@@ -68,12 +70,12 @@ static void audit_cb(struct audit_buffer *ab, void *va)
- static int audit_caps(struct apparmor_audit_data *ad, struct aa_profile *profile,
- 		      int cap, int error)
- {
--	const u64 AUDIT_CACHE_TIMEOUT_NS = 100*1000; /* 100 us */
- 	u64 audit_cache_expiration;
- 	struct aa_ruleset *rules = list_first_entry(&profile->rules,
- 						    typeof(*rules), list);
- 	struct audit_cache *ent;
- 	int type = AUDIT_APPARMOR_AUTO;
-+	u64 audit_cap_cache_timeout_ns = 1000*(u64) audit_cap_cache_timeout_us;
- 
- 	ad->error = error;
- 
-@@ -95,7 +97,7 @@ static int audit_caps(struct apparmor_audit_data *ad, struct aa_profile *profile
- 
- 	/* Do simple duplicate message elimination */
- 	ent = &get_cpu_var(audit_cache);
--	audit_cache_expiration = ent->ktime_ns_last_audited[cap] + AUDIT_CACHE_TIMEOUT_NS;
-+	audit_cache_expiration = ent->ktime_ns_last_audited[cap] + audit_cap_cache_timeout_ns;
- 	if (profile == ent->profile && cap_raised(ent->caps, cap)
- 			&& ktime_get_ns() <= audit_cache_expiration) {
- 		put_cpu_var(audit_cache);
-diff --git a/security/apparmor/include/capability.h b/security/apparmor/include/capability.h
-index 1ddcec2d1160..c38488b3fe00 100644
---- a/security/apparmor/include/capability.h
-+++ b/security/apparmor/include/capability.h
-@@ -34,6 +34,8 @@ struct aa_caps {
- 	kernel_cap_t extended;
- };
- 
-+extern unsigned int audit_cap_cache_timeout_us;
-+
- extern struct aa_sfs_entry aa_sfs_entry_caps[];
- 
- kernel_cap_t aa_profile_capget(struct aa_profile *profile);
-diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
-index b9a92e500242..4af50bd3628a 100644
---- a/security/apparmor/lsm.c
-+++ b/security/apparmor/lsm.c
-@@ -2480,6 +2480,13 @@ static struct ctl_table apparmor_sysctl_table[] = {
- 		.mode           = 0600,
- 		.proc_handler   = apparmor_dointvec,
- 	},
-+	{
-+		.procname       = "apparmor_audit_capability_dedup_timeout_us",
-+		.data           = &audit_cap_cache_timeout_us,
-+		.maxlen         = sizeof(unsigned int),
-+		.mode           = 0644,
-+		.proc_handler   = apparmor_can_read_douintvec,
-+	},
- 	{ }
- };
- 
--- 
-Major items I'm seeking input on (reason for RFC designation):
-- Whether to hardcode the expiration offset or whether to expose it as a sysctl
+I'm conflicted on the best way to solve this problem, but I think we
+need to fix this somehow as I believe the current behavior is broken
+...
 
-Items to bikeshed before merging:
-- Name for the sysctl
-- Name for the static variable that the sysctl writes to
-- Type for the sysctl variable
-(I used unsigned int to match the int type for the other sysctls, but semantically this should be a u64)
-
+--=20
+paul-moore.com
 
