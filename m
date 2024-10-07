@@ -2,58 +2,77 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14C0B98E934
-	for <lists+apparmor@lfdr.de>; Thu,  3 Oct 2024 06:45:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C20D9923E2
+	for <lists+apparmor@lfdr.de>; Mon,  7 Oct 2024 07:32:20 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1swDiX-0007tl-JA; Thu, 03 Oct 2024 04:45:33 +0000
-Received: from mail-pf1-f182.google.com ([209.85.210.182])
+	id 1sxgLi-0007uZ-31; Mon, 07 Oct 2024 05:32:02 +0000
+Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
+ helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <simeddon@gmail.com>)
- id 1svvzV-00089C-S8
- for apparmor@lists.ubuntu.com; Wed, 02 Oct 2024 09:49:54 +0000
-Received: by mail-pf1-f182.google.com with SMTP id
- d2e1a72fcca58-719b17b2da1so4725489b3a.0
- for <apparmor@lists.ubuntu.com>; Wed, 02 Oct 2024 02:49:53 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1727862592; x=1728467392;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Tnihw3sb3VGmUZFwHxGrK3Lpf3WXe1bOQ5reZibKIGo=;
- b=LAtbMya9KG93Qm3l8eBWi3BLsfcl8luaeiM/GhC2HskLNFW7FwkqwQ1S2/BIK1KbI0
- 0ePppJJx4zVPEvDPx4k9H79Kv+JnRsEZQcAq9vQGf5npedLRpxa5tMoSo5uEVbPq8lPz
- pTg9rB77L7G3Nr9gtW99jImnIskqMVej3IXJvpLOfTG9OHziADHQ7ONQ8aHyPH5TKtLk
- ybzrWUVrZzJyg4CETRFbF/MkoReWYG+InA8h63iEncxyZYANgi0rGSsuIxsWBOf9mwWL
- icH7OokKrVCo3y7m1Y8CL2v92ag6e5H3YsxFHPRjATRsS/ppR/ysWBupWYyGZI2MDkOJ
- OCmg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW+xIzw3QaoVaPD002Gb4uO7UsJmbuY3NRfuMlMedQkD8nkNZLEKsdTKQtL2orjkteSQYxSEGbrpQ==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0YyAe9wOJ8JcIJvugLckDwCT/ZDfhQTyfm/W2HEgDjOks51SIz2Q
- 5QyWJ5F6iUxrk6NMyWu+go1CtA8Ky5XTlVMjybj3+8umVV5Iiwjx
-X-Google-Smtp-Source: AGHT+IGlstoxziNyyA3CxGvU8FbKI2ebLTHoEA+l6SJ79nXW0FohJOxUzWVjDM4rFl2XiK+k4SrRFw==
-X-Received: by 2002:a05:6a00:170d:b0:718:dc17:3b83 with SMTP id
- d2e1a72fcca58-71dc5ca935fmr4613007b3a.16.1727862592014; 
- Wed, 02 Oct 2024 02:49:52 -0700 (PDT)
-Received: from BiscuitBobby.mec.ac.in ([210.212.232.142])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-71b2653717esm9400460b3a.204.2024.10.02.02.49.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 02 Oct 2024 02:49:51 -0700 (PDT)
-From: Siddharth Menon <simeddon@gmail.com>
-To: linux-doc@vger.kernel.org,
-	john.johansen@canonical.com,
-	corbet@lwn.net
-Date: Wed,  2 Oct 2024 15:19:40 +0530
-Message-Id: <20241002094940.55644-1-simeddon@gmail.com>
-X-Mailer: git-send-email 2.39.5
+ (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
+ id 1sxgLg-0007sy-EV
+ for apparmor@lists.ubuntu.com; Mon, 07 Oct 2024 05:32:00 +0000
+Received: from [192.168.192.84] (unknown [50.39.103.33])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id B0D663F136
+ for <apparmor@lists.ubuntu.com>; Mon,  7 Oct 2024 05:31:59 +0000 (UTC)
+Message-ID: <304ea634-16e5-4c97-8eee-fcb5bbaa0340@canonical.com>
+Date: Sun, 6 Oct 2024 22:31:56 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=209.85.210.182; envelope-from=simeddon@gmail.com;
- helo=mail-pf1-f182.google.com
-X-Mailman-Approved-At: Thu, 03 Oct 2024 04:45:32 +0000
-Subject: [apparmor] [PATCH V2 RESEND] Docs: Update LSM/apparmor.rst
+User-Agent: Mozilla Thunderbird
+From: John Johansen <john.johansen@canonical.com>
+To: apparmor <apparmor@lists.ubuntu.com>
+Content-Language: en-US
+Autocrypt: addr=john.johansen@canonical.com; keydata=
+ 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 lT9Q
+Organization: Canonical
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: [apparmor] irc meeting Tues Oct 8
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -65,41 +84,16 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Siddharth Menon <simeddon@gmail.com>, apparmor@lists.ubuntu.com,
- shuah@kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-After the deprecation of CONFIG_DEFAULT_SECURITY, it is no longer used
-to enable and configure AppArmor. Since kernel 5.0,
-`CONFIG_SECURITY_APPARMOR_BOOTPARAM_VALUE` is not used either.
-Instead, the CONFIG_LSM parameter manages the order and selection of LSMs.
+The next irc meeting is Tuesday Oct 8, at 18:00 UTC in #apparmor on oftc.net
 
-Signed-off-by: Siddharth Menon <simeddon@gmail.com>
----
- V1 -> V2: Removed historical information and addressed review comments
- Documentation/admin-guide/LSM/apparmor.rst | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+Please update the agenda https://gitlab.com/apparmor/apparmor/wikis/MeetingAgenda or reply to this mail if you have items you want to add
 
-diff --git a/Documentation/admin-guide/LSM/apparmor.rst b/Documentation/admin-guide/LSM/apparmor.rst
-index 6cf81bbd7ce8..47939ee89d74 100644
---- a/Documentation/admin-guide/LSM/apparmor.rst
-+++ b/Documentation/admin-guide/LSM/apparmor.rst
-@@ -18,8 +18,11 @@ set ``CONFIG_SECURITY_APPARMOR=y``
- 
- If AppArmor should be selected as the default security module then set::
- 
--   CONFIG_DEFAULT_SECURITY="apparmor"
--   CONFIG_SECURITY_APPARMOR_BOOTPARAM_VALUE=1
-+   CONFIG_DEFAULT_SECURITY_APPARMOR=y
-+
-+The CONFIG_LSM parameter manages the order and selection of LSMs.
-+Specify apparmor as the first "major" module (e.g. AppArmor, SELinux, Smack)
-+in the list.
- 
- Build the kernel
- 
--- 
-2.39.5
+
+
+
+
 
 
