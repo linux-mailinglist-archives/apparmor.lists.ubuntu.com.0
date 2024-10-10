@@ -2,82 +2,56 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 581C9999E0B
-	for <lists+apparmor@lfdr.de>; Fri, 11 Oct 2024 09:37:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D371999F0C
+	for <lists+apparmor@lfdr.de>; Fri, 11 Oct 2024 10:31:27 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1szACw-0000NY-Rt; Fri, 11 Oct 2024 07:37:06 +0000
-Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
- helo=smtp-relay-canonical-0.canonical.com)
+	id 1szB3J-0007K5-Gn; Fri, 11 Oct 2024 08:31:13 +0000
+Received: from mail-il1-f198.google.com ([209.85.166.198])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1szACv-0000NR-BP
- for apparmor@lists.ubuntu.com; Fri, 11 Oct 2024 07:37:05 +0000
-Received: from [192.168.192.84] (unknown [50.39.103.33])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 967D53F1E8; 
- Fri, 11 Oct 2024 07:37:02 +0000 (UTC)
-Message-ID: <3ca7f932-df55-44c5-86c4-0785fd15c50f@canonical.com>
-Date: Fri, 11 Oct 2024 00:36:59 -0700
+ (Exim 4.86_2) (envelope-from
+ <3nEkHZwkbAIs7DEzp00t6p44xs.v33v0t97t6r328t28.r31@M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com>)
+ id 1syjpm-0005n0-4Y
+ for apparmor@lists.ubuntu.com; Thu, 10 Oct 2024 03:27:26 +0000
+Received: by mail-il1-f198.google.com with SMTP id
+ e9e14a558f8ab-3a3a3a35f5bso6823335ab.2
+ for <apparmor@lists.ubuntu.com>; Wed, 09 Oct 2024 20:27:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1728530845; x=1729135645;
+ h=to:from:subject:message-id:date:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=jEx9yKuMGxDRrUtWwPljPyF1GgQ0nu0DmQ9JAD07cSo=;
+ b=uKMQyWhnBJUEadn6ekkaqUW8nl5EaBDspfAqLMxOuKqHGZ0ExudlFQSu10z8mcZzBX
+ zRS77sZbTCTrVBp/UU4Rv+j8b/DQPlVdf3XrJMRI1pOa0v6VHu4heOpkXBfnkAy1iggU
+ ynSMkKcLVa8bsnMAappTaqGYyPmznbKBZEfHVdGMtZTxLcd3DGBfWaC/I7crGiz4Mp6C
+ FHgqjkinulupaQGXgIAyKTe/c04ZxQLXTeU07gHeyL+aDdSMkYMpVAwypUo+4QW4VEv5
+ RYJpIChI7aP9l391EUUUyUYlC/uJmNn7gDjq3P634Sy5KT36iD9eVD1s0aiSk3pdVYdj
+ 4FpQ==
+X-Gm-Message-State: AOJu0YzMM/o1gOrgE7o+TEfL6LXuF47//ReoTiTxk0C7VlJCO7g26zYL
+ d4s3dZiFX6QWyQGA14Zutdh/PiWjcb3vWzJ0wBGyD4DHavI+K9l2+4BhhK5aRed0k/SeHrYdTjm
+ tauKchtbVFKL53xlyzjxAdchHAWQS3gkbqAUTICEVCBK6nwUnzOGJ5FQ=
+X-Google-Smtp-Source: AGHT+IHDU82AOk2ZEpKb4SnDnZQy26i42yEs9sTRQ7eK3b6pH4bNbiHHLXseYYnp2CbhKX5Kbmc8+aaB9Elbmi5KDJAk94TM5CQE
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Casey Schaufler <casey@schaufler-ca.com>, paul@paul-moore.com,
- linux-security-module@vger.kernel.org
-References: <20241009173222.12219-1-casey@schaufler-ca.com>
- <20241009173222.12219-2-casey@schaufler-ca.com>
-Content-Language: en-US
-From: John Johansen <john.johansen@canonical.com>
-Autocrypt: addr=john.johansen@canonical.com; keydata=
- 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 lT9Q
-Organization: Canonical
-In-Reply-To: <20241009173222.12219-2-casey@schaufler-ca.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH v4 01/13] LSM: Add the lsm_prop data
-	structure.
+X-Received: by 2002:a05:6e02:1a83:b0:3a3:4122:b56e with SMTP id
+ e9e14a558f8ab-3a397d1da78mr42417435ab.26.1728530844764; Wed, 09 Oct 2024
+ 20:27:24 -0700 (PDT)
+Date: Wed, 09 Oct 2024 20:27:24 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6707499c.050a0220.1139e6.0017.GAE@google.com>
+From: syzbot <syzbot+17bc8c5157022e18da8b@syzkaller.appspotmail.com>
+To: apparmor@lists.ubuntu.com, jmorris@namei.org, john.johansen@canonical.com, 
+ john@apparmor.net, linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-security-module@vger.kernel.org, paul@paul-moore.com, serge@hallyn.com, 
+ syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+Received-SPF: pass client-ip=209.85.166.198;
+ envelope-from=3nEkHZwkbAIs7DEzp00t6p44xs.v33v0t97t6r328t28.r31@M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+ helo=mail-il1-f198.google.com
+X-Mailman-Approved-At: Fri, 11 Oct 2024 08:31:12 +0000
+Subject: [apparmor] [syzbot] [apparmor?] [ext4?] INFO: rcu detected stall in
+	sys_getdents64
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -89,175 +63,162 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: keescook@chromium.org, penguin-kernel@i-love.sakura.ne.jp,
- stephen.smalley.work@gmail.com, apparmor@lists.ubuntu.com,
- linux-kernel@vger.kernel.org, jmorris@namei.org, selinux@vger.kernel.org,
- mic@digikod.net, bpf@vger.kernel.org, serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 10/9/24 10:32, Casey Schaufler wrote:
-> When more than one security module is exporting data to audit and
-> networking sub-systems a single 32 bit integer is no longer
-> sufficient to represent the data. Add a structure to be used instead.
-> 
-> The lsm_prop structure definition is intended to keep the LSM
-> specific information private to the individual security modules.
-> The module specific information is included in a new set of
-> header files under include/lsm. Each security module is allowed
-> to define the information included for its use in the lsm_prop.
-> SELinux includes a u32 secid. Smack includes a pointer into its
-> global label list. The conditional compilation based on feature
-> inclusion is contained in the include/lsm files.
-> 
-> Suggested-by: Paul Moore <paul@paul-moore.com>
-> Signed-off-by: Casey Schaufler <casey@schaufler-ca.com>
+Hello,
 
-Acked-by: John Johansen <john.johansen@canonical.com>
+syzbot found the following issue on:
 
-> Cc: apparmor@lists.ubuntu.com
-> Cc: bpf@vger.kernel.org
-> Cc: selinux@vger.kernel.org
-> Cc: linux-security-module@vger.kernel.org
-> ---
->   include/linux/lsm/apparmor.h | 17 +++++++++++++++++
->   include/linux/lsm/bpf.h      | 16 ++++++++++++++++
->   include/linux/lsm/selinux.h  | 16 ++++++++++++++++
->   include/linux/lsm/smack.h    | 17 +++++++++++++++++
->   include/linux/security.h     | 20 ++++++++++++++++++++
->   5 files changed, 86 insertions(+)
->   create mode 100644 include/linux/lsm/apparmor.h
->   create mode 100644 include/linux/lsm/bpf.h
->   create mode 100644 include/linux/lsm/selinux.h
->   create mode 100644 include/linux/lsm/smack.h
-> 
-> diff --git a/include/linux/lsm/apparmor.h b/include/linux/lsm/apparmor.h
-> new file mode 100644
-> index 000000000000..612cbfacb072
-> --- /dev/null
-> +++ b/include/linux/lsm/apparmor.h
-> @@ -0,0 +1,17 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Linux Security Module interface to other subsystems.
-> + * AppArmor presents single pointer to an aa_label structure.
-> + */
-> +#ifndef __LINUX_LSM_APPARMOR_H
-> +#define __LINUX_LSM_APPARMOR_H
-> +
-> +struct aa_label;
-> +
-> +struct lsm_prop_apparmor {
-> +#ifdef CONFIG_SECURITY_APPARMOR
-> +	struct aa_label *label;
-> +#endif
-> +};
-> +
-> +#endif /* ! __LINUX_LSM_APPARMOR_H */
-> diff --git a/include/linux/lsm/bpf.h b/include/linux/lsm/bpf.h
-> new file mode 100644
-> index 000000000000..8106e206fcef
-> --- /dev/null
-> +++ b/include/linux/lsm/bpf.h
-> @@ -0,0 +1,16 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Linux Security Module interface to other subsystems.
-> + * BPF may present a single u32 value.
-> + */
-> +#ifndef __LINUX_LSM_BPF_H
-> +#define __LINUX_LSM_BPF_H
-> +#include <linux/types.h>
-> +
-> +struct lsm_prop_bpf {
-> +#ifdef CONFIG_BPF_LSM
-> +	u32 secid;
-> +#endif
-> +};
-> +
-> +#endif /* ! __LINUX_LSM_BPF_H */
-> diff --git a/include/linux/lsm/selinux.h b/include/linux/lsm/selinux.h
-> new file mode 100644
-> index 000000000000..9455a6b5b910
-> --- /dev/null
-> +++ b/include/linux/lsm/selinux.h
-> @@ -0,0 +1,16 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Linux Security Module interface to other subsystems.
-> + * SELinux presents a single u32 value which is known as a secid.
-> + */
-> +#ifndef __LINUX_LSM_SELINUX_H
-> +#define __LINUX_LSM_SELINUX_H
-> +#include <linux/types.h>
-> +
-> +struct lsm_prop_selinux {
-> +#ifdef CONFIG_SECURITY_SELINUX
-> +	u32 secid;
-> +#endif
-> +};
-> +
-> +#endif /* ! __LINUX_LSM_SELINUX_H */
-> diff --git a/include/linux/lsm/smack.h b/include/linux/lsm/smack.h
-> new file mode 100644
-> index 000000000000..ff730dd7a734
-> --- /dev/null
-> +++ b/include/linux/lsm/smack.h
-> @@ -0,0 +1,17 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Linux Security Module interface to other subsystems.
-> + * Smack presents a pointer into the global Smack label list.
-> + */
-> +#ifndef __LINUX_LSM_SMACK_H
-> +#define __LINUX_LSM_SMACK_H
-> +
-> +struct smack_known;
-> +
-> +struct lsm_prop_smack {
-> +#ifdef CONFIG_SECURITY_SMACK
-> +	struct smack_known *skp;
-> +#endif
-> +};
-> +
-> +#endif /* ! __LINUX_LSM_SMACK_H */
-> diff --git a/include/linux/security.h b/include/linux/security.h
-> index b86ec2afc691..555249a8d121 100644
-> --- a/include/linux/security.h
-> +++ b/include/linux/security.h
-> @@ -34,6 +34,10 @@
->   #include <linux/sockptr.h>
->   #include <linux/bpf.h>
->   #include <uapi/linux/lsm.h>
-> +#include <linux/lsm/selinux.h>
-> +#include <linux/lsm/smack.h>
-> +#include <linux/lsm/apparmor.h>
-> +#include <linux/lsm/bpf.h>
->   
->   struct linux_binprm;
->   struct cred;
-> @@ -152,6 +156,22 @@ enum lockdown_reason {
->   	LOCKDOWN_CONFIDENTIALITY_MAX,
->   };
->   
-> +/* scaffolding */
-> +struct lsm_prop_scaffold {
-> +	u32 secid;
-> +};
-> +
-> +/*
-> + * Data exported by the security modules
-> + */
-> +struct lsm_prop {
-> +	struct lsm_prop_selinux selinux;
-> +	struct lsm_prop_smack smack;
-> +	struct lsm_prop_apparmor apparmor;
-> +	struct lsm_prop_bpf bpf;
-> +	struct lsm_prop_scaffold scaffold;
-> +};
-> +
->   extern const char *const lockdown_reasons[LOCKDOWN_CONFIDENTIALITY_MAX+1];
->   extern u32 lsm_active_cnt;
->   extern const struct lsm_id *lsm_idlist[];
+HEAD commit:    fc20a3e57247 Merge tag 'for-linus-6.12a-rc2-tag' of git://..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=1083b380580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ba92623fdea824c9
+dashboard link: https://syzkaller.appspot.com/bug?extid=17bc8c5157022e18da8b
+compiler:       Debian clang version 15.0.6, GNU ld (GNU Binutils for Debian) 2.40
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=135f7d27980000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1483b380580000
 
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/2ad9af7b84b4/disk-fc20a3e5.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/1afa462ca485/vmlinux-fc20a3e5.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/75c0900b4786/bzImage-fc20a3e5.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+17bc8c5157022e18da8b@syzkaller.appspotmail.com
+
+bridge0: received packet on veth0_to_bridge with own address as source address (addr:aa:aa:aa:aa:aa:0c, vlan:0)
+rcu: INFO: rcu_preempt detected stalls on CPUs/tasks:
+rcu: 	Tasks blocked on level-0 rcu_node (CPUs 0-1): P5244/1:b..l
+rcu: 	(detected by 1, t=10503 jiffies, g=5253, q=1466 ncpus=2)
+task:syz-executor116 state:R  running task     stack:18800 pid:5244  tgid:5244  ppid:5243   flags:0x00000002
+Call Trace:
+ <TASK>
+ context_switch kernel/sched/core.c:5315 [inline]
+ __schedule+0x1895/0x4b30 kernel/sched/core.c:6675
+ preempt_schedule_irq+0xfb/0x1c0 kernel/sched/core.c:6997
+ irqentry_exit+0x5e/0x90 kernel/entry/common.c:354
+ asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:702
+RIP: 0010:lock_release+0x658/0xa30 kernel/locking/lockdep.c:5850
+Code: 3c 3b 00 74 08 4c 89 f7 e8 b5 15 8e 00 f6 84 24 91 00 00 00 02 75 77 41 f7 c5 00 02 00 00 74 01 fb 48 c7 44 24 60 0e 36 e0 45 <4b> c7 04 27 00 00 00 00 4b c7 44 27 08 00 00 00 00 65 48 8b 04 25
+RSP: 0018:ffffc90003da79e0 EFLAGS: 00000206
+RAX: 0000000000000001 RBX: 1ffff920007b4f4e RCX: ffffc90003da7a03
+RDX: 0000000000000001 RSI: ffffffff8c0adc40 RDI: ffffffff8c60f920
+RBP: ffffc90003da7b10 R08: ffffffff901ceaaf R09: 1ffffffff2039d55
+R10: dffffc0000000000 R11: fffffbfff2039d56 R12: 1ffff920007b4f48
+R13: 0000000000000246 R14: ffffc90003da7a70 R15: dffffc0000000000
+ rcu_lock_release include/linux/rcupdate.h:347 [inline]
+ rcu_read_unlock include/linux/rcupdate.h:880 [inline]
+ aa_file_perm+0x3ea/0xf50 security/apparmor/file.c:599
+ common_file_perm+0x19c/0x210 security/apparmor/lsm.c:533
+ security_file_permission+0x90/0x280 security/security.c:2839
+ iterate_dir+0xa9/0x800 fs/readdir.c:93
+ __do_sys_getdents64 fs/readdir.c:407 [inline]
+ __se_sys_getdents64+0x1d3/0x4a0 fs/readdir.c:392
+ do_syscall_x64 arch/x86/entry/common.c:52 [inline]
+ do_syscall_64+0xf3/0x230 arch/x86/entry/common.c:83
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fe260ad3293
+RSP: 002b:00007fe260c3eb68 EFLAGS: 00000293 ORIG_RAX: 00000000000000d9
+RAX: ffffffffffffffda RBX: 000055557789b810 RCX: 00007fe260ad3293
+RDX: 0000000000008000 RSI: 000055557789b810 RDI: 0000000000000003
+RBP: 000055557789b7e4 R08: 0000000029585289 R09: 7fffffffffffffff
+R10: 0000000000001000 R11: 0000000000000293 R12: ffffffffffffffb8
+R13: 0000000000000016 R14: 000055557789b7e0 R15: 000000000000000e
+ </TASK>
+rcu: rcu_preempt kthread starved for 6018 jiffies! g5253 f0x0 RCU_GP_WAIT_FQS(5) ->state=0x0 ->cpu=1
+rcu: 	Unless rcu_preempt kthread gets sufficient CPU time, OOM is now expected behavior.
+rcu: RCU grace-period kthread stack dump:
+task:rcu_preempt     state:R  running task     stack:25816 pid:17    tgid:17    ppid:2      flags:0x00004000
+Call Trace:
+ <TASK>
+ context_switch kernel/sched/core.c:5315 [inline]
+ __schedule+0x1895/0x4b30 kernel/sched/core.c:6675
+ __schedule_loop kernel/sched/core.c:6752 [inline]
+ schedule+0x14b/0x320 kernel/sched/core.c:6767
+ schedule_timeout+0x1be/0x310 kernel/time/timer.c:2615
+ rcu_gp_fqs_loop+0x2df/0x1330 kernel/rcu/tree.c:2045
+ rcu_gp_kthread+0xa7/0x3b0 kernel/rcu/tree.c:2247
+ kthread+0x2f0/0x390 kernel/kthread.c:389
+ ret_from_fork+0x4b/0x80 arch/x86/kernel/process.c:147
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:244
+ </TASK>
+rcu: Stack dump where RCU GP kthread last ran:
+CPU: 1 UID: 0 PID: 24 Comm: ksoftirqd/1 Not tainted 6.12.0-rc1-syzkaller-00330-gfc20a3e57247 #0
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/13/2024
+RIP: 0010:preempt_count arch/x86/include/asm/preempt.h:26 [inline]
+RIP: 0010:check_kcov_mode kernel/kcov.c:183 [inline]
+RIP: 0010:__sanitizer_cov_trace_pc+0x11/0x70 kernel/kcov.c:217
+Code: 5b e9 f3 c8 5d 00 0f 1f 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa 48 8b 04 24 65 48 8b 0c 25 c0 d7 03 00 <65> 8b 15 40 01 6f 7e 81 e2 00 01 ff 00 74 11 81 fa 00 01 00 00 75
+RSP: 0018:ffffc900001e7260 EFLAGS: 00000246
+RAX: ffffffff8a985383 RBX: 0000000000000001 RCX: ffff88801d2f0000
+RDX: 0000000000000100 RSI: 000000000000004a RDI: ffff88802d3a0000
+RBP: ffff88802d3a0000 R08: ffffffff8a984050 R09: 0000000000000000
+R10: ffffc900001e73b0 R11: ffffffff8a983ef0 R12: ffff8880904dc640
+R13: ffff8880904dc640 R14: 000000000000004a R15: dffffc0000000000
+FS:  0000000000000000(0000) GS:ffff8880b8700000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00005555778a3818 CR3: 000000002436c000 CR4: 00000000003526f0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+Call Trace:
+ <IRQ>
+ </IRQ>
+ <TASK>
+ net_generic+0x13/0x240 include/net/netns/generic.h:41
+ br_nf_pre_routing+0x1ca/0x1470 net/bridge/br_netfilter_hooks.c:520
+ nf_hook_entry_hookfn include/linux/netfilter.h:154 [inline]
+ nf_hook_bridge_pre net/bridge/br_input.c:277 [inline]
+ br_handle_frame+0x9fd/0x1530 net/bridge/br_input.c:424
+ __netif_receive_skb_core+0x13e8/0x4570 net/core/dev.c:5560
+ __netif_receive_skb_one_core net/core/dev.c:5664 [inline]
+ __netif_receive_skb+0x12f/0x650 net/core/dev.c:5779
+ process_backlog+0x662/0x15b0 net/core/dev.c:6111
+ __napi_poll+0xcb/0x490 net/core/dev.c:6775
+ napi_poll net/core/dev.c:6844 [inline]
+ net_rx_action+0x89b/0x1240 net/core/dev.c:6966
+ handle_softirqs+0x2c5/0x980 kernel/softirq.c:554
+ run_ksoftirqd+0xca/0x130 kernel/softirq.c:927
+ smpboot_thread_fn+0x544/0xa30 kernel/smpboot.c:164
+ kthread+0x2f0/0x390 kernel/kthread.c:389
+ ret_from_fork+0x4b/0x80 arch/x86/kernel/process.c:147
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:244
+ </TASK>
+net_ratelimit: 33488 callbacks suppressed
+bridge0: received packet on veth0_to_bridge with own address as source address (addr:aa:aa:aa:aa:aa:0c, vlan:0)
+bridge0: received packet on veth0_to_bridge with own address as source address (addr:aa:aa:aa:aa:aa:0c, vlan:0)
+bridge0: received packet on bridge_slave_0 with own address as source address (addr:aa:aa:aa:aa:aa:0c, vlan:0)
+bridge0: received packet on bridge_slave_0 with own address as source address (addr:aa:aa:aa:aa:aa:0c, vlan:0)
+bridge0: received packet on veth0_to_bridge with own address as source address (addr:aa:aa:aa:aa:aa:0c, vlan:0)
+bridge0: received packet on veth0_to_bridge with own address as source address (addr:aa:aa:aa:aa:aa:0c, vlan:0)
+bridge0: received packet on bridge_slave_0 with own address as source address (addr:aa:aa:aa:aa:aa:0c, vlan:0)
+bridge0: received packet on bridge_slave_0 with own address as source address (addr:aa:aa:aa:aa:aa:0c, vlan:0)
+bridge0: received packet on veth0_to_bridge with own address as source address (addr:aa:aa:aa:aa:aa:0c, vlan:0)
+bridge0: received packet on veth0_to_bridge with own address as source address (addr:aa:aa:aa:aa:aa:0c, vlan:0)
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
 
