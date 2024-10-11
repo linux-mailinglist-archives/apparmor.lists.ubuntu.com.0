@@ -2,46 +2,57 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AC4B999930
-	for <lists+apparmor@lfdr.de>; Fri, 11 Oct 2024 03:23:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAE7F999AE7
+	for <lists+apparmor@lfdr.de>; Fri, 11 Oct 2024 05:08:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1sz4NU-0005Qe-M6; Fri, 11 Oct 2024 01:23:36 +0000
-Received: from szxga07-in.huawei.com ([45.249.212.35])
+	id 1sz60i-0000KP-Hh; Fri, 11 Oct 2024 03:08:12 +0000
+Received: from mail-qk1-f182.google.com ([209.85.222.182])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <ruanjinjie@huawei.com>)
- id 1sz4NR-0005PW-Hu
- for apparmor@lists.ubuntu.com; Fri, 11 Oct 2024 01:23:34 +0000
-Received: from mail.maildlp.com (unknown [172.19.163.44])
- by szxga07-in.huawei.com (SkyGuard) with ESMTP id 4XPpkx5qVYz1SBqQ;
- Fri, 11 Oct 2024 09:22:17 +0800 (CST)
-Received: from kwepemh500013.china.huawei.com (unknown [7.202.181.146])
- by mail.maildlp.com (Postfix) with ESMTPS id B0A59140257;
- Fri, 11 Oct 2024 09:23:25 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemh500013.china.huawei.com
- (7.202.181.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Fri, 11 Oct
- 2024 09:23:25 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <john.johansen@canonical.com>, <paul@paul-moore.com>, <jmorris@namei.org>, 
- <serge@hallyn.com>, <skhan@linuxfoundation.org>,
- <mike.salvatore@canonical.com>, <kees@kernel.org>,
- <brendan.higgins@linux.dev>, <apparmor@lists.ubuntu.com>,
- <linux-security-module@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Date: Fri, 11 Oct 2024 09:22:41 +0800
-Message-ID: <20241011012241.3251128-1-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
+ (Exim 4.86_2) (envelope-from <paul@paul-moore.com>)
+ id 1sz60f-0000K1-Oa
+ for apparmor@lists.ubuntu.com; Fri, 11 Oct 2024 03:08:09 +0000
+Received: by mail-qk1-f182.google.com with SMTP id
+ af79cd13be357-7afc847094fso95758685a.2
+ for <apparmor@lists.ubuntu.com>; Thu, 10 Oct 2024 20:08:09 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1728616088; x=1729220888;
+ h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
+ :mime-version:message-id:date:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=JBDimyqC4CJK4p2iBMj8GbFo0/9rbwMGrV3N2csFsfI=;
+ b=cPKDHo93z77RWkSlJJCvfpaIr1UOwTgWMVpnfH/2sLfTAHXaNQWYJfmFSKwXkrW0jQ
+ Totx0oVEjLkFNsVV3CAwsP9y/p8Tl/2MrB2IT+8rdzVPAoYO7C/oziFSMNAXrjp13yQs
+ D/yRTSGj3OtmwVPwhHoerGrEtLpYlgQEmJlbaX5TE6keDJBJhMJcsoQl2JQPSQMXjfFt
+ 7C6rbbkQXzS67sdvXGI5ajAYPSq5brDXwkMBzR+VK5A6IaGiXYwaR5LdrAtBr0TBkN6w
+ Kh7XP5ZkEWiukm5XmG+I7+BZdDMmIan1olDZEQEd9azwxv+01MUpjviMBNXNJ5JKoGtu
+ Pqfw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUUZwN9cOYcXnKl9jDwT+Ic3f+xwKeFxO7uA1GIZAeb4lGcT78GOwz09XFjptd17YzbIPHE2KeqQA==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0YyXu7f4W2hpmpOsqbe4+UJoctVRj+jiZCdn1XCjD9fOJ13qUZ+x
+ 77v1VxUdFa5e4fAlp/cJ+NaPH4UDCyK2sPmvBcJCxs7Y30qeWdJ09WszH8u/cA==
+X-Google-Smtp-Source: AGHT+IEq45tHLzd0BJhXzLGe1YJAlDo84n078XLgRxpwqpJN8UttW19ZEx28YGyczqACohCw1soA3Q==
+X-Received: by 2002:a05:620a:444c:b0:7a9:c346:382c with SMTP id
+ af79cd13be357-7b11a35f629mr149344885a.20.1728616088451; 
+ Thu, 10 Oct 2024 20:08:08 -0700 (PDT)
+Received: from localhost ([70.22.175.108]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-7b114956044sm97771285a.79.2024.10.10.20.08.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 10 Oct 2024 20:08:07 -0700 (PDT)
+Date: Thu, 10 Oct 2024 23:08:07 -0400
+Message-ID: <1e6f94db91f0df07373ec1e0c8f3eced@paul-moore.com>
+MIME-Version: 1.0 
+Content-Type: text/plain; charset=UTF-8 
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.90.53.73]
-X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
- kwepemh500013.china.huawei.com (7.202.181.146)
-Received-SPF: pass client-ip=45.249.212.35; envelope-from=ruanjinjie@huawei.com;
- helo=szxga07-in.huawei.com
-Subject: [apparmor] [PATCH] apparmor: test: Fix memory leak for
-	aa_unpack_strdup()
+From: Paul Moore <paul@paul-moore.com>
+To: Casey Schaufler <casey@schaufler-ca.com>, casey@schaufler-ca.com,
+ linux-security-module@vger.kernel.org
+References: <20241009173222.12219-2-casey@schaufler-ca.com>
+In-Reply-To: <20241009173222.12219-2-casey@schaufler-ca.com>
+Received-SPF: pass client-ip=209.85.222.182; envelope-from=paul@paul-moore.com;
+ helo=mail-qk1-f182.google.com
+Subject: Re: [apparmor] [PATCH v4 1/13] LSM: Add the lsm_prop data structure.
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -53,81 +64,49 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: ruanjinjie@huawei.com
+Cc: keescook@chromium.org, penguin-kernel@i-love.sakura.ne.jp,
+ stephen.smalley.work@gmail.com, apparmor@lists.ubuntu.com, jmorris@namei.org,
+ linux-kernel@vger.kernel.org, selinux@vger.kernel.org, mic@digikod.net,
+ bpf@vger.kernel.org, serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-The string allocated by kmemdup() in aa_unpack_strdup() is not
-freed and cause following memory leaks, free them to fix it.
+On Oct  9, 2024 Casey Schaufler <casey@schaufler-ca.com> wrote:
+> 
+> When more than one security module is exporting data to audit and
+> networking sub-systems a single 32 bit integer is no longer
+> sufficient to represent the data. Add a structure to be used instead.
+> 
+> The lsm_prop structure definition is intended to keep the LSM
+> specific information private to the individual security modules.
+> The module specific information is included in a new set of
+> header files under include/lsm. Each security module is allowed
+> to define the information included for its use in the lsm_prop.
+> SELinux includes a u32 secid. Smack includes a pointer into its
+> global label list. The conditional compilation based on feature
+> inclusion is contained in the include/lsm files.
+> 
+> Suggested-by: Paul Moore <paul@paul-moore.com>
+> Signed-off-by: Casey Schaufler <casey@schaufler-ca.com>
+> Cc: apparmor@lists.ubuntu.com
+> Cc: bpf@vger.kernel.org
+> Cc: selinux@vger.kernel.org
+> Cc: linux-security-module@vger.kernel.org
+> ---
+>  include/linux/lsm/apparmor.h | 17 +++++++++++++++++
+>  include/linux/lsm/bpf.h      | 16 ++++++++++++++++
+>  include/linux/lsm/selinux.h  | 16 ++++++++++++++++
+>  include/linux/lsm/smack.h    | 17 +++++++++++++++++
+>  include/linux/security.h     | 20 ++++++++++++++++++++
+>  5 files changed, 86 insertions(+)
+>  create mode 100644 include/linux/lsm/apparmor.h
+>  create mode 100644 include/linux/lsm/bpf.h
+>  create mode 100644 include/linux/lsm/selinux.h
+>  create mode 100644 include/linux/lsm/smack.h
 
-	unreferenced object 0xffffff80c6af8a50 (size 8):
-	  comm "kunit_try_catch", pid 225, jiffies 4294894407
-	  hex dump (first 8 bytes):
-	    74 65 73 74 69 6e 67 00                          testing.
-	  backtrace (crc 5eab668b):
-	    [<0000000001e3714d>] kmemleak_alloc+0x34/0x40
-	    [<000000006e6c7776>] __kmalloc_node_track_caller_noprof+0x300/0x3e0
-	    [<000000006870467c>] kmemdup_noprof+0x34/0x60
-	    [<000000001176bb03>] aa_unpack_strdup+0xd0/0x18c
-	    [<000000008ecde918>] policy_unpack_test_unpack_strdup_with_null_name+0xf8/0x3ec
-	    [<0000000032ef8f77>] kunit_try_run_case+0x13c/0x3ac
-	    [<00000000f3edea23>] kunit_generic_run_threadfn_adapter+0x80/0xec
-	    [<00000000adf936cf>] kthread+0x2e8/0x374
-	    [<0000000041bb1628>] ret_from_fork+0x10/0x20
-	unreferenced object 0xffffff80c2a29090 (size 8):
-	  comm "kunit_try_catch", pid 227, jiffies 4294894409
-	  hex dump (first 8 bytes):
-	    74 65 73 74 69 6e 67 00                          testing.
-	  backtrace (crc 5eab668b):
-	    [<0000000001e3714d>] kmemleak_alloc+0x34/0x40
-	    [<000000006e6c7776>] __kmalloc_node_track_caller_noprof+0x300/0x3e0
-	    [<000000006870467c>] kmemdup_noprof+0x34/0x60
-	    [<000000001176bb03>] aa_unpack_strdup+0xd0/0x18c
-	    [<0000000046a45c1a>] policy_unpack_test_unpack_strdup_with_name+0xd0/0x3c4
-	    [<0000000032ef8f77>] kunit_try_run_case+0x13c/0x3ac
-	    [<00000000f3edea23>] kunit_generic_run_threadfn_adapter+0x80/0xec
-	    [<00000000adf936cf>] kthread+0x2e8/0x374
-	    [<0000000041bb1628>] ret_from_fork+0x10/0x20
+Looks good to me, thanks for the lsm_prop rename.  As a FYI, I did add
+a line to the MAINTAINERS entry for include/linux/lsm/.
 
-Cc: stable@vger.kernel.org
-Fixes: 4d944bcd4e73 ("apparmor: add AppArmor KUnit tests for policy unpack")
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
----
- security/apparmor/policy_unpack_test.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/security/apparmor/policy_unpack_test.c b/security/apparmor/policy_unpack_test.c
-index c64733d6c98f..f070902da8fc 100644
---- a/security/apparmor/policy_unpack_test.c
-+++ b/security/apparmor/policy_unpack_test.c
-@@ -281,6 +281,8 @@ static void policy_unpack_test_unpack_strdup_with_null_name(struct kunit *test)
- 			   ((uintptr_t)puf->e->start <= (uintptr_t)string)
- 			   && ((uintptr_t)string <= (uintptr_t)puf->e->end));
- 	KUNIT_EXPECT_STREQ(test, string, TEST_STRING_DATA);
-+
-+	kfree(string);
- }
- 
- static void policy_unpack_test_unpack_strdup_with_name(struct kunit *test)
-@@ -296,6 +298,8 @@ static void policy_unpack_test_unpack_strdup_with_name(struct kunit *test)
- 			   ((uintptr_t)puf->e->start <= (uintptr_t)string)
- 			   && ((uintptr_t)string <= (uintptr_t)puf->e->end));
- 	KUNIT_EXPECT_STREQ(test, string, TEST_STRING_DATA);
-+
-+	kfree(string);
- }
- 
- static void policy_unpack_test_unpack_strdup_out_of_bounds(struct kunit *test)
-@@ -313,6 +317,8 @@ static void policy_unpack_test_unpack_strdup_out_of_bounds(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, size, 0);
- 	KUNIT_EXPECT_NULL(test, string);
- 	KUNIT_EXPECT_PTR_EQ(test, puf->e->pos, start);
-+
-+	kfree(string);
- }
- 
- static void policy_unpack_test_unpack_nameX_with_null_name(struct kunit *test)
--- 
-2.34.1
-
+--
+paul-moore.com
 
