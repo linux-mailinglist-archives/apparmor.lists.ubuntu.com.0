@@ -2,78 +2,56 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72C2A99A829
-	for <lists+apparmor@lfdr.de>; Fri, 11 Oct 2024 17:45:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 019749A5835
+	for <lists+apparmor@lfdr.de>; Mon, 21 Oct 2024 02:45:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1szHpX-00061O-8D; Fri, 11 Oct 2024 15:45:27 +0000
-Received: from sonic305-27.consmr.mail.ne1.yahoo.com ([66.163.185.153])
+	id 1t2gYG-0007f6-Ts; Mon, 21 Oct 2024 00:45:40 +0000
+Received: from mail-il1-f198.google.com ([209.85.166.198])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <casey@schaufler-ca.com>)
- id 1szHpV-00061E-MF
- for apparmor@lists.ubuntu.com; Fri, 11 Oct 2024 15:45:25 +0000
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1728661524; bh=w9gCtYguL6n11vJQ4fVljGoD4rfigGM2plM52X///Q1=;
- h=X-Sonic-MF:Date:Subject:To:From:From:Subject;
- b=g+0yjnZA4pJNN9GYrAvMNfVsxE65pWTkQjy3qlL5+8hGeScm1/Fe/XboCcqH8vvcm0nmBuI8bW5FmUrmqWYoNFeuWmVBySu1VYd3HoI+6ypOfyvoVWjgBMqNZqbf40F8DiZJepSw+bZmgTErdCHANAxDHPFH6UsFJLzCo3WRu+PA1PLVOb11vMullXXHL6UiS0SE4kAGUAhCqobCueHS72JQGon9htW5rJpcYI1u3FL+G+OaHc6H8Kfjszkj8m55Bv2Nx+tNemkGwFxqgNEynwxD3nk0Ifg0kCOuCLhWj20pg0tzJdR7LC8x5thS0NsGFfXKhZ0xpZUTeCkcFy8UUQ==
-X-YMail-OSG: gU3cfakVM1mj7H_VcPpD_c8dGIS9CE5TsIQivt9C4nbWK7AXhTJg36J5FYn1Vdu
- P.hVVsOBkNc5_F7d8T_wGuaKECgbK33F0HBo7qWIyJ_vTGdBjGRlp02EGRQPyzYgfDRC0sKkTt4y
- xbKNngXtY5wXj4Xd9bZNHWXaJaMdoew206pAIbWKUAA0nm_.lAEFHMsz1RCPfMK4sCmk4NvX_gGJ
- zxgWoipxtYOPZse1be6omXXKMaSTUWxknPRhDg.yhpkU1iOgHcy3hHDofFodmSZNq9qYiUkIj7OM
- QIA1VdwnwpkWh8.j.GgBctj5bo8JZFDydm_P_W8A0Y.Hpf4llO8Zt4FGVa1_2QVnta0Ofidez.QF
- gn_9ZQZQxCr97WLo4xCLgd2Hg6NQaUX0WIzvpjGNq_9fpG8vuHEUd0X7Psxh0vdDa_xAWRLn4t75
- U9B.RyXfXUKwk03TLFsPAGhGKEqcqOB_IYE35mfSoNT6DYEazjVr_DNwJxnFWCDGNn8VeSroRQF0
- Gf0jAWrGRShuRvVGHWmoAK_z3tz8M.hsbz5soABnYV5wEwNcT0Y5LhDABg.cuq9hzgmEPHq6ClqW
- TDUp2cb63AkkyecIewznVtwSJ3t6gXzoB_gKsUX7n.rkQsCJZCLiHo.OV1wZ07ZFeEGrnuupWP1F
- QbGTnA58Z1e7nzXuE1dhKg25mnTJEys_MIk7e2lC3ttzShX2TyH8nQSKthVhUO8glfD.FCIoMMEL
- RxDW06HDYE4UVp3FSXSyrAZMnQdT8nNHNzWMYA_8zkDZg3ekhFLXpH1snvYyhdyk9prqK4xRNTUZ
- yX9T1B7MdNZPc3CTHnUI0U7KU6mox8CGN4.LPOrEoELtEmaqUcJTqqWRE4whNVeVn1b9LppOF7Xk
- giEJirxEbxfCi79ktYYYNViFdTkGR3at8yCEyY81b1owuse.rkAdL8D_Fz6VpN5V.j9vkaOVxrca
- XbVDqwlhXBmXz8_9uFyoENLVidoVHj8allgTkiTLDaaEuNbL2WlKoL8jSpscYVJjr.adV2qZAzsm
- 3ED5LhDQciz8QsPo1Ek.60d3bmSXv6pwIVsDRXEcuyX2YbYM49zUqyipJK16ZH7B7ip_bTVmwIWI
- 6Uoa_rwfuhIYC9AXCIdN_yupv9VGor3GnKSaFXzLaBEHgDw41flALqNDwhT8L5RgnttKmDxkjiYl
- Q1fYdkKJU2V4RVcjwVOkpDQsOjoMbUatFYxH4wdyBA_fDZSZVrUlxEPYZkMyXhY8JyxXyftpMXhM
- _MV_HLZoWIG9AQG33ZeB6qArjKSJeKBw6diOc2kmpChfyrQ2S7qaZRyCiziL2_dDeQulmzpFI0Sn
- smzaHjOoBr4hPXElr5bwvq6EC_IDg8uNmZb3P.y.sNmQ4Fxgrpd3Xhj3Qrxx5iQaoFn2SBrmi43P
- T8rLztBXJeYIoAXz.MsLYpbUp3sN0NxyC3FSqmMYsVY5Ct7d7vY9p4OiwO4idsZ9SEdF5LZF22Hu
- eLxRY6vu0qXsY.s1v_0Dj_q29CaD4SN2PUg2zwnVJHfMjgjX92Vi_TzcF.03_6LbiLPJernDKy.R
- dMafeJ9AX.QSf._ANjf93VGQTaGGZLRLqnsg.UpNlMC5HcQG3LhV15vDaOSJzU8CCbpoXT8iaV4V
- tGOMIoYPhLxP3EIX5tFYjAOiOyef_Z.FXZ4y1Eud6qhqyZBAcdQWJNc52bUfD6oL_9oargRVqzL4
- _OaW6It50BYG03ppxJ3T7uU4GWvqxAg3LYMYxebgKens88T.mS9k5j0M0krCmS1E0pBFMXS1.PUi
- iLGb.jmJ76DEwi87g1J6C1S1L.rWz2Fj.wSkQkOY60IenozZ8MgkYPBqXr2WBmVO3sgxQ1sVhHdO
- Gko6wAvMuly7FpErQqpN8KddZoPDvHBKFJrOXsE0v5lvUizA46B.vpQfdh7b3IY1MPkgJ7_iaxr.
- s0fMIxNnH5CL8AUR6mJm83DUB6qFkM6yyt61JPSfzBOndfkwYWzzyHWLp0G9eyfznUQHwraTjJX4
- fLBNfNXEXAyDBcdLoqZk.5EUEuf_n3LXahb.4AnUYKC73Er34se.sgvBQRCsj0FlWRjfQ03cWEZZ
- hKxsYOHPwifTLGacTRL7_lWKcncatdheN98TOzcoQCfYTRDn6gaRVpRxGaxG8GBFLvQaaqr.ANjp
- xtgTZRKx8nsfb8krZVKW0RuEBHMZe5f4DejrWehv1xusc4tFEtLNpNSkmGAGQ1GP94pOnsLcMFzA
- 6zVTkBGtaxUliA_jo0fXPlscOHyh8xVuGjvBpZgA1IKOuFyVSJgOI9x99l.dgoNdM3EKUXcRHxUO
- UuvblGQ6vHp_4.dozVjKhGJ7oI2c0qBMFgI4-
-X-Sonic-MF: <casey@schaufler-ca.com>
-X-Sonic-ID: 7ffac3f6-d9b3-4c13-aa62-50fffeef9c53
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic305.consmr.mail.ne1.yahoo.com with HTTP; Fri, 11 Oct 2024 15:45:24 +0000
-Received: by hermes--production-gq1-5d95dc458-24x88 (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID 8eeba5143bfa479ac5e23185bad5640a; 
- Fri, 11 Oct 2024 15:45:18 +0000 (UTC)
-Message-ID: <c346f1a8-8edb-4736-ba78-998316ef611d@schaufler-ca.com>
-Date: Fri, 11 Oct 2024 08:45:16 -0700
+ (Exim 4.86_2) (envelope-from
+ <3SXIRZwkbALIkqrcSddWjShhaV.YggYdWmkWjUgflWfl.Uge@M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com>)
+ id 1t1X22-0008FK-HS
+ for apparmor@lists.ubuntu.com; Thu, 17 Oct 2024 20:23:38 +0000
+Received: by mail-il1-f198.google.com with SMTP id
+ e9e14a558f8ab-3a3bea901ffso14217935ab.0
+ for <apparmor@lists.ubuntu.com>; Thu, 17 Oct 2024 13:23:38 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1729196617; x=1729801417;
+ h=to:from:subject:message-id:date:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=CxbiwOteHWPoPbxM5rsq2oZhAuu4aEAjoIm7YkNQfrI=;
+ b=eU3c0MTv7Pe0/hYPcym8qhS709/ICcM89vink3Heut51UHsN/lCRC3aDA+u5oLEdLf
+ sISsFBOflB/r9vT0H8EKwnNv7IhBaU3BdEAHg4hgCdSWm3TTqkQOx29ufdo2j+pnVCEb
+ 5p39ZvLXMEtHOuX+Oges+UegpsP3HzU4Uo+q/YSYP3FCB1iKDumYR59bAfdoZv8lmtuY
+ J3TKxxFwzJvktIdnV21FUbZKdm7P2EiPyudPGH1/tJ5FrHFEGPwFn7E/MrMcT0caPlgN
+ UktrwPl3W13GjdjYPuZfPQNzp4b2XAtZ8SMYeRV1Sp5OHkF1tuKVOuywebby9K0UwHOB
+ FXBg==
+X-Gm-Message-State: AOJu0Yx2wcxHxv5ncgpsvD76wg/jrmFSBLgzQ/hKRPyziM2oyJecGmXF
+ mGMxA0w93BPzeim8X+nxMVAXKLQFpMBuec8eOvFN82BPjrEAff9WYqh6ygtEHdfh9K2i1sZHe8O
+ EZAtYpmKnytW5FQ2Aa1TeR3IvbYxuevXTgDrsNZHv20w0Uvn7cF7bmoA=
+X-Google-Smtp-Source: AGHT+IG6APDy/4ShZRU+McqwBzAlybwz0GR99v3xihi+KjcHEIPiiocZqDS/1pox5s8QSCq9WDC3vRnV3gkskwVZTlgkBcsgQDom
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Paul Moore <paul@paul-moore.com>, linux-security-module@vger.kernel.org
-References: <20241009173222.12219-2-casey@schaufler-ca.com>
- <1e6f94db91f0df07373ec1e0c8f3eced@paul-moore.com>
-Content-Language: en-US
-From: Casey Schaufler <casey@schaufler-ca.com>
-In-Reply-To: <1e6f94db91f0df07373ec1e0c8f3eced@paul-moore.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.22806
- mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
-Received-SPF: none client-ip=66.163.185.153;
- envelope-from=casey@schaufler-ca.com;
- helo=sonic305-27.consmr.mail.ne1.yahoo.com
-Subject: Re: [apparmor] [PATCH v4 1/13] LSM: Add the lsm_prop data structure.
+X-Received: by 2002:a92:ca4f:0:b0:3a0:909c:812d with SMTP id
+ e9e14a558f8ab-3a3f406242fmr697665ab.11.1729196617182; Thu, 17 Oct 2024
+ 13:23:37 -0700 (PDT)
+Date: Thu, 17 Oct 2024 13:23:37 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <67117249.050a0220.10f4f4.0002.GAE@google.com>
+From: syzbot <syzbot+e8ffa1bcc1cc3240f4de@syzkaller.appspotmail.com>
+To: apparmor@lists.ubuntu.com, jmorris@namei.org, john.johansen@canonical.com, 
+ john@apparmor.net, linux-kernel@vger.kernel.org, 
+ linux-security-module@vger.kernel.org, paul@paul-moore.com, serge@hallyn.com, 
+ syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+Received-SPF: pass client-ip=209.85.166.198;
+ envelope-from=3SXIRZwkbALIkqrcSddWjShhaV.YggYdWmkWjUgflWfl.Uge@M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+ helo=mail-il1-f198.google.com
+X-Mailman-Approved-At: Mon, 21 Oct 2024 00:45:40 +0000
+Subject: [apparmor] [syzbot] [apparmor?] KASAN: slab-use-after-free Read in
+	apparmor_sk_free_security
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -85,51 +63,168 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: keescook@chromium.org, penguin-kernel@i-love.sakura.ne.jp,
- stephen.smalley.work@gmail.com, apparmor@lists.ubuntu.com, jmorris@namei.org,
- linux-kernel@vger.kernel.org, selinux@vger.kernel.org, mic@digikod.net,
- bpf@vger.kernel.org, serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 10/10/2024 8:08 PM, Paul Moore wrote:
-> On Oct  9, 2024 Casey Schaufler <casey@schaufler-ca.com> wrote:
->> When more than one security module is exporting data to audit and
->> networking sub-systems a single 32 bit integer is no longer
->> sufficient to represent the data. Add a structure to be used instead.
->>
->> The lsm_prop structure definition is intended to keep the LSM
->> specific information private to the individual security modules.
->> The module specific information is included in a new set of
->> header files under include/lsm. Each security module is allowed
->> to define the information included for its use in the lsm_prop.
->> SELinux includes a u32 secid. Smack includes a pointer into its
->> global label list. The conditional compilation based on feature
->> inclusion is contained in the include/lsm files.
->>
->> Suggested-by: Paul Moore <paul@paul-moore.com>
->> Signed-off-by: Casey Schaufler <casey@schaufler-ca.com>
->> Cc: apparmor@lists.ubuntu.com
->> Cc: bpf@vger.kernel.org
->> Cc: selinux@vger.kernel.org
->> Cc: linux-security-module@vger.kernel.org
->> ---
->>  include/linux/lsm/apparmor.h | 17 +++++++++++++++++
->>  include/linux/lsm/bpf.h      | 16 ++++++++++++++++
->>  include/linux/lsm/selinux.h  | 16 ++++++++++++++++
->>  include/linux/lsm/smack.h    | 17 +++++++++++++++++
->>  include/linux/security.h     | 20 ++++++++++++++++++++
->>  5 files changed, 86 insertions(+)
->>  create mode 100644 include/linux/lsm/apparmor.h
->>  create mode 100644 include/linux/lsm/bpf.h
->>  create mode 100644 include/linux/lsm/selinux.h
->>  create mode 100644 include/linux/lsm/smack.h
-> Looks good to me, thanks for the lsm_prop rename.  As a FYI, I did add
-> a line to the MAINTAINERS entry for include/linux/lsm/.
+Hello,
 
-Thank you. 
+syzbot found the following issue on:
 
->
-> --
-> paul-moore.com
+HEAD commit:    36c254515dc6 Merge tag 'powerpc-6.12-4' of git://git.kerne..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=1330ffd0580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=667b897270c8ae6
+dashboard link: https://syzkaller.appspot.com/bug?extid=e8ffa1bcc1cc3240f4de
+compiler:       gcc (Debian 12.2.0-14) 12.2.0, GNU ld (GNU Binutils for Debian) 2.40
+userspace arch: i386
+
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/7feb34a89c2a/non_bootable_disk-36c25451.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/0a357f9d2448/vmlinux-36c25451.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/fba8311d450b/bzImage-36c25451.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+e8ffa1bcc1cc3240f4de@syzkaller.appspotmail.com
+
+==================================================================
+BUG: KASAN: slab-use-after-free in apparmor_sk_free_security+0x19a/0x1a0 security/apparmor/lsm.c:1065
+Read of size 8 at addr ffff888000847780 by task ksoftirqd/3/34
+
+CPU: 3 UID: 0 PID: 34 Comm: ksoftirqd/3 Not tainted 6.12.0-rc2-syzkaller-00307-g36c254515dc6 #0
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2~bpo12+1 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x116/0x1f0 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:377 [inline]
+ print_report+0xc3/0x620 mm/kasan/report.c:488
+ kasan_report+0xd9/0x110 mm/kasan/report.c:601
+ apparmor_sk_free_security+0x19a/0x1a0 security/apparmor/lsm.c:1065
+ security_sk_free+0xd7/0x1a0 security/security.c:4842
+ sk_prot_free net/core/sock.c:2196 [inline]
+ __sk_destruct+0x44b/0x720 net/core/sock.c:2292
+ sk_destruct+0xc2/0xf0 net/core/sock.c:2307
+ __sk_free+0xf4/0x3e0 net/core/sock.c:2318
+ sk_free+0x6a/0x90 net/core/sock.c:2329
+ deferred_put_nlk_sk+0x13f/0x2d0 net/netlink/af_netlink.c:740
+ rcu_do_batch kernel/rcu/tree.c:2567 [inline]
+ rcu_core+0x79d/0x14d0 kernel/rcu/tree.c:2823
+ handle_softirqs+0x213/0x8f0 kernel/softirq.c:554
+ run_ksoftirqd kernel/softirq.c:927 [inline]
+ run_ksoftirqd+0x3a/0x60 kernel/softirq.c:919
+ smpboot_thread_fn+0x661/0xa30 kernel/smpboot.c:164
+ kthread+0x2c1/0x3a0 kernel/kthread.c:389
+ ret_from_fork+0x45/0x80 arch/x86/kernel/process.c:147
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:244
+ </TASK>
+
+Allocated by task 4839:
+ kasan_save_stack+0x33/0x60 mm/kasan/common.c:47
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:68
+ poison_kmalloc_redzone mm/kasan/common.c:377 [inline]
+ __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:394
+ kasan_kmalloc include/linux/kasan.h:257 [inline]
+ __do_kmalloc_node mm/slub.c:4264 [inline]
+ __kmalloc_noprof+0x1e8/0x410 mm/slub.c:4276
+ kmalloc_noprof include/linux/slab.h:882 [inline]
+ kzalloc_noprof include/linux/slab.h:1014 [inline]
+ lsm_blob_alloc+0x68/0x90 security/security.c:685
+ lsm_sock_alloc security/security.c:4808 [inline]
+ security_sk_alloc+0x30/0x270 security/security.c:4824
+ sk_prot_alloc+0x1c7/0x2a0 net/core/sock.c:2167
+ sk_alloc+0x36/0xb90 net/core/sock.c:2217
+ __netlink_create+0x5e/0x2c0 net/netlink/af_netlink.c:646
+ netlink_create+0x3a4/0x630 net/netlink/af_netlink.c:704
+ __sock_create+0x32e/0x840 net/socket.c:1576
+ sock_create net/socket.c:1632 [inline]
+ __sys_socket_create net/socket.c:1669 [inline]
+ __sys_socket+0x14f/0x260 net/socket.c:1716
+ __do_sys_socket net/socket.c:1730 [inline]
+ __se_sys_socket net/socket.c:1728 [inline]
+ __x64_sys_socket+0x72/0xb0 net/socket.c:1728
+ do_syscall_x64 arch/x86/entry/common.c:52 [inline]
+ do_syscall_64+0xcd/0x250 arch/x86/entry/common.c:83
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+The buggy address belongs to the object at ffff888000847780
+ which belongs to the cache kmalloc-16 of size 16
+The buggy address is located 0 bytes inside of
+ freed 16-byte region [ffff888000847780, ffff888000847790)
+
+The buggy address belongs to the physical page:
+page: refcount:1 mapcount:0 mapping:0000000000000000 index:0xffff8880008479e0 pfn:0x847
+flags: 0x7ff00000000200(workingset|node=0|zone=0|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 007ff00000000200 ffff88801ac42640 ffffea0000856f10 ffffea0000870d90
+raw: ffff8880008479e0 000000000080007e 00000001f5000000 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 5351, tgid 5351 (syz-executor), ts 41291513004, free_ts 41219292639
+ create_dummy_stack mm/page_owner.c:94 [inline]
+ register_dummy_stack+0x8a/0xd0 mm/page_owner.c:100
+ init_page_owner+0x48/0xe40 mm/page_owner.c:118
+ invoke_init_callbacks mm/page_ext.c:148 [inline]
+ page_ext_init+0x6b8/0xab0 mm/page_ext.c:497
+ mm_core_init+0x12d/0x220 mm/mm_init.c:2667
+page last free pid 5341 tgid 5341 stack trace:
+ reset_page_owner include/linux/page_owner.h:25 [inline]
+ free_pages_prepare mm/page_alloc.c:1108 [inline]
+ free_unref_page+0x5f4/0xdc0 mm/page_alloc.c:2638
+ skb_free_frag include/linux/skbuff.h:3399 [inline]
+ skb_free_head+0xa0/0x1d0 net/core/skbuff.c:1096
+ skb_release_data+0x560/0x730 net/core/skbuff.c:1125
+ skb_release_all net/core/skbuff.c:1190 [inline]
+ __kfree_skb net/core/skbuff.c:1204 [inline]
+ sk_skb_reason_drop+0x129/0x1a0 net/core/skbuff.c:1242
+ kfree_skb_reason include/linux/skbuff.h:1262 [inline]
+ kfree_skb include/linux/skbuff.h:1271 [inline]
+ napi_free_frags include/linux/netdevice.h:3893 [inline]
+ napi_get_frags_check+0x58/0xb0 net/core/skbuff.c:306
+ netif_napi_add_weight+0x538/0xab0 net/core/dev.c:6672
+ netif_napi_add include/linux/netdevice.h:2638 [inline]
+ nsim_init_napi drivers/net/netdevsim/netdev.c:392 [inline]
+ nsim_open+0x149/0x7b0 drivers/net/netdevsim/netdev.c:435
+ __dev_open+0x2d4/0x4e0 net/core/dev.c:1476
+ __dev_change_flags+0x561/0x720 net/core/dev.c:8841
+ dev_change_flags+0x8f/0x160 net/core/dev.c:8913
+ do_setlink+0x19dd/0x3ee0 net/core/rtnetlink.c:2929
+ __rtnl_newlink+0xc3a/0x1920 net/core/rtnetlink.c:3725
+ rtnl_newlink+0x67/0xa0 net/core/rtnetlink.c:3772
+ rtnetlink_rcv_msg+0x3c7/0xea0 net/core/rtnetlink.c:6675
+ netlink_rcv_skb+0x165/0x410 net/netlink/af_netlink.c:2551
+ netlink_unicast_kernel net/netlink/af_netlink.c:1331 [inline]
+ netlink_unicast+0x53c/0x7f0 net/netlink/af_netlink.c:1357
+
+Memory state around the buggy address:
+ ffff888000847680: 00 00 fc fc 00 00 fc fc 00 00 fc fc 00 00 fc fc
+ ffff888000847700: 00 00 fc fc 00 00 fc fc 00 00 fc fc 00 00 fc fc
+>ffff888000847780: fa fb fc fc 00 00 fc fc 00 07 fc fc 00 06 fc fc
+                   ^
+ ffff888000847800: 00 00 fc fc 00 00 fc fc 00 00 fc fc 00 00 fc fc
+ ffff888000847880: 00 00 fc fc 00 04 fc fc 00 01 fc fc 00 00 fc fc
+==================================================================
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
 
