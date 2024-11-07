@@ -2,39 +2,82 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 322B19B8318
-	for <lists+apparmor@lfdr.de>; Thu, 31 Oct 2024 20:11:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A27239C0C87
+	for <lists+apparmor@lfdr.de>; Thu,  7 Nov 2024 18:10:14 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1t6aa6-0000Fe-Ap; Thu, 31 Oct 2024 19:11:42 +0000
-Received: from mout-p-102.mailbox.org ([80.241.56.152])
+	id 1t961C-0001Bk-5N; Thu, 07 Nov 2024 17:10:02 +0000
+Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
+ helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <valoq@mailbox.org>) id 1t6aa5-0000FT-7u
- for apparmor@lists.ubuntu.com; Thu, 31 Oct 2024 19:11:41 +0000
-Received: from smtp1.mailbox.org (smtp1.mailbox.org
- [IPv6:2001:67c:2050:b231:465::1])
+ (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
+ id 1t961A-0001Ap-DI
+ for apparmor@lists.ubuntu.com; Thu, 07 Nov 2024 17:10:00 +0000
+Received: from [192.168.192.84] (unknown [50.39.104.138])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4XfYWZ6z9Gz9sWh;
- Thu, 31 Oct 2024 20:11:38 +0100 (CET)
-Date: Thu, 31 Oct 2024 20:11:33 +0100
-From: valoq <valoq@mailbox.org>
-To: John Johansen <john.johansen@canonical.com>
-Message-ID: <ZyPWZZcSHsLkhZpD@mailbox.org>
-References: <ZyONOXXSHjV2zfJU@mailbox.org>
- <6335362c-28f2-48ae-bdcc-8ab04de9b69d@canonical.com>
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 160843F136; 
+ Thu,  7 Nov 2024 17:09:57 +0000 (UTC)
+Message-ID: <75ea2e8a-fc2e-487a-8f20-c0664b1eaf05@canonical.com>
+Date: Thu, 7 Nov 2024 09:09:54 -0800
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="MEbZtfywfk+iAFuN"
-Content-Disposition: inline
-In-Reply-To: <6335362c-28f2-48ae-bdcc-8ab04de9b69d@canonical.com>
-X-MBO-RS-ID: e121624f5566fec0ff4
-X-MBO-RS-META: namsgcufdsq6imhkhqe4p1nkimaubhup
-Received-SPF: pass client-ip=80.241.56.152; envelope-from=valoq@mailbox.org;
- helo=mout-p-102.mailbox.org
-Subject: Re: [apparmor] Restricted userns
+User-Agent: Mozilla Thunderbird
+To: Thorsten Blum <thorsten.blum@linux.dev>, Paul Moore
+ <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>
+References: <20241107112526.2312-2-thorsten.blum@linux.dev>
+Content-Language: en-US
+From: John Johansen <john.johansen@canonical.com>
+Autocrypt: addr=john.johansen@canonical.com; keydata=
+ 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 lT9Q
+Organization: Canonical
+In-Reply-To: <20241107112526.2312-2-thorsten.blum@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [apparmor] [RESEND PATCH] apparmor: Remove unnecessary NULL
+ check before kvfree()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -46,58 +89,47 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: apparmor@lists.ubuntu.com
+Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
+ linux-kernel@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
+On 11/7/24 03:25, Thorsten Blum wrote:
+> Since kvfree() already checks if its argument is NULL, an additional
+> check before calling kvfree() is unnecessary and can be removed.
+> 
+> Remove it and the following Coccinelle/coccicheck warning reported by
+> ifnullfree.cocci:
+> 
+>    WARNING: NULL check before some freeing functions is not needed
+> 
+> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
 
---MEbZtfywfk+iAFuN
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+sorry I am way way behind on this. I am going to work through the backlog
+on this list today.
 
-On Thu, Oct 31, 2024 at 07:54:04AM -0700, John Johansen wrote:
-> On 10/31/24 06:59, valoq wrote:
-> Currently it is not.
->=20
-> The ability to mediate userns creation in profiles landed in 6.7.
->=20
-> The 2 and 3rd parts have not landed upstream yet. This is largely because
-> the Ubuntu patches hard code the behavior where for upstream we want the
-> behavior to be properly part of policy.
->=20
-> There is a patch to extend the current mediation that is a requirement
-> for parts 2/3 that I will try to post out this week. The other parts
-> I still need to evaluate. But I don't think landing full support for
-> is possible for 6.13. So I am currently planning to try and land full
-> support in 6.14.
+Acked-by: John Johansen <john.johansen@canonical.com>
 
-Thanks for the replay and the upcoming patch.
+I have pulled this in to my local tree, and will push it up in a few
+hours once I been through the other patches and testing.
 
-If there is anything I can help, please let me know. While I do not have
-experience with kernel development, I would like to support this patch
-however possible.
+> ---
+>   security/apparmor/policy.c | 3 +--
+>   1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/security/apparmor/policy.c b/security/apparmor/policy.c
+> index 14df15e35695..ce1c96cb2aed 100644
+> --- a/security/apparmor/policy.c
+> +++ b/security/apparmor/policy.c
+> @@ -103,8 +103,7 @@ static void aa_free_pdb(struct aa_policydb *pdb)
+>   {
+>   	if (pdb) {
+>   		aa_put_dfa(pdb->dfa);
+> -		if (pdb->perms)
+> -			kvfree(pdb->perms);
+> +		kvfree(pdb->perms);
+>   		aa_free_str_table(&pdb->trans);
+>   		kfree(pdb);
+>   	}
 
-
---MEbZtfywfk+iAFuN
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEQT5jU1ZXwoI5a0EyGfCaD7hly9gFAmcj1mUACgkQGfCaD7hl
-y9gtMw/+NItLxDHPJ2kpVO0n4KkZB9Yiuts6NTMP/SNIfpIrIFltE0SQPvL8cDXy
-x0m90rj9CtHmi3V4W+oSnSnK+d9J8M6iWupvGIGxsZ+sIuzIkgWswD7RbWqEO3L6
-92daIJ8oLCftoNmE6smMyyw9pc2fVQ0U8sDFo7XcQITawlNI7kGzybKoYps2zpTn
-qINCgpjuV4wyeNQxesCAXCidmq3pape368U+Z6EsgTIE17JqY4NS5cDBkyDUDGOb
-cNDDsVCaVv4USp3ynx5ZYmwUNRXrhzDf1r1eVwvVTcrIq+XFj5eokzj4bgR4GyLg
-hTDkcnsb/4SHgVEwSqZUBTn5GAXrRJBjHG/JyS+BEPtT7rGnaidG9Zucj/gkLogK
-PBCQK1PzSXbqa+wC1sxhAIBVpYA/OxYlht0AgBss9lAEmp5qMKBnBc49Jio07m/g
-0CkxE47oS8RtUKy8Ug8NZzpwwUcNcyDuXOaHB734DO+KKPebUiadcdZyaYavfRi+
-lSqPeBKswJsAW1LbSYuChEQl6G6kRP9WRvQn7cTa5pwqe+45Ws2kFk+lSUkLWpNI
-fdVCrgdKtlLTn9GJbAkZgUZcm2Dd9bwMSNBLdzwh/KG4iNfGB6RJ2qO5wOpiZQ6W
-99PETapa9gTRemA5SlFtRG34F2K0QwR0b8/eR41C/uiGXCwwt20=
-=fwiw
------END PGP SIGNATURE-----
-
---MEbZtfywfk+iAFuN--
 
