@@ -2,30 +2,30 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43FE49C2F6E
-	for <lists+apparmor@lfdr.de>; Sat,  9 Nov 2024 20:59:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 491CE9C2F7A
+	for <lists+apparmor@lfdr.de>; Sat,  9 Nov 2024 21:20:49 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1t9rcT-0005YH-81; Sat, 09 Nov 2024 19:59:41 +0000
+	id 1t9rwj-0001nD-Et; Sat, 09 Nov 2024 20:20:37 +0000
 Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
  helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1t9rcR-0005Y7-Ph
- for apparmor@lists.ubuntu.com; Sat, 09 Nov 2024 19:59:39 +0000
+ id 1t9rwh-0001n5-Pn
+ for apparmor@lists.ubuntu.com; Sat, 09 Nov 2024 20:20:35 +0000
 Received: from [192.168.192.84] (unknown [50.39.104.138])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 08EB23F959; 
- Sat,  9 Nov 2024 19:59:38 +0000 (UTC)
-Message-ID: <6bc4207c-9e01-492d-b34f-9b511d34117f@canonical.com>
-Date: Sat, 9 Nov 2024 11:59:35 -0800
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 2821C3F954; 
+ Sat,  9 Nov 2024 20:20:34 +0000 (UTC)
+Message-ID: <5aa61384-fd92-407b-bbaa-8ff9f9850218@canonical.com>
+Date: Sat, 9 Nov 2024 12:20:33 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Ryan Lee <ryan.lee@canonical.com>, apparmor@lists.ubuntu.com
-References: <20240913230325.1624331-1-ryan.lee@canonical.com>
+References: <20240925005607.260221-1-ryan.lee@canonical.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -71,11 +71,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20240913230325.1624331-1-ryan.lee@canonical.com>
+In-Reply-To: <20240925005607.260221-1-ryan.lee@canonical.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH] apparmor: hide
- aa_unprivileged_uring_restricted from userspace when io_uring is disabled
+Subject: Re: [apparmor] [PATCH] apparmor: document
+ capability.c:profile_capable ad ptr not being NULL
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -90,69 +90,38 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 9/13/24 16:03, Ryan Lee wrote:
-> The variable aa_unprivileged_uring_restricted is still exposed to
-> userspace even when CONFIG_IO_URING is disabled and the variable would
-> do nothing. This patch hides both the apparmorfs entry and the sysctl
-> when CONFIG_IO_URING is disabled.
+On 9/24/24 17:56, Ryan Lee wrote:
+> The profile_capabile function takes a struct apparmor_audit_data *ad,
+> which is documented as possibly being NULL. However, the single place that
+> calls this function never passes it a NULL ad. If we were ever to call
+> profile_capable with a NULL ad elsewhere, we would need to rework the
+> function, as its very first use of ad is to dereference ad->class without
+> checking if ad is NULL.
+> 
+> Thus, document profile_capable's ad parameter as not accepting NULL.
 > 
 > Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
 
-Not exactly nothing. This would have the userspace build policy that
-supports io_uring. The kernel won't enforce it but, it could shared
-by a kernel that does support io_uring.
-
-Really it comes down to how much you want to share policy between kernels
-to reduce storage vs. letting userspace optimize away or warn on policy
-that is not supported by the kernel. In practice unless you are using
-variants of configs for the same kernel version apparmor is most likely
-rebuilding policy for that kernel anyways so its probably better to
-hide these and to indicate they won't be enforced by the apparmor
-for this kernel.
-
 Acked-by: John Johansen <john.johansen@canonical.com>
 
-I have pulled this into my tree
+I have pulled it into my tree
 
 > ---
->   security/apparmor/apparmorfs.c | 2 ++
->   security/apparmor/lsm.c        | 2 ++
->   2 files changed, 4 insertions(+)
+>   security/apparmor/capability.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
-> index be6c3293c9e0..d1ea78c9122f 100644
-> --- a/security/apparmor/apparmorfs.c
-> +++ b/security/apparmor/apparmorfs.c
-> @@ -2587,8 +2587,10 @@ static struct aa_sfs_entry aa_sfs_entry_domain[] = {
->   static struct aa_sfs_entry aa_sfs_entry_unconfined[] = {
->   	AA_SFS_FILE_BOOLEAN("change_profile", 1),
->   	AA_SFS_FILE_INTPTR("userns",		aa_unprivileged_userns_restricted),
-> +#ifdef CONFIG_IO_URING
->   	AA_SFS_FILE_INTPTR("io_uring",
->   			    aa_unprivileged_uring_restricted),
-> +#endif
->   	{ }
->   };
->   
-> diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
-> index 9b086451f6e3..245207b005e7 100644
-> --- a/security/apparmor/lsm.c
-> +++ b/security/apparmor/lsm.c
-> @@ -2462,6 +2462,7 @@ static struct ctl_table apparmor_sysctl_table[] = {
->   		.mode           = 0644,
->   		.proc_handler   = userns_restrict_dointvec,
->   	},
-> +#ifdef CONFIG_IO_URING
->   	{
->   		.procname       = "apparmor_restrict_unprivileged_io_uring",
->   		.data           = &aa_unprivileged_uring_restricted,
-> @@ -2469,6 +2470,7 @@ static struct ctl_table apparmor_sysctl_table[] = {
->   		.mode           = 0600,
->   		.proc_handler   = apparmor_dointvec,
->   	},
-> +#endif
->   	{ }
->   };
->   
+> diff --git a/security/apparmor/capability.c b/security/apparmor/capability.c
+> index 61d7ab4255b0..9f89e8b94993 100644
+> --- a/security/apparmor/capability.c
+> +++ b/security/apparmor/capability.c
+> @@ -115,7 +115,7 @@ static int audit_caps(struct apparmor_audit_data *ad, struct aa_profile *profile
+>    * @profile: profile being enforced    (NOT NULL, NOT unconfined)
+>    * @cap: capability to test if allowed
+>    * @opts: CAP_OPT_NOAUDIT bit determines whether audit record is generated
+> - * @ad: audit data (MAY BE NULL indicating no auditing)
+> + * @ad: audit data (NOT NULL)
+>    *
+>    * Returns: 0 if allowed else -EPERM
+>    */
 
 
