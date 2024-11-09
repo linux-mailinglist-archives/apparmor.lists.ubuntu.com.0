@@ -2,31 +2,30 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4472C9C2F7C
-	for <lists+apparmor@lfdr.de>; Sat,  9 Nov 2024 21:27:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3674D9C2F7F
+	for <lists+apparmor@lfdr.de>; Sat,  9 Nov 2024 21:30:15 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1t9s2r-0003ky-IH; Sat, 09 Nov 2024 20:26:57 +0000
+	id 1t9s5v-0004WJ-5D; Sat, 09 Nov 2024 20:30:07 +0000
 Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
  helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1t9s2p-0003kr-Rl
- for apparmor@lists.ubuntu.com; Sat, 09 Nov 2024 20:26:55 +0000
+ id 1t9s5t-0004V6-NK
+ for apparmor@lists.ubuntu.com; Sat, 09 Nov 2024 20:30:05 +0000
 Received: from [192.168.192.84] (unknown [50.39.104.138])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 1AB473F192; 
- Sat,  9 Nov 2024 20:26:53 +0000 (UTC)
-Message-ID: <7d4b6599-7e99-46bc-b62f-34fb2a2db92f@canonical.com>
-Date: Sat, 9 Nov 2024 12:26:49 -0800
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 6746E3F192; 
+ Sat,  9 Nov 2024 20:30:04 +0000 (UTC)
+Message-ID: <07a51286-7ff4-4352-bb19-6d54e87275b6@canonical.com>
+Date: Sat, 9 Nov 2024 12:30:01 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Ryan Lee <ryan.lee@canonical.com>, apparmor@lists.ubuntu.com
-References: <20240913232104.1632869-1-ryan.lee@canonical.com>
- <20240913232104.1632869-2-ryan.lee@canonical.com>
+References: <20240920195317.325627-1-ryan.lee@canonical.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -72,12 +71,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20240913232104.1632869-2-ryan.lee@canonical.com>
+In-Reply-To: <20240920195317.325627-1-ryan.lee@canonical.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [RFC,
- PATCH 2/3] apparmor: Add an apparmor_can_read_douintvec for
- unsigned int apparmor sysctls
+Subject: Re: [apparmor] [PATCH v2] apparmor: add a cache entry expiration
+ time aging out capability audit cache
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -92,40 +90,84 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 9/13/24 16:20, Ryan Lee wrote:
-> This adds a helper for apparmor sysctls to allow world-read, root-write
-> unsigned integer sysctls. This is used by the next patch in the series.
+On 9/20/24 12:53, Ryan Lee wrote:
+> When auditing capabilities, AppArmor uses a per-CPU, per-profile cache
+> such that the same capability for the same profile doesn't get repeatedly
+> audited, with the original goal of reducing audit logspam. However, this
+> cache does not have an expiration time, resulting in confusion when a
+> profile is shared across binaries (for example) and an expected DENIED
+> audit entry doesn't appear, despite the cache entry having been populated
+> much longer ago. This confusion was exacerbated by the per-CPU nature of
+> the cache resulting in the expected entries sporadically appearing when
+> the later denial+audit occurred on a different CPU.
+> 
+> To resolve this, record the last time a capability was audited for a
+> profile and add a timestamp expiration check before doing the audit.
+> 
+> v1 -> v2:
+>   - Hardcode a longer timeout and drop the patches making it a sysctl,
+>     after discussion with John Johansen.
+>   - Cache the expiration time instead of the last-audited time. This value
+>     can never be zero, which lets us drop the kernel_cap_t caps field from
+>     the cache struct.
 > 
 > Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
 
-soft nak as this is a dependency of patch 3/3 and with it not landing
-there is no point for this atm.
+Acked-by: John Johansen <john.johansen@canonical.com>
+
+I have pulled this into my tree
 
 > ---
->   security/apparmor/lsm.c | 11 +++++++++++
->   1 file changed, 11 insertions(+)
+>   security/apparmor/capability.c | 10 +++++++++-
+>   1 file changed, 9 insertions(+), 1 deletion(-)
 > 
-> diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
-> index 9b086451f6e3..b9a92e500242 100644
-> --- a/security/apparmor/lsm.c
-> +++ b/security/apparmor/lsm.c
-> @@ -2404,6 +2404,17 @@ static int apparmor_dointvec(struct ctl_table *table, int write,
->   	return proc_dointvec(table, write, buffer, lenp, ppos);
->   }
+> diff --git a/security/apparmor/capability.c b/security/apparmor/capability.c
+> index 7c0f66f1b297..64005b3d0fcc 100644
+> --- a/security/apparmor/capability.c
+> +++ b/security/apparmor/capability.c
+> @@ -12,6 +12,7 @@
+>   #include <linux/errno.h>
+>   #include <linux/gfp.h>
+>   #include <linux/security.h>
+> +#include <linux/timekeeping.h>
 >   
-> +static int apparmor_can_read_douintvec(struct ctl_table *table, int write,
-> +			     void *buffer, size_t *lenp, loff_t *ppos)
-> +{
-> +	if (!apparmor_enabled)
-> +		return -EINVAL;
-> +	if (write && !aa_current_policy_admin_capable(NULL))
-> +		return -EPERM;
-> +
-> +	return proc_douintvec(table, write, buffer, lenp, ppos);
-> +}
-> +
->   static int userns_restrict_dointvec(struct ctl_table *table, int write,
->   				    void *buffer, size_t *lenp, loff_t *ppos)
+>   #include "include/apparmor.h"
+>   #include "include/capability.h"
+> @@ -33,6 +34,7 @@ struct aa_sfs_entry aa_sfs_entry_caps[] = {
+>   struct audit_cache {
+>   	struct aa_profile *profile;
+> -	kernel_cap_t caps;
+> +	/* Capabilities go from 0 to CAP_LAST_CAP */
+> +	u64 ktime_ns_expiration[CAP_LAST_CAP+1];
+>   };
+>   
+>   static DEFINE_PER_CPU(struct audit_cache, audit_cache);
+> @@ -64,6 +67,8 @@ static void audit_cb(struct audit_buffer *ab, void *va)
+>   static int audit_caps(struct apparmor_audit_data *ad, struct aa_profile *profile,
+>   		      int cap, int error)
 >   {
+> +	const u64 AUDIT_CACHE_TIMEOUT_NS = 1000*1000*1000; /* 1 second */
+> +
+>   	struct aa_ruleset *rules = list_first_entry(&profile->rules,
+>   						    typeof(*rules), list);
+>   	struct audit_cache *ent;
+> @@ -90,7 +94,8 @@ static int audit_caps(struct apparmor_audit_data *ad, struct aa_profile *profile
+>   
+>   	/* Do simple duplicate message elimination */
+>   	ent = &get_cpu_var(audit_cache);
+> -	if (profile == ent->profile && cap_raised(ent->caps, cap)) {
+> +	/* If the capability was never raised the timestamp check would also catch that */
+> +	if (profile == ent->profile && ktime_get_ns() <= ent->ktime_ns_expiration[cap]) {
+>   		put_cpu_var(audit_cache);
+>   		if (COMPLAIN_MODE(profile))
+>   			return complain_error(error);
+> @@ -99,6 +104,6 @@ static int audit_caps(struct apparmor_audit_data *ad, struct aa_profile *profile
+>   		aa_put_profile(ent->profile);
+>   		ent->profile = aa_get_profile(profile);
+> -		cap_raise(ent->caps, cap);
+> +		ent->ktime_ns_expiration[cap] = ktime_get_ns() + AUDIT_CACHE_TIMEOUT_NS;
+>   	}
+>   	put_cpu_var(audit_cache);
+>   
 
 
