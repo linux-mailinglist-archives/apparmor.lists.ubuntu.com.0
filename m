@@ -2,31 +2,32 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E6539C2F87
-	for <lists+apparmor@lfdr.de>; Sat,  9 Nov 2024 21:36:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4ADBC9C2F89
+	for <lists+apparmor@lfdr.de>; Sat,  9 Nov 2024 21:39:43 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1t9sCB-0006CN-FV; Sat, 09 Nov 2024 20:36:35 +0000
+	id 1t9sF2-00078x-Qh; Sat, 09 Nov 2024 20:39:32 +0000
 Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
  helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1t9sCA-0006CE-69
- for apparmor@lists.ubuntu.com; Sat, 09 Nov 2024 20:36:34 +0000
+ id 1t9sF1-00077d-88
+ for apparmor@lists.ubuntu.com; Sat, 09 Nov 2024 20:39:31 +0000
 Received: from [192.168.192.84] (unknown [50.39.104.138])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id D08AC3F22F; 
- Sat,  9 Nov 2024 20:36:32 +0000 (UTC)
-Message-ID: <7989c006-abc6-446c-8b2c-dcb9acb9732f@canonical.com>
-Date: Sat, 9 Nov 2024 12:36:30 -0800
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id A70DF3F954; 
+ Sat,  9 Nov 2024 20:39:29 +0000 (UTC)
+Message-ID: <a7a046d6-c1b8-4142-8a8d-49e4ce5086d6@canonical.com>
+Date: Sat, 9 Nov 2024 12:39:27 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Siddharth Menon <simeddon@gmail.com>, linux-doc@vger.kernel.org,
- corbet@lwn.net
-References: <20241002094940.55644-1-simeddon@gmail.com>
+To: Jinjie Ruan <ruanjinjie@huawei.com>, paul@paul-moore.com,
+ jmorris@namei.org, serge@hallyn.com, apparmor@lists.ubuntu.com,
+ linux-security-module@vger.kernel.org
+References: <20240902073904.3520301-1-ruanjinjie@huawei.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -72,10 +73,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20241002094940.55644-1-simeddon@gmail.com>
+In-Reply-To: <20240902073904.3520301-1-ruanjinjie@huawei.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH V2 RESEND] Docs: Update LSM/apparmor.rst
+Subject: Re: [apparmor] [PATCH -next] apparmor: Remove unused parameter L1
+ in macro next_comb
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -87,44 +89,44 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: apparmor@lists.ubuntu.com, shuah@kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 10/2/24 02:49, Siddharth Menon wrote:
-> After the deprecation of CONFIG_DEFAULT_SECURITY, it is no longer used
-> to enable and configure AppArmor. Since kernel 5.0,
-> `CONFIG_SECURITY_APPARMOR_BOOTPARAM_VALUE` is not used either.
-> Instead, the CONFIG_LSM parameter manages the order and selection of LSMs.
+On 9/2/24 00:39, Jinjie Ruan wrote:
+> In the macro definition of next_comb(), a parameter L1 is accepted,
+> but it is not used. Hence, it should be removed.
 > 
-> Signed-off-by: Siddharth Menon <simeddon@gmail.com>
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
 Acked-by: John Johansen <john.johansen@canonical.com>
 
 I have pulled this into my tree
 
 > ---
->   V1 -> V2: Removed historical information and addressed review comments
->   Documentation/admin-guide/LSM/apparmor.rst | 7 +++++--
->   1 file changed, 5 insertions(+), 2 deletions(-)
+>   security/apparmor/include/label.h | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> diff --git a/Documentation/admin-guide/LSM/apparmor.rst b/Documentation/admin-guide/LSM/apparmor.rst
-> index 6cf81bbd7ce8..47939ee89d74 100644
-> --- a/Documentation/admin-guide/LSM/apparmor.rst
-> +++ b/Documentation/admin-guide/LSM/apparmor.rst
-> @@ -18,8 +18,11 @@ set ``CONFIG_SECURITY_APPARMOR=y``
+> diff --git a/security/apparmor/include/label.h b/security/apparmor/include/label.h
+> index 2a72e6b17d68..2635eef0ae2b 100644
+> --- a/security/apparmor/include/label.h
+> +++ b/security/apparmor/include/label.h
+> @@ -160,7 +160,7 @@ int aa_label_next_confined(struct aa_label *l, int i);
+>   #define label_for_each_cont(I, L, P)					\
+>   	for (++((I).i); ((P) = (L)->vec[(I).i]); ++((I).i))
 >   
->   If AppArmor should be selected as the default security module then set::
+> -#define next_comb(I, L1, L2)						\
+> +#define next_comb(I, L2)						\
+>   do {									\
+>   	(I).j++;							\
+>   	if ((I).j >= (L2)->size) {					\
+> @@ -174,7 +174,7 @@ do {									\
+>   #define label_for_each_comb(I, L1, L2, P1, P2)				\
+>   for ((I).i = (I).j = 0;							\
+>   	((P1) = (L1)->vec[(I).i]) && ((P2) = (L2)->vec[(I).j]);		\
+> -	(I) = next_comb(I, L1, L2))
+> +	(I) = next_comb(I, L2))
 >   
-> -   CONFIG_DEFAULT_SECURITY="apparmor"
-> -   CONFIG_SECURITY_APPARMOR_BOOTPARAM_VALUE=1
-> +   CONFIG_DEFAULT_SECURITY_APPARMOR=y
-> +
-> +The CONFIG_LSM parameter manages the order and selection of LSMs.
-> +Specify apparmor as the first "major" module (e.g. AppArmor, SELinux, Smack)
-> +in the list.
->   
->   Build the kernel
->   
+>   #define fn_for_each_comb(L1, L2, P1, P2, FN)				\
+>   ({									\
 
 
