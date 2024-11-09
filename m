@@ -2,30 +2,30 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 874CC9C2F8F
-	for <lists+apparmor@lfdr.de>; Sat,  9 Nov 2024 21:55:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C56AD9C2FC1
+	for <lists+apparmor@lfdr.de>; Sat,  9 Nov 2024 23:16:41 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1t9sUC-0002KF-DE; Sat, 09 Nov 2024 20:55:12 +0000
+	id 1t9tkn-0001y9-E7; Sat, 09 Nov 2024 22:16:25 +0000
 Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
  helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1t9sUA-0002K6-Ta
- for apparmor@lists.ubuntu.com; Sat, 09 Nov 2024 20:55:10 +0000
+ id 1t9tkm-0001ws-AR
+ for apparmor@lists.ubuntu.com; Sat, 09 Nov 2024 22:16:24 +0000
 Received: from [192.168.192.84] (unknown [50.39.104.138])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id AB4593F09F; 
- Sat,  9 Nov 2024 20:55:09 +0000 (UTC)
-Message-ID: <2d67b678-6b49-401f-8aad-b2df859be5a2@canonical.com>
-Date: Sat, 9 Nov 2024 12:55:07 -0800
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 5C59D3F1E8; 
+ Sat,  9 Nov 2024 22:16:21 +0000 (UTC)
+Message-ID: <95fb73d2-4d29-41d9-be52-48c5d58d43e0@canonical.com>
+Date: Sat, 9 Nov 2024 14:16:17 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Ryan Lee <ryan.lee@canonical.com>, apparmor@lists.ubuntu.com
-References: <20240828222500.615911-1-ryan.lee@canonical.com>
+To: Alexander Mikhalitsyn <aleksandr.mikhalitsyn@canonical.com>
+References: <20240628153712.288166-1-aleksandr.mikhalitsyn@canonical.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -71,11 +71,10 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20240828222500.615911-1-ryan.lee@canonical.com>
+In-Reply-To: <20240628153712.288166-1-aleksandr.mikhalitsyn@canonical.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH] apparmor: replace misleading 'scrubbing
- environment' phrase in debug print
+Subject: Re: [apparmor] [PATCH] apparmor: take nosymfollow flag into account
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -87,63 +86,41 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: stgraber@stgraber.org, brauner@kernel.org, apparmor@lists.ubuntu.com,
+ linux-kernel@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 8/28/24 15:24, Ryan Lee wrote:
-> The wording of 'scrubbing environment' implied that all environment
-> variables would be removed, when instead secure-execution mode only
-> removes a small number of environment variables. This patch updates the
-> wording to describe what actually occurs instead: setting AT_SECURE for
-> ld.so's secure-execution mode.
+On 6/28/24 08:37, Alexander Mikhalitsyn wrote:
+> A "nosymfollow" flag was added in commit
+> dab741e0e02b ("Add a "nosymfollow" mount option.")
 > 
-> Link: https://gitlab.com/apparmor/apparmor/-/merge_requests/1315 is a
-> merge request that does similar updating for apparmor userspace.
+> While we don't need to implement any special logic on
+> the AppArmor kernel side to handle it, we should provide
+> user with a correct list of mount flags in audit logs.
 > 
-> Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
+> Signed-off-by: Alexander Mikhalitsyn <aleksandr.mikhalitsyn@canonical.com>
 
-Acked-by: John Johansen <john.johansen@canonical.com>
-
-I have pulled this into my tree
+As I am trying to sort through the back log I found that
+some how my reply to this got dropped. So just to document
+on list, this landed in 6.11
 
 > ---
->   security/apparmor/domain.c | 10 +++++-----
->   1 file changed, 5 insertions(+), 5 deletions(-)
+>   security/apparmor/mount.c | 2 ++
+>   1 file changed, 2 insertions(+)
 > 
-> diff --git a/security/apparmor/domain.c b/security/apparmor/domain.c
-> index 9914a2b130de..c89f4222f2e9 100644
-> --- a/security/apparmor/domain.c
-> +++ b/security/apparmor/domain.c
-> @@ -720,8 +720,8 @@ static struct aa_label *profile_transition(const struct cred *subj_cred,
->   
->   	if (!(perms.xindex & AA_X_UNSAFE)) {
->   		if (DEBUG_ON) {
-> -			dbg_printk("apparmor: scrubbing environment variables"
-> -				   " for %s profile=", name);
-> +			dbg_printk("apparmor: setting AT_SECURE "
-> +				   "for %s profile=", name);
->   			aa_label_printk(new, GFP_KERNEL);
->   			dbg_printk("\n");
->   		}
-> @@ -799,8 +799,8 @@ static int profile_onexec(const struct cred *subj_cred,
->   
->   	if (!(perms.xindex & AA_X_UNSAFE)) {
->   		if (DEBUG_ON) {
-> -			dbg_printk("apparmor: scrubbing environment "
-> -				   "variables for %s label=", xname);
-> +			dbg_printk("apparmor: setting AT_SECURE for "
-> +				   "%s label=", xname);
->   			aa_label_printk(onexec, GFP_KERNEL);
->   			dbg_printk("\n");
->   		}
-> @@ -970,7 +970,7 @@ int apparmor_bprm_creds_for_exec(struct linux_binprm *bprm)
->   
->   	if (unsafe) {
->   		if (DEBUG_ON) {
-> -			dbg_printk("scrubbing environment variables for %s "
-> +			dbg_printk("setting AT_SECURE for %s "
->   				   "label=", bprm->filename);
->   			aa_label_printk(new, GFP_KERNEL);
->   			dbg_printk("\n");
+> diff --git a/security/apparmor/mount.c b/security/apparmor/mount.c
+> index 49fe8da6fea4..bf8863253e07 100644
+> --- a/security/apparmor/mount.c
+> +++ b/security/apparmor/mount.c
+> @@ -44,6 +44,8 @@ static void audit_mnt_flags(struct audit_buffer *ab, unsigned long flags)
+>   		audit_log_format(ab, ", mand");
+>   	if (flags & MS_DIRSYNC)
+>   		audit_log_format(ab, ", dirsync");
+> +	if (flags & MS_NOSYMFOLLOW)
+> +		audit_log_format(ab, ", nosymfollow");
+>   	if (flags & MS_NOATIME)
+>   		audit_log_format(ab, ", noatime");
+>   	if (flags & MS_NODIRATIME)
 
 
