@@ -2,32 +2,30 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4ADBC9C2F89
-	for <lists+apparmor@lfdr.de>; Sat,  9 Nov 2024 21:39:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 874CC9C2F8F
+	for <lists+apparmor@lfdr.de>; Sat,  9 Nov 2024 21:55:22 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1t9sF2-00078x-Qh; Sat, 09 Nov 2024 20:39:32 +0000
+	id 1t9sUC-0002KF-DE; Sat, 09 Nov 2024 20:55:12 +0000
 Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
  helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1t9sF1-00077d-88
- for apparmor@lists.ubuntu.com; Sat, 09 Nov 2024 20:39:31 +0000
+ id 1t9sUA-0002K6-Ta
+ for apparmor@lists.ubuntu.com; Sat, 09 Nov 2024 20:55:10 +0000
 Received: from [192.168.192.84] (unknown [50.39.104.138])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id A70DF3F954; 
- Sat,  9 Nov 2024 20:39:29 +0000 (UTC)
-Message-ID: <a7a046d6-c1b8-4142-8a8d-49e4ce5086d6@canonical.com>
-Date: Sat, 9 Nov 2024 12:39:27 -0800
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id AB4593F09F; 
+ Sat,  9 Nov 2024 20:55:09 +0000 (UTC)
+Message-ID: <2d67b678-6b49-401f-8aad-b2df859be5a2@canonical.com>
+Date: Sat, 9 Nov 2024 12:55:07 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Jinjie Ruan <ruanjinjie@huawei.com>, paul@paul-moore.com,
- jmorris@namei.org, serge@hallyn.com, apparmor@lists.ubuntu.com,
- linux-security-module@vger.kernel.org
-References: <20240902073904.3520301-1-ruanjinjie@huawei.com>
+To: Ryan Lee <ryan.lee@canonical.com>, apparmor@lists.ubuntu.com
+References: <20240828222500.615911-1-ryan.lee@canonical.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -73,11 +71,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20240902073904.3520301-1-ruanjinjie@huawei.com>
+In-Reply-To: <20240828222500.615911-1-ryan.lee@canonical.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH -next] apparmor: Remove unused parameter L1
- in macro next_comb
+Subject: Re: [apparmor] [PATCH] apparmor: replace misleading 'scrubbing
+ environment' phrase in debug print
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -92,41 +90,60 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 9/2/24 00:39, Jinjie Ruan wrote:
-> In the macro definition of next_comb(), a parameter L1 is accepted,
-> but it is not used. Hence, it should be removed.
+On 8/28/24 15:24, Ryan Lee wrote:
+> The wording of 'scrubbing environment' implied that all environment
+> variables would be removed, when instead secure-execution mode only
+> removes a small number of environment variables. This patch updates the
+> wording to describe what actually occurs instead: setting AT_SECURE for
+> ld.so's secure-execution mode.
 > 
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> Link: https://gitlab.com/apparmor/apparmor/-/merge_requests/1315 is a
+> merge request that does similar updating for apparmor userspace.
+> 
+> Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
 
 Acked-by: John Johansen <john.johansen@canonical.com>
 
 I have pulled this into my tree
 
 > ---
->   security/apparmor/include/label.h | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
+>   security/apparmor/domain.c | 10 +++++-----
+>   1 file changed, 5 insertions(+), 5 deletions(-)
 > 
-> diff --git a/security/apparmor/include/label.h b/security/apparmor/include/label.h
-> index 2a72e6b17d68..2635eef0ae2b 100644
-> --- a/security/apparmor/include/label.h
-> +++ b/security/apparmor/include/label.h
-> @@ -160,7 +160,7 @@ int aa_label_next_confined(struct aa_label *l, int i);
->   #define label_for_each_cont(I, L, P)					\
->   	for (++((I).i); ((P) = (L)->vec[(I).i]); ++((I).i))
+> diff --git a/security/apparmor/domain.c b/security/apparmor/domain.c
+> index 9914a2b130de..c89f4222f2e9 100644
+> --- a/security/apparmor/domain.c
+> +++ b/security/apparmor/domain.c
+> @@ -720,8 +720,8 @@ static struct aa_label *profile_transition(const struct cred *subj_cred,
 >   
-> -#define next_comb(I, L1, L2)						\
-> +#define next_comb(I, L2)						\
->   do {									\
->   	(I).j++;							\
->   	if ((I).j >= (L2)->size) {					\
-> @@ -174,7 +174,7 @@ do {									\
->   #define label_for_each_comb(I, L1, L2, P1, P2)				\
->   for ((I).i = (I).j = 0;							\
->   	((P1) = (L1)->vec[(I).i]) && ((P2) = (L2)->vec[(I).j]);		\
-> -	(I) = next_comb(I, L1, L2))
-> +	(I) = next_comb(I, L2))
+>   	if (!(perms.xindex & AA_X_UNSAFE)) {
+>   		if (DEBUG_ON) {
+> -			dbg_printk("apparmor: scrubbing environment variables"
+> -				   " for %s profile=", name);
+> +			dbg_printk("apparmor: setting AT_SECURE "
+> +				   "for %s profile=", name);
+>   			aa_label_printk(new, GFP_KERNEL);
+>   			dbg_printk("\n");
+>   		}
+> @@ -799,8 +799,8 @@ static int profile_onexec(const struct cred *subj_cred,
 >   
->   #define fn_for_each_comb(L1, L2, P1, P2, FN)				\
->   ({									\
+>   	if (!(perms.xindex & AA_X_UNSAFE)) {
+>   		if (DEBUG_ON) {
+> -			dbg_printk("apparmor: scrubbing environment "
+> -				   "variables for %s label=", xname);
+> +			dbg_printk("apparmor: setting AT_SECURE for "
+> +				   "%s label=", xname);
+>   			aa_label_printk(onexec, GFP_KERNEL);
+>   			dbg_printk("\n");
+>   		}
+> @@ -970,7 +970,7 @@ int apparmor_bprm_creds_for_exec(struct linux_binprm *bprm)
+>   
+>   	if (unsafe) {
+>   		if (DEBUG_ON) {
+> -			dbg_printk("scrubbing environment variables for %s "
+> +			dbg_printk("setting AT_SECURE for %s "
+>   				   "label=", bprm->filename);
+>   			aa_label_printk(new, GFP_KERNEL);
+>   			dbg_printk("\n");
 
 
