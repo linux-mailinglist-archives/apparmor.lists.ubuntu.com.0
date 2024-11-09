@@ -2,30 +2,31 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 793449C2F82
-	for <lists+apparmor@lfdr.de>; Sat,  9 Nov 2024 21:32:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E6539C2F87
+	for <lists+apparmor@lfdr.de>; Sat,  9 Nov 2024 21:36:47 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1t9s8A-00059s-Qw; Sat, 09 Nov 2024 20:32:26 +0000
+	id 1t9sCB-0006CN-FV; Sat, 09 Nov 2024 20:36:35 +0000
 Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
  helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1t9s88-00059k-Hk
- for apparmor@lists.ubuntu.com; Sat, 09 Nov 2024 20:32:24 +0000
+ id 1t9sCA-0006CE-69
+ for apparmor@lists.ubuntu.com; Sat, 09 Nov 2024 20:36:34 +0000
 Received: from [192.168.192.84] (unknown [50.39.104.138])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id F160E3F192; 
- Sat,  9 Nov 2024 20:32:22 +0000 (UTC)
-Message-ID: <036da3c2-870f-406a-9130-686f9495a713@canonical.com>
-Date: Sat, 9 Nov 2024 12:32:17 -0800
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id D08AC3F22F; 
+ Sat,  9 Nov 2024 20:36:32 +0000 (UTC)
+Message-ID: <7989c006-abc6-446c-8b2c-dcb9acb9732f@canonical.com>
+Date: Sat, 9 Nov 2024 12:36:30 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Ryan Lee <ryan.lee@canonical.com>, apparmor@lists.ubuntu.com
-References: <20240925183012.455272-1-ryan.lee@canonical.com>
+To: Siddharth Menon <simeddon@gmail.com>, linux-doc@vger.kernel.org,
+ corbet@lwn.net
+References: <20241002094940.55644-1-simeddon@gmail.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -71,11 +72,10 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20240925183012.455272-1-ryan.lee@canonical.com>
+In-Reply-To: <20241002094940.55644-1-simeddon@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH] apparmor: audit_cap dedup based on subj_cred
- instead of profile
+Subject: Re: [apparmor] [PATCH V2 RESEND] Docs: Update LSM/apparmor.rst
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -87,61 +87,44 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: apparmor@lists.ubuntu.com, shuah@kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 9/25/24 11:30, Ryan Lee wrote:
-> The previous audit_cap cache deduping was based on the profile that was
-> being audited. This could cause confusion due to the deduplication then
-> occurring across multiple processes, which could happen if multiple
-> instances of binaries matched the same profile attachment (and thus ran
-> under the same profile) or a profile was attached to a container and its
-> processes.
+On 10/2/24 02:49, Siddharth Menon wrote:
+> After the deprecation of CONFIG_DEFAULT_SECURITY, it is no longer used
+> to enable and configure AppArmor. Since kernel 5.0,
+> `CONFIG_SECURITY_APPARMOR_BOOTPARAM_VALUE` is not used either.
+> Instead, the CONFIG_LSM parameter manages the order and selection of LSMs.
 > 
-> Instead, perform audit_cap deduping over ad->subj_cred, which ensures the
-> deduping only occurs across a single process, instead of across all
-> processes that match the current one's profile.
-> 
-> Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
+> Signed-off-by: Siddharth Menon <simeddon@gmail.com>
 
-Acked-by: John Johansen <john.johansen@canoical.com>
+Acked-by: John Johansen <john.johansen@canonical.com>
 
 I have pulled this into my tree
 
 > ---
->   security/apparmor/capability.c | 8 ++++----
->   1 file changed, 4 insertions(+), 4 deletions(-)
+>   V1 -> V2: Removed historical information and addressed review comments
+>   Documentation/admin-guide/LSM/apparmor.rst | 7 +++++--
+>   1 file changed, 5 insertions(+), 2 deletions(-)
 > 
-> diff --git a/security/apparmor/capability.c b/security/apparmor/capability.c
-> index 61d7ab4255b0..3729c7fc86f9 100644
-> --- a/security/apparmor/capability.c
-> +++ b/security/apparmor/capability.c
-> @@ -32,7 +32,7 @@ struct aa_sfs_entry aa_sfs_entry_caps[] = {
->   };
+> diff --git a/Documentation/admin-guide/LSM/apparmor.rst b/Documentation/admin-guide/LSM/apparmor.rst
+> index 6cf81bbd7ce8..47939ee89d74 100644
+> --- a/Documentation/admin-guide/LSM/apparmor.rst
+> +++ b/Documentation/admin-guide/LSM/apparmor.rst
+> @@ -18,8 +18,11 @@ set ``CONFIG_SECURITY_APPARMOR=y``
 >   
->   struct audit_cache {
-> -	struct aa_profile *profile;
-> +	const struct cred *ad_subj_cred;
->   	/* Capabilities go from 0 to CAP_LAST_CAP */
->   	u64 ktime_ns_expiration[CAP_LAST_CAP+1];
->   };
-> @@ -95,14 +95,14 @@ static int audit_caps(struct apparmor_audit_data *ad, struct aa_profile *profile
->   	/* Do simple duplicate message elimination */
->   	ent = &get_cpu_var(audit_cache);
->   	/* If the capability was never raised the timestamp check would also catch that */
-> -	if (profile == ent->profile && ktime_get_ns() <= ent->ktime_ns_expiration[cap]) {
-> +	if (ad->subj_cred == ent->ad_subj_cred && ktime_get_ns() <= ent->ktime_ns_expiration[cap]) {
->   		put_cpu_var(audit_cache);
->   		if (COMPLAIN_MODE(profile))
->   			return complain_error(error);
->   		return error;
->   	} else {
-> -		aa_put_profile(ent->profile);
-> -		ent->profile = aa_get_profile(profile);
-> +		put_cred(ent->ad_subj_cred);
-> +		ent->ad_subj_cred = get_cred(ad->subj_cred);
->   		ent->ktime_ns_expiration[cap] = ktime_get_ns() + AUDIT_CACHE_TIMEOUT_NS;
->   	}
->   	put_cpu_var(audit_cache);
+>   If AppArmor should be selected as the default security module then set::
+>   
+> -   CONFIG_DEFAULT_SECURITY="apparmor"
+> -   CONFIG_SECURITY_APPARMOR_BOOTPARAM_VALUE=1
+> +   CONFIG_DEFAULT_SECURITY_APPARMOR=y
+> +
+> +The CONFIG_LSM parameter manages the order and selection of LSMs.
+> +Specify apparmor as the first "major" module (e.g. AppArmor, SELinux, Smack)
+> +in the list.
+>   
+>   Build the kernel
+>   
 
 
