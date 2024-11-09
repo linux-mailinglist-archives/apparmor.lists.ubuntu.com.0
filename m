@@ -2,30 +2,31 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 491CE9C2F7A
-	for <lists+apparmor@lfdr.de>; Sat,  9 Nov 2024 21:20:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B8F49C2F7B
+	for <lists+apparmor@lfdr.de>; Sat,  9 Nov 2024 21:26:11 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1t9rwj-0001nD-Et; Sat, 09 Nov 2024 20:20:37 +0000
+	id 1t9s1w-0003N7-Ch; Sat, 09 Nov 2024 20:26:00 +0000
 Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
  helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1t9rwh-0001n5-Pn
- for apparmor@lists.ubuntu.com; Sat, 09 Nov 2024 20:20:35 +0000
+ id 1t9s1u-0003Kp-O8
+ for apparmor@lists.ubuntu.com; Sat, 09 Nov 2024 20:25:58 +0000
 Received: from [192.168.192.84] (unknown [50.39.104.138])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 2821C3F954; 
- Sat,  9 Nov 2024 20:20:34 +0000 (UTC)
-Message-ID: <5aa61384-fd92-407b-bbaa-8ff9f9850218@canonical.com>
-Date: Sat, 9 Nov 2024 12:20:33 -0800
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 980363F192; 
+ Sat,  9 Nov 2024 20:25:57 +0000 (UTC)
+Message-ID: <02ef10a6-e609-4a13-b0fa-1fa4db2b1f11@canonical.com>
+Date: Sat, 9 Nov 2024 12:25:53 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Ryan Lee <ryan.lee@canonical.com>, apparmor@lists.ubuntu.com
-References: <20240925005607.260221-1-ryan.lee@canonical.com>
+References: <20240913232104.1632869-1-ryan.lee@canonical.com>
+ <20240913232104.1632869-3-ryan.lee@canonical.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -71,11 +72,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20240925005607.260221-1-ryan.lee@canonical.com>
+In-Reply-To: <20240913232104.1632869-3-ryan.lee@canonical.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH] apparmor: document
- capability.c:profile_capable ad ptr not being NULL
+Subject: Re: [apparmor] [RFC,
+ PATCH 3/3] apparmor: Make the audit cap cache timeout a sysctl
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -90,38 +91,90 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 9/24/24 17:56, Ryan Lee wrote:
-> The profile_capabile function takes a struct apparmor_audit_data *ad,
-> which is documented as possibly being NULL. However, the single place that
-> calls this function never passes it a NULL ad. If we were ever to call
-> profile_capable with a NULL ad elsewhere, we would need to rework the
-> function, as its very first use of ad is to dereference ad->class without
-> checking if ad is NULL.
-> 
-> Thus, document profile_capable's ad parameter as not accepting NULL.
+On 9/13/24 16:21, Ryan Lee wrote:
+> Instead of hardcoding the Apparmor capability audit cache timeout, expose
+> it as a sysctl. This uses the helper introduced in the previous patch of
+> this series.
 > 
 > Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
 
-Acked-by: John Johansen <john.johansen@canonical.com>
-
-I have pulled it into my tree
+NAK. At least atm the audit cache for capabilities is a temporary solution.
+there is a larger rework coming that will bring caching to complain mode
+which is generic enough that it should replace the caps cache, so I don't
+want to expose the caps cache to userspace.
 
 > ---
->   security/apparmor/capability.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+>   security/apparmor/capability.c         | 6 ++++--
+>   security/apparmor/include/capability.h | 2 ++
+>   security/apparmor/lsm.c                | 7 +++++++
+>   3 files changed, 13 insertions(+), 2 deletions(-)
 > 
 > diff --git a/security/apparmor/capability.c b/security/apparmor/capability.c
-> index 61d7ab4255b0..9f89e8b94993 100644
+> index 64005b3d0fcc..764b5dd93366 100644
 > --- a/security/apparmor/capability.c
 > +++ b/security/apparmor/capability.c
-> @@ -115,7 +115,7 @@ static int audit_caps(struct apparmor_audit_data *ad, struct aa_profile *profile
->    * @profile: profile being enforced    (NOT NULL, NOT unconfined)
->    * @cap: capability to test if allowed
->    * @opts: CAP_OPT_NOAUDIT bit determines whether audit record is generated
-> - * @ad: audit data (MAY BE NULL indicating no auditing)
-> + * @ad: audit data (NOT NULL)
->    *
->    * Returns: 0 if allowed else -EPERM
+> @@ -25,6 +25,8 @@
 >    */
+>   #include "capability_names.h"
+>   
+> +unsigned int audit_cap_cache_timeout_us = 100;
+> +
+>   struct aa_sfs_entry aa_sfs_entry_caps[] = {
+>   	AA_SFS_FILE_STRING("mask", AA_SFS_CAPS_MASK),
+>   	AA_SFS_FILE_BOOLEAN("extended", 1),
+> @@ -68,12 +70,12 @@ static void audit_cb(struct audit_buffer *ab, void *va)
+>   static int audit_caps(struct apparmor_audit_data *ad, struct aa_profile *profile,
+>   		      int cap, int error)
+>   {
+> -	const u64 AUDIT_CACHE_TIMEOUT_NS = 100*1000; /* 100 us */
+>   	u64 audit_cache_expiration;
+>   	struct aa_ruleset *rules = list_first_entry(&profile->rules,
+>   						    typeof(*rules), list);
+>   	struct audit_cache *ent;
+>   	int type = AUDIT_APPARMOR_AUTO;
+> +	u64 audit_cap_cache_timeout_ns = 1000*(u64) audit_cap_cache_timeout_us;
+>   
+>   	ad->error = error;
+>   
+> @@ -95,7 +97,7 @@ static int audit_caps(struct apparmor_audit_data *ad, struct aa_profile *profile
+>   
+>   	/* Do simple duplicate message elimination */
+>   	ent = &get_cpu_var(audit_cache);
+> -	audit_cache_expiration = ent->ktime_ns_last_audited[cap] + AUDIT_CACHE_TIMEOUT_NS;
+> +	audit_cache_expiration = ent->ktime_ns_last_audited[cap] + audit_cap_cache_timeout_ns;
+>   	if (profile == ent->profile && cap_raised(ent->caps, cap)
+>   			&& ktime_get_ns() <= audit_cache_expiration) {
+>   		put_cpu_var(audit_cache);
+> diff --git a/security/apparmor/include/capability.h b/security/apparmor/include/capability.h
+> index 1ddcec2d1160..c38488b3fe00 100644
+> --- a/security/apparmor/include/capability.h
+> +++ b/security/apparmor/include/capability.h
+> @@ -34,6 +34,8 @@ struct aa_caps {
+>   	kernel_cap_t extended;
+>   };
+>   
+> +extern unsigned int audit_cap_cache_timeout_us;
+> +
+>   extern struct aa_sfs_entry aa_sfs_entry_caps[];
+>   
+>   kernel_cap_t aa_profile_capget(struct aa_profile *profile);
+> diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
+> index b9a92e500242..4af50bd3628a 100644
+> --- a/security/apparmor/lsm.c
+> +++ b/security/apparmor/lsm.c
+> @@ -2480,6 +2480,13 @@ static struct ctl_table apparmor_sysctl_table[] = {
+>   		.mode           = 0600,
+>   		.proc_handler   = apparmor_dointvec,
+>   	},
+> +	{
+> +		.procname       = "apparmor_audit_capability_dedup_timeout_us",
+> +		.data           = &audit_cap_cache_timeout_us,
+> +		.maxlen         = sizeof(unsigned int),
+> +		.mode           = 0644,
+> +		.proc_handler   = apparmor_can_read_douintvec,
+> +	},
+>   	{ }
+>   };
+>   
 
 
