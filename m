@@ -2,34 +2,30 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49EF49C2F58
-	for <lists+apparmor@lfdr.de>; Sat,  9 Nov 2024 20:36:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43FE49C2F6E
+	for <lists+apparmor@lfdr.de>; Sat,  9 Nov 2024 20:59:54 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1t9rFf-0000K2-R7; Sat, 09 Nov 2024 19:36:07 +0000
+	id 1t9rcT-0005YH-81; Sat, 09 Nov 2024 19:59:41 +0000
 Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
  helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1t9rFe-0000Jp-4C
- for apparmor@lists.ubuntu.com; Sat, 09 Nov 2024 19:36:06 +0000
+ id 1t9rcR-0005Y7-Ph
+ for apparmor@lists.ubuntu.com; Sat, 09 Nov 2024 19:59:39 +0000
 Received: from [192.168.192.84] (unknown [50.39.104.138])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 041933FB5B; 
- Sat,  9 Nov 2024 19:36:03 +0000 (UTC)
-Message-ID: <4b7f9b0b-1a24-46fc-9046-069f06f3c965@canonical.com>
-Date: Sat, 9 Nov 2024 11:36:02 -0800
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 08EB23F959; 
+ Sat,  9 Nov 2024 19:59:38 +0000 (UTC)
+Message-ID: <6bc4207c-9e01-492d-b34f-9b511d34117f@canonical.com>
+Date: Sat, 9 Nov 2024 11:59:35 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Jinjie Ruan <ruanjinjie@huawei.com>, paul@paul-moore.com,
- jmorris@namei.org, serge@hallyn.com, skhan@linuxfoundation.org,
- mike.salvatore@canonical.com, kees@kernel.org, brendan.higgins@linux.dev,
- apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20241011012241.3251128-1-ruanjinjie@huawei.com>
+To: Ryan Lee <ryan.lee@canonical.com>, apparmor@lists.ubuntu.com
+References: <20240913230325.1624331-1-ryan.lee@canonical.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -75,11 +71,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20241011012241.3251128-1-ruanjinjie@huawei.com>
+In-Reply-To: <20240913230325.1624331-1-ryan.lee@canonical.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH] apparmor: test: Fix memory leak for
-	aa_unpack_strdup()
+Subject: Re: [apparmor] [PATCH] apparmor: hide
+ aa_unprivileged_uring_restricted from userspace when io_uring is disabled
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -94,81 +90,69 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 10/10/24 18:22, Jinjie Ruan wrote:
-> The string allocated by kmemdup() in aa_unpack_strdup() is not
-> freed and cause following memory leaks, free them to fix it.
+On 9/13/24 16:03, Ryan Lee wrote:
+> The variable aa_unprivileged_uring_restricted is still exposed to
+> userspace even when CONFIG_IO_URING is disabled and the variable would
+> do nothing. This patch hides both the apparmorfs entry and the sysctl
+> when CONFIG_IO_URING is disabled.
 > 
-> 	unreferenced object 0xffffff80c6af8a50 (size 8):
-> 	  comm "kunit_try_catch", pid 225, jiffies 4294894407
-> 	  hex dump (first 8 bytes):
-> 	    74 65 73 74 69 6e 67 00                          testing.
-> 	  backtrace (crc 5eab668b):
-> 	    [<0000000001e3714d>] kmemleak_alloc+0x34/0x40
-> 	    [<000000006e6c7776>] __kmalloc_node_track_caller_noprof+0x300/0x3e0
-> 	    [<000000006870467c>] kmemdup_noprof+0x34/0x60
-> 	    [<000000001176bb03>] aa_unpack_strdup+0xd0/0x18c
-> 	    [<000000008ecde918>] policy_unpack_test_unpack_strdup_with_null_name+0xf8/0x3ec
-> 	    [<0000000032ef8f77>] kunit_try_run_case+0x13c/0x3ac
-> 	    [<00000000f3edea23>] kunit_generic_run_threadfn_adapter+0x80/0xec
-> 	    [<00000000adf936cf>] kthread+0x2e8/0x374
-> 	    [<0000000041bb1628>] ret_from_fork+0x10/0x20
-> 	unreferenced object 0xffffff80c2a29090 (size 8):
-> 	  comm "kunit_try_catch", pid 227, jiffies 4294894409
-> 	  hex dump (first 8 bytes):
-> 	    74 65 73 74 69 6e 67 00                          testing.
-> 	  backtrace (crc 5eab668b):
-> 	    [<0000000001e3714d>] kmemleak_alloc+0x34/0x40
-> 	    [<000000006e6c7776>] __kmalloc_node_track_caller_noprof+0x300/0x3e0
-> 	    [<000000006870467c>] kmemdup_noprof+0x34/0x60
-> 	    [<000000001176bb03>] aa_unpack_strdup+0xd0/0x18c
-> 	    [<0000000046a45c1a>] policy_unpack_test_unpack_strdup_with_name+0xd0/0x3c4
-> 	    [<0000000032ef8f77>] kunit_try_run_case+0x13c/0x3ac
-> 	    [<00000000f3edea23>] kunit_generic_run_threadfn_adapter+0x80/0xec
-> 	    [<00000000adf936cf>] kthread+0x2e8/0x374
-> 	    [<0000000041bb1628>] ret_from_fork+0x10/0x20
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 4d944bcd4e73 ("apparmor: add AppArmor KUnit tests for policy unpack")
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
+
+Not exactly nothing. This would have the userspace build policy that
+supports io_uring. The kernel won't enforce it but, it could shared
+by a kernel that does support io_uring.
+
+Really it comes down to how much you want to share policy between kernels
+to reduce storage vs. letting userspace optimize away or warn on policy
+that is not supported by the kernel. In practice unless you are using
+variants of configs for the same kernel version apparmor is most likely
+rebuilding policy for that kernel anyways so its probably better to
+hide these and to indicate they won't be enforced by the apparmor
+for this kernel.
 
 Acked-by: John Johansen <john.johansen@canonical.com>
 
 I have pulled this into my tree
 
 > ---
->   security/apparmor/policy_unpack_test.c | 6 ++++++
->   1 file changed, 6 insertions(+)
+>   security/apparmor/apparmorfs.c | 2 ++
+>   security/apparmor/lsm.c        | 2 ++
+>   2 files changed, 4 insertions(+)
 > 
-> diff --git a/security/apparmor/policy_unpack_test.c b/security/apparmor/policy_unpack_test.c
-> index c64733d6c98f..f070902da8fc 100644
-> --- a/security/apparmor/policy_unpack_test.c
-> +++ b/security/apparmor/policy_unpack_test.c
-> @@ -281,6 +281,8 @@ static void policy_unpack_test_unpack_strdup_with_null_name(struct kunit *test)
->   			   ((uintptr_t)puf->e->start <= (uintptr_t)string)
->   			   && ((uintptr_t)string <= (uintptr_t)puf->e->end));
->   	KUNIT_EXPECT_STREQ(test, string, TEST_STRING_DATA);
-> +
-> +	kfree(string);
->   }
+> diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
+> index be6c3293c9e0..d1ea78c9122f 100644
+> --- a/security/apparmor/apparmorfs.c
+> +++ b/security/apparmor/apparmorfs.c
+> @@ -2587,8 +2587,10 @@ static struct aa_sfs_entry aa_sfs_entry_domain[] = {
+>   static struct aa_sfs_entry aa_sfs_entry_unconfined[] = {
+>   	AA_SFS_FILE_BOOLEAN("change_profile", 1),
+>   	AA_SFS_FILE_INTPTR("userns",		aa_unprivileged_userns_restricted),
+> +#ifdef CONFIG_IO_URING
+>   	AA_SFS_FILE_INTPTR("io_uring",
+>   			    aa_unprivileged_uring_restricted),
+> +#endif
+>   	{ }
+>   };
 >   
->   static void policy_unpack_test_unpack_strdup_with_name(struct kunit *test)
-> @@ -296,6 +298,8 @@ static void policy_unpack_test_unpack_strdup_with_name(struct kunit *test)
->   			   ((uintptr_t)puf->e->start <= (uintptr_t)string)
->   			   && ((uintptr_t)string <= (uintptr_t)puf->e->end));
->   	KUNIT_EXPECT_STREQ(test, string, TEST_STRING_DATA);
-> +
-> +	kfree(string);
->   }
+> diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
+> index 9b086451f6e3..245207b005e7 100644
+> --- a/security/apparmor/lsm.c
+> +++ b/security/apparmor/lsm.c
+> @@ -2462,6 +2462,7 @@ static struct ctl_table apparmor_sysctl_table[] = {
+>   		.mode           = 0644,
+>   		.proc_handler   = userns_restrict_dointvec,
+>   	},
+> +#ifdef CONFIG_IO_URING
+>   	{
+>   		.procname       = "apparmor_restrict_unprivileged_io_uring",
+>   		.data           = &aa_unprivileged_uring_restricted,
+> @@ -2469,6 +2470,7 @@ static struct ctl_table apparmor_sysctl_table[] = {
+>   		.mode           = 0600,
+>   		.proc_handler   = apparmor_dointvec,
+>   	},
+> +#endif
+>   	{ }
+>   };
 >   
->   static void policy_unpack_test_unpack_strdup_out_of_bounds(struct kunit *test)
-> @@ -313,6 +317,8 @@ static void policy_unpack_test_unpack_strdup_out_of_bounds(struct kunit *test)
->   	KUNIT_EXPECT_EQ(test, size, 0);
->   	KUNIT_EXPECT_NULL(test, string);
->   	KUNIT_EXPECT_PTR_EQ(test, puf->e->pos, start);
-> +
-> +	kfree(string);
->   }
->   
->   static void policy_unpack_test_unpack_nameX_with_null_name(struct kunit *test)
 
 
