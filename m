@@ -2,32 +2,46 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EEF99CD659
-	for <lists+apparmor@lfdr.de>; Fri, 15 Nov 2024 06:00:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18C119CD653
+	for <lists+apparmor@lfdr.de>; Fri, 15 Nov 2024 05:59:03 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tBoRc-0002RK-Ct; Fri, 15 Nov 2024 05:00:32 +0000
-Received: from mail.w13.tutanota.de ([185.205.69.213])
+	id 1tBoPw-0002GU-29; Fri, 15 Nov 2024 04:58:48 +0000
+Received: from dfw.source.kernel.org ([139.178.84.217])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <mikolaj_archusr@tutamail.com>)
- id 1t9jbh-0006hk-6s
- for apparmor@lists.ubuntu.com; Sat, 09 Nov 2024 11:26:21 +0000
-Received: from tutadb.w10.tutanota.de (w10.api.tuta.com [IPv6:fd:ac::d:10])
- by mail.w13.tutanota.de (Postfix) with ESMTP id 71B633792604
- for <apparmor@lists.ubuntu.com>; Sat,  9 Nov 2024 12:26:20 +0100 (CET)
-Date: Sat, 9 Nov 2024 12:26:20 +0100 (CET)
-From: mikolaj_archusr@tutamail.com
-To: Apparmor <apparmor@lists.ubuntu.com>
-Message-ID: <OBFfBQm--R-9@tutamail.com>
+ (Exim 4.86_2) (envelope-from <nathan@kernel.org>) id 1tAVji-0000zz-Hp
+ for apparmor@lists.ubuntu.com; Mon, 11 Nov 2024 14:49:50 +0000
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id BFEB45C545A;
+ Mon, 11 Nov 2024 14:49:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 717EAC4CECF;
+ Mon, 11 Nov 2024 14:49:48 +0000 (UTC)
+From: Nathan Chancellor <nathan@kernel.org>
+Date: Mon, 11 Nov 2024 07:49:43 -0700
 MIME-Version: 1.0
-Content-Type: multipart/alternative; 
- boundary="----=_Part_276497_925656319.1731151580460"
-Received-SPF: pass client-ip=185.205.69.213;
- envelope-from=mikolaj_archusr@tutamail.com; helo=mail.w13.tutanota.de
-X-Mailman-Approved-At: Fri, 15 Nov 2024 05:00:30 +0000
-Subject: [apparmor] Apparmor profile acting as in enforce mode when set to
- complain mode
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20241111-apparmor-fix-label-declaration-warning-v1-1-adb64ab6482b@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAIYZMmcC/x2NQQrDMAwEvxJ0riA2hkC+EnpQbSUROLaRSxsI+
+ XtF9zaHmb2gswp3mIcLlD/SpRYD9xgg7lQ2RknG4EcfnA2pNdKjKq5yYqYXZ0wcMym9TcUvaZG
+ y4RqTD5F9CmECizVlE/5Hy/O+f49tURV4AAAA
+X-Change-ID: 20241111-apparmor-fix-label-declaration-warning-fcd24ce2d447
+To: John Johansen <john.johansen@canonical.com>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2357; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=ZZOkQZlepEFjStUosjL2ipFfpBBqpltZJPRQrLteQ7I=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDOlGkj1aedv2/Dkot0DL/lLXycubufgUeW5IXVDedMwn1
+ bBdPmtmRykLgxgXg6yYIkv1Y9XjhoZzzjLeODUJZg4rE8gQBi5OAZhI7AtGhj08lleXfD3rsvzp
+ nDVNKa8z2C70rWkBGjrp0TIu9RzzKob/2cevRH8zUjWYeXvxvy/WRW+uytZPNtmko6RatXH91me
+ vuAA=
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
+Received-SPF: pass client-ip=139.178.84.217; envelope-from=nathan@kernel.org;
+ helo=dfw.source.kernel.org
+X-Mailman-Approved-At: Fri, 15 Nov 2024 04:58:46 +0000
+Subject: [apparmor] [PATCH] apparmor: Add empty statement between label and
+ declaration in profile_transition(()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -39,128 +53,65 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: kernel test robot <lkp@intel.com>, llvm@lists.linux.dev,
+ apparmor@lists.ubuntu.com, patches@lists.linux.dev,
+ Nathan Chancellor <nathan@kernel.org>, linux-security-module@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-------=_Part_276497_925656319.1731151580460
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Clang 18 and newer warns (or errors with CONFIG_WERROR=y):
 
-Hello,
-I recently started experimenting with AppArmor and have successfully create=
-d profiles for several applications. However, I encountered an issue while =
-profiling Steam. Specifically, Steam fails to launch when AppArmor is enabl=
-ed. Below is the error output from Steam:
-```
-steam.sh[204656]: Running Steam on arch rolling 64-bit
-steam.sh[204656]: STEAM_RUNTIME is enabled automatically
-setup.sh[204732]: Steam runtime environment up-to-date!
-steam-runtime-check-requirements[206680]: W: Child process exited with code=
- 1: bwrap: setting up uid map: Permission denied
+  security/apparmor/domain.c:695:3: error: label followed by a declaration is a C23 extension [-Werror,-Wc23-extensions]
+    695 |                 struct aa_profile *new_profile = NULL;
+        |                 ^
 
-steam.sh[204656]: Error: Steam now requires user namespaces to be enabled.
+With Clang 17 and older, this is just an unconditional hard error:
 
-This requirement is the same as for Flatpak, which has more detailed
-information available:
-https://github.com/flatpak/flatpak/wiki/User-namespace-requirements
-```
+  security/apparmor/domain.c:695:3: error: expected expression
+    695 |                 struct aa_profile *new_profile = NULL;
+        |                 ^
+  security/apparmor/domain.c:697:3: error: use of undeclared identifier 'new_profile'
+    697 |                 new_profile = aa_new_learning_profile(profile, false, name,
+        |                 ^
+  security/apparmor/domain.c:699:8: error: use of undeclared identifier 'new_profile'
+    699 |                 if (!new_profile) {
+        |                      ^
+  security/apparmor/domain.c:704:11: error: use of undeclared identifier 'new_profile'
+    704 |                         new = &new_profile->label;
+        |                                ^
 
-From the URL provided in the output, I quickly figured out It is an issue r=
-elated to bubblewrap.
+Add a semicolon directly after the label to create an empty statement,
+which keeps the original intent of the code while clearing up the
+warning/error on all clang versions.
 
-Below is the output of bwrap when it's profile is set to complain mode:
-```
-=C2=A0>> bwrap --bind / / --ro-bind /usr /usr --dev /dev --proc /proc --dir=
- /tmp --unshare-user
---unshare-net --unshare-pid /bin/bash --expose-pids
-bwrap: setting up uid map: Permission denied
-```
+Fixes: ee650b3820f3 ("apparmor: properly handle cx/px lookup failure for complain")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202411101808.AI8YG6cs-lkp@intel.com/
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+---
+ security/apparmor/domain.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Here is the AppArmor profile I have configured for bwrap:
-```
-abi <abi/4.0>,
-include <tunables/global>
+diff --git a/security/apparmor/domain.c b/security/apparmor/domain.c
+index 602d7a1bb44823a9b81e34d270b03c5f3aff3a34..eb0f222aa29442686b0a6751001c879f5b366c59 100644
+--- a/security/apparmor/domain.c
++++ b/security/apparmor/domain.c
+@@ -691,7 +691,7 @@ static struct aa_label *profile_transition(const struct cred *subj_cred,
+ 			error = -EACCES;
+ 		}
+ 	} else if (COMPLAIN_MODE(profile)) {
+-create_learning_profile:
++create_learning_profile:;
+ 		/* no exec permission - learning mode */
+ 		struct aa_profile *new_profile = NULL;
+ 
 
-profile bwrap /usr/bin/bwrap flags=3D(complain) {
-=C2=A0 userns,
+---
+base-commit: 8c4f7960ae8a7a03a43f814e4af471b8e6ea3391
+change-id: 20241111-apparmor-fix-label-declaration-warning-fcd24ce2d447
 
-=C2=A0 # Site-specific additions and overrides. See local/README for detail=
-s.
-=C2=A0 include if exists <local/bwrap>
-}
-```
+Best regards,
+-- 
+Nathan Chancellor <nathan@kernel.org>
 
-I also verified that `/proc/sys/kernel/unprivileged_userns_clone` is set to=
- `1`.
-```
-=C2=A0>> cat /proc/sys/kernel/unprivileged_userns_clone
-1
-```
-
-From `/sys/kernel/security/apparmor/profiles` I can see that `bwrap` is set=
- to complain mode, so It should not be restricted in any way.
-I suspect this may be an issue with my configuration rather than a bug in A=
-ppArmor itself. If anyone has insights or suggestions for resolving this, I=
- would greatly appreciate your help.
-Thank you in advance!
-
-------=_Part_276497_925656319.1731151580460
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-  <head>
-    <meta http-equiv=3D"content-type" content=3D"text/html; charset=3DUTF-8=
-">
-  </head>
-  <body>
-<div dir=3D"auto">Hello,<br></div><div dir=3D"auto">I recently started expe=
-rimenting with AppArmor and have successfully created profiles for several =
-applications. However, I encountered an issue while profiling Steam. Specif=
-ically, Steam fails to launch when AppArmor is enabled. Below is the error =
-output from Steam:<br></div><div dir=3D"auto">```<br></div><div dir=3D"auto=
-">steam.sh[204656]: Running Steam on arch rolling 64-bit<br></div><div dir=
-=3D"auto">steam.sh[204656]: STEAM_RUNTIME is enabled automatically<br></div=
-><div dir=3D"auto">setup.sh[204732]: Steam runtime environment up-to-date!<=
-br></div><div dir=3D"auto">steam-runtime-check-requirements[206680]: W: Chi=
-ld process exited with code 1: bwrap: setting up uid map: Permission denied=
-<br></div><div dir=3D"auto"><br></div><div dir=3D"auto">steam.sh[204656]: E=
-rror: Steam now requires user namespaces to be enabled.<br></div><div dir=
-=3D"auto"><br></div><div dir=3D"auto">This requirement is the same as for F=
-latpak, which has more detailed<br></div><div dir=3D"auto">information avai=
-lable:<br></div><div dir=3D"auto"><a href=3D"https://github.com/flatpak/fla=
-tpak/wiki/User-namespace-requirements" rel=3D"noopener noreferrer" target=
-=3D"_blank">https://github.com/flatpak/flatpak/wiki/User-namespace-requirem=
-ents</a><br></div><div dir=3D"auto">```<br></div><div dir=3D"auto"><br></di=
-v><div dir=3D"auto">From the URL provided in the output, I quickly figured =
-out It is an issue related to bubblewrap.<br></div><div dir=3D"auto"><br></=
-div><div dir=3D"auto">Below is the output of bwrap when it's profile is set=
- to complain mode:<br></div><div dir=3D"auto">```<br></div><div dir=3D"auto=
-">&nbsp;&gt;&gt; bwrap --bind / / --ro-bind /usr /usr --dev /dev --proc /pr=
-oc --dir /tmp --unshare-user<br></div><div dir=3D"auto">--unshare-net --uns=
-hare-pid /bin/bash --expose-pids<br></div><div dir=3D"auto">bwrap: setting =
-up uid map: Permission denied<br></div><div dir=3D"auto">```<br></div><div =
-dir=3D"auto"><br></div><div dir=3D"auto">Here is the AppArmor profile I hav=
-e configured for bwrap:<br></div><div dir=3D"auto">```<br></div><div dir=3D=
-"auto">abi &lt;abi/4.0&gt;,<br></div><div dir=3D"auto">include &lt;tunables=
-/global&gt;<br></div><div dir=3D"auto"><br></div><div dir=3D"auto">profile =
-bwrap /usr/bin/bwrap flags=3D(complain) {<br></div><div dir=3D"auto">&nbsp;=
- userns,<br></div><div dir=3D"auto"><br></div><div dir=3D"auto">&nbsp; # Si=
-te-specific additions and overrides. See local/README for details.<br></div=
-><div dir=3D"auto">&nbsp; include if exists &lt;local/bwrap&gt;<br></div><d=
-iv dir=3D"auto">}<br></div><div dir=3D"auto">```<br></div><div dir=3D"auto"=
-><br></div><div dir=3D"auto">I also verified that `/proc/sys/kernel/unprivi=
-leged_userns_clone` is set to `1`.<br></div><div dir=3D"auto">```<br></div>=
-<div dir=3D"auto">&nbsp;&gt;&gt; cat /proc/sys/kernel/unprivileged_userns_c=
-lone<br></div><div dir=3D"auto">1<br></div><div dir=3D"auto">```<br></div><=
-div dir=3D"auto"><br></div><div dir=3D"auto">From `/sys/kernel/security/app=
-armor/profiles` I can see that `bwrap` is set to complain mode, so It shoul=
-d not be restricted in any way.<br></div><div dir=3D"auto">I suspect this m=
-ay be an issue with my configuration rather than a bug in AppArmor itself. =
-If anyone has insights or suggestions for resolving this, I would greatly a=
-ppreciate your help.<br></div><div dir=3D"auto">Thank you in advance!<br></=
-div>  </body>
-</html>
-
-------=_Part_276497_925656319.1731151580460--
 
