@@ -2,55 +2,54 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF2FF9CF0C9
-	for <lists+apparmor@lfdr.de>; Fri, 15 Nov 2024 16:55:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AAE89CF104
+	for <lists+apparmor@lfdr.de>; Fri, 15 Nov 2024 17:06:52 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tByfP-00022a-K6; Fri, 15 Nov 2024 15:55:27 +0000
-Received: from mail-il1-f199.google.com ([209.85.166.199])
+	id 1tByqF-0003UZ-ST; Fri, 15 Nov 2024 16:06:39 +0000
+Received: from fout-a6-smtp.messagingengine.com ([103.168.172.149])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from
- <3KRU3ZwkbAHAgmnYOZZSfOddWR.UccUZSigSfQcbhSbh.Qca@M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com>)
- id 1tBsgl-0005Bl-0a
- for apparmor@lists.ubuntu.com; Fri, 15 Nov 2024 09:32:27 +0000
-Received: by mail-il1-f199.google.com with SMTP id
- e9e14a558f8ab-3a71ea65311so16507325ab.1
- for <apparmor@lists.ubuntu.com>; Fri, 15 Nov 2024 01:32:26 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1731663146; x=1732267946;
- h=to:from:subject:message-id:date:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=f/4JedLJscdKRq4iXzIJ827KeB/EVhqHO4lJWwOuHEs=;
- b=ndO/1/ZAf//no6bt3IvF80CKtGUG+gbh8G7QAcE12meGmVV93fMYSvZSVu3MPgFYDa
- G+MHHcDUPIYa5PFg0vdza+3dk8C3AQh11B5uu7HWg4zb9GnyRJ/D0XyuSvW9dQ639fii
- NJGsK9+nRkrGUYWwWu1/wGF0e4c4FhrQXVdrOhnUyfi2uW5h69qj+hr1/mKVWNPNDE6T
- HEi1CCRqbWnIxY7fj3vQG5WogGB1woJRjxkh47spfVeZhvnOxJP6xrtw8Cx5Wz5a28Dd
- JS7Y6V9R3cV72LPoc8D+XOd9Z93LSRfWs9cw48hW3T3UzESytgmvXDIBya5ypHcKGRE1
- yQiw==
-X-Gm-Message-State: AOJu0YxtJoC9gqp0RGSBqY+sHmsre7Tua3sIRMFSEzzOJkEA6DCalFKG
- QaOjMHwKUA8Hc08a5MAh8zzqxIP2bTIPM74zY7UMN8DpKBg9tEGr7FPlOXPVdyrl4p3QISg6h5f
- si3/fKaLmVReHid9wZbvNUp4hD2HODIMbo5+DkEtnbBFzFtHCbETvdvU=
-X-Google-Smtp-Source: AGHT+IFkNe6EY2UatPnRjrWl19SBY6KFPRa82qL/NArf+bDN37oMD9QNRnFcCmaGnthLHYlddNNg1sf4yBsqhf9D+XhJrXlzqckf
+ (Exim 4.86_2) (envelope-from <me@zygoon.pl>) id 1tByqD-0003UP-5v
+ for apparmor@lists.ubuntu.com; Fri, 15 Nov 2024 16:06:37 +0000
+Received: from phl-compute-07.internal (phl-compute-07.phl.internal
+ [10.202.2.47])
+ by mailfout.phl.internal (Postfix) with ESMTP id 27634138065E
+ for <apparmor@lists.ubuntu.com>; Fri, 15 Nov 2024 11:06:36 -0500 (EST)
+Received: from phl-imap-04 ([10.202.2.82])
+ by phl-compute-07.internal (MEProxy); Fri, 15 Nov 2024 11:06:36 -0500
+X-ME-Sender: <xms:i3E3Z6EqmbOKFnVLHb0tsNlVkxidUq30tWivFKML1_Tf9ukM55Z_bA>
+ <xme:i3E3Z7Xo5UaI1CXRBX_T8ZMspWzokXWggOstuctOr9aturnNgq4jhvg6w6k7InnFM
+ wtrEEO0yTWRoNOmwg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefuddrvdeggdekudcutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdpuffr
+ tefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecunecujfgurhepofggfffhvf
+ fkufgtgfesthejredtredttdenucfhrhhomhepfdgkhihgmhhunhhtucfmrhihnhhitghk
+ ihdfuceomhgvseiihihgohhonhdrphhlqeenucggtffrrghtthgvrhhnpedtuefhfeejte
+ ekvddttdduuedvjeelheefkeevtdekieegheejudfghefhtdejieenucevlhhushhtvghr
+ ufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmvgesiiihghhoohhnrdhplh
+ dpnhgspghrtghpthhtohepuddpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtoheprghp
+ phgrrhhmohhrsehlihhsthhsrdhusghunhhtuhdrtghomh
+X-ME-Proxy: <xmx:i3E3Z0ILMzO8Em7VvlhZHNilobhZd61SyzfvZiL-Bj94lBANBQqtsQ>
+ <xmx:i3E3Z0GDlIo_6TcKqhjQVyq7xxWTsB6QIIqTdLLSCX2J4D0CBwGTrQ>
+ <xmx:i3E3ZwUNWAk0WofWipvqGK8IRYoK5-J2chAw-lh9nZIbHXoOgZxIJg>
+ <xmx:i3E3Z3Olsu26WeqPXGXbDnAo825BrwOuy-kQvsrMhRPGD7xLFWeNhg>
+ <xmx:jHE3Z5eOaRT-g9G6LRSAcFcZ-KoGFvHzyd8TaYx7oYsc9QjTjNW9nkUy>
+Feedback-ID: i416c40e7:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+ id D691E2E60084; Fri, 15 Nov 2024 11:06:35 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 MIME-Version: 1.0
-X-Received: by 2002:a05:6e02:3420:b0:3a6:b26f:a5c4 with SMTP id
- e9e14a558f8ab-3a746ffdb14mr17585525ab.8.1731663145709; Fri, 15 Nov 2024
- 01:32:25 -0800 (PST)
-Date: Fri, 15 Nov 2024 01:32:25 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <67371529.050a0220.1324f8.00a4.GAE@google.com>
-From: syzbot <syzbot+a521f132f5a83d10ab40@syzkaller.appspotmail.com>
-To: apparmor@lists.ubuntu.com, jmorris@namei.org, john.johansen@canonical.com, 
- linux-kernel@vger.kernel.org, linux-next@vger.kernel.org, 
- linux-security-module@vger.kernel.org, paul@paul-moore.com, serge@hallyn.com, 
- sfr@canb.auug.org.au, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-Received-SPF: pass client-ip=209.85.166.199;
- envelope-from=3KRU3ZwkbAHAgmnYOZZSfOddWR.UccUZSigSfQcbhSbh.Qca@M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
- helo=mail-il1-f199.google.com
-X-Mailman-Approved-At: Fri, 15 Nov 2024 15:55:26 +0000
-Subject: [apparmor] [syzbot] linux-next build error (18)
+Date: Fri, 15 Nov 2024 17:06:15 +0100
+From: "Zygmunt Krynicki" <me@zygoon.pl>
+To: apparmor@lists.ubuntu.com
+Message-Id: <bd5bde67-6a03-4ecf-8542-279623bbf0d7@app.fastmail.com>
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
+Received-SPF: pass client-ip=103.168.172.149; envelope-from=me@zygoon.pl;
+ helo=fout-a6-smtp.messagingengine.com
+Subject: [apparmor] Exploring CI pipeline for integration tests of selected
+	features
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -65,43 +64,20 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Hello,
+Hi!
 
-syzbot found the following issue on:
+I'm looking into adding or selecting tests to run at pull request time that would run checks against new apparmor parser and a list of curated kernels with the intent of capturing key use-cases relevant to snapd.
 
-HEAD commit:    744cf71b8bdf Add linux-next specific files for 20241115
-git tree:       linux-next
-console output: https://syzkaller.appspot.com/x/log.txt?x=10525cc0580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=ada879778ea11d6f
-dashboard link: https://syzkaller.appspot.com/bug?extid=a521f132f5a83d10ab40
-compiler:       Debian clang version 15.0.6, GNU ld (GNU Binutils for Debian) 2.40
+Snapd is a major user of apparmor, both for itself and for all the generated profiles for snap applications and services. We want to contribute and maintain tests that would capture several key interactions so that they both do not regress and if any parser work requires adapting the rules, would give the snapd team a heads-start to prepare for the next release of apparmor.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+a521f132f5a83d10ab40@syzkaller.appspotmail.com
+For context, snapd is distributed in two distinct ways, as a typical distribution package but also as a snap package, which is installed by another copy of snapd already on the system. The snap package does ship with a copy of apparmor parser built from sources and uses specifically for snapd's internal needs.
 
-security/apparmor/domain.c:695:3: error: expected expression
-security/apparmor/domain.c:697:3: error: use of undeclared identifier 'new_profile'
-security/apparmor/domain.c:699:8: error: use of undeclared identifier 'new_profile'
-security/apparmor/domain.c:704:11: error: use of undeclared identifier 'new_profile'
+My initial plan is to look at all the tests present in the repository, play around with pipelines in my fork of the project and then contribute something that would run in under 5 minutes - excluding the time to build apparmor parser in another job of the pipeline - while capturing as much of the essential and perhaps tricky operations of snapd as we can.
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+I'm very much open for feedback, unless someone strongly disagress on direction I will start proposing early MRs for review next week.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+My initial plan is to start with a system that can use typical Debian, Ubuntu vanilla Upstream kernels as the starting set. Details will be fleshed out over time.
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Best regards
+ZK
 
