@@ -2,46 +2,31 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18C119CD653
-	for <lists+apparmor@lfdr.de>; Fri, 15 Nov 2024 05:59:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 432199CDC5E
+	for <lists+apparmor@lfdr.de>; Fri, 15 Nov 2024 11:19:42 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tBoPw-0002GU-29; Fri, 15 Nov 2024 04:58:48 +0000
-Received: from dfw.source.kernel.org ([139.178.84.217])
+	id 1tBtQF-0002L0-GB; Fri, 15 Nov 2024 10:19:27 +0000
+Received: from out-170.mta0.migadu.com ([91.218.175.170])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <nathan@kernel.org>) id 1tAVji-0000zz-Hp
- for apparmor@lists.ubuntu.com; Mon, 11 Nov 2024 14:49:50 +0000
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id BFEB45C545A;
- Mon, 11 Nov 2024 14:49:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 717EAC4CECF;
- Mon, 11 Nov 2024 14:49:48 +0000 (UTC)
-From: Nathan Chancellor <nathan@kernel.org>
-Date: Mon, 11 Nov 2024 07:49:43 -0700
+ (Exim 4.86_2) (envelope-from <thorsten.blum@linux.dev>)
+ id 1tBtQD-0002Kr-UL
+ for apparmor@lists.ubuntu.com; Fri, 15 Nov 2024 10:19:26 +0000
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Thorsten Blum <thorsten.blum@linux.dev>
+To: John Johansen <john.johansen@canonical.com>,
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>
+Date: Fri, 15 Nov 2024 11:18:44 +0100
+Message-ID: <20241115101844.93574-2-thorsten.blum@linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20241111-apparmor-fix-label-declaration-warning-v1-1-adb64ab6482b@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAIYZMmcC/x2NQQrDMAwEvxJ0riA2hkC+EnpQbSUROLaRSxsI+
- XtF9zaHmb2gswp3mIcLlD/SpRYD9xgg7lQ2RknG4EcfnA2pNdKjKq5yYqYXZ0wcMym9TcUvaZG
- y4RqTD5F9CmECizVlE/5Hy/O+f49tURV4AAAA
-X-Change-ID: 20241111-apparmor-fix-label-declaration-warning-fcd24ce2d447
-To: John Johansen <john.johansen@canonical.com>
-X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2357; i=nathan@kernel.org;
- h=from:subject:message-id; bh=ZZOkQZlepEFjStUosjL2ipFfpBBqpltZJPRQrLteQ7I=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDOlGkj1aedv2/Dkot0DL/lLXycubufgUeW5IXVDedMwn1
- bBdPmtmRykLgxgXg6yYIkv1Y9XjhoZzzjLeODUJZg4rE8gQBi5OAZhI7AtGhj08lleXfD3rsvzp
- nDVNKa8z2C70rWkBGjrp0TIu9RzzKob/2cevRH8zUjWYeXvxvy/WRW+uytZPNtmko6RatXH91me
- vuAA=
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
-Received-SPF: pass client-ip=139.178.84.217; envelope-from=nathan@kernel.org;
- helo=dfw.source.kernel.org
-X-Mailman-Approved-At: Fri, 15 Nov 2024 04:58:46 +0000
-Subject: [apparmor] [PATCH] apparmor: Add empty statement between label and
- declaration in profile_transition(()
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
+Received-SPF: pass client-ip=91.218.175.170;
+ envelope-from=thorsten.blum@linux.dev; helo=out-170.mta0.migadu.com
+Subject: [apparmor] [PATCH] apparmor: Use str_yes_no() helper function
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -53,65 +38,61 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: kernel test robot <lkp@intel.com>, llvm@lists.linux.dev,
- apparmor@lists.ubuntu.com, patches@lists.linux.dev,
- Nathan Chancellor <nathan@kernel.org>, linux-security-module@vger.kernel.org
+Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
+ Thorsten Blum <thorsten.blum@linux.dev>, linux-kernel@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Clang 18 and newer warns (or errors with CONFIG_WERROR=y):
+Remove hard-coded strings by using the str_yes_no() helper function.
 
-  security/apparmor/domain.c:695:3: error: label followed by a declaration is a C23 extension [-Werror,-Wc23-extensions]
-    695 |                 struct aa_profile *new_profile = NULL;
-        |                 ^
+Fix a typo in a comment: s/unpritable/unprintable/
 
-With Clang 17 and older, this is just an unconditional hard error:
-
-  security/apparmor/domain.c:695:3: error: expected expression
-    695 |                 struct aa_profile *new_profile = NULL;
-        |                 ^
-  security/apparmor/domain.c:697:3: error: use of undeclared identifier 'new_profile'
-    697 |                 new_profile = aa_new_learning_profile(profile, false, name,
-        |                 ^
-  security/apparmor/domain.c:699:8: error: use of undeclared identifier 'new_profile'
-    699 |                 if (!new_profile) {
-        |                      ^
-  security/apparmor/domain.c:704:11: error: use of undeclared identifier 'new_profile'
-    704 |                         new = &new_profile->label;
-        |                                ^
-
-Add a semicolon directly after the label to create an empty statement,
-which keeps the original intent of the code while clearing up the
-warning/error on all clang versions.
-
-Fixes: ee650b3820f3 ("apparmor: properly handle cx/px lookup failure for complain")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202411101808.AI8YG6cs-lkp@intel.com/
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
 ---
- security/apparmor/domain.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ security/apparmor/apparmorfs.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/security/apparmor/domain.c b/security/apparmor/domain.c
-index 602d7a1bb44823a9b81e34d270b03c5f3aff3a34..eb0f222aa29442686b0a6751001c879f5b366c59 100644
---- a/security/apparmor/domain.c
-+++ b/security/apparmor/domain.c
-@@ -691,7 +691,7 @@ static struct aa_label *profile_transition(const struct cred *subj_cred,
- 			error = -EACCES;
- 		}
- 	} else if (COMPLAIN_MODE(profile)) {
--create_learning_profile:
-+create_learning_profile:;
- 		/* no exec permission - learning mode */
- 		struct aa_profile *new_profile = NULL;
+diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
+index 01b923d97a44..94dbe91bf17a 100644
+--- a/security/apparmor/apparmorfs.c
++++ b/security/apparmor/apparmorfs.c
+@@ -997,7 +997,7 @@ static int aa_sfs_seq_show(struct seq_file *seq, void *v)
  
-
----
-base-commit: 8c4f7960ae8a7a03a43f814e4af471b8e6ea3391
-change-id: 20241111-apparmor-fix-label-declaration-warning-fcd24ce2d447
-
-Best regards,
+ 	switch (fs_file->v_type) {
+ 	case AA_SFS_TYPE_BOOLEAN:
+-		seq_printf(seq, "%s\n", fs_file->v.boolean ? "yes" : "no");
++		seq_printf(seq, "%s\n", str_yes_no(fs_file->v.boolean));
+ 		break;
+ 	case AA_SFS_TYPE_STRING:
+ 		seq_printf(seq, "%s\n", fs_file->v.string);
+@@ -1006,7 +1006,7 @@ static int aa_sfs_seq_show(struct seq_file *seq, void *v)
+ 		seq_printf(seq, "%#08lx\n", fs_file->v.u64);
+ 		break;
+ 	default:
+-		/* Ignore unpritable entry types. */
++		/* Ignore unprintable entry types. */
+ 		break;
+ 	}
+ 
+@@ -1152,7 +1152,7 @@ static int seq_ns_stacked_show(struct seq_file *seq, void *v)
+ 	struct aa_label *label;
+ 
+ 	label = begin_current_label_crit_section();
+-	seq_printf(seq, "%s\n", label->size > 1 ? "yes" : "no");
++	seq_printf(seq, "%s\n", str_yes_no(label->size > 1));
+ 	end_current_label_crit_section(label);
+ 
+ 	return 0;
+@@ -1175,7 +1175,7 @@ static int seq_ns_nsstacked_show(struct seq_file *seq, void *v)
+ 			}
+ 	}
+ 
+-	seq_printf(seq, "%s\n", count > 1 ? "yes" : "no");
++	seq_printf(seq, "%s\n", str_yes_no(count > 1));
+ 	end_current_label_crit_section(label);
+ 
+ 	return 0;
 -- 
-Nathan Chancellor <nathan@kernel.org>
+2.47.0
 
 
