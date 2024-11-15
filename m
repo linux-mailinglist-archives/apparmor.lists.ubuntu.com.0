@@ -2,31 +2,55 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 432199CDC5E
-	for <lists+apparmor@lfdr.de>; Fri, 15 Nov 2024 11:19:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF2FF9CF0C9
+	for <lists+apparmor@lfdr.de>; Fri, 15 Nov 2024 16:55:39 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tBtQF-0002L0-GB; Fri, 15 Nov 2024 10:19:27 +0000
-Received: from out-170.mta0.migadu.com ([91.218.175.170])
+	id 1tByfP-00022a-K6; Fri, 15 Nov 2024 15:55:27 +0000
+Received: from mail-il1-f199.google.com ([209.85.166.199])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <thorsten.blum@linux.dev>)
- id 1tBtQD-0002Kr-UL
- for apparmor@lists.ubuntu.com; Fri, 15 Nov 2024 10:19:26 +0000
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Thorsten Blum <thorsten.blum@linux.dev>
-To: John Johansen <john.johansen@canonical.com>,
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- "Serge E. Hallyn" <serge@hallyn.com>
-Date: Fri, 15 Nov 2024 11:18:44 +0100
-Message-ID: <20241115101844.93574-2-thorsten.blum@linux.dev>
+ (Exim 4.86_2) (envelope-from
+ <3KRU3ZwkbAHAgmnYOZZSfOddWR.UccUZSigSfQcbhSbh.Qca@M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com>)
+ id 1tBsgl-0005Bl-0a
+ for apparmor@lists.ubuntu.com; Fri, 15 Nov 2024 09:32:27 +0000
+Received: by mail-il1-f199.google.com with SMTP id
+ e9e14a558f8ab-3a71ea65311so16507325ab.1
+ for <apparmor@lists.ubuntu.com>; Fri, 15 Nov 2024 01:32:26 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1731663146; x=1732267946;
+ h=to:from:subject:message-id:date:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=f/4JedLJscdKRq4iXzIJ827KeB/EVhqHO4lJWwOuHEs=;
+ b=ndO/1/ZAf//no6bt3IvF80CKtGUG+gbh8G7QAcE12meGmVV93fMYSvZSVu3MPgFYDa
+ G+MHHcDUPIYa5PFg0vdza+3dk8C3AQh11B5uu7HWg4zb9GnyRJ/D0XyuSvW9dQ639fii
+ NJGsK9+nRkrGUYWwWu1/wGF0e4c4FhrQXVdrOhnUyfi2uW5h69qj+hr1/mKVWNPNDE6T
+ HEi1CCRqbWnIxY7fj3vQG5WogGB1woJRjxkh47spfVeZhvnOxJP6xrtw8Cx5Wz5a28Dd
+ JS7Y6V9R3cV72LPoc8D+XOd9Z93LSRfWs9cw48hW3T3UzESytgmvXDIBya5ypHcKGRE1
+ yQiw==
+X-Gm-Message-State: AOJu0YxtJoC9gqp0RGSBqY+sHmsre7Tua3sIRMFSEzzOJkEA6DCalFKG
+ QaOjMHwKUA8Hc08a5MAh8zzqxIP2bTIPM74zY7UMN8DpKBg9tEGr7FPlOXPVdyrl4p3QISg6h5f
+ si3/fKaLmVReHid9wZbvNUp4hD2HODIMbo5+DkEtnbBFzFtHCbETvdvU=
+X-Google-Smtp-Source: AGHT+IFkNe6EY2UatPnRjrWl19SBY6KFPRa82qL/NArf+bDN37oMD9QNRnFcCmaGnthLHYlddNNg1sf4yBsqhf9D+XhJrXlzqckf
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
-Received-SPF: pass client-ip=91.218.175.170;
- envelope-from=thorsten.blum@linux.dev; helo=out-170.mta0.migadu.com
-Subject: [apparmor] [PATCH] apparmor: Use str_yes_no() helper function
+X-Received: by 2002:a05:6e02:3420:b0:3a6:b26f:a5c4 with SMTP id
+ e9e14a558f8ab-3a746ffdb14mr17585525ab.8.1731663145709; Fri, 15 Nov 2024
+ 01:32:25 -0800 (PST)
+Date: Fri, 15 Nov 2024 01:32:25 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <67371529.050a0220.1324f8.00a4.GAE@google.com>
+From: syzbot <syzbot+a521f132f5a83d10ab40@syzkaller.appspotmail.com>
+To: apparmor@lists.ubuntu.com, jmorris@namei.org, john.johansen@canonical.com, 
+ linux-kernel@vger.kernel.org, linux-next@vger.kernel.org, 
+ linux-security-module@vger.kernel.org, paul@paul-moore.com, serge@hallyn.com, 
+ sfr@canb.auug.org.au, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+Received-SPF: pass client-ip=209.85.166.199;
+ envelope-from=3KRU3ZwkbAHAgmnYOZZSfOddWR.UccUZSigSfQcbhSbh.Qca@M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+ helo=mail-il1-f199.google.com
+X-Mailman-Approved-At: Fri, 15 Nov 2024 15:55:26 +0000
+Subject: [apparmor] [syzbot] linux-next build error (18)
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -38,61 +62,46 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
- Thorsten Blum <thorsten.blum@linux.dev>, linux-kernel@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Remove hard-coded strings by using the str_yes_no() helper function.
+Hello,
 
-Fix a typo in a comment: s/unpritable/unprintable/
+syzbot found the following issue on:
 
-Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+HEAD commit:    744cf71b8bdf Add linux-next specific files for 20241115
+git tree:       linux-next
+console output: https://syzkaller.appspot.com/x/log.txt?x=10525cc0580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ada879778ea11d6f
+dashboard link: https://syzkaller.appspot.com/bug?extid=a521f132f5a83d10ab40
+compiler:       Debian clang version 15.0.6, GNU ld (GNU Binutils for Debian) 2.40
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+a521f132f5a83d10ab40@syzkaller.appspotmail.com
+
+security/apparmor/domain.c:695:3: error: expected expression
+security/apparmor/domain.c:697:3: error: use of undeclared identifier 'new_profile'
+security/apparmor/domain.c:699:8: error: use of undeclared identifier 'new_profile'
+security/apparmor/domain.c:704:11: error: use of undeclared identifier 'new_profile'
+
 ---
- security/apparmor/apparmorfs.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
-index 01b923d97a44..94dbe91bf17a 100644
---- a/security/apparmor/apparmorfs.c
-+++ b/security/apparmor/apparmorfs.c
-@@ -997,7 +997,7 @@ static int aa_sfs_seq_show(struct seq_file *seq, void *v)
- 
- 	switch (fs_file->v_type) {
- 	case AA_SFS_TYPE_BOOLEAN:
--		seq_printf(seq, "%s\n", fs_file->v.boolean ? "yes" : "no");
-+		seq_printf(seq, "%s\n", str_yes_no(fs_file->v.boolean));
- 		break;
- 	case AA_SFS_TYPE_STRING:
- 		seq_printf(seq, "%s\n", fs_file->v.string);
-@@ -1006,7 +1006,7 @@ static int aa_sfs_seq_show(struct seq_file *seq, void *v)
- 		seq_printf(seq, "%#08lx\n", fs_file->v.u64);
- 		break;
- 	default:
--		/* Ignore unpritable entry types. */
-+		/* Ignore unprintable entry types. */
- 		break;
- 	}
- 
-@@ -1152,7 +1152,7 @@ static int seq_ns_stacked_show(struct seq_file *seq, void *v)
- 	struct aa_label *label;
- 
- 	label = begin_current_label_crit_section();
--	seq_printf(seq, "%s\n", label->size > 1 ? "yes" : "no");
-+	seq_printf(seq, "%s\n", str_yes_no(label->size > 1));
- 	end_current_label_crit_section(label);
- 
- 	return 0;
-@@ -1175,7 +1175,7 @@ static int seq_ns_nsstacked_show(struct seq_file *seq, void *v)
- 			}
- 	}
- 
--	seq_printf(seq, "%s\n", count > 1 ? "yes" : "no");
-+	seq_printf(seq, "%s\n", str_yes_no(count > 1));
- 	end_current_label_crit_section(label);
- 
- 	return 0;
--- 
-2.47.0
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
 
