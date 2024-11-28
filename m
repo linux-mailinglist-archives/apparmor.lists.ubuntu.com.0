@@ -2,55 +2,71 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5BE39D9BA0
-	for <lists+apparmor@lfdr.de>; Tue, 26 Nov 2024 17:38:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F05C19DBD6E
+	for <lists+apparmor@lfdr.de>; Thu, 28 Nov 2024 23:00:43 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tFyaB-0006Fu-D4; Tue, 26 Nov 2024 16:38:35 +0000
-Received: from mail-yb1-f173.google.com ([209.85.219.173])
+	id 1tGmYj-0003z4-Jo; Thu, 28 Nov 2024 22:00:25 +0000
+Received: from smtp-relay-internal-1.internal ([10.131.114.114]
+ helo=smtp-relay-internal-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <simeddon@gmail.com>)
- id 1tFya9-0006FW-CE
- for apparmor@lists.ubuntu.com; Tue, 26 Nov 2024 16:38:33 +0000
-Received: by mail-yb1-f173.google.com with SMTP id
- 3f1490d57ef6-e388d8850d3so5663224276.3
- for <apparmor@lists.ubuntu.com>; Tue, 26 Nov 2024 08:38:33 -0800 (PST)
+ (Exim 4.86_2) (envelope-from <ryan.lee@canonical.com>)
+ id 1tGmYi-0003tN-3A
+ for apparmor@lists.ubuntu.com; Thu, 28 Nov 2024 22:00:24 +0000
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
+ [209.85.215.200])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id BB63A3F2A0
+ for <apparmor@lists.ubuntu.com>; Thu, 28 Nov 2024 22:00:23 +0000 (UTC)
+Received: by mail-pg1-f200.google.com with SMTP id
+ 41be03b00d2f7-7f8af3950ecso956029a12.3
+ for <apparmor@lists.ubuntu.com>; Thu, 28 Nov 2024 14:00:23 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732639112; x=1733243912;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1732831222; x=1733436022;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=6vJi2VGs8+MLNHsBgobMIjMzwwtWnBRekU0CRZi1eUc=;
- b=BBNPst2XmBqY0xf4PJhtLkSezfrhbsI6ccvqtnHK+0kxitzZUx5om1w/r47GHurn4D
- g4rw7+yl8SXGrOwwLIIN6eHgftO9rg+W6eppm/nXdgekono3tvvSVzSmqYEmCY+u2IjA
- zVSWLvnHy+8dmi97Nk/V5PZTtycoJhk4Qh9pmdjcO4eaAEujBb6D2jNJV5AEqclt7wp+
- gvDp/pTuLzMvdLCHCCT89EQXzqXulwx6Xpisn/DbvRFeHfZW/5QvDX+JUlajfKVtmt4x
- keeebA/PAKs69tV4ghL0tpGZENgnufR2k17iycF6CYI8rqA6m53U43fPgcFo07vE+x+4
- PeeA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUA5TebjX4CM6E7pPrCpo8ZiRw86ud0IhdEgVXsyfuiKleW5AYLc8yu9+BzfNiROT9uLpP7O08GFg==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0YzJmWUUrunV5OeOKr5dbI00ecvnHFW8xNUQzXdAzZcqBqPvN3Xi
- DSz+5bUjPdKejh/WuYrWqYpwmS3opMzODNg1NjCqF4Ab4LXMSKgs2rcEWLHkkSBRFMwUjaplTn1
- a4tCuW2XHokxONBI5S1EpzywgT5g=
-X-Gm-Gg: ASbGncv9plxWRIXtLWP6GC9ORLySBylwbs1SAvK+LIx2FZiTc4RI4e8FbjgypgNUJ4C
- c3Mt9CJqDQ0WMR2861oZ7201fxfg=
-X-Google-Smtp-Source: AGHT+IF+gSRbeeGUBWZQ7Y4zlCPWgAPUcHtfuFbA64hLbKzY54vdWAYBNXl112e6E+jvIsRRYOQBhW4Jh90127pNaog=
-X-Received: by 2002:a05:6902:2085:b0:e33:1c9e:5cf2 with SMTP id
- 3f1490d57ef6-e38f8bd3578mr14993240276.39.1732639111915; Tue, 26 Nov 2024
- 08:38:31 -0800 (PST)
+ bh=pdg8AlLHLotjLO6thm7/4gyzA2eYiQ3jfgX04ekfVXg=;
+ b=MFNfsJBIZoTcTQx4y8OblYzzn+xMsunL2SOuNCwQ/UrKRqtM5CEOEbUixb8ffIxd8V
+ cktOHpMCCvlFRpnSx4XT73z6YfFPI50Xd2ts00GMcIW19/i/SHj+tUOYlAYF25EEKSvJ
+ uy7Wtfoh/qsIhVqcgQsQpjuNHb+/woS4Pzez1GDwR9CsdW83e+mBzJrH+5btVtSyqUhy
+ lOUJxU/y/sOh76y19BO2b4u2YjkH87K/3+VzbCpKFlYLT3X8xkd+Q2aFqCxWKHXULopf
+ iRI5aAlHxMkhEdG6KlOHSs5J0SnCxQbpdXtPQU5zNslVN9PlWcr+b/now1SQmM/kctgE
+ GIzA==
+X-Gm-Message-State: AOJu0YxRhh4hfti7VuCAoOMo3zxPg8ixmYHz3P+8x6DOI9CPJAMqc4c3
+ Ru2sXwSwgg4FVMGlJeiyOzZNN4CVeS7jZPUQDj+6KL1tMNLmK7m1zgAALVNukZzeU4qKMXiA7MS
+ XspnCtcDUL2olIOEvmX4o9Wjwsv5bfpnO5XzXmxHIOBEQpJ+XD+F1ZGP3zR0m5yEMgKUbWs2ZB1
+ 9pmvwH8g==
+X-Gm-Gg: ASbGnctsEr2uUEjC+phc0rz9IjQggFSQJnx0Zv1EtWDw6qZhQhY/ilmCvGyRDqMYkpa
+ 1gxu/i9xyMKM/Pf1xIzOJuWXinrf4kDwGUa4dazpBWBzHboTrzFG/RyDo3eOYDezopL+t6lSs11
+ jr1POfAcFjRy/mjXgfFQargaRXknFkcZgyTeLKRDmJ0RTmi2/FuCdUfmSHlpwK02sgBVf3JhIKJ
+ ETBr+/+X83CHhYwQ0ON3ZnRKYhnkWIIO2ooEjS7G9lpgF1gAyFLtGo1sGetFwFjMd2ZIYDLJsqi
+ zMjyij4BsyxOZWpmzpCLEZheKS9LoA==
+X-Received: by 2002:a17:90b:4b8e:b0:2ea:8fee:508d with SMTP id
+ 98e67ed59e1d1-2ee097bf308mr10905379a91.30.1732831222127; 
+ Thu, 28 Nov 2024 14:00:22 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGnNO+mTpCc4yl5ocuJ/08ABoCT4wGp28STfgVpY7SKiXgzgR0nmTabDv/tFEmjGuKD8xbuQQ==
+X-Received: by 2002:a17:90b:4b8e:b0:2ea:8fee:508d with SMTP id
+ 98e67ed59e1d1-2ee097bf308mr10905344a91.30.1732831221825; 
+ Thu, 28 Nov 2024 14:00:21 -0800 (PST)
+Received: from ryan-lee-laptop-13-amd.. (c-76-103-38-92.hsd1.ca.comcast.net.
+ [76.103.38.92]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-2ee0fa47fbasm4030261a91.13.2024.11.28.14.00.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 28 Nov 2024 14:00:21 -0800 (PST)
+From: Ryan Lee <ryan.lee@canonical.com>
+To: apparmor@lists.ubuntu.com,
+	john.johansen@canonical.com
+Date: Thu, 28 Nov 2024 13:58:38 -0800
+Message-ID: <20241128215911.237700-1-ryan.lee@canonical.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20241002094940.55644-1-simeddon@gmail.com>
- <7989c006-abc6-446c-8b2c-dcb9acb9732f@canonical.com>
-In-Reply-To: <7989c006-abc6-446c-8b2c-dcb9acb9732f@canonical.com>
-From: Sid <simeddon@gmail.com>
-Date: Tue, 26 Nov 2024 22:07:56 +0530
-Message-ID: <CAGd6pzPso9kQRoS=4rVj2c3=4kxLWk5DJ3VfzH2cAxXz_y2SmQ@mail.gmail.com>
-To: John Johansen <john.johansen@canonical.com>
-Content-Type: text/plain; charset="UTF-8"
-Received-SPF: pass client-ip=209.85.219.173; envelope-from=simeddon@gmail.com;
- helo=mail-yb1-f173.google.com
-Subject: Re: [apparmor] [PATCH V2 RESEND] Docs: Update LSM/apparmor.rst
+Content-Transfer-Encoding: 8bit
+Subject: [apparmor] [PATCH] apparmor: audit mqueue-via-path access as
+	getattr instead of unlink
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -62,15 +78,51 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: apparmor@lists.ubuntu.com, corbet@lwn.net, shuah@kernel.org,
- linux-doc@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Sun, 10 Nov 2024 at 02:06, John Johansen <john.johansen@canonical.com> wrote:
-> I have pulled this into my tree
-Thanks for accepting my patch
+Running `ls /dev/mqueue` under a profile that does not include mqueue
+rules would produce apparmor logs like
 
-Regards,
-Siddharth Menon
+apparmor="DENIED" operation="unlink" class="posix_mqueue"
+profile="mqueue_testing" name="/" pid=4791 comm="ls"
+requested="getattr" denied="getattr"
+
+that audit the denial as an unlink instead of as a getattr.
+
+Not only was apparmor_inode_getattr passing in a hardcoded OP_UNLINK
+to the common_mqueue_path_perm helper, but the helper was also discarding
+the op argument and auditing as a hardcoded OP_UNLINK. This patch fixes
+both of these issues.
+
+Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
+---
+ security/apparmor/lsm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
+index 245207b005e7..c6a06d504b1e 100644
+--- a/security/apparmor/lsm.c
++++ b/security/apparmor/lsm.c
+@@ -470,7 +470,7 @@ static int common_mqueue_path_perm(const char *op, u32 request,
+ 
+ 	label = begin_current_label_crit_section();
+ 	if (!unconfined(label))
+-		error = aa_mqueue_perm(OP_UNLINK, current_cred(), label, path,
++		error = aa_mqueue_perm(op, current_cred(), label, path,
+ 				       request);
+ 
+ 	end_current_label_crit_section(label);
+@@ -482,7 +482,7 @@ static int apparmor_inode_getattr(const struct path *path)
+ {
+ 	if (is_mqueue_dentry(path->dentry))
+ 		/* TODO: fn() for d_parent */
+-		return common_mqueue_path_perm(OP_UNLINK, AA_MAY_GETATTR, path);
++		return common_mqueue_path_perm(OP_GETATTR, AA_MAY_GETATTR, path);
+ 
+ 	return common_perm_cond(OP_GETATTR, path, AA_MAY_GETATTR);
+ }
+-- 
+2.43.0
+
 
