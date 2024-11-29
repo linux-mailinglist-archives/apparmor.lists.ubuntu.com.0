@@ -2,71 +2,45 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id F05C19DBD6E
-	for <lists+apparmor@lfdr.de>; Thu, 28 Nov 2024 23:00:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D38C9E13E9
+	for <lists+apparmor@lfdr.de>; Tue,  3 Dec 2024 08:22:50 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tGmYj-0003z4-Jo; Thu, 28 Nov 2024 22:00:25 +0000
-Received: from smtp-relay-internal-1.internal ([10.131.114.114]
- helo=smtp-relay-internal-1.canonical.com)
+	id 1tINEx-0002J4-74; Tue, 03 Dec 2024 07:22:35 +0000
+Received: from stravinsky.debian.org ([82.195.75.108])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <ryan.lee@canonical.com>)
- id 1tGmYi-0003tN-3A
- for apparmor@lists.ubuntu.com; Thu, 28 Nov 2024 22:00:24 +0000
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
- [209.85.215.200])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id BB63A3F2A0
- for <apparmor@lists.ubuntu.com>; Thu, 28 Nov 2024 22:00:23 +0000 (UTC)
-Received: by mail-pg1-f200.google.com with SMTP id
- 41be03b00d2f7-7f8af3950ecso956029a12.3
- for <apparmor@lists.ubuntu.com>; Thu, 28 Nov 2024 14:00:23 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732831222; x=1733436022;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=pdg8AlLHLotjLO6thm7/4gyzA2eYiQ3jfgX04ekfVXg=;
- b=MFNfsJBIZoTcTQx4y8OblYzzn+xMsunL2SOuNCwQ/UrKRqtM5CEOEbUixb8ffIxd8V
- cktOHpMCCvlFRpnSx4XT73z6YfFPI50Xd2ts00GMcIW19/i/SHj+tUOYlAYF25EEKSvJ
- uy7Wtfoh/qsIhVqcgQsQpjuNHb+/woS4Pzez1GDwR9CsdW83e+mBzJrH+5btVtSyqUhy
- lOUJxU/y/sOh76y19BO2b4u2YjkH87K/3+VzbCpKFlYLT3X8xkd+Q2aFqCxWKHXULopf
- iRI5aAlHxMkhEdG6KlOHSs5J0SnCxQbpdXtPQU5zNslVN9PlWcr+b/now1SQmM/kctgE
- GIzA==
-X-Gm-Message-State: AOJu0YxRhh4hfti7VuCAoOMo3zxPg8ixmYHz3P+8x6DOI9CPJAMqc4c3
- Ru2sXwSwgg4FVMGlJeiyOzZNN4CVeS7jZPUQDj+6KL1tMNLmK7m1zgAALVNukZzeU4qKMXiA7MS
- XspnCtcDUL2olIOEvmX4o9Wjwsv5bfpnO5XzXmxHIOBEQpJ+XD+F1ZGP3zR0m5yEMgKUbWs2ZB1
- 9pmvwH8g==
-X-Gm-Gg: ASbGnctsEr2uUEjC+phc0rz9IjQggFSQJnx0Zv1EtWDw6qZhQhY/ilmCvGyRDqMYkpa
- 1gxu/i9xyMKM/Pf1xIzOJuWXinrf4kDwGUa4dazpBWBzHboTrzFG/RyDo3eOYDezopL+t6lSs11
- jr1POfAcFjRy/mjXgfFQargaRXknFkcZgyTeLKRDmJ0RTmi2/FuCdUfmSHlpwK02sgBVf3JhIKJ
- ETBr+/+X83CHhYwQ0ON3ZnRKYhnkWIIO2ooEjS7G9lpgF1gAyFLtGo1sGetFwFjMd2ZIYDLJsqi
- zMjyij4BsyxOZWpmzpCLEZheKS9LoA==
-X-Received: by 2002:a17:90b:4b8e:b0:2ea:8fee:508d with SMTP id
- 98e67ed59e1d1-2ee097bf308mr10905379a91.30.1732831222127; 
- Thu, 28 Nov 2024 14:00:22 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGnNO+mTpCc4yl5ocuJ/08ABoCT4wGp28STfgVpY7SKiXgzgR0nmTabDv/tFEmjGuKD8xbuQQ==
-X-Received: by 2002:a17:90b:4b8e:b0:2ea:8fee:508d with SMTP id
- 98e67ed59e1d1-2ee097bf308mr10905344a91.30.1732831221825; 
- Thu, 28 Nov 2024 14:00:21 -0800 (PST)
-Received: from ryan-lee-laptop-13-amd.. (c-76-103-38-92.hsd1.ca.comcast.net.
- [76.103.38.92]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2ee0fa47fbasm4030261a91.13.2024.11.28.14.00.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Nov 2024 14:00:21 -0800 (PST)
-From: Ryan Lee <ryan.lee@canonical.com>
-To: apparmor@lists.ubuntu.com,
-	john.johansen@canonical.com
-Date: Thu, 28 Nov 2024 13:58:38 -0800
-Message-ID: <20241128215911.237700-1-ryan.lee@canonical.com>
-X-Mailer: git-send-email 2.43.0
+ (Exim 4.86_2) (envelope-from <carnil@debian.org>) id 1tH8IS-0006Oy-J0
+ for apparmor@lists.ubuntu.com; Fri, 29 Nov 2024 21:13:04 +0000
+Received: from authenticated user by stravinsky.debian.org with esmtpsa
+ (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+ (Exim 4.94.2) (envelope-from <carnil@debian.org>)
+ id 1tH8IH-00FdIG-Vu; Fri, 29 Nov 2024 21:12:54 +0000
+Received: by eldamar.lan (Postfix, from userid 1000)
+ id C1A58BE2EE7; Fri, 29 Nov 2024 22:12:52 +0100 (CET)
+Date: Fri, 29 Nov 2024 22:12:52 +0100
+From: Salvatore Bonaccorso <carnil@debian.org>
+To: 1050256@bugs.debian.org, John Johansen <john.johansen@canonical.com>
+Message-ID: <Z0ouVKC_dZDIOWeX@eldamar.lan>
+References: <ZXDsAecCKiSuHsO2@eldamar.lan> <ZZA69zQAzpzPojD5@eldamar.lan>
+ <9d6a5b2368016e2ef7b11c64b7c9db69419318ec.camel@debian.org>
+ <b8bb1a0e-9b50-4f78-8473-4f0151677f25@canonical.com>
+ <169271330498.34427.2191706613553030083.reportbug@pluto.milchstrasse.xx>
+ <ZbYk7yOaAq0O8Rid@eldamar.lan>
+ <169271330498.34427.2191706613553030083.reportbug@pluto.milchstrasse.xx>
+ <ZlMfW3I6dcpn2nAv@eldamar.lan>
+ <169271330498.34427.2191706613553030083.reportbug@pluto.milchstrasse.xx>
+ <Zq6GfWwlD2oqu2BW@eldamar.lan>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [apparmor] [PATCH] apparmor: audit mqueue-via-path access as
-	getattr instead of unlink
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <Zq6GfWwlD2oqu2BW@eldamar.lan>
+X-Debian-User: carnil
+Received-SPF: none client-ip=82.195.75.108; envelope-from=carnil@debian.org;
+ helo=stravinsky.debian.org
+X-Mailman-Approved-At: Tue, 03 Dec 2024 07:22:34 +0000
+Subject: Re: [apparmor] Bug#1050256: AppArmor breaks locking non-fs Unix
+	sockets
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -78,51 +52,43 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: Harald Dunkel <harri@afaics.de>, John Johansen <john@apparmor.net>,
+ Mathias Gibbens <gibmat@debian.org>, apparmor@lists.ubuntu.com,
+ Antonio Terceiro <terceiro@debian.org>, Paul Gevers <elbrus@debian.org>,
+ pkg-systemd-maintainers <pkg-systemd-maintainers@lists.alioth.debian.org>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Running `ls /dev/mqueue` under a profile that does not include mqueue
-rules would produce apparmor logs like
+Hi John,
 
-apparmor="DENIED" operation="unlink" class="posix_mqueue"
-profile="mqueue_testing" name="/" pid=4791 comm="ls"
-requested="getattr" denied="getattr"
+On Sat, Aug 03, 2024 at 09:35:25PM +0200, Salvatore Bonaccorso wrote:
+> Hi John,
+> 
+> On Sun, May 26, 2024 at 01:39:07PM +0200, Salvatore Bonaccorso wrote:
+> > Hi,
+> > 
+> > For those watching this bug: John has prepared backports in his tree,
+> > with both approaches:
+> > 
+> > https://git.kernel.org/pub/scm/linux/kernel/git/jj/linux-apparmor.git/log/?h=debian-two-patch-1780227
+> > 
+> > and
+> > 
+> > https://git.kernel.org/pub/scm/linux/kernel/git/jj/linux-apparmor.git/log/?h=debian-backport-1780227
+> > 
+> > (but with the open question which one will be submitted for stable.
+> > >From upstream stable point of view probably the two patch backport
+> > approach would be the preferred one).
+> 
+> We still have tis issue open for 6.1.y upstream TTBOMK. If you are
+> confident as maintainer with any of the two approaches, would it be
+> possible to submit them for stable? If the preferred one get then
+> accepted and queued, we might already cherry-pick the solution for us,
+> but at this point we can wait for the respective 6.1.y stable version
+> which will include the fix.
 
-that audit the denial as an unlink instead of as a getattr.
+Friendly ping. Any news here?
 
-Not only was apparmor_inode_getattr passing in a hardcoded OP_UNLINK
-to the common_mqueue_path_perm helper, but the helper was also discarding
-the op argument and auditing as a hardcoded OP_UNLINK. This patch fixes
-both of these issues.
-
-Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
----
- security/apparmor/lsm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
-index 245207b005e7..c6a06d504b1e 100644
---- a/security/apparmor/lsm.c
-+++ b/security/apparmor/lsm.c
-@@ -470,7 +470,7 @@ static int common_mqueue_path_perm(const char *op, u32 request,
- 
- 	label = begin_current_label_crit_section();
- 	if (!unconfined(label))
--		error = aa_mqueue_perm(OP_UNLINK, current_cred(), label, path,
-+		error = aa_mqueue_perm(op, current_cred(), label, path,
- 				       request);
- 
- 	end_current_label_crit_section(label);
-@@ -482,7 +482,7 @@ static int apparmor_inode_getattr(const struct path *path)
- {
- 	if (is_mqueue_dentry(path->dentry))
- 		/* TODO: fn() for d_parent */
--		return common_mqueue_path_perm(OP_UNLINK, AA_MAY_GETATTR, path);
-+		return common_mqueue_path_perm(OP_GETATTR, AA_MAY_GETATTR, path);
- 
- 	return common_perm_cond(OP_GETATTR, path, AA_MAY_GETATTR);
- }
--- 
-2.43.0
-
+Regards,
+Salvatore
 
