@@ -2,45 +2,31 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D38C9E13E9
-	for <lists+apparmor@lfdr.de>; Tue,  3 Dec 2024 08:22:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FA489E9178
+	for <lists+apparmor@lfdr.de>; Mon,  9 Dec 2024 12:06:04 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tINEx-0002J4-74; Tue, 03 Dec 2024 07:22:35 +0000
-Received: from stravinsky.debian.org ([82.195.75.108])
+	id 1tKbaG-0006bo-0N; Mon, 09 Dec 2024 11:05:48 +0000
+Received: from out-174.mta1.migadu.com ([95.215.58.174])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <carnil@debian.org>) id 1tH8IS-0006Oy-J0
- for apparmor@lists.ubuntu.com; Fri, 29 Nov 2024 21:13:04 +0000
-Received: from authenticated user by stravinsky.debian.org with esmtpsa
- (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
- (Exim 4.94.2) (envelope-from <carnil@debian.org>)
- id 1tH8IH-00FdIG-Vu; Fri, 29 Nov 2024 21:12:54 +0000
-Received: by eldamar.lan (Postfix, from userid 1000)
- id C1A58BE2EE7; Fri, 29 Nov 2024 22:12:52 +0100 (CET)
-Date: Fri, 29 Nov 2024 22:12:52 +0100
-From: Salvatore Bonaccorso <carnil@debian.org>
-To: 1050256@bugs.debian.org, John Johansen <john.johansen@canonical.com>
-Message-ID: <Z0ouVKC_dZDIOWeX@eldamar.lan>
-References: <ZXDsAecCKiSuHsO2@eldamar.lan> <ZZA69zQAzpzPojD5@eldamar.lan>
- <9d6a5b2368016e2ef7b11c64b7c9db69419318ec.camel@debian.org>
- <b8bb1a0e-9b50-4f78-8473-4f0151677f25@canonical.com>
- <169271330498.34427.2191706613553030083.reportbug@pluto.milchstrasse.xx>
- <ZbYk7yOaAq0O8Rid@eldamar.lan>
- <169271330498.34427.2191706613553030083.reportbug@pluto.milchstrasse.xx>
- <ZlMfW3I6dcpn2nAv@eldamar.lan>
- <169271330498.34427.2191706613553030083.reportbug@pluto.milchstrasse.xx>
- <Zq6GfWwlD2oqu2BW@eldamar.lan>
+ (Exim 4.86_2) (envelope-from <thorsten.blum@linux.dev>)
+ id 1tKbaE-0006bg-3o
+ for apparmor@lists.ubuntu.com; Mon, 09 Dec 2024 11:05:46 +0000
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Thorsten Blum <thorsten.blum@linux.dev>
+To: John Johansen <john.johansen@canonical.com>,
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>
+Date: Mon,  9 Dec 2024 12:05:16 +0100
+Message-ID: <20241209110515.39744-2-thorsten.blum@linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <Zq6GfWwlD2oqu2BW@eldamar.lan>
-X-Debian-User: carnil
-Received-SPF: none client-ip=82.195.75.108; envelope-from=carnil@debian.org;
- helo=stravinsky.debian.org
-X-Mailman-Approved-At: Tue, 03 Dec 2024 07:22:34 +0000
-Subject: Re: [apparmor] Bug#1050256: AppArmor breaks locking non-fs Unix
-	sockets
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
+Received-SPF: pass client-ip=95.215.58.174;
+ envelope-from=thorsten.blum@linux.dev; helo=out-174.mta1.migadu.com
+Subject: [apparmor] [RESEND PATCH] apparmor: Use str_yes_no() helper function
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -52,43 +38,61 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Harald Dunkel <harri@afaics.de>, John Johansen <john@apparmor.net>,
- Mathias Gibbens <gibmat@debian.org>, apparmor@lists.ubuntu.com,
- Antonio Terceiro <terceiro@debian.org>, Paul Gevers <elbrus@debian.org>,
- pkg-systemd-maintainers <pkg-systemd-maintainers@lists.alioth.debian.org>
+Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
+ Thorsten Blum <thorsten.blum@linux.dev>, linux-kernel@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Hi John,
+Remove hard-coded strings by using the str_yes_no() helper function.
 
-On Sat, Aug 03, 2024 at 09:35:25PM +0200, Salvatore Bonaccorso wrote:
-> Hi John,
-> 
-> On Sun, May 26, 2024 at 01:39:07PM +0200, Salvatore Bonaccorso wrote:
-> > Hi,
-> > 
-> > For those watching this bug: John has prepared backports in his tree,
-> > with both approaches:
-> > 
-> > https://git.kernel.org/pub/scm/linux/kernel/git/jj/linux-apparmor.git/log/?h=debian-two-patch-1780227
-> > 
-> > and
-> > 
-> > https://git.kernel.org/pub/scm/linux/kernel/git/jj/linux-apparmor.git/log/?h=debian-backport-1780227
-> > 
-> > (but with the open question which one will be submitted for stable.
-> > >From upstream stable point of view probably the two patch backport
-> > approach would be the preferred one).
-> 
-> We still have tis issue open for 6.1.y upstream TTBOMK. If you are
-> confident as maintainer with any of the two approaches, would it be
-> possible to submit them for stable? If the preferred one get then
-> accepted and queued, we might already cherry-pick the solution for us,
-> but at this point we can wait for the respective 6.1.y stable version
-> which will include the fix.
+Fix a typo in a comment: s/unpritable/unprintable/
 
-Friendly ping. Any news here?
+Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+---
+ security/apparmor/apparmorfs.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-Regards,
-Salvatore
+diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
+index 2c0185ebc900..1bce9a7d2129 100644
+--- a/security/apparmor/apparmorfs.c
++++ b/security/apparmor/apparmorfs.c
+@@ -997,7 +997,7 @@ static int aa_sfs_seq_show(struct seq_file *seq, void *v)
+ 
+ 	switch (fs_file->v_type) {
+ 	case AA_SFS_TYPE_BOOLEAN:
+-		seq_printf(seq, "%s\n", fs_file->v.boolean ? "yes" : "no");
++		seq_printf(seq, "%s\n", str_yes_no(fs_file->v.boolean));
+ 		break;
+ 	case AA_SFS_TYPE_STRING:
+ 		seq_printf(seq, "%s\n", fs_file->v.string);
+@@ -1006,7 +1006,7 @@ static int aa_sfs_seq_show(struct seq_file *seq, void *v)
+ 		seq_printf(seq, "%#08lx\n", fs_file->v.u64);
+ 		break;
+ 	default:
+-		/* Ignore unpritable entry types. */
++		/* Ignore unprintable entry types. */
+ 		break;
+ 	}
+ 
+@@ -1152,7 +1152,7 @@ static int seq_ns_stacked_show(struct seq_file *seq, void *v)
+ 	struct aa_label *label;
+ 
+ 	label = begin_current_label_crit_section();
+-	seq_printf(seq, "%s\n", label->size > 1 ? "yes" : "no");
++	seq_printf(seq, "%s\n", str_yes_no(label->size > 1));
+ 	end_current_label_crit_section(label);
+ 
+ 	return 0;
+@@ -1175,7 +1175,7 @@ static int seq_ns_nsstacked_show(struct seq_file *seq, void *v)
+ 			}
+ 	}
+ 
+-	seq_printf(seq, "%s\n", count > 1 ? "yes" : "no");
++	seq_printf(seq, "%s\n", str_yes_no(count > 1));
+ 	end_current_label_crit_section(label);
+ 
+ 	return 0;
+-- 
+2.47.1
+
 
