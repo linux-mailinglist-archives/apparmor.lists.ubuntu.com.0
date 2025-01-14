@@ -2,48 +2,35 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7202EA0B0B6
-	for <lists+apparmor@lfdr.de>; Mon, 13 Jan 2025 09:10:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38EB0A103CC
+	for <lists+apparmor@lfdr.de>; Tue, 14 Jan 2025 11:16:04 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tXFX6-0000M4-S4; Mon, 13 Jan 2025 08:10:48 +0000
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
- by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <bhe@redhat.com>) id 1tWvKt-0000li-0g
- for apparmor@lists.ubuntu.com; Sun, 12 Jan 2025 10:36:51 +0000
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-543-0DSN8VPiNBSr_DA-YHIeIA-1; Sun,
- 12 Jan 2025 05:36:43 -0500
-X-MC-Unique: 0DSN8VPiNBSr_DA-YHIeIA-1
-X-Mimecast-MFC-AGG-ID: 0DSN8VPiNBSr_DA-YHIeIA
-Received: from mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.15])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id A2F3A19560BB; Sun, 12 Jan 2025 10:36:36 +0000 (UTC)
-Received: from localhost (unknown [10.72.113.4])
- by mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 5808B195608A; Sun, 12 Jan 2025 10:36:31 +0000 (UTC)
-Date: Sun, 12 Jan 2025 18:36:27 +0800
-From: Baoquan He <bhe@redhat.com>
-To: Joel Granados <joel.granados@kernel.org>
-Message-ID: <Z4ObK5hkQ7qjWgbf@MiWiFi-R3L-srv>
-References: <20250110-jag-ctl_table_const-v2-1-0000e1663144@kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250110-jag-ctl_table_const-v2-1-0000e1663144@kernel.org>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.15
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=bhe@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Mailman-Approved-At: Mon, 13 Jan 2025 08:10:42 +0000
-Subject: Re: [apparmor] [PATCH v2] treewide: const qualify ctl_tables where
-	applicable
+	id 1tXdxc-0000PM-US; Tue, 14 Jan 2025 10:15:48 +0000
+Received: from out-175.mta0.migadu.com ([91.218.175.175])
+ by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.86_2) (envelope-from <thorsten.blum@linux.dev>)
+ id 1tXdxX-0000PC-Cc
+ for apparmor@lists.ubuntu.com; Tue, 14 Jan 2025 10:15:43 +0000
+Content-Type: text/plain;
+	charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3776.700.51.11.1\))
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Thorsten Blum <thorsten.blum@linux.dev>
+In-Reply-To: <d93ed7bb-b184-4153-8084-b693eb1e2b85@canonical.com>
+Date: Tue, 14 Jan 2025 11:15:27 +0100
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <1C3FAFB6-14DB-4E2D-8310-06022B2BB20A@linux.dev>
+References: <20241220192243.1856-1-thorsten.blum@linux.dev>
+ <d93ed7bb-b184-4153-8084-b693eb1e2b85@canonical.com>
+To: John Johansen <john.johansen@canonical.com>
+X-Migadu-Flow: FLOW_OUT
+Received-SPF: pass client-ip=91.218.175.175;
+ envelope-from=thorsten.blum@linux.dev; helo=out-175.mta0.migadu.com
+Subject: Re: [apparmor] [RESEND PATCH] apparmor: Use str_yes_no() helper
+	function
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -55,49 +42,31 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: linux-aio@kvack.org, linux-hyperv@vger.kernel.org,
- Corey Minyard <cminyard@mvista.com>, Kees Cook <kees@kernel.org>,
- "Darrick J. Wong" <djwong@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, keyrings@vger.kernel.org,
- linux-hardening@vger.kernel.org, linux-riscv@lists.infradead.org,
- io-uring@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
- linux-security-module@vger.kernel.org, codalist@coda.cs.cmu.edu,
- linux-serial@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-trace-kernel@vger.kernel.org, Jani Nikula <jani.nikula@intel.com>,
- intel-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com,
- "Steven Rostedt \(Google\)" <rostedt@goodmis.org>, linux-raid@vger.kernel.org,
- ocfs2-devel@lists.linux.dev, openipmi-developer@lists.sourceforge.net,
- intel-xe@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- fsverity@lists.linux.dev, linux-nfs@vger.kernel.org,
- "Martin K. Petersen" <martin.petersen@oracle.com>, Song Liu <song@kernel.org>,
- kexec@lists.infradead.org,
- Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>,
- linux-xfs@vger.kernel.org, Luis Chamberlain <mcgrof@kernel.org>,
- linux-crypto@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- netfs@lists.linux.dev, bpf@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+Cc: Paul Moore <paul@paul-moore.com>, apparmor@lists.ubuntu.com,
+ linux-kernel@vger.kernel.org, James Morris <jmorris@namei.org>,
+ linux-security-module@vger.kernel.org, "Serge E. Hallyn" <serge@hallyn.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 01/10/25 at 03:16pm, Joel Granados wrote:
-...snip...
-> diff --git a/kernel/kexec_core.c b/kernel/kexec_core.c
-> index c0caa14880c3..71b0809e06d6 100644
-> --- a/kernel/kexec_core.c
-> +++ b/kernel/kexec_core.c
-> @@ -925,7 +925,7 @@ static int kexec_limit_handler(const struct ctl_table *table, int write,
->  	return proc_dointvec(&tmp, write, buffer, lenp, ppos);
->  }
->  
-> -static struct ctl_table kexec_core_sysctls[] = {
-> +static const struct ctl_table kexec_core_sysctls[] = {
->  	{
->  		.procname	= "kexec_load_disabled",
->  		.data		= &kexec_load_disabled,
+On 20. Dec 2024, at 21:19, John Johansen wrote:
+> On 12/20/24 11:22, Thorsten Blum wrote:
+>> Remove hard-coded strings by using the str_yes_no() helper function.
+>> Fix a typo in a comment: s/unpritable/unprintable/
+>> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+>=20
+> Hey Thorsten,
+>=20
+> sorry for the delay on this I am just really backlogged and will try =
+to catch-up
+> on the mailing list traffic this weekend.
+>=20
+> Acked-by: John Johansen <john.johansen@canonical.com>
+>=20
+> I have pulled this into my tree and it should migrate into linux-next =
+soon
 
-For the kexec/kdump part,
+Hi John, I can't find this in linux-next yet. Any ideas?
 
-Acked-by: Baoquan He <bhe@redhat.com>
-......
-
+Thanks,
+Thorsten=
 
