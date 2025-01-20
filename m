@@ -2,45 +2,45 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3F1EA16D10
-	for <lists+apparmor@lfdr.de>; Mon, 20 Jan 2025 14:12:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0ED5FA16D4C
+	for <lists+apparmor@lfdr.de>; Mon, 20 Jan 2025 14:21:43 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tZrZf-0005Np-LB; Mon, 20 Jan 2025 13:12:15 +0000
-Received: from nyc.source.kernel.org ([147.75.193.91])
+	id 1tZrii-0001eB-2O; Mon, 20 Jan 2025 13:21:36 +0000
+Received: from dfw.source.kernel.org ([139.178.84.217])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <nathan@kernel.org>) id 1tZrZe-0005NZ-19
- for apparmor@lists.ubuntu.com; Mon, 20 Jan 2025 13:12:14 +0000
+ (Exim 4.86_2) (envelope-from <nathan@kernel.org>) id 1tZrig-0001dg-Sq
+ for apparmor@lists.ubuntu.com; Mon, 20 Jan 2025 13:21:35 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 4600BA40182;
- Mon, 20 Jan 2025 13:10:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13D7CC4CEDD;
- Mon, 20 Jan 2025 13:12:10 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id EA82F5C5AEE;
+ Mon, 20 Jan 2025 13:20:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EADE1C4CEE3;
+ Mon, 20 Jan 2025 13:21:31 +0000 (UTC)
 From: Nathan Chancellor <nathan@kernel.org>
-Date: Mon, 20 Jan 2025 06:12:01 -0700
+Date: Mon, 20 Jan 2025 06:21:14 -0700
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250120-apparmor-pointer-bool-conversion-label-v1-1-5957d28ffde6@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAKBLjmcC/x2NQQqDMBAAvyJ77kIS2gb7ldJDTFddiNmwESmIf
- zf2OIeZ2aGSMlV4dTsobVxZcgN76yDOIU+E/G0MzriHsc5gKCXoIopFOK+kOIgkjJI30kvGFAZ
- K6KM1zvfPe/QjtFhRGvn3H70/x3ECY9RvaXgAAAA=
-X-Change-ID: 20250120-apparmor-pointer-bool-conversion-label-7c1027964c7f
+Message-Id: <20250120-apparmor-fix-unused-sock-__file_sock_perm-v1-1-8d17bd672c6a@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAMlNjmcC/x2N0QrCMBAEf6XcswdpqBb8FZGQphs9tEm4UBFK/
+ 73Rt5mH2d2oQgWVrt1Gio9UyalJf+ooPH16gGVuTtbYs+mtYV+K1yUrR/nymtaKmWsOL3Yuyhv
+ ux65AFzYYLnacAuI0Utsritb8v273fT8AS3kMWXsAAAA=
+X-Change-ID: 20250120-apparmor-fix-unused-sock-__file_sock_perm-0e4627bcefb7
 To: John Johansen <john.johansen@canonical.com>
 X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1362; i=nathan@kernel.org;
- h=from:subject:message-id; bh=1dM/JqbDi9bds19lZgDDhhu34d2sR2mWDItkErvDMWo=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDOl93qt23nyjYiLt/9PE5fau2xzTclu1F1VsWffeLS321
- XGRyBN7O0pZGMS4GGTFFFmqH6seNzScc5bxxqlJMHNYmUCGMHBxCsBEorcx/K8Imn5F3/WUSoLF
- C70py8UdT209v2HH2d8ZaR12+m374lsY/lf9yF/Is9peutJk9YGr5ez2vwJ2PfuZwyBmb/3t2N+
- +DRwA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1657; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=gC579WahATfW87vCukQ9zNWcta2vXe56nrlKbwqFpRs=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDOl9vrenr5XmPNRl71GfsOh6LPvTEIbyPScX8D6b1C8U4
+ mDs6dPQUcrCIMbFICumyFL9WPW4oeGcs4w3Tk2CmcPKBDKEgYtTACZSUM7wz559x0x+7wVdrTMS
+ 5BzSCqb4P1uW++dJ0HvThFmZha4vmRj+V/nYx062XfWEcynT8xz7QK04vrmewV2OoWY/DJZMry1
+ gBAA=
 X-Developer-Key: i=nathan@kernel.org; a=openpgp;
  fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
-Received-SPF: pass client-ip=147.75.193.91; envelope-from=nathan@kernel.org;
- helo=nyc.source.kernel.org
-Subject: [apparmor] [PATCH] apparmor: Fix checking address of an array in
- accum_label_info()
+Received-SPF: pass client-ip=139.178.84.217; envelope-from=nathan@kernel.org;
+ helo=dfw.source.kernel.org
+Subject: [apparmor] [PATCH] apparmor: Remove unused variable 'sock' in
+ __file_sock_perm()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -52,47 +52,52 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: kernel test robot <lkp@intel.com>, llvm@lists.linux.dev,
- apparmor@lists.ubuntu.com, patches@lists.linux.dev,
- Nathan Chancellor <nathan@kernel.org>, linux-security-module@vger.kernel.org
+Cc: Nathan Chancellor <nathan@kernel.org>,
+ linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
+ patches@lists.linux.dev, kernel test robot <lkp@intel.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-clang warns:
+When CONFIG_SECURITY_APPARMOR_DEBUG_ASSERTS is disabled, there is a
+warning that sock is unused:
 
-  security/apparmor/label.c:206:15: error: address of array 'new->vec' will always evaluate to 'true' [-Werror,-Wpointer-bool-conversion]
-    206 |         AA_BUG(!new->vec);
-        |                ~~~~~~^~~
+  security/apparmor/file.c: In function '__file_sock_perm':
+  security/apparmor/file.c:544:24: warning: unused variable 'sock' [-Wunused-variable]
+    544 |         struct socket *sock = (struct socket *) file->private_data;
+        |                        ^~~~
 
-The address of this array can never be NULL because it is not at the
-beginning of a structure. Convert the assertion to check that the new
-pointer is not NULL.
+sock was moved into aa_sock_file_perm(), where the same check is
+present, so remove sock and the assertion from __file_sock_perm() to fix
+the warning.
 
-Fixes: de4754c801f4 ("apparmor: carry mediation check on label")
+Fixes: c05e705812d1 ("apparmor: add fine grained af_unix mediation")
 Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202501191802.bDp2voTJ-lkp@intel.com/
+Closes: https://lore.kernel.org/oe-kbuild-all/202501190757.myuLxLyL-lkp@intel.com/
 Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 ---
- security/apparmor/label.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ security/apparmor/file.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/security/apparmor/label.c b/security/apparmor/label.c
-index afded9996f61..79be2d3d604b 100644
---- a/security/apparmor/label.c
-+++ b/security/apparmor/label.c
-@@ -203,7 +203,7 @@ static void accum_label_info(struct aa_label *new)
- 	long u = FLAG_UNCONFINED;
- 	int i;
+diff --git a/security/apparmor/file.c b/security/apparmor/file.c
+index 85f89814af1e..e3a858649942 100644
+--- a/security/apparmor/file.c
++++ b/security/apparmor/file.c
+@@ -541,11 +541,8 @@ static int __file_sock_perm(const char *op, const struct cred *subj_cred,
+ 			    struct aa_label *flabel, struct file *file,
+ 			    u32 request, u32 denied)
+ {
+-	struct socket *sock = (struct socket *) file->private_data;
+ 	int error;
  
--	AA_BUG(!new->vec);
-+	AA_BUG(!new);
- 
- 	/* size == 1 is a profile and flags must be set as part of creation */
- 	if (new->size == 1)
+-	AA_BUG(!sock);
+-
+ 	/* revalidation due to label out of date. No revocation at this time */
+ 	if (!denied && aa_label_is_subset(flabel, label))
+ 		return 0;
 
 ---
 base-commit: e6b087676954e36a7b1ed51249362bb499f8c1c2
-change-id: 20250120-apparmor-pointer-bool-conversion-label-7c1027964c7f
+change-id: 20250120-apparmor-fix-unused-sock-__file_sock_perm-0e4627bcefb7
 
 Best regards,
 -- 
