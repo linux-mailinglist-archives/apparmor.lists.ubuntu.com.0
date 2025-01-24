@@ -2,31 +2,30 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 712ECA1BE3D
-	for <lists+apparmor@lfdr.de>; Fri, 24 Jan 2025 23:04:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EE62A1BE4A
+	for <lists+apparmor@lfdr.de>; Fri, 24 Jan 2025 23:06:12 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tbRmY-0007RS-Ur; Fri, 24 Jan 2025 22:04:06 +0000
+	id 1tbRoS-0007eq-On; Fri, 24 Jan 2025 22:06:04 +0000
 Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
  helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1tbRmW-0007Qk-V6
- for apparmor@lists.ubuntu.com; Fri, 24 Jan 2025 22:04:05 +0000
+ id 1tbRoQ-0007eb-TD
+ for apparmor@lists.ubuntu.com; Fri, 24 Jan 2025 22:06:02 +0000
 Received: from [192.168.192.85] (unknown [50.39.104.138])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 8D5EB3F925; 
- Fri, 24 Jan 2025 22:04:00 +0000 (UTC)
-Message-ID: <38ca7459-4034-4171-a231-6c06af1391f2@canonical.com>
-Date: Fri, 24 Jan 2025 14:03:58 -0800
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id F3A083F2C6; 
+ Fri, 24 Jan 2025 22:06:00 +0000 (UTC)
+Message-ID: <97669024-c5df-46dc-93bb-3b54f179db1d@canonical.com>
+Date: Fri, 24 Jan 2025 14:05:32 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 References: <20250121024444.88981-1-jiapeng.chong@linux.alibaba.com>
- <20250121024444.88981-2-jiapeng.chong@linux.alibaba.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -72,10 +71,10 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20250121024444.88981-2-jiapeng.chong@linux.alibaba.com>
+In-Reply-To: <20250121024444.88981-1-jiapeng.chong@linux.alibaba.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH -next 1/2] apparmor: Modify mismatched
+Subject: Re: [apparmor] [PATCH -next 2/2] apparmor: Modify mismatched
 	function name
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -97,10 +96,10 @@ Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 On 1/20/25 18:44, Jiapeng Chong wrote:
 > No functional modification involved.
 > 
-> security/apparmor/file.c:184: warning: expecting prototype for aa_lookup_fperms(). Prototype was for aa_lookup_condperms() instead.
+> security/apparmor/lib.c:93: warning: expecting prototype for aa_mask_to_str(). Prototype was for val_mask_to_str() instead.
 > 
 > Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-> Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=13605
+> Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=13606
 > Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 
 Acked-by: John Johansen <john.johansen@canonical.com>
@@ -108,21 +107,21 @@ Acked-by: John Johansen <john.johansen@canonical.com>
 I have pulled this into my tree
 
 > ---
->   security/apparmor/file.c | 2 +-
+>   security/apparmor/lib.c | 2 +-
 >   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/security/apparmor/file.c b/security/apparmor/file.c
-> index 85f89814af1e..f113eedbc208 100644
-> --- a/security/apparmor/file.c
-> +++ b/security/apparmor/file.c
-> @@ -169,7 +169,7 @@ static int path_name(const char *op, const struct cred *subj_cred,
+> diff --git a/security/apparmor/lib.c b/security/apparmor/lib.c
+> index dd5dcbe5daf7..325f26f39a63 100644
+> --- a/security/apparmor/lib.c
+> +++ b/security/apparmor/lib.c
+> @@ -82,7 +82,7 @@ int aa_parse_debug_params(const char *str)
+>   }
 >   
->   struct aa_perms default_perms = {};
 >   /**
-> - * aa_lookup_fperms - convert dfa compressed perms to internal perms
-> + * aa_lookup_condperms - convert dfa compressed perms to internal perms
->    * @subj_uid: uid to use for subject owner test
->    * @rules: the aa_policydb to lookup perms for  (NOT NULL)
->    * @state: state in dfa
+> - * aa_mask_to_str - convert a perm mask to its short string
+> + * val_mask_to_str - convert a perm mask to its short string
+>    * @str: character buffer to store string in (at least 10 characters)
+>    * @str_size: size of the @str buffer
+>    * @chrs: NUL-terminated character buffer of permission characters
 
 
