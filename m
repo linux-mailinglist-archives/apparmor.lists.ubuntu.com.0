@@ -2,30 +2,31 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BCA0A1BE3C
-	for <lists+apparmor@lfdr.de>; Fri, 24 Jan 2025 23:02:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 712ECA1BE3D
+	for <lists+apparmor@lfdr.de>; Fri, 24 Jan 2025 23:04:13 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tbRl1-0007AG-Tq; Fri, 24 Jan 2025 22:02:31 +0000
+	id 1tbRmY-0007RS-Ur; Fri, 24 Jan 2025 22:04:06 +0000
 Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
  helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1tbRl0-0007A6-Fu
- for apparmor@lists.ubuntu.com; Fri, 24 Jan 2025 22:02:30 +0000
+ id 1tbRmW-0007Qk-V6
+ for apparmor@lists.ubuntu.com; Fri, 24 Jan 2025 22:04:05 +0000
 Received: from [192.168.192.85] (unknown [50.39.104.138])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 0338F3F925; 
- Fri, 24 Jan 2025 22:02:28 +0000 (UTC)
-Message-ID: <e66188a9-15d5-47af-9a85-6b8a6537701b@canonical.com>
-Date: Fri, 24 Jan 2025 14:02:27 -0800
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 8D5EB3F925; 
+ Fri, 24 Jan 2025 22:04:00 +0000 (UTC)
+Message-ID: <38ca7459-4034-4171-a231-6c06af1391f2@canonical.com>
+Date: Fri, 24 Jan 2025 14:03:58 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Nathan Chancellor <nathan@kernel.org>
-References: <20250120-apparmor-fix-unused-sock-__file_sock_perm-v1-1-8d17bd672c6a@kernel.org>
+To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+References: <20250121024444.88981-1-jiapeng.chong@linux.alibaba.com>
+ <20250121024444.88981-2-jiapeng.chong@linux.alibaba.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -71,11 +72,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20250120-apparmor-fix-unused-sock-__file_sock_perm-v1-1-8d17bd672c6a@kernel.org>
+In-Reply-To: <20250121024444.88981-2-jiapeng.chong@linux.alibaba.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH] apparmor: Remove unused variable 'sock' in
- __file_sock_perm()
+Subject: Re: [apparmor] [PATCH -next 1/2] apparmor: Modify mismatched
+	function name
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -87,60 +88,41 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
- patches@lists.linux.dev, kernel test robot <lkp@intel.com>
+Cc: paul@paul-moore.com, Abaci Robot <abaci@linux.alibaba.com>,
+ apparmor@lists.ubuntu.com, linux-kernel@vger.kernel.org, jmorris@namei.org,
+ linux-security-module@vger.kernel.org, serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 1/20/25 05:21, Nathan Chancellor wrote:
-> When CONFIG_SECURITY_APPARMOR_DEBUG_ASSERTS is disabled, there is a
-> warning that sock is unused:
+On 1/20/25 18:44, Jiapeng Chong wrote:
+> No functional modification involved.
 > 
->    security/apparmor/file.c: In function '__file_sock_perm':
->    security/apparmor/file.c:544:24: warning: unused variable 'sock' [-Wunused-variable]
->      544 |         struct socket *sock = (struct socket *) file->private_data;
->          |                        ^~~~
+> security/apparmor/file.c:184: warning: expecting prototype for aa_lookup_fperms(). Prototype was for aa_lookup_condperms() instead.
 > 
-> sock was moved into aa_sock_file_perm(), where the same check is
-> present, so remove sock and the assertion from __file_sock_perm() to fix
-> the warning.
-> 
-> Fixes: c05e705812d1 ("apparmor: add fine grained af_unix mediation")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202501190757.myuLxLyL-lkp@intel.com/
-> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+> Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=13605
+> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 
-yep, thanks
 Acked-by: John Johansen <john.johansen@canonical.com>
 
 I have pulled this into my tree
 
-
 > ---
->   security/apparmor/file.c | 3 ---
->   1 file changed, 3 deletions(-)
+>   security/apparmor/file.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
 > diff --git a/security/apparmor/file.c b/security/apparmor/file.c
-> index 85f89814af1e..e3a858649942 100644
+> index 85f89814af1e..f113eedbc208 100644
 > --- a/security/apparmor/file.c
 > +++ b/security/apparmor/file.c
-> @@ -541,11 +541,8 @@ static int __file_sock_perm(const char *op, const struct cred *subj_cred,
->   			    struct aa_label *flabel, struct file *file,
->   			    u32 request, u32 denied)
->   {
-> -	struct socket *sock = (struct socket *) file->private_data;
->   	int error;
+> @@ -169,7 +169,7 @@ static int path_name(const char *op, const struct cred *subj_cred,
 >   
-> -	AA_BUG(!sock);
-> -
->   	/* revalidation due to label out of date. No revocation at this time */
->   	if (!denied && aa_label_is_subset(flabel, label))
->   		return 0;
-> 
-> ---
-> base-commit: e6b087676954e36a7b1ed51249362bb499f8c1c2
-> change-id: 20250120-apparmor-fix-unused-sock-__file_sock_perm-0e4627bcefb7
-> 
-> Best regards,
+>   struct aa_perms default_perms = {};
+>   /**
+> - * aa_lookup_fperms - convert dfa compressed perms to internal perms
+> + * aa_lookup_condperms - convert dfa compressed perms to internal perms
+>    * @subj_uid: uid to use for subject owner test
+>    * @rules: the aa_policydb to lookup perms for  (NOT NULL)
+>    * @state: state in dfa
 
 
