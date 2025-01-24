@@ -2,30 +2,31 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 314B1A1BE97
-	for <lists+apparmor@lfdr.de>; Fri, 24 Jan 2025 23:51:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E239A1BEE0
+	for <lists+apparmor@lfdr.de>; Sat, 25 Jan 2025 00:06:19 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tbSVi-0003uh-J6; Fri, 24 Jan 2025 22:50:46 +0000
+	id 1tbSkY-0005VL-PG; Fri, 24 Jan 2025 23:06:06 +0000
 Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
  helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1tbSVh-0003uY-HN
- for apparmor@lists.ubuntu.com; Fri, 24 Jan 2025 22:50:45 +0000
+ id 1tbSkW-0005VB-PU
+ for apparmor@lists.ubuntu.com; Fri, 24 Jan 2025 23:06:04 +0000
 Received: from [192.168.192.85] (unknown [50.39.104.138])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id D3BA33F77E
- for <apparmor@lists.ubuntu.com>; Fri, 24 Jan 2025 22:50:42 +0000 (UTC)
-Message-ID: <119a9bb9-d6d1-48f5-9620-2e868f2191ca@canonical.com>
-Date: Fri, 24 Jan 2025 14:50:41 -0800
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 809BC3F92D
+ for <apparmor@lists.ubuntu.com>; Fri, 24 Jan 2025 23:05:38 +0000 (UTC)
+Message-ID: <4d6bf88e-eaaf-4f09-8f15-b39d378229df@canonical.com>
+Date: Fri, 24 Jan 2025 15:05:36 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: apparmor@lists.ubuntu.com
-References: <20250110-jag-ctl_table_const-v2-1-0000e1663144@kernel.org>
+References: <20250123192058.2558-1-tanyaagarwal25699@gmail.com>
+ <CAKCV-6u9=16WfS3emkGuErY=AETf05p6EbP5w8KO5V+SxaW1eg@mail.gmail.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -71,11 +72,10 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20250110-jag-ctl_table_const-v2-1-0000e1663144@kernel.org>
+In-Reply-To: <CAKCV-6u9=16WfS3emkGuErY=AETf05p6EbP5w8KO5V+SxaW1eg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH v2] treewide: const qualify ctl_tables where
- applicable
+Content-Transfer-Encoding: 8bit
+Subject: Re: [apparmor] Fwd: [PATCH] apparmor: fix typos and spelling errors
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -90,48 +90,152 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 1/10/25 06:16, Joel Granados wrote:
-> Add the const qualifier to all the ctl_tables in the tree except for
-> watchdog_hardlockup_sysctl, memory_allocation_profiling_sysctls,
-> loadpin_sysctl_table and the ones calling register_net_sysctl (./net,
-> drivers/inifiniband dirs). These are special cases as they use a
-> registration function with a non-const qualified ctl_table argument or
-> modify the arrays before passing them on to the registration function.
+On 1/23/25 11:38, Ryan Lee wrote:
+> ---------- Forwarded message ---------
+> From: Tanya Agarwal <tanyaagarwal25699@gmail.com>
+> Date: Thu, Jan 23, 2025 at 11:30 AM
+> Subject: [PATCH] apparmor: fix typos and spelling errors
+> To: <john.johansen@canonical.com>, <paul@paul-moore.com>,
+> <jmorris@namei.org>, <serge@hallyn.com>
+> Cc: <linux-security-module@vger.kernel.org>,
+> <linux-kernel@vger.kernel.org>, <skhan@linuxfoundation.org>,
+> <anupnewsmail@gmail.com>, Tanya Agarwal <tanyaagarwal25699@gmail.com>,
+> Mimi Zohar <zohar@linux.ibm.com>
 > 
-> Constifying ctl_table structs will prevent the modification of
-> proc_handler function pointers as the arrays would reside in .rodata.
-> This is made possible after commit 78eb4ea25cd5 ("sysctl: treewide:
-> constify the ctl_table argument of proc_handlers") constified all the
-> proc_handlers.
 > 
-> Created this by running an spatch followed by a sed command:
-> Spatch:
->      virtual patch
+> From: Tanya Agarwal <tanyaagarwal25699@gmail.com>
 > 
->      @
->      depends on !(file in "net")
->      disable optional_qualifier
->      @
->      identifier table_name != {watchdog_hardlockup_sysctl,iwcm_ctl_table,ucma_ctl_table,memory_allocation_profiling_sysctls,loadpin_sysctl_table};
->      @@
+> Fix typos and spelling errors in apparmor module comments that were
+> identified using the codespell tool.
+> No functional changes - documentation only.
 > 
->      + const
->      struct ctl_table table_name [] = { ... };
-> 
-> sed:
->      sed --in-place \
->        -e "s/struct ctl_table .table = &uts_kern/const struct ctl_table *table = \&uts_kern/" \
->        kernel/utsname_sysctl.c
-> 
-> Reviewed-by: Song Liu <song@kernel.org>
-> Acked-by: Steven Rostedt (Google) <rostedt@goodmis.org> # for kernel/trace/
-> Reviewed-by: Martin K. Petersen <martin.petersen@oracle.com> # SCSI
-> Reviewed-by: Darrick J. Wong <djwong@kernel.org> # xfs
-> Acked-by: Jani Nikula <jani.nikula@intel.com>
-> Acked-by: Corey Minyard <cminyard@mvista.com>
-> Signed-off-by: Joel Granados <joel.granados@kernel.org>
+> Signed-off-by: Tanya Agarwal <tanyaagarwal25699@gmail.com>
+> Reviewed-by: Mimi Zohar <zohar@linux.ibm.com>
 
-For the apparmor bit
 Acked-by: John Johansen <john.johansen@canonical.com>
+
+I have pulled this into my tree
+
+> ---
+> This patch set is split into individual patches for each LSM
+> to facilitate easier review by respective maintainers.
+> 
+> Original discussion:
+> https://lore.kernel.org/all/20250112072925.1774-1-tanyaagarwal25699@gmail.com
+> 
+>   security/apparmor/apparmorfs.c | 6 +++---
+>   security/apparmor/domain.c     | 4 ++--
+>   security/apparmor/label.c      | 2 +-
+>   security/apparmor/lsm.c        | 2 +-
+>   security/apparmor/policy.c     | 4 ++--
+>   5 files changed, 9 insertions(+), 9 deletions(-)
+> 
+> diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
+> index 2c0185ebc900..0c2f248d31bf 100644
+> --- a/security/apparmor/apparmorfs.c
+> +++ b/security/apparmor/apparmorfs.c
+> @@ -43,7 +43,7 @@
+>    * The interface is split into two main components based on their function
+>    * a securityfs component:
+>    *   used for static files that are always available, and which allows
+> - *   userspace to specificy the location of the security filesystem.
+> + *   userspace to specify the location of the security filesystem.
+>    *
+>    *   fns and data are prefixed with
+>    *      aa_sfs_
+> @@ -204,7 +204,7 @@ static struct file_system_type aafs_ops = {
+>   /**
+>    * __aafs_setup_d_inode - basic inode setup for apparmorfs
+>    * @dir: parent directory for the dentry
+> - * @dentry: dentry we are seting the inode up for
+> + * @dentry: dentry we are setting the inode up for
+>    * @mode: permissions the file should have
+>    * @data: data to store on inode.i_private, available in open()
+>    * @link: if symlink, symlink target string
+> @@ -2244,7 +2244,7 @@ static void *p_next(struct seq_file *f, void *p,
+> loff_t *pos)
+>   /**
+>    * p_stop - stop depth first traversal
+>    * @f: seq_file we are filling
+> - * @p: the last profile writen
+> + * @p: the last profile written
+>    *
+>    * Release all locking done by p_start/p_next on namespace tree
+>    */
+> diff --git a/security/apparmor/domain.c b/security/apparmor/domain.c
+> index 5939bd9a9b9b..d959931eac28 100644
+> --- a/security/apparmor/domain.c
+> +++ b/security/apparmor/domain.c
+> @@ -755,7 +755,7 @@ static int profile_onexec(const struct cred *subj_cred,
+>                  /* change_profile on exec already granted */
+>                  /*
+>                   * NOTE: Domain transitions from unconfined are allowed
+> -                * even when no_new_privs is set because this aways results
+> +                * even when no_new_privs is set because this always results
+>                   * in a further reduction of permissions.
+>                   */
+>                  return 0;
+> @@ -926,7 +926,7 @@ int apparmor_bprm_creds_for_exec(struct linux_binprm *bprm)
+>           *
+>           * NOTE: Domain transitions from unconfined and to stacked
+>           * subsets are allowed even when no_new_privs is set because this
+> -        * aways results in a further reduction of permissions.
+> +        * always results in a further reduction of permissions.
+>           */
+>          if ((bprm->unsafe & LSM_UNSAFE_NO_NEW_PRIVS) &&
+>              !unconfined(label) &&
+> diff --git a/security/apparmor/label.c b/security/apparmor/label.c
+> index 91483ecacc16..8bcff51becb8 100644
+> --- a/security/apparmor/label.c
+> +++ b/security/apparmor/label.c
+> @@ -1456,7 +1456,7 @@ bool aa_update_label_name(struct aa_ns *ns,
+> struct aa_label *label, gfp_t gfp)
+> 
+>   /*
+>    * cached label name is present and visible
+> - * @label->hname only exists if label is namespace hierachical
+> + * @label->hname only exists if label is namespace hierarchical
+>    */
+>   static inline bool use_label_hname(struct aa_ns *ns, struct aa_label *label,
+>                                     int flags)
+> diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
+> index 1edc12862a7d..04bf5d2f6e00 100644
+> --- a/security/apparmor/lsm.c
+> +++ b/security/apparmor/lsm.c
+> @@ -2006,7 +2006,7 @@ static int __init alloc_buffers(void)
+>           * two should be enough, with more CPUs it is possible that more
+>           * buffers will be used simultaneously. The preallocated pool may grow.
+>           * This preallocation has also the side-effect that AppArmor will be
+> -        * disabled early at boot if aa_g_path_max is extremly high.
+> +        * disabled early at boot if aa_g_path_max is extremely high.
+>           */
+>          if (num_online_cpus() > 1)
+>                  num = 4 + RESERVE_COUNT;
+> diff --git a/security/apparmor/policy.c b/security/apparmor/policy.c
+> index d0244fab0653..5cec3efc4794 100644
+> --- a/security/apparmor/policy.c
+> +++ b/security/apparmor/policy.c
+> @@ -463,7 +463,7 @@ static struct aa_policy *__lookup_parent(struct aa_ns *ns,
+>   }
+> 
+>   /**
+> - * __create_missing_ancestors - create place holders for missing ancestores
+> + * __create_missing_ancestors - create place holders for missing ancestors
+>    * @ns: namespace to lookup profile in (NOT NULL)
+>    * @hname: hierarchical profile name to find parent of (NOT NULL)
+>    * @gfp: type of allocation.
+> @@ -1068,7 +1068,7 @@ ssize_t aa_replace_profiles(struct aa_ns
+> *policy_ns, struct aa_label *label,
+>                  goto out;
+> 
+>          /* ensure that profiles are all for the same ns
+> -        * TODO: update locking to remove this constaint. All profiles in
+> +        * TODO: update locking to remove this constraint. All profiles in
+>           *       the load set must succeed as a set or the load will
+>           *       fail. Sort ent list and take ns locks in hierarchy order
+>           */
+> --
+> 2.39.5
+> 
 
 
