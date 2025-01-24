@@ -2,32 +2,30 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32B52A1BE27
-	for <lists+apparmor@lfdr.de>; Fri, 24 Jan 2025 22:57:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC7C0A1BE2F
+	for <lists+apparmor@lfdr.de>; Fri, 24 Jan 2025 22:59:55 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tbRfo-0006d9-1k; Fri, 24 Jan 2025 21:57:08 +0000
+	id 1tbRiJ-0006vL-Ad; Fri, 24 Jan 2025 21:59:43 +0000
 Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
  helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1tbRfm-0006Yi-1Y
- for apparmor@lists.ubuntu.com; Fri, 24 Jan 2025 21:57:06 +0000
+ id 1tbRiH-0006v4-W2
+ for apparmor@lists.ubuntu.com; Fri, 24 Jan 2025 21:59:42 +0000
 Received: from [192.168.192.85] (unknown [50.39.104.138])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id A78C03F18C; 
- Fri, 24 Jan 2025 21:57:03 +0000 (UTC)
-Message-ID: <7122554b-d53e-4916-9531-4ceba28ad43f@canonical.com>
-Date: Fri, 24 Jan 2025 13:56:59 -0800
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 601E33FBAB; 
+ Fri, 24 Jan 2025 21:59:38 +0000 (UTC)
+Message-ID: <15e13942-965b-49f9-bf69-36579237a4cb@canonical.com>
+Date: Fri, 24 Jan 2025 13:59:36 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Thorsten Blum <thorsten.blum@linux.dev>
-References: <20241220192243.1856-1-thorsten.blum@linux.dev>
- <d93ed7bb-b184-4153-8084-b693eb1e2b85@canonical.com>
- <1C3FAFB6-14DB-4E2D-8310-06022B2BB20A@linux.dev>
+To: Nathan Chancellor <nathan@kernel.org>
+References: <20250120-apparmor-pointer-bool-conversion-label-v1-1-5957d28ffde6@kernel.org>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -73,11 +71,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <1C3FAFB6-14DB-4E2D-8310-06022B2BB20A@linux.dev>
+In-Reply-To: <20250120-apparmor-pointer-bool-conversion-label-v1-1-5957d28ffde6@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [RESEND PATCH] apparmor: Use str_yes_no() helper
-	function
+Subject: Re: [apparmor] [PATCH] apparmor: Fix checking address of an array
+ in accum_label_info()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -89,33 +87,54 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Paul Moore <paul@paul-moore.com>, apparmor@lists.ubuntu.com,
- linux-kernel@vger.kernel.org, James Morris <jmorris@namei.org>,
- linux-security-module@vger.kernel.org, "Serge E. Hallyn" <serge@hallyn.com>
+Cc: linux-security-module@vger.kernel.org, llvm@lists.linux.dev,
+ apparmor@lists.ubuntu.com, patches@lists.linux.dev,
+ kernel test robot <lkp@intel.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 1/14/25 02:15, Thorsten Blum wrote:
-> On 20. Dec 2024, at 21:19, John Johansen wrote:
->> On 12/20/24 11:22, Thorsten Blum wrote:
->>> Remove hard-coded strings by using the str_yes_no() helper function.
->>> Fix a typo in a comment: s/unpritable/unprintable/
->>> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
->>
->> Hey Thorsten,
->>
->> sorry for the delay on this I am just really backlogged and will try to catch-up
->> on the mailing list traffic this weekend.
->>
->> Acked-by: John Johansen <john.johansen@canonical.com>
->>
->> I have pulled this into my tree and it should migrate into linux-next soon
+On 1/20/25 05:12, Nathan Chancellor wrote:
+> clang warns:
 > 
-> Hi John, I can't find this in linux-next yet. Any ideas?
+>    security/apparmor/label.c:206:15: error: address of array 'new->vec' will always evaluate to 'true' [-Werror,-Wpointer-bool-conversion]
+>      206 |         AA_BUG(!new->vec);
+>          |                ~~~~~~^~~
 > 
+> The address of this array can never be NULL because it is not at the
+> beginning of a structure. Convert the assertion to check that the new
+> pointer is not NULL.
+> 
+> Fixes: de4754c801f4 ("apparmor: carry mediation check on label")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202501191802.bDp2voTJ-lkp@intel.com/
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 
-yeah sorry, I had to disable my pre push hook, it does some sanity checks around
-sign-offs, checkpatch, etc and well takes a while. Any ways it was tripping on some stuff
-causing it not to push, and the last few week being crazy I just missed it.
+Acked-by: John Johansen <john.johansen@canonical.com>
+
+I have pulled this into my tree
+
+> ---
+>   security/apparmor/label.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/security/apparmor/label.c b/security/apparmor/label.c
+> index afded9996f61..79be2d3d604b 100644
+> --- a/security/apparmor/label.c
+> +++ b/security/apparmor/label.c
+> @@ -203,7 +203,7 @@ static void accum_label_info(struct aa_label *new)
+>   	long u = FLAG_UNCONFINED;
+>   	int i;
+>   
+> -	AA_BUG(!new->vec);
+> +	AA_BUG(!new);
+>   
+>   	/* size == 1 is a profile and flags must be set as part of creation */
+>   	if (new->size == 1)
+> 
+> ---
+> base-commit: e6b087676954e36a7b1ed51249362bb499f8c1c2
+> change-id: 20250120-apparmor-pointer-bool-conversion-label-7c1027964c7f
+> 
+> Best regards,
 
 
