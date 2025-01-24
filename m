@@ -2,30 +2,30 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 016C3A1BE52
-	for <lists+apparmor@lfdr.de>; Fri, 24 Jan 2025 23:10:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 314B1A1BE97
+	for <lists+apparmor@lfdr.de>; Fri, 24 Jan 2025 23:51:05 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tbRse-00086Z-SR; Fri, 24 Jan 2025 22:10:24 +0000
+	id 1tbSVi-0003uh-J6; Fri, 24 Jan 2025 22:50:46 +0000
 Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
  helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1tbRsc-00086O-Mz
- for apparmor@lists.ubuntu.com; Fri, 24 Jan 2025 22:10:22 +0000
+ id 1tbSVh-0003uY-HN
+ for apparmor@lists.ubuntu.com; Fri, 24 Jan 2025 22:50:45 +0000
 Received: from [192.168.192.85] (unknown [50.39.104.138])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 91BDD3FB9C; 
- Fri, 24 Jan 2025 22:10:21 +0000 (UTC)
-Message-ID: <e0365e39-b247-464d-921c-18442aa9f48d@canonical.com>
-Date: Fri, 24 Jan 2025 14:10:19 -0800
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id D3BA33F77E
+ for <apparmor@lists.ubuntu.com>; Fri, 24 Jan 2025 22:50:42 +0000 (UTC)
+Message-ID: <119a9bb9-d6d1-48f5-9620-2e868f2191ca@canonical.com>
+Date: Fri, 24 Jan 2025 14:50:41 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Dan Carpenter <dan.carpenter@linaro.org>
-References: <eb3d4654-b112-4558-ace0-683f794cce5b@stanley.mountain>
+To: apparmor@lists.ubuntu.com
+References: <20250110-jag-ctl_table_const-v2-1-0000e1663144@kernel.org>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -71,11 +71,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <eb3d4654-b112-4558-ace0-683f794cce5b@stanley.mountain>
+In-Reply-To: <20250110-jag-ctl_table_const-v2-1-0000e1663144@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [bug report] apparmor: add additional flags to
- extended permission.
+Subject: Re: [apparmor] [PATCH v2] treewide: const qualify ctl_tables where
+ applicable
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -87,144 +87,51 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: apparmor@lists.ubuntu.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 1/21/25 03:17, Dan Carpenter wrote:
-> [ I don't know why this static checker warning is showing up only now
->    two years later...  -dan ]
+On 1/10/25 06:16, Joel Granados wrote:
+> Add the const qualifier to all the ctl_tables in the tree except for
+> watchdog_hardlockup_sysctl, memory_allocation_profiling_sysctls,
+> loadpin_sysctl_table and the ones calling register_net_sysctl (./net,
+> drivers/inifiniband dirs). These are special cases as they use a
+> registration function with a non-const qualified ctl_table argument or
+> modify the arrays before passing them on to the registration function.
 > 
-> Hello John Johansen,
+> Constifying ctl_table structs will prevent the modification of
+> proc_handler function pointers as the arrays would reside in .rodata.
+> This is made possible after commit 78eb4ea25cd5 ("sysctl: treewide:
+> constify the ctl_table argument of proc_handlers") constified all the
+> proc_handlers.
 > 
-> Commit 2e12c5f06017 ("apparmor: add additional flags to extended
-> permission.") from Jul 23, 2023 (linux-next), leads to the following
-> Smatch static checker warning:
+> Created this by running an spatch followed by a sed command:
+> Spatch:
+>      virtual patch
 > 
+>      @
+>      depends on !(file in "net")
+>      disable optional_qualifier
+>      @
+>      identifier table_name != {watchdog_hardlockup_sysctl,iwcm_ctl_table,ucma_ctl_table,memory_allocation_profiling_sysctls,loadpin_sysctl_table};
+>      @@
+> 
+>      + const
+>      struct ctl_table table_name [] = { ... };
+> 
+> sed:
+>      sed --in-place \
+>        -e "s/struct ctl_table .table = &uts_kern/const struct ctl_table *table = \&uts_kern/" \
+>        kernel/utsname_sysctl.c
+> 
+> Reviewed-by: Song Liu <song@kernel.org>
+> Acked-by: Steven Rostedt (Google) <rostedt@goodmis.org> # for kernel/trace/
+> Reviewed-by: Martin K. Petersen <martin.petersen@oracle.com> # SCSI
+> Reviewed-by: Darrick J. Wong <djwong@kernel.org> # xfs
+> Acked-by: Jani Nikula <jani.nikula@intel.com>
+> Acked-by: Corey Minyard <cminyard@mvista.com>
+> Signed-off-by: Joel Granados <joel.granados@kernel.org>
 
-because while it is an old commit it sat in other branches and dev
-trees, while the stuff that depends on it was revised, and that stuff is
-just recently starting to be merged in.
-
-Thanks for the report, I see if I can't get this fixed today
-
-> security/apparmor/policy_unpack.c:780 unpack_pdb()
-> error: we previously assumed 'pdb->dfa' could be null (see line 753)
-> 
-> security/apparmor/policy_unpack.c
->      712 static int unpack_pdb(struct aa_ext *e, struct aa_policydb **policy,
->      713                       bool required_dfa, bool required_trans,
->      714                       const char **info)
->      715 {
->      716         struct aa_policydb *pdb;
->      717         void *pos = e->pos;
->      718         int i, flags, error = -EPROTO;
->      719         ssize_t size;
->      720         u32 version = 0;
->      721
->      722         pdb = aa_alloc_pdb(GFP_KERNEL);
->      723         if (!pdb)
->      724                 return -ENOMEM;
->      725
->      726         size = unpack_perms_table(e, &pdb->perms);
->      727         if (size < 0) {
->      728                 error = size;
->      729                 pdb->perms = NULL;
->      730                 *info = "failed to unpack - perms";
->      731                 goto fail;
->      732         }
->      733         pdb->size = size;
->      734
->      735         if (pdb->perms) {
->      736                 /* perms table present accept is index */
->      737                 flags = TO_ACCEPT1_FLAG(YYTD_DATA32);
->      738                 if (aa_unpack_u32(e, &version, "permsv") && version > 2)
->      739                         /* accept2 used for dfa flags */
->      740                         flags |= TO_ACCEPT2_FLAG(YYTD_DATA32);
->      741         } else {
->      742                 /* packed perms in accept1 and accept2 */
->      743                 flags = TO_ACCEPT1_FLAG(YYTD_DATA32) |
->      744                         TO_ACCEPT2_FLAG(YYTD_DATA32);
->      745         }
->      746
->      747         pdb->dfa = unpack_dfa(e, flags);
->      748         if (IS_ERR(pdb->dfa)) {
->      749                 error = PTR_ERR(pdb->dfa);
->      750                 pdb->dfa = NULL;
->      751                 *info = "failed to unpack - dfa";
->      752                 goto fail;
->      753         } else if (!pdb->dfa) {
->      754                 if (required_dfa) {
->      755                         *info = "missing required dfa";
->      756                         goto fail;
->      757                 }
-> 
-> Assume required_dfa is false.
-> 
-> 
->      758         } else {
->      759                 /*
->      760                  * only unpack the following if a dfa is present
->      761                  *
->      762                  * sadly start was given different names for file and policydb
->      763                  * but since it is optional we can try both
->      764                  */
->      765                 if (!aa_unpack_u32(e, &pdb->start[0], "start"))
->      766                         /* default start state */
->      767                         pdb->start[0] = DFA_START;
->      768                 if (!aa_unpack_u32(e, &pdb->start[AA_CLASS_FILE], "dfa_start")) {
->      769                         /* default start state for xmatch and file dfa */
->      770                         pdb->start[AA_CLASS_FILE] = DFA_START;
->      771                 }        /* setup class index */
->      772                 for (i = AA_CLASS_FILE + 1; i <= AA_CLASS_LAST; i++) {
->      773                         pdb->start[i] = aa_dfa_next(pdb->dfa, pdb->start[0],
->      774                                                     i);
->      775                 }
->      776         }
->      777
->      778         if (pdb->perms && version <= 2) {
->      779                 /* add dfa flags table missing in v2 */
-> --> 780                 u32 noents = pdb->dfa->tables[YYTD_ID_ACCEPT]->td_lolen;
->                                       ^^^^^^^^^^
-> Potential NULL pointer dereference
-> 
->      781                 u16 tdflags = pdb->dfa->tables[YYTD_ID_ACCEPT]->td_flags;
->      782                 size_t tsize = table_size(noents, tdflags);
->      783
->      784                 pdb->dfa->tables[YYTD_ID_ACCEPT2] = kvzalloc(tsize, GFP_KERNEL);
->      785                 if (!pdb->dfa->tables[YYTD_ID_ACCEPT2]) {
->      786                         *info = "failed to alloc dfa flags table";
->      787                         goto out;
->      788                 }
->      789                 pdb->dfa->tables[YYTD_ID_ACCEPT2]->td_lolen = noents;
->      790                 pdb->dfa->tables[YYTD_ID_ACCEPT2]->td_flags = tdflags;
->      791         }
->      792         /*
->      793          * Unfortunately due to a bug in earlier userspaces, a
->      794          * transition table may be present even when the dfa is
->      795          * not. For compatibility reasons unpack and discard.
->      796          */
->      797         if (!unpack_trans_table(e, &pdb->trans) && required_trans) {
->      798                 *info = "failed to unpack profile transition table";
->      799                 goto fail;
->      800         }
->      801
->      802         if (!pdb->dfa && pdb->trans.table)
->      803                 aa_free_str_table(&pdb->trans);
->      804
->      805         /* TODO: move compat mapping here, requires dfa merging first */
->      806         /* TODO: move verify here, it has to be done after compat mappings */
->      807 out:
->      808         *policy = pdb;
->      809         return 0;
->      810
->      811 fail:
->      812         aa_put_pdb(pdb);
->      813         e->pos = pos;
->      814         return error;
->      815 }
-> 
-> regards,
-> dan carpenter
+For the apparmor bit
+Acked-by: John Johansen <john.johansen@canonical.com>
 
 
