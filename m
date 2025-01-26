@@ -2,65 +2,61 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86242A1C053
-	for <lists+apparmor@lfdr.de>; Sat, 25 Jan 2025 02:37:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B02E1A1C6F1
+	for <lists+apparmor@lfdr.de>; Sun, 26 Jan 2025 09:05:53 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tbV6e-0005BE-25; Sat, 25 Jan 2025 01:37:04 +0000
-Received: from mail-pj1-f50.google.com ([209.85.216.50])
+	id 1tbxeC-0002Lg-P7; Sun, 26 Jan 2025 08:05:36 +0000
+Received: from smtp-relay-services-1.internal ([10.131.114.214]
+ helo=smtp-relay-services-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <groeck7@gmail.com>) id 1tbQoW-0000kG-MD
- for apparmor@lists.ubuntu.com; Fri, 24 Jan 2025 21:02:04 +0000
-Received: by mail-pj1-f50.google.com with SMTP id
- 98e67ed59e1d1-2ef8c012913so3610855a91.3
- for <apparmor@lists.ubuntu.com>; Fri, 24 Jan 2025 13:02:04 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737752523; x=1738357323;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:sender:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=vl/7RHmlJOr2tZEOpWiSD3B3yqWlSgOvTUSx/EiYt0Y=;
- b=kvI+nNL22ylrzRnJ0LuzbegrMEdj1A/bcykb7TE4RnA9a/YE522fCfahtXduSXORmP
- sHDM+5DPFF8lnAnqbgUzmhsawuvofdFjN+faMF2TemrGuhvIfylcOBUC78OHfjupgnll
- bzfDvJStmJ/vrFy+Wog7rXChKcnXoJG9aw8x/fKJezgm5JyEiWN4Wy4UBZP3/wn1TQnM
- YjnFJb47v2QrkT8Ge85z8/RxbPJKG4iedHUQ6/NK22QMnpkAFTiLTiaewNM+XEUaveK/
- poUNjbDdTsIXgCEPlesVRpdR5aFfZRpKOb8nJWKmNnvR5sDmd1BUFLLXbaOsbhjL7r6U
- 7Cpw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXz7C+duNbd1s+S7vsfZdbXy6bpEX44nZsi20eHA3+N9O3fZv9H+5dtwvnaUEVx1ieuolvNvViuaw==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0YxlanGQelQ+943IILF2pzUUVlzNv3YEs3YzSrhbQPwqGsFP6byh
- MsgBfmD5/xmxH+XDMAz6ttAh1tBJpIJ9osLDJYCRtTj9h1PtfsWQ
-X-Gm-Gg: ASbGncutpYpwpYb8ymsNqMds44s6+eUjIVK6Z748wg/Ktzg7GfX3c0+pjSQK0mxSBKP
- I9DpVk0g7DzHCSjxMydfsNDB0aTcsCLibrrYxFt9GgqzdP308gmykK8g2l6TjCB7bNn0S3jUqju
- TwaejONiFmCsnNhE1O0Yi+UkosI4Zr7THkJZng/3S7a9J6OyqefU4my54x1onTcwsa9XIpnj+/x
- FrbghQ60rXludZbxI2iFo8FzS2f+n8nT/4A5Hm5Fq8LakTunItDLNfIyFt5G+Po4BTNCjQEFRrR
- 9MU+5DNVhaFQdk+B7g==
-X-Google-Smtp-Source: AGHT+IES2AXoEp2vaNvzmtAT97SEWpz/MOxHMw92kqsJdiBJpjKlD2lmih0tYPSEmaztwWaO2TYlIQ==
-X-Received: by 2002:a17:90b:51c1:b0:2ee:b2fe:eeeb with SMTP id
- 98e67ed59e1d1-2f782d2ea80mr37753282a91.22.1737752522606; 
- Fri, 24 Jan 2025 13:02:02 -0800 (PST)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2f7ffaf8f03sm2180067a91.39.2025.01.24.13.02.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jan 2025 13:02:01 -0800 (PST)
-Date: Fri, 24 Jan 2025 13:02:00 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: sergeh@kernel.org
-Message-ID: <dff63c58-6f13-420d-9a67-1d6d3a273458@roeck-us.net>
-References: <20250122065543.1515519-1-arnd@kernel.org> <Z5FPFhc9w0aemqL_@lei>
+ (Exim 4.86_2) (envelope-from <noreply@launchpad.net>)
+ id 1tbxeB-0002LS-45
+ for apparmor@lists.ubuntu.com; Sun, 26 Jan 2025 08:05:35 +0000
+Received: from scripts.lp.internal (scripts.lp.internal [10.131.215.246])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-services-1.canonical.com (Postfix) with ESMTPSA id EC2164C07E
+ for <apparmor@lists.ubuntu.com>; Sun, 26 Jan 2025 08:05:34 +0000 (UTC)
+Received: from scripts.lp.internal (localhost [127.0.0.1])
+ by scripts.lp.internal (Postfix) with ESMTP id D398E7E4EB
+ for <apparmor@lists.ubuntu.com>; Sun, 26 Jan 2025 08:05:34 +0000 (UTC)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <Z5FPFhc9w0aemqL_@lei>
-Received-SPF: pass client-ip=209.85.216.50; envelope-from=groeck7@gmail.com;
- helo=mail-pj1-f50.google.com
-X-Mailman-Approved-At: Sat, 25 Jan 2025 01:37:01 +0000
-Subject: Re: [apparmor] [PATCH] apparmor: remove unused variable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 26 Jan 2025 07:55:50 -0000
+From: Guy de Winton <1117804@bugs.launchpad.net>
+To: apparmor@lists.ubuntu.com
+X-Launchpad-Notification-Type: bug
+X-Launchpad-Bug: product=apparmor; status=Confirmed; importance=Low;
+ assignee=None; 
+X-Launchpad-Bug: distribution=ubuntu; sourcepackage=audit; component=main;
+ status=Confirmed; importance=Low; assignee=None; 
+X-Launchpad-Bug: distribution=ubuntu; sourcepackage=linux; component=main;
+ status=Incomplete; importance=Undecided; assignee=None; 
+X-Launchpad-Bug-Tags: apparmor cscc
+X-Launchpad-Bug-Information-Type: Public
+X-Launchpad-Bug-Private: no
+X-Launchpad-Bug-Security-Vulnerability: no
+X-Launchpad-Bug-Commenters: bigon guydewinton intrigeri jjohansen jttoivon
+ seth-arnold talkless tyhicks ubuntu-kernel-bot
+X-Launchpad-Bug-Reporter: Tyler Hicks (tyhicks)
+X-Launchpad-Bug-Modifier: Guy de Winton (guydewinton)
+References: <20130206233135.28570.36525.malonedeb@soybean.canonical.com>
+Message-Id: <173787815069.3044288.4352376050826519855.malone@juju-98d295-prod-launchpad-3>
+X-Launchpad-Message-Rationale: Subscriber @apparmor-dev
+X-Launchpad-Message-For: apparmor-dev
+Precedence: bulk
+X-Generated-By: Launchpad (canonical.com);
+ Revision="4d55102f8b4a0cc5b78cab67520e07e127d0612e";
+ Instance="launchpad-scripts"
+X-Launchpad-Hash: 5a2146a5eecdb3d42d24167e7ae1b749d9d27f51
+Subject: [apparmor] [Bug 1117804] Re: ausearch doesn't show AppArmor denial
+	messages
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
-Precedence: list
 List-Id: AppArmor discussion <apparmor.lists.ubuntu.com>
 List-Unsubscribe: <https://lists.ubuntu.com/mailman/options/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=unsubscribe>
@@ -69,39 +65,66 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Arnd Bergmann <arnd@kernel.org>, Paul Moore <paul@paul-moore.com>,
- Arnd Bergmann <arnd@arndb.de>, apparmor@lists.ubuntu.com,
- James Morris <jmorris@namei.org>, linux-kernel@vger.kernel.org,
- linux-security-module@vger.kernel.org, Colin Ian King <colin.i.king@gmail.com>,
- "Serge E. Hallyn" <serge@hallyn.com>
+Reply-To: Bug 1117804 <1117804@bugs.launchpad.net>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Wed, Jan 22, 2025 at 08:03:34PM +0000, sergeh@kernel.org wrote:
-> On Wed, Jan 22, 2025 at 07:55:35AM +0100, Arnd Bergmann wrote:
-> > From: Arnd Bergmann <arnd@arndb.de>
-> > 
-> > The local 'sock' variable has become unused after a change to the
-> > aa_sock_file_perm() calling conventions:
-> > 
-> > security/apparmor/file.c: In function '__file_sock_perm':
-> > security/apparmor/file.c:544:24: error: unused variable 'sock' [-Werror=unused-variable]
-> >   544 |         struct socket *sock = (struct socket *) file->private_data;
-> > 
-> > Remove it here.
-> 
-> That's interesting.  The aa_sock_file_perm() further in will
-> still trip the AA_BUG(!sock) if there's some shenanigans going
-> on so no big loss in dropping the AA_BUG.
-> 
+I have just encountered this issue (while trying to figure out why aa-
+genprof could not correctly profile a script). This is a pretty crazy
+issue to be remaining open for so long... one of the two major LSM
+systems not logging correctly and therefore having logs not appear in
+ausearch (not to mention preventing tools like aa-genprof from working
+correctly).
 
-AA_BUG(X, args) extends to
-	AA_BUG_FMT((X), "" args);
-which is
-	#define AA_BUG_FMT(X, fmt, args...) no_printk(fmt, ##args)
+Has this been fixed? I am running Debian 12, so I might be locked into
+time warp from 3000 years ago... I am on v3.0.8... I have noticed that
+the most recent v3 release was posted a few days before this message.
+Has v4 fixed this problem? Are there work around?
 
-if CONFIG_SECURITY_APPARMOR_DEBUG_ASSERTS=n. That means the first
-parameter is dropped and sock is indeed unused in that case.
+I would say this is an extremely critical bug which prevents AppArmor
+from being a viable utility. (I am studying for a LF SysAdmin cert and
+would regard myself to be something of a newbie at this level of
+Linuxing, so please forgive me if I am missing something...)
 
-Guenter
+--=20
+You received this bug notification because you are a member of AppArmor
+Developers, which is subscribed to the bug report.
+https://bugs.launchpad.net/bugs/1117804
+
+Title:
+  ausearch doesn't show AppArmor denial messages
+
+Status in AppArmor:
+  Confirmed
+Status in audit package in Ubuntu:
+  Confirmed
+Status in linux package in Ubuntu:
+  Incomplete
+
+Bug description:
+  The following command should display all AVC denials:
+
+  ausearch -m avc
+
+  However, it doesn't work with AppArmor denials. Here's a quick test
+  case to generate a denial, search for it with ausearch, and see that
+  no messages are displayed:
+
+  $ aa-exec -p /usr/sbin/tcpdump cat /proc/self/attr/current
+  cat: /proc/self/attr/current: Permission denied
+  $ sudo ausearch -m avc -c cat
+  <no matches>
+
+  ausearch claims that there are no matches, but there's a matching
+  audit message if you look in audit.log:
+
+  type=3DAVC msg=3Daudit(1360193426.539:64): apparmor=3D"DENIED"
+  operation=3D"open" parent=3D8253 profile=3D"/usr/sbin/tcpdump"
+  name=3D"/proc/8485/attr/current" pid=3D8485 comm=3D"cat" requested_mask=
+=3D"r"
+  denied_mask=3D"r" fsuid=3D1000 ouid=3D1000
+
+To manage notifications about this bug go to:
+https://bugs.launchpad.net/apparmor/+bug/1117804/+subscriptions
+
 
