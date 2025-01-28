@@ -2,58 +2,41 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E815A21BBB
-	for <lists+apparmor@lfdr.de>; Wed, 29 Jan 2025 12:05:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99915A21BBD
+	for <lists+apparmor@lfdr.de>; Wed, 29 Jan 2025 12:05:57 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1td5t9-0004ej-RK; Wed, 29 Jan 2025 11:05:43 +0000
-Received: from mail-ed1-f44.google.com ([209.85.208.44])
+	id 1td5tB-0004fE-6d; Wed, 29 Jan 2025 11:05:45 +0000
+Received: from dfw.source.kernel.org ([139.178.84.217])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <mjguzik@gmail.com>) id 1tcWKP-0005sw-8q
- for apparmor@lists.ubuntu.com; Mon, 27 Jan 2025 21:07:29 +0000
-Received: by mail-ed1-f44.google.com with SMTP id
- 4fb4d7f45d1cf-5d982de9547so9413336a12.2
- for <apparmor@lists.ubuntu.com>; Mon, 27 Jan 2025 13:07:29 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738012048; x=1738616848;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Ph4LsKdDXKgKXX7RKxCai5H4EMt0LF9SZ1cKR8yZ6Ok=;
- b=n57YedAS4M8XJVq3leU223rHSas9OApB6z4ORlbiBaWMhsDldoQSyTA6cl4P4Jfvby
- qFNwg57IbF7H2VDcXaG3P01i3dS/ARbJ2RNcgkIigAk0UIPpkjOoN8S8DwUcWCy8u5Iy
- O7wMYW7sG9+iIH2qFV8hnRGLJtwYfPXTo870NMNghzkvTzdUu1Z+fQRIAboXpgpzmQ80
- tcEDeh6ZXaPeAjjnIlh7dNsD91WziTfy+H9JW8Y2pWXHI9Sgml6nqvP1jT0XWmmwn7AJ
- 8dRas4rGVTeSYdiVZHdhD1e3vY6bAFbXSZgXHKnbr0y03pBcBg8OJRSngc+AATuOKsc9
- SBaQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXQY4D6pVmUm37+HA/Zn0yaS6xbuyH0NOm+SwYg1ackQTR9/09n9ziZCJ1Sa20MOQ7LKt5hKpWLoA==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0YxU95EZogSCN+F3HhqHewfnuqMpFdLgZsSfQOpkSaGzS6Z6Mj1J
- OuZUVV0JSA2EPiyndOCzNnb/N3K1ARzkOJSbjzs1oHqpDZNapFG+pmq5KHhFGBq8lKa6pEr1zLs
- +BBWvKGIenClYQER0/oCCAvd925w=
-X-Gm-Gg: ASbGncsWBOOlDWT+KgKSMLto3ZohCsK0CIxZDG/pZhKdNPZyb/S2Tdz97OwqVBCbewD
- OQkVXQlm01QzBc62EDLar/3vmfGMolsgiDxIMryfdRrdpT19ErEP2f5cAOKSm
-X-Google-Smtp-Source: AGHT+IGmodn64v6jg9Cv8nLWcX0huPpc7OBi3YIaBJcUH/6N3ZHtxeWvia8KzgFkiOs4wChlFb2f5eK+DOEq55qyDA0=
-X-Received: by 2002:a05:6402:2548:b0:5d3:e79b:3b4c with SMTP id
- 4fb4d7f45d1cf-5db7db2bfebmr39227226a12.31.1738012048458; Mon, 27 Jan 2025
- 13:07:28 -0800 (PST)
+ (Exim 4.86_2) (envelope-from <joel.granados@kernel.org>)
+ id 1tcjg3-0003XL-PI
+ for apparmor@lists.ubuntu.com; Tue, 28 Jan 2025 11:22:44 +0000
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 3179E5C5D79;
+ Tue, 28 Jan 2025 11:22:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98109C4CEDF;
+ Tue, 28 Jan 2025 11:22:41 +0000 (UTC)
+Date: Tue, 28 Jan 2025 12:22:37 +0100
+From: Joel Granados <joel.granados@kernel.org>
+To: Matthew Wilcox <willy@infradead.org>
+Message-ID: <u2fwibsnbfvulxj6adigla6geiafh2vuve4hcyo4vmeytwjl7p@oz6xonrq5225>
+References: <20250110-jag-ctl_table_const-v2-1-0000e1663144@kernel.org>
+ <Z4+jwDBrZNRgu85S@li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com>
+ <nslqrapp4v3rknjgtfk4cg64ha7rewrrg24aslo2e5jmxfwce5@t4chrpuk632k>
+ <CAMj1kXEZPe8zk7s67SADK9wVH3cfBup-sAZSC6_pJyng9QT7aw@mail.gmail.com>
+ <f4lfo2fb7ajogucsvisfd5sg2avykavmkizr6ycsllcrco4mo3@qt2zx4zp57zh>
+ <87jzag9ugx.fsf@intel.com> <Z5epb86xkHQ3BLhp@casper.infradead.org>
 MIME-Version: 1.0
-References: <20250127205404.3116679-1-mjguzik@gmail.com>
- <CAKCV-6sRcOOcLOqc62PyUKqbmmqTOje8vf0kDhLdNKaa4r57_Q@mail.gmail.com>
-In-Reply-To: <CAKCV-6sRcOOcLOqc62PyUKqbmmqTOje8vf0kDhLdNKaa4r57_Q@mail.gmail.com>
-From: Mateusz Guzik <mjguzik@gmail.com>
-Date: Mon, 27 Jan 2025 22:07:15 +0100
-X-Gm-Features: AWEUYZkLfzdxeZl9uzdwZlGdlO-dXeXwY2yysO_AO2CXFVB_zMJPJu1dfcnNRaY
-Message-ID: <CAGudoHGswaubt5-rYNBy-whuf1_+F_gji_RshfM=hmXFF-58qg@mail.gmail.com>
-To: Ryan Lee <ryan.lee@canonical.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=209.85.208.44; envelope-from=mjguzik@gmail.com;
- helo=mail-ed1-f44.google.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <Z5epb86xkHQ3BLhp@casper.infradead.org>
+Received-SPF: pass client-ip=139.178.84.217;
+ envelope-from=joel.granados@kernel.org; helo=dfw.source.kernel.org
 X-Mailman-Approved-At: Wed, 29 Jan 2025 11:05:41 +0000
-Subject: Re: [apparmor] [PATCH] apparmor: use the condition in AA_BUG_FMT
-	even with debug disabled
+Subject: Re: [apparmor] [PATCH v2] treewide: const qualify ctl_tables where
+ applicable
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -65,26 +48,55 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
- paul@paul-moore.com, linux-kernel@vger.kernel.org
+Cc: linux-aio@kvack.org, linux-hyperv@vger.kernel.org,
+ Corey Minyard <cminyard@mvista.com>, Kees Cook <kees@kernel.org>,
+ "Darrick J. Wong" <djwong@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, keyrings@vger.kernel.org,
+ linux-hardening@vger.kernel.org, linux-riscv@lists.infradead.org,
+ codalist@coda.cs.cmu.edu, Alexander Gordeev <agordeev@linux.ibm.com>,
+ io-uring@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
+ linux-security-module@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>,
+ linux-serial@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-trace-kernel@vger.kernel.org, Jani Nikula <jani.nikula@intel.com>,
+ intel-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com,
+ "Steven Rostedt \(Google\)" <rostedt@goodmis.org>, linux-raid@vger.kernel.org,
+ ocfs2-devel@lists.linux.dev, openipmi-developer@lists.sourceforge.net,
+ intel-xe@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ fsverity@lists.linux.dev, linux-nfs@vger.kernel.org,
+ "Martin K. Petersen" <martin.petersen@oracle.com>, Song Liu <song@kernel.org>,
+ kexec@lists.infradead.org,
+ Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+ linux-xfs@vger.kernel.org, Luis Chamberlain <mcgrof@kernel.org>,
+ linux-crypto@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ netfs@lists.linux.dev, bpf@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Mon, Jan 27, 2025 at 9:59=E2=80=AFPM Ryan Lee <ryan.lee@canonical.com> w=
-rote:
->
-> For the record, a previous patch that removes the sock variable was
-> previously accepted:
-> https://lists.ubuntu.com/archives/apparmor/2025-January/013449.html
-> (patch) and https://lists.ubuntu.com/archives/apparmor/2025-January/01346=
-3.html
-> (ack from John Johansen)
->
+On Mon, Jan 27, 2025 at 03:42:39PM +0000, Matthew Wilcox wrote:
+> On Mon, Jan 27, 2025 at 04:55:58PM +0200, Jani Nikula wrote:
+> > You could have static const within functions too. You get the rodata
+> > protection and function local scope, best of both worlds?
+> 
+> timer_active is on the stack, so it can't be static const.
+> 
+> Does this really need to be cc'd to such a wide distribution list?
+That is a very good question. I removed 160 people from the original
+e-mail and left the ones that where previously involved with this patch
+and left all the lists for good measure. But it seems I can reduce it
+even more.
 
-That makes sense, but imo the posted patch is still warranted -- all
-other debug macros (WARN_ON, VM_WARN_ON etc.) are expected to evaluate
-the condition.
+How about this: For these treewide efforts I just leave the people that
+are/were involved in the series and add two lists: linux-kernel and
+linux-hardening.
 
---=20
-Mateusz Guzik <mjguzik gmail.com>
+Unless someone screams, I'll try this out on my next treewide.
+
+Thx for the feedback
+
+Best
+
+-- 
+
+Joel Granados
 
