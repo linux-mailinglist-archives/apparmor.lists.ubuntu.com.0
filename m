@@ -2,44 +2,80 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id C486CA21BB9
-	for <lists+apparmor@lfdr.de>; Wed, 29 Jan 2025 12:05:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE7DDA21C6D
+	for <lists+apparmor@lfdr.de>; Wed, 29 Jan 2025 12:46:54 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1td5tB-0004fL-Fy; Wed, 29 Jan 2025 11:05:45 +0000
-Received: from dfw.source.kernel.org ([139.178.84.217])
+	id 1td6Ws-0000vD-Ok; Wed, 29 Jan 2025 11:46:46 +0000
+Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
+ helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <joel.granados@kernel.org>)
- id 1td3lA-0006gq-01
- for apparmor@lists.ubuntu.com; Wed, 29 Jan 2025 08:49:20 +0000
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 631165C027D;
- Wed, 29 Jan 2025 08:48:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAFA1C4CED3;
- Wed, 29 Jan 2025 08:49:17 +0000 (UTC)
-Date: Wed, 29 Jan 2025 09:49:13 +0100
-From: Joel Granados <joel.granados@kernel.org>
-To: Paul Moore <paul@paul-moore.com>
-Message-ID: <umk5gfo7iq7krppvqsal57hlzds26bdqd3g7kccjzuudjikdws@k2oknd6zx6g7>
-References: <20250110-jag-ctl_table_const-v2-1-0000e1663144@kernel.org>
- <Z4+jwDBrZNRgu85S@li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com>
- <nslqrapp4v3rknjgtfk4cg64ha7rewrrg24aslo2e5jmxfwce5@t4chrpuk632k>
- <CAMj1kXEZPe8zk7s67SADK9wVH3cfBup-sAZSC6_pJyng9QT7aw@mail.gmail.com>
- <f4lfo2fb7ajogucsvisfd5sg2avykavmkizr6ycsllcrco4mo3@qt2zx4zp57zh>
- <87jzag9ugx.fsf@intel.com> <Z5epb86xkHQ3BLhp@casper.infradead.org>
- <u2fwibsnbfvulxj6adigla6geiafh2vuve4hcyo4vmeytwjl7p@oz6xonrq5225>
- <CAHC9VhQnB_bsQaezBfAcA0bE7Zoc99QXrvO1qjpHA-J8+_doYg@mail.gmail.com>
+ (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
+ id 1td6Wq-0000u4-Qu
+ for apparmor@lists.ubuntu.com; Wed, 29 Jan 2025 11:46:44 +0000
+Received: from [192.168.192.85] (unknown [50.39.104.138])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 14A2B3F0EB; 
+ Wed, 29 Jan 2025 11:46:42 +0000 (UTC)
+Message-ID: <7de8eeda-55bd-4104-88af-0a408d928935@canonical.com>
+Date: Wed, 29 Jan 2025 03:46:41 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+To: Mateusz Guzik <mjguzik@gmail.com>
+References: <20250127205404.3116679-1-mjguzik@gmail.com>
+Content-Language: en-US
+From: John Johansen <john.johansen@canonical.com>
+Autocrypt: addr=john.johansen@canonical.com; keydata=
+ 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 lT9Q
+Organization: Canonical
+In-Reply-To: <20250127205404.3116679-1-mjguzik@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAHC9VhQnB_bsQaezBfAcA0bE7Zoc99QXrvO1qjpHA-J8+_doYg@mail.gmail.com>
-Received-SPF: pass client-ip=139.178.84.217;
- envelope-from=joel.granados@kernel.org; helo=dfw.source.kernel.org
-X-Mailman-Approved-At: Wed, 29 Jan 2025 11:05:41 +0000
-Subject: Re: [apparmor] [PATCH v2] treewide: const qualify ctl_tables where
- applicable
+Subject: Re: [apparmor] [PATCH] apparmor: use the condition in AA_BUG_FMT
+ even with debug disabled
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -51,69 +87,48 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: linux-aio@kvack.org, linux-hyperv@vger.kernel.org,
- Corey Minyard <cminyard@mvista.com>, Kees Cook <kees@kernel.org>,
- "Darrick J. Wong" <djwong@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, keyrings@vger.kernel.org,
- linux-hardening@vger.kernel.org, linux-riscv@lists.infradead.org,
- codalist@coda.cs.cmu.edu, Alexander Gordeev <agordeev@linux.ibm.com>,
- io-uring@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
- linux-security-module@vger.kernel.org, Matthew Wilcox <willy@infradead.org>,
- Ard Biesheuvel <ardb@kernel.org>, linux-serial@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-trace-kernel@vger.kernel.org,
- Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org,
- apparmor@lists.ubuntu.com, "Steven Rostedt \(Google\)" <rostedt@goodmis.org>,
- linux-raid@vger.kernel.org, ocfs2-devel@lists.linux.dev,
- openipmi-developer@lists.sourceforge.net, intel-xe@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, fsverity@lists.linux.dev,
- linux-nfs@vger.kernel.org, "Martin K. Petersen" <martin.petersen@oracle.com>,
- Song Liu <song@kernel.org>, kexec@lists.infradead.org,
- Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>,
- linux-xfs@vger.kernel.org, Luis Chamberlain <mcgrof@kernel.org>,
- linux-crypto@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- netfs@lists.linux.dev, bpf@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
+ paul@paul-moore.com, linux-kernel@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Tue, Jan 28, 2025 at 10:43:10AM -0500, Paul Moore wrote:
-> On Tue, Jan 28, 2025 at 6:22 AM Joel Granados <joel.granados@kernel.org> wrote:
-> > On Mon, Jan 27, 2025 at 03:42:39PM +0000, Matthew Wilcox wrote:
-> > > On Mon, Jan 27, 2025 at 04:55:58PM +0200, Jani Nikula wrote:
-> > > > You could have static const within functions too. You get the rodata
-> > > > protection and function local scope, best of both worlds?
-> > >
-> > > timer_active is on the stack, so it can't be static const.
-> > >
-> > > Does this really need to be cc'd to such a wide distribution list?
-> > That is a very good question. I removed 160 people from the original
-> > e-mail and left the ones that where previously involved with this patch
-> > and left all the lists for good measure. But it seems I can reduce it
-> > even more.
-> >
-> > How about this: For these treewide efforts I just leave the people that
-> > are/were involved in the series and add two lists: linux-kernel and
-> > linux-hardening.
-> >
-> > Unless someone screams, I'll try this out on my next treewide.
+On 1/27/25 12:54, Mateusz Guzik wrote:
+> This follows the established practice and fixes a build failure for me:
+> security/apparmor/file.c: In function ‘__file_sock_perm’:
+> security/apparmor/file.c:544:24: error: unused variable ‘sock’ [-Werror=unused-variable]
+>    544 |         struct socket *sock = (struct socket *) file->private_data;
+>        |                        ^~~~
 > 
-> I'm not screaming about it :) but anything that touches the LSM,
-I'll consider it as a scream :) So I'll keep my previous approach of
-leaving only personal mails that are involved, but leaving all the lists
-that b4 suggests.
+> Signed-off-by: Mateusz Guzik <mjguzik@gmail.com>
 
-> SELinux, or audit code (or matches the regex in MAINTAINERS) I would
-> prefer to see on the associated mailing list.
+Acked-by: John Johansen <john.johansen@canonical.com>
 
-General comment sent to the void:
-It is tricky to know exactly who wants to be informed of all this and
-who thinks its useless. I think that if we want more focus it should
-come from automated tools like b4. Maybe some string in MAINTAINERS
-stating that the list should not be used in cases of tree-wide commits?
+thanks, I have pulled this into my tree
 
-Best
+> ---
+> 
+> Plausibly the sock var wants to be eliminated altogether, but I just
+> want this to build.
+> 
+>   security/apparmor/include/lib.h | 6 +++++-
+>   1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/security/apparmor/include/lib.h b/security/apparmor/include/lib.h
+> index 256f4577c653..d947998262b2 100644
+> --- a/security/apparmor/include/lib.h
+> +++ b/security/apparmor/include/lib.h
+> @@ -60,7 +60,11 @@ do {									\
+>   #define AA_BUG_FMT(X, fmt, args...)					\
+>   	WARN((X), "AppArmor WARN %s: (" #X "): " fmt, __func__, ##args)
+>   #else
+> -#define AA_BUG_FMT(X, fmt, args...) no_printk(fmt, ##args)
+> +#define AA_BUG_FMT(X, fmt, args...)					\
+> +	do {								\
+> +		BUILD_BUG_ON_INVALID(X);				\
+> +		no_printk(fmt, ##args);					\
+> +	} while (0)
+>   #endif
+>   
+>   int aa_parse_debug_params(const char *str);
 
--- 
-
-Joel Granados
 
