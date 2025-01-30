@@ -2,65 +2,62 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC713A236EB
-	for <lists+apparmor@lfdr.de>; Thu, 30 Jan 2025 22:45:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97D72A237B8
+	for <lists+apparmor@lfdr.de>; Fri, 31 Jan 2025 00:19:24 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tdcLv-0001iS-BC; Thu, 30 Jan 2025 21:45:35 +0000
+	id 1tddoY-0003cw-Dx; Thu, 30 Jan 2025 23:19:14 +0000
 Received: from smtp-relay-internal-0.internal ([10.131.114.225]
  helo=smtp-relay-internal-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1tdcLt-0001h5-4c
- for apparmor@lists.ubuntu.com; Thu, 30 Jan 2025 21:45:33 +0000
-Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com
- [209.85.221.199])
+ id 1tddoW-0003cj-6b
+ for apparmor@lists.ubuntu.com; Thu, 30 Jan 2025 23:19:12 +0000
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id BCC183F175
- for <apparmor@lists.ubuntu.com>; Thu, 30 Jan 2025 21:45:32 +0000 (UTC)
-Received: by mail-vk1-f199.google.com with SMTP id
- 71dfb90a1353d-51a0b3c24a1so1075781e0c.3
- for <apparmor@lists.ubuntu.com>; Thu, 30 Jan 2025 13:45:32 -0800 (PST)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id B18513F43B
+ for <apparmor@lists.ubuntu.com>; Thu, 30 Jan 2025 23:19:11 +0000 (UTC)
+Received: by mail-qv1-f70.google.com with SMTP id
+ 6a1803df08f44-6d8844560e9so25508116d6.3
+ for <apparmor@lists.ubuntu.com>; Thu, 30 Jan 2025 15:19:11 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738273531; x=1738878331;
+ d=1e100.net; s=20230601; t=1738279150; x=1738883950;
  h=to:from:subject:date:message-id:auto-submitted:sender:reply-to
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=a5vnre0O3VahdrJ0yw0WW9HtI/orfOBrDZzpk0Nrfa0=;
- b=vdElLMcvXO4RrczNxfAwn5xy0A8D00HDDPw9sJW2pgccFpKeffLmAlbeMWq/FGKOTf
- GQ2Rlnpvdco1BxFxVQ2nv2X8Qa4AWyRlrzlEZ2Z1e3q0VeiTbUBsQ0BVM4A/9ERXErN2
- FJQRfg2jLRMynDkjIFA0AKDj01T3rZTa1Q4J7pbyDWC0x6GJ0DFQliY1r5EVB1LnU7Zw
- V53YbAZe0LynPqDc+BXe/f2G/uYR7S5H+tk85aTCjKmRQG9xkZ0fuc7YF3Ckj08Jv/2O
- SEkMpgwOGbS+xmWB0W5gQ38zZxbvJPyIKqSBMl1VotyWcyzwf21xqMkmC2MvSCVb/K4O
- m6ug==
-X-Gm-Message-State: AOJu0Yz7IEpd+YooGA9gaeTv2ysYAtiURp9MJBN7PDIro60iQvBcLtE5
- 0ZD/AOqiGideGYTiERJpxZGyVptjS8/h+BVRSH1o7KSoy4v8//9TrMkvBUyas3ukUHGmHe9sAFu
- CfvqkJpwwJRhlchIlPIoZ63LNexCZV7og8dIck/SAkNStVzA4qjY1aX8M6I4t3+UxPKTk9bFNFl
- 8JUgx3EK9FK0U3ER9re/R1DmJ2CgoLptTAbjbpf+R1OmYvB91dUzZndKBl9osh
-X-Gm-Gg: ASbGncvJUNQ4PKXOiYCklHVxCcNvH2RyySr6y28lyf2rM/8aljtXGug465ImSH5aroc
- Uu+Et15QQEn4gU2ZLmN7lw1Syml8tZP1Y5jNE5GzRkkTMvsLVSrAXCuAIEh00Ww==
-X-Received: by 2002:a05:6122:2212:b0:51d:e9c0:e607 with SMTP id
- 71dfb90a1353d-51e9e33ae65mr9451653e0c.4.1738273531670; 
- Thu, 30 Jan 2025 13:45:31 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IH+2DRNS+oZzq5WNcc9hV9RNOlyXnOJor77k5aunSLuSLrxeXfrH4oxCSxyPkfU6PESY+MQxosVS949gTwc6MW2
+ bh=sZpQgp1klSA+hLZyiiUigw1rQxuqXQEcKnyt8p6YzkA=;
+ b=daU1WIy5Baq6xBug4U5VZcT3jACbzXcb5Z33d/gbLKQbqBK0xfJYaM3BcfUCSdQ4rE
+ rQIyL8L7+/oEB8ZYRjZlVNULZKWJ3ZHBheEZwVDB+D8epyvlO8oXqyQtq/Hz93vnaD2A
+ Q0zKHQ+BzyCUu9XXe9BcLJ5D3BeAkj5hLMwZ4sc7pCBRS8uKAkxG3lSPa6YjC3c4wZjl
+ aKV+X82B/6Fkqe2XGM/bW5H+CcYaZaZLzz1SqaJOsN1UqaG1NeJhXG/MIpGKp0XYpZIO
+ 7teETkOV6QT2jQtB7IIRaZUOX0+ZG1IfzFA+svqad7wP/bbIUdLUJqcamCOqf0XHXXRA
+ jhQw==
+X-Gm-Message-State: AOJu0Yz0RmNvbKPp5YDJ74s8ZyDqmYSShIN5sbHo7q8l5eyGIECyUWb4
+ UUtuAS4coGMrzQfKmJT8xLbWqZ2xF2WdAqwDeLSifwlx0pyMyFE5+jc2v7h+ecNqu7J/2JdMB78
+ CKeEIu8EPwlr/vcNDk3Eqr8HA3T3G96g5dhV/Lf5rNJtx26oozfEZv5JfW0A8hsNyswNBua0/At
+ xNA7RkD9H3W5K5kMY5+VbiEVGtzjNVt/eieT/lEDsaUBiLNYf/FSqBfXVmEyaL
+X-Gm-Gg: ASbGnctAzrnLmzDoO5cfVagK1ZFK94Sihpnbz/+mvRv1TwjiYywo2XWLgv12SmJpnaQ
+ qOrOKZm+mX4mZzhGSsJTLunnLKFnHuniBckDxqB8dHFGRuALen7TO/JcHMu4X4A==
+X-Received: by 2002:a0c:f20a:0:b0:6d8:b3a7:75ba with SMTP id
+ 6a1803df08f44-6e243c7ae2bmr150881896d6.45.1738279150322; 
+ Thu, 30 Jan 2025 15:19:10 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHVjuqIrSYKfld70MfaiUJHg3pb+JKaLqq7OT6dWx6h5YKUvrshTcKtqP036TSHZs71lsaPaFFcSVTvtV4oFSLH
 MIME-Version: 1.0
-X-Received: by 2002:a05:6122:2212:b0:51d:e9c0:e607 with SMTP id
- 71dfb90a1353d-51e9e33ae65mr9451650e0c.4.1738273531424; Thu, 30 Jan 2025
- 13:45:31 -0800 (PST)
+X-Received: by 2002:a0c:f20a:0:b0:6d8:b3a7:75ba with SMTP id
+ 6a1803df08f44-6e243c7ae2bmr150881616d6.45.1738279149991; Thu, 30 Jan 2025
+ 15:19:09 -0800 (PST)
 Auto-Submitted: auto-generated
-Message-ID: <calendar-a6d9c0cb-6547-4bf4-8d43-e22db0bac306@google.com>
-Date: Thu, 30 Jan 2025 21:45:31 +0000
+Message-ID: <calendar-2362804b-d394-424d-9196-c72ef1eb967a@google.com>
+Date: Thu, 30 Jan 2025 23:19:09 +0000
 From: John Johansen <john.johansen@canonical.com>
-To: apparmor@lists.ubuntu.com, beattie@gmail.com, 
- Georgia Garcia <georgia.garcia@canonical.com>, 
- =?UTF-8?Q?Maxime_B=C3=A9lair?= <maxime.belair@canonical.com>, 
- Ryan Lee <ryan.lee@canonical.com>
-Content-Type: multipart/mixed; boundary="0000000000005d15c8062cf35880"
-Subject: [apparmor] Updated invitation: AppArmor Meeting @ Monthly from 11am
- to 12pm on the second Tuesday (PDT) (apparmor@lists.ubuntu.com)
+To: apparmor@lists.ubuntu.com, beattie@gmail.com
+Content-Type: multipart/mixed; boundary="000000000000418ed3062cf4a78f"
+Subject: [apparmor] Updated invitation: AppArmor Meeting @ Tue Feb 18,
+ 2025 10:15am - 11:15am (PST) (apparmor@lists.ubuntu.com)
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -76,42 +73,42 @@ Reply-To: John Johansen <john.johansen@canonical.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
---0000000000005d15c8062cf35880
-Content-Type: multipart/alternative; boundary="0000000000005d15c7062cf3587e"
+--000000000000418ed3062cf4a78f
+Content-Type: multipart/alternative; boundary="000000000000418ed3062cf4a78d"
 
---0000000000005d15c7062cf3587e
+--000000000000418ed3062cf4a78d
 Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
 Content-Transfer-Encoding: base64
 
 VGhpcyBldmVudCBoYXMgYmVlbiB1cGRhdGVkDQpDaGFuZ2VkOiB0aW1lDQoNCg0KQXBwQXJtb3Ig
-TWVldGluZw0KTW9udGhseSBmcm9tIDExYW0gdG8gMTJwbSBvbiB0aGUgc2Vjb25kIFR1ZXNkYXkN
-ClBhY2lmaWMgVGltZSAtIExvcyBBbmdlbGVzDQoNCkxvY2F0aW9uDQojYXBwYXJtb3Igb24gb2Z0
-Yy5uZXQJDQpodHRwczovL3d3dy5nb29nbGUuY29tL21hcHMvc2VhcmNoLyUyM2FwcGFybW9yK29u
-K29mdGMubmV0P2hsPWVuDQoNCg0KDQpBcHBBcm1vciBtb250aCBJUkMgbWVldGluZw0KDQpPcmdh
-bml6ZXINCkpvaG4gSm9oYW5zZW4NCmpvaG4uam9oYW5zZW5AY2Fub25pY2FsLmNvbQ0KDQpHdWVz
-dHMNCkpvaG4gSm9oYW5zZW4gLSBvcmdhbml6ZXINCmFwcGFybW9yQGxpc3RzLnVidW50dS5jb20N
-CmJlYXR0aWVAZ21haWwuY29tDQpHZW9yZ2lhIEdhcmNpYQ0KTWF4aW1lIELDqWxhaXINClJ5YW4g
-TGVlDQpWaWV3IGFsbCBndWVzdCBpbmZvICANCmh0dHBzOi8vY2FsZW5kYXIuZ29vZ2xlLmNvbS9j
-YWxlbmRhci9ldmVudD9hY3Rpb249VklFVyZlaWQ9Y0RZMk9UazVZbkZ4ZG5Cd2RURnlkR1F4TjJa
-aGF6TXlOellnWVhCd1lYSnRiM0pBYkdsemRITXVkV0oxYm5SMUxtTnZiUSZ0b2s9TWpjamFtOW9i
-aTVxYjJoaGJuTmxia0JqWVc1dmJtbGpZV3d1WTI5dE5qZGlNR1k1TWpNd05EVTNPR0V3Wmpaak1t
-WXlOREZtWm1OaFpHWTBPRGN4TTJVNE5qSmtZUSZjdHo9QW1lcmljYSUyRkxvc19BbmdlbGVzJmhs
-PWVuJmVzPTANCg0KUmVwbHkgZm9yIGFwcGFybW9yQGxpc3RzLnVidW50dS5jb20gYW5kIHZpZXcg
-bW9yZSBkZXRhaWxzICANCmh0dHBzOi8vY2FsZW5kYXIuZ29vZ2xlLmNvbS9jYWxlbmRhci9ldmVu
-dD9hY3Rpb249VklFVyZlaWQ9Y0RZMk9UazVZbkZ4ZG5Cd2RURnlkR1F4TjJaaGF6TXlOellnWVhC
-d1lYSnRiM0pBYkdsemRITXVkV0oxYm5SMUxtTnZiUSZ0b2s9TWpjamFtOW9iaTVxYjJoaGJuTmxi
-a0JqWVc1dmJtbGpZV3d1WTI5dE5qZGlNR1k1TWpNd05EVTNPR0V3Wmpaak1tWXlOREZtWm1OaFpH
-WTBPRGN4TTJVNE5qSmtZUSZjdHo9QW1lcmljYSUyRkxvc19BbmdlbGVzJmhsPWVuJmVzPTANCllv
-dXIgYXR0ZW5kYW5jZSBpcyBvcHRpb25hbC4NCg0Kfn4vL35+DQpJbnZpdGF0aW9uIGZyb20gR29v
-Z2xlIENhbGVuZGFyOiBodHRwczovL2NhbGVuZGFyLmdvb2dsZS5jb20vY2FsZW5kYXIvDQoNCllv
-dSBhcmUgcmVjZWl2aW5nIHRoaXMgZW1haWwgYmVjYXVzZSB5b3UgYXJlIGFuIGF0dGVuZGVlIG9u
-IHRoZSBldmVudC4NCg0KRm9yd2FyZGluZyB0aGlzIGludml0YXRpb24gY291bGQgYWxsb3cgYW55
-IHJlY2lwaWVudCB0byBzZW5kIGEgcmVzcG9uc2UgdG8gIA0KdGhlIG9yZ2FuaXplciwgYmUgYWRk
-ZWQgdG8gdGhlIGd1ZXN0IGxpc3QsIGludml0ZSBvdGhlcnMgcmVnYXJkbGVzcyBvZiAgDQp0aGVp
-ciBvd24gaW52aXRhdGlvbiBzdGF0dXMsIG9yIG1vZGlmeSB5b3VyIFJTVlAuDQoNCkxlYXJuIG1v
-cmUgaHR0cHM6Ly9zdXBwb3J0Lmdvb2dsZS5jb20vY2FsZW5kYXIvYW5zd2VyLzM3MTM1I2Zvcndh
-cmRpbmcNCg==
---0000000000005d15c7062cf3587e
+TWVldGluZw0KVHVlc2RheSBGZWIgMTgsIDIwMjUg4ouFIDEwOjE1YW0g4oCTIDExOjE1YW0NClBh
+Y2lmaWMgVGltZSAtIExvcyBBbmdlbGVzDQoNCkxvY2F0aW9uDQojYXBwYXJtb3Igb24gb2Z0Yy5u
+ZXQJDQpodHRwczovL3d3dy5nb29nbGUuY29tL21hcHMvc2VhcmNoLyUyM2FwcGFybW9yK29uK29m
+dGMubmV0P2hsPWVuDQoNCg0KDQpBcHBBcm1vciBtb250aCBJUkMgbWVldGluZw0KDQpPcmdhbml6
+ZXINCkpvaG4gSm9oYW5zZW4NCmpvaG4uam9oYW5zZW5AY2Fub25pY2FsLmNvbQ0KDQpHdWVzdHMN
+CkpvaG4gSm9oYW5zZW4gLSBvcmdhbml6ZXINCmJlYXR0aWVAZ21haWwuY29tDQphcHBhcm1vckBs
+aXN0cy51YnVudHUuY29tDQpWaWV3IGFsbCBndWVzdCBpbmZvICANCmh0dHBzOi8vY2FsZW5kYXIu
+Z29vZ2xlLmNvbS9jYWxlbmRhci9ldmVudD9hY3Rpb249VklFVyZlaWQ9WXpseE5Xa3diVGRuTlRr
+d2JqUTNZamd5ZERocWFtZzRNbVJmTWpBeU5UQXlNVEZVTVRnd01EQXdXaUJoY0hCaGNtMXZja0Jz
+YVhOMGN5NTFZblZ1ZEhVdVkyOXQmdG9rPU1qY2phbTlvYmk1cWIyaGhibk5sYmtCallXNXZibWxq
+WVd3dVkyOXRPV0kzWWpRMk56WmhOemxpTURJME9UVTRNVGhqWVRnMVltRXlNakl3WWpZMk4yUXlN
+R1ptTXcmY3R6PUFtZXJpY2ElMkZMb3NfQW5nZWxlcyZobD1lbiZlcz0wDQoNClJlcGx5IGZvciBh
+cHBhcm1vckBsaXN0cy51YnVudHUuY29tIGFuZCB2aWV3IG1vcmUgZGV0YWlscyAgDQpodHRwczov
+L2NhbGVuZGFyLmdvb2dsZS5jb20vY2FsZW5kYXIvZXZlbnQ/YWN0aW9uPVZJRVcmZWlkPVl6bHhO
+V2t3YlRkbk5Ua3dialEzWWpneWREaHFhbWc0TW1SZk1qQXlOVEF5TVRGVU1UZ3dNREF3V2lCaGNI
+QmhjbTF2Y2tCc2FYTjBjeTUxWW5WdWRIVXVZMjl0JnRvaz1NamNqYW05b2JpNXFiMmhoYm5ObGJr
+QmpZVzV2Ym1sallXd3VZMjl0T1dJM1lqUTJOelpoTnpsaU1ESTBPVFU0TVRoallUZzFZbUV5TWpJ
+d1lqWTJOMlF5TUdabU13JmN0ej1BbWVyaWNhJTJGTG9zX0FuZ2VsZXMmaGw9ZW4mZXM9MA0KWW91
+ciBhdHRlbmRhbmNlIGlzIG9wdGlvbmFsLg0KDQp+fi8vfn4NCkludml0YXRpb24gZnJvbSBHb29n
+bGUgQ2FsZW5kYXI6IGh0dHBzOi8vY2FsZW5kYXIuZ29vZ2xlLmNvbS9jYWxlbmRhci8NCg0KWW91
+IGFyZSByZWNlaXZpbmcgdGhpcyBlbWFpbCBiZWNhdXNlIHlvdSBhcmUgYW4gYXR0ZW5kZWUgb24g
+dGhlIGV2ZW50Lg0KDQpGb3J3YXJkaW5nIHRoaXMgaW52aXRhdGlvbiBjb3VsZCBhbGxvdyBhbnkg
+cmVjaXBpZW50IHRvIHNlbmQgYSByZXNwb25zZSB0byAgDQp0aGUgb3JnYW5pemVyLCBiZSBhZGRl
+ZCB0byB0aGUgZ3Vlc3QgbGlzdCwgaW52aXRlIG90aGVycyByZWdhcmRsZXNzIG9mICANCnRoZWly
+IG93biBpbnZpdGF0aW9uIHN0YXR1cywgb3IgbW9kaWZ5IHlvdXIgUlNWUC4NCg0KTGVhcm4gbW9y
+ZSBodHRwczovL3N1cHBvcnQuZ29vZ2xlLmNvbS9jYWxlbmRhci9hbnN3ZXIvMzcxMzUjZm9yd2Fy
+ZGluZw0K
+--000000000000418ed3062cf4a78d
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -520,182 +517,164 @@ rk {
 a.org/Event"><meta itemprop=3D"eventStatus" content=3D"http://schema.org/Ev=
 entRescheduled"/><span itemprop=3D"publisher" itemscope itemtype=3D"http://=
 schema.org/Organization"><meta itemprop=3D"name" content=3D"Google Calendar=
-"/></span><meta itemprop=3D"eventId/googleCalendar" content=3D"p66999bqqvpp=
-u1rtd17fak3276"/><span style=3D"display: none; font-size: 1px; color: #fff;=
- line-height: 1px; height: 0; max-height: 0; width: 0; max-width: 0; opacit=
-y: 0; overflow: hidden;" itemprop=3D"name">AppArmor Meeting</span><meta ite=
-mprop=3D"url" content=3D"https://calendar.google.com/calendar/event?action=
-=3DVIEW&amp;eid=3DcDY2OTk5YnFxdnBwdTFydGQxN2ZhazMyNzYgYXBwYXJtb3JAbGlzdHMud=
-WJ1bnR1LmNvbQ&amp;tok=3DMjcjam9obi5qb2hhbnNlbkBjYW5vbmljYWwuY29tNjdiMGY5MjM=
-wNDU3OGEwZjZjMmYyNDFmZmNhZGY0ODcxM2U4NjJkYQ&amp;ctz=3DAmerica%2FLos_Angeles=
-&amp;hl=3Den&amp;es=3D0"/><span aria-hidden=3D"true"><time itemprop=3D"star=
-tDate" datetime=3D"20250311T180000Z"></time><time itemprop=3D"endDate" date=
-time=3D"20250311T190000Z"></time></span><div style=3D"display: none; font-s=
-ize: 1px; color: #fff; line-height: 1px; height: 0; max-height: 0; width: 0=
-; max-width: 0; opacity: 0; overflow: hidden;">AppArmor month IRC meeting</=
-div><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"present=
-ation" align=3D"center" style=3D"width:100%;" class=3D"body-container"><tbo=
-dy><tr><td style=3D"" class=3D"" align=3D"left"><!--[if mso | IE]><table bo=
-rder=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation"><tr><t=
-d height=3D"16" style=3D"height:16px;"><![endif]--><div style=3D"height:16p=
-x;" aria-hidden=3D"true"> &nbsp; </div><!--[if mso | IE]></td></tr></table>=
-<![endif]--><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D=
-"presentation" align=3D"center" style=3D"width:100%;" class=3D""><tbody><tr=
-><td style=3D"background-color: #e6f4ea;color: #0d5327;padding: 12px 32px; =
-border-radius: 8px;font-family: Roboto, sans-serif;font-size: 14px; line-he=
-ight: 20px;text-align: left;" class=3D"info-bar-inner"><span style=3D"font-=
-weight: 700;">This event has been updated</span><br/><span style=3D"display=
-:none" itemprop=3D"about" itemscope itemtype=3D"http://schema.org/Thing/Clo=
-ck"><meta itemprop=3D"description" content=3D"Time updated"/></span><div st=
-yle=3D""><span style=3D"font-weight: 700;">Changed:</span> time</div></td><=
-/tr></tbody></table><!--[if mso | IE]><table border=3D"0" cellpadding=3D"0"=
- cellspacing=3D"0" role=3D"presentation"><tr><td height=3D"12" style=3D"hei=
-ght:12px;"><![endif]--><div style=3D"height:12px;" aria-hidden=3D"true"> &n=
-bsp; </div><!--[if mso | IE]></td></tr></table><![endif]--><table border=3D=
-"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" align=3D"cent=
-er" style=3D"width:100%;" class=3D""><tbody><tr><td style=3D"border: solid =
-1px #dadce0; border-radius: 8px; direction: rtl; font-size: 0; padding: 24p=
-x 32px; text-align: left; vertical-align: top;" class=3D"main-container-inn=
-er"><!--[if mso | IE]><table border=3D"0" cellpadding=3D"0" cellspacing=3D"=
-0" role=3D"presentation"><tr><![endif]--><div class=3D"" style=3D"font-size=
-: 13px; text-align: left; direction: ltr; display: inline-block; vertical-a=
-lign: top; width: 100%;overflow: hidden; word-wrap: break-word;"><table bor=
-der=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" width=
-=3D"100%" class=3D"main-column-table-ltr" style=3D"padding-right: 32px; pad=
-ding-left: 0;;table-layout: fixed;"><tbody><tr><td class=3D"main-column-td"=
- style=3D"padding:0; vertical-align:top;"><table border=3D"0" cellpadding=
-=3D"0" cellspacing=3D"0" role=3D"presentation" width=3D"100%" style=3D"tabl=
-e-layout: fixed;"><tr><td style=3D"font-size: 0; padding: 0; text-align: le=
-ft; word-break: break-word;;padding-bottom:24px;"><div style=3D"font-family=
-: Roboto, sans-serif;font-style: normal; font-weight: 400; font-size: 14px;=
- line-height: 20px; letter-spacing: 0.2px;color: #3c4043; text-decoration: =
-none;" class=3D"primary-text" role=3D"presentation"><span>AppArmor month IR=
-C meeting</span><meta itemprop=3D"description" content=3D"AppArmor month IR=
-C meeting"/></div></td></tr><tr><td style=3D"font-size: 0; padding: 0; text=
--align: left; word-break: break-word;;padding-bottom:24px;"><div style=3D"f=
-ont-family: Roboto, sans-serif;font-style: normal; font-weight: 400; font-s=
-ize: 14px; line-height: 20px; letter-spacing: 0.2px;color: #3c4043; text-de=
-coration: none;" class=3D"primary-text" role=3D"presentation"><span aria-hi=
-dden=3D"true"><time itemprop=3D"startDate" datetime=3D"20250311T180000Z"></=
-time><time itemprop=3D"endDate" datetime=3D"20250311T190000Z"></time></span=
-><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentati=
-on" style=3D"padding-bottom: 4px;"><tr><td><h2 class=3D"primary-text" style=
-=3D"font-size: 14px;color: #3c4043; text-decoration: none;font-weight: 700;=
--webkit-font-smoothing: antialiased;margin: 0; padding: 0;">When</h2></td><=
-td style=3D"width: 8px;"></td><td style=3D"padding-top: 2px; padding-bottom=
-: 3px;"><div style=3D"background-color: #1e8e3e; border-radius: 10px; paddi=
-ng: 1px 5px; line-height: 13px;"><span style=3D"color: white; font-size: 11=
-px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; ver=
-tical-align: top;">CHANGED</span></div></td></tr></table><span>Monthly from=
- 11am to 12pm on the second Tuesday (Pacific Time - Los Angeles)<br/><span =
-style=3D"text-decoration: line-through;"><del><span style=3D"display: none;=
- font-size: 1px; color: #fff; line-height: 1px; height: 0; max-height: 0; w=
-idth: 0; max-width: 0; opacity: 0; overflow: hidden;font-size: 0; display: =
-block;">Old: </span>Monthly from 4am to 5am on the second Tuesday (Pacific =
-Time - Los Angeles)</del></span></span></div></td></tr><tr><td style=3D"fon=
-t-size: 0; padding: 0; text-align: left; word-break: break-word;;padding-bo=
-ttom:24px;"><div style=3D"font-family: Roboto, sans-serif;font-style: norma=
-l; font-weight: 400; font-size: 14px; line-height: 20px; letter-spacing: 0.=
-2px;color: #3c4043; text-decoration: none;" class=3D"primary-text" role=3D"=
-presentation"><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=
-=3D"presentation" style=3D"padding-bottom: 4px;"><tr><td><h2 class=3D"prima=
-ry-text" style=3D"font-size: 14px;color: #3c4043; text-decoration: none;fon=
-t-weight: 700;-webkit-font-smoothing: antialiased;margin: 0; padding: 0;">L=
-ocation</h2></td></tr></table><span itemprop=3D"location" itemscope itemtyp=
-e=3D"http://schema.org/Place"><span itemprop=3D"name" class=3D"primary-text=
- notranslate" style=3D"font-family: Roboto, sans-serif;font-style: normal; =
-font-weight: 400; font-size: 14px; line-height: 20px; letter-spacing: 0.2px=
-;color: #3c4043; text-decoration: none;">#apparmor on oftc.net</span><br/><=
-a href=3D"https://www.google.com/maps/search/%23apparmor+on+oftc.net?hl=3De=
-n" class=3D"accent-text underline-on-hover" style=3D"display: inline-block;=
-;color: #1a73e8; text-decoration: none;font-weight: 700;" target=3D"_blank"=
- itemprop=3D"map">View map</a></span></div></td></tr><tr><td style=3D"font-=
-size: 0; padding: 0; text-align: left; word-break: break-word;;padding-bott=
-om:24px;"><div style=3D"font-family: Roboto, sans-serif;font-style: normal;=
- font-weight: 400; font-size: 14px; line-height: 20px; letter-spacing: 0.2p=
-x;color: #3c4043; text-decoration: none;" class=3D"primary-text" role=3D"pr=
-esentation"><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D=
-"presentation" style=3D"padding-bottom: 4px;"><tr><td><h2 class=3D"primary-=
-text" style=3D"font-size: 14px;color: #3c4043; text-decoration: none;font-w=
-eight: 700;-webkit-font-smoothing: antialiased;margin: 0; padding: 0;">Gues=
-ts</h2></td></tr></table><div style=3D"padding-bottom: 4px; text-align: lef=
-t;;color: #3c4042;"><div><span itemprop=3D"attendee" itemscope itemtype=3D"=
-http://schema.org/Person"><span itemprop=3D"name" class=3D"notranslate"><a =
-class=3D"primary-text underline-on-hover" style=3D"display: inline-block;;c=
-olor: #3c4043; text-decoration: none;" href=3D"mailto:john.johansen@canonic=
-al.com">John Johansen</a></span><meta itemprop=3D"email" content=3D"john.jo=
-hansen@canonical.com"/></span><span itemprop=3D"organizer" itemscope itemty=
-pe=3D"http://schema.org/Person"><meta itemprop=3D"name" content=3D"John Joh=
-ansen"/><meta itemprop=3D"email" content=3D"john.johansen@canonical.com"/><=
+"/></span><meta itemprop=3D"eventId/googleCalendar" content=3D"c9q5i0m7g590=
+n47b82t8jjh82d_20250211T180000Z"/><span style=3D"display: none; font-size: =
+1px; color: #fff; line-height: 1px; height: 0; max-height: 0; width: 0; max=
+-width: 0; opacity: 0; overflow: hidden;" itemprop=3D"name">AppArmor Meetin=
+g</span><meta itemprop=3D"url" content=3D"https://calendar.google.com/calen=
+dar/event?action=3DVIEW&amp;eid=3DYzlxNWkwbTdnNTkwbjQ3YjgydDhqamg4MmRfMjAyN=
+TAyMTFUMTgwMDAwWiBhcHBhcm1vckBsaXN0cy51YnVudHUuY29t&amp;tok=3DMjcjam9obi5qb=
+2hhbnNlbkBjYW5vbmljYWwuY29tOWI3YjQ2NzZhNzliMDI0OTU4MThjYTg1YmEyMjIwYjY2N2Qy=
+MGZmMw&amp;ctz=3DAmerica%2FLos_Angeles&amp;hl=3Den&amp;es=3D0"/><span aria-=
+hidden=3D"true"><time itemprop=3D"startDate" datetime=3D"20250218T181500Z">=
+</time><time itemprop=3D"endDate" datetime=3D"20250218T191500Z"></time></sp=
+an><div style=3D"display: none; font-size: 1px; color: #fff; line-height: 1=
+px; height: 0; max-height: 0; width: 0; max-width: 0; opacity: 0; overflow:=
+ hidden;">AppArmor month IRC meeting</div><table border=3D"0" cellpadding=
+=3D"0" cellspacing=3D"0" role=3D"presentation" align=3D"center" style=3D"wi=
+dth:100%;" class=3D"body-container"><tbody><tr><td style=3D"" class=3D"" al=
+ign=3D"left"><!--[if mso | IE]><table border=3D"0" cellpadding=3D"0" cellsp=
+acing=3D"0" role=3D"presentation"><tr><td height=3D"16" style=3D"height:16p=
+x;"><![endif]--><div style=3D"height:16px;" aria-hidden=3D"true"> &nbsp; </=
+div><!--[if mso | IE]></td></tr></table><![endif]--><table border=3D"0" cel=
+lpadding=3D"0" cellspacing=3D"0" role=3D"presentation" align=3D"center" sty=
+le=3D"width:100%;" class=3D""><tbody><tr><td style=3D"background-color: #e6=
+f4ea;color: #0d5327;padding: 12px 32px; border-radius: 8px;font-family: Rob=
+oto, sans-serif;font-size: 14px; line-height: 20px;text-align: left;" class=
+=3D"info-bar-inner"><span style=3D"font-weight: 700;">This event has been u=
+pdated</span><br/><span style=3D"display:none" itemprop=3D"about" itemscope=
+ itemtype=3D"http://schema.org/Thing/Clock"><meta itemprop=3D"description" =
+content=3D"Time updated"/></span><div style=3D""><span style=3D"font-weight=
+: 700;">Changed:</span> time</div></td></tr></tbody></table><!--[if mso | I=
+E]><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presenta=
+tion"><tr><td height=3D"12" style=3D"height:12px;"><![endif]--><div style=
+=3D"height:12px;" aria-hidden=3D"true"> &nbsp; </div><!--[if mso | IE]></td=
+></tr></table><![endif]--><table border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0" role=3D"presentation" align=3D"center" style=3D"width:100%;" class=
+=3D""><tbody><tr><td style=3D"border: solid 1px #dadce0; border-radius: 8px=
+; direction: rtl; font-size: 0; padding: 24px 32px; text-align: left; verti=
+cal-align: top;" class=3D"main-container-inner"><!--[if mso | IE]><table bo=
+rder=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation"><tr><!=
+[endif]--><div class=3D"" style=3D"font-size: 13px; text-align: left; direc=
+tion: ltr; display: inline-block; vertical-align: top; width: 100%;overflow=
+: hidden; word-wrap: break-word;"><table border=3D"0" cellpadding=3D"0" cel=
+lspacing=3D"0" role=3D"presentation" width=3D"100%" class=3D"main-column-ta=
+ble-ltr" style=3D"padding-right: 32px; padding-left: 0;;table-layout: fixed=
+;"><tbody><tr><td class=3D"main-column-td" style=3D"padding:0; vertical-ali=
+gn:top;"><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"pr=
+esentation" width=3D"100%" style=3D"table-layout: fixed;"><tr><td style=3D"=
+font-size: 0; padding: 0; text-align: left; word-break: break-word;;padding=
+-bottom:24px;"><div style=3D"font-family: Roboto, sans-serif;font-style: no=
+rmal; font-weight: 400; font-size: 14px; line-height: 20px; letter-spacing:=
+ 0.2px;color: #3c4043; text-decoration: none;" class=3D"primary-text" role=
+=3D"presentation"><span>AppArmor month IRC meeting</span><meta itemprop=3D"=
+description" content=3D"AppArmor month IRC meeting"/></div></td></tr><tr><t=
+d style=3D"font-size: 0; padding: 0; text-align: left; word-break: break-wo=
+rd;;padding-bottom:24px;"><div style=3D"font-family: Roboto, sans-serif;fon=
+t-style: normal; font-weight: 400; font-size: 14px; line-height: 20px; lett=
+er-spacing: 0.2px;color: #3c4043; text-decoration: none;" class=3D"primary-=
+text" role=3D"presentation"><span aria-hidden=3D"true"><time itemprop=3D"st=
+artDate" datetime=3D"20250218T181500Z"></time><time itemprop=3D"endDate" da=
+tetime=3D"20250218T191500Z"></time></span><table border=3D"0" cellpadding=
+=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"padding-bottom: 4px=
+;"><tr><td><h2 class=3D"primary-text" style=3D"font-size: 14px;color: #3c40=
+43; text-decoration: none;font-weight: 700;-webkit-font-smoothing: antialia=
+sed;margin: 0; padding: 0;">When</h2></td><td style=3D"width: 8px;"></td><t=
+d style=3D"padding-top: 2px; padding-bottom: 3px;"><div style=3D"background=
+-color: #1e8e3e; border-radius: 10px; padding: 1px 5px; line-height: 13px;"=
+><span style=3D"color: white; font-size: 11px; font-weight: 700; letter-spa=
+cing: 0.8px; text-transform: uppercase; vertical-align: top;">CHANGED</span=
+></div></td></tr></table><span>Tuesday Feb 18, 2025 =E2=8B=85 10:15am =E2=
+=80=93 11:15am (Pacific Time - Los Angeles)<br/><span style=3D"text-decorat=
+ion: line-through;"><del><span style=3D"display: none; font-size: 1px; colo=
+r: #fff; line-height: 1px; height: 0; max-height: 0; width: 0; max-width: 0=
+; opacity: 0; overflow: hidden;font-size: 0; display: block;">Old: </span>T=
+uesday Feb 18, 2025 =E2=8B=85 2am =E2=80=93 3am (Pacific Time - Los Angeles=
+)</del></span></span></div></td></tr><tr><td style=3D"font-size: 0; padding=
+: 0; text-align: left; word-break: break-word;;padding-bottom:24px;"><div s=
+tyle=3D"font-family: Roboto, sans-serif;font-style: normal; font-weight: 40=
+0; font-size: 14px; line-height: 20px; letter-spacing: 0.2px;color: #3c4043=
+; text-decoration: none;" class=3D"primary-text" role=3D"presentation"><tab=
+le border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" s=
+tyle=3D"padding-bottom: 4px;"><tr><td><h2 class=3D"primary-text" style=3D"f=
+ont-size: 14px;color: #3c4043; text-decoration: none;font-weight: 700;-webk=
+it-font-smoothing: antialiased;margin: 0; padding: 0;">Location</h2></td></=
+tr></table><span itemprop=3D"location" itemscope itemtype=3D"http://schema.=
+org/Place"><span itemprop=3D"name" class=3D"primary-text notranslate" style=
+=3D"font-family: Roboto, sans-serif;font-style: normal; font-weight: 400; f=
+ont-size: 14px; line-height: 20px; letter-spacing: 0.2px;color: #3c4043; te=
+xt-decoration: none;">#apparmor on oftc.net</span><br/><a href=3D"https://w=
+ww.google.com/maps/search/%23apparmor+on+oftc.net?hl=3Den" class=3D"accent-=
+text underline-on-hover" style=3D"display: inline-block;;color: #1a73e8; te=
+xt-decoration: none;font-weight: 700;" target=3D"_blank" itemprop=3D"map">V=
+iew map</a></span></div></td></tr><tr><td style=3D"font-size: 0; padding: 0=
+; text-align: left; word-break: break-word;;padding-bottom:24px;"><div styl=
+e=3D"font-family: Roboto, sans-serif;font-style: normal; font-weight: 400; =
+font-size: 14px; line-height: 20px; letter-spacing: 0.2px;color: #3c4043; t=
+ext-decoration: none;" class=3D"primary-text" role=3D"presentation"><table =
+border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" styl=
+e=3D"padding-bottom: 4px;"><tr><td><h2 class=3D"primary-text" style=3D"font=
+-size: 14px;color: #3c4043; text-decoration: none;font-weight: 700;-webkit-=
+font-smoothing: antialiased;margin: 0; padding: 0;">Guests</h2></td></tr></=
+table><div style=3D"padding-bottom: 4px; text-align: left;;color: #3c4042;"=
+><div><span itemprop=3D"attendee" itemscope itemtype=3D"http://schema.org/P=
+erson"><span itemprop=3D"name" class=3D"notranslate"><a class=3D"primary-te=
+xt underline-on-hover" style=3D"display: inline-block;;color: #3c4043; text=
+-decoration: none;" href=3D"mailto:john.johansen@canonical.com">John Johans=
+en</a></span><meta itemprop=3D"email" content=3D"john.johansen@canonical.co=
+m"/></span><span itemprop=3D"organizer" itemscope itemtype=3D"http://schema=
+.org/Person"><meta itemprop=3D"name" content=3D"John Johansen"/><meta itemp=
+rop=3D"email" content=3D"john.johansen@canonical.com"/></span><span class=
+=3D"secondary-text" style=3D"color: #70757a; text-decoration: none;"> - org=
+anizer</span></div><div><span itemprop=3D"attendee" itemscope itemtype=3D"h=
+ttp://schema.org/Person"><span itemprop=3D"name" class=3D"notranslate"><a c=
+lass=3D"primary-text underline-on-hover" style=3D"display: inline-block;;co=
+lor: #3c4043; text-decoration: none;" href=3D"mailto:beattie@gmail.com">bea=
+ttie@gmail.com</a></span><meta itemprop=3D"email" content=3D"beattie@gmail.=
+com"/></span><span class=3D"secondary-text" style=3D"color: #70757a; text-d=
+ecoration: none;"></span></div><div><span itemprop=3D"attendee" itemscope i=
+temtype=3D"http://schema.org/Person"><span itemprop=3D"name" class=3D"notra=
+nslate"><a class=3D"primary-text underline-on-hover" style=3D"display: inli=
+ne-block;;color: #3c4043; text-decoration: none;" href=3D"mailto:apparmor@l=
+ists.ubuntu.com">apparmor@lists.ubuntu.com</a></span><meta itemprop=3D"emai=
+l" content=3D"apparmor@lists.ubuntu.com"/></span><span class=3D"secondary-t=
+ext" style=3D"color: #70757a; text-decoration: none;"></span></div></div><a=
+ href=3D"https://calendar.google.com/calendar/event?action=3DVIEW&amp;eid=
+=3DYzlxNWkwbTdnNTkwbjQ3YjgydDhqamg4MmRfMjAyNTAyMTFUMTgwMDAwWiBhcHBhcm1vckBs=
+aXN0cy51YnVudHUuY29t&amp;tok=3DMjcjam9obi5qb2hhbnNlbkBjYW5vbmljYWwuY29tOWI3=
+YjQ2NzZhNzliMDI0OTU4MThjYTg1YmEyMjIwYjY2N2QyMGZmMw&amp;ctz=3DAmerica%2FLos_=
+Angeles&amp;hl=3Den&amp;es=3D0" style=3D"display: inline-block;;color: #1a7=
+3e8; text-decoration: none;font-weight: 700;" target=3D"_blank" class=3D"ac=
+cent-text underline-on-hover">View all guest info</a></div></td></tr><tr><t=
+d style=3D"font-size: 0; padding: 0; text-align: left; word-break: break-wo=
+rd;;padding-bottom:0px;"><div style=3D"color: #3c4043; text-decoration: non=
+e;;font-family: Roboto, sans-serif;font-size: 14px; line-height: 20px; mso-=
+line-height-rule: exactly; text-align: left;" class=3D"primary-text"><div><=
+span style=3D"font-weight: 700;-webkit-font-smoothing: antialiased;">Reply<=
 /span><span class=3D"secondary-text" style=3D"color: #70757a; text-decorati=
-on: none;"> - organizer</span></div><div><span itemprop=3D"attendee" itemsc=
-ope itemtype=3D"http://schema.org/Person"><span itemprop=3D"name" class=3D"=
-notranslate"><a class=3D"primary-text underline-on-hover" style=3D"display:=
- inline-block;;color: #3c4043; text-decoration: none;" href=3D"mailto:appar=
-mor@lists.ubuntu.com">apparmor@lists.ubuntu.com</a></span><meta itemprop=3D=
-"email" content=3D"apparmor@lists.ubuntu.com"/></span><span class=3D"second=
-ary-text" style=3D"color: #70757a; text-decoration: none;"></span></div><di=
-v><span itemprop=3D"attendee" itemscope itemtype=3D"http://schema.org/Perso=
-n"><span itemprop=3D"name" class=3D"notranslate"><a class=3D"primary-text u=
-nderline-on-hover" style=3D"display: inline-block;;color: #3c4043; text-dec=
-oration: none;" href=3D"mailto:beattie@gmail.com">beattie@gmail.com</a></sp=
-an><meta itemprop=3D"email" content=3D"beattie@gmail.com"/></span><span cla=
-ss=3D"secondary-text" style=3D"color: #70757a; text-decoration: none;"></sp=
-an></div><div><span itemprop=3D"attendee" itemscope itemtype=3D"http://sche=
-ma.org/Person"><span itemprop=3D"name" class=3D"notranslate"><a class=3D"pr=
-imary-text underline-on-hover" style=3D"display: inline-block;;color: #3c40=
-43; text-decoration: none;" href=3D"mailto:georgia.garcia@canonical.com">Ge=
-orgia Garcia</a></span><meta itemprop=3D"email" content=3D"georgia.garcia@c=
-anonical.com"/></span><span class=3D"secondary-text" style=3D"color: #70757=
-a; text-decoration: none;"></span></div><div><span itemprop=3D"attendee" it=
-emscope itemtype=3D"http://schema.org/Person"><span itemprop=3D"name" class=
-=3D"notranslate"><a class=3D"primary-text underline-on-hover" style=3D"disp=
-lay: inline-block;;color: #3c4043; text-decoration: none;" href=3D"mailto:m=
-axime.belair@canonical.com">Maxime B=C3=A9lair</a></span><meta itemprop=3D"=
-email" content=3D"maxime.belair@canonical.com"/></span><span class=3D"secon=
-dary-text" style=3D"color: #70757a; text-decoration: none;"></span></div><d=
-iv><span itemprop=3D"attendee" itemscope itemtype=3D"http://schema.org/Pers=
-on"><span itemprop=3D"name" class=3D"notranslate"><a class=3D"primary-text =
-underline-on-hover" style=3D"display: inline-block;;color: #3c4043; text-de=
-coration: none;" href=3D"mailto:ryan.lee@canonical.com">Ryan Lee</a></span>=
-<meta itemprop=3D"email" content=3D"ryan.lee@canonical.com"/></span><span c=
-lass=3D"secondary-text" style=3D"color: #70757a; text-decoration: none;"></=
-span></div></div><a href=3D"https://calendar.google.com/calendar/event?acti=
-on=3DVIEW&amp;eid=3DcDY2OTk5YnFxdnBwdTFydGQxN2ZhazMyNzYgYXBwYXJtb3JAbGlzdHM=
-udWJ1bnR1LmNvbQ&amp;tok=3DMjcjam9obi5qb2hhbnNlbkBjYW5vbmljYWwuY29tNjdiMGY5M=
-jMwNDU3OGEwZjZjMmYyNDFmZmNhZGY0ODcxM2U4NjJkYQ&amp;ctz=3DAmerica%2FLos_Angel=
-es&amp;hl=3Den&amp;es=3D0" style=3D"display: inline-block;;color: #1a73e8; =
-text-decoration: none;font-weight: 700;" target=3D"_blank" class=3D"accent-=
-text underline-on-hover">View all guest info</a></div></td></tr><tr><td sty=
-le=3D"font-size: 0; padding: 0; text-align: left; word-break: break-word;;p=
-adding-bottom:0px;"><div style=3D"color: #3c4043; text-decoration: none;;fo=
-nt-family: Roboto, sans-serif;font-size: 14px; line-height: 20px; mso-line-=
-height-rule: exactly; text-align: left;" class=3D"primary-text"><div><span =
-style=3D"font-weight: 700;-webkit-font-smoothing: antialiased;">RSVP</span>=
-<span class=3D"secondary-text" style=3D"color: #70757a; text-decoration: no=
-ne;"> for <a class=3D"secondary-text underline-on-hover" style=3D"display: =
-inline-block;;color: #70757a; text-decoration: none;" href=3D"mailto:apparm=
-or@lists.ubuntu.com">apparmor@lists.ubuntu.com</a> for all events in this s=
-eries</span></div></div></td></tr><tr><td style=3D"font-size: 0; padding: 0=
-; text-align: left; word-break: break-word;;padding-bottom:16px;"><div styl=
-e=3D"font-family: Roboto, sans-serif;font-size: 14px; line-height: 20px; ms=
-o-line-height-rule: exactly; text-align: left;"><table border=3D"0" cellpad=
-ding=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"border-collapse=
-: separate;"><tr><td style=3D"padding-top: 8px; padding-left: 0; padding-ri=
-ght: 12px;"><!-- RSVP buttons --><table border=3D"0" cellpadding=3D"0" cell=
-spacing=3D"0" role=3D"presentation" style=3D"border: solid 1px #dadce0; bor=
-der-radius: 16px; border-collapse: separate;font-family: &#39;Google Sans&#=
-39;, Roboto, sans-serif;;display: inline-block;;margin-right: 12px; margin-=
-left: 0;"><tr><td align=3D"center" vertical-align=3D"middle" role=3D"presen=
-tation"><span itemprop=3D"potentialaction" itemscope itemtype=3D"http://sch=
-ema.org/RsvpAction"><meta itemprop=3D"attendance" content=3D"http://schema.=
-org/RsvpAttendance/Yes"/><span itemprop=3D"handler" itemscope itemtype=3D"h=
-ttp://schema.org/HttpActionHandler"><link itemprop=3D"method" href=3D"http:=
-//schema.org/HttpRequestMethod/GET"/><span style=3D"color: #5f6367;"><a hre=
-f=3D"https://calendar.google.com/calendar/event?action=3DRESPOND&amp;eid=3D=
-cDY2OTk5YnFxdnBwdTFydGQxN2ZhazMyNzYgYXBwYXJtb3JAbGlzdHMudWJ1bnR1LmNvbQ&amp;=
-rst=3D1&amp;tok=3DMjcjam9obi5qb2hhbnNlbkBjYW5vbmljYWwuY29tNjdiMGY5MjMwNDU3O=
-GEwZjZjMmYyNDFmZmNhZGY0ODcxM2U4NjJkYQ&amp;ctz=3DAmerica%2FLos_Angeles&amp;h=
+on: none;"> for <a class=3D"secondary-text underline-on-hover" style=3D"dis=
+play: inline-block;;color: #70757a; text-decoration: none;" href=3D"mailto:=
+apparmor@lists.ubuntu.com">apparmor@lists.ubuntu.com</a></span></div></div>=
+</td></tr><tr><td style=3D"font-size: 0; padding: 0; text-align: left; word=
+-break: break-word;;padding-bottom:16px;"><div style=3D"font-family: Roboto=
+, sans-serif;font-size: 14px; line-height: 20px; mso-line-height-rule: exac=
+tly; text-align: left;"><table border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0" role=3D"presentation" style=3D"border-collapse: separate;"><tr><td s=
+tyle=3D"padding-top: 8px; padding-left: 0; padding-right: 12px;"><!-- RSVP =
+buttons --><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"=
+presentation" style=3D"border: solid 1px #dadce0; border-radius: 16px; bord=
+er-collapse: separate;font-family: &#39;Google Sans&#39;, Roboto, sans-seri=
+f;;display: inline-block;;margin-right: 12px; margin-left: 0;"><tr><td alig=
+n=3D"center" vertical-align=3D"middle" role=3D"presentation"><span itemprop=
+=3D"potentialaction" itemscope itemtype=3D"http://schema.org/RsvpAction"><m=
+eta itemprop=3D"attendance" content=3D"http://schema.org/RsvpAttendance/Yes=
+"/><span itemprop=3D"handler" itemscope itemtype=3D"http://schema.org/HttpA=
+ctionHandler"><link itemprop=3D"method" href=3D"http://schema.org/HttpReque=
+stMethod/GET"/><span style=3D"color: #5f6367;"><a href=3D"https://calendar.=
+google.com/calendar/event?action=3DRESPOND&amp;eid=3DYzlxNWkwbTdnNTkwbjQ3Yj=
+gydDhqamg4MmRfMjAyNTAyMTFUMTgwMDAwWiBhcHBhcm1vckBsaXN0cy51YnVudHUuY29t&amp;=
+rst=3D1&amp;tok=3DMjcjam9obi5qb2hhbnNlbkBjYW5vbmljYWwuY29tOWI3YjQ2NzZhNzliM=
+DI0OTU4MThjYTg1YmEyMjIwYjY2N2QyMGZmMw&amp;ctz=3DAmerica%2FLos_Angeles&amp;h=
 l=3Den&amp;es=3D0" style=3D"font-weight: 400;font-family: &#39;Google Sans&=
 #39;, Roboto, sans-serif;color: #5f6368; font-size: 14px; line-height: 120%=
 ; mso-line-height-rule: exactly; margin: 0; text-decoration: none; text-tra=
@@ -704,115 +683,117 @@ nsform: none;" class=3D"grey-button-text" itemprop=3D"url" target=3D"_blank=
 ion"><tr><td align=3D"center" role=3D"presentation" valign=3D"middle" style=
 =3D"padding: 6px 0; padding-left: 16px; padding-right: 12px; white-space: n=
 owrap;"><!--[if mso]><a href=3D"https://calendar.google.com/calendar/event?=
-action=3DRESPOND&amp;eid=3DcDY2OTk5YnFxdnBwdTFydGQxN2ZhazMyNzYgYXBwYXJtb3JA=
-bGlzdHMudWJ1bnR1LmNvbQ&amp;rst=3D1&amp;tok=3DMjcjam9obi5qb2hhbnNlbkBjYW5vbm=
-ljYWwuY29tNjdiMGY5MjMwNDU3OGEwZjZjMmYyNDFmZmNhZGY0ODcxM2U4NjJkYQ&amp;ctz=3D=
-America%2FLos_Angeles&amp;hl=3Den&amp;es=3D0" class=3D"grey-button-text" it=
-emprop=3D"url" target=3D"_blank"><![endif]--><span class=3D"grey-button-tex=
-t" style=3D"font-weight: 400;font-family: &#39;Google Sans&#39;, Roboto, sa=
-ns-serif;color: #5f6368; font-size: 14px; line-height: 120%; mso-line-heigh=
-t-rule: exactly; margin: 0; text-decoration: none; text-transform: none;">Y=
-es</span><!--[if mso]></a><![endif]--></td></tr></table></a></span></span><=
-/span></td><td align=3D"center" vertical-align=3D"middle" role=3D"presentat=
-ion" style=3D"border-left: solid 1px #dadce0; border-right: solid 1px #dadc=
-e0;"><span itemprop=3D"potentialaction" itemscope itemtype=3D"http://schema=
-.org/RsvpAction"><meta itemprop=3D"attendance" content=3D"http://schema.org=
-/RsvpAttendance/No"/><span itemprop=3D"handler" itemscope itemtype=3D"http:=
-//schema.org/HttpActionHandler"><link itemprop=3D"method" href=3D"http://sc=
-hema.org/HttpRequestMethod/GET"/><span style=3D"color: #5f6367;"><a href=3D=
-"https://calendar.google.com/calendar/event?action=3DRESPOND&amp;eid=3DcDY2=
-OTk5YnFxdnBwdTFydGQxN2ZhazMyNzYgYXBwYXJtb3JAbGlzdHMudWJ1bnR1LmNvbQ&amp;rst=
-=3D2&amp;tok=3DMjcjam9obi5qb2hhbnNlbkBjYW5vbmljYWwuY29tNjdiMGY5MjMwNDU3OGEw=
-ZjZjMmYyNDFmZmNhZGY0ODcxM2U4NjJkYQ&amp;ctz=3DAmerica%2FLos_Angeles&amp;hl=
-=3Den&amp;es=3D0" style=3D"font-weight: 400;font-family: &#39;Google Sans&#=
-39;, Roboto, sans-serif;color: #5f6368; font-size: 14px; line-height: 120%;=
- mso-line-height-rule: exactly; margin: 0; text-decoration: none; text-tran=
-sform: none;" class=3D"grey-button-text" itemprop=3D"url" target=3D"_blank"=
-><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentati=
-on"><tr><td align=3D"center" role=3D"presentation" valign=3D"middle" style=
-=3D"padding: 6px 12px; white-space: nowrap;"><!--[if mso]><a href=3D"https:=
-//calendar.google.com/calendar/event?action=3DRESPOND&amp;eid=3DcDY2OTk5YnF=
-xdnBwdTFydGQxN2ZhazMyNzYgYXBwYXJtb3JAbGlzdHMudWJ1bnR1LmNvbQ&amp;rst=3D2&amp=
-;tok=3DMjcjam9obi5qb2hhbnNlbkBjYW5vbmljYWwuY29tNjdiMGY5MjMwNDU3OGEwZjZjMmYy=
-NDFmZmNhZGY0ODcxM2U4NjJkYQ&amp;ctz=3DAmerica%2FLos_Angeles&amp;hl=3Den&amp;=
-es=3D0" class=3D"grey-button-text" itemprop=3D"url" target=3D"_blank"><![en=
-dif]--><span class=3D"grey-button-text" style=3D"font-weight: 400;font-fami=
-ly: &#39;Google Sans&#39;, Roboto, sans-serif;color: #5f6368; font-size: 14=
-px; line-height: 120%; mso-line-height-rule: exactly; margin: 0; text-decor=
-ation: none; text-transform: none;">No</span><!--[if mso]></a><![endif]--><=
-/td></tr></table></a></span></span></span></td><td align=3D"center" vertica=
-l-align=3D"middle" role=3D"presentation"><span itemprop=3D"potentialaction"=
- itemscope itemtype=3D"http://schema.org/RsvpAction"><meta itemprop=3D"atte=
-ndance" content=3D"http://schema.org/RsvpAttendance/Maybe"/><span itemprop=
-=3D"handler" itemscope itemtype=3D"http://schema.org/HttpActionHandler"><li=
-nk itemprop=3D"method" href=3D"http://schema.org/HttpRequestMethod/GET"/><s=
-pan style=3D"color: #5f6367;"><a href=3D"https://calendar.google.com/calend=
-ar/event?action=3DRESPOND&amp;eid=3DcDY2OTk5YnFxdnBwdTFydGQxN2ZhazMyNzYgYXB=
-wYXJtb3JAbGlzdHMudWJ1bnR1LmNvbQ&amp;rst=3D3&amp;tok=3DMjcjam9obi5qb2hhbnNlb=
-kBjYW5vbmljYWwuY29tNjdiMGY5MjMwNDU3OGEwZjZjMmYyNDFmZmNhZGY0ODcxM2U4NjJkYQ&a=
-mp;ctz=3DAmerica%2FLos_Angeles&amp;hl=3Den&amp;es=3D0" style=3D"font-weight=
-: 400;font-family: &#39;Google Sans&#39;, Roboto, sans-serif;color: #5f6368=
-; font-size: 14px; line-height: 120%; mso-line-height-rule: exactly; margin=
-: 0; text-decoration: none; text-transform: none;" class=3D"grey-button-tex=
-t" itemprop=3D"url" target=3D"_blank"><table border=3D"0" cellpadding=3D"0"=
- cellspacing=3D"0" role=3D"presentation"><tr><td align=3D"center" role=3D"p=
-resentation" valign=3D"middle" style=3D"padding: 6px 0; padding-left: 12px;=
- padding-right: 16px; white-space: nowrap;"><!--[if mso]><a href=3D"https:/=
-/calendar.google.com/calendar/event?action=3DRESPOND&amp;eid=3DcDY2OTk5YnFx=
-dnBwdTFydGQxN2ZhazMyNzYgYXBwYXJtb3JAbGlzdHMudWJ1bnR1LmNvbQ&amp;rst=3D3&amp;=
-tok=3DMjcjam9obi5qb2hhbnNlbkBjYW5vbmljYWwuY29tNjdiMGY5MjMwNDU3OGEwZjZjMmYyN=
-DFmZmNhZGY0ODcxM2U4NjJkYQ&amp;ctz=3DAmerica%2FLos_Angeles&amp;hl=3Den&amp;e=
-s=3D0" class=3D"grey-button-text" itemprop=3D"url" target=3D"_blank"><![end=
-if]--><span class=3D"grey-button-text" style=3D"font-weight: 400;font-famil=
-y: &#39;Google Sans&#39;, Roboto, sans-serif;color: #5f6368; font-size: 14p=
-x; line-height: 120%; mso-line-height-rule: exactly; margin: 0; text-decora=
-tion: none; text-transform: none;">Maybe</span><!--[if mso]></a><![endif]--=
-></td></tr></table></a></span></span></span></td></tr></table><!-- More opt=
-ions --><a href=3D"https://calendar.google.com/calendar/event?action=3DVIEW=
-&amp;eid=3DcDY2OTk5YnFxdnBwdTFydGQxN2ZhazMyNzYgYXBwYXJtb3JAbGlzdHMudWJ1bnR1=
-LmNvbQ&amp;tok=3DMjcjam9obi5qb2hhbnNlbkBjYW5vbmljYWwuY29tNjdiMGY5MjMwNDU3OG=
-EwZjZjMmYyNDFmZmNhZGY0ODcxM2U4NjJkYQ&amp;ctz=3DAmerica%2FLos_Angeles&amp;hl=
-=3Den&amp;es=3D0" style=3D"display: inline-block;;font-weight: 400;font-fam=
-ily: &#39;Google Sans&#39;, Roboto, sans-serif;color: #5f6368; font-size: 1=
-4px; line-height: 120%; mso-line-height-rule: exactly; margin: 0; text-deco=
-ration: none; text-transform: none;" class=3D"grey-button-text" target=3D"_=
-blank"><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"pres=
-entation" style=3D"border: solid 1px #dadce0; border-radius: 16px; border-c=
-ollapse: separate;font-family: &#39;Google Sans&#39;, Roboto, sans-serif;">=
-<tr><td align=3D"center" vertical-align=3D"middle" role=3D"presentation" st=
-yle=3D"padding: 6px 0; padding-left: 16px; padding-right: 12px; white-space=
-: nowrap;;color: #5f6367;"><!--[if mso]><a href=3D"https://calendar.google.=
-com/calendar/event?action=3DVIEW&amp;eid=3DcDY2OTk5YnFxdnBwdTFydGQxN2ZhazMy=
-NzYgYXBwYXJtb3JAbGlzdHMudWJ1bnR1LmNvbQ&amp;tok=3DMjcjam9obi5qb2hhbnNlbkBjYW=
-5vbmljYWwuY29tNjdiMGY5MjMwNDU3OGEwZjZjMmYyNDFmZmNhZGY0ODcxM2U4NjJkYQ&amp;ct=
-z=3DAmerica%2FLos_Angeles&amp;hl=3Den&amp;es=3D0" class=3D"grey-button-text=
-" target=3D"_blank"><![endif]--><span class=3D"grey-button-text" style=3D"f=
-ont-weight: 400;font-family: &#39;Google Sans&#39;, Roboto, sans-serif;colo=
-r: #5f6368; font-size: 14px; line-height: 120%; mso-line-height-rule: exact=
-ly; margin: 0; text-decoration: none; text-transform: none;">More options</=
-span><!--[if mso]></a><![endif]--></td></tr></table></a></td></tr></table><=
-/div></td></tr></table></td></tr></tbody></table></div><!--[if mso | IE]></=
-tr></table><![endif]--></td></tr></tbody></table><table border=3D"0" cellpa=
-dding=3D"0" cellspacing=3D"0" role=3D"presentation" align=3D"center" style=
-=3D"width:100%;" class=3D""><tbody><tr><td style=3D"font-size: 0; padding: =
-0; text-align: left; word-break: break-word;;padding:4px 12px;" class=3D"" =
-align=3D"left"><div class=3D"secondary-text" style=3D"color: #70757a; text-=
-decoration: none;font-family: Roboto, sans-serif;font-size: 12px; line-heig=
-ht: 16px; mso-line-height-rule: exactly; text-align: left;"><p>Invitation f=
-rom <a href=3D"https://calendar.google.com/calendar/" class=3D"accent-text =
-underline-on-hover" style=3D"font-family: Roboto, sans-serif;font-size: 12p=
-x; line-height: 16px; mso-line-height-rule: exactly;;color: #1a73e8; text-d=
-ecoration: none;" target=3D"_blank">Google Calendar</a></p><p>You are recei=
-ving this email because you are an attendee on the event.</p><p>Forwarding =
-this invitation could allow any recipient to send a response to the organiz=
-er, be added to the guest list, invite others regardless of their own invit=
-ation status, or modify your RSVP. <a class=3D"accent-text underline-on-hov=
-er" style=3D"font-family: Roboto, sans-serif;font-size: 12px; line-height: =
-16px; mso-line-height-rule: exactly;;color: #1a73e8; text-decoration: none;=
-" href=3D"https://support.google.com/calendar/answer/37135#forwarding">Lear=
-n more</a></p></div></td></tr></tbody></table></td></tr></tbody></table></s=
-pan></span></body></html>
---0000000000005d15c7062cf3587e
+action=3DRESPOND&amp;eid=3DYzlxNWkwbTdnNTkwbjQ3YjgydDhqamg4MmRfMjAyNTAyMTFU=
+MTgwMDAwWiBhcHBhcm1vckBsaXN0cy51YnVudHUuY29t&amp;rst=3D1&amp;tok=3DMjcjam9o=
+bi5qb2hhbnNlbkBjYW5vbmljYWwuY29tOWI3YjQ2NzZhNzliMDI0OTU4MThjYTg1YmEyMjIwYjY=
+2N2QyMGZmMw&amp;ctz=3DAmerica%2FLos_Angeles&amp;hl=3Den&amp;es=3D0" class=
+=3D"grey-button-text" itemprop=3D"url" target=3D"_blank"><![endif]--><span =
+class=3D"grey-button-text" style=3D"font-weight: 400;font-family: &#39;Goog=
+le Sans&#39;, Roboto, sans-serif;color: #5f6368; font-size: 14px; line-heig=
+ht: 120%; mso-line-height-rule: exactly; margin: 0; text-decoration: none; =
+text-transform: none;">Yes</span><!--[if mso]></a><![endif]--></td></tr></t=
+able></a></span></span></span></td><td align=3D"center" vertical-align=3D"m=
+iddle" role=3D"presentation" style=3D"border-left: solid 1px #dadce0; borde=
+r-right: solid 1px #dadce0;"><span itemprop=3D"potentialaction" itemscope i=
+temtype=3D"http://schema.org/RsvpAction"><meta itemprop=3D"attendance" cont=
+ent=3D"http://schema.org/RsvpAttendance/No"/><span itemprop=3D"handler" ite=
+mscope itemtype=3D"http://schema.org/HttpActionHandler"><link itemprop=3D"m=
+ethod" href=3D"http://schema.org/HttpRequestMethod/GET"/><span style=3D"col=
+or: #5f6367;"><a href=3D"https://calendar.google.com/calendar/event?action=
+=3DRESPOND&amp;eid=3DYzlxNWkwbTdnNTkwbjQ3YjgydDhqamg4MmRfMjAyNTAyMTFUMTgwMD=
+AwWiBhcHBhcm1vckBsaXN0cy51YnVudHUuY29t&amp;rst=3D2&amp;tok=3DMjcjam9obi5qb2=
+hhbnNlbkBjYW5vbmljYWwuY29tOWI3YjQ2NzZhNzliMDI0OTU4MThjYTg1YmEyMjIwYjY2N2QyM=
+GZmMw&amp;ctz=3DAmerica%2FLos_Angeles&amp;hl=3Den&amp;es=3D0" style=3D"font=
+-weight: 400;font-family: &#39;Google Sans&#39;, Roboto, sans-serif;color: =
+#5f6368; font-size: 14px; line-height: 120%; mso-line-height-rule: exactly;=
+ margin: 0; text-decoration: none; text-transform: none;" class=3D"grey-but=
+ton-text" itemprop=3D"url" target=3D"_blank"><table border=3D"0" cellpaddin=
+g=3D"0" cellspacing=3D"0" role=3D"presentation"><tr><td align=3D"center" ro=
+le=3D"presentation" valign=3D"middle" style=3D"padding: 6px 12px; white-spa=
+ce: nowrap;"><!--[if mso]><a href=3D"https://calendar.google.com/calendar/e=
+vent?action=3DRESPOND&amp;eid=3DYzlxNWkwbTdnNTkwbjQ3YjgydDhqamg4MmRfMjAyNTA=
+yMTFUMTgwMDAwWiBhcHBhcm1vckBsaXN0cy51YnVudHUuY29t&amp;rst=3D2&amp;tok=3DMjc=
+jam9obi5qb2hhbnNlbkBjYW5vbmljYWwuY29tOWI3YjQ2NzZhNzliMDI0OTU4MThjYTg1YmEyMj=
+IwYjY2N2QyMGZmMw&amp;ctz=3DAmerica%2FLos_Angeles&amp;hl=3Den&amp;es=3D0" cl=
+ass=3D"grey-button-text" itemprop=3D"url" target=3D"_blank"><![endif]--><sp=
+an class=3D"grey-button-text" style=3D"font-weight: 400;font-family: &#39;G=
+oogle Sans&#39;, Roboto, sans-serif;color: #5f6368; font-size: 14px; line-h=
+eight: 120%; mso-line-height-rule: exactly; margin: 0; text-decoration: non=
+e; text-transform: none;">No</span><!--[if mso]></a><![endif]--></td></tr><=
+/table></a></span></span></span></td><td align=3D"center" vertical-align=3D=
+"middle" role=3D"presentation"><span itemprop=3D"potentialaction" itemscope=
+ itemtype=3D"http://schema.org/RsvpAction"><meta itemprop=3D"attendance" co=
+ntent=3D"http://schema.org/RsvpAttendance/Maybe"/><span itemprop=3D"handler=
+" itemscope itemtype=3D"http://schema.org/HttpActionHandler"><link itemprop=
+=3D"method" href=3D"http://schema.org/HttpRequestMethod/GET"/><span style=
+=3D"color: #5f6367;"><a href=3D"https://calendar.google.com/calendar/event?=
+action=3DRESPOND&amp;eid=3DYzlxNWkwbTdnNTkwbjQ3YjgydDhqamg4MmRfMjAyNTAyMTFU=
+MTgwMDAwWiBhcHBhcm1vckBsaXN0cy51YnVudHUuY29t&amp;rst=3D3&amp;tok=3DMjcjam9o=
+bi5qb2hhbnNlbkBjYW5vbmljYWwuY29tOWI3YjQ2NzZhNzliMDI0OTU4MThjYTg1YmEyMjIwYjY=
+2N2QyMGZmMw&amp;ctz=3DAmerica%2FLos_Angeles&amp;hl=3Den&amp;es=3D0" style=
+=3D"font-weight: 400;font-family: &#39;Google Sans&#39;, Roboto, sans-serif=
+;color: #5f6368; font-size: 14px; line-height: 120%; mso-line-height-rule: =
+exactly; margin: 0; text-decoration: none; text-transform: none;" class=3D"=
+grey-button-text" itemprop=3D"url" target=3D"_blank"><table border=3D"0" ce=
+llpadding=3D"0" cellspacing=3D"0" role=3D"presentation"><tr><td align=3D"ce=
+nter" role=3D"presentation" valign=3D"middle" style=3D"padding: 6px 0; padd=
+ing-left: 12px; padding-right: 16px; white-space: nowrap;"><!--[if mso]><a =
+href=3D"https://calendar.google.com/calendar/event?action=3DRESPOND&amp;eid=
+=3DYzlxNWkwbTdnNTkwbjQ3YjgydDhqamg4MmRfMjAyNTAyMTFUMTgwMDAwWiBhcHBhcm1vckBs=
+aXN0cy51YnVudHUuY29t&amp;rst=3D3&amp;tok=3DMjcjam9obi5qb2hhbnNlbkBjYW5vbmlj=
+YWwuY29tOWI3YjQ2NzZhNzliMDI0OTU4MThjYTg1YmEyMjIwYjY2N2QyMGZmMw&amp;ctz=3DAm=
+erica%2FLos_Angeles&amp;hl=3Den&amp;es=3D0" class=3D"grey-button-text" item=
+prop=3D"url" target=3D"_blank"><![endif]--><span class=3D"grey-button-text"=
+ style=3D"font-weight: 400;font-family: &#39;Google Sans&#39;, Roboto, sans=
+-serif;color: #5f6368; font-size: 14px; line-height: 120%; mso-line-height-=
+rule: exactly; margin: 0; text-decoration: none; text-transform: none;">May=
+be</span><!--[if mso]></a><![endif]--></td></tr></table></a></span></span><=
+/span></td></tr></table><!-- More options --><a href=3D"https://calendar.go=
+ogle.com/calendar/event?action=3DVIEW&amp;eid=3DYzlxNWkwbTdnNTkwbjQ3YjgydDh=
+qamg4MmRfMjAyNTAyMTFUMTgwMDAwWiBhcHBhcm1vckBsaXN0cy51YnVudHUuY29t&amp;tok=
+=3DMjcjam9obi5qb2hhbnNlbkBjYW5vbmljYWwuY29tOWI3YjQ2NzZhNzliMDI0OTU4MThjYTg1=
+YmEyMjIwYjY2N2QyMGZmMw&amp;ctz=3DAmerica%2FLos_Angeles&amp;hl=3Den&amp;es=
+=3D0" style=3D"display: inline-block;;font-weight: 400;font-family: &#39;Go=
+ogle Sans&#39;, Roboto, sans-serif;color: #5f6368; font-size: 14px; line-he=
+ight: 120%; mso-line-height-rule: exactly; margin: 0; text-decoration: none=
+; text-transform: none;" class=3D"grey-button-text" target=3D"_blank"><tabl=
+e border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" st=
+yle=3D"border: solid 1px #dadce0; border-radius: 16px; border-collapse: sep=
+arate;font-family: &#39;Google Sans&#39;, Roboto, sans-serif;"><tr><td alig=
+n=3D"center" vertical-align=3D"middle" role=3D"presentation" style=3D"paddi=
+ng: 6px 0; padding-left: 16px; padding-right: 12px; white-space: nowrap;;co=
+lor: #5f6367;"><!--[if mso]><a href=3D"https://calendar.google.com/calendar=
+/event?action=3DVIEW&amp;eid=3DYzlxNWkwbTdnNTkwbjQ3YjgydDhqamg4MmRfMjAyNTAy=
+MTFUMTgwMDAwWiBhcHBhcm1vckBsaXN0cy51YnVudHUuY29t&amp;tok=3DMjcjam9obi5qb2hh=
+bnNlbkBjYW5vbmljYWwuY29tOWI3YjQ2NzZhNzliMDI0OTU4MThjYTg1YmEyMjIwYjY2N2QyMGZ=
+mMw&amp;ctz=3DAmerica%2FLos_Angeles&amp;hl=3Den&amp;es=3D0" class=3D"grey-b=
+utton-text" target=3D"_blank"><![endif]--><span class=3D"grey-button-text" =
+style=3D"font-weight: 400;font-family: &#39;Google Sans&#39;, Roboto, sans-=
+serif;color: #5f6368; font-size: 14px; line-height: 120%; mso-line-height-r=
+ule: exactly; margin: 0; text-decoration: none; text-transform: none;">More=
+ options</span><!--[if mso]></a><![endif]--></td></tr></table></a></td></tr=
+></table></div></td></tr></table></td></tr></tbody></table></div><!--[if ms=
+o | IE]></tr></table><![endif]--></td></tr></tbody></table><table border=3D=
+"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" align=3D"cent=
+er" style=3D"width:100%;" class=3D""><tbody><tr><td style=3D"font-size: 0; =
+padding: 0; text-align: left; word-break: break-word;;padding:4px 12px;" cl=
+ass=3D"" align=3D"left"><div class=3D"secondary-text" style=3D"color: #7075=
+7a; text-decoration: none;font-family: Roboto, sans-serif;font-size: 12px; =
+line-height: 16px; mso-line-height-rule: exactly; text-align: left;"><p>Inv=
+itation from <a href=3D"https://calendar.google.com/calendar/" class=3D"acc=
+ent-text underline-on-hover" style=3D"font-family: Roboto, sans-serif;font-=
+size: 12px; line-height: 16px; mso-line-height-rule: exactly;;color: #1a73e=
+8; text-decoration: none;" target=3D"_blank">Google Calendar</a></p><p>You =
+are receiving this email because you are an attendee on the event.</p><p>Fo=
+rwarding this invitation could allow any recipient to send a response to th=
+e organizer, be added to the guest list, invite others regardless of their =
+own invitation status, or modify your RSVP. <a class=3D"accent-text underli=
+ne-on-hover" style=3D"font-family: Roboto, sans-serif;font-size: 12px; line=
+-height: 16px; mso-line-height-rule: exactly;;color: #1a73e8; text-decorati=
+on: none;" href=3D"https://support.google.com/calendar/answer/37135#forward=
+ing">Learn more</a></p></div></td></tr></tbody></table></td></tr></tbody></=
+table></span></span></body></html>
+--000000000000418ed3062cf4a78d
 Content-Type: text/calendar; charset="UTF-8"; method=REQUEST
 Content-Transfer-Encoding: 7bit
 
@@ -822,29 +803,23 @@ VERSION:2.0
 CALSCALE:GREGORIAN
 METHOD:REQUEST
 BEGIN:VEVENT
-DTSTART:20250311T180000Z
-DTEND:20250311T190000Z
-RRULE:FREQ=MONTHLY;BYDAY=2TU
-DTSTAMP:20250130T214531Z
+DTSTART:20250218T181500Z
+DTEND:20250218T191500Z
+DTSTAMP:20250130T231909Z
 ORGANIZER;CN=John Johansen:mailto:john.johansen@canonical.com
-UID:p66999bqqvppu1rtd17fak3276@google.com
-ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=
- TRUE;CN=apparmor@lists.ubuntu.com;X-NUM-GUESTS=0:mailto:apparmor@lists.ubun
- tu.com
+UID:c9q5i0m7g590n47b82t8jjh82d@google.com
 ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=
  TRUE;CN=John Johansen;X-NUM-GUESTS=0:mailto:john.johansen@canonical.com
 ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=
  TRUE;CN=beattie@gmail.com;X-NUM-GUESTS=0:mailto:beattie@gmail.com
 ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=
- TRUE;CN=Georgia Garcia;X-NUM-GUESTS=0:mailto:georgia.garcia@canonical.com
-ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=
- TRUE;X-NUM-GUESTS=0:mailto:maxime.belair@canonical.com
-ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=
- TRUE;CN=Ryan Lee;X-NUM-GUESTS=0:mailto:ryan.lee@canonical.com
-X-MICROSOFT-CDO-OWNERAPPTID:-623894144
+ TRUE;CN=apparmor@lists.ubuntu.com;X-NUM-GUESTS=0:mailto:apparmor@lists.ubun
+ tu.com
+X-MICROSOFT-CDO-OWNERAPPTID:-717936913
+RECURRENCE-ID:20250211T180000Z
 CREATED:20121204T202819Z
 DESCRIPTION:AppArmor month IRC meeting
-LAST-MODIFIED:20250130T214530Z
+LAST-MODIFIED:20250130T231906Z
 LOCATION:#apparmor on oftc.net
 SEQUENCE:10
 STATUS:CONFIRMED
@@ -865,43 +840,36 @@ END:VALARM
 END:VEVENT
 END:VCALENDAR
 
---0000000000005d15c7062cf3587e--
+--000000000000418ed3062cf4a78d--
 
---0000000000005d15c8062cf35880
+--000000000000418ed3062cf4a78f
 Content-Type: application/ics; name="invite.ics"
 Content-Disposition: attachment; filename="invite.ics"
 Content-Transfer-Encoding: base64
 
 QkVHSU46VkNBTEVOREFSDQpQUk9ESUQ6LS8vR29vZ2xlIEluYy8vR29vZ2xlIENhbGVuZGFyIDcw
 LjkwNTQvL0VODQpWRVJTSU9OOjIuMA0KQ0FMU0NBTEU6R1JFR09SSUFODQpNRVRIT0Q6UkVRVUVT
-VA0KQkVHSU46VkVWRU5UDQpEVFNUQVJUOjIwMjUwMzExVDE4MDAwMFoNCkRURU5EOjIwMjUwMzEx
-VDE5MDAwMFoNClJSVUxFOkZSRVE9TU9OVEhMWTtCWURBWT0yVFUNCkRUU1RBTVA6MjAyNTAxMzBU
-MjE0NTMxWg0KT1JHQU5JWkVSO0NOPUpvaG4gSm9oYW5zZW46bWFpbHRvOmpvaG4uam9oYW5zZW5A
-Y2Fub25pY2FsLmNvbQ0KVUlEOnA2Njk5OWJxcXZwcHUxcnRkMTdmYWszMjc2QGdvb2dsZS5jb20N
-CkFUVEVOREVFO0NVVFlQRT1JTkRJVklEVUFMO1JPTEU9UkVRLVBBUlRJQ0lQQU5UO1BBUlRTVEFU
-PU5FRURTLUFDVElPTjtSU1ZQPQ0KIFRSVUU7Q049YXBwYXJtb3JAbGlzdHMudWJ1bnR1LmNvbTtY
-LU5VTS1HVUVTVFM9MDptYWlsdG86YXBwYXJtb3JAbGlzdHMudWJ1bg0KIHR1LmNvbQ0KQVRURU5E
-RUU7Q1VUWVBFPUlORElWSURVQUw7Uk9MRT1SRVEtUEFSVElDSVBBTlQ7UEFSVFNUQVQ9TkVFRFMt
-QUNUSU9OO1JTVlA9DQogVFJVRTtDTj1Kb2huIEpvaGFuc2VuO1gtTlVNLUdVRVNUUz0wOm1haWx0
-bzpqb2huLmpvaGFuc2VuQGNhbm9uaWNhbC5jb20NCkFUVEVOREVFO0NVVFlQRT1JTkRJVklEVUFM
-O1JPTEU9UkVRLVBBUlRJQ0lQQU5UO1BBUlRTVEFUPU5FRURTLUFDVElPTjtSU1ZQPQ0KIFRSVUU7
-Q049YmVhdHRpZUBnbWFpbC5jb207WC1OVU0tR1VFU1RTPTA6bWFpbHRvOmJlYXR0aWVAZ21haWwu
-Y29tDQpBVFRFTkRFRTtDVVRZUEU9SU5ESVZJRFVBTDtST0xFPVJFUS1QQVJUSUNJUEFOVDtQQVJU
-U1RBVD1ORUVEUy1BQ1RJT047UlNWUD0NCiBUUlVFO0NOPUdlb3JnaWEgR2FyY2lhO1gtTlVNLUdV
-RVNUUz0wOm1haWx0bzpnZW9yZ2lhLmdhcmNpYUBjYW5vbmljYWwuY29tDQpBVFRFTkRFRTtDVVRZ
-UEU9SU5ESVZJRFVBTDtST0xFPVJFUS1QQVJUSUNJUEFOVDtQQVJUU1RBVD1ORUVEUy1BQ1RJT047
-UlNWUD0NCiBUUlVFO1gtTlVNLUdVRVNUUz0wOm1haWx0bzptYXhpbWUuYmVsYWlyQGNhbm9uaWNh
-bC5jb20NCkFUVEVOREVFO0NVVFlQRT1JTkRJVklEVUFMO1JPTEU9UkVRLVBBUlRJQ0lQQU5UO1BB
-UlRTVEFUPU5FRURTLUFDVElPTjtSU1ZQPQ0KIFRSVUU7Q049UnlhbiBMZWU7WC1OVU0tR1VFU1RT
-PTA6bWFpbHRvOnJ5YW4ubGVlQGNhbm9uaWNhbC5jb20NClgtTUlDUk9TT0ZULUNETy1PV05FUkFQ
-UFRJRDotNjIzODk0MTQ0DQpDUkVBVEVEOjIwMTIxMjA0VDIwMjgxOVoNCkRFU0NSSVBUSU9OOkFw
-cEFybW9yIG1vbnRoIElSQyBtZWV0aW5nDQpMQVNULU1PRElGSUVEOjIwMjUwMTMwVDIxNDUzMFoN
-CkxPQ0FUSU9OOiNhcHBhcm1vciBvbiBvZnRjLm5ldA0KU0VRVUVOQ0U6MTANClNUQVRVUzpDT05G
-SVJNRUQNClNVTU1BUlk6QXBwQXJtb3IgTWVldGluZw0KVFJBTlNQOk9QQVFVRQ0KQkVHSU46VkFM
-QVJNDQpBQ1RJT046RElTUExBWQ0KREVTQ1JJUFRJT046VGhpcyBpcyBhbiBldmVudCByZW1pbmRl
-cg0KVFJJR0dFUjotUDBEVDBIMTBNMFMNCkVORDpWQUxBUk0NCkJFR0lOOlZBTEFSTQ0KQUNUSU9O
-OkVNQUlMDQpERVNDUklQVElPTjpUaGlzIGlzIGFuIGV2ZW50IHJlbWluZGVyDQpTVU1NQVJZOkFs
-YXJtIG5vdGlmaWNhdGlvbg0KQVRURU5ERUU6bWFpbHRvOmFwcGFybW9yQGxpc3RzLnVidW50dS5j
-b20NClRSSUdHRVI6LVAyRA0KRU5EOlZBTEFSTQ0KRU5EOlZFVkVOVA0KRU5EOlZDQUxFTkRBUg0K
---0000000000005d15c8062cf35880--
+VA0KQkVHSU46VkVWRU5UDQpEVFNUQVJUOjIwMjUwMjE4VDE4MTUwMFoNCkRURU5EOjIwMjUwMjE4
+VDE5MTUwMFoNCkRUU1RBTVA6MjAyNTAxMzBUMjMxOTA5Wg0KT1JHQU5JWkVSO0NOPUpvaG4gSm9o
+YW5zZW46bWFpbHRvOmpvaG4uam9oYW5zZW5AY2Fub25pY2FsLmNvbQ0KVUlEOmM5cTVpMG03ZzU5
+MG40N2I4MnQ4ampoODJkQGdvb2dsZS5jb20NCkFUVEVOREVFO0NVVFlQRT1JTkRJVklEVUFMO1JP
+TEU9UkVRLVBBUlRJQ0lQQU5UO1BBUlRTVEFUPU5FRURTLUFDVElPTjtSU1ZQPQ0KIFRSVUU7Q049
+Sm9obiBKb2hhbnNlbjtYLU5VTS1HVUVTVFM9MDptYWlsdG86am9obi5qb2hhbnNlbkBjYW5vbmlj
+YWwuY29tDQpBVFRFTkRFRTtDVVRZUEU9SU5ESVZJRFVBTDtST0xFPVJFUS1QQVJUSUNJUEFOVDtQ
+QVJUU1RBVD1ORUVEUy1BQ1RJT047UlNWUD0NCiBUUlVFO0NOPWJlYXR0aWVAZ21haWwuY29tO1gt
+TlVNLUdVRVNUUz0wOm1haWx0bzpiZWF0dGllQGdtYWlsLmNvbQ0KQVRURU5ERUU7Q1VUWVBFPUlO
+RElWSURVQUw7Uk9MRT1SRVEtUEFSVElDSVBBTlQ7UEFSVFNUQVQ9TkVFRFMtQUNUSU9OO1JTVlA9
+DQogVFJVRTtDTj1hcHBhcm1vckBsaXN0cy51YnVudHUuY29tO1gtTlVNLUdVRVNUUz0wOm1haWx0
+bzphcHBhcm1vckBsaXN0cy51YnVuDQogdHUuY29tDQpYLU1JQ1JPU09GVC1DRE8tT1dORVJBUFBU
+SUQ6LTcxNzkzNjkxMw0KUkVDVVJSRU5DRS1JRDoyMDI1MDIxMVQxODAwMDBaDQpDUkVBVEVEOjIw
+MTIxMjA0VDIwMjgxOVoNCkRFU0NSSVBUSU9OOkFwcEFybW9yIG1vbnRoIElSQyBtZWV0aW5nDQpM
+QVNULU1PRElGSUVEOjIwMjUwMTMwVDIzMTkwNloNCkxPQ0FUSU9OOiNhcHBhcm1vciBvbiBvZnRj
+Lm5ldA0KU0VRVUVOQ0U6MTANClNUQVRVUzpDT05GSVJNRUQNClNVTU1BUlk6QXBwQXJtb3IgTWVl
+dGluZw0KVFJBTlNQOk9QQVFVRQ0KQkVHSU46VkFMQVJNDQpBQ1RJT046RElTUExBWQ0KREVTQ1JJ
+UFRJT046VGhpcyBpcyBhbiBldmVudCByZW1pbmRlcg0KVFJJR0dFUjotUDBEVDBIMTBNMFMNCkVO
+RDpWQUxBUk0NCkJFR0lOOlZBTEFSTQ0KQUNUSU9OOkVNQUlMDQpERVNDUklQVElPTjpUaGlzIGlz
+IGFuIGV2ZW50IHJlbWluZGVyDQpTVU1NQVJZOkFsYXJtIG5vdGlmaWNhdGlvbg0KQVRURU5ERUU6
+bWFpbHRvOmFwcGFybW9yQGxpc3RzLnVidW50dS5jb20NClRSSUdHRVI6LVAyRA0KRU5EOlZBTEFS
+TQ0KRU5EOlZFVkVOVA0KRU5EOlZDQUxFTkRBUg0K
+--000000000000418ed3062cf4a78f--
 
