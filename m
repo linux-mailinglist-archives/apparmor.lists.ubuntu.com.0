@@ -2,30 +2,31 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 997F3A2AAC7
-	for <lists+apparmor@lfdr.de>; Thu,  6 Feb 2025 15:11:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 519DDA2AC5A
+	for <lists+apparmor@lfdr.de>; Thu,  6 Feb 2025 16:21:38 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tg2bH-0000FD-VF; Thu, 06 Feb 2025 14:11:27 +0000
+	id 1tg3gz-0000eg-KP; Thu, 06 Feb 2025 15:21:25 +0000
 Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
  helo=smtp-relay-canonical-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1tg2bF-0000F5-NE
- for apparmor@lists.ubuntu.com; Thu, 06 Feb 2025 14:11:25 +0000
+ id 1tg3gx-0000eG-BL
+ for apparmor@lists.ubuntu.com; Thu, 06 Feb 2025 15:21:23 +0000
 Received: from [192.168.192.85] (unknown [50.39.104.138])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 1A618408DC
- for <apparmor@lists.ubuntu.com>; Thu,  6 Feb 2025 14:11:24 +0000 (UTC)
-Message-ID: <77440d50-4b8d-4eff-9c7b-602a0b30c512@canonical.com>
-Date: Thu, 6 Feb 2025 06:11:22 -0800
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id A677F4029C
+ for <apparmor@lists.ubuntu.com>; Thu,  6 Feb 2025 15:21:22 +0000 (UTC)
+Message-ID: <a345857c-ebde-4e45-8ed4-539e1ae271ef@canonical.com>
+Date: Thu, 6 Feb 2025 07:21:14 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: apparmor@lists.ubuntu.com
 References: <cc1b71b7-6473-4c20-af59-ff1b6bf80bfd@arvin.dk>
+ <77440d50-4b8d-4eff-9c7b-602a0b30c512@canonical.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -71,9 +72,9 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <cc1b71b7-6473-4c20-af59-ff1b6bf80bfd@arvin.dk>
+In-Reply-To: <77440d50-4b8d-4eff-9c7b-602a0b30c512@canonical.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Subject: Re: [apparmor] Prevent log message about ALLOWED apparmor events?
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -89,24 +90,28 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 2/6/25 05:33, Troels Arvin wrote:
-> Hello,
+On 2/6/25 06:11, John Johansen wrote:
+> On 2/6/25 05:33, Troels Arvin wrote:
+>> Hello,
+>>
+>> On some Ubuntu 22 and 24 systems, syslog is being cluttered with messages like this which is completely uninteresting:
+>>
+>> Feb 05 16:17:01 myhost.example.com audit[353829]: AVC apparmor="ALLOWED" operation="open" profile="/usr/sbin/sssd" name="/proc/420747/cmdline" pid=353829 comm="sssd_nss" requested_mask="r" denied_mask="r" fsuid=0 ouid=0
+>>
+>> I would certainly like to know about DENIED events, but how can I have apparmor/audit stop logging about ALLOWED events?
+>>
 > 
-> On some Ubuntu 22 and 24 systems, syslog is being cluttered with messages like this which is completely uninteresting:
+> At the moment there is NOT a global auditing control, like "quiet_denied". The "quiet" control will do it, but also stop logging of DENIED.
 > 
-> Feb 05 16:17:01 myhost.example.com audit[353829]: AVC apparmor="ALLOWED" operation="open" profile="/usr/sbin/sssd" name="/proc/420747/cmdline" pid=353829 comm="sssd_nss" requested_mask="r" denied_mask="r" fsuid=0 ouid=0
+> So the only way to stop ALLOWED events is to stop generating them by either enforcing the profile
+>      aa-enforce ...
+>    or
+>      removing the complain flag and reloading the profile.
 > 
-> I would certainly like to know about DENIED events, but how can I have apparmor/audit stop logging about ALLOWED events?
+> or unloading the profile.
 > 
-
-At the moment there is NOT a global auditing control, like "quiet_denied". The "quiet" control will do it, but also stop logging of DENIED.
-
-So the only way to stop ALLOWED events is to stop generating them by either enforcing the profile
-     aa-enforce ...
-   or
-     removing the complain flag and reloading the profile.
-
-or unloading the profile.
-
-
+> 
+> 
+I can also add that there is a patch floating around to provide a "quiet_complain" control, along with the ability to control per profile, instead of just the global control but landing it just hasn't been a priority with all of the other stuff that needs to land.
+  
 
