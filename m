@@ -2,35 +2,44 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9F6BA24280
-	for <lists+apparmor@lfdr.de>; Fri, 31 Jan 2025 19:21:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13635A2AA1F
+	for <lists+apparmor@lfdr.de>; Thu,  6 Feb 2025 14:39:29 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tdvdt-0007ho-MS; Fri, 31 Jan 2025 18:21:25 +0000
-Received: from nyc.source.kernel.org ([147.75.193.91])
- by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <nathan@kernel.org>) id 1tdvdq-0007hW-VR
- for apparmor@lists.ubuntu.com; Fri, 31 Jan 2025 18:21:23 +0000
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 2F2A4A41FEE;
- Fri, 31 Jan 2025 18:19:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 108BAC4CED1;
- Fri, 31 Jan 2025 18:21:19 +0000 (UTC)
-Date: Fri, 31 Jan 2025 11:21:17 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: John Johansen <john.johansen@canonical.com>
-Message-ID: <20250131182117.GA2398605@ax162>
-References: <20250120-apparmor-pointer-bool-conversion-label-v1-1-5957d28ffde6@kernel.org>
- <15e13942-965b-49f9-bf69-36579237a4cb@canonical.com>
+	id 1tg269-0005CC-4y; Thu, 06 Feb 2025 13:39:17 +0000
+Received: from home.borberg.arvin.dk ([194.45.76.153])
+ by lists.ubuntu.com with esmtp (Exim 4.86_2)
+ (envelope-from <troels@arvin.dk>) id 1tg267-0005C4-JT
+ for apparmor@lists.ubuntu.com; Thu, 06 Feb 2025 13:39:15 +0000
+Received: from localhost (localhost [127.0.0.1])
+ by arvin.dk (Postfix) with ESMTP id B10392598C
+ for <apparmor@lists.ubuntu.com>; Thu,  6 Feb 2025 14:33:56 +0100 (CET)
+X-Virus-Scanned: amavis at arvin.dk
+Received: from arvin.dk ([127.0.0.1])
+ by localhost (arvinserver4.home.borberg.arvin.dk [127.0.0.1]) (amavis,
+ port 10024)
+ with LMTP id Nly64AmmlEXS for <apparmor@lists.ubuntu.com>;
+ Thu,  6 Feb 2025 14:33:55 +0100 (CET)
+Received: from [192.168.1.8] (unknown [192.168.1.1])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+ (No client certificate requested)
+ by arvin.dk (Postfix) with ESMTPSA id 03CE11C1C9
+ for <apparmor@lists.ubuntu.com>; Thu,  6 Feb 2025 14:33:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 arvin.dk 03CE11C1C9
+Content-Type: multipart/alternative;
+ boundary="------------0yla49lV9rs53ijZi2Hy9m08"
+Message-ID: <cc1b71b7-6473-4c20-af59-ff1b6bf80bfd@arvin.dk>
+Date: Thu, 6 Feb 2025 14:33:54 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <15e13942-965b-49f9-bf69-36579237a4cb@canonical.com>
-Received-SPF: pass client-ip=147.75.193.91; envelope-from=nathan@kernel.org;
- helo=nyc.source.kernel.org
-Subject: Re: [apparmor] [PATCH] apparmor: Fix checking address of an array
- in accum_label_info()
+User-Agent: Mozilla Thunderbird
+To: apparmor@lists.ubuntu.com
+Content-Language: en-US
+From: Troels Arvin <troels@arvin.dk>
+Received-SPF: pass client-ip=194.45.76.153; envelope-from=troels@arvin.dk;
+ helo=home.borberg.arvin.dk
+Subject: [apparmor] Prevent log message about ALLOWED apparmor events?
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -42,57 +51,60 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: linux-security-module@vger.kernel.org, llvm@lists.linux.dev,
- apparmor@lists.ubuntu.com, patches@lists.linux.dev,
- kernel test robot <lkp@intel.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Fri, Jan 24, 2025 at 01:59:36PM -0800, John Johansen wrote:
-> On 1/20/25 05:12, Nathan Chancellor wrote:
-> > clang warns:
-> > 
-> >    security/apparmor/label.c:206:15: error: address of array 'new->vec' will always evaluate to 'true' [-Werror,-Wpointer-bool-conversion]
-> >      206 |         AA_BUG(!new->vec);
-> >          |                ~~~~~~^~~
-> > 
-> > The address of this array can never be NULL because it is not at the
-> > beginning of a structure. Convert the assertion to check that the new
-> > pointer is not NULL.
-> > 
-> > Fixes: de4754c801f4 ("apparmor: carry mediation check on label")
-> > Reported-by: kernel test robot <lkp@intel.com>
-> > Closes: https://lore.kernel.org/oe-kbuild-all/202501191802.bDp2voTJ-lkp@intel.com/
-> > Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-> 
-> Acked-by: John Johansen <john.johansen@canonical.com>
-> 
-> I have pulled this into my tree
+This is a multi-part message in MIME format.
+--------------0yla49lV9rs53ijZi2Hy9m08
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thanks! Is this going to be pushed to -next soon? I am still seeing this
-on next-20240131.
+Hello,
 
-> > ---
-> >   security/apparmor/label.c | 2 +-
-> >   1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> > diff --git a/security/apparmor/label.c b/security/apparmor/label.c
-> > index afded9996f61..79be2d3d604b 100644
-> > --- a/security/apparmor/label.c
-> > +++ b/security/apparmor/label.c
-> > @@ -203,7 +203,7 @@ static void accum_label_info(struct aa_label *new)
-> >   	long u = FLAG_UNCONFINED;
-> >   	int i;
-> > -	AA_BUG(!new->vec);
-> > +	AA_BUG(!new);
-> >   	/* size == 1 is a profile and flags must be set as part of creation */
-> >   	if (new->size == 1)
-> > 
-> > ---
-> > base-commit: e6b087676954e36a7b1ed51249362bb499f8c1c2
-> > change-id: 20250120-apparmor-pointer-bool-conversion-label-7c1027964c7f
-> > 
-> > Best regards,
-> 
-> 
+On some Ubuntu 22 and 24 systems, syslog is being cluttered with 
+messages like this which is completely uninteresting:
+
+Feb 05 16:17:01 myhost.example.com audit[353829]: AVC apparmor="ALLOWED" 
+operation="open" profile="/usr/sbin/sssd" name="/proc/420747/cmdline" 
+pid=353829 comm="sssd_nss" requested_mask="r" denied_mask="r" fsuid=0 ouid=0
+
+I would certainly like to know about DENIED events, but how can I have 
+apparmor/audit stop logging about ALLOWED events?
+
+-- 
+Regards,
+Troels Arvin
+
+--------------0yla49lV9rs53ijZi2Hy9m08
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p>Hello,<br>
+      <br>
+      On some Ubuntu 22 and 24 systems, syslog is being cluttered with
+      messages like this which is completely uninteresting:<br>
+      <br>
+      Feb 05 16:17:01 myhost.example.com audit[353829]: AVC
+      apparmor="ALLOWED" operation="open" profile="/usr/sbin/sssd"
+      name="/proc/420747/cmdline" pid=353829 comm="sssd_nss"
+      requested_mask="r" denied_mask="r" fsuid=0 ouid=0<br>
+      <br>
+      I would certainly like to know about DENIED events, but how can I
+      have apparmor/audit stop logging about ALLOWED events?<br>
+    </p>
+    <p>-- <br>
+      Regards,<br>
+      Troels Arvin<br>
+    </p>
+  </body>
+</html>
+
+--------------0yla49lV9rs53ijZi2Hy9m08--
 
