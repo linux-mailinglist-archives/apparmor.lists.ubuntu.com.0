@@ -2,32 +2,32 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5FBFA345DD
-	for <lists+apparmor@lfdr.de>; Thu, 13 Feb 2025 16:20:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46AA1A348AB
+	for <lists+apparmor@lfdr.de>; Thu, 13 Feb 2025 16:57:57 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tib0K-0007oq-Ea; Thu, 13 Feb 2025 15:19:52 +0000
-Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
- helo=smtp-relay-canonical-1.canonical.com)
+	id 1tibb3-0003Uv-5s; Thu, 13 Feb 2025 15:57:49 +0000
+Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
+ helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <hector.cao@canonical.com>)
- id 1tib0J-0007o8-9S
- for apparmor@lists.ubuntu.com; Thu, 13 Feb 2025 15:19:51 +0000
+ id 1tibb1-0003Uo-KZ
+ for apparmor@lists.ubuntu.com; Thu, 13 Feb 2025 15:57:47 +0000
 Received: from localhost.localdomain (1.general.hector.uk.vpn [10.172.192.134])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 7B8D23FF42; 
- Thu, 13 Feb 2025 15:19:50 +0000 (UTC)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 135573F18A; 
+ Thu, 13 Feb 2025 15:57:47 +0000 (UTC)
 From: Hector Cao <hector.cao@canonical.com>
 To: apparmor@lists.ubuntu.com
-Date: Thu, 13 Feb 2025 16:19:45 +0100
-Message-ID: <20250213151945.1488481-1-hector.cao@canonical.com>
+Date: Thu, 13 Feb 2025 16:57:12 +0100
+Message-ID: <20250213155741.1619500-1-hector.cao@canonical.com>
 X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [apparmor] [PATCH] Allow access to sys devices nodes for libnuma
+Subject: [apparmor] [PATCH v2] Allow access to sys devices nodes for libnuma
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -63,13 +63,16 @@ Here is the simplified call trace:
 Allow access to this sysfs folder so that we do not have to
 specify this permission for every executable linked to libnuma
 
+Changes in v2:
+  - Fix typo: add missing ending '/' character to the path
+
 Signed-off-by: Hector Cao <hector.cao@canonical.com>
 ---
  profiles/apparmor.d/abstractions/base | 2 ++
  1 file changed, 2 insertions(+)
 
 diff --git a/profiles/apparmor.d/abstractions/base b/profiles/apparmor.d/abstractions/base
-index bf3f3184e..272159431 100644
+index bf3f3184e..52cbab920 100644
 --- a/profiles/apparmor.d/abstractions/base
 +++ b/profiles/apparmor.d/abstractions/base
 @@ -108,6 +108,8 @@
@@ -77,7 +80,7 @@ index bf3f3184e..272159431 100644
    @{sys}/devices/system/cpu/online r,
    @{sys}/devices/system/cpu/possible r,
 +  # runtime initialization for binaries linked to libnuma
-+  @{sys}/devices/system/node     r,
++  @{sys}/devices/system/node/     r,
  
    # transparent hugepage support
    @{sys}/kernel/mm/transparent_hugepage/hpage_pmd_size r,
