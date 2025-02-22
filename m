@@ -2,101 +2,80 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55CCAA402A6
-	for <lists+apparmor@lfdr.de>; Fri, 21 Feb 2025 23:29:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEFF6A40453
+	for <lists+apparmor@lfdr.de>; Sat, 22 Feb 2025 01:43:03 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tlbWJ-00032S-GB; Fri, 21 Feb 2025 22:29:19 +0000
-Received: from mr85p00im-zteg06022001.me.com ([17.58.23.193])
+	id 1tldbZ-0003F8-VO; Sat, 22 Feb 2025 00:42:54 +0000
+Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
+ helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <verblasst8knicks@icloud.com>)
- id 1tlVug-0002q5-49
- for apparmor@lists.ubuntu.com; Fri, 21 Feb 2025 16:30:06 +0000
-Received: from mr85p00im-zteg06022001.me.com (mr85p00im-zteg06022001.me.com
- [17.58.23.193])
- by mr85p00im-zteg06022001.me.com (Postfix) with ESMTPS id 4102B80037A
- for <apparmor@lists.ubuntu.com>; Fri, 21 Feb 2025 16:30:04 +0000 (UTC)
-Received: from
- p00-icloudmta-smtpin-us-west-2a-100-percent-35.p00-icloudmta-smtpin-vip.icloud-mail-production.svc.kube.us-west-2a.k8s.cloud.apple.com
- (mr38p00im.dlb-asmtpoutvip.me.com [10.112.84.233])
- by mr85p00im-zteg06022001.me.com (Postfix) with ESMTP id C021F80010E
- for <apparmor@lists.ubuntu.com>; Fri, 21 Feb 2025 16:30:03 +0000 (UTC)
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49]) by
- p00-icloudmta-smtpin-us-west-2a-100-percent-35.p00-icloudmta-smtpin-vip.icloud-mail-production.svc.kube.us-west-2a.k8s.cloud.apple.com
- (Postfix) with ESMTPS id 56DF7C0009F
- for <apparmor_at_lists_ubuntu_com_4hzfhbj7874440_b4b9742c@icloud.com>;
- Fri, 21 Feb 2025 16:30:02 +0000 (UTC)
-X-ICL-Info: GAtbRFYABlFFSlVHSwQEUlUKE0oWX1gHVQoPB0UCBltbQVNZSQIOTEFARhIcDVAOGgsPFhYeWAcPEBQeQQV2BRgYDxtWU1kPVR8CShFTWg0AHUgUF10WEBZEBwcIUUQPGgs5FgxvWgsGDRUoDVJDDAEMORQXXWlWHQMAHxpaAVpCTVJDSG9UVhdAUUNKU3YLFhUJAhweVQ0YWQ4SFF8LDxQQCloPXQdPE01fWR9fWQUZHEgUF10WEgELWxoZWVpPAhRXWh4ED0wSFgkQFFUYARoURhMcDUMMHhcJABYQWwsRRFpAPXYBJkdLU1pACAAgWE1RMzkdd1tDSEtHS3YGIDZMV0BJAQEiHBoKGA1UGAEaFFg=
-X-ICL-Score: 3.00303303420
-X-ARC-Info: policy=fail; arc=none
-X-DMARC-Policy: v=DMARC1; p=none; sp=quarantine;
- rua=mailto:mailauth-reports@google.com
-X-DMARC-Info: pass=pass; dmarc-policy=none; s=r1; d=r1; pdomain=gmail.com
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-439a4fc2d65so21257135e9.3
- for <apparmor_at_lists_ubuntu_com_4hzfhbj7874440_b4b9742c@icloud.com>;
- Fri, 21 Feb 2025 08:29:59 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740155398; x=1740760198;
- h=to:date:message-id:subject:mime-version:content-transfer-encoding
- :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=iBigMm5H1famva2txuqHqAIrBTPRVGvRMJT45gvAhvo=;
- b=BvQNLxyI9L5OMtnpgBwYAQthYGQaGc/mUmP4J3Fu0JiMRNWX/eGSUNzmHjhybDrnoX
- a4oeOJ4J/13Y0YXh+dvEDVzLZHhyOisxk3ofUTcUzeC/RJMWloIHjOZrI1PkrUZkGteC
- B7y5smBKnh5YMPZm8wJEQwgaR7tRsqbCRPucR8xhGqbiHbTd6fiIQA5KuHKVoUE6cZkC
- np48Me9rubnO++TjaWQf1nfnmhFHX+2HleiagarTRl5NM832bt5Qf4cByXL1KuC0buxB
- C4bCQ/MB42sV/LnMsjzZqP6Q6aEeOQLTp3jkarHcPP7DhB3mbGtUk+Gmdy6wUD+8pSiY
- 8Vlg==
-X-Gm-Message-State: AOJu0YwfkzyExWSLt3jvhMxZBzPHKpnxjbAxy+r8a90QoOhq9RcSG5o+
- +VtTgwxOgiehEx9kNpuGwuaHVSstcn2sGsuPCzHJqYO17gSE0qbd6jJknw==
-X-Gm-Gg: ASbGncvQ5qW4KG66hnV6R4y8of47DtwWq3wh0SBUrTyyf/3OuH9kglQBY05KWUOKbnJ
- 8mB7VVnX78tWUOMjJVqhz/5vPYGrLi5PCy8Gvbe1hUi5kInIJukHf9GJl8D1vOCeswXoDmMSSVD
- eio+Jk40bF72nh1iwGHm2CY0Qq5AhqBIZwHXDnZ5Q9W9MgquE6+srGmlxmEiDm0badppg8VD/v9
- /qXxtEmbbYg22QXVM1OhFqKRRJZqA5Eyoc9kshIO4DmC/XbW5kH9to2U3suCrkv4r41BLaUBGCt
- VxwVpVSp7To+5c3qbzrKUOZ5HKZMjVaUifvKIoyHgxx3VZ2bQQSximPSqvsYEd7Bf1Jbu4Otxgt
- 7jsL3xGHAAeljB2lLwl9rY/6Pz6HaapBG9TiQS5fxXZK547E=
-X-Google-Smtp-Source: AGHT+IHoE4q/2ujNsGFmQ5GHQdvu2C5pjSsG1VBSR90mCx/JZZnnXltQ3miDyoJD1OXEVP61vJ6qwg==
-X-Received: by 2002:a05:600c:5487:b0:439:9d75:9e92 with SMTP id
- 5b1f17b1804b1-439ae21e3cbmr37889465e9.28.1740155398142; 
- Fri, 21 Feb 2025 08:29:58 -0800 (PST)
-Received: from smtpclient.apple
- (p200300d3b741bd0018199d3c2cb701c6.dip0.t-ipconnect.de.
- [2003:d3:b741:bd00:1819:9d3c:2cb7:1c6])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-439b02d60cbsm21820995e9.14.2025.02.21.08.29.57
- for <apparmor_at_lists_ubuntu_com_4hzfhbj7874440_b4b9742c@icloud.com>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 21 Feb 2025 08:29:57 -0800 (PST)
-From: verblasst8knicks@icloud.com
-Content-Type: text/plain;
-	charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.400.131.1.6\))
-Message-Id: <7EF7D225-886B-47DA-A961-03F0BC517117@icloud.com>
-Date: Fri, 21 Feb 2025 17:29:47 +0100
+ (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
+ id 1tldbX-0003Ec-DP
+ for apparmor@lists.ubuntu.com; Sat, 22 Feb 2025 00:42:51 +0000
+Received: from [192.168.192.85] (unknown [50.39.104.138])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id D04823FF5A
+ for <apparmor@lists.ubuntu.com>; Sat, 22 Feb 2025 00:42:50 +0000 (UTC)
+Message-ID: <0994d202-6b89-4738-9f3d-9257ab4096ec@canonical.com>
+Date: Fri, 21 Feb 2025 16:42:45 -0800
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
 To: apparmor@lists.ubuntu.com
-X-Mailer: Apple Mail (2.3826.400.131.1.6)
-X-Authority-Info: v=2.4 cv=ZZfnNtVA c=1 sm=1 tr=0 ts=67b8aa0a cx=c_apl:c_pps
- a=NNVv7jChr1Ep0eD30FeLsQ==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=T2h4t0Lz3GQA:10 a=x7bEGLp0ZPQA:10 a=biC9RGN3vzUA:10 a=95EFz5htlIgA:10
- a=FgmJvb79Q65Z5toGpQEA:9 a=CjuIK1q_8ugA:10 a=ZXulRonScM0A:10
- a=Uz9EnhuHEG25YKoRyM-d:22
-X-Proofpoint-ORIG-GUID: B3ADMHF4qZrghcb2hY2AgIBoJFqbq_k7
-X-Proofpoint-GUID: B3ADMHF4qZrghcb2hY2AgIBoJFqbq_k7
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-02-21_05,2025-02-20_02,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
- mlxlogscore=999
- suspectscore=0 phishscore=0 clxscore=1011 malwarescore=0 bulkscore=0
- adultscore=0 spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2308100000 definitions=main-2502210117
-Received-SPF: pass client-ip=17.58.23.193;
- envelope-from=verblasst8knicks@icloud.com; helo=mr85p00im-zteg06022001.me.com
-X-Mailman-Approved-At: Fri, 21 Feb 2025 22:29:17 +0000
-Subject: [apparmor] Support for port and IP restrictions with AppArmor 4.0.1
+References: <7EF7D225-886B-47DA-A961-03F0BC517117@icloud.com>
+Content-Language: en-US
+From: John Johansen <john.johansen@canonical.com>
+Autocrypt: addr=john.johansen@canonical.com; keydata=
+ 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 lT9Q
+Organization: Canonical
+In-Reply-To: <7EF7D225-886B-47DA-A961-03F0BC517117@icloud.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [apparmor] Support for port and IP restrictions with AppArmor
+ 4.0.1
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -111,24 +90,55 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Hello everyone,
+On 2/21/25 08:29, verblasst8knicks@icloud.com wrote:
+> Hello everyone,
+> 
+> I am currently trying to restrict specific ports and IP addresses with AppArmor 4.0.1 under Ubuntu 24.04 LTS (64 bit). Unfortunately, I keep getting syntax errors when I try to create profiles and am stuck.
 
-I am currently trying to restrict specific ports and IP addresses with =
-AppArmor 4.0.1 under Ubuntu 24.04 LTS (64 bit). Unfortunately, I keep =
-getting syntax errors when I try to create profiles and am stuck.
+I assume by this you mean you are using genprof/logprof to create a profile?
 
-I have already seen profiles in some forums where this seems to work - =
-individual IPs and ports were successfully restricted there. I'm =
-wondering if this is generally possible in my environment or if I'm =
-missing something.
+Unfortunately genprof/logporf in apparmor-4.0 do not support for fine grained network mediation
+you can manually build policy from the logs, or install a new version of the apparmor userspace.
 
-System environment:
-	- Ubuntu 24.04 LTS 64 bit
-	- AppArmor 4.0.1
-	- VirtualBox (Ryzen 5 5500, 3070ti, 16gb ram)
+The easiest way to that on Ubuntu is install from the apparmor-backports ppa
+https://launchpad.net/~apparmor-dev/+archive/ubuntu/apparmor-backports
 
-I would really appreciate any help or examples.
+you might also want to install apparmor-notify, it will give you notifications
+and a simple gui to add the occassional new rule. You will however need to
+change the default configuration (which is tuned to only notify on unprivileged
+user namespace denials).
 
-Best regards
+to modify the config copy /etc/apparmor/notify.conf to $HOME/.config/apparmor/notify.conf
+and edit the file
+
+You can just comment out
+  filter.operation="userns"
+
+by adding a #.
+
+
+You will then need to kill and restart the notifier
+
+$ killall aa-notify
+$ aa-notify -p -w 2
+
+if you find notifications annoying, you can always edit the filters or uninstall
+
+
+> 
+> I have already seen profiles in some forums where this seems to work - individual IPs and ports were successfully restricted there. I'm wondering if this is generally possible in my environment or if I'm missing something.
+> 
+It should be possible, with the caveat that the tooling doesn't support it.
+
+> System environment:
+> 	- Ubuntu 24.04 LTS 64 bit
+> 	- AppArmor 4.0.1
+> 	- VirtualBox (Ryzen 5 5500, 3070ti, 16gb ram)
+> 
+> I would really appreciate any help or examples.
+> 
+> Best regards
+> 
+> 
 
 
