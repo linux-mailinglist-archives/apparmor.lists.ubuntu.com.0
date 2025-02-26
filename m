@@ -2,70 +2,64 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id D45D4A45109
-	for <lists+apparmor@lfdr.de>; Wed, 26 Feb 2025 00:51:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70AF9A46CD8
+	for <lists+apparmor@lfdr.de>; Wed, 26 Feb 2025 22:00:47 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tn4hi-0001Ur-CK; Tue, 25 Feb 2025 23:51:10 +0000
-Received: from smtp-relay-internal-0.internal ([10.131.114.225]
- helo=smtp-relay-internal-0.canonical.com)
+	id 1tnOWB-0000V6-Ly; Wed, 26 Feb 2025 21:00:35 +0000
+Received: from smtp-relay-internal-1.internal ([10.131.114.114]
+ helo=smtp-relay-internal-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <ryan.lee@canonical.com>)
- id 1tn4hg-0001Ui-Qk
- for apparmor@lists.ubuntu.com; Tue, 25 Feb 2025 23:51:08 +0000
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
- [209.85.216.70])
+ id 1tnOW9-0000Ux-8q
+ for apparmor@lists.ubuntu.com; Wed, 26 Feb 2025 21:00:33 +0000
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
+ [209.85.218.72])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 62E3350316
- for <apparmor@lists.ubuntu.com>; Tue, 25 Feb 2025 23:51:08 +0000 (UTC)
-Received: by mail-pj1-f70.google.com with SMTP id
- 98e67ed59e1d1-2fc0bc05c00so20178064a91.2
- for <apparmor@lists.ubuntu.com>; Tue, 25 Feb 2025 15:51:08 -0800 (PST)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id BC7373F299
+ for <apparmor@lists.ubuntu.com>; Wed, 26 Feb 2025 21:00:32 +0000 (UTC)
+Received: by mail-ej1-f72.google.com with SMTP id
+ a640c23a62f3a-ab397fff5a3so31399466b.1
+ for <apparmor@lists.ubuntu.com>; Wed, 26 Feb 2025 13:00:32 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740527467; x=1741132267;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=GOmtCwwGMXn34aFuUF5ZiYKFHK80o30STiBUQlN0+7w=;
- b=dYLdi+C0QEZfTJfYJAQO+8uuEMWYHPzJcozKFM6kZP1lmEPUScmHNsXigeK079DSJB
- LNXxcx5a9zZGytpntzABpr4IyDNZnikUw0bIiMyPLztDXRwO9U+U90OMtc1ubwwCe3+1
- iyJ/ReiMHKur7GsQnDNxB9tF/iDcAlscErpw1VFV3FUlEVfokVWGZ7zYfuIPIndgopMO
- o92NgYapk+1FgbAypAl8KNEiFcs3VkLanijKIu7ky2tHBbbK0GL+8aXznU3XvFopQ1DG
- UZ21vikPtw34qVoyE8qw/F002bOSTair5e+QjVSHFXJg6yz6FUuSWYoU9M18fbxxknzp
- Enmg==
-X-Gm-Message-State: AOJu0YyRHAt0VRoY1F6EGZVM1DSyeuNy24h3cuBEHavODXvmLV/VPSDa
- 1uS+7cD/0A4vbUMOvCb+y+xNHprwOTThcz392Rgj4oxyQmxtsMHxxso9ZTLnCoT9mYv31FtCrR6
- rblicug7rHGfd93vmBd+do5kmCg/y9Xbw3rvKoTYNaBueSq3X9hImATpfurRSXqjqpTYy5VbPEU
- 5t+trxBw==
-X-Gm-Gg: ASbGncsJKxzHOKJGI3uLF2/zGLZRiL+UxkRkCbFEz0MVHfYGwjV2w1OI+97n3F+W/eu
- KVlAW52wFltA4Rhu5MEy+1p6FzLfrJNh3R+GdzGYksmkfNjbP7tBIlLazPdHs3XKiWo9WBLyZQg
- TqchO+L3VzYR/1R+2y15+nZUZPkpi3MBqvUPJol0JQCpYAi9wIgqhxCL0/K6T3qBmk6jWqaZ7ty
- adclt4zH7OQLyk2X152acZumZAknjX/tJpIMg7Z2HjcagBA7LnzBdUXdIWFfhDBWcF+019n+Ciz
- pFe9w2+3xfqaVxwbqpJtM+uFFMH5QxqHsrc6K6mZ1gFokxsy5uzF+oHKP0MRzwHbi1KDoUQ=
-X-Received: by 2002:a17:90b:2e08:b0:2f5:88bb:12f with SMTP id
- 98e67ed59e1d1-2fe68ae74ebmr7285769a91.21.1740527467027; 
- Tue, 25 Feb 2025 15:51:07 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFZQEGRuE9Rz6RLWl86tVQ2WcGekha+/VC4P5OftSLgBOJPtFmxi4Y52y29ud7TzA95U7BN8A==
-X-Received: by 2002:a17:90b:2e08:b0:2f5:88bb:12f with SMTP id
- 98e67ed59e1d1-2fe68ae74ebmr7285743a91.21.1740527466659; 
- Tue, 25 Feb 2025 15:51:06 -0800 (PST)
-Received: from ryan-lee-laptop-13-amd.. (c-76-103-38-92.hsd1.ca.comcast.net.
- [76.103.38.92]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2fe8284f076sm147823a91.42.2025.02.25.15.51.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 25 Feb 2025 15:51:06 -0800 (PST)
-From: Ryan Lee <ryan.lee@canonical.com>
-To: apparmor@lists.ubuntu.com
-Date: Tue, 25 Feb 2025 15:50:51 -0800
-Message-ID: <20250225235054.530607-1-ryan.lee@canonical.com>
-X-Mailer: git-send-email 2.43.0
+ d=1e100.net; s=20230601; t=1740603632; x=1741208432;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=P6QALNDPCtlffOHZspUQT1gLu++3wBekVJ/Z3Vv0TmQ=;
+ b=iK12Cnkq+SZzR632T7/vWVlKVu1hGIDzxlPkhdJRhKEHB13WVj2aBlvWli/acqKYiv
+ EroPc3AQeUPtGs8VYswFBFZuAqVnJPORP2uKs/lr+QqkvmpDaaPPRW15JQlR107Wv3++
+ VZEa5gGja15J7D7SgdrmP1GiQZNt1VUtL8GmIiy3aj/k2RPaJ5J+IqFu238EA/3mUVtM
+ pN4mlemxuEZLEyBNRpeG+9+62sDdEh9xtAS5TLz+O94ImZ8NgGBoqo9jiWgIHywlGoNG
+ 14iHhp9A8ZTho1x7xs7KEoPpJ+rOu/WXwE/jK5plZhUYD7EtDs3GI50Zu+fOupwaNZR/
+ wJ1g==
+X-Gm-Message-State: AOJu0YwlgVfPnqJ3pHEc244Y0S0GFWkoUEUnXmbu1DyU9KT3doA8dAZv
+ DNfYcdxCXj5KpAulFtYO7Apl4dQM60pvf9VAzEj6K52wBgtg+if4CRR+AXnf2SECbGdKMe+QNny
+ CgzfIgJawuRHO3MK44hL49/63SfvUKmtTBVLzX0QEyIqobrLS+PlXDU2j5nPrPu13TQX6pF2d9a
+ xE6/dfSMm7/jdABD8gDv7W1O+H0ZiO9IPQbKjJd9xlSI1/MA5f
+X-Gm-Gg: ASbGncsXk6ElOOAidOX305T3CUPi8hTUhUQYl7pwNmsqQvZE7uHXJUhoWvf81E0uIgo
+ JST+a9YMlo5D1wWWhhf2FuyMIMscwgiJ3VzNABqGANIZyzPimYMsZZU3SMdqj4HPhUQMNJrQ=
+X-Received: by 2002:a17:907:6c0f:b0:abb:e6dc:f615 with SMTP id
+ a640c23a62f3a-abf062db242mr145746266b.23.1740603631897; 
+ Wed, 26 Feb 2025 13:00:31 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGnf2b6kHndbWyPDyOBffVP6EuVil44gGa037tLYvaWq2Fqi276U/QpwW/7pmONWRPYJVbgaqdXJMQVpkd4Ylo=
+X-Received: by 2002:a17:907:6c0f:b0:abb:e6dc:f615 with SMTP id
+ a640c23a62f3a-abf062db242mr145739666b.23.1740603631494; Wed, 26 Feb 2025
+ 13:00:31 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [apparmor] [PATCH] apparmor: use GFP_ATOMIC for aa_dup_audit_data
-	in check_user
+References: <20250225232034.40309-1-hector.cao@canonical.com>
+In-Reply-To: <20250225232034.40309-1-hector.cao@canonical.com>
+From: Ryan Lee <ryan.lee@canonical.com>
+Date: Wed, 26 Feb 2025 13:00:20 -0800
+X-Gm-Features: AQ5f1Jp_HmVrZ0d6BmhJPU1ftueS35j7NowQoru9wXEyjUAYHzs_jkLK1NbeRQg
+Message-ID: <CAKCV-6sxVJ5GZoBM60iWMpdu48skf1H3N469OhR3_GDGFzwawg@mail.gmail.com>
+To: Hector Cao <hector.cao@canonical.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [apparmor] [PATCH v2] Add abstract profile for libnuma
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -77,53 +71,72 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: apparmor@lists.ubuntu.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-aa_dup_audit_data is called in check_user (file.c) with GFP_KERNEL, which
-is in turn called by aa_audit_file through path_name. GFP_KERNEL allocs
-may sleep, but the file permission hook that invokes aa_file_perm is
-called in an atomic context that doesn't allow sleeping:
+On Tue, Feb 25, 2025 at 3:21=E2=80=AFPM Hector Cao <hector.cao@canonical.co=
+m> wrote:
+>
+> For executables dynamically linked to libnuma, the runtimer linker
+> invokes libnuma functions (num_init) that try to access
+> /sys/devices/system/node/ and if the application's apparmor
+> profile does not allow this access, this access will be denied
+> by apparmor with following error message:
+>
+>   apparmor=3D"DENIED" operation=3D"open" class=3D"file"
+>   name=3D"/sys/devices/system/node/" comm=3D"qemu-bridge-hel"
+>   requested_mask=3D"r" denied_mask=3D"r" fsuid=3D1000 ouid=3D0
+>
+> Here is the simplified call trace:
+>
+>   0 ... in ?? () from /lib/x86_64-linux-gnu/libnuma.so.1
+>   1 ... in call_init (...) at ./elf/dl-init.c:74
+>   2 ... in call_init (...) at ./elf/dl-init.c:120
+>   3 _dl_init (...) at ./elf/dl-init.c:121
+>   4 ... in _dl_start_user () from /lib64/ld-linux-x86-64.so.2
+>
+> This commit adds an abstract profile that applications that are
+> linked to libnuma can include in their apparmor profile.
+>
+> Signed-off-by: Hector Cao <hector.cao@canonical.com>
+> ---
+>  profiles/apparmor.d/abstractions/libnuma | 22 ++++++++++++++++++++++
+>  1 file changed, 22 insertions(+)
+>  create mode 100644 profiles/apparmor.d/abstractions/libnuma
+>
+> diff --git a/profiles/apparmor.d/abstractions/libnuma b/profiles/apparmor=
+.d/abstractions/libnuma
+> new file mode 100644
+> index 000000000..e06e03299
+> --- /dev/null
+> +++ b/profiles/apparmor.d/abstractions/libnuma
+> @@ -0,0 +1,22 @@
+> +# vim:syntax=3Dapparmor
+> +# ------------------------------------------------------------------
+> +#
+> +#    Copyright (C) 2025 Canonical Ltd.
+> +#
+> +#    This program is free software; you can redistribute it and/or
+> +#    modify it under the terms of version 2 of the GNU General Public
+> +#    License published by the Free Software Foundation.
+> +#
+> +# ------------------------------------------------------------------
+> +
+> +  abi <abi/4.0>,
+> +
+> +  # this abstract profile can be included by applications that are
+> +  # dynamically linked to libnuma
+> +  # libnuma defines the function num_init() as the .init function
+> +  # to be called by the runtime linker (ld) when libnuma is loaded
+> +
+> +  @{sys}/devices/system/cpu/node/ r,
+> +
+> +  # Include additions to the abstraction
+> +  include if exists <abstractions/libnuma.d>
+> --
+> 2.45.2
+>
 
-BUG: sleeping function called from invalid context at include/linux/sched/mm.h:337
-in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 1821, name: 5
-preempt_count: 1, expected: 0
-RCU nest depth: 0, expected: 0
-|3 locks held by 5/1821:
-|0: (&sig->cred_guard_mutex){....}-{3:3}, at: bprm_execve (fs/exec.c)
-|1: (&sig->exec_update_lock){....}-{3:3}, at: begin_new_exec (fs/exec.c)
-|2: (&newf->file_lock){....}-{2:2}, at: iterate_fd (fs/file.c)
-
-Call trace excerpt:
-
-aa_dup_audit_data (security/apparmor/audit.c)
-aa_audit_file (security/apparmor/file.c)
-? srso_alias_return_thunk (arch/x86/lib/retpoline.S)
-path_name (security/apparmor/file.c)
-profile_path_perm (security/apparmor/file.c)
-aa_file_perm (security/apparmor/file.c)
-
-Switch the allocation flag for that call to GFP_ATOMIC instead.
-
-Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
----
- security/apparmor/file.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/security/apparmor/file.c b/security/apparmor/file.c
-index 79e5307090e3..f7ccab51d416 100644
---- a/security/apparmor/file.c
-+++ b/security/apparmor/file.c
-@@ -142,7 +142,7 @@ static int check_user(struct aa_profile *profile,
- 	int err;
- 
- 	/* assume we are going to dispatch */
--	node = aa_dup_audit_data(ad, GFP_KERNEL);
-+	node = aa_dup_audit_data(ad, GFP_ATOMIC);
- 	if (!node) {
- 		AA_DEBUG(DEBUG_UPCALL,
- 			 "notifcation failed to duplicate with error -ENOMEM\n");
--- 
-2.43.0
-
+Reviewed-by: Ryan Lee <ryan.lee@canonical.com>
 
