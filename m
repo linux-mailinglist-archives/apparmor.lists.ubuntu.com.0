@@ -2,61 +2,80 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75C24A4AB1A
-	for <lists+apparmor@lfdr.de>; Sat,  1 Mar 2025 14:02:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8175AA4AE7B
+	for <lists+apparmor@lfdr.de>; Sun,  2 Mar 2025 00:48:40 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1toMU7-00049T-2d; Sat, 01 Mar 2025 13:02:27 +0000
-Received: from mail-lf1-f49.google.com ([209.85.167.49])
+	id 1toWZA-0003Js-Uc; Sat, 01 Mar 2025 23:48:20 +0000
+Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
+ helo=smtp-relay-canonical-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <vindrg@gmail.com>) id 1toMU5-00049J-6q
- for apparmor@lists.ubuntu.com; Sat, 01 Mar 2025 13:02:25 +0000
-Received: by mail-lf1-f49.google.com with SMTP id
- 2adb3069b0e04-5485646441cso2989042e87.2
- for <apparmor@lists.ubuntu.com>; Sat, 01 Mar 2025 05:02:24 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740834144; x=1741438944;
- h=content-transfer-encoding:subject:from:content-language:to
- :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=4H2sTOl9qw+sHLZcIjVvfI8Y0sb/0r1z+BlKbjqJ/PY=;
- b=AHAdEa8LDULdM8cmSBP4fF4SEGFZJaIcSZ2z13vGIcvMFf7Hk50pTha2bfA5PBUDpC
- zaJrrc3UXr9he4uZqyTuVMaRRnrc+kArOCXo9yQ/6rXYbcopi1oxJN0/cWP0plsBIDGV
- U+fyhVyA92zP4B/c49mDsISCkAKptWAkqg5JbdaVjbIcBwbbxdxddX4fvmmnCz/+g08H
- HaGyKN1P8DWXNfSXyFen95iUX1HFL7+zDtbTMRgm4F51L1aLlq14LN+vTw/oi9fd/6Fk
- 9sWOdwX1UYH+NhYu04JmgepVOSFiLYbv/z9dgKLvPp++mmS72rMPrIo46Ay6AU9KDuLQ
- fqUg==
-X-Gm-Message-State: AOJu0YxhcwG77Br69qO57fPODymyJbP8dj8PyTqJ2/TM+3a26ok0AyK/
- hTDBBfsHM0S8hT1QBwXEG+lRf/6q41HS+hpN6BBL9h5cWxuKmEukKMJUCdRk
-X-Gm-Gg: ASbGncs5e6hF2vNwq6i1kHC7MKDyN3b5nK5Ca4wH4casqDD4IiKx1n2UvzUv438mrfx
- tE9T/G4B9uHN715mBSG9kixaoMqY6704zmamK6U9LSoWsTdBVZmRPaS/bKnEthYXvr+r0gfyDbX
- 43f4NCL3PaBmK0B0qxnAykSru6YjiklESSaVjoM5xrp8hpz4JDlsLTdKXrkE7t7BnM5BsTSFCsQ
- 9hNhlanlStcinGOnwau3mdvvrobDnmzEjcU9g2wUMiXs1Y2mj0ujeVYZt7rQ5cn6UK4djcSHa0D
- AuyKynmBS6Ik3yx0FjOp4o3pDkJDZE8HLzNgpFQM/NNlrUvbdwIyOg==
-X-Google-Smtp-Source: AGHT+IFwZni546/C2d7CcgnTZLffToDTK7uZgSq8wDh1tDhvjQA3fEmygtLnEomRkm5F3Ez2JlZh/A==
-X-Received: by 2002:a19:5516:0:b0:549:5769:6afc with SMTP id
- 2adb3069b0e04-54957696cd6mr1774575e87.3.1740834143761; 
- Sat, 01 Mar 2025 05:02:23 -0800 (PST)
-Received: from [192.168.1.10] (mail.dargis.net. [62.80.227.49])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5494e52a47asm540844e87.152.2025.03.01.05.02.22
- for <apparmor@lists.ubuntu.com>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 01 Mar 2025 05:02:23 -0800 (PST)
-Message-ID: <dc80dadc-3ebd-4a63-a13a-6427d91d4908@gmail.com>
-Date: Sat, 1 Mar 2025 15:02:22 +0200
+ (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
+ id 1toWZ8-0003JY-73
+ for apparmor@lists.ubuntu.com; Sat, 01 Mar 2025 23:48:18 +0000
+Received: from [192.168.192.85] (unknown [50.39.103.202])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 9E1FD3FF09
+ for <apparmor@lists.ubuntu.com>; Sat,  1 Mar 2025 23:48:17 +0000 (UTC)
+Message-ID: <3c802290-fe1f-45e1-8638-cf8ac3401033@canonical.com>
+Date: Sat, 1 Mar 2025 15:48:15 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: apparmor@lists.ubuntu.com
+References: <dc80dadc-3ebd-4a63-a13a-6427d91d4908@gmail.com>
 Content-Language: en-US
-From: Vincas Dargis <vindrg@gmail.com>
+From: John Johansen <john.johansen@canonical.com>
+Autocrypt: addr=john.johansen@canonical.com; keydata=
+ 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 lT9Q
+Organization: Canonical
+In-Reply-To: <dc80dadc-3ebd-4a63-a13a-6427d91d4908@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=209.85.167.49; envelope-from=vindrg@gmail.com;
- helo=mail-lf1-f49.google.com
-Subject: [apparmor] What's about all these new "uncofined" profiles with
-	just "userns"?
+Content-Transfer-Encoding: 8bit
+Subject: Re: [apparmor] What's about all these new "uncofined" profiles with
+ just "userns"?
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -71,36 +90,71 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Hi,
+On 3/1/25 05:02, Vincas Dargis wrote:
+> Hi,
+> 
+> After some AppArmor upgrade in Sid I've discovered that "firefox" profile is now duplicate.
+> 
+> Also, started to see some strange "flatpak", "busybox" errors in bash terminal...
+> 
+unconfined profiles shouldn't be causing errors, but if you enforce them ...
 
-After some AppArmor upgrade in Sid I've discovered that "firefox" profile is now duplicate.
+The unconfined profiles have multiple purposes/functions,
 
-Also, started to see some strange "flatpak", "busybox" errors in bash terminal...
+1. As a name for policy to reference. Profiles can cross reference other profiles, etc. as part of ipc rules. Instead of using unconfined for everything that isn't confined you can using an unconfined profile, giving it a name, and tightening up the profile of the application communicating with the application/service that has the unconfined profile.
 
-1. Apparently, now there are bunch of new profiles, like /etc/apparmor.d/firefox, that conflicted with my own 
-/etc/apparmor.d/usr.bin.firefox.
-
-2. Apparently, my long-practiced "tradition" to invoke `aa-enforce /etc/apparmor.d/*` after every apparmor[-profiles] 
-package upgrade (due to usr.bin.ping-and-friends becoming "complain" again), is now seemingly ill-advised? Enforcing all 
-these new, almost-empty "uncofined" profiles makes sort of havoc...
-
-So,
-
-a). Could some one please bring me back into the loop, what's it all about?
-
-b). How should user enable proper custom firefox profile correctly?
-
-	aa-disable /etc/apparmor.d/firefox, and enforce /etc/apparmor.d/usr.bin.firefox?
-
-	Or overwrite /etc/apparmor.d/firefox after every upgrade?
-
-	Or is there some sort of new overriding feature I don't know to make these new profiles inactive while custom one active?
-
-Thanks.
+Generally from a system packaging pov unconfined profiles are a stepping stone, to having a full profile.
 
 
-[0] 
-https://salsa.debian.org/apparmor-team/apparmor/-/blob/8c785a5fb707253fb46213e0648d19b64631de83/profiles/apparmor.d/firefox
+2. They serve as a way to disable a profile without breaking policy. Simply disabling often results in the application running unconfined. But with ipc rules this can end up breaking policy. An unconfined profile fixes this problem. We did not add a symlink mechanism like disable has, as we were hoping to land an overlay mechanism that could be used instead.
 
+
+3. They serve as a policy escape/by-pass for local users. If confinement is tight, an system may not have unconfined, or unconfined might have restrictions. Unconfined profiles profiles provide a way for users to create a profile, without having to go through the development work, to just allow their applications to run.
+
+You can see this use on Ubuntu systems, where aa-notify (if enabled) will prompt the user, and then make a basic unconfined profile so that they can just run their application that is getting denials. Generally this is for AppImages atm.
+
+
+4. This is being used by Ubuntu as a by-pass of the unprivileged user namespace restriction, for applications that are use unprivileged user namespaces.
+
+    Currently Ubuntu is carrying some hard coded patches that add some restrictions on unconfined. One of those is stopping applications from using unprivileged user namespaces (privileged applications have full access). Unfortunately unprivileged user namespaces just aren't as safe as they were advertised to be and are part of most exploit chains now, but they are are used by a lot of applications, generally to setup some kind of sandbox. Instead of a big global toggle for unprivileged user namespace mitigation, Ubuntu is now doing it on a per application basis. The many of the unconfined profiles, are there to allow those applications to function while a full profile is being developed.
+
+As for the Ubuntu unprivileged user namespace restriction. That ability will be coming to upstream as well, but as part of policy instead of hard coded. So it is taking longer to land.
+
+
+
+> 1. Apparently, now there are bunch of new profiles, like /etc/apparmor.d/firefox, that conflicted with my own /etc/apparmor.d/usr.bin.firefox.
+> 
+disable the ones that conflict. An overlay feature is coming, to allow local profiles to easily override system profiles but it didn't land in 4.1
+
+> 2. Apparently, my long-practiced "tradition" to invoke `aa-enforce /etc/apparmor.d/*` after every apparmor[-profiles] package upgrade (due to usr.bin.ping-and-friends becoming "complain" again), is now seemingly ill-advised? Enforcing all these new, almost-empty "uncofined" profiles makes sort of havoc...
+> 
+ah yeah aa-enforce of the unconfined profiles will cause some issues. Enough that its a bug worth fixing. We should add some kind of flag that either allows skipping those or the inverse is required to enforce on them. Opinions/feedback on which is welcome
+
+> So,
+> 
+> a). Could some one please bring me back into the loop, what's it all about?
+> 
+
+> b). How should user enable proper custom firefox profile correctly?
+> 
+>      aa-disable /etc/apparmor.d/firefox, and enforce /etc/apparmor.d/usr.bin.firefox?
+>
+aa-disable of the profile file you don't want should work, and is the current recommended method. Of course it fails if they have the same file name, in which case it is recommended to rename your local version, at least until the overlay feature lands.
+  
+>      Or overwrite /etc/apparmor.d/firefox after every upgrade?
+> 
+ideally not considering that messes with packaging.
+
+>      Or is there some sort of new overriding feature I don't know to make these new profiles inactive while custom one active?
+> 
+sadly the overlay feature didn't land in 4.1, it is coming and it will allow you to setup local overrides without having to overwrite profiles dropped in by packaging.
+
+> Thanks.
+> 
+> 
+> [0] https://salsa.debian.org/apparmor-team/apparmor/-/blob/8c785a5fb707253fb46213e0648d19b64631de83/profiles/apparmor.d/firefox
+> 
+> 
+> 
 
 
