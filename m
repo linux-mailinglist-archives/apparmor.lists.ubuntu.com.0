@@ -2,30 +2,32 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8175AA4AE7B
-	for <lists+apparmor@lfdr.de>; Sun,  2 Mar 2025 00:48:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFB81A4AF0D
+	for <lists+apparmor@lfdr.de>; Sun,  2 Mar 2025 04:22:48 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1toWZA-0003Js-Uc; Sat, 01 Mar 2025 23:48:20 +0000
+	id 1toZuT-0004LC-5S; Sun, 02 Mar 2025 03:22:33 +0000
 Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
  helo=smtp-relay-canonical-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1toWZ8-0003JY-73
- for apparmor@lists.ubuntu.com; Sat, 01 Mar 2025 23:48:18 +0000
+ id 1toZuR-0004Kx-1X
+ for apparmor@lists.ubuntu.com; Sun, 02 Mar 2025 03:22:31 +0000
 Received: from [192.168.192.85] (unknown [50.39.103.202])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 9E1FD3FF09
- for <apparmor@lists.ubuntu.com>; Sat,  1 Mar 2025 23:48:17 +0000 (UTC)
-Message-ID: <3c802290-fe1f-45e1-8638-cf8ac3401033@canonical.com>
-Date: Sat, 1 Mar 2025 15:48:15 -0800
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 7286D3FF82; 
+ Sun,  2 Mar 2025 03:22:30 +0000 (UTC)
+Message-ID: <231b146d-55f5-4a28-821c-5ec48d806cb6@canonical.com>
+Date: Sat, 1 Mar 2025 19:22:28 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: apparmor@lists.ubuntu.com
-References: <dc80dadc-3ebd-4a63-a13a-6427d91d4908@gmail.com>
+To: valoq@mailbox.org
+References: <ZyONOXXSHjV2zfJU@mailbox.org>
+ <6335362c-28f2-48ae-bdcc-8ab04de9b69d@canonical.com>
+ <Z8IOOtTTX_S1bikS@mailbox.org>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -71,11 +73,10 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <dc80dadc-3ebd-4a63-a13a-6427d91d4908@gmail.com>
+In-Reply-To: <Z8IOOtTTX_S1bikS@mailbox.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [apparmor] What's about all these new "uncofined" profiles with
- just "userns"?
+Content-Transfer-Encoding: 7bit
+Subject: Re: [apparmor] Restricted userns
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -87,74 +88,81 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: apparmor@lists.ubuntu.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 3/1/25 05:02, Vincas Dargis wrote:
-> Hi,
+On 2/28/25 11:27, valoq@mailbox.org wrote:
+> Hello John,
 > 
-> After some AppArmor upgrade in Sid I've discovered that "firefox" profile is now duplicate.
+> can you give us a quick update on the status of this restricted userns feature? Did it
+> make it into kernel 6.14 and if not when would it currently be expected.
 > 
-> Also, started to see some strange "flatpak", "busybox" errors in bash terminal...
+It did not. I may get some of it into 6.15 but it won't be everything that is,
+needed. Nor will we have a userspace release that can support the necessary
+policy. The 4.1 release won't support it, but the dev tree should soon. I
+can update you on what will definitely be in 6.15 in a couple of weeks.
+
+
+We have had a set back on the patches to bring policy to unconfined without
+hard coding the restrictions. This bug https://bugs.launchpad.net/apparmor/+bug/2067900
+is one of many, that led to a revert in Ubuntu of of the patches, and it
+needs more dev before we can try landing it again, and definitely before
+it can make it upstream. Ubuntu has a hard coded patch, and this was/is
+part of the effort to get to where the hard coded patch can be dropped for
+policy.
+
+Unfortunately the fix for the above patch is not trivial so its going to
+take awhile, partly because there is some other higher priority work to
+finish first. Atm my plan is to try and land to land it in 6.16. Which will
+should be enough time to get not only the kernel patches fixed, but the
+userspace, and testing in as well.
+
+
+> Thank you
 > 
-unconfined profiles shouldn't be causing errors, but if you enforce them ...
-
-The unconfined profiles have multiple purposes/functions,
-
-1. As a name for policy to reference. Profiles can cross reference other profiles, etc. as part of ipc rules. Instead of using unconfined for everything that isn't confined you can using an unconfined profile, giving it a name, and tightening up the profile of the application communicating with the application/service that has the unconfined profile.
-
-Generally from a system packaging pov unconfined profiles are a stepping stone, to having a full profile.
-
-
-2. They serve as a way to disable a profile without breaking policy. Simply disabling often results in the application running unconfined. But with ipc rules this can end up breaking policy. An unconfined profile fixes this problem. We did not add a symlink mechanism like disable has, as we were hoping to land an overlay mechanism that could be used instead.
-
-
-3. They serve as a policy escape/by-pass for local users. If confinement is tight, an system may not have unconfined, or unconfined might have restrictions. Unconfined profiles profiles provide a way for users to create a profile, without having to go through the development work, to just allow their applications to run.
-
-You can see this use on Ubuntu systems, where aa-notify (if enabled) will prompt the user, and then make a basic unconfined profile so that they can just run their application that is getting denials. Generally this is for AppImages atm.
-
-
-4. This is being used by Ubuntu as a by-pass of the unprivileged user namespace restriction, for applications that are use unprivileged user namespaces.
-
-    Currently Ubuntu is carrying some hard coded patches that add some restrictions on unconfined. One of those is stopping applications from using unprivileged user namespaces (privileged applications have full access). Unfortunately unprivileged user namespaces just aren't as safe as they were advertised to be and are part of most exploit chains now, but they are are used by a lot of applications, generally to setup some kind of sandbox. Instead of a big global toggle for unprivileged user namespace mitigation, Ubuntu is now doing it on a per application basis. The many of the unconfined profiles, are there to allow those applications to function while a full profile is being developed.
-
-As for the Ubuntu unprivileged user namespace restriction. That ability will be coming to upstream as well, but as part of policy instead of hard coded. So it is taking longer to land.
-
-
-
-> 1. Apparently, now there are bunch of new profiles, like /etc/apparmor.d/firefox, that conflicted with my own /etc/apparmor.d/usr.bin.firefox.
-> 
-disable the ones that conflict. An overlay feature is coming, to allow local profiles to easily override system profiles but it didn't land in 4.1
-
-> 2. Apparently, my long-practiced "tradition" to invoke `aa-enforce /etc/apparmor.d/*` after every apparmor[-profiles] package upgrade (due to usr.bin.ping-and-friends becoming "complain" again), is now seemingly ill-advised? Enforcing all these new, almost-empty "uncofined" profiles makes sort of havoc...
-> 
-ah yeah aa-enforce of the unconfined profiles will cause some issues. Enough that its a bug worth fixing. We should add some kind of flag that either allows skipping those or the inverse is required to enforce on them. Opinions/feedback on which is welcome
-
-> So,
-> 
-> a). Could some one please bring me back into the loop, what's it all about?
-> 
-
-> b). How should user enable proper custom firefox profile correctly?
-> 
->      aa-disable /etc/apparmor.d/firefox, and enforce /etc/apparmor.d/usr.bin.firefox?
->
-aa-disable of the profile file you don't want should work, and is the current recommended method. Of course it fails if they have the same file name, in which case it is recommended to rename your local version, at least until the overlay feature lands.
-  
->      Or overwrite /etc/apparmor.d/firefox after every upgrade?
-> 
-ideally not considering that messes with packaging.
-
->      Or is there some sort of new overriding feature I don't know to make these new profiles inactive while custom one active?
-> 
-sadly the overlay feature didn't land in 4.1, it is coming and it will allow you to setup local overrides without having to overwrite profiles dropped in by packaging.
-
-> Thanks.
-> 
-> 
-> [0] https://salsa.debian.org/apparmor-team/apparmor/-/blob/8c785a5fb707253fb46213e0648d19b64631de83/profiles/apparmor.d/firefox
-> 
-> 
-> 
+> On Thu, Oct 31, 2024 at 07:54:04AM -0700, John Johansen wrote:
+>> On 10/31/24 06:59, valoq wrote:
+>>> Ubuntu added a patch last year to allow user namespaces only for processes
+>>> confined by apparmor and allegedly the kernel patch for this feature made
+>>> it into the upstream kernel as well, but there seems to be no documentation
+>>> available about it. Additionaly, apparmor now includes default profiles
+>>> with the userns permission making use of this feature, but there is no
+>>> documentation about the requirements of this feature.
+>>>
+>> As implemented in Ubuntu, there are three parts.
+>> 1. for an application to use user namespaces the application must be confined
+>>     by a profile, that explicitly allows the use of user namespaces.
+>> 2. when enabled, unconfined is not allowed to use unprivileged user namespaces.
+>> 3. apparmor enables a policy var via sysctl on boot. It was done this way for
+>>     two reasons.
+>>     a. So that new kernels could be taken back to old releases and not break
+>>        them with the feature being turned on by default in the kernel.
+>>     b. So that the feature could be turned on, on older releases without
+>>        having to have an updated apparmor userspace to enable the feature
+>>        in policy.
+>>
+>>> How can this feature actually be used on other linux distributions and
+>>> vanilla linux kernels? It seems like
+>>> kernel.apparmor_restrict_unprivileged_userns is not available outside of
+>>> ubuntu and most similar flags appear undocumented as well.
+>>> Is support for restricted userns actually available outside of ubuntu?
+>>>
+>>
+>> Currently it is not.
+>>
+>> The ability to mediate userns creation in profiles landed in 6.7.
+>>
+>> The 2 and 3rd parts have not landed upstream yet. This is largely because
+>> the Ubuntu patches hard code the behavior where for upstream we want the
+>> behavior to be properly part of policy.
+>>
+>> There is a patch to extend the current mediation that is a requirement
+>> for parts 2/3 that I will try to post out this week. The other parts
+>> I still need to evaluate. But I don't think landing full support for
+>> is possible for 6.13. So I am currently planning to try and land full
+>> support in 6.14.
+>>
+>>
 
 
