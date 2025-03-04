@@ -2,41 +2,70 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21C44A4D5A0
-	for <lists+apparmor@lfdr.de>; Tue,  4 Mar 2025 09:03:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D96C4A4EEE2
+	for <lists+apparmor@lfdr.de>; Tue,  4 Mar 2025 21:56:20 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tpNFF-0000Jq-P1; Tue, 04 Mar 2025 08:03:17 +0000
-Received: from maynard.decadent.org.uk ([65.21.191.19])
+	id 1tpZJB-0002k5-1c; Tue, 04 Mar 2025 20:56:09 +0000
+Received: from smtp-relay-internal-1.internal ([10.131.114.114]
+ helo=smtp-relay-internal-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <ben@decadent.org.uk>)
- id 1tonFB-0001wq-0Z
- for apparmor@lists.ubuntu.com; Sun, 02 Mar 2025 17:36:49 +0000
-Received: from [2a02:578:851f:1502:391e:c5f5:10e2:b9a3] (helo=deadeye)
- by maynard with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
- (Exim 4.96) (envelope-from <ben@decadent.org.uk>)
- id 1tonF5-007SoF-2M; Sun, 02 Mar 2025 17:36:42 +0000
-Received: from ben by deadeye with local (Exim 4.98)
- (envelope-from <ben@decadent.org.uk>) id 1tonF3-00000003rL6-12qI;
- Sun, 02 Mar 2025 18:36:41 +0100
-Message-ID: <7286c87d1ad7b705d123f23ad213ec40a9f23351.camel@decadent.org.uk>
-From: Ben Hutchings <ben@decadent.org.uk>
-To: John Johansen <john.johansen@canonical.com>, Jinjie Ruan
- <ruanjinjie@huawei.com>, cve@kernel.org
-Date: Sun, 02 Mar 2025 18:36:35 +0100
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-Z2ofoIoxQj9X1BsaAHHv"
-User-Agent: Evolution 3.54.1-1 
+ (Exim 4.86_2) (envelope-from <ryan.lee@canonical.com>)
+ id 1tpZJ9-0002jy-VN
+ for apparmor@lists.ubuntu.com; Tue, 04 Mar 2025 20:56:07 +0000
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
+ [209.85.216.71])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 793303F46B
+ for <apparmor@lists.ubuntu.com>; Tue,  4 Mar 2025 20:56:07 +0000 (UTC)
+Received: by mail-pj1-f71.google.com with SMTP id
+ 98e67ed59e1d1-2feded265deso6202984a91.2
+ for <apparmor@lists.ubuntu.com>; Tue, 04 Mar 2025 12:56:07 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1741121766; x=1741726566;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=XBd7R2kZHYWy3wlEDHrLHTQVBce6dppQ/eqtvEnEI/4=;
+ b=dLHqNlGJiBjI01QPYrbJArjed14lLlZkbMY4svo+8Jy/Gaq9Z5XYCQ5bzBYzsl/cOj
+ V6d+b+XDq3NqZDjXrGqbKAjzWyidJtH7aDQb0GbNmg8H2llhaaB6RhMV4O52t1owloYO
+ BF40vfjTQ+6qr8k9o5mtljhw+k+FKTJEGvZBK7h4UlRunoj1hEUi4+3IFeubr8TibzFK
+ ODev59ss7pQigbkqseFlX8h1ni6Kdkfx7SXaPWhe0b+CWDA+1Mkm8uGfz9Jg7cS8VO22
+ 2jSoT/8LtPvuyvsMyhw9LsA9y4XHurOOn60p+2Ab5hOfgv99/MB3Pxpn43PPQgZ7sv8f
+ 6KSA==
+X-Gm-Message-State: AOJu0YzWgoNtP7Fv4vynfQFSsL6jMsIGWRaNnS8iKWa7r1fgpxlHPofL
+ wWkJsQWvuU50UZITUjLhVc0OZfRvUWCQtlBgDo3K8Fuu8iLoH4LJRiqzrSf2CeR7n7eDQ0cccpv
+ 0VqLn3ZHjZX8/3zoPzHTNWJj3N++nx8fCYrgEc20Ar+AVbqlk/aarWakVIGM7TgTB70SXrtuTEu
+ GGSHVKxA==
+X-Gm-Gg: ASbGncvQ+NWjT/AFim9iLmcK8IRR4GdBQJxnJwUlIbSFvY1t0JQcQfNvuCs5lxW6lPG
+ /8cwrq+EIkeooSnNvjz19eS1/cxrseAVuno83AfPJAay1iiGN9LSTaH16vMI6g79jwiKq0QrSgO
+ yvUeujrxLYwWovCJiqMkP3ojbxfODxW/4h0YnSiZRKt5nvOYX07IM+eaGwdwcR3+Tz4mY6hwK+1
+ 6k9fDD2AKaqm6hBNmkZsYecgsHHdqCtE1sLBty3GlMiRJX/8QiCkTGvzTkL8onC2ORtAf5CHhMq
+ a63YF+MArCkHw7GSTr6sg2GYob5u/8SNNpuv78wALW7RjBXNrnGhhoHoI7rtcoIMpWmdFBg=
+X-Received: by 2002:a05:6a20:4393:b0:1f3:3c5d:cd7e with SMTP id
+ adf61e73a8af0-1f349498186mr1131220637.24.1741121766104; 
+ Tue, 04 Mar 2025 12:56:06 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEMHjki6o7wcCPEpOshvet6OyN0PYoBiwdJ5SNOCcBhXvzu0plmvo11eTgyr5gGAv22usyHAg==
+X-Received: by 2002:a05:6a20:4393:b0:1f3:3c5d:cd7e with SMTP id
+ adf61e73a8af0-1f349498186mr1131192637.24.1741121765767; 
+ Tue, 04 Mar 2025 12:56:05 -0800 (PST)
+Received: from ryan-lee-laptop-13-amd.. (c-76-103-38-92.hsd1.ca.comcast.net.
+ [76.103.38.92]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-73630a224b3sm7743853b3a.164.2025.03.04.12.56.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 04 Mar 2025 12:56:05 -0800 (PST)
+From: Ryan Lee <ryan.lee@canonical.com>
+To: apparmor@lists.ubuntu.com
+Date: Tue,  4 Mar 2025 12:55:49 -0800
+Message-ID: <20250304205556.290042-1-ryan.lee@canonical.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a02:578:851f:1502:391e:c5f5:10e2:b9a3
-X-SA-Exim-Mail-From: ben@decadent.org.uk
-X-SA-Exim-Scanned: No (on maynard); SAEximRunCond expanded to false
-Received-SPF: pass client-ip=65.21.191.19; envelope-from=ben@decadent.org.uk;
- helo=maynard.decadent.org.uk
-X-Mailman-Approved-At: Tue, 04 Mar 2025 08:03:16 +0000
-Subject: [apparmor] CVE-2024-56741: apparmor: test: Fix memory leak for
- aa_unpack_strdup()
+Content-Transfer-Encoding: 8bit
+Subject: [apparmor] [PATCH 0/5] Enable operations with disconnected paths to
+	succeed in complain mode
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -48,71 +77,37 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: apparmor@lists.ubuntu.com, linux-kselftest@vger.kernel.org,
- kunit-dev@googlegroups.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
+AppArmor was previously blocking operations with disconnected paths, even
+when the profile was loaded in complain mode. Instead, this patchset audits
+the disconnected path as being prefixed with a '#' sentinel, and updates
+the other code doing path lookups to continue with mediation with complain
+mode profiles.
 
---=-Z2ofoIoxQj9X1BsaAHHv
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Similar checks will be needed for disconnection in the IPC case, once that
+code is ready.
 
-Hi all,
+Ryan Lee (5):
+  apparmor: pass complain-mode information to aa_path_name path lookup
+  apparmor: don't return early in profile_path_perm for disconnected
+    paths in complain mode
+  apparmor: create new learning profile in complain mode upon disconnect
+    exec
+  apparmor: don't bail early in mount on disconnected paths in complain
+    mode
+  apparmor: disable aa_audit_file AA_BUG(!ad.request) due to fd
+    inheritance
 
-CVE-2024-56741 is supposed to be fixed by commit 7290f5923191 "apparmor:
-test: Fix memory leak for aa_unpack_strdup()"=C2=A0but I think this
-assignment should be rejected.
+ security/apparmor/domain.c       | 40 ++++++++++++++++++++++++--------
+ security/apparmor/file.c         | 21 +++++++++++++----
+ security/apparmor/include/path.h |  4 ++--
+ security/apparmor/mount.c        | 19 +++++++++------
+ security/apparmor/path.c         | 37 +++++++++++++++++++----------
+ 5 files changed, 86 insertions(+), 35 deletions(-)
 
-While a user-triggered memory leak may be exploitable for denial-of-
-service, the code that was fixed here is a part of KUnit tests.
-KUnit tests usually run a single time at boot, not under user control,
-and can then later be invoked through debugfs by the root user.
+-- 
+2.43.0
 
-Firstly, it is intended that the root user can deny service through the
-reboot system call, so I don't think additional ways to do this are
-security flaws.
-
-Secondly, the KUnit documentation at <https://docs.kernel.org/dev-
-tools/kunit/run_manual.html> says:
-
-    Note:
-
-    KUnit is not designed for use in a production system. It is possible
-=C2=A0   that tests may reduce the stability or security of the system.
-
-so I don't think security issues in KUnit tests generally deserve CVE
-IDs.  (That said, the help text for CONFIG_KUNIT does not have such a
-warning.)
-
-Ben.
-
---=20
-Ben Hutchings
-Any smoothly functioning technology is indistinguishable
-from a rigged demo.
-
-
---=-Z2ofoIoxQj9X1BsaAHHv
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEErCspvTSmr92z9o8157/I7JWGEQkFAmfElyQACgkQ57/I7JWG
-EQnXoQ//Utms7NmGWZ5h2MUx5gI1gYg65pGmAs7q4RNtBsRw0RASrQtmIRKZx4Wg
-kc4nlmB5Vl1xnigli8ukg+OjgpXJVgmtoL5Q74Ed6ru5BpNx+jHrHBVPt/3YSCoc
-miObFDjPBdlbJ9W93R4FrK4guJIYo1mgjxXRm64cMt+c+cjN5KlVEXsxEPM08JHK
-T0TsBzoTM2r6gmx7jfqckAExdg5ZuwmgUsOqfrpwHtkd7GmgVcT/B2Em/1ojkgn3
-K5ZsEFuyAMDIK2qfeFZx+O98yPf5zW75yjffemerOZE/+rzteSaDpFA/4JXll9q4
-DniGs+xfz0K4nrg+yEwVp6jEkaNss5zAEEPvo05H9vsB3jnbg+dloflX6ufJRLFy
-8jYVTDduc4Q+tTqci21ws2Sj9pVJDTUxvQWS4shQZbnA2keaCz3yaiCOUdYI4/js
-Jcl0LFa2UVzCBTNGzYzMaUVkqEeIwe3WINBI95JrsjsyDC2lbOFNs/AD3NHPpERm
-db2jdFy0Wc6J8q/m+G7OCs6K+9HrEO850G/QgCS3Bpx8yMIxh8DViXDmHLLtWjtk
-jjmHc0RKo67bySGySf3YkD9rwVnmoapGGBkd4HMcOBwiMpPaQcsJDVRjqcfipigl
-DC9rHF9FTeTE1/jjMs9WYcS92TSKwevJrUzvJW0QGUpAPDSViu8=
-=gStR
------END PGP SIGNATURE-----
-
---=-Z2ofoIoxQj9X1BsaAHHv--
 
