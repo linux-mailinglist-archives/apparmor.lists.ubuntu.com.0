@@ -2,72 +2,72 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6ED1FA4D091
-	for <lists+apparmor@lfdr.de>; Tue,  4 Mar 2025 02:12:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FC13A4D092
+	for <lists+apparmor@lfdr.de>; Tue,  4 Mar 2025 02:12:16 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tpGpN-0003Wu-JL; Tue, 04 Mar 2025 01:12:09 +0000
+	id 1tpGpO-0003Y2-P9; Tue, 04 Mar 2025 01:12:10 +0000
 Received: from smtp-relay-internal-0.internal ([10.131.114.225]
  helo=smtp-relay-internal-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <ryan.lee@canonical.com>)
- id 1tpGpL-0003VR-UH
- for apparmor@lists.ubuntu.com; Tue, 04 Mar 2025 01:12:07 +0000
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
- [209.85.214.198])
+ id 1tpGpN-0003X3-MH
+ for apparmor@lists.ubuntu.com; Tue, 04 Mar 2025 01:12:09 +0000
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
+ [209.85.214.199])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 1241B3F5B5
- for <apparmor@lists.ubuntu.com>; Tue,  4 Mar 2025 01:12:07 +0000 (UTC)
-Received: by mail-pl1-f198.google.com with SMTP id
- d9443c01a7336-22348343f5aso91786285ad.2
- for <apparmor@lists.ubuntu.com>; Mon, 03 Mar 2025 17:12:07 -0800 (PST)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 910113FCC9
+ for <apparmor@lists.ubuntu.com>; Tue,  4 Mar 2025 01:12:09 +0000 (UTC)
+Received: by mail-pl1-f199.google.com with SMTP id
+ d9443c01a7336-2237f73c669so46690605ad.1
+ for <apparmor@lists.ubuntu.com>; Mon, 03 Mar 2025 17:12:09 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741050726; x=1741655526;
+ d=1e100.net; s=20230601; t=1741050728; x=1741655528;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=K6uZuyCxHTuFD3DZCHKXM/GqEGEyBVlWoZeDqzKYlP0=;
- b=grx3vZL1mVMYYrgzZw2ca0YiL2s3TC9tR3JLApdQWqjvfBgoPiZZqbwI/2FCS2qIMQ
- x3LJQ4/+GACvi4bs4HU4w8FjUCPq2+gRmn9glI7/w2fy9ByVnYWCcN5B+LzDgBO+qQ99
- 7mcWuLYowxTuFvXgIOum6K4XstjEvZZ22BnOqrorLMiQoHREHAXzUAhhjnRULjulGRS6
- DO00n5itrw0hXolNKnCfZoz2FtCp/92BTaKBAfYTLOH5mlQ/5pcqvMR2THcqMMlM7vfk
- 3JYxzGXuOl6JqDlzadWXwKSZOEfAUljcW1aPaGzypaKp7NVTB+N+U5aoF+SJ8EEw/eNu
- fWcg==
-X-Gm-Message-State: AOJu0YxrMdRRnvCT4+iw+d7Ewwx+P/yuuhsfn8t41rOIwuxtFnIGeYTF
- DsX0xMz4WWcOULiwWdFpWSMEf5wPe88n6WpXhTaSuOrwHqrX/kHBNL3xp8zY7XGWpUu+TURijce
- uh/C0jMxEDHbbEECzybtyjKHB/evcF24C5jX9WQJPF0br7EWQc8v39GFoxnXDDkC8uJfTb+wI/P
- +l21pMPg==
-X-Gm-Gg: ASbGnctjasz6ffGW2KaSm7VbUcyqoC8nGZomETijzxmg6kTzRmlQCEfpcUGiIWNsov0
- 6tIUfK/86BYO/uqu4bKfdlnlh0ZcuDITuu9DWjosDxNbzHUYgh4FiWZoX+P2Lprft/phKo9Nm6E
- fEzuBNCYZDQJ2VfL404JVJ7Ysvop6QcW7SG58aWq9G+Kk0qMdSOM1tYldsM5CNjKWpTzwWfcAna
- qQ7fAosaMN9IM86NxuzoY0K2/6SA2fLDKrJ610UhsXqOO9tdkvjmJ79afmdREuwezp0oL9E5+Av
- iYlWxaSWrxEMCafHW5z1HkjKMfd07meBt8b05wgI3t0tgQHYx1uFU80udQoIpfGUfGUdzaI=
-X-Received: by 2002:a17:903:fa3:b0:220:ea90:191e with SMTP id
- d9443c01a7336-22368f6a660mr220215905ad.4.1741050725713; 
- Mon, 03 Mar 2025 17:12:05 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGPhunmQgro1DMW9ei3sJyIUVH8b7uHpqyJ6o6kxdNSGB4ZuxPhifFLdKZOiskhaLiMj/E9Ig==
-X-Received: by 2002:a17:903:fa3:b0:220:ea90:191e with SMTP id
- d9443c01a7336-22368f6a660mr220215655ad.4.1741050725425; 
- Mon, 03 Mar 2025 17:12:05 -0800 (PST)
+ bh=yMhNekH3Gn8ZWOvh9jZaxESjSCjYZpAEL4j2VUdLK9I=;
+ b=h8Ak2c45A1S04oN3Dpy/ttdgsYXlb65Kc8YPBrN8da2FtrKPStkcS1Wj87Q2p75tL4
+ oH8h9u/NAHvHGAsAQGNXRchuEp9nxAeiPx78RQliXj/vhbl0sNMLUgwxFnwQIOwyobMH
+ cVS8/JTLnlwN01JgCWs1Cvoq52J3t/NqZX4f0HsOV2Ecgu1KqQ5G6i3uUAlygR8BtNSb
+ ARO00LZ4sYfMm1Qw2wxp+Dfcc/nA7NZc3uZVypciHBTN5wSZKobAxyoVmRjbK7U7itY1
+ uG6mt4ZbE5yG2Z0esg6r2rtngaSdc4smILpjZFesLna/ye0VEEbzmr4HmE1BiMwajAYC
+ Qc1g==
+X-Gm-Message-State: AOJu0YzYeKTqMm9J0Pz0pWxb9gCDDLh0Eo2ViozPE+k2EQ6R7w+pyMJ7
+ G0IsbXx4VVHT3V06Aow67+49lFS1eJezDVhOAXHBXhfGr3gzkIw1JvK/dfgarhwT7/Pxtd7e/HR
+ 0np4oZxSH994sIFqLRQKUkn7Ey1sWs2iptS3CrofiLIJmrYxgkKKrAe2mCSIko1EBLp2TRbnD4B
+ Kh5PopKA==
+X-Gm-Gg: ASbGncuEEN3nYw04Ufs4ZZzNcBhxFme3nmxSp2FOttv3YV8AsyXgC49RpQM4Yx+KYUL
+ xgf17wsHYewKHw/u7Opt262Iozfl+RRBwLYp6EyAAiAuQXUSoz5jfqJrAC17YaKvhf2ABuJMAH7
+ rptx7M1MNXfOT20FqI+eib43C5DxZydsWlAUSGse2rmoSNFLk9v0pLF+3abzga8UrSqxDERqhK7
+ xiaU4lbamFQ7mkB0ClG3vnTtBZMzde66LI4m5dwlcZia7eAJfaBopbPVfWnNhSoB8FPwmLhMt8S
+ HpqJ6Ypy+TxFCTltekRdUo7Dt5loM0/dAAXW3W3qbVk9A8HUJOcwceoKKBYmJ9G9gZngA7Q=
+X-Received: by 2002:a17:902:cf0d:b0:223:46b8:5611 with SMTP id
+ d9443c01a7336-223690e0228mr276620425ad.24.1741050728267; 
+ Mon, 03 Mar 2025 17:12:08 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IG3LXUUPGCb2q0zWvpXVsskhroWBNgmyoFbXbaHfdZPdeu+3wSScZuxtaEJ1Phbb2KixBlVRg==
+X-Received: by 2002:a17:902:cf0d:b0:223:46b8:5611 with SMTP id
+ d9443c01a7336-223690e0228mr276620155ad.24.1741050727996; 
+ Mon, 03 Mar 2025 17:12:07 -0800 (PST)
 Received: from ryan-lee-laptop-13-amd.. (c-76-103-38-92.hsd1.ca.comcast.net.
  [76.103.38.92]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2235052c806sm84056955ad.235.2025.03.03.17.12.04
+ d9443c01a7336-2235052c806sm84056955ad.235.2025.03.03.17.12.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Mar 2025 17:12:05 -0800 (PST)
+ Mon, 03 Mar 2025 17:12:07 -0800 (PST)
 From: Ryan Lee <ryan.lee@canonical.com>
 To: apparmor@lists.ubuntu.com
-Date: Mon,  3 Mar 2025 17:11:40 -0800
-Message-ID: <20250304011144.31433-4-ryan.lee@canonical.com>
+Date: Mon,  3 Mar 2025 17:11:41 -0800
+Message-ID: <20250304011144.31433-5-ryan.lee@canonical.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250304011144.31433-1-ryan.lee@canonical.com>
 References: <20250304011144.31433-1-ryan.lee@canonical.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [apparmor] [PATCH 4/5] apparmor: constify pointer arguments for
-	verify_* in policy_unpack.c
+Subject: [apparmor] [PATCH 5/5] apparmor: constify the allperms value to
+	prevent inadvertent changes
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -82,63 +82,42 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-These functions are not supposed to change the profile struct (or
-component thereof), so make the pointers passed into them const.
+allperms represents a permissions set that allows everything, so it should
+never be changed by any of the code using it. Making it const will allow
+this to be enforced or warned on at compile time.
 
 Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
 ---
- security/apparmor/policy_unpack.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ security/apparmor/include/perms.h | 2 +-
+ security/apparmor/lib.c           | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
-index 22af940a5f58..813bcbdfc773 100644
---- a/security/apparmor/policy_unpack.c
-+++ b/security/apparmor/policy_unpack.c
-@@ -60,7 +60,7 @@ static void audit_cb(struct audit_buffer *ab, void *va)
-  *
-  * Returns: %0 or error
-  */
--static int audit_iface(struct aa_profile *new, const char *ns_name,
-+static int audit_iface(const struct aa_profile *new, const char *ns_name,
- 		       const char *name, const char *info, struct aa_ext *e,
- 		       int error)
- {
-@@ -1257,7 +1257,7 @@ static int unpack_and_verify_header(struct aa_ext *e, int required, const char *
-  * @dfa: the dfa to check accept indexes are in range
-  * @table_size: the permission table size the indexes should be within
-  */
--static bool verify_dfa_accept_index(struct aa_dfa *dfa, int table_size)
-+static bool verify_dfa_accept_index(const struct aa_dfa *dfa, int table_size)
- {
- 	int i;
- 	for (i = 0; i < dfa->tables[YYTD_ID_ACCEPT]->td_lolen; i++) {
-@@ -1267,7 +1267,7 @@ static bool verify_dfa_accept_index(struct aa_dfa *dfa, int table_size)
- 	return true;
- }
+diff --git a/security/apparmor/include/perms.h b/security/apparmor/include/perms.h
+index a8c43f4f6da0..76a39f7ea204 100644
+--- a/security/apparmor/include/perms.h
++++ b/security/apparmor/include/perms.h
+@@ -97,7 +97,7 @@ struct aa_perms {
  
--static bool verify_perm(struct aa_perms *perm)
-+static bool verify_perm(const struct aa_perms *perm)
- {
- 	/* TODO: allow option to just force the perms into a valid state */
- 	if (perm->allow & perm->deny)
-@@ -1290,7 +1290,7 @@ static bool verify_perm(struct aa_perms *perm)
- 	return true;
- }
+ #define ALL_PERMS_MASK 0xffffffff
+ extern struct aa_perms nullperms;
+-extern struct aa_perms allperms;
++extern const struct aa_perms allperms;
  
--static bool verify_perms(struct aa_policydb *pdb)
-+static bool verify_perms(const struct aa_policydb *pdb)
- {
- 	int i;
+ /**
+  * aa_perms_accum_raw - accumulate perms with out masking off overlapping perms
+diff --git a/security/apparmor/lib.c b/security/apparmor/lib.c
+index e69db6499321..8e735f3945b5 100644
+--- a/security/apparmor/lib.c
++++ b/security/apparmor/lib.c
+@@ -21,7 +21,7 @@
+ #include "include/policy.h"
  
-@@ -1319,7 +1319,7 @@ static bool verify_perms(struct aa_policydb *pdb)
-  *
-  * This verification is post any unpack mapping or changes
-  */
--static int verify_profile(struct aa_profile *profile)
-+static int verify_profile(const struct aa_profile *profile)
- {
- 	struct aa_ruleset *rules = list_first_entry(&profile->rules,
- 						    typeof(*rules), list);
+ struct aa_perms nullperms;
+-struct aa_perms allperms = { .allow = ALL_PERMS_MASK,
++const struct aa_perms allperms = { .allow = ALL_PERMS_MASK,
+ 			     .quiet = ALL_PERMS_MASK,
+ 			     .hide = ALL_PERMS_MASK };
+ 
 -- 
 2.43.0
 
