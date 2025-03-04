@@ -2,35 +2,70 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1870A4B926
-	for <lists+apparmor@lfdr.de>; Mon,  3 Mar 2025 09:24:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A592A4D08E
+	for <lists+apparmor@lfdr.de>; Tue,  4 Mar 2025 02:12:11 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tp16W-000205-Fg; Mon, 03 Mar 2025 08:24:48 +0000
-Received: from dfw.source.kernel.org ([139.178.84.217])
- by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <gregkh@linuxfoundation.org>) id 1tp16U-0001zv-Gh
- for apparmor@lists.ubuntu.com; Mon, 03 Mar 2025 08:24:46 +0000
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 862E55C4645;
- Mon,  3 Mar 2025 08:13:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80B47C4CED6;
- Mon,  3 Mar 2025 08:15:25 +0000 (UTC)
-Date: Mon, 3 Mar 2025 09:14:11 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Ben Hutchings <ben@decadent.org.uk>
-Message-ID: <2025030339-playset-august-055b@gregkh>
-References: <7286c87d1ad7b705d123f23ad213ec40a9f23351.camel@decadent.org.uk>
+	id 1tpGpG-0003UU-1E; Tue, 04 Mar 2025 01:12:02 +0000
+Received: from smtp-relay-internal-1.internal ([10.131.114.114]
+ helo=smtp-relay-internal-1.canonical.com)
+ by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.86_2) (envelope-from <ryan.lee@canonical.com>)
+ id 1tpGpE-0003Tu-3D
+ for apparmor@lists.ubuntu.com; Tue, 04 Mar 2025 01:12:00 +0000
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 9A4BF3FE32
+ for <apparmor@lists.ubuntu.com>; Tue,  4 Mar 2025 01:11:58 +0000 (UTC)
+Received: by mail-pl1-f200.google.com with SMTP id
+ d9443c01a7336-22379af38e0so48159045ad.2
+ for <apparmor@lists.ubuntu.com>; Mon, 03 Mar 2025 17:11:58 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1741050717; x=1741655517;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=VmGl4BFZ9IDMSu4AWQ6iESLo0o/Ktugc4nBN2ARC/dI=;
+ b=n7TzylDI8vkLDOV9Q7xZ0YyiBdCwlR9udIZcRknKha9zugwqJaLnONKr0GbCmREyjW
+ qv9Ffa+nDbGdU6K/ZgKBO+CATeFPE6aw6m4wQ4qoU7tSumYW70zkPkAnNhwYI1+t6LlR
+ K1Ut4MfZAf1ljhYYznJc63mYRhhv6Zpkmda/BHDus/pxsZKwPczN7GAT/XjHRVJhU7FY
+ Je87IXhQO7dxd448opeVh+dcuU0udFyv6dbpXRoh0oBWqGhYkgp5I/DYeEaZ0ytgMaK0
+ tiGXEabfhmwdjeADOZm7zIoLeBsLv3kwPN5huoQv6x84WhL1EflJeNZhin6vkJwiWBf1
+ uxwQ==
+X-Gm-Message-State: AOJu0Yxj4NKTIvph2g6tNL9kGIrg/0EhnRRiFnkiZ0HDXqOzmwmS/jpy
+ GKrn5RQ577Q0V0avXdwNlIqUZ7QGEs5LGOcBG9rGFFGkHUjj6n9qYW7qZbog6SE4dGJYgSbxPNU
+ EKMhV4+0JeS5HVJu5wh/vgtem2QNsoFFSXpjIDeQKqbTeak/ulQzbW+4iAMbBhTE8777ua6LO9G
+ I3StPn1g==
+X-Gm-Gg: ASbGnctuGz8oAh3ziKB8bsi0jP9tmIBftlLDZ1/EajxDgMQ7ezfpoc1V1J+KAjNhuCT
+ ixePCIg7pVEoUquZwVZf7SEeb8/nni0asY40rgcLQZ/MJPmCK3sgiTO8YkCwmMxHk8WYz20KPwK
+ xdeqLL+SlXNaikbBrUchCHNEccn/4KpoGeSCn+dhKYR4iXqyTQMRFXMDUb333Vxrpwj5Kgzou6Y
+ 7BFm0H3V5UJdr1NJ3orVX/aOt0NWmypqFdljz7wu617TLPG3Hs1MSLQAtxJg2Ksqjj69HZEJO3d
+ 2lECEn1JCoVxy6AYWkFERUrXDpOyZ7HSlxIYKH6FpKRK9jQbG6ozfSPfWJ5/wh5GC1rdJ/g=
+X-Received: by 2002:a17:903:2302:b0:221:2f4:5446 with SMTP id
+ d9443c01a7336-22368fba4aemr217602155ad.25.1741050716941; 
+ Mon, 03 Mar 2025 17:11:56 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGgaM4MDVK6zQtKcWdtYys2EsOVPS+WzNwRtYIfX5QljWicuPRbDJuL/zJZ1EWabIhTwKsplw==
+X-Received: by 2002:a17:903:2302:b0:221:2f4:5446 with SMTP id
+ d9443c01a7336-22368fba4aemr217601955ad.25.1741050716646; 
+ Mon, 03 Mar 2025 17:11:56 -0800 (PST)
+Received: from ryan-lee-laptop-13-amd.. (c-76-103-38-92.hsd1.ca.comcast.net.
+ [76.103.38.92]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2235052c806sm84056955ad.235.2025.03.03.17.11.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 03 Mar 2025 17:11:56 -0800 (PST)
+From: Ryan Lee <ryan.lee@canonical.com>
+To: apparmor@lists.ubuntu.com
+Date: Mon,  3 Mar 2025 17:11:37 -0800
+Message-ID: <20250304011144.31433-1-ryan.lee@canonical.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <7286c87d1ad7b705d123f23ad213ec40a9f23351.camel@decadent.org.uk>
-Received-SPF: pass client-ip=139.178.84.217;
- envelope-from=gregkh@linuxfoundation.org; helo=dfw.source.kernel.org
-Subject: Re: [apparmor] CVE-2024-56741: apparmor: test: Fix memory leak for
- aa_unpack_strdup()
+Subject: [apparmor] [PATCH 1/5] apparmor: constify some of the pointer
+	arguments of audit_mount
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -42,51 +77,33 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Jinjie Ruan <ruanjinjie@huawei.com>, apparmor@lists.ubuntu.com,
- linux-kselftest@vger.kernel.org, cve@kernel.org, kunit-dev@googlegroups.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Sun, Mar 02, 2025 at 06:36:35PM +0100, Ben Hutchings wrote:
-> Hi all,
-> 
-> CVE-2024-56741 is supposed to be fixed by commit 7290f5923191 "apparmor:
-> test: Fix memory leak for aa_unpack_strdup()" but I think this
-> assignment should be rejected.
-> 
-> While a user-triggered memory leak may be exploitable for denial-of-
-> service, the code that was fixed here is a part of KUnit tests.
-> KUnit tests usually run a single time at boot, not under user control,
-> and can then later be invoked through debugfs by the root user.
-> 
-> Firstly, it is intended that the root user can deny service through the
-> reboot system call, so I don't think additional ways to do this are
-> security flaws.
-> 
-> Secondly, the KUnit documentation at <https://docs.kernel.org/dev-
-> tools/kunit/run_manual.html> says:
-> 
->     Note:
-> 
->     KUnit is not designed for use in a production system. It is possible
->     that tests may reduce the stability or security of the system.
-> 
-> so I don't think security issues in KUnit tests generally deserve CVE
-> IDs.  (That said, the help text for CONFIG_KUNIT does not have such a
-> warning.)
+Unfortunately, the profile pointer itself cannot be constified because
+aa_audit itself needs to extract non-const pointers from the profile
+struct.
 
-Now rejected.
+Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
+---
+ security/apparmor/mount.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-While I know that kunit says "do not use in production", that flies in
-the face of a few hundred million devices out there that does have kunit
-running on them, so we need to still track these, sorry.
+diff --git a/security/apparmor/mount.c b/security/apparmor/mount.c
+index bf8863253e07..1e1878a2ed6b 100644
+--- a/security/apparmor/mount.c
++++ b/security/apparmor/mount.c
+@@ -136,7 +136,8 @@ static int audit_mount(const struct cred *subj_cred,
+ 		       const char *name, const char *src_name,
+ 		       const char *type, const char *trans,
+ 		       unsigned long flags, const void *data, u32 request,
+-		       struct aa_perms *perms, const char *info, int error)
++		       const struct aa_perms *perms,
++		       const char *info, int error)
+ {
+ 	int audit_type = AUDIT_APPARMOR_AUTO;
+ 	DEFINE_AUDIT_DATA(ad, LSM_AUDIT_DATA_NONE, AA_CLASS_MOUNT, op);
+-- 
+2.43.0
 
-Also, for systems where "root is locked down" preventing it from running
-`reboot`, it can many times do other things, like poke around in
-debugfs, so we need to track them as well.  In other words, we don't
-know your use case :(
-
-thanks,
-
-greg k-h
 
