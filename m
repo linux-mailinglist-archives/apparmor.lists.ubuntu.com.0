@@ -2,72 +2,72 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B226A4EEE4
-	for <lists+apparmor@lfdr.de>; Tue,  4 Mar 2025 21:56:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 165FAA4EEE6
+	for <lists+apparmor@lfdr.de>; Tue,  4 Mar 2025 21:56:27 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tpZJK-0002n4-JO; Tue, 04 Mar 2025 20:56:18 +0000
-Received: from smtp-relay-internal-1.internal ([10.131.114.114]
- helo=smtp-relay-internal-1.canonical.com)
+	id 1tpZJN-0002pc-PB; Tue, 04 Mar 2025 20:56:21 +0000
+Received: from smtp-relay-internal-0.internal ([10.131.114.225]
+ helo=smtp-relay-internal-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <ryan.lee@canonical.com>)
- id 1tpZJJ-0002mB-7F
- for apparmor@lists.ubuntu.com; Tue, 04 Mar 2025 20:56:17 +0000
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
+ id 1tpZJM-0002oI-3r
+ for apparmor@lists.ubuntu.com; Tue, 04 Mar 2025 20:56:20 +0000
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
+ [209.85.214.199])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 8FA723F47C
- for <apparmor@lists.ubuntu.com>; Tue,  4 Mar 2025 20:56:16 +0000 (UTC)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-22368a8979cso78902775ad.2
- for <apparmor@lists.ubuntu.com>; Tue, 04 Mar 2025 12:56:16 -0800 (PST)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 2EEEF3FCC9
+ for <apparmor@lists.ubuntu.com>; Tue,  4 Mar 2025 20:56:19 +0000 (UTC)
+Received: by mail-pl1-f199.google.com with SMTP id
+ d9443c01a7336-223f3357064so917015ad.3
+ for <apparmor@lists.ubuntu.com>; Tue, 04 Mar 2025 12:56:19 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741121775; x=1741726575;
+ d=1e100.net; s=20230601; t=1741121777; x=1741726577;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=/hYEqpe2fRa1bm+XJYZwh5YvpLjwUfX3KYcK195EiGI=;
- b=pJ+uVNMlLIm7PU2Ns2tbeS45IRHb6cv9F74f3va1RZarf3+hxWBwVurgZCL4x8P4U3
- bsiQOJQtezgrMBbyfpadb09K4xeCKS8ER0v+JcR3R0R/qDv5+UxcpVfMo5fyG5/2bpzR
- m8xxG/2Mt9M4DLedaZzfibHnBJ/0M1nNSar9B4qCaFyUSeecp2w9AfKosakH8n60gzmd
- sU15RDXxUBwFHWAxCgaLXON/zOTQdKazd+PyHEuhPURk5/d7rLU5UiDjFVF4DwhGTZF4
- +5XuYfmSnHBjZWIFVSCxIaX6wJ+W1l6bdtCkRKZwoXmeqRVgqoEeTGLE33f3KzjfRc/T
- BhhA==
-X-Gm-Message-State: AOJu0YzRmgw0BjxZ47+QpcQlC6JD0n16vEus5AGM7Kj7qZcWBrn7+yru
- x2OXDyeCqQRmMAivwlLB1xCGKpBMibdKQZPs0ygkeZy+qoU4nprMR6axONE/kGgggraTX8pZGUq
- B30vFZZajLxzMYNewGYNmaCqL/odSUFQkb5UiR9ILaoyYiYatopFBtg8RMWTsGvmfAP+g5lNRR1
- snNXBobA==
-X-Gm-Gg: ASbGncvwIwfckq7dqCN8eMaY3A5ak+Ki9ej+8jiWRiU3CAoqfYXiX949dUm+/5Grk4c
- Z6jE/eLqL0Jlrf7YHCYxvRvDUXuJp5je6ABE1WrUVwTf2x3in9Ef7fcRarM/PmWWSN16dd1ubpL
- t1KM+ZznxBgcfqv9+n1rl3Ca7q22MQYGrCxB3AJDt80s+CxotlMMaMWoSIMgt9KmQmqFOkQTpBQ
- JOK5+nsgsO7QkS2WITEayJvai9gbxrwNSkPoBTqe0AFgPPsfxnmnmX2iXZxh4su6zdsRY4EJ6gr
- hyod4rDHy6kAt8WqUjRMXZrKH5k5c5wrmelARLlDcGhe9uo7ye6Ht8gWemI8NdobkP9IbjI=
-X-Received: by 2002:a05:6a21:178a:b0:1f3:1b78:ceb9 with SMTP id
- adf61e73a8af0-1f349463713mr764813637.5.1741121775024; 
- Tue, 04 Mar 2025 12:56:15 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGPwo8UDbuVoWXxnqv217QBFxrHt6FaX4Wzt5DdUWWZeiq+gZXQsd6c9L/aVbD6q6mKbrpNYQ==
-X-Received: by 2002:a05:6a21:178a:b0:1f3:1b78:ceb9 with SMTP id
- adf61e73a8af0-1f349463713mr764796637.5.1741121774670; 
- Tue, 04 Mar 2025 12:56:14 -0800 (PST)
+ bh=Dj02Zwr30EMsSiw40uCYRMQccVTJwIY6Amg40GuHV/Y=;
+ b=FQF9AE58KkCb1DzGJmaurEIxdAuY1BAhcnpk6HoMMwR6+9eYAz5GiaKG+uD0xLvwnH
+ zxfG9jdOoelnYjlCKFIwBQ7HwxEaS5iw5NMIYt1T+KzNhtYVV2ullDTjNkXHOitVT7Ds
+ WUPrzpDiFjc1UPo+B/rVgwWZx+Emvz0LizeqsZ3XeGHkmB+7Z747zEiUxYTtORTI0O8r
+ qmHkbhI0G9O8w4Cuy8TjPAZywgN8Rs9y45xy0+5ygevHPWdRoLixYB3V8pZ64UYL5lAO
+ UwFAxd1l83yfMF37eP1E2kMcbvK3Kkn+xj2HWk8u2fHuHq4z1HSp+q8J0FbAMq13JFJh
+ uDEA==
+X-Gm-Message-State: AOJu0YzgPT9JwIQi6t6vc6ZX+zKpEJYc8iB0t/EFnG3qNwpz489Kv5nm
+ M4zhJoFyv/EdY4zWOMk0BwpD347e+HbIFgFdJnSdFYvztCyBx4jCQ88zbhEAcT0Vk9GYkMr5ESW
+ EzsSeANl+To9WXfZowbUw8bM33VAUyDjskwPpWH5j4KxGTb+D8Pw+tVzG3gjIGN/RlPDkUCmtNF
+ 2NQnVHPw==
+X-Gm-Gg: ASbGncsDHmW796NXygHFZq+Og7vYmSVPqjr6dePZ3VGlKr0yKFZwSWkR6vb0EqJ8EvM
+ nIBNZ2Zz2agPrhUB96vwJu6nm9NFePAMN8vkFJALOql/5GvUL0Y/NQ7JlO2ryuWJNZOy1DYFmeb
+ YI1O8F69Jfn840KvX9M/RKWAlsOsCTO6cL4nRF8OPIPUg6FicPglbB+2oqq92YElczCp/9H5LqJ
+ 9bAFfGoEkzCD2lwQ7Udzd4bUKuS1b20VF5tY/wv0WIqlC3ziXFahAMUhIgVeTlZollCPhXOQxUH
+ mF9nTUL/iEiwcIi6SXVFBkdWOnFAG6rB7YpluC4bbiNW+3jmKZ6OEBdKH03egcYT1uwIU+c=
+X-Received: by 2002:aa7:88c1:0:b0:736:6279:ca25 with SMTP id
+ d2e1a72fcca58-73682cda337mr523438b3a.24.1741121777101; 
+ Tue, 04 Mar 2025 12:56:17 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IE8xnycePXyPBh99T8aFi+5YOOEV49nCyhZv4mBYvKw9PrC4MMFtlzDBNll15qnAqohh4qBcA==
+X-Received: by 2002:aa7:88c1:0:b0:736:6279:ca25 with SMTP id
+ d2e1a72fcca58-73682cda337mr523411b3a.24.1741121776779; 
+ Tue, 04 Mar 2025 12:56:16 -0800 (PST)
 Received: from ryan-lee-laptop-13-amd.. (c-76-103-38-92.hsd1.ca.comcast.net.
  [76.103.38.92]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-73630a224b3sm7743853b3a.164.2025.03.04.12.56.13
+ d2e1a72fcca58-73630a224b3sm7743853b3a.164.2025.03.04.12.56.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 04 Mar 2025 12:56:14 -0800 (PST)
+ Tue, 04 Mar 2025 12:56:16 -0800 (PST)
 From: Ryan Lee <ryan.lee@canonical.com>
 To: apparmor@lists.ubuntu.com
-Date: Tue,  4 Mar 2025 12:55:52 -0800
-Message-ID: <20250304205556.290042-4-ryan.lee@canonical.com>
+Date: Tue,  4 Mar 2025 12:55:53 -0800
+Message-ID: <20250304205556.290042-5-ryan.lee@canonical.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250304205556.290042-1-ryan.lee@canonical.com>
 References: <20250304205556.290042-1-ryan.lee@canonical.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [apparmor] [PATCH 3/5] apparmor: create new learning profile in
-	complain mode upon disconnect exec
+Subject: [apparmor] [PATCH 4/5] apparmor: don't bail early in mount on
+	disconnected paths in complain mode
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -82,91 +82,61 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Trying to execute a binary located at a disconnected path (e.g. through
-execveat() with AT_EMPTY_PATH) would result in a permission denial due to
-a path lookup failure, even when in complain mode. Instead, create a new
-learning profile, as would be done for any other complain mode execution
-of a binary not covered by a profile's execution rules. Because of the
-path aliasing that can occur in situations with disconnected paths, do not
-behave as if attach_disconnected was specified as a profile flag (unless,
-of course, the loaded profile itself has that flag set).
+This is the analogous change to profile_path_perm in an earlier patch of
+this patchset, except for the mount mediation functions.
 
 Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
 ---
- security/apparmor/domain.c | 34 ++++++++++++++++++++++++++--------
- 1 file changed, 26 insertions(+), 8 deletions(-)
+ security/apparmor/mount.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/security/apparmor/domain.c b/security/apparmor/domain.c
-index 9703ec2bfa78..eaf8baa743f3 100644
---- a/security/apparmor/domain.c
-+++ b/security/apparmor/domain.c
-@@ -661,6 +661,13 @@ static struct aa_label *profile_transition(const struct cred *subj_cred,
- 			AA_DEBUG(DEBUG_DOMAIN, "name lookup ix on error");
- 			error = 0;
- 			new = aa_get_newest_label(&profile->label);
-+		} else if (COMPLAIN_MODE(profile)) {
-+			AA_DEBUG(DEBUG_DOMAIN, "name lookup ix on error");
-+			error = 0;
-+
-+			name = bprm->filename;
-+			// TODO: helper function to detangle control flow (?)
-+			goto create_learning_profile;
- 		}
- 		name = bprm->filename;
+diff --git a/security/apparmor/mount.c b/security/apparmor/mount.c
+index 21c933dc469c..9f6006a35965 100644
+--- a/security/apparmor/mount.c
++++ b/security/apparmor/mount.c
+@@ -326,7 +326,7 @@ static int match_mnt_path_str(const struct cred *subj_cred,
+ 	error = aa_path_name(mntpath, path_flags(profile, mntpath),
+ 			     COMPLAIN_MODE(profile), buffer,
+ 			     &mntpnt, &info, profile->disconnected);
+-	if (error)
++	if (error && !COMPLAIN_MODE(profile))
  		goto audit;
-@@ -837,7 +844,7 @@ static struct aa_label *handle_onexec(const struct cred *subj_cred,
- 		error = fn_for_each_in_ns(label, profile,
- 				profile_onexec(subj_cred, profile, onexec, stack,
- 					       bprm, buffer, cond, unsafe));
+ 	if (IS_ERR(devname)) {
+ 		error = PTR_ERR(devname);
+@@ -388,7 +388,7 @@ static int match_mnt(const struct cred *subj_cred,
+ 				     COMPLAIN_MODE(profile),
+ 				     devbuffer, &devname, &info,
+ 				     profile->disconnected);
 -		if (error)
 +		if (error && !COMPLAIN_MODE(profile))
- 			return ERR_PTR(error);
- 		new = fn_label_build_in_ns(label, profile, GFP_KERNEL,
- 				aa_get_newest_label(onexec),
-@@ -850,7 +857,7 @@ static struct aa_label *handle_onexec(const struct cred *subj_cred,
- 		error = fn_for_each_in_ns(label, profile,
- 				profile_onexec(subj_cred, profile, onexec, stack, bprm,
- 					       buffer, cond, unsafe));
--		if (error)
-+		if (error && !COMPLAIN_MODE(profile))
- 			return ERR_PTR(error);
- 		new = fn_label_build_in_ns(label, profile, GFP_KERNEL,
- 				aa_label_merge(&profile->label, onexec,
-@@ -860,17 +867,28 @@ static struct aa_label *handle_onexec(const struct cred *subj_cred,
- 						   cond, unsafe));
+ 			devname = ERR_PTR(error);
  	}
  
--	if (new)
--		return new;
--
--	/* TODO: get rid of GLOBAL_ROOT_UID */
--	error = fn_for_each_in_ns(label, profile,
-+	/*
-+	 * error should only be set at this point if we're complain mode
-+	 * Any remaining error after this block would be an error in the
-+	 * auditing process itself, which we'd want to bubble up
-+	 */
-+	if (error) {
-+		/* TODO: get rid of GLOBAL_ROOT_UID */
-+		error = fn_for_each_in_ns(label, profile,
- 			aa_audit_file(subj_cred, profile, &nullperms,
- 				      OP_CHANGE_ONEXEC,
- 				      AA_MAY_ONEXEC, bprm->filename, NULL,
- 				      onexec, GLOBAL_ROOT_UID,
- 				      "failed to build target label", -ENOMEM, false));
--	return ERR_PTR(error);
-+	}
-+	if (error) {
-+		// Decrement refcount on any learning profile created earlier
-+		aa_put_label(new);
-+		return ERR_PTR(error);
-+	}
-+
-+	AA_BUG(!new);
-+	return new;
- }
+@@ -623,7 +623,7 @@ static int profile_umount(const struct cred *subj_cred,
+ 	error = aa_path_name(path, path_flags(profile, path),
+ 			     COMPLAIN_MODE(profile), buffer, &name,
+ 			     &info, profile->disconnected);
+-	if (error)
++	if (error && !COMPLAIN_MODE(profile))
+ 		goto audit;
  
- /**
+ 	state = aa_dfa_match(rules->policy->dfa,
+@@ -692,13 +692,13 @@ static struct aa_label *build_pivotroot(const struct cred *subj_cred,
+ 			     COMPLAIN_MODE(profile),
+ 			     old_buffer, &old_name, &info,
+ 			     profile->disconnected);
+-	if (error)
++	if (error && !COMPLAIN_MODE(profile))
+ 		goto audit;
+ 	error = aa_path_name(new_path, path_flags(profile, new_path),
+ 			     COMPLAIN_MODE(profile),
+ 			     new_buffer, &new_name, &info,
+ 			     profile->disconnected);
+-	if (error)
++	if (error && !COMPLAIN_MODE(profile))
+ 		goto audit;
+ 
+ 	error = -EACCES;
 -- 
 2.43.0
 
