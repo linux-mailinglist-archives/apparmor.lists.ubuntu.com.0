@@ -2,72 +2,72 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23B2EA4D090
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B6B5A4D08F
 	for <lists+apparmor@lfdr.de>; Tue,  4 Mar 2025 02:12:13 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tpGpK-0003Uy-8o; Tue, 04 Mar 2025 01:12:06 +0000
+	id 1tpGpM-0003W0-Dm; Tue, 04 Mar 2025 01:12:08 +0000
 Received: from smtp-relay-internal-1.internal ([10.131.114.114]
  helo=smtp-relay-internal-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <ryan.lee@canonical.com>)
- id 1tpGpI-0003UK-FL
- for apparmor@lists.ubuntu.com; Tue, 04 Mar 2025 01:12:04 +0000
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199])
+ id 1tpGpK-0003Ut-TM
+ for apparmor@lists.ubuntu.com; Tue, 04 Mar 2025 01:12:06 +0000
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 465F13F129
- for <apparmor@lists.ubuntu.com>; Tue,  4 Mar 2025 01:12:01 +0000 (UTC)
-Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-22348343f5aso91784735ad.2
- for <apparmor@lists.ubuntu.com>; Mon, 03 Mar 2025 17:12:01 -0800 (PST)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 388943F129
+ for <apparmor@lists.ubuntu.com>; Tue,  4 Mar 2025 01:12:05 +0000 (UTC)
+Received: by mail-pl1-f198.google.com with SMTP id
+ d9443c01a7336-2233b764fc8so90074055ad.3
+ for <apparmor@lists.ubuntu.com>; Mon, 03 Mar 2025 17:12:05 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741050720; x=1741655520;
+ d=1e100.net; s=20230601; t=1741050723; x=1741655523;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=6sctD7ds0IP3JyAJVEv+XZfH08lF02x3eFbhWuZqj8c=;
- b=jiKIzShbipWKManQzJgfXYBkFvk1R6e8Rl1jO3lK3FnAH/naObKIivCC9X6yL3aP11
- TXXfpcEdnMAM9JxzlvnG+AQvMvgIJRJmdjjWREoL2oWQmaHRqPcnEhqDcMGIiALMBBBB
- Hw3NJWk+DHpGQCswz3B1PCJ9XZZmtbAc/fszQxL/9Zu0tuxrtqKH2QTIIIIOxY1pTx1g
- kuRTMYA5S+yCQlZrg5ZEPMmcNpY1hYlf/X7jwfLDx7FlNjXrQd8VebSc8cAWP7AoOfcp
- sgPOBRUzVoIJaW9mPH3nNPI5/7XRQstwT7X2SrMHG7HBJj++qH4cujnQBlnNzmpnDmhX
- A4QA==
-X-Gm-Message-State: AOJu0YyLUQDKd9dqpmRyMfaCXpikGh3WlK4eYJ10z1djtWlbaAfk17l7
- wv2uqiC9cbeEk/OCJOJQ4cKnVyHQPCqba+cukbciUi8zjVTdIjNMHVSNcG9ivTBu+h8XSHlhO1Z
- MwtGPZwt7kPdF31mSxK+9PKjltDFj6FGlXl1ek1II1wNYNNbDohB9DsHs/55xcBI+o6NM+kV/0A
- +xD125UA==
-X-Gm-Gg: ASbGncs+tznrMMHo2u5700CyO0LXV8r5XKzvkryuVjMLdgpY4DfWIELU3+g6KBCOHfn
- lVYMDKR+9o6ImjVkaQ9XOQ822KCKTQZqmZTmfNJ8KLVl1k5FnXie++2ITcDiRTuxGFUbIO/7DWt
- GXuIs3sizgkzW8e9sJSkpJx4sGacegrya7gCc1Y8XG4haHCCG8rsGNGVk5yDoRimk1NJklG76HV
- d4ErBxuKQIetfNL45dIfH506upiEE/5PG1djdurt5AfRV0SzlnZ/Yt24d/9peLzncEU88K3BRYc
- yw7PNPP6ZYYxXHBKXF6QyO75EplX+AY2nY4OgWrKlabHcd3WUe9HIdqT+SeoU5X8K1icNOs=
-X-Received: by 2002:a17:903:244d:b0:223:325c:89f6 with SMTP id
- d9443c01a7336-22368f6a614mr241899745ad.10.1741050719948; 
- Mon, 03 Mar 2025 17:11:59 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHuUUObFBIJYnqAd62p8fO5FUilV2IkcoiQnlKaCxGF7gCSOWVOssOwjk9a4VX2GubK3+kSSA==
-X-Received: by 2002:a17:903:244d:b0:223:325c:89f6 with SMTP id
- d9443c01a7336-22368f6a614mr241899365ad.10.1741050719599; 
- Mon, 03 Mar 2025 17:11:59 -0800 (PST)
+ bh=3kGVU6Ddxko4CQgxTjp8M5b614YhLeniowSKEKugGkc=;
+ b=leOxOzdQsNA2d1fc1TWXglFUPIhM3smpWRC0/iCLctv8ggb63+cXlFH9GXeT1jgwrs
+ rySfTHqDBmdG8sStRS46kq5axnh0btNoxX5vGjwWT2RpAbBpC3xAfB0yAWG+Iew5tyvi
+ AKyKL3hqg7BCPL2La3yHtCt7szE5hbU5LX4b/8oL5WGB+0m2dqdhG+5U/YtlLJSbxlNK
+ 5f5cbzy2Ljny8t0ryH8M4Yh1TBH6IqcJZvM+NHGCVdoe2qa5PHlxqcRqo+/h+iaY4pXV
+ XCVdmQ3cS94E7tTVSxG2MkdhIA+SfDhFByUOA07W4g/qyKFmYvXfSXqxJSFazupOOPLe
+ r48w==
+X-Gm-Message-State: AOJu0Yw6gvNyMmuPpWQyqCkDsQTQK/te6+b+ovxmqjFp46ozWJ570ZWn
+ YK942Ue+RLNHpvUe0xX+mPgQh5+EhzX460Ouc7jvEVRR0lI7WnIzzngpN88xroAOl4N3hAcgp+j
+ uSL056bQ38XxAeN/jL7XD/FiUMiNDESmMWZUB5xXSeSa7DHAW8OXjSSqVqD6E46Wkm5A5Tnkkvx
+ 55fh7drQ==
+X-Gm-Gg: ASbGncvcFUG8K7cVqyppCvuPiNHNf5AFfvRjqxg9Afr01eSWUBpz7gHx3+Rwf/m+KcT
+ KP2dqD+6QWbSOIpn3Zl/4Yms7yW3qp2tNxOeziNZwDQ3CojFtpZ1ysZcXng0PAPGMZ3y2+GWIeF
+ ovmORNr+SO9vyy1mJVh2Ylpu/gtSeAetm4nsKmiehsLKiE2b18KmMnfdsGQivNivwfPTRhFxjg2
+ QYycfrrrJTp3Bs61R1G0jD5IvK/PtEXebExoLEC1GrXzse7dxuo9pkbs8r8PAY2C1AUGvQe5nvm
+ MEQMpS17mA3aBuA53NPnc7FbYUzU4dx81zbE1Bpi+ERyWu4n5qLQAxNlkh4PTwtZ7GT/h4w=
+X-Received: by 2002:a17:902:e543:b0:221:7b4a:474b with SMTP id
+ d9443c01a7336-22368fba437mr218828585ad.24.1741050723085; 
+ Mon, 03 Mar 2025 17:12:03 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGfmikSvDXCmqvRoghm8aRYLhgx6qEWprkB7pzHRDb+Tgc1lh4yU4lZVd2xXOcP1iqASy3a2Q==
+X-Received: by 2002:a17:902:e543:b0:221:7b4a:474b with SMTP id
+ d9443c01a7336-22368fba437mr218828335ad.24.1741050722839; 
+ Mon, 03 Mar 2025 17:12:02 -0800 (PST)
 Received: from ryan-lee-laptop-13-amd.. (c-76-103-38-92.hsd1.ca.comcast.net.
  [76.103.38.92]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2235052c806sm84056955ad.235.2025.03.03.17.11.58
+ d9443c01a7336-2235052c806sm84056955ad.235.2025.03.03.17.12.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Mar 2025 17:11:59 -0800 (PST)
+ Mon, 03 Mar 2025 17:12:02 -0800 (PST)
 From: Ryan Lee <ryan.lee@canonical.com>
 To: apparmor@lists.ubuntu.com
-Date: Mon,  3 Mar 2025 17:11:38 -0800
-Message-ID: <20250304011144.31433-2-ryan.lee@canonical.com>
+Date: Mon,  3 Mar 2025 17:11:39 -0800
+Message-ID: <20250304011144.31433-3-ryan.lee@canonical.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250304011144.31433-1-ryan.lee@canonical.com>
 References: <20250304011144.31433-1-ryan.lee@canonical.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [apparmor] [PATCH 2/5] apparmor: constify some pointer arguments to
-	some audit-related functions
+Subject: [apparmor] [PATCH 3/5] apparmor: rename
+	policy_unpack.c:verify_header to unpack_and_verify_header
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -82,93 +82,44 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-The constified pointer arguments are not actually modified, so encode this
-into the function prototypes.
+The function in question does not just verify the header but also does
+unpacking, so give the function a more descriptive name.
 
 Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
 ---
- security/apparmor/audit.c          | 10 +++++-----
- security/apparmor/include/audit.h  | 10 +++++-----
- security/apparmor/include/policy.h |  2 +-
- 3 files changed, 11 insertions(+), 11 deletions(-)
+ security/apparmor/policy_unpack.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/security/apparmor/audit.c b/security/apparmor/audit.c
-index f0619676fc4a..100eaf9cab00 100644
---- a/security/apparmor/audit.c
-+++ b/security/apparmor/audit.c
-@@ -302,8 +302,8 @@ static int uid_cmp(kuid_t lhs, kuid_t rhs)
+diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
+index 6cf6e372d815..22af940a5f58 100644
+--- a/security/apparmor/policy_unpack.c
++++ b/security/apparmor/policy_unpack.c
+@@ -1200,14 +1200,14 @@ static struct aa_profile *unpack_profile(struct aa_ext *e, char **ns_name)
  }
  
- /* std C cmp.  negative is less than, 0 is equal, positive greater than */
--long aa_audit_data_cmp(struct apparmor_audit_data *lhs,
--		       struct apparmor_audit_data *rhs)
-+long aa_audit_data_cmp(const struct apparmor_audit_data *lhs,
-+		       const struct apparmor_audit_data *rhs)
+ /**
+- * verify_header - unpack serialized stream header
++ * unpack_and_verify_header - unpack serialized stream header
+  * @e: serialized data read head (NOT NULL)
+  * @required: whether the header is required or optional
+  * @ns: Returns - namespace if one is specified else NULL (NOT NULL)
+  *
+  * Returns: error or 0 if header is good
+  */
+-static int verify_header(struct aa_ext *e, int required, const char **ns)
++static int unpack_and_verify_header(struct aa_ext *e, int required, const char **ns)
  {
- 	long res;
+ 	int error = -EPROTONOSUPPORT;
+ 	const char *name = NULL;
+@@ -1504,7 +1504,7 @@ int aa_unpack(struct aa_loaddata *udata, struct list_head *lh,
+ 	*ns = NULL;
+ 	while (e.pos < e.end) {
+ 		void *start;
+-		error = verify_header(&e, e.pos == e.start, ns);
++		error = unpack_and_verify_header(&e, e.pos == e.start, ns);
+ 		if (error)
+ 			goto fail;
  
-@@ -374,7 +374,7 @@ void aa_audit_node_free_kref(struct kref *kref)
- 	audit_node_free(node);
- }
- 
--struct aa_audit_node *aa_dup_audit_data(struct apparmor_audit_data *orig,
-+struct aa_audit_node *aa_dup_audit_data(const struct apparmor_audit_data *orig,
- 					gfp_t gfp)
- {
- 	struct aa_audit_node *copy;
-@@ -477,8 +477,8 @@ __out_skip:								\
- })
- 
- // increments refcount on node
--struct aa_audit_node *aa_audit_cache_find(struct aa_audit_cache *cache,
--					  struct apparmor_audit_data *ad)
-+struct aa_audit_node *aa_audit_cache_find(const struct aa_audit_cache *cache,
-+					  const struct apparmor_audit_data *ad)
- {
- 	struct aa_audit_node *node;
- 
-diff --git a/security/apparmor/include/audit.h b/security/apparmor/include/audit.h
-index 97e4beccf3a7..9182abc7ed01 100644
---- a/security/apparmor/include/audit.h
-+++ b/security/apparmor/include/audit.h
-@@ -205,8 +205,8 @@ static inline void aa_audit_cache_init(struct aa_audit_cache *cache)
- 	INIT_LIST_HEAD(&cache->head);
- }
- 
--struct aa_audit_node *aa_audit_cache_find(struct aa_audit_cache *cache,
--					  struct apparmor_audit_data *ad);
-+struct aa_audit_node *aa_audit_cache_find(const struct aa_audit_cache *cache,
-+					  const struct apparmor_audit_data *ad);
- struct aa_audit_node *aa_audit_cache_insert(struct aa_audit_cache *cache,
- 					    struct aa_audit_node *node);
- void aa_audit_cache_update_ent(struct aa_audit_cache *cache,
-@@ -259,10 +259,10 @@ int aa_audit_rule_match(struct lsmblob *blob, u32 field, u32 op, void *vrule);
- 
- 
- void aa_audit_node_free_kref(struct kref *kref);
--struct aa_audit_node *aa_dup_audit_data(struct apparmor_audit_data *orig,
-+struct aa_audit_node *aa_dup_audit_data(const struct apparmor_audit_data *orig,
- 					gfp_t gfp);
--long aa_audit_data_cmp(struct apparmor_audit_data *lhs,
--		       struct apparmor_audit_data *rhs);
-+long aa_audit_data_cmp(const struct apparmor_audit_data *lhs,
-+		       const struct apparmor_audit_data *rhs);
- 
- 
- static inline struct aa_audit_node *aa_get_audit_node(struct aa_audit_node *node)
-diff --git a/security/apparmor/include/policy.h b/security/apparmor/include/policy.h
-index d5aeb7b71d29..bd89a2cd2128 100644
---- a/security/apparmor/include/policy.h
-+++ b/security/apparmor/include/policy.h
-@@ -413,7 +413,7 @@ static inline void aa_put_profile(struct aa_profile *p)
- 		kref_put(&p->label.count, aa_label_kref);
- }
- 
--static inline int AUDIT_MODE(struct aa_profile *profile)
-+static inline int AUDIT_MODE(const struct aa_profile *profile)
- {
- 	if (aa_g_audit != AUDIT_NORMAL)
- 		return aa_g_audit;
 -- 
 2.43.0
 
