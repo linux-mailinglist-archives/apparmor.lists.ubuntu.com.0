@@ -2,48 +2,79 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1B4EA57DBA
-	for <lists+apparmor@lfdr.de>; Sat,  8 Mar 2025 20:21:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13D52A57E31
+	for <lists+apparmor@lfdr.de>; Sat,  8 Mar 2025 21:42:03 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tqzjh-00084l-Fk; Sat, 08 Mar 2025 19:21:25 +0000
-Received: from mail.cboltz.de ([65.21.65.108])
+	id 1tr0zX-0000Lz-3W; Sat, 08 Mar 2025 20:41:51 +0000
+Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
+ helo=smtp-relay-canonical-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <apparmor@cboltz.de>)
- id 1tqzjg-00081F-4b
- for apparmor@lists.ubuntu.com; Sat, 08 Mar 2025 19:21:24 +0000
-X-sprachakt.com-SMTP-Auth: no
-Received: from localhost (localhost [127.0.0.1])
- by mail.cboltz.de (Postfix) with ESMTP id 4AF16232F16E
- for <apparmor@lists.ubuntu.com>; Sat,  8 Mar 2025 20:21:23 +0100 (CET)
-X-Virus-Scanned: amavisd-new at mail.cboltz.de
-Received: from mail.cboltz.de ([127.0.0.1])
- by localhost (mail.cboltz.de [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id 0n9HEimhkiCs for <apparmor@lists.ubuntu.com>;
- Sat,  8 Mar 2025 20:21:22 +0100 (CET)
-Received: from home.cboltz.de (unknown [10.10.0.6])
+ (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
+ id 1tr0zW-0000Lq-Fk
+ for apparmor@lists.ubuntu.com; Sat, 08 Mar 2025 20:41:50 +0000
+Received: from [192.168.192.85] (unknown [50.39.103.202])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (Client did not present a certificate)
- by mail.cboltz.de (Postfix) with ESMTPSA
- for <apparmor@lists.ubuntu.com>; Sat,  8 Mar 2025 20:21:22 +0100 (CET)
-From: Christian Boltz <apparmor@cboltz.de>
-To: apparmor@lists.ubuntu.com
-Date: Sat, 08 Mar 2025 20:21:18 +0100
-Message-ID: <3610981.dWV9SEqChM@tux.boltz.de.vu>
-In-Reply-To: <20250304205556.290042-6-ryan.lee@canonical.com>
-References: <20250304205556.290042-1-ryan.lee@canonical.com>
- <20250304205556.290042-6-ryan.lee@canonical.com>
+ (No client certificate requested)
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 7DB603F9C8
+ for <apparmor@lists.ubuntu.com>; Sat,  8 Mar 2025 20:41:49 +0000 (UTC)
+Message-ID: <8f7d7f9b-60f6-4851-8168-a4c4551c74fe@canonical.com>
+Date: Sat, 8 Mar 2025 12:41:47 -0800
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPart5659567.rdbgypaU67";
- micalg="pgp-sha256"; protocol="application/pgp-signature"
-X-Face: #?nL0}JpqNtLQy@q#bRm?B?pGS8[mx6r.6[91zp@*2DZ?18)haWs5wgvi, ,
- wF/JWMTUh+6x, b7_`pW3)m~0606sDW0&'EKA}_-W+)Bz~d]k>4E9TyU}k@b&1=%yk\
-Received-SPF: pass client-ip=65.21.65.108; envelope-from=apparmor@cboltz.de;
- helo=mail.cboltz.de
-Subject: [apparmor] Re: [PATCH 5/5] apparmor: disable aa_audit_file
- AA_BUG(!ad.request) due to fd inheritance
+User-Agent: Mozilla Thunderbird
+To: apparmor@lists.ubuntu.com
+References: <878qpfwu6j.fsf@nixosThinkpad.mail-host-address-is-not-set>
+Content-Language: en-US
+From: John Johansen <john.johansen@canonical.com>
+Autocrypt: addr=john.johansen@canonical.com; keydata=
+ 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 lT9Q
+Organization: Canonical
+In-Reply-To: <878qpfwu6j.fsf@nixosThinkpad.mail-host-address-is-not-set>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [apparmor] Priority of two matching profiles
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -58,96 +89,87 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
---nextPart5659567.rdbgypaU67
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Christian Boltz <apparmor@cboltz.de>
-To: apparmor@lists.ubuntu.com
-Date: Sat, 08 Mar 2025 20:21:18 +0100
-Message-ID: <3610981.dWV9SEqChM@tux.boltz.de.vu>
-In-Reply-To: <20250304205556.290042-6-ryan.lee@canonical.com>
-MIME-Version: 1.0
+On 3/8/25 05:03, engelflorian@posteo.de wrote:
+> Hi,
+> 
+> What is the priority if two profiles match. E.g. /usr/bin/cat matches on
+> profiles /usr/bin/c* and /usr/bin/ca*. What profile is it using?
+> 
 
-Hello,
+It is approximately longest left non-glob match wins. It has changed some
+over the years, from just being a length hint of how long the left match
+is before hitting globbing, to the kernel actually keeping a small buffer,
+to provide a more refined match.
 
-Am Dienstag, 4. M=C3=A4rz 2025, 21:55 schrieb Ryan Lee:
-> Inheritance of fd's triggers the lookup logic, and O_PATH fd's are
-> checked with an empty request set. If the O_PATH fd corresponds to a
-> disconnected path for an application with a profile in complain mode,
-> we have an error without a request bit set in aa_audit_file. Until we
-> can handle O_PATH fd inheritance better, the best we can do for now
-> is disable the AA_BUG line.
->=20
-> Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
-> ---
->  security/apparmor/file.c | 13 ++++++++++++-
->  1 file changed, 12 insertions(+), 1 deletion(-)
->=20
-> diff --git a/security/apparmor/file.c b/security/apparmor/file.c
-> index c430e031db31..3267a597526e 100644
-> --- a/security/apparmor/file.c
-> +++ b/security/apparmor/file.c
-> @@ -271,7 +271,18 @@ int aa_audit_file(const struct cred *subj_cred,
->  	} else {
->  		/* only report permissions that were denied */
->  		ad.request =3D ad.request & ~perms->allow;
-> -		AA_BUG(!ad.request);
-> +
-> +		/*
-> +		 * Inheritance of fd's across execution boundaries causes the
-> +		 * path name lookup logic to be triggered for all the fd's.
-> +		 * This includes O_PATH fd's for which the original requested
-> +		 * set is empty. An O_PATH fd with a disconnected path results
-> +		 * in a lookup error, which in complain mode, means we reach
-> +		 * this branch with an empty request. Until we have a better
-> +		 * way to detect and handle this case, we have to disable this
-> +		 * AA_BUG line.
-> +		 */
-> +		// AA_BUG(!ad.request);
+So example in order of match order
 
-Assuming I got your description right, this AA_BUG will only "explode"=20
-in complain mode.
+/usr/bin/example
+/usr/bin/*
+/usr/bin/**
 
-Would it be possible to do something like (pseudocode)
+If we are talking exact match (eg. /usr/bin/example) then the first
+exact match wins (match is short circuited), so load order would
+matter.
 
-    if !complain_mode
-        AA_BUG(!ad.request);
+However if there isn't an exact match, a complete search is done
+for the best match. If there are two or more with the same best
+left match length then there will be a conflict and the exec will
+be failed.
 
-so that AA_BUG only gets skipped for complain mode profiles, instead of=20
-completely commenting it out?
+> I use Nixos and have generate profiles for all programs which are
+> installed by my configuration. I then want to add a default profile
+> which is only used if no other profile matches.
+> 
+> I don't think I can do that wit profile inheritence, because if i switch
+> from the default profile it always switches to the systemd profile. If i
+> add inheritence to the systemd profile it selects the default profile
+> and not the more specific ones
+> 
+
+ix, or inheritance fallback really only works for this if you are using
+stacking, because ix default to the current confinement, not a default.
+ix is transition that's primary use is role based profiles.
+
+The stacking I mentioned is probably not what you want either, as having
+multiple profiles on an application can get messy.
 
 
-Regards,
+> I tried it with a config like this
+> ```
 
-Christian Boltz
-=2D-=20
-What you need is a list of all unknown bugs.  ;-)
-[James Knott in opensuse-factory]
+so /nix/store/ ...  has priority over default /**
 
---nextPart5659567.rdbgypaU67
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEcMqgYN4EKq6xsVGWxqaC6mPILxwFAmfMmK4ACgkQxqaC6mPI
-LxxffBAArad6LhHyudt9NW4OwZRITArUHWiAphhdtJV+oU8MzaMC05L49xJGtYWQ
-mVKl8fXV4XgTgj+uHXRyRZS7o7Nlqd8bEi6cV6Dm+UMoLWApQmAXqgNGLvPKR911
-00mrvBwhZuWNJyZKWmvROo0/HobTLklTuiDxb3cosAt/WNB3+fFdnZflNpsv24Yz
-fy1+hLoCnOJENR8WFYZaHBFZf/RUxqsXFuC22KST3hTOH3GcEF71xFb5WTaoLvPm
-u9et/CmHsiD/9iPwgL+CPDCFyDHV8SGN2cCsDHm1XYPnTZedXWSC/z6lO+alkbvI
-UrbHV2M8hfWRr2y7DR9JmpBqVrFFnedtV1cQ6/klXV6oMtq8Fjvc/2cdnsGxzwHR
-W279Q+dGLqkx2zR+AGnUZc2vkP/cz1aOWZzOTShVVo5pPh9ReHjUuEqYNABZeA5T
-r4+5+pnx+FcXcvODEP4baQMlkwP2d/9k+BlQeCur4eyr2PgXliqV7dFpXXdQNTwv
-KW7JBDbVyvWihT4dFlrQlzkaHYLJ2F1TIsWkxEHNY2RNtee2MSoFmSlyt23TmZzE
-I/2Cc9ykq3Yy4/8Y7A75TnRwmiaMO7AUjoPBA5z0OLN+nHy6BO82al1MmxaQlQu9
-eFDUBaddMlwsgv8QMtEH6olwzqx8YW5Cf1ay0w1znNmApuSdl2I=
-=s8UW
------END PGP SIGNATURE-----
-
---nextPart5659567.rdbgypaU67--
-
-
+> profile /nix/store/***-systemd/**  flags=(attach_disconnected) {
+>    # allow everything
+>    capability,
+>    network,
+>    mount,
+>    remount,
+>    umount,
+>    pivot_root,
+>    ptrace,
+>    signal,
+>    dbus,
+>    unix,
+>    file,
+> }
+> ...
+> profile default /** flags=(attach_disconnected) {
+>    capability,
+>    network,
+>    mount,
+>    remount,
+>    umount,
+>    pivot_root,
+>    ptrace,
+>    signal,
+>    dbus,
+>    unix,
+>    file,
+> 
+>    # Deny some sensitive files
+>    deny /home/florian/.ssh/{,**} mrwlk,
+>    }
+> ```
 
 
