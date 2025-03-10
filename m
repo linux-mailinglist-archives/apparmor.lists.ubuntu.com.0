@@ -2,79 +2,70 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13D52A57E31
-	for <lists+apparmor@lfdr.de>; Sat,  8 Mar 2025 21:42:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 898D5A5A3F1
+	for <lists+apparmor@lfdr.de>; Mon, 10 Mar 2025 20:42:57 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tr0zX-0000Lz-3W; Sat, 08 Mar 2025 20:41:51 +0000
-Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
- helo=smtp-relay-canonical-1.canonical.com)
+	id 1trj1P-0002Mq-RF; Mon, 10 Mar 2025 19:42:43 +0000
+Received: from smtp-relay-internal-0.internal ([10.131.114.225]
+ helo=smtp-relay-internal-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1tr0zW-0000Lq-Fk
- for apparmor@lists.ubuntu.com; Sat, 08 Mar 2025 20:41:50 +0000
-Received: from [192.168.192.85] (unknown [50.39.103.202])
+ (Exim 4.86_2) (envelope-from <ryan.lee@canonical.com>)
+ id 1trj1O-0002Jr-Dn
+ for apparmor@lists.ubuntu.com; Mon, 10 Mar 2025 19:42:42 +0000
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
+ [209.85.214.199])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 7DB603F9C8
- for <apparmor@lists.ubuntu.com>; Sat,  8 Mar 2025 20:41:49 +0000 (UTC)
-Message-ID: <8f7d7f9b-60f6-4851-8168-a4c4551c74fe@canonical.com>
-Date: Sat, 8 Mar 2025 12:41:47 -0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id F0E4E3F5E4
+ for <apparmor@lists.ubuntu.com>; Mon, 10 Mar 2025 19:42:41 +0000 (UTC)
+Received: by mail-pl1-f199.google.com with SMTP id
+ d9443c01a7336-2254bdd4982so60128745ad.1
+ for <apparmor@lists.ubuntu.com>; Mon, 10 Mar 2025 12:42:41 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1741635760; x=1742240560;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=XZb7CoYJD57cyyDZ4XoKCkHa31T8kAUGGj9FTUFOLD4=;
+ b=rXdXPhMeS6LvZdoHLW1EUb007ToiV63XFHuklXz70/oyDclw1g5qeMDgt4DS+HKi6G
+ aLFKy/y4oP0VKYQBJBlIz5IxL+1I0m3+w35p8NHYQZL+FVyGoNppb9F+LsDvV7GpCPJi
+ 1QpwSPZthrRiKzjc3s9sK5n6jQdXk2u1JlK0G3ktz02sVGREQD2vUNnQGBX6IjchkbaX
+ SHsOpRO43Nwkn2hZqvOINp69mF/4v2N/sqzJ7xJ1YIZ/yq5t2O6wYbwOe+zV2n9AcmGK
+ vyynK6J+FxJiRmHoI6rXh3SdSdEVkHbDkxhByhMLYEt0M6vMxF+EAaYhwu3w6GAoG09w
+ N7jQ==
+X-Gm-Message-State: AOJu0YwD024wTzoAS9yeYCBGq0BqQ/JXk/dGVsxyX0EUI4HVaFiT4HCj
+ STFm1AbKpcKYR99kCneIOueN8/F341TL/VuikUb47NMHoo8klJyLZ6mTsdt5YTDQinv0ekNkJgl
+ aqrDQ39YsqMGV3R9tE4MPegT5iMy6seQ9HM4j30p3UtoCmn3T1eh7K5nWMgZbtvmZurNMEKtvI2
+ Ys6xy1/g==
+X-Gm-Gg: ASbGnct6dVLQZYDkPd4qG4W25G9j3/AvuZvEdSfIe+o1UfPv/CgdO47OnDAfbaTMFwE
+ D14JKrdRPEMN027QScU6P16kzUC476fqPOcEeYgQ83VatTGK3VaO0ow1pD7KaBslkb7oQ5WBj11
+ +ORKmDOD+rYbwJmqq2pY+uPuyGEZsl+tbpo/1S13IBoQIPlbdNvYtTRHdpymyZ7Wj1MmRMnoqII
+ EMp4faD7fMN0K/zl2X4R01N8TcI4Iek3dte1nvcs59lnSit/EhsFaS0zv7RFkpahE7mCIjvui8E
+ Rl+bKzHGF2tmYyATguqbRaxY4qR5xp0tkP/0AGOlwGICVe5Bvm1MEIsmEVVlnE4enf9tgY8=
+X-Received: by 2002:a17:902:da82:b0:215:a179:14ca with SMTP id
+ d9443c01a7336-2242887b343mr179120105ad.2.1741635760609; 
+ Mon, 10 Mar 2025 12:42:40 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE5njTilaN3zgjAbPma9J+W1byYRCWn73oFwq8/ZhjbbF51+zuSDUCBqMuh5xKZT4z0FF+Qrg==
+X-Received: by 2002:a17:902:da82:b0:215:a179:14ca with SMTP id
+ d9443c01a7336-2242887b343mr179119975ad.2.1741635760339; 
+ Mon, 10 Mar 2025 12:42:40 -0700 (PDT)
+Received: from ryan-lee-laptop-13-amd.. (c-76-103-38-92.hsd1.ca.comcast.net.
+ [76.103.38.92]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-736984f99bdsm8692245b3a.110.2025.03.10.12.42.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 10 Mar 2025 12:42:39 -0700 (PDT)
+From: Ryan Lee <ryan.lee@canonical.com>
 To: apparmor@lists.ubuntu.com
-References: <878qpfwu6j.fsf@nixosThinkpad.mail-host-address-is-not-set>
-Content-Language: en-US
-From: John Johansen <john.johansen@canonical.com>
-Autocrypt: addr=john.johansen@canonical.com; keydata=
- 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 lT9Q
-Organization: Canonical
-In-Reply-To: <878qpfwu6j.fsf@nixosThinkpad.mail-host-address-is-not-set>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] Priority of two matching profiles
+Date: Mon, 10 Mar 2025 12:42:28 -0700
+Message-ID: <20250310194230.112915-1-ryan.lee@canonical.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [apparmor] [PATCH] apparmor: AA_BUG on null path mnt pointer in
+	apparmor_file_open
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -89,87 +80,49 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 3/8/25 05:03, engelflorian@posteo.de wrote:
-> Hi,
-> 
-> What is the priority if two profiles match. E.g. /usr/bin/cat matches on
-> profiles /usr/bin/c* and /usr/bin/ca*. What profile is it using?
-> 
+We aren't expecting a null path mnt pointer here, and file_mnt_idmap
+dereferences it without checking for null, leading to a null pointer
+dereference BUG print. Instead, explicitly check for this via AA_BUG
+line in order to get more useful diagnostics.
 
-It is approximately longest left non-glob match wins. It has changed some
-over the years, from just being a length hint of how long the left match
-is before hitting globbing, to the kernel actually keeping a small buffer,
-to provide a more refined match.
+Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
+---
+ security/apparmor/lsm.c | 17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
 
-So example in order of match order
+diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
+index 45cc81234c0d..d0facedb1cfd 100644
+--- a/security/apparmor/lsm.c
++++ b/security/apparmor/lsm.c
+@@ -649,12 +649,23 @@ static int apparmor_file_open(struct file *file)
+ 
+ 	label = aa_get_newest_cred_label_condref(file->f_cred, &needput);
+ 	if (!unconfined(label)) {
+-		struct mnt_idmap *idmap = file_mnt_idmap(file);
+-		struct inode *inode = file_inode(file);
++		struct mnt_idmap *idmap;
++		struct inode *inode;
+ 		vfsuid_t vfsuid;
++		/* Set a dummy value to default-initialize the rest, and then
++		 * write the correct value to mode once we have an inode ptr.
++		 * Unfortunately, default-initializing everything with {} is
++		 * only supported since C23.
++		 */
+ 		struct path_cond cond = {
+-			.mode = inode->i_mode,
++			.mode = 0
+ 		};
++
++		AA_BUG(!(file->f_path.mnt));
++		idmap = file_mnt_idmap(file);
++		inode = file_inode(file);
++		cond.mode = inode->i_mode;
++
+ 		vfsuid = i_uid_into_vfsuid(idmap, inode);
+ 		cond.uid = vfsuid_into_kuid(vfsuid);
+ 
+-- 
+2.43.0
 
-/usr/bin/example
-/usr/bin/*
-/usr/bin/**
-
-If we are talking exact match (eg. /usr/bin/example) then the first
-exact match wins (match is short circuited), so load order would
-matter.
-
-However if there isn't an exact match, a complete search is done
-for the best match. If there are two or more with the same best
-left match length then there will be a conflict and the exec will
-be failed.
-
-> I use Nixos and have generate profiles for all programs which are
-> installed by my configuration. I then want to add a default profile
-> which is only used if no other profile matches.
-> 
-> I don't think I can do that wit profile inheritence, because if i switch
-> from the default profile it always switches to the systemd profile. If i
-> add inheritence to the systemd profile it selects the default profile
-> and not the more specific ones
-> 
-
-ix, or inheritance fallback really only works for this if you are using
-stacking, because ix default to the current confinement, not a default.
-ix is transition that's primary use is role based profiles.
-
-The stacking I mentioned is probably not what you want either, as having
-multiple profiles on an application can get messy.
-
-
-> I tried it with a config like this
-> ```
-
-so /nix/store/ ...  has priority over default /**
-
-> profile /nix/store/***-systemd/**  flags=(attach_disconnected) {
->    # allow everything
->    capability,
->    network,
->    mount,
->    remount,
->    umount,
->    pivot_root,
->    ptrace,
->    signal,
->    dbus,
->    unix,
->    file,
-> }
-> ...
-> profile default /** flags=(attach_disconnected) {
->    capability,
->    network,
->    mount,
->    remount,
->    umount,
->    pivot_root,
->    ptrace,
->    signal,
->    dbus,
->    unix,
->    file,
-> 
->    # Deny some sensitive files
->    deny /home/florian/.ssh/{,**} mrwlk,
->    }
-> ```
-
+base-kernel: v6.14-rc6
 
