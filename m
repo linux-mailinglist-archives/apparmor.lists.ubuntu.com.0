@@ -2,70 +2,41 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6C95A5B5A5
-	for <lists+apparmor@lfdr.de>; Tue, 11 Mar 2025 02:13:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A171A5BB39
+	for <lists+apparmor@lfdr.de>; Tue, 11 Mar 2025 09:55:12 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1troB8-0005AP-Es; Tue, 11 Mar 2025 01:13:06 +0000
-Received: from smtp-relay-internal-0.internal ([10.131.114.225]
- helo=smtp-relay-internal-0.canonical.com)
- by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <ryan.lee@canonical.com>)
- id 1troB6-00054H-Fs
- for apparmor@lists.ubuntu.com; Tue, 11 Mar 2025 01:13:04 +0000
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 690BD3FCB1
- for <apparmor@lists.ubuntu.com>; Tue, 11 Mar 2025 01:13:02 +0000 (UTC)
-Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-2241ae15dcbso101220715ad.0
- for <apparmor@lists.ubuntu.com>; Mon, 10 Mar 2025 18:13:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741655581; x=1742260381;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=NWDbbeXerdHAtwOhtI4fQ8Kd4Zq6g8hgeHrvZlw2ZPg=;
- b=nJ954eMIq0OIynAkPjMHgFu1jeika9xIeiKZboyIoX2vmZJYwG3BEem5airC916eOX
- BK5nQXEGmRMIgbky7z3kTY+ecw152JzZQ5NXAaDSD/3VsWJtGXdRsdBJ99ThWPfvo8m/
- qn5+KaXZ2elEc9YYPiAo2qW/tuLmuZxt9lY1Baiz8uFYMQ7V2Y5nhAqMnNH2NcZ3g+q1
- edPI1ex6eNet5mI875UA+mvuNEXgYx60Q2d8O+tmtxCwmcJvcIGC+KezIHxvrtzWey9j
- jIgDwJGDzeQEtI5rkYBtE5Mf9EOF1tmXdTCNvIUBfOu9IbdcZobxTKZ5HLqJIcGU5PQT
- zPWA==
-X-Gm-Message-State: AOJu0YwWLJ2zyhZuCYjExbfgV3Zmfvaz5sU1c9obL0lMrzPC36ELPBDd
- By6uBKDTq80rxmTOiHP3lan5Elwwq2g2STXJYLAkPcqAvqB+Xgd5iO4VQ88xZaVo2oDKLg1PMLM
- eaIaqWxF+aJZbbwl0cKsqzJnV20qBPKvetseMP2MXIg99fQ7P1UJtqdg3bcu5Qex53IpHXicqm3
- 9yaqbDOQ==
-X-Gm-Gg: ASbGncuA3o5F7TlBrNRvr4bxPeSYHr3wAQCf8s5lOTxLQWUVwLqlWkeXEAnoSKIbCxw
- 1Egk1TivccMcOZYxHKW98J6T9jRTVGlSWmRTj99ZZmBSJEWVHBcpaFo//018Vf+k0JaWjmN/DYb
- SpngrWyA/Z/iY4A0Dv8Uiowk2uzhEnDiUJM3hr2uy/43QV+Rkexnmf0ctPvwbor/TFtXu8r7lTm
- oSscnpJYQiqKBgy6NsGw2Jmt3OXzCS+w1GFoOTOhdjs4cYiw3xOG343vkPG0WcCPBA0efMD7A7I
- TR/LcibRwTeMk7Ql4RYh6Myqcvw1GGSs0KU6kRqUnagExWymzluULWld48lhLgPY/Xpj5h0=
-X-Received: by 2002:a17:902:ce0a:b0:216:2bd7:1c4a with SMTP id
- d9443c01a7336-224289945b0mr253046935ad.26.1741655580897; 
- Mon, 10 Mar 2025 18:13:00 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEgV5ihADACi1rF6wqdz1zfeDguZq+VPEhYDuB8x7loyHViPNzsip+6c26Lm3IiNLaX4yC3AA==
-X-Received: by 2002:a17:902:ce0a:b0:216:2bd7:1c4a with SMTP id
- d9443c01a7336-224289945b0mr253046745ad.26.1741655580619; 
- Mon, 10 Mar 2025 18:13:00 -0700 (PDT)
-Received: from ryan-lee-laptop-13-amd.. (c-76-103-38-92.hsd1.ca.comcast.net.
- [76.103.38.92]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-22410a7f93esm85075715ad.142.2025.03.10.18.12.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 10 Mar 2025 18:13:00 -0700 (PDT)
-From: Ryan Lee <ryan.lee@canonical.com>
-To: apparmor@lists.ubuntu.com
-Date: Mon, 10 Mar 2025 18:12:50 -0700
-Message-ID: <20250311011251.2339837-1-ryan.lee@canonical.com>
-X-Mailer: git-send-email 2.43.0
+	id 1trvO9-0000c7-4R; Tue, 11 Mar 2025 08:55:01 +0000
+Received: from dfw.source.kernel.org ([139.178.84.217])
+ by lists.ubuntu.com with esmtp (Exim 4.86_2)
+ (envelope-from <brauner@kernel.org>) id 1trvO7-0000by-EI
+ for apparmor@lists.ubuntu.com; Tue, 11 Mar 2025 08:54:59 +0000
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id B2A8F5C5621;
+ Tue, 11 Mar 2025 08:43:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84B58C4CEE9;
+ Tue, 11 Mar 2025 08:45:19 +0000 (UTC)
+Date: Tue, 11 Mar 2025 09:45:16 +0100
+From: Christian Brauner <brauner@kernel.org>
+To: Ard Biesheuvel <ardb@kernel.org>, 
+ James Bottomley <James.Bottomley@hansenpartnership.com>
+Message-ID: <20250311-visite-rastplatz-d1fdb223dc10@brauner>
+References: <e54e6a2f-1178-4980-b771-4d9bafc2aa47@tnxip.de>
+ <CAKCV-6s3_7RzDfo_yGQj9ndf4ZKw_Awf8oNc6pYKXgDTxiDfjw@mail.gmail.com>
+ <465d1d23-3b36-490e-b0dd-74889d17fa4c@tnxip.de>
+ <CAKCV-6uuKo=RK37GhM+fV90yV9sxBFqj0s07EPSoHwVZdDWa3A@mail.gmail.com>
+ <ea97dd9d1cb33e28d6ca830b6bff0c2ece374dbe.camel@HansenPartnership.com>
+ <CAMj1kXGLXbki1jezLgzDGE7VX8mNmHKQ3VLQPq=j5uAyrSomvQ@mail.gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [apparmor] [PATCH] apparmor: call aa_map_file_to_perms just once
-	for apparmor_file_open mqueue
+In-Reply-To: <CAMj1kXGLXbki1jezLgzDGE7VX8mNmHKQ3VLQPq=j5uAyrSomvQ@mail.gmail.com>
+Received-SPF: pass client-ip=139.178.84.217; envelope-from=brauner@kernel.org;
+ helo=dfw.source.kernel.org
+Subject: Re: [apparmor] apparmor NULL pointer dereference on resume
+	[efivarfs]
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -77,38 +48,199 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: linux-efi@vger.kernel.org, apparmor <apparmor@lists.ubuntu.com>,
+ Malte =?utf-8?B?U2NocsO2ZGVy?= <malte.schroeder@tnxip.de>,
+ linux-security-module@vger.kernel.org, Al Viro <viro@zeniv.linux.org.uk>,
+ linux-fsdevel@vger.kernel.org, "jk@ozlabs.org" <jk@ozlabs.org>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-aa_map_file_to_perms does not change the file, so the info extracted into
-the allow variable can be used for the call to aa_mqueue_perm instead of
-being computed again.
+On Tue, Mar 11, 2025 at 08:16:34AM +0100, Ard Biesheuvel wrote:
+> (cc Al Viro)
+> 
+> On Mon, 10 Mar 2025 at 22:49, James Bottomley
+> <James.Bottomley@hansenpartnership.com> wrote:
+> >
+> > On Mon, 2025-03-10 at 12:57 -0700, Ryan Lee wrote:
+> > > On Wed, Mar 5, 2025 at 1:47 PM Malte Schröder
+> > > <malte.schroeder@tnxip.de> wrote:
+> > > >
+> > > > On 05/03/2025 20:22, Ryan Lee wrote:
+> > > > > On Wed, Mar 5, 2025 at 11:11 AM Malte Schröder
+> > > > > <malte.schroeder@tnxip.de> wrote:
+> > > > > > Hi,
+> > > > > >
+> > > > > > I hope this is the right place to report this. Since 6.14-rc1
+> > > > > > ff. resume
+> > > > > > from hibernate does not work anymore. Now I finally managed to
+> > > > > > get dmesg
+> > > > > > from when this happens (Console is frozen, but managed to login
+> > > > > > via
+> > > > > > network). If I read that trace correctly there seems to be some
+> > > > > > interaction with apparmor. I retried with apparmor disabled and
+> > > > > > the
+> > > > > > issue didn't trigger.
+> > > > > Also CC'ing the AppArmor-specific mailing list in this reply.
+> > > > >
+> > > > > > I am happy to provide more data if required.
+> > > > > Could you try to reproduce this NULL pointer dereference with a
+> > > > > clean
+> > > > > kernel with debug info (that I'd be able to access the source
+> > > > > code of)
+> > > > > and send a symbolized stacktrace processed with
+> > > > > scripts/decode_stacktrace.sh?
+> > > >
+> > > > Sure. Result using plain v6.14-rc5:
+> > > >
+> > > > [  142.014428] BUG: kernel NULL pointer dereference, address:
+> > > > 0000000000000018
+> > > > [  142.014429] #PF: supervisor read access in kernel mode
+> > > > [  142.014431] #PF: error_code(0x0000) - not-present page
+> > > > [  142.014432] PGD 0 P4D 0
+> > > > [  142.014433] Oops: Oops: 0000 [#1] PREEMPT SMP NOPTI
+> > > > [  142.014436] CPU: 4 UID: 0 PID: 6833 Comm: systemd-sleep Not
+> > > > tainted
+> > > > 6.14.0-rc5 #1
+> > > > [  142.014437] Hardware name: To Be Filled By O.E.M. X570
+> > > > Extreme4/X570
+> > > > Extreme4, BIOS P5.60 01/18/2024
+> > > > [  142.014439] RIP: 0010:apparmor_file_open
+> > > > (./include/linux/mount.h:78
+> > > > (discriminator 2) ./include/linux/fs.h:2781 (discriminator 2)
+> > > > security/apparmor/lsm.c:483 (discriminator 2))
+> > > > [ 142.014442] Code: c5 00 08 00 00 0f 85 4b 01 00 00 4c 89 e9 31 c0
+> > > > f6
+> > > > c1 02 0f 85 fd 00 00 00 48 8b 87 88 00 00 00 4c 8d b7 88 00 00 00
+> > > > 48 89
+> > > > fd <48> 8b 40 18 48 8b 4f 70 0f b7 11 48 89 c7 66 89 54 24 04 48 8b
+> > > > 51
+> > > > All code
+> > > > ========
+> > > >    0:    c5 00 08                 (bad)
+> > > >    3:    00 00                    add    %al,(%rax)
+> > > >    5:    0f 85 4b 01 00 00        jne    0x156
+> > > >    b:    4c 89 e9                 mov    %r13,%rcx
+> > > >    e:    31 c0                    xor    %eax,%eax
+> > > >   10:    f6 c1 02                 test   $0x2,%cl
+> > > >   13:    0f 85 fd 00 00 00        jne    0x116
+> > > >   19:    48 8b 87 88 00 00 00     mov    0x88(%rdi),%rax
+> > > >   20:    4c 8d b7 88 00 00 00     lea    0x88(%rdi),%r14
+> > > >   27:    48 89 fd                 mov    %rdi,%rbp
+> > > >   2a:*    48 8b 40 18              mov    0x18(%rax),%rax        <-
+> > > > -
+> > > > trapping instruction
+> > > >   2e:    48 8b 4f 70              mov    0x70(%rdi),%rcx
+> > > >   32:    0f b7 11                 movzwl (%rcx),%edx
+> > > >   35:    48 89 c7                 mov    %rax,%rdi
+> > > >   38:    66 89 54 24 04           mov    %dx,0x4(%rsp)
+> > > >   3d:    48                       rex.W
+> > > >   3e:    8b                       .byte 0x8b
+> > > >   3f:    51                       push   %rcx
+> > > >
+> > > > Code starting with the faulting instruction
+> > > > ===========================================
+> > > >    0:    48 8b 40 18              mov    0x18(%rax),%rax
+> > > >    4:    48 8b 4f 70              mov    0x70(%rdi),%rcx
+> > > >    8:    0f b7 11                 movzwl (%rcx),%edx
+> > > >    b:    48 89 c7                 mov    %rax,%rdi
+> > > >    e:    66 89 54 24 04           mov    %dx,0x4(%rsp)
+> > > >   13:    48                       rex.W
+> > > >   14:    8b                       .byte 0x8b
+> > > >   15:    51                       push   %rcx
+> > > > [  142.014443] RSP: 0018:ffffb9ef7189bc50 EFLAGS: 00010246
+> > > > [  142.014445] RAX: 0000000000000000 RBX: ffff95eb5e555b00 RCX:
+> > > > 0000000000000300
+> > > > [  142.014446] RDX: ffff95f838227538 RSI: 00000000002ba677 RDI:
+> > > > ffff95e992be2a00
+> > > > [  142.014447] RBP: ffff95e992be2a00 R08: ffff95f838227520 R09:
+> > > > 0000000000000002
+> > > > [  142.014447] R10: ffff95ea72241d00 R11: 0000000000000001 R12:
+> > > > 0000000000000010
+> > > > [  142.014448] R13: 0000000000000300 R14: ffff95e992be2a88 R15:
+> > > > ffff95e95a6034e0
+> > > > [  142.014449] FS:  00007f74ab6cf880(0000)
+> > > > GS:ffff95f838200000(0000)
+> > > > knlGS:0000000000000000
+> > > > [  142.014450] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> > > > [  142.014451] CR2: 0000000000000018 CR3: 00000002473b6000 CR4:
+> > > > 0000000000f50ef0
+> > > > [  142.014452] PKRU: 55555554
+> > > > [  142.014453] Call Trace:
+> > > > [  142.014454]  <TASK>
+> > > > [  142.014456] ? __die_body (arch/x86/kernel/dumpstack.c:421)
+> > > > [  142.014459] ? page_fault_oops (arch/x86/mm/fault.c:710)
+> > > > [  142.014460] ? __lock_acquire (kernel/locking/lockdep.c:?
+> > > > kernel/locking/lockdep.c:5174)
+> > > > [  142.014462] ? local_lock_acquire
+> > > > (./include/linux/local_lock_internal.h:29 (discriminator 1))
+> > > > [  142.014465] ? do_user_addr_fault (arch/x86/mm/fault.c:?)
+> > > > [  142.014467] ? exc_page_fault
+> > > > (./arch/x86/include/asm/irqflags.h:37
+> > > > ./arch/x86/include/asm/irqflags.h:92 arch/x86/mm/fault.c:1488
+> > > > arch/x86/mm/fault.c:1538)
+> > > > [  142.014468] ? asm_exc_page_fault
+> > > > (./arch/x86/include/asm/idtentry.h:623)
+> > > > [  142.014471] ? apparmor_file_open (./include/linux/mount.h:78
+> > > > (discriminator 2) ./include/linux/fs.h:2781 (discriminator 2)
+> > > > security/apparmor/lsm.c:483 (discriminator 2))
+> > > > [  142.014472] security_file_open (security/security.c:?)
+> > > > [  142.014474] do_dentry_open (fs/open.c:934)
+> > > > [  142.014476] kernel_file_open (fs/open.c:1201)
+> > > > [  142.014477] efivarfs_pm_notify (fs/efivarfs/super.c:505)
+> > >
+> > > I traced the NULL dereference down to efivarfs_pm_notify creating a
+> > > struct path with a NULL .mnt pointer which is then passed into
+> > > kernel_file_open, which then invokes the LSM file_open security hook,
+> > > where AppArmor is not expecting a path that has a NULL .mnt pointer.
+> > > The code in question was introduced in b5d1e6ee761a (efivarfs: add
+> > > variable resync after hibernation).
+> > >
+> > > I have sent in a patch to the AppArmor mailing list at
+> > > https://lists.ubuntu.com/archives/apparmor/2025-March/013545.html
+> > > which should give improved diagnostics for this case happening again.
+> > > My understanding is that path .mnt pointers generally should not be
+> > > NULL, but I do not know what an appropriate (non-NULL) value for that
+> > > pointer should be, as I am not familiar with the efivarfs subsystem.
+> >
+> > The problem comes down to the superblock functions not being able to
+> > get the struct vfsmount for the superblock (because it isn't even
+> > allocated until after they've all been called).  The assumption I was
+> > operating under was that provided I added O_NOATIME to prevent the
+> > parent directory being updated, passing in a NULL mnt for the purposes
+> > of iterating the directory dentry was safe.  What apparmour is trying
+> > to do is look up the idmap for the mount point to do one of its checks.
+> >
+> > There are two ways of fixing this that I can think of.  One would be
+> > exporting a function that lets me dig the vfsmount out of s_mounts and
+> > use that (it's well hidden in the internals of fs/mount.h, so I suspect
+> > this might not be very acceptable) or to get mnt_idmap to return
 
-Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
----
- security/apparmor/lsm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Nope, please don't.
 
-diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
-index d0facedb1cfd..11ace667cbbf 100644
---- a/security/apparmor/lsm.c
-+++ b/security/apparmor/lsm.c
-@@ -671,10 +671,10 @@ static int apparmor_file_open(struct file *file)
- 		cond.uid = vfsuid_into_kuid(vfsuid);
- 
- 		if (is_mqueue_inode(file_inode(file))){
-+			allow = aa_map_file_to_perms(file);
- 			error = aa_mqueue_perm(OP_OPEN, file->f_cred,
- 					       label, &file->f_path,
--					       aa_map_file_to_perms(file));
--			allow = aa_map_file_to_perms(file);
-+					       allow);
- 		} else {
- 			/* will be intersected and reduced with each profile */
- 			allow = ALL_PERMS_MASK;
+> > &nop_mnt_idmap if the passed in mnt is NULL.  I'd lean towards the
+> > latter, but I'm cc'ing fsdevel to see what others think.
 
-base-kernel: Ubuntu-hwe-6.11-6.11.0-19.19~24.04.1
--- 
-2.43.0
+A struct path with mount NULL and dentry != NULL is guaranteed to bit us
+in the ass in other places. That's the bug.
 
+> >
+> 
+> 
+> Al spotted the same issue based on a syzbot report [0]
+> 
+> [0] https://lore.kernel.org/all/20250310235831.GL2023217@ZenIV/
+
+efivars as written only has a single global superblock and it doesn't
+support idmapped mounts and I don't see why it ever would.
+
+But since efivars does only ever have a single global superblock, one
+possibility is to an internal superblock that always exits and is
+resurfaced whenever userspace mounts efivarfs. That's essentially the
+devtmpfs model.
+
+Then you can stash:
+
+static struct vfsmount *efivarfs_mnt;
+
+globally and use that in efivarfs_pm_notify() to fill in struct path.
 
