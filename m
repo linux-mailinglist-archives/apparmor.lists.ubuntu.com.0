@@ -2,29 +2,29 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B117A5DB41
+	by mail.lfdr.de (Postfix) with ESMTPS id 788F4A5DB42
 	for <lists+apparmor@lfdr.de>; Wed, 12 Mar 2025 12:18:34 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tsK6Q-0003ey-Nz; Wed, 12 Mar 2025 11:18:22 +0000
+	id 1tsK6R-0003fI-Ft; Wed, 12 Mar 2025 11:18:23 +0000
 Received: from lamorak.hansenpartnership.com ([198.37.111.173])
  by lists.ubuntu.com with esmtp (Exim 4.86_2)
  (envelope-from <James.Bottomley@HansenPartnership.com>)
- id 1ts2U0-000368-V6
- for apparmor@lists.ubuntu.com; Tue, 11 Mar 2025 16:29:33 +0000
+ id 1ts3oH-0005px-ER
+ for apparmor@lists.ubuntu.com; Tue, 11 Mar 2025 17:54:33 +0000
 Received: from lingrow.int.hansenpartnership.com (unknown
  [IPv6:2601:5c4:4302:c21::a774])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lamorak.hansenpartnership.com (Postfix) with ESMTPSA id 7EAF41C035C;
- Tue, 11 Mar 2025 12:20:06 -0400 (EDT)
-Message-ID: <78a59e2a5012bfb2d6a653782ab346b44b211102.camel@HansenPartnership.com>
+ by lamorak.hansenpartnership.com (Postfix) with ESMTPSA id 3E8C91C02CF;
+ Tue, 11 Mar 2025 13:46:24 -0400 (EDT)
+Message-ID: <4ac2a24c748c974609b19d810a797e4a3dce3e6a.camel@HansenPartnership.com>
 From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Christian Brauner <brauner@kernel.org>
-Date: Tue, 11 Mar 2025 12:20:05 -0400
-In-Reply-To: <20250311-trunk-farben-fe36bebe233a@brauner>
+To: Al Viro <viro@zeniv.linux.org.uk>
+Date: Tue, 11 Mar 2025 13:46:23 -0400
+In-Reply-To: <20250311171534.GQ2023217@ZenIV>
 References: <e54e6a2f-1178-4980-b771-4d9bafc2aa47@tnxip.de>
  <CAKCV-6s3_7RzDfo_yGQj9ndf4ZKw_Awf8oNc6pYKXgDTxiDfjw@mail.gmail.com>
  <465d1d23-3b36-490e-b0dd-74889d17fa4c@tnxip.de>
@@ -34,6 +34,8 @@ References: <e54e6a2f-1178-4980-b771-4d9bafc2aa47@tnxip.de>
  <20250311-visite-rastplatz-d1fdb223dc10@brauner>
  <814a257530ad5e8107ce5f48318ab43a3ef1f783.camel@HansenPartnership.com>
  <20250311-trunk-farben-fe36bebe233a@brauner>
+ <78a59e2a5012bfb2d6a653782ab346b44b211102.camel@HansenPartnership.com>
+ <20250311171534.GQ2023217@ZenIV>
 Autocrypt: addr=James.Bottomley@HansenPartnership.com; prefer-encrypt=mutual;
  keydata=mQENBE58FlABCADPM714lRLxGmba4JFjkocqpj1/6/Cx+IXezcS22azZetzCXDpm2MfNElecY3qkFjfnoffQiw5rrOO0/oRSATOh8+2fmJ6el7naRbDuh+i8lVESfdlkoqX57H5R8h/UTIp6gn1mpNlxjQv6QSZbl551zQ1nmkSVRbA5TbEp4br5GZeJ58esmYDCBwxuFTsSsdzbOBNthLcudWpJZHURfMc0ew24By1nldL9F37AktNcCipKpC2U0NtGlJjYPNSVXrCd1izxKmO7te7BLP+7B4DNj1VRnaf8X9+VIApCi/l4Kdx+ZR3aLTqSuNsIMmXUJ3T8JRl+ag7kby/KBp+0OpotABEBAAG0N0phbWVzIEJvdHRvbWxleSA8SmFtZXMuQm90dG9tbGV5QEhhbnNlblBhcnRuZXJzaGlwLmNvbT6JAVgEEwEIAEICGwMGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAhkBFiEE1WBuc8i0YnG+rZrfgUrkfCFIVNYFAmBLmY0FCRs1hL0ACgkQgUrkfCFIVNaEiQgAg18F4G7PGWQ68xqnIrccke7Reh5thjUz6kQIii6Dh64BDW6/UvXn20UxK2uSs/0TBLO81k1mV4c6rNE+H8b7IEjieGR9frBsp/+Q01JpToJfzzMUY7ZTDV1IXQZ+AY9L7vRzyimnJHx0Ba4JTlAyHB+Ly5i4Ab2+uZcnNfBXquWrG3oPWz+qPK88LJLya5Jxse1m1QT6R/isDuPivBzntLOooxPk+Cwf5sFAAJND+idTAzWzslexr9j7rtQ1UW6FjO4CvK9yVNz7dgG6FvEZl6J/HOr1rivtGgpCZTBzKNF8jg034n49zGfKkkzWLuXbPUOp3/oGfsKv8pnEu1c2GbQpSmFtZXMgQm90dG9tbGV5IDxqZWpiQGxpbnV4LnZuZXQuaWJtLmNvbT6JAVYEEwEIAEACGwMHCwkIBwMCAQYVC
  AIJCgsEFgIDAQIeAQIXgBYhBNVgbnPItGJxvq2a34FK5HwhSFTWBQJgS5mXBQkbNYS9AAoJEIFK5HwhSFTWEYEH/1YZpV+1uCI2MVz0wTRlnO/3OW/xnyigrw+K4cuO7MToo0tHJb/qL9CBJ2ddG6q+GTnF5kqUe87t7M7rSrIcAkIZMbJmtIbKk0j5EstyYqlE1HzvpmssGpg/8uJBBuWbU35af1ubKCjUs1+974mYXkfLmS0a6h+cG7atVLmyClIc2frd3o0zHF9+E7BaB+HQzT4lheQAXv9KI+63ksnbBpcZnS44t6mi1lzUE65+Am1z+1KJurF2Qbj4AkICzJjJa0bXa9DmFunjPhLbCU160LppaG3OksxuNOTkGCo/tEotDOotZNBYejWaXN2nr9WrH5hDfQ5zLayfKMtLSd33T9u0IUphbWVzIEJvdHRvbWxleSA8amVqYkBrZXJuZWwub3JnPokBVQQTAQgAPwIbAwYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AWIQTVYG5zyLRicb6tmt+BSuR8IUhU1gUCYEuZmAUJGzWEvQAKCRCBSuR8IUhU1gacCAC+QZN+RQd+FOoh5g884HQm8S07ON0/2EMiaXBiL6KQb5yP3w2PKEhug3+uPzugftUfgPEw6emRucrFFpwguhriGhB3pgWJIrTD4JUevrBgjEGOztJpbD73bLLyitSiPQZ6OFVOqIGhdqlc3n0qoNQ45n/w3LMVj6yP43SfBQeQGEdq4yHQxXPs0XQCbmr6Nf2p8mNsIKRYf90fCDmABH1lfZxoGJH/frQOBCJ9bMRNCNy+aFtjd5m8ka5M7gcDvM7TAsKhD5O5qFs4aJHGajF4gCGoWmXZGrISQvrNl9kWUhgsvoPqb2OTTeAQVRuV8C4FQamxzE3MRNH25j6s/qujtCRKYW1lcyBCb3R0b21sZXkgPGplamJAbGludXguaWJtLmNvbT6JAVQEEwEIAD
@@ -64,128 +66,50 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: linux-efi@vger.kernel.org, apparmor <apparmor@lists.ubuntu.com>,
+Cc: Christian Brauner <brauner@kernel.org>, linux-efi@vger.kernel.org,
+ apparmor <apparmor@lists.ubuntu.com>,
  Malte =?ISO-8859-1?Q?Schr=F6der?= <malte.schroeder@tnxip.de>,
- linux-security-module@vger.kernel.org, Al Viro <viro@zeniv.linux.org.uk>,
- linux-fsdevel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>,
- "jk@ozlabs.org" <jk@ozlabs.org>
+ linux-security-module@vger.kernel.org, "jk@ozlabs.org" <jk@ozlabs.org>,
+ linux-fsdevel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Tue, 2025-03-11 at 16:55 +0100, Christian Brauner wrote:
-> On Tue, Mar 11, 2025 at 09:01:36AM -0400, James Bottomley wrote:
-> > On Tue, 2025-03-11 at 09:45 +0100, Christian Brauner wrote:
-[...]
-> > > efivars as written only has a single global superblock and it
-> > > doesn't support idmapped mounts and I don't see why it ever
-> > > would.
-> >=20
-> > So that's not quite true: efivarfs currently supports uid and gid
-> > mapping as mount options, which certainly looks like they were
-> > designed to allow a second mount in a user directory.=C2=A0 I've no ide=
-a
-> > what the actual use case for this is, but if I go for a single
-> > superblock, any reconfigure with new uid/gid would become globally
-> > effective (change every current mount) because they're stored in
-> > the superblock information.
-> >=20
-> > So what is the use case for this uid/gid parameter?=C2=A0 If no-one can
-> > remember and no-one actually uses it, perhaps the whole config path
-> > can be simplified by getting rid of the options?=C2=A0 Even if there is
-> > a use case, if it's single mount only then we can still go with a
-> > global superblock.
+On Tue, 2025-03-11 at 17:15 +0000, Al Viro wrote:
+> On Tue, Mar 11, 2025 at 12:20:05PM -0400, James Bottomley wrote:
 >=20
-> So efivarfs uses get_tree_single(). That means that only a single
-> superblock of the filesystem type efivarfs can ever exist on the
-> system.
+> > That's the way it's supposed to work, yes.=C2=A0 However, if we move to
+> > an always persistent superblock and mnt, I was thinking there'd
+> > have to be an indicator in the sfi about whether the variables were
+> > reflected or not.
 >=20
-> If efivars is mounted multiple times it will be the exact same
-> superblock that's used. IOW, mounting efivars multiple times is akin
-> to a bind-mount. It would be a bit ugly but it could be done by
-> making sure that any uid/gid changes are reflected. But see below.
+> Just have a pointer to superblock set at ->get_tree() and cleared at
+> the very beginning of ->kill_sb(), then have notifier bugger off if
+> that thing's NULL or if atomic_inc_not_zero(sb->s_active) fails
+> (rcu_read_lock() is sufficient for memory safety of that).=C2=A0 And
+> do deactivate_super() when you are done.
 
-OK, so it's a fair bet that either the uid/gid option is never used or
-only used once globally.
+OK that works, thanks!
 
-> > > But since efivars does only ever have a single global superblock,
-> > > one possibility is to an internal superblock that always exits
-> > > and is resurfaced whenever userspace mounts efivarfs. That's
-> > > essentially the devtmpfs model.
-> > >=20
-> > > Then you can stash:
-> > >=20
-> > > static struct vfsmount *efivarfs_mnt;
-> > >=20
-> > > globally and use that in efivarfs_pm_notify() to fill in struct
-> > > path.
-> >=20
-> > I didn't see devtmpfs when looking for examples, since it's hiding
-> > outside of the fs/ directory.=C2=A0 However, it does seem to be a bit
-> > legacy nasty as an example to copy.=C2=A0 However, I get the basics:
-> > we'd instantiate the mnt and superblock on init (stashing mnt in
-> > the sfi so the notifier gets it).=C2=A0 Then we can do the variable
-> > population on reconfigure, just in case an EFI system doesn't want
-> > to mount efivarfs to save memory.
-> >=20
-> > I can code that up if I can get an answer to the uid/gid parameter
-> > question above.
->=20
-> I have some questions. efivarfs registers efivarfs_pm_notify even
-> before a superblock exists in efivarfs_init_fs_context(). That's
-> called during
-> fd_context =3D fsopen("efivarfs") before a superblock even exists:
->=20
-> (1) Is it guaranteed that efivarfs_pm_notify() is only called once a
-> =C2=A0=C2=A0=C2=A0 superblock exists?
+> That'll give you exclusion with umount.=C2=A0 As for the rest of that...
+> fuck it, just have kern_mount()/kern_unmount() inside that.
+> How hot do you expect that notifier chain to be?
 
-Yes (there was a fix that ensured it)
+The notifier chain itself is somewhat active, but the notifications we
+care about occur once on resume from hibernate (so very few, if any).
 
->=20
-> (2) Is it guaranteed that efivarfs_pm_notify() is only called when =20
-> and while a mount for the superblock exists?
+> Or screw playing with open/iterate_dir, but that'll need some
+> thinking -
+> theoretically everything you need is already accessible, but direct
+> access to ->d_lock/->d_sib in there is almost certainly not the right
+> level of abstraction.=C2=A0 We already have similar bits and pieces
+> in autofs and ceph, and it's just a matter of figuring out a good
+> set of primitives.
 
-That's the intention, but I thought the last unmount would trigger the
-superblock kill.  However, I was thinking I'd need a new mechanism
-based on reconfiguration to do the dentries only if the filesystem got
-mounted, so I think I can cope with that.
-
-> If the question to either one of those is "no" then the global
-> vfsmount hack will not help.
->=20
-> From reading efivarfs_pm_notify() it looks like the answer to (1) is
-> "yes" because you're dereferencing sfi->sb->s_root in
-> efivarfs_pm_notify().
->=20
-> But I'm not at all certain that (2) isn't a "no" and that
-> efivarfs_pm_notify() can be called before a mount exists. IOW, once
-> fsconfig(FSCONFIG_CMD_CREATE) is called the notifier seems ready and
-> registered but userspace isn't forced to call fsmount(fd_fs) at all.
-
-I'd like to have efivarfs so that if no-one's actually mounted anything
-then the reflection of the variables isn't taking up any space, so I
-was planning a new mechanism for that anyway.
-
-> They could just not to do it for whatever reason but the notifier
-> should already be able to run.
->=20
-> Another question is whether the superblock can be freed while
-> efivarfs_pm_notify() is running? I think that can't happen because
-> blocking_notifier_chain_unregister(&efivar_ops_nh, &sfi->nb) will
-> block in efivarfs_kill_sb() until all outstanding calls to
-> efivarfs_pm_notify() are finished?
-
-That's the way it's supposed to work, yes.  However, if we move to an
-always persistent superblock and mnt, I was thinking there'd have to be
-an indicator in the sfi about whether the variables were reflected or
-not.
+I'll probably stick to getting it to work for now ... the refactoring
+can come later.
 
 Regards,
 
 James
-
-> If (2) isn't guranteed then efivarfs_pm_notify() needs to be
-> rewritten without relying on files because there's no guarantee that
-> a mount exists at all.
->=20
 
 
