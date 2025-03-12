@@ -2,74 +2,76 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C153A5E66C
-	for <lists+apparmor@lfdr.de>; Wed, 12 Mar 2025 22:22:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E926A5E66E
+	for <lists+apparmor@lfdr.de>; Wed, 12 Mar 2025 22:22:58 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tsTXJ-0000TG-Pe; Wed, 12 Mar 2025 21:22:45 +0000
-Received: from smtp-relay-internal-0.internal ([10.131.114.225]
- helo=smtp-relay-internal-0.canonical.com)
+	id 1tsTXP-0000V6-87; Wed, 12 Mar 2025 21:22:51 +0000
+Received: from smtp-relay-internal-1.internal ([10.131.114.114]
+ helo=smtp-relay-internal-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <ryan.lee@canonical.com>)
- id 1tsTXI-0000Sm-DO
- for apparmor@lists.ubuntu.com; Wed, 12 Mar 2025 21:22:44 +0000
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
- [209.85.216.69])
+ id 1tsTXN-0000US-QD
+ for apparmor@lists.ubuntu.com; Wed, 12 Mar 2025 21:22:49 +0000
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
+ [209.85.214.197])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 0C9AF3FCC8
- for <apparmor@lists.ubuntu.com>; Wed, 12 Mar 2025 21:22:44 +0000 (UTC)
-Received: by mail-pj1-f69.google.com with SMTP id
- 98e67ed59e1d1-3011c150130so466218a91.2
- for <apparmor@lists.ubuntu.com>; Wed, 12 Mar 2025 14:22:43 -0700 (PDT)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id C976D3F2B4
+ for <apparmor@lists.ubuntu.com>; Wed, 12 Mar 2025 21:22:47 +0000 (UTC)
+Received: by mail-pl1-f197.google.com with SMTP id
+ d9443c01a7336-2241aad40f3so4499985ad.1
+ for <apparmor@lists.ubuntu.com>; Wed, 12 Mar 2025 14:22:47 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741814562; x=1742419362;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=UYHE7PfrFzAetCRzPVVNsPinECVfo2Zm0WG/ZDMIyJE=;
- b=eyygpIlr7LHfHAk62BiejBdn/EfFz7b6wkko0utiD7sxWUFVmYwNODv9dgBkB5CHQJ
- g5pKer928RxRSduJ07/oTHFBMl/S2jO12cCYAvELo0zP2lW3vsyRt98A4TToeKraduHV
- a5CtNr1dRS1WJQaJUStGbLko9bTCLC/0lOI5fNHqlIoYaeSVQ/qIR9jOBDFZDakTecv+
- NZctQed+EnFv6WcHiP4vzzyYHsPjOuYqydFEV0/+SKHZWNBaY6frjH9BMKRCp56CVHcR
- Ig7WrfQfizCn/EBaKvuCELyzNPSyY4PSf1/rG/jHWzp2DADlcJ40xHUER0O42v+dNAHM
- ARRg==
+ d=1e100.net; s=20230601; t=1741814564; x=1742419364;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=JJCUu0nnTlIAwhQtLazst1i1S2GtJ41RAYnP5gniTzw=;
+ b=hm2sbB6laj3kaIVqfmUIoz2J7SI4z8NyCboGAVKTaqqTw/cZvWejFUEjHKI7fBR7MS
+ R3vk2QqEAsCk9MgmCpn+Ujxn1H5xex4NwuhM2BX7GRfi7e1Sp3+uyrk8vc8XWLD8vcKl
+ waRgBsPfDWlskCRDRBjBEaHfB2gXkpgKGw0DFM7wxRtfRROpZGCLT305YSyjb+CDxTeE
+ cp3onFTSvfVgUDr3ftoSDjP3F8zrJrIhuD94mcSwP6UWAA1+y2zO02pnvePIzwuNIiOw
+ UvTzWPm38h90ZVIMSle3oKYfmGp5FXjDCTdN2b3UqlSOG1lj1ZYRWj+F44Pm66zGC6Fk
+ HGKA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWJ/krQ/9rVHbqpneL/6sQPDDbUN3+sWfIKIxFYNHZXgaH+6q/EdXzHWKBVLG6jaDx4U7a9zXOwdA==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0Yw3coFVZkN8OHzO1cgliCpm6u8tWuHaPBc8Es9HlhidAixcGCTU
- 7ek8YvTLA8bYt3VbFnNJHaro/2eRR4eQqZSE3QXnysrrDY07VcRkmX12qKWNjBwzbqIewwLa5kE
- oLIcn/QlGkqddEItXVx7RWI4IbB6J0LLFaMqrheZ/DLJhrw7OlaT6UNolD7dVaJKNAFAtcr2MKR
- ydt9wPNHC0
-X-Gm-Gg: ASbGncu2gPX075IphEG+FN/AtT7rfHp0f7CTyPA3LeMkqByiz7odwSRgkWWdRVFwUqU
- ouPabPrDom/1XlxCZeyV0P0t5xVuUSMt07NiTX9vOoWa8tA9TTKw4ArtzCt0MlNRfcO50AqvcDS
- C2NSfkmx/NBRMxkDXns+QlIxFLnWhM0TI8n8KaPz7bRXPQeKj1fdoM6upRT6m+Y64SEKxGjnlmf
- VmcD9LvNFgRNMpXqsisUv16C7Uj+TeIJe3RHCX7SR8r9OLp2Kj+4uu1XAjlSnq3zQCQtE21lRzJ
- o8lVvm9xWOF96Q2vP53Mhzsb7YSKRklpJZIf8cC5qzYWGNZ7DnZ3oHdt99v+w5gLbRSbsJ0=
-X-Received: by 2002:a17:90b:1d8c:b0:2ee:f677:aa14 with SMTP id
- 98e67ed59e1d1-2ff7ce6ff9dmr33955122a91.13.1741814562170; 
- Wed, 12 Mar 2025 14:22:42 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IESqd74aQLaRYMlhUC52mOCTMPtX58VJpqPHYNlhWsmVgCtfWUR4bux5MtYAMon8vBiSS29gA==
-X-Received: by 2002:a17:90b:1d8c:b0:2ee:f677:aa14 with SMTP id
- 98e67ed59e1d1-2ff7ce6ff9dmr33955108a91.13.1741814561871; 
- Wed, 12 Mar 2025 14:22:41 -0700 (PDT)
+ AJvYcCXKhuZSCKS4K5o6AOU7qYB1w8tdeJItAk9iXrQLP1iyTCj5cHakw3nNB2NZkUybUgocizpfzF+lcw==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0YwTGdjiIjrjRJQI5McC0Ky5z1OGefD1r3XnyMvuMoyneFFSm8GC
+ DGiz6f0Mst/yWbKWNCgSTJrfcfh1cYulAUJwbdLSKf103xV0oHWPkO3LQ3+gZB9j4+1J44JzpYn
+ Q5gHQu+HQhmUx2mt0DJG9+5rP2ZZkF6Akv/u3BVxsrhtT/liVPd0hUUyEAZUAFxDla+iFpyB5Fg
+ ==
+X-Gm-Gg: ASbGnctohiOWks+qPXcnaP8g8DfQJ8mE501jRhj9BxPWEezO4SsR8kFGPbF/2sWNAG4
+ wifMwQRLZMS0xOESbNry1PsSeHBPfGl6NJoEKRt4KlyTj1+9WOQlKIFuJKWkpA5PL3dXZRxUW5N
+ l8XnI8L6WedU9t2YLBtnVNyPaD1V0JPW/WR49nE3NC4XIPI5DX8pynABvI+eS2xqw+BDr3sRUeT
+ 5O3C6QMCdqYgIugPCBbED/4yd428d2bLtsXaXBKX3QXcD2bieNHPEFSwOLY289Xt5kiKq/cGs3j
+ a46vWLmdskEmObpgX4Mk1VNQZtcT1HgQ3EZx/G/Y9S0bjwsJsmzBmxzbkKvzHLWp+gEdba0=
+X-Received: by 2002:a17:902:ea07:b0:224:a79:5fe4 with SMTP id
+ d9443c01a7336-2242888681cmr334106845ad.2.1741814564404; 
+ Wed, 12 Mar 2025 14:22:44 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFjVvzREwSOFKw0Hfsl/h89sadLsPdTTQZ/I/XFETV/GwxC6RNVuLWxGdk5FbZ6Djc3RCsmNQ==
+X-Received: by 2002:a17:902:ea07:b0:224:a79:5fe4 with SMTP id
+ d9443c01a7336-2242888681cmr334106495ad.2.1741814564101; 
+ Wed, 12 Mar 2025 14:22:44 -0700 (PDT)
 Received: from ryan-lee-laptop-13-amd.. (c-76-103-38-92.hsd1.ca.comcast.net.
  [76.103.38.92]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-301190b98b7sm2353887a91.32.2025.03.12.14.22.39
+ 98e67ed59e1d1-301190b98b7sm2353887a91.32.2025.03.12.14.22.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Mar 2025 14:22:41 -0700 (PDT)
+ Wed, 12 Mar 2025 14:22:43 -0700 (PDT)
 From: Ryan Lee <ryan.lee@canonical.com>
 To: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
  selinux@vger.kernel.org
-Date: Wed, 12 Mar 2025 14:21:40 -0700
-Message-ID: <20250312212148.274205-1-ryan.lee@canonical.com>
+Date: Wed, 12 Mar 2025 14:21:41 -0700
+Message-ID: <20250312212148.274205-2-ryan.lee@canonical.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20250312212148.274205-1-ryan.lee@canonical.com>
+References: <20250312212148.274205-1-ryan.lee@canonical.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [apparmor] [RFC PATCH 0/6] fs,
-	lsm: mediate O_PATH fd creation in file_open hook
+Subject: [apparmor] [RFC PATCH 1/6] fs: invoke LSM file_open hook in
+	do_dentry_open for O_PATH fds as well
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -93,34 +95,36 @@ Cc: Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Calls to the openat(2) family of syscalls are mediated by the file_open LSM
-hook, but the opening of O_PATH file descriptors completely bypasses LSM
-mediation, preventing LSMs from initializing LSM file security context
-blobs for such file descriptors for use in other mediation hooks.
+Currently, opening O_PATH file descriptors completely bypasses the LSM
+infrastructure. Invoking the LSM file_open hook for O_PATH fds will
+be necessary for e.g. mediating the fsmount() syscall.
 
-This patchset enables mediation of O_PATH file descriptors through the
-file_open hook and updates the LSMs using that hook to unconditionally
-allow creation of O_PATH fds, in order to preserve the existing behavior.
-However, the LSM patches are primarily meant as a starting point for
-discussions on how each one wants to handle O_PATH fd creation.
+Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
+---
+ fs/open.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-Ryan Lee (6):
-  fs: invoke LSM file_open hook in do_dentry_open for O_PATH fds as well
-  apparmor: explicitly skip mediation of O_PATH file descriptors
-  landlock: explicitly skip mediation of O_PATH file descriptors
-  selinux: explicitly skip mediation of O_PATH file descriptors
-  smack: explicitly skip mediation of O_PATH file descriptors
-  tomoyo: explicitly skip mediation of O_PATH file descriptors
-
- fs/open.c                  |  7 ++++++-
- security/apparmor/lsm.c    | 10 ++++++++++
- security/landlock/fs.c     |  8 ++++++++
- security/selinux/hooks.c   |  5 +++++
- security/smack/smack_lsm.c |  4 ++++
- security/tomoyo/file.c     |  4 ++++
- 6 files changed, 37 insertions(+), 1 deletion(-)
-
+diff --git a/fs/open.c b/fs/open.c
+index 30bfcddd505d..0f8542bf6cd4 100644
+--- a/fs/open.c
++++ b/fs/open.c
+@@ -921,8 +921,13 @@ static int do_dentry_open(struct file *f,
+ 	if (unlikely(f->f_flags & O_PATH)) {
+ 		f->f_mode = FMODE_PATH | FMODE_OPENED;
+ 		file_set_fsnotify_mode(f, FMODE_NONOTIFY);
+ 		f->f_op = &empty_fops;
+-		return 0;
++		/*
++		 * do_o_path in fs/namei.c unconditionally invokes path_put
++		 * after this function returns, so don't path_put the path
++		 * upon LSM rejection of O_PATH opening
++		 */
++		return security_file_open(f);
+ 	}
+ 
+ 	if ((f->f_mode & (FMODE_READ | FMODE_WRITE)) == FMODE_READ) {
 -- 
 2.43.0
 
+base-kernel: v6.14-rc6
 
