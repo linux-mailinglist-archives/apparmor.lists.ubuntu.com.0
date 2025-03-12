@@ -2,75 +2,75 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF131A5E670
-	for <lists+apparmor@lfdr.de>; Wed, 12 Mar 2025 22:23:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C49F2A5E672
+	for <lists+apparmor@lfdr.de>; Wed, 12 Mar 2025 22:23:03 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tsTXS-0000XI-KQ; Wed, 12 Mar 2025 21:22:54 +0000
+	id 1tsTXV-0000ai-Q5; Wed, 12 Mar 2025 21:22:57 +0000
 Received: from smtp-relay-internal-1.internal ([10.131.114.114]
  helo=smtp-relay-internal-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <ryan.lee@canonical.com>)
- id 1tsTXQ-0000Uk-Me
- for apparmor@lists.ubuntu.com; Wed, 12 Mar 2025 21:22:52 +0000
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
- [209.85.216.70])
+ id 1tsTXT-0000XK-LL
+ for apparmor@lists.ubuntu.com; Wed, 12 Mar 2025 21:22:55 +0000
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
+ [209.85.216.71])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 2130F3F2B4
- for <apparmor@lists.ubuntu.com>; Wed, 12 Mar 2025 21:22:50 +0000 (UTC)
-Received: by mail-pj1-f70.google.com with SMTP id
- 98e67ed59e1d1-2ff69646218so756866a91.3
- for <apparmor@lists.ubuntu.com>; Wed, 12 Mar 2025 14:22:50 -0700 (PDT)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 0E9C73F735
+ for <apparmor@lists.ubuntu.com>; Wed, 12 Mar 2025 21:22:54 +0000 (UTC)
+Received: by mail-pj1-f71.google.com with SMTP id
+ 98e67ed59e1d1-2ff6af1e264so714044a91.3
+ for <apparmor@lists.ubuntu.com>; Wed, 12 Mar 2025 14:22:53 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741814568; x=1742419368;
+ d=1e100.net; s=20230601; t=1741814571; x=1742419371;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=bQ5ilq+qjctbW08HSKcwKvLmj0dzCcpGagg2F3uVrL4=;
- b=eXPAs4nABiFuTSb3IcVngaFtPY/x4yvw839bQm3eYtVDQECkiVwv4f4sMkRzmhoViQ
- GkMNkSke2cIZiW78nYzNXhfcL4oqlrLkpWX+vdUrhqK7fIWlffN9UfbKkewkle+ez59L
- O5IT6lDrTbbArj8ztlc/fuyG8ST6MLZ46ZXTmwk6LHTwfzZV1xr0Js3bjyt71oQUB2iL
- xQl+bBMRswFWbhHuwMfQyu9gdZjFFdcruodTG6CKa0Ji6Nd+Cbjy0dN22ZjrJB2QD4Q+
- VvqqoxAihGbWWnxmsb6kVE00pDoY/0kG61TvzvbYnsL7ma7pfCAIw7rtSg/p/hRk4/Yu
- DJKQ==
+ bh=vkBChevR2KYwwFZBDZ6M820pfzcyPKZb2PO3mstNSrA=;
+ b=vkt/j3NiBtqgPSgracHb9ufhax0NilwDqNtfLbpM09buEtQl95WADhNgq5eBJ5lZAJ
+ BRNRVkq3RKWSYO6sOeR/KUXDmI6w9OWLftJk/k1VDpSNtLvmCSSFKi1DNqJcyoEQYHT0
+ mXWWCat7qKvRqFZnMQfGgkZbu9oLPrWC0FnI/2XnJSQsE91OK46NHQaqgOz4d2TyyBfu
+ uFDyJIR+XBvFdI3nJljyLSn9fT8cUeVjgzTOw1axkvWikrrjLvRkPwlDFgH0ZFRZLEq5
+ VRlWgL+wndWUSKlQMUZqCODXFEwh4NiSrPZox2e6SyGSYT9MA5vr8IVjOrosL7P4rVOS
+ JoMw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVcvtda2XYbwoCxb/3zgrdtXjMC55ZDm2W9De8D5J3gT4WQbJ4JBaamQ9jSFV6zHVWRcvekt6aJpg==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0Yz0sRed4EVA6ijNSKOlESQvWYo1kjk4cKO2S9CKKOWaRq98cd4A
- dsbk/JtIcz91Lhae9C2L/ViM8f+htCRGgiGg/QptRJhtO5N5AbXqaemcJVSSftToyLp7YIPvC0J
- a9rjd/L3uUSYIlAZscUdhwiMkT3EwtrGkS0kDkbTy5MqyX+HkOvPRlTMweUiRVQb9D8h1YKfHpA
+ AJvYcCXvNf8YlJHls8tZIbtcyLDtfsw4iSyc48vDCAp00PhLZgGVQj5Fazx6N4gp8qV9EHH0zJ/S/qTs1g==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0YznU9UcqWxZofzCN1qlGOa+3GJAjrhPCr/ltJ064zX8e+qILavO
+ j60zOHpGByrYhpa72p7das7pePJaytWhRLmhNDxAWe0XzW4kTspnPvi2qPOq76Uq9dGySQSPCtS
+ /qMUjmTD/Iuk9fpA5DAC4rxG3/Dr+ZJVVcF1TuE0YgdgflCFShgRxBYNE4scwkZSVnGnvP9R+FA
  ==
-X-Gm-Gg: ASbGnct5ncTP1aw9Y71dvKEkhKx0Fp4VAprChnyYtnFrLRzPQAckbEP2zxV0kibOh45
- 0Yq5sKLsJatQ6Kc6Cdv2nBFLhwOJFAyhql60b22KVYmVAO38aj2brgxMPIcZFkUmucqb4JIMT2x
- fum2sp7lXFvea9Qyo+dBEuaSmSN8YSrFOyNxgG84cdBOAEvURJjLwU9uyF4UGTFVDE6/iMTBiDa
- dlRm4yBIrjgOtbeCwXlbZ463qVO4AgkXc4g/u2E/WJb7YHus5+OIC49WhoieIHDjOMmb6gwz8nA
- cGQvZmK/Ie7IGwyVSF3nykPB2xsgrql/5OyOBFnVfvY9ABzXNUcT79qBBbV8s6ArdMJsphY=
-X-Received: by 2002:a17:90b:38c8:b0:2ee:74a1:fba2 with SMTP id
- 98e67ed59e1d1-2ff7ce84c7bmr34243263a91.20.1741814568681; 
- Wed, 12 Mar 2025 14:22:48 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE6kNFGkR2Ar2yfV2Wm7/OWkigwZeggzkNDef+VFj2HbCWbxEzVxXle+EcNd+qkPs6JAUusng==
-X-Received: by 2002:a17:90b:38c8:b0:2ee:74a1:fba2 with SMTP id
- 98e67ed59e1d1-2ff7ce84c7bmr34243239a91.20.1741814568350; 
- Wed, 12 Mar 2025 14:22:48 -0700 (PDT)
+X-Gm-Gg: ASbGnct4bwTYCcEGHxq/IotfiN7wtCKfyHSGM4TZJ8TQTl8aC4Usz5V8JWAC7qk9fG3
+ 8c/tTGTION2/Wo76il3okvTygU14EBRrrKK/LXIMGNs9kNX4WCUYYpSEuezGFDo+U19ZklE9J7L
+ bXfAdPboiIHcF3CkpzdxoklFBFwtWllqBsmG5lL8WLJ3A3zkBxHA6NWYlbRYgnGgYDN/cSPEgIf
+ HZotTmh8mgty2QGErkee6WYNh3d36LVCb3T23cEiKQueqzkJvEB6SWX2EIxYG/MojelrlUfgjpl
+ oEuux9BzMNTvNkv1MdcPRK4y1+AKFWDPauTGw1/YPtc3mXZ/iYVhs540KvpyjemXuSsfrV4=
+X-Received: by 2002:a17:90b:1b05:b0:2ee:8427:4b02 with SMTP id
+ 98e67ed59e1d1-2ff7cef76acmr32847530a91.28.1741814570802; 
+ Wed, 12 Mar 2025 14:22:50 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IG2zy2F9PoKbQMeK6fUS3X/Yt717KlC839Q5G4xkP4Nr8/wnDbMYJ8pDxU6TgdAPfQxzzejkA==
+X-Received: by 2002:a17:90b:1b05:b0:2ee:8427:4b02 with SMTP id
+ 98e67ed59e1d1-2ff7cef76acmr32847501a91.28.1741814570519; 
+ Wed, 12 Mar 2025 14:22:50 -0700 (PDT)
 Received: from ryan-lee-laptop-13-amd.. (c-76-103-38-92.hsd1.ca.comcast.net.
  [76.103.38.92]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-301190b98b7sm2353887a91.32.2025.03.12.14.22.46
+ 98e67ed59e1d1-301190b98b7sm2353887a91.32.2025.03.12.14.22.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 12 Mar 2025 14:22:47 -0700 (PDT)
+ Wed, 12 Mar 2025 14:22:50 -0700 (PDT)
 From: Ryan Lee <ryan.lee@canonical.com>
 To: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
  selinux@vger.kernel.org
-Date: Wed, 12 Mar 2025 14:21:43 -0700
-Message-ID: <20250312212148.274205-4-ryan.lee@canonical.com>
+Date: Wed, 12 Mar 2025 14:21:44 -0700
+Message-ID: <20250312212148.274205-5-ryan.lee@canonical.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250312212148.274205-1-ryan.lee@canonical.com>
 References: <20250312212148.274205-1-ryan.lee@canonical.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [apparmor] [RFC PATCH 3/6] landlock: explicitly skip mediation of
+Subject: [apparmor] [RFC PATCH 4/6] selinux: explicitly skip mediation of
 	O_PATH file descriptors
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -95,34 +95,30 @@ Cc: Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Landlock currently does not have handling of O_PATH fds. Now that they
-are being passed to the file_open hook, explicitly skip mediation of
-them until we can handle them.
+Now that O_PATH fds are being passed to the file_open hook,
+unconditionally skip mediation of them to preserve existing behavior.
 
 Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
 ---
- security/landlock/fs.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ security/selinux/hooks.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/security/landlock/fs.c b/security/landlock/fs.c
-index 0804f76a67be..37b2167bf4c6 100644
---- a/security/landlock/fs.c
-+++ b/security/landlock/fs.c
-@@ -1522,6 +1522,14 @@ static int hook_file_open(struct file *const file)
- 	if (!dom)
- 		return 0;
- 
-+	/*
-+	 * Preserve the behavior of O_PATH fd creation not being mediated, for
-+	 * now.  Remove this when the comment below about handling O_PATH fds
-+	 * is resolved.
-+	 */
+diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+index 07f71e6c2660..886ee9381507 100644
+--- a/security/selinux/hooks.c
++++ b/security/selinux/hooks.c
+@@ -4009,6 +4009,11 @@ static int selinux_file_open(struct file *file)
+ 	 */
+ 	fsec->isid = isec->sid;
+ 	fsec->pseqno = avc_policy_seqno();
++
++	/* Preserve the behavior of O_PATH fd creation not being mediated */
 +	if (file->f_flags & O_PATH)
 +		return 0;
 +
  	/*
- 	 * Because a file may be opened with O_PATH, get_required_file_open_access()
- 	 * may return 0.  This case will be handled with a future Landlock
+ 	 * Since the inode label or policy seqno may have changed
+ 	 * between the selinux_inode_permission check and the saving
 -- 
 2.43.0
 
