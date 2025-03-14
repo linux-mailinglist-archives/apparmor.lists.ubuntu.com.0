@@ -2,69 +2,72 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2426BA61976
+	by mail.lfdr.de (Postfix) with ESMTPS id 44509A61977
 	for <lists+apparmor@lfdr.de>; Fri, 14 Mar 2025 19:34:05 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tt9qv-00017M-Lm; Fri, 14 Mar 2025 18:33:49 +0000
-Received: from smtp-relay-internal-1.internal ([10.131.114.114]
- helo=smtp-relay-internal-1.canonical.com)
+	id 1tt9qx-00017V-0T; Fri, 14 Mar 2025 18:33:51 +0000
+Received: from smtp-relay-internal-0.internal ([10.131.114.225]
+ helo=smtp-relay-internal-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <ryan.lee@canonical.com>)
- id 1tt9qu-000178-2g
- for apparmor@lists.ubuntu.com; Fri, 14 Mar 2025 18:33:48 +0000
+ id 1tt9qv-00017F-6p
+ for apparmor@lists.ubuntu.com; Fri, 14 Mar 2025 18:33:49 +0000
 Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
  [209.85.214.199])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id DCEC33F0B1
- for <apparmor@lists.ubuntu.com>; Fri, 14 Mar 2025 18:33:47 +0000 (UTC)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id D08E63F342
+ for <apparmor@lists.ubuntu.com>; Fri, 14 Mar 2025 18:33:48 +0000 (UTC)
 Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-225ab4b8fe9so35882955ad.0
- for <apparmor@lists.ubuntu.com>; Fri, 14 Mar 2025 11:33:47 -0700 (PDT)
+ d9443c01a7336-223d86b4df0so42218095ad.3
+ for <apparmor@lists.ubuntu.com>; Fri, 14 Mar 2025 11:33:48 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741977226; x=1742582026;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=QmcGSTuJhuqJK24uwAUsn08B+iX+1Y+yivP+XNPb4tw=;
- b=nYwxn1L+jeCXO3Km8UDDYoGpb+fu4Lvzoi9FfJIAWpUAegrvbPjYy7s78ELFXsmIe8
- 9hCLcngvyq0xANpgpOBRarOzhZsEIEZcor2MwKKuq7ThP2FOj8A1Wqhn4Lj469rXGFZI
- uZfsBZt9FUssxYa8/MK5MjsC8wuWT/PpocRO/WtR4oIWDpUSAKttJ7nhUQTsdGGlUO6e
- 3BDPA3djzRxQj2agy5Mr+va+RP3DEYgAufCwsejZRFw91CgTaewCZIHUJkPH9j/0qkLy
- pU1R770+dGznhj5/HqpPhmZgj2DXyxaVRwpeSauFnw3BcWl8FVRdwuUsSzgYHzLy8I6a
- DuzQ==
-X-Gm-Message-State: AOJu0YxHHGsbgH0XU4cGCMFjUU8jMVCTHz5+ChS0XCWDPDomUZ5UarqK
- BeCf1FSNqiahyLDzf8Hfdb/HOxkj/TjeLrPzEQi9pKhYDOUpaTZ7Wksnsse9FQLoAFL4IQtHLBS
- yXU/3wXkNjqpCGUBo7iKc4Ihk5dn+3hS/qgB+WjhaqLGg6JUgzAhjeHg9SqxnzGFCVXI/tMptBG
- oR7/eOWQ==
-X-Gm-Gg: ASbGnctBKW3GEqCPwbzaarPFFuvEKjFQX0BTGYAHKFmGYvVCLYCSAAz9xrhqq+uPZxH
- DasX2dfQDPDsdQ9ntKI/IozEGq9T5sLj3qz76IJ6TyCMkeUJsE2xSfF42aohbMun+D8h8jnr6Y9
- Y8MarWOKm+z+s1TW1unyf/XEhjL/6ZLFqAQZa9fyo7TZozOpS2SNV9yZSZUgb6HfBokqaTshWyE
- uSrGFewiWF4mXzPdQuRyS+VFh3nBE/qLIU2h55AfqtKWg7KJYPN1y83Y0PKX7wYQqwMHadP+e0P
- UvI4xXRKbrHDg02jcn101q/4eZT2Zh1KLRd7+Q4OgItHBrwAUgDtqMr1HyFos41d2SsyKME=
-X-Received: by 2002:a05:6a21:6002:b0:1ee:e785:a082 with SMTP id
- adf61e73a8af0-1f5c11275d7mr4477819637.1.1741977226289; 
- Fri, 14 Mar 2025 11:33:46 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEHckNeRw+43+bck6WaHNIHh8trtFex6q1C8m4x8LjJmoM8Ogti2w1717p2ewpbAbEgQByw9A==
-X-Received: by 2002:a05:6a21:6002:b0:1ee:e785:a082 with SMTP id
- adf61e73a8af0-1f5c11275d7mr4477805637.1.1741977225978; 
- Fri, 14 Mar 2025 11:33:45 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1741977227; x=1742582027;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=mtMOvgTNHME6IuhPNcHtpmK0U9do03xcGSim09ZxHwQ=;
+ b=tVvNb4wn0r5QYg3aTOGhwO+OXtXYOrkgPCwwQzyUXs3/QunoukOLhg0cyZUOyJFPhA
+ m3dHa2X7IXgFwkcSwZlr70qRFb6HZqL6GY9dRymoKImY7tc1TklaCh60CzaGEy1q6J9X
+ nRNqbe9YbXphCWnmyWWDiCTLeaydefeJ/79AsuMWoKXyk5NanJuSlz4WHzgtU43L2GPe
+ DyTuK3T1yP6Mqkmij4+X1lCqv17PiBZxbJvOl3Ls5SIgEsAjcfpTZUq37cLxEedpmWVO
+ qQNcbPnYfFZ0EeYZcE9A+y7AbNv6OaqqcsL4ruJ/foptcnsTK0IR6HgQ9xj+Dv/EK1bw
+ gGmw==
+X-Gm-Message-State: AOJu0YyTklM21DMbGMDF6KPoHeLWL6ne0mJjwEQQyPkreKolTaOCZAU/
+ 6l/LFvajksGmfvVI+NO50aiycYgjtc17R3XNYtj4idaa1Jwckcnz5jGerUEABcZQfOr74XIf1As
+ kWALPIKQ5vHZmNnurFZkyKVbZAKHUaF1JhKRaxFv8l1IEEvwWQTpRfjpiFi4cZOtmdneQds7Ne7
+ UDjDjHJA==
+X-Gm-Gg: ASbGnctV5wKfNJR8VoRf1z4zxKbxSL1l0nWfbmajaZHjaMpHjNUDt2vTYdauVbequGq
+ e7rNbKkT539ao5xHOEzhJIeRgQ4Wu+9ngQ8YRMrZRipTGuosbPQVwq52rSi/0mABO7IOxdsbssS
+ omRwFuSLKmTuhc61OqW3wQ9gSRXXQtbocwKH2oaiOmKcTtmjAI+gPCaUm+2eQ4sLWdyql2e5XA6
+ 7dwrFlluPpj4hLVZ3Oi3qOY1qoDDU2+lSRkVXMy8un2ipWQm41olZWJ+U1cxsUgaCk1IZsVv8Jt
+ DqcFWQiw4iHOPHmbddvQcqZF2cfFpVcUP0RxpYmBMR84HE6BFAIeJwr9Zk9Q8BZKV2FTQRk=
+X-Received: by 2002:a05:6a21:6d95:b0:1f5:6680:82b6 with SMTP id
+ adf61e73a8af0-1f5c134c4famr3888154637.38.1741977227434; 
+ Fri, 14 Mar 2025 11:33:47 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGcaSIZEBHxIn9qnVL3r9ti3pozGdgNVg62Aph7KTqs1Kl0hDAudKz4LDt4mUs1srQFRp3nSg==
+X-Received: by 2002:a05:6a21:6d95:b0:1f5:6680:82b6 with SMTP id
+ adf61e73a8af0-1f5c134c4famr3888142637.38.1741977227160; 
+ Fri, 14 Mar 2025 11:33:47 -0700 (PDT)
 Received: from ryan-lee-laptop-13-amd.. (c-76-103-38-92.hsd1.ca.comcast.net.
  [76.103.38.92]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-af56ea7bcc0sm3039161a12.56.2025.03.14.11.33.44
+ 41be03b00d2f7-af56ea7bcc0sm3039161a12.56.2025.03.14.11.33.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Mar 2025 11:33:45 -0700 (PDT)
+ Fri, 14 Mar 2025 11:33:46 -0700 (PDT)
 From: Ryan Lee <ryan.lee@canonical.com>
 To: apparmor@lists.ubuntu.com
-Date: Fri, 14 Mar 2025 11:33:36 -0700
-Message-ID: <20250314183340.681554-1-ryan.lee@canonical.com>
+Date: Fri, 14 Mar 2025 11:33:37 -0700
+Message-ID: <20250314183340.681554-2-ryan.lee@canonical.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20250314183340.681554-1-ryan.lee@canonical.com>
+References: <20250314183340.681554-1-ryan.lee@canonical.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [apparmor] [PATCH 0/2] apparmor: preserve Ubuntu backcompat
+Subject: [apparmor] [PATCH 1/2] apparmor: create an
+	AA_SFS_TYPE_BOOLEAN_INTPRINT sysctl variant
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -79,37 +82,58 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Note: this is explicitly targeted only towards the Ubuntu kernel 6.14
-series, and is *not* intended for upstream. Whenever the sysctls in
-question get upstreamed, they should use the vanilla AA_SFS_FILE_BOOLEAN
-and our Ubuntu-specific userspace patches adjusted accordingly.
+This is a variant of AA_SFS_TYPE_BOOLEAN that gets printed to userspace
+as the integers 0/1 instead of as the strings "no"/"yes", for backwards
+compatibility with userspace applications expecting integer values for
+semantic booleans.
 
-The unconfined userns and io_uring sysctls were recently switched from
-INTPTR to BOOLEAN, which resulted in sysctl output like
+Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
+---
+ security/apparmor/apparmorfs.c         | 4 ++++
+ security/apparmor/include/apparmorfs.h | 6 ++++++
+ 2 files changed, 10 insertions(+)
 
-$ cat /sys/kernel/security/apparmor/features/policy/unconfined_restrictions/userns
-yes
-
-instead of
-
-$ cat /sys/kernel/security/apparmor/features/policy/unconfined_restrictions/userns
-1
-
-when parts of our userspace were expecting 0/1 values for these sysctls
-instead. Because there may have been other (Ubuntu-specific) consumers of
-these sysctls expecting 0/1 values, we should fix the API break instead of
-just fixing our own userspace patches.
-
-Ryan Lee (2):
-  apparmor: create an AA_SFS_TYPE_BOOLEAN_INTPRINT sysctl variant
-  apparmor: Use AA_SFS_FILE_BOOLEAN_INTPRINT for userns and io_uring
-    sysctls
-
- security/apparmor/apparmorfs.c         | 11 +++++++++--
- security/apparmor/include/apparmorfs.h |  6 ++++++
- 2 files changed, 15 insertions(+), 2 deletions(-)
-
+diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
+index b16756e7b8a8..92f034f369c2 100644
+--- a/security/apparmor/apparmorfs.c
++++ b/security/apparmor/apparmorfs.c
+@@ -1210,6 +1210,10 @@ static int aa_sfs_seq_show(struct seq_file *seq, void *v)
+ 	case AA_SFS_TYPE_BOOLEAN:
+ 		seq_printf(seq, "%s\n", str_yes_no(fs_file->v.boolean));
+ 		break;
++	case AA_SFS_TYPE_BOOLEAN_INTPRINT:
++		// Allow printing the boolean as 0/1 for backwards compatibility
++		seq_printf(seq, "%s\n", fs_file->v.boolean ? "1" : "0");
++		break;
+ 	case AA_SFS_TYPE_STRING:
+ 		seq_printf(seq, "%s\n", fs_file->v.string);
+ 		break;
+diff --git a/security/apparmor/include/apparmorfs.h b/security/apparmor/include/apparmorfs.h
+index a21855ad7fb8..61d37ab9ee4b 100644
+--- a/security/apparmor/include/apparmorfs.h
++++ b/security/apparmor/include/apparmorfs.h
+@@ -15,6 +15,8 @@ extern struct path aa_null;
+ 
+ enum aa_sfs_type {
+ 	AA_SFS_TYPE_BOOLEAN,
++	// Boolean that gets printed as 0/1 for backwards compatibility
++	AA_SFS_TYPE_BOOLEAN_INTPRINT,
+ 	AA_SFS_TYPE_STRING,
+ 	AA_SFS_TYPE_U64,
+ 	AA_SFS_TYPE_FOPS,
+@@ -43,6 +45,10 @@ extern const struct file_operations aa_sfs_seq_file_ops;
+ 	{ .name = (_name), .mode = 0444, \
+ 	  .v_type = AA_SFS_TYPE_BOOLEAN, .v.boolean = (_value), \
+ 	  .file_ops = &aa_sfs_seq_file_ops }
++#define AA_SFS_FILE_BOOLEAN_INTPRINT(_name, _value) \
++	{ .name = (_name), .mode = 0444, \
++	  .v_type = AA_SFS_TYPE_BOOLEAN_INTPRINT, .v.boolean = (_value), \
++	  .file_ops = &aa_sfs_seq_file_ops }
+ #define AA_SFS_FILE_STRING(_name, _value) \
+ 	{ .name = (_name), .mode = 0444, \
+ 	  .v_type = AA_SFS_TYPE_STRING, .v.string = (_value), \
 -- 
 2.43.0
-
+base-kernel: Ubuntu-6.14.0-7.7
+target: Ubuntu-kernel
 
