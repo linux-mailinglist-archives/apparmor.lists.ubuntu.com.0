@@ -2,72 +2,43 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id C083CA61974
-	for <lists+apparmor@lfdr.de>; Fri, 14 Mar 2025 19:34:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96061A62ABD
+	for <lists+apparmor@lfdr.de>; Sat, 15 Mar 2025 11:12:02 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tt9qz-00017o-Ca; Fri, 14 Mar 2025 18:33:53 +0000
-Received: from smtp-relay-internal-1.internal ([10.131.114.114]
- helo=smtp-relay-internal-1.canonical.com)
- by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <ryan.lee@canonical.com>)
- id 1tt9qw-00017T-OU
- for apparmor@lists.ubuntu.com; Fri, 14 Mar 2025 18:33:50 +0000
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 4633D3F290
- for <apparmor@lists.ubuntu.com>; Fri, 14 Mar 2025 18:33:50 +0000 (UTC)
-Received: by mail-pj1-f72.google.com with SMTP id
- 98e67ed59e1d1-2ff78dd28ecso62747a91.1
- for <apparmor@lists.ubuntu.com>; Fri, 14 Mar 2025 11:33:50 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1741977229; x=1742582029;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=7nG/JJAdT0NmDsTWCkRdzs7nxFvkSmP6mAlWiTX/DMU=;
- b=U86/oNrC2HIu+LPHiRmUpbTvZ+9yhhLoTlNDuHyf5KD3Fu5+inCaWwYW+xYPwhkqSj
- PDdcHGDr1tiluaYZNa0M+TGqRcKXDBaXaA55wYZss4MTyVt8/ERKy77DCjifpMSrM8ug
- szHsXbcM9/uc5lzzUdWc+k6kG6FS4jmVOQGYZHI+iau4Ag7xxRlbIXF5MI44UWvS4uHj
- HeB4hYTKnPQqi8ACKZcGvXsdyqsDOCks9yI1wiGhUvag+6OU1MYxQJOh9XtMbwFkii0E
- 9732cjELQImSLtWKFU1YqMHGz5mbGdNqScLbCerhoz8CTNNAMWp35XaZoKr6Gry8qFcr
- Gl+w==
-X-Gm-Message-State: AOJu0YwBXF7KZBA8jEpeEEzfFh5lOX7FwMRatjcY6ub84YMrjJKYsiGg
- WcQEWkb/z3MZ/zQjqyotP1lHDEoMMoRQZW2PmTqdYqkDUVBcoCKL/lfLloEg8zjpsCK/vgSyuMg
- T/yMVdUd46q2274AgFXb+zw5Wwfu61J9znv3+zD6QDYOza9iThZO6BkYjjRoJpeKVSlSgailZFh
- cEHPgQkw==
-X-Gm-Gg: ASbGncsWXzJuEAaRg7f1FFk/tGFCFWlLVK7PVlWX8m2Y1oWsEGUIinfy7fNhXYezmCK
- FByhkbl5HhUJenu8JxcGhnvpa4gbR+bRQtBWkFhLw14SFJG/URHEC39SNSlsXyGaGJO0DD2S7Vm
- 6oa3+TLryOXQiN6bYBM2Vz0//HdwdhTGtU4UbbewpxkUo39b24w8bKyxcaOJ2bjzZgW0g4GVnY1
- C6tQswFBaZaYvmu2c7b5lSIUgFr6h/X62UJG3vk1xj7qYzBMr0EpDddMagj6jl0mmbamuhwe0j7
- 3GJJ/UGEU7Vh3l7MB+RNCGlX8PkjHgFbmRasamdC6lCb0YZVaD367ZgtQOzfDZHM+zpQLhg=
-X-Received: by 2002:a05:6a20:d80f:b0:1f5:b25b:7995 with SMTP id
- adf61e73a8af0-1f5c11dc27dmr6139590637.24.1741977228804; 
- Fri, 14 Mar 2025 11:33:48 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHe2zNaziCGt18XzxtujavfOCtK5N9S8pedtYqnecbBWsK0B7xeAEk/hcLiM/t3aI7U4DFqsw==
-X-Received: by 2002:a05:6a20:d80f:b0:1f5:b25b:7995 with SMTP id
- adf61e73a8af0-1f5c11dc27dmr6139567637.24.1741977228505; 
- Fri, 14 Mar 2025 11:33:48 -0700 (PDT)
-Received: from ryan-lee-laptop-13-amd.. (c-76-103-38-92.hsd1.ca.comcast.net.
- [76.103.38.92]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-af56ea7bcc0sm3039161a12.56.2025.03.14.11.33.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Mar 2025 11:33:47 -0700 (PDT)
-From: Ryan Lee <ryan.lee@canonical.com>
-To: apparmor@lists.ubuntu.com
-Date: Fri, 14 Mar 2025 11:33:38 -0700
-Message-ID: <20250314183340.681554-3-ryan.lee@canonical.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250314183340.681554-1-ryan.lee@canonical.com>
-References: <20250314183340.681554-1-ryan.lee@canonical.com>
+	id 1ttOUd-0000ea-Nu; Sat, 15 Mar 2025 10:11:47 +0000
+Received: from dfw.source.kernel.org ([139.178.84.217])
+ by lists.ubuntu.com with esmtp (Exim 4.86_2)
+ (envelope-from <brauner@kernel.org>) id 1ttOUc-0000eR-4f
+ for apparmor@lists.ubuntu.com; Sat, 15 Mar 2025 10:11:46 +0000
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id BBD9E5C4153;
+ Sat, 15 Mar 2025 10:02:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51E7CC4CEE5;
+ Sat, 15 Mar 2025 10:04:29 +0000 (UTC)
+Date: Sat, 15 Mar 2025 11:04:26 +0100
+From: Christian Brauner <brauner@kernel.org>
+To: James Bottomley <James.Bottomley@hansenpartnership.com>
+Message-ID: <20250315-allemal-fahrbahn-9afc7bc0008d@brauner>
+References: <e54e6a2f-1178-4980-b771-4d9bafc2aa47@tnxip.de>
+ <CAKCV-6s3_7RzDfo_yGQj9ndf4ZKw_Awf8oNc6pYKXgDTxiDfjw@mail.gmail.com>
+ <465d1d23-3b36-490e-b0dd-74889d17fa4c@tnxip.de>
+ <CAKCV-6uuKo=RK37GhM+fV90yV9sxBFqj0s07EPSoHwVZdDWa3A@mail.gmail.com>
+ <ea97dd9d1cb33e28d6ca830b6bff0c2ece374dbe.camel@HansenPartnership.com>
+ <CAMj1kXGLXbki1jezLgzDGE7VX8mNmHKQ3VLQPq=j5uAyrSomvQ@mail.gmail.com>
+ <20250311-visite-rastplatz-d1fdb223dc10@brauner>
+ <814a257530ad5e8107ce5f48318ab43a3ef1f783.camel@HansenPartnership.com>
+ <7bdcc2c5d8022d2f1a7ec23c0351f7816d4464c8.camel@HansenPartnership.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [apparmor] [PATCH 2/2] apparmor: Use AA_SFS_FILE_BOOLEAN_INTPRINT
-	for userns and io_uring sysctls
+In-Reply-To: <7bdcc2c5d8022d2f1a7ec23c0351f7816d4464c8.camel@HansenPartnership.com>
+Received-SPF: pass client-ip=139.178.84.217; envelope-from=brauner@kernel.org;
+ helo=dfw.source.kernel.org
+Subject: Re: [apparmor] [RFC 1/1] fix NULL mnt [was Re: apparmor NULL
+ pointer dereference on resume [efivarfs]]
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -79,46 +50,249 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: linux-efi@vger.kernel.org, apparmor <apparmor@lists.ubuntu.com>,
+ Malte =?utf-8?B?U2NocsO2ZGVy?= <malte.schroeder@tnxip.de>,
+ linux-security-module@vger.kernel.org, Al Viro <viro@zeniv.linux.org.uk>,
+ linux-fsdevel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>,
+ "jk@ozlabs.org" <jk@ozlabs.org>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-These two sysctls used to be INTPTRs, before being changed to BOOLEANs.
-Now that their values are hardcoded, switch to the new BOOLEAN_INTPRINT
-type to preserve backwards compatibility upon reads of the values.
+On Fri, Mar 14, 2025 at 10:59:14AM -0400, James Bottomley wrote:
+> On Tue, 2025-03-11 at 09:01 -0400, James Bottomley wrote:
+> > On Tue, 2025-03-11 at 09:45 +0100, Christian Brauner wrote:
+> [...]
+> > > But since efivars does only ever have a single global superblock,
+> > > one possibility is to an internal superblock that always exits and
+> > > is resurfaced whenever userspace mounts efivarfs. That's
+> > > essentially the devtmpfs model.
+> > > 
+> > > Then you can stash:
+> > > 
+> > > static struct vfsmount *efivarfs_mnt;
+> > > 
+> > > globally and use that in efivarfs_pm_notify() to fill in struct
+> > > path.
+> > 
+> > I didn't see devtmpfs when looking for examples, since it's hiding
+> > outside of the fs/ directory.  However, it does seem to be a bit
+> > legacy nasty as an example to copy.  However, I get the basics: we'd
+> > instantiate the mnt and superblock on init (stashing mnt in the sfi
+> > so the notifier gets it).  Then we can do the variable population on
+> > reconfigure, just in case an EFI system doesn't want to mount
+> > efivarfs to save memory.
+> > 
+> > I can code that up if I can get an answer to the uid/gid parameter
+> > question above.
+> 
+> I coded up the naive implementation and it definitely works, but it
+> suffers from the problem that everything that pins in the module init
+> routine (like configfs) does in that once inserted the module can never
+> be removed.  Plus, for efivarfs, we would allocate all resources on
+> module insertion not on first mount.  The final problem we'd have is
+> that the uid/gid parameters for variable creation would be taken from
+> the kernel internal mount, so if they got specified on a user mount,
+> they'd be ignored (because the variable inodes are already created).
+> 
+> To answer some of your other questions:
+> 
+> > (1) Is it guaranteed that efivarfs_pm_notify() is only called once a
+> >     superblock exists?
+> 
+> Yes, as you realized.
+> 
+> > (2) Is it guaranteed that efivarfs_pm_notify() is only called when
+> >     and while a mount for the superblock exists?
+> 
+> No, but the behaviour is correct because the notifier needs to update
+> the variable list and we create the variable list in
+> efivarfs_fill_super.  Now you can argue this is suboptimal because if
+> userspace didn't ever mount, we'd simply destroy it all again on last
+> put of the superblock so it's wasted effort, but its function is
+> correct.
+> 
+> > Another question is whether the superblock can be freed while
+> > efivarfs_pm_notify() is running? I think that can't happen because
+> > blocking_notifier_chain_unregister(&efivar_ops_nh, &sfi->nb) will
+> > block in efivarfs_kill_sb() until all outstanding calls to
+> > efivarfs_pm_notify() are finished?
+> 
+> That's right: a blocking notifier is called under the notifier list
+> rwsem.  It's taken read for calls but write for register/unregister, so
+> efivarfs_kill_sb would block in the unregister until the call chain was
+> executed.
+> 
+> Taking into account the module removal issue, the simplest way I found
+> to fix the issue was to call vfs_kern_mount() from the notifier to get
 
-Before this patchset:
-$ cat /sys/kernel/security/apparmor/features/policy/unconfined_restrictions/userns
-yes
+Yeah, Al had already mentioned that. I initially had the same idea but
+since I didn't know enough about the notifier block stuff I wasn't sure
+whether there's some odd deadlock that could be caused by this.
 
-After this patchset (matching the old behavior):
-$ cat /sys/kernel/security/apparmor/features/policy/unconfined_restrictions/userns
-1
+> a struct vfsmount before opening the path.  We ensure it's gone by
+> calling mntput immediately after open, but, by that time, the open file
+> is pinning the vfsmnt if the open was successful.
+> 
+> If this looks OK to everyone I'll code it up as a fix which can be cc'd
+> to stable.
+> 
+> Regards,
+> 
+> James
+> 
+> ---
+> 
+> diff --git a/fs/efivarfs/super.c b/fs/efivarfs/super.c
+> index 6eae8cf655c1..e2e6575b5abf 100644
+> --- a/fs/efivarfs/super.c
+> +++ b/fs/efivarfs/super.c
+> @@ -474,12 +474,14 @@ static int efivarfs_check_missing(efi_char16_t *name16, efi_guid_t vendor,
+>  	return err;
+>  }
+>  
+> +static struct file_system_type efivarfs_type;
+> +
+>  static int efivarfs_pm_notify(struct notifier_block *nb, unsigned long action,
+>  			      void *ptr)
+>  {
+>  	struct efivarfs_fs_info *sfi = container_of(nb, struct efivarfs_fs_info,
+>  						    pm_nb);
+> -	struct path path = { .mnt = NULL, .dentry = sfi->sb->s_root, };
+> +	struct path path;
+>  	struct efivarfs_ctx ectx = {
+>  		.ctx = {
+>  			.actor	= efivarfs_actor,
+> @@ -501,9 +503,17 @@ static int efivarfs_pm_notify(struct notifier_block *nb, unsigned long action,
+>  
+>  	pr_info("efivarfs: resyncing variable state\n");
+>  
+> -	/* O_NOATIME is required to prevent oops on NULL mnt */
+> +	path.dentry = sfi->sb->s_root;
+> +	path.mnt = vfs_kern_mount(&efivarfs_type, SB_KERNMOUNT,
+> +				  efivarfs_type.name, NULL);
+> +	if (IS_ERR(path.mnt)) {
+> +		pr_err("efivarfs: internal mount failed\n");
+> +		return PTR_ERR(path.mnt);
+> +	}
 
-Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
----
- security/apparmor/apparmorfs.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+I see some issues with this. A umount by another task could already hit:
 
-diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
-index 92f034f369c2..bcbeb5cfb396 100644
---- a/security/apparmor/apparmorfs.c
-+++ b/security/apparmor/apparmorfs.c
-@@ -2590,8 +2590,11 @@ static struct aa_sfs_entry aa_sfs_entry_domain[] = {
- 
- static struct aa_sfs_entry aa_sfs_entry_unconfined[] = {
- 	AA_SFS_FILE_BOOLEAN("change_profile", 1),
--	AA_SFS_FILE_BOOLEAN("userns",		1),
--	AA_SFS_FILE_BOOLEAN("io_uring",		1),
-+	/* Retain backwards compatibility with Ubuntu userspace
-+	 * code that is expecting integer values for these sysctls
-+	 */
-+	AA_SFS_FILE_BOOLEAN_INTPRINT("userns",		1),
-+	AA_SFS_FILE_BOOLEAN_INTPRINT("io_uring",		1),
- 	{ }
- };
- 
--- 
-2.43.0
-base-kernel: Ubuntu-6.14.0-7.7
-target: Ubuntu-kernel
+sb->kill_sb == efivarfs_kill_super()
+
+which means the superblock is already marked as dying.
+
+By calling vfs_kern_mount() unconditionally you end up calling
+vfs_get_tree() and then get_tree_single() again. That would mean
+efivarfs_pm_notify() now waits for the old superblock to be dead.
+
+But the old superblock waits in efivarfs_kill_sb() for
+efivarfs_pm_notify() to finish before actually killing the old
+superblock.
+
+So this would deadlock.
+
+So you need to make sure that the superbock a) isn't dead and b) doesn't
+go away behind your back:
+
+diff --git a/fs/efivarfs/super.c b/fs/efivarfs/super.c
+index 6eae8cf655c1..6a4f95c27697 100644
+--- a/fs/efivarfs/super.c
++++ b/fs/efivarfs/super.c
+@@ -474,6 +474,8 @@ static int efivarfs_check_missing(efi_char16_t *name16, efi_guid_t vendor,
+        return err;
+ }
+
++static struct file_system_type efivarfs_type;
++
+ static int efivarfs_pm_notify(struct notifier_block *nb, unsigned long action,
+                              void *ptr)
+ {
+@@ -499,6 +501,31 @@ static int efivarfs_pm_notify(struct notifier_block *nb, unsigned long action,
+        if (rescan_done)
+                return NOTIFY_DONE;
+
++       /*
++        * Ensure that efivarfs is still alive and cannot go away behind
++        * our back.
++        */
++       if (!atomic_inc_not_zero(&sfi->sb->s_active))
++               return NOTIFY_DONE;
++
++       path.mnt = vfs_kern_mount(&efivarfs_type, SB_KERNMOUNT,
++                                 efivarfs_type.name, NULL);
+
+Since efivars uses a single global superblock and we know that sfi->sb
+is still alive (After all we've just pinned it above.) vfs_kern_mount()
+will reuse the same superblock.
+
+There's two cases to consider:
+
+(1) vfs_kern_mount() was successful. In this case path->mnt will hold an
+    active superblock reference that will be released asynchronously via
+    __fput(). That is safe and correct.
+
+(2) vfs_kern_mount() fails. That's an issue because you need to call
+    deactivate_super() which will have a similar deadlock problem.
+
+    If efivarfs_pm_notify() now holds the last reference to the
+    superblock then deactivate_super() super will put that last
+    reference and call efivarfs_kill_super() which in turn will wait for
+    efivarfs_pm_notify() to finish. => deadlock
+
+So in the error case you need to offload the call to deactivate_super()
+to a workqueue.
+
+diff --git a/fs/efivarfs/super.c b/fs/efivarfs/super.c
+index 6eae8cf655c1..288c1dd8622b 100644
+--- a/fs/efivarfs/super.c
++++ b/fs/efivarfs/super.c
+@@ -474,6 +474,8 @@ static int efivarfs_check_missing(efi_char16_t *name16, efi_guid_t vendor,
+        return err;
+ }
+
++static struct file_system_type efivarfs_type;
++
+ static int efivarfs_pm_notify(struct notifier_block *nb, unsigned long action,
+                              void *ptr)
+ {
+@@ -499,6 +501,39 @@ static int efivarfs_pm_notify(struct notifier_block *nb, unsigned long action,
+        if (rescan_done)
+                return NOTIFY_DONE;
+
++       /*
++        * Ensure that efivarfs is still alive and cannot go away behind
++        * our back.
++        */
++       if (!atomic_inc_not_zero(&sfi->sb->s_active))
++               return NOTIFY_DONE;
++
++       path.mnt = vfs_kern_mount(&efivarfs_type, SB_KERNMOUNT,
++                                 efivarfs_type.name, NULL);
++       /*
++        * Since efivars uses a single global superblock and we know
++        * that sfi->sb is still alive (After all we've just pinned it
++        * above.) vfs_kern_mount() will reuse the same superblock.
++        *
++        * If vfs_kern_mount() was successful path->mnt will hold an
++        * active superblock reference that will be released
++        * asynchronously via __fput().
++        *
++        * If vfs_kern_mount() fails we might be the ones to hold the
++        * last reference now so we need to call deactivate_super(). But
++        * we need to ensure that this is done asynchronously so
++        * efivarfs_kill_super() doesn't deadlock by waiting on
++        * efivarfs_pm_notify() to finish.
++        */
++       if (IS_ERR(path.mnt)) {
++
++               /* TODO: offload to workqueue so that we don't deadlock. */
++               deactivate_super(sfi->sb);
++               pr_err("efivarfs: internal mount failed\n");
++               return PTR_ERR(path.mnt);
++       }
++       atomic_dec(&sfi->sb->s_active);
++
+        pr_info("efivarfs: resyncing variable state\n");
+
+        /* O_NOATIME is required to prevent oops on NULL mnt */
 
