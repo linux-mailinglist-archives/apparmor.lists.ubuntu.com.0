@@ -2,44 +2,61 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F78BA64682
-	for <lists+apparmor@lfdr.de>; Mon, 17 Mar 2025 10:04:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06A9FA68728
+	for <lists+apparmor@lfdr.de>; Wed, 19 Mar 2025 09:45:46 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tu6OF-00011l-LK; Mon, 17 Mar 2025 09:04:07 +0000
-Received: from nyc.source.kernel.org ([147.75.193.91])
- by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <brauner@kernel.org>) id 1tu6OD-00011d-UH
- for apparmor@lists.ubuntu.com; Mon, 17 Mar 2025 09:04:06 +0000
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 2DD1BA488C5;
- Mon, 17 Mar 2025 08:51:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C619C4CEE3;
- Mon, 17 Mar 2025 08:56:58 +0000 (UTC)
-Date: Mon, 17 Mar 2025 09:56:54 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: James Bottomley <James.Bottomley@hansenpartnership.com>
-Message-ID: <20250317-luftdicht-mehrweg-aab410542864@brauner>
-References: <CAKCV-6uuKo=RK37GhM+fV90yV9sxBFqj0s07EPSoHwVZdDWa3A@mail.gmail.com>
- <ea97dd9d1cb33e28d6ca830b6bff0c2ece374dbe.camel@HansenPartnership.com>
- <CAMj1kXGLXbki1jezLgzDGE7VX8mNmHKQ3VLQPq=j5uAyrSomvQ@mail.gmail.com>
- <20250311-visite-rastplatz-d1fdb223dc10@brauner>
- <814a257530ad5e8107ce5f48318ab43a3ef1f783.camel@HansenPartnership.com>
- <7bdcc2c5d8022d2f1a7ec23c0351f7816d4464c8.camel@HansenPartnership.com>
- <20250315-allemal-fahrbahn-9afc7bc0008d@brauner>
- <bad92b18f389256d26a886b2b0706d04c8c6c336.camel@HansenPartnership.com>
- <20250316-vergibt-hausrat-b23d525a1d24@brauner>
- <b2086c64d47463a019ac9fc9e5d7ee7f70becc8d.camel@HansenPartnership.com>
+	id 1tup3K-0004vG-CO; Wed, 19 Mar 2025 08:45:30 +0000
+Received: from mail-wr1-f43.google.com ([209.85.221.43])
+ by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.86_2) (envelope-from <mjguzik@gmail.com>) id 1tuf5G-00019o-Ud
+ for apparmor@lists.ubuntu.com; Tue, 18 Mar 2025 22:06:51 +0000
+Received: by mail-wr1-f43.google.com with SMTP id
+ ffacd0b85a97d-3995ff6b066so2114568f8f.3
+ for <apparmor@lists.ubuntu.com>; Tue, 18 Mar 2025 15:06:50 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742335610; x=1742940410;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=azV9Px14u8te52TUT3fVASbKBG6+YANqKIVyku+TkMU=;
+ b=hELAt4uVoXq5ZNyD3TfQ/kUKLinnN6UMHCRSMjCDid4OdFwB8Nz8Lp1WSa4LQUcxB4
+ D1JUCsehwrn4ogntAx3j2KNaXbWr5LWBQ4vyMfRjxI62H2fmDBIkhRKDhtiQeT+PWPY6
+ 9cgorI80m6U9ZDmlEEH+XJDP9CFwpn6bWK/3GLKTY2iCUeU1/nHUbTHmwH7vpBqMQRwk
+ Sp2hrEEa8RDNpY/RsnbQdhST/zYLB0exJ0eFkqtUz3HNuhcqMLZ8VUUeePhtQG1E3hc9
+ C+lGDxBAEoHx2kZbiWBp+jUbRxmNMWRUqUVX0nY6xBV0S7FXOunZ1IrWCT+zX6sbKxhl
+ 4n1g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUt3dCOQsDS8BqvIvs4pYp1llCnm6V3yCoS/6koMYtCsRdKrw1OmfEfkSgwF54VDZDf8MbQDlg6Ew==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0YxGVRxXjQYT/+wkgic5mC3RvySt1WrE68eQuLFvNby4yT0l+WF1
+ ELgaVZMwBNlmehS/qLNB1xNfDyPz+WpRZHjIE6wUBgaWTQ9e10X6
+X-Gm-Gg: ASbGnctYpmZZXl+9kPQUZkr4ItxeLDXbRA9QZ7PG3/PLJ2xkUPf3ZznJUQz2IHN2WXr
+ LcbwgQj1xXqTEDrYsCiLbgVwnDd8alzBoL6GV58+Y3QPzSgeplI3twTMXYR0RSEPeqiV+R6V9ps
+ V3AzC0242A/LCrNi+Te7YBP+6EbL10NSECVESw8QMW8oD3qTKWvxsJskBRkPRkYqPWL+SiOynBX
+ iMttLpyFDAII4M3Vz1ghFvIDfyOC8b7c/X0bCEiYW3sy7tWxMGvsDQ8ho5iV9B59RYqeFRv1lqA
+ 82wmHW95KL/qOQM6sdEgm9DYuKMsevvD+8vgjePw7lCNK452JeBNLAnuQiXYBOM=
+X-Google-Smtp-Source: AGHT+IHVblDvaqJD4SXFVJn+DAZiYcrD36QwtzhDusgGX6AiWXi+pyerzI+dkxnPboYOaWgPGcuKZA==
+X-Received: by 2002:a5d:6d8e:0:b0:391:1222:b444 with SMTP id
+ ffacd0b85a97d-399739bedaamr417252f8f.20.1742335609927; 
+ Tue, 18 Mar 2025 15:06:49 -0700 (PDT)
+Received: from f.. (cst-prg-67-174.cust.vodafone.cz. [46.135.67.174])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-39965410600sm7274438f8f.50.2025.03.18.15.06.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 18 Mar 2025 15:06:49 -0700 (PDT)
+From: Mateusz Guzik <mjguzik@gmail.com>
+To: john.johansen@canonical.com
+Date: Tue, 18 Mar 2025 23:06:41 +0100
+Message-ID: <20250318220641.1811093-1-mjguzik@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <b2086c64d47463a019ac9fc9e5d7ee7f70becc8d.camel@HansenPartnership.com>
-Received-SPF: pass client-ip=147.75.193.91; envelope-from=brauner@kernel.org;
- helo=nyc.source.kernel.org
-Subject: Re: [apparmor] [RFC 1/1] fix NULL mnt [was Re: apparmor NULL
- pointer dereference on resume [efivarfs]]
+Received-SPF: pass client-ip=209.85.221.43; envelope-from=mjguzik@gmail.com;
+ helo=mail-wr1-f43.google.com
+X-Mailman-Approved-At: Wed, 19 Mar 2025 08:45:29 +0000
+Subject: [apparmor] [PATCH] apparmor: make
+	__begin_current_label_crit_section() indicate whether put is needed
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -51,79 +68,371 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: linux-efi@vger.kernel.org, apparmor <apparmor@lists.ubuntu.com>,
- Malte =?utf-8?B?U2NocsO2ZGVy?= <malte.schroeder@tnxip.de>,
- linux-security-module@vger.kernel.org, Al Viro <viro@zeniv.linux.org.uk>,
- linux-fsdevel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>,
- "jk@ozlabs.org" <jk@ozlabs.org>
+Cc: linux-security-module@vger.kernel.org, Mateusz Guzik <mjguzik@gmail.com>,
+ apparmor@lists.ubuntu.com, paul@paul-moore.com, linux-kernel@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Sun, Mar 16, 2025 at 10:26:12AM -0400, James Bottomley wrote:
-> On Sun, 2025-03-16 at 07:46 +0100, Christian Brauner wrote:
-> > On Sat, Mar 15, 2025 at 02:41:43PM -0400, James Bottomley wrote:
-> [...]
-> > > However, there's another problem: the mntput after kernel_file_open
-> > > may synchronously call cleanup_mnt() (and thus deactivate_super())
-> > > if the open fails because it's marked MNT_INTERNAL, which is caused
-> > > by SB_KERNMOUNT.  I fixed this just by not passing the SB_KERNMOUNT
-> > > flag, which feels a bit hacky.
-> > 
-> > It actually isn't. We know that vfs_kern_mount() will always
-> > resurface the single superblock that's exposed to userspace because
-> > we've just taken a reference to it earlier in efivarfs_pm_notify().
-> > So that SB_KERNMOUNT flag is ignored because no new superblock is
-> > allocated. It would only matter if we'd end up allocating a new
-> > superblock which we never do.
-> 
-> I agree with the above: fc->sb_flags never propagates to the existing
-> superblock.  However, nothing propagates the superblock flags back to
-> fc->sb_flags either.  The check in vfs_create_mount() is on fc-
-> >sb_flags.  Since the code is a bit hard to follow I added a printk on
-> the path.mnt flags and sure enough it comes back with MNT_INTERNAL when
-> SB_KERNMOUNT is set.
-> 
-> > And if we did it would be a bug because the superblock we allocate
-> > could be reused at any time if a userspace task mounts efivarfs
-> > before efivarfs_pm_notify() has destroyed it (or the respective
-> > workqueue). But that superblock would then have SB_KERNMOUNT for
-> > something that's not supposed to be one.
-> 
-> True, but the flags don't propagate to the superblock, so no bug.
+Same as aa_get_newest_cred_label_condref().
 
-SB_KERNMOUNT does propagate to the superblock if it is newly allocated
-via sget_fc(): alloc_super(fc->fs_type, fc->sb_flags, user_ns);
+This avoids a bunch of work overall and allows the compiler to note when no
+clean up is necessary, allowing for tail calls.
 
-But you misunderstood. "If we did it" means "If efivarfs_pm_notify()
-somehow were to allocate a new superblock (which it doesn't) then having
-SB_KERNMOUNT raised on the newly allocated superblock would be bug
-because the superblock could be reused by userspace mounting efivars.
+This in particular happens in apparmor_file_permission(), which manages to
+tail call aa_file_perm() 105 bytes in (vs a regular call 112 bytes in
+followed by branches to figure out if clean up is needed).
 
-So removing it is the correct thing in either case. It's just confusing
-to anyone maintaining that code thinking that it'd be possible for a
-superblock to resurface with SB_KERNMOUNT.
+Signed-off-by: Mateusz Guzik <mjguzik@gmail.com>
+---
+ security/apparmor/include/cred.h | 21 ++++++---
+ security/apparmor/lsm.c          | 75 ++++++++++++++++++++------------
+ security/apparmor/policy.c       | 12 ++---
+ 3 files changed, 67 insertions(+), 41 deletions(-)
 
-> 
-> > And whether or not that helper mount has MNT_INTERNAL is immaterial
-> > to what you're doing here afaict.
-> 
-> I think the problem is the call chain mntput() -> mntput_no_expire()
-> which directly calls cleanup_mnt() -> deactivate_super() if that flag
-> is set.  Though I don't see that kernel_file_open() could ever fail
-> except for some catastrophic reason like out of memory, so perhaps it
-> isn't worth quibbling about.
+diff --git a/security/apparmor/include/cred.h b/security/apparmor/include/cred.h
+index 7265d2f81dd5..fc5791937694 100644
+--- a/security/apparmor/include/cred.h
++++ b/security/apparmor/include/cred.h
+@@ -114,7 +114,12 @@ static inline struct aa_label *aa_get_current_label(void)
+ 	return aa_get_label(l);
+ }
+ 
+-#define __end_current_label_crit_section(X) end_current_label_crit_section(X)
++static inline void __end_current_label_crit_section(struct aa_label *label,
++						    bool needput)
++{
++	if (unlikely(needput))
++		aa_put_label(label);
++}
+ 
+ /**
+  * end_label_crit_section - put a reference found with begin_current_label..
+@@ -142,13 +147,16 @@ static inline void end_current_label_crit_section(struct aa_label *label)
+  * critical section between __begin_current_label_crit_section() ..
+  * __end_current_label_crit_section()
+  */
+-static inline struct aa_label *__begin_current_label_crit_section(void)
++static inline struct aa_label *__begin_current_label_crit_section(bool *needput)
+ {
+ 	struct aa_label *label = aa_current_raw_label();
+ 
+-	if (label_is_stale(label))
+-		label = aa_get_newest_label(label);
++	if (label_is_stale(label)) {
++		*needput = true;
++		return aa_get_newest_label(label);
++	}
+ 
++	*needput = false;
+ 	return label;
+ }
+ 
+@@ -184,10 +192,11 @@ static inline struct aa_ns *aa_get_current_ns(void)
+ {
+ 	struct aa_label *label;
+ 	struct aa_ns *ns;
++	bool needput;
+ 
+-	label  = __begin_current_label_crit_section();
++	label  = __begin_current_label_crit_section(&needput);
+ 	ns = aa_get_ns(labels_ns(label));
+-	__end_current_label_crit_section(label);
++	__end_current_label_crit_section(label, needput);
+ 
+ 	return ns;
+ }
+diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
+index 7952e8cab353..c2be3c6f9d3e 100644
+--- a/security/apparmor/lsm.c
++++ b/security/apparmor/lsm.c
+@@ -127,14 +127,15 @@ static int apparmor_ptrace_access_check(struct task_struct *child,
+ 	struct aa_label *tracer, *tracee;
+ 	const struct cred *cred;
+ 	int error;
++	bool needput;
+ 
+ 	cred = get_task_cred(child);
+ 	tracee = cred_label(cred);	/* ref count on cred */
+-	tracer = __begin_current_label_crit_section();
++	tracer = __begin_current_label_crit_section(&needput);
+ 	error = aa_may_ptrace(current_cred(), tracer, cred, tracee,
+ 			(mode & PTRACE_MODE_READ) ? AA_PTRACE_READ
+ 						  : AA_PTRACE_TRACE);
+-	__end_current_label_crit_section(tracer);
++	__end_current_label_crit_section(tracer, needput);
+ 	put_cred(cred);
+ 
+ 	return error;
+@@ -145,14 +146,15 @@ static int apparmor_ptrace_traceme(struct task_struct *parent)
+ 	struct aa_label *tracer, *tracee;
+ 	const struct cred *cred;
+ 	int error;
++	bool needput;
+ 
+-	tracee = __begin_current_label_crit_section();
++	tracee = __begin_current_label_crit_section(&needput);
+ 	cred = get_task_cred(parent);
+ 	tracer = cred_label(cred);	/* ref count on cred */
+ 	error = aa_may_ptrace(cred, tracer, current_cred(), tracee,
+ 			      AA_PTRACE_TRACE);
+ 	put_cred(cred);
+-	__end_current_label_crit_section(tracee);
++	__end_current_label_crit_section(tracee, needput);
+ 
+ 	return error;
+ }
+@@ -221,12 +223,13 @@ static int common_perm(const char *op, const struct path *path, u32 mask,
+ {
+ 	struct aa_label *label;
+ 	int error = 0;
++	bool needput;
+ 
+-	label = __begin_current_label_crit_section();
++	label = __begin_current_label_crit_section(&needput);
+ 	if (!unconfined(label))
+ 		error = aa_path_perm(op, current_cred(), label, path, 0, mask,
+ 				     cond);
+-	__end_current_label_crit_section(label);
++	__end_current_label_crit_section(label, needput);
+ 
+ 	return error;
+ }
+@@ -524,14 +527,15 @@ static int common_file_perm(const char *op, struct file *file, u32 mask,
+ {
+ 	struct aa_label *label;
+ 	int error = 0;
++	bool needput;
+ 
+ 	/* don't reaudit files closed during inheritance */
+-	if (file->f_path.dentry == aa_null.dentry)
++	if (unlikely(file->f_path.dentry == aa_null.dentry))
+ 		return -EACCES;
+ 
+-	label = __begin_current_label_crit_section();
++	label = __begin_current_label_crit_section(&needput);
+ 	error = aa_file_perm(op, current_cred(), label, file, mask, in_atomic);
+-	__end_current_label_crit_section(label);
++	__end_current_label_crit_section(label, needput);
+ 
+ 	return error;
+ }
+@@ -664,15 +668,16 @@ static int apparmor_uring_override_creds(const struct cred *new)
+ 	struct aa_profile *profile;
+ 	struct aa_label *label;
+ 	int error;
++	bool needput;
+ 	DEFINE_AUDIT_DATA(ad, LSM_AUDIT_DATA_NONE, AA_CLASS_IO_URING,
+ 			  OP_URING_OVERRIDE);
+ 
+ 	ad.uring.target = cred_label(new);
+-	label = __begin_current_label_crit_section();
++	label = __begin_current_label_crit_section(&needput);
+ 	error = fn_for_each(label, profile,
+ 			profile_uring(profile, AA_MAY_OVERRIDE_CRED,
+ 				      cred_label(new), CAP_SYS_ADMIN, &ad));
+-	__end_current_label_crit_section(label);
++	__end_current_label_crit_section(label, needput);
+ 
+ 	return error;
+ }
+@@ -688,14 +693,15 @@ static int apparmor_uring_sqpoll(void)
+ 	struct aa_profile *profile;
+ 	struct aa_label *label;
+ 	int error;
++	bool needput;
+ 	DEFINE_AUDIT_DATA(ad, LSM_AUDIT_DATA_NONE, AA_CLASS_IO_URING,
+ 			  OP_URING_SQPOLL);
+ 
+-	label = __begin_current_label_crit_section();
++	label = __begin_current_label_crit_section(&needput);
+ 	error = fn_for_each(label, profile,
+ 			profile_uring(profile, AA_MAY_CREATE_SQPOLL,
+ 				      NULL, CAP_SYS_ADMIN, &ad));
+-	__end_current_label_crit_section(label);
++	__end_current_label_crit_section(label, needput);
+ 
+ 	return error;
+ }
+@@ -706,6 +712,7 @@ static int apparmor_sb_mount(const char *dev_name, const struct path *path,
+ {
+ 	struct aa_label *label;
+ 	int error = 0;
++	bool needput;
+ 
+ 	/* Discard magic */
+ 	if ((flags & MS_MGC_MSK) == MS_MGC_VAL)
+@@ -713,7 +720,7 @@ static int apparmor_sb_mount(const char *dev_name, const struct path *path,
+ 
+ 	flags &= ~AA_MS_IGNORE_MASK;
+ 
+-	label = __begin_current_label_crit_section();
++	label = __begin_current_label_crit_section(&needput);
+ 	if (!unconfined(label)) {
+ 		if (flags & MS_REMOUNT)
+ 			error = aa_remount(current_cred(), label, path, flags,
+@@ -732,7 +739,7 @@ static int apparmor_sb_mount(const char *dev_name, const struct path *path,
+ 			error = aa_new_mount(current_cred(), label, dev_name,
+ 					     path, type, flags, data);
+ 	}
+-	__end_current_label_crit_section(label);
++	__end_current_label_crit_section(label, needput);
+ 
+ 	return error;
+ }
+@@ -742,12 +749,13 @@ static int apparmor_move_mount(const struct path *from_path,
+ {
+ 	struct aa_label *label;
+ 	int error = 0;
++	bool needput;
+ 
+-	label = __begin_current_label_crit_section();
++	label = __begin_current_label_crit_section(&needput);
+ 	if (!unconfined(label))
+ 		error = aa_move_mount(current_cred(), label, from_path,
+ 				      to_path);
+-	__end_current_label_crit_section(label);
++	__end_current_label_crit_section(label, needput);
+ 
+ 	return error;
+ }
+@@ -756,11 +764,12 @@ static int apparmor_sb_umount(struct vfsmount *mnt, int flags)
+ {
+ 	struct aa_label *label;
+ 	int error = 0;
++	bool needput;
+ 
+-	label = __begin_current_label_crit_section();
++	label = __begin_current_label_crit_section(&needput);
+ 	if (!unconfined(label))
+ 		error = aa_umount(current_cred(), label, mnt, flags);
+-	__end_current_label_crit_section(label);
++	__end_current_label_crit_section(label, needput);
+ 
+ 	return error;
+ }
+@@ -984,10 +993,12 @@ static void apparmor_bprm_committed_creds(const struct linux_binprm *bprm)
+ 
+ static void apparmor_current_getlsmprop_subj(struct lsm_prop *prop)
+ {
+-	struct aa_label *label = __begin_current_label_crit_section();
++	struct aa_label *label;
++	bool needput;
+ 
++	label = __begin_current_label_crit_section(&needput);
+ 	prop->apparmor.label = label;
+-	__end_current_label_crit_section(label);
++	__end_current_label_crit_section(label, needput);
+ }
+ 
+ static void apparmor_task_getlsmprop_obj(struct task_struct *p,
+@@ -1002,13 +1013,16 @@ static void apparmor_task_getlsmprop_obj(struct task_struct *p,
+ static int apparmor_task_setrlimit(struct task_struct *task,
+ 		unsigned int resource, struct rlimit *new_rlim)
+ {
+-	struct aa_label *label = __begin_current_label_crit_section();
++	struct aa_label *label;
+ 	int error = 0;
++	bool needput;
++
++	label = __begin_current_label_crit_section(&needput);
+ 
+ 	if (!unconfined(label))
+ 		error = aa_task_setrlimit(current_cred(), label, task,
+ 					  resource, new_rlim);
+-	__end_current_label_crit_section(label);
++	__end_current_label_crit_section(label, needput);
+ 
+ 	return error;
+ }
+@@ -1019,6 +1033,7 @@ static int apparmor_task_kill(struct task_struct *target, struct kernel_siginfo
+ 	const struct cred *tc;
+ 	struct aa_label *cl, *tl;
+ 	int error;
++	bool needput;
+ 
+ 	tc = get_task_cred(target);
+ 	tl = aa_get_newest_cred_label(tc);
+@@ -1030,9 +1045,9 @@ static int apparmor_task_kill(struct task_struct *target, struct kernel_siginfo
+ 		error = aa_may_signal(cred, cl, tc, tl, sig);
+ 		aa_put_label(cl);
+ 	} else {
+-		cl = __begin_current_label_crit_section();
++		cl = __begin_current_label_crit_section(&needput);
+ 		error = aa_may_signal(current_cred(), cl, tc, tl, sig);
+-		__end_current_label_crit_section(cl);
++		__end_current_label_crit_section(cl, needput);
+ 	}
+ 	aa_put_label(tl);
+ 	put_cred(tc);
+@@ -1133,10 +1148,11 @@ static int apparmor_unix_stream_connect(struct sock *sk, struct sock *peer_sk,
+ 	struct aa_sk_ctx *new_ctx = aa_sock(newsk);
+ 	struct aa_label *label;
+ 	int error;
++	bool needput;
+ 
+-	label = __begin_current_label_crit_section();
++	label = __begin_current_label_crit_section(&needput);
+ 	error = unix_connect_perm(current_cred(), label, sk, peer_sk);
+-	__end_current_label_crit_section(label);
++	__end_current_label_crit_section(label, needput);
+ 
+ 	if (error)
+ 		return error;
+@@ -1163,8 +1179,9 @@ static int apparmor_unix_may_send(struct socket *sock, struct socket *peer)
+ 	struct aa_sk_ctx *peer_ctx = aa_sock(peer->sk);
+ 	struct aa_label *label;
+ 	int error;
++	bool needput;
+ 
+-	label = __begin_current_label_crit_section();
++	label = __begin_current_label_crit_section(&needput);
+ 	error = xcheck(aa_unix_peer_perm(current_cred(),
+ 					 label, OP_SENDMSG, AA_MAY_SEND,
+ 					 sock->sk, peer->sk, NULL),
+@@ -1172,7 +1189,7 @@ static int apparmor_unix_may_send(struct socket *sock, struct socket *peer)
+ 					 peer_ctx->label, OP_SENDMSG,
+ 					 AA_MAY_RECEIVE,
+ 					 peer->sk, sock->sk, label));
+-	__end_current_label_crit_section(label);
++	__end_current_label_crit_section(label, needput);
+ 
+ 	return error;
+ }
+diff --git a/security/apparmor/policy.c b/security/apparmor/policy.c
+index 1f532fe48a1c..a60bb7d9b583 100644
+--- a/security/apparmor/policy.c
++++ b/security/apparmor/policy.c
+@@ -870,11 +870,11 @@ bool aa_policy_admin_capable(const struct cred *subj_cred,
+ bool aa_current_policy_view_capable(struct aa_ns *ns)
+ {
+ 	struct aa_label *label;
+-	bool res;
++	bool needput, res;
+ 
+-	label = __begin_current_label_crit_section();
++	label = __begin_current_label_crit_section(&needput);
+ 	res = aa_policy_view_capable(current_cred(), label, ns);
+-	__end_current_label_crit_section(label);
++	__end_current_label_crit_section(label, needput);
+ 
+ 	return res;
+ }
+@@ -882,11 +882,11 @@ bool aa_current_policy_view_capable(struct aa_ns *ns)
+ bool aa_current_policy_admin_capable(struct aa_ns *ns)
+ {
+ 	struct aa_label *label;
+-	bool res;
++	bool needput, res;
+ 
+-	label = __begin_current_label_crit_section();
++	label = __begin_current_label_crit_section(&needput);
+ 	res = aa_policy_admin_capable(current_cred(), label, ns);
+-	__end_current_label_crit_section(label);
++	__end_current_label_crit_section(label, needput);
+ 
+ 	return res;
+ }
+-- 
+2.43.0
 
-Not what I'm saying. Not having MNT_INTERNAL is paramount to not
-deadlocking but by not having it you're not losing anything.
-
-> 
-> > So not passing the SB_KERNMOUNT flag is the right thing (see devtmpfs
-> > as well). You could slap a comment in here explaining that we never
-> > allocate a new superblock so it's clear to people not familiar with
-> > this particular code.
-> 
-> OK, so you agree that the code as written looks correct? Even if we
-> don't necessarily quite agree on why.
-
-We agree but you just misunderstood. :)
 
