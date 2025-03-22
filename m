@@ -2,65 +2,46 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED5B4A6CA50
-	for <lists+apparmor@lfdr.de>; Sat, 22 Mar 2025 14:27:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A432A6D3E6
+	for <lists+apparmor@lfdr.de>; Mon, 24 Mar 2025 06:52:43 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tvyss-0001F5-76; Sat, 22 Mar 2025 13:27:30 +0000
-Received: from mail-lj1-f170.google.com ([209.85.208.170])
+	id 1twajd-0001wP-U7; Mon, 24 Mar 2025 05:52:29 +0000
+Received: from stravinsky.debian.org ([82.195.75.108])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <vindrg@gmail.com>) id 1tvysq-0001Ev-La
- for apparmor@lists.ubuntu.com; Sat, 22 Mar 2025 13:27:28 +0000
-Received: by mail-lj1-f170.google.com with SMTP id
- 38308e7fff4ca-30c416cdcc0so30681471fa.2
- for <apparmor@lists.ubuntu.com>; Sat, 22 Mar 2025 06:27:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1742650047; x=1743254847;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=BA5M5AcdS9+s7vOX4m/afzkJ3GECSnvanmgb9syFNS4=;
- b=ZV1e4uP2i3vmUutAq8+3sNXQ08XS28OqZ0Kv3pk0I1ioXjxlq+v5O7qu4yp1CEc0a0
- +3aia7I5Ap/N/qkB+gUZuaWLuosqhK0o2+04mk4m9bKpuUsufggsm4C/utEErcba9zHA
- n9GaR+FCeOvKVKjBz70x93ydcd1L/nsFoQ3zpyA24wV4tyX/Je1NqGBGhVdhuzQfIFWx
- JcgbzQElKzN1lgVyOajqho+sA9suDbNuB2Q9O47oWBgTJ7r48t4xciAd4+mZZzP7TyDc
- sdxs8++EYZmVDMtB3+XZEomWdq321gN9abbReVvp5IdawNzoRpPe4UMaofLKXGcHfsLe
- G6SQ==
-X-Gm-Message-State: AOJu0YxJnhyrTWvxzjuqidiBbdaUtm4pxYu+aJs7O664ZOeKNF78wmqv
- v7CBKPTp6cV/O1q4PXW0N2SdsZ5gvV2UtKvvPSzSNgf4XmnBJCqetd+WV9lM
-X-Gm-Gg: ASbGncuHRu44mfCj6KkO/IZHVesKwiS3li6PKd++TW2vvFKV2MmowX4kBCHk3rK21ea
- gPH4OzgiYSmJwrOX+ANkMbxbsJ8HB6JM15akDyNagsfYZK+J4Hu8kVgCUYcNyO4hCNVnLqm6ex8
- L5lBh6/W/KD7iA5nyPJTj/G6vC4fyx2FPeGeh3DhlaaIZD5bkReIPzK0ATN5KhxgMYpsIYru/MO
- ClAGkEO0tV8t1ptLw5tOy/Yn+P+OUmTyowIhL1/rNqI3cuZySdUNZr/fyHipY7WWzk+YTLIJz50
- 2ZdiUdI9KrhVxfQNn45MqudhQqrQMmqUJTBhcmgfCyPbqHC5tcL9IAU46VRDwY/1
-X-Google-Smtp-Source: AGHT+IGrrF6GOAgsQjD2pnN8ufGPXnNiIQd40IRhHf6USi0gSAzCCHnU26TpYdiGx6Z2185H+eGRIA==
-X-Received: by 2002:a05:651c:b0d:b0:30b:c569:4689 with SMTP id
- 38308e7fff4ca-30d7e2a7695mr24053241fa.27.1742650047361; 
- Sat, 22 Mar 2025 06:27:27 -0700 (PDT)
-Received: from [192.168.1.10] (mail.dargis.net. [62.80.227.49])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-30d7d8f4124sm5942961fa.70.2025.03.22.06.27.26
- for <apparmor@lists.ubuntu.com>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 22 Mar 2025 06:27:26 -0700 (PDT)
-Message-ID: <fc4f9e72-0df3-443a-b4f0-de711b689144@gmail.com>
-Date: Sat, 22 Mar 2025 15:27:26 +0200
+ (Exim 4.86_2) (envelope-from <carnil@debian.org>) id 1tw3zt-00048k-FV
+ for apparmor@lists.ubuntu.com; Sat, 22 Mar 2025 18:55:05 +0000
+Received: from authenticated user by stravinsky.debian.org with esmtpsa
+ (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+ (Exim 4.94.2) (envelope-from <carnil@debian.org>)
+ id 1tw3zq-001Sjk-0q; Sat, 22 Mar 2025 18:55:02 +0000
+Received: by eldamar.lan (Postfix, from userid 1000)
+ id 561F1BE2DE0; Sat, 22 Mar 2025 19:55:01 +0100 (CET)
+Date: Sat, 22 Mar 2025 19:55:01 +0100
+From: Salvatore Bonaccorso <carnil@debian.org>
+To: John Johansen <john.johansen@canonical.com>, 1050256@bugs.debian.org
+Message-ID: <Z98HhbGvHghlHP_x@eldamar.lan>
+References: <9d6a5b2368016e2ef7b11c64b7c9db69419318ec.camel@debian.org>
+ <b8bb1a0e-9b50-4f78-8473-4f0151677f25@canonical.com>
+ <169271330498.34427.2191706613553030083.reportbug@pluto.milchstrasse.xx>
+ <ZbYk7yOaAq0O8Rid@eldamar.lan>
+ <169271330498.34427.2191706613553030083.reportbug@pluto.milchstrasse.xx>
+ <ZlMfW3I6dcpn2nAv@eldamar.lan>
+ <169271330498.34427.2191706613553030083.reportbug@pluto.milchstrasse.xx>
+ <Zq6GfWwlD2oqu2BW@eldamar.lan>
+ <169271330498.34427.2191706613553030083.reportbug@pluto.milchstrasse.xx>
+ <Z0ouVKC_dZDIOWeX@eldamar.lan>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: apparmor@lists.ubuntu.com
-References: <87lduexbod.fsf@manticora>
- <9f17f2d5-1fe3-4434-aa68-91b07faf004b@canonical.com>
- <87h63oosud.fsf@manticora>
- <d3dbc46d-3c92-4e80-9936-50ea81b5a15d@canonical.com>
-Content-Language: en-US
-From: Vincas Dargis <vindrg@gmail.com>
-In-Reply-To: <d3dbc46d-3c92-4e80-9936-50ea81b5a15d@canonical.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=209.85.208.170; envelope-from=vindrg@gmail.com;
- helo=mail-lj1-f170.google.com
-Subject: Re: [apparmor] AppArmor version for upcoming Debian 13 (Trixie)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <Z0ouVKC_dZDIOWeX@eldamar.lan>
+X-Debian-User: carnil
+Received-SPF: none client-ip=82.195.75.108; envelope-from=carnil@debian.org;
+ helo=stravinsky.debian.org
+X-Mailman-Approved-At: Mon, 24 Mar 2025 05:52:28 +0000
+Subject: Re: [apparmor] Bug#1050256: AppArmor breaks locking non-fs Unix
+	sockets
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -72,16 +53,55 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: Harald Dunkel <harri@afaics.de>, John Johansen <john@apparmor.net>,
+ Mathias Gibbens <gibmat@debian.org>, apparmor@lists.ubuntu.com,
+ Antonio Terceiro <terceiro@debian.org>, Paul Gevers <elbrus@debian.org>,
+ pkg-systemd-maintainers <pkg-systemd-maintainers@lists.alioth.debian.org>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 2025-03-21 06:51, John Johansen wrote:
-> Good, while we know of a few outstanding issues, I think we have closed all
-> the blockers. So now its just a matter of deciding when to do a release.
+Hi John,
 
-Sorry for chiming in, but could someone comment on this bug report: https://gitlab.com/apparmor/apparmor/-/issues/493
+On Fri, Nov 29, 2024 at 10:12:52PM +0100, Salvatore Bonaccorso wrote:
+> Hi John,
+> 
+> On Sat, Aug 03, 2024 at 09:35:25PM +0200, Salvatore Bonaccorso wrote:
+> > Hi John,
+> > 
+> > On Sun, May 26, 2024 at 01:39:07PM +0200, Salvatore Bonaccorso wrote:
+> > > Hi,
+> > > 
+> > > For those watching this bug: John has prepared backports in his tree,
+> > > with both approaches:
+> > > 
+> > > https://git.kernel.org/pub/scm/linux/kernel/git/jj/linux-apparmor.git/log/?h=debian-two-patch-1780227
+> > > 
+> > > and
+> > > 
+> > > https://git.kernel.org/pub/scm/linux/kernel/git/jj/linux-apparmor.git/log/?h=debian-backport-1780227
+> > > 
+> > > (but with the open question which one will be submitted for stable.
+> > > >From upstream stable point of view probably the two patch backport
+> > > approach would be the preferred one).
+> > 
+> > We still have tis issue open for 6.1.y upstream TTBOMK. If you are
+> > confident as maintainer with any of the two approaches, would it be
+> > possible to submit them for stable? If the preferred one get then
+> > accepted and queued, we might already cherry-pick the solution for us,
+> > but at this point we can wait for the respective 6.1.y stable version
+> > which will include the fix.
+> 
+> Friendly ping. Any news here?
 
-It seems like important issue, which would be nice to have fixed for next Debian Stable.
+Anything we can do there to help on the decision which set of fixes
+could land in the 6.1.y stable series? Would it help if I prod Mathias
+to test both variants for feedback? 
 
-Thanks.
+Or is there a problem you envision already by trying to backport those
+fixes to upstream 6.1.y?
+
+Thanks for your work, and sorry for pestering you again about it :(
+
+Regards,
+Salvatore
 
