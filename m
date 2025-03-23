@@ -2,46 +2,62 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A432A6D3E6
+	by mail.lfdr.de (Postfix) with ESMTPS id A5C89A6D3E7
 	for <lists+apparmor@lfdr.de>; Mon, 24 Mar 2025 06:52:43 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1twajd-0001wP-U7; Mon, 24 Mar 2025 05:52:29 +0000
-Received: from stravinsky.debian.org ([82.195.75.108])
+	id 1twaje-0001wW-3c; Mon, 24 Mar 2025 05:52:30 +0000
+Received: from mail-io1-f70.google.com ([209.85.166.70])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <carnil@debian.org>) id 1tw3zt-00048k-FV
- for apparmor@lists.ubuntu.com; Sat, 22 Mar 2025 18:55:05 +0000
-Received: from authenticated user by stravinsky.debian.org with esmtpsa
- (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
- (Exim 4.94.2) (envelope-from <carnil@debian.org>)
- id 1tw3zq-001Sjk-0q; Sat, 22 Mar 2025 18:55:02 +0000
-Received: by eldamar.lan (Postfix, from userid 1000)
- id 561F1BE2DE0; Sat, 22 Mar 2025 19:55:01 +0100 (CET)
-Date: Sat, 22 Mar 2025 19:55:01 +0100
-From: Salvatore Bonaccorso <carnil@debian.org>
-To: John Johansen <john.johansen@canonical.com>, 1050256@bugs.debian.org
-Message-ID: <Z98HhbGvHghlHP_x@eldamar.lan>
-References: <9d6a5b2368016e2ef7b11c64b7c9db69419318ec.camel@debian.org>
- <b8bb1a0e-9b50-4f78-8473-4f0151677f25@canonical.com>
- <169271330498.34427.2191706613553030083.reportbug@pluto.milchstrasse.xx>
- <ZbYk7yOaAq0O8Rid@eldamar.lan>
- <169271330498.34427.2191706613553030083.reportbug@pluto.milchstrasse.xx>
- <ZlMfW3I6dcpn2nAv@eldamar.lan>
- <169271330498.34427.2191706613553030083.reportbug@pluto.milchstrasse.xx>
- <Zq6GfWwlD2oqu2BW@eldamar.lan>
- <169271330498.34427.2191706613553030083.reportbug@pluto.milchstrasse.xx>
- <Z0ouVKC_dZDIOWeX@eldamar.lan>
+ (Exim 4.86_2) (envelope-from
+ <3z6_fZwkbAPImsteUffYlUjjcX.aiiafYomYlWihnYhn.Wig@M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com>)
+ id 1twFCi-000876-Oe
+ for apparmor@lists.ubuntu.com; Sun, 23 Mar 2025 06:53:04 +0000
+Received: by mail-io1-f70.google.com with SMTP id
+ ca18e2360f4ac-85e310ba2f9so156029439f.0
+ for <apparmor@lists.ubuntu.com>; Sat, 22 Mar 2025 23:53:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1742712783; x=1743317583;
+ h=to:from:subject:message-id:in-reply-to:date:mime-version
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=uuTtDdQllfqVQdTnY1GFjo08/XepPL02PHTKNSl5Nyk=;
+ b=NPLQMFMcE77VmvKddfgpj6l7MiMeJWPrIPxBP/dbwBiXpvwMz+T7RhZIB6cLegbK/6
+ nX3ldbNT9mtuHmvSqSdZjN6UgHVN1KJNSs3MtnH6IfzAVAbxBnphbnD+8kYhMf+mFQwj
+ 3RPgeYI+uXza/uvpLOoaoD3QpzZxuNxEcj4zpEoghuWTWCtORMP3ulWZGwHZUUea64JV
+ RzZEhRqD8cMxD1K7tfLQfmU8a22YaTPGvV6YMtlsDAqYRL9fSq14nwseaZCKsqu/J1cB
+ S30C74ef4qNbTUuExHfnXGQWzprUY81JbpIb/ecIQBp76jXU2vtmPWclrFehaTxoTMxG
+ sTeA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXgSCf5cKAdWAX8RpKkqeKVcDV8HnWHRukDPQX2gjLctdg9Xc0zFHIDOxqttpX5tbeoG1/8Kx+f7g==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0YxPQEfhM4SSzEYnd4uL+HIzKOQvM0i1zlLjEqfQwp9bxaKsVhBh
+ sg0+bfI5wVskh382t1pc0iLx7OG01gcjsVS9xq2O7yAbFQIPX/8biuKR0R7bbXeT7SmLmSmnVL6
+ w048/WaTqc6FmMa4E+MUlywCbqFXUgFqfcUK71xxqcF3RI/EPcHNYCGc=
+X-Google-Smtp-Source: AGHT+IFomXej1RrN6WELV4Qii9/yxfjxlWnmlmMb+ysYA1j31F3Z04e+3d3vMyCUXzjVvvz9y1wv7XB/R6rxL+wT2R6HvXmksUMF
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <Z0ouVKC_dZDIOWeX@eldamar.lan>
-X-Debian-User: carnil
-Received-SPF: none client-ip=82.195.75.108; envelope-from=carnil@debian.org;
- helo=stravinsky.debian.org
+X-Received: by 2002:a05:6e02:378c:b0:3d3:cdb0:a227 with SMTP id
+ e9e14a558f8ab-3d5960f4d68mr77368565ab.9.1742712783188; Sat, 22 Mar 2025
+ 23:53:03 -0700 (PDT)
+Date: Sat, 22 Mar 2025 23:53:03 -0700
+In-Reply-To: <6707499c.050a0220.1139e6.0017.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <67dfafcf.050a0220.31a16b.0058.GAE@google.com>
+From: syzbot <syzbot+17bc8c5157022e18da8b@syzkaller.appspotmail.com>
+To: apparmor-owner@lists.ubuntu.com, apparmor@lists.ubuntu.com, 
+ edumazet@google.com, jmorris@namei.org, john.johansen@canonical.com, 
+ john@apparmor.net, kuba@kernel.org, kuniyu@amazon.com, 
+ linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-security-module@vger.kernel.org, netdev@vger.kernel.org, 
+ paul@paul-moore.com, penguin-kernel@i-love.sakura.ne.jp, razor@blackwall.org, 
+ serge@hallyn.com, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+Received-SPF: pass client-ip=209.85.166.70;
+ envelope-from=3z6_fZwkbAPImsteUffYlUjjcX.aiiafYomYlWihnYhn.Wig@M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+ helo=mail-io1-f70.google.com
 X-Mailman-Approved-At: Mon, 24 Mar 2025 05:52:28 +0000
-Subject: Re: [apparmor] Bug#1050256: AppArmor breaks locking non-fs Unix
-	sockets
+Subject: Re: [apparmor] [syzbot] [net] INFO: rcu detected stall in
+	sys_getdents64
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -53,55 +69,28 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Harald Dunkel <harri@afaics.de>, John Johansen <john@apparmor.net>,
- Mathias Gibbens <gibmat@debian.org>, apparmor@lists.ubuntu.com,
- Antonio Terceiro <terceiro@debian.org>, Paul Gevers <elbrus@debian.org>,
- pkg-systemd-maintainers <pkg-systemd-maintainers@lists.alioth.debian.org>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Hi John,
+syzbot suspects this issue was fixed by commit:
 
-On Fri, Nov 29, 2024 at 10:12:52PM +0100, Salvatore Bonaccorso wrote:
-> Hi John,
-> 
-> On Sat, Aug 03, 2024 at 09:35:25PM +0200, Salvatore Bonaccorso wrote:
-> > Hi John,
-> > 
-> > On Sun, May 26, 2024 at 01:39:07PM +0200, Salvatore Bonaccorso wrote:
-> > > Hi,
-> > > 
-> > > For those watching this bug: John has prepared backports in his tree,
-> > > with both approaches:
-> > > 
-> > > https://git.kernel.org/pub/scm/linux/kernel/git/jj/linux-apparmor.git/log/?h=debian-two-patch-1780227
-> > > 
-> > > and
-> > > 
-> > > https://git.kernel.org/pub/scm/linux/kernel/git/jj/linux-apparmor.git/log/?h=debian-backport-1780227
-> > > 
-> > > (but with the open question which one will be submitted for stable.
-> > > >From upstream stable point of view probably the two patch backport
-> > > approach would be the preferred one).
-> > 
-> > We still have tis issue open for 6.1.y upstream TTBOMK. If you are
-> > confident as maintainer with any of the two approaches, would it be
-> > possible to submit them for stable? If the preferred one get then
-> > accepted and queued, we might already cherry-pick the solution for us,
-> > but at this point we can wait for the respective 6.1.y stable version
-> > which will include the fix.
-> 
-> Friendly ping. Any news here?
+commit e759e1e4a4bd2926d082afe56046a90224433a31
+Author: Eric Dumazet <edumazet@google.com>
+Date:   Wed Jan 29 14:27:26 2025 +0000
 
-Anything we can do there to help on the decision which set of fixes
-could land in the 6.1.y stable series? Would it help if I prod Mathias
-to test both variants for feedback? 
+    net: revert RTNL changes in unregister_netdevice_many_notify()
 
-Or is there a problem you envision already by trying to backport those
-fixes to upstream 6.1.y?
+bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=1084f004580000
+start commit:   fc20a3e57247 Merge tag 'for-linus-6.12a-rc2-tag' of git://..
+git tree:       upstream
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ba92623fdea824c9
+dashboard link: https://syzkaller.appspot.com/bug?extid=17bc8c5157022e18da8b
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=135f7d27980000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1483b380580000
 
-Thanks for your work, and sorry for pestering you again about it :(
+If the result looks correct, please mark the issue as fixed by replying with:
 
-Regards,
-Salvatore
+#syz fix: net: revert RTNL changes in unregister_netdevice_many_notify()
+
+For information about bisection process see: https://goo.gl/tpsmEJ#bisection
 
