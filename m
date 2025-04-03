@@ -2,62 +2,40 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E766A788D2
-	for <lists+apparmor@lfdr.de>; Wed,  2 Apr 2025 09:28:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C7BBA7A283
+	for <lists+apparmor@lfdr.de>; Thu,  3 Apr 2025 14:08:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1tzsVm-0001n6-Qx; Wed, 02 Apr 2025 07:27:46 +0000
-Received: from mail-pl1-f169.google.com ([209.85.214.169])
+	id 1u0JND-00017w-Cy; Thu, 03 Apr 2025 12:08:43 +0000
+Received: from stravinsky.debian.org ([82.195.75.108])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <sgpinkus@gmail.com>)
- id 1tzrlI-0003WN-7Q
- for apparmor@lists.ubuntu.com; Wed, 02 Apr 2025 06:39:44 +0000
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-224100e9a5cso118804355ad.2
- for <apparmor@lists.ubuntu.com>; Tue, 01 Apr 2025 23:39:43 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1743575982; x=1744180782;
- h=content-transfer-encoding:subject:from:content-language:to
- :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=OQy+tvJrgLSxIT12VUBu0D6u0uNZOl25FV8nhSstHeU=;
- b=gNnnMVcMREK2Qw7HRXCPQOMPWb8y8pTrn7zOrlH5scNRuLq7gb/Ufx6R6A4hkPF8dl
- nkmQeNcBJqIB7E4yfOul1WLWUmL+2Zs0WjD5WUe/29BaV2q75fooMm/BBysFPgLRQrlZ
- lF19fMA7PGJFef5c+K9pzQtb5VxJbuukfxFSFw/rDiTbSM6sghIKhFkGrU2CjYzrZHst
- ikBPU4j2+/W6GnqVlqa+M7KoC3mohsBttAxs1Z8JlA3yFI/Hn4Vrgiz1a4IkLGLVKMvE
- LjNiy+0VIIqDX+mFhCuODGucjh2vCoS/bQ1OLgjoiArpo/Owc/Wx9XNRqxfwX9hQnnwW
- zBoA==
-X-Gm-Message-State: AOJu0YzdDJc2WDfXrIWnqEcLfPVuOiVHxFs6YkSxoFoLQ3RJSrhivOUx
- KaxkcsQJ/iAp7aAp5Ba6i/6t9D3RHCXRSdTNRCX7sqZX1tbjRNjIm+zkaQ==
-X-Gm-Gg: ASbGncv5YMgZDgr8GtLgK4FXEex6Qf8y8uIruI/U/TN7eT2OPI63WF4fBzYMZTiP83f
- kIewWU+dBfVUpvTs5duuAZRSpR+pZriF+A2YmiIohma42rG2LTJKYg1FGVX85wEUuSIpZe71fId
- 6DamCXXwUHO0K0tDLDDZeujgURI+qBwqSgfJF30hz+Zq+V5sZlUUrM7klQOcE2Q6lFGcXuppqsv
- jOZVX2o2Vj47869+JM8vd0rm8v1M8lST3K6cegqg98iitCBL+8ZdBse2Bw+3dOI7Rqh9UTfAmWS
- EkFjKS4ISwlW/NNQlnoCZNkpOusQpWK0ICxIQor35TYuGzg=
-X-Google-Smtp-Source: AGHT+IGALP9wauUBXOZs4E7F946l+UoOndFsNmNgu2F6JStwVS6WK9mURs9NPnoSWMJgQLv6RV4iJA==
-X-Received: by 2002:a17:902:d54a:b0:224:721:ed9 with SMTP id
- d9443c01a7336-2292f9f6031mr305048685ad.44.1743575982012; 
- Tue, 01 Apr 2025 23:39:42 -0700 (PDT)
-Received: from [192.168.1.248] ([211.30.191.70])
- by smtp.googlemail.com with ESMTPSA id
- d9443c01a7336-2291f1cf6bbsm100052185ad.128.2025.04.01.23.39.40
- for <apparmor@lists.ubuntu.com>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Apr 2025 23:39:41 -0700 (PDT)
-Message-ID: <80a0ed9c-39c7-4a40-a208-f1375ca11dec@gmail.com>
-Date: Wed, 2 Apr 2025 16:39:36 +1000
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+ (Exim 4.86_2) (envelope-from <intrigeri@debian.org>)
+ id 1u0JNB-00017i-DB
+ for apparmor@lists.ubuntu.com; Thu, 03 Apr 2025 12:08:41 +0000
+Received: from authenticated user by stravinsky.debian.org with esmtpsa
+ (TLS1.2:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+ (Exim 4.94.2) (envelope-from <intrigeri@debian.org>)
+ id 1u0JNA-00BNDj-FB
+ for apparmor@lists.ubuntu.com; Thu, 03 Apr 2025 12:08:40 +0000
+Received: from manticora (localhost [127.0.0.1])
+ by localhost (Postfix) with ESMTP id AB21B1882BBA
+ for <apparmor@lists.ubuntu.com>; Thu, 03 Apr 2025 14:08:39 +0200 (CEST)
+Message-Id: <87mscx1m7s.fsf@manticora>
+From: intrigeri <intrigeri@debian.org>
 To: apparmor@lists.ubuntu.com
-Content-Language: en-US
-From: Sam Pinkus <sgpinkus@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=209.85.214.169; envelope-from=sgpinkus@gmail.com;
- helo=mail-pl1-f169.google.com
-X-Mailman-Approved-At: Wed, 02 Apr 2025 07:27:44 +0000
-Subject: [apparmor] dnsmasq[60146]: unknown user or group: dnsmasq
+In-Reply-To: <d3dbc46d-3c92-4e80-9936-50ea81b5a15d@canonical.com>
+References: <87lduexbod.fsf@manticora>
+ <9f17f2d5-1fe3-4434-aa68-91b07faf004b@canonical.com>
+ <87h63oosud.fsf@manticora>
+ <d3dbc46d-3c92-4e80-9936-50ea81b5a15d@canonical.com>
+Date: Thu, 03 Apr 2025 14:08:39 +0200
+MIME-Version: 1.0
+Content-Type: text/plain
+X-Debian-User: intrigeri
+Received-SPF: none client-ip=82.195.75.108; envelope-from=intrigeri@debian.org;
+ helo=stravinsky.debian.org
+Subject: Re: [apparmor] AppArmor version for upcoming Debian 13 (Trixie)
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -74,16 +52,39 @@ Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
 Hi,
 
-I'm rrying to create an apparmor profile for dnsmasq. Even in complain 
-mode dnsmasq daemon won't start with:
+John Johansen (2025-03-20):
+> On 3/20/25 04:16, intrigeri wrote:
+>> Hi,
+>> 
+>> 4.1.0~beta5 has been in Debian for a few weeks. Looks good so far, we
+>> merely had to cope with a few hickups related to userns and the new
+>> "unconfined" stub profiles. Congrats for all the work that went into
+>> this new series!
+>> 
+>> My calendar for the next steps is:
+>> 
+>> 1. March 24-30: AFK
+>> 
+>> 2. March 31 - April 9: last chance for me to upload a new upstream release
+>> 
+>>     What are the chances that this is 4.1.0 final?
+>> 
+> Good, while we know of a few outstanding issues, I think we have closed all
+> the blockers. So now its just a matter of deciding when to do a release.
+>
+>
+>>     In case 4.1.0 is not ready in time, could we please have a beta6 or rc1?
+>>     This would make it vastly easier for me to handle step 3 below,
+>>     and to maintain the package during the lifetime of Trixie.
+>> 
+> I plan to cut a new beta this weekend, and do some of the tasks that have been
+> waiting for me to not be so swamped at work. I have one specific bug in mind
+> I would still like to land a fix for, and a few other that would be nice to
+> have but not required. We could cut an RC1 or final release next weekend.
 
- > dnsmasq[60146]: unknown user or group: dnsmasq
+Any updated timeline?
 
-Presuming it's something to do with dnsmasq switching users to dnsmasq. 
-But how to account for this in the profile? And why is this happening 
-even in complain mode?
-
-Thanks,
-
-Sam.
+Cheers,
+-- 
+intrigeri
 
