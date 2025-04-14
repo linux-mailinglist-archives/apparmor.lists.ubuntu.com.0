@@ -2,30 +2,30 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F66BA88A8D
-	for <lists+apparmor@lfdr.de>; Mon, 14 Apr 2025 19:59:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAAFBA88AD5
+	for <lists+apparmor@lfdr.de>; Mon, 14 Apr 2025 20:15:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1u4O5m-0004rG-Pr; Mon, 14 Apr 2025 17:59:34 +0000
-Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
- helo=smtp-relay-canonical-0.canonical.com)
+	id 1u4OKe-0006cL-8e; Mon, 14 Apr 2025 18:14:56 +0000
+Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
+ helo=smtp-relay-canonical-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1u4O5l-0004r3-5L
- for apparmor@lists.ubuntu.com; Mon, 14 Apr 2025 17:59:33 +0000
+ id 1u4OKd-0006cE-7L
+ for apparmor@lists.ubuntu.com; Mon, 14 Apr 2025 18:14:55 +0000
 Received: from [192.168.192.85] (unknown [50.39.103.202])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 7B8BA3F78F
- for <apparmor@lists.ubuntu.com>; Mon, 14 Apr 2025 17:59:32 +0000 (UTC)
-Message-ID: <6f5f8a11-ea26-4c99-95c3-9b8bb6a93334@canonical.com>
-Date: Mon, 14 Apr 2025 10:59:29 -0700
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id C4BAF40965; 
+ Mon, 14 Apr 2025 18:14:53 +0000 (UTC)
+Message-ID: <caa3f8ae-5273-4da7-965e-112c6ec5f5b4@canonical.com>
+Date: Mon, 14 Apr 2025 11:14:52 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: apparmor@lists.ubuntu.com
-References: <80a0ed9c-39c7-4a40-a208-f1375ca11dec@gmail.com>
+To: Ryan Lee <ryan.lee@canonical.com>, apparmor@lists.ubuntu.com
+References: <20250225235054.530607-1-ryan.lee@canonical.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -71,10 +71,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <80a0ed9c-39c7-4a40-a208-f1375ca11dec@gmail.com>
+In-Reply-To: <20250225235054.530607-1-ryan.lee@canonical.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] dnsmasq[60146]: unknown user or group: dnsmasq
+Subject: Re: [apparmor] [PATCH] apparmor: use GFP_ATOMIC for
+ aa_dup_audit_data in check_user
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -89,25 +90,57 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 4/1/25 23:39, Sam Pinkus wrote:
-> Hi,
+On 2/25/25 15:50, Ryan Lee wrote:
+> aa_dup_audit_data is called in check_user (file.c) with GFP_KERNEL, which
+> is in turn called by aa_audit_file through path_name. GFP_KERNEL allocs
+> may sleep, but the file permission hook that invokes aa_file_perm is
+> called in an atomic context that doesn't allow sleeping:
 > 
-> I'm rrying to create an apparmor profile for dnsmasq. Even in complain mode dnsmasq daemon won't start with:
+> BUG: sleeping function called from invalid context at include/linux/sched/mm.h:337
+> in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 1821, name: 5
+> preempt_count: 1, expected: 0
+> RCU nest depth: 0, expected: 0
+> |3 locks held by 5/1821:
+> |0: (&sig->cred_guard_mutex){....}-{3:3}, at: bprm_execve (fs/exec.c)
+> |1: (&sig->exec_update_lock){....}-{3:3}, at: begin_new_exec (fs/exec.c)
+> |2: (&newf->file_lock){....}-{2:2}, at: iterate_fd (fs/file.c)
 > 
->  > dnsmasq[60146]: unknown user or group: dnsmasq
+> Call trace excerpt:
 > 
-> Presuming it's something to do with dnsmasq switching users to dnsmasq. But how to account for this in the profile? And why is this happening even in complain mode?
+> aa_dup_audit_data (security/apparmor/audit.c)
+> aa_audit_file (security/apparmor/file.c)
+> ? srso_alias_return_thunk (arch/x86/lib/retpoline.S)
+> path_name (security/apparmor/file.c)
+> profile_path_perm (security/apparmor/file.c)
+> aa_file_perm (security/apparmor/file.c)
 > 
+> Switch the allocation flag for that call to GFP_ATOMIC instead.
+> 
+> Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
 
-so my guess is it is to do with namespacing. If this is correct you should see denied messages with info="Failed name lookup - disconnected path"
+NAK, this needs to be handled higher up the chain. We can push gfp info
+down into this fn, but switching this use atomic for everything because
+this specific use needs it isn't appropriate.
 
-you can get around this atm by specifying flags=(attach_disconnected) for the profile.
+Failure to allocate here can result in a denial so we really do not
+want to use atomic unless we have to.
 
-eg.
-
-profile example /usr/bin/example flags=(attach_disconnected) {
-
-   ...
-}
+> ---
+>   security/apparmor/file.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/security/apparmor/file.c b/security/apparmor/file.c
+> index 79e5307090e3..f7ccab51d416 100644
+> --- a/security/apparmor/file.c
+> +++ b/security/apparmor/file.c
+> @@ -142,7 +142,7 @@ static int check_user(struct aa_profile *profile,
+>   	int err;
+>   
+>   	/* assume we are going to dispatch */
+> -	node = aa_dup_audit_data(ad, GFP_KERNEL);
+> +	node = aa_dup_audit_data(ad, GFP_ATOMIC);
+>   	if (!node) {
+>   		AA_DEBUG(DEBUG_UPCALL,
+>   			 "notifcation failed to duplicate with error -ENOMEM\n");
 
 
