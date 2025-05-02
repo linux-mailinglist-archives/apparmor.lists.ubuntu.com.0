@@ -2,70 +2,72 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4393DAA6809
+	by mail.lfdr.de (Postfix) with ESMTPS id 46251AA680A
 	for <lists+apparmor@lfdr.de>; Fri,  2 May 2025 02:56:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uAehG-0007EG-EW; Fri, 02 May 2025 00:56:10 +0000
-Received: from smtp-relay-internal-0.internal ([10.131.114.225]
- helo=smtp-relay-internal-0.canonical.com)
+	id 1uAehI-0007F2-JC; Fri, 02 May 2025 00:56:12 +0000
+Received: from smtp-relay-internal-1.internal ([10.131.114.114]
+ helo=smtp-relay-internal-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <ryan.lee@canonical.com>)
- id 1uAehF-0007Dx-1T
- for apparmor@lists.ubuntu.com; Fri, 02 May 2025 00:56:09 +0000
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
- [209.85.216.70])
+ id 1uAehG-0007EZ-VR
+ for apparmor@lists.ubuntu.com; Fri, 02 May 2025 00:56:11 +0000
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
+ [209.85.214.197])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id A209C3F5B1
- for <apparmor@lists.ubuntu.com>; Fri,  2 May 2025 00:56:08 +0000 (UTC)
-Received: by mail-pj1-f70.google.com with SMTP id
- 98e67ed59e1d1-3032f4eca83so1391590a91.3
- for <apparmor@lists.ubuntu.com>; Thu, 01 May 2025 17:56:08 -0700 (PDT)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id B7A1B3F4C6
+ for <apparmor@lists.ubuntu.com>; Fri,  2 May 2025 00:56:10 +0000 (UTC)
+Received: by mail-pl1-f197.google.com with SMTP id
+ d9443c01a7336-2262051205aso11032965ad.3
+ for <apparmor@lists.ubuntu.com>; Thu, 01 May 2025 17:56:10 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746147367; x=1746752167;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=oJ+XyBE51k8dH55/leHem5JOi7y8O4XN6Pq/HDwqzf4=;
- b=pzIwJu2CEcmQsoeEC0ZS3UaYTsm+VQ2TJkkmKDR8eq8vvRTm8ST9Xl9YN/PzbFqDZM
- 2TzH85F2j6L5pUFuDCbaboatJel60ERlTBuJ0//6Mh8Z9swmLXfWLQr1dxMezT+bxR5E
- K1nSOzwPZOrDMvUIhtMINTTcZNvBMfqjP/0Lj2xBsWtzZUAradHQ6K1i87mSz2ARH9GR
- kRHqznDTIak4tE2iL0sMj0CLsaKpX1LmXg8bPCs+hS9gzCa/N39Q9Sxvyo7b19kaIZky
- +1o2I1bdexpIq9CCvtGG/mPWyfizrAfFyDdeDcKNUWs6v8J/jYqlO/LKE6KHrj9d8EQ8
- P1dA==
-X-Gm-Message-State: AOJu0YxUt/OBD4NanvO+Fu8N8lJC6wD9K7S+e/pHft7pQBQ+A100QE9S
- PKvJZYtBEMoC924i9qHGXpoYxtTVUW2WdyyjdKNly9XC1j5vfp4njqaNkVADlMs9bWD4p9ckr5/
- G25JgUUTmNy6O7bmk2SJdrRiL1+Guqz5dFo0Jcv1loITx76gLAmTOIPk1OYh2+RNuwhXdROh1ex
- N729QEjhZH
-X-Gm-Gg: ASbGncvtjSjRp6CHrLmbcV+LIh1A0APEjaUlcAkYZJBs2r2JRc/7CF5VQpLzJi+Ixs0
- m4qDHwNdacQywojBhrYUDVcw7uA/3h1fGR4LJcrf4nY8eQVTvUHK6S+7chz16Vmg/08NPYgHIFt
- p57nwGyFVdJ6f0yOccQQqJ57yBf+XxtDz8jPV5ByYgnO7yqfbE5zCT5/ZOKIXbdQ+8I+CqzGKsX
- QaGUKXEwc2DD5eQvJFv6fxLK9ZNvaFsfQVcK4NNUQahE/D1GUWUOmYxVRknFQIePJKAyhQx5J52
- Oz+qrUUFbEzoIV24F2ynNg2BmoJXmmX79Q/5DKWH8gjbQjcwCIrbTMIQpaDn9BMQ8ldlEA==
-X-Received: by 2002:a17:90b:37c5:b0:2f4:4500:bb4d with SMTP id
- 98e67ed59e1d1-30a4e5ce8d5mr1767178a91.20.1746147366989; 
- Thu, 01 May 2025 17:56:06 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEDU183upO8BWQDBql2wMHseYfrQZYrYsM2s0FASAHI0Lze4n2CQZ3BVTdo6rFBzFOotHW/og==
-X-Received: by 2002:a17:90b:37c5:b0:2f4:4500:bb4d with SMTP id
- 98e67ed59e1d1-30a4e5ce8d5mr1767159a91.20.1746147366634; 
- Thu, 01 May 2025 17:56:06 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1746147369; x=1746752169;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=qpudTJm1n4r2WVjrFWfp/Pu5w0N20PQJWid9Ml5Lc/A=;
+ b=a0wTzyNYVUQBIJJ+Q6hzyTCOavbWqkLY/s2z+95iQnrzRQa9ZM2i2bSqXnx/EklTb6
+ /VuL3y87hAVosdz5F2uPHX6kvF86DKlhgZXiJj3aH+RbvEFHIDJnQ72D7nWCdP2eYG7q
+ ySAbYDGKaxm6PSzIaPqn0bGNzPR7jY2X9LY+eDHHliaNFgnRm/6NCPJDPzoi+vumAq7o
+ uzch0gJBloJm/sUA4JA/JixGLkF0aurvESzm0HiGb12VrRjucOueTm5sGpgMvrNsIaaW
+ d95coSfu1qe6KdQRJUMGEP5SjzjdLF+1b4aVbA220BhaaHTk4/VpYP+e0C0qYsLiLCfi
+ SySg==
+X-Gm-Message-State: AOJu0YyWdGfsGuX0Hs8hfsYlsSYTAWZQ/7w6EJm53qe0pDibUAlI76/c
+ jys25Xo1LGQgTvrBzV+B0r0z3Iofv+RlFxVBZUi9xcZyJFKjUlc+o4MdOzUJrRHMa1WJPUo58ZW
+ JBymVaWmeVh6Je0EsX8CdWI7laY4pBXxbp0dCpHjvQU4POf1xvbyfvVZ5NQlW2bXy3IXPSrPpac
+ azctyJJod9
+X-Gm-Gg: ASbGncsCN6PMEcTE6XxlStc1msExSYCjkbis4MHukNQCyozbLbf2UOLTw2lZW4e0T3G
+ rIcTupVj0S6lPJd6Ol7Ug062t3/ls4aq3dx245wz2EDnhGPjBOJT7m/bb6PkaYJNBwaeUETI6JX
+ oLe3cP8t9EGgJT1OK8kbzljEaKwt4vL//3BtAk4CVWWeuZaJJjQcL5uq+dMYcDod5a4uF/JFFhe
+ cF2J0Bh9l+jfYDcMEbqN6xMfqvDaXcBdm3kZfu7S4Qo7jx1MhYzBRZkc/tV8BmpER3C+piMO61X
+ Ttew4YhhCf0TPX8JMl2n/SILb6V+bA2qiQ4/7zZG1dXpHNvG11yeYsX7CSW3TO4Icnh+Lw==
+X-Received: by 2002:a17:902:d4ce:b0:224:584:6f07 with SMTP id
+ d9443c01a7336-22e1033c7bfmr14898305ad.37.1746147369305; 
+ Thu, 01 May 2025 17:56:09 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHNRof0iGlPB7DoO2SVuSlwyAfKhgefdL+ChpaY/A3SLaofUFN1j4pA1JbSNn8oqpA9kNmN4g==
+X-Received: by 2002:a17:902:d4ce:b0:224:584:6f07 with SMTP id
+ d9443c01a7336-22e1033c7bfmr14898105ad.37.1746147368999; 
+ Thu, 01 May 2025 17:56:08 -0700 (PDT)
 Received: from ryan-lee-laptop-13-amd.. (c-71-202-93-145.hsd1.ca.comcast.net.
  [71.202.93.145]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-22e108fdc70sm2655635ad.108.2025.05.01.17.56.05
+ d9443c01a7336-22e108fdc70sm2655635ad.108.2025.05.01.17.56.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 May 2025 17:56:06 -0700 (PDT)
+ Thu, 01 May 2025 17:56:08 -0700 (PDT)
 From: Ryan Lee <ryan.lee@canonical.com>
 To: apparmor@lists.ubuntu.com
-Date: Thu,  1 May 2025 17:55:42 -0700
-Message-ID: <20250502005558.8257-1-ryan.lee@canonical.com>
+Date: Thu,  1 May 2025 17:55:43 -0700
+Message-ID: <20250502005558.8257-2-ryan.lee@canonical.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20250502005558.8257-1-ryan.lee@canonical.com>
+References: <20250502005558.8257-1-ryan.lee@canonical.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [apparmor] [PATCH 0/4] Unconditionally generate audit log entries
-	upon encountering conflicting attachments
+Subject: [apparmor] [PATCH 1/4] apparmor: force audit on unconfined exec if
+	info is set by find_attach
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -80,23 +82,43 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-When profile attachment fails due to conflicting attachments, confinement silently
-falls back onto either unconfined (if transitioning from unconfined) or onto ix/ux
-(if transitioning via a pix/pux rule in a profile). However, conflicting attachments
-are an error condition, so such occurences should be audited unconditionally. This
-patchset implements such auditing.
+find_attach may set info if something unusual happens during that process
+(currently only used to signal conflicting attachments, but this could be
+expanded in the future). This is information that should be propagated to
+userspace via an audit message.
 
-Ryan Lee (4):
-  apparmor: force audit on unconfined exec if info is set by find_attach
-  apparmor: move the "conflicting profile attachments" infostr to a
-    const declaration
-  apparmor: include conflicting attachment info for confined ix/ux
-    fallback
-  apparmor: force auditing of conflicting attachment execs from confined
+Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
+---
+ security/apparmor/domain.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
- security/apparmor/domain.c | 59 ++++++++++++++++++++++++++++++++++++--
- 1 file changed, 56 insertions(+), 3 deletions(-)
-
+diff --git a/security/apparmor/domain.c b/security/apparmor/domain.c
+index ce8b057196b6..548eef3a8ea1 100644
+--- a/security/apparmor/domain.c
++++ b/security/apparmor/domain.c
+@@ -668,6 +668,22 @@ static struct aa_label *profile_transition(const struct cred *subj_cred,
+ 	if (profile_unconfined(profile)) {
+ 		new = find_attach(bprm, profile->ns,
+ 				  &profile->ns->base.profiles, name, &info);
++		/* info set -> something unusual that we should report
++		 * Currently this is only conflicting attachments, but other
++		 * infos added in the future should also be logged by default
++		 * and only excluded on a case-by-case basis
++		 */
++		if (info) {
++			/* Because perms is never used again after this audit
++			 * we don't need to care about clobbering it
++			 */
++			perms.audit |= MAY_EXEC;
++			perms.allow |= MAY_EXEC;
++			/* Don't cause error if auditing fails */
++			(void) aa_audit_file(subj_cred, profile, &perms,
++				OP_EXEC, MAY_EXEC, name, target, new, cond->uid,
++				info, error, true);
++		}
+ 		if (new) {
+ 			AA_DEBUG(DEBUG_DOMAIN, "unconfined attached to new label");
+ 			return new;
 -- 
 2.43.0
 
