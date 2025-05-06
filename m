@@ -2,31 +2,34 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id D75C1AA7E7E
-	for <lists+apparmor@lfdr.de>; Sat,  3 May 2025 06:49:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78D2BAAC80D
+	for <lists+apparmor@lfdr.de>; Tue,  6 May 2025 16:34:04 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uB4oZ-00055v-Dx; Sat, 03 May 2025 04:49:27 +0000
-Received: from bombadil.infradead.org ([198.137.202.133])
+	id 1uCJMn-0006iQ-U5; Tue, 06 May 2025 14:33:53 +0000
+Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
+ helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <rdunlap@infradead.org>)
- id 1uB4oX-00055Z-2m
- for apparmor@lists.ubuntu.com; Sat, 03 May 2025 04:49:25 +0000
-Received: from [50.39.124.201] (helo=bombadil.infradead.org)
- by bombadil.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
- id 1uB4oS-00000003UxL-2jDO; Sat, 03 May 2025 04:49:20 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: linux-kernel@vger.kernel.org
-Date: Fri,  2 May 2025 21:49:19 -0700
-Message-ID: <20250503044919.2251962-1-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.49.0
+ (Exim 4.86_2) (envelope-from <maxime.belair@canonical.com>)
+ id 1uCJMl-0006iD-2W
+ for apparmor@lists.ubuntu.com; Tue, 06 May 2025 14:33:51 +0000
+Received: from sec2-plucky-amd64..
+ (lau06-h06-176-136-128-80.dsl.sta.abo.bbox.fr [176.136.128.80])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 0A1493F942; 
+ Tue,  6 May 2025 14:33:50 +0000 (UTC)
+From: =?UTF-8?q?Maxime=20B=C3=A9lair?= <maxime.belair@canonical.com>
+To: linux-security-module@vger.kernel.org
+Date: Tue,  6 May 2025 16:32:27 +0200
+Message-ID: <20250506143254.718647-1-maxime.belair@canonical.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: none client-ip=198.137.202.133;
- envelope-from=rdunlap@infradead.org; helo=bombadil.infradead.org
-Subject: [apparmor] [PATCH v2] apparmor: fix some kernel-doc issues in
-	header files
+Subject: [apparmor] [PATCH 0/3] lsm: introduce lsm_manage_policy() syscall
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -38,115 +41,78 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Paul Moore <paul@paul-moore.com>, John Johansen <john@apparmor.net>,
- Randy Dunlap <rdunlap@infradead.org>, apparmor@lists.ubuntu.com,
- James Morris <jmorris@namei.org>, linux-security-module@vger.kernel.org,
- "Serge E. Hallyn" <serge@hallyn.com>
+Cc: paul@paul-moore.com, kees@kernel.org, linux-api@vger.kernel.org,
+ stephen.smalley.work@gmail.com, penguin-kernel@I-love.SAKURA.ne.jp,
+ apparmor@lists.ubuntu.com, jmorris@namei.org, linux-kernel@vger.kernel.org,
+ mic@digikod.net, takedakn@nttdata.co.jp, serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Fix kernel-doc warnings in apparmor header files as reported by
-scripts/kernel-doc:
+This patchset introduces a new syscall, lsm_manage_policy(), and the
+associated Linux Security Module hook security_lsm_manage_policy(),
+providing a unified interface for loading and managing LSM policies.
+This syscall complements the existing per‑LSM pseudo‑filesystem mechanism
+and works even when those filesystems are not mounted or available.
 
-cred.h:128: warning: expecting prototype for end_label_crit_section(). Prototype was for end_current_label_crit_section() instead
-file.h:108: warning: expecting prototype for aa_map_file_perms(). Prototype was for aa_map_file_to_perms() instead
+With this new syscall, administrators may lock down access to the
+pseudo‑filesystem yet still manage LSM policies. A single, tightly scoped
+entry point then replaces the many file operations exposed by those
+filesystems, significantly reducing the attack surface. This is
+particularly useful in containers or processes already confined by
+Landlock, where these pseudo‑filesystems are typically unavailable.
 
-lib.h:159: warning: Function parameter or struct member 'hname' not described in 'basename'
-lib.h:159: warning: Excess function parameter 'name' description in 'basename'
+Because it provides a logical and unified interface, lsm_manage_policy()
+is simpler to use than several heterogeneous pseudo‑filesystems and
+avoids edge cases such as partially loaded policies. It also eliminates
+VFS overhead, yielding performance gains notably when many policies are
+loaded, for instance at boot time.
 
-match.h:21: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
- * The format used for transition tables is based on the GNU flex table
+This initial implementation is intentionally minimal to limit the scope
+of changes. Currently, only policy loading is supported, and only
+AppArmor registers this LSM hook. However, any LSM can adopt this
+interface, and future patches could extend this syscall to support more
+operations, such as replacing, removing, or querying loaded policies.
 
-perms.h:109: warning: Function parameter or struct member 'accum' not described in 'aa_perms_accum_raw'
-perms.h:109: warning: Function parameter or struct member 'addend' not described in 'aa_perms_accum_raw'
-perms.h:136: warning: Function parameter or struct member 'accum' not described in 'aa_perms_accum'
-perms.h:136: warning: Function parameter or struct member 'addend' not described in 'aa_perms_accum'
+Landlock already provides three Landlock‑specific syscalls (e.g.
+landlock_add_rule()) to restrict ambient rights for sets of processes
+without touching any pseudo-filesystem. lsm_manage_policy() generalizes
+that approach to the entire LSM layer, so any module can expose its
+policy operations through one uniform interface and reap the advantages
+outlined above.
 
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-Reviewed-by: Ryan Lee <ryan.lee@canonical.com>
-Cc: John Johansen <john.johansen@canonical.com>
-Cc: John Johansen <john@apparmor.net>
-Cc: apparmor@lists.ubuntu.com
-Cc: linux-security-module@vger.kernel.org
-Cc: Paul Moore <paul@paul-moore.com>
-Cc: James Morris <jmorris@namei.org>
-Cc: "Serge E. Hallyn" <serge@hallyn.com>
----
-v2: add better commit message (Ryan)
+This patchset is available at [1] and a minimal user space example
+showing how to use this syscall with AppArmor is at [2].
 
- security/apparmor/include/cred.h  |    2 +-
- security/apparmor/include/file.h  |    2 +-
- security/apparmor/include/lib.h   |    2 +-
- security/apparmor/include/match.h |    2 +-
- security/apparmor/include/perms.h |    8 ++++----
- 5 files changed, 8 insertions(+), 8 deletions(-)
+[1] https://github.com/emixam16/linux/tree/lsm_syscall
+[2] https://gitlab.com/emixam16/apparmor/tree/lsm_syscall
 
---- linux-next-20250501.orig/security/apparmor/include/cred.h
-+++ linux-next-20250501/security/apparmor/include/cred.h
-@@ -117,7 +117,7 @@ static inline struct aa_label *aa_get_cu
- #define __end_current_label_crit_section(X) end_current_label_crit_section(X)
- 
- /**
-- * end_label_crit_section - put a reference found with begin_current_label..
-+ * end_current_label_crit_section - put a reference found with begin_current_label..
-  * @label: label reference to put
-  *
-  * Should only be used with a reference obtained with
---- linux-next-20250501.orig/security/apparmor/include/file.h
-+++ linux-next-20250501/security/apparmor/include/file.h
-@@ -104,7 +104,7 @@ void aa_inherit_files(const struct cred
- 
- 
- /**
-- * aa_map_file_perms - map file flags to AppArmor permissions
-+ * aa_map_file_to_perms - map file flags to AppArmor permissions
-  * @file: open file to map flags to AppArmor permissions
-  *
-  * Returns: apparmor permission set for the file
---- linux-next-20250501.orig/security/apparmor/include/lib.h
-+++ linux-next-20250501/security/apparmor/include/lib.h
-@@ -170,7 +170,7 @@ struct aa_policy {
- 
- /**
-  * basename - find the last component of an hname
-- * @name: hname to find the base profile name component of  (NOT NULL)
-+ * @hname: hname to find the base profile name component of  (NOT NULL)
-  *
-  * Returns: the tail (base profile name) name component of an hname
-  */
---- linux-next-20250501.orig/security/apparmor/include/match.h
-+++ linux-next-20250501/security/apparmor/include/match.h
-@@ -17,7 +17,7 @@
- #define DFA_START			1
- 
- 
--/**
-+/*
-  * The format used for transition tables is based on the GNU flex table
-  * file format (--tables-file option; see Table File Format in the flex
-  * info pages and the flex sources for documentation). The magic number
---- linux-next-20250501.orig/security/apparmor/include/perms.h
-+++ linux-next-20250501/security/apparmor/include/perms.h
-@@ -101,8 +101,8 @@ extern struct aa_perms allperms;
- 
- /**
-  * aa_perms_accum_raw - accumulate perms with out masking off overlapping perms
-- * @accum - perms struct to accumulate into
-- * @addend - perms struct to add to @accum
-+ * @accum: perms struct to accumulate into
-+ * @addend: perms struct to add to @accum
-  */
- static inline void aa_perms_accum_raw(struct aa_perms *accum,
- 				      struct aa_perms *addend)
-@@ -128,8 +128,8 @@ static inline void aa_perms_accum_raw(st
- 
- /**
-  * aa_perms_accum - accumulate perms, masking off overlapping perms
-- * @accum - perms struct to accumulate into
-- * @addend - perms struct to add to @accum
-+ * @accum: perms struct to accumulate into
-+ * @addend: perms struct to add to @accum
-  */
- static inline void aa_perms_accum(struct aa_perms *accum,
- 				  struct aa_perms *addend)
+Maxime Bélair (3):
+  Wire up the lsm_manage_policy syscall
+  lsm: introduce security_lsm_manage_policy hook
+  AppArmor: add support for lsm_manage_policy
+
+ arch/alpha/kernel/syscalls/syscall.tbl        |  1 +
+ arch/arm/tools/syscall.tbl                    |  1 +
+ arch/x86/entry/syscalls/syscall_32.tbl        |  1 +
+ arch/x86/entry/syscalls/syscall_64.tbl        |  1 +
+ include/linux/lsm_hook_defs.h                 |  2 ++
+ include/linux/security.h                      |  7 +++++++
+ include/linux/syscalls.h                      |  4 ++++
+ include/uapi/asm-generic/unistd.h             |  4 +++-
+ include/uapi/linux/lsm.h                      |  8 +++++++
+ kernel/sys_ni.c                               |  1 +
+ security/apparmor/apparmorfs.c                | 19 +++++++++++++++++
+ security/apparmor/include/apparmorfs.h        |  3 +++
+ security/apparmor/lsm.c                       | 16 ++++++++++++++
+ security/lsm_syscalls.c                       | 11 ++++++++++
+ security/security.c                           | 21 +++++++++++++++++++
+ tools/include/uapi/asm-generic/unistd.h       |  4 +++-
+ .../arch/x86/entry/syscalls/syscall_64.tbl    |  1 +
+ 17 files changed, 103 insertions(+), 2 deletions(-)
+
+
+base-commit: 9c32cda43eb78f78c73aee4aa344b777714e259b
+-- 
+2.48.1
+
 
