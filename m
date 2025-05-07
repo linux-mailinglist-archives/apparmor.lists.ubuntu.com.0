@@ -2,73 +2,74 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id D62C0AAE4F7
-	for <lists+apparmor@lfdr.de>; Wed,  7 May 2025 17:37:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6033AAE4FE
+	for <lists+apparmor@lfdr.de>; Wed,  7 May 2025 17:38:09 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uCgpx-0003S4-VU; Wed, 07 May 2025 15:37:33 +0000
+	id 1uCgqQ-0003ZI-5A; Wed, 07 May 2025 15:38:02 +0000
 Received: from smtp-relay-internal-0.internal ([10.131.114.225]
  helo=smtp-relay-internal-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <maxime.belair@canonical.com>)
- id 1uCgpw-0003RC-Hy
- for apparmor@lists.ubuntu.com; Wed, 07 May 2025 15:37:32 +0000
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
- [209.85.218.70])
+ id 1uCgqN-0003Yd-LU
+ for apparmor@lists.ubuntu.com; Wed, 07 May 2025 15:37:59 +0000
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
+ [209.85.218.69])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id D22083F03F
- for <apparmor@lists.ubuntu.com>; Wed,  7 May 2025 15:37:27 +0000 (UTC)
-Received: by mail-ej1-f70.google.com with SMTP id
- a640c23a62f3a-ace99fe4282so4088066b.1
- for <apparmor@lists.ubuntu.com>; Wed, 07 May 2025 08:37:27 -0700 (PDT)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 446BE3F20C
+ for <apparmor@lists.ubuntu.com>; Wed,  7 May 2025 15:37:56 +0000 (UTC)
+Received: by mail-ej1-f69.google.com with SMTP id
+ a640c23a62f3a-acb5a03afdcso519848166b.3
+ for <apparmor@lists.ubuntu.com>; Wed, 07 May 2025 08:37:56 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746632247; x=1747237047;
+ d=1e100.net; s=20230601; t=1746632274; x=1747237074;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=fr9yeU7dVZUGfHuigq4Ki6OIiok3yQVQgVBSFzRvIM8=;
- b=kHdsD/APHMtUyUnicrfxYQCaqCCMWU1KYn6eblBJt2njs738GpD4ubz6JFtqJwc32Q
- Zp750Uw69BvYExPYuDHhXKtP8/crsPHIrQA1pSUJSQ4ER1XTBTlcZwSEYE11dKYo5w+o
- jG3rCYUj2sr9dLFpMNy9K/4kowC7KpY+lNJ65HTeEvpuRTCPQ281BMnUk8J6vIxzxWCL
- oojyvjL/G5HPxhC4AWfGR62q3kjL1m0uQYE2yw6/hybiQ+OsPXvM5ffCWmQ+UneRcGuo
- 1yOxc/fUcK0neZs0HtDByM1V+cKAFwuszTuWLn9R1h6sTsGPI3bcVYPGwhNzHjZyR5hr
- lyRw==
+ bh=Rw+ajBmKH1oYIOuaY57PRGZktJSoo5Qqq7a4MCBkd4k=;
+ b=V66roS3EOmqvtKThFDPQPcFVGHPHsH1V5cJ6m6egOJofaXDLbxvUx9wmhaZEnz5/K7
+ wclSSFKtw1bIvd9E8NRmI0Q+Q0zIHPv2JvKqQDBcSeWUB0dZ4fZ9hkySV6+U3JncWkEu
+ wLlzd1Y23SM1MnfmqKsJzpFz6qMXH8l4f2kKKmqeWo2NjUTZuVOrTuBAjZR+cD9oNq7J
+ iwZNCwN0clBj9FsL9vC1fnI482CAUpg+jB34IMQip5cQSVQFBE6lldtdzvv5YnljhHqf
+ FMa1VFuPDa9bJU+012Nr7uMDexJK1YLo73/Wu6E/IK+MJpEWSXC+HiIcv5w/dioHaPKq
+ zQ2A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXuY1i0q9robWsLmMYmAMy9DdRGjSomr8NUjJ/BvPKEjbCw1XtGEdb9TKmvl1Q2mTDrcqZH14FMww==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0YwraWOg5HqLkz114h9k06LXxrbLwZQNugYC/TlicHAWlOXO5R1Q
- ZtMYfwKP/mfgRbIOceJnX0IGEpgWsAGXdLEWRWHMMDr1XPZtx8ZZF81UocS73w8wtMnyXQkwYHx
- zFaPagRuCaKwoi+oLeuQ6Uet4MFamzijIqOPf3p/WoneKH6TLlxcWpIDB2uz4XbCF/iG7lFBlTw
+ AJvYcCXkFZQlmdjThlqbJ9pApknCuN9l+3SCQcJb1mfbshBni9f8SfGBcPeaZNYO+6IsutmPXioZkigsfg==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0YwkD7ZdWB0YRv3SzS/R7bWw6z/pM2lJJEJpwnKD7KQOCnDSlqGz
+ nkUb7ey3i32HxMJ0ujmk4/IC3IoEAhgrt5/AXyJ+4M9bjMsyCP623pYJOWFsYuZMRE7a0Tp1KP6
+ eQ2hprY0xkl3kdo4w86CW7RAwOWl7k9DPG8JN9AY2XtfTaYuhkKKC+sKE7yZYF2tnktRWbHn8lA
  ==
-X-Gm-Gg: ASbGncvKDqiC8w1XjLGe/ZJvz2Ei1GzNkjOo/6BLIS5O2B90VLdCzswsSPVGxijHbcl
- Ul+v4V7QU0fC5s8XL30Y4g9clVfwMINU6MMowH78SkHTs3PpG/Tasv18FvJLoj7vM1GzyPjqser
- iaNeSNobV6vVMwJcr0quBGA8MacxYntFMUjJQ/UxSJoi+78fO0bJix3aoAbCyBxe9GPsXSsXRN/
- FszNCj8OYQIHG3yonvi5Uwvv3J7fp/6JGJlSLcsnRdxxZcqxhbq+u8UKQ6tscOULEeGJF8Lz9QJ
- LlNzYuzV/sxUvKyqv8qvOP3bl3AlmcuwVJ/Dn2D8TpqNz+RHjctcgztUtfavzTyeka0=
-X-Received: by 2002:a17:907:cd0d:b0:ace:be7c:11df with SMTP id
- a640c23a62f3a-ad1eaefaedcmr364827866b.6.1746632246826; 
- Wed, 07 May 2025 08:37:26 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE3LQvsicm0YBjAOHirumoX4UDCK+hCXE9ScCJp5xtKINT4FyusXCl/66Pqvnso9XRhvIDAPw==
-X-Received: by 2002:a17:907:cd0d:b0:ace:be7c:11df with SMTP id
- a640c23a62f3a-ad1eaefaedcmr364824366b.6.1746632246505; 
- Wed, 07 May 2025 08:37:26 -0700 (PDT)
+X-Gm-Gg: ASbGncvUYCwHqSikjq8yrtTNWyss++kRYUKd+/esslFtCfD4HhsQpicz3Xb3D/xIdhR
+ 16Ti7mri+TxSy3fe6k9bn5Qc1YfgylaoeANDUFDylmrAa0f7zx36Yh8PdWguZdRwPkLBergjd8j
+ wbvDeOMeipfoaEd/ngM1LUonGVJZCuyNPrnAEyOJY8M1DS+5tkynkk328p0iBiDn8EBi+vpOK84
+ Fu6wt8ptkHf1EKC/NGUA7TJK4fukEBOLPGNvsnj6pXGx6Qu1kLgU8SOijGogC+nrs1aALetUKFM
+ RZO6IBOQPz45DuW80tthJ31QJM1+vG7gC0opPLtI9AR6Lpwzw8YQPomxEOvjKB0HD98=
+X-Received: by 2002:a17:907:8a8d:b0:ace:ed3b:285e with SMTP id
+ a640c23a62f3a-ad1e8d8971amr360967666b.56.1746632274313; 
+ Wed, 07 May 2025 08:37:54 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHIiet74C8oMIdKA/PaSf8H9s5ZGkI/NebFPYSp7/1cEBiQAWfXF+ATv0VmOBrz140lQ6CMAg==
+X-Received: by 2002:a17:907:8a8d:b0:ace:ed3b:285e with SMTP id
+ a640c23a62f3a-ad1e8d8971amr360964566b.56.1746632273838; 
+ Wed, 07 May 2025 08:37:53 -0700 (PDT)
 Received: from ?IPV6:2001:861:3280:410:2ef0:5dff:fe60:6274?
  ([2001:861:3280:410:2ef0:5dff:fe60:6274])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad1891ef1e0sm923525466b.77.2025.05.07.08.37.25
+ a640c23a62f3a-ad1ee0b7e4csm159333766b.52.2025.05.07.08.37.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 07 May 2025 08:37:26 -0700 (PDT)
-Message-ID: <bc252425-2703-48c4-a1fa-9268124c2386@canonical.com>
-Date: Wed, 7 May 2025 17:37:25 +0200
+ Wed, 07 May 2025 08:37:53 -0700 (PDT)
+Message-ID: <705fa834-b680-4a0e-9996-cca0565b0987@canonical.com>
+Date: Wed, 7 May 2025 17:37:52 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Song Liu <song@kernel.org>
+To: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
+ linux-security-module@vger.kernel.org
 References: <20250506143254.718647-1-maxime.belair@canonical.com>
  <20250506143254.718647-3-maxime.belair@canonical.com>
- <CAPhsuW7q1hvOG7-uG2C8d_wWnOhEmvTmwnBcXZYVX-oJ8=5FJQ@mail.gmail.com>
+ <9c68743f-5efa-4a77-a29b-d3e8f2b2a462@I-love.SAKURA.ne.jp>
 Content-Language: en-US
 From: =?UTF-8?Q?Maxime_B=C3=A9lair?= <maxime.belair@canonical.com>
 Autocrypt: addr=maxime.belair@canonical.com; keydata=
@@ -105,7 +106,7 @@ Autocrypt: addr=maxime.belair@canonical.com; keydata=
  oRAG5XUu5Q1PWG0oY4cZ6XN1z8nkj5Mj23SRhBwVjh2PY2p4cyFRTBrBDaNV38LHw6tVjdhk
  8YNqGOVqceueWdZmWbp8b88a0wzOcrPAvcxJ14FhMyMO9P7FblDYLNYr0oAYj+UyhxOPbRZz
  yriCIKEAbLqHTyj+RhbroZmv5q3X7iVq
-In-Reply-To: <CAPhsuW7q1hvOG7-uG2C8d_wWnOhEmvTmwnBcXZYVX-oJ8=5FJQ@mail.gmail.com>
+In-Reply-To: <9c68743f-5efa-4a77-a29b-d3e8f2b2a462@I-love.SAKURA.ne.jp>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Subject: Re: [apparmor] [PATCH 2/3] lsm: introduce
@@ -122,64 +123,56 @@ List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
 Cc: paul@paul-moore.com, kees@kernel.org, linux-api@vger.kernel.org,
- stephen.smalley.work@gmail.com, penguin-kernel@i-love.sakura.ne.jp,
- apparmor@lists.ubuntu.com, jmorris@namei.org, linux-kernel@vger.kernel.org,
- linux-security-module@vger.kernel.org, mic@digikod.net, takedakn@nttdata.co.jp,
+ stephen.smalley.work@gmail.com, apparmor@lists.ubuntu.com, jmorris@namei.org,
+ linux-kernel@vger.kernel.org, mic@digikod.net, takedakn@nttdata.co.jp,
  serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
 
 
-On 5/7/25 08:19, Song Liu wrote:
-> On Tue, May 6, 2025 at 7:40 AM Maxime Bélair
-> <maxime.belair@canonical.com> wrote:
->>
->> Define a new LSM hook security_lsm_manage_policy and wire it into the
->> lsm_manage_policy() syscall so that LSMs can register a unified interface
->> for policy management. This initial, minimal implementation only supports
->> the LSM_POLICY_LOAD operation to limit changes.
->>
->> Signed-off-by: Maxime Bélair <maxime.belair@canonical.com>
-> [...]
->> diff --git a/security/security.c b/security/security.c
->> index fb57e8fddd91..256104e338b1 100644
->> --- a/security/security.c
->> +++ b/security/security.c
->> @@ -5883,6 +5883,27 @@ int security_bdev_setintegrity(struct block_device *bdev,
+On 5/7/25 12:40, Tetsuo Handa wrote:
+> On 2025/05/06 23:32, Maxime Bélair wrote:
+>> diff --git a/security/lsm_syscalls.c b/security/lsm_syscalls.c
+>> index dcaad8818679..b39e6635a7d5 100644
+>> --- a/security/lsm_syscalls.c
+>> +++ b/security/lsm_syscalls.c
+>> @@ -122,5 +122,10 @@ SYSCALL_DEFINE3(lsm_list_modules, u64 __user *, ids, u32 __user *, size,
+>>  SYSCALL_DEFINE5(lsm_manage_policy, u32, lsm_id, u32, op, void __user *, buf, u32
+>>  		__user *, size, u32, flags)
+>>  {
+>> -	return 0;
+>> +	size_t usize;
+>> +
+>> +	if (get_user(usize, size))
+>> +		return -EFAULT;
+>> +
+>> +	return security_lsm_manage_policy(lsm_id, op, buf, usize, flags);
 >>  }
->>  EXPORT_SYMBOL(security_bdev_setintegrity);
->>
->> +/**
->> + * security_lsm_manage_policy() - Manage the policies of LSMs
->> + * @lsm_id: id of the lsm to target
->> + * @op: Operation to perform (one of the LSM_POLICY_XXX values)
->> + * @buf:  userspace pointer to policy data
->> + * @size: size of @buf
->> + * @flags: lsm policy management flags
->> + *
->> + * Manage the policies of a LSM. This notably allows to update them even when
->> + * the lsmfs is unavailable is restricted. Currently, only LSM_POLICY_LOAD is
->> + * supported.
->> + *
->> + * Return: Returns 0 on success, error on failure.
->> + */
->> +int security_lsm_manage_policy(u32 lsm_id, u32 op, void __user *buf,
->> +                              size_t size, u32 flags)
->> +{
->> +       return call_int_hook(lsm_manage_policy, lsm_id, op, buf, size, flags);
 > 
-> If the LSM doesn't implement this hook, sys_lsm_manage_policy will return 0
-> for any inputs, right? This is gonna be so confusing for users.
-
-Indeed, that was an oversight. It will return -EOPNOTSUPP in the next patch revision.
-
+> syzbot will report user-controlled unbounded huge size memory allocation attempt. ;-)
 > 
-> Thanks,
-> Song
+> This interface might be fine for AppArmor, but TOMOYO won't use this interface because
+> TOMOYO's policy is line-oriented ASCII text data where the destination is switched via
+> pseudo‑filesystem's filename; use of filename helps restricting which type of policy
+> can be manipulated by which process. 
+
+First, like any LSM, TOMOYO is not obliged to implement every operation. It can simply
+expose the one that makes sense for its use case. For instance, I don't think it needs an
+equivalent of the manager interface.
+
+If TOMOYO wants to support several sub‑operations, it can distinguish them with the
+syscall’s flags parameter instead of filenames (as securityfs_if.c does today) and reuse
+the code already employed by its pseudo‑fs, as in the AppArmor patch. Supporting this
+syscall would therefore require only minimal changes.
+
+Line‑oriented ASCII text is not a barrier, either. The syscall can pass that format just
+fine. Because a typical TOMOYO line is very small, the performance gains from using the
+syscall are actually greater. A brief benchmark is available in [1].
 
 Thanks,
 
 Maxime
 
+[1] https://gitlab.com/-/snippets/4840792
 
