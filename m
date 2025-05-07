@@ -2,73 +2,73 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD1E4AAE4F8
+	by mail.lfdr.de (Postfix) with ESMTPS id D62C0AAE4F7
 	for <lists+apparmor@lfdr.de>; Wed,  7 May 2025 17:37:38 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uCgpq-0003R4-Pw; Wed, 07 May 2025 15:37:26 +0000
-Received: from smtp-relay-internal-1.internal ([10.131.114.114]
- helo=smtp-relay-internal-1.canonical.com)
+	id 1uCgpx-0003S4-VU; Wed, 07 May 2025 15:37:33 +0000
+Received: from smtp-relay-internal-0.internal ([10.131.114.225]
+ helo=smtp-relay-internal-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <maxime.belair@canonical.com>)
- id 1uCgpo-0003Q0-Ok
- for apparmor@lists.ubuntu.com; Wed, 07 May 2025 15:37:24 +0000
+ id 1uCgpw-0003RC-Hy
+ for apparmor@lists.ubuntu.com; Wed, 07 May 2025 15:37:32 +0000
 Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
  [209.85.218.70])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 7AD5C3F174
- for <apparmor@lists.ubuntu.com>; Wed,  7 May 2025 15:37:22 +0000 (UTC)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id D22083F03F
+ for <apparmor@lists.ubuntu.com>; Wed,  7 May 2025 15:37:27 +0000 (UTC)
 Received: by mail-ej1-f70.google.com with SMTP id
- a640c23a62f3a-acb67aad0e2so4826266b.0
- for <apparmor@lists.ubuntu.com>; Wed, 07 May 2025 08:37:22 -0700 (PDT)
+ a640c23a62f3a-ace99fe4282so4088066b.1
+ for <apparmor@lists.ubuntu.com>; Wed, 07 May 2025 08:37:27 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746632239; x=1747237039;
+ d=1e100.net; s=20230601; t=1746632247; x=1747237047;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=bkW8q66ZO+SNrvIdDdMXlBX3whDIjDtZFpXpMH9RNXs=;
- b=ut29OXchtkAlY+oHglgCjaXTbQcMCPg5bWOja0opwjOhLU76AhFxSzrl+ZKYMzkXbF
- RapCHRWjFDV8VyMEzQzuR6QLTlUNgIFq1TBFFQOpjhITupXM8+rHDMD/9Et7RHCraha7
- i6X7O+Ux3Cpk8BbjcAOkA/Mcz6HlW8b30QXY7dersGp/VMj/lkZdR2OcgmLzN4ex4TXd
- r1zUqrxz/pNDcwv4fDAJoIksEBF57nVk98+1kyK63iLZU0NIufqmjSpvB5rLuWqglsUC
- RHiZMmFx/qp0n0AXXdQf+OB7NBfvq0tJTq00EYEUv7Ct8teYE+hkC8ZBu7jAY1RY66os
- owgg==
+ bh=fr9yeU7dVZUGfHuigq4Ki6OIiok3yQVQgVBSFzRvIM8=;
+ b=kHdsD/APHMtUyUnicrfxYQCaqCCMWU1KYn6eblBJt2njs738GpD4ubz6JFtqJwc32Q
+ Zp750Uw69BvYExPYuDHhXKtP8/crsPHIrQA1pSUJSQ4ER1XTBTlcZwSEYE11dKYo5w+o
+ jG3rCYUj2sr9dLFpMNy9K/4kowC7KpY+lNJ65HTeEvpuRTCPQ281BMnUk8J6vIxzxWCL
+ oojyvjL/G5HPxhC4AWfGR62q3kjL1m0uQYE2yw6/hybiQ+OsPXvM5ffCWmQ+UneRcGuo
+ 1yOxc/fUcK0neZs0HtDByM1V+cKAFwuszTuWLn9R1h6sTsGPI3bcVYPGwhNzHjZyR5hr
+ lyRw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW8P/qAzVQuox4ejVecFl0au/jEy5oE1AdFlel0uZsNM8esKFF/Wq5CpYCseWmOK6rU1GreWq5f9g==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0Yw22DBdCXCCESXXPsNNWIYyKwGhDVJ6/Z5LkMZEQHftdDxIR/FW
- CURFDPvign7BI89S7wtKQA0g+SraqOpAkkUpiLnbBUoMuZftL0CnlaUrwJpqsFOr5G9KSs+kQjS
- mgGh+g8et6Apym46pEndVHo/h6as8U/HbN8oyQjHoBv291J/WkBdBeGMDJEgy7IMnuxXF2YzuHg
+ AJvYcCXuY1i0q9robWsLmMYmAMy9DdRGjSomr8NUjJ/BvPKEjbCw1XtGEdb9TKmvl1Q2mTDrcqZH14FMww==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0YwraWOg5HqLkz114h9k06LXxrbLwZQNugYC/TlicHAWlOXO5R1Q
+ ZtMYfwKP/mfgRbIOceJnX0IGEpgWsAGXdLEWRWHMMDr1XPZtx8ZZF81UocS73w8wtMnyXQkwYHx
+ zFaPagRuCaKwoi+oLeuQ6Uet4MFamzijIqOPf3p/WoneKH6TLlxcWpIDB2uz4XbCF/iG7lFBlTw
  ==
-X-Gm-Gg: ASbGncusBEyPRJY3/9jvsSh3mmqiTbIdO4Te4GMcYKECMvaPXnuqLCFUaWkMfLn2bCb
- uUtmrjr0HeQT+KUVqino+gd/dbgh4MfC1rFB9J7ruptnJFTl1wLLC6j5+xQRabrcT20q0LfCGuM
- 9VEWawG70IpaE0UmZPcuISr+cJW7BtFkDRB/V2oZ9FIJZtkUQHV8rsUhf4YDOqRBJ21PVfpwK5/
- 0kaFp1+y1ExG0r/zbVkLtKaa6giXGED4ixwcS/vHY25rOlGwCaiNhnwtNva3mzeHku9s7Qm/7xn
- PmuvrqMPSbs0bXJ1+0hHXb6BDNMokckFhFG0A7qPbDNYqpoRGFq5OsbgQ6N79mg8poY=
-X-Received: by 2002:a17:907:3e10:b0:acb:23fc:d766 with SMTP id
- a640c23a62f3a-ad1eb220effmr394475966b.28.1746632239358; 
- Wed, 07 May 2025 08:37:19 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHGDfHN4YXKsHalMKITw8b9LdZdamAx7Tp0LP7mnnYECPy56ZQWZHnn2y5WeYlqgoF2dlOh8Q==
-X-Received: by 2002:a17:907:3e10:b0:acb:23fc:d766 with SMTP id
- a640c23a62f3a-ad1eb220effmr394472766b.28.1746632238982; 
- Wed, 07 May 2025 08:37:18 -0700 (PDT)
+X-Gm-Gg: ASbGncvKDqiC8w1XjLGe/ZJvz2Ei1GzNkjOo/6BLIS5O2B90VLdCzswsSPVGxijHbcl
+ Ul+v4V7QU0fC5s8XL30Y4g9clVfwMINU6MMowH78SkHTs3PpG/Tasv18FvJLoj7vM1GzyPjqser
+ iaNeSNobV6vVMwJcr0quBGA8MacxYntFMUjJQ/UxSJoi+78fO0bJix3aoAbCyBxe9GPsXSsXRN/
+ FszNCj8OYQIHG3yonvi5Uwvv3J7fp/6JGJlSLcsnRdxxZcqxhbq+u8UKQ6tscOULEeGJF8Lz9QJ
+ LlNzYuzV/sxUvKyqv8qvOP3bl3AlmcuwVJ/Dn2D8TpqNz+RHjctcgztUtfavzTyeka0=
+X-Received: by 2002:a17:907:cd0d:b0:ace:be7c:11df with SMTP id
+ a640c23a62f3a-ad1eaefaedcmr364827866b.6.1746632246826; 
+ Wed, 07 May 2025 08:37:26 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE3LQvsicm0YBjAOHirumoX4UDCK+hCXE9ScCJp5xtKINT4FyusXCl/66Pqvnso9XRhvIDAPw==
+X-Received: by 2002:a17:907:cd0d:b0:ace:be7c:11df with SMTP id
+ a640c23a62f3a-ad1eaefaedcmr364824366b.6.1746632246505; 
+ Wed, 07 May 2025 08:37:26 -0700 (PDT)
 Received: from ?IPV6:2001:861:3280:410:2ef0:5dff:fe60:6274?
  ([2001:861:3280:410:2ef0:5dff:fe60:6274])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad1895410b2sm912485666b.181.2025.05.07.08.37.18
+ a640c23a62f3a-ad1891ef1e0sm923525466b.77.2025.05.07.08.37.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 07 May 2025 08:37:18 -0700 (PDT)
-Message-ID: <aa3c41f9-6b25-4871-a4be-e08430e59730@canonical.com>
-Date: Wed, 7 May 2025 17:37:17 +0200
+ Wed, 07 May 2025 08:37:26 -0700 (PDT)
+Message-ID: <bc252425-2703-48c4-a1fa-9268124c2386@canonical.com>
+Date: Wed, 7 May 2025 17:37:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Song Liu <song@kernel.org>
 References: <20250506143254.718647-1-maxime.belair@canonical.com>
- <20250506143254.718647-2-maxime.belair@canonical.com>
- <CAPhsuW4qY9B3KdhqrUOZoNBWQmO_RDwbH46my314WxrFwxbwkQ@mail.gmail.com>
+ <20250506143254.718647-3-maxime.belair@canonical.com>
+ <CAPhsuW7q1hvOG7-uG2C8d_wWnOhEmvTmwnBcXZYVX-oJ8=5FJQ@mail.gmail.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Maxime_B=C3=A9lair?= <maxime.belair@canonical.com>
 Autocrypt: addr=maxime.belair@canonical.com; keydata=
@@ -105,10 +105,11 @@ Autocrypt: addr=maxime.belair@canonical.com; keydata=
  oRAG5XUu5Q1PWG0oY4cZ6XN1z8nkj5Mj23SRhBwVjh2PY2p4cyFRTBrBDaNV38LHw6tVjdhk
  8YNqGOVqceueWdZmWbp8b88a0wzOcrPAvcxJ14FhMyMO9P7FblDYLNYr0oAYj+UyhxOPbRZz
  yriCIKEAbLqHTyj+RhbroZmv5q3X7iVq
-In-Reply-To: <CAPhsuW4qY9B3KdhqrUOZoNBWQmO_RDwbH46my314WxrFwxbwkQ@mail.gmail.com>
+In-Reply-To: <CAPhsuW7q1hvOG7-uG2C8d_wWnOhEmvTmwnBcXZYVX-oJ8=5FJQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: Re: [apparmor] [PATCH 1/3] Wire up the lsm_manage_policy syscall
+Subject: Re: [apparmor] [PATCH 2/3] lsm: introduce
+	security_lsm_manage_policy hook
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -130,80 +131,55 @@ Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
 
 
-On 5/7/25 08:26, Song Liu wrote:
+On 5/7/25 08:19, Song Liu wrote:
 > On Tue, May 6, 2025 at 7:40 AM Maxime Bélair
 > <maxime.belair@canonical.com> wrote:
 >>
->> Add support for the new lsm_manage_policy syscall, providing a unified
->> API for loading and modifying LSM policies without requiring the LSM’s
->> pseudo-filesystem.
+>> Define a new LSM hook security_lsm_manage_policy and wire it into the
+>> lsm_manage_policy() syscall so that LSMs can register a unified interface
+>> for policy management. This initial, minimal implementation only supports
+>> the LSM_POLICY_LOAD operation to limit changes.
 >>
->> Benefits:
->>   - Works even if the LSM pseudo-filesystem isn’t mounted or available
->>     (e.g. in containers)
->>   - Offers a logical and unified interface rather than multiple
->>     heterogeneous pseudo-filesystems.
+>> Signed-off-by: Maxime Bélair <maxime.belair@canonical.com>
+> [...]
+>> diff --git a/security/security.c b/security/security.c
+>> index fb57e8fddd91..256104e338b1 100644
+>> --- a/security/security.c
+>> +++ b/security/security.c
+>> @@ -5883,6 +5883,27 @@ int security_bdev_setintegrity(struct block_device *bdev,
+>>  }
+>>  EXPORT_SYMBOL(security_bdev_setintegrity);
+>>
+>> +/**
+>> + * security_lsm_manage_policy() - Manage the policies of LSMs
+>> + * @lsm_id: id of the lsm to target
+>> + * @op: Operation to perform (one of the LSM_POLICY_XXX values)
+>> + * @buf:  userspace pointer to policy data
+>> + * @size: size of @buf
+>> + * @flags: lsm policy management flags
+>> + *
+>> + * Manage the policies of a LSM. This notably allows to update them even when
+>> + * the lsmfs is unavailable is restricted. Currently, only LSM_POLICY_LOAD is
+>> + * supported.
+>> + *
+>> + * Return: Returns 0 on success, error on failure.
+>> + */
+>> +int security_lsm_manage_policy(u32 lsm_id, u32 op, void __user *buf,
+>> +                              size_t size, u32 flags)
+>> +{
+>> +       return call_int_hook(lsm_manage_policy, lsm_id, op, buf, size, flags);
 > 
-> These two do not feel like real benefits:
-> - One syscall cannot fit all use cases well...
+> If the LSM doesn't implement this hook, sys_lsm_manage_policy will return 0
+> for any inputs, right? This is gonna be so confusing for users.
 
-This syscall is not intended to cover every case, nor to replace existing kernel
-interfaces.
+Indeed, that was an oversight. It will return -EOPNOTSUPP in the next patch revision.
 
-Each LSM can decide which operations it wants to support (if any). For example, when
-loading policies, an LSM may choose to allow only policies that further restrict
-privileges.
-
-> - Not working in containers is often not an issue, but a feature.
-
-Indeed, using this syscall requires appropriate capabilities and will not permit
-unprivileged containers to manage policies arbitrarily.
-
-With this syscall, capability checks remain the responsibility of each LSM.
-
-For instance, in the AppArmor patch, a profile can be loaded only if
-aa_policy_admin_capable() succeeds (which requires CAP_MAC_ADMIN). Moreover, by design,
-policies can be loaded only in the current namespace.
-
-I see this syscall as a middle point between exposing the entire sysfs, creating a large
-attack surface, and blocking everything.
-
-Landlock’s existing syscalls already improve security by allowing processes to further
-restrict their ambient rights while adding only a modest attack surface.
-
-This syscall is a further step in that direction: it lets LSMs add restrictive policies 
-without requiring exposing every other interface.
-
-Again, each module decides which operations to expose through this syscall. In many cases
-the operation will still require CAP_SYS_ADMIN or a similar capability, so environments
-that choose this interface remain secure while gaining its advantages.
-
->>   - Avoids overhead of other kernel interfaces for better efficiency
 > 
-> .. and it is is probably less efficient, because everything need to
-> fit in the same API.
-
-As shown below, the syscall can significantly improve the performance of policy management.
-A more detailed benchmark is available in [1].
-
-The following table presents the time required to load an AppArmor profile.
-
-For every cell, the first value is the total time taken by aa-load, and the value in
-parentheses is the time spent to load the policy in the kernel only (total - dry‑run).
-
-Results are in microseconds and are averaged over 10 000 runs to reduce variance. 
-
-
-| t (µs)    | syscall     | pseudofs    | Speedup       |
-|-----------|-------------|-------------|---------------|
-| 1password | 4257 (1127) | 3333 (192)  | x1.28 (x5.86) |
-| Xorg      | 6099 (2961) | 5167 (2020) | x1.18 (x1.47) |
-
-If an LSM wants to allow several operations for a single LSM_POLICY_XXX it can multiplex a sub‑opcode in flags, and select the appropriate handler, this incurs negligible overhead.
+> Thanks,
+> Song
 
 Thanks,
 
 Maxime
 
-[1] https://gitlab.com/-/snippets/4840792
 
