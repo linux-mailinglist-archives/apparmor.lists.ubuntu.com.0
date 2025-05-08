@@ -2,34 +2,34 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 112DEAAF57B
-	for <lists+apparmor@lfdr.de>; Thu,  8 May 2025 10:20:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2061AAF59E
+	for <lists+apparmor@lfdr.de>; Thu,  8 May 2025 10:25:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uCwUm-0004Ti-3X; Thu, 08 May 2025 08:20:44 +0000
+	id 1uCwZF-0004uA-Vg; Thu, 08 May 2025 08:25:21 +0000
 Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
  helo=smtp-relay-canonical-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1uCwUl-0004TO-1e
- for apparmor@lists.ubuntu.com; Thu, 08 May 2025 08:20:43 +0000
+ id 1uCwZE-0004ty-Sx
+ for apparmor@lists.ubuntu.com; Thu, 08 May 2025 08:25:20 +0000
 Received: from [10.101.3.5] (unknown [213.157.19.150])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 0C4633FB95; 
- Thu,  8 May 2025 08:20:42 +0000 (UTC)
-Message-ID: <d7da6058-68af-44e6-b9ae-0fd042033a4e@canonical.com>
-Date: Thu, 8 May 2025 01:20:41 -0700
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id F04A13FB95; 
+ Thu,  8 May 2025 08:25:19 +0000 (UTC)
+Message-ID: <6d785712-6d8e-491c-86d4-1cbe5895778f@canonical.com>
+Date: Thu, 8 May 2025 01:25:19 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: =?UTF-8?Q?Maxime_B=C3=A9lair?= <maxime.belair@canonical.com>,
- Song Liu <song@kernel.org>
+To: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
+ =?UTF-8?Q?Maxime_B=C3=A9lair?= <maxime.belair@canonical.com>,
+ linux-security-module@vger.kernel.org
 References: <20250506143254.718647-1-maxime.belair@canonical.com>
  <20250506143254.718647-3-maxime.belair@canonical.com>
- <CAPhsuW7q1hvOG7-uG2C8d_wWnOhEmvTmwnBcXZYVX-oJ8=5FJQ@mail.gmail.com>
- <bc252425-2703-48c4-a1fa-9268124c2386@canonical.com>
+ <9c68743f-5efa-4a77-a29b-d3e8f2b2a462@I-love.SAKURA.ne.jp>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -75,7 +75,7 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <bc252425-2703-48c4-a1fa-9268124c2386@canonical.com>
+In-Reply-To: <9c68743f-5efa-4a77-a29b-d3e8f2b2a462@I-love.SAKURA.ne.jp>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 Subject: Re: [apparmor] [PATCH 2/3] lsm: introduce
@@ -92,61 +92,43 @@ List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
 Cc: paul@paul-moore.com, kees@kernel.org, linux-api@vger.kernel.org,
- stephen.smalley.work@gmail.com, penguin-kernel@i-love.sakura.ne.jp,
- apparmor@lists.ubuntu.com, jmorris@namei.org, linux-kernel@vger.kernel.org,
- linux-security-module@vger.kernel.org, mic@digikod.net, takedakn@nttdata.co.jp,
+ stephen.smalley.work@gmail.com, apparmor@lists.ubuntu.com, jmorris@namei.org,
+ linux-kernel@vger.kernel.org, mic@digikod.net, takedakn@nttdata.co.jp,
  serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 5/7/25 08:37, Maxime Bélair wrote:
+On 5/7/25 03:40, Tetsuo Handa wrote:
+> On 2025/05/06 23:32, Maxime Bélair wrote:
+>> diff --git a/security/lsm_syscalls.c b/security/lsm_syscalls.c
+>> index dcaad8818679..b39e6635a7d5 100644
+>> --- a/security/lsm_syscalls.c
+>> +++ b/security/lsm_syscalls.c
+>> @@ -122,5 +122,10 @@ SYSCALL_DEFINE3(lsm_list_modules, u64 __user *, ids, u32 __user *, size,
+>>   SYSCALL_DEFINE5(lsm_manage_policy, u32, lsm_id, u32, op, void __user *, buf, u32
+>>   		__user *, size, u32, flags)
+>>   {
+>> -	return 0;
+>> +	size_t usize;
+>> +
+>> +	if (get_user(usize, size))
+>> +		return -EFAULT;
+>> +
+>> +	return security_lsm_manage_policy(lsm_id, op, buf, usize, flags);
+>>   }
 > 
+> syzbot will report user-controlled unbounded huge size memory allocation attempt. ;-)
 > 
-> On 5/7/25 08:19, Song Liu wrote:
->> On Tue, May 6, 2025 at 7:40 AM Maxime Bélair
->> <maxime.belair@canonical.com> wrote:
->>>
->>> Define a new LSM hook security_lsm_manage_policy and wire it into the
->>> lsm_manage_policy() syscall so that LSMs can register a unified interface
->>> for policy management. This initial, minimal implementation only supports
->>> the LSM_POLICY_LOAD operation to limit changes.
->>>
->>> Signed-off-by: Maxime Bélair <maxime.belair@canonical.com>
->> [...]
->>> diff --git a/security/security.c b/security/security.c
->>> index fb57e8fddd91..256104e338b1 100644
->>> --- a/security/security.c
->>> +++ b/security/security.c
->>> @@ -5883,6 +5883,27 @@ int security_bdev_setintegrity(struct block_device *bdev,
->>>   }
->>>   EXPORT_SYMBOL(security_bdev_setintegrity);
->>>
->>> +/**
->>> + * security_lsm_manage_policy() - Manage the policies of LSMs
->>> + * @lsm_id: id of the lsm to target
->>> + * @op: Operation to perform (one of the LSM_POLICY_XXX values)
->>> + * @buf:  userspace pointer to policy data
->>> + * @size: size of @buf
->>> + * @flags: lsm policy management flags
->>> + *
->>> + * Manage the policies of a LSM. This notably allows to update them even when
->>> + * the lsmfs is unavailable is restricted. Currently, only LSM_POLICY_LOAD is
->>> + * supported.
->>> + *
->>> + * Return: Returns 0 on success, error on failure.
->>> + */
->>> +int security_lsm_manage_policy(u32 lsm_id, u32 op, void __user *buf,
->>> +                              size_t size, u32 flags)
->>> +{
->>> +       return call_int_hook(lsm_manage_policy, lsm_id, op, buf, size, flags);
->>
->> If the LSM doesn't implement this hook, sys_lsm_manage_policy will return 0
->> for any inputs, right? This is gonna be so confusing for users.
-> 
-> Indeed, that was an oversight. It will return -EOPNOTSUPP in the next patch revision.
+> This interface might be fine for AppArmor, but TOMOYO won't use this interface because
+> TOMOYO's policy is line-oriented ASCII text data where the destination is switched via
+> pseudo‑filesystem's filename; use of filename helps restricting which type of policy
+> can be manipulated by which process.
 > 
 
-I think it needs to do more than that. I don't think this should call each LSM, the
-infrastructure should filter it and only send it to the LSM identified by the lsm_id
+That is fine. But curious I am curious what the interface would look like to fit TOMOYO's
+needs. I look at the current implementation as an opening discussion of what the syscall
+should look like. I have no delusions that we are going to get something that will fit
+all LSMs but without requirements, we won't be able to even attempt to hash something
+better out.
 
 
