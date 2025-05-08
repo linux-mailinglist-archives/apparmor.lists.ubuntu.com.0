@@ -2,33 +2,36 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66D4DAAF472
-	for <lists+apparmor@lfdr.de>; Thu,  8 May 2025 09:13:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5D40AAF4FF
+	for <lists+apparmor@lfdr.de>; Thu,  8 May 2025 09:53:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uCvRH-0002a1-4g; Thu, 08 May 2025 07:13:03 +0000
+	id 1uCw3t-0008CA-4a; Thu, 08 May 2025 07:52:57 +0000
 Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
  helo=smtp-relay-canonical-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1uCvRG-0002Zs-1P
- for apparmor@lists.ubuntu.com; Thu, 08 May 2025 07:13:02 +0000
+ id 1uCw3s-0008Bz-3u
+ for apparmor@lists.ubuntu.com; Thu, 08 May 2025 07:52:56 +0000
 Received: from [10.101.3.5] (unknown [213.157.19.150])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id C471A3FDE7; 
- Thu,  8 May 2025 07:13:00 +0000 (UTC)
-Message-ID: <48b5512b-5e38-405a-80e7-64be43bf04e8@canonical.com>
-Date: Thu, 8 May 2025 00:12:58 -0700
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 5D1F13FBEE; 
+ Thu,  8 May 2025 07:52:55 +0000 (UTC)
+Message-ID: <7da224cd-fd9c-4c80-9a23-cb977420f50b@canonical.com>
+Date: Thu, 8 May 2025 00:52:55 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Song Liu <song@kernel.org>, =?UTF-8?Q?Maxime_B=C3=A9lair?=
- <maxime.belair@canonical.com>
+To: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
+ =?UTF-8?Q?Maxime_B=C3=A9lair?= <maxime.belair@canonical.com>,
+ Song Liu <song@kernel.org>
 References: <20250506143254.718647-1-maxime.belair@canonical.com>
  <20250506143254.718647-2-maxime.belair@canonical.com>
  <CAPhsuW4qY9B3KdhqrUOZoNBWQmO_RDwbH46my314WxrFwxbwkQ@mail.gmail.com>
+ <aa3c41f9-6b25-4871-a4be-e08430e59730@canonical.com>
+ <470689f0-223e-4d26-a919-8d48f383883b@I-love.SAKURA.ne.jp>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -74,7 +77,7 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <CAPhsuW4qY9B3KdhqrUOZoNBWQmO_RDwbH46my314WxrFwxbwkQ@mail.gmail.com>
+In-Reply-To: <470689f0-223e-4d26-a919-8d48f383883b@I-love.SAKURA.ne.jp>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 Subject: Re: [apparmor] [PATCH 1/3] Wire up the lsm_manage_policy syscall
@@ -90,58 +93,50 @@ List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
 Cc: paul@paul-moore.com, kees@kernel.org, linux-api@vger.kernel.org,
- stephen.smalley.work@gmail.com, penguin-kernel@i-love.sakura.ne.jp,
- apparmor@lists.ubuntu.com, jmorris@namei.org, linux-kernel@vger.kernel.org,
- linux-security-module@vger.kernel.org, mic@digikod.net, takedakn@nttdata.co.jp,
- serge@hallyn.com
+ stephen.smalley.work@gmail.com, apparmor@lists.ubuntu.com, jmorris@namei.org,
+ linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
+ mic@digikod.net, takedakn@nttdata.co.jp, serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 5/6/25 23:26, Song Liu wrote:
-> On Tue, May 6, 2025 at 7:40 AM Maxime Bélair
-> <maxime.belair@canonical.com> wrote:
->>
->> Add support for the new lsm_manage_policy syscall, providing a unified
->> API for loading and modifying LSM policies without requiring the LSM’s
->> pseudo-filesystem.
->>
->> Benefits:
->>    - Works even if the LSM pseudo-filesystem isn’t mounted or available
->>      (e.g. in containers)
->>    - Offers a logical and unified interface rather than multiple
->>      heterogeneous pseudo-filesystems.
+On 5/7/25 15:04, Tetsuo Handa wrote:
+> On 2025/05/08 0:37, Maxime Bélair wrote:
+>> Again, each module decides which operations to expose through this syscall. In many cases
+>> the operation will still require CAP_SYS_ADMIN or a similar capability, so environments
+>> that choose this interface remain secure while gaining its advantages.
 > 
-> These two do not feel like real benefits:
-> - Not working in containers is often not an issue, but a feature.
+> If the interpretation of "flags" argument varies across LSMs, it sounds like ioctl()'s
 
-and the LSM doesn't have to allow the syscall to function in a container
-where appropriate. Its up to the LSM if the syscall is supported and
-what kind of permissions are needed.
+yes that does feel like ioctls(), on the other hand defining them at the LSM level won't
+offer LSMs flexibility making it so the syscall covers fewer use cases. I am not opposed
+to either, it just hashing out what people want, and what is acceptable.
 
-However having the ability to function in a container and not having to
-mount securityfs, or procfs into a container. similar to what landlock
-gets with its syscall can be beneficial.
-
-> - One syscall cannot fit all use cases well...
+> "cmd" argument. Also, there is prctl() which can already carry string-ish parameters
+> without involving open(). Why can't we use prctl() instead of lsm_manage_policy() ?
 > 
-of course not, and for those other use cases new syscalls can be added.
 
->>    - Avoids overhead of other kernel interfaces for better efficiency
-> 
-> .. and it is is probably less efficient, because everything need to
-> fit in the same API.
-> 
-no not everything, just what fits into the syscall. Nor does an LSM
-have to use the syscall it is still use what works for it.
+prctl() can be used, I used it for the unprivileged policy demo. It has its own set of
+problems. While LSM policy could be associated with the process doing the load/replacement
+or what ever operation, it isn't necessarily tied to it. A lot of LSM policy is not
+process specific making prctl() a poor fit.
 
-This could be a little more efficient than the current fs interface
-used by apparmor/selinux/smack but I don't think efficiency is going
-to be a huge win for this.
+prctl() requires allocating a global prctl()
+
+prctl() are already being filtered/controlled by LSMs making them a poort fit for
+use by an LSM in a stacking situation as it requires updating the policy of other
+LSMs on the system. Yes seccomp can filter the syscall but that still is an easier
+barrier to overcome than having to have instruction for how to allow your LSMs
+prctl() in multiple LSMs.
 
 
-> Overall, this set doesn't feel like a good change to me.
-> 
-> Thanks,
-> Song
+Mickaël already argued the need for landlock to have syscalls. See
+https://lore.kernel.org/lkml/20200511192156.1618284-7-mic@digikod.net/
+and the numerous iterations before that.
+
+Ideally those could have been LSM syscalls, with landlock leveraging them. AppArmor
+is getting to where it has similar needs to landlock. Yes we can use ioctls, prctls,
+netlink, the fs, etc. it doesn't mean that those are the best interfaces to do so,
+and ideally any interface we use will be of benefit to some other LSMs in the future.
+
 
 
