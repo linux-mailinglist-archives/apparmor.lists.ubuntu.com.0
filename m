@@ -2,62 +2,82 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 739DEAB0B6E
-	for <lists+apparmor@lfdr.de>; Fri,  9 May 2025 09:18:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C53CAB173C
+	for <lists+apparmor@lfdr.de>; Fri,  9 May 2025 16:21:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uDI02-0001hK-6X; Fri, 09 May 2025 07:18:26 +0000
-Received: from mail-yw1-f175.google.com ([209.85.128.175])
+	id 1uDObY-0006BU-8V; Fri, 09 May 2025 14:21:36 +0000
+Received: from sonic307-15.consmr.mail.ne1.yahoo.com ([66.163.190.38])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <bulgarabulgara769@gmail.com>)
- id 1uD3AH-00082A-Fu
- for apparmor@lists.ubuntu.com; Thu, 08 May 2025 15:28:01 +0000
-Received: by mail-yw1-f175.google.com with SMTP id
- 00721157ae682-7082e46880eso10616767b3.1
- for <apparmor@lists.ubuntu.com>; Thu, 08 May 2025 08:28:01 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1746718080; x=1747322880;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=SiddRBQDCaEieoMGYIPQkcaPtfEKHid+cx+b7hxZFek=;
- b=o9zhlknOVpIj1q5WC+AXtabSM6DvO4QysBhkk7VD7YMCld7cA/m/pByu1MI8Pd2E2z
- BVN1ikG0fzVLDQJU110cISnLAGQbgyuV6sY0RyYejhhA90zci532pKwbWkxWcSUKrgRh
- IsoXZ5xMjkjZ7EUy1LzMv0QS+mXNFNL/FBIXGPspS0Z2xPjWkd2fFExupyS0OQMyus/8
- nMpZLyCf7Yv9F+1lhl5QEE2bh48475HykBEE1WfVQB/HTQQRUz0wc9OLGhmR/EZzo8fC
- /atBu86LHTQvJfqj0p8h5DmLzN/JghA28JWxNqp7IdVmMWDxo8cRkISZxEP1BVnru5ts
- P8Fw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVYM7/D4PUqFA0kzA1ZyKOV1BBUFxKuE3Jr/4MUAUXi//e33mHRmJSYh3A7qilnlqPDSHF9lgCq0g==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0Yyo/iVvqklhlwkvCemkfy37Cuc7NlRV9X2FUVPpUH4tjLVpq5Vr
- T3B++tAD9sY8R7XhlSzDkRjvi6xIJxFZi1d3k0BsjZzewRDzr2Rm4Nd5+jslRI/IMDT1Df97d3p
- 8VPZ1Opu3N4HkiVJzWP7j96DzfOE=
-X-Gm-Gg: ASbGncukoTOJj6EMmJBs8wg5DfkYanM6WjZHmfG0l1F3oAJrcatTB2fepygLHexC5Xy
- ZeU6ilAa0RTgia0p6mtLIteBf6kkORlzX3Ul52vxs5QW3W345dY1+wzY47vSZQLqUhdPkEF15er
- ovrq5cQilt1Smob9H60pvjfYyrX+9QP9EAukjsu1R9baYajQ==
-X-Google-Smtp-Source: AGHT+IGvLRzRonl6ASSuEuVLGoY2/UgTJ+uxzV3RUaWFAs5NqOmNf0bwgH4c0gTvT3jpEzRqR46297QswN+UZLO9rdM=
-X-Received: by 2002:a05:690c:6c8a:b0:6fd:97a7:1474 with SMTP id
- 00721157ae682-70a1d9f9351mr121837557b3.11.1746718079972; Thu, 08 May 2025
- 08:27:59 -0700 (PDT)
+ (Exim 4.86_2) (envelope-from <casey@schaufler-ca.com>)
+ id 1uDObW-0006BG-7X
+ for apparmor@lists.ubuntu.com; Fri, 09 May 2025 14:21:34 +0000
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1746800492; bh=UutcDUnIpWuaHbcXfp9EdJ+mBamv9DH8I7IOMzVN/Ox=;
+ h=X-Sonic-MF:Date:Subject:To:From:From:Subject;
+ b=i5dQULa+LPrhkQWnBIzvQlVnH63nzl/Qpn8BLlvlLKK3PCbDhI50SvNqcXTi2PnM6aOFS2LW9vrK7J/iUdU/CttRFthrJGeQLO4gecvYTDGi9YWd+4VHqYplrKEnVuBsXtshhSJEA3WdK79T+WZzK7xzlvooryh7GOTV1d2vbOxOkuz3xmyHWC4R0Rf8grfxyhsWGU3Fh1jELoe4uP+YJe8prgws/ZMJBecoh3p3rIci2ya8Lrca1KQrbZHoIpIPb7MXZylT2pvETndVsQJXKvduFI22GeS/Arly0xwatPFyb+2M09LR8fDWvisZnJzkuw5u8DLCQtRns7Kqm3/gKw==
+X-YMail-OSG: UDhtazUVM1kgd9EJesIiZcC9j47Ftq1XFHbnRBy0n_zZQ8sAyOfS0hV9QLCgwh0
+ URVJm2Esv3nxg1WyTqUgV71tZ9x0_rWkIIBdws26amNvK.kJtelAyduQlSYBaNBmZ5TWm0oaNKnc
+ WadabCdddd5kBBF8N0RiYqSwCeMTAJoVzm6XmdaRJCaGwE9UFnfwgICLWmvMsnsDmqrJKMrL27_P
+ Yf0NAeF5dXxiU0eRS1PFpbDl35NxUjYrE2tITQpjGJfrM2vLI6IUpRz6CRScvT4AZI.g7sZ50u7u
+ yVtC2qGFMMEkfX6YKrvp3IJ5n1p.LxamjPHpwWIMM8_7J.eyFHAjPqntTJ.XLic1aA6d4IF8B_J.
+ T9DKU7gQOZSerr8IDCo6t5GHTawN_Qo_I8zFjzZVLv3E2X2LgoZHi9SiYn8xgJOPeqiDX2Ua5Ukd
+ N7R5N7gpvt0FQ44kb8Ld2tLvH8XvmhpLtdfqEx5cqSUICjivnTgtOLOuEgXH9zX05S5YuobzXVRJ
+ MxBf2ecjMXdldahnSVswrvlZyS919prf5baD2ab5cf1OVLnNJyjMeuGVppLbTAaXLD4gFj4UF6cj
+ JqZbzaCpGNcrUdVPUl6Gq8mbiUJ6n3Ck7SAEyno0LuCQQFuxMOKv8vfCkLmlvRy1h1yuyNm2Qc_U
+ LsIFIDWPADOKG9yudlREieklxUK3JLqnlhAuGA9O_YD8_I7DQ82XLfuPfz3rwvucSsJEl5zN8_ge
+ 8tS5ozJba9Wh_k7hXSs9t8TvmposJ81pM4Z6YxZ_X48PvEDjByv9Z5.UKLyi9boe5QBBvnkR3vpG
+ 2sB7hRAMKrMe.U17WI7szuSF3fzDmc_eofDA1sw6GWCKDmrkUzRgs4LdGczfEOkv4qkRRsbMaeq5
+ EuojzJrG8cqTYV3OvFJyR1rBFMYZzSl_5ssfM2fUzZ2in9y0RHnysqahJ7.yAZUIqpZylQsWV0IV
+ JcUiQo04Gn7VIcRA99wv9N4YqX2ZnzmG8iV_g9CsM6gMrjEnLTsCLJRDDbdoLDvMgsw1Tmv72OJd
+ BuA_rWzf5jxB0M9am6M9DhRbSO0V4OFqw.Rv8XOhEeH1oK4mA.b_7xK4kmSXfSGXPQ9gRn9QfnJy
+ D7tluF_ZOpjkhy5SZIGIMnX4TO2PR9jgYCdnE09bZw.ZDqtavmO71vdRnOYrcKgVN0lRigrwvMdN
+ QI9qcJ2CVBUA930q32FEgf3kpMUgAo.lMQnq4FN3nnJjzkWQk9XV_O58dX.0AJICflPMDc7f.3TI
+ vJD.0tboAeYAKjvIeoTRfdsWzcADjPvgNoTbg.BzTUjwigac8IPPafISOXqcck0qGLuBJ..nQ4Nz
+ Z_cudwPBHgsjhIIkj8xS5Fi1IR2lo9gVzcT.XIxa8sCtthEHfS0BU7MYIs_HjBBSOY2NDWx5RLDs
+ uMXNM5RPpwYP3TyiCuNzFJ.1m0pNAJa2_3qbn0KdwC2WDQKaK4NOjEzDghBUl38Ba4GdumRJxbg8
+ hU.E6_3R95vCYWtxEkcjkuHD_4VHdMxSpWlFqsQ_3clzz_smcA_4Sfts3pdIHOUie56H7ykzIP_2
+ J7vY9BOVFkLYa2oWUmik1Jv.EXLtl2wXuz.beiuckt88rzPEN.gTsH8PiiGXs8OiqM4MoU.9LBk2
+ iQClV.pxYLW.pqqH.1lNba9OhEtAhsk_8dHPNbPH09yk0oH8fSBDQ97r.g3QYgz1WUEQQFf_Jndc
+ SOXZ81vVkjZFKYa_2dlttaIOImzHJ3HGM4tNvzaO_CmNKoc.E79Qi.NV_Xk33HWG1Kb9gvE8Ybvs
+ ynvYDx5N0Fd9Ua5fxay817fX7Ues0SybVDeTojOmPGoXY0ACGFrxwSlf0B1aqWUezGaGIWEIbQ2t
+ C2d51FvcT8.2f97Gb8SxLMUdP6OZqxeGDJ1V4ewDN5BShHR35tNtMtU.1ZzuiFWXvndxKw_twVo2
+ ZN06Im9zawq4qo1o0hMYGMPKIK_ySiL3uNdo.ZYkJoYp09tbEnhsjglrf7QRT.9JqfeDhLsPVEr2
+ uv.uOKwlUDxXFCyINHoEhcLulfPBOsxvRwHzaBg4Am3s9fo0x0XoHEzYp5dzcIt8Zig8FHIrolmh
+ .9iKroRAsJTj5agvxYvrJnY6BCILxoaUYRHVQJ6HhtPqTJUhABvn_xTSZDhktGtHRWewf8fixIXM
+ eOi7uwQzFNfQJdZR2DXq3vcNx70tpY2.4n2He8u7gIMNJwnQ9G.EmQjf0uTkmkUlMCHFY49SAyeU
+ H5ZgYSORXCcQ.pNV4WDYe53QvMT1pCYZ04fy5F_Lrq5cj897CqfSFVy13ayAQNS7iNX38zj.bcFq
+ D7JpK1bZiEm0tsz4-
+X-Sonic-MF: <casey@schaufler-ca.com>
+X-Sonic-ID: 3c06c726-96cb-4347-882d-f766ab437c20
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic307.consmr.mail.ne1.yahoo.com with HTTP; Fri, 9 May 2025 14:21:32 +0000
+Received: by hermes--production-gq1-74d64bb7d7-khmfd (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID 334e9395e8ec622649b360b124415a8a; 
+ Fri, 09 May 2025 14:21:30 +0000 (UTC)
+Message-ID: <71c3c2d6-5569-4580-89a4-513a03a429ab@schaufler-ca.com>
+Date: Fri, 9 May 2025 07:21:29 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: =?UTF-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
 References: <20250506143254.718647-1-maxime.belair@canonical.com>
  <20250506143254.718647-3-maxime.belair@canonical.com>
  <9c68743f-5efa-4a77-a29b-d3e8f2b2a462@I-love.SAKURA.ne.jp>
- <6d785712-6d8e-491c-86d4-1cbe5895778f@canonical.com>
- <75c0385c-b649-46b0-907f-903e2217f460@I-love.SAKURA.ne.jp>
- <07a496b2-ed1f-4a18-88d1-7be36dba3a8a@canonical.com>
- <75c7424b-fec9-469b-8f73-50ab86948a24@I-love.SAKURA.ne.jp>
-In-Reply-To: <75c7424b-fec9-469b-8f73-50ab86948a24@I-love.SAKURA.ne.jp>
-From: Eddie Bulgara <bulgarabulgara769@gmail.com>
-Date: Thu, 8 May 2025 08:27:49 -0700
-X-Gm-Features: AX0GCFvDfm4zY1uL9XPSi7CyFegC5fc7-WFnlmoOjKn3Pgyo054h58H19vCsef8
-Message-ID: <CAJ_ZCCnQQOYbGmbtdevaWiE_sBU4gZvhuMT7QWtb_RZy4S6o+Q@mail.gmail.com>
-To: Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>
-Content-Type: multipart/alternative; boundary="000000000000adfedf0634a17ec0"
-Received-SPF: pass client-ip=209.85.128.175;
- envelope-from=bulgarabulgara769@gmail.com; helo=mail-yw1-f175.google.com
-X-Mailman-Approved-At: Fri, 09 May 2025 07:18:24 +0000
+ <CAHC9VhRKwB4quqBtYQyxRqCX2C6fCgTbyAP3Ov+NdQ06t1aFdA@mail.gmail.com>
+ <120954c2-87b7-4bda-958b-2b4f0180a736@canonical.com>
+ <efe5b15a-6141-424a-8391-9092e79e4acf@schaufler-ca.com>
+ <20250509.Chuecae0phoo@digikod.net>
+Content-Language: en-US
+From: Casey Schaufler <casey@schaufler-ca.com>
+In-Reply-To: <20250509.Chuecae0phoo@digikod.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailer: WebService/1.1.23772
+ mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Received-SPF: none client-ip=66.163.190.38;
+ envelope-from=casey@schaufler-ca.com;
+ helo=sonic307-15.consmr.mail.ne1.yahoo.com
 Subject: Re: [apparmor] [PATCH 2/3] lsm: introduce
 	security_lsm_manage_policy hook
 X-BeenThere: apparmor@lists.ubuntu.com
@@ -71,119 +91,90 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: paul@paul-moore.com, kees@kernel.org, linux-api@vger.kernel.org,
+Cc: Paul Moore <paul@paul-moore.com>, Arnd Bergmann <arnd@arndb.de>,
+ Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>, linux-api@vger.kernel.org,
  stephen.smalley.work@gmail.com, apparmor@lists.ubuntu.com, jmorris@namei.org,
- linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
- mic@digikod.net, takedakn@nttdata.co.jp, serge@hallyn.com
+ linux-kernel@vger.kernel.org, kees@kernel.org,
+ linux-security-module@vger.kernel.org, takedakn@nttdata.co.jp,
+ serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
---000000000000adfedf0634a17ec0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 5/9/2025 3:26 AM, Mickaël Salaün wrote:
+> On Thu, May 08, 2025 at 09:54:19AM -0700, Casey Schaufler wrote:
+>> On 5/8/2025 1:29 AM, John Johansen wrote:
+>>> On 5/7/25 13:25, Paul Moore wrote:
+>>>> On Wed, May 7, 2025 at 6:41 AM Tetsuo Handa
+>>>> <penguin-kernel@i-love.sakura.ne.jp> wrote:
+>>>>> On 2025/05/06 23:32, Maxime Bélair wrote:
+>>>>>> diff --git a/security/lsm_syscalls.c b/security/lsm_syscalls.c
+>>>>>> index dcaad8818679..b39e6635a7d5 100644
+>>>>>> --- a/security/lsm_syscalls.c
+>>>>>> +++ b/security/lsm_syscalls.c
+>>>>>> @@ -122,5 +122,10 @@ SYSCALL_DEFINE3(lsm_list_modules, u64 __user
+>>>>>> *, ids, u32 __user *, size,
+>>>>>>   SYSCALL_DEFINE5(lsm_manage_policy, u32, lsm_id, u32, op, void
+>>>>>> __user *, buf, u32
+>>>>>>                __user *, size, u32, flags)
+>>>>>>   {
+>>>>>> -     return 0;
+>>>>>> +     size_t usize;
+>>>>>> +
+>>>>>> +     if (get_user(usize, size))
+>>>>>> +             return -EFAULT;
+>>>>>> +
+>>>>>> +     return security_lsm_manage_policy(lsm_id, op, buf, usize,
+>>>>>> flags);
+>>>>>>   }
+>>>>> syzbot will report user-controlled unbounded huge size memory
+>>>>> allocation attempt. ;-)
+>>>>>
+>>>>> This interface might be fine for AppArmor, but TOMOYO won't use this
+>>>>> interface because
+>>>>> TOMOYO's policy is line-oriented ASCII text data where the
+>>>>> destination is switched via
+>>>>> pseudo‑filesystem's filename ...
+>>>> While Tetsuo's comment is limited to TOMOYO, I believe the argument
+>>>> applies to a number of other LSMs as well.  The reality is that there
+>>>> is no one policy ideal shared across LSMs and that complicates things
+>>>> like the lsm_manage_policy() proposal.  I'm intentionally saying
+>>>> "complicates" and not "prevents" because I don't want to flat out
+>>>> reject something like this, but I think there needs to be a larger
+>>>> discussion among the different LSM groups about what such an API
+>>>> should look like.  We may not need to get every LSM to support this
+>>>> new API, but we need to get something that would work for a
+>>>> significant majority and would be general/extensible enough that we
+>>>> would expect it to work with the majority of future LSMs (as much as
+>>>> we can predict the future anyway).
+>>>>
+>>> yep, I look at this is just a starting point for discussion. There
+>>> isn't going to be any discussion without some code, so here is a v1
+>>> that supports a single LSM let the bike shedding begin.
+>> Aside from the issues with allocating a buffer for a big policy
+>> I don't see a problem with this proposal. The system call looks
+>> a lot like the other LSM interfaces, so any developer who likes
+>> those ought to like this one. The infrastructure can easily check
+>> the lsm_id and only call the appropriate LSM hook, so no one
+>> is going to be interfering with other modules.
+> We may not want to only be able to load buffers containing policies, but
+> also to leverage file descriptors like Landlock does.  Getting a
+> property from a kernel object or updating it is mainly about dealing
+> with a buffer.  And the current LSM syscalls do just that.  Other kind
+> of operations may require more than that though.
+>
+> I don't like multiplexer syscalls because they don't expose a clear
+> semantic and can be complex to manage and filter.  This new syscall is
+> kind of a multiplexer that redirect commands to an arbitrary set of
+> kernel parts, which can then define their own semantic.  I'd like to see
+> a clear set of well-defined operations and their required permission.
+> Even better, one syscall per operation should simplify their interface.
 
-On Thu, May 8, 2025, 8:20=E2=80=AFAM Tetsuo Handa <
-penguin-kernel@i-love.sakura.ne.jp> wrote:
+The development and maintenance of system calls is expensive in both
+time and effort. LSM specific system calls frighten me. When I was
+young adding system calls was just  not  done. A system call would
+never be allowed for a specific sub-system or optional feature. True,
+there are issues with the LSM specific filesystem approach. But I
+like it, as it allows the LSM more freedom in its interfaces and
+won't clutter the API if the LSM goes away or quits using it.
 
-> On 2025/05/08 23:44, John Johansen wrote:
-> > On 5/8/25 05:55, Tetsuo Handa wrote:
-> >> On 2025/05/08 17:25, John Johansen wrote:
-> >>> That is fine. But curious I am curious what the interface would look
-> like to fit TOMOYO's
-> >>> needs.
-> >>
-> >> Stream (like "FILE *") with restart from the beginning (like
-> rewind(fp)) support.
-> >> That is, the caller can read/write at least one byte at a time, and
-> written data
-> >> is processed upon encountering '\n'.
-> >>
-> >
-> > that can be emulated within the current sycall, where the lsm maintains
-> a buffer.
->
-> That cannot be emulated, for there is no event that is automatically
-> triggered when
-> the process terminates (i.e. implicit close() upon exit()) in order to
-> release the
-> buffer the LSM maintains.
->
-> > Are you asking to also read data back out as well, that could be added,
-> but doing
-> > a syscall per byte here or through the fs is going to have fairly high
-> overhead.
->
-> At least one byte means arbitrary bytes; that is, the caller does not nee=
-d
-> to read
-> or write the whole policy at one syscall.
->
-> >
-> > Without understanding the requirement it would seem to me, that it woul=
-d
-> be
-> > better to emulate that file buffer manipulation in userspace similar sa=
-y
-> C++
-> > stringstreams, and then write the syscall when done.
->
-> The size of the whole policy in byte varies a lot.
->
->
->
-
---000000000000adfedf0634a17ec0
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto"></div><br><div class=3D"gmail_quote gmail_quote_container=
-"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, May 8, 2025, 8:20=E2=80=AFA=
-M Tetsuo Handa &lt;<a href=3D"mailto:penguin-kernel@i-love.sakura.ne.jp">pe=
-nguin-kernel@i-love.sakura.ne.jp</a>&gt; wrote:<br></div><blockquote class=
-=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padd=
-ing-left:1ex">On 2025/05/08 23:44, John Johansen wrote:<br>
-&gt; On 5/8/25 05:55, Tetsuo Handa wrote:<br>
-&gt;&gt; On 2025/05/08 17:25, John Johansen wrote:<br>
-&gt;&gt;&gt; That is fine. But curious I am curious what the interface woul=
-d look like to fit TOMOYO&#39;s<br>
-&gt;&gt;&gt; needs.<br>
-&gt;&gt;<br>
-&gt;&gt; Stream (like &quot;FILE *&quot;) with restart from the beginning (=
-like rewind(fp)) support.<br>
-&gt;&gt; That is, the caller can read/write at least one byte at a time, an=
-d written data<br>
-&gt;&gt; is processed upon encountering &#39;\n&#39;.<br>
-&gt;&gt;<br>
-&gt; <br>
-&gt; that can be emulated within the current sycall, where the lsm maintain=
-s a buffer.<br>
-<br>
-That cannot be emulated, for there is no event that is automatically trigge=
-red when<br>
-the process terminates (i.e. implicit close() upon exit()) in order to rele=
-ase the<br>
-buffer the LSM maintains.<br>
-<br>
-&gt; Are you asking to also read data back out as well, that could be added=
-, but doing<br>
-&gt; a syscall per byte here or through the fs is going to have fairly high=
- overhead.<br>
-<br>
-At least one byte means arbitrary bytes; that is, the caller does not need =
-to read<br>
-or write the whole policy at one syscall.<br>
-<br>
-&gt; <br>
-&gt; Without understanding the requirement it would seem to me, that it wou=
-ld be<br>
-&gt; better to emulate that file buffer manipulation in userspace similar s=
-ay C++<br>
-&gt; stringstreams, and then write the syscall when done.<br>
-<br>
-The size of the whole policy in byte varies a lot.<br>
-<br>
-<br>
-</blockquote></div>
-
---000000000000adfedf0634a17ec0--
 
