@@ -2,30 +2,30 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63113AB27ED
-	for <lists+apparmor@lfdr.de>; Sun, 11 May 2025 13:20:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 814FEAB27F5
+	for <lists+apparmor@lfdr.de>; Sun, 11 May 2025 13:26:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uE4jg-0008Mv-0b; Sun, 11 May 2025 11:20:48 +0000
+	id 1uE4pI-0000V8-Hg; Sun, 11 May 2025 11:26:36 +0000
 Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
  helo=smtp-relay-canonical-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1uE4jd-0008Mn-QZ
- for apparmor@lists.ubuntu.com; Sun, 11 May 2025 11:20:45 +0000
+ id 1uE4pH-0000Ux-Ad
+ for apparmor@lists.ubuntu.com; Sun, 11 May 2025 11:26:35 +0000
 Received: from [172.20.3.254] (unknown [213.157.19.135])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 70D593FA05; 
- Sun, 11 May 2025 11:20:44 +0000 (UTC)
-Message-ID: <1b01ccd0-5a1b-4b34-bbe4-13ee3b73292d@canonical.com>
-Date: Sun, 11 May 2025 04:20:42 -0700
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 27CD93FA05; 
+ Sun, 11 May 2025 11:26:33 +0000 (UTC)
+Message-ID: <351fb82f-272d-4dfc-9fa2-9ed094fbd6a5@canonical.com>
+Date: Sun, 11 May 2025 04:26:32 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: =?UTF-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>,
- Casey Schaufler <casey@schaufler-ca.com>
+To: Casey Schaufler <casey@schaufler-ca.com>, =?UTF-8?B?TWlja2HDq2wgU2FsYcO8?=
+ =?UTF-8?Q?n?= <mic@digikod.net>
 References: <20250506143254.718647-1-maxime.belair@canonical.com>
  <20250506143254.718647-3-maxime.belair@canonical.com>
  <9c68743f-5efa-4a77-a29b-d3e8f2b2a462@I-love.SAKURA.ne.jp>
@@ -33,6 +33,7 @@ References: <20250506143254.718647-1-maxime.belair@canonical.com>
  <120954c2-87b7-4bda-958b-2b4f0180a736@canonical.com>
  <efe5b15a-6141-424a-8391-9092e79e4acf@schaufler-ca.com>
  <20250509.Chuecae0phoo@digikod.net>
+ <71c3c2d6-5569-4580-89a4-513a03a429ab@schaufler-ca.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -78,7 +79,7 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20250509.Chuecae0phoo@digikod.net>
+In-Reply-To: <71c3c2d6-5569-4580-89a4-513a03a429ab@schaufler-ca.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 Subject: Re: [apparmor] [PATCH 2/3] lsm: introduce
@@ -103,88 +104,96 @@ Cc: Paul Moore <paul@paul-moore.com>, Arnd Bergmann <arnd@arndb.de>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 5/9/25 03:26, Mickaël Salaün wrote:
-> On Thu, May 08, 2025 at 09:54:19AM -0700, Casey Schaufler wrote:
->> On 5/8/2025 1:29 AM, John Johansen wrote:
->>> On 5/7/25 13:25, Paul Moore wrote:
->>>> On Wed, May 7, 2025 at 6:41 AM Tetsuo Handa
->>>> <penguin-kernel@i-love.sakura.ne.jp> wrote:
->>>>> On 2025/05/06 23:32, Maxime Bélair wrote:
->>>>>> diff --git a/security/lsm_syscalls.c b/security/lsm_syscalls.c
->>>>>> index dcaad8818679..b39e6635a7d5 100644
->>>>>> --- a/security/lsm_syscalls.c
->>>>>> +++ b/security/lsm_syscalls.c
->>>>>> @@ -122,5 +122,10 @@ SYSCALL_DEFINE3(lsm_list_modules, u64 __user
->>>>>> *, ids, u32 __user *, size,
->>>>>>    SYSCALL_DEFINE5(lsm_manage_policy, u32, lsm_id, u32, op, void
->>>>>> __user *, buf, u32
->>>>>>                 __user *, size, u32, flags)
->>>>>>    {
->>>>>> -     return 0;
->>>>>> +     size_t usize;
->>>>>> +
->>>>>> +     if (get_user(usize, size))
->>>>>> +             return -EFAULT;
->>>>>> +
->>>>>> +     return security_lsm_manage_policy(lsm_id, op, buf, usize,
->>>>>> flags);
->>>>>>    }
+On 5/9/25 07:21, Casey Schaufler wrote:
+> On 5/9/2025 3:26 AM, Mickaël Salaün wrote:
+>> On Thu, May 08, 2025 at 09:54:19AM -0700, Casey Schaufler wrote:
+>>> On 5/8/2025 1:29 AM, John Johansen wrote:
+>>>> On 5/7/25 13:25, Paul Moore wrote:
+>>>>> On Wed, May 7, 2025 at 6:41 AM Tetsuo Handa
+>>>>> <penguin-kernel@i-love.sakura.ne.jp> wrote:
+>>>>>> On 2025/05/06 23:32, Maxime Bélair wrote:
+>>>>>>> diff --git a/security/lsm_syscalls.c b/security/lsm_syscalls.c
+>>>>>>> index dcaad8818679..b39e6635a7d5 100644
+>>>>>>> --- a/security/lsm_syscalls.c
+>>>>>>> +++ b/security/lsm_syscalls.c
+>>>>>>> @@ -122,5 +122,10 @@ SYSCALL_DEFINE3(lsm_list_modules, u64 __user
+>>>>>>> *, ids, u32 __user *, size,
+>>>>>>>    SYSCALL_DEFINE5(lsm_manage_policy, u32, lsm_id, u32, op, void
+>>>>>>> __user *, buf, u32
+>>>>>>>                 __user *, size, u32, flags)
+>>>>>>>    {
+>>>>>>> -     return 0;
+>>>>>>> +     size_t usize;
+>>>>>>> +
+>>>>>>> +     if (get_user(usize, size))
+>>>>>>> +             return -EFAULT;
+>>>>>>> +
+>>>>>>> +     return security_lsm_manage_policy(lsm_id, op, buf, usize,
+>>>>>>> flags);
+>>>>>>>    }
+>>>>>> syzbot will report user-controlled unbounded huge size memory
+>>>>>> allocation attempt. ;-)
+>>>>>>
+>>>>>> This interface might be fine for AppArmor, but TOMOYO won't use this
+>>>>>> interface because
+>>>>>> TOMOYO's policy is line-oriented ASCII text data where the
+>>>>>> destination is switched via
+>>>>>> pseudo‑filesystem's filename ...
+>>>>> While Tetsuo's comment is limited to TOMOYO, I believe the argument
+>>>>> applies to a number of other LSMs as well.  The reality is that there
+>>>>> is no one policy ideal shared across LSMs and that complicates things
+>>>>> like the lsm_manage_policy() proposal.  I'm intentionally saying
+>>>>> "complicates" and not "prevents" because I don't want to flat out
+>>>>> reject something like this, but I think there needs to be a larger
+>>>>> discussion among the different LSM groups about what such an API
+>>>>> should look like.  We may not need to get every LSM to support this
+>>>>> new API, but we need to get something that would work for a
+>>>>> significant majority and would be general/extensible enough that we
+>>>>> would expect it to work with the majority of future LSMs (as much as
+>>>>> we can predict the future anyway).
 >>>>>
->>>>> syzbot will report user-controlled unbounded huge size memory
->>>>> allocation attempt. ;-)
->>>>>
->>>>> This interface might be fine for AppArmor, but TOMOYO won't use this
->>>>> interface because
->>>>> TOMOYO's policy is line-oriented ASCII text data where the
->>>>> destination is switched via
->>>>> pseudo‑filesystem's filename ...
->>>>
->>>> While Tetsuo's comment is limited to TOMOYO, I believe the argument
->>>> applies to a number of other LSMs as well.  The reality is that there
->>>> is no one policy ideal shared across LSMs and that complicates things
->>>> like the lsm_manage_policy() proposal.  I'm intentionally saying
->>>> "complicates" and not "prevents" because I don't want to flat out
->>>> reject something like this, but I think there needs to be a larger
->>>> discussion among the different LSM groups about what such an API
->>>> should look like.  We may not need to get every LSM to support this
->>>> new API, but we need to get something that would work for a
->>>> significant majority and would be general/extensible enough that we
->>>> would expect it to work with the majority of future LSMs (as much as
->>>> we can predict the future anyway).
->>>>
->>>
->>> yep, I look at this is just a starting point for discussion. There
->>> isn't going to be any discussion without some code, so here is a v1
->>> that supports a single LSM let the bike shedding begin.
+>>>> yep, I look at this is just a starting point for discussion. There
+>>>> isn't going to be any discussion without some code, so here is a v1
+>>>> that supports a single LSM let the bike shedding begin.
+>>> Aside from the issues with allocating a buffer for a big policy
+>>> I don't see a problem with this proposal. The system call looks
+>>> a lot like the other LSM interfaces, so any developer who likes
+>>> those ought to like this one. The infrastructure can easily check
+>>> the lsm_id and only call the appropriate LSM hook, so no one
+>>> is going to be interfering with other modules.
+>> We may not want to only be able to load buffers containing policies, but
+>> also to leverage file descriptors like Landlock does.  Getting a
+>> property from a kernel object or updating it is mainly about dealing
+>> with a buffer.  And the current LSM syscalls do just that.  Other kind
+>> of operations may require more than that though.
 >>
->> Aside from the issues with allocating a buffer for a big policy
->> I don't see a problem with this proposal. The system call looks
->> a lot like the other LSM interfaces, so any developer who likes
->> those ought to like this one. The infrastructure can easily check
->> the lsm_id and only call the appropriate LSM hook, so no one
->> is going to be interfering with other modules.
+>> I don't like multiplexer syscalls because they don't expose a clear
+>> semantic and can be complex to manage and filter.  This new syscall is
+>> kind of a multiplexer that redirect commands to an arbitrary set of
+>> kernel parts, which can then define their own semantic.  I'd like to see
+>> a clear set of well-defined operations and their required permission.
+>> Even better, one syscall per operation should simplify their interface.
 > 
-> We may not want to only be able to load buffers containing policies, but
-> also to leverage file descriptors like Landlock does.  Getting a
-
-I am not opposed to a syscall that leverages file desriptors like landlock
-but that would be a different syscall with different semantics, and
-something for an lsm that wants that semantic to introduce.
-
-> property from a kernel object or updating it is mainly about dealing
-> with a buffer.  And the current LSM syscalls do just that.  Other kind
-> of operations may require more than that though.
+> The development and maintenance of system calls is expensive in both
+> time and effort. LSM specific system calls frighten me. When I was
+> young adding system calls was just  not  done. A system call would
+> never be allowed for a specific sub-system or optional feature. True,
+> there are issues with the LSM specific filesystem approach. But I
+> like it, as it allows the LSM more freedom in its interfaces and
+> won't clutter the API if the LSM goes away or quits using it.
 > 
-sure but they don't do it for the semantic of loading/managing policy.
+I get the reticence on adding syscalls. Indeed its part of why I
+want to explore LSM syscalls before going with an apparmor specific
+syscall.
 
-> I don't like multiplexer syscalls because they don't expose a clear
-> semantic and can be complex to manage and filter.  This new syscall is
-> kind of a multiplexer that redirect commands to an arbitrary set of
-> kernel parts, which can then define their own semantic.  I'd like to see
-> a clear set of well-defined operations and their required permission.
-> Even better, one syscall per operation should simplify their interface.
+The current LSM specific fs approach has limitations that just can't
+be reasonably worked around for some use cases, so that leaves going
+with an alternate mechanism. For this use case, ioctls are problematic
+like the fs. prctl could work for a subset and abused for the whole,
+but a syscall feels cleaner.
 
-I am not opposed to that approach. This can be multiple syscalls. Its
-a v1 to try and see if we can come to any agreement on a set of semantics
+I am open to other options.
+
+
 
 
