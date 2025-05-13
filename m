@@ -2,44 +2,67 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0481BAB34D5
-	for <lists+apparmor@lfdr.de>; Mon, 12 May 2025 12:23:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 815A2AB5C00
+	for <lists+apparmor@lfdr.de>; Tue, 13 May 2025 20:03:07 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uEQJN-0004fA-TU; Mon, 12 May 2025 10:23:05 +0000
-Received: from smtp-8fab.mail.infomaniak.ch ([83.166.143.171])
+	id 1uEtxu-0003DV-Kt; Tue, 13 May 2025 18:02:54 +0000
+Received: from mail-wm1-f52.google.com ([209.85.128.52])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <mic@digikod.net>) id 1uEQH2-0004YG-Co
- for apparmor@lists.ubuntu.com; Mon, 12 May 2025 10:20:40 +0000
-Received: from smtp-4-0001.mail.infomaniak.ch (unknown
- [IPv6:2001:1600:7:10::a6c])
- by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4Zwwbq65GhzRqZ;
- Mon, 12 May 2025 12:20:39 +0200 (CEST)
-Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA
- id 4Zwwbn4lZ8zDLf; Mon, 12 May 2025 12:20:37 +0200 (CEST)
-Date: Mon, 12 May 2025 12:20:36 +0200
-From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-To: John Johansen <john.johansen@canonical.com>
-Message-ID: <20250512.Uong6eCaVuwu@digikod.net>
-References: <20250506143254.718647-1-maxime.belair@canonical.com>
- <20250506143254.718647-2-maxime.belair@canonical.com>
- <CAPhsuW4qY9B3KdhqrUOZoNBWQmO_RDwbH46my314WxrFwxbwkQ@mail.gmail.com>
- <aa3c41f9-6b25-4871-a4be-e08430e59730@canonical.com>
- <CAPhsuW4FVMS7v8p_C-QzE8nBxCb6xDRhEecm_KHZ3KbKUjOXrQ@mail.gmail.com>
- <9aaeda3a-8ef5-4820-b2e4-9180b73fb368@canonical.com>
- <20250509.ePu7gaim1Foo@digikod.net>
- <19313f6b-42d7-4845-9a4b-93c7546aadb9@canonical.com>
+ (Exim 4.86_2) (envelope-from <mjguzik@gmail.com>) id 1uEpKf-000086-VP
+ for apparmor@lists.ubuntu.com; Tue, 13 May 2025 13:06:06 +0000
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-43d04dc73b7so60229895e9.3
+ for <apparmor@lists.ubuntu.com>; Tue, 13 May 2025 06:06:05 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1747141565; x=1747746365;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ZRH4yaq02O4BeoAY/f143mbK8AEXX3uy5ZGAgLBp4KM=;
+ b=QIeTtGM6X6gAhZdrYyDd7RMzglUhZ0tr6Doq3MSmUbWSGSQCJbDPlMgJmoWkxAztw6
+ g3iTeiDUVZMDxN13cd1Q5l8mdpztjjalvA0UhgV1IdarENgcPGDte4NJgvIGA9RvHyIu
+ 9uBbUf5936ksLkx8U2kCctcOhoq9bNTndWKuvzFeIykhWqAFpxv70rhlrmjyVJ2dKLaM
+ e7fF01nU5xcSHr/fc0UFVy3TlwO0JMw4Y69ZpCGKVBCWSYknDryDy9kh4IA3PA0pEzmr
+ jTi3cj+ywWEjQZWgo1Bl9CRWh5JK4dDP+8nh2gUKp5fAIDuSZ4w2wY0U0peitO5uetH0
+ PXRg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVhusFU9BpWyz0wykQHY5a58MqTAbhe1MJDtrlVdJ3bWTqvJ0WZWQr+PM+6WIC8dxFdeQOsqEmADg==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0YzNjZEueE+P/TlXnnoy8MRukEgDuZTQ8qHrnBUjurzbiWQlTZrx
+ LF5SerFwZn17OTpoRw0nz4t/QmnqI/CzaSjjHPr2zZBr2avDN/qT
+X-Gm-Gg: ASbGncsiCe/3BNcDHoYrWtQNJ7IFzsCfynLQ1q10Mc0r1R5+Wb7TpxISyhpAl6qBk13
+ 9XGH/3Fi+cvkskqUsxr7Lo3M/Cr5C2fWa8iKj2ywod2U2x2yjUM427NZOsDPFKjDlIZ+Qi1RGqb
+ wsNn3sialdmpVAhOheqzbpVvAxKzBFIcsTqF39XD9ozlAtgnXQB1kSDhfifh8BzHaXtEYFiktoc
+ 0gYC6DCPZ7p+w9I/TyV6nu4Y+SF/v63D8p8ZVphihOLNq+jIJPnvrAs0FmUJhDVKrTKbuniHTSJ
+ filh82NWQr5TEPBdUH09YwSfGUOwLTmQO/F5QYFGy1cLi1PDI4+lGenpyKyyMsOA
+X-Google-Smtp-Source: AGHT+IEHBhhE7TvsAD/FnNo4BJJ0fgMjXWx6eOMY8JlawqVvxffhuMX7kttizQAJ+g7X01ahmWKKUQ==
+X-Received: by 2002:a05:600c:3587:b0:43c:fdbe:43be with SMTP id
+ 5b1f17b1804b1-442d6dd216fmr140842115e9.27.1747141561377; 
+ Tue, 13 May 2025 06:06:01 -0700 (PDT)
+Received: from f (cst-prg-88-99.cust.vodafone.cz. [46.135.88.99])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-442cd32f3c2sm209934765e9.15.2025.05.13.06.05.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 13 May 2025 06:06:00 -0700 (PDT)
+Date: Tue, 13 May 2025 15:05:45 +0200
+From: Mateusz Guzik <mjguzik@gmail.com>
+To: Kees Cook <keescook@chromium.org>
+Message-ID: <h65sagivix3zbrppthcobnysgnlrnql5shiu65xyg7ust6mc54@cliutza66zve>
+References: <20221006082735.1321612-1-keescook@chromium.org>
+ <20221006082735.1321612-2-keescook@chromium.org>
+ <20221006090506.paqjf537cox7lqrq@wittgenstein>
+ <CAG48ez0sEkmaez9tYqgMXrkREmXZgxC9fdQD3mzF9cGo_=Tfyg@mail.gmail.com>
+ <86CE201B-5632-4BB7-BCF6-7CB2C2895409@chromium.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <19313f6b-42d7-4845-9a4b-93c7546aadb9@canonical.com>
-X-Infomaniak-Routing: alpha
-Received-SPF: pass client-ip=83.166.143.171; envelope-from=mic@digikod.net;
- helo=smtp-8fab.mail.infomaniak.ch
-X-Mailman-Approved-At: Mon, 12 May 2025 10:23:05 +0000
-Subject: Re: [apparmor] [PATCH 1/3] Wire up the lsm_manage_policy syscall
+In-Reply-To: <86CE201B-5632-4BB7-BCF6-7CB2C2895409@chromium.org>
+Received-SPF: pass client-ip=209.85.128.52; envelope-from=mjguzik@gmail.com;
+ helo=mail-wm1-f52.google.com
+X-Mailman-Approved-At: Tue, 13 May 2025 18:02:53 +0000
+Subject: Re: [apparmor] [PATCH 1/2] fs/exec: Explicitly unshare fs_struct on
+	exec
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -51,109 +74,89 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: paul@paul-moore.com, Arnd Bergmann <arnd@arndb.de>, kees@kernel.org,
- linux-api@vger.kernel.org, stephen.smalley.work@gmail.com,
- penguin-kernel@i-love.sakura.ne.jp, apparmor@lists.ubuntu.com,
- jmorris@namei.org, linux-kernel@vger.kernel.org, Song Liu <song@kernel.org>,
- linux-security-module@vger.kernel.org, takedakn@nttdata.co.jp,
- serge@hallyn.com
+Cc: Micah Morton <mortonm@chromium.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ Andrei Vagin <avagin@gmail.com>, linux-hardening@vger.kernel.org,
+ Xin Long <lucien.xin@gmail.com>, Paul Moore <paul@paul-moore.com>,
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
+ Fenghua Yu <fenghua.yu@intel.com>, Jann Horn <jannh@google.com>,
+ selinux@vger.kernel.org, apparmor@lists.ubuntu.com,
+ linux-fsdevel@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Andy Lutomirski <luto@kernel.org>, oleg@redhat.com,
+ Eric Paris <eparis@parisplace.org>, Thomas Gleixner <tglx@linutronix.de>,
+ Jorge Merlino <jorge.merlino@canonical.com>,
+ Christian Brauner <brauner@kernel.org>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Ondrej Mosnacek <omosnace@redhat.com>,
+ Richard Haines <richard_c_haines@btinternet.com>,
+ linux-security-module@vger.kernel.org, Eric Biederman <ebiederm@xmission.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ Prashanth Prahlad <pprahlad@redhat.com>, Todd Kjos <tkjos@google.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Sun, May 11, 2025 at 03:47:21AM -0700, John Johansen wrote:
-> On 5/9/25 03:26, Mickaël Salaün wrote:
-> > On Thu, May 08, 2025 at 01:18:20AM -0700, John Johansen wrote:
-> > > On 5/7/25 23:06, Song Liu wrote:
-> > > > On Wed, May 7, 2025 at 8:37 AM Maxime Bélair
-> > > > <maxime.belair@canonical.com> wrote:
-> > > > [...]
-
-> > > > permission check to each pseudo file. The downside of the syscall, however,
-> > > > is that all the permission checks are hard-coded in the kernel (except for
-> > > 
-> > > The permission checks don't have to be hard coded. Each LSM can define how it handles
-> > > or manages the syscall. The default is that it isn't supported, but if an lsm decides
-> > > to support it, there is now reason that its policy can't determine the use of the
-> > > syscall.
-> > 
-> >  From an interface design point of view, it would be better to clearly
-> > specify the scope of a command (e.g. which components could be impacted
-> > by a command), and make sure the documentation reflect that as well.
-> > Even better, have a syscalls per required privileges and impact (e.g.
-> > privileged or unprivileged).  Going this road, I'm not sure if a
-> > privileged syscall would make sense given the existing filesystem
-> > interface.
-> > 
+On Thu, Oct 06, 2022 at 08:25:01AM -0700, Kees Cook wrote:
+> On October 6, 2022 7:13:37 AM PDT, Jann Horn <jannh@google.com> wrote:
+> >On Thu, Oct 6, 2022 at 11:05 AM Christian Brauner <brauner@kernel.org> wrote:
+> >> On Thu, Oct 06, 2022 at 01:27:34AM -0700, Kees Cook wrote:
+> >> > The check_unsafe_exec() counting of n_fs would not add up under a heavily
+> >> > threaded process trying to perform a suid exec, causing the suid portion
+> >> > to fail. This counting error appears to be unneeded, but to catch any
+> >> > possible conditions, explicitly unshare fs_struct on exec, if it ends up
+> >>
+> >> Isn't this a potential uapi break? Afaict, before this change a call to
+> >> clone{3}(CLONE_FS) followed by an exec in the child would have the
+> >> parent and child share fs information. So if the child e.g., changes the
+> >> working directory post exec it would also affect the parent. But after
+> >> this change here this would no longer be true. So a child changing a
+> >> workding directoro would not affect the parent anymore. IOW, an exec is
+> >> accompanied by an unshare(CLONE_FS). Might still be worth trying ofc but
+> >> it seems like a non-trivial uapi change but there might be few users
+> >> that do clone{3}(CLONE_FS) followed by an exec.
+> >
+> >I believe the following code in Chromium explicitly relies on this
+> >behavior, but I'm not sure whether this code is in active use anymore:
+> >
+> >https://source.chromium.org/chromium/chromium/src/+/main:sandbox/linux/suid/sandbox.c;l=101?q=CLONE_FS&sq=&ss=chromium
 > 
-> uhhhmmm, not just privileged. As you well know we are looking to use
-> this for unprivileged policy. The LSM can limit to privileged if it
-> wants but it doesn't have to limit it to privileged policy.
-
-Yes, I meant to say having a syscall for unprivileged actions, and maybe
-another one for privileged ones, but this might be a hard sell. :)
-
-To say it another way, for your use case, do you need this syscall(s)
-for privileged operations?  Do you plan to drop (or stop extending) the
-filesystem interface or do you think it would be good for (AppArmor)
-privileged operations too?  I know syscalls might be attractive and
-could be used for everything, but it's good to have a well-defined plan
-and semantic to avoid using such syscall as another multiplexer with
-unrelated operations and required privileges.
-
-If this syscall should also be a way to do privileged operations, should
-we also agree on a common set of permissions (e.g. global CAP_MAC_ADMIN
-or user namespace one)?
-
-[...]
-
-> > > > Overall, I am still not convinced a syscall for all LSMs is needed. To
-> > > > justify such
-> > > 
-> > > its not needed by all LSMs, just a subset of them, and some nebulous
-> > > subset of potentially future LSMs that is entirely undefinable.
-> > > 
-> > > If we had had appropriate LSM syscalls landlock wouldn't have needed
-> > > to have landlock specific syscalls. Having another LSM go that route
-> > > feels wrong especially now that we have some LSM syscalls.
-> > 
-> > I don't agree.  Dedicated syscalls are a good thing.  See my other
-> > reply.
-> > 
+> Oh yes. I think I had tried to forget this existed. Ugh. Okay, so back to the drawing board, I guess. The counting will need to be fixed...
 > 
-> I think we can just disagree on this point.
+> It's possible we can move the counting after dethread -- it seems the early count was just to avoid setting flags after the point of no return, but it's not an error condition...
 > 
-> > > If a
-> > > syscall is needed by an LSM its better to try hashing something out
-> > > that might have utility for multiple LSMs or at the very least,
-> > > potentially have utility in the future.
-> > > 
-> > > 
-> > > > a syscall, I think we need to show that it is useful in multiple LSMs.
-> > > > Also, if we
-> > > > really want to have single set of APIs for all LSMs, we may also need
-> > > > get_policy,
-> > > 
-> > > We are never going to get a single set of APIs for all LSMs. I will
-> > > settle for an api that has utility for a subset
-> > > 
-> > > > remove_policy, etc. This set as-is appears to be an incomplete design. The
-> > > 
-> > > To have a complete design, there needs to be feedback and discussion
-> > > from multiple LSMs. This is a starting point.
-> > > 
-> > > > implementation, with call_int_hook, is also problematic. It can easily
-> > > > cause some> controversial behaviors.
-> > > > 
-> > > agreed it shouldn't be doing a straight call_int_hook, it should only
-> > > call it against the lsm identified by the lsmid
-> > 
-> > Yes, but then, I don't see the point of a "generic" LSM syscall.
-> 
-> its not a generic LSM syscall. Its a syscall or maybe a set of syscalls
-> for a specific scoped problem of loading/managing policy.
-> 
-> Can we come to something acceptable? I don't know but we are going to
-> look at it before trying for an apparmor specific syscall.
 
-I understand and it's good to have this discussion.
+I landed here from git blame.
+
+I was looking at sanitizing shared fs vs suid handling, but the entire
+ordeal is so convoluted I'm confident the best way forward is to whack
+the problem to begin with.
+
+Per the above link, the notion of a shared fs struct across different
+processes is depended on so merely unsharing is a no-go.
+
+However, the shared state is only a problem for suid/sgid.
+
+Here is my proposal: *deny* exec of suid/sgid binaries if fs_struct is
+shared. This will have to be checked for after the execing proc becomes
+single-threaded ofc.
+
+While technically speaking this does introduce a change in behavior,
+there is precedent for doing it and seeing if anyone yells.
+
+With this in place there is no point maintainig ->in_exec or checking
+the flag.
+
+There is the known example of depending on shared fs_struct across exec.
+Hopefully there is no example of depending on execing a suid/sgid binary
+in such a setting -- it would be quite a weird setup given that for
+security reasons the perms must not be changed.
+
+The upshot of this method is that any breakage will be immediately
+visible in the form of a failed exec.
+
+Another route would be to do the mandatory unshare but only for
+suid/sgid, except that would have a hidden failure (if you will).
+
+Comments?
 
