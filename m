@@ -2,64 +2,88 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 815A2AB5C00
-	for <lists+apparmor@lfdr.de>; Tue, 13 May 2025 20:03:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 869CCAB5BFF
+	for <lists+apparmor@lfdr.de>; Tue, 13 May 2025 20:03:04 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uEtxu-0003DV-Kt; Tue, 13 May 2025 18:02:54 +0000
-Received: from mail-wm1-f52.google.com ([209.85.128.52])
+	id 1uEtxu-0003Dc-Q9; Tue, 13 May 2025 18:02:54 +0000
+Received: from out01.mta.xmission.com ([166.70.13.231])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <mjguzik@gmail.com>) id 1uEpKf-000086-VP
- for apparmor@lists.ubuntu.com; Tue, 13 May 2025 13:06:06 +0000
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-43d04dc73b7so60229895e9.3
- for <apparmor@lists.ubuntu.com>; Tue, 13 May 2025 06:06:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747141565; x=1747746365;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ZRH4yaq02O4BeoAY/f143mbK8AEXX3uy5ZGAgLBp4KM=;
- b=QIeTtGM6X6gAhZdrYyDd7RMzglUhZ0tr6Doq3MSmUbWSGSQCJbDPlMgJmoWkxAztw6
- g3iTeiDUVZMDxN13cd1Q5l8mdpztjjalvA0UhgV1IdarENgcPGDte4NJgvIGA9RvHyIu
- 9uBbUf5936ksLkx8U2kCctcOhoq9bNTndWKuvzFeIykhWqAFpxv70rhlrmjyVJ2dKLaM
- e7fF01nU5xcSHr/fc0UFVy3TlwO0JMw4Y69ZpCGKVBCWSYknDryDy9kh4IA3PA0pEzmr
- jTi3cj+ywWEjQZWgo1Bl9CRWh5JK4dDP+8nh2gUKp5fAIDuSZ4w2wY0U0peitO5uetH0
- PXRg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVhusFU9BpWyz0wykQHY5a58MqTAbhe1MJDtrlVdJ3bWTqvJ0WZWQr+PM+6WIC8dxFdeQOsqEmADg==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0YzNjZEueE+P/TlXnnoy8MRukEgDuZTQ8qHrnBUjurzbiWQlTZrx
- LF5SerFwZn17OTpoRw0nz4t/QmnqI/CzaSjjHPr2zZBr2avDN/qT
-X-Gm-Gg: ASbGncsiCe/3BNcDHoYrWtQNJ7IFzsCfynLQ1q10Mc0r1R5+Wb7TpxISyhpAl6qBk13
- 9XGH/3Fi+cvkskqUsxr7Lo3M/Cr5C2fWa8iKj2ywod2U2x2yjUM427NZOsDPFKjDlIZ+Qi1RGqb
- wsNn3sialdmpVAhOheqzbpVvAxKzBFIcsTqF39XD9ozlAtgnXQB1kSDhfifh8BzHaXtEYFiktoc
- 0gYC6DCPZ7p+w9I/TyV6nu4Y+SF/v63D8p8ZVphihOLNq+jIJPnvrAs0FmUJhDVKrTKbuniHTSJ
- filh82NWQr5TEPBdUH09YwSfGUOwLTmQO/F5QYFGy1cLi1PDI4+lGenpyKyyMsOA
-X-Google-Smtp-Source: AGHT+IEHBhhE7TvsAD/FnNo4BJJ0fgMjXWx6eOMY8JlawqVvxffhuMX7kttizQAJ+g7X01ahmWKKUQ==
-X-Received: by 2002:a05:600c:3587:b0:43c:fdbe:43be with SMTP id
- 5b1f17b1804b1-442d6dd216fmr140842115e9.27.1747141561377; 
- Tue, 13 May 2025 06:06:01 -0700 (PDT)
-Received: from f (cst-prg-88-99.cust.vodafone.cz. [46.135.88.99])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-442cd32f3c2sm209934765e9.15.2025.05.13.06.05.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 May 2025 06:06:00 -0700 (PDT)
-Date: Tue, 13 May 2025 15:05:45 +0200
-From: Mateusz Guzik <mjguzik@gmail.com>
-To: Kees Cook <keescook@chromium.org>
-Message-ID: <h65sagivix3zbrppthcobnysgnlrnql5shiu65xyg7ust6mc54@cliutza66zve>
+ (Exim 4.86_2) (envelope-from <ebiederm@xmission.com>)
+ id 1uEraa-0007bM-6l
+ for apparmor@lists.ubuntu.com; Tue, 13 May 2025 15:30:40 +0000
+Received: from in02.mta.xmission.com ([166.70.13.52]:58534)
+ by out01.mta.xmission.com with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.93)
+ (envelope-from <ebiederm@xmission.com>)
+ id 1uEraV-0057bO-9O; Tue, 13 May 2025 09:30:35 -0600
+Received: from ip72-198-198-28.om.om.cox.net ([72.198.198.28]:59502
+ helo=email.froward.int.ebiederm.org.xmission.com)
+ by in02.mta.xmission.com with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.93)
+ (envelope-from <ebiederm@xmission.com>)
+ id 1uEraS-00FteB-TR; Tue, 13 May 2025 09:30:34 -0600
+From: "Eric W. Biederman" <ebiederm@xmission.com>
+To: Mateusz Guzik <mjguzik@gmail.com>
+In-Reply-To: <h65sagivix3zbrppthcobnysgnlrnql5shiu65xyg7ust6mc54@cliutza66zve>
+ (Mateusz Guzik's message of "Tue, 13 May 2025 15:05:45 +0200")
 References: <20221006082735.1321612-1-keescook@chromium.org>
  <20221006082735.1321612-2-keescook@chromium.org>
  <20221006090506.paqjf537cox7lqrq@wittgenstein>
  <CAG48ez0sEkmaez9tYqgMXrkREmXZgxC9fdQD3mzF9cGo_=Tfyg@mail.gmail.com>
  <86CE201B-5632-4BB7-BCF6-7CB2C2895409@chromium.org>
+ <h65sagivix3zbrppthcobnysgnlrnql5shiu65xyg7ust6mc54@cliutza66zve>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/28.2 (gnu/linux)
+Date: Tue, 13 May 2025 10:29:47 -0500
+Message-ID: <87o6vw1qc4.fsf@email.froward.int.ebiederm.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <86CE201B-5632-4BB7-BCF6-7CB2C2895409@chromium.org>
-Received-SPF: pass client-ip=209.85.128.52; envelope-from=mjguzik@gmail.com;
- helo=mail-wm1-f52.google.com
+Content-Type: text/plain
+X-XM-SPF: eid=1uEraS-00FteB-TR; ; ;
+ mid=<87o6vw1qc4.fsf@email.froward.int.ebiederm.org>; ; ;
+ hst=in02.mta.xmission.com; ; ; ip=72.198.198.28; ; ; frm=ebiederm@xmission.com;
+ ; ; spf=pass
+X-XM-AID: U2FsdGVkX1+f5aQcvtD7cJuBfQzEABOE535sdGOGPWo=
+X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on sa07.xmission.com
+X-Spam-Level: ****
+X-Spam-Status: No, score=4.2 required=8.0 tests=ALL_TRUSTED,BAYES_50,
+ DCC_CHECK_NEGATIVE,T_TM2_M_HEADER_IN_MSG,T_TooManySym_01,XMGenDplmaNmb,
+ XMNoVowels,XMSubLong,XM_B_Phish_Phrases,XM_B_SpammyWords
+ autolearn=disabled version=3.4.2
+X-Spam-Report: * -1.0 ALL_TRUSTED Passed through trusted hosts only via SMTP
+ *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+ *      [score: 0.4970]
+ *  1.5 XMNoVowels Alpha-numberic number with no vowels
+ *  0.7 XMSubLong Long Subject
+ *  0.0 T_TM2_M_HEADER_IN_MSG BODY: No description available.
+ * -0.0 DCC_CHECK_NEGATIVE Not listed in DCC
+ *      [sa07 1397; Body=1 Fuz1=1 Fuz2=1]
+ *  1.0 XMGenDplmaNmb Diploma spam phrases+possible phone number
+ *  0.2 XM_B_SpammyWords One or more commonly used spammy words
+ *  1.0 XM_B_Phish_Phrases Commonly used Phishing Phrases
+ *  0.0 T_TooManySym_01 4+ unique symbols in subject
+X-Spam-DCC: XMission; sa07 1397; Body=1 Fuz1=1 Fuz2=1 
+X-Spam-Combo: ****;Mateusz Guzik <mjguzik@gmail.com>
+X-Spam-Relay-Country: 
+X-Spam-Timing: total 787 ms - load_scoreonly_sql: 0.04 (0.0%),
+ signal_user_changed: 11 (1.4%), b_tie_ro: 10 (1.2%), parse: 1.65
+ (0.2%), extract_message_metadata: 21 (2.6%), get_uri_detail_list: 4.8
+ (0.6%), tests_pri_-2000: 13 (1.6%), tests_pri_-1000: 6 (0.7%),
+ tests_pri_-950: 1.33 (0.2%), tests_pri_-900: 1.08 (0.1%),
+ tests_pri_-90: 143 (18.2%), check_bayes: 139 (17.7%), b_tokenize: 15
+ (1.9%), b_tok_get_all: 14 (1.8%), b_comp_prob: 7 (0.8%),
+ b_tok_touch_all: 99 (12.6%), b_finish: 0.93 (0.1%), tests_pri_0: 574
+ (72.9%), check_dkim_signature: 0.63 (0.1%), check_dkim_adsp: 2.5
+ (0.3%), poll_dns_idle: 0.46 (0.1%), tests_pri_10: 2.3 (0.3%),
+ tests_pri_500: 10 (1.2%), rewrite_mail: 0.00 (0.0%)
+X-SA-Exim-Connect-IP: 166.70.13.52
+X-SA-Exim-Rcpt-To: too long (recipient list exceeded maximum allowed size of
+ 512 bytes)
+X-SA-Exim-Mail-From: ebiederm@xmission.com
+X-SA-Exim-Scanned: No (on out01.mta.xmission.com);
+ SAEximRunCond expanded to false
+Received-SPF: pass client-ip=166.70.13.231; envelope-from=ebiederm@xmission.com;
+ helo=out01.mta.xmission.com
 X-Mailman-Approved-At: Tue, 13 May 2025 18:02:53 +0000
 Subject: Re: [apparmor] [PATCH 1/2] fs/exec: Explicitly unshare fs_struct on
 	exec
@@ -80,83 +104,106 @@ Cc: Micah Morton <mortonm@chromium.org>,
  Andrei Vagin <avagin@gmail.com>, linux-hardening@vger.kernel.org,
  Xin Long <lucien.xin@gmail.com>, Paul Moore <paul@paul-moore.com>,
  James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
- Fenghua Yu <fenghua.yu@intel.com>, Jann Horn <jannh@google.com>,
- selinux@vger.kernel.org, apparmor@lists.ubuntu.com,
- linux-fsdevel@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>,
- Andy Lutomirski <luto@kernel.org>, oleg@redhat.com,
- Eric Paris <eparis@parisplace.org>, Thomas Gleixner <tglx@linutronix.de>,
+ Fenghua Yu <fenghua.yu@intel.com>, Kees Cook <keescook@chromium.org>,
+ Jann Horn <jannh@google.com>, selinux@vger.kernel.org,
+ apparmor@lists.ubuntu.com, linux-fsdevel@vger.kernel.org,
+ Alexander Viro <viro@zeniv.linux.org.uk>, Andy Lutomirski <luto@kernel.org>,
+ oleg@redhat.com, Eric Paris <eparis@parisplace.org>,
+ Thomas Gleixner <tglx@linutronix.de>,
  Jorge Merlino <jorge.merlino@canonical.com>,
  Christian Brauner <brauner@kernel.org>,
  Stephen Smalley <stephen.smalley.work@gmail.com>,
  Ondrej Mosnacek <omosnace@redhat.com>,
  Richard Haines <richard_c_haines@btinternet.com>,
- linux-security-module@vger.kernel.org, Eric Biederman <ebiederm@xmission.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- "David S. Miller" <davem@davemloft.net>,
- Prashanth Prahlad <pprahlad@redhat.com>, Todd Kjos <tkjos@google.com>
+ linux-security-module@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>, "David S.
+ Miller" <davem@davemloft.net>, Prashanth Prahlad <pprahlad@redhat.com>,
+ Todd Kjos <tkjos@google.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Thu, Oct 06, 2022 at 08:25:01AM -0700, Kees Cook wrote:
-> On October 6, 2022 7:13:37 AM PDT, Jann Horn <jannh@google.com> wrote:
-> >On Thu, Oct 6, 2022 at 11:05 AM Christian Brauner <brauner@kernel.org> wrote:
-> >> On Thu, Oct 06, 2022 at 01:27:34AM -0700, Kees Cook wrote:
-> >> > The check_unsafe_exec() counting of n_fs would not add up under a heavily
-> >> > threaded process trying to perform a suid exec, causing the suid portion
-> >> > to fail. This counting error appears to be unneeded, but to catch any
-> >> > possible conditions, explicitly unshare fs_struct on exec, if it ends up
-> >>
-> >> Isn't this a potential uapi break? Afaict, before this change a call to
-> >> clone{3}(CLONE_FS) followed by an exec in the child would have the
-> >> parent and child share fs information. So if the child e.g., changes the
-> >> working directory post exec it would also affect the parent. But after
-> >> this change here this would no longer be true. So a child changing a
-> >> workding directoro would not affect the parent anymore. IOW, an exec is
-> >> accompanied by an unshare(CLONE_FS). Might still be worth trying ofc but
-> >> it seems like a non-trivial uapi change but there might be few users
-> >> that do clone{3}(CLONE_FS) followed by an exec.
-> >
-> >I believe the following code in Chromium explicitly relies on this
-> >behavior, but I'm not sure whether this code is in active use anymore:
-> >
-> >https://source.chromium.org/chromium/chromium/src/+/main:sandbox/linux/suid/sandbox.c;l=101?q=CLONE_FS&sq=&ss=chromium
-> 
-> Oh yes. I think I had tried to forget this existed. Ugh. Okay, so back to the drawing board, I guess. The counting will need to be fixed...
-> 
-> It's possible we can move the counting after dethread -- it seems the early count was just to avoid setting flags after the point of no return, but it's not an error condition...
-> 
+Mateusz Guzik <mjguzik@gmail.com> writes:
 
-I landed here from git blame.
+> On Thu, Oct 06, 2022 at 08:25:01AM -0700, Kees Cook wrote:
+>> On October 6, 2022 7:13:37 AM PDT, Jann Horn <jannh@google.com> wrote:
+>> >On Thu, Oct 6, 2022 at 11:05 AM Christian Brauner <brauner@kernel.org> wrote:
+>> >> On Thu, Oct 06, 2022 at 01:27:34AM -0700, Kees Cook wrote:
+>> >> > The check_unsafe_exec() counting of n_fs would not add up under a heavily
+>> >> > threaded process trying to perform a suid exec, causing the suid portion
+>> >> > to fail. This counting error appears to be unneeded, but to catch any
+>> >> > possible conditions, explicitly unshare fs_struct on exec, if it ends up
+>> >>
+>> >> Isn't this a potential uapi break? Afaict, before this change a call to
+>> >> clone{3}(CLONE_FS) followed by an exec in the child would have the
+>> >> parent and child share fs information. So if the child e.g., changes the
+>> >> working directory post exec it would also affect the parent. But after
+>> >> this change here this would no longer be true. So a child changing a
+>> >> workding directoro would not affect the parent anymore. IOW, an exec is
+>> >> accompanied by an unshare(CLONE_FS). Might still be worth trying ofc but
+>> >> it seems like a non-trivial uapi change but there might be few users
+>> >> that do clone{3}(CLONE_FS) followed by an exec.
+>> >
+>> >I believe the following code in Chromium explicitly relies on this
+>> >behavior, but I'm not sure whether this code is in active use anymore:
+>> >
+>> >https://source.chromium.org/chromium/chromium/src/+/main:sandbox/linux/suid/sandbox.c;l=101?q=CLONE_FS&sq=&ss=chromium
+>> 
+>> Oh yes. I think I had tried to forget this existed. Ugh. Okay, so back to the drawing board, I guess. The counting will need to be fixed...
+>> 
+>> It's possible we can move the counting after dethread -- it seems the early count was just to avoid setting flags after the point of no return, but it's not an error condition...
+>> 
+>
+> I landed here from git blame.
+>
+> I was looking at sanitizing shared fs vs suid handling, but the entire
+> ordeal is so convoluted I'm confident the best way forward is to whack
+> the problem to begin with.
+>
+> Per the above link, the notion of a shared fs struct across different
+> processes is depended on so merely unsharing is a no-go.
+>
+> However, the shared state is only a problem for suid/sgid.
+>
+> Here is my proposal: *deny* exec of suid/sgid binaries if fs_struct is
+> shared. This will have to be checked for after the execing proc becomes
+> single-threaded ofc.
+>
+> While technically speaking this does introduce a change in behavior,
+> there is precedent for doing it and seeing if anyone yells.
+>
+> With this in place there is no point maintainig ->in_exec or checking
+> the flag.
+>
+> There is the known example of depending on shared fs_struct across exec.
+> Hopefully there is no example of depending on execing a suid/sgid binary
+> in such a setting -- it would be quite a weird setup given that for
+> security reasons the perms must not be changed.
+>
+> The upshot of this method is that any breakage will be immediately
+> visible in the form of a failed exec.
+>
+> Another route would be to do the mandatory unshare but only for
+> suid/sgid, except that would have a hidden failure (if you will).
+>
+> Comments?
 
-I was looking at sanitizing shared fs vs suid handling, but the entire
-ordeal is so convoluted I'm confident the best way forward is to whack
-the problem to begin with.
+What is the problem that is trying to be fixed?
 
-Per the above link, the notion of a shared fs struct across different
-processes is depended on so merely unsharing is a no-go.
+A uapi change to not allow sharing a fs_struct for processes that change
+their cred on exec seems possible.
 
-However, the shared state is only a problem for suid/sgid.
+I said changing cred instead of suid/sgid because there are capabilities
+and LSM labels that we probably want this to apply to as well.
 
-Here is my proposal: *deny* exec of suid/sgid binaries if fs_struct is
-shared. This will have to be checked for after the execing proc becomes
-single-threaded ofc.
+I think such a limitation can be justified based upon having a shared
+fs_struct is likely to allow confuse suid executables.
 
-While technically speaking this does introduce a change in behavior,
-there is precedent for doing it and seeing if anyone yells.
 
-With this in place there is no point maintainig ->in_exec or checking
-the flag.
+Earlier in the thread there was talk about the refcount for fs_struct.
+I don't see that problem at the moment, and I don't see how dealing with
+suid+sgid exectuables will have any bearing on how the refcount works.
 
-There is the known example of depending on shared fs_struct across exec.
-Hopefully there is no example of depending on execing a suid/sgid binary
-in such a setting -- it would be quite a weird setup given that for
-security reasons the perms must not be changed.
+Eric
 
-The upshot of this method is that any breakage will be immediately
-visible in the form of a failed exec.
 
-Another route would be to do the mandatory unshare but only for
-suid/sgid, except that would have a hidden failure (if you will).
-
-Comments?
 
