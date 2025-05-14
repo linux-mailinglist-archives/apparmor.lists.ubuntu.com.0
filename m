@@ -2,80 +2,59 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id B11C9AB66B7
-	for <lists+apparmor@lfdr.de>; Wed, 14 May 2025 11:02:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57300AB784C
+	for <lists+apparmor@lfdr.de>; Wed, 14 May 2025 23:58:16 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uF7zu-0004xK-5q; Wed, 14 May 2025 09:01:54 +0000
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
- by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <lbulwahn@redhat.com>) id 1uF6Jd-0006yL-8q
- for apparmor@lists.ubuntu.com; Wed, 14 May 2025 07:14:09 +0000
-Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
- [209.85.208.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-204-gVkMSOmQNrKUGi0C42pIgQ-1; Wed, 14 May 2025 03:14:06 -0400
-X-MC-Unique: gVkMSOmQNrKUGi0C42pIgQ-1
-X-Mimecast-MFC-AGG-ID: gVkMSOmQNrKUGi0C42pIgQ_1747206845
-Received: by mail-ed1-f70.google.com with SMTP id
- 4fb4d7f45d1cf-5fba56df298so5619712a12.1
- for <apparmor@lists.ubuntu.com>; Wed, 14 May 2025 00:14:06 -0700 (PDT)
+	id 1uFK73-0005Yf-8s; Wed, 14 May 2025 21:58:05 +0000
+Received: from mail-yb1-f180.google.com ([209.85.219.180])
+ by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.86_2) (envelope-from <paul@paul-moore.com>)
+ id 1uFK72-0005YV-00
+ for apparmor@lists.ubuntu.com; Wed, 14 May 2025 21:58:04 +0000
+Received: by mail-yb1-f180.google.com with SMTP id
+ 3f1490d57ef6-e7b451b708aso228364276.3
+ for <apparmor@lists.ubuntu.com>; Wed, 14 May 2025 14:58:03 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747206845; x=1747811645;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=RhtvBP/MCitR1ftSZRMeSHLdRQ2xIQHL23q4ybZlF48=;
- b=UsvRch4A6eWVERxtIWbjJ/OjWec1Kk43HDtafb8z3oxJ72AwTXf7I93smlnBth2BY9
- 0qIgo75yDcbhAxldJ/ahwJCGT/825ljPUiDg9o23qcn0o9SC+iKNh9+XjNhQT/FIWW44
- aemP7vFdWOlmhXoIrheRR/LgsPfk2F9Qh3LM8bZD6VobYc38Su9LI44tunSO9gQ7KO/+
- bcSeo1sk1eXUR3DOir6dVR6JTkOE+ZsO08KGEMYQtlkEanBLYsc+ulcziyPoe8vqEUHo
- hHwCglToP5SXgGMkCaOQNyMSE3Jk7Xm8p245PYlojLCDTgKTeLuWXuZd4yp5Ywy3+yGl
- CCRw==
+ d=1e100.net; s=20230601; t=1747259882; x=1747864682;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=cd3hwDzjEL8BVjWNpHIodN9KpUcVouQgmKQ6Ucvmu/M=;
+ b=StZ184T7avUH2Gv8Ao5sWpJDFysEi0LwsExWhJ8SETf2GpbP1QKpVpIG1VTs30RSbp
+ zhVNHM4UEKFh1t7YYK/Pl8ch0QfLIiE744JGLrr3cIkYH7C93TmMCnQy1lNwUFZvGglt
+ 2qUY4jNjmeDlUl2k2eUJlbCehx+VI+XOx6d21VYVybT5gB4wSCPp1me0uGO++MOmszvQ
+ R3OWallwU6EriKH49JdYSnLGlcEN2klr3PMkJIUwR8BbuykRE0KkO1AfBKD21959OzQH
+ Y/J+k7IL5I3eMZtLmaaEBtfZYhjodg1/49ZmGlLl/mK4hKfdnU4CD3OmWDPXluXSVNrV
+ AgSA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWkAF4qFx5dQQvpa3cd8KoH1N6w6KZEj35wcGFBCrFUaB7HA4C+qwWgylyG/U5WQvpTTWWuj3Phcw==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0YzCz0bV4VSQKo08xibTmQa+/NEGHvsQf9gto4p3FIHqy9I/yWDJ
- +mgzM0e8PJrhI9u52KeW1AvopNk++1g7us+K0CmP6SzH/5tf673oSBwbAXHd65/xyL7z5VahyhL
- KIvNVJYCm8Ob1xATHeQ6q85ooYALGvClMxFWjBgb0O88krBkOM98E9GAUOA==
-X-Gm-Gg: ASbGnctqp7pzJihgavBL+xAQWMIeSJaEJCW5z1kh/8TCL9VBjzfkKiBJij3Rgbr3eQq
- k/HEJc5QqW23TrH35a4Lfv3/32fNd+772PCbU5oMLtlB//FaOvYTt2ag25/BWCK40vTY8lgokKo
- oDMpHHVdjgjfYdmHqlIyE3ywjYYhUdofUJoz/9E+nuo8lo7E3lA4ZEL6kjgAnd3U8k/pa6XzwwX
- /C+5Fi0+jDPNQ8+tWM4OttL9Xj1TJBGdgmkr7jNCHt4wx7WXRGfEVjzb9DphMMBUBWnrOVxD/r1
- vTfbjwvLITATIHLsPa1KXIUPU2g9BkVPq201BiHM3/ctdAXqJrYqzpNy/w==
-X-Received: by 2002:a17:907:1908:b0:ace:d986:d7d2 with SMTP id
- a640c23a62f3a-ad4f74c9000mr222005566b.49.1747206845222; 
- Wed, 14 May 2025 00:14:05 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFxaAR2Q+5d92tWC9EC6K77qjGuYdoWqzESwAbtU31oqD51mMNX4L5oV+Owa01qzyfNoY/kiQ==
-X-Received: by 2002:a17:907:1908:b0:ace:d986:d7d2 with SMTP id
- a640c23a62f3a-ad4f74c9000mr222003266b.49.1747206844830; 
- Wed, 14 May 2025 00:14:04 -0700 (PDT)
-Received: from lbulwahn-thinkpadx1carbongen9.rmtde.csb
- ([2a02:810d:7e01:ef00:b52:2ad9:f357:f709])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad23f5f6fddsm653162866b.93.2025.05.14.00.14.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 May 2025 00:14:04 -0700 (PDT)
-From: Lukas Bulwahn <lbulwahn@redhat.com>
-X-Google-Original-From: Lukas Bulwahn <lukas.bulwahn@redhat.com>
-To: John Johansen <john.johansen@canonical.com>,
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- "Serge E . Hallyn" <serge@hallyn.com>, apparmor@lists.ubuntu.com,
- linux-security-module@vger.kernel.org
-Date: Wed, 14 May 2025 09:14:00 +0200
-Message-ID: <20250514071400.465055-1-lukas.bulwahn@redhat.com>
-X-Mailer: git-send-email 2.49.0
+ AJvYcCX7EJwQAKm75TdHcsm/3jyxItWKWcKzBXbtLVWQeWrRTjR8e+fxccwpNaruPu1sQw8J9VZZuBubRg==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0YwtSz34hROqqwNrUNCRxTfOsZqdYp57QzZ23UrIzkRI7JRluL+F
+ P9NwutokFd+gZKyJC7Fp0KeFQEBjuclhN2jdEyXUkzzd45DImT9CpDuNMt4RcqHsgWypsg6CLAd
+ VdaCQ9ndn5XD1tAakw4pv8XnuqWfUwsGFJzcr
+X-Gm-Gg: ASbGncvGRaEmAPDcxHDfaGvXOZgvsJ8DjQ3bF5heaXM0RiqC3NKOUCJdtUft2FA6nWq
+ VQhnZc5a1+yE2LbXTjs0CW88OIyI7nX1NJ8/vLo1wmqSsZIDM2zugyGAFhSi5uWdRjUPPuiK/t4
+ LndRjbcc3iYw97DfPqJvS0SnPE996np5azunJtYUXKMlA=
+X-Google-Smtp-Source: AGHT+IHAu8/NGifUGGvqy1muRemXjrNd0svPOPeQFyYnJTSpuDaE7BUNisyhGtBUb1e5c878a+beHwpBV6XXMuiK0sc=
+X-Received: by 2002:a05:6902:114e:b0:e76:8058:a065 with SMTP id
+ 3f1490d57ef6-e7b3d4ba991mr6148542276.6.1747259882613; Wed, 14 May 2025
+ 14:58:02 -0700 (PDT)
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Z6IaZ7UrwAbSHLxDGTu4Mwx5YN6AdTFbrNeGsm_hj44_1747206845
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
-Received-SPF: pass client-ip=170.10.133.124; envelope-from=lbulwahn@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-X-Mailman-Approved-At: Wed, 14 May 2025 09:01:51 +0000
-Subject: [apparmor] [PATCH] apparmor: Remove obsolete config
-	SECURITY_APPARMOR_DEBUG_MESSAGES
+References: <20250428190430.850240-1-ebiggers@kernel.org>
+ <20250514042147.GA2073@sol>
+In-Reply-To: <20250514042147.GA2073@sol>
+From: Paul Moore <paul@paul-moore.com>
+Date: Wed, 14 May 2025 17:57:52 -0400
+X-Gm-Features: AX0GCFu-8Aa284A3Wv4qgq0Bn3X2NviBEUYoaX5YYoj-p-8WsCK_D4vIgnJJLjo
+Message-ID: <CAHC9VhRL=Jsx8B1s-3qmVOXuRuRF2hTOi3uEnRiWra+7oQJvrg@mail.gmail.com>
+To: Eric Biggers <ebiggers@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=209.85.219.180; envelope-from=paul@paul-moore.com;
+ helo=mail-yb1-f180.google.com
+Subject: Re: [apparmor] [PATCH] apparmor: use SHA-256 library API instead of
+	crypto_shash API
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -87,45 +66,35 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Lukas Bulwahn <lukas.bulwahn@redhat.com>, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
+ linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-From: Lukas Bulwahn <lukas.bulwahn@redhat.com>
+On Wed, May 14, 2025 at 12:22=E2=80=AFAM Eric Biggers <ebiggers@kernel.org>=
+ wrote:
+> On Mon, Apr 28, 2025 at 12:04:30PM -0700, Eric Biggers wrote:
+> > From: Eric Biggers <ebiggers@google.com>
+> >
+> > This user of SHA-256 does not support any other algorithm, so the
+> > crypto_shash abstraction provides no value.  Just use the SHA-256
+> > library API instead, which is much simpler and easier to use.
+> >
+> > Signed-off-by: Eric Biggers <ebiggers@google.com>
+> > ---
+> >
+> > This patch is targeting the apparmor tree for 6.16.
+> >
+> >  security/apparmor/Kconfig  |  3 +-
+> >  security/apparmor/crypto.c | 85 ++++++--------------------------------
+> >  2 files changed, 13 insertions(+), 75 deletions(-)
+>
+> Any interest in taking this patch through the apparmor or security trees?
 
-Commit 71e6cff3e0dd ("apparmor: Improve debug print infrastructure") makes
-the config option SECURITY_APPARMOR_DEBUG_MESSAGES have no remaining
-effect.
+Something like this would need to go through the AppArmor tree.  As a
+FYI, the AppArmor devs are fairly busy at the moment so it may take a
+bit for them to get around to this.
 
-Remove the obsolete config option.
-
-Signed-off-by: Lukas Bulwahn <lukas.bulwahn@redhat.com>
----
- security/apparmor/Kconfig | 9 ---------
- 1 file changed, 9 deletions(-)
-
-diff --git a/security/apparmor/Kconfig b/security/apparmor/Kconfig
-index 64cc3044a42c..3cdea783b6df 100644
---- a/security/apparmor/Kconfig
-+++ b/security/apparmor/Kconfig
-@@ -35,15 +35,6 @@ config SECURITY_APPARMOR_DEBUG_ASSERTS
- 	  points. If the assert is triggered it will trigger a WARN
- 	  message.
- 
--config SECURITY_APPARMOR_DEBUG_MESSAGES
--	bool "Debug messages enabled by default"
--	depends on SECURITY_APPARMOR_DEBUG
--	default n
--	help
--	  Set the default value of the apparmor.debug kernel parameter.
--	  When enabled, various debug messages will be logged to
--	  the kernel message buffer.
--
- config SECURITY_APPARMOR_INTROSPECT_POLICY
- 	bool "Allow loaded policy to be introspected"
- 	depends on SECURITY_APPARMOR
--- 
-2.49.0
-
+--=20
+paul-moore.com
 
