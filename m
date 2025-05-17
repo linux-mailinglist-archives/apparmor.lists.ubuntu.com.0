@@ -2,30 +2,31 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8DD5ABA8EA
-	for <lists+apparmor@lfdr.de>; Sat, 17 May 2025 10:40:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48F0AABA8EC
+	for <lists+apparmor@lfdr.de>; Sat, 17 May 2025 10:44:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uGD5y-0002gw-1y; Sat, 17 May 2025 08:40:38 +0000
+	id 1uGD9T-0003Nx-TF; Sat, 17 May 2025 08:44:15 +0000
 Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
  helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1uGD5w-0002gp-MH
- for apparmor@lists.ubuntu.com; Sat, 17 May 2025 08:40:36 +0000
+ id 1uGD9S-0003Nn-1q
+ for apparmor@lists.ubuntu.com; Sat, 17 May 2025 08:44:14 +0000
 Received: from [172.20.3.254] (unknown [213.157.19.135])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 615753F23C; 
- Sat, 17 May 2025 08:40:36 +0000 (UTC)
-Message-ID: <cddd7197-4286-4e44-b143-88fdc263c631@canonical.com>
-Date: Sat, 17 May 2025 01:40:35 -0700
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 7310F3F23C; 
+ Sat, 17 May 2025 08:44:13 +0000 (UTC)
+Message-ID: <68375b67-3930-4f54-8a66-e0b071a90110@canonical.com>
+Date: Sat, 17 May 2025 01:44:13 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Gabriel Totev <gabriel.totev@zetier.com>
-References: <20250416224209.904863-1-gabriel.totev@zetier.com>
+To: Ryan Lee <ryan.lee@canonical.com>, Colin Ian King <colin.i.king@gmail.com>
+References: <20250506170425.152177-1-colin.i.king@gmail.com>
+ <CAKCV-6uAdn9SvUFrYqGo0ZzJUtPAYgRFcfHPgmrG_GDt2Ob6Hg@mail.gmail.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -71,11 +72,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20250416224209.904863-1-gabriel.totev@zetier.com>
+In-Reply-To: <CAKCV-6uAdn9SvUFrYqGo0ZzJUtPAYgRFcfHPgmrG_GDt2Ob6Hg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH 1/2] apparmor: shift ouid when mediating hard
- links in userns
+Content-Transfer-Encoding: 8bit
+Subject: Re: [apparmor] [PATCH][next] apparmor: Fix incorrect
+	profile->signal range check
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -87,57 +88,46 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com
+Cc: Paul Moore <paul@paul-moore.com>, apparmor@lists.ubuntu.com,
+ kernel-janitors@vger.kernel.org, James Morris <jmorris@namei.org>,
+ linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
+ "Serge E . Hallyn" <serge@hallyn.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 4/16/25 15:42, Gabriel Totev wrote:
-> When using AppArmor profiles inside an unprivileged container,
-> the link operation observes an unshifted ouid.
-> (tested with LXD and Incus)
+On 5/6/25 10:07, Ryan Lee wrote:
+> On Tue, May 6, 2025 at 10:04 AM Colin Ian King <colin.i.king@gmail.com> wrote:
+>>
+>> The check on profile->signal is always false, the value can never be
+>> less than 1 *and* greater than MAXMAPPED_SIG. Fix this by replacing
+>> the logical operator && with ||.
+>>
+>> Fixes: 84c455decf27 ("apparmor: add support for profiles to define the kill signal")
+>> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+>> ---
+>>   security/apparmor/policy_unpack.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
+>> index 73139189df0f..e643514a3d92 100644
+>> --- a/security/apparmor/policy_unpack.c
+>> +++ b/security/apparmor/policy_unpack.c
+>> @@ -919,7 +919,7 @@ static struct aa_profile *unpack_profile(struct aa_ext *e, char **ns_name)
+>>
+>>          /* optional */
+>>          (void) aa_unpack_u32(e, &profile->signal, "kill");
+>> -       if (profile->signal < 1 && profile->signal > MAXMAPPED_SIG) {
+>> +       if (profile->signal < 1 || profile->signal > MAXMAPPED_SIG) {
+>>                  info = "profile kill.signal invalid value";
+>>                  goto fail;
+>>          }
+>> --
+>> 2.49.0
+> Reviewed-by: Ryan Lee <ryan.lee@canonical.com>
 > 
-> For example, root inside container and uid 1000000 outside, with
-> `owner /root/link l,` profile entry for ln:
-> 
-> /root$ touch chain && ln chain link
-> ==> dmesg
-> apparmor="DENIED" operation="link" class="file"
-> namespace="root//lxd-feet_<var-snap-lxd-common-lxd>" profile="linkit"
-> name="/root/link" pid=1655 comm="ln" requested_mask="l" denied_mask="l"
-> fsuid=1000000 ouid=0 [<== should be 1000000] target="/root/chain"
-> 
-> Fix by mapping inode uid of old_dentry in aa_path_link() rather than
-> using it directly, similarly to how it's mapped in __file_path_perm()
-> later in the file.
 
-so unfortunately this isn't correct. Yes some mapping needs to be
-done but it needs to be relative to different policy namespaces. I
-need to spend some time on this
+Acked-by: John Johansen <john.johansen@canonical.com>
 
-
-> 
-> Signed-off-by: Gabriel Totev <gabriel.totev@zetier.com>
-> ---
->   security/apparmor/file.c | 6 ++++--
->   1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/security/apparmor/file.c b/security/apparmor/file.c
-> index 5c984792cbf0..ecd36199337c 100644
-> --- a/security/apparmor/file.c
-> +++ b/security/apparmor/file.c
-> @@ -430,9 +430,11 @@ int aa_path_link(const struct cred *subj_cred,
->   {
->   	struct path link = { .mnt = new_dir->mnt, .dentry = new_dentry };
->   	struct path target = { .mnt = new_dir->mnt, .dentry = old_dentry };
-> +	struct inode *inode = d_backing_inode(old_dentry);
-> +	vfsuid_t vfsuid = i_uid_into_vfsuid(mnt_idmap(target.mnt), inode);
->   	struct path_cond cond = {
-> -		d_backing_inode(old_dentry)->i_uid,
-> -		d_backing_inode(old_dentry)->i_mode
-> +		.uid = vfsuid_into_kuid(vfsuid),
-> +		.mode = inode->i_mode,
->   	};
->   	char *buffer = NULL, *buffer2 = NULL;
->   	struct aa_profile *profile;
+I have pulled this into my tree
 
 
