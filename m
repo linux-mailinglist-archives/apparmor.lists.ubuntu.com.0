@@ -2,31 +2,32 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1BF6ABA8B7
-	for <lists+apparmor@lfdr.de>; Sat, 17 May 2025 09:43:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEE7FABA8BB
+	for <lists+apparmor@lfdr.de>; Sat, 17 May 2025 09:46:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uGCCj-00051V-62; Sat, 17 May 2025 07:43:33 +0000
+	id 1uGCFs-0005Ks-IN; Sat, 17 May 2025 07:46:48 +0000
 Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
  helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1uGCCh-00051K-Im
- for apparmor@lists.ubuntu.com; Sat, 17 May 2025 07:43:31 +0000
+ id 1uGCFr-0005Kk-R5
+ for apparmor@lists.ubuntu.com; Sat, 17 May 2025 07:46:47 +0000
 Received: from [172.20.3.254] (unknown [213.157.19.135])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 2BE023FAF0; 
- Sat, 17 May 2025 07:43:31 +0000 (UTC)
-Message-ID: <4f37c07c-3a39-4c98-b9c4-13356f5a10dc@canonical.com>
-Date: Sat, 17 May 2025 00:43:30 -0700
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 3CCD43FAF0; 
+ Sat, 17 May 2025 07:46:46 +0000 (UTC)
+Message-ID: <bcd712e1-5894-4ffd-865a-d8de33aed1a6@canonical.com>
+Date: Sat, 17 May 2025 00:46:45 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Eric Biggers <ebiggers@kernel.org>, apparmor@lists.ubuntu.com
+To: Paul Moore <paul@paul-moore.com>, Eric Biggers <ebiggers@kernel.org>
 References: <20250428190430.850240-1-ebiggers@kernel.org>
  <20250514042147.GA2073@sol>
+ <CAHC9VhRL=Jsx8B1s-3qmVOXuRuRF2hTOi3uEnRiWra+7oQJvrg@mail.gmail.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -72,9 +73,9 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20250514042147.GA2073@sol>
+In-Reply-To: <CAHC9VhRL=Jsx8B1s-3qmVOXuRuRF2hTOi3uEnRiWra+7oQJvrg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Subject: Re: [apparmor] [PATCH] apparmor: use SHA-256 library API instead of
  crypto_shash API
 X-BeenThere: apparmor@lists.ubuntu.com
@@ -88,31 +89,37 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-crypto@vger.kernel.org
+Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
+ linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 5/13/25 21:21, Eric Biggers wrote:
-> On Mon, Apr 28, 2025 at 12:04:30PM -0700, Eric Biggers wrote:
->> From: Eric Biggers <ebiggers@google.com>
+On 5/14/25 14:57, Paul Moore wrote:
+> On Wed, May 14, 2025 at 12:22 AM Eric Biggers <ebiggers@kernel.org> wrote:
+>> On Mon, Apr 28, 2025 at 12:04:30PM -0700, Eric Biggers wrote:
+>>> From: Eric Biggers <ebiggers@google.com>
+>>>
+>>> This user of SHA-256 does not support any other algorithm, so the
+>>> crypto_shash abstraction provides no value.  Just use the SHA-256
+>>> library API instead, which is much simpler and easier to use.
+>>>
+>>> Signed-off-by: Eric Biggers <ebiggers@google.com>
+>>> ---
+>>>
+>>> This patch is targeting the apparmor tree for 6.16.
+>>>
+>>>   security/apparmor/Kconfig  |  3 +-
+>>>   security/apparmor/crypto.c | 85 ++++++--------------------------------
+>>>   2 files changed, 13 insertions(+), 75 deletions(-)
 >>
->> This user of SHA-256 does not support any other algorithm, so the
->> crypto_shash abstraction provides no value.  Just use the SHA-256
->> library API instead, which is much simpler and easier to use.
->>
->> Signed-off-by: Eric Biggers <ebiggers@google.com>
->> ---
->>
->> This patch is targeting the apparmor tree for 6.16.
->>
->>   security/apparmor/Kconfig  |  3 +-
->>   security/apparmor/crypto.c | 85 ++++++--------------------------------
->>   2 files changed, 13 insertions(+), 75 deletions(-)
+>> Any interest in taking this patch through the apparmor or security trees?
 > 
-> Any interest in taking this patch through the apparmor or security trees?
+> Something like this would need to go through the AppArmor tree.  As a
+> FYI, the AppArmor devs are fairly busy at the moment so it may take a
+> bit for them to get around to this.
 > 
-I can take it through my tree
-
+I am going to see how much of the backlog I can get through while traveling
+replies might get batch because I will be mostly off line but hopefully
+I can deal with most of it this weekend.
 
 
