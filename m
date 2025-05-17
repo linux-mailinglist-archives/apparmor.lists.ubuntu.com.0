@@ -2,32 +2,38 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEE7FABA8BB
-	for <lists+apparmor@lfdr.de>; Sat, 17 May 2025 09:46:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C164FABA8CA
+	for <lists+apparmor@lfdr.de>; Sat, 17 May 2025 09:59:47 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uGCFs-0005Ks-IN; Sat, 17 May 2025 07:46:48 +0000
+	id 1uGCSK-0006LK-0E; Sat, 17 May 2025 07:59:40 +0000
 Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
  helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1uGCFr-0005Kk-R5
- for apparmor@lists.ubuntu.com; Sat, 17 May 2025 07:46:47 +0000
+ id 1uGCSI-0006LC-19
+ for apparmor@lists.ubuntu.com; Sat, 17 May 2025 07:59:38 +0000
 Received: from [172.20.3.254] (unknown [213.157.19.135])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 3CCD43FAF0; 
- Sat, 17 May 2025 07:46:46 +0000 (UTC)
-Message-ID: <bcd712e1-5894-4ffd-865a-d8de33aed1a6@canonical.com>
-Date: Sat, 17 May 2025 00:46:45 -0700
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 4035F3FAF2; 
+ Sat, 17 May 2025 07:59:37 +0000 (UTC)
+Message-ID: <b5aeb40d-e1e7-4b99-8c26-cc6b7d8b422b@canonical.com>
+Date: Sat, 17 May 2025 00:59:36 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Paul Moore <paul@paul-moore.com>, Eric Biggers <ebiggers@kernel.org>
-References: <20250428190430.850240-1-ebiggers@kernel.org>
- <20250514042147.GA2073@sol>
- <CAHC9VhRL=Jsx8B1s-3qmVOXuRuRF2hTOi3uEnRiWra+7oQJvrg@mail.gmail.com>
+To: =?UTF-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+References: <20250506143254.718647-1-maxime.belair@canonical.com>
+ <20250506143254.718647-2-maxime.belair@canonical.com>
+ <CAPhsuW4qY9B3KdhqrUOZoNBWQmO_RDwbH46my314WxrFwxbwkQ@mail.gmail.com>
+ <aa3c41f9-6b25-4871-a4be-e08430e59730@canonical.com>
+ <CAPhsuW4FVMS7v8p_C-QzE8nBxCb6xDRhEecm_KHZ3KbKUjOXrQ@mail.gmail.com>
+ <9aaeda3a-8ef5-4820-b2e4-9180b73fb368@canonical.com>
+ <20250509.ePu7gaim1Foo@digikod.net>
+ <19313f6b-42d7-4845-9a4b-93c7546aadb9@canonical.com>
+ <20250512.Uong6eCaVuwu@digikod.net>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -73,11 +79,10 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <CAHC9VhRL=Jsx8B1s-3qmVOXuRuRF2hTOi3uEnRiWra+7oQJvrg@mail.gmail.com>
+In-Reply-To: <20250512.Uong6eCaVuwu@digikod.net>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [apparmor] [PATCH] apparmor: use SHA-256 library API instead of
- crypto_shash API
+Subject: Re: [apparmor] [PATCH 1/3] Wire up the lsm_manage_policy syscall
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -89,37 +94,135 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
- linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org
+Cc: paul@paul-moore.com, Arnd Bergmann <arnd@arndb.de>, kees@kernel.org,
+ linux-api@vger.kernel.org, stephen.smalley.work@gmail.com,
+ penguin-kernel@i-love.sakura.ne.jp, apparmor@lists.ubuntu.com,
+ jmorris@namei.org, linux-kernel@vger.kernel.org, Song Liu <song@kernel.org>,
+ linux-security-module@vger.kernel.org, takedakn@nttdata.co.jp,
+ serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 5/14/25 14:57, Paul Moore wrote:
-> On Wed, May 14, 2025 at 12:22 AM Eric Biggers <ebiggers@kernel.org> wrote:
->> On Mon, Apr 28, 2025 at 12:04:30PM -0700, Eric Biggers wrote:
->>> From: Eric Biggers <ebiggers@google.com>
+On 5/12/25 03:20, Mickaël Salaün wrote:
+> On Sun, May 11, 2025 at 03:47:21AM -0700, John Johansen wrote:
+>> On 5/9/25 03:26, Mickaël Salaün wrote:
+>>> On Thu, May 08, 2025 at 01:18:20AM -0700, John Johansen wrote:
+>>>> On 5/7/25 23:06, Song Liu wrote:
+>>>>> On Wed, May 7, 2025 at 8:37 AM Maxime Bélair
+>>>>> <maxime.belair@canonical.com> wrote:
+>>>>> [...]
+> 
+>>>>> permission check to each pseudo file. The downside of the syscall, however,
+>>>>> is that all the permission checks are hard-coded in the kernel (except for
+>>>>
+>>>> The permission checks don't have to be hard coded. Each LSM can define how it handles
+>>>> or manages the syscall. The default is that it isn't supported, but if an lsm decides
+>>>> to support it, there is now reason that its policy can't determine the use of the
+>>>> syscall.
 >>>
->>> This user of SHA-256 does not support any other algorithm, so the
->>> crypto_shash abstraction provides no value.  Just use the SHA-256
->>> library API instead, which is much simpler and easier to use.
+>>>   From an interface design point of view, it would be better to clearly
+>>> specify the scope of a command (e.g. which components could be impacted
+>>> by a command), and make sure the documentation reflect that as well.
+>>> Even better, have a syscalls per required privileges and impact (e.g.
+>>> privileged or unprivileged).  Going this road, I'm not sure if a
+>>> privileged syscall would make sense given the existing filesystem
+>>> interface.
 >>>
->>> Signed-off-by: Eric Biggers <ebiggers@google.com>
->>> ---
->>>
->>> This patch is targeting the apparmor tree for 6.16.
->>>
->>>   security/apparmor/Kconfig  |  3 +-
->>>   security/apparmor/crypto.c | 85 ++++++--------------------------------
->>>   2 files changed, 13 insertions(+), 75 deletions(-)
 >>
->> Any interest in taking this patch through the apparmor or security trees?
+>> uhhhmmm, not just privileged. As you well know we are looking to use
+>> this for unprivileged policy. The LSM can limit to privileged if it
+>> wants but it doesn't have to limit it to privileged policy.
 > 
-> Something like this would need to go through the AppArmor tree.  As a
-> FYI, the AppArmor devs are fairly busy at the moment so it may take a
-> bit for them to get around to this.
+> Yes, I meant to say having a syscall for unprivileged actions, and maybe
+> another one for privileged ones, but this might be a hard sell. :)
 > 
-I am going to see how much of the backlog I can get through while traveling
-replies might get batch because I will be mostly off line but hopefully
-I can deal with most of it this weekend.
+indeed, in the apparmor case context would be important. Just exactly
+what is privileged. It may be a privileged operation to load policy to one
+namespace, but not to another that you are setting up for a child.
+
+> To say it another way, for your use case, do you need this syscall(s)
+> for privileged operations?  Do you plan to drop (or stop extending) the
+
+need, probably. That is to say, loading of policy have varying levels
+of privilege. root within the container has privilege to load policy
+to its namespace, but it might have authority to setup a child namespace
+that does not require privilege for it to load policy into, and it
+will determine if the child has privilege or unprivleged policy within
+it.
+
+Ideally we won't have to use the fs interface within the "privileged"
+container, as there are cases where this is currently not done or
+undesirable.
+
+> filesystem interface or do you think it would be good for (AppArmor)
+> privileged operations too?  I know syscalls might be attractive and
+> could be used for everything, but it's good to have a well-defined plan
+> and semantic to avoid using such syscall as another multiplexer with
+> unrelated operations and required privileges.
+> 
+sure. But the privilege level is use case dependent, to which policy
+namespace is policy being loaded, replaced, ...  The privilege level
+very much will depend on what is in the stack/bounding of policy.
+
+> If this syscall should also be a way to do privileged operations, should
+> we also agree on a common set of permissions (e.g. global CAP_MAC_ADMIN
+> or user namespace one)?
+> 
+I think requiring something like CAP_MAC_ADMIN would be a per LSM
+decision.
+
+
+> [...]
+> 
+>>>>> Overall, I am still not convinced a syscall for all LSMs is needed. To
+>>>>> justify such
+>>>>
+>>>> its not needed by all LSMs, just a subset of them, and some nebulous
+>>>> subset of potentially future LSMs that is entirely undefinable.
+>>>>
+>>>> If we had had appropriate LSM syscalls landlock wouldn't have needed
+>>>> to have landlock specific syscalls. Having another LSM go that route
+>>>> feels wrong especially now that we have some LSM syscalls.
+>>>
+>>> I don't agree.  Dedicated syscalls are a good thing.  See my other
+>>> reply.
+>>>
+>>
+>> I think we can just disagree on this point.
+>>
+>>>> If a
+>>>> syscall is needed by an LSM its better to try hashing something out
+>>>> that might have utility for multiple LSMs or at the very least,
+>>>> potentially have utility in the future.
+>>>>
+>>>>
+>>>>> a syscall, I think we need to show that it is useful in multiple LSMs.
+>>>>> Also, if we
+>>>>> really want to have single set of APIs for all LSMs, we may also need
+>>>>> get_policy,
+>>>>
+>>>> We are never going to get a single set of APIs for all LSMs. I will
+>>>> settle for an api that has utility for a subset
+>>>>
+>>>>> remove_policy, etc. This set as-is appears to be an incomplete design. The
+>>>>
+>>>> To have a complete design, there needs to be feedback and discussion
+>>>> from multiple LSMs. This is a starting point.
+>>>>
+>>>>> implementation, with call_int_hook, is also problematic. It can easily
+>>>>> cause some> controversial behaviors.
+>>>>>
+>>>> agreed it shouldn't be doing a straight call_int_hook, it should only
+>>>> call it against the lsm identified by the lsmid
+>>>
+>>> Yes, but then, I don't see the point of a "generic" LSM syscall.
+>>
+>> its not a generic LSM syscall. Its a syscall or maybe a set of syscalls
+>> for a specific scoped problem of loading/managing policy.
+>>
+>> Can we come to something acceptable? I don't know but we are going to
+>> look at it before trying for an apparmor specific syscall.
+> 
+> I understand and it's good to have this discussion.
 
 
