@@ -2,95 +2,80 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64C5BAB9778
-	for <lists+apparmor@lfdr.de>; Fri, 16 May 2025 10:22:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DE7CABA8B3
+	for <lists+apparmor@lfdr.de>; Sat, 17 May 2025 09:42:29 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uFqKn-0003nj-Pg; Fri, 16 May 2025 08:22:25 +0000
-Received: from out01.mta.xmission.com ([166.70.13.231])
+	id 1uGCBV-0004jF-Nc; Sat, 17 May 2025 07:42:17 +0000
+Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
+ helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <ebiederm@xmission.com>)
- id 1uFbks-0003wE-9W
- for apparmor@lists.ubuntu.com; Thu, 15 May 2025 16:48:22 +0000
-Received: from in01.mta.xmission.com ([166.70.13.51]:52516)
- by out01.mta.xmission.com with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.93)
- (envelope-from <ebiederm@xmission.com>)
- id 1uFbko-008tj4-0n; Thu, 15 May 2025 10:48:18 -0600
-Received: from ip72-198-198-28.om.om.cox.net ([72.198.198.28]:60030
- helo=email.froward.int.ebiederm.org.xmission.com)
- by in01.mta.xmission.com with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.93)
- (envelope-from <ebiederm@xmission.com>)
- id 1uFbkm-008mIa-JT; Thu, 15 May 2025 10:48:17 -0600
-From: "Eric W. Biederman" <ebiederm@xmission.com>
-To: Kees Cook <kees@kernel.org>
-References: <20221006082735.1321612-1-keescook@chromium.org>
- <20221006082735.1321612-2-keescook@chromium.org>
- <20221006090506.paqjf537cox7lqrq@wittgenstein>
- <CAG48ez0sEkmaez9tYqgMXrkREmXZgxC9fdQD3mzF9cGo_=Tfyg@mail.gmail.com>
- <86CE201B-5632-4BB7-BCF6-7CB2C2895409@chromium.org>
- <h65sagivix3zbrppthcobnysgnlrnql5shiu65xyg7ust6mc54@cliutza66zve>
- <D03AE210-6874-43B6-B917-80CD259AE2AC@kernel.org>
- <CAG48ez0aP8LaGppy6Yon7xcFbQa1=CM-HXSZChvXYV2VJZ8y7g@mail.gmail.com>
- <871pss17hq.fsf@email.froward.int.ebiederm.org>
- <CAGudoHH-Jn5_4qnLV3qwzjTi2ZgfmfaO0qVSWW5gqdqkvchnDQ@mail.gmail.com>
- <202505140822.6AB755B6@keescook>
-Date: Thu, 15 May 2025 11:48:07 -0500
-In-Reply-To: <202505140822.6AB755B6@keescook> (Kees Cook's message of "Wed, 14
- May 2025 08:42:22 -0700")
-Message-ID: <87bjrtrfaw.fsf@email.froward.int.ebiederm.org>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/28.2 (gnu/linux)
+ (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
+ id 1uGCBU-0004j8-4O
+ for apparmor@lists.ubuntu.com; Sat, 17 May 2025 07:42:16 +0000
+Received: from [172.20.3.254] (unknown [213.157.19.135])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id C744C3FAF0; 
+ Sat, 17 May 2025 07:42:15 +0000 (UTC)
+Message-ID: <ac8fdbfc-02f4-4f35-b8a1-e029b6b322c1@canonical.com>
+Date: Sat, 17 May 2025 00:42:14 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-XM-SPF: eid=1uFbkm-008mIa-JT; ; ;
- mid=<87bjrtrfaw.fsf@email.froward.int.ebiederm.org>; ; ;
- hst=in01.mta.xmission.com; ; ; ip=72.198.198.28; ; ; frm=ebiederm@xmission.com;
- ; ; spf=pass
-X-XM-AID: U2FsdGVkX1/dsw9mCdXAA3N8gGK7mkVPwWeN8eQaLZ4=
-X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on sa06.xmission.com
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.0 required=8.0 tests=ALL_TRUSTED,BAYES_50,
- DCC_CHECK_NEGATIVE,T_TM2_M_HEADER_IN_MSG,T_TooManySym_01,XMGenDplmaNmb,
- XMNoVowels,XMSubLong,XM_B_Unicode autolearn=disabled version=3.4.2
-X-Spam-Report: * -1.0 ALL_TRUSTED Passed through trusted hosts only via SMTP
- *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
- *      [score: 0.5000]
- *  1.5 XMNoVowels Alpha-numberic number with no vowels
- *  0.7 XMSubLong Long Subject
- *  0.0 T_TM2_M_HEADER_IN_MSG BODY: No description available.
- *  0.0 XM_B_Unicode BODY: Testing for specific types of unicode
- * -0.0 DCC_CHECK_NEGATIVE Not listed in DCC
- *      [sa06 1397; Body=1 Fuz1=1 Fuz2=1]
- *  1.0 XMGenDplmaNmb Diploma spam phrases+possible phone number
- *  0.0 T_TooManySym_01 4+ unique symbols in subject
-X-Spam-DCC: XMission; sa06 1397; Body=1 Fuz1=1 Fuz2=1 
-X-Spam-Combo: ***;Kees Cook <kees@kernel.org>
-X-Spam-Relay-Country: 
-X-Spam-Timing: total 883 ms - load_scoreonly_sql: 0.04 (0.0%),
- signal_user_changed: 8 (1.0%), b_tie_ro: 7 (0.8%), parse: 1.28 (0.1%),
- extract_message_metadata: 15 (1.7%), get_uri_detail_list: 3.6 (0.4%),
- tests_pri_-2000: 27 (3.1%), tests_pri_-1000: 7 (0.8%), tests_pri_-950:
- 1.59 (0.2%), tests_pri_-900: 1.27 (0.1%), tests_pri_-90: 93 (10.6%),
- check_bayes: 91 (10.3%), b_tokenize: 22 (2.5%), b_tok_get_all: 14
- (1.6%), b_comp_prob: 8 (0.9%), b_tok_touch_all: 40 (4.5%), b_finish:
- 1.39 (0.2%), tests_pri_0: 667 (75.5%), check_dkim_signature: 0.85
- (0.1%), check_dkim_adsp: 3.6 (0.4%), poll_dns_idle: 1.32 (0.1%),
- tests_pri_10: 2.4 (0.3%), tests_pri_500: 56 (6.3%), rewrite_mail: 0.00
- (0.0%)
-X-SA-Exim-Connect-IP: 166.70.13.51
-X-SA-Exim-Rcpt-To: too long (recipient list exceeded maximum allowed size of
- 512 bytes)
-X-SA-Exim-Mail-From: ebiederm@xmission.com
-X-SA-Exim-Scanned: No (on out01.mta.xmission.com);
- SAEximRunCond expanded to false
-Received-SPF: pass client-ip=166.70.13.231; envelope-from=ebiederm@xmission.com;
- helo=out01.mta.xmission.com
-X-Mailman-Approved-At: Fri, 16 May 2025 08:22:23 +0000
-Subject: Re: [apparmor] [PATCH 1/2] fs/exec: Explicitly unshare fs_struct on
-	exec
+User-Agent: Mozilla Thunderbird
+To: Eric Biggers <ebiggers@kernel.org>, apparmor@lists.ubuntu.com
+References: <20250428190430.850240-1-ebiggers@kernel.org>
+Content-Language: en-US
+From: John Johansen <john.johansen@canonical.com>
+Autocrypt: addr=john.johansen@canonical.com; keydata=
+ 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 lT9Q
+Organization: Canonical
+In-Reply-To: <20250428190430.850240-1-ebiggers@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [apparmor] [PATCH] apparmor: use SHA-256 library API instead of
+ crypto_shash API
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -102,182 +87,181 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Micah Morton <mortonm@chromium.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- Andrei Vagin <avagin@gmail.com>, linux-hardening@vger.kernel.org,
- Xin Long <lucien.xin@gmail.com>, Paul Moore <paul@paul-moore.com>,
- James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
- Fenghua Yu <fenghua.yu@intel.com>, Jann Horn <jannh@google.com>,
- selinux@vger.kernel.org, apparmor@lists.ubuntu.com,
- linux-fsdevel@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>,
- Andy Lutomirski <luto@kernel.org>, oleg@redhat.com,
- Eric Paris <eparis@parisplace.org>, Thomas Gleixner <tglx@linutronix.de>,
- Jorge Merlino <jorge.merlino@canonical.com>,
- Christian Brauner <brauner@kernel.org>, Mateusz Guzik <mjguzik@gmail.com>,
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Ondrej Mosnacek <omosnace@redhat.com>,
- Richard Haines <richard_c_haines@btinternet.com>,
- linux-security-module@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>, "David S.
- Miller" <davem@davemloft.net>, Prashanth Prahlad <pprahlad@redhat.com>,
- Todd Kjos <tkjos@google.com>
+Cc: linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-crypto@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Kees Cook <kees@kernel.org> writes:
+On 4/28/25 12:04, Eric Biggers wrote:
+> From: Eric Biggers <ebiggers@google.com>
+> 
+> This user of SHA-256 does not support any other algorithm, so the
+> crypto_shash abstraction provides no value.  Just use the SHA-256
+> library API instead, which is much simpler and easier to use.
+> 
+> Signed-off-by: Eric Biggers <ebiggers@google.com>
 
-> On Wed, May 14, 2025 at 02:03:31AM +0200, Mateusz Guzik wrote:
->> On Wed, May 14, 2025 at 12:17=E2=80=AFAM Eric W. Biederman
->> <ebiederm@xmission.com> wrote:
->> >
->> > Jann Horn <jannh@google.com> writes:
->> >
->> > > On Tue, May 13, 2025 at 10:57=E2=80=AFPM Kees Cook <kees@kernel.org>=
- wrote:
->> > >> On May 13, 2025 6:05:45 AM PDT, Mateusz Guzik <mjguzik@gmail.com> w=
-rote:
->> > >> >Here is my proposal: *deny* exec of suid/sgid binaries if fs_struc=
-t is
->> > >> >shared. This will have to be checked for after the execing proc be=
-comes
->> > >> >single-threaded ofc.
->> > >>
->> > >> Unfortunately the above Chrome helper is setuid and uses CLONE_FS.
->> > >
->> > > Chrome first launches a setuid helper, and then the setuid helper do=
-es
->> > > CLONE_FS. Mateusz's proposal would not impact this usecase.
->> > >
->> > > Mateusz is proposing to block the case where a process first does
->> > > CLONE_FS, and *then* one of the processes sharing the fs_struct does=
- a
->> > > setuid execve(). Linux already downgrades such an execve() to be
->> > > non-setuid, which probably means anyone trying to do this will get
->> > > hard-to-understand problems. Mateusz' proposal would just turn this
->> > > hard-to-debug edgecase, which already doesn't really work, into a
->> > > clean error; I think that is a nice improvement even just from the
->> > > UAPI standpoint.
->> > >
->> > > If this change makes it possible to clean up the kernel code a bit, =
-even better.
->> >
->> > What has brought this to everyone's attention just now?  This is
->> > the second mention of this code path I have seen this week.
->> >
->>=20
->> There is a syzkaller report concerning ->in_exec handling, for example:
->> https://lore.kernel.org/all/67dc67f0.050a0220.25ae54.001f.GAE@google.com=
-/#t
->>
->> [...]
->> > It looks like most of the lsm's also test bprm->unsafe.
->> >
->> > So I imagine someone could very carefully separate the non-ptrace case
->> > from the ptrace case but *shrug*.
->> >
->> > Perhaps:
->> >
->> >         if ((is_setid || __cap_gained(permitted, new_old)) &&
->> >             ((bprm->unsafe & ~LSM_UNSAFE_PTRACE) ||
->> >              !ptracer_capable(current, new->user_ns))) {
->> > +               if (!(bprm->unsafe & LSM_UNSAFE_PTRACE)) {
->> > +                       return -EPERM;
->> > +               }
->> >                 /* downgrade; they get no more than they had, and mayb=
-e less */
->> >                 if (!ns_capable(new->user_ns, CAP_SETUID) ||
->> >                     (bprm->unsafe & LSM_UNSAFE_NO_NEW_PRIVS)) {
->> >                         new->euid =3D new->uid;
->> >                         new->egid =3D new->gid;
->> >                 }
->> >                 new->cap_permitted =3D cap_intersect(new->cap_permitte=
-d,
->> >                                                    old->cap_permitted);
->> >          }
->> >
->> > If that is what you want that doesn't look to scary.  I don't think
->> > it simplifies anything about fs->in_exec.  As fs->in_exec is set when
->> > the processing calling exec is the only process that owns the fs_struc=
-t.
->> > With fs->in_exec just being a flag that doesn't allow another thread
->> > to call fork and start sharing the fs_struct during exec.
->> >
->> > *Shrug*
->> >
->> > I don't see why anyone would care.  It is just a very silly corner cas=
-e.
->>=20
->> Well I don't see how ptrace factors into any of this, apart from being
->> a different case of ignoring suid/sgid.
->
-> I actually think we might want to expand the above bit of logic to use
-> an explicit tests of each LSM_UNSAFE case -- the merged
-> logic is very difficult to read currently. Totally untested expansion,
-> if I'm reading everything correctly:
->
-> 	if (bprm->unsafe &&
-> 	    (is_setid || __cap_gained(permitted, new_old))) {
-> 		bool limit_caps =3D false;
-> 		bool strip_eid =3D false;
-> 		unsigned int unsafe =3D bprm->unsafe;
-> 		/* Check each bit */
->
-> 		if (unsafe & LSM_UNSAFE_PTRACE) {
-> 			if (!ptracer_capable(current, new->user_ns))
-> 				limit_caps =3D true;
-                                strip_eid  =3D true;
-You missed the euid stripping there.
-> 			unsafe &=3D ~LSM_UNSAFE_PTRACE;
-> 		}
-> 		if (unsafe & LSM_UNSAFE_SHARE) {
-> 			limit_caps =3D true;
-> 			if (!ns_capable(new->user_ns, CAP_SETUID))
-> 				strip_eid =3D true;
-> 			unsafe &=3D ~LSM_UNSAFE_SHARE;
-> 		}
-> 		if (unsafe & LSM_UNSAFE_NO_NEW_PRIVS) {
-> 			limit_caps =3D true;
-> 			if (!ns_capable(new->user_ns, CAP_SETUID))
-> 				strip_eid =3D true;
-> 			unsafe &=3D ~LSM_UNSAFE_NO_NEW_PRIVS;
-> 		}
->
-> 		if (WARN(unsafe, "Unhandled LSM_UNSAFE flag: %u?!\n", unsafe))
-> 			return -EINVAL;
->
-> 		if (limit_caps) {
-> 			new->cap_permitted =3D cap_intersect(new->cap_permitted,
-> 							   old->cap_permitted);
-> 		}
-> 		if (strip_eid) {
-> 			new->euid =3D new->uid;
-> 			new->egid =3D new->gid;
-> 		}
-> 	}
+Acked-by: John Johansen <john.johansen@canonical.com>
 
+> ---
+> 
+> This patch is targeting the apparmor tree for 6.16.
+> 
+>   security/apparmor/Kconfig  |  3 +-
+>   security/apparmor/crypto.c | 85 ++++++--------------------------------
+>   2 files changed, 13 insertions(+), 75 deletions(-)
+> 
+> diff --git a/security/apparmor/Kconfig b/security/apparmor/Kconfig
+> index 64cc3044a42ce..1e3bd44643dac 100644
+> --- a/security/apparmor/Kconfig
+> +++ b/security/apparmor/Kconfig
+> @@ -57,12 +57,11 @@ config SECURITY_APPARMOR_INTROSPECT_POLICY
+>   	  cpu is paramount.
+>   
+>   config SECURITY_APPARMOR_HASH
+>   	bool "Enable introspection of sha256 hashes for loaded profiles"
+>   	depends on SECURITY_APPARMOR_INTROSPECT_POLICY
+> -	select CRYPTO
+> -	select CRYPTO_SHA256
+> +	select CRYPTO_LIB_SHA256
+>   	default y
+>   	help
+>   	  This option selects whether introspection of loaded policy
+>   	  hashes is available to userspace via the apparmor
+>   	  filesystem. This option provides a light weight means of
+> diff --git a/security/apparmor/crypto.c b/security/apparmor/crypto.c
+> index aad486b2fca65..40e17e153f1e5 100644
+> --- a/security/apparmor/crypto.c
+> +++ b/security/apparmor/crypto.c
+> @@ -9,115 +9,54 @@
+>    * Fns to provide a checksum of policy that has been loaded this can be
+>    * compared to userspace policy compiles to check loaded policy is what
+>    * it should be.
+>    */
+>   
+> -#include <crypto/hash.h>
+> +#include <crypto/sha2.h>
+>   
+>   #include "include/apparmor.h"
+>   #include "include/crypto.h"
+>   
+> -static unsigned int apparmor_hash_size;
+> -
+> -static struct crypto_shash *apparmor_tfm;
+> -
+>   unsigned int aa_hash_size(void)
+>   {
+> -	return apparmor_hash_size;
+> +	return SHA256_DIGEST_SIZE;
+>   }
+>   
+>   char *aa_calc_hash(void *data, size_t len)
+>   {
+> -	SHASH_DESC_ON_STACK(desc, apparmor_tfm);
+>   	char *hash;
+> -	int error;
+> -
+> -	if (!apparmor_tfm)
+> -		return NULL;
+>   
+> -	hash = kzalloc(apparmor_hash_size, GFP_KERNEL);
+> +	hash = kzalloc(SHA256_DIGEST_SIZE, GFP_KERNEL);
+>   	if (!hash)
+>   		return ERR_PTR(-ENOMEM);
+>   
+> -	desc->tfm = apparmor_tfm;
+> -
+> -	error = crypto_shash_init(desc);
+> -	if (error)
+> -		goto fail;
+> -	error = crypto_shash_update(desc, (u8 *) data, len);
+> -	if (error)
+> -		goto fail;
+> -	error = crypto_shash_final(desc, hash);
+> -	if (error)
+> -		goto fail;
+> -
+> +	sha256(data, len, hash);
+>   	return hash;
+> -
+> -fail:
+> -	kfree(hash);
+> -
+> -	return ERR_PTR(error);
+>   }
+>   
+>   int aa_calc_profile_hash(struct aa_profile *profile, u32 version, void *start,
+>   			 size_t len)
+>   {
+> -	SHASH_DESC_ON_STACK(desc, apparmor_tfm);
+> -	int error;
+> +	struct sha256_state state;
+>   	__le32 le32_version = cpu_to_le32(version);
+>   
+>   	if (!aa_g_hash_policy)
+>   		return 0;
+>   
+> -	if (!apparmor_tfm)
+> -		return 0;
+> -
+> -	profile->hash = kzalloc(apparmor_hash_size, GFP_KERNEL);
+> +	profile->hash = kzalloc(SHA256_DIGEST_SIZE, GFP_KERNEL);
+>   	if (!profile->hash)
+>   		return -ENOMEM;
+>   
+> -	desc->tfm = apparmor_tfm;
+> -
+> -	error = crypto_shash_init(desc);
+> -	if (error)
+> -		goto fail;
+> -	error = crypto_shash_update(desc, (u8 *) &le32_version, 4);
+> -	if (error)
+> -		goto fail;
+> -	error = crypto_shash_update(desc, (u8 *) start, len);
+> -	if (error)
+> -		goto fail;
+> -	error = crypto_shash_final(desc, profile->hash);
+> -	if (error)
+> -		goto fail;
+> -
+> +	sha256_init(&state);
+> +	sha256_update(&state, (u8 *)&le32_version, 4);
+> +	sha256_update(&state, (u8 *)start, len);
+> +	sha256_final(&state, profile->hash);
+>   	return 0;
+> -
+> -fail:
+> -	kfree(profile->hash);
+> -	profile->hash = NULL;
+> -
+> -	return error;
+>   }
+>   
+>   static int __init init_profile_hash(void)
+>   {
+> -	struct crypto_shash *tfm;
+> -
+> -	if (!apparmor_initialized)
+> -		return 0;
+> -
+> -	tfm = crypto_alloc_shash("sha256", 0, 0);
+> -	if (IS_ERR(tfm)) {
+> -		int error = PTR_ERR(tfm);
+> -		AA_ERROR("failed to setup profile sha256 hashing: %d\n", error);
+> -		return error;
+> -	}
+> -	apparmor_tfm = tfm;
+> -	apparmor_hash_size = crypto_shash_digestsize(apparmor_tfm);
+> -
+> -	aa_info_message("AppArmor sha256 policy hashing enabled");
+> -
+> +	if (apparmor_initialized)
+> +		aa_info_message("AppArmor sha256 policy hashing enabled");
+>   	return 0;
+>   }
+> -
+>   late_initcall(init_profile_hash);
+> 
+> base-commit: 33035b665157558254b3c21c3f049fd728e72368
 
-I think I would simplify this all to:
-
-	if ((id_changed || __cap_gained(permitted, new, old)) &&
-            !ptracer_capable(current->new_user_ns)) {
-        	if (!ns_capable(new->user_ns, CAP_SETUID)) {
-                	new->euid =3D old->euid;
-                        new->egid =3D old->egid;
-                }
-                new->cap_permitted =3D cap_intersect(new->cap_permitted,
-                				   old->cap_permitted);
-        }
-        if ((id_changed || __cap_gained(permitted, new, old)) &&
-            (bprm->unsafe & ~LSM_UNSAFE_PTRACE)) {
-        	return -EPERM;
-        }
-
-The code of no_new_privs doesn't prevent capset so ignoring the results
-of ns_capable when NO_NEW_PRIVS is set doesn't make sense.
-
-If we are going to do anything please let's find ways to understand
-what is happening and simplify this code, not add to it's complexity.
-
-Eric
 
