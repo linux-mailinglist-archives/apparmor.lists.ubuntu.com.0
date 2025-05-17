@@ -2,31 +2,30 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48F0AABA8EC
-	for <lists+apparmor@lfdr.de>; Sat, 17 May 2025 10:44:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7ABAABA8F5
+	for <lists+apparmor@lfdr.de>; Sat, 17 May 2025 10:52:06 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uGD9T-0003Nx-TF; Sat, 17 May 2025 08:44:15 +0000
+	id 1uGDGx-000426-NJ; Sat, 17 May 2025 08:51:59 +0000
 Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
  helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1uGD9S-0003Nn-1q
- for apparmor@lists.ubuntu.com; Sat, 17 May 2025 08:44:14 +0000
+ id 1uGDGv-00041y-BG
+ for apparmor@lists.ubuntu.com; Sat, 17 May 2025 08:51:57 +0000
 Received: from [172.20.3.254] (unknown [213.157.19.135])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 7310F3F23C; 
- Sat, 17 May 2025 08:44:13 +0000 (UTC)
-Message-ID: <68375b67-3930-4f54-8a66-e0b071a90110@canonical.com>
-Date: Sat, 17 May 2025 01:44:13 -0700
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id CFE513FA89; 
+ Sat, 17 May 2025 08:51:55 +0000 (UTC)
+Message-ID: <b105b0bb-9dcc-4611-ace5-5bf58375c7af@canonical.com>
+Date: Sat, 17 May 2025 01:51:54 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Ryan Lee <ryan.lee@canonical.com>, Colin Ian King <colin.i.king@gmail.com>
-References: <20250506170425.152177-1-colin.i.king@gmail.com>
- <CAKCV-6uAdn9SvUFrYqGo0ZzJUtPAYgRFcfHPgmrG_GDt2Ob6Hg@mail.gmail.com>
+To: Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
+References: <20250503044919.2251962-1-rdunlap@infradead.org>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -72,11 +71,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <CAKCV-6uAdn9SvUFrYqGo0ZzJUtPAYgRFcfHPgmrG_GDt2Ob6Hg@mail.gmail.com>
+In-Reply-To: <20250503044919.2251962-1-rdunlap@infradead.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [apparmor] [PATCH][next] apparmor: Fix incorrect
-	profile->signal range check
+Content-Transfer-Encoding: 7bit
+Subject: Re: [apparmor] [PATCH v2] apparmor: fix some kernel-doc issues in
+	header files
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -88,46 +87,119 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Paul Moore <paul@paul-moore.com>, apparmor@lists.ubuntu.com,
- kernel-janitors@vger.kernel.org, James Morris <jmorris@namei.org>,
- linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
- "Serge E . Hallyn" <serge@hallyn.com>
+Cc: Paul Moore <paul@paul-moore.com>, John Johansen <john@apparmor.net>,
+ apparmor@lists.ubuntu.com, James Morris <jmorris@namei.org>,
+ linux-security-module@vger.kernel.org, "Serge E. Hallyn" <serge@hallyn.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 5/6/25 10:07, Ryan Lee wrote:
-> On Tue, May 6, 2025 at 10:04 AM Colin Ian King <colin.i.king@gmail.com> wrote:
->>
->> The check on profile->signal is always false, the value can never be
->> less than 1 *and* greater than MAXMAPPED_SIG. Fix this by replacing
->> the logical operator && with ||.
->>
->> Fixes: 84c455decf27 ("apparmor: add support for profiles to define the kill signal")
->> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
->> ---
->>   security/apparmor/policy_unpack.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
->> index 73139189df0f..e643514a3d92 100644
->> --- a/security/apparmor/policy_unpack.c
->> +++ b/security/apparmor/policy_unpack.c
->> @@ -919,7 +919,7 @@ static struct aa_profile *unpack_profile(struct aa_ext *e, char **ns_name)
->>
->>          /* optional */
->>          (void) aa_unpack_u32(e, &profile->signal, "kill");
->> -       if (profile->signal < 1 && profile->signal > MAXMAPPED_SIG) {
->> +       if (profile->signal < 1 || profile->signal > MAXMAPPED_SIG) {
->>                  info = "profile kill.signal invalid value";
->>                  goto fail;
->>          }
->> --
->> 2.49.0
-> Reviewed-by: Ryan Lee <ryan.lee@canonical.com>
+On 5/2/25 21:49, Randy Dunlap wrote:
+> Fix kernel-doc warnings in apparmor header files as reported by
+> scripts/kernel-doc:
 > 
+> cred.h:128: warning: expecting prototype for end_label_crit_section(). Prototype was for end_current_label_crit_section() instead
+> file.h:108: warning: expecting prototype for aa_map_file_perms(). Prototype was for aa_map_file_to_perms() instead
+> 
+> lib.h:159: warning: Function parameter or struct member 'hname' not described in 'basename'
+> lib.h:159: warning: Excess function parameter 'name' description in 'basename'
+> 
+> match.h:21: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+>   * The format used for transition tables is based on the GNU flex table
+> 
+> perms.h:109: warning: Function parameter or struct member 'accum' not described in 'aa_perms_accum_raw'
+> perms.h:109: warning: Function parameter or struct member 'addend' not described in 'aa_perms_accum_raw'
+> perms.h:136: warning: Function parameter or struct member 'accum' not described in 'aa_perms_accum'
+> perms.h:136: warning: Function parameter or struct member 'addend' not described in 'aa_perms_accum'
+> 
+> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+> Reviewed-by: Ryan Lee <ryan.lee@canonical.com>
+> Cc: John Johansen <john.johansen@canonical.com>
+> Cc: John Johansen <john@apparmor.net>
+> Cc: apparmor@lists.ubuntu.com
+> Cc: linux-security-module@vger.kernel.org
+> Cc: Paul Moore <paul@paul-moore.com>
+> Cc: James Morris <jmorris@namei.org>
+> Cc: "Serge E. Hallyn" <serge@hallyn.com>
+> ---
+> v2: add better commit message (Ryan)
 
 Acked-by: John Johansen <john.johansen@canonical.com>
 
-I have pulled this into my tree
+> 
+>   security/apparmor/include/cred.h  |    2 +-
+>   security/apparmor/include/file.h  |    2 +-
+>   security/apparmor/include/lib.h   |    2 +-
+>   security/apparmor/include/match.h |    2 +-
+>   security/apparmor/include/perms.h |    8 ++++----
+>   5 files changed, 8 insertions(+), 8 deletions(-)
+> 
+> --- linux-next-20250501.orig/security/apparmor/include/cred.h
+> +++ linux-next-20250501/security/apparmor/include/cred.h
+> @@ -117,7 +117,7 @@ static inline struct aa_label *aa_get_cu
+>   #define __end_current_label_crit_section(X) end_current_label_crit_section(X)
+>   
+>   /**
+> - * end_label_crit_section - put a reference found with begin_current_label..
+> + * end_current_label_crit_section - put a reference found with begin_current_label..
+>    * @label: label reference to put
+>    *
+>    * Should only be used with a reference obtained with
+> --- linux-next-20250501.orig/security/apparmor/include/file.h
+> +++ linux-next-20250501/security/apparmor/include/file.h
+> @@ -104,7 +104,7 @@ void aa_inherit_files(const struct cred
+>   
+>   
+>   /**
+> - * aa_map_file_perms - map file flags to AppArmor permissions
+> + * aa_map_file_to_perms - map file flags to AppArmor permissions
+>    * @file: open file to map flags to AppArmor permissions
+>    *
+>    * Returns: apparmor permission set for the file
+> --- linux-next-20250501.orig/security/apparmor/include/lib.h
+> +++ linux-next-20250501/security/apparmor/include/lib.h
+> @@ -170,7 +170,7 @@ struct aa_policy {
+>   
+>   /**
+>    * basename - find the last component of an hname
+> - * @name: hname to find the base profile name component of  (NOT NULL)
+> + * @hname: hname to find the base profile name component of  (NOT NULL)
+>    *
+>    * Returns: the tail (base profile name) name component of an hname
+>    */
+> --- linux-next-20250501.orig/security/apparmor/include/match.h
+> +++ linux-next-20250501/security/apparmor/include/match.h
+> @@ -17,7 +17,7 @@
+>   #define DFA_START			1
+>   
+>   
+> -/**
+> +/*
+>    * The format used for transition tables is based on the GNU flex table
+>    * file format (--tables-file option; see Table File Format in the flex
+>    * info pages and the flex sources for documentation). The magic number
+> --- linux-next-20250501.orig/security/apparmor/include/perms.h
+> +++ linux-next-20250501/security/apparmor/include/perms.h
+> @@ -101,8 +101,8 @@ extern struct aa_perms allperms;
+>   
+>   /**
+>    * aa_perms_accum_raw - accumulate perms with out masking off overlapping perms
+> - * @accum - perms struct to accumulate into
+> - * @addend - perms struct to add to @accum
+> + * @accum: perms struct to accumulate into
+> + * @addend: perms struct to add to @accum
+>    */
+>   static inline void aa_perms_accum_raw(struct aa_perms *accum,
+>   				      struct aa_perms *addend)
+> @@ -128,8 +128,8 @@ static inline void aa_perms_accum_raw(st
+>   
+>   /**
+>    * aa_perms_accum - accumulate perms, masking off overlapping perms
+> - * @accum - perms struct to accumulate into
+> - * @addend - perms struct to add to @accum
+> + * @accum: perms struct to accumulate into
+> + * @addend: perms struct to add to @accum
+>    */
+>   static inline void aa_perms_accum(struct aa_perms *accum,
+>   				  struct aa_perms *addend)
 
 
