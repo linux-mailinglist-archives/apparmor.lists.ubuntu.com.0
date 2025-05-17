@@ -2,30 +2,31 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DE7CABA8B3
-	for <lists+apparmor@lfdr.de>; Sat, 17 May 2025 09:42:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1BF6ABA8B7
+	for <lists+apparmor@lfdr.de>; Sat, 17 May 2025 09:43:39 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uGCBV-0004jF-Nc; Sat, 17 May 2025 07:42:17 +0000
+	id 1uGCCj-00051V-62; Sat, 17 May 2025 07:43:33 +0000
 Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
  helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1uGCBU-0004j8-4O
- for apparmor@lists.ubuntu.com; Sat, 17 May 2025 07:42:16 +0000
+ id 1uGCCh-00051K-Im
+ for apparmor@lists.ubuntu.com; Sat, 17 May 2025 07:43:31 +0000
 Received: from [172.20.3.254] (unknown [213.157.19.135])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id C744C3FAF0; 
- Sat, 17 May 2025 07:42:15 +0000 (UTC)
-Message-ID: <ac8fdbfc-02f4-4f35-b8a1-e029b6b322c1@canonical.com>
-Date: Sat, 17 May 2025 00:42:14 -0700
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 2BE023FAF0; 
+ Sat, 17 May 2025 07:43:31 +0000 (UTC)
+Message-ID: <4f37c07c-3a39-4c98-b9c4-13356f5a10dc@canonical.com>
+Date: Sat, 17 May 2025 00:43:30 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Eric Biggers <ebiggers@kernel.org>, apparmor@lists.ubuntu.com
 References: <20250428190430.850240-1-ebiggers@kernel.org>
+ <20250514042147.GA2073@sol>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -71,7 +72,7 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20250428190430.850240-1-ebiggers@kernel.org>
+In-Reply-To: <20250514042147.GA2073@sol>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Subject: Re: [apparmor] [PATCH] apparmor: use SHA-256 library API instead of
@@ -92,176 +93,26 @@ Cc: linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 4/28/25 12:04, Eric Biggers wrote:
-> From: Eric Biggers <ebiggers@google.com>
+On 5/13/25 21:21, Eric Biggers wrote:
+> On Mon, Apr 28, 2025 at 12:04:30PM -0700, Eric Biggers wrote:
+>> From: Eric Biggers <ebiggers@google.com>
+>>
+>> This user of SHA-256 does not support any other algorithm, so the
+>> crypto_shash abstraction provides no value.  Just use the SHA-256
+>> library API instead, which is much simpler and easier to use.
+>>
+>> Signed-off-by: Eric Biggers <ebiggers@google.com>
+>> ---
+>>
+>> This patch is targeting the apparmor tree for 6.16.
+>>
+>>   security/apparmor/Kconfig  |  3 +-
+>>   security/apparmor/crypto.c | 85 ++++++--------------------------------
+>>   2 files changed, 13 insertions(+), 75 deletions(-)
 > 
-> This user of SHA-256 does not support any other algorithm, so the
-> crypto_shash abstraction provides no value.  Just use the SHA-256
-> library API instead, which is much simpler and easier to use.
+> Any interest in taking this patch through the apparmor or security trees?
 > 
-> Signed-off-by: Eric Biggers <ebiggers@google.com>
+I can take it through my tree
 
-Acked-by: John Johansen <john.johansen@canonical.com>
-
-> ---
-> 
-> This patch is targeting the apparmor tree for 6.16.
-> 
->   security/apparmor/Kconfig  |  3 +-
->   security/apparmor/crypto.c | 85 ++++++--------------------------------
->   2 files changed, 13 insertions(+), 75 deletions(-)
-> 
-> diff --git a/security/apparmor/Kconfig b/security/apparmor/Kconfig
-> index 64cc3044a42ce..1e3bd44643dac 100644
-> --- a/security/apparmor/Kconfig
-> +++ b/security/apparmor/Kconfig
-> @@ -57,12 +57,11 @@ config SECURITY_APPARMOR_INTROSPECT_POLICY
->   	  cpu is paramount.
->   
->   config SECURITY_APPARMOR_HASH
->   	bool "Enable introspection of sha256 hashes for loaded profiles"
->   	depends on SECURITY_APPARMOR_INTROSPECT_POLICY
-> -	select CRYPTO
-> -	select CRYPTO_SHA256
-> +	select CRYPTO_LIB_SHA256
->   	default y
->   	help
->   	  This option selects whether introspection of loaded policy
->   	  hashes is available to userspace via the apparmor
->   	  filesystem. This option provides a light weight means of
-> diff --git a/security/apparmor/crypto.c b/security/apparmor/crypto.c
-> index aad486b2fca65..40e17e153f1e5 100644
-> --- a/security/apparmor/crypto.c
-> +++ b/security/apparmor/crypto.c
-> @@ -9,115 +9,54 @@
->    * Fns to provide a checksum of policy that has been loaded this can be
->    * compared to userspace policy compiles to check loaded policy is what
->    * it should be.
->    */
->   
-> -#include <crypto/hash.h>
-> +#include <crypto/sha2.h>
->   
->   #include "include/apparmor.h"
->   #include "include/crypto.h"
->   
-> -static unsigned int apparmor_hash_size;
-> -
-> -static struct crypto_shash *apparmor_tfm;
-> -
->   unsigned int aa_hash_size(void)
->   {
-> -	return apparmor_hash_size;
-> +	return SHA256_DIGEST_SIZE;
->   }
->   
->   char *aa_calc_hash(void *data, size_t len)
->   {
-> -	SHASH_DESC_ON_STACK(desc, apparmor_tfm);
->   	char *hash;
-> -	int error;
-> -
-> -	if (!apparmor_tfm)
-> -		return NULL;
->   
-> -	hash = kzalloc(apparmor_hash_size, GFP_KERNEL);
-> +	hash = kzalloc(SHA256_DIGEST_SIZE, GFP_KERNEL);
->   	if (!hash)
->   		return ERR_PTR(-ENOMEM);
->   
-> -	desc->tfm = apparmor_tfm;
-> -
-> -	error = crypto_shash_init(desc);
-> -	if (error)
-> -		goto fail;
-> -	error = crypto_shash_update(desc, (u8 *) data, len);
-> -	if (error)
-> -		goto fail;
-> -	error = crypto_shash_final(desc, hash);
-> -	if (error)
-> -		goto fail;
-> -
-> +	sha256(data, len, hash);
->   	return hash;
-> -
-> -fail:
-> -	kfree(hash);
-> -
-> -	return ERR_PTR(error);
->   }
->   
->   int aa_calc_profile_hash(struct aa_profile *profile, u32 version, void *start,
->   			 size_t len)
->   {
-> -	SHASH_DESC_ON_STACK(desc, apparmor_tfm);
-> -	int error;
-> +	struct sha256_state state;
->   	__le32 le32_version = cpu_to_le32(version);
->   
->   	if (!aa_g_hash_policy)
->   		return 0;
->   
-> -	if (!apparmor_tfm)
-> -		return 0;
-> -
-> -	profile->hash = kzalloc(apparmor_hash_size, GFP_KERNEL);
-> +	profile->hash = kzalloc(SHA256_DIGEST_SIZE, GFP_KERNEL);
->   	if (!profile->hash)
->   		return -ENOMEM;
->   
-> -	desc->tfm = apparmor_tfm;
-> -
-> -	error = crypto_shash_init(desc);
-> -	if (error)
-> -		goto fail;
-> -	error = crypto_shash_update(desc, (u8 *) &le32_version, 4);
-> -	if (error)
-> -		goto fail;
-> -	error = crypto_shash_update(desc, (u8 *) start, len);
-> -	if (error)
-> -		goto fail;
-> -	error = crypto_shash_final(desc, profile->hash);
-> -	if (error)
-> -		goto fail;
-> -
-> +	sha256_init(&state);
-> +	sha256_update(&state, (u8 *)&le32_version, 4);
-> +	sha256_update(&state, (u8 *)start, len);
-> +	sha256_final(&state, profile->hash);
->   	return 0;
-> -
-> -fail:
-> -	kfree(profile->hash);
-> -	profile->hash = NULL;
-> -
-> -	return error;
->   }
->   
->   static int __init init_profile_hash(void)
->   {
-> -	struct crypto_shash *tfm;
-> -
-> -	if (!apparmor_initialized)
-> -		return 0;
-> -
-> -	tfm = crypto_alloc_shash("sha256", 0, 0);
-> -	if (IS_ERR(tfm)) {
-> -		int error = PTR_ERR(tfm);
-> -		AA_ERROR("failed to setup profile sha256 hashing: %d\n", error);
-> -		return error;
-> -	}
-> -	apparmor_tfm = tfm;
-> -	apparmor_hash_size = crypto_shash_digestsize(apparmor_tfm);
-> -
-> -	aa_info_message("AppArmor sha256 policy hashing enabled");
-> -
-> +	if (apparmor_initialized)
-> +		aa_info_message("AppArmor sha256 policy hashing enabled");
->   	return 0;
->   }
-> -
->   late_initcall(init_profile_hash);
-> 
-> base-commit: 33035b665157558254b3c21c3f049fd728e72368
 
 
