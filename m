@@ -2,31 +2,30 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 922A8ABACFC
-	for <lists+apparmor@lfdr.de>; Sun, 18 May 2025 03:19:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83D9DABACFD
+	for <lists+apparmor@lfdr.de>; Sun, 18 May 2025 03:20:58 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uGSgT-0005Mb-1Z; Sun, 18 May 2025 01:19:21 +0000
+	id 1uGShv-0005eg-9Y; Sun, 18 May 2025 01:20:51 +0000
 Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
  helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1uGSgR-0005MT-Vs
- for apparmor@lists.ubuntu.com; Sun, 18 May 2025 01:19:20 +0000
+ id 1uGShu-0005eU-Cq
+ for apparmor@lists.ubuntu.com; Sun, 18 May 2025 01:20:50 +0000
 Received: from [10.20.129.112] (unknown [204.239.251.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 8B8773FAF8; 
- Sun, 18 May 2025 01:19:18 +0000 (UTC)
-Message-ID: <1c83d4c9-278d-48fe-9ba6-4203cba103e3@canonical.com>
-Date: Sat, 17 May 2025 18:19:16 -0700
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 7A4F33FAF2; 
+ Sun, 18 May 2025 01:20:49 +0000 (UTC)
+Message-ID: <0dd84e7b-9325-475e-9153-f66fab2bfc3b@canonical.com>
+Date: Sat, 17 May 2025 18:20:47 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Ryan Lee <ryan.lee@canonical.com>, apparmor@lists.ubuntu.com
 References: <20250501195440.372104-1-ryan.lee@canonical.com>
- <20250501195440.372104-2-ryan.lee@canonical.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -72,11 +71,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20250501195440.372104-2-ryan.lee@canonical.com>
+In-Reply-To: <20250501195440.372104-1-ryan.lee@canonical.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH 1/2] apparmor: ensure WB_HISTORY_SIZE value
- is a power of 2
+Subject: Re: [apparmor] [PATCH 0/2] Fix various bugs involving
+ aa_dfa_leftmatch and conflicting attachment resolution
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -92,49 +91,20 @@ Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
 On 5/1/25 12:54, Ryan Lee wrote:
-> WB_HISTORY_SIZE was defined to be a value not a power of 2, despite a
-> comment in the declaration of struct match_workbuf stating it is and a
-> modular arithmetic usage in the inc_wb_pos macro assuming that it is. Bump
-> WB_HISTORY_SIZE's value up to 32 and add a BUILD_BUG_ON_NOT_POWER_OF_2
-> line to ensure that any future changes to the value of WB_HISTORY_SIZE
-> respect this requirement.
+> While developing a patchset (emails for those forthcoming) to generate
+> audit logs upon detection of conflicting attachments, I also discovered
+> multiple bugs in the aa_dfa_leftmatch count generation logic (details in
+> the commit messages for each patch). These are patches to fix those bugs
+> and enable conflicting attachments to be detected in more cases.
 > 
-> Fixes: 136db994852a ("apparmor: increase left match history buffer size")
+> Ryan Lee (2):
+>    apparmor: ensure WB_HISTORY_SIZE value is a power of 2
+>    apparmor: fix loop detection used in conflicting attachment resolution
 > 
-> Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
-
-Acked-by: John Johansen <john.johansen@canonical.com
-
-> ---
->   security/apparmor/include/match.h | 3 ++-
->   security/apparmor/match.c         | 1 +
->   2 files changed, 3 insertions(+), 1 deletion(-)
+>   security/apparmor/include/match.h |  8 +++-----
+>   security/apparmor/match.c         | 23 ++++++++++++-----------
+>   2 files changed, 15 insertions(+), 16 deletions(-)
 > 
-> diff --git a/security/apparmor/include/match.h b/security/apparmor/include/match.h
-> index 536ce3abd598..b45fc39fa837 100644
-> --- a/security/apparmor/include/match.h
-> +++ b/security/apparmor/include/match.h
-> @@ -137,7 +137,8 @@ aa_state_t aa_dfa_matchn_until(struct aa_dfa *dfa, aa_state_t start,
->   
->   void aa_dfa_free_kref(struct kref *kref);
->   
-> -#define WB_HISTORY_SIZE 24
-> +/* This needs to be a power of 2 */
-> +#define WB_HISTORY_SIZE 32
->   struct match_workbuf {
->   	unsigned int count;
->   	unsigned int pos;
-> diff --git a/security/apparmor/match.c b/security/apparmor/match.c
-> index 315fe74eac39..0172c06f6078 100644
-> --- a/security/apparmor/match.c
-> +++ b/security/apparmor/match.c
-> @@ -682,6 +682,7 @@ aa_state_t aa_dfa_matchn_until(struct aa_dfa *dfa, aa_state_t start,
->   
->   #define inc_wb_pos(wb)						\
->   do {								\
-> +	BUILD_BUG_ON_NOT_POWER_OF_2(WB_HISTORY_SIZE);			\
->   	wb->pos = (wb->pos + 1) & (WB_HISTORY_SIZE - 1);		\
->   	wb->len = (wb->len + 1) & (WB_HISTORY_SIZE - 1);		\
->   } while (0)
+I have pulled these into my tree
 
 
