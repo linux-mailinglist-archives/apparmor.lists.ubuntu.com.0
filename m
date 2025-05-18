@@ -2,30 +2,30 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83D9DABACFD
-	for <lists+apparmor@lfdr.de>; Sun, 18 May 2025 03:20:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C129BABAD01
+	for <lists+apparmor@lfdr.de>; Sun, 18 May 2025 03:25:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uGShv-0005eg-9Y; Sun, 18 May 2025 01:20:51 +0000
+	id 1uGSm9-0006Hu-Qv; Sun, 18 May 2025 01:25:13 +0000
 Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
  helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1uGShu-0005eU-Cq
- for apparmor@lists.ubuntu.com; Sun, 18 May 2025 01:20:50 +0000
+ id 1uGSm7-0006He-T6
+ for apparmor@lists.ubuntu.com; Sun, 18 May 2025 01:25:11 +0000
 Received: from [10.20.129.112] (unknown [204.239.251.3])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 7A4F33FAF2; 
- Sun, 18 May 2025 01:20:49 +0000 (UTC)
-Message-ID: <0dd84e7b-9325-475e-9153-f66fab2bfc3b@canonical.com>
-Date: Sat, 17 May 2025 18:20:47 -0700
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 0A0DC3F196; 
+ Sun, 18 May 2025 01:25:10 +0000 (UTC)
+Message-ID: <c9156ca0-b2db-4fe4-8ea9-e7021e1362c7@canonical.com>
+Date: Sat, 17 May 2025 18:25:08 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Ryan Lee <ryan.lee@canonical.com>, apparmor@lists.ubuntu.com
-References: <20250501195440.372104-1-ryan.lee@canonical.com>
+References: <20250409010201.231215-1-ryan.lee@canonical.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -71,11 +71,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20250501195440.372104-1-ryan.lee@canonical.com>
+In-Reply-To: <20250409010201.231215-1-ryan.lee@canonical.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH 0/2] Fix various bugs involving
- aa_dfa_leftmatch and conflicting attachment resolution
+Subject: Re: [apparmor] [PATCH] apparmor: make all generated string array
+ headers const char *const
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -90,21 +90,43 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 5/1/25 12:54, Ryan Lee wrote:
-> While developing a patchset (emails for those forthcoming) to generate
-> audit logs upon detection of conflicting attachments, I also discovered
-> multiple bugs in the aa_dfa_leftmatch count generation logic (details in
-> the commit messages for each patch). These are patches to fix those bugs
-> and enable conflicting attachments to be detected in more cases.
+On 4/8/25 18:02, Ryan Lee wrote:
+> address_family_names and sock_type_names were created as const char *a[],
+> which declares them as (non-const) pointers to const chars. Since the
+> pointers themselves would not be changed, they should be generated as
+> const char *const a[].
 > 
-> Ryan Lee (2):
->    apparmor: ensure WB_HISTORY_SIZE value is a power of 2
->    apparmor: fix loop detection used in conflicting attachment resolution
+> Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
+
+Acked-by: John Johansen <john.johansen@canonical.com>
+
+I have pulled this into my tree
+
+> ---
+>   security/apparmor/Makefile | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
 > 
->   security/apparmor/include/match.h |  8 +++-----
->   security/apparmor/match.c         | 23 ++++++++++++-----------
->   2 files changed, 15 insertions(+), 16 deletions(-)
-> 
-I have pulled these into my tree
+> diff --git a/security/apparmor/Makefile b/security/apparmor/Makefile
+> index be51607f52b6..12fb419714c0 100644
+> --- a/security/apparmor/Makefile
+> +++ b/security/apparmor/Makefile
+> @@ -28,7 +28,7 @@ clean-files := capability_names.h rlim_names.h net_names.h
+>   # to
+>   #    #define AA_SFS_AF_MASK "local inet"
+>   quiet_cmd_make-af = GEN     $@
+> -cmd_make-af = echo "static const char *address_family_names[] = {" > $@ ;\
+> +cmd_make-af = echo "static const char *const address_family_names[] = {" > $@ ;\
+>   	sed $< >>$@ -r -n -e "/AF_MAX/d" -e "/AF_LOCAL/d" -e "/AF_ROUTE/d" -e \
+>   	 's/^\#define[ \t]+AF_([A-Z0-9_]+)[ \t]+([0-9]+)(.*)/[\2] = "\L\1",/p';\
+>   	echo "};" >> $@ ;\
+> @@ -43,7 +43,7 @@ cmd_make-af = echo "static const char *address_family_names[] = {" > $@ ;\
+>   # to
+>   #    [1] = "stream",
+>   quiet_cmd_make-sock = GEN     $@
+> -cmd_make-sock = echo "static const char *sock_type_names[] = {" >> $@ ;\
+> +cmd_make-sock = echo "static const char *const sock_type_names[] = {" >> $@ ;\
+>   	sed $^ >>$@ -r -n \
+>   	-e 's/^\tSOCK_([A-Z0-9_]+)[\t]+=[ \t]+([0-9]+)(.*)/[\2] = "\L\1",/p';\
+>   	echo "};" >> $@
 
 
