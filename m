@@ -2,63 +2,81 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id E347FABCA6F
-	for <lists+apparmor@lfdr.de>; Mon, 19 May 2025 23:56:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4F61ABE099
+	for <lists+apparmor@lfdr.de>; Tue, 20 May 2025 18:25:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uH8TS-0001V1-6n; Mon, 19 May 2025 21:56:42 +0000
-Received: from mail-qk1-f170.google.com ([209.85.222.170])
+	id 1uHPmM-0000L6-0J; Tue, 20 May 2025 16:25:22 +0000
+Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
+ helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <gabriel.totev@zetier.com>)
- id 1uH8TP-0001Ug-PB
- for apparmor@lists.ubuntu.com; Mon, 19 May 2025 21:56:39 +0000
-Received: by mail-qk1-f170.google.com with SMTP id
- af79cd13be357-7c5e39d1db2so313905185a.3
- for <apparmor@lists.ubuntu.com>; Mon, 19 May 2025 14:56:39 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1747691798; x=1748296598;
- h=in-reply-to:references:subject:cc:to:from:message-id:date
- :content-transfer-encoding:mime-version:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=EOXEar3JMt8I5wIbojUBGclJ2Cwt6fvo5ECJsqLXQfs=;
- b=AYYwMZggPkkF9GgF7IS7sXs5/ChrTewuEt3mrKaT/x20G9K/TBmk6vSKSVD0J4j+s8
- lV9xF3y4o0JDVx4I+DXyMcgMQMCAwMArfCT28os737SapUsere2tSln+Pi1D8n5MBGVQ
- o3+0gWKp2FwpRqg1MUMY3S+4L75Wx5i5Scq6IpTDzA1s9QXJzt8oY09qMuOF6QbxtRl2
- 2ShD2lKpWEkwAQ+547ChtN7SzhXR37H/RbrCYOSY3c7N2sB/2912sKlRrk5wAT/hTXxV
- g7giL5zAjqliqQzevRnxuFmf0wLGg0bJrtyYG3RbGGM3ycdT/+t8gYFWB29Nxc/7UENp
- cqhA==
-X-Gm-Message-State: AOJu0YzNEKFsIrX5Xk51pNI9f65olKA5DxSn67H8QFTb+56Hw+DI1L/I
- +4KASATFUTrquF1+m0aunnLLlpW61oSJlOtLYEy1BzcD0YCQMrAFUMBJP99l1aFKJKIquArXLig
- vweAcIbo=
-X-Gm-Gg: ASbGnctuHVSrfYr+M7RDwmkKTL7h2Hs70+sC0NiUqmk+MRocMtcCitAB6/xS9pgae1F
- pwET64LXnO6gSoyPGvHRItHdBMSdVmX2jLk2JL56x79etM/EMGwhNyAYAP+tqXj3AlGaQZyk37G
- onP4qUdvSc1xzFbPP7c4PWvYc0DHi3V72liKo1hM/WpjtTMObYbidbbn8P5iMF+6HFp6KsZTJh1
- RPH3kFsbg6I6Qz1ejfhUxLGRSoPg7NiqSwvor+ne62epWd9s7NvfFa9cdzkaxCeKjaZ3+XfL0Fs
- dKQWcfWgGf2cAkQX+Ac/ZhOw//VxMfxxwnzAavduQjNESAnljbJEDoFoXtoX/fwiQA==
-X-Google-Smtp-Source: AGHT+IEeehA3260v/sJrplNOZECEEJwqIceBm8RU+ybEqdrPBGXdNY+WO7ZTIA9CiXoD1PBDCEBmkQ==
-X-Received: by 2002:a05:622a:4c0c:b0:494:8930:9fb7 with SMTP id
- d75a77b69052e-494ae23bb3amr225583471cf.0.1747691798406; 
- Mon, 19 May 2025 14:56:38 -0700 (PDT)
-Received: from localhost ([65.222.209.234]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-494ae528466sm60835491cf.67.2025.05.19.14.56.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 May 2025 14:56:37 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 19 May 2025 17:56:37 -0400
-Message-Id: <DA0H1BQ9UO2G.3ATO7SJM7L25X@gabriel.zetier.com>
-From: "Gabriel Totev" <gabriel.totev@zetier.com>
-To: "John Johansen" <john.johansen@canonical.com>
-X-Mailer: aerc 0.8.2
-References: <20250416224209.904863-1-gabriel.totev@zetier.com>
- <cddd7197-4286-4e44-b143-88fdc263c631@canonical.com>
-In-Reply-To: <cddd7197-4286-4e44-b143-88fdc263c631@canonical.com>
-Received-SPF: pass client-ip=209.85.222.170;
- envelope-from=gabriel.totev@zetier.com; helo=mail-qk1-f170.google.com
-Subject: Re: [apparmor] [PATCH 1/2] apparmor: shift ouid when mediating hard
- links in userns
+ (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
+ id 1uHPmK-0000Ki-3D
+ for apparmor@lists.ubuntu.com; Tue, 20 May 2025 16:25:20 +0000
+Received: from [192.168.192.85] (unknown [50.39.103.202])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 3898C3F0EB
+ for <apparmor@lists.ubuntu.com>; Tue, 20 May 2025 16:25:19 +0000 (UTC)
+Message-ID: <0038bf09-8cd6-459a-a6d4-279967a2f581@canonical.com>
+Date: Tue, 20 May 2025 09:25:16 -0700
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: apparmor@lists.ubuntu.com
+References: <20250318220641.1811093-1-mjguzik@gmail.com>
+ <a9588785-e03a-4a25-9172-045d3857d046@canonical.com>
+Content-Language: en-US
+From: John Johansen <john.johansen@canonical.com>
+Autocrypt: addr=john.johansen@canonical.com; keydata=
+ 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 lT9Q
+Organization: Canonical
+In-Reply-To: <a9588785-e03a-4a25-9172-045d3857d046@canonical.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [apparmor] [PATCH] apparmor: make
+ __begin_current_label_crit_section() indicate whether put is needed
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -70,85 +88,343 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
- dillon@zetier.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Sat May 17, 2025 at 4:40 AM EDT, John Johansen wrote:
-> On 4/16/25 15:42, Gabriel Totev wrote:
-> > When using AppArmor profiles inside an unprivileged container,
-> > the link operation observes an unshifted ouid.
-> > (tested with LXD and Incus)
-> >=20
-> > For example, root inside container and uid 1000000 outside, with
-> > `owner /root/link l,` profile entry for ln:
-> >=20
-> > /root$ touch chain && ln chain link
-> > =3D=3D> dmesg
-> > apparmor=3D"DENIED" operation=3D"link" class=3D"file"
-> > namespace=3D"root//lxd-feet_<var-snap-lxd-common-lxd>" profile=3D"linki=
-t"
-> > name=3D"/root/link" pid=3D1655 comm=3D"ln" requested_mask=3D"l" denied_=
-mask=3D"l"
-> > fsuid=3D1000000 ouid=3D0 [<=3D=3D should be 1000000] target=3D"/root/ch=
-ain"
-> >=20
-> > Fix by mapping inode uid of old_dentry in aa_path_link() rather than
-> > using it directly, similarly to how it's mapped in __file_path_perm()
-> > later in the file.
->
-> so unfortunately this isn't correct. Yes some mapping needs to be
-> done but it needs to be relative to different policy namespaces. I
-> need to spend some time on this
+On 5/17/25 18:35, John Johansen wrote:
+> On 3/18/25 15:06, Mateusz Guzik wrote:
+>> Same as aa_get_newest_cred_label_condref().
+>>
+>> This avoids a bunch of work overall and allows the compiler to note when no
+>> clean up is necessary, allowing for tail calls.
+>>
+>> This in particular happens in apparmor_file_permission(), which manages to
+>> tail call aa_file_perm() 105 bytes in (vs a regular call 112 bytes in
+>> followed by branches to figure out if clean up is needed).
+>>
+> do we have any numbers on the difference? And why not also the none underscore
+> versions. ie. begin_current_XXX and end_current_XXX. Admittedly they can sleep
+> an almost never degrade into needs put situation.
+> 
 
-Not sure I understand... I based this patch and its sibling on similar
-code for making path_cond structs from the lsm.c functions:
-- apparmor_path_rename()
-- apparmor_file_open()
-- common_perm_cond()
-- common_perm_rm()
+So thinking about this more. This is going to be a safer pattern, regardless.
+Setting the put conditional when you know you need it, prevents mistakes like
+not getting, and then updating your local cred (yes more for the non-underscore
+version).
 
-Are hard links (and Unix sockets) different in terms of figuring out the
-correct uid? Or should all these functions be updated to be relative to
-policy namespaces? Perhaps they already are and I can't tell? (not sure
-what this would look like or how uids would be affected)
+I am going to pull this in and convert the non-underscore version. Still curious
+about numbers if you have any.
 
-I'm by no means an AppArmor expert but I'd like to understand and if
-possible help get this fixed as it prevent Snaps from running correctly
-in LXD/Incus containers. I've built and tested with these patches and it
-seems to work: Snaps now don't attract spurious denials and the ouid
-from my example above gets the correct value of 1000000 rather than 0.
-However, I can't be totally sure I'm not introducing any regressions or
-vulnerabilities.
-
-If there's anything I can do to help with this effort, please let me know!
-
-> >=20
-> > Signed-off-by: Gabriel Totev <gabriel.totev@zetier.com>
-> > ---
-> >   security/apparmor/file.c | 6 ++++--
-> >   1 file changed, 4 insertions(+), 2 deletions(-)
-> >=20
-> > diff --git a/security/apparmor/file.c b/security/apparmor/file.c
-> > index 5c984792cbf0..ecd36199337c 100644
-> > --- a/security/apparmor/file.c
-> > +++ b/security/apparmor/file.c
-> > @@ -430,9 +430,11 @@ int aa_path_link(const struct cred *subj_cred,
-> >   {
-> >   	struct path link =3D { .mnt =3D new_dir->mnt, .dentry =3D new_dentry=
- };
-> >   	struct path target =3D { .mnt =3D new_dir->mnt, .dentry =3D old_dent=
-ry };
-> > +	struct inode *inode =3D d_backing_inode(old_dentry);
-> > +	vfsuid_t vfsuid =3D i_uid_into_vfsuid(mnt_idmap(target.mnt), inode);
-> >   	struct path_cond cond =3D {
-> > -		d_backing_inode(old_dentry)->i_uid,
-> > -		d_backing_inode(old_dentry)->i_mode
-> > +		.uid =3D vfsuid_into_kuid(vfsuid),
-> > +		.mode =3D inode->i_mode,
-> >   	};
-> >   	char *buffer =3D NULL, *buffer2 =3D NULL;
-> >   	struct aa_profile *profile;
+> 
+>> Signed-off-by: Mateusz Guzik <mjguzik@gmail.com>
+>> ---
+>>   security/apparmor/include/cred.h | 21 ++++++---
+>>   security/apparmor/lsm.c          | 75 ++++++++++++++++++++------------
+>>   security/apparmor/policy.c       | 12 ++---
+>>   3 files changed, 67 insertions(+), 41 deletions(-)
+>>
+>> diff --git a/security/apparmor/include/cred.h b/security/apparmor/include/cred.h
+>> index 7265d2f81dd5..fc5791937694 100644
+>> --- a/security/apparmor/include/cred.h
+>> +++ b/security/apparmor/include/cred.h
+>> @@ -114,7 +114,12 @@ static inline struct aa_label *aa_get_current_label(void)
+>>       return aa_get_label(l);
+>>   }
+>> -#define __end_current_label_crit_section(X) end_current_label_crit_section(X)
+>> +static inline void __end_current_label_crit_section(struct aa_label *label,
+>> +                            bool needput)
+>> +{
+>> +    if (unlikely(needput))
+>> +        aa_put_label(label);
+>> +}
+>>   /**
+>>    * end_label_crit_section - put a reference found with begin_current_label..
+>> @@ -142,13 +147,16 @@ static inline void end_current_label_crit_section(struct aa_label *label)
+>>    * critical section between __begin_current_label_crit_section() ..
+>>    * __end_current_label_crit_section()
+>>    */
+>> -static inline struct aa_label *__begin_current_label_crit_section(void)
+>> +static inline struct aa_label *__begin_current_label_crit_section(bool *needput)
+>>   {
+>>       struct aa_label *label = aa_current_raw_label();
+>> -    if (label_is_stale(label))
+>> -        label = aa_get_newest_label(label);
+>> +    if (label_is_stale(label)) {
+>> +        *needput = true;
+>> +        return aa_get_newest_label(label);
+>> +    }
+>> +    *needput = false;
+>>       return label;
+>>   }
+>> @@ -184,10 +192,11 @@ static inline struct aa_ns *aa_get_current_ns(void)
+>>   {
+>>       struct aa_label *label;
+>>       struct aa_ns *ns;
+>> +    bool needput;
+>> -    label  = __begin_current_label_crit_section();
+>> +    label  = __begin_current_label_crit_section(&needput);
+>>       ns = aa_get_ns(labels_ns(label));
+>> -    __end_current_label_crit_section(label);
+>> +    __end_current_label_crit_section(label, needput);
+>>       return ns;
+>>   }
+>> diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
+>> index 7952e8cab353..c2be3c6f9d3e 100644
+>> --- a/security/apparmor/lsm.c
+>> +++ b/security/apparmor/lsm.c
+>> @@ -127,14 +127,15 @@ static int apparmor_ptrace_access_check(struct task_struct *child,
+>>       struct aa_label *tracer, *tracee;
+>>       const struct cred *cred;
+>>       int error;
+>> +    bool needput;
+>>       cred = get_task_cred(child);
+>>       tracee = cred_label(cred);    /* ref count on cred */
+>> -    tracer = __begin_current_label_crit_section();
+>> +    tracer = __begin_current_label_crit_section(&needput);
+>>       error = aa_may_ptrace(current_cred(), tracer, cred, tracee,
+>>               (mode & PTRACE_MODE_READ) ? AA_PTRACE_READ
+>>                             : AA_PTRACE_TRACE);
+>> -    __end_current_label_crit_section(tracer);
+>> +    __end_current_label_crit_section(tracer, needput);
+>>       put_cred(cred);
+>>       return error;
+>> @@ -145,14 +146,15 @@ static int apparmor_ptrace_traceme(struct task_struct *parent)
+>>       struct aa_label *tracer, *tracee;
+>>       const struct cred *cred;
+>>       int error;
+>> +    bool needput;
+>> -    tracee = __begin_current_label_crit_section();
+>> +    tracee = __begin_current_label_crit_section(&needput);
+>>       cred = get_task_cred(parent);
+>>       tracer = cred_label(cred);    /* ref count on cred */
+>>       error = aa_may_ptrace(cred, tracer, current_cred(), tracee,
+>>                     AA_PTRACE_TRACE);
+>>       put_cred(cred);
+>> -    __end_current_label_crit_section(tracee);
+>> +    __end_current_label_crit_section(tracee, needput);
+>>       return error;
+>>   }
+>> @@ -221,12 +223,13 @@ static int common_perm(const char *op, const struct path *path, u32 mask,
+>>   {
+>>       struct aa_label *label;
+>>       int error = 0;
+>> +    bool needput;
+>> -    label = __begin_current_label_crit_section();
+>> +    label = __begin_current_label_crit_section(&needput);
+>>       if (!unconfined(label))
+>>           error = aa_path_perm(op, current_cred(), label, path, 0, mask,
+>>                        cond);
+>> -    __end_current_label_crit_section(label);
+>> +    __end_current_label_crit_section(label, needput);
+>>       return error;
+>>   }
+>> @@ -524,14 +527,15 @@ static int common_file_perm(const char *op, struct file *file, u32 mask,
+>>   {
+>>       struct aa_label *label;
+>>       int error = 0;
+>> +    bool needput;
+>>       /* don't reaudit files closed during inheritance */
+>> -    if (file->f_path.dentry == aa_null.dentry)
+>> +    if (unlikely(file->f_path.dentry == aa_null.dentry))
+>>           return -EACCES;
+>> -    label = __begin_current_label_crit_section();
+>> +    label = __begin_current_label_crit_section(&needput);
+>>       error = aa_file_perm(op, current_cred(), label, file, mask, in_atomic);
+>> -    __end_current_label_crit_section(label);
+>> +    __end_current_label_crit_section(label, needput);
+>>       return error;
+>>   }
+>> @@ -664,15 +668,16 @@ static int apparmor_uring_override_creds(const struct cred *new)
+>>       struct aa_profile *profile;
+>>       struct aa_label *label;
+>>       int error;
+>> +    bool needput;
+>>       DEFINE_AUDIT_DATA(ad, LSM_AUDIT_DATA_NONE, AA_CLASS_IO_URING,
+>>                 OP_URING_OVERRIDE);
+>>       ad.uring.target = cred_label(new);
+>> -    label = __begin_current_label_crit_section();
+>> +    label = __begin_current_label_crit_section(&needput);
+>>       error = fn_for_each(label, profile,
+>>               profile_uring(profile, AA_MAY_OVERRIDE_CRED,
+>>                         cred_label(new), CAP_SYS_ADMIN, &ad));
+>> -    __end_current_label_crit_section(label);
+>> +    __end_current_label_crit_section(label, needput);
+>>       return error;
+>>   }
+>> @@ -688,14 +693,15 @@ static int apparmor_uring_sqpoll(void)
+>>       struct aa_profile *profile;
+>>       struct aa_label *label;
+>>       int error;
+>> +    bool needput;
+>>       DEFINE_AUDIT_DATA(ad, LSM_AUDIT_DATA_NONE, AA_CLASS_IO_URING,
+>>                 OP_URING_SQPOLL);
+>> -    label = __begin_current_label_crit_section();
+>> +    label = __begin_current_label_crit_section(&needput);
+>>       error = fn_for_each(label, profile,
+>>               profile_uring(profile, AA_MAY_CREATE_SQPOLL,
+>>                         NULL, CAP_SYS_ADMIN, &ad));
+>> -    __end_current_label_crit_section(label);
+>> +    __end_current_label_crit_section(label, needput);
+>>       return error;
+>>   }
+>> @@ -706,6 +712,7 @@ static int apparmor_sb_mount(const char *dev_name, const struct path *path,
+>>   {
+>>       struct aa_label *label;
+>>       int error = 0;
+>> +    bool needput;
+>>       /* Discard magic */
+>>       if ((flags & MS_MGC_MSK) == MS_MGC_VAL)
+>> @@ -713,7 +720,7 @@ static int apparmor_sb_mount(const char *dev_name, const struct path *path,
+>>       flags &= ~AA_MS_IGNORE_MASK;
+>> -    label = __begin_current_label_crit_section();
+>> +    label = __begin_current_label_crit_section(&needput);
+>>       if (!unconfined(label)) {
+>>           if (flags & MS_REMOUNT)
+>>               error = aa_remount(current_cred(), label, path, flags,
+>> @@ -732,7 +739,7 @@ static int apparmor_sb_mount(const char *dev_name, const struct path *path,
+>>               error = aa_new_mount(current_cred(), label, dev_name,
+>>                            path, type, flags, data);
+>>       }
+>> -    __end_current_label_crit_section(label);
+>> +    __end_current_label_crit_section(label, needput);
+>>       return error;
+>>   }
+>> @@ -742,12 +749,13 @@ static int apparmor_move_mount(const struct path *from_path,
+>>   {
+>>       struct aa_label *label;
+>>       int error = 0;
+>> +    bool needput;
+>> -    label = __begin_current_label_crit_section();
+>> +    label = __begin_current_label_crit_section(&needput);
+>>       if (!unconfined(label))
+>>           error = aa_move_mount(current_cred(), label, from_path,
+>>                         to_path);
+>> -    __end_current_label_crit_section(label);
+>> +    __end_current_label_crit_section(label, needput);
+>>       return error;
+>>   }
+>> @@ -756,11 +764,12 @@ static int apparmor_sb_umount(struct vfsmount *mnt, int flags)
+>>   {
+>>       struct aa_label *label;
+>>       int error = 0;
+>> +    bool needput;
+>> -    label = __begin_current_label_crit_section();
+>> +    label = __begin_current_label_crit_section(&needput);
+>>       if (!unconfined(label))
+>>           error = aa_umount(current_cred(), label, mnt, flags);
+>> -    __end_current_label_crit_section(label);
+>> +    __end_current_label_crit_section(label, needput);
+>>       return error;
+>>   }
+>> @@ -984,10 +993,12 @@ static void apparmor_bprm_committed_creds(const struct linux_binprm *bprm)
+>>   static void apparmor_current_getlsmprop_subj(struct lsm_prop *prop)
+>>   {
+>> -    struct aa_label *label = __begin_current_label_crit_section();
+>> +    struct aa_label *label;
+>> +    bool needput;
+>> +    label = __begin_current_label_crit_section(&needput);
+>>       prop->apparmor.label = label;
+>> -    __end_current_label_crit_section(label);
+>> +    __end_current_label_crit_section(label, needput);
+>>   }
+>>   static void apparmor_task_getlsmprop_obj(struct task_struct *p,
+>> @@ -1002,13 +1013,16 @@ static void apparmor_task_getlsmprop_obj(struct task_struct *p,
+>>   static int apparmor_task_setrlimit(struct task_struct *task,
+>>           unsigned int resource, struct rlimit *new_rlim)
+>>   {
+>> -    struct aa_label *label = __begin_current_label_crit_section();
+>> +    struct aa_label *label;
+>>       int error = 0;
+>> +    bool needput;
+>> +
+>> +    label = __begin_current_label_crit_section(&needput);
+>>       if (!unconfined(label))
+>>           error = aa_task_setrlimit(current_cred(), label, task,
+>>                         resource, new_rlim);
+>> -    __end_current_label_crit_section(label);
+>> +    __end_current_label_crit_section(label, needput);
+>>       return error;
+>>   }
+>> @@ -1019,6 +1033,7 @@ static int apparmor_task_kill(struct task_struct *target, struct kernel_siginfo
+>>       const struct cred *tc;
+>>       struct aa_label *cl, *tl;
+>>       int error;
+>> +    bool needput;
+>>       tc = get_task_cred(target);
+>>       tl = aa_get_newest_cred_label(tc);
+>> @@ -1030,9 +1045,9 @@ static int apparmor_task_kill(struct task_struct *target, struct kernel_siginfo
+>>           error = aa_may_signal(cred, cl, tc, tl, sig);
+>>           aa_put_label(cl);
+>>       } else {
+>> -        cl = __begin_current_label_crit_section();
+>> +        cl = __begin_current_label_crit_section(&needput);
+>>           error = aa_may_signal(current_cred(), cl, tc, tl, sig);
+>> -        __end_current_label_crit_section(cl);
+>> +        __end_current_label_crit_section(cl, needput);
+>>       }
+>>       aa_put_label(tl);
+>>       put_cred(tc);
+>> @@ -1133,10 +1148,11 @@ static int apparmor_unix_stream_connect(struct sock *sk, struct sock *peer_sk,
+>>       struct aa_sk_ctx *new_ctx = aa_sock(newsk);
+>>       struct aa_label *label;
+>>       int error;
+>> +    bool needput;
+>> -    label = __begin_current_label_crit_section();
+>> +    label = __begin_current_label_crit_section(&needput);
+>>       error = unix_connect_perm(current_cred(), label, sk, peer_sk);
+>> -    __end_current_label_crit_section(label);
+>> +    __end_current_label_crit_section(label, needput);
+>>       if (error)
+>>           return error;
+>> @@ -1163,8 +1179,9 @@ static int apparmor_unix_may_send(struct socket *sock, struct socket *peer)
+>>       struct aa_sk_ctx *peer_ctx = aa_sock(peer->sk);
+>>       struct aa_label *label;
+>>       int error;
+>> +    bool needput;
+>> -    label = __begin_current_label_crit_section();
+>> +    label = __begin_current_label_crit_section(&needput);
+>>       error = xcheck(aa_unix_peer_perm(current_cred(),
+>>                        label, OP_SENDMSG, AA_MAY_SEND,
+>>                        sock->sk, peer->sk, NULL),
+>> @@ -1172,7 +1189,7 @@ static int apparmor_unix_may_send(struct socket *sock, struct socket *peer)
+>>                        peer_ctx->label, OP_SENDMSG,
+>>                        AA_MAY_RECEIVE,
+>>                        peer->sk, sock->sk, label));
+>> -    __end_current_label_crit_section(label);
+>> +    __end_current_label_crit_section(label, needput);
+>>       return error;
+>>   }
+>> diff --git a/security/apparmor/policy.c b/security/apparmor/policy.c
+>> index 1f532fe48a1c..a60bb7d9b583 100644
+>> --- a/security/apparmor/policy.c
+>> +++ b/security/apparmor/policy.c
+>> @@ -870,11 +870,11 @@ bool aa_policy_admin_capable(const struct cred *subj_cred,
+>>   bool aa_current_policy_view_capable(struct aa_ns *ns)
+>>   {
+>>       struct aa_label *label;
+>> -    bool res;
+>> +    bool needput, res;
+>> -    label = __begin_current_label_crit_section();
+>> +    label = __begin_current_label_crit_section(&needput);
+>>       res = aa_policy_view_capable(current_cred(), label, ns);
+>> -    __end_current_label_crit_section(label);
+>> +    __end_current_label_crit_section(label, needput);
+>>       return res;
+>>   }
+>> @@ -882,11 +882,11 @@ bool aa_current_policy_view_capable(struct aa_ns *ns)
+>>   bool aa_current_policy_admin_capable(struct aa_ns *ns)
+>>   {
+>>       struct aa_label *label;
+>> -    bool res;
+>> +    bool needput, res;
+>> -    label = __begin_current_label_crit_section();
+>> +    label = __begin_current_label_crit_section(&needput);
+>>       res = aa_policy_admin_capable(current_cred(), label, ns);
+>> -    __end_current_label_crit_section(label);
+>> +    __end_current_label_crit_section(label, needput);
+>>       return res;
+>>   }
+> 
+> 
 
 
