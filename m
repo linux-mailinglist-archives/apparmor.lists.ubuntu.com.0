@@ -2,37 +2,37 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FF71AE0C95
-	for <lists+apparmor@lfdr.de>; Thu, 19 Jun 2025 20:17:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E75D8AE0C91
+	for <lists+apparmor@lfdr.de>; Thu, 19 Jun 2025 20:17:20 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uSJp0-0002dw-IE; Thu, 19 Jun 2025 18:17:10 +0000
+	id 1uSJp0-0002eB-Sk; Thu, 19 Jun 2025 18:17:10 +0000
 Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
  helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <maxime.belair@canonical.com>)
- id 1uSJox-0002bf-VL
+ id 1uSJoy-0002bm-42
  for apparmor@lists.ubuntu.com; Thu, 19 Jun 2025 18:17:08 +0000
 Received: from sec2-plucky-amd64..
  (lau06-h06-176-136-128-80.dsl.sta.abo.bbox.fr [176.136.128.80])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 01A8E3F9D7; 
- Thu, 19 Jun 2025 18:17:06 +0000 (UTC)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 7C0CB4018E; 
+ Thu, 19 Jun 2025 18:17:07 +0000 (UTC)
 From: =?UTF-8?q?Maxime=20B=C3=A9lair?= <maxime.belair@canonical.com>
 To: linux-security-module@vger.kernel.org
-Date: Thu, 19 Jun 2025 20:15:31 +0200
-Message-ID: <20250619181600.478038-2-maxime.belair@canonical.com>
+Date: Thu, 19 Jun 2025 20:15:32 +0200
+Message-ID: <20250619181600.478038-3-maxime.belair@canonical.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250619181600.478038-1-maxime.belair@canonical.com>
 References: <20250619181600.478038-1-maxime.belair@canonical.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [apparmor] [PATCH v2 1/3] Wire up lsm_config_self_policy and
-	lsm_config_system_policy syscalls
+Subject: [apparmor] [PATCH v2 2/3] lsm: introduce
+	security_lsm_config_*_policy hooks
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -52,296 +52,229 @@ Cc: paul@paul-moore.com, song@kernel.org, kees@kernel.org,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Add support for the new lsm_config_self_policy and
-lsm_config_system_policy syscalls, providing a unified API for loading
-and modifying LSM policies, for the current user and for the entire
-system, respectively without requiring the LSM’s pseudo-filesystems.
-
-Benefits:
-  - Works even if the LSM pseudo-filesystem isn’t mounted or available
-    (e.g. in containers)
-  - Offers a logical and unified interface rather than multiple
-    heterogeneous pseudo-filesystems
-  - Avoids the overhead of other kernel interfaces for better efficiency
+Define two new LSM hooks: security_lsm_config_self_policy and
+security_lsm_config_system_policy and wire them into the corresponding
+lsm_config_*_policy() syscalls so that LSMs can register a unified
+interface for policy management. This initial, minimal implementation
+only supports the LSM_POLICY_LOAD operation to limit changes.
 
 Signed-off-by: Maxime Bélair <maxime.belair@canonical.com>
 ---
- arch/alpha/kernel/syscalls/syscall.tbl            |  2 ++
- arch/arm/tools/syscall.tbl                        |  2 ++
- arch/m68k/kernel/syscalls/syscall.tbl             |  2 ++
- arch/microblaze/kernel/syscalls/syscall.tbl       |  2 ++
- arch/mips/kernel/syscalls/syscall_n32.tbl         |  2 ++
- arch/mips/kernel/syscalls/syscall_n64.tbl         |  2 ++
- arch/mips/kernel/syscalls/syscall_o32.tbl         |  2 ++
- arch/parisc/kernel/syscalls/syscall.tbl           |  2 ++
- arch/powerpc/kernel/syscalls/syscall.tbl          |  2 ++
- arch/s390/kernel/syscalls/syscall.tbl             |  2 ++
- arch/sh/kernel/syscalls/syscall.tbl               |  2 ++
- arch/sparc/kernel/syscalls/syscall.tbl            |  2 ++
- arch/x86/entry/syscalls/syscall_32.tbl            |  2 ++
- arch/x86/entry/syscalls/syscall_64.tbl            |  2 ++
- arch/xtensa/kernel/syscalls/syscall.tbl           |  2 ++
- include/linux/syscalls.h                          |  5 +++++
- include/uapi/asm-generic/unistd.h                 |  6 +++++-
- kernel/sys_ni.c                                   |  2 ++
- security/lsm_syscalls.c                           | 12 ++++++++++++
- tools/include/uapi/asm-generic/unistd.h           |  6 +++++-
- tools/perf/arch/x86/entry/syscalls/syscall_64.tbl |  2 ++
- 21 files changed, 61 insertions(+), 2 deletions(-)
+ include/linux/lsm_hook_defs.h |  4 ++
+ include/linux/security.h      | 16 ++++++++
+ include/uapi/linux/lsm.h      |  8 ++++
+ security/Kconfig              | 22 +++++++++++
+ security/lsm_syscalls.c       | 17 ++++++++-
+ security/security.c           | 69 +++++++++++++++++++++++++++++++++++
+ 6 files changed, 134 insertions(+), 2 deletions(-)
 
-diff --git a/arch/alpha/kernel/syscalls/syscall.tbl b/arch/alpha/kernel/syscalls/syscall.tbl
-index 2dd6340de6b4..4fc75352220d 100644
---- a/arch/alpha/kernel/syscalls/syscall.tbl
-+++ b/arch/alpha/kernel/syscalls/syscall.tbl
-@@ -507,3 +507,5 @@
- 575	common	listxattrat			sys_listxattrat
- 576	common	removexattrat			sys_removexattrat
- 577	common	open_tree_attr			sys_open_tree_attr
-+578	common	lsm_config_self_policy		sys_lsm_config_self_policy
-+579	common	lsm_config_system_policy	sys_lsm_config_system_policy
-diff --git a/arch/arm/tools/syscall.tbl b/arch/arm/tools/syscall.tbl
-index 27c1d5ebcd91..326483cb94a4 100644
---- a/arch/arm/tools/syscall.tbl
-+++ b/arch/arm/tools/syscall.tbl
-@@ -482,3 +482,5 @@
- 465	common	listxattrat			sys_listxattrat
- 466	common	removexattrat			sys_removexattrat
- 467	common	open_tree_attr			sys_open_tree_attr
-+468	common	lsm_config_self_policy		sys_lsm_config_self_policy
-+469	common	lsm_config_system_policy	sys_lsm_config_system_policy
-diff --git a/arch/m68k/kernel/syscalls/syscall.tbl b/arch/m68k/kernel/syscalls/syscall.tbl
-index 9fe47112c586..d37364df1cd7 100644
---- a/arch/m68k/kernel/syscalls/syscall.tbl
-+++ b/arch/m68k/kernel/syscalls/syscall.tbl
-@@ -467,3 +467,5 @@
- 465	common	listxattrat			sys_listxattrat
- 466	common	removexattrat			sys_removexattrat
- 467	common	open_tree_attr			sys_open_tree_attr
-+468	common	lsm_config_self_policy		sys_lsm_config_self_policy
-+469	common	lsm_config_system_policy	sys_lsm_config_system_policy
-diff --git a/arch/microblaze/kernel/syscalls/syscall.tbl b/arch/microblaze/kernel/syscalls/syscall.tbl
-index 7b6e97828e55..9d58ebfcf967 100644
---- a/arch/microblaze/kernel/syscalls/syscall.tbl
-+++ b/arch/microblaze/kernel/syscalls/syscall.tbl
-@@ -473,3 +473,5 @@
- 465	common	listxattrat			sys_listxattrat
- 466	common	removexattrat			sys_removexattrat
- 467	common	open_tree_attr			sys_open_tree_attr
-+468	common	lsm_config_self_policy		sys_lsm_config_self_policy
-+469	common	lsm_config_system_policy	sys_lsm_config_system_policy
-diff --git a/arch/mips/kernel/syscalls/syscall_n32.tbl b/arch/mips/kernel/syscalls/syscall_n32.tbl
-index aa70e371bb54..8627b5f56280 100644
---- a/arch/mips/kernel/syscalls/syscall_n32.tbl
-+++ b/arch/mips/kernel/syscalls/syscall_n32.tbl
-@@ -406,3 +406,5 @@
- 465	n32	listxattrat			sys_listxattrat
- 466	n32	removexattrat			sys_removexattrat
- 467	n32	open_tree_attr			sys_open_tree_attr
-+468	n32	lsm_config_self_policy		sys_lsm_config_self_policy
-+469	n32	lsm_config_system_policy	sys_lsm_config_system_policy
-diff --git a/arch/mips/kernel/syscalls/syscall_n64.tbl b/arch/mips/kernel/syscalls/syscall_n64.tbl
-index 1e8c44c7b614..813207b61f58 100644
---- a/arch/mips/kernel/syscalls/syscall_n64.tbl
-+++ b/arch/mips/kernel/syscalls/syscall_n64.tbl
-@@ -382,3 +382,5 @@
- 465	n64	listxattrat			sys_listxattrat
- 466	n64	removexattrat			sys_removexattrat
- 467	n64	open_tree_attr			sys_open_tree_attr
-+468	n64	lsm_config_self_policy		sys_lsm_config_self_policy
-+469	n64	lsm_config_system_policy	sys_lsm_config_system_policy
-diff --git a/arch/mips/kernel/syscalls/syscall_o32.tbl b/arch/mips/kernel/syscalls/syscall_o32.tbl
-index 114a5a1a6230..9cd0946b4370 100644
---- a/arch/mips/kernel/syscalls/syscall_o32.tbl
-+++ b/arch/mips/kernel/syscalls/syscall_o32.tbl
-@@ -455,3 +455,5 @@
- 465	o32	listxattrat			sys_listxattrat
- 466	o32	removexattrat			sys_removexattrat
- 467	o32	open_tree_attr			sys_open_tree_attr
-+468	o32	lsm_config_self_policy		sys_lsm_config_self_policy
-+469	o32	lsm_config_system_policy		sys_lsm_config_system_policy
-diff --git a/arch/parisc/kernel/syscalls/syscall.tbl b/arch/parisc/kernel/syscalls/syscall.tbl
-index 94df3cb957e9..9db01dd55793 100644
---- a/arch/parisc/kernel/syscalls/syscall.tbl
-+++ b/arch/parisc/kernel/syscalls/syscall.tbl
-@@ -466,3 +466,5 @@
- 465	common	listxattrat			sys_listxattrat
- 466	common	removexattrat			sys_removexattrat
- 467	common	open_tree_attr			sys_open_tree_attr
-+468	common	lsm_config_self_policy		sys_lsm_config_self_policy
-+469	common	lsm_config_system_policy	sys_lsm_config_system_policy
-diff --git a/arch/powerpc/kernel/syscalls/syscall.tbl b/arch/powerpc/kernel/syscalls/syscall.tbl
-index 9a084bdb8926..97714acb39ab 100644
---- a/arch/powerpc/kernel/syscalls/syscall.tbl
-+++ b/arch/powerpc/kernel/syscalls/syscall.tbl
-@@ -558,3 +558,5 @@
- 465	common	listxattrat			sys_listxattrat
- 466	common	removexattrat			sys_removexattrat
- 467	common	open_tree_attr			sys_open_tree_attr
-+468	common	lsm_config_self_policy		sys_lsm_config_self_policy
-+469	common	lsm_config_system_policy	sys_lsm_config_system_policy
-diff --git a/arch/s390/kernel/syscalls/syscall.tbl b/arch/s390/kernel/syscalls/syscall.tbl
-index a4569b96ef06..d2b0f14fb516 100644
---- a/arch/s390/kernel/syscalls/syscall.tbl
-+++ b/arch/s390/kernel/syscalls/syscall.tbl
-@@ -470,3 +470,5 @@
- 465  common	listxattrat		sys_listxattrat			sys_listxattrat
- 466  common	removexattrat		sys_removexattrat		sys_removexattrat
- 467  common	open_tree_attr		sys_open_tree_attr		sys_open_tree_attr
-+468  common	lsm_config_self_policy	sys_lsm_config_self_policy		sys_lsm_config_self_policy
-+469  common	lsm_config_system_policy	sys_lsm_config_system_policy	sys_lsm_config_system_policy
-diff --git a/arch/sh/kernel/syscalls/syscall.tbl b/arch/sh/kernel/syscalls/syscall.tbl
-index 52a7652fcff6..210d7118ce16 100644
---- a/arch/sh/kernel/syscalls/syscall.tbl
-+++ b/arch/sh/kernel/syscalls/syscall.tbl
-@@ -471,3 +471,5 @@
- 465	common	listxattrat			sys_listxattrat
- 466	common	removexattrat			sys_removexattrat
- 467	common	open_tree_attr			sys_open_tree_attr
-+468	common	lsm_config_self_policy		sys_lsm_config_self_policy
-+469	common	lsm_config_system_policy	sys_lsm_config_system_policy
-diff --git a/arch/sparc/kernel/syscalls/syscall.tbl b/arch/sparc/kernel/syscalls/syscall.tbl
-index 83e45eb6c095..494417d80680 100644
---- a/arch/sparc/kernel/syscalls/syscall.tbl
-+++ b/arch/sparc/kernel/syscalls/syscall.tbl
-@@ -513,3 +513,5 @@
- 465	common	listxattrat			sys_listxattrat
- 466	common	removexattrat			sys_removexattrat
- 467	common	open_tree_attr			sys_open_tree_attr
-+468	common	lsm_config_self_policy		sys_lsm_config_self_policy
-+469	common	lsm_config_system_policy	sys_lsm_config_system_policy
-diff --git a/arch/x86/entry/syscalls/syscall_32.tbl b/arch/x86/entry/syscalls/syscall_32.tbl
-index ac007ea00979..36c2c538e04f 100644
---- a/arch/x86/entry/syscalls/syscall_32.tbl
-+++ b/arch/x86/entry/syscalls/syscall_32.tbl
-@@ -473,3 +473,5 @@
- 465	i386	listxattrat		sys_listxattrat
- 466	i386	removexattrat		sys_removexattrat
- 467	i386	open_tree_attr		sys_open_tree_attr
-+468	i386	lsm_config_self_policy	sys_lsm_config_self_policy
-+469	i386	lsm_config_system_policy	sys_lsm_config_system_policy
-diff --git a/arch/x86/entry/syscalls/syscall_64.tbl b/arch/x86/entry/syscalls/syscall_64.tbl
-index cfb5ca41e30d..7eefbccfe531 100644
---- a/arch/x86/entry/syscalls/syscall_64.tbl
-+++ b/arch/x86/entry/syscalls/syscall_64.tbl
-@@ -391,6 +391,8 @@
- 465	common	listxattrat		sys_listxattrat
- 466	common	removexattrat		sys_removexattrat
- 467	common	open_tree_attr		sys_open_tree_attr
-+468	common	lsm_config_self_policy	sys_lsm_config_self_policy
-+469	common	lsm_config_system_policy	sys_lsm_config_system_policy
- 
- #
- # Due to a historical design error, certain syscalls are numbered differently
-diff --git a/arch/xtensa/kernel/syscalls/syscall.tbl b/arch/xtensa/kernel/syscalls/syscall.tbl
-index f657a77314f8..90d86a54a952 100644
---- a/arch/xtensa/kernel/syscalls/syscall.tbl
-+++ b/arch/xtensa/kernel/syscalls/syscall.tbl
-@@ -438,3 +438,5 @@
- 465	common	listxattrat			sys_listxattrat
- 466	common	removexattrat			sys_removexattrat
- 467	common	open_tree_attr			sys_open_tree_attr
-+468	common	lsm_config_self_policy		sys_lsm_config_self_policy
-+469	common	lsm_config_system_policy	sys_lsm_config_system_policy
-diff --git a/include/linux/syscalls.h b/include/linux/syscalls.h
-index e5603cc91963..15b0f35c42fe 100644
---- a/include/linux/syscalls.h
-+++ b/include/linux/syscalls.h
-@@ -988,6 +988,11 @@ asmlinkage long sys_lsm_get_self_attr(unsigned int attr, struct lsm_ctx __user *
- asmlinkage long sys_lsm_set_self_attr(unsigned int attr, struct lsm_ctx __user *ctx,
- 				      u32 size, u32 flags);
- asmlinkage long sys_lsm_list_modules(u64 __user *ids, u32 __user *size, u32 flags);
-+asmlinkage long sys_lsm_config_self_policy(u32 lsm_id, u32 op, void __user *buf,
-+					   u32 __user *size, u32 flags);
-+asmlinkage long sys_lsm_config_system_policy(u32 lsm_id, u32 op, void __user *buf,
-+					     u32 __user *size, u32 flags);
+diff --git a/include/linux/lsm_hook_defs.h b/include/linux/lsm_hook_defs.h
+index bf3bbac4e02a..fca490444643 100644
+--- a/include/linux/lsm_hook_defs.h
++++ b/include/linux/lsm_hook_defs.h
+@@ -464,3 +464,7 @@ LSM_HOOK(int, 0, bdev_alloc_security, struct block_device *bdev)
+ LSM_HOOK(void, LSM_RET_VOID, bdev_free_security, struct block_device *bdev)
+ LSM_HOOK(int, 0, bdev_setintegrity, struct block_device *bdev,
+ 	 enum lsm_integrity_type type, const void *value, size_t size)
++LSM_HOOK(int, -EINVAL, lsm_config_self_policy, u32 lsm_id, u32 op,
++	 void __user *buf, size_t size, u32 flags)
++LSM_HOOK(int, -EINVAL, lsm_config_system_policy, u32 lsm_id, u32 op,
++	 void __user *buf, size_t size, u32 flags)
+diff --git a/include/linux/security.h b/include/linux/security.h
+index cc9b54d95d22..c2158f2656fd 100644
+--- a/include/linux/security.h
++++ b/include/linux/security.h
+@@ -581,6 +581,11 @@ void security_bdev_free(struct block_device *bdev);
+ int security_bdev_setintegrity(struct block_device *bdev,
+ 			       enum lsm_integrity_type type, const void *value,
+ 			       size_t size);
++int security_lsm_config_self_policy(u32 lsm_id, u32 op, void __user *buf,
++				    size_t size, u32 flags);
++int security_lsm_config_system_policy(u32 lsm_id, u32 op, void __user *buf,
++				      size_t size, u32 flags);
 +
+ #else /* CONFIG_SECURITY */
  
- /*
-  * Architecture-specific system calls
-diff --git a/include/uapi/asm-generic/unistd.h b/include/uapi/asm-generic/unistd.h
-index 2892a45023af..34278cc6a476 100644
---- a/include/uapi/asm-generic/unistd.h
-+++ b/include/uapi/asm-generic/unistd.h
-@@ -851,9 +851,13 @@ __SYSCALL(__NR_listxattrat, sys_listxattrat)
- __SYSCALL(__NR_removexattrat, sys_removexattrat)
- #define __NR_open_tree_attr 467
- __SYSCALL(__NR_open_tree_attr, sys_open_tree_attr)
-+#define __NR_lsm_config_self_policy 468
-+__SYSCALL(__NR_lsm_config_self_policy, lsm_config_self_policy)
-+#define __NR_lsm_config_system_policy 469
-+__SYSCALL(__NR_lsm_config_system_policy, lsm_config_system_policy)
+ /**
+@@ -1603,6 +1608,17 @@ static inline int security_bdev_setintegrity(struct block_device *bdev,
+ 	return 0;
+ }
  
- #undef __NR_syscalls
--#define __NR_syscalls 468
-+#define __NR_syscalls 470
++static int security_lsm_config_self_policy(u32 lsm_id, u32 op, void __user *buf,
++					   size_t size, u32 flags)
++
++	return -EOPNOTSUPP;
++}
++
++static int security_lsm_config_system_policy(u32 lsm_id, u32 op, void __user *buf,
++					     size_t size, u32 flags)
++
++	return -EOPNOTSUPP;
++}
+ #endif	/* CONFIG_SECURITY */
  
- /*
-  * 32 bit systems traditionally used different
-diff --git a/kernel/sys_ni.c b/kernel/sys_ni.c
-index c00a86931f8c..3ecebcd3fbe0 100644
---- a/kernel/sys_ni.c
-+++ b/kernel/sys_ni.c
-@@ -172,6 +172,8 @@ COND_SYSCALL_COMPAT(fadvise64_64);
- COND_SYSCALL(lsm_get_self_attr);
- COND_SYSCALL(lsm_set_self_attr);
- COND_SYSCALL(lsm_list_modules);
-+COND_SYSCALL(lsm_config_self_policy);
-+COND_SYSCALL(lsm_config_system_policy);
+ #if defined(CONFIG_SECURITY) && defined(CONFIG_WATCH_QUEUE)
+diff --git a/include/uapi/linux/lsm.h b/include/uapi/linux/lsm.h
+index 938593dfd5da..844279f819ce 100644
+--- a/include/uapi/linux/lsm.h
++++ b/include/uapi/linux/lsm.h
+@@ -90,4 +90,12 @@ struct lsm_ctx {
+  */
+ #define LSM_FLAG_SINGLE	0x0001
  
- /* CONFIG_MMU only */
- COND_SYSCALL(swapon);
++/*
++ * LSM_POLICY_XXX definitions identify the different operations
++ * configure lsm policies
++ */
++
++#define LSM_POLICY_UNDEF	0
++#define LSM_POLICY_LOAD		100
++
+ #endif /* _UAPI_LINUX_LSM_H */
+diff --git a/security/Kconfig b/security/Kconfig
+index 4816fc74f81e..958be7b49a9e 100644
+--- a/security/Kconfig
++++ b/security/Kconfig
+@@ -220,6 +220,28 @@ config STATIC_USERMODEHELPER_PATH
+ 	  If you wish for all usermode helper programs to be disabled,
+ 	  specify an empty string here (i.e. "").
+ 
++config LSM_CONFIG_SELF_POLICY_MAX_BUFFER_SIZE
++	int "Maximum buffer size for lsm_manage_policy"
++	range 16384 1073741824
++	depends on SECURITY
++	default 4194304
++	help
++	  The maximum size of the buffer argument of lsm_config_self_policy.
++
++	  The default value of 4194304 (4MiB) is reasonable and should be large
++	  enough to fit policies in for most cases.
++
++config LSM_CONFIG_SYSTEM_POLICY_MAX_BUFFER_SIZE
++	int "Maximum buffer size for lsm_manage_policy"
++	range 16384 1073741824
++	depends on SECURITY
++	default 4194304
++	help
++	  The maximum size of the buffer argument of lsm_config_system_policy.
++
++	  The default value of 4194304 (4MiB) is reasonable and should be large
++	  enough to fit policies in for most cases
++
+ source "security/selinux/Kconfig"
+ source "security/smack/Kconfig"
+ source "security/tomoyo/Kconfig"
 diff --git a/security/lsm_syscalls.c b/security/lsm_syscalls.c
-index 8440948a690c..a3cb6dab8102 100644
+index a3cb6dab8102..dd016ba6976c 100644
 --- a/security/lsm_syscalls.c
 +++ b/security/lsm_syscalls.c
-@@ -118,3 +118,15 @@ SYSCALL_DEFINE3(lsm_list_modules, u64 __user *, ids, u32 __user *, size,
- 
- 	return lsm_active_cnt;
+@@ -122,11 +122,24 @@ SYSCALL_DEFINE3(lsm_list_modules, u64 __user *, ids, u32 __user *, size,
+ SYSCALL_DEFINE5(lsm_config_self_policy, u32, lsm_id, u32, op, void __user *,
+ 		buf, u32 __user *, size, u32, flags)
+ {
+-	return 0;
++	size_t usize;
++
++	if (get_user(usize, size))
++		return -EFAULT;
++
++	return security_lsm_config_self_policy(lsm_id, op, buf, usize, flags);
  }
+ 
+ SYSCALL_DEFINE5(lsm_config_system_policy, u32, lsm_id, u32, op, void __user *,
+ 		buf, u32 __user *, size, u32, flags)
+ {
+-	return 0;
++	size_t usize;
 +
-+SYSCALL_DEFINE5(lsm_config_self_policy, u32, lsm_id, u32, op, void __user *,
-+		buf, u32 __user *, size, u32, flags)
-+{
-+	return 0;
-+}
++	if (!capable(CAP_SYS_ADMIN))
++		return -EPERM;
 +
-+SYSCALL_DEFINE5(lsm_config_system_policy, u32, lsm_id, u32, op, void __user *,
-+		buf, u32 __user *, size, u32, flags)
++	if (get_user(usize, size))
++		return -EFAULT;
++
++	return security_lsm_config_system_policy(lsm_id, op, buf, usize, flags);
+ }
+diff --git a/security/security.c b/security/security.c
+index fb57e8fddd91..8efea2b6e967 100644
+--- a/security/security.c
++++ b/security/security.c
+@@ -5883,6 +5883,75 @@ int security_bdev_setintegrity(struct block_device *bdev,
+ }
+ EXPORT_SYMBOL(security_bdev_setintegrity);
+ 
++/**
++ * security_lsm_config_self_policy() - Manage caller's LSM policies
++ * @lsm_id: id of the LSM to target
++ * @op: Operation to perform (one of the LSM_POLICY_XXX values)
++ * @buf: userspace pointer to policy data
++ * @size: size of @buf
++ * @flags: lsm policy management flags
++ *
++ * Manage the policies of a LSM for the current domain/user. This notably allows
++ * to update them even when the lsmfs is unavailable is restricted. Currently,
++ * only LSM_POLICY_LOAD is supported.
++ *
++ * Return: Returns 0 on success, error on failure.
++ */
++int security_lsm_config_self_policy(u32 lsm_id, u32 op, void __user *buf,
++				 size_t size, u32 flags)
 +{
-+	return 0;
++	int rc = LSM_RET_DEFAULT(lsm_config_self_policy);
++	struct lsm_static_call *scall;
++
++	if (size > (CONFIG_LSM_CONFIG_SELF_POLICY_MAX_BUFFER_SIZE))
++		return -E2BIG;
++
++	lsm_for_each_hook(scall, lsm_config_self_policy) {
++		if ((scall->hl->lsmid->id) == lsm_id) {
++			rc = scall->hl->hook.lsm_config_self_policy(lsm_id, op, buf, size, flags);
++			break;
++		}
++	}
++
++	return rc;
 +}
-diff --git a/tools/include/uapi/asm-generic/unistd.h b/tools/include/uapi/asm-generic/unistd.h
-index 2892a45023af..34278cc6a476 100644
---- a/tools/include/uapi/asm-generic/unistd.h
-+++ b/tools/include/uapi/asm-generic/unistd.h
-@@ -851,9 +851,13 @@ __SYSCALL(__NR_listxattrat, sys_listxattrat)
- __SYSCALL(__NR_removexattrat, sys_removexattrat)
- #define __NR_open_tree_attr 467
- __SYSCALL(__NR_open_tree_attr, sys_open_tree_attr)
-+#define __NR_lsm_config_self_policy 468
-+__SYSCALL(__NR_lsm_config_self_policy, lsm_config_self_policy)
-+#define __NR_lsm_config_system_policy 469
-+__SYSCALL(__NR_lsm_config_system_policy, lsm_config_system_policy)
- 
- #undef __NR_syscalls
--#define __NR_syscalls 468
-+#define __NR_syscalls 470
- 
- /*
-  * 32 bit systems traditionally used different
-diff --git a/tools/perf/arch/x86/entry/syscalls/syscall_64.tbl b/tools/perf/arch/x86/entry/syscalls/syscall_64.tbl
-index cfb5ca41e30d..7eefbccfe531 100644
---- a/tools/perf/arch/x86/entry/syscalls/syscall_64.tbl
-+++ b/tools/perf/arch/x86/entry/syscalls/syscall_64.tbl
-@@ -391,6 +391,8 @@
- 465	common	listxattrat		sys_listxattrat
- 466	common	removexattrat		sys_removexattrat
- 467	common	open_tree_attr		sys_open_tree_attr
-+468	common	lsm_config_self_policy	sys_lsm_config_self_policy
-+469	common	lsm_config_system_policy	sys_lsm_config_system_policy
- 
- #
- # Due to a historical design error, certain syscalls are numbered differently
++EXPORT_SYMBOL(security_lsm_config_self_policy);
++
++/**
++ * security_lsm_config_system_policy() - Manage system LSM policies
++ * @lsm_id: id of the lsm to target
++ * @op: Operation to perform (one of the LSM_POLICY_XXX values)
++ * @buf: userspace pointer to policy data
++ * @size: size of @buf
++ * @flags: lsm policy management flags
++ *
++ * Manage the policies of a LSM for the whole system. This notably allows
++ * to update them even when the lsmfs is unavailable is restricted. Currently,
++ * only LSM_POLICY_LOAD is supported.
++ *
++ * Return: Returns 0 on success, error on failure.
++ */
++int security_lsm_config_system_policy(u32 lsm_id, u32 op, void __user *buf,
++				   size_t size, u32 flags)
++{
++	int rc = LSM_RET_DEFAULT(lsm_config_system_policy);
++	struct lsm_static_call *scall;
++
++	if (size > (CONFIG_LSM_CONFIG_SYSTEM_POLICY_MAX_BUFFER_SIZE))
++		return -E2BIG;
++
++	lsm_for_each_hook(scall, lsm_config_system_policy) {
++		if ((scall->hl->lsmid->id) == lsm_id) {
++			rc = scall->hl->hook.lsm_config_system_policy(lsm_id, op, buf, size, flags);
++			break;
++		}
++	}
++
++	return rc;
++}
++EXPORT_SYMBOL(security_lsm_config_system_policy);
++
++
+ #ifdef CONFIG_PERF_EVENTS
+ /**
+  * security_perf_event_open() - Check if a perf event open is allowed
 -- 
 2.48.1
 
