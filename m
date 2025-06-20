@@ -2,37 +2,37 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id CABC8AE1181
-	for <lists+apparmor@lfdr.de>; Fri, 20 Jun 2025 05:04:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D388AE1193
+	for <lists+apparmor@lfdr.de>; Fri, 20 Jun 2025 05:09:26 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uSS2b-0004qC-Kt; Fri, 20 Jun 2025 03:03:45 +0000
+	id 1uSS7z-0005GN-CC; Fri, 20 Jun 2025 03:09:19 +0000
 Received: from desiato.infradead.org ([90.155.92.199])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <rdunlap@infradead.org>)
- id 1uSS2Z-0004px-F7
- for apparmor@lists.ubuntu.com; Fri, 20 Jun 2025 03:03:43 +0000
+ id 1uSS7w-0005GB-UM
+ for apparmor@lists.ubuntu.com; Fri, 20 Jun 2025 03:09:16 +0000
 Received: from [50.53.25.54] (helo=[192.168.254.17])
  by desiato.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
- id 1uSS2L-00000004dla-2mTL; Fri, 20 Jun 2025 03:03:30 +0000
-Message-ID: <848423f2-65d8-4ae2-a873-2e8cd474ab86@infradead.org>
-Date: Thu, 19 Jun 2025 20:03:23 -0700
+ id 1uSS7r-00000004dnK-0wVr; Fri, 20 Jun 2025 03:09:11 +0000
+Message-ID: <867c16fe-da0f-43d0-99ca-cba8f3c1f274@infradead.org>
+Date: Thu, 19 Jun 2025 20:09:06 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: =?UTF-8?Q?Maxime_B=C3=A9lair?= <maxime.belair@canonical.com>,
  linux-security-module@vger.kernel.org
 References: <20250619181600.478038-1-maxime.belair@canonical.com>
- <20250619181600.478038-3-maxime.belair@canonical.com>
+ <20250619181600.478038-4-maxime.belair@canonical.com>
 Content-Language: en-US
 From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20250619181600.478038-3-maxime.belair@canonical.com>
+In-Reply-To: <20250619181600.478038-4-maxime.belair@canonical.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Received-SPF: none client-ip=90.155.92.199; envelope-from=rdunlap@infradead.org;
  helo=desiato.infradead.org
-Subject: Re: [apparmor] [PATCH v2 2/3] lsm: introduce
-	security_lsm_config_*_policy hooks
+Subject: Re: [apparmor] [PATCH v2 3/3] AppArmor: add support for
+ lsm_config_self_policy and lsm_config_system_policy
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -55,130 +55,129 @@ Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
 
 On 6/19/25 11:15 AM, Maxime Bélair wrote:
-> Define two new LSM hooks: security_lsm_config_self_policy and
-> security_lsm_config_system_policy and wire them into the corresponding
-> lsm_config_*_policy() syscalls so that LSMs can register a unified
-> interface for policy management. This initial, minimal implementation
-> only supports the LSM_POLICY_LOAD operation to limit changes.
+> Enable users to manage AppArmor policies through the new hooks
+> lsm_config_self_policy and lsm_config_system_policy.
+> 
+> lsm_config_self_policy allows stacking existing policies in the kernel.
+> This ensures that it can only further restrict the caller and can never
+> be used to gain new privileges.
+> 
+> lsm_config_system_policy allows loading or replacing AppArmor policies in
+> any AppArmor namespace.
 > 
 > Signed-off-by: Maxime Bélair <maxime.belair@canonical.com>
 > ---
->  include/linux/lsm_hook_defs.h |  4 ++
->  include/linux/security.h      | 16 ++++++++
->  include/uapi/linux/lsm.h      |  8 ++++
->  security/Kconfig              | 22 +++++++++++
->  security/lsm_syscalls.c       | 17 ++++++++-
->  security/security.c           | 69 +++++++++++++++++++++++++++++++++++
->  6 files changed, 134 insertions(+), 2 deletions(-)
+>  security/apparmor/apparmorfs.c         | 31 +++++++++++++
+>  security/apparmor/include/apparmorfs.h |  3 ++
+>  security/apparmor/lsm.c                | 63 ++++++++++++++++++++++++++
+>  3 files changed, 97 insertions(+)
 > 
-
-> diff --git a/security/Kconfig b/security/Kconfig
-> index 4816fc74f81e..958be7b49a9e 100644
-> --- a/security/Kconfig
-> +++ b/security/Kconfig
-> @@ -220,6 +220,28 @@ config STATIC_USERMODEHELPER_PATH
->  	  If you wish for all usermode helper programs to be disabled,
->  	  specify an empty string here (i.e. "").
->  
-> +config LSM_CONFIG_SELF_POLICY_MAX_BUFFER_SIZE
-> +	int "Maximum buffer size for lsm_manage_policy"
-
-Update function name.
-
-> +	range 16384 1073741824
-> +	depends on SECURITY
-> +	default 4194304
-> +	help
-> +	  The maximum size of the buffer argument of lsm_config_self_policy.
-> +
-> +	  The default value of 4194304 (4MiB) is reasonable and should be large
-> +	  enough to fit policies in for most cases.
-> +
-> +config LSM_CONFIG_SYSTEM_POLICY_MAX_BUFFER_SIZE
-> +	int "Maximum buffer size for lsm_manage_policy"
-
-same here.
-
-> +	range 16384 1073741824
-> +	depends on SECURITY
-> +	default 4194304
-> +	help
-> +	  The maximum size of the buffer argument of lsm_config_system_policy.
-> +
-> +	  The default value of 4194304 (4MiB) is reasonable and should be large
-> +	  enough to fit policies in for most cases
-> +
->  source "security/selinux/Kconfig"
->  source "security/smack/Kconfig"
->  source "security/tomoyo/Kconfig"
-
-
-> diff --git a/security/security.c b/security/security.c
-> index fb57e8fddd91..8efea2b6e967 100644
-> --- a/security/security.c
-> +++ b/security/security.c
-> @@ -5883,6 +5883,75 @@ int security_bdev_setintegrity(struct block_device *bdev,
+> diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
+> index 6039afae4bfc..827fe06b20ac 100644
+> --- a/security/apparmor/apparmorfs.c
+> +++ b/security/apparmor/apparmorfs.c
+> @@ -439,6 +439,37 @@ static ssize_t policy_update(u32 mask, const char __user *buf, size_t size,
+>  	return error;
 >  }
->  EXPORT_SYMBOL(security_bdev_setintegrity);
 >  
 > +/**
-> + * security_lsm_config_self_policy() - Manage caller's LSM policies
-> + * @lsm_id: id of the LSM to target
-> + * @op: Operation to perform (one of the LSM_POLICY_XXX values)
-> + * @buf: userspace pointer to policy data
-> + * @size: size of @buf
-> + * @flags: lsm policy management flags
-> + *
-> + * Manage the policies of a LSM for the current domain/user. This notably allows
-> + * to update them even when the lsmfs is unavailable is restricted. Currently,
+> + * aa_profile_load_ns_name - load a profile into the current namespace identified by name
+> + * @name The name of the namesapce to load the policy in. "" for root_ns
+> + * @name_size size of @name. 0 For root ns
+> + * @buf buffer containing the user-provided policy
+> + * @size size of @buf
+> + * @ppos position pointer in the file
 
-                                                        or
-?
+Please use proper kernel-doc syntax above. Each @var_name should be followed
+by a ':'.
 
-> + * only LSM_POLICY_LOAD is supported.
 > + *
-> + * Return: Returns 0 on success, error on failure.
+> + * Returns: 0 on success, negative value on error
 > + */
-> +int security_lsm_config_self_policy(u32 lsm_id, u32 op, void __user *buf,
-> +				 size_t size, u32 flags)
+> +ssize_t aa_profile_load_ns_name(char *name, size_t name_size, const void __user *buf,
+> +				size_t size, loff_t *ppos)
 > +{
-> +	int rc = LSM_RET_DEFAULT(lsm_config_self_policy);
-> +	struct lsm_static_call *scall;
+> +	struct aa_ns *ns;
 > +
-> +	if (size > (CONFIG_LSM_CONFIG_SELF_POLICY_MAX_BUFFER_SIZE))
-> +		return -E2BIG;
+> +	if (name_size == 0)
+> +		ns = aa_get_ns(root_ns);
+> +	else
+> +		ns = aa_lookupn_ns(root_ns, name, name_size);
 > +
-> +	lsm_for_each_hook(scall, lsm_config_self_policy) {
-> +		if ((scall->hl->lsmid->id) == lsm_id) {
-> +			rc = scall->hl->hook.lsm_config_self_policy(lsm_id, op, buf, size, flags);
-> +			break;
-> +		}
-> +	}
+> +	if (!ns)
+> +		return -EINVAL;
 > +
-> +	return rc;
+> +	int error = policy_update(AA_MAY_LOAD_POLICY | AA_MAY_REPLACE_POLICY,
+> +				  buf, size, ppos, ns);
+> +
+> +	aa_put_ns(ns);
+> +
+> +	return error >= 0 ? 0 : error;
 > +}
-> +EXPORT_SYMBOL(security_lsm_config_self_policy);
+> +
+>  /* .load file hook fn to load policy */
+>  static ssize_t profile_load(struct file *f, const char __user *buf, size_t size,
+>  			    loff_t *pos)
+
+> diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
+> index 9b6c2f157f83..b38c4926cdc2 100644
+> --- a/security/apparmor/lsm.c
+> +++ b/security/apparmor/lsm.c
+> @@ -1275,6 +1275,65 @@ static int apparmor_socket_shutdown(struct socket *sock, int how)
+>  	return aa_sock_perm(OP_SHUTDOWN, AA_MAY_SHUTDOWN, sock);
+>  }
+>  
+> +/**
+> + * apparmor_lsm_config_self_policy - Stack a profile
+> + * @buf: buffer containing the user-provided name of the profile to stack
+> + * @size: size of @buf
+
+Describe all function parameters in kernel-doc above.
+
+> + *
+> + * Returns: 0 on success, negative value on error
+> + */
+> +static int apparmor_lsm_config_self_policy(u32 lsm_id, u32 op, void __user *buf,
+> +				      size_t size, u32 flags)
+> +{
+> +	char *name = kvmalloc(size, GFP_KERNEL);
+
+Check return value (i.e., name) before use?
+
+> +	long name_size;> +	int ret;
+> +
+> +	if (op != LSM_POLICY_LOAD || flags)
+> +		return -EOPNOTSUPP;
+> +
+> +	name_size = strncpy_from_user(name, buf, size);
+> +	if (name_size < 0)
+> +		return name_size;
+> +
+> +	ret = aa_change_profile(name, AA_CHANGE_STACK);
+> +
+> +	kvfree(name);
+> +
+> +	return ret;
+> +}
 > +
 > +/**
-> + * security_lsm_config_system_policy() - Manage system LSM policies
-> + * @lsm_id: id of the lsm to target
-> + * @op: Operation to perform (one of the LSM_POLICY_XXX values)
-> + * @buf: userspace pointer to policy data
+> + * apparmor_lsm_config_system_policy - Load or replace a system policy
+> + * @buf: user-supplied buffer in the form "<ns>\0<policy>"
+> + *        <ns> is the namespace to load the policy into (empty string for root)
+> + *        <policy> is the policy to load
+> + * then '\0' then the policy to load
+
+Misplaced line?
+
 > + * @size: size of @buf
-> + * @flags: lsm policy management flags
-> + *
-> + * Manage the policies of a LSM for the whole system. This notably allows
-> + * to update them even when the lsmfs is unavailable is restricted. Currently,
 
-                                                        or
-?
+Please describe all function parameters in kernel-doc notation.
 
-> + * only LSM_POLICY_LOAD is supported.
 > + *
-> + * Return: Returns 0 on success, error on failure.
+> + * Returns: 0 on success, negative value on error
 > + */
-> +int security_lsm_config_system_policy(u32 lsm_id, u32 op, void __user *buf,
-> +				   size_t size, u32 flags)
+> +static int apparmor_lsm_config_system_policy(u32 lsm_id, u32 op, void __user *buf,
+> +				      size_t size, u32 flags)
 > +{
 
 [snip]
