@@ -2,33 +2,30 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id A25A4AE3246
-	for <lists+apparmor@lfdr.de>; Sun, 22 Jun 2025 23:16:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 634BDAE32AC
+	for <lists+apparmor@lfdr.de>; Mon, 23 Jun 2025 00:00:23 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uTS2v-0002fT-Nb; Sun, 22 Jun 2025 21:16:13 +0000
-Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
- helo=smtp-relay-canonical-1.canonical.com)
+	id 1uTSjS-00061r-D4; Sun, 22 Jun 2025 22:00:10 +0000
+Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
+ helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1uTS2t-0002fG-Km
- for apparmor@lists.ubuntu.com; Sun, 22 Jun 2025 21:16:11 +0000
+ id 1uTSjQ-00061i-Or
+ for apparmor@lists.ubuntu.com; Sun, 22 Jun 2025 22:00:08 +0000
 Received: from [192.168.192.84] (unknown [50.47.147.87])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 254D73FBC9; 
- Sun, 22 Jun 2025 21:16:08 +0000 (UTC)
-Message-ID: <c80d4e69-ef03-462c-9084-e6bb56f428e6@canonical.com>
-Date: Sun, 22 Jun 2025 14:16:07 -0700
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id B06023F778; 
+ Sun, 22 Jun 2025 22:00:07 +0000 (UTC)
+Message-ID: <cc90bd61-2eaa-4051-bb8c-369ccb71c08e@canonical.com>
+Date: Sun, 22 Jun 2025 15:00:04 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Eric Biggers <ebiggers@kernel.org>
-References: <20250428190430.850240-1-ebiggers@kernel.org>
- <20250514042147.GA2073@sol>
- <4f37c07c-3a39-4c98-b9c4-13356f5a10dc@canonical.com>
- <20250612191105.GE1283@sol>
+To: Ryan Lee <ryan.lee@canonical.com>, apparmor@lists.ubuntu.com
+References: <20250613163253.125756-1-ryan.lee@canonical.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -74,11 +71,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20250612191105.GE1283@sol>
+In-Reply-To: <20250613163253.125756-1-ryan.lee@canonical.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH] apparmor: use SHA-256 library API instead of
- crypto_shash API
+Subject: Re: [apparmor] [PATCH v2 4/4] apparmor: force auditing of
+ conflicting attachment execs from confined
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -90,44 +87,56 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
- linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 6/12/25 12:11, Eric Biggers wrote:
-> On Sat, May 17, 2025 at 12:43:30AM -0700, John Johansen wrote:
->> On 5/13/25 21:21, Eric Biggers wrote:
->>> On Mon, Apr 28, 2025 at 12:04:30PM -0700, Eric Biggers wrote:
->>>> From: Eric Biggers <ebiggers@google.com>
->>>>
->>>> This user of SHA-256 does not support any other algorithm, so the
->>>> crypto_shash abstraction provides no value.  Just use the SHA-256
->>>> library API instead, which is much simpler and easier to use.
->>>>
->>>> Signed-off-by: Eric Biggers <ebiggers@google.com>
->>>> ---
->>>>
->>>> This patch is targeting the apparmor tree for 6.16.
->>>>
->>>>    security/apparmor/Kconfig  |  3 +-
->>>>    security/apparmor/crypto.c | 85 ++++++--------------------------------
->>>>    2 files changed, 13 insertions(+), 75 deletions(-)
->>>
->>> Any interest in taking this patch through the apparmor or security trees?
->>>
->> I can take it through my tree
+On 6/13/25 09:32, Ryan Lee wrote:
+> Conflicting attachment paths are an error state that result in the
+> binary in question executing under an unexpected ix/ux fallback. As such,
+> it should be audited to record the occurrence of conflicting attachments.
 > 
-> Thanks!  I notice this isn't in v6.16-rc1.  Do you have a pull request planned?
+> Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
+
+Ryan,
+your original patch made it into apparmor-next for the 6.16 that never
+happened.
+
+Ideally we wouldn't rebase for this. Can you apply this to apparmor-next
+and send it as a
+
+Fixes: 16916b17b4f8 ("apparmor: force auditing of conflicting attachment execs from confined")
+patch
+
+
+> ---
 > 
-
-Hey Eric,
-
-sorry I have been sick and didn't get a 6.16 pull request out. I am slowly trying
-to dig my way out of the backlog, which is several weeks deeo. I might get together
-a small PR of bug fixes before the 6.17 merge window but the bulk of what is in
-apparmor-next will be waiting to merge in 6.17 now.
-
-
+> This is a v2 of https://lists.ubuntu.com/archives/apparmor/2025-May/013613.html.
+> 
+> v1 -> v2: remove redundant perms.allow |= MAY_EXEC (which was also incorrectly outside of the intended conditional)
+>   security/apparmor/domain.c | 7 +++++++
+>   1 file changed, 7 insertions(+)
+> 
+> diff --git a/security/apparmor/domain.c b/security/apparmor/domain.c
+> index e8cd9badfb54..b33ce6be9427 100644
+> --- a/security/apparmor/domain.c
+> +++ b/security/apparmor/domain.c
+> @@ -724,6 +724,14 @@ static struct aa_label *profile_transition(const struct cred *subj_cred,
+> @@ -727,6 +727,16 @@ static struct aa_label *profile_transition(const struct cred *subj_cred,
+>   		new = x_to_label(profile, bprm, name, perms.xindex, &target,
+>   				 &info);
+>   		if (new && new->proxy == profile->label.proxy && info) {
+> +			/* Force audit on conflicting attachment fallback
+> +			 * Because perms is never used again after this audit
+> +			 * we don't need to care about clobbering it
+> +			 *
+> +			 * Because perms.allow MAY_EXEC bit is already set
+> +			 * we don't have to set it again
+> +			 */
+> +			if (info == CONFLICTING_ATTACH_STR_IX
+> +			   || info == CONFLICTING_ATTACH_STR_UX)
+> +				perms.audit |= MAY_EXEC;
+>   			/* hack ix fallback - improve how this is detected */
+>   			goto audit;
+>   		} else if (!new) {
 
 
