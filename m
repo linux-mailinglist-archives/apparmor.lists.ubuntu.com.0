@@ -2,30 +2,33 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EB71AE3240
-	for <lists+apparmor@lfdr.de>; Sun, 22 Jun 2025 23:12:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A25A4AE3246
+	for <lists+apparmor@lfdr.de>; Sun, 22 Jun 2025 23:16:21 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uTRz2-0002JL-Vh; Sun, 22 Jun 2025 21:12:13 +0000
+	id 1uTS2v-0002fT-Nb; Sun, 22 Jun 2025 21:16:13 +0000
 Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
  helo=smtp-relay-canonical-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1uTRz0-0002J1-EL
- for apparmor@lists.ubuntu.com; Sun, 22 Jun 2025 21:12:10 +0000
+ id 1uTS2t-0002fG-Km
+ for apparmor@lists.ubuntu.com; Sun, 22 Jun 2025 21:16:11 +0000
 Received: from [192.168.192.84] (unknown [50.47.147.87])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id DEE8B3FBC9
- for <apparmor@lists.ubuntu.com>; Sun, 22 Jun 2025 21:12:09 +0000 (UTC)
-Message-ID: <deac4051-07d4-4597-9e97-9ed50a4cd32d@canonical.com>
-Date: Sun, 22 Jun 2025 14:12:07 -0700
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 254D73FBC9; 
+ Sun, 22 Jun 2025 21:16:08 +0000 (UTC)
+Message-ID: <c80d4e69-ef03-462c-9084-e6bb56f428e6@canonical.com>
+Date: Sun, 22 Jun 2025 14:16:07 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: apparmor@lists.ubuntu.com
-References: <VI1PR07MB3215A3CB1B0B36428C9B0EC0DE6EA@VI1PR07MB3215.eurprd07.prod.outlook.com>
+To: Eric Biggers <ebiggers@kernel.org>
+References: <20250428190430.850240-1-ebiggers@kernel.org>
+ <20250514042147.GA2073@sol>
+ <4f37c07c-3a39-4c98-b9c4-13356f5a10dc@canonical.com>
+ <20250612191105.GE1283@sol>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -71,10 +74,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <VI1PR07MB3215A3CB1B0B36428C9B0EC0DE6EA@VI1PR07MB3215.eurprd07.prod.outlook.com>
+In-Reply-To: <20250612191105.GE1283@sol>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [apparmor] Licensing issue in libapparmor
+Content-Transfer-Encoding: 7bit
+Subject: Re: [apparmor] [PATCH] apparmor: use SHA-256 library API instead of
+ crypto_shash API
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -86,29 +90,44 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
+ linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 6/6/25 03:31, sathya.panneerselvam@mercedes-benz.com wrote:
-> Dear Team,
+On 6/12/25 12:11, Eric Biggers wrote:
+> On Sat, May 17, 2025 at 12:43:30AM -0700, John Johansen wrote:
+>> On 5/13/25 21:21, Eric Biggers wrote:
+>>> On Mon, Apr 28, 2025 at 12:04:30PM -0700, Eric Biggers wrote:
+>>>> From: Eric Biggers <ebiggers@google.com>
+>>>>
+>>>> This user of SHA-256 does not support any other algorithm, so the
+>>>> crypto_shash abstraction provides no value.  Just use the SHA-256
+>>>> library API instead, which is much simpler and easier to use.
+>>>>
+>>>> Signed-off-by: Eric Biggers <ebiggers@google.com>
+>>>> ---
+>>>>
+>>>> This patch is targeting the apparmor tree for 6.16.
+>>>>
+>>>>    security/apparmor/Kconfig  |  3 +-
+>>>>    security/apparmor/crypto.c | 85 ++++++--------------------------------
+>>>>    2 files changed, 13 insertions(+), 75 deletions(-)
+>>>
+>>> Any interest in taking this patch through the apparmor or security trees?
+>>>
+>> I can take it through my tree
 > 
-> Some time ago, we identified three files under *libapparmor* containing inconsistent license information in their headers, which appears to conflict with the library’s overall licensing terms. This seems to be an error, and in the interest of correcting it, we filed [Issue491 <https://gitlab.com/apparmor/apparmor/-/issues/491>] three months ago. As the issue remains unaddressed to date, I am reaching out through this channel to seek your attention and support in resolving the matter.
+> Thanks!  I notice this isn't in v6.16-rc1.  Do you have a pull request planned?
 > 
-> Thank you and looking forward to a resolution.
-> 
-We are looking into the issue, and will have a resolution asap.
 
-> Best Regards,
-> 
-> Sathya
-> 
-> 	
-> 
-> Sathya Sundar Panneerselvam | sathya.panneerselvam@mercedes-benz.com <mailto:sathya.panneerselvam@mercedes-benz.com>| +49 (160) 8640083 | License Management | MBition GmbH | Friedrich-Krause-Ufer 16, 13353 Berlin, Germany
-> Geschäftsführer/Board of Directors: Steven Bentley, Rainer Schwarz | Registergericht/Court of Registry: Amtsgericht Charlottenburg HRB-Nr./Commercial Register No.: 188241 B
-> 
-> 
-> If you are not the addressee, please inform us immediately that you have received this e-mail by mistake, and delete it. We thank you for your support.
-> 
+Hey Eric,
+
+sorry I have been sick and didn't get a 6.16 pull request out. I am slowly trying
+to dig my way out of the backlog, which is several weeks deeo. I might get together
+a small PR of bug fixes before the 6.17 merge window but the bulk of what is in
+apparmor-next will be waiting to merge in 6.17 now.
+
+
 
 
