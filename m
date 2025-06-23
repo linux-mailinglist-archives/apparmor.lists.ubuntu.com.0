@@ -2,37 +2,45 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DB93AE68D9
-	for <lists+apparmor@lfdr.de>; Tue, 24 Jun 2025 16:34:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2746AE6DB4
+	for <lists+apparmor@lfdr.de>; Tue, 24 Jun 2025 19:38:20 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uU4ig-0000Xq-Tx; Tue, 24 Jun 2025 14:33:54 +0000
-Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
- helo=smtp-relay-canonical-0.canonical.com)
+	id 1uU7aw-0001co-4L; Tue, 24 Jun 2025 17:38:06 +0000
+Received: from mxhk.zte.com.cn ([160.30.148.34])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <maxime.belair@canonical.com>)
- id 1uU4id-0000UI-QO
- for apparmor@lists.ubuntu.com; Tue, 24 Jun 2025 14:33:51 +0000
-Received: from sec2-plucky-amd64..
- (lau06-h06-176-136-128-80.dsl.sta.abo.bbox.fr [176.136.128.80])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (Exim 4.86_2) (envelope-from <jiang.peng9@zte.com.cn>)
+ id 1uTas2-0001Y3-66
+ for apparmor@lists.ubuntu.com; Mon, 23 Jun 2025 06:41:34 +0000
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 7A4BD4018F; 
- Tue, 24 Jun 2025 14:33:49 +0000 (UTC)
-From: =?UTF-8?q?Maxime=20B=C3=A9lair?= <maxime.belair@canonical.com>
-To: linux-security-module@vger.kernel.org
-Date: Tue, 24 Jun 2025 16:30:42 +0200
-Message-ID: <20250624143211.436045-4-maxime.belair@canonical.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20250624143211.436045-1-maxime.belair@canonical.com>
-References: <20250624143211.436045-1-maxime.belair@canonical.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [apparmor] [PATCH v3 3/3] AppArmor: add support for
-	lsm_config_self_policy and lsm_config_system_policy
+ by mxhk.zte.com.cn (FangMail) with ESMTPS id 4bQdlb12fYz5FHRy;
+ Mon, 23 Jun 2025 14:41:31 +0800 (CST)
+Received: from xaxapp02.zte.com.cn ([10.88.97.241])
+ by mse-fl1.zte.com.cn with SMTP id 55N6f9ua037902;
+ Mon, 23 Jun 2025 14:41:09 +0800 (+08)
+ (envelope-from jiang.peng9@zte.com.cn)
+Received: from mapi (xaxapp04[null]) by mapi (Zmail) with MAPI id mid31;
+ Mon, 23 Jun 2025 14:41:11 +0800 (CST)
+Date: Mon, 23 Jun 2025 14:41:11 +0800 (CST)
+X-Zmail-TransId: 2afb6858f70736f-018ff
+X-Mailer: Zmail v1.0
+Message-ID: <20250623144111491BDFs497HCFyciwxWW5SG4@zte.com.cn>
+Mime-Version: 1.0
+From: <jiang.peng9@zte.com.cn>
+To: <apparmor@lists.ubuntu.com>
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL: mse-fl1.zte.com.cn 55N6f9ua037902
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6858F71B.000/4bQdlb12fYz5FHRy
+Received-SPF: pass client-ip=160.30.148.34;
+ envelope-from=jiang.peng9@zte.com.cn; helo=mxhk.zte.com.cn
+X-Mailman-Approved-At: Tue, 24 Jun 2025 17:38:05 +0000
+Subject: [apparmor] =?utf-8?q?=5BPATCH=5D_apparmor=3A_fix_documentation_mi?=
+	=?utf-8?q?smatches_in_val=5Fmask=5Fto=5Fstr_and_socket_functions?=
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -44,177 +52,106 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: paul@paul-moore.com, song@kernel.org, kees@kernel.org,
- linux-api@vger.kernel.org, stephen.smalley.work@gmail.com,
- penguin-kernel@I-love.SAKURA.ne.jp, apparmor@lists.ubuntu.com,
- jmorris@namei.org, rdunlap@infraread.org, mic@digikod.net,
- takedakn@nttdata.co.jp, linux-kernel@vger.kernel.org, serge@hallyn.com
+Cc: paul@paul-moore.com, linux-kernel@vger.kernel.org, jmorris@namei.org,
+ yang.yang29@zte.com.cn, linux-security-module@vger.kernel.org,
+ xu.xin16@zte.com.cn, serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Enable users to manage AppArmor policies through the new hooks
-lsm_config_self_policy and lsm_config_system_policy.
+From: Peng Jiang <jiang.peng9@zte.com.cn>
 
-lsm_config_self_policy allows stacking existing policies in the kernel.
-This ensures that it can only further restrict the caller and can never
-be used to gain new privileges.
+This patch fixes kernel-doc warnings:
+1. val_mask_to_str:
+- Added missing descriptions for `size` and `table` parameters.
+- Removed outdated str_size and chrs references.
+2. Socket Functions:
+- Makes non-null requirements clear for socket/address args.
+- Standardizes return values per kernel conventions.
+- Adds Unix domain socket protocol details.
 
-lsm_config_system_policy allows loading or replacing AppArmor policies in
-any AppArmor namespace.
+These changes silence doc validation warnings and improve accuracy for
+AppArmor LSM docs.
 
-Signed-off-by: Maxime Bélair <maxime.belair@canonical.com>
+Signed-off-by: Peng Jiang <jiang.peng9@zte.com.cn>
 ---
- security/apparmor/apparmorfs.c         | 31 +++++++++++
- security/apparmor/include/apparmorfs.h |  3 ++
- security/apparmor/lsm.c                | 71 ++++++++++++++++++++++++++
- 3 files changed, 105 insertions(+)
+ security/apparmor/lib.c |  4 ++--
+ security/apparmor/lsm.c | 28 ++++++++++++++++++++++++++++
+ 2 files changed, 30 insertions(+), 2 deletions(-)
 
-diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
-index 6039afae4bfc..6df43299b045 100644
---- a/security/apparmor/apparmorfs.c
-+++ b/security/apparmor/apparmorfs.c
-@@ -439,6 +439,37 @@ static ssize_t policy_update(u32 mask, const char __user *buf, size_t size,
- 	return error;
- }
- 
-+/**
-+ * aa_profile_load_ns_name - load a profile into the current namespace identified by name
-+ * @name: The name of the namesapce to load the policy in. "" for root_ns
-+ * @name_size: size of @name. 0 For root ns
-+ * @buf: buffer containing the user-provided policy
-+ * @size: size of @buf
-+ * @ppos: position pointer in the file
-+ *
-+ * Returns: 0 on success, negative value on error
-+ */
-+ssize_t aa_profile_load_ns_name(char *name, size_t name_size, const void __user *buf,
-+				size_t size, loff_t *ppos)
-+{
-+	struct aa_ns *ns;
-+
-+	if (name_size == 0)
-+		ns = aa_get_ns(root_ns);
-+	else
-+		ns = aa_lookupn_ns(root_ns, name, name_size);
-+
-+	if (!ns)
-+		return -EINVAL;
-+
-+	int error = policy_update(AA_MAY_LOAD_POLICY | AA_MAY_REPLACE_POLICY,
-+				  buf, size, ppos, ns);
-+
-+	aa_put_ns(ns);
-+
-+	return error >= 0 ? 0 : error;
-+}
-+
- /* .load file hook fn to load policy */
- static ssize_t profile_load(struct file *f, const char __user *buf, size_t size,
- 			    loff_t *pos)
-diff --git a/security/apparmor/include/apparmorfs.h b/security/apparmor/include/apparmorfs.h
-index 1e94904f68d9..fd415afb7659 100644
---- a/security/apparmor/include/apparmorfs.h
-+++ b/security/apparmor/include/apparmorfs.h
-@@ -112,6 +112,9 @@ int __aafs_profile_mkdir(struct aa_profile *profile, struct dentry *parent);
- void __aafs_ns_rmdir(struct aa_ns *ns);
- int __aafs_ns_mkdir(struct aa_ns *ns, struct dentry *parent, const char *name,
- 		     struct dentry *dent);
-+ssize_t aa_profile_load_ns_name(char *name, size_t name_len, const void __user *buf,
-+				size_t size, loff_t *ppos);
-+
- 
- struct aa_loaddata;
- 
+diff --git a/security/apparmor/lib.c b/security/apparmor/lib.c
+index f51e79cc36d4..4317881d9542 100644
+--- a/security/apparmor/lib.c
++++ b/security/apparmor/lib.c
+@@ -84,8 +84,8 @@ int aa_parse_debug_params(const char *str)
+ /**
+  * val_mask_to_str - convert a perm mask to its short string
+  * @str: character buffer to store string in (at least 10 characters)
+- * @str_size: size of the @str buffer
+- * @chrs: NUL-terminated character buffer of permission characters
++ * @size: size of the @str buffer
++ * @table: permission-value-to-string mappings (NOT NULL)
+  * @mask: permission mask to convert
+  */
+ static int val_mask_to_str(char *str, size_t size,
 diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
-index 9b6c2f157f83..7ca2eb8c0981 100644
+index 7952e8cab353..e41b85a06f12 100644
 --- a/security/apparmor/lsm.c
 +++ b/security/apparmor/lsm.c
-@@ -1275,6 +1275,73 @@ static int apparmor_socket_shutdown(struct socket *sock, int how)
- 	return aa_sock_perm(OP_SHUTDOWN, AA_MAY_SHUTDOWN, sock);
- }
- 
-+/**
-+ * apparmor_lsm_config_self_policy - Stack a profile
-+ * @lsm_id: AppArmor ID (LSM_ID_APPARMOR). Unused here
-+ * @op: operation to perform. Currently, only LSM_POLICY_LOAD is supported
-+ * @buf: buffer containing the user-provided name of the profile to stack
-+ * @size: size of @buf
-+ * @flags: reserved for future use; must be zero
-+ *
-+ * Returns: 0 on success, negative value on error
-+ */
-+static int apparmor_lsm_config_self_policy(u32 lsm_id, u32 op, void __user *buf,
-+				      size_t size, u32 flags)
-+{
-+	char *name = kvmalloc(size, GFP_KERNEL);
-+	long name_size;
-+	int ret;
-+
-+	if (!name)
-+		return -ENOMEM;
-+
-+	if (op != LSM_POLICY_LOAD || flags)
-+		return -EOPNOTSUPP;
-+
-+	name_size = strncpy_from_user(name, buf, size);
-+	if (name_size < 0)
-+		return name_size;
-+
-+	ret = aa_change_profile(name, AA_CHANGE_STACK);
-+
-+	kvfree(name);
-+
-+	return ret;
-+}
-+
-+/**
-+ * apparmor_lsm_config_system_policy - Load or replace a system policy
-+ * @lsm_id: AppArmor ID (LSM_ID_APPARMOR). Unused here
-+ * @op: operation to perform. Currently, only LSM_POLICY_LOAD is supported
-+ * @buf: user-supplied buffer in the form "<ns>\0<policy>"
-+ *        <ns> is the namespace to load the policy into (empty string for root)
-+ *        <policy> is the policy to load
-+ * @size: size of @buf
-+ * @flags: reserved for future uses; must be zero
-+ *
-+ * Returns: 0 on success, negative value on error
-+ */
-+static int apparmor_lsm_config_system_policy(u32 lsm_id, u32 op, void __user *buf,
-+				      size_t size, u32 flags)
-+{
-+	loff_t pos = 0; // Partial writing is not currently supported
-+	char name[256];
-+	long name_size;
-+
-+	if (op != LSM_POLICY_LOAD || flags)
-+		return -EOPNOTSUPP;
-+
-+	name_size = strncpy_from_user(name, buf, 256);
-+	if (name_size < 0)
-+		return name_size;
-+	else if (name_size == 256)
-+		return -E2BIG;
-+
-+	return aa_profile_load_ns_name(name, name_size, buf + name_size + 1,
-+				       size - name_size - 1, &pos);
-+}
-+
-+
- #ifdef CONFIG_NETWORK_SECMARK
- /**
-  * apparmor_socket_sock_rcv_skb - check perms before associating skb to sk
-@@ -1483,6 +1550,10 @@ static struct security_hook_list apparmor_hooks[] __ro_after_init = {
- 	LSM_HOOK_INIT(socket_getsockopt, apparmor_socket_getsockopt),
- 	LSM_HOOK_INIT(socket_setsockopt, apparmor_socket_setsockopt),
- 	LSM_HOOK_INIT(socket_shutdown, apparmor_socket_shutdown),
-+
-+	LSM_HOOK_INIT(lsm_config_self_policy, apparmor_lsm_config_self_policy),
-+	LSM_HOOK_INIT(lsm_config_system_policy,
-+		      apparmor_lsm_config_system_policy),
- #ifdef CONFIG_NETWORK_SECMARK
- 	LSM_HOOK_INIT(socket_sock_rcv_skb, apparmor_socket_sock_rcv_skb),
- #endif
--- 
-2.48.1
+@@ -1122,8 +1122,15 @@ static void unix_connect_peers(struct aa_sk_ctx *sk_ctx,
 
+ /**
+  * apparmor_unix_stream_connect - check perms before making unix domain conn
++ * @sk: initiating socket
++ * @peer_sk: target socket being connected to
++ * @newsk: newly created socket for the connection
+  *
+  * peer is locked when this hook is called
++ *
++ * Return:
++ *   0 if connection is permitted
++ *   error code on denial or failure
+  */
+ static int apparmor_unix_stream_connect(struct sock *sk, struct sock *peer_sk,
+                                        struct sock *newsk)
+@@ -1153,10 +1160,20 @@ static int apparmor_unix_stream_connect(struct sock *sk, struct sock *peer_sk,
+
+ /**
+  * apparmor_unix_may_send - check perms before conn or sending unix dgrams
++ * @sock: socket initiating the send operation
++ * @peer: target socket receiving the message
++ *
++ * Performs bidirectional permission checks for Unix domain socket communication:
++ * 1. Verifies sender has AA_MAY_SEND to target socket
++ * 2. Verifies receiver has AA_MAY_RECEIVE from source socket
+  *
+  * sock and peer are locked when this hook is called
+  *
+  * called by: dgram_connect peer setup but path not copied to newsk
++ *
++ * Return:
++ *   0 if transmission is permitted
++ *   error code on denial or failure
+  */
+ static int apparmor_unix_may_send(struct socket *sock, struct socket *peer)
+ {
+@@ -1264,6 +1281,17 @@ static int apparmor_socket_socketpair(struct socket *socka,
+
+ /**
+  * apparmor_socket_bind - check perms before bind addr to socket
++ * @sock: socket being bound (must be non-NULL)
++ * @address: address structure to bind (must be non-NULL)
++ * @addrlen: length of the address structure
++ *
++ * Performs security checks before allowing a socket to bind to an address.
++ * Handles Unix domain sockets specially through aa_unix_bind_perm().
++ * For other socket families, uses generic permission check via aa_sk_perm().
++ *
++ * Return:
++ *   0 if binding is permitted
++ *   error code on denial or invalid parameters
+  */
+ static int apparmor_socket_bind(struct socket *sock,
+                                struct sockaddr *address, int addrlen)
+-- 
+2.25.1
 
