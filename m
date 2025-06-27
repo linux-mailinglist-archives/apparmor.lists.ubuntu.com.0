@@ -2,46 +2,38 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2217AAE7440
-	for <lists+apparmor@lfdr.de>; Wed, 25 Jun 2025 03:21:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB105AEADB4
+	for <lists+apparmor@lfdr.de>; Fri, 27 Jun 2025 06:07:21 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uUEpU-0001TX-IR; Wed, 25 Jun 2025 01:21:36 +0000
-Received: from www262.sakura.ne.jp ([202.181.97.72])
- by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <penguin-kernel@I-love.SAKURA.ne.jp>)
- id 1uUEpS-0001T9-9u
- for apparmor@lists.ubuntu.com; Wed, 25 Jun 2025 01:21:34 +0000
-Received: from www262.sakura.ne.jp (localhost [127.0.0.1])
- by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 55P1L8Kq015816;
- Wed, 25 Jun 2025 10:21:08 +0900 (JST)
- (envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Received: from [192.168.1.6] (M106072142033.v4.enabler.ne.jp [106.72.142.33])
- (authenticated bits=0)
- by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 55P1L7LF015812
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO);
- Wed, 25 Jun 2025 10:21:08 +0900 (JST)
- (envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Message-ID: <5313b937-304a-4f2a-8563-3ad1ea194cb9@I-love.SAKURA.ne.jp>
-Date: Wed, 25 Jun 2025 10:21:06 +0900
+	id 1uV0Me-0006MB-R5; Fri, 27 Jun 2025 04:07:00 +0000
+Received: from nyc.source.kernel.org ([147.75.193.91])
+ by lists.ubuntu.com with esmtp (Exim 4.86_2)
+ (envelope-from <ebiggers@kernel.org>) id 1uV0Md-0006Ly-7t
+ for apparmor@lists.ubuntu.com; Fri, 27 Jun 2025 04:06:59 +0000
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id BE699A5214A;
+ Fri, 27 Jun 2025 03:59:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47BD6C4CEEB;
+ Fri, 27 Jun 2025 03:59:54 +0000 (UTC)
+Date: Thu, 26 Jun 2025 20:59:18 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: John Johansen <john.johansen@canonical.com>
+Message-ID: <20250627035918.GA15797@sol>
+References: <20250428190430.850240-1-ebiggers@kernel.org>
+ <20250514042147.GA2073@sol>
+ <4f37c07c-3a39-4c98-b9c4-13356f5a10dc@canonical.com>
+ <20250612191105.GE1283@sol>
+ <c80d4e69-ef03-462c-9084-e6bb56f428e6@canonical.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: =?UTF-8?Q?Maxime_B=C3=A9lair?= <maxime.belair@canonical.com>,
- linux-security-module@vger.kernel.org
-References: <20250624143211.436045-1-maxime.belair@canonical.com>
- <20250624143211.436045-4-maxime.belair@canonical.com>
-Content-Language: en-US
-From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-In-Reply-To: <20250624143211.436045-4-maxime.belair@canonical.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Anti-Virus-Server: fsav403.rs.sakura.ne.jp
-X-Virus-Status: clean
-Received-SPF: pass client-ip=202.181.97.72;
- envelope-from=penguin-kernel@I-love.SAKURA.ne.jp; helo=www262.sakura.ne.jp
-Subject: Re: [apparmor] [PATCH v3 3/3] AppArmor: add support for
- lsm_config_self_policy and lsm_config_system_policy
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c80d4e69-ef03-462c-9084-e6bb56f428e6@canonical.com>
+Received-SPF: pass client-ip=147.75.193.91; envelope-from=ebiggers@kernel.org;
+ helo=nyc.source.kernel.org
+Subject: Re: [apparmor] [PATCH] apparmor: use SHA-256 library API instead of
+ crypto_shash API
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -53,43 +45,49 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: paul@paul-moore.com, song@kernel.org, kees@kernel.org,
- linux-api@vger.kernel.org, stephen.smalley.work@gmail.com,
- apparmor@lists.ubuntu.com, jmorris@namei.org, rdunlap@infraread.org,
- mic@digikod.net, takedakn@nttdata.co.jp, linux-kernel@vger.kernel.org,
- serge@hallyn.com
+Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
+ linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 2025/06/24 23:30, Maxime Bélair wrote:
-> +static int apparmor_lsm_config_self_policy(u32 lsm_id, u32 op, void __user *buf,
-> +				      size_t size, u32 flags)
-> +{
-> +	char *name = kvmalloc(size, GFP_KERNEL);
-> +	long name_size;
-> +	int ret;
-> +
-> +	if (!name)
-> +		return -ENOMEM;
-> +
-> +	if (op != LSM_POLICY_LOAD || flags)
+On Sun, Jun 22, 2025 at 02:16:07PM -0700, John Johansen wrote:
+> On 6/12/25 12:11, Eric Biggers wrote:
+> > On Sat, May 17, 2025 at 12:43:30AM -0700, John Johansen wrote:
+> > > On 5/13/25 21:21, Eric Biggers wrote:
+> > > > On Mon, Apr 28, 2025 at 12:04:30PM -0700, Eric Biggers wrote:
+> > > > > From: Eric Biggers <ebiggers@google.com>
+> > > > > 
+> > > > > This user of SHA-256 does not support any other algorithm, so the
+> > > > > crypto_shash abstraction provides no value.  Just use the SHA-256
+> > > > > library API instead, which is much simpler and easier to use.
+> > > > > 
+> > > > > Signed-off-by: Eric Biggers <ebiggers@google.com>
+> > > > > ---
+> > > > > 
+> > > > > This patch is targeting the apparmor tree for 6.16.
+> > > > > 
+> > > > >    security/apparmor/Kconfig  |  3 +-
+> > > > >    security/apparmor/crypto.c | 85 ++++++--------------------------------
+> > > > >    2 files changed, 13 insertions(+), 75 deletions(-)
+> > > > 
+> > > > Any interest in taking this patch through the apparmor or security trees?
+> > > > 
+> > > I can take it through my tree
+> > 
+> > Thanks!  I notice this isn't in v6.16-rc1.  Do you have a pull request planned?
+> > 
+> 
+> Hey Eric,
+> 
+> sorry I have been sick and didn't get a 6.16 pull request out. I am slowly trying
+> to dig my way out of the backlog, which is several weeks deeo. I might get together
+> a small PR of bug fixes before the 6.17 merge window but the bulk of what is in
+> apparmor-next will be waiting to merge in 6.17 now.
 
-Huge memory leak.
+Hope you're feeling better!  Actually, would you mind if instead I took this
+patch (with your ack) through the libcrypto-next tree for 6.17?
+Otherwise there will be a silent merge conflict after I apply
+https://lore.kernel.org/r/20250625070819.1496119-11-ebiggers@kernel.org/
 
-> +		return -EOPNOTSUPP;
-> +
-> +	name_size = strncpy_from_user(name, buf, size);
-> +	if (name_size < 0)
-
-Here too. :-)
-
-> +		return name_size;
-> +
-> +	ret = aa_change_profile(name, AA_CHANGE_STACK);
-> +
-> +	kvfree(name);
-> +
-> +	return ret;
-> +}
-
+- Eric
 
