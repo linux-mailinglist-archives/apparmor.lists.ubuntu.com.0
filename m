@@ -2,37 +2,35 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9570CAFDBCB
-	for <lists+apparmor@lfdr.de>; Wed,  9 Jul 2025 01:19:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93EE3AFE1C2
+	for <lists+apparmor@lfdr.de>; Wed,  9 Jul 2025 10:03:19 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uZHax-0003kb-2T; Tue, 08 Jul 2025 23:19:27 +0000
-Received: from dfw.source.kernel.org ([139.178.84.217])
- by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <song@kernel.org>) id 1uZHVi-0003K3-An
- for apparmor@lists.ubuntu.com; Tue, 08 Jul 2025 23:14:02 +0000
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id DB6FF5C4685;
- Tue,  8 Jul 2025 23:05:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A10BC4CEED;
- Tue,  8 Jul 2025 23:05:06 +0000 (UTC)
-From: Song Liu <song@kernel.org>
-To: bpf@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
- apparmor@lists.ubuntu.com, selinux@vger.kernel.org,
- tomoyo-users_en@lists.sourceforge.net,
- tomoyo-users_ja@lists.sourceforge.net
-Date: Tue,  8 Jul 2025 16:05:04 -0700
-Message-ID: <20250708230504.3994335-1-song@kernel.org>
-X-Mailer: git-send-email 2.47.1
+	id 1uZPlk-0008VA-7g; Wed, 09 Jul 2025 08:03:08 +0000
+Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
+ helo=smtp-relay-canonical-0.canonical.com)
+ by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.86_2) (envelope-from <maxime.belair@canonical.com>)
+ id 1uZPli-0008Uu-CF
+ for apparmor@lists.ubuntu.com; Wed, 09 Jul 2025 08:03:06 +0000
+Received: from sec2-plucky-amd64..
+ (lau06-h06-176-136-128-80.dsl.sta.abo.bbox.fr [176.136.128.80])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id A7DCC3F784; 
+ Wed,  9 Jul 2025 08:03:05 +0000 (UTC)
+From: =?UTF-8?q?Maxime=20B=C3=A9lair?= <maxime.belair@canonical.com>
+To: linux-security-module@vger.kernel.org
+Date: Wed,  9 Jul 2025 10:00:53 +0200
+Message-ID: <20250709080220.110947-1-maxime.belair@canonical.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=139.178.84.217; envelope-from=song@kernel.org;
- helo=dfw.source.kernel.org
-X-Mailman-Approved-At: Tue, 08 Jul 2025 23:19:25 +0000
-Subject: [apparmor] [RFC] vfs: security: Parse dev_name before calling
-	security_sb_mount
+Subject: [apparmor] [PATCH v5 0/3] lsm: introduce lsm_config_self_policy()
+	and lsm_config_system_policy() syscalls
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -44,610 +42,119 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: mattbobrowski@google.com, jack@suse.cz, penguin-kernel@I-love.SAKURA.ne.jp,
- john@apparmor.net, amir73il@gmail.com, ast@kernel.org,
- Song Liu <song@kernel.org>, takedakn@nttdata.co.jp, daniel@iogearbox.net,
- andrii@kernel.org, repnop@google.com, enlightened@chromium.org,
- kernel-team@meta.com, josef@toxicpanda.com, kpsingh@kernel.org,
- viro@zeniv.linux.org.uk, mic@digikod.net, m@maowtm.org, brauner@kernel.org,
- stephen.smalley.work@gmail.com, jlayton@kernel.org, omosnace@redhat.com,
- eddyz87@gmail.com, gnoack@google.com, martin.lau@linux.dev
+Cc: paul@paul-moore.com, song@kernel.org, kees@kernel.org,
+ linux-api@vger.kernel.org, stephen.smalley.work@gmail.com,
+ penguin-kernel@I-love.SAKURA.ne.jp, apparmor@lists.ubuntu.com,
+ jmorris@namei.org, linux-kernel@vger.kernel.org, rdunlap@infradead.org,
+ mic@digikod.net, takedakn@nttdata.co.jp, serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-security_sb_mount handles multiple types of mounts: new mount, bind
-mount, etc. When parameter dev_name is a path, it need to be parsed
-with kern_path.
+This patchset introduces two new syscalls: lsm_config_self_policy(),
+lsm_config_system_policy() and the associated Linux Security Module hooks
+security_lsm_config_*_policy(), providing a unified interface for loading
+and managing LSM policies. These syscalls complement the existing per‑LSM
+pseudo‑filesystem mechanism and work even when those filesystems are not
+mounted or available.
 
-Move the parsing of dev_name to path_mount, and pass the result to
-security_sb_mount, so that:
-1. The LSMs do not need to call kern_path again;
-2. For BPF LSM, we can use struct path dev_path, which is much easier to
-   use than a string.
-3. We can now remove do_move_mount_old.
+With these new syscalls, users and administrators may lock down access to
+the pseudo‑filesystem yet still manage LSM policies. Two tightly-scoped
+entry points then replace the many file operations exposed by those
+filesystems, significantly reducing the attack surface. This is
+particularly useful in containers or processes already confined by
+Landlock, where these pseudo‑filesystems are typically unavailable.
 
-Also, move may_mount check to before security_sb_mount and potential
-kern_path, so that requests without proper capability will be rejected
-sooner.
+Because they provide a logical and unified interface, these syscalls are
+simpler to use than several heterogeneous pseudo‑filesystems and avoid
+edge cases such as partially loaded policies. They also eliminates VFS
+overhead, yielding performance gains notably when many policies are
+loaded, for instance at boot time.
 
-Signed-off-by: Song Liu <song@kernel.org>
+This initial implementation is intentionally minimal to limit the scope
+of changes. Currently, only policy loading is supported, and only
+AppArmor registers this LSM hook. However, any LSM can adopt this
+interface, and future patches could extend this syscall to support more
+operations, such as replacing, removing, or querying loaded policies.
+
+Landlock already provides three Landlock‑specific syscalls (e.g.
+landlock_add_rule()) to restrict ambient rights for sets of processes
+without touching any pseudo-filesystem. lsm_config_*_policy() generalizes
+that approach to the entire LSM layer, so any module can choose to
+support either or both of these syscalls, and expose its policy
+operations through a uniform interface and reap the advantages outlined
+above.
+
+This patchset is available at [1], a minimal user space example
+showing how to use lsm_config_system_policy with AppArmor is at [2] and a
+performance benchmark of both syscalls is available at [3].
+
+[1] https://github.com/emixam16/linux/tree/lsm_syscall
+[2] https://gitlab.com/emixam16/apparmor/tree/lsm_syscall
+[3] https://gitlab.com/-/snippets/4864908
 
 ---
-The primary motivation of this change is to monitor bind mount and move
-mount in BPF LSM. There are a few options for this to work:
-1. Introduce bpf_kern_path kfunc.
-2. Add new hook(s), such as [1].
-3. Something like this patch.
+Changes in v5
+ - Improve syscall input verification
+ - Do not export security_lsm_config_*_policy symbols
 
-At this moment, I think this patch is the best solution.
+Changes in v4
+ - Make the syscall's maximum buffer size defined per module
+ - Fix a memory leak
 
-New mount for filesystems with FS_REQUIRES_DEV also need kern_path for
-dev_name. apparmor and tomoyo still call kern_path in such cases.
-However, it is a bit tricky to move this kern_path call to path_mount,
-so new mount path is not changed in this version.
+Changes in v3
+ - Fix typos
 
-[1] https://lore.kernel.org/linux-security-module/20250110021008.2704246-1-enlightened@chromium.org/
+Changes in v2
+ - Split lsm_manage_policy() into two distinct syscalls:
+   lsm_config_self_policy() and lsm_config_system_policy()
+ - The LSM hook now calls only the appropriate LSM (and not all LSMs)
+ - Add a configuration variable to limit the buffer size of these
+   syscalls
+ - AppArmor now allows stacking policies through lsm_config_self_policy()
+   and loading policies in any namespace through
+   lsm_config_system_policy()
 ---
- fs/namespace.c                    | 142 ++++++++++++++++++------------
- include/linux/lsm_hook_defs.h     |   3 +-
- include/linux/security.h          |   7 +-
- security/apparmor/include/mount.h |   5 +-
- security/apparmor/lsm.c           |   8 +-
- security/apparmor/mount.c         |  31 +------
- security/landlock/fs.c            |   2 +-
- security/security.c               |   6 +-
- security/selinux/hooks.c          |   1 +
- security/tomoyo/common.h          |   3 +-
- security/tomoyo/mount.c           |  36 +++++---
- security/tomoyo/tomoyo.c          |   6 +-
- 12 files changed, 136 insertions(+), 114 deletions(-)
 
-diff --git a/fs/namespace.c b/fs/namespace.c
-index e13d9ab4f564..89f7fcd23b6c 100644
---- a/fs/namespace.c
-+++ b/fs/namespace.c
-@@ -3056,37 +3056,28 @@ static struct mount *__do_loopback(struct path *old_path, int recurse)
- /*
-  * do loopback mount.
-  */
--static int do_loopback(struct path *path, const char *old_name,
-+static int do_loopback(struct path *path, struct path *old_path,
- 				int recurse)
- {
--	struct path old_path;
- 	struct mount *mnt = NULL, *parent;
- 	struct mountpoint *mp;
--	int err;
--	if (!old_name || !*old_name)
--		return -EINVAL;
--	err = kern_path(old_name, LOOKUP_FOLLOW|LOOKUP_AUTOMOUNT, &old_path);
--	if (err)
--		return err;
-+	int err = -EINVAL;
- 
--	err = -EINVAL;
--	if (mnt_ns_loop(old_path.dentry))
--		goto out;
-+	if (mnt_ns_loop(old_path->dentry))
-+		return -EINVAL;
- 
- 	mp = lock_mount(path);
--	if (IS_ERR(mp)) {
--		err = PTR_ERR(mp);
--		goto out;
--	}
-+	if (IS_ERR(mp))
-+		return PTR_ERR(mp);
- 
- 	parent = real_mount(path->mnt);
- 	if (!check_mnt(parent))
--		goto out2;
-+		goto out;
- 
--	mnt = __do_loopback(&old_path, recurse);
-+	mnt = __do_loopback(old_path, recurse);
- 	if (IS_ERR(mnt)) {
- 		err = PTR_ERR(mnt);
--		goto out2;
-+		goto out;
- 	}
- 
- 	err = graft_tree(mnt, parent, mp);
-@@ -3095,10 +3086,8 @@ static int do_loopback(struct path *path, const char *old_name,
- 		umount_tree(mnt, UMOUNT_SYNC);
- 		unlock_mount_hash();
- 	}
--out2:
--	unlock_mount(mp);
- out:
--	path_put(&old_path);
-+	unlock_mount(mp);
- 	return err;
- }
- 
-@@ -3741,23 +3730,6 @@ static int do_move_mount(struct path *old_path,
- 	return err;
- }
- 
--static int do_move_mount_old(struct path *path, const char *old_name)
--{
--	struct path old_path;
--	int err;
--
--	if (!old_name || !*old_name)
--		return -EINVAL;
--
--	err = kern_path(old_name, LOOKUP_FOLLOW, &old_path);
--	if (err)
--		return err;
--
--	err = do_move_mount(&old_path, path, 0);
--	path_put(&old_path);
--	return err;
--}
--
- /*
-  * add a mount into a namespace's mount tree
-  */
-@@ -4117,6 +4089,31 @@ static char *copy_mount_string(const void __user *data)
- 	return data ? strndup_user(data, PATH_MAX) : NULL;
- }
- 
-+enum mount_operation {
-+	MOUNT_OP_RECONFIGURE,
-+	MOUNT_OP_REMOUNT,
-+	MOUNT_OP_BIND,
-+	MOUNT_OP_CHANGE_TYPE,
-+	MOUNT_OP_MOVE,
-+	MOUNT_OP_NEW,
-+};
-+
-+static enum mount_operation get_mount_op(unsigned long flags)
-+{
-+	if ((flags & (MS_REMOUNT | MS_BIND)) == (MS_REMOUNT | MS_BIND))
-+		return MOUNT_OP_RECONFIGURE;
-+	if (flags & MS_REMOUNT)
-+		return MOUNT_OP_REMOUNT;
-+	if (flags & MS_BIND)
-+		return MOUNT_OP_BIND;
-+	if (flags & (MS_SHARED | MS_PRIVATE | MS_SLAVE | MS_UNBINDABLE))
-+		return MOUNT_OP_CHANGE_TYPE;
-+	if (flags & MS_MOVE)
-+		return MOUNT_OP_MOVE;
-+
-+	return MOUNT_OP_NEW;
-+}
-+
- /*
-  * Flags is a 32-bit value that allows up to 31 non-fs dependent flags to
-  * be given to the mount() call (ie: read-only, no-dev, no-suid etc).
-@@ -4135,6 +4132,8 @@ int path_mount(const char *dev_name, struct path *path,
- 		const char *type_page, unsigned long flags, void *data_page)
- {
- 	unsigned int mnt_flags = 0, sb_flags;
-+	enum mount_operation op;
-+	struct path dev_path = {};
- 	int ret;
- 
- 	/* Discard magic */
-@@ -4148,11 +4147,29 @@ int path_mount(const char *dev_name, struct path *path,
- 	if (flags & MS_NOUSER)
- 		return -EINVAL;
- 
--	ret = security_sb_mount(dev_name, path, type_page, flags, data_page);
-+	if (!may_mount()) {
-+		ret = -EPERM;
-+		goto out;
-+	}
-+
-+	op = get_mount_op(flags);
-+
-+	if (op == MOUNT_OP_BIND || op == MOUNT_OP_MOVE) {
-+		unsigned int lookup_flags = LOOKUP_FOLLOW;
-+
-+		if (!dev_name || !*dev_name)
-+			return -EINVAL;
-+
-+		if (op == MOUNT_OP_BIND)
-+			lookup_flags |= LOOKUP_AUTOMOUNT;
-+		ret = kern_path(dev_name, lookup_flags, &dev_path);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	ret = security_sb_mount(dev_name, &dev_path, path, type_page, flags, data_page);
- 	if (ret)
--		return ret;
--	if (!may_mount())
--		return -EPERM;
-+		goto out;
- 	if (flags & SB_MANDLOCK)
- 		warn_mandlock();
- 
-@@ -4195,19 +4212,34 @@ int path_mount(const char *dev_name, struct path *path,
- 			    SB_LAZYTIME |
- 			    SB_I_VERSION);
- 
--	if ((flags & (MS_REMOUNT | MS_BIND)) == (MS_REMOUNT | MS_BIND))
--		return do_reconfigure_mnt(path, mnt_flags);
--	if (flags & MS_REMOUNT)
--		return do_remount(path, flags, sb_flags, mnt_flags, data_page);
--	if (flags & MS_BIND)
--		return do_loopback(path, dev_name, flags & MS_REC);
--	if (flags & (MS_SHARED | MS_PRIVATE | MS_SLAVE | MS_UNBINDABLE))
--		return do_change_type(path, flags);
--	if (flags & MS_MOVE)
--		return do_move_mount_old(path, dev_name);
--
--	return do_new_mount(path, type_page, sb_flags, mnt_flags, dev_name,
--			    data_page);
-+	switch (op) {
-+	case MOUNT_OP_RECONFIGURE:
-+		ret = do_reconfigure_mnt(path, mnt_flags);
-+		break;
-+	case MOUNT_OP_REMOUNT:
-+		ret = do_remount(path, flags, sb_flags, mnt_flags, data_page);
-+		break;
-+	case MOUNT_OP_BIND:
-+		ret = do_loopback(path, &dev_path, flags & MS_REC);
-+		break;
-+	case MOUNT_OP_CHANGE_TYPE:
-+		ret = do_change_type(path, flags);
-+		break;
-+	case MOUNT_OP_MOVE:
-+		ret = do_move_mount(&dev_path, path, 0);
-+		break;
-+	case MOUNT_OP_NEW:
-+		ret = do_new_mount(path, type_page, sb_flags, mnt_flags, dev_name,
-+				   data_page);
-+		break;
-+	default:
-+		/* unknown op? */
-+		WARN_ON_ONCE(1);
-+		break;
-+	}
-+out:
-+	path_put(&dev_path);
-+	return ret;
- }
- 
- int do_mount(const char *dev_name, const char __user *dir_name,
-diff --git a/include/linux/lsm_hook_defs.h b/include/linux/lsm_hook_defs.h
-index bf3bbac4e02a..b5b9f6fc78e2 100644
---- a/include/linux/lsm_hook_defs.h
-+++ b/include/linux/lsm_hook_defs.h
-@@ -69,7 +69,8 @@ LSM_HOOK(int, 0, sb_remount, struct super_block *sb, void *mnt_opts)
- LSM_HOOK(int, 0, sb_kern_mount, const struct super_block *sb)
- LSM_HOOK(int, 0, sb_show_options, struct seq_file *m, struct super_block *sb)
- LSM_HOOK(int, 0, sb_statfs, struct dentry *dentry)
--LSM_HOOK(int, 0, sb_mount, const char *dev_name, const struct path *path,
-+LSM_HOOK(int, 0, sb_mount, const char *dev_name, const struct path *dev_path,
-+	 const struct path *path,
- 	 const char *type, unsigned long flags, void *data)
- LSM_HOOK(int, 0, sb_umount, struct vfsmount *mnt, int flags)
- LSM_HOOK(int, 0, sb_pivotroot, const struct path *old_path,
-diff --git a/include/linux/security.h b/include/linux/security.h
-index e8d9f6069f0c..af3f38c33ba0 100644
---- a/include/linux/security.h
-+++ b/include/linux/security.h
-@@ -373,7 +373,8 @@ int security_sb_remount(struct super_block *sb, void *mnt_opts);
- int security_sb_kern_mount(const struct super_block *sb);
- int security_sb_show_options(struct seq_file *m, struct super_block *sb);
- int security_sb_statfs(struct dentry *dentry);
--int security_sb_mount(const char *dev_name, const struct path *path,
-+int security_sb_mount(const char *dev_name, const struct path *dev_path,
-+		      const struct path *path,
- 		      const char *type, unsigned long flags, void *data);
- int security_sb_umount(struct vfsmount *mnt, int flags);
- int security_sb_pivotroot(const struct path *old_path, const struct path *new_path);
-@@ -803,7 +804,9 @@ static inline int security_sb_statfs(struct dentry *dentry)
- 	return 0;
- }
- 
--static inline int security_sb_mount(const char *dev_name, const struct path *path,
-+static inline int security_sb_mount(const char *dev_name,
-+				    const struct path *dev_path,
-+				    const struct path *path,
- 				    const char *type, unsigned long flags,
- 				    void *data)
- {
-diff --git a/security/apparmor/include/mount.h b/security/apparmor/include/mount.h
-index 46834f828179..0beb626f1e8b 100644
---- a/security/apparmor/include/mount.h
-+++ b/security/apparmor/include/mount.h
-@@ -31,16 +31,13 @@ int aa_remount(const struct cred *subj_cred,
- 
- int aa_bind_mount(const struct cred *subj_cred,
- 		  struct aa_label *label, const struct path *path,
--		  const char *old_name, unsigned long flags);
-+		  const struct path *old_path, unsigned long flags);
- 
- 
- int aa_mount_change_type(const struct cred *subj_cred,
- 			 struct aa_label *label, const struct path *path,
- 			 unsigned long flags);
- 
--int aa_move_mount_old(const struct cred *subj_cred,
--		      struct aa_label *label, const struct path *path,
--		      const char *old_name);
- int aa_move_mount(const struct cred *subj_cred,
- 		  struct aa_label *label, const struct path *from_path,
- 		  const struct path *to_path);
-diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
-index 9b6c2f157f83..b9f2bd8e9d3a 100644
---- a/security/apparmor/lsm.c
-+++ b/security/apparmor/lsm.c
-@@ -701,7 +701,8 @@ static int apparmor_uring_sqpoll(void)
- }
- #endif /* CONFIG_IO_URING */
- 
--static int apparmor_sb_mount(const char *dev_name, const struct path *path,
-+static int apparmor_sb_mount(const char *dev_name, const struct path *dev_path,
-+			     const struct path *path,
- 			     const char *type, unsigned long flags, void *data)
- {
- 	struct aa_label *label;
-@@ -720,14 +721,13 @@ static int apparmor_sb_mount(const char *dev_name, const struct path *path,
- 					   data);
- 		else if (flags & MS_BIND)
- 			error = aa_bind_mount(current_cred(), label, path,
--					      dev_name, flags);
-+					      dev_path, flags);
- 		else if (flags & (MS_SHARED | MS_PRIVATE | MS_SLAVE |
- 				  MS_UNBINDABLE))
- 			error = aa_mount_change_type(current_cred(), label,
- 						     path, flags);
- 		else if (flags & MS_MOVE)
--			error = aa_move_mount_old(current_cred(), label, path,
--						  dev_name);
-+			error = aa_move_mount(current_cred(), label, dev_path, path);
- 		else
- 			error = aa_new_mount(current_cred(), label, dev_name,
- 					     path, type, flags, data);
-diff --git a/security/apparmor/mount.c b/security/apparmor/mount.c
-index bf8863253e07..00c8acf9d8f9 100644
---- a/security/apparmor/mount.c
-+++ b/security/apparmor/mount.c
-@@ -421,25 +421,17 @@ int aa_remount(const struct cred *subj_cred,
- 
- int aa_bind_mount(const struct cred *subj_cred,
- 		  struct aa_label *label, const struct path *path,
--		  const char *dev_name, unsigned long flags)
-+		  const struct path *old_path, unsigned long flags)
- {
- 	struct aa_profile *profile;
- 	char *buffer = NULL, *old_buffer = NULL;
--	struct path old_path;
- 	int error;
- 
- 	AA_BUG(!label);
- 	AA_BUG(!path);
- 
--	if (!dev_name || !*dev_name)
--		return -EINVAL;
--
- 	flags &= MS_REC | MS_BIND;
- 
--	error = kern_path(dev_name, LOOKUP_FOLLOW|LOOKUP_AUTOMOUNT, &old_path);
--	if (error)
--		return error;
--
- 	buffer = aa_get_buffer(false);
- 	old_buffer = aa_get_buffer(false);
- 	error = -ENOMEM;
-@@ -447,12 +439,11 @@ int aa_bind_mount(const struct cred *subj_cred,
- 		goto out;
- 
- 	error = fn_for_each_confined(label, profile,
--			match_mnt(subj_cred, profile, path, buffer, &old_path,
-+			match_mnt(subj_cred, profile, path, buffer, old_path,
- 				  old_buffer, NULL, flags, NULL, false));
- out:
- 	aa_put_buffer(buffer);
- 	aa_put_buffer(old_buffer);
--	path_put(&old_path);
- 
- 	return error;
- }
-@@ -516,24 +507,6 @@ int aa_move_mount(const struct cred *subj_cred,
- 	return error;
- }
- 
--int aa_move_mount_old(const struct cred *subj_cred, struct aa_label *label,
--		      const struct path *path, const char *orig_name)
--{
--	struct path old_path;
--	int error;
--
--	if (!orig_name || !*orig_name)
--		return -EINVAL;
--	error = kern_path(orig_name, LOOKUP_FOLLOW, &old_path);
--	if (error)
--		return error;
--
--	error = aa_move_mount(subj_cred, label, &old_path, path);
--	path_put(&old_path);
--
--	return error;
--}
--
- int aa_new_mount(const struct cred *subj_cred, struct aa_label *label,
- 		 const char *dev_name, const struct path *path,
- 		 const char *type, unsigned long flags, void *data)
-diff --git a/security/landlock/fs.c b/security/landlock/fs.c
-index 6fee7c20f64d..508ec65f3297 100644
---- a/security/landlock/fs.c
-+++ b/security/landlock/fs.c
-@@ -1418,7 +1418,7 @@ static void log_fs_change_topology_dentry(
-  * inherit these new constraints.  Anyway, for backward compatibility reasons,
-  * a dedicated user space option would be required (e.g. as a ruleset flag).
-  */
--static int hook_sb_mount(const char *const dev_name,
-+static int hook_sb_mount(const char *const dev_name, const struct path *dev_path,
- 			 const struct path *const path, const char *const type,
- 			 const unsigned long flags, void *const data)
- {
-diff --git a/security/security.c b/security/security.c
-index fc8405928cc7..e52a1195e91e 100644
---- a/security/security.c
-+++ b/security/security.c
-@@ -1550,6 +1550,7 @@ int security_sb_statfs(struct dentry *dentry)
- /**
-  * security_sb_mount() - Check permission for mounting a filesystem
-  * @dev_name: filesystem backing device
-+ * @dev_path: path of filesystem backing device
-  * @path: mount point
-  * @type: filesystem type
-  * @flags: mount flags
-@@ -1564,10 +1565,11 @@ int security_sb_statfs(struct dentry *dentry)
-  *
-  * Return: Returns 0 if permission is granted.
-  */
--int security_sb_mount(const char *dev_name, const struct path *path,
-+int security_sb_mount(const char *dev_name, const struct path *dev_path,
-+		      const struct path *path,
- 		      const char *type, unsigned long flags, void *data)
- {
--	return call_int_hook(sb_mount, dev_name, path, type, flags, data);
-+	return call_int_hook(sb_mount, dev_name, dev_path, path, type, flags, data);
- }
- 
- /**
-diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-index 595ceb314aeb..a2c240ffd1e1 100644
---- a/security/selinux/hooks.c
-+++ b/security/selinux/hooks.c
-@@ -2764,6 +2764,7 @@ static int selinux_sb_statfs(struct dentry *dentry)
- }
- 
- static int selinux_mount(const char *dev_name,
-+			 const struct path *dev_path,
- 			 const struct path *path,
- 			 const char *type,
- 			 unsigned long flags,
-diff --git a/security/tomoyo/common.h b/security/tomoyo/common.h
-index 0e8e2e959aef..9b7d190f573e 100644
---- a/security/tomoyo/common.h
-+++ b/security/tomoyo/common.h
-@@ -980,7 +980,8 @@ int tomoyo_init_request_info(struct tomoyo_request_info *r,
- 			     const u8 index);
- int tomoyo_mkdev_perm(const u8 operation, const struct path *path,
- 		      const unsigned int mode, unsigned int dev);
--int tomoyo_mount_permission(const char *dev_name, const struct path *path,
-+int tomoyo_mount_permission(const char *dev_name, const struct path *dev_path,
-+			    const struct path *path,
- 			    const char *type, unsigned long flags,
- 			    void *data_page);
- int tomoyo_open_control(const u8 type, struct file *file);
-diff --git a/security/tomoyo/mount.c b/security/tomoyo/mount.c
-index 2755971f50df..ee10cbfbf798 100644
---- a/security/tomoyo/mount.c
-+++ b/security/tomoyo/mount.c
-@@ -76,11 +76,12 @@ static bool tomoyo_check_mount_acl(struct tomoyo_request_info *r,
-  */
- static int tomoyo_mount_acl(struct tomoyo_request_info *r,
- 			    const char *dev_name,
-+			    const struct path *dev_path,
- 			    const struct path *dir, const char *type,
- 			    unsigned long flags)
- {
- 	struct tomoyo_obj_info obj = { };
--	struct path path;
-+	struct path path = { };
- 	struct file_system_type *fstype = NULL;
- 	const char *requested_type = NULL;
- 	const char *requested_dir_name = NULL;
-@@ -132,17 +133,25 @@ static int tomoyo_mount_acl(struct tomoyo_request_info *r,
- 			need_dev = 1;
- 	}
- 	if (need_dev) {
--		/* Get mount point or device file. */
--		if (!dev_name || kern_path(dev_name, LOOKUP_FOLLOW, &path)) {
--			error = -ENOENT;
-+		error = -ENOENT;
-+		if (!dev_name)
- 			goto out;
-+
-+		if (need_dev == -1) {
-+			/* bind mount or move mount */
-+			if (!dev_path->dentry)
-+				goto out;
-+
-+			obj.path1 = *dev_path;
-+		} else {
-+			/* new mount */
-+			if (kern_path(dev_name, LOOKUP_FOLLOW, &path))
-+				goto out;
-+			obj.path1 = path;
- 		}
--		obj.path1 = path;
--		requested_dev_name = tomoyo_realpath_from_path(&path);
--		if (!requested_dev_name) {
--			error = -ENOENT;
-+		requested_dev_name = tomoyo_realpath_from_path(&obj.path1);
-+		if (!requested_dev_name)
- 			goto out;
--		}
- 	} else {
- 		/* Map dev_name to "<NULL>" if no dev_name given. */
- 		if (!dev_name)
-@@ -172,8 +181,8 @@ static int tomoyo_mount_acl(struct tomoyo_request_info *r,
- 		put_filesystem(fstype);
- 	kfree(requested_type);
- 	/* Drop refcount obtained by kern_path(). */
--	if (obj.path1.dentry)
--		path_put(&obj.path1);
-+	if (path.dentry)
-+		path_put(&path);
- 	return error;
- }
- 
-@@ -188,7 +197,8 @@ static int tomoyo_mount_acl(struct tomoyo_request_info *r,
-  *
-  * Returns 0 on success, negative value otherwise.
-  */
--int tomoyo_mount_permission(const char *dev_name, const struct path *path,
-+int tomoyo_mount_permission(const char *dev_name, const struct path *dev_path,
-+			    const struct path *path,
- 			    const char *type, unsigned long flags,
- 			    void *data_page)
- {
-@@ -234,7 +244,7 @@ int tomoyo_mount_permission(const char *dev_name, const struct path *path,
- 	if (!type)
- 		type = "<NULL>";
- 	idx = tomoyo_read_lock();
--	error = tomoyo_mount_acl(&r, dev_name, path, type, flags);
-+	error = tomoyo_mount_acl(&r, dev_name, dev_path, path, type, flags);
- 	tomoyo_read_unlock(idx);
- 	return error;
- }
-diff --git a/security/tomoyo/tomoyo.c b/security/tomoyo/tomoyo.c
-index d6ebcd9db80a..58e7a295f9b9 100644
---- a/security/tomoyo/tomoyo.c
-+++ b/security/tomoyo/tomoyo.c
-@@ -402,6 +402,7 @@ static int tomoyo_path_chroot(const struct path *path)
-  * tomoyo_sb_mount - Target for security_sb_mount().
-  *
-  * @dev_name: Name of device file. Maybe NULL.
-+ * @dev_path: Path to of device file. Maybe zero'ed.
-  * @path:     Pointer to "struct path".
-  * @type:     Name of filesystem type. Maybe NULL.
-  * @flags:    Mount options.
-@@ -409,10 +410,11 @@ static int tomoyo_path_chroot(const struct path *path)
-  *
-  * Returns 0 on success, negative value otherwise.
-  */
--static int tomoyo_sb_mount(const char *dev_name, const struct path *path,
-+static int tomoyo_sb_mount(const char *dev_name, const struct path *dev_path,
-+			   const struct path *path,
- 			   const char *type, unsigned long flags, void *data)
- {
--	return tomoyo_mount_permission(dev_name, path, type, flags, data);
-+	return tomoyo_mount_permission(dev_name, dev_path, path, type, flags, data);
- }
- 
- /**
+Maxime Bélair (3):
+  Wire up lsm_config_self_policy and lsm_config_system_policy syscalls
+  lsm: introduce security_lsm_config_*_policy hooks
+  AppArmor: add support for lsm_config_self_policy and
+    lsm_config_system_policy
+
+ arch/alpha/kernel/syscalls/syscall.tbl        |  2 +
+ arch/arm/tools/syscall.tbl                    |  2 +
+ arch/m68k/kernel/syscalls/syscall.tbl         |  2 +
+ arch/microblaze/kernel/syscalls/syscall.tbl   |  2 +
+ arch/mips/kernel/syscalls/syscall_n32.tbl     |  2 +
+ arch/mips/kernel/syscalls/syscall_n64.tbl     |  2 +
+ arch/mips/kernel/syscalls/syscall_o32.tbl     |  2 +
+ arch/parisc/kernel/syscalls/syscall.tbl       |  2 +
+ arch/powerpc/kernel/syscalls/syscall.tbl      |  2 +
+ arch/s390/kernel/syscalls/syscall.tbl         |  2 +
+ arch/sh/kernel/syscalls/syscall.tbl           |  2 +
+ arch/sparc/kernel/syscalls/syscall.tbl        |  2 +
+ arch/x86/entry/syscalls/syscall_32.tbl        |  2 +
+ arch/x86/entry/syscalls/syscall_64.tbl        |  2 +
+ arch/xtensa/kernel/syscalls/syscall.tbl       |  2 +
+ include/linux/lsm_hook_defs.h                 |  4 +
+ include/linux/security.h                      | 20 +++++
+ include/linux/syscalls.h                      |  5 ++
+ include/uapi/asm-generic/unistd.h             |  6 +-
+ include/uapi/linux/lsm.h                      |  8 ++
+ kernel/sys_ni.c                               |  2 +
+ security/apparmor/apparmorfs.c                | 31 +++++++
+ security/apparmor/include/apparmor.h          |  4 +
+ security/apparmor/include/apparmorfs.h        |  3 +
+ security/apparmor/lsm.c                       | 84 +++++++++++++++++++
+ security/lsm_syscalls.c                       | 25 ++++++
+ security/security.c                           | 60 +++++++++++++
+ tools/include/uapi/asm-generic/unistd.h       |  6 +-
+ .../arch/x86/entry/syscalls/syscall_64.tbl    |  2 +
+ 29 files changed, 288 insertions(+), 2 deletions(-)
+
+
+base-commit: 9c32cda43eb78f78c73aee4aa344b777714e259b
 -- 
-2.47.1
+2.48.1
 
 
