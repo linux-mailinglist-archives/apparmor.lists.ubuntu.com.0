@@ -2,46 +2,43 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 096C1B0471E
-	for <lists+apparmor@lfdr.de>; Mon, 14 Jul 2025 20:08:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 132F9B067C5
+	for <lists+apparmor@lfdr.de>; Tue, 15 Jul 2025 22:32:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1ubNao-0004x3-PR; Mon, 14 Jul 2025 18:07:58 +0000
-Received: from mgamail.intel.com ([198.175.65.18])
- by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <lkp@intel.com>) id 1ubNan-0004wr-Bp
- for apparmor@lists.ubuntu.com; Mon, 14 Jul 2025 18:07:57 +0000
-X-CSE-ConnectionGUID: 4U77EHMCR0+jDOfSlv97iA==
-X-CSE-MsgGUID: UWVKyo/EQ1OorrE7aGe96Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11491"; a="54845952"
-X-IronPort-AV: E=Sophos;i="6.16,311,1744095600"; d="scan'208";a="54845952"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jul 2025 11:07:54 -0700
-X-CSE-ConnectionGUID: zTt/8AEyS6u9eDHt80S9tg==
-X-CSE-MsgGUID: fxml/+LHQEyTrbc2FF8K0g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,311,1744095600"; d="scan'208";a="188001945"
-Received: from lkp-server01.sh.intel.com (HELO 9ee84586c615) ([10.239.97.150])
- by fmviesa001.fm.intel.com with ESMTP; 14 Jul 2025 11:07:50 -0700
-Received: from kbuild by 9ee84586c615 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1ubNae-0009Ch-0V;
- Mon, 14 Jul 2025 18:07:48 +0000
-Date: Tue, 15 Jul 2025 02:07:38 +0800
-From: kernel test robot <lkp@intel.com>
-To: Maxime =?iso-8859-1?Q?B=E9lair?= <maxime.belair@canonical.com>,
- linux-security-module@vger.kernel.org
-Message-ID: <202507150132.xWRFcZgf-lkp@intel.com>
-References: <20250709080220.110947-4-maxime.belair@canonical.com>
+	id 1ubmJc-0001y7-CR; Tue, 15 Jul 2025 20:31:52 +0000
+Received: from nyc.source.kernel.org ([147.75.193.91])
+ by lists.ubuntu.com with esmtp (Exim 4.86_2)
+ (envelope-from <brauner@kernel.org>) id 1ubEvS-0004aV-H4
+ for apparmor@lists.ubuntu.com; Mon, 14 Jul 2025 08:52:42 +0000
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id B5586A53C97;
+ Mon, 14 Jul 2025 08:45:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDB82C4CEED;
+ Mon, 14 Jul 2025 08:45:24 +0000 (UTC)
+Date: Mon, 14 Jul 2025 10:45:22 +0200
+From: Christian Brauner <brauner@kernel.org>
+To: Song Liu <songliubraving@meta.com>
+Message-ID: <20250714-ansonsten-shrimps-b4df1566f016@brauner>
+References: <20250708230504.3994335-1-song@kernel.org>
+ <20250709102410.GU1880847@ZenIV>
+ <CAHC9VhSS1O+Cp7UJoJnWNbv-Towia72DitOPH0zmKCa4PBttkw@mail.gmail.com>
+ <1959367A-15AB-4332-B1BC-7BBCCA646636@meta.com>
+ <20250710-roden-hosen-ba7f215706bb@brauner>
+ <5EB3EFBC-69BA-49CC-B416-D4A7398A2B47@meta.com>
+ <20250711-pfirsich-worum-c408f9a14b13@brauner>
+ <4EE690E2-4276-41E6-9D8C-FBF7E90B9EB3@meta.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20250709080220.110947-4-maxime.belair@canonical.com>
-Received-SPF: pass client-ip=198.175.65.18; envelope-from=lkp@intel.com;
- helo=mgamail.intel.com
-Subject: Re: [apparmor] [PATCH v5 3/3] AppArmor: add support for
- lsm_config_self_policy and lsm_config_system_policy
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <4EE690E2-4276-41E6-9D8C-FBF7E90B9EB3@meta.com>
+Received-SPF: pass client-ip=147.75.193.91; envelope-from=brauner@kernel.org;
+ helo=nyc.source.kernel.org
+X-Mailman-Approved-At: Tue, 15 Jul 2025 20:31:51 +0000
+Subject: Re: [apparmor] [RFC] vfs: security: Parse dev_name before calling
+ security_sb_mount
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -53,78 +50,111 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: paul@paul-moore.com, song@kernel.org, kees@kernel.org,
- linux-api@vger.kernel.org, stephen.smalley.work@gmail.com,
- penguin-kernel@i-love.sakura.ne.jp, apparmor@lists.ubuntu.com,
- jmorris@namei.org, linux-kernel@vger.kernel.org, rdunlap@infradead.org,
- oe-kbuild-all@lists.linux.dev, mic@digikod.net, takedakn@nttdata.co.jp,
- serge@hallyn.com
+Cc: "mattbobrowski@google.com" <mattbobrowski@google.com>,
+ "jack@suse.cz" <jack@suse.cz>,
+ "penguin-kernel@i-love.sakura.ne.jp" <penguin-kernel@i-love.sakura.ne.jp>,
+ "tomoyo-users_en@lists.sourceforge.net"
+ <tomoyo-users_en@lists.sourceforge.net>,
+ "amir73il@gmail.com" <amir73il@gmail.com>, "ast@kernel.org" <ast@kernel.org>,
+ "omosnace@redhat.com" <omosnace@redhat.com>, Song Liu <song@kernel.org>,
+ "takedakn@nttdata.co.jp" <takedakn@nttdata.co.jp>,
+ Paul Moore <paul@paul-moore.com>,
+ "daniel@iogearbox.net" <daniel@iogearbox.net>,
+ "andrii@kernel.org" <andrii@kernel.org>,
+ "repnop@google.com" <repnop@google.com>,
+ "john@apparmor.net" <john@apparmor.net>,
+ "enlightened@chromium.org" <enlightened@chromium.org>,
+ "selinux@vger.kernel.org" <selinux@vger.kernel.org>,
+ Kernel Team <kernel-team@meta.com>,
+ "apparmor@lists.ubuntu.com" <apparmor@lists.ubuntu.com>,
+ "josef@toxicpanda.com" <josef@toxicpanda.com>,
+ "kpsingh@kernel.org" <kpsingh@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
+ "mic@digikod.net" <mic@digikod.net>, "m@maowtm.org" <m@maowtm.org>,
+ "stephen.smalley.work@gmail.com" <stephen.smalley.work@gmail.com>,
+ "tomoyo-users_ja@lists.sourceforge.net"
+ <tomoyo-users_ja@lists.sourceforge.net>,
+ "jlayton@kernel.org" <jlayton@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "eddyz87@gmail.com" <eddyz87@gmail.com>,
+ "linux-security-module@vger.kernel.org"
+ <linux-security-module@vger.kernel.org>,
+ "gnoack@google.com" <gnoack@google.com>,
+ "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+ "bpf@vger.kernel.org" <bpf@vger.kernel.org>,
+ "martin.lau@linux.dev" <martin.lau@linux.dev>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Hi Maxime,
+On Fri, Jul 11, 2025 at 04:22:52PM +0000, Song Liu wrote:
+> 
+> 
+> > On Jul 11, 2025, at 2:36 AM, Christian Brauner <brauner@kernel.org> wrote:
+> 
+> [...]
+> 
+> >>> 
+> >> To make sure I understand the comment. By “new mount api”, do you mean 
+> >> the code path under do_new_mount()?
+> > 
+> > fsopen()
+> > fsconfig()
+> > fsmount()
+> > open_tree()
+> > open_tree_attr()
+> > move_mount()
+> > statmount()
+> > listmount()
+> > 
+> > I think that's all.
+> 
+> Thanks for the clarification and pointer!
+> 
+> > 
+> >> 
+> >>> My recommendation is make a list of all the currently supported
+> >>> security_*() hooks in the mount code (I certainly don't have them in my
+> >>> head). Figure out what each of them allow to mediate effectively and how
+> >>> the callchains are related.
+> >>> 
+> >>> Then make a proposal how to replace them with something that a) doesn't
+> >>> cause regressions which is probably something that the LSMs care about
+> >>> and b) that covers the new mount API sufficiently to be properly
+> >>> mediated.
+> >>> 
+> >>> I'll happily review proposals. Fwiw, I'm pretty sure that this is
+> >>> something that Mickael is interested in as well.
+> >> 
+> >> So we will consider a proper redesign of LSM hooks for mount syscalls, 
+> >> but we do not want incremental improvements like this one. Do I get 
+> >> the direction right?
+> > 
+> > If incremental is workable then I think so yes. But it would be great to
+> > get a consistent picture of what people want/need.
+> 
+> In short term, we would like a way to get struct path of dev_name for  
 
-kernel test robot noticed the following build warnings:
+You scared me for a second. By "dev_name" you mean the source path.
 
-[auto build test WARNING on 9c32cda43eb78f78c73aee4aa344b777714e259b]
+> bind mount. AFAICT, there are a few options:
+> 
+> 1. Introduce bpf_kern_path kfunc.
+> 2. Add new hook(s), such as [1].
+> 3. Something like this patch.
+> 
+> [1] https://lore.kernel.org/linux-security-module/20250110021008.2704246-1-enlightened@chromium.org/
+> 
+> Do you think we can ship one of them? 
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Maxime-B-lair/Wire-up-lsm_config_self_policy-and-lsm_config_system_policy-syscalls/20250709-160720
-base:   9c32cda43eb78f78c73aee4aa344b777714e259b
-patch link:    https://lore.kernel.org/r/20250709080220.110947-4-maxime.belair%40canonical.com
-patch subject: [PATCH v5 3/3] AppArmor: add support for lsm_config_self_policy and lsm_config_system_policy
-config: hexagon-randconfig-r072-20250714 (https://download.01.org/0day-ci/archive/20250715/202507150132.xWRFcZgf-lkp@intel.com/config)
-compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
+If you place a new security hook into __do_loopback() the only thing
+that I'm not excited about is that we're holding the global namespace
+semaphore at that point. And I want to have as little LSM hook calls
+under the namespace semaphore as possible.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202507150132.xWRFcZgf-lkp@intel.com/
-
-smatch warnings:
-security/apparmor/lsm.c:1348 apparmor_lsm_config_system_policy() warn: unsigned 'ns_size' is never less than zero.
-
-vim +/ns_size +1348 security/apparmor/lsm.c
-
-  1319	
-  1320	/**
-  1321	 * apparmor_lsm_config_system_policy - Load or replace a system policy
-  1322	 * @lsm_id: AppArmor ID (LSM_ID_APPARMOR). Unused here
-  1323	 * @op: operation to perform. Currently, only LSM_POLICY_LOAD is supported
-  1324	 * @buf: user-supplied buffer in the form "<ns>\0<policy>"
-  1325	 *        <ns> is the namespace to load the policy into (empty string for root)
-  1326	 *        <policy> is the policy to load
-  1327	 * @size: size of @buf
-  1328	 * @flags: reserved for future uses; must be zero
-  1329	 *
-  1330	 * Returns: 0 on success, negative value on error
-  1331	 */
-  1332	static int apparmor_lsm_config_system_policy(u32 lsm_id, u32 op, void __user *buf,
-  1333					      size_t size, u32 flags)
-  1334	{
-  1335		loff_t pos = 0; // Partial writing is not currently supported
-  1336		char ns_name[AA_PROFILE_NAME_MAX_SIZE];
-  1337		size_t ns_size;
-  1338		size_t max_ns_size = min(size, AA_PROFILE_NAME_MAX_SIZE);
-  1339	
-  1340		if (op != LSM_POLICY_LOAD || flags)
-  1341			return -EOPNOTSUPP;
-  1342		if (size < 2)
-  1343			return -EINVAL;
-  1344		if (size > AA_PROFILE_MAX_SIZE)
-  1345			return -E2BIG;
-  1346	
-  1347		ns_size = strncpy_from_user(ns_name, buf, max_ns_size);
-> 1348		if (ns_size < 0)
-  1349			return ns_size;
-  1350		if (ns_size == max_ns_size)
-  1351			return -E2BIG;
-  1352	
-  1353		return aa_profile_load_ns_name(ns_name, ns_size, buf + ns_size + 1,
-  1354					       size - ns_size - 1, &pos);
-  1355	}
-  1356	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+If you have 1000 containers each calling into
+security_something_something_bind_mount() and then you do your "walk
+upwards towards the root stuff" and that root is 100000 directories away
+you've introduced a proper DOS or at least a severe new bottleneck into
+the system. And because of mount namespace propagation that needs to be
+serialized across all mount namespaces the namespace semaphore isn't
+something we can just massage away.
 
