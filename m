@@ -2,25 +2,52 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 491B9B0DF6C
-	for <lists+apparmor@lfdr.de>; Tue, 22 Jul 2025 16:50:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 126B9B0DF6D
+	for <lists+apparmor@lfdr.de>; Tue, 22 Jul 2025 16:50:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1ueEJv-0007r6-PB; Tue, 22 Jul 2025 14:50:19 +0000
-Received: from dfw.source.kernel.org ([139.178.84.217])
- by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <brauner@kernel.org>) id 1ubxfU-0006Rf-Mp
- for apparmor@lists.ubuntu.com; Wed, 16 Jul 2025 08:39:12 +0000
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id EF4A55C67BA;
- Wed, 16 Jul 2025 08:32:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AC1AC4CEF0;
- Wed, 16 Jul 2025 08:31:56 +0000 (UTC)
-Date: Wed, 16 Jul 2025 10:31:53 +0200
-From: Christian Brauner <brauner@kernel.org>
-To: Song Liu <songliubraving@meta.com>
-Message-ID: <20250716-unsolidarisch-sagst-e70630ddf6b7@brauner>
+	id 1ueEJv-0007rD-VN; Tue, 22 Jul 2025 14:50:19 +0000
+Received: from mx0a-00082601.pphosted.com ([67.231.145.42])
+ by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.86_2)
+ (envelope-from <prvs=3292c30c56=songliubraving@meta.com>)
+ id 1uc5xU-0004Dp-HH
+ for apparmor@lists.ubuntu.com; Wed, 16 Jul 2025 17:30:20 +0000
+Received: from pps.filterd (m0044010.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56GE3MO9009641;
+ Wed, 16 Jul 2025 10:12:51 -0700
+Received: from nam11-bn8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2085.outbound.protection.outlook.com [40.107.236.85])
+ by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 47x71t3wbh-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 16 Jul 2025 10:12:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=p7MoIFqUVkUZ0HfMEGp1zvXCaW/U6+pwenSdo/sCrkIG7b5/zom86Yq9HsbnGFDN4+HJhj/26+7JNSCIuFvXqRPKpzCGZNNUVP2Lo3sG2FtsSjKXPo0LRB7wHble7OSwvVIYnhm90mNhDE/sdo47T1CU6fb1dMhN6C6AuYVgoyOKIfAbD7JiSBL7Oll1N2800AJzFDCiTRSOA5iCpvPPGE3XHRpRBKTqOBQRBGGrrEsLPgQXhzGzgkb14vcf8YhFlRMlbmsjSjfMM4+hpPBgCJL2ow4j30Pzh0e3GrG4njBYlpvD3bgXbOGR1daH0JN4rKf0832iTOYLBAKvwWqcrA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1iciPr8tfoyxgS1+gHKH6vBA59WU4Owbigz2bWkzo9g=;
+ b=AKmtccbNbkIjqVh0OJj1z5bAIMItWsL5LGu2ecnZP7k6nw+bkzqCn8EwH+hUmt5siRxvVFyE3C2O4IYT7/jt3nowmT0pV0pOMUhq4ks3rFcdbMliZXHj+FkKPh6aOSvGcuIEYlDD1aXbReumorGUM1fodGWTBgDqbpkX7yV3ADWYp/v0lgE/Us3/hAiLtaPlxbSl5PBGbda0XeO4MMr7cNiTziJAH0aznyI+tNjYdFGEQDLiomANaX0BBEtG+E17qx1MleF/W0RQ+S8tnDyA47akZTvOXGVdTY+oYU3FSfVyOAujIK9bKQOF00nZdeTDuYBe120rgG2PrN6K2WIwQg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=meta.com; dmarc=pass action=none header.from=meta.com;
+ dkim=pass header.d=meta.com; arc=none
+Received: from SA1PR15MB5109.namprd15.prod.outlook.com (2603:10b6:806:1dc::10)
+ by IA1PR15MB5917.namprd15.prod.outlook.com (2603:10b6:208:3fe::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8922.33; Wed, 16 Jul
+ 2025 17:12:46 +0000
+Received: from SA1PR15MB5109.namprd15.prod.outlook.com
+ ([fe80::662b:d7bd:ab1b:2610]) by SA1PR15MB5109.namprd15.prod.outlook.com
+ ([fe80::662b:d7bd:ab1b:2610%7]) with mapi id 15.20.8922.035; Wed, 16 Jul 2025
+ 17:12:46 +0000
+From: Song Liu <songliubraving@meta.com>
+To: Christian Brauner <brauner@kernel.org>
+Thread-Topic: [RFC] vfs: security: Parse dev_name before calling
+ security_sb_mount
+Thread-Index: AQHb8FzEhXwik4wHVUiG4oVmXX3W0LQpln0AgABShACAAB3hAIABOQAAgABXkYCAARZZAIAAcYcAgAQ3OACAAGuvgIABQIcAgADM74CAAKfAgIAAkXuA
+Date: Wed, 16 Jul 2025 17:12:46 +0000
+Message-ID: <16736E00-BE43-46D8-8837-BC9F8EF2A5AA@meta.com>
 References: <CAHC9VhSS1O+Cp7UJoJnWNbv-Towia72DitOPH0zmKCa4PBttkw@mail.gmail.com>
  <1959367A-15AB-4332-B1BC-7BBCCA646636@meta.com>
  <20250710-roden-hosen-ba7f215706bb@brauner>
@@ -31,13 +58,132 @@ References: <CAHC9VhSS1O+Cp7UJoJnWNbv-Towia72DitOPH0zmKCa4PBttkw@mail.gmail.com>
  <3ACFCAB1-9FEC-4D4E-BFB0-9F37A21AA204@meta.com>
  <20250715-knattern-hochklassig-ddc27ddd4557@brauner>
  <B2872298-BC9C-4BFD-8C88-CED88E0B7E3A@meta.com>
+ <20250716-unsolidarisch-sagst-e70630ddf6b7@brauner>
+In-Reply-To: <20250716-unsolidarisch-sagst-e70630ddf6b7@brauner>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-mailer: Apple Mail (2.3826.600.51.1.1)
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA1PR15MB5109:EE_|IA1PR15MB5917:EE_
+x-ms-office365-filtering-correlation-id: ef3005ab-948b-4ef0-553b-08ddc48bfc31
+x-fb-source: Internal
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|7416014|366016|376014|38070700018; 
+x-microsoft-antispam-message-info: =?utf-8?B?ZDBpbWhFMFprWE9iY1J2L3gzdEdvUU51b2EwVlJPR2MzR1h0SG1kMmEweFZL?=
+ =?utf-8?B?cjV3LzNiN0NnMXZsam1nak4vR0VXRkdSa2pXVndnNWk0b1lmMkNCaWxkYjlj?=
+ =?utf-8?B?NUFCSDY1elRLVm5OSXlQYlNwNWxueXZ0cEdXNlJzajdkRlZjSkhyL25wTEZ3?=
+ =?utf-8?B?MWRpWG1hYy9COENCRGhPZ29ydVRZZi9ERis4ZVNJaThDK3hHaWVxT3gwMkNG?=
+ =?utf-8?B?U2dDajZHa200b0hDRVd1dzFqV3hMNVlJVFlBWFR0Z21xNEpxQ3dPNkR4OEZx?=
+ =?utf-8?B?Zmx6aHVaL3pIQUgvSjdkdE9HZDAwcEJyQ1EvL2FXaGJIZGVaN1NVUmpyTEFz?=
+ =?utf-8?B?cCtYM21TbmNsekdzWXAwOTY1TVZxeUhnY1NnRlBIcWY0Q3NHV1JWb1hCRTBt?=
+ =?utf-8?B?ZVo5V3E4U0tsT0Zab1RrSTZzSndxdzNwNmZHNnl1cXpIWU5wK1AvaFlYMWF6?=
+ =?utf-8?B?b1QzTzd4UVRhK1cvTXZUVmpZbGgxdVdnbnNSRXBmaTE4WWZxOXRZOHRjMDJV?=
+ =?utf-8?B?YU1yR0N5Z3Vuc0hST2ZwRThmdElTK0gvWDN3RWV2S0pFQUhBMFJxc0xZVEYw?=
+ =?utf-8?B?S3lJZHRHUzQ1ZEFMM3V2MTRQNkhwWTJtSktidk5wTnFONGwxVlFzWEJSaWFk?=
+ =?utf-8?B?eXZVSEUrTGVZQk12UTVxK0ZQaWFCNkxpQmJoQVoxRS9YL2t3VEdHcHd6Tjdp?=
+ =?utf-8?B?aVVTdGlGRzlxYk8zK01QSFRrUlc1QUhvUFpjeW9vbUxDbW42VkI2cmovVHlO?=
+ =?utf-8?B?U2tXZG9FaGJubEJEY01OTzg4cEZRM2taWGFHZTVPZ3g1bVhIdFc1WnMwSjRk?=
+ =?utf-8?B?NnpXWTBBQjVzT29sY0hOdTZxUFRzcXNrOVRkTkRDaHd2eWg1ZndRckdUci82?=
+ =?utf-8?B?dThmYzI5aXgweE9aTExkOVpYbjlLZzF2YldHQmllNlAydWZKS3BndEFmNURL?=
+ =?utf-8?B?SDNkWVpmbFpqRUlzYlJxdnJuMDFqRVZ4bUlNQm5CUUJQWXg1b3Jhd29EcmZH?=
+ =?utf-8?B?YU42ZFQyc2h0ZUNQb2w1U1FtRFRkK09xTnJzVllqaU9GNy9NT05lTXlESEQx?=
+ =?utf-8?B?WWE1djAzYXhNVm9Pc09SSnZwTmFkQTZuUWFnK05xd1BkZEkxZGRYVmR6NlZ4?=
+ =?utf-8?B?cmtkUnkvRUl1SzFuUmE5cXNzakxIamtPR2pJTXkyU09VNFlMRGtVY0JrMjVU?=
+ =?utf-8?B?c2FmNGFmMlFtZHViSHV5TC9JbnhmQXdtdW9hRUNOdjJXRmVZelFNN3ZId0Vy?=
+ =?utf-8?B?OW81L08rUUtFL1BJLzBOY3lqRzl4UjU3YjBhV3FCdFovZlZ2ZnE3SnVhWFM3?=
+ =?utf-8?B?RHZMY0N1dm1rdnk5SmRBcStUcmx2MXJwL2JqcG1QZFVPcEpOaXVoWWVsU1pp?=
+ =?utf-8?B?T3R5ajFQS0xQUE9mK0hxY2JVU0kxeEp4a1dwNXdLWEhnNVdoQ3RwdGxYcHFF?=
+ =?utf-8?B?ZFBxR2dsU2hxbWVpd1NyVm9BNVBZRzEyV2h6REttUFdRQWl6dnBrQ3RwNWc2?=
+ =?utf-8?B?V3p1OGlWQWtyMTlnMHRaMlh2c091V0p6Umk3SEFNYUg3WWtlNDd4T2xHU3I1?=
+ =?utf-8?B?YWhacS8wbnV5M2EzcXR0WGZRVHZNd0xUN2VxdlB3YkcyZEdyWlVmK0FITEhs?=
+ =?utf-8?B?SzM3RVNjeG1ycXZ2RzZ2aXFIMXNuT21FV1dMZnJHdFJwYzAzVWkvSUJwRkpC?=
+ =?utf-8?B?SXdPbjJwSkFnUVJTcDVXR1Jkc3p3eG41RWJ6OVE0ZjAyMnB1MTlnVUlmYllN?=
+ =?utf-8?B?SmpFK09mTGQrUURpN3FoMWRDV2FsQnVjR2ZPbzRFUmMzdmwrWmxmNHNmbDFs?=
+ =?utf-8?B?eDRrMHQ3Qkozd1UvTjMzejNFMDd1a1ozRVdVMVM0WmN0RlRaN0g3WnJDdVFL?=
+ =?utf-8?B?SUl1L2ZnRWczaGk4RUg1RURhc1hIZ2paYTVVU21PNXczYzcrM1NTcWIweXZk?=
+ =?utf-8?B?V1hDcEZBQXlyWk9UV2FzaFhxTk1FdWh2c21Tc2p1OHNwWlFRSzhPOE1DNW0v?=
+ =?utf-8?Q?ZJ6faoXTRnq6JDt5p+WyWFdgiQaOIQ=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA1PR15MB5109.namprd15.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(7416014)(366016)(376014)(38070700018); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?WTdJMFVOc21ZL08wMmNvWkxCYUhjZWc3cElLcnFoVkNEaVFaWittS2ZKUEE0?=
+ =?utf-8?B?MlhyTzZaSXppeGFkbldJSnMzWVlZTTJsSXVvVlVnUXAwKzcvaVZmNUoveXBL?=
+ =?utf-8?B?K0c2ZU9vYmpMN2NEQk92Tzc3ZmFPK2wxT3Nrc2FKTWF2SE1aSVhWSXBDYjF6?=
+ =?utf-8?B?SUxCcTdhOHJLNnFQSzBJNGo3ZFhNRjcvN2lqdnhkTlN4WWZxRXpQYU5nek5U?=
+ =?utf-8?B?M3FCemlFUkJ0bTJoREZzNzBDMFo4QzF2cGxhZExkcWZyQVdGd2MwNXpTZkRM?=
+ =?utf-8?B?dlpmZmhaNHpNdTBTNUszVXdTc3FYeXRiMzN0ckhHa3hIMXBIR3pFZFBtT1I5?=
+ =?utf-8?B?SG10cHYrMncvYmJhUjcycXFuTXBYdGxvTjVkajlBYW5zbEhQL1VjNHhvczY3?=
+ =?utf-8?B?R0F6NlRrUlRXQ2o3UndEQi9RcUlMRGtiZnFiODdmMndyZjBOUmdIUDlkY0V2?=
+ =?utf-8?B?eTFyNlRMYkp0RUVhbUt5RnlsZXdBY1dycjFkZXhVd21jaHdoZGJvd0pwNTY0?=
+ =?utf-8?B?STFHWEVIdEwxZjhEYVlPaFhlcHNwbklQNEhqdXg4N21jc2pwS1lxYTk1VDZY?=
+ =?utf-8?B?NEZPWFJ6L1V0ZmpuMk9kTUV0N0Vzc0xrdHFOQWVVd0lKaUg5Mlp2U0dhUVB0?=
+ =?utf-8?B?c2JUZmloa1Baa0hsQmdpRnlDYkRDQ3BGMzJzRFM5eFZFSjdKQlJ1WVA4WC9O?=
+ =?utf-8?B?b1I1ZnZxRW5heEk5MC9xWmwrbnFhUmYyK01vV1pLSE13aVBXajYxTDdsV2hr?=
+ =?utf-8?B?SWEvcWdGUWZGR0ZkUmRXV3R0aTBFVGxMbnlsR0d0VHFIQThnRU5nK1QzS2xj?=
+ =?utf-8?B?YmZNZ01QYzkwckpReU9pMnY1SFcrRzJFaUx0b3ViQ1lIVzFxZGpMeENmWGhi?=
+ =?utf-8?B?NFhMOFhGWFlqSzFWS0dtczRtcUYyZGI2K0dZRDJObElpUUlxQ0w2MFlZTjQ1?=
+ =?utf-8?B?QXpiNFV5OTFuUGROazlaZ3Q1MVlzWlpURVJrZmJVNks1eXZiNzlyR3QxOU5F?=
+ =?utf-8?B?RVR5b09wdzR0cW5pRElSaGFwMHArdTUwTGJIYy9pK010S3ppY0UxbC9Mc0ln?=
+ =?utf-8?B?akhYNzNPL1NDcysraXA4R01NSWIrZ3BGV2ZYSUxUSFVWd1VwOHRMam55MUJz?=
+ =?utf-8?B?aDc3NnVDbDNIQWNlY0FsQmdJbjlYelRRUWlNV01hV001TWVMY05xQmdEYjlG?=
+ =?utf-8?B?K05aS1hFZnhhOGVSMnliYjRlajJXcVpyYm54SGdjMmJQTGVIYVhNOUpGLzZN?=
+ =?utf-8?B?SVN1M0w5RHpwVzNjdFpsSktEaFREcXphSFV3bzhjVUZTdWVrdGNOWVBiaUhr?=
+ =?utf-8?B?RE91UDJ4cDI1V2lGVUNTR1p2cWZuVVRwNjlyeHhZUzhKa0hpWjl5SUFmc0dy?=
+ =?utf-8?B?QlVEQkpYRnFFd1VmeFJPZTc5c0swS0dwUmttWHpiZzFaQlpkVFNxVnliTGlC?=
+ =?utf-8?B?U3NIZi92MUtneEM4QjlrVWd3OUUxY1Byc2VONHRZNXRwM0Z1TkowWm1GSFRB?=
+ =?utf-8?B?Y1JkQTlIOWZwSzcra1R4NlNnRWhqcXhQbFUzUXdDYnArdGN0YVRaUHV3QW1N?=
+ =?utf-8?B?cUpxWXBOM2NaZ1FlUkM4SlhpbGo4ZVd6RzZadG9CQ25HTlRHaWt1RHljWVNv?=
+ =?utf-8?B?dmdyMkdWYjJQdnRSdFdxMnlxRWhTZnNSdWVLMWlMckc1UUVrZW13Y2p5VG1k?=
+ =?utf-8?B?QmJBVThyV3NldXpjSHQrYU5uSGFOMXNjS3A4N1ZIb04zVmY0YnNqOTl6eXhu?=
+ =?utf-8?B?c052MUxxV3pRcE1RcGR3Z2oxRzJyOUhiVmE4MjVUQ3R5eFlxN0cyUzlWeDlG?=
+ =?utf-8?B?SmxvK3lHS1N2cFRISElreFpoaXU4WW1IQXh3K3o4ZzRqdk1kTTlUbk16RE84?=
+ =?utf-8?B?ZG0yemx4aitBL1RyNWZWVTh6cE85VlpGLzhqbDFVMzFsWEZPS2FKNTR0aVlh?=
+ =?utf-8?B?SzRSYU83Mmd4QmpnQjRzd3l2anAyeTR2Q20zcnh0SzNYdmt2YjBXd2FGMVpO?=
+ =?utf-8?B?Z2g5ZlpoUHh1VE9EbkRSano0SzhWKzUycTZMbkh3OWpTMElLRHRxRGx1NDlV?=
+ =?utf-8?B?bEFUM0ZUWXFzQmhhNDJqSDFFNGNENFVHVTBMRXdyL1FOanFyT0lFN3VxRFJI?=
+ =?utf-8?B?RVpqd1h5Smo0MWRySXNQTUdHZk9iRmYrLzNZSVRaUE40bHhMWitrQTd6YTM3?=
+ =?utf-8?B?QlE9PQ==?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <F532AD1C007440468930678700CD2787@namprd15.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <B2872298-BC9C-4BFD-8C88-CED88E0B7E3A@meta.com>
-Received-SPF: pass client-ip=139.178.84.217; envelope-from=brauner@kernel.org;
- helo=dfw.source.kernel.org
+X-OriginatorOrg: meta.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR15MB5109.namprd15.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ef3005ab-948b-4ef0-553b-08ddc48bfc31
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Jul 2025 17:12:46.6484 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: C++rWBuO8YFxFuNKova8tgqCpG4iHReo0lK2wPsO2ugUjkCIH4YAtpv+ZofDI+gd8GAd3x0idgq+B9b2Yz5pvw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR15MB5917
+X-Proofpoint-GUID: OChSHuVeLi0CbAZyJsdzxmNIpeV-sca0
+X-Authority-Analysis: v=2.4 cv=V+l90fni c=1 sm=1 tr=0 ts=6877dd93 cx=c_pps
+ a=7NYwoM2WOJnlZ5JcLxGZDA==:117 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
+ a=wKuvFiaSGQ0qltdbU6+NXLB8nM8=:19 a=Ol13hO9ccFRV9qXi2t6ftBPywas=:19
+ a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=Wb1JkmetP80A:10 a=VwQbUJbxAAAA:8 a=cm27Pg_UAAAA:8 a=hX8BG1DsS7qilViz-KIA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzE2MDE1NSBTYWx0ZWRfX5IAgzPQnSFjH
+ TG3eN5LQR4GCeueiCu6yGSokEVVxICaZhJ8fbCjSrof9w127fxbokC/nROXkE2qn06J6oK1NurY
+ sN0eBHuAVZC+IE0MpRbCMzdNmqbzA2rTFzTqRwWvUG60Z45+3hN9uW45mj/P1A/w0ld9JIn8eLu
+ PKapFbEcX8ovZz9m0St2Yau7OUrwyLbjKq2tzAvqOTkPjk6aeB1inx1WMdGmtyW6Kwq9Op3bFyA
+ axgNCGC4kko5Yh145jkhFVnMtb3Oth9+fDdoL+/uWeM34PY9kzCJFzv5NaxTwQ22GenPP/wjQag
+ ILhCuyZVPmxU7YJYz5PhFbDpu5pvwq17bCLFtP5r4HslnbU15hNKFJUHKc0fu0eLtr9iiUZObSE
+ 8GbIXGiUhKTGtFsChqmTfJryI0FGa4MovErlcat6T6TqdKw9yCb1XxU+EDbpmzhSXZTy+shq
+X-Proofpoint-ORIG-GUID: OChSHuVeLi0CbAZyJsdzxmNIpeV-sca0
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-07-16_02,2025-07-16_02,2025-03-28_01
+Received-SPF: pass client-ip=67.231.145.42;
+ envelope-from=prvs=3292c30c56=songliubraving@meta.com;
+ helo=mx0a-00082601.pphosted.com
 X-Mailman-Approved-At: Tue, 22 Jul 2025 14:50:17 +0000
 Subject: Re: [apparmor] [RFC] vfs: security: Parse dev_name before calling
  security_sb_mount
@@ -87,103 +233,62 @@ Cc: "mattbobrowski@google.com" <mattbobrowski@google.com>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Tue, Jul 15, 2025 at 10:31:39PM +0000, Song Liu wrote:
-> 
-> > On Jul 15, 2025, at 3:18 AM, Christian Brauner <brauner@kernel.org> wrote:
-> > On Mon, Jul 14, 2025 at 03:10:57PM +0000, Song Liu wrote:
-> 
-> 
-> [...]
-> 
-> >>> If you place a new security hook into __do_loopback() the only thing
-> >>> that I'm not excited about is that we're holding the global namespace
-> >>> semaphore at that point. And I want to have as little LSM hook calls
-> >>> under the namespace semaphore as possible.
-> >> 
-> >> do_loopback() changed a bit since [1]. But if we put the new hook 
-> >> in do_loopback() before lock_mount(), we don’t have the problem with
-> >> the namespace semaphore, right? Also, this RFC doesn’t seem to have 
-> >> this issue either.
-> > 
-> > While the mount isn't locked another mount can still be mounted on top
-> > of it. lock_mount() will detect this and lookup the topmost mount and
-> > use that. IOW, the value of old_path->mnt may have changed after
-> > lock_mount().
-> 
-> I am probably confused. Do you mean path->mnt (instead of old_path->mnt) 
-> may have changed after lock_mount()? 
-
-I mean the target path. I forgot that the code uses @old_path to mean
-the source path not the target path. And you're interested in the source
-path, not the target path.
-
-> 
-> > If you have 1000 containers each calling into
-> >>> security_something_something_bind_mount() and then you do your "walk
-> >>> upwards towards the root stuff" and that root is 100000 directories away
-> >>> you've introduced a proper DOS or at least a severe new bottleneck into
-> >>> the system. And because of mount namespace propagation that needs to be
-> >>> serialized across all mount namespaces the namespace semaphore isn't
-> >>> something we can just massage away.
-> >> 
-> >> AFAICT, a poorly designed LSM can easily DoS a system. Therefore, I 
-> >> don’t think we need to overthink about a LSM helper causing DoS in 
-> >> some special scenarios. The owner of the LSM, either built-in LSM or 
-> >> BPF LSM, need to be aware of such risks and design the LSM rules 
-> >> properly to avoid DoS risks. For example, if the path tree is really 
-> >> deep, the LSM may decide to block the mount after walking a preset 
-> >> number of steps.
-> > 
-> > The scope of the lock matters _a lot_. If a poorly designed LSM happens
-> > to take exorbitant amount of time under the inode_lock() it's annoying:
-> > to anyone else wanting to grab the inode_lock() _for that single inode_.
-> > 
-> > If a poorly designed LSM does broken stuff under the namespace semaphore
-> > any mount event on the whole system will block, effectively deadlocking
-> > the system in an instant. For example, if anything even glances at
-> > /proc/<pid>/mountinfo it's game over. It's already iffy that we allow
-> > security_sb_statfs() under there but that's at least guaranteed to be
-> > fast.
-> > 
-> > If you can make it work so that we don't have to place security_*()
-> > under the namespace semaphore and you can figure out how to deal with a
-> > potential overmount racing you then this would be ideal for everyone.
-> 
-> I am trying to understand all the challenges here. 
-
-As long as you're only interested in the source path's mount, you're
-fine.
-
-> 
-> It appears to me that do_loopback() has the tricky issue:
-> 
-> static int do_loopback(struct path *path, ...)
-> {
-> 	...
-> 	/* 
-> 	 * path may still change, so not a good point to add
-> 	 * security hook 
-> 	 */
-> 	mp = lock_mount(path);
-> 	if (IS_ERR(mp)) {
-> 		/* ... */
-> 	}
-> 	/* 
-> 	 * namespace_sem is locked, so not a good point to add
-> 	 * security hook
-> 	 */
-> 	...
-> }
-> 
-> Basically, without major work with locking, there is no good 
-> spot to insert a security hook into do_loopback(). Or, maybe 
-> we can add a hook somewhere in lock_mount()? 
-
-You can't really because the lookup_mnt() call in lock_mount() happens
-under the namespace semaphore already and if it's the topmost mount it
-won't be dropped again and you can't drop it again without risking
-overmounts again.
-
-But again, as long as you are interested in the source mount you should
-be fine.
+DQoNCj4gT24gSnVsIDE2LCAyMDI1LCBhdCAxOjMx4oCvQU0sIENocmlzdGlhbiBCcmF1bmVyIDxi
+cmF1bmVyQGtlcm5lbC5vcmc+IHdyb3RlOg0KPiANCj4gT24gVHVlLCBKdWwgMTUsIDIwMjUgYXQg
+MTA6MzE6MzlQTSArMDAwMCwgU29uZyBMaXUgd3JvdGU6DQo+PiANCj4+PiBPbiBKdWwgMTUsIDIw
+MjUsIGF0IDM6MTjigK9BTSwgQ2hyaXN0aWFuIEJyYXVuZXIgPGJyYXVuZXJAa2VybmVsLm9yZz4g
+d3JvdGU6DQo+Pj4gT24gTW9uLCBKdWwgMTQsIDIwMjUgYXQgMDM6MTA6NTdQTSArMDAwMCwgU29u
+ZyBMaXUgd3JvdGU6DQo+PiANCj4+IA0KPj4gWy4uLl0NCj4+IA0KPj4+Pj4gSWYgeW91IHBsYWNl
+IGEgbmV3IHNlY3VyaXR5IGhvb2sgaW50byBfX2RvX2xvb3BiYWNrKCkgdGhlIG9ubHkgdGhpbmcN
+Cj4+Pj4+IHRoYXQgSSdtIG5vdCBleGNpdGVkIGFib3V0IGlzIHRoYXQgd2UncmUgaG9sZGluZyB0
+aGUgZ2xvYmFsIG5hbWVzcGFjZQ0KPj4+Pj4gc2VtYXBob3JlIGF0IHRoYXQgcG9pbnQuIEFuZCBJ
+IHdhbnQgdG8gaGF2ZSBhcyBsaXR0bGUgTFNNIGhvb2sgY2FsbHMNCj4+Pj4+IHVuZGVyIHRoZSBu
+YW1lc3BhY2Ugc2VtYXBob3JlIGFzIHBvc3NpYmxlLg0KPj4+PiANCj4+Pj4gZG9fbG9vcGJhY2so
+KSBjaGFuZ2VkIGEgYml0IHNpbmNlIFsxXS4gQnV0IGlmIHdlIHB1dCB0aGUgbmV3IGhvb2sgDQo+
+Pj4+IGluIGRvX2xvb3BiYWNrKCkgYmVmb3JlIGxvY2tfbW91bnQoKSwgd2UgZG9u4oCZdCBoYXZl
+IHRoZSBwcm9ibGVtIHdpdGgNCj4+Pj4gdGhlIG5hbWVzcGFjZSBzZW1hcGhvcmUsIHJpZ2h0PyBB
+bHNvLCB0aGlzIFJGQyBkb2VzbuKAmXQgc2VlbSB0byBoYXZlIA0KPj4+PiB0aGlzIGlzc3VlIGVp
+dGhlci4NCj4+PiANCj4+PiBXaGlsZSB0aGUgbW91bnQgaXNuJ3QgbG9ja2VkIGFub3RoZXIgbW91
+bnQgY2FuIHN0aWxsIGJlIG1vdW50ZWQgb24gdG9wDQo+Pj4gb2YgaXQuIGxvY2tfbW91bnQoKSB3
+aWxsIGRldGVjdCB0aGlzIGFuZCBsb29rdXAgdGhlIHRvcG1vc3QgbW91bnQgYW5kDQo+Pj4gdXNl
+IHRoYXQuIElPVywgdGhlIHZhbHVlIG9mIG9sZF9wYXRoLT5tbnQgbWF5IGhhdmUgY2hhbmdlZCBh
+ZnRlcg0KPj4+IGxvY2tfbW91bnQoKS4NCj4+IA0KPj4gSSBhbSBwcm9iYWJseSBjb25mdXNlZC4g
+RG8geW91IG1lYW4gcGF0aC0+bW50IChpbnN0ZWFkIG9mIG9sZF9wYXRoLT5tbnQpIA0KPj4gbWF5
+IGhhdmUgY2hhbmdlZCBhZnRlciBsb2NrX21vdW50KCk/DQo+IA0KPiBJIG1lYW4gdGhlIHRhcmdl
+dCBwYXRoLiBJIGZvcmdvdCB0aGF0IHRoZSBjb2RlIHVzZXMgQG9sZF9wYXRoIHRvIG1lYW4NCj4g
+dGhlIHNvdXJjZSBwYXRoIG5vdCB0aGUgdGFyZ2V0IHBhdGguIEFuZCB5b3UncmUgaW50ZXJlc3Rl
+ZCBpbiB0aGUgc291cmNlDQo+IHBhdGgsIG5vdCB0aGUgdGFyZ2V0IHBhdGguDQoNCkJvdGggc2Vj
+dXJpdHlfc2JfbW91bnQgYW5kIHNlY3VyaXR5X21vdmVfbW91bnQgaGFzIHRoZSBvdmVybW91bnQg
+aXNzdWUgDQpmb3IgdGFyZ2V0IHBhdGguIA0KDQpbLi4uXQ0KDQo+PiANCj4+IEl0IGFwcGVhcnMg
+dG8gbWUgdGhhdCBkb19sb29wYmFjaygpIGhhcyB0aGUgdHJpY2t5IGlzc3VlOg0KPj4gDQo+PiBz
+dGF0aWMgaW50IGRvX2xvb3BiYWNrKHN0cnVjdCBwYXRoICpwYXRoLCAuLi4pDQo+PiB7DQo+PiAu
+Li4NCj4+IC8qIA0KPj4gKiBwYXRoIG1heSBzdGlsbCBjaGFuZ2UsIHNvIG5vdCBhIGdvb2QgcG9p
+bnQgdG8gYWRkDQo+PiAqIHNlY3VyaXR5IGhvb2sgDQo+PiAqLw0KPj4gbXAgPSBsb2NrX21vdW50
+KHBhdGgpOw0KPj4gaWYgKElTX0VSUihtcCkpIHsNCj4+IC8qIC4uLiAqLw0KPj4gfQ0KPj4gLyog
+DQo+PiAqIG5hbWVzcGFjZV9zZW0gaXMgbG9ja2VkLCBzbyBub3QgYSBnb29kIHBvaW50IHRvIGFk
+ZA0KPj4gKiBzZWN1cml0eSBob29rDQo+PiAqLw0KPj4gLi4uDQo+PiB9DQo+PiANCj4+IEJhc2lj
+YWxseSwgd2l0aG91dCBtYWpvciB3b3JrIHdpdGggbG9ja2luZywgdGhlcmUgaXMgbm8gZ29vZCAN
+Cj4+IHNwb3QgdG8gaW5zZXJ0IGEgc2VjdXJpdHkgaG9vayBpbnRvIGRvX2xvb3BiYWNrKCkuIE9y
+LCBtYXliZSANCj4+IHdlIGNhbiBhZGQgYSBob29rIHNvbWV3aGVyZSBpbiBsb2NrX21vdW50KCk/
+DQo+IA0KPiBZb3UgY2FuJ3QgcmVhbGx5IGJlY2F1c2UgdGhlIGxvb2t1cF9tbnQoKSBjYWxsIGlu
+IGxvY2tfbW91bnQoKSBoYXBwZW5zDQo+IHVuZGVyIHRoZSBuYW1lc3BhY2Ugc2VtYXBob3JlIGFs
+cmVhZHkgYW5kIGlmIGl0J3MgdGhlIHRvcG1vc3QgbW91bnQgaXQNCj4gd29uJ3QgYmUgZHJvcHBl
+ZCBhZ2FpbiBhbmQgeW91IGNhbid0IGRyb3AgaXQgYWdhaW4gd2l0aG91dCByaXNraW5nDQo+IG92
+ZXJtb3VudHMgYWdhaW4uDQoNCldlIHByb2JhYmx5IGhhdmUgdG8gYWNjZXB0IHRoZSBvdmVybW91
+bnQgaXNzdWUgZm9yIHNlY3VyaXR5XyBob29rcyANCnRoYXQgY292ZXJzIHRoZSBuZXcgbW91bnQg
+QVBJcy4gDQoNCj4gQnV0IGFnYWluLCBhcyBsb25nIGFzIHlvdSBhcmUgaW50ZXJlc3RlZCBpbiB0
+aGUgc291cmNlIG1vdW50IHlvdSBzaG91bGQNCj4gYmUgZmluZS4NCg0KRm9yIHRoZSBzb3VyY2Ug
+cGF0aCwgd2UgYXJlIGJhY2sgdG8gdGhlIGlzc3VlIHdlIHdhbnQgdG8gYWRkcmVzcyANCmluIHRo
+aXMgUkZDOiB0byBnZXQgc3RydWN0IHBhdGggb2YgZGV2X25hbWUgKHNvdXJjZSBwYXRoKSBmb3Ig
+YmluZCANCm1vdW50LiBBbW9uZyB0aGVzZSBwcm9wb3NhbHM6DQoNCjEuIEludHJvZHVjZSBicGZf
+a2Vybl9wYXRoIGtmdW5jLg0KV2Ugd2lsbCBwcm9iYWJseSBsaW1pdCB0aGlzIGtmdW5jIHRvIG9u
+bHkgd29yayBvbiBzZWN1cml0eV9zYl9tb3VudC4NCg0KMi4gQWRkIG5ldyBob29rKHMpLCBzdWNo
+IGFzIFsxXS4NClsxXSBodHRwczovL2xvcmUua2VybmVsLm9yZy9saW51eC1zZWN1cml0eS1tb2R1
+bGUvMjAyNTAxMTAwMjEwMDguMjcwNDI0Ni0xLWVubGlnaHRlbmVkQGNocm9taXVtLm9yZy8NClRo
+aXMgaXMgbm90IGEgY29tcGxldGUgc29sdXRpb24uIEhvd2V2ZXIsIGdpdmVuIHNlY3VyaXR5X3Ni
+X21vdW50IA0KYXMtaXMgaGFuZGxlcyBzbyBtYW55IGRpZmZlcmVudCBjYXNlcywgd2Ugd2lsbCBs
+aWtlbHkgc3BsaXQgaXQgaW4gDQp0aGUgZnV0dXJlLiBUaGVyZWZvcmUsIHRoaXMgbmV3IGhvb2sg
+Y2FuIGJlIGEgcmVhc29uYWJsZSBpbmNyZW1lbnRhbCANCnN0ZXAuIA0KDQozLiBTb21ldGhpbmcg
+bGlrZSB0aGlzIHBhdGNoLg0KDQpEb2VzIGFueSBwcm9wb3NhbCBsb29rIGFjY2VwdGFibGU/DQoN
+ClRoYW5rcywNClNvbmcNCg0K
 
