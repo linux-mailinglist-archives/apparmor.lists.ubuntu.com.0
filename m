@@ -2,58 +2,45 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B839B0DF6F
-	for <lists+apparmor@lfdr.de>; Tue, 22 Jul 2025 16:50:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBEE9B0DE2E
+	for <lists+apparmor@lfdr.de>; Tue, 22 Jul 2025 16:24:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1ueEJw-0007rJ-2g; Tue, 22 Jul 2025 14:50:20 +0000
-Received: from mail-io1-f78.google.com ([209.85.166.78])
+	id 1ueDuF-0001XC-49; Tue, 22 Jul 2025 14:23:47 +0000
+Received: from smtprelay0011.hostedemail.com ([216.40.44.11]
+ helo=relay.hostedemail.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from
- <34wl-aAkbADoouvgWhhanWlleZ.ckkchaqoanYkjpajp.Yki@M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com>)
- id 1udmvk-0007rC-Iy
- for apparmor@lists.ubuntu.com; Mon, 21 Jul 2025 09:35:32 +0000
-Received: by mail-io1-f78.google.com with SMTP id
- ca18e2360f4ac-87c1d1356f3so182320739f.0
- for <apparmor@lists.ubuntu.com>; Mon, 21 Jul 2025 02:35:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1753090531; x=1753695331;
- h=content-transfer-encoding:to:from:subject:message-id:date
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=uYc/vDtNMTkmIow0Px2oZm6vbRSlAyud1JI5Tp027Wk=;
- b=VWA4jSk+NeUkkSuA406YWAt1PzphPiaQE9zjhWAj0O96DEU/SXwX8f7nvihoBIjfyO
- WyW7zaaBN0NnM7hZBwUXYXlbJs8BajP9fnwJEJDMr/I3jPhbW2JMGX8tXZYbaz2/B/eE
- Xf6iurnLQef8wszFTqVbl0jOxF62fOX5w5hIApW5j+PklJ2Mb9jL+XyyhAjUxJPg5/v/
- U7Sw8FY3xu++/ZihU1Vs95sWXdfUaQSnePX/wC4CP4jh6Xo/GsC8SsOBjrPh4LeN9tQp
- TDSdih4o51gF82TlbXeFm5rTbsRVTe3JVrXJ9YTFP4oiMcQ/ha+60BbzC5walxcTc8R/
- OWWw==
-X-Gm-Message-State: AOJu0YxBq2KZ4PJ4lCKc542eQWdnZjmB3rwqfaX8M+NaVGrFPNOVJ7Md
- oTXvijEnd3BAn0IkA++YyDLQvgQVmdaGXEGu5j7rHjQsULI1x06sX49NOJygb0giuVe40BY1DVQ
- x4COwVfqnzzirFGQcBCYk7t/aqQXS9Cit+sbqKSZH7hFMufRFWXP0hbwz64k82g==
-X-Google-Smtp-Source: AGHT+IE36MNzd0e64f6m1+Tts8MfnrEcPlLa/PxmLnThU6J0DiYR17Mzo8OX7AtvIC3BO5/vjSetMa49v6BW0mV1BOW9UYSiKaVX
+ (Exim 4.86_2) (envelope-from <rostedt@goodmis.org>)
+ id 1ueDuD-0001Wr-4h
+ for apparmor@lists.ubuntu.com; Tue, 22 Jul 2025 14:23:45 +0000
+Received: from omf13.hostedemail.com (a10.router.float.18 [10.200.18.1])
+ by unirelay04.hostedemail.com (Postfix) with ESMTP id 009731A044A;
+ Tue, 22 Jul 2025 14:23:42 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by
+ omf13.hostedemail.com (Postfix) with ESMTPA id 5FC372001E; 
+ Tue, 22 Jul 2025 14:23:41 +0000 (UTC)
+Date: Tue, 22 Jul 2025 10:24:13 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: LKML <linux-kernel@vger.kernel.org>, apparmor@lists.ubuntu.com
+Message-ID: <20250722102413.52083c6e@gandalf.local.home>
+In-Reply-To: <20250722100413.117462d2@gandalf.local.home>
+References: <20250722100413.117462d2@gandalf.local.home>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-Received: by 2002:a05:6602:400e:b0:87c:1542:8abc with SMTP id
- ca18e2360f4ac-87c15428e5cmr1298312539f.4.1753090531132; Mon, 21 Jul 2025
- 02:35:31 -0700 (PDT)
-Date: Mon, 21 Jul 2025 02:35:31 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <687e09e3.a70a0220.693ce.00eb.GAE@google.com>
-From: syzbot <syzbot+cd38ee04bcb3866b0c6d@syzkaller.appspotmail.com>
-To: apparmor@lists.ubuntu.com, jmorris@namei.org, john.johansen@canonical.com, 
- john@apparmor.net, linux-kernel@vger.kernel.org, linux-next@vger.kernel.org,
- linux-security-module@vger.kernel.org, paul@paul-moore.com, serge@hallyn.com, 
- sfr@canb.auug.org.au, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=209.85.166.78;
- envelope-from=34wl-aAkbADoouvgWhhanWlleZ.ckkchaqoanYkjpajp.Yki@M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
- helo=mail-io1-f78.google.com
-X-Mailman-Approved-At: Tue, 22 Jul 2025 14:50:17 +0000
-Subject: [apparmor] [syzbot] [apparmor?] linux-next test error: WARNING in
-	apparmor_unix_stream_connect
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: tstywm9r9h4xms6bpc8um9j9o66e3g36
+X-Spam-Status: No, score=-0.10
+X-Rspamd-Server: rspamout01
+X-Rspamd-Queue-Id: 5FC372001E
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1/zZ/aSobjVQGUAd7jsEcxZrvkd+kE9VrQ=
+X-HE-Tag: 1753194221-783310
+X-HE-Meta: U2FsdGVkX1/+pY7V+uD2DWTro7Xrm4Z/iaDwMTZKKDCdKCgWn1d0TDWd6kLTDrJFBsUAS8nw6VCtsUCuDg+v/0aBKfLR8lTYaOw8OtMjPUW7Xetl4pPxe028btGvv4a+0JajdyLcfZbB+q3EcatWiGDRh1jw16YUIppc49Bjtv4/P2J10d5XJwD9QWTp2rCKYOyHomdYkmF+uvfAuupU7nbq/PhkzdrkFpH3cRpdyoRS8OGnSPtiVzVcgdVqYyMqJRwPr+fEc4fBFKYEhEmZY0m3SXvMNQEg9QGGNU+OJe1OZFEXyhkMVOwIBJ/xGOpbO0we7MAAaKtEd2iw+xD/HHdeT4l+gjs0rgCbnjf8cNJgYluLP2iPrHhJieX7qbD4
+Received-SPF: pass client-ip=216.40.44.11; envelope-from=rostedt@goodmis.org;
+ helo=relay.hostedemail.com
+Subject: Re: [apparmor] Lockdep warning for non-static key in apparmor code
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -68,111 +55,49 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Hello,
+On Tue, 22 Jul 2025 10:04:13 -0400
+Steven Rostedt <rostedt@goodmis.org> wrote:
 
-syzbot found the following issue on:
+> Booting latest linux-next, I triggered this warning.
+> 
+> Looks to be associated to apparmor. Was there an allocated spinlock not
+> initialized properly?
 
-HEAD commit:    979875200256 Add linux-next specific files for 20250721
-git tree:       linux-next
-console output: https://syzkaller.appspot.com/x/log.txt?x=3D13bf7f98580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=3D9baac92c2ceb707
-dashboard link: https://syzkaller.appspot.com/bug?extid=3Dcd38ee04bcb3866b0=
-c6d
-compiler:       Debian clang version 20.1.7 (++20250616065708+6146a88f6049-=
-1~exp1~20250616065826.132), Debian LLD 20.1.7
+Yeah, you don't initialize the spin lock. Is there a reason you commented
+out the spin lock initialization in 88fec3526e841 ("apparmor: make sure
+unix socket labeling is correctly updated.")?
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/9bf2232f3c8e/disk-=
-97987520.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/ae51e7da64a4/vmlinux-=
-97987520.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/e05ecb1741a9/bzI=
-mage-97987520.xz
+--- a/security/apparmor/lsm.c
++++ b/security/apparmor/lsm.c
+@@ -508,7 +508,6 @@ static int apparmor_file_alloc_security(struct file *file)
+        struct aa_file_ctx *ctx = file_ctx(file);
+        struct aa_label *label = begin_current_label_crit_section();
+ 
+-       spin_lock_init(&ctx->lock);
+        rcu_assign_pointer(ctx->label, aa_get_label(label));
+        end_current_label_crit_section(label);
+        return 0;
+@@ -1076,12 +1075,29 @@ static int apparmor_userns_create(const struct cred *cred)
+        return error;
+ }
+ 
++static int apparmor_sk_alloc_security(struct sock *sk, int family, gfp_t gfp)
++{
++       struct aa_sk_ctx *ctx = aa_sock(sk);
++       struct aa_label *label;
++       bool needput;
++
++       label = __begin_current_label_crit_section(&needput);
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit=
-:
-Reported-by: syzbot+cd38ee04bcb3866b0c6d@syzkaller.appspotmail.com
++       //spin_lock_init(&ctx->lock);
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-------------[ cut here ]------------
-AppArmor WARN apparmor_unix_stream_connect: ((({ typeof(*(new_ctx->label)) =
-*__UNIQUE_ID_rcu2213 =3D (typeof(*(new_ctx->label)) *)({ do { __attribute__=
-((__noreturn__)) extern void __compiletime_assert_2214(void) __attribute__(=
-(__error__("Unsupported access size for {READ,WRITE}_ONCE()."))); if (!((si=
-zeof((new_ctx->label)) =3D=3D sizeof(char) || sizeof((new_ctx->label)) =3D=
-=3D sizeof(short) || sizeof((new_ctx->label)) =3D=3D sizeof(int) || sizeof(=
-(new_ctx->label)) =3D=3D sizeof(long)) || sizeof((new_ctx->label)) =3D=3D s=
-izeof(long long))) __compiletime_assert_2214(); } while (0); (*(const volat=
-ile typeof( _Generic(((new_ctx->label)), char: (char)0, unsigned char: (uns=
-igned char)0, signed char: (signed char)0, unsigned short: (unsigned short)=
-0, signed short: (signed short)0, unsigned int: (unsigned int)0, signed int=
-: (signed int)0, unsigned long: (unsigned long)0, signed long: (signed long=
-)0, unsigned long long: (unsigned long long)0, signed long long: (signed lo=
-ng long)0, default: ((new_ctx->label)))) *)&((new_ctx->label))); }); ;=20
-WARNING: security/apparmor/lsm.c:1211 at apparmor_unix_stream_connect+0x5fa=
-/0x650 security/apparmor/lsm.c:1211, CPU#0: udevadm/5318
-Modules linked in:
-CPU: 0 UID: 0 PID: 5318 Comm: udevadm Not tainted 6.16.0-rc7-next-20250721-=
-syzkaller #0 PREEMPT(full)=20
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Goo=
-gle 05/07/2025
-RIP: 0010:apparmor_unix_stream_connect+0x5fa/0x650 security/apparmor/lsm.c:=
-1211
-Code: 1c 3b fd 48 89 ef e8 35 4d 00 00 e9 09 fe ff ff e8 ab 1c 3b fd 90 48 =
-c7 c7 40 31 fd 8b 48 c7 c6 2a 2e c7 8d e8 07 a4 fe fc 90 <0f> 0b 90 90 e9 2=
-7 fe ff ff e8 88 1c 3b fd be 02 00 00 00 eb 0a e8
-RSP: 0018:ffffc90003367c38 EFLAGS: 00010246
-RAX: 5674fa5d0d24c800 RBX: 1ffff1100fad97d0 RCX: ffff888026cd5a00
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000002
-RBP: ffff88801ba8f8f8 R08: ffff8880b8624253 R09: 1ffff110170c484a
-R10: dffffc0000000000 R11: ffffed10170c484b R12: ffff88807d6cbe80
-R13: 1ffff1100fbc1bc8 R14: 0000000000000000 R15: 000000000000002f
-FS:  00007f8de3bff880(0000) GS:ffff8881257a6000(0000) knlGS:000000000000000=
-0
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f8de347ae00 CR3: 000000007fc96000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- security_unix_stream_connect+0xcb/0x2c0 security/security.c:4540
- unix_stream_connect+0x8fc/0x1010 net/unix/af_unix.c:1753
- __sys_connect_file net/socket.c:2086 [inline]
- __sys_connect+0x313/0x440 net/socket.c:2105
- __do_sys_connect net/socket.c:2111 [inline]
- __se_sys_connect net/socket.c:2108 [inline]
- __x64_sys_connect+0x7a/0x90 net/socket.c:2108
- do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
- do_syscall_64+0xfa/0x3b0 arch/x86/entry/syscall_64.c:94
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f8de34a7407
-Code: 48 89 fa 4c 89 df e8 38 aa 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc =
-74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 0=
-0 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
-RSP: 002b:00007ffc79327430 EFLAGS: 00000202 ORIG_RAX: 000000000000002a
-RAX: ffffffffffffffda RBX: 00007f8de3bff880 RCX: 00007f8de34a7407
-RDX: 0000000000000013 RSI: 000055d4ba7cf948 RDI: 0000000000000003
-RBP: 000000000000001e R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000202 R12: 00007ffc79327490
-R13: 0000000000000000 R14: 0000000000000007 R15: 0000000000000000
- </TASK>
++       rcu_assign_pointer(ctx->label, aa_get_label(label));
++       rcu_assign_pointer(ctx->peer, NULL);
++       rcu_assign_pointer(ctx->peer_lastupdate, NULL);
++       __end_current_label_crit_section(label, needput);
++       return 0;
++}
 
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+-- Steve
 
