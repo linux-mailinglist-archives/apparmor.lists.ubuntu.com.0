@@ -2,33 +2,31 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F9B7B15954
-	for <lists+apparmor@lfdr.de>; Wed, 30 Jul 2025 09:10:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BECF1B1328A
+	for <lists+apparmor@lfdr.de>; Mon, 28 Jul 2025 01:53:16 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uh0xZ-0003Wi-4I; Wed, 30 Jul 2025 07:10:45 +0000
-Received: from out30-119.freemail.mail.aliyun.com ([115.124.30.119])
- by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <jiapeng.chong@linux.alibaba.com>)
- id 1ufF6z-0005Hn-De
- for apparmor@lists.ubuntu.com; Fri, 25 Jul 2025 09:53:10 +0000
-Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0WjxlLh2_1753437173 cluster:ay36) by smtp.aliyun-inc.com;
- Fri, 25 Jul 2025 17:52:59 +0800
-From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-To: john.johansen@canonical.com
-Date: Fri, 25 Jul 2025 17:52:52 +0800
-Message-ID: <20250725095252.2087274-1-jiapeng.chong@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.5
+	id 1ugBAk-00042w-Vv; Sun, 27 Jul 2025 23:52:55 +0000
+Received: from dfw.source.kernel.org ([139.178.84.217])
+ by lists.ubuntu.com with esmtp (Exim 4.86_2)
+ (envelope-from <ebiggers@kernel.org>) id 1ugBAi-00042k-OC
+ for apparmor@lists.ubuntu.com; Sun, 27 Jul 2025 23:52:52 +0000
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 887E75C585B;
+ Sun, 27 Jul 2025 23:46:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5958C4CEEB;
+ Sun, 27 Jul 2025 23:46:32 +0000 (UTC)
+Date: Sun, 27 Jul 2025 16:45:42 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Message-ID: <20250727234542.GC1261@sol>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=115.124.30.119;
- envelope-from=jiapeng.chong@linux.alibaba.com;
- helo=out30-119.freemail.mail.aliyun.com
-X-Mailman-Approved-At: Wed, 30 Jul 2025 07:10:43 +0000
-Subject: [apparmor] [PATCH -next] apparmor: Remove the unused variable rules
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Received-SPF: pass client-ip=139.178.84.217; envelope-from=ebiggers@kernel.org;
+ helo=dfw.source.kernel.org
+Subject: [apparmor] [GIT PULL] Crypto library conversions for 6.17
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -40,40 +38,48 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>, paul@paul-moore.com,
- Abaci Robot <abaci@linux.alibaba.com>, apparmor@lists.ubuntu.com,
- linux-kernel@vger.kernel.org, jmorris@namei.org,
- linux-security-module@vger.kernel.org, serge@hallyn.com
+Cc: fsverity@lists.linux.dev, "Jason A. Donenfeld" <Jason@zx2c4.com>,
+ apparmor@lists.ubuntu.com, linux-kernel@vger.kernel.org,
+ linux-crypto@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Variable rules is not effectively used, so delete it.
+Note: this depends on the "Crypto library updates" pull request and
+should be merged after it.
 
-security/apparmor/lsm.c:182:23: warning: variable ‘rules’ set but not used.
+The following changes since commit c76ed8790b3018fe36647d9aae96e0373f321184:
 
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=22942
-Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
----
- security/apparmor/lsm.c | 2 --
- 1 file changed, 2 deletions(-)
+  crypto: sha1 - Remove sha1_base.h (2025-07-14 11:28:38 -0700)
 
-diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
-index 5b1b5ac831e8..182a0e55802e 100644
---- a/security/apparmor/lsm.c
-+++ b/security/apparmor/lsm.c
-@@ -179,10 +179,8 @@ static int apparmor_capget(const struct task_struct *target, kernel_cap_t *effec
- 		struct label_it i;
- 
- 		label_for_each_confined(i, label, profile) {
--			struct aa_ruleset *rules;
- 			kernel_cap_t allowed;
- 
--			rules = profile->label.rules[0];
- 			allowed = aa_profile_capget(profile);
- 			*effective = cap_intersect(*effective, allowed);
- 			*permitted = cap_intersect(*permitted, allowed);
--- 
-2.43.5
+are available in the Git repository at:
 
+  https://git.kernel.org/pub/scm/linux/kernel/git/ebiggers/linux.git tags/libcrypto-conversions-for-linus
+
+for you to fetch changes up to 998646b3c1129188f1fdffac3779feb9708b4b4a:
+
+  fsverity: Switch from crypto_shash to SHA-2 library (2025-07-14 11:29:32 -0700)
+
+----------------------------------------------------------------
+
+Convert fsverity and apparmor to use the SHA-2 library functions
+instead of crypto_shash. This is simpler and also slightly faster.
+
+----------------------------------------------------------------
+Eric Biggers (3):
+      apparmor: use SHA-256 library API instead of crypto_shash API
+      fsverity: Explicitly include <linux/export.h>
+      fsverity: Switch from crypto_shash to SHA-2 library
+
+ Documentation/filesystems/fsverity.rst |   3 +-
+ fs/verity/Kconfig                      |   6 +-
+ fs/verity/enable.c                     |   9 +-
+ fs/verity/fsverity_private.h           |  24 ++--
+ fs/verity/hash_algs.c                  | 194 +++++++++++----------------------
+ fs/verity/measure.c                    |   1 +
+ fs/verity/open.c                       |  37 +++----
+ fs/verity/read_metadata.c              |   1 +
+ fs/verity/verify.c                     |   8 +-
+ security/apparmor/Kconfig              |   3 +-
+ security/apparmor/crypto.c             |  85 ++-------------
+ 11 files changed, 120 insertions(+), 251 deletions(-)
 
