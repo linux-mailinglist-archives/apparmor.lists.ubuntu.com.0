@@ -2,30 +2,31 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01D54B15D7A
-	for <lists+apparmor@lfdr.de>; Wed, 30 Jul 2025 11:55:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06CF3B15DF1
+	for <lists+apparmor@lfdr.de>; Wed, 30 Jul 2025 12:18:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uh3Wt-00033q-5D; Wed, 30 Jul 2025 09:55:23 +0000
+	id 1uh3sl-0004qY-6k; Wed, 30 Jul 2025 10:17:59 +0000
 Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
  helo=smtp-relay-canonical-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1uh3Wr-00033e-Gt
- for apparmor@lists.ubuntu.com; Wed, 30 Jul 2025 09:55:21 +0000
+ id 1uh3sj-0004qR-S0
+ for apparmor@lists.ubuntu.com; Wed, 30 Jul 2025 10:17:57 +0000
 Received: from [192.168.192.85] (unknown [50.47.147.87])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 0B0C240F79; 
- Wed, 30 Jul 2025 09:55:18 +0000 (UTC)
-Message-ID: <9a47968a-ea50-43e3-bd4f-7717bbd593cc@canonical.com>
-Date: Wed, 30 Jul 2025 02:55:16 -0700
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 221E940F79; 
+ Wed, 30 Jul 2025 10:17:54 +0000 (UTC)
+Message-ID: <2a6074ec-59ca-49af-87e8-d468cffc4a87@canonical.com>
+Date: Wed, 30 Jul 2025 03:17:52 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-References: <20250725095252.2087274-1-jiapeng.chong@linux.alibaba.com>
+To: Alexander Potapenko <glider@google.com>
+References: <687e09e3.a70a0220.693ce.00eb.GAE@google.com>
+ <CAG_fn=WSae7yjaHh=_iUc7eFALHX1vLQFMw8ryfas4-ijgFTiQ@mail.gmail.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -71,11 +72,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20250725095252.2087274-1-jiapeng.chong@linux.alibaba.com>
+In-Reply-To: <CAG_fn=WSae7yjaHh=_iUc7eFALHX1vLQFMw8ryfas4-ijgFTiQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [apparmor] [PATCH -next] apparmor: Remove the unused variable
-	rules
+Subject: Re: [apparmor] [syzbot] [apparmor?] linux-next test error: WARNING
+ in apparmor_unix_stream_connect
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -87,43 +88,28 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: paul@paul-moore.com, Abaci Robot <abaci@linux.alibaba.com>,
- apparmor@lists.ubuntu.com, linux-kernel@vger.kernel.org, jmorris@namei.org,
- linux-security-module@vger.kernel.org, serge@hallyn.com
+Cc: sfr@canb.auug.org.au, paul@paul-moore.com, john@apparmor.net,
+ apparmor@lists.ubuntu.com, jmorris@namei.org, linux-kernel@vger.kernel.org,
+ syzkaller-bugs@googlegroups.com, linux-security-module@vger.kernel.org,
+ linux-next@vger.kernel.org, serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 7/25/25 02:52, Jiapeng Chong wrote:
-> Variable rules is not effectively used, so delete it.
+On 7/28/25 01:16, Alexander Potapenko wrote:
+> On Mon, Jul 21, 2025 at 11:35 AM syzbot
+> <syzbot+cd38ee04bcb3866b0c6d@syzkaller.appspotmail.com> wrote:
+>>
+>> Hello,
+>>
+>> syzbot found the following issue on:
 > 
-> security/apparmor/lsm.c:182:23: warning: variable ‘rules’ set but not used.
-> 
-> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-> Closes: https://bugzilla.openanolis.cn/show_bug.cgi?id=22942
-> Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+> John, do you have an idea what's going on?
+> This is pretty likely to be related to your "apparmor: make sure unix
+> socket labeling is correctly updated." patch.
 
-Acked-by: John Johansen <john.johansen@canonical.com>
-
-I have pulled this in
-
-> ---
->   security/apparmor/lsm.c | 2 --
->   1 file changed, 2 deletions(-)
-> 
-> diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
-> index 5b1b5ac831e8..182a0e55802e 100644
-> --- a/security/apparmor/lsm.c
-> +++ b/security/apparmor/lsm.c
-> @@ -179,10 +179,8 @@ static int apparmor_capget(const struct task_struct *target, kernel_cap_t *effec
->   		struct label_it i;
->   
->   		label_for_each_confined(i, label, profile) {
-> -			struct aa_ruleset *rules;
->   			kernel_cap_t allowed;
->   
-> -			rules = profile->label.rules[0];
->   			allowed = aa_profile_capget(profile);
->   			*effective = cap_intersect(*effective, allowed);
->   			*permitted = cap_intersect(*permitted, allowed);
+yeah it is being caused by that patch. Specifically it introduces using
+security_sk_alloc() to make sure the sk is given a default label which
+makes this check now incorrect the fix is just to drop the check. I have
+added the fix with the syzbot ref
 
 
