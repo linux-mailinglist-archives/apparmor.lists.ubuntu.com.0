@@ -2,31 +2,30 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06CF3B15DF1
-	for <lists+apparmor@lfdr.de>; Wed, 30 Jul 2025 12:18:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6315EB15E07
+	for <lists+apparmor@lfdr.de>; Wed, 30 Jul 2025 12:20:21 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uh3sl-0004qY-6k; Wed, 30 Jul 2025 10:17:59 +0000
+	id 1uh3uv-0005DE-28; Wed, 30 Jul 2025 10:20:13 +0000
 Received: from smtp-relay-canonical-1.internal ([10.131.114.174]
  helo=smtp-relay-canonical-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1uh3sj-0004qR-S0
- for apparmor@lists.ubuntu.com; Wed, 30 Jul 2025 10:17:57 +0000
+ id 1uh3us-0005D2-JI
+ for apparmor@lists.ubuntu.com; Wed, 30 Jul 2025 10:20:10 +0000
 Received: from [192.168.192.85] (unknown [50.47.147.87])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 221E940F79; 
- Wed, 30 Jul 2025 10:17:54 +0000 (UTC)
-Message-ID: <2a6074ec-59ca-49af-87e8-d468cffc4a87@canonical.com>
-Date: Wed, 30 Jul 2025 03:17:52 -0700
+ by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPSA id 1403D41C0F; 
+ Wed, 30 Jul 2025 10:20:08 +0000 (UTC)
+Message-ID: <f021b454-bd51-42f9-ba96-f6ae98cb22f2@canonical.com>
+Date: Wed, 30 Jul 2025 03:20:06 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Alexander Potapenko <glider@google.com>
-References: <687e09e3.a70a0220.693ce.00eb.GAE@google.com>
- <CAG_fn=WSae7yjaHh=_iUc7eFALHX1vLQFMw8ryfas4-ijgFTiQ@mail.gmail.com>
+To: Nathan Chancellor <nathan@kernel.org>
+References: <20250721231041.GA1015606@ax162>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -72,11 +71,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <CAG_fn=WSae7yjaHh=_iUc7eFALHX1vLQFMw8ryfas4-ijgFTiQ@mail.gmail.com>
+In-Reply-To: <20250721231041.GA1015606@ax162>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [apparmor] [syzbot] [apparmor?] linux-next test error: WARNING
- in apparmor_unix_stream_connect
+Content-Transfer-Encoding: 7bit
+Subject: Re: [apparmor] -Wformat-invalid-specifier after 88fec3526e84 in
+	-next
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -88,28 +87,104 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: sfr@canb.auug.org.au, paul@paul-moore.com, john@apparmor.net,
- apparmor@lists.ubuntu.com, jmorris@namei.org, linux-kernel@vger.kernel.org,
- syzkaller-bugs@googlegroups.com, linux-security-module@vger.kernel.org,
- linux-next@vger.kernel.org, serge@hallyn.com
+Cc: linux-security-module@vger.kernel.org, llvm@lists.linux.dev,
+ apparmor@lists.ubuntu.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 7/28/25 01:16, Alexander Potapenko wrote:
-> On Mon, Jul 21, 2025 at 11:35 AM syzbot
-> <syzbot+cd38ee04bcb3866b0c6d@syzkaller.appspotmail.com> wrote:
->>
->> Hello,
->>
->> syzbot found the following issue on:
+On 7/21/25 16:10, Nathan Chancellor wrote:
+> Hi John,
 > 
-> John, do you have an idea what's going on?
-> This is pretty likely to be related to your "apparmor: make sure unix
-> socket labeling is correctly updated." patch.
+> After commit 88fec3526e84 ("apparmor: make sure unix socket labeling is
+> correctly updated.") in -next, I am seeing some warnings from clang when
+> building arm64 allmodconfig with LTO enabled. This can be more simply
+> reproduced on top of defconfig:
+> 
+>    $ make -skj"$(nproc)" ARCH=arm64 LLVM=1 mrproper defconfig
+> 
+>    $ scripts/config \
+>        -d LTO_NONE \
+>        -e LTO_CLANG_THIN \
+>        -e SECURITY_APPARMOR \
+>        -e SECURITY_APPARMOR_DEBUG
+> 
+>    $ make -skj"$(nproc)" ARCH=arm64 LLVM=1 olddefconfig security/apparmor/lsm.o
+>    security/apparmor/lsm.c:1206:2: warning: invalid conversion specifier '0' [-Wformat-invalid-specifier]
+>     1206 |         AA_BUG(rcu_access_pointer(new_ctx->label));
+>          |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>    security/apparmor/include/lib.h:56:3: note: expanded from macro 'AA_BUG'
+>       56 |                 AA_BUG_FMT((X), "" args);                                   \
+>          |                 ^~~~~~~~~~~~~~~~~~~~~~~~
+>    security/apparmor/include/lib.h:61:34: note: expanded from macro 'AA_BUG_FMT'
+>       61 |         WARN((X), "AppArmor WARN %s: (" #X "): " fmt, __func__, ##args)
+>          |                                         ^~
+>    <scratch space>:2:1144: note: expanded from here
+>        2 | "(({ typeof(*(new_ctx->label)) *__UNIQUE_ID_rcu1155 = (typeof(*(new_ctx->label)) *)({ do { __attribute__((__noreturn__)) extern void __compiletime_assert_1156(void) __attribute__((__error__(\"Unsupported access size for {READ,WRITE}_ONCE().\"))); ..."
+>    ...
+>    include/asm-generic/bug.h:134:29: note: expanded from macro 'WARN'
+>      134 |                 __WARN_printf(TAINT_WARN, format);                      \
+>          |                                           ^~~~~~
+>    include/asm-generic/bug.h:106:17: note: expanded from macro '__WARN_printf'
+>      106 |                 __warn_printk(arg);                                     \
+>          |                               ^~~
+> 
+> Ultimately, rcu_access_pointer() expands to __READ_ONCE(), which arm64
+> specifically defines for CONFIG_LTO using some inline asm expressions,
+> see commit e35123d83ee3 ("arm64: lto: Strengthen READ_ONCE() to acquire
+> when CONFIG_LTO=y"). Within those asm literals are % characters for the
+> asm templates, which are ultimately interpreted as format specifiers
+> when they get expanded by the preprocessors, hence the warning.
+> 
+> There is nothing technically wrong here, although if this were to ever
+> trigger, it would probably look quite ugly in the kernel log because of
+> how long the string literal expansion of __READ_ONCE would be. It is
+> possible to shut this warning up in a similar manner to the existing GCC
+> pragma if necessary but I was unsure if that would be preferred off bat,
+> hence just the report at first.
+> 
 
-yeah it is being caused by that patch. Specifically it introduces using
-security_sk_alloc() to make sure the sk is given a default label which
-makes this check now incorrect the fix is just to drop the check. I have
-added the fix with the syzbot ref
+Thanks for the info Nathan,
+
+in this case
+88fec3526e84 apparmor: make sure unix socket labeling is correctly updated.
+
+actually made this check invalid, so it as been removed, fixing this issue.
+
+> Cheers,
+> Nathan
+> 
+> diff --git a/include/linux/compiler-clang.h b/include/linux/compiler-clang.h
+> index 2e7c2c282f3a..9dfbc6dc8859 100644
+> --- a/include/linux/compiler-clang.h
+> +++ b/include/linux/compiler-clang.h
+> @@ -114,10 +114,10 @@
+>   #define __diag_str(s)		__diag_str1(s)
+>   #define __diag(s)		_Pragma(__diag_str(clang diagnostic s))
+>   
+> -#define __diag_clang_13(s)	__diag(s)
+> +#define __diag_clang_all(s)	__diag(s)
+>   
+>   #define __diag_ignore_all(option, comment) \
+> -	__diag_clang(13, ignore, option)
+> +	__diag_clang(all, ignore, option)
+>   
+>   /*
+>    * clang has horrible behavior with "g" or "rm" constraints for asm
+> diff --git a/security/apparmor/include/lib.h b/security/apparmor/include/lib.h
+> index 444197075fd6..7f2c649dc7dd 100644
+> --- a/security/apparmor/include/lib.h
+> +++ b/security/apparmor/include/lib.h
+> @@ -53,7 +53,11 @@ do {									\
+>   #define AA_BUG(X, args...)						    \
+>   	do {								    \
+>   		_Pragma("GCC diagnostic ignored \"-Wformat-zero-length\""); \
+> +		__diag_push();						    \
+> +		__diag_ignore(clang, all, "-Wformat-invalid-specifier",	    \
+> +			      "May be called with asm that has %");	    \
+>   		AA_BUG_FMT((X), "" args);				    \
+> +		__diag_pop();						    \
+>   		_Pragma("GCC diagnostic warning \"-Wformat-zero-length\""); \
+>   	} while (0)
+>   #ifdef CONFIG_SECURITY_APPARMOR_DEBUG_ASSERTS
 
 
