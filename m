@@ -2,34 +2,39 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 160EAB2940C
-	for <lists+apparmor@lfdr.de>; Sun, 17 Aug 2025 18:16:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 285E6B339C2
+	for <lists+apparmor@lfdr.de>; Mon, 25 Aug 2025 10:44:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1ung2z-0003mS-4H; Sun, 17 Aug 2025 16:15:53 +0000
-Received: from mout01.posteo.de ([185.67.36.65])
+	id 1uqSoA-00081o-IN; Mon, 25 Aug 2025 08:44:06 +0000
+Received: from smtp-8fab.mail.infomaniak.ch ([83.166.143.171])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <engelflorian@posteo.de>)
- id 1ung2x-0003lk-HN
- for apparmor@lists.ubuntu.com; Sun, 17 Aug 2025 16:15:51 +0000
-Received: from submission (posteo.de [185.67.36.169]) 
- by mout01.posteo.de (Postfix) with ESMTPS id 2B663240027
- for <apparmor@lists.ubuntu.com>; Sun, 17 Aug 2025 18:15:50 +0200 (CEST)
-Received: from customer (localhost [127.0.0.1])
- by submission (posteo.de) with ESMTPSA id 4c4gts56qXz9rxG
- for <apparmor@lists.ubuntu.com>; Sun, 17 Aug 2025 18:15:49 +0200 (CEST)
-From: engelflorian@posteo.de
-To: apparmor@lists.ubuntu.com 
-Cc: 
-Date: Sun, 17 Aug 2025 16:15:49 +0000
-Message-ID: <87qzx9exg1.fsf@nixosThinkpad.mail-host-address-is-not-set>
+ (Exim 4.86_2) (envelope-from <mic@digikod.net>) id 1uojgq-0004IP-As
+ for apparmor@lists.ubuntu.com; Wed, 20 Aug 2025 14:21:24 +0000
+Received: from smtp-4-0000.mail.infomaniak.ch (unknown
+ [IPv6:2001:1600:7:10::a6b])
+ by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4c6TCR139CzfNT;
+ Wed, 20 Aug 2025 16:21:23 +0200 (CEST)
+Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA
+ id 4c6TCM1TCqzPC8; Wed, 20 Aug 2025 16:21:19 +0200 (CEST)
+Date: Wed, 20 Aug 2025 16:21:18 +0200
+From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+To: Maxime =?utf-8?Q?B=C3=A9lair?= <maxime.belair@canonical.com>
+Message-ID: <20250820.Ao3iquoshaiB@digikod.net>
+References: <20250709080220.110947-1-maxime.belair@canonical.com>
+ <20250709080220.110947-3-maxime.belair@canonical.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="=-=-=";
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Received-SPF: pass client-ip=185.67.36.65; envelope-from=engelflorian@posteo.de;
- helo=mout01.posteo.de
-Subject: [apparmor] file rule not working
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250709080220.110947-3-maxime.belair@canonical.com>
+X-Infomaniak-Routing: alpha
+Received-SPF: pass client-ip=83.166.143.171; envelope-from=mic@digikod.net;
+ helo=smtp-8fab.mail.infomaniak.ch
+X-Mailman-Approved-At: Mon, 25 Aug 2025 08:44:05 +0000
+Subject: Re: [apparmor] [PATCH v5 2/3] lsm: introduce
+	security_lsm_config_*_policy hooks
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -41,129 +46,245 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: paul@paul-moore.com, song@kernel.org, kees@kernel.org,
+ linux-api@vger.kernel.org, stephen.smalley.work@gmail.com,
+ rdunlap@infradead.org, apparmor@lists.ubuntu.com, jmorris@namei.org,
+ linux-kernel@vger.kernel.org, penguin-kernel@i-love.sakura.ne.jp,
+ linux-security-module@vger.kernel.org, takedakn@nttdata.co.jp,
+ serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
---=-=-=
-Content-Type: text/plain
+On Wed, Jul 09, 2025 at 10:00:55AM +0200, Maxime Bélair wrote:
+> Define two new LSM hooks: security_lsm_config_self_policy and
+> security_lsm_config_system_policy and wire them into the corresponding
+> lsm_config_*_policy() syscalls so that LSMs can register a unified
+> interface for policy management. This initial, minimal implementation
+> only supports the LSM_POLICY_LOAD operation to limit changes.
+> 
+> Signed-off-by: Maxime Bélair <maxime.belair@canonical.com>
+> ---
+>  include/linux/lsm_hook_defs.h |  4 +++
+>  include/linux/security.h      | 20 ++++++++++++
+>  include/uapi/linux/lsm.h      |  8 +++++
+>  security/lsm_syscalls.c       | 17 ++++++++--
+>  security/security.c           | 60 +++++++++++++++++++++++++++++++++++
+>  5 files changed, 107 insertions(+), 2 deletions(-)
+> 
+> diff --git a/include/linux/lsm_hook_defs.h b/include/linux/lsm_hook_defs.h
+> index bf3bbac4e02a..fca490444643 100644
+> --- a/include/linux/lsm_hook_defs.h
+> +++ b/include/linux/lsm_hook_defs.h
+> @@ -464,3 +464,7 @@ LSM_HOOK(int, 0, bdev_alloc_security, struct block_device *bdev)
+>  LSM_HOOK(void, LSM_RET_VOID, bdev_free_security, struct block_device *bdev)
+>  LSM_HOOK(int, 0, bdev_setintegrity, struct block_device *bdev,
+>  	 enum lsm_integrity_type type, const void *value, size_t size)
+> +LSM_HOOK(int, -EINVAL, lsm_config_self_policy, u32 lsm_id, u32 op,
+> +	 void __user *buf, size_t size, u32 flags)
+> +LSM_HOOK(int, -EINVAL, lsm_config_system_policy, u32 lsm_id, u32 op,
+> +	 void __user *buf, size_t size, u32 flags)
+> diff --git a/include/linux/security.h b/include/linux/security.h
+> index cc9b54d95d22..54acaee4a994 100644
+> --- a/include/linux/security.h
+> +++ b/include/linux/security.h
+> @@ -581,6 +581,11 @@ void security_bdev_free(struct block_device *bdev);
+>  int security_bdev_setintegrity(struct block_device *bdev,
+>  			       enum lsm_integrity_type type, const void *value,
+>  			       size_t size);
+> +int security_lsm_config_self_policy(u32 lsm_id, u32 op, void __user *buf,
+> +				    size_t size, u32 flags);
+> +int security_lsm_config_system_policy(u32 lsm_id, u32 op, void __user *buf,
+> +				      size_t size, u32 flags);
+> +
+>  #else /* CONFIG_SECURITY */
+>  
+>  /**
+> @@ -1603,6 +1608,21 @@ static inline int security_bdev_setintegrity(struct block_device *bdev,
+>  	return 0;
+>  }
+>  
+> +static inline int security_lsm_config_self_policy(u32 lsm_id, u32 op,
+> +						  void __user *buf,
+> +						  size_t size, u32 flags)
+> +{
+> +
+> +	return -EOPNOTSUPP;
+> +}
+> +
+> +static inline int security_lsm_config_system_policy(u32 lsm_id, u32 op,
+> +						    void __user *buf,
+> +						    size_t size, u32 flags)
+> +{
+> +
+> +	return -EOPNOTSUPP;
+> +}
+>  #endif	/* CONFIG_SECURITY */
+>  
+>  #if defined(CONFIG_SECURITY) && defined(CONFIG_WATCH_QUEUE)
+> diff --git a/include/uapi/linux/lsm.h b/include/uapi/linux/lsm.h
+> index 938593dfd5da..2b9432a30cdc 100644
+> --- a/include/uapi/linux/lsm.h
+> +++ b/include/uapi/linux/lsm.h
+> @@ -90,4 +90,12 @@ struct lsm_ctx {
+>   */
+>  #define LSM_FLAG_SINGLE	0x0001
+>  
+> +/*
+> + * LSM_POLICY_XXX definitions identify the different operations
+> + * to configure LSM policies
+> + */
+> +
+> +#define LSM_POLICY_UNDEF	0
+> +#define LSM_POLICY_LOAD		100
 
-Hi All!
+Why the gap between 0 and 100?
 
-I'm trying to unterstand why my file deny rule does not work.
+> +
+>  #endif /* _UAPI_LINUX_LSM_H */
+> diff --git a/security/lsm_syscalls.c b/security/lsm_syscalls.c
+> index a3cb6dab8102..dd016ba6976c 100644
+> --- a/security/lsm_syscalls.c
+> +++ b/security/lsm_syscalls.c
+> @@ -122,11 +122,24 @@ SYSCALL_DEFINE3(lsm_list_modules, u64 __user *, ids, u32 __user *, size,
+>  SYSCALL_DEFINE5(lsm_config_self_policy, u32, lsm_id, u32, op, void __user *,
+>  		buf, u32 __user *, size, u32, flags)
 
-I call
-vim /home/florian/.my-bookmarks.json
-And its open
+Given these are a multiplexor syscalls, I'm wondering if they should not
+have common flags and LSM-specific flags.  Alternatively, the op
+argument could also contains some optional flags.  In either case, the
+documentation should guide LSM developers for flags that may be shared
+amongst LSMs.
 
-I expect apparmor to deny that
-sudo aa-status says
-/nix/store/x9y5la4rs81rkcghxi6h7kka1qrrcla8-vim-9.1.1566/bin/vim (11739) /nix/store/x9y5la4rs81rkcghxi6h7kka1qrrcla8-vim-9.1.1566/bin/*
+Examples of such flags could be to restrict the whole process instead of
+the calling thread.
 
-The corresponding profile is
-/nix/store/x9y5la4rs81rkcghxi6h7kka1qrrcla8-vim-9.1.1566/bin/* {
-   # Allow other processes to read our /proc entries, futexes, perf tracing and
-# kcmp for now (they will need 'read' in the first place). Administrators can
-# override with:
-#   deny ptrace (readby) ...
-ptrace (readby),
+>  {
+> -	return 0;
+> +	size_t usize;
+> +
+> +	if (get_user(usize, size))
 
-# Allow unconfined processes to send us signals by default
-signal (receive) peer=unconfined,
+Size should just be u32, not a pointer.
 
-# Allow us to signal ourselves
-signal peer=@{profile_name},
+> +		return -EFAULT;
+> +
+> +	return security_lsm_config_self_policy(lsm_id, op, buf, usize, flags);
+>  }
+>  
+>  SYSCALL_DEFINE5(lsm_config_system_policy, u32, lsm_id, u32, op, void __user *,
+>  		buf, u32 __user *, size, u32, flags)
+>  {
+> -	return 0;
+> +	size_t usize;
+> +
+> +	if (!capable(CAP_SYS_ADMIN))
+> +		return -EPERM;
 
-# Allow us to ptrace read ourselves
-ptrace (read) peer=@{profile_name},
+I like this mandatory capability check for this specific syscall.  This
+makes the semantic clearer.  However, to avoid the superpower of
+CAP_SYS_ADMIN, I'm wondering how we could use the CAP_MAC_ADMIN instead.
+This syscall could require CAP_MAC_ADMIN, and current LSMs (relying on a
+filesystem interface for policy configuration) could also enforce
+CAP_SYS_ADMIN for compatibility reasons.
 
-file,
-audit deny /home/florian/.ssh mrwlkx,
-audit deny /home/florian/.ssh/{,**} mrwlkx,
-audit deny /root/.ssh mrwlkx,
-audit deny /root/.ssh/{,**} mrwlkx,
-audit deny /home/florian/.gnupg mrwlkx,
-audit deny /home/florian/.gnupg/{,**} mrwlkx,
-audit deny /root/.gnupg mrwlkx,
-audit deny /root/.gnupg/{,**} mrwlkx,
-audit deny /home/florian/Dokumente mrwlkx,
-audit deny /home/florian/Dokumente/{,**} mrwlkx,
-audit deny /home/florian/paperlessInput mrwlkx,
-audit deny /home/florian/paperlessInput/{,**} mrwlkx,
-audit deny /var/lib/paperless mrwlkx,
-audit deny /var/lib/paperless/{,**} mrwlkx,
-audit deny /home/florian/.password-store mrwlkx,
-audit deny /home/florian/.password-store/{,**} mrwlkx,
-audit deny /home/florian/.mozilla mrwlkx,
-audit deny /home/florian/.mozilla/{,**} mrwlkx,
-audit deny /home/florian/Maildir mrwlkx,
-audit deny /home/florian/Maildir/{,**} mrwlkx,
-audit deny /home/florian/.authinfo mrwlkx,
-audit deny /home/florian/.authinfo/{,**} mrwlkx,
-audit deny /home/florian/.authinfo.gpg mrwlkx,
-audit deny /home/florian/.authinfo.gpg/{,**} mrwlkx,
-audit deny /run/agenix/backblaze-restic mrwlkx,
-audit deny /run/agenix/backblaze-restic/{,**} mrwlkx,
-audit deny /home/florian/.my-bookmarks.json mrwlkx,
-audit deny /home/florian/.my-bookmarks.json/{,**} mrwlkx,
-audit deny /run/agenix/florian mrwlkx,
-audit deny /run/agenix/florian/{,**} mrwlkx,
-audit deny /run/agenix/github-token mrwlkx,
-audit deny /run/agenix/github-token/{,**} mrwlkx,
-audit deny /run/agenix/gmail mrwlkx,
-audit deny /run/agenix/gmail/{,**} mrwlkx,
-audit deny /run/agenix/librem mrwlkx,
-audit deny /run/agenix/librem/{,**} mrwlkx,
-audit deny /run/agenix/notmuchTags mrwlkx,
-audit deny /run/agenix/notmuchTags/{,**} mrwlkx,
-audit deny /run/agenix/officeOvpn mrwlkx,
-audit deny /run/agenix/officeOvpn/{,**} mrwlkx,
-audit deny /run/agenix/posteo mrwlkx,
-audit deny /run/agenix/posteo/{,**} mrwlkx,
-audit deny /run/agenix/restic-password mrwlkx,
-audit deny /run/agenix/restic-password/{,**} mrwlkx,
-audit deny /run/agenix/syncthingCert mrwlkx,
-audit deny /run/agenix/syncthingCert/{,**} mrwlkx,
-audit deny /run/agenix/syncthingKey mrwlkx,
-audit deny /run/agenix/syncthingKey/{,**} mrwlkx,
-audit deny /run/agenix/thinkpadWireguardPrivate mrwlkx,
-audit deny /run/agenix/thinkpadWireguardPrivate/{,**} mrwlkx,
-audit deny /run/agenix/vpnPresharedKey mrwlkx,
-audit deny /run/agenix/vpnPresharedKey/{,**} mrwlkx,
-audit deny /run/agenix/vpnPrivateKey mrwlkx,
-audit deny /run/agenix/vpnPrivateKey/{,**} mrwlkx,
-audit deny /run/agenix/workMail mrwlkx,
-audit deny /run/agenix/workMail/{,**} mrwlkx,
+In fact, this "system" syscall could be a "namespace" syscall, which
+would take a security/LSM namespace file descriptor as argument.  If the
+namespace is not the initial namespace, any CAP_SYS_ADMIN implemented by
+current LSMs could be avoided.  See
+https://lore.kernel.org/r/CAHC9VhRGMmhxbajwQNfGFy+ZFF1uN=UEBjqQZQ4UBy7yds3eVQ@mail.gmail.com
 
-network,
-capability,
+> +
+> +	if (get_user(usize, size))
 
-}
+ditto
 
-For directories like /home/florian/.ssh the deny does work.
+> +		return -EFAULT;
+> +
+> +	return security_lsm_config_system_policy(lsm_id, op, buf, usize, flags);
+>  }
+> diff --git a/security/security.c b/security/security.c
+> index fb57e8fddd91..166d7d9936d0 100644
+> --- a/security/security.c
+> +++ b/security/security.c
+> @@ -5883,6 +5883,66 @@ int security_bdev_setintegrity(struct block_device *bdev,
+>  }
+>  EXPORT_SYMBOL(security_bdev_setintegrity);
+>  
+> +/**
+> + * security_lsm_config_self_policy() - Configure caller's LSM policies
+> + * @lsm_id: id of the LSM to target
+> + * @op: Operation to perform (one of the LSM_POLICY_XXX values)
+> + * @buf: userspace pointer to policy data
+> + * @size: size of @buf
+> + * @flags: lsm policy configuration flags
+> + *
+> + * Configure the policies of a LSM for the current domain/user. This notably
+> + * allows to update them even when the lsmfs is unavailable or restricted.
+> + * Currently, only LSM_POLICY_LOAD is supported.
+> + *
+> + * Return: Returns 0 on success, error on failure.
+> + */
+> +int security_lsm_config_self_policy(u32 lsm_id, u32 op, void __user *buf,
+> +				 size_t size, u32 flags)
+> +{
+> +	int rc = LSM_RET_DEFAULT(lsm_config_self_policy);
+> +	struct lsm_static_call *scall;
+> +
+> +	lsm_for_each_hook(scall, lsm_config_self_policy) {
+> +		if ((scall->hl->lsmid->id) == lsm_id) {
+> +			rc = scall->hl->hook.lsm_config_self_policy(lsm_id, op, buf, size, flags);
 
-If I copy only that profile into a nixos vm where there are much less
-profiles, the deny does also work.
+The lsm_id should not be passed to the hook.
 
-Are there some limits on the size of files in /etc/apparmor.d? The rule
-is in a file with 86 profiles and 7012 lines.
+The LSM syscall should manage the argument copy and buffer allocation
+instead of duplicating this code in each LSM hook implementation (see
+other LSM syscalls).
 
+> +			break;
+> +		}
+> +	}
+> +
+> +	return rc;
+> +}
+> +
+> +/**
+> + * security_lsm_config_system_policy() - Configure system LSM policies
+> + * @lsm_id: id of the lsm to target
+> + * @op: Operation to perform (one of the LSM_POLICY_XXX values)
+> + * @buf: userspace pointer to policy data
+> + * @size: size of @buf
+> + * @flags: lsm policy configuration flags
+> + *
+> + * Configure the policies of a LSM for the whole system. This notably allows
+> + * to update them even when the lsmfs is unavailable or restricted. Currently,
+> + * only LSM_POLICY_LOAD is supported.
+> + *
+> + * Return: Returns 0 on success, error on failure.
+> + */
+> +int security_lsm_config_system_policy(u32 lsm_id, u32 op, void __user *buf,
+> +				   size_t size, u32 flags)
+> +{
+> +	int rc = LSM_RET_DEFAULT(lsm_config_system_policy);
+> +	struct lsm_static_call *scall;
+> +
+> +	lsm_for_each_hook(scall, lsm_config_system_policy) {
+> +		if ((scall->hl->lsmid->id) == lsm_id) {
+> +			rc = scall->hl->hook.lsm_config_system_policy(lsm_id, op, buf, size, flags);
 
-Thanks in advance
-Florian
+ditto
 
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQFLBAEBCgA1FiEETi2bJpQODavzdrevdnYkIdRYN94FAmiiAC8XHGVuZ2VsZmxv
-cmlhbkBwb3N0ZW8uZGUACgkQdnYkIdRYN95pswf/V2Vr4sMPpWNlNcRcd6++Yfv+
-VTibdi0A1JaVhpd0QaDPcY9HW6A1LLuLVsa6Lwxo9niG2fDpAT2yaxbyYhwZ3c9F
-Q4Byn6D2iFerLljyzryDFrqy1yGmt/Tqm0B61GfCj8/zLxqYFDIYSVM2u1lXjh5d
-oyuC3RmIeV45oHkJNuaElhtYVZq6Us4CafXIRv0xu9z8LtIlAIGhKqMF28Zyl87f
-12Shdar8+f77uzC3rtOjaRb9ZiOTSuCm3gPT3fARJBo495N0jq2ay8o9q3zLWkVN
-z87dEZmRHzkeIv5fJqtaGADJL3M4vW5gcixy6rP1T/VA5c72Y1H6y1p6jv3zxw==
-=z/Jc
------END PGP SIGNATURE-----
---=-=-=--
+> +			break;
+> +		}
+> +	}
+> +
+> +	return rc;
+> +}
+> +
+>  #ifdef CONFIG_PERF_EVENTS
+>  /**
+>   * security_perf_event_open() - Check if a perf event open is allowed
+> -- 
+> 2.48.1
+> 
+> 
 
