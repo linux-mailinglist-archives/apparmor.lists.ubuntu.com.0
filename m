@@ -2,25 +2,25 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C5EFB417EB
-	for <lists+apparmor@lfdr.de>; Wed,  3 Sep 2025 10:06:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCC3FB417E2
+	for <lists+apparmor@lfdr.de>; Wed,  3 Sep 2025 10:06:55 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1utiVy-0006DX-Rp; Wed, 03 Sep 2025 08:06:46 +0000
+	id 1utiVr-00069s-VN; Wed, 03 Sep 2025 08:06:39 +0000
 Received: from flow-b2-smtp.messagingengine.com ([202.12.124.137])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <arnd@arndb.de>) id 1ut4dN-0008Fb-Pg
- for apparmor@lists.ubuntu.com; Mon, 01 Sep 2025 13:31:46 +0000
+ (Exim 4.86_2) (envelope-from <arnd@arndb.de>) id 1ut4h2-0000Ea-Qa
+ for apparmor@lists.ubuntu.com; Mon, 01 Sep 2025 13:35:33 +0000
 Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
- by mailflow.stl.internal (Postfix) with ESMTP id 5D0C61300A65;
- Mon,  1 Sep 2025 09:31:43 -0400 (EDT)
+ by mailflow.stl.internal (Postfix) with ESMTP id 72DA61300C7D;
+ Mon,  1 Sep 2025 09:35:30 -0400 (EDT)
 Received: from phl-imap-02 ([10.202.2.81])
- by phl-compute-05.internal (MEProxy); Mon, 01 Sep 2025 09:31:44 -0400
-X-ME-Sender: <xms:PKC1aIcONhsW8pFWOV14Sq7PTSfGUzdsPiv1pf9lSeQIoeQuUROA1Q>
- <xme:PKC1aKOVe-VGCwHjIr1-HCUTyP2eI6IVsjiZwzoJs8XrW5uMtrI3FpSZ6Dsf67EKk
- UVTmDVgbd78EjylEJU>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdefgdduledvvdekucetufdoteggodetrf
+ by phl-compute-05.internal (MEProxy); Mon, 01 Sep 2025 09:35:31 -0400
+X-ME-Sender: <xms:IKG1aDr3Hqrb31TbMjN78ZTLVNY4RM96ZCFBcQVyAuY4LgHcbrnlEQ>
+ <xme:IKG1aNp7u77IIkCCX9bjV4qZW5wWqe7OkAxvJPCwwbE91dmYpG4mpCOLTMXsp-Jm3
+ nn8tlWvYObQvbyKOTk>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdefgdduledvvdelucetufdoteggodetrf
  dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
  rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
  gurhepofggfffhvfevkfgjfhfutgfgsehtjeertdertddtnecuhfhrohhmpedftehrnhgu
@@ -36,18 +36,18 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdefgdduledvvdekucetufdote
  htthhotheslhhinhgrrhhordhorhhgpdhrtghpthhtoheprghnnhgrqdhmrghrihgrsehl
  ihhnuhhtrhhonhhigidruggvpdhrtghpthhtohepthhglhigsehlihhnuhhtrhhonhhigi
  druggv
-X-ME-Proxy: <xmx:PKC1aPW1RGYxcaPPwQB08we1CrOb0vWdovfn6r5qNGsSUnTRNoysJw>
- <xmx:PKC1aACPYBlQb5Uv6Ak1zXW3vbtk9zPb7jxSCaujwkmIdsz7VISSsA>
- <xmx:PKC1aBANLPAWF_L6c2MK_OSvCPKCWVpa-XxY8Gz3G2h9a5ymRg7i6Q>
- <xmx:PKC1aOYWrsQphouZ9KK0mtpQNLo0VBdm9yK6cb4vr0A_2uyW7_Wa4w>
- <xmx:P6C1aLu2umbwmZJroLvt1vyRUndw9ctOMRaDydbyr815g78VacSqp4S2>
+X-ME-Proxy: <xmx:IKG1aLMz2TINr0c9twI8YvaS3Bl-TSQE5dUZWyhg-L_0znn_f0dfPQ>
+ <xmx:IKG1aE38YbHUEz7fNiAfpCQE3WrOAZZWG3HU_NyUya0Hi5uZ6Hpw_g>
+ <xmx:IKG1aKom2NHpTpyZT_0AwJSkDC2sC6eK75faHFKKsNdr-FTPcJGMHA>
+ <xmx:IKG1aEs7wsdixga8FnPAoUQDIFaRRBPGSqTVbhgfbhKfgrnZLF3VgQ>
+ <xmx:IqG1aPF5JqcLstqMCk-eCuy-NBIHh4w5lGboHTQV22jCAUfuu3AJWcNC>
 Feedback-ID: i56a14606:Fastmail
 Received: by mailuser.phl.internal (Postfix, from userid 501)
- id 68A5D700068; Mon,  1 Sep 2025 09:31:40 -0400 (EDT)
+ id 33FF5700065; Mon,  1 Sep 2025 09:35:28 -0400 (EDT)
 X-Mailer: MessagingEngine.com Webmail Interface
 MIME-Version: 1.0
-X-ThreadId: A1XJ5FccVF4B
-Date: Mon, 01 Sep 2025 15:30:20 +0200
+X-ThreadId: AWRA786TDMiJ
+Date: Mon, 01 Sep 2025 15:35:06 +0200
 From: "Arnd Bergmann" <arnd@arndb.de>
 To: "schuster.simon@siemens-energy.com" <schuster.simon@siemens-energy.com>,
  "Dinh Nguyen" <dinguyen@kernel.org>,
@@ -128,17 +128,17 @@ To: "schuster.simon@siemens-energy.com" <schuster.simon@siemens-energy.com>,
  "Dave Hansen" <dave.hansen@linux.intel.com>, x86@kernel.org,
  "H. Peter Anvin" <hpa@zytor.com>, "Chris Zankel" <chris@zankel.net>,
  "Max Filippov" <jcmvbkbc@gmail.com>
-Message-Id: <78ca3a1f-2ed9-4450-95ef-d690cf4aace1@app.fastmail.com>
-In-Reply-To: <20250901-nios2-implement-clone3-v2-3-53fcf5577d57@siemens-energy.com>
+Message-Id: <ebe9be04-274b-4791-b883-198320cab886@app.fastmail.com>
+In-Reply-To: <20250901-nios2-implement-clone3-v2-2-53fcf5577d57@siemens-energy.com>
 References: <20250901-nios2-implement-clone3-v2-0-53fcf5577d57@siemens-energy.com>
- <20250901-nios2-implement-clone3-v2-3-53fcf5577d57@siemens-energy.com>
+ <20250901-nios2-implement-clone3-v2-2-53fcf5577d57@siemens-energy.com>
 Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
 Received-SPF: pass client-ip=202.12.124.137; envelope-from=arnd@arndb.de;
  helo=flow-b2-smtp.messagingengine.com
 X-Mailman-Approved-At: Wed, 03 Sep 2025 08:06:39 +0000
-Subject: Re: [apparmor] [PATCH v2 3/4] arch: copy_thread: pass clone_flags
-	as u64
+Subject: Re: [apparmor] [PATCH v2 2/4] copy_process: pass clone_flags as u64
+	across calltree
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -181,12 +181,13 @@ On Mon, Sep 1, 2025, at 15:09, Simon Schuster via B4 Relay wrote:
 > (CLONE_CLEAR_SIGHAND and CLONE_INTO_CGROUP) are evaluated, this is still
 > undesirable in terms of the principle of least surprise.
 >
-> Thus, this commit fixes all relevant interfaces of the copy_thread
-> function that is called from copy_process to consistently pass
-> clone_flags as u64, so that no truncation to 32-bit integers occurs on
-> 32-bit architectures.
+> Thus, this commit fixes all relevant interfaces of callees to
+> sys_clone3/copy_process (excluding the architecture-specific
+> copy_thread) to consistently pass clone_flags as u64, so that
+> no truncation to 32-bit integers occurs on 32-bit architectures.
 >
 > Signed-off-by: Simon Schuster <schuster.simon@siemens-energy.com>
+> Reviewed-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
 
 Reviewed-by: Arnd Bergmann <arnd@arndb.de>
 
