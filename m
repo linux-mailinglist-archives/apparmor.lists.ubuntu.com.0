@@ -2,81 +2,123 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 530BBB2E11A
-	for <lists+apparmor@lfdr.de>; Wed, 20 Aug 2025 17:30:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B303BB417E5
+	for <lists+apparmor@lfdr.de>; Wed,  3 Sep 2025 10:06:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uoklx-0008NK-L4; Wed, 20 Aug 2025 15:30:45 +0000
-Received: from sonic313-14.consmr.mail.ne1.yahoo.com ([66.163.185.37])
- by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <casey@schaufler-ca.com>)
- id 1uoklv-0008Mo-9Y
- for apparmor@lists.ubuntu.com; Wed, 20 Aug 2025 15:30:43 +0000
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1755703841; bh=vOSB/fG4B2RZJlI3dSwFfjan61cB++TMCPjyr6/+GK5=;
- h=X-Sonic-MF:Date:Subject:To:From:From:Subject;
- b=DviJdUQ95zu/8dLxaoUrbp4iwyG/r8iHYtG3LC2fBi/TfFJfWgaqaABN8wg9D+u/+mCzimx2mVsiEqzpZPVGym46ND5iMJcP5ljsFqp5DUk18sOoLRiX3XR0yHTYdcjZAVZndlep8VKbTtGNyu/qF41GzXn9+M01rHx0h0MYzDg5TShXzL4mpqU8o9f+ql9bD99j7iclW04cuFL2wannGXtNvJ9tfsqFRt8RQ73XYt3P/uhBja2i6tD4385sI3LDJtosrMohihSE/3nafC1oOWlaD2pyLoDnISEhbmkfpqr7L4swpTYnoXk5WwlJIuHVeuWgg0RTWUPYXexcWARv+Q==
-X-YMail-OSG: BKd4qI0VM1m_siIoA_J1.f5_Ft3MOgvP_vxb9aCPlavZqe1BIrns.zUuLW8Ckt6
- 0nLSfx8QdxyXeE0OWRUb70tbhcZj8IKvpT1ztj1UIRGxCCSXemY5ON.tg34TMAUkEGi95kKlCryo
- A0zaQJCaF.xZcJq56wnhmisOuGIPmFUWDR5en44ufd_JHcGUQF72wBQgUy0EUuXbHM3IUdQpKFUd
- YmwoXLuVCkNa4IvEjGShqaDLXMgPh8_szgEFf2KpUZ73PX1PL8BBV1pRXzn4wfB4YjZDxDC6kynQ
- r5QZkaHNyEk4YrAAs4qveU9s4QIjrKEH0k2NariJPaTuGu9JMYiVfGi9yjMMBh1.vaPaTJkeQ5Pj
- 1tgiI47Z5XQ96bqleDtBZZCyOWEd9Mj.8jof7juJZlY6EWZdOUqfU_VLTYDjAqM9oOq64TRVOYAe
- 1OJeDwXMjUj85STB.hPY2WHcBhmedkFrADDc4Yt6Pj0lTmw176PflNq3BqSHhxuOqXJIS1nBERAf
- f6WVmk.1u6w0uXXpKmao8bolpiD7P42DMHZuqrcWlYQ2ubVVM7SaL2e.RbzQYq_sYC1XNqYjFuXN
- NgToFyTOD41HRX3MDfOPlIi09rxRP3MjsAU9wPDj.Ga1C3UW2DVXBmuZEH7S2p5aVmkTvKZbcy1Q
- zUJUgbu5hkA88A2vWMl7PVhBEhTmO8aS9PP.zeZzHNDCm4bRh5etyxvJyLBO7mFEE4pjBUEcWeVr
- wW3Ac1phNTlpgzD.BbnzK5aFmpzaK4vj1IFV9Y7jLn9N7pbGKwqRnRYiajvj5YmccYM6PSiYqivd
- 4aTTLihHs9eQFNXSLFJWgfpwqoQcwA7sduxM1eA4Z04sDV2PhqDQPuZHv_HEmnqeRYrzQFTCYAIg
- e5buOfdkDjGDL3RgcoJ0PpuJD8e8v13iIV_BhnPUjj52fPYQixSBsiQKk4jsvnUNAfs5S5m0xlxd
- aGQxHyoFKVq7QNEUstkwYu39iTd5oHHXmGkKb6s0c2.VFyrUwtbU1INVFlo2wZbODZHFDDGPNemx
- LJ3HDsPY0AIeS1fr8lm567fipCpe6ToUVmij3LfnKcPRV3N8Up.72J6w8xEuM9Gv42eO9j0LkhJ1
- OU17VtT5JBIkwi6SO62nKn.48SFMK4wtdy6skQMpsvSgD.yxf4E2j._VGWgfIYT0joJ64bMlHZhT
- qv88CpviU1bTlIGbOD_UqJn0bTEaaMHBr1lbYuh8nbYb9g2Aimv8TrE8.06E6L03pPhYeMEuxUhy
- REpgfN0Bx55MdxBMDCjqOOKiv1YQVPtDFAV2qQ6OXyjSL3T.jtEHnGF5Js1glQQ7qV5QsDspJA3V
- ydgq.vsIv8wfmzilooT_l4d6zWwUzvuSbF_3iE_jCQVv5XENQ_03E1FEruCCMg9ZI6bCTkm2L.Qh
- URiXyWQ8gq9fR7TSeqZFSsIgdf7Xnrih0Oeh7.fPhzrk.K7JsyHjpN1ymCv4XVDso6c20ie8ci2E
- GUrUcimBjwDmuGbpkAdZFr96KBHLnqR9C5JIFEWUjnbypYWjTfTcqasxgSJ4d8ghSb.V1okv0waW
- 0oXXRAcxKCZscUt8kmhxBEwBVsB7ALidn8DZi9NQr3JyRfqY8PxmeKgzK1wh9Jdq48zXt2bpCbJa
- BwNBEKvvi.1FE5.sA6CcPriHHrMqP9dscKS7._Drqg5UeiVoq3CMUgdd1Wu9TUy_PAeAeupgB5yp
- xZ330S066_Dl3IFviXkJi3yoF3LrGJ1oZyAXcwzbOdcE9mB9JHETzDjxmzgXIUa6BY6Fgj3EQKu.
- qAkvyonKtV9lblGZH6F_tyAFAVSdCvbBXgAZ_AIrNi5xy8AMLzgbquEeDEN6V7yYXcUBU2VnsJrM
- gTWXKfPs3gptqcPtXc8vQnJw_CtVK6RKF4e54BgYScLgsRJOOK7VvkxOaEbQFv3YXulA2gpmRKRx
- CPjYQrmYTEmqdCBlAW.W9ssj71oc5CUTRSTzsPc0C4EbKL0t9OIPktIqG8tL0ogkbVwsbgobZraF
- zOab5kV_S_rrrLuqvOgpPsIOE0bKff.076Yu_NhRO0TZ9HTe10ILJXOv10YRqSl8fkcTITbPPKdb
- gc_hWgD..PhR2NUp_F70vozes.cieots1t5_bcNrWSn7cpCdeO6wYUbyV.nNSyAsGv9rmDlrSvhA
- 1Edc_wGV5XvqtHHnVEK2P.SzALxi.zB7uBCL3EJdShT953YJpbH8nlBYCNDXTo2tNrxBtdz9saTI
- YjJtAV0uehdKI9YcXMT6NK4NzXjki5rjfWoLX2gekoT.Xiss1C042T1GNann63Ejv1iWec.l2HxO
- Kv92oyXpQ8TgpKf3s
-X-Sonic-MF: <casey@schaufler-ca.com>
-X-Sonic-ID: 0e4b2175-bc63-45c1-87a7-54204571253d
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic313.consmr.mail.ne1.yahoo.com with HTTP; Wed, 20 Aug 2025 15:30:41 +0000
-Received: by hermes--production-gq1-74d64bb7d7-r5xbr (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID f21546110efcd91dfbf53c9b19723f70; 
- Wed, 20 Aug 2025 15:30:35 +0000 (UTC)
-Message-ID: <0c7a19cb-d270-403f-9f97-354405aba746@schaufler-ca.com>
-Date: Wed, 20 Aug 2025 08:30:33 -0700
+	id 1utiVu-0006Al-S4; Wed, 03 Sep 2025 08:06:42 +0000
+Received: from tor.source.kernel.org ([172.105.4.254])
+ by lists.ubuntu.com with esmtp (Exim 4.86_2)
+ (envelope-from <devnull+schuster.simon.siemens-energy.com@kernel.org>)
+ id 1ut4Py-00060Y-3V
+ for apparmor@lists.ubuntu.com; Mon, 01 Sep 2025 13:17:54 +0000
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 818B6601D9;
+ Mon,  1 Sep 2025 13:10:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 29F3DC4CEF4;
+ Mon,  1 Sep 2025 13:10:49 +0000 (UTC)
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 0481CCA1002;
+ Mon,  1 Sep 2025 13:10:49 +0000 (UTC)
+From: Simon Schuster via B4 Relay
+ <devnull+schuster.simon.siemens-energy.com@kernel.org>
+Date: Mon, 01 Sep 2025 15:09:49 +0200
+Message-Id: <20250901-nios2-implement-clone3-v2-0-53fcf5577d57@siemens-energy.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: =?UTF-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>,
- =?UTF-8?Q?Maxime_B=C3=A9lair?= <maxime.belair@canonical.com>
-References: <20250709080220.110947-1-maxime.belair@canonical.com>
- <20250709080220.110947-3-maxime.belair@canonical.com>
- <20250820.Ao3iquoshaiB@digikod.net>
-Content-Language: en-US
-From: Casey Schaufler <casey@schaufler-ca.com>
-In-Reply-To: <20250820.Ao3iquoshaiB@digikod.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailer: WebService/1.1.24338
- mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
-Received-SPF: none client-ip=66.163.185.37;
- envelope-from=casey@schaufler-ca.com;
- helo=sonic313-14.consmr.mail.ne1.yahoo.com
-Subject: Re: [apparmor] [PATCH v5 2/3] lsm: introduce
-	security_lsm_config_*_policy hooks
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAB2btWgC/3WNzQqDMBCEX0Vy7pZkrT/05HsUD5quuqCJZEUq4
+ rs3Sq89fsPMN7sSCkyinsmuAq0s7F0EvCXKDo3rCfgdWaHGTJemBMdeEHiaR5rILWBH7yiFosM
+ MLeoy162K4zlQx59L/KojDyyLD9v1s5oz/SnR/FOuBjSYtsWHNkVa5E0lfBYEyFHot7v1k6qP4
+ /gCMZ8FFcUAAAA=
+X-Change-ID: 20250818-nios2-implement-clone3-7f252c20860b
+To: Dinh Nguyen <dinguyen@kernel.org>, 
+ Christian Brauner <brauner@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@redhat.com>, 
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, 
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>, 
+ Vlastimil Babka <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
+ Kees Cook <kees@kernel.org>, Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Guo Ren <guoren@kernel.org>, 
+ Oleg Nesterov <oleg@redhat.com>, Jens Axboe <axboe@kernel.dk>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+ =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+ Paul Moore <paul@paul-moore.com>, Serge Hallyn <sergeh@kernel.org>, 
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
+ Anna-Maria Behnsen <anna-maria@linutronix.de>, 
+ Frederic Weisbecker <frederic@kernel.org>, 
+ Thomas Gleixner <tglx@linutronix.de>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ John Johansen <john.johansen@canonical.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Ondrej Mosnacek <omosnace@redhat.com>, 
+ Kentaro Takeda <takedakn@nttdata.co.jp>, 
+ Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>, 
+ Richard Henderson <richard.henderson@linaro.org>, 
+ Matt Turner <mattst88@gmail.com>, Vineet Gupta <vgupta@kernel.org>, 
+ Russell King <linux@armlinux.org.uk>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Brian Cain <bcain@kernel.org>, Huacai Chen <chenhuacai@kernel.org>, 
+ WANG Xuerui <kernel@xen0n.name>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+ Michal Simek <monstr@monstr.eu>, 
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ Jonas Bonn <jonas@southpole.se>, 
+ Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, 
+ Stafford Horne <shorne@gmail.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+ Christophe Leroy <christophe.leroy@csgroup.eu>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
+ Andreas Larsson <andreas@gaisler.com>, Richard Weinberger <richard@nod.at>, 
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>, 
+ Johannes Berg <johannes@sipsolutions.net>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+ "H. Peter Anvin" <hpa@zytor.com>, Chris Zankel <chris@zankel.net>, 
+ Max Filippov <jcmvbkbc@gmail.com>
+X-Mailer: b4 0.14.3-dev-2ce6c
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1756732247; l=6552;
+ i=schuster.simon@siemens-energy.com; s=20250818;
+ h=from:subject:message-id;
+ bh=l+zEh4GN06CwujvuIj3y3Fd32BGM/P2y+zLD4+u7l7M=;
+ b=GDpCexNrElu2yO/MxuDkpG+xctyQVH7o61ewBoPT3J8lEgMWXNxMsXtjVUaPsmeHSieQm4/hP
+ 49FpVyBe5rsBihPxAhRaNZH/1KUoHHYEsSlrwUEFI8iutPmfJs+jkNi
+X-Developer-Key: i=schuster.simon@siemens-energy.com; a=ed25519;
+ pk=PUhOMiSp43aSeRE1H41KApxYOluamBFFiMfKlBjocvo=
+X-Endpoint-Received: by B4 Relay for
+ schuster.simon@siemens-energy.com/20250818 with auth_id=495
+X-Original-From: Simon Schuster <schuster.simon@siemens-energy.com>
+Received-SPF: pass client-ip=172.105.4.254;
+ envelope-from=devnull+schuster.simon.siemens-energy.com@kernel.org;
+ helo=tor.source.kernel.org
+X-Mailman-Approved-At: Wed, 03 Sep 2025 08:06:38 +0000
+Subject: [apparmor] [PATCH v2 0/4] nios2: Add architecture support for clone3
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -88,243 +130,172 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: paul@paul-moore.com, song@kernel.org, kees@kernel.org,
- linux-api@vger.kernel.org, stephen.smalley.work@gmail.com,
- rdunlap@infradead.org, apparmor@lists.ubuntu.com, jmorris@namei.org,
- linux-kernel@vger.kernel.org, penguin-kernel@i-love.sakura.ne.jp,
- linux-security-module@vger.kernel.org, takedakn@nttdata.co.jp,
- serge@hallyn.com
+Reply-To: schuster.simon@siemens-energy.com
+Cc: Simon Schuster <schuster.simon@siemens-energy.com>,
+ linux-sh@vger.kernel.org, linux-mips@vger.kernel.org,
+ linux-openrisc@vger.kernel.org, sparclinux@vger.kernel.org,
+ linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-hexagon@vger.kernel.org, linux-csky@vger.kernel.org,
+ linux-snps-arc@lists.infradead.org, linux-trace-kernel@vger.kernel.org,
+ selinux@vger.kernel.org, linux-um@lists.infradead.org,
+ apparmor@lists.ubuntu.com, linux-block@vger.kernel.org,
+ linux-m68k@lists.linux-m68k.org, loongarch@lists.linux.dev,
+ cgroups@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-parisc@vger.kernel.org, linux-mm@kvack.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, linux-security-module@vger.kernel.org,
+ linux-alpha@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 8/20/2025 7:21 AM, Mickaël Salaün wrote:
-> On Wed, Jul 09, 2025 at 10:00:55AM +0200, Maxime Bélair wrote:
->> Define two new LSM hooks: security_lsm_config_self_policy and
->> security_lsm_config_system_policy and wire them into the corresponding
->> lsm_config_*_policy() syscalls so that LSMs can register a unified
->> interface for policy management. This initial, minimal implementation
->> only supports the LSM_POLICY_LOAD operation to limit changes.
->>
->> Signed-off-by: Maxime Bélair <maxime.belair@canonical.com>
->> ---
->>  include/linux/lsm_hook_defs.h |  4 +++
->>  include/linux/security.h      | 20 ++++++++++++
->>  include/uapi/linux/lsm.h      |  8 +++++
->>  security/lsm_syscalls.c       | 17 ++++++++--
->>  security/security.c           | 60 +++++++++++++++++++++++++++++++++++
->>  5 files changed, 107 insertions(+), 2 deletions(-)
->>
->> diff --git a/include/linux/lsm_hook_defs.h b/include/linux/lsm_hook_defs.h
->> index bf3bbac4e02a..fca490444643 100644
->> --- a/include/linux/lsm_hook_defs.h
->> +++ b/include/linux/lsm_hook_defs.h
->> @@ -464,3 +464,7 @@ LSM_HOOK(int, 0, bdev_alloc_security, struct block_device *bdev)
->>  LSM_HOOK(void, LSM_RET_VOID, bdev_free_security, struct block_device *bdev)
->>  LSM_HOOK(int, 0, bdev_setintegrity, struct block_device *bdev,
->>  	 enum lsm_integrity_type type, const void *value, size_t size)
->> +LSM_HOOK(int, -EINVAL, lsm_config_self_policy, u32 lsm_id, u32 op,
->> +	 void __user *buf, size_t size, u32 flags)
->> +LSM_HOOK(int, -EINVAL, lsm_config_system_policy, u32 lsm_id, u32 op,
->> +	 void __user *buf, size_t size, u32 flags)
->> diff --git a/include/linux/security.h b/include/linux/security.h
->> index cc9b54d95d22..54acaee4a994 100644
->> --- a/include/linux/security.h
->> +++ b/include/linux/security.h
->> @@ -581,6 +581,11 @@ void security_bdev_free(struct block_device *bdev);
->>  int security_bdev_setintegrity(struct block_device *bdev,
->>  			       enum lsm_integrity_type type, const void *value,
->>  			       size_t size);
->> +int security_lsm_config_self_policy(u32 lsm_id, u32 op, void __user *buf,
->> +				    size_t size, u32 flags);
->> +int security_lsm_config_system_policy(u32 lsm_id, u32 op, void __user *buf,
->> +				      size_t size, u32 flags);
->> +
->>  #else /* CONFIG_SECURITY */
->>  
->>  /**
->> @@ -1603,6 +1608,21 @@ static inline int security_bdev_setintegrity(struct block_device *bdev,
->>  	return 0;
->>  }
->>  
->> +static inline int security_lsm_config_self_policy(u32 lsm_id, u32 op,
->> +						  void __user *buf,
->> +						  size_t size, u32 flags)
->> +{
->> +
->> +	return -EOPNOTSUPP;
->> +}
->> +
->> +static inline int security_lsm_config_system_policy(u32 lsm_id, u32 op,
->> +						    void __user *buf,
->> +						    size_t size, u32 flags)
->> +{
->> +
->> +	return -EOPNOTSUPP;
->> +}
->>  #endif	/* CONFIG_SECURITY */
->>  
->>  #if defined(CONFIG_SECURITY) && defined(CONFIG_WATCH_QUEUE)
->> diff --git a/include/uapi/linux/lsm.h b/include/uapi/linux/lsm.h
->> index 938593dfd5da..2b9432a30cdc 100644
->> --- a/include/uapi/linux/lsm.h
->> +++ b/include/uapi/linux/lsm.h
->> @@ -90,4 +90,12 @@ struct lsm_ctx {
->>   */
->>  #define LSM_FLAG_SINGLE	0x0001
->>  
->> +/*
->> + * LSM_POLICY_XXX definitions identify the different operations
->> + * to configure LSM policies
->> + */
->> +
->> +#define LSM_POLICY_UNDEF	0
->> +#define LSM_POLICY_LOAD		100
-> Why the gap between 0 and 100?
+This series adds support for the clone3 system call to the nios2
+architecture. This addresses the build-time warning "warning: clone3()
+entry point is missing, please fix" introduced in 505d66d1abfb9
+("clone3: drop __ARCH_WANT_SYS_CLONE3 macro"). The implementation passes
+the relevant clone3 tests of kselftest when applied on top of
+next-20250815:
 
-It's conventional in LSM syscalls to start identifiers at 100.
-No compelling reason other than to appease the LSM maintainer.
+	./run_kselftest.sh
+	TAP version 13
+	1..4
+	# selftests: clone3: clone3
+	ok 1 selftests: clone3: clone3
+	# selftests: clone3: clone3_clear_sighand
+	ok 2 selftests: clone3: clone3_clear_sighand
+	# selftests: clone3: clone3_set_tid
+	ok 3 selftests: clone3: clone3_set_tid
+	# selftests: clone3: clone3_cap_checkpoint_restore
+	ok 4 selftests: clone3: clone3_cap_checkpoint_restore
 
->
->> +
->>  #endif /* _UAPI_LINUX_LSM_H */
->> diff --git a/security/lsm_syscalls.c b/security/lsm_syscalls.c
->> index a3cb6dab8102..dd016ba6976c 100644
->> --- a/security/lsm_syscalls.c
->> +++ b/security/lsm_syscalls.c
->> @@ -122,11 +122,24 @@ SYSCALL_DEFINE3(lsm_list_modules, u64 __user *, ids, u32 __user *, size,
->>  SYSCALL_DEFINE5(lsm_config_self_policy, u32, lsm_id, u32, op, void __user *,
->>  		buf, u32 __user *, size, u32, flags)
-> Given these are a multiplexor syscalls, I'm wondering if they should not
-> have common flags and LSM-specific flags.  Alternatively, the op
-> argument could also contains some optional flags.  In either case, the
-> documentation should guide LSM developers for flags that may be shared
-> amongst LSMs.
->
-> Examples of such flags could be to restrict the whole process instead of
-> the calling thread.
->
->>  {
->> -	return 0;
->> +	size_t usize;
->> +
->> +	if (get_user(usize, size))
-> Size should just be u32, not a pointer.
->
->> +		return -EFAULT;
->> +
->> +	return security_lsm_config_self_policy(lsm_id, op, buf, usize, flags);
->>  }
->>  
->>  SYSCALL_DEFINE5(lsm_config_system_policy, u32, lsm_id, u32, op, void __user *,
->>  		buf, u32 __user *, size, u32, flags)
->>  {
->> -	return 0;
->> +	size_t usize;
->> +
->> +	if (!capable(CAP_SYS_ADMIN))
->> +		return -EPERM;
-> I like this mandatory capability check for this specific syscall.  This
-> makes the semantic clearer.  However, to avoid the superpower of
-> CAP_SYS_ADMIN, I'm wondering how we could use the CAP_MAC_ADMIN instead.
-> This syscall could require CAP_MAC_ADMIN, and current LSMs (relying on a
-> filesystem interface for policy configuration) could also enforce
-> CAP_SYS_ADMIN for compatibility reasons.
->
-> In fact, this "system" syscall could be a "namespace" syscall, which
-> would take a security/LSM namespace file descriptor as argument.  If the
-> namespace is not the initial namespace, any CAP_SYS_ADMIN implemented by
-> current LSMs could be avoided.  See
-> https://lore.kernel.org/r/CAHC9VhRGMmhxbajwQNfGFy+ZFF1uN=UEBjqQZQ4UBy7yds3eVQ@mail.gmail.com
->
->> +
->> +	if (get_user(usize, size))
-> ditto
->
->> +		return -EFAULT;
->> +
->> +	return security_lsm_config_system_policy(lsm_id, op, buf, usize, flags);
->>  }
->> diff --git a/security/security.c b/security/security.c
->> index fb57e8fddd91..166d7d9936d0 100644
->> --- a/security/security.c
->> +++ b/security/security.c
->> @@ -5883,6 +5883,66 @@ int security_bdev_setintegrity(struct block_device *bdev,
->>  }
->>  EXPORT_SYMBOL(security_bdev_setintegrity);
->>  
->> +/**
->> + * security_lsm_config_self_policy() - Configure caller's LSM policies
->> + * @lsm_id: id of the LSM to target
->> + * @op: Operation to perform (one of the LSM_POLICY_XXX values)
->> + * @buf: userspace pointer to policy data
->> + * @size: size of @buf
->> + * @flags: lsm policy configuration flags
->> + *
->> + * Configure the policies of a LSM for the current domain/user. This notably
->> + * allows to update them even when the lsmfs is unavailable or restricted.
->> + * Currently, only LSM_POLICY_LOAD is supported.
->> + *
->> + * Return: Returns 0 on success, error on failure.
->> + */
->> +int security_lsm_config_self_policy(u32 lsm_id, u32 op, void __user *buf,
->> +				 size_t size, u32 flags)
->> +{
->> +	int rc = LSM_RET_DEFAULT(lsm_config_self_policy);
->> +	struct lsm_static_call *scall;
->> +
->> +	lsm_for_each_hook(scall, lsm_config_self_policy) {
->> +		if ((scall->hl->lsmid->id) == lsm_id) {
->> +			rc = scall->hl->hook.lsm_config_self_policy(lsm_id, op, buf, size, flags);
-> The lsm_id should not be passed to the hook.
->
-> The LSM syscall should manage the argument copy and buffer allocation
-> instead of duplicating this code in each LSM hook implementation (see
-> other LSM syscalls).
->
->> +			break;
->> +		}
->> +	}
->> +
->> +	return rc;
->> +}
->> +
->> +/**
->> + * security_lsm_config_system_policy() - Configure system LSM policies
->> + * @lsm_id: id of the lsm to target
->> + * @op: Operation to perform (one of the LSM_POLICY_XXX values)
->> + * @buf: userspace pointer to policy data
->> + * @size: size of @buf
->> + * @flags: lsm policy configuration flags
->> + *
->> + * Configure the policies of a LSM for the whole system. This notably allows
->> + * to update them even when the lsmfs is unavailable or restricted. Currently,
->> + * only LSM_POLICY_LOAD is supported.
->> + *
->> + * Return: Returns 0 on success, error on failure.
->> + */
->> +int security_lsm_config_system_policy(u32 lsm_id, u32 op, void __user *buf,
->> +				   size_t size, u32 flags)
->> +{
->> +	int rc = LSM_RET_DEFAULT(lsm_config_system_policy);
->> +	struct lsm_static_call *scall;
->> +
->> +	lsm_for_each_hook(scall, lsm_config_system_policy) {
->> +		if ((scall->hl->lsmid->id) == lsm_id) {
->> +			rc = scall->hl->hook.lsm_config_system_policy(lsm_id, op, buf, size, flags);
-> ditto
->
->> +			break;
->> +		}
->> +	}
->> +
->> +	return rc;
->> +}
->> +
->>  #ifdef CONFIG_PERF_EVENTS
->>  /**
->>   * security_perf_event_open() - Check if a perf event open is allowed
->> -- 
->> 2.48.1
->>
->>
+The series also includes a small patch to kernel/fork.c that ensures
+that clone_flags are passed correctly on architectures where unsigned
+long is insufficient to store the u64 clone_flags. It is marked as a fix
+for stable backporting.
+
+As requested, in v2, this series now further tries to correct this type
+error throughout the whole code base. Thus, it now touches a larger
+number of subsystems and all architectures.
+
+Therefore, another test was performed for ARCH=x86_64 (as a
+representative for 64-bit architectures). Here, the series builds cleanly
+without warnings on defconfig with CONFIG_SECURITY_APPARMOR=y and
+CONFIG_SECURITY_TOMOYO=y (to compile-check the LSM-related changes).
+The build further successfully passes testing/selftests/clone3 (with the
+patch from 20241105062948.1037011-1-zhouyuhang1010@163.com to prepare
+clone3_cap_checkpoint_restore for compatibility with the newer libcap
+version on my system).
+
+Is there any option to further preflight check this patch series via
+lkp/KernelCI/etc. for a broader test across architectures, or is this
+degree of testing sufficient to eventually get the series merged?
+
+N.B.: The series is not checkpatch clean right now:
+ - include/linux/cred.h, include/linux/mnt_namespace.h:
+   function definition arguments without identifier name
+ - include/trace/events/task.h:
+   space prohibited after that open parenthesis
+
+I did not fix these warnings to keep my changes minimal and reviewable,
+as the issues persist throughout the files and they were not introduced
+by me; I only followed the existing code style and just replaced the
+types. If desired, I'd be happy to make the changes in a potential v3,
+though.
+
+Signed-off-by: Simon Schuster <schuster.simon@siemens-energy.com>
+---
+Changes in v2:
+- Introduce "Fixes:" and "Cc: stable@vger.kernel.org" where necessary
+- Factor out "Fixes:" when adapting the datatype of clone_flags for
+  easier backports
+- Fix additional instances where `unsigned long` clone_flags is used
+- Reword commit message to make it clearer that any 32-bit arch is
+  affected by this bug
+- Link to v1: https://lore.kernel.org/r/20250821-nios2-implement-clone3-v1-0-1bb24017376a@siemens-energy.com
+
+---
+Simon Schuster (4):
+      copy_sighand: Handle architectures where sizeof(unsigned long) < sizeof(u64)
+      copy_process: pass clone_flags as u64 across calltree
+      arch: copy_thread: pass clone_flags as u64
+      nios2: implement architecture-specific portion of sys_clone3
+
+ arch/alpha/kernel/process.c       |  2 +-
+ arch/arc/kernel/process.c         |  2 +-
+ arch/arm/kernel/process.c         |  2 +-
+ arch/arm64/kernel/process.c       |  2 +-
+ arch/csky/kernel/process.c        |  2 +-
+ arch/hexagon/kernel/process.c     |  2 +-
+ arch/loongarch/kernel/process.c   |  2 +-
+ arch/m68k/kernel/process.c        |  2 +-
+ arch/microblaze/kernel/process.c  |  2 +-
+ arch/mips/kernel/process.c        |  2 +-
+ arch/nios2/include/asm/syscalls.h |  1 +
+ arch/nios2/include/asm/unistd.h   |  2 --
+ arch/nios2/kernel/entry.S         |  6 ++++++
+ arch/nios2/kernel/process.c       |  2 +-
+ arch/nios2/kernel/syscall_table.c |  1 +
+ arch/openrisc/kernel/process.c    |  2 +-
+ arch/parisc/kernel/process.c      |  2 +-
+ arch/powerpc/kernel/process.c     |  2 +-
+ arch/riscv/kernel/process.c       |  2 +-
+ arch/s390/kernel/process.c        |  2 +-
+ arch/sh/kernel/process_32.c       |  2 +-
+ arch/sparc/kernel/process_32.c    |  2 +-
+ arch/sparc/kernel/process_64.c    |  2 +-
+ arch/um/kernel/process.c          |  2 +-
+ arch/x86/include/asm/fpu/sched.h  |  2 +-
+ arch/x86/include/asm/shstk.h      |  4 ++--
+ arch/x86/kernel/fpu/core.c        |  2 +-
+ arch/x86/kernel/process.c         |  2 +-
+ arch/x86/kernel/shstk.c           |  2 +-
+ arch/xtensa/kernel/process.c      |  2 +-
+ block/blk-ioc.c                   |  2 +-
+ fs/namespace.c                    |  2 +-
+ include/linux/cgroup.h            |  4 ++--
+ include/linux/cred.h              |  2 +-
+ include/linux/iocontext.h         |  6 +++---
+ include/linux/ipc_namespace.h     |  4 ++--
+ include/linux/lsm_hook_defs.h     |  2 +-
+ include/linux/mnt_namespace.h     |  2 +-
+ include/linux/nsproxy.h           |  2 +-
+ include/linux/pid_namespace.h     |  4 ++--
+ include/linux/rseq.h              |  4 ++--
+ include/linux/sched/task.h        |  2 +-
+ include/linux/security.h          |  4 ++--
+ include/linux/sem.h               |  4 ++--
+ include/linux/time_namespace.h    |  4 ++--
+ include/linux/uprobes.h           |  4 ++--
+ include/linux/user_events.h       |  4 ++--
+ include/linux/utsname.h           |  4 ++--
+ include/net/net_namespace.h       |  4 ++--
+ include/trace/events/task.h       |  6 +++---
+ ipc/namespace.c                   |  2 +-
+ ipc/sem.c                         |  2 +-
+ kernel/cgroup/namespace.c         |  2 +-
+ kernel/cred.c                     |  2 +-
+ kernel/events/uprobes.c           |  2 +-
+ kernel/fork.c                     | 10 +++++-----
+ kernel/nsproxy.c                  |  4 ++--
+ kernel/pid_namespace.c            |  2 +-
+ kernel/sched/core.c               |  4 ++--
+ kernel/sched/fair.c               |  2 +-
+ kernel/sched/sched.h              |  4 ++--
+ kernel/time/namespace.c           |  2 +-
+ kernel/utsname.c                  |  2 +-
+ net/core/net_namespace.c          |  2 +-
+ security/apparmor/lsm.c           |  2 +-
+ security/security.c               |  2 +-
+ security/selinux/hooks.c          |  2 +-
+ security/tomoyo/tomoyo.c          |  2 +-
+ 68 files changed, 95 insertions(+), 89 deletions(-)
+---
+base-commit: 1357b2649c026b51353c84ddd32bc963e8999603
+change-id: 20250818-nios2-implement-clone3-7f252c20860b
+
+Best regards,
+-- 
+Simon Schuster <schuster.simon@siemens-energy.com>
+
+
 
