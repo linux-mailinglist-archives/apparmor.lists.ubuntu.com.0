@@ -2,58 +2,115 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DBB1B44020
-	for <lists+apparmor@lfdr.de>; Thu,  4 Sep 2025 17:13:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EF09B50215
+	for <lists+apparmor@lfdr.de>; Tue,  9 Sep 2025 18:05:52 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1uuBeG-0002yE-NC; Thu, 04 Sep 2025 15:13:16 +0000
-Received: from mail-pj1-f41.google.com ([209.85.216.41])
+	id 1uw0qX-0001rP-53; Tue, 09 Sep 2025 16:05:29 +0000
+Received: from smtp-relay-internal-1.internal ([10.131.114.114]
+ helo=smtp-relay-internal-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <paul@paul-moore.com>)
- id 1uuBeF-0002y0-7d
- for apparmor@lists.ubuntu.com; Thu, 04 Sep 2025 15:13:15 +0000
-Received: by mail-pj1-f41.google.com with SMTP id
- 98e67ed59e1d1-32b6108f2d5so789845a91.3
- for <apparmor@lists.ubuntu.com>; Thu, 04 Sep 2025 08:13:14 -0700 (PDT)
+ (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
+ id 1uw0qV-0001rI-D9
+ for apparmor@lists.ubuntu.com; Tue, 09 Sep 2025 16:05:27 +0000
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id C31D53F687
+ for <apparmor@lists.ubuntu.com>; Tue,  9 Sep 2025 16:05:26 +0000 (UTC)
+Received: by mail-pj1-f72.google.com with SMTP id
+ 98e67ed59e1d1-329e0a8337bso9354534a91.3
+ for <apparmor@lists.ubuntu.com>; Tue, 09 Sep 2025 09:05:26 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756998793; x=1757603593;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=zWu8/uT79TLkFHaoOripy/trgu/RnF6WTT4bI5QB+j8=;
- b=sCFimPRlR0RfD6iINirlx55YOxZQQt+8GKg5Hg+Q5lMHzuJZHyxvpFi+GZm+WkOXZK
- DFsdSLpEHjnfo2EeUzyyJAfvdh4gxCcFPidtn3DKFTdm/VkWpU9q8pAEi6ef53Q8KA3t
- ILf2L2mw5BPpL6FIbDdbV+8EpjRRLYcds2E6vd8oLQP0q93smo8X7sNcunenFs/yT7/p
- jAPQp2g6BfKcEDqUjAUkd8teucatgwb6QLJel4z9HtGAaBkrDVLAAEYeZguJsRwoqfoT
- 4H2jCLWphf1d4s3jhy+uCezALKJ8JsKhTixcGCVnzSnm5KBdqBT+yp8FFeO+y5wPg72p
- EUAw==
-X-Gm-Message-State: AOJu0YzesUHoosyuElB7SNIrnFfLJp+8m24vIZVuBfuQSelduLNOPXcj
- QPtO8F2MX+Rm6fTLl671/G0rsO2Uv/aexYKzECyG43IdrpEzbbcdKlK8jtVKk7L2AoGiZm6LsZp
- CzP2wTFtcShOAT7XnzAcX2/fqruufQds2XALYX7YEyVYIoKcEWHXWWg==
-X-Gm-Gg: ASbGnctkQmFn12mSw6lJMBF7zeONohLRZyNLbwKxWTaYfFmWO7YnEa2Rs4C6yjNnkNQ
- GFF74m7fPBp9imckHdmGci2pzs8Q0vVhET+MDHG+68Yo6DarDH1mvLIMB1yfLu6+LcjW0ijv7+s
- oKRkFCaBIWMru25u59i9bFhXTm45A9flAcZmQRdZERt/1zrDn20I2aC4EJ5nzDl7CgKTN3EJ259
- +w5NofZCn2FWqsY9g==
-X-Google-Smtp-Source: AGHT+IGqcMqHHAT75zSTTPlBqCVyFcn6AnTIKyagfTnT5D4zUa/iS7NyI7Sait1maUMEoXcJ2nw24OBTrZDWN8ZihOE=
-X-Received: by 2002:a17:90b:2ec7:b0:327:e59d:2cc2 with SMTP id
- 98e67ed59e1d1-32815436083mr27618387a91.10.1756998792394; Thu, 04 Sep 2025
- 08:13:12 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1757433925; x=1758038725;
+ h=content-transfer-encoding:organization:autocrypt:subject:from:to
+ :content-language:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=/MvTzJ2lBPsUn93qaHfsxO2RLLpVMxpnWkEeqZO6Hg4=;
+ b=qRnqNc4e0nuvXA8yPi/pWIv+ucPVEw6jPq79CN3jhpsAkfPsfQ7IIE36z622MYAFDj
+ cH+wH54GIKgSymj9neDCJV1VTMMf4yixvCUUuG7QHE1OexQBLunBJOCzmd5vwBvnJBq2
+ xrkbBEj2/r7rp8QxYhYdcGBQiYfSgUxjYGzzsaQFc/kgcDtvn9uBWGR9em7EJHbbZv0C
+ QGxGpxepGLdhpeBqbtK0d9RkAi6XLWqhQCagBgX/2tx1dZbG4WDN6FG79P3PEJF50HHM
+ kn0be6wm3fHAF6qJp5VRdGTYtuq27Ppx2KNIQlepAvaJMx86MBZ4TK/gbdJosHKxuaC8
+ byeA==
+X-Gm-Message-State: AOJu0Yxi+GL7oIV4ViB+77vNTWCQ3FEcGLN4AqtS7uGuaY8TqqFjRG9H
+ btFPhyuJrMETkbwhl/U1p3IIBvQnwRWIRmszx/L6duKtvLSKO2LwZYrXCqvBgikyDbI8livZsYG
+ V6oLuJe4579TB4e4To84PXU/ZtUxvpi9fFepyoJxzEuQ8ChjW6I8ACtSTC/bM+NrW3Xcogux2Za
+ buSvDmfByGKYF3
+X-Gm-Gg: ASbGncvHRI+o3YE3/oLVMpS/6R1pnch8MpDuj+Q9fX3NNANIyjVsvuyex+y5Hz+TCee
+ 8uk2CO4+A4jQTloahbEu48FM4BVmD2F7b6Obm64wu1buZOqoh+QDH40qJmaNtWrACVIyiVShKVn
+ PuAymia0FaeD/L49XBqCvei+2UGTvK6beJLlhO+MsW+whErLfXvt5pgcfIp1seBXPFDfnijkhN1
+ Ey3Naw5Mhb/3Xn1cFkLsrUVSCe+hNPPe3QYvFYbNUaU6I+UuhcWmYzjSSxybezdpMFiTu4dniUk
+ 7Q7muVNIMwkxTyGm/4u8HTZDLBh33hAe/LCegZh1oMN0RBh1ctiAKg==
+X-Received: by 2002:a17:90b:5343:b0:32b:623d:ee91 with SMTP id
+ 98e67ed59e1d1-32d43f937dbmr15518196a91.27.1757433925227; 
+ Tue, 09 Sep 2025 09:05:25 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGNr6Ldywf5AZN42rpDeYlAnbFOWsbfAfgCS6UvoEUZp+0fijufIYBjqv7vJwir1ytS+ra8Sw==
+X-Received: by 2002:a17:90b:5343:b0:32b:623d:ee91 with SMTP id
+ 98e67ed59e1d1-32d43f937dbmr15518139a91.27.1757433924672; 
+ Tue, 09 Sep 2025 09:05:24 -0700 (PDT)
+Received: from [192.168.192.85] ([50.47.129.42])
+ by smtp.googlemail.com with ESMTPSA id
+ 98e67ed59e1d1-32d69bd489csm8678364a91.17.2025.09.09.09.05.23
+ for <apparmor@lists.ubuntu.com>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 09 Sep 2025 09:05:24 -0700 (PDT)
+Message-ID: <61d32046-9871-450a-a450-789098cc9c5b@canonical.com>
+Date: Tue, 9 Sep 2025 09:05:23 -0700
 MIME-Version: 1.0
-References: <68b93e3c.a00a0220.eb3d.0000.GAE@google.com>
- <68b9ab18.050a0220.192772.0008.GAE@google.com>
-In-Reply-To: <68b9ab18.050a0220.192772.0008.GAE@google.com>
-From: Paul Moore <paul@paul-moore.com>
-Date: Thu, 4 Sep 2025 11:12:59 -0400
-X-Gm-Features: Ac12FXzmdDvybcxdLMeRBs2OONbitrTJM6yCl57blUt8t099sFu8t2Ati4PBkBs
-Message-ID: <CAHC9VhR6+cHx+FvonHtAvuNZ-Ls77HjGnU5k5VR7qy1BUSaxdA@mail.gmail.com>
-To: syzbot <syzbot+bb185b018a51f8d91fd2@syzkaller.appspotmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=209.85.216.41; envelope-from=paul@paul-moore.com;
- helo=mail-pj1-f41.google.com
-Subject: Re: [apparmor] [syzbot] [kernel?] INFO: trying to register
- non-static key in skb_dequeue (4)
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: apparmor <apparmor@lists.ubuntu.com>
+From: John Johansen <john.johansen@canonical.com>
+Autocrypt: addr=john.johansen@canonical.com; keydata=
+ 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 lT9Q
+Organization: Canonical
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: [apparmor] Sept 9 irc meeting 18:00 UTC
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -65,59 +122,10 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: peterz@infradead.org, linux-kernel@vger.kernel.org, edumazet@google.com,
- eric.dumazet@gmail.com, jmorris@namei.org, kuba@kernel.org, pabeni@redhat.com,
- serge@hallyn.com, selinux@vger.kernel.org, syzkaller-bugs@googlegroups.com,
- apparmor@lists.ubuntu.com, luto@kernel.org, tglx@linutronix.de,
- netdev@vger.kernel.org, stephen.smalley.work@gmail.com, omosnace@redhat.com,
- eparis@redhat.com, audit@vger.kernel.org,
- linux-security-module@vger.kernel.org, horms@kernel.org, davem@davemloft.net
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Thu, Sep 4, 2025 at 11:07=E2=80=AFAM syzbot
-<syzbot+bb185b018a51f8d91fd2@syzkaller.appspotmail.com> wrote:
->
-> syzbot has bisected this issue to:
->
-> commit eb59d494eebd4c5414728a35cdea6a0ba78ff26e
-> Author: Casey Schaufler <casey@schaufler-ca.com>
-> Date:   Sat Aug 16 17:28:58 2025 +0000
->
->     audit: add record for multiple task security contexts
->
-> bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=3D1199fe6258=
-0000
-> start commit:   5d50cf9f7cf2 Add linux-next specific files for 20250903
-> git tree:       linux-next
-> final oops:     https://syzkaller.appspot.com/x/report.txt?x=3D1399fe6258=
-0000
-> console output: https://syzkaller.appspot.com/x/log.txt?x=3D1599fe6258000=
-0
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=3D7d2429dff5531=
-d80
-> dashboard link: https://syzkaller.appspot.com/bug?extid=3Dbb185b018a51f8d=
-91fd2
-> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=3D15b9a312580=
-000
-> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=3D16819e6258000=
-0
->
-> Reported-by: syzbot+bb185b018a51f8d91fd2@syzkaller.appspotmail.com
-> Fixes: eb59d494eebd ("audit: add record for multiple task security contex=
-ts")
->
-> For information about bisection process see: https://goo.gl/tpsmEJ#bisect=
-ion
+The monthly apparmor irc meeting is today (Sept 9) at 18:00 UTC in the usual place (#apparmor on irc.oftc.net)
 
-The timing on this is amusing, I got the sysbot report just as I
-merged a fix for this provided by Eric Dumazet :)
 
-https://lore.kernel.org/audit/20250904072537.2278210-1-edumazet@google.com
-
-The commit has the appropriate syzbot tags so this should close out
-automatically.
-
---=20
-paul-moore.com
 
