@@ -2,59 +2,38 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id F29D9BC928A
-	for <lists+apparmor@lfdr.de>; Thu, 09 Oct 2025 15:01:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E82BBCD425
+	for <lists+apparmor@lfdr.de>; Fri, 10 Oct 2025 15:27:12 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1v6qGS-0002K9-GI; Thu, 09 Oct 2025 13:01:00 +0000
-Received: from smtp-relay-services-1.internal ([10.131.114.214]
- helo=smtp-relay-services-1.canonical.com)
+	id 1v7D9A-0002HT-OU; Fri, 10 Oct 2025 13:27:00 +0000
+Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
+ helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <noreply@launchpad.net>)
- id 1v6qGM-0002Io-0x
- for apparmor@lists.ubuntu.com; Thu, 09 Oct 2025 13:00:54 +0000
-Received: from scripts.lp.internal (scripts.lp.internal [10.131.215.246])
+ (Exim 4.86_2) (envelope-from <maxime.belair@canonical.com>)
+ id 1v7D98-0002Gm-K5
+ for apparmor@lists.ubuntu.com; Fri, 10 Oct 2025 13:26:58 +0000
+Received: from sec2-plucky-amd64.. (176-136-128-80.abo.bbox.fr
+ [176.136.128.80])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-services-1.canonical.com (Postfix) with ESMTPSA id D4CE143126
- for <apparmor@lists.ubuntu.com>; Thu,  9 Oct 2025 13:00:53 +0000 (UTC)
-Received: from scripts.lp.internal (localhost [127.0.0.1])
- by scripts.lp.internal (Postfix) with ESMTP id B5CD97F4DF
- for <apparmor@lists.ubuntu.com>; Thu,  9 Oct 2025 13:00:53 +0000 (UTC)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id A6C2742AC3; 
+ Fri, 10 Oct 2025 13:26:57 +0000 (UTC)
+From: =?UTF-8?q?Maxime=20B=C3=A9lair?= <maxime.belair@canonical.com>
+To: linux-security-module@vger.kernel.org
+Date: Fri, 10 Oct 2025 15:25:27 +0200
+Message-ID: <20251010132610.12001-1-maxime.belair@canonical.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Oct 2025 12:52:08 -0000
-From: Nathan Teodosio <1777070@bugs.launchpad.net>
-To: apparmor@lists.ubuntu.com
-X-Launchpad-Notification-Type: bug
-X-Launchpad-Bug: distribution=ubuntu; sourcepackage=apparmor; component=main;
- status=Confirmed; importance=Undecided; assignee=None; 
-X-Launchpad-Bug: distribution=ubuntu; sourcepackage=firefox; component=main;
- status=Won't Fix; importance=Undecided; assignee=None; 
-X-Launchpad-Bug-Tags: bionic
-X-Launchpad-Bug-Information-Type: Public
-X-Launchpad-Bug-Private: no
-X-Launchpad-Bug-Security-Vulnerability: no
-X-Launchpad-Bug-Commenters: aquina b4ptx cboltz elindarie janitor jjohansen
- osomon sdeziel seth-arnold skunk xavpaice
-X-Launchpad-Bug-Reporter: Xav Paice (xavpaice)
-X-Launchpad-Bug-Modifier: Nathan Teodosio (nteodosio)
-References: <152904811695.1951.15951974184045199043.malonedeb@chaenomeles.canonical.com>
-Message-Id: <176001433077.4018110.562354781903414745.launchpad@juju-98d295-prod-launchpad-2>
-X-Launchpad-Message-Rationale: Subscriber of Duplicate @apparmor-dev
-X-Launchpad-Message-For: apparmor-dev
-Precedence: bulk
-X-Generated-By: Launchpad (canonical.com);
- Revision="bff9b0558f8357613643d9a74c009da18fafa917";
- Instance="launchpad-scripts"
-X-Launchpad-Hash: 77682e18177b36e9b55a3efd9067ee4ea0fa7904
-Subject: [apparmor] [Bug 1777070] Re: firefox plugin libwidevinecdm.so
-	crashes due to apparmor denial
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [apparmor] [PATCH v6 0/5] lsm: introduce lsm_config_self_policy()
+	and lsm_config_system_policy() syscalls
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
+Precedence: list
 List-Id: AppArmor discussion <apparmor.lists.ubuntu.com>
 List-Unsubscribe: <https://lists.ubuntu.com/mailman/options/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=unsubscribe>
@@ -63,136 +42,133 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Reply-To: Bug 1777070 <1777070@bugs.launchpad.net>
+Cc: paul@paul-moore.com, song@kernel.org, kees@kernel.org,
+ linux-api@vger.kernel.org, stephen.smalley.work@gmail.com,
+ penguin-kernel@I-love.SAKURA.ne.jp, apparmor@lists.ubuntu.com,
+ jmorris@namei.org, linux-kernel@vger.kernel.org, rdunlap@infradead.org,
+ mic@digikod.net, takedakn@nttdata.co.jp, serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-** Changed in: firefox (Ubuntu)
-       Status: Confirmed =3D> Won't Fix
+This patchset introduces two new syscalls: lsm_config_self_policy(),
+lsm_config_system_policy() and the associated Linux Security Module hooks
+security_lsm_config_*_policy(), providing a unified interface for loading
+and managing LSM policies. These syscalls complement the existing per‑LSM
+pseudo‑filesystem mechanism and work even when those filesystems are not
+mounted or available.
 
---=20
-You received this bug notification because you are a member of AppArmor
-Developers, which is subscribed to a duplicate bug report (1859361).
-https://bugs.launchpad.net/bugs/1777070
+With these new syscalls, users and administrators may lock down access to
+the pseudo‑filesystem yet still manage LSM policies. Two tightly-scoped
+entry points then replace the many file operations exposed by those
+filesystems, significantly reducing the attack surface. This is
+particularly useful in containers or processes already confined by
+Landlock, where these pseudo‑filesystems are typically unavailable.
 
-Title:
-  firefox plugin libwidevinecdm.so crashes due to apparmor denial
+Because they provide a logical and unified interface, these syscalls are
+simpler to use than several heterogeneous pseudo‑filesystems and avoid
+edge cases such as partially loaded policies. They also eliminates VFS
+overhead, yielding performance gains notably when many policies are
+loaded, for instance at boot time.
 
-Status in apparmor package in Ubuntu:
-  Confirmed
-Status in firefox package in Ubuntu:
-  Won't Fix
+This initial implementation is intentionally minimal to limit the scope
+of changes. Currently, only policy loading is supported. This new LSM
+hook is currently registered by AppArmor, SELinux and Smack. However, any
+LSM can adopt this interface, and future patches could extend this
+syscall to support more operations, such as replacing, removing, or
+querying loaded policies.
 
-Bug description:
-  Ubuntu 18.04, Firefox 60.0.1+build2-0ubuntu0.18.04.1
+Landlock already provides three Landlock‑specific syscalls (e.g.
+landlock_add_rule()) to restrict ambient rights for sets of processes
+without touching any pseudo-filesystem. lsm_config_*_policy() generalizes
+that approach to the entire LSM layer, so any module can choose to
+support either or both of these syscalls, and expose its policy
+operations through a uniform interface and reap the advantages outlined
+above.
 
-  Running firefix, then going to netflix.com and attempting to play a
-  movie.  The widevinecdm plugin crashes, the following is found in
-  syslog:
+This patchset is available at [1], a minimal user space example
+showing how to use lsm_config_system_policy with AppArmor is at [2] and a
+performance benchmark of both syscalls is available at [3].
 
- =20
-  Jun 15 19:13:22 xplt kernel: [301351.553043] audit: type=3D1400 audit(152=
-9046802.585:246): apparmor=3D"DENIED" operation=3D"file_mmap" profile=3D"/u=
-sr/lib/firefox/firefox{,*[^s][^h]}" name=3D"/home/xav/.mozilla/firefox/wiav=
-okxk.default-1510977878171/gmp-widevinecdm/1.4.8.1008/libwidevinecdm.so" pi=
-d=3D16118 comm=3D"plugin-containe" requested_mask=3D"m" denied_mask=3D"m" f=
-suid=3D1000 ouid=3D1000
-  Jun 15 19:13:22 xplt kernel: [301351.553236] audit: type=3D1400 audit(152=
-9046802.585:247): apparmor=3D"DENIED" operation=3D"ptrace" profile=3D"/usr/=
-lib/firefox/firefox{,*[^s][^h]}" pid=3D24714 comm=3D"firefox" requested_mas=
-k=3D"trace" denied_mask=3D"trace" peer=3D"/usr/lib/firefox/firefox{,*[^s][^=
-h]}"
-  Jun 15 19:13:22 xplt kernel: [301351.553259] plugin-containe[16118]: segf=
-ault at 0 ip 00007fcdfdaa76af sp 00007ffc1ff03e28 error 6 in libxul.so[7fcd=
-fb77a000+6111000]
-  Jun 15 19:13:22 xplt snmpd[2334]: error on subcontainer 'ia_addr' insert =
-(-1)
-  Jun 15 19:13:22 xplt /usr/lib/gdm3/gdm-x-session[6549]: ###!!! [Parent][M=
-essageChannel::Call] Error: Channel error: cannot send/recv
-  Jun 15 19:13:24 xplt kernel: [301353.960182] audit: type=3D1400 audit(152=
-9046804.994:248): apparmor=3D"DENIED" operation=3D"file_mmap" profile=3D"/u=
-sr/lib/firefox/firefox{,*[^s][^h]}" name=3D"/home/xav/.mozilla/firefox/wiav=
-okxk.default-1510977878171/gmp-widevinecdm/1.4.8.1008/libwidevinecdm.so" pi=
-d=3D16135 comm=3D"plugin-containe" requested_mask=3D"m" denied_mask=3D"m" f=
-suid=3D1000 ouid=3D1000
-  Jun 15 19:13:24 xplt kernel: [301353.960373] audit: type=3D1400 audit(152=
-9046804.994:249): apparmor=3D"DENIED" operation=3D"ptrace" profile=3D"/usr/=
-lib/firefox/firefox{,*[^s][^h]}" pid=3D24714 comm=3D"firefox" requested_mas=
-k=3D"trace" denied_mask=3D"trace" peer=3D"/usr/lib/firefox/firefox{,*[^s][^=
-h]}"
-  Jun 15 19:13:24 xplt kernel: [301353.960398] plugin-containe[16135]: segf=
-ault at 0 ip 00007fe3b57f46af sp 00007ffe6dc0b488 error 6 in libxul.so[7fe3=
-b34c7000+6111000]
-  Jun 15 19:13:28 xplt kernel: [301357.859177] audit: type=3D1400 audit(152=
-9046808.895:250): apparmor=3D"DENIED" operation=3D"file_mmap" profile=3D"/u=
-sr/lib/firefox/firefox{,*[^s][^h]}" name=3D"/home/xav/.mozilla/firefox/wiav=
-okxk.default-1510977878171/gmp-widevinecdm/1.4.8.1008/libwidevinecdm.so" pi=
-d=3D16139 comm=3D"plugin-containe" requested_mask=3D"m" denied_mask=3D"m" f=
-suid=3D1000 ouid=3D1000
-  Jun 15 19:13:28 xplt kernel: [301357.859328] audit: type=3D1400 audit(152=
-9046808.895:251): apparmor=3D"DENIED" operation=3D"ptrace" profile=3D"/usr/=
-lib/firefox/firefox{,*[^s][^h]}" pid=3D24714 comm=3D"firefox" requested_mas=
-k=3D"trace" denied_mask=3D"trace" peer=3D"/usr/lib/firefox/firefox{,*[^s][^=
-h]}"
-  Jun 15 19:13:28 xplt kernel: [301357.859349] plugin-containe[16139]: segf=
-ault at 0 ip 00007fcf32ae06af sp 00007ffeb8a136c8 error 6 in libxul.so[7fcf=
-307b3000+6111000]
-  Jun 15 19:13:25 xplt /usr/lib/gdm3/gdm-x-session[6549]: ###!!! [Parent][M=
-essageChannel::Call] Error: Channel error: cannot send/recv
-  Jun 15 19:13:29 xplt /usr/lib/gdm3/gdm-x-session[6549]: ERROR block_reap:=
-328: [hamster] bad exit code 1
-  Jun 15 19:13:29 xplt /usr/lib/gdm3/gdm-x-session[6549]: ###!!! [Parent][M=
-essageChannel::Call] Error: Channel error: cannot send/recv
-  Jun 15 19:13:29 xplt kernel: [301358.227635] audit: type=3D1400 audit(152=
-9046809.263:252): apparmor=3D"DENIED" operation=3D"file_mmap" profile=3D"/u=
-sr/lib/firefox/firefox{,*[^s][^h]}" name=3D"/home/xav/.mozilla/firefox/wiav=
-okxk.default-1510977878171/gmp-widevinecdm/1.4.8.1008/libwidevinecdm.so" pi=
-d=3D16188 comm=3D"plugin-containe" requested_mask=3D"m" denied_mask=3D"m" f=
-suid=3D1000 ouid=3D1000
-  Jun 15 19:13:29 xplt kernel: [301358.227811] audit: type=3D1400 audit(152=
-9046809.263:253): apparmor=3D"DENIED" operation=3D"ptrace" profile=3D"/usr/=
-lib/firefox/firefox{,*[^s][^h]}" pid=3D24714 comm=3D"firefox" requested_mas=
-k=3D"trace" denied_mask=3D"trace" peer=3D"/usr/lib/firefox/firefox{,*[^s][^=
-h]}"
-  Jun 15 19:13:29 xplt kernel: [301358.227844] plugin-containe[16188]: segf=
-ault at 0 ip 00007fe5667c66af sp 00007fffe8cc0da8 error 6 in libxul.so[7fe5=
-64499000+6111000]
-  Jun 15 19:13:31 xplt kernel: [301360.574177] audit: type=3D1400 audit(152=
-9046811.608:254): apparmor=3D"DENIED" operation=3D"file_mmap" profile=3D"/u=
-sr/lib/firefox/firefox{,*[^s][^h]}" name=3D"/home/xav/.mozilla/firefox/wiav=
-okxk.default-1510977878171/gmp-widevinecdm/1.4.8.1008/libwidevinecdm.so" pi=
-d=3D16192 comm=3D"plugin-containe" requested_mask=3D"m" denied_mask=3D"m" f=
-suid=3D1000 ouid=3D1000
-  Jun 15 19:13:31 xplt kernel: [301360.574326] audit: type=3D1400 audit(152=
-9046811.608:255): apparmor=3D"DENIED" operation=3D"ptrace" profile=3D"/usr/=
-lib/firefox/firefox{,*[^s][^h]}" pid=3D24714 comm=3D"firefox" requested_mas=
-k=3D"trace" denied_mask=3D"trace" peer=3D"/usr/lib/firefox/firefox{,*[^s][^=
-h]}"
-  Jun 15 19:13:31 xplt kernel: [301360.574352] plugin-containe[16192]: segf=
-ault at 0 ip 00007f83507606af sp 00007ffdb3d22f08 error 6 in libxul.so[7f83=
-4e433000+6111000]
-  Jun 15 19:13:35 xplt kernel: [301364.313727] audit: type=3D1400 audit(152=
-9046815.349:256): apparmor=3D"DENIED" operation=3D"file_mmap" profile=3D"/u=
-sr/lib/firefox/firefox{,*[^s][^h]}" name=3D"/home/xav/.mozilla/firefox/wiav=
-okxk.default-1510977878171/gmp-widevinecdm/1.4.8.1008/libwidevinecdm.so" pi=
-d=3D16206 comm=3D"plugin-containe" requested_mask=3D"m" denied_mask=3D"m" f=
-suid=3D1000 ouid=3D1000
-  Jun 15 19:13:35 xplt kernel: [301364.313896] audit: type=3D1400 audit(152=
-9046815.349:257): apparmor=3D"DENIED" operation=3D"ptrace" profile=3D"/usr/=
-lib/firefox/firefox{,*[^s][^h]}" pid=3D24714 comm=3D"firefox" requested_mas=
-k=3D"trace" denied_mask=3D"trace" peer=3D"/usr/lib/firefox/firefox{,*[^s][^=
-h]}"
-  Jun 15 19:13:35 xplt kernel: [301364.313967] plugin-containe[16206]: segf=
-ault at 0 ip 00007f5ff6f746af sp 00007fff60c9c768 error 6 in libxul.so[7f5f=
-f4c47000+6111000]
-  Jun 15 19:13:35 xplt /usr/lib/gdm3/gdm-x-session[6549]: message repeated =
-3 times: [ ###!!! [Parent][MessageChannel::Call] Error: Channel error: cann=
-ot send/recv]
+[1] https://github.com/emixam16/linux/tree/lsm_syscall_v6
+[2] https://gitlab.com/emixam16/apparmor/tree/lsm_syscall_v6
+[3] https://gitlab.com/-/snippets/4864908
 
-  If I run Firefox from the snap (rev 60.0.2-1) there's no problem.
+---
+Changes in v6
+ - Add support for SELinux and Smack
 
-To manage notifications about this bug go to:
-https://bugs.launchpad.net/ubuntu/+source/apparmor/+bug/1777070/+subscripti=
-ons
+Changes in v5
+ - Improve syscall input verification
+ - Do not export security_lsm_config_*_policy symbols
+
+Changes in v4
+ - Make the syscall's maximum buffer size defined per module
+ - Fix a memory leak
+
+Changes in v3
+ - Fix typos
+
+Changes in v2
+ - Split lsm_manage_policy() into two distinct syscalls:
+   lsm_config_self_policy() and lsm_config_system_policy()
+ - The LSM hook now calls only the appropriate LSM (and not all LSMs)
+ - Add a configuration variable to limit the buffer size of these
+   syscalls
+ - AppArmor now allows stacking policies through lsm_config_self_policy()
+   and loading policies in any namespace through
+   lsm_config_system_policy()
+---
+
+
+Maxime Bélair (5):
+  Wire up lsm_config_self_policy and lsm_config_system_policy syscalls
+  lsm: introduce security_lsm_config_*_policy hooks
+  AppArmor: add support for lsm_config_self_policy and
+    lsm_config_system_policy
+  SELinux: add support for lsm_config_system_policy
+  Smack: add support for lsm_config_self_policy and
+    lsm_config_system_policy
+
+ arch/alpha/kernel/syscalls/syscall.tbl        |  2 +
+ arch/arm/tools/syscall.tbl                    |  2 +
+ arch/m68k/kernel/syscalls/syscall.tbl         |  2 +
+ arch/microblaze/kernel/syscalls/syscall.tbl   |  2 +
+ arch/mips/kernel/syscalls/syscall_n32.tbl     |  2 +
+ arch/mips/kernel/syscalls/syscall_n64.tbl     |  2 +
+ arch/mips/kernel/syscalls/syscall_o32.tbl     |  2 +
+ arch/parisc/kernel/syscalls/syscall.tbl       |  2 +
+ arch/powerpc/kernel/syscalls/syscall.tbl      |  2 +
+ arch/s390/kernel/syscalls/syscall.tbl         |  2 +
+ arch/sh/kernel/syscalls/syscall.tbl           |  2 +
+ arch/sparc/kernel/syscalls/syscall.tbl        |  2 +
+ arch/x86/entry/syscalls/syscall_32.tbl        |  2 +
+ arch/x86/entry/syscalls/syscall_64.tbl        |  2 +
+ arch/xtensa/kernel/syscalls/syscall.tbl       |  2 +
+ include/linux/lsm_hook_defs.h                 |  4 +
+ include/linux/security.h                      | 20 +++++
+ include/linux/syscalls.h                      |  5 ++
+ include/uapi/asm-generic/unistd.h             |  6 +-
+ include/uapi/linux/lsm.h                      |  8 ++
+ kernel/sys_ni.c                               |  2 +
+ security/apparmor/apparmorfs.c                | 31 +++++++
+ security/apparmor/include/apparmor.h          |  4 +
+ security/apparmor/include/apparmorfs.h        |  3 +
+ security/apparmor/lsm.c                       | 84 +++++++++++++++++++
+ security/lsm_syscalls.c                       | 21 +++++
+ security/security.c                           | 60 +++++++++++++
+ security/selinux/hooks.c                      | 27 ++++++
+ security/selinux/include/security.h           |  7 ++
+ security/selinux/selinuxfs.c                  | 16 +++-
+ security/smack/smack.h                        |  8 ++
+ security/smack/smack_lsm.c                    | 73 ++++++++++++++++
+ security/smack/smackfs.c                      |  2 +-
+ tools/include/uapi/asm-generic/unistd.h       |  6 +-
+ .../arch/x86/entry/syscalls/syscall_64.tbl    |  2 +
+ 35 files changed, 412 insertions(+), 7 deletions(-)
+
+
+base-commit: 9c32cda43eb78f78c73aee4aa344b777714e259b
+-- 
+2.48.1
 
 
