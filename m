@@ -2,61 +2,62 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B503BCDA4E
-	for <lists+apparmor@lfdr.de>; Fri, 10 Oct 2025 16:58:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59278BCDA78
+	for <lists+apparmor@lfdr.de>; Fri, 10 Oct 2025 17:00:04 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1v7EZA-0005Rz-Rt; Fri, 10 Oct 2025 14:57:56 +0000
-Received: from mail-pf1-f174.google.com ([209.85.210.174])
+	id 1v7Eb2-0005vx-Al; Fri, 10 Oct 2025 14:59:52 +0000
+Received: from mail-pl1-f182.google.com ([209.85.214.182])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <paul@paul-moore.com>)
- id 1v7EZ9-0005Rl-94
- for apparmor@lists.ubuntu.com; Fri, 10 Oct 2025 14:57:55 +0000
-Received: by mail-pf1-f174.google.com with SMTP id
- d2e1a72fcca58-780fc3b181aso1332006b3a.2
- for <apparmor@lists.ubuntu.com>; Fri, 10 Oct 2025 07:57:54 -0700 (PDT)
+ id 1v7Eb0-0005vc-09
+ for apparmor@lists.ubuntu.com; Fri, 10 Oct 2025 14:59:50 +0000
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-27d4d6b7ab5so30010675ad.2
+ for <apparmor@lists.ubuntu.com>; Fri, 10 Oct 2025 07:59:49 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760108274; x=1760713074;
+ d=1e100.net; s=20230601; t=1760108388; x=1760713188;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=dhktQ9njw3xUQQNiviiU9j7Lv0g4dtHdRAIlg2dWPdo=;
- b=sxPZ8SJoIy/0eS7yFpwZ733+6Ksfr+dnh551AhUep/R65eTchjoSQZMmdsdghQKuD+
- F7AOo+aa0vEfO0zIKd4nA7OxpNwlteuAaCunp//AjlqDH+9PHHA3upQp+j21u5dDmIMG
- 44RzAqpmdmV0wFVGtnkUYU5r+lS8jJQ45SHWj5ia/365ejf+Om+YszcmFSXouY4MDh2r
- E4lQWyPuHq3I1rmlgJJReR9s3huUIMUpEiFhAPdBtFsF6zMQDhlZuJbB+MaN+B3NfGp9
- 8CihtpA6/7x/VNL/uFTHth1agHCWI6X+diiP/Zov7XQ1FBUXBLrkAR6Un3LMVrJ4eFwm
- 4t4A==
+ bh=B+0sjW+oV0t2BMqgCvuWpzJUVVCqY3LbFgfCiYx9Oq0=;
+ b=BNwJX23tunz4DCYbuR3mxyr0rcLA7+wpBEwR2PA7RxRdhb6u5KMbh+wrM4tTaIJOeB
+ 3zJY4bHm4ZeWy4+275old72HZdSvVKDqLvjPIZpNWkBfe+sZPIF4TjH/ISQ4jCWsTYoZ
+ CY6nY9ZXqa7j7rVsYCWpbCa+kbqSn3FkrLVdTA6Xwh4qlamFm0qfNI9foa2Alwwzspea
+ mgh0EiH590keH+z/hgP2KQnwaa36bRK5Nsdd+vf1aYxcKbls4PsiQJosqebN5qpqRrS7
+ WsM/5aBBzw9VOX92m90y4KlVHJI8f/ot/a4HZN859FXZpJ3Cx6X2nNzMIAyyc4SE4G68
+ M+JA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUiAmu1G6E5XE2RRJZO8c0YnR9s+LaM9SThe2MoJKn/bvKW+hb2ohKo9I2U+UuMIT7g1wYoxVlRVQ==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0YzdvshEsBcR3eBNGe0LTA5hc0oHCy+svHLVc2lq96X7RVRhMxSR
- p/u37YA/h2u52UWKmd/K8ff07yVmrK9gZCP+4ILClGMlTS05CWwWhu5IRufyZPWoRRXfMlyLcfc
- yZHB/Q6nPxtiHaZt+jS9K6Ov1P81twBWDY3fYyjM2
-X-Gm-Gg: ASbGnctdSwT50UunR1eVa2pOcl7ZO6Jml5qR9LHw0fbsebpFxO6dtUgt7IzFH+akZQ/
- Pd7uCny9R5nf2MVK7gnaS0wmJ1pZLX2Q6BO0HfTCkpAb9PC77tEN7KAkNrqkz6OtW4cFqBBbg6o
- rjfyxKcO7Qqxk4YSOYqgs+qFrpR9tACn+TFtOd8UMklghlStYB7n7UWlnsX7a1lwlMSzjzho/+b
- wVoCTvKAVbEACblLF2D1oqP93sX6B/sl7n4
-X-Google-Smtp-Source: AGHT+IHkK8Gm9viP+PnMJqCf6YwcaiPSZAhk2njG3CWT6nK+53DU2FspPpHEd0UmuOb2fdMKjhpGzmFzl8fSVbMyvcI=
-X-Received: by 2002:a05:6a20:6a26:b0:2e3:a914:aab1 with SMTP id
- adf61e73a8af0-32da83e3df1mr15879251637.41.1760108273442; Fri, 10 Oct 2025
- 07:57:53 -0700 (PDT)
+ AJvYcCX3Utz2M0JcU5hdQl2fuGm0OkWeuYqktNb1PhvYUTTk2yslY22J5q9JnduHyiSXbQm928h+AB7TxA==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0Yy8P/XwIQPiXhSCr6MKxioGQetx28BgA+zujvhYZOQKqmnVqZu0
+ hm1U++daQI73UNY2Eb93ZKdsWTClFR7rSeP73JW8RSaUvN6kcpnVinFVCdZU1YRNSvlThZ3ujFo
+ WFgACH15m/vUcuFuwdQQ2UOnB8Y1VBF4vYstQxAz5
+X-Gm-Gg: ASbGncvoqeyAPHNtW04Ev0a7AgiOmfAgQKh5vTIX5gerSUCRh2Tm/4qC3Rch7SEqdDy
+ 9MyD9w0hzNyV8hLW2dDigmayGWNJBKhpb1aSjoH/XJBQC97ykZTog1i1fwQzFeL6ugIH+WxnEjj
+ J7wKyrHZakQWAOOLtCbvzZPAmWreAqaWgRMGMA1vjmL1GJZ+XZgS0PFRUKXPBjUERGqIqL7zaYm
+ Q0YBjHUnOj72Itv+6/eoXEDlw==
+X-Google-Smtp-Source: AGHT+IG9hy80Ik6+ARbIl3oz3A3KG5+fo5fGn6VPEI+bWA/pwCD/ahXTgPJG7kBipRJaOCzTwImphgjwuOgiPM9OpYY=
+X-Received: by 2002:a17:902:f602:b0:274:9dae:6a6d with SMTP id
+ d9443c01a7336-290272c1a67mr159749285ad.34.1760108388086; Fri, 10 Oct 2025
+ 07:59:48 -0700 (PDT)
 MIME-Version: 1.0
-References: <20251010132610.12001-1-maxime.belair@canonical.com>
- <20251010132610.12001-5-maxime.belair@canonical.com>
- <CAEjxPJ6Xcwsic_zyLTPdHHaY9r7-ZTySzyELQ76aVZCFbh8FMQ@mail.gmail.com>
-In-Reply-To: <CAEjxPJ6Xcwsic_zyLTPdHHaY9r7-ZTySzyELQ76aVZCFbh8FMQ@mail.gmail.com>
+References: <20250709080220.110947-1-maxime.belair@canonical.com>
+ <20250709080220.110947-3-maxime.belair@canonical.com>
+ <20250820.Ao3iquoshaiB@digikod.net>
+ <0c7a19cb-d270-403f-9f97-354405aba746@schaufler-ca.com>
+In-Reply-To: <0c7a19cb-d270-403f-9f97-354405aba746@schaufler-ca.com>
 From: Paul Moore <paul@paul-moore.com>
-Date: Fri, 10 Oct 2025 10:57:41 -0400
-X-Gm-Features: AS18NWDDlD9d-obeXSKEgVeXrkg3pQGOfVLXHTxpEsZnDxFwMdZ6CYaIkCq_crw
-Message-ID: <CAHC9VhTSsUf-XJTNSxs-7DeAdR-0uBfL7reZnjMXhma3ZSOF+Q@mail.gmail.com>
-To: Stephen Smalley <stephen.smalley.work@gmail.com>
+Date: Fri, 10 Oct 2025 10:59:36 -0400
+X-Gm-Features: AS18NWAVS7migS1jhRtb-IPHhnKptQlfKCCpqw55Hl-FAqPL4NSJFJGx8uS1S6s
+Message-ID: <CAHC9VhSXcqKF9KQ1+KanPqoTk=GRsOXs5dGNNnmTiK_BcMUV5A@mail.gmail.com>
+To: Casey Schaufler <casey@schaufler-ca.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=209.85.210.174; envelope-from=paul@paul-moore.com;
- helo=mail-pf1-f174.google.com
-Subject: Re: [apparmor] [PATCH v6 4/5] SELinux: add support for
-	lsm_config_system_policy
+Received-SPF: pass client-ip=209.85.214.182; envelope-from=paul@paul-moore.com;
+ helo=mail-pl1-f182.google.com
+Subject: Re: [apparmor] [PATCH v5 2/3] lsm: introduce
+	security_lsm_config_*_policy hooks
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -68,33 +69,59 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Ondrej Mosnacek <omosnace@redhat.com>, song@kernel.org, kees@kernel.org,
- linux-api@vger.kernel.org, penguin-kernel@i-love.sakura.ne.jp,
- rdunlap@infradead.org, apparmor@lists.ubuntu.com, jmorris@namei.org,
- linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
- mic@digikod.net, takedakn@nttdata.co.jp,
- SElinux list <selinux@vger.kernel.org>, serge@hallyn.com
+Cc: song@kernel.org, kees@kernel.org, linux-api@vger.kernel.org,
+ stephen.smalley.work@gmail.com, rdunlap@infradead.org,
+ apparmor@lists.ubuntu.com, jmorris@namei.org, linux-kernel@vger.kernel.org,
+ penguin-kernel@i-love.sakura.ne.jp, linux-security-module@vger.kernel.org,
+ =?UTF-8?B?TWlja2HDq2wgU2FsYcO8bg==?= <mic@digikod.net>, takedakn@nttdata.co.jp,
+ serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Fri, Oct 10, 2025 at 9:59=E2=80=AFAM Stephen Smalley
-<stephen.smalley.work@gmail.com> wrote:
->
-> 2. The SELinux namespaces support [1], [2] is based on instantiating a
-> separate selinuxfs instance for each namespace; you load a policy for
-> a namespace by mounting a new selinuxfs instance after unsharing your
-> SELinux namespace and then write to its /sys/fs/selinux/load
-> interface, only affecting policy for the new namespace. Your interface
-> doesn't appear to support such an approach and IIUC will currently
-> always load the init SELinux namespace's policy rather than the
-> current process' SELinux namespace.
+On Wed, Aug 20, 2025 at 11:30=E2=80=AFAM Casey Schaufler <casey@schaufler-c=
+a.com> wrote:
+> On 8/20/2025 7:21 AM, Micka=C3=ABl Sala=C3=BCn wrote:
+> > On Wed, Jul 09, 2025 at 10:00:55AM +0200, Maxime B=C3=A9lair wrote:
+> >> Define two new LSM hooks: security_lsm_config_self_policy and
+> >> security_lsm_config_system_policy and wire them into the corresponding
+> >> lsm_config_*_policy() syscalls so that LSMs can register a unified
+> >> interface for policy management. This initial, minimal implementation
+> >> only supports the LSM_POLICY_LOAD operation to limit changes.
+> >>
+> >> Signed-off-by: Maxime B=C3=A9lair <maxime.belair@canonical.com>
+> >> ---
+> >>  include/linux/lsm_hook_defs.h |  4 +++
+> >>  include/linux/security.h      | 20 ++++++++++++
+> >>  include/uapi/linux/lsm.h      |  8 +++++
+> >>  security/lsm_syscalls.c       | 17 ++++++++--
+> >>  security/security.c           | 60 ++++++++++++++++++++++++++++++++++=
++
+> >>  5 files changed, 107 insertions(+), 2 deletions(-)
 
-I'm distracted on other things at the moment, but my current thinking
-is that while policy loading and namespace management APIs are largely
-separate, there is some minor overlap when it comes to loading policy
-as others have mentioned.  For that reason, I think we need to resolve
-the namespace API first, keeping in mind the potential for a policy
-load API, and then implement the policy loading API, if desired.
+...
+
+> >> diff --git a/include/uapi/linux/lsm.h b/include/uapi/linux/lsm.h
+> >> index 938593dfd5da..2b9432a30cdc 100644
+> >> --- a/include/uapi/linux/lsm.h
+> >> +++ b/include/uapi/linux/lsm.h
+> >> @@ -90,4 +90,12 @@ struct lsm_ctx {
+> >>   */
+> >>  #define LSM_FLAG_SINGLE     0x0001
+> >>
+> >> +/*
+> >> + * LSM_POLICY_XXX definitions identify the different operations
+> >> + * to configure LSM policies
+> >> + */
+> >> +
+> >> +#define LSM_POLICY_UNDEF    0
+> >> +#define LSM_POLICY_LOAD             100
+> > Why the gap between 0 and 100?
+>
+> It's conventional in LSM syscalls to start identifiers at 100.
+> No compelling reason other than to appease the LSM maintainer.
+
+If you guys make me repeat all the reasons why, I'm going to get even
+crankier than usual :-P
 
 --=20
 paul-moore.com
