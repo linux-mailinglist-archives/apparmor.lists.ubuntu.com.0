@@ -2,62 +2,80 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59278BCDA78
-	for <lists+apparmor@lfdr.de>; Fri, 10 Oct 2025 17:00:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE9F3BCDC18
+	for <lists+apparmor@lfdr.de>; Fri, 10 Oct 2025 17:15:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1v7Eb2-0005vx-Al; Fri, 10 Oct 2025 14:59:52 +0000
-Received: from mail-pl1-f182.google.com ([209.85.214.182])
+	id 1v7EqP-0007nC-BG; Fri, 10 Oct 2025 15:15:45 +0000
+Received: from sonic310-30.consmr.mail.ne1.yahoo.com ([66.163.186.211])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <paul@paul-moore.com>)
- id 1v7Eb0-0005vc-09
- for apparmor@lists.ubuntu.com; Fri, 10 Oct 2025 14:59:50 +0000
-Received: by mail-pl1-f182.google.com with SMTP id
- d9443c01a7336-27d4d6b7ab5so30010675ad.2
- for <apparmor@lists.ubuntu.com>; Fri, 10 Oct 2025 07:59:49 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760108388; x=1760713188;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=B+0sjW+oV0t2BMqgCvuWpzJUVVCqY3LbFgfCiYx9Oq0=;
- b=BNwJX23tunz4DCYbuR3mxyr0rcLA7+wpBEwR2PA7RxRdhb6u5KMbh+wrM4tTaIJOeB
- 3zJY4bHm4ZeWy4+275old72HZdSvVKDqLvjPIZpNWkBfe+sZPIF4TjH/ISQ4jCWsTYoZ
- CY6nY9ZXqa7j7rVsYCWpbCa+kbqSn3FkrLVdTA6Xwh4qlamFm0qfNI9foa2Alwwzspea
- mgh0EiH590keH+z/hgP2KQnwaa36bRK5Nsdd+vf1aYxcKbls4PsiQJosqebN5qpqRrS7
- WsM/5aBBzw9VOX92m90y4KlVHJI8f/ot/a4HZN859FXZpJ3Cx6X2nNzMIAyyc4SE4G68
- M+JA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX3Utz2M0JcU5hdQl2fuGm0OkWeuYqktNb1PhvYUTTk2yslY22J5q9JnduHyiSXbQm928h+AB7TxA==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0Yy8P/XwIQPiXhSCr6MKxioGQetx28BgA+zujvhYZOQKqmnVqZu0
- hm1U++daQI73UNY2Eb93ZKdsWTClFR7rSeP73JW8RSaUvN6kcpnVinFVCdZU1YRNSvlThZ3ujFo
- WFgACH15m/vUcuFuwdQQ2UOnB8Y1VBF4vYstQxAz5
-X-Gm-Gg: ASbGncvoqeyAPHNtW04Ev0a7AgiOmfAgQKh5vTIX5gerSUCRh2Tm/4qC3Rch7SEqdDy
- 9MyD9w0hzNyV8hLW2dDigmayGWNJBKhpb1aSjoH/XJBQC97ykZTog1i1fwQzFeL6ugIH+WxnEjj
- J7wKyrHZakQWAOOLtCbvzZPAmWreAqaWgRMGMA1vjmL1GJZ+XZgS0PFRUKXPBjUERGqIqL7zaYm
- Q0YBjHUnOj72Itv+6/eoXEDlw==
-X-Google-Smtp-Source: AGHT+IG9hy80Ik6+ARbIl3oz3A3KG5+fo5fGn6VPEI+bWA/pwCD/ahXTgPJG7kBipRJaOCzTwImphgjwuOgiPM9OpYY=
-X-Received: by 2002:a17:902:f602:b0:274:9dae:6a6d with SMTP id
- d9443c01a7336-290272c1a67mr159749285ad.34.1760108388086; Fri, 10 Oct 2025
- 07:59:48 -0700 (PDT)
+ (Exim 4.86_2) (envelope-from <casey@schaufler-ca.com>)
+ id 1v7EqN-0007mz-MR
+ for apparmor@lists.ubuntu.com; Fri, 10 Oct 2025 15:15:43 +0000
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1760109342; bh=CMy7zU0hFZfi05XDI6EQ393Ll9F5DT12CZN1Tud9JHD=;
+ h=X-Sonic-MF:Date:Subject:To:From:From:Subject;
+ b=WmkzJdJUHRI/VOO2I0wZkZEnVLq3cwspKBPTiHllP45uijPBuYUVLGRALViNSzz/ZxKrq0gp24kbWbhApbfBVTNiEuGblRJ+9kYC8Y2yOOtYwZIkGdHGsI6edROtyLiXp700c39rRlhX84u73ekJzElRfWqCB8pF1MZmNRN7bqvdtXK2n/fb3rizR2ByTzvC/YGrmMDJHMXrl0fSXW/ILmCc2hsLBRyXHRUoevw1hSOsy3Ra2lYeQHXOt+iFwBa1k3zUHUXTPt7Qgo/itsQ72F1ecTnQepH31WS9SdyMbkAg8W0e+Ag4hNetYFVZ7CU0lZoqMMDgB8Ya4ZSx6fLNbg==
+X-YMail-OSG: HIc.fSkVM1k66w0Jv5kJJgbNBlZA48teX84CM_p9L_c3PGS6DkD.hQflVZ2kUWg
+ 7kjNRT.fE_xmBAj5iRHJ.omX0_UCLX_ZnxSHGNWpnrZ4OHZriy9g_BlzQcCqZtjJHlfBrvsN8x2F
+ eJOb3FZxqAji7FS4Q1a89kAkPpR16zNHiKugdnezMzOcKGotZdeyh_vocRM8CTTyFMWH6HPKHkav
+ eN3_izwKAU3ZHS.kEv6nDdl57QNDaUsUSHtOjR8HS3zcvq3tENDBSszS_Fd66r6WDn9OrIK7Z4Em
+ PZfSRXxNNgV7Bx27J62SVg7CUvJCPcV0XvgtIAMbbZpUf1DaDwwz.iQMKoQ6ou4Rusq9Pq_lhIlA
+ hhgglocvH9jG2ZV_bVaeS39CdHOwOIrdAW.Pf37X.tlxcEJH1Vu4vgKPpaTQp78ksiID8d54sCCg
+ I6V2Qb28qmQ5q5cict5mvGv5Cq0AjiTs8Si.Us6ry5UrPsr3tVVupLdtPuUtrnOTQh1QbevQ8Rj_
+ piHCzZqibT8klGBLRxFSd3xbkRzHpZEF1BNgnG08xRZuQ6Mwc67LmHqxNOQZ3wqaSKHFF9ZseSyc
+ QBu9DmKEKsgAGDmxWfk0dOeVITJVfRmcu_n168UB5EC3.lrPj_H9aD16RjIpJhd6nf4afF8X5zl4
+ 8hd__CnAdOe2vfkMPflGFTyOfSUtg9g.DINohiLOQeywBgIdlyiQi_hYqE5NdFFQLgOaqSE3Wkjl
+ TovBDrHR.kCJ99sAEcp.zeKKbUlB0GzmZTMwBHwmPGBln0cHhzT328zLV017yy7a8v2U86Omha2T
+ SCpQRoEI0kqDHJIS0J2B1CQgx_nLgF4sXTzB9t2LSTcLWq4NZIcprtmEMtHQlgjB4kRIhSXtI1Yv
+ Jp09bl.V7Y.u8R_ZxOuXrFU1OfFC8iXJeYcGwKeDksAgniM0O__U.SH8rTVVCVCHxhuD.YbPglMC
+ qF.8fZcZrSPrPirGqeakp4WNeCfM8Bod1.vDGmFoD161rk4yldp78_xuzrCxtBHOCQTtNdxyDvFt
+ BX8bmT87wiILbjhYf4OE9mhzC66MTgHnSbTIaGMO_WngnSW_V_gn0flR2PAlWOkY4_vSD.EJTGo4
+ JCeOuq_LzV6n51R1qTOodvwEYnOnSg3mlQxZuJ5rXdv36syo3UzxAkCbDSpGFcjpzM1_pClLyqhI
+ kZ4YWx6xQR66jmIIzOUrUOCVdeY9kk9KabPuxvfyAzqqFcN0AIAPoQEt5mgPqeI_1lg9_aUypNM5
+ BFhTve6RBIAYb.odWj7xbKfcLvMikvGS57VeD1mE5GEEqIO8fQKLI3cpeHJTX2zdpXhCq3kTNvVD
+ HgBZHKCsn1V2aqTkUzI3CWAIDE506uYfyXPVBPZDQ74q5yWbthC232eJLeDVJfMgU1wm_36_z.HO
+ oiYjlKeGpgDcXli5Se6r4H3CcttSvze9sBZFU4Isu7.8hKg.lQsYzPLX4k0wFM2eMT_XuEjDI8_Z
+ hGtOPQ9sHwLhEzrZsBT1Ij5_.FBWU1SxxeQV4CFNbJKc5wx369BvIeQhVRt1w4I3ZRgJ8dk9odge
+ jBziedl3y5KRmOhF1FII7sF6mxUgdV5_1SyybzE59cCxNVRKM1rPdo3qu0Py35lDbe.0pjSPkuqP
+ InklYXd93XTgtbPeESK08hGk9HJ1jSCp8O3fz467mCyEphPRkNfzw09B58lS8OQ6OksPQsoTggE9
+ Qe0LsbXfr.fjBlZITf_51LmT3obUXHels.jp9ygWU9_BrTRrkyq0Ujp4oEtvrQQIIweJQCoJxNHc
+ .RX8bwiF.vuv7o99btnxIbpIE3sL3BAy8O1OE6fcKPMuZurkKMBTSvWawl3IGdieTawf6Jf.iHBD
+ dAwhb81e8sKjXSVGHODpca.uocTgwi3L_stOtZ5xXctdBCACRNh28jt4yRwQ5LqweSy4IeY1eZwu
+ rphXJm3itU9BZIUkvPH1Ryk4WvDbR9QQfAks.8FNcVWSGfKRr9mhJJ26NZTMBf9F6GX5LClCc9Wg
+ Qrf6F_gzUXpBg4LFusT189jR23rMh4DptWnB.CzyTyvjEEgJttvz4YlmhNbLTdbmt.C.KSFg8.6k
+ bzdirp1oHo.3DZtygoH8Fh5qc1wuqzF2iSZoDprqKkJ4.c_ZOTjkhepvLpybSDerV4adTCXFRZP4
+ MZi.893ef6N8FhiQ5_s8HSW2I5FOaxzZzokNe9G4wgBeboOBk4ETnAiH.WdIS5XUU11OqS9P_gYS
+ OtkKC7sczAL8VitAIVRcJCSvYpVePXUbE_Rgb5M9tvP1TsYM.zILyCKbR6untwY5JxhSWAHsqNBc
+ sN.cWSYo_3vaV1Dihzi51Wu9V
+X-Sonic-MF: <casey@schaufler-ca.com>
+X-Sonic-ID: 397e9ee9-8051-4bd7-a384-f966a5b3db07
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic310.consmr.mail.ne1.yahoo.com with HTTP; Fri, 10 Oct 2025 15:15:42 +0000
+Received: by hermes--production-gq1-66b66ffd5-4kj8j (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID 5a3bbbe036446cce417e04accb83fa7c; 
+ Fri, 10 Oct 2025 15:15:39 +0000 (UTC)
+Message-ID: <dcde4774-3852-455a-87be-6c9c0b7198e2@schaufler-ca.com>
+Date: Fri, 10 Oct 2025 08:15:37 -0700
 MIME-Version: 1.0
-References: <20250709080220.110947-1-maxime.belair@canonical.com>
- <20250709080220.110947-3-maxime.belair@canonical.com>
- <20250820.Ao3iquoshaiB@digikod.net>
- <0c7a19cb-d270-403f-9f97-354405aba746@schaufler-ca.com>
-In-Reply-To: <0c7a19cb-d270-403f-9f97-354405aba746@schaufler-ca.com>
-From: Paul Moore <paul@paul-moore.com>
-Date: Fri, 10 Oct 2025 10:59:36 -0400
-X-Gm-Features: AS18NWAVS7migS1jhRtb-IPHhnKptQlfKCCpqw55Hl-FAqPL4NSJFJGx8uS1S6s
-Message-ID: <CAHC9VhSXcqKF9KQ1+KanPqoTk=GRsOXs5dGNNnmTiK_BcMUV5A@mail.gmail.com>
-To: Casey Schaufler <casey@schaufler-ca.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=209.85.214.182; envelope-from=paul@paul-moore.com;
- helo=mail-pl1-f182.google.com
-Subject: Re: [apparmor] [PATCH v5 2/3] lsm: introduce
-	security_lsm_config_*_policy hooks
+User-Agent: Mozilla Thunderbird
+To: =?UTF-8?Q?Maxime_B=C3=A9lair?= <maxime.belair@canonical.com>,
+ linux-security-module@vger.kernel.org
+References: <20251010132610.12001-1-maxime.belair@canonical.com>
+ <20251010132610.12001-6-maxime.belair@canonical.com>
+Content-Language: en-US
+From: Casey Schaufler <casey@schaufler-ca.com>
+In-Reply-To: <20251010132610.12001-6-maxime.belair@canonical.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailer: WebService/1.1.24562
+ mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Received-SPF: none client-ip=66.163.186.211;
+ envelope-from=casey@schaufler-ca.com;
+ helo=sonic310-30.consmr.mail.ne1.yahoo.com
+Subject: Re: [apparmor] [PATCH v6 5/5] Smack: add support for
+ lsm_config_self_policy and lsm_config_system_policy
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -69,60 +87,158 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: song@kernel.org, kees@kernel.org, linux-api@vger.kernel.org,
- stephen.smalley.work@gmail.com, rdunlap@infradead.org,
- apparmor@lists.ubuntu.com, jmorris@namei.org, linux-kernel@vger.kernel.org,
- penguin-kernel@i-love.sakura.ne.jp, linux-security-module@vger.kernel.org,
- =?UTF-8?B?TWlja2HDq2wgU2FsYcO8bg==?= <mic@digikod.net>, takedakn@nttdata.co.jp,
- serge@hallyn.com
+Cc: paul@paul-moore.com, song@kernel.org, kees@kernel.org,
+ linux-api@vger.kernel.org, stephen.smalley.work@gmail.com,
+ rdunlap@infradead.org, apparmor@lists.ubuntu.com, jmorris@namei.org,
+ linux-kernel@vger.kernel.org, penguin-kernel@I-love.SAKURA.ne.jp,
+ mic@digikod.net, takedakn@nttdata.co.jp, serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Wed, Aug 20, 2025 at 11:30=E2=80=AFAM Casey Schaufler <casey@schaufler-c=
-a.com> wrote:
-> On 8/20/2025 7:21 AM, Micka=C3=ABl Sala=C3=BCn wrote:
-> > On Wed, Jul 09, 2025 at 10:00:55AM +0200, Maxime B=C3=A9lair wrote:
-> >> Define two new LSM hooks: security_lsm_config_self_policy and
-> >> security_lsm_config_system_policy and wire them into the corresponding
-> >> lsm_config_*_policy() syscalls so that LSMs can register a unified
-> >> interface for policy management. This initial, minimal implementation
-> >> only supports the LSM_POLICY_LOAD operation to limit changes.
-> >>
-> >> Signed-off-by: Maxime B=C3=A9lair <maxime.belair@canonical.com>
-> >> ---
-> >>  include/linux/lsm_hook_defs.h |  4 +++
-> >>  include/linux/security.h      | 20 ++++++++++++
-> >>  include/uapi/linux/lsm.h      |  8 +++++
-> >>  security/lsm_syscalls.c       | 17 ++++++++--
-> >>  security/security.c           | 60 ++++++++++++++++++++++++++++++++++=
-+
-> >>  5 files changed, 107 insertions(+), 2 deletions(-)
-
-...
-
-> >> diff --git a/include/uapi/linux/lsm.h b/include/uapi/linux/lsm.h
-> >> index 938593dfd5da..2b9432a30cdc 100644
-> >> --- a/include/uapi/linux/lsm.h
-> >> +++ b/include/uapi/linux/lsm.h
-> >> @@ -90,4 +90,12 @@ struct lsm_ctx {
-> >>   */
-> >>  #define LSM_FLAG_SINGLE     0x0001
-> >>
-> >> +/*
-> >> + * LSM_POLICY_XXX definitions identify the different operations
-> >> + * to configure LSM policies
-> >> + */
-> >> +
-> >> +#define LSM_POLICY_UNDEF    0
-> >> +#define LSM_POLICY_LOAD             100
-> > Why the gap between 0 and 100?
+On 10/10/2025 6:25 AM, Maxime Bélair wrote:
+> Enable users to manage Smack policies through the new hooks
+> lsm_config_self_policy and lsm_config_system_policy.
 >
-> It's conventional in LSM syscalls to start identifiers at 100.
-> No compelling reason other than to appease the LSM maintainer.
+> lsm_config_self_policy allows adding Smack policies for the current cred.
+> For now it remains restricted to CAP_MAC_ADMIN.
+>
+> lsm_config_system_policy allows adding globabl Smack policies. This is
+> restricted to CAP_MAC_ADMIN.
+>
+> Signed-off-by: Maxime Bélair <maxime.belair@canonical.com>
 
-If you guys make me repeat all the reasons why, I'm going to get even
-crankier than usual :-P
+I will be reviewing these patches, but will not be able to do so
+until early November. I know how frustrating review delays can be,
+but it really can't be helped this time around. Thank you for your
+patience.
 
---=20
-paul-moore.com
+> ---
+>  security/smack/smack.h     |  8 +++++
+>  security/smack/smack_lsm.c | 73 ++++++++++++++++++++++++++++++++++++++
+>  security/smack/smackfs.c   |  2 +-
+>  3 files changed, 82 insertions(+), 1 deletion(-)
+>
+> diff --git a/security/smack/smack.h b/security/smack/smack.h
+> index bf6a6ed3946c..3e3d30dfdcf7 100644
+> --- a/security/smack/smack.h
+> +++ b/security/smack/smack.h
+> @@ -275,6 +275,14 @@ struct smk_audit_info {
+>  #endif
+>  };
+>  
+> +/*
+> + * This function is in smackfs.c
+> + */
+> +ssize_t smk_write_rules_list(struct file *file, const char __user *buf,
+> +			     size_t count, loff_t *ppos,
+> +			     struct list_head *rule_list,
+> +			     struct mutex *rule_lock, int format);
+> +
+>  /*
+>   * These functions are in smack_access.c
+>   */
+> diff --git a/security/smack/smack_lsm.c b/security/smack/smack_lsm.c
+> index 99833168604e..bf4bb2242768 100644
+> --- a/security/smack/smack_lsm.c
+> +++ b/security/smack/smack_lsm.c
+> @@ -5027,6 +5027,76 @@ static int smack_uring_cmd(struct io_uring_cmd *ioucmd)
+>  
+>  #endif /* CONFIG_IO_URING */
+>  
+> +/**
+> + * smack_lsm_config_system_policy - Configure a system smack policy
+> + * @op: operation to perform. Currently, only LSM_POLICY_LOAD is supported
+> + * @buf: User-supplied buffer in the form "<fmt><policy>"
+> + *        <fmt> is the 1-byte format of <policy>
+> + *        <policy> is the policy to load
+> + * @size: size of @buf
+> + * @flags: reserved for future use; must be zero
+> + *
+> + * Returns: number of written rules on success, negative value on error
+> + */
+> +static int smack_lsm_config_system_policy(u32 op, void __user *buf, size_t size,
+> +					  u32 flags)
+> +{
+> +	loff_t pos = 0;
+> +	u8 fmt;
+> +
+> +	if (op != LSM_POLICY_LOAD || flags)
+> +		return -EOPNOTSUPP;
+> +
+> +	if (size < 2)
+> +		return -EINVAL;
+> +
+> +	if (get_user(fmt, (uint8_t *)buf))
+> +		return -EFAULT;
+> +
+> +	return smk_write_rules_list(NULL, buf + 1, size - 1, &pos, NULL, NULL, fmt);
+> +}
+> +
+> +/**
+> + * smack_lsm_config_self_policy - Configure a smack policy for the current cred
+> + * @op: operation to perform. Currently, only LSM_POLICY_LOAD is supported
+> + * @buf: User-supplied buffer in the form "<fmt><policy>"
+> + *        <fmt> is the 1-byte format of <policy>
+> + *        <policy> is the policy to load
+> + * @size: size of @buf
+> + * @flags: reserved for future use; must be zero
+> + *
+> + * Returns: number of written rules on success, negative value on error
+> + */
+> +static int smack_lsm_config_self_policy(u32 op, void __user *buf, size_t size,
+> +					u32 flags)
+> +{
+> +	loff_t pos = 0;
+> +	u8 fmt;
+> +	struct task_smack *tsp;
+> +
+> +	if (op != LSM_POLICY_LOAD || flags)
+> +		return -EOPNOTSUPP;
+> +
+> +	if (size < 2)
+> +		return -EINVAL;
+> +
+> +	if (get_user(fmt, (uint8_t *)buf))
+> +		return -EFAULT;
+> +	/**
+> +	 * smk_write_rules_list could be used to gain privileges.
+> +	 * This function is thus restricted to CAP_MAC_ADMIN.
+> +	 * TODO: Ensure that the new rule does not give extra privileges
+> +	 * before dropping this CAP_MAC_ADMIN check.
+> +	 */
+> +	if (!capable(CAP_MAC_ADMIN))
+> +		return -EPERM;
+> +
+> +
+> +	tsp = smack_cred(current_cred());
+> +	return smk_write_rules_list(NULL, buf + 1, size - 1, &pos, &tsp->smk_rules,
+> +				    &tsp->smk_rules_lock, fmt);
+> +}
+> +
+>  struct lsm_blob_sizes smack_blob_sizes __ro_after_init = {
+>  	.lbs_cred = sizeof(struct task_smack),
+>  	.lbs_file = sizeof(struct smack_known *),
+> @@ -5203,6 +5273,9 @@ static struct security_hook_list smack_hooks[] __ro_after_init = {
+>  	LSM_HOOK_INIT(uring_sqpoll, smack_uring_sqpoll),
+>  	LSM_HOOK_INIT(uring_cmd, smack_uring_cmd),
+>  #endif
+> +	LSM_HOOK_INIT(lsm_config_self_policy, smack_lsm_config_self_policy),
+> +	LSM_HOOK_INIT(lsm_config_system_policy, smack_lsm_config_system_policy),
+> +
+>  };
+>  
+>  
+> diff --git a/security/smack/smackfs.c b/security/smack/smackfs.c
+> index 90a67e410808..ed1814588d56 100644
+> --- a/security/smack/smackfs.c
+> +++ b/security/smack/smackfs.c
+> @@ -441,7 +441,7 @@ static ssize_t smk_parse_long_rule(char *data, struct smack_parsed_rule *rule,
+>   *	"subject<whitespace>object<whitespace>
+>   *	 acc_enable<whitespace>acc_disable[<whitespace>...]"
+>   */
+> -static ssize_t smk_write_rules_list(struct file *file, const char __user *buf,
+> +ssize_t smk_write_rules_list(struct file *file, const char __user *buf,
+>  					size_t count, loff_t *ppos,
+>  					struct list_head *rule_list,
+>  					struct mutex *rule_lock, int format)
 
