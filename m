@@ -2,79 +2,44 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E4CABCE96E
-	for <lists+apparmor@lfdr.de>; Fri, 10 Oct 2025 23:14:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13865BCF4F6
+	for <lists+apparmor@lfdr.de>; Sat, 11 Oct 2025 14:09:17 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1v7KR5-0000j3-1g; Fri, 10 Oct 2025 21:13:59 +0000
-Received: from sonic316-27.consmr.mail.ne1.yahoo.com ([66.163.187.153])
+	id 1v7YPD-0007kc-M4; Sat, 11 Oct 2025 12:08:59 +0000
+Received: from mgamail.intel.com ([192.198.163.7])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <casey@schaufler-ca.com>)
- id 1v7KR2-0000iv-N1
- for apparmor@lists.ubuntu.com; Fri, 10 Oct 2025 21:13:56 +0000
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1760130835; bh=X8Np/pI77hNRJiN/WJ6HzJuDXaUcRQP55Q69zQcdUTP=;
- h=X-Sonic-MF:Date:Subject:To:From:From:Subject;
- b=fv7Jh3xJNvS8f/SvA8Zk0lJqDeg3hvcft7EhrMqu6TtIP5MegRMQXGkth7VnBtjIK9y0zp4SJ2EkCZOxQza8HV/2eoQYiVwJVhb+XwUPygY8aUm2Dz9hxwkp7nIVXKnY1Hj64ApmEEIXTvFkr+eW+H5BcN/Wl7kJczDC7pdW256EGoyuQ4OABXtDheRq7Pt+jU38oi4Q2p3lF4BygdzVxmfb0a9WKKG36118Yx4N6s8tY1ZeZc7xCMVhOxdi1ibjivIv16MjZkruK4t5zj3k4DGYiTRxH6tiiBRGb1QKqDnfyETKZ27je1rhhiL2edo59Pw3F06Xjw8vPU/14STFqg==
-X-YMail-OSG: hj_K0qsVM1l92HVyJBxvE.yOYHHP8HsCY5icmN3yiVGbE01Wrt_SWYs17rA.P4q
- UgWYe2nMn_ENZ.4zeSchJVCw1BK6JfupH2g5qHa2CGLKfwOSYtyt5a3iAY8J.dLW6jjMw7mKWcId
- HLNoJvkBcleet8dYBsAvP1Zq2AvdNTuqmBhFeE2Z.fm5740wKcyq8x1RUTAurdJBZwW7dCY2aMLc
- mL_5_NTgf5i0qjieiEV91kOYM19zVRQCPGH7kMhVS7lsrhQtU_a3cg.mrkAvFtyNyMV10khHxphj
- F0mKITRqSg4DF168D_jZ6VXi5nAvJOinbWa4ZGjLxh49DPBtmwFZHtLJWA57q8EVRNWA9KqljyHt
- uELu3PzG1Y_p5FdRpq7P_hjKAfweTGTYuLtnq2If.2qQNY7gnmFL6I01kT0rkj5cLCCqhVkSuAVD
- hM6249wYb6.Q.j471twZ1.vfCzLTb.G0r1EJXH6fgekbHyYyN0b5ybILAuGvvQYRWsoaqdMYQSL1
- 6Yzd7cdk0oGc4OveyFRGX6lh1OuvcB7fYbIKh8CZNGRYtaEhyvrE1eK5NJGF8BxyTgezz1Pij4rE
- P75X6XFtU1KyQsuJgad74aX5b5CjgHmJ2Z06APr2Y6x83HxZilERseulj8ALvnPs1HxEkq6a0L5O
- HapQUB.IAtiMhUWJbPzhjWLelaoGfrExF0BsbA3Z8WjD24ePLO_hdx6MmF7PoWd655u.V2RPzpOE
- 2bkwAkYiJNFS4BF9rERzXU.sa0W7d1ThhJjl2eQSOYArMGNmmw3ThOrQ3aeCIOSQVhY1lcazTB2K
- cDQOqH0jJzaF4WMr8eOWby8ZFH.tZZGrINZsR7AYQBNGgUSxO4XH2cvJfuK0y21rbut4FNxTWM5v
- Qh3ozC7zwwrlj3SJlz24WNFCyF0gG0MLo.jxj8ecl8aDfe0cEWog8RZuSboLiEd7Y4Zx_CIaVCma
- hVao5wLtCrObvajoUNWQSFQVFBLg74I5adQvo53aJkBWbtqo1CaJQy4yhhzBZwaK5B32LNzeL3QX
- UVfoVCECcasaKE64iHuQaiJqUo2n3mJz3FTeYv7CggS0b1nbgGfRVzUIFN9St98_WxUMFBk_J5Q3
- pBTFGp05JD8K_x1qSdoO_cgIEttjgVo1ipB7GIB3lU2qgbNFOY43RmI99urHY2s.UhACjHWoWMZW
- F9Xsfyh3DFcSs6qmqLVHH1p.kqn44_E0mXVvPGhmERLwuh2mPl3q.NhgqhNAa8qqgQmW7WXhjxkk
- C7vL8Z3GIiun69185akGsa6uH7UpWqvvTUfa8ekQKtP4KxuqrXtC7pGJHS1bnyMfwofgevlZuOS.
- 6JNpLDqK_1u0ZVkWfYy4t03fQ6nFQiIf_bnjgcv51lZe6aXCU1gp5oaT86_AZLf.itv4JDPUUOtd
- AiDScIC.thYeAVVle1sc9gJclQUhy.I9nGiA_9kieHPo6yW0V0lWrekSRzo35QC1iPJ0Cr3625np
- 5B8HOXWEUp1Cl18EWmM2txQ8iK3h7IEOJrvL6mNvtB4qjHshNnW3PvqorCCjxrbMG7HVztBkax1i
- TzBoBertrMliR8ti_eGrE5ALcWFjgNmoaZh3T6ie5O73ldmlTv41IhlNJVY2oMxTH0lPdLt0rGjH
- hnure8H8tb..33FUrB1pKK3XOuBYtp4hBPjZcFuyRNuCbK9LCPG0LjhF_AJKiFAb0wxxHYF6OIXb
- C2i3iDTGOQNwljpoDII3T45TRZMUIqnA8DLZbLJ39dleONdSQoHpo8DQy7JVfzyn_0Do0GLrZNGC
- pJS352W.OBUFqJAsAQznyGUTH43miTUMAw81sEFjvITQmqWEPj5SAHkFp_wdNBas0oBQTSFszIFN
- YAY8kSSNQbiScafdRPnDk6FKaFzytLegpFvxfaO22gYg_aeypUWhZqdIzuq9_6h9U9fLLQEH2JUu
- wkTRkmdVLWm_FPdxUYfX85yxJGpJ8gNdgAamR.roTgso3k2DQPUF7i7W9kjZZg5p8PCvdwVIRRfE
- i1a7vFHtmH6jndvt199NFU6X01WpUwbYxm6XfsvyeLDWhJvSlMQeTvNSE5lcCVDFFCjtuMmiQm8z
- _P6952lyxHJWZsLjLxaO4zpNhBqLXQGHmKO2j2wGH9ABpUY7FXih6vFZ87TWF.kLViiOpfXJDpE_
- udg1SkJ1lPmTBMx4ZDiAC7BK0cevHLKHJFt6R2FgV_B1FjOzcD.w0bI1SImML8SLS9_5zF55Wc7U
- cV7AmPOYTJcsp5dLQzsoLF7uhtPLZ05ag7x_JEIZ.r5Tg3DZi0WfQrHGkiokOJS1oegdfKrFHPsH
- cRoweaY7N3S8WY1uzOHlwPa0d93U-
-X-Sonic-MF: <casey@schaufler-ca.com>
-X-Sonic-ID: edcc4e0f-3264-44a5-b08e-f1aa002d6f1b
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic316.consmr.mail.ne1.yahoo.com with HTTP; Fri, 10 Oct 2025 21:13:55 +0000
-Received: by hermes--production-gq1-66b66ffd5-xph5s (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID 698bef460da1b112e1d4caa5f84dfae0; 
- Fri, 10 Oct 2025 21:13:52 +0000 (UTC)
-Message-ID: <950745ad-b818-475e-a8c9-fe0a9e82c609@schaufler-ca.com>
-Date: Fri, 10 Oct 2025 14:13:49 -0700
+ (Exim 4.86_2) (envelope-from <lkp@intel.com>) id 1v7YPA-0007kU-PS
+ for apparmor@lists.ubuntu.com; Sat, 11 Oct 2025 12:08:57 +0000
+X-CSE-ConnectionGUID: T2HjyCx6RMWipWT4FXbzHg==
+X-CSE-MsgGUID: kTzeRzuzS1eGHXmcvSsGAw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11578"; a="87847226"
+X-IronPort-AV: E=Sophos;i="6.19,221,1754982000"; d="scan'208";a="87847226"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2025 05:08:54 -0700
+X-CSE-ConnectionGUID: r+kwUlfHQ+akfi6i8DtZIQ==
+X-CSE-MsgGUID: C+4Uk8xpTlySaGgoG7jdow==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,221,1754982000"; d="scan'208";a="180767626"
+Received: from lkp-server01.sh.intel.com (HELO 6a630e8620ab) ([10.239.97.150])
+ by orviesa009.jf.intel.com with ESMTP; 11 Oct 2025 05:08:50 -0700
+Received: from kbuild by 6a630e8620ab with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1v7YP1-0003kf-1O;
+ Sat, 11 Oct 2025 12:08:47 +0000
+Date: Sat, 11 Oct 2025 20:07:56 +0800
+From: kernel test robot <lkp@intel.com>
+To: Maxime =?iso-8859-1?Q?B=E9lair?= <maxime.belair@canonical.com>,
+ linux-security-module@vger.kernel.org
+Message-ID: <202510111947.0ObJ6YUH-lkp@intel.com>
+References: <20251010132610.12001-2-maxime.belair@canonical.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Song Liu <song@kernel.org>, =?UTF-8?Q?Maxime_B=C3=A9lair?=
- <maxime.belair@canonical.com>
-References: <20251010132610.12001-1-maxime.belair@canonical.com>
- <20251010132610.12001-2-maxime.belair@canonical.com>
- <CAHzjS_uBq8xGCSmHC_kBWi0j8DCdwsy4XtfkH2iH6NygCcChNw@mail.gmail.com>
-Content-Language: en-US
-From: Casey Schaufler <casey@schaufler-ca.com>
-In-Reply-To: <CAHzjS_uBq8xGCSmHC_kBWi0j8DCdwsy4XtfkH2iH6NygCcChNw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailer: WebService/1.1.24562
- mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
-Received-SPF: none client-ip=66.163.187.153;
- envelope-from=casey@schaufler-ca.com;
- helo=sonic316-27.consmr.mail.ne1.yahoo.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20251010132610.12001-2-maxime.belair@canonical.com>
+Received-SPF: pass client-ip=192.198.163.7; envelope-from=lkp@intel.com;
+ helo=mgamail.intel.com
 Subject: Re: [apparmor] [PATCH v6 1/5] Wire up lsm_config_self_policy and
  lsm_config_system_policy syscalls
 X-BeenThere: apparmor@lists.ubuntu.com
@@ -88,43 +53,235 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: paul@paul-moore.com, kees@kernel.org, linux-api@vger.kernel.org,
- stephen.smalley.work@gmail.com, rdunlap@infradead.org,
- apparmor@lists.ubuntu.com, jmorris@namei.org, linux-kernel@vger.kernel.org,
- penguin-kernel@i-love.sakura.ne.jp, linux-security-module@vger.kernel.org,
- mic@digikod.net, takedakn@nttdata.co.jp, serge@hallyn.com
+Cc: paul@paul-moore.com, song@kernel.org, kees@kernel.org,
+ linux-api@vger.kernel.org, stephen.smalley.work@gmail.com,
+ penguin-kernel@i-love.sakura.ne.jp, apparmor@lists.ubuntu.com,
+ jmorris@namei.org, linux-kernel@vger.kernel.org, rdunlap@infradead.org,
+ oe-kbuild-all@lists.linux.dev, mic@digikod.net, takedakn@nttdata.co.jp,
+ serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 10/10/2025 11:06 AM, Song Liu wrote:
-> On Fri, Oct 10, 2025 at 6:27 AM Maxime Bélair
-> <maxime.belair@canonical.com> wrote:
-> [...]
->> --- a/security/lsm_syscalls.c
->> +++ b/security/lsm_syscalls.c
->> @@ -118,3 +118,15 @@ SYSCALL_DEFINE3(lsm_list_modules, u64 __user *, ids, u32 __user *, size,
->>
->>         return lsm_active_cnt;
->>  }
->> +
->> +SYSCALL_DEFINE6(lsm_config_self_policy, u32, lsm_id, u32, op, void __user *,
->> +               buf, u32 __user, size, u32, common_flags, u32, flags)
->> +{
->> +       return 0;
->> +}
->> +
->> +SYSCALL_DEFINE6(lsm_config_system_policy, u32, lsm_id, u32, op, void __user *,
->> +               buf, u32 __user, size, u32, common_flags, u32, flags)
->> +{
->> +       return 0;
->> +}
-> These two APIs look the same. Why not just keep one API and use
-> one bit in the flag to differentiate "self" vs. "system"?
+Hi Maxime,
 
-I think that's a valid point.
+kernel test robot noticed the following build errors:
 
->
-> Thanks,
-> Song
->
+[auto build test ERROR on 9c32cda43eb78f78c73aee4aa344b777714e259b]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Maxime-B-lair/Wire-up-lsm_config_self_policy-and-lsm_config_system_policy-syscalls/20251010-213606
+base:   9c32cda43eb78f78c73aee4aa344b777714e259b
+patch link:    https://lore.kernel.org/r/20251010132610.12001-2-maxime.belair%40canonical.com
+patch subject: [PATCH v6 1/5] Wire up lsm_config_self_policy and lsm_config_system_policy syscalls
+config: sh-randconfig-001-20251011 (https://download.01.org/0day-ci/archive/20251011/202510111947.0ObJ6YUH-lkp@intel.com/config)
+compiler: sh4-linux-gcc (GCC) 7.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20251011/202510111947.0ObJ6YUH-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202510111947.0ObJ6YUH-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   In file included from kernel/umh.c:9:0:
+>> include/linux/syscalls.h:994:45: error: expected ';', ',' or ')' before 'u32'
+              u32 __user size, u32 common_flags u32 flags);
+                                                ^~~
+--
+   In file included from kernel/fork.c:56:0:
+>> include/linux/syscalls.h:994:45: error: expected ';', ',' or ')' before 'u32'
+              u32 __user size, u32 common_flags u32 flags);
+                                                ^~~
+   kernel/fork.c: In function '__do_sys_clone3':
+   kernel/fork.c:3135:2: warning: #warning clone3() entry point is missing, please fix [-Wcpp]
+    #warning clone3() entry point is missing, please fix
+     ^~~~~~~
+
+
+vim +994 include/linux/syscalls.h
+
+   817	
+   818	/* CONFIG_MMU only */
+   819	asmlinkage long sys_swapon(const char __user *specialfile, int swap_flags);
+   820	asmlinkage long sys_swapoff(const char __user *specialfile);
+   821	asmlinkage long sys_mprotect(unsigned long start, size_t len,
+   822					unsigned long prot);
+   823	asmlinkage long sys_msync(unsigned long start, size_t len, int flags);
+   824	asmlinkage long sys_mlock(unsigned long start, size_t len);
+   825	asmlinkage long sys_munlock(unsigned long start, size_t len);
+   826	asmlinkage long sys_mlockall(int flags);
+   827	asmlinkage long sys_munlockall(void);
+   828	asmlinkage long sys_mincore(unsigned long start, size_t len,
+   829					unsigned char __user * vec);
+   830	asmlinkage long sys_madvise(unsigned long start, size_t len, int behavior);
+   831	asmlinkage long sys_process_madvise(int pidfd, const struct iovec __user *vec,
+   832				size_t vlen, int behavior, unsigned int flags);
+   833	asmlinkage long sys_process_mrelease(int pidfd, unsigned int flags);
+   834	asmlinkage long sys_remap_file_pages(unsigned long start, unsigned long size,
+   835				unsigned long prot, unsigned long pgoff,
+   836				unsigned long flags);
+   837	asmlinkage long sys_mseal(unsigned long start, size_t len, unsigned long flags);
+   838	asmlinkage long sys_mbind(unsigned long start, unsigned long len,
+   839					unsigned long mode,
+   840					const unsigned long __user *nmask,
+   841					unsigned long maxnode,
+   842					unsigned flags);
+   843	asmlinkage long sys_get_mempolicy(int __user *policy,
+   844					unsigned long __user *nmask,
+   845					unsigned long maxnode,
+   846					unsigned long addr, unsigned long flags);
+   847	asmlinkage long sys_set_mempolicy(int mode, const unsigned long __user *nmask,
+   848					unsigned long maxnode);
+   849	asmlinkage long sys_migrate_pages(pid_t pid, unsigned long maxnode,
+   850					const unsigned long __user *from,
+   851					const unsigned long __user *to);
+   852	asmlinkage long sys_move_pages(pid_t pid, unsigned long nr_pages,
+   853					const void __user * __user *pages,
+   854					const int __user *nodes,
+   855					int __user *status,
+   856					int flags);
+   857	asmlinkage long sys_rt_tgsigqueueinfo(pid_t tgid, pid_t  pid, int sig,
+   858			siginfo_t __user *uinfo);
+   859	asmlinkage long sys_perf_event_open(
+   860			struct perf_event_attr __user *attr_uptr,
+   861			pid_t pid, int cpu, int group_fd, unsigned long flags);
+   862	asmlinkage long sys_accept4(int, struct sockaddr __user *, int __user *, int);
+   863	asmlinkage long sys_recvmmsg(int fd, struct mmsghdr __user *msg,
+   864				     unsigned int vlen, unsigned flags,
+   865				     struct __kernel_timespec __user *timeout);
+   866	asmlinkage long sys_recvmmsg_time32(int fd, struct mmsghdr __user *msg,
+   867				     unsigned int vlen, unsigned flags,
+   868				     struct old_timespec32 __user *timeout);
+   869	asmlinkage long sys_wait4(pid_t pid, int __user *stat_addr,
+   870					int options, struct rusage __user *ru);
+   871	asmlinkage long sys_prlimit64(pid_t pid, unsigned int resource,
+   872					const struct rlimit64 __user *new_rlim,
+   873					struct rlimit64 __user *old_rlim);
+   874	asmlinkage long sys_fanotify_init(unsigned int flags, unsigned int event_f_flags);
+   875	#if defined(CONFIG_ARCH_SPLIT_ARG64)
+   876	asmlinkage long sys_fanotify_mark(int fanotify_fd, unsigned int flags,
+   877	                                unsigned int mask_1, unsigned int mask_2,
+   878					int dfd, const char  __user * pathname);
+   879	#else
+   880	asmlinkage long sys_fanotify_mark(int fanotify_fd, unsigned int flags,
+   881					  u64 mask, int fd,
+   882					  const char  __user *pathname);
+   883	#endif
+   884	asmlinkage long sys_name_to_handle_at(int dfd, const char __user *name,
+   885					      struct file_handle __user *handle,
+   886					      void __user *mnt_id, int flag);
+   887	asmlinkage long sys_open_by_handle_at(int mountdirfd,
+   888					      struct file_handle __user *handle,
+   889					      int flags);
+   890	asmlinkage long sys_clock_adjtime(clockid_t which_clock,
+   891					struct __kernel_timex __user *tx);
+   892	asmlinkage long sys_clock_adjtime32(clockid_t which_clock,
+   893					struct old_timex32 __user *tx);
+   894	asmlinkage long sys_syncfs(int fd);
+   895	asmlinkage long sys_setns(int fd, int nstype);
+   896	asmlinkage long sys_pidfd_open(pid_t pid, unsigned int flags);
+   897	asmlinkage long sys_sendmmsg(int fd, struct mmsghdr __user *msg,
+   898				     unsigned int vlen, unsigned flags);
+   899	asmlinkage long sys_process_vm_readv(pid_t pid,
+   900					     const struct iovec __user *lvec,
+   901					     unsigned long liovcnt,
+   902					     const struct iovec __user *rvec,
+   903					     unsigned long riovcnt,
+   904					     unsigned long flags);
+   905	asmlinkage long sys_process_vm_writev(pid_t pid,
+   906					      const struct iovec __user *lvec,
+   907					      unsigned long liovcnt,
+   908					      const struct iovec __user *rvec,
+   909					      unsigned long riovcnt,
+   910					      unsigned long flags);
+   911	asmlinkage long sys_kcmp(pid_t pid1, pid_t pid2, int type,
+   912				 unsigned long idx1, unsigned long idx2);
+   913	asmlinkage long sys_finit_module(int fd, const char __user *uargs, int flags);
+   914	asmlinkage long sys_sched_setattr(pid_t pid,
+   915						struct sched_attr __user *attr,
+   916						unsigned int flags);
+   917	asmlinkage long sys_sched_getattr(pid_t pid,
+   918						struct sched_attr __user *attr,
+   919						unsigned int size,
+   920						unsigned int flags);
+   921	asmlinkage long sys_renameat2(int olddfd, const char __user *oldname,
+   922				      int newdfd, const char __user *newname,
+   923				      unsigned int flags);
+   924	asmlinkage long sys_seccomp(unsigned int op, unsigned int flags,
+   925				    void __user *uargs);
+   926	asmlinkage long sys_getrandom(char __user *buf, size_t count,
+   927				      unsigned int flags);
+   928	asmlinkage long sys_memfd_create(const char __user *uname_ptr, unsigned int flags);
+   929	asmlinkage long sys_bpf(int cmd, union bpf_attr __user *attr, unsigned int size);
+   930	asmlinkage long sys_execveat(int dfd, const char __user *filename,
+   931				const char __user *const __user *argv,
+   932				const char __user *const __user *envp, int flags);
+   933	asmlinkage long sys_userfaultfd(int flags);
+   934	asmlinkage long sys_membarrier(int cmd, unsigned int flags, int cpu_id);
+   935	asmlinkage long sys_mlock2(unsigned long start, size_t len, int flags);
+   936	asmlinkage long sys_copy_file_range(int fd_in, loff_t __user *off_in,
+   937					    int fd_out, loff_t __user *off_out,
+   938					    size_t len, unsigned int flags);
+   939	asmlinkage long sys_preadv2(unsigned long fd, const struct iovec __user *vec,
+   940				    unsigned long vlen, unsigned long pos_l, unsigned long pos_h,
+   941				    rwf_t flags);
+   942	asmlinkage long sys_pwritev2(unsigned long fd, const struct iovec __user *vec,
+   943				    unsigned long vlen, unsigned long pos_l, unsigned long pos_h,
+   944				    rwf_t flags);
+   945	asmlinkage long sys_pkey_mprotect(unsigned long start, size_t len,
+   946					  unsigned long prot, int pkey);
+   947	asmlinkage long sys_pkey_alloc(unsigned long flags, unsigned long init_val);
+   948	asmlinkage long sys_pkey_free(int pkey);
+   949	asmlinkage long sys_statx(int dfd, const char __user *path, unsigned flags,
+   950				  unsigned mask, struct statx __user *buffer);
+   951	asmlinkage long sys_rseq(struct rseq __user *rseq, uint32_t rseq_len,
+   952				 int flags, uint32_t sig);
+   953	asmlinkage long sys_open_tree(int dfd, const char __user *path, unsigned flags);
+   954	asmlinkage long sys_open_tree_attr(int dfd, const char __user *path,
+   955					   unsigned flags,
+   956					   struct mount_attr __user *uattr,
+   957					   size_t usize);
+   958	asmlinkage long sys_move_mount(int from_dfd, const char __user *from_path,
+   959				       int to_dfd, const char __user *to_path,
+   960				       unsigned int ms_flags);
+   961	asmlinkage long sys_mount_setattr(int dfd, const char __user *path,
+   962					  unsigned int flags,
+   963					  struct mount_attr __user *uattr, size_t usize);
+   964	asmlinkage long sys_fsopen(const char __user *fs_name, unsigned int flags);
+   965	asmlinkage long sys_fsconfig(int fs_fd, unsigned int cmd, const char __user *key,
+   966				     const void __user *value, int aux);
+   967	asmlinkage long sys_fsmount(int fs_fd, unsigned int flags, unsigned int ms_flags);
+   968	asmlinkage long sys_fspick(int dfd, const char __user *path, unsigned int flags);
+   969	asmlinkage long sys_pidfd_send_signal(int pidfd, int sig,
+   970					       siginfo_t __user *info,
+   971					       unsigned int flags);
+   972	asmlinkage long sys_pidfd_getfd(int pidfd, int fd, unsigned int flags);
+   973	asmlinkage long sys_landlock_create_ruleset(const struct landlock_ruleset_attr __user *attr,
+   974			size_t size, __u32 flags);
+   975	asmlinkage long sys_landlock_add_rule(int ruleset_fd, enum landlock_rule_type rule_type,
+   976			const void __user *rule_attr, __u32 flags);
+   977	asmlinkage long sys_landlock_restrict_self(int ruleset_fd, __u32 flags);
+   978	asmlinkage long sys_memfd_secret(unsigned int flags);
+   979	asmlinkage long sys_set_mempolicy_home_node(unsigned long start, unsigned long len,
+   980						    unsigned long home_node,
+   981						    unsigned long flags);
+   982	asmlinkage long sys_cachestat(unsigned int fd,
+   983			struct cachestat_range __user *cstat_range,
+   984			struct cachestat __user *cstat, unsigned int flags);
+   985	asmlinkage long sys_map_shadow_stack(unsigned long addr, unsigned long size, unsigned int flags);
+   986	asmlinkage long sys_lsm_get_self_attr(unsigned int attr, struct lsm_ctx __user *ctx,
+   987					      u32 __user *size, u32 flags);
+   988	asmlinkage long sys_lsm_set_self_attr(unsigned int attr, struct lsm_ctx __user *ctx,
+   989					      u32 size, u32 flags);
+   990	asmlinkage long sys_lsm_list_modules(u64 __user *ids, u32 __user *size, u32 flags);
+   991	asmlinkage long sys_lsm_config_self_policy(u32 lsm_id, u32 op, void __user *buf,
+   992						   u32 __user size, u32 common_flags, u32 flags);
+   993	asmlinkage long sys_lsm_config_system_policy(u32 lsm_id, u32 op, void __user *buf,
+ > 994						     u32 __user size, u32 common_flags u32 flags);
+   995	
+   996	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 
