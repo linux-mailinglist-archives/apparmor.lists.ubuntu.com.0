@@ -2,32 +2,32 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B528BE4EB4
-	for <lists+apparmor@lfdr.de>; Thu, 16 Oct 2025 19:51:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB485BFB301
+	for <lists+apparmor@lfdr.de>; Wed, 22 Oct 2025 11:38:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1v9S7h-0004t0-JJ; Thu, 16 Oct 2025 17:50:45 +0000
-Received: from out-189.mta0.migadu.com ([91.218.175.189])
+	id 1vBVIJ-00067O-L7; Wed, 22 Oct 2025 09:38:11 +0000
+Received: from out-179.mta1.migadu.com ([95.215.58.179])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <thorsten.blum@linux.dev>)
- id 1v9S7f-0004sm-T3
- for apparmor@lists.ubuntu.com; Thu, 16 Oct 2025 17:50:44 +0000
+ id 1vBVIH-00067B-KK
+ for apparmor@lists.ubuntu.com; Wed, 22 Oct 2025 09:38:09 +0000
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 From: Thorsten Blum <thorsten.blum@linux.dev>
 To: John Johansen <john.johansen@canonical.com>,
  Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
  "Serge E. Hallyn" <serge@hallyn.com>
-Date: Thu, 16 Oct 2025 19:49:15 +0200
-Message-ID: <20251016174914.80831-2-thorsten.blum@linux.dev>
+Date: Wed, 22 Oct 2025 11:37:18 +0200
+Message-ID: <20251022093718.206271-2-thorsten.blum@linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
-Received-SPF: pass client-ip=91.218.175.189;
- envelope-from=thorsten.blum@linux.dev; helo=out-189.mta0.migadu.com
-Subject: [apparmor] [PATCH] apparmor: Replace deprecated strcpy in
-	d_namespace_path
+Received-SPF: pass client-ip=95.215.58.179;
+ envelope-from=thorsten.blum@linux.dev; helo=out-179.mta1.migadu.com
+Subject: [apparmor] [PATCH] apparmor: replace sprintf with snprintf in
+	aa_new_learning_profile
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -39,49 +39,59 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
- apparmor@lists.ubuntu.com, linux-hardening@vger.kernel.org,
- Thorsten Blum <thorsten.blum@linux.dev>
+Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
+ Thorsten Blum <thorsten.blum@linux.dev>, linux-kernel@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-strcpy() is deprecated; replace it with a direct '/' assignment. The
-buffer is already NUL-terminated, so there is no need to copy an
-additional NUL terminator as strcpy() did.
+Replace unbounded sprintf() calls with snprintf() to prevent potential
+buffer overflows in aa_new_learning_profile(). While the current code
+works correctly, snprintf() is safer and follows secure coding best
+practices.  No functional changes.
 
-Update the comment and add the local variable 'is_root' for clarity.
-
-Link: https://github.com/KSPP/linux/issues/88
 Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
 ---
- security/apparmor/path.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+ security/apparmor/policy.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
 
-diff --git a/security/apparmor/path.c b/security/apparmor/path.c
-index d6c74c357ffd..65a0ca5cc1bd 100644
---- a/security/apparmor/path.c
-+++ b/security/apparmor/path.c
-@@ -164,12 +164,15 @@ static int d_namespace_path(const struct path *path, char *buf, char **name,
+diff --git a/security/apparmor/policy.c b/security/apparmor/policy.c
+index 50d5345ff5cb..b09323867fea 100644
+--- a/security/apparmor/policy.c
++++ b/security/apparmor/policy.c
+@@ -697,24 +697,27 @@ struct aa_profile *aa_new_learning_profile(struct aa_profile *parent, bool hat,
+ 	struct aa_profile *p, *profile;
+ 	const char *bname;
+ 	char *name = NULL;
++	size_t name_sz;
+ 
+ 	AA_BUG(!parent);
+ 
+ 	if (base) {
+-		name = kmalloc(strlen(parent->base.hname) + 8 + strlen(base),
+-			       gfp);
++		name_sz = strlen(parent->base.hname) + 8 + strlen(base);
++		name = kmalloc(name_sz, gfp);
+ 		if (name) {
+-			sprintf(name, "%s//null-%s", parent->base.hname, base);
++			snprintf(name, name_sz, "%s//null-%s",
++				 parent->base.hname, base);
+ 			goto name;
+ 		}
+ 		/* fall through to try shorter uniq */
  	}
  
- out:
--	/*
--	 * Append "/" to the pathname.  The root directory is a special
--	 * case; it already ends in slash.
-+	/* Append "/" to directory paths, except for root "/" which
-+	 * already ends in a slash.
- 	 */
--	if (!error && isdir && ((*name)[1] != '\0' || (*name)[0] != '/'))
--		strcpy(&buf[aa_g_path_max - 2], "/");
-+	if (!error && isdir) {
-+		bool is_root = (*name)[0] == '/' && (*name)[1] == '\0';
-+
-+		if (!is_root)
-+			buf[aa_g_path_max - 2] = '/';
-+	}
+-	name = kmalloc(strlen(parent->base.hname) + 2 + 7 + 8, gfp);
++	name_sz = strlen(parent->base.hname) + 2 + 7 + 8;
++	name = kmalloc(name_sz, gfp);
+ 	if (!name)
+ 		return NULL;
+-	sprintf(name, "%s//null-%x", parent->base.hname,
+-		atomic_inc_return(&parent->ns->uniq_null));
++	snprintf(name, name_sz, "%s//null-%x", parent->base.hname,
++		 atomic_inc_return(&parent->ns->uniq_null));
  
- 	return error;
- }
+ name:
+ 	/* lookup to see if this is a dup creation */
 -- 
 2.51.0
 
