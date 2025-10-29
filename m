@@ -2,52 +2,65 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 937A3BFDC67
-	for <lists+apparmor@lfdr.de>; Wed, 22 Oct 2025 20:10:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59714C1F72C
+	for <lists+apparmor@lfdr.de>; Thu, 30 Oct 2025 11:07:56 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vBdHN-0004sB-Mc; Wed, 22 Oct 2025 18:09:45 +0000
-Received: from mail-vs1-f48.google.com ([209.85.217.48])
+	id 1vEPZL-0006dw-BP; Thu, 30 Oct 2025 10:07:47 +0000
+Received: from flow-b4-smtp.messagingengine.com ([202.12.124.139])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <alsaiditransport0@gmail.com>)
- id 1vBdHL-0004ri-0p
- for apparmor@lists.ubuntu.com; Wed, 22 Oct 2025 18:09:43 +0000
-Received: by mail-vs1-f48.google.com with SMTP id
- ada2fe7eead31-5d5fbfca7e2so1347725137.0
- for <apparmor@lists.ubuntu.com>; Wed, 22 Oct 2025 11:09:42 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761156581; x=1761761381;
- h=to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=cvIz8Iph7+P05LjfXwKsDVMO8YtktdD8pwKvSt1TDAE=;
- b=wCBSB/obEMHjyDKM2VS96UoIsxPZnwyQJ6qp6C4oyG73fw9/ZUiIZ7iSSEFat7BIGF
- IZkN84642V+bdiriybXXoDpCqK8Jpz4Uak1zYkehv3yggDanBSl5dgouhAUvjb6kD+Zq
- zZn9njNqdmXTalOR32Qa2FBbjzjr8fu+eDsYYLkVoxOsqYRr0v1MFx3tOWh64V27+Vk2
- Fs1KoC5nPCj/DupD2tX1kIXUPX5EElTVGZeb1hi9zzJZzSFM+81e/lW7PFKUsCVQj/ER
- ONwpNRVb9pRRV9xMdh512UPUtaAWf4NnCIi3o1eUBkrBEcD50w3xzvLqDqh4mZh/KFq0
- yWqQ==
-X-Gm-Message-State: AOJu0YztSPD4KzofSUn1gMXST/uqbM5yW1rtAm1FG+vfuAszl32xCRXy
- wFSYTGaP9NjllCuVgI+RJh/z+yxzEuZOBouSpLbi899gkF9TNDy+Gua5HvBVTAb7NDrMvIZCASf
- K4ecGufZOxaX67jGyLWsjQ5qMn3E0t0/Ai2t4/jc=
-X-Gm-Gg: ASbGncsneL+WBLw54m7P6lPZQdpUkjvcBIRb4FtfHV+nWaxFIWZNrUAZn3pPKQ9Gitg
- +E+xKz45xYsAUBGLEhnCesVrrF0pOUbpCqWzzq+P8Vk2MaBiuMNGjXjIAj/PbdDxh00TklAPVF/
- bE3jEDN+SxTxGw3d2cPOA1bwLyBqrkK8fX/gXfFI07LMpB0qgqGS2hd5dLNzr5OYirEPBunkKrr
- pYuYl5Xa2WCDnaxXfuRlSvUNcTea+csN2xywcETxbhL0O0+v3qdbfo/8ioxEZg=
-X-Google-Smtp-Source: AGHT+IGgVvCd3yXD+bUb9d+IMbxDTu1/BBfPWD9mjxzn/+p9GFuO9c/vPtSMNYSq0PGEfWvKIWV4J1zDmXxbwpRsA6w=
-X-Received: by 2002:a05:6102:3054:b0:529:7c2f:ceb5 with SMTP id
- ada2fe7eead31-5db1b3a878dmr1840710137.1.1761156581222; Wed, 22 Oct 2025
- 11:09:41 -0700 (PDT)
+ (Exim 4.86_2) (envelope-from <neilb@ownmail.net>) id 1vEFqE-0004dH-11
+ for apparmor@lists.ubuntu.com; Wed, 29 Oct 2025 23:44:34 +0000
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+ by mailflow.stl.internal (Postfix) with ESMTP id 7E41A1300085;
+ Wed, 29 Oct 2025 19:44:31 -0400 (EDT)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-09.internal (MEProxy); Wed, 29 Oct 2025 19:44:32 -0400
+X-ME-Sender: <xms:3aYCacW0EklVbBr52odzgwMIFadqVZiY_9E7tudg5vTOUlukGR89QQ>
+ <xme:3aYCaTdYh1VR4XWnn3OEfjhVRMW9llb0r_xZdVgEPJBMwC0guDDC5CXJvsrDKgSU3
+ O7sPHab5vsYfOwx2ifIrmOdATuza71bDXE5CgYxiEzhilZdiA>
+X-ME-Received: <xmr:3aYCaROZCepQe3Hu21UI6QwqCD0nSkfSZsBAwHrWmKgYq6O-H3DBzXb5QvKORxj1yfDg4BDFbGwZ_wxSs6RKBleyvZEnJ0v1TFpLhCQQZgBx>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggdduieehtdekucetufdoteggodetrf
+ dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+ rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
+ gurhephffvvefufffkofhrggfgsedtkeertdertddtnecuhfhrohhmpefpvghilheurhho
+ fihnuceonhgvihhlsgesohifnhhmrghilhdrnhgvtheqnecuggftrfgrthhtvghrnhepge
+ etfeegtddtvdeigfegueevfeelleelgfejueefueektdelieeikeevtdelveelnecuvehl
+ uhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepnhgvihhlsgesoh
+ ifnhhmrghilhdrnhgvthdpnhgspghrtghpthhtohepgedupdhmohguvgepshhmthhpohhu
+ thdprhgtphhtthhopehvihhrohesiigvnhhivhdrlhhinhhugidrohhrghdruhhkpdhrtg
+ hpthhtohepshgvlhhinhhugiesvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgtphhtthho
+ pehlihhnuhigqdigfhhssehvghgvrhdrkhgvrhhnvghlrdhorhhgpdhrtghpthhtoheplh
+ hinhhugidquhhnihhonhhfshesvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgtphhtthho
+ pehlihhnuhigqdhsvggtuhhrihhthidqmhhoughulhgvsehvghgvrhdrkhgvrhhnvghlrd
+ horhhgpdhrtghpthhtoheplhhinhhugidqnhhfshesvhhgvghrrdhkvghrnhgvlhdrohhr
+ ghdprhgtphhtthhopehlihhnuhigqdhkvghrnhgvlhesvhhgvghrrdhkvghrnhgvlhdroh
+ hrghdprhgtphhtthhopehlihhnuhigqdhfshguvghvvghlsehvghgvrhdrkhgvrhhnvghl
+ rdhorhhgpdhrtghpthhtoheplhhinhhugidqtghifhhssehvghgvrhdrkhgvrhhnvghlrd
+ horhhg
+X-ME-Proxy: <xmx:3aYCadIU3g7PRNyg0QpRBi516BNZpWSYBI7wNvYksLhLN5HboYbfKg>
+ <xmx:3aYCaUi8yMV9Wi329iHBU0ZD5tJV3Inub4fLYJfrLtuvM8baE8Z65g>
+ <xmx:3aYCaTfdaKHZTaBO_Bu6_k6dJq0TTIMOZXGLZvFcx2pwEZqLY08rbw>
+ <xmx:3aYCaU7RSF_CkX0ckxw-AONs1hAD9ap10WIuJvbkwYEEi3Piz-5pGg>
+ <xmx:36YCaR9pl7VkHXdYi10atgXk7DONC_H6TEfCcxqFVlKz7Swud_TD-zUd>
+Feedback-ID: iab3e480c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 29 Oct 2025 19:44:19 -0400 (EDT)
+From: NeilBrown <neilb@ownmail.net>
+To: "Alexander Viro" <viro@zeniv.linux.org.uk>,
+ "Christian Brauner" <brauner@kernel.org>,
+ "Amir Goldstein" <amir73il@gmail.com>
+Date: Thu, 30 Oct 2025 10:31:00 +1100
+Message-ID: <20251029234353.1321957-1-neilb@ownmail.net>
+X-Mailer: git-send-email 2.50.0.107.gf914562f5916.dirty
 MIME-Version: 1.0
-From: Alsaiditransport <alsaiditransport0@gmail.com>
-Date: Wed, 22 Oct 2025 21:09:28 +0300
-X-Gm-Features: AS18NWAxrB-eBWhIRbd3Kh8RR7SkoxVEXc7mQcLIuWc6yWRs4anq5zJ8T9LGzEA
-Message-ID: <CAEeabLMdwMxb=X-GdHhk5wE+3XDsB1USd4D7SY+_6JYiLdyZ5g@mail.gmail.com>
-To: apparmor@lists.ubuntu.com
-Content-Type: multipart/alternative; boundary="0000000000006aead50641c3384f"
-Received-SPF: pass client-ip=209.85.217.48;
- envelope-from=alsaiditransport0@gmail.com; helo=mail-vs1-f48.google.com
-Subject: [apparmor] =?utf-8?b?2YbZgtmEINi52YHYtCDYrNin2LLYp9mG?=
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=202.12.124.139; envelope-from=neilb@ownmail.net;
+ helo=flow-b4-smtp.messagingengine.com
+X-Mailman-Approved-At: Thu, 30 Oct 2025 10:07:43 +0000
+Subject: [apparmor] [PATCH v4 00/14] Create and use APIs to centralise
+	locking for directory ops.
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -59,173 +72,78 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Reply-To: NeilBrown <neil@brown.name>
+Cc: Jan Kara <jack@suse.cz>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ "Darrick J. Wong" <djwong@kernel.org>, Carlos Maiolino <cem@kernel.org>,
+ James Morris <jmorris@namei.org>, David Howells <dhowells@redhat.com>,
+ Chris Mason <clm@fb.com>, Danilo Krummrich <dakr@kernel.org>,
+ linux-cifs@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Miklos Szeredi <miklos@szeredi.hu>, Dai Ngo <Dai.Ngo@oracle.com>,
+ Tyler Hicks <code@tyhicks.com>, Steve French <smfrench@gmail.com>,
+ linux-unionfs@vger.kernel.org, Namjae Jeon <linkinjeon@kernel.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>, Olga Kornievskaia <okorniev@redhat.com>,
+ selinux@vger.kernel.org, ecryptfs@vger.kernel.org, apparmor@lists.ubuntu.com,
+ Mateusz Guzik <mjguzik@gmail.com>, David Sterba <dsterba@suse.com>,
+ linux-nfs@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Jeff Layton <jlayton@kernel.org>, Ondrej Mosnacek <omosnace@redhat.com>,
+ linux-kernel@vger.kernel.org, linux-xfs@vger.kernel.org,
+ Sergey Senozhatsky <senozhatsky@chromium.org>,
+ linux-security-module@vger.kernel.org, Chuck Lever <chuck.lever@oracle.com>,
+ linux-fsdevel@vger.kernel.org, netfs@lists.linux.dev,
+ Stefan Berger <stefanb@linux.ibm.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
---0000000000006aead50641c3384f
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Hi all,
 
-2LTYsdmD2Kkg2YbZgtmEINi52YHYtCDYrNin2LLYp9mG2LnZhtivINin2YTYp9mG2KrZgtin2YQg
-2YXZhiDZhdmG2LLZhCDYpdmE2Ykg2KLYrtix2Iwg2LPZiNin2KEg2K/Yp9iu2YQg2KzYp9iy2KfZ
-hiDYo9mIINil2YTZiSDYtdio2YrYpw0K2YjYtdin2YXYt9ip2Iwg2YrYudiq2KjYsSAq2YbZgtmE
-INin2YTYudmB2LQqINmF2YYg2KPZh9mFINin2YTYrti32YjYp9iqINin2YTYqtmKINiq2KrYt9mE
-2Kgg2KfZhNiq2K7Yt9mK2Lcg2YjYp9mE2K/ZgtipLiDYp9iu2KrZitin2LENCtin2YTYtNix2YPY
-qSDYp9mE2YXZhtin2LPYqNipINmK2YXZg9mGINij2YYg2YrYs9mH2ZHZhCDYp9mE2LnZhdmE2YrY
-qSDZiNmK2LbZhdmGINmI2LXZiNmEINij2KvYp9ir2YMg2KjYrdin2YTYqSDZhdmF2KrYp9iy2Kkg
-2K/ZiNmGINij2YoNCtiq2YTZgS4g2YHZiiDZh9iw2Kcg2KfZhNmF2YLYp9mE2Iwg2YbYs9iq2LnY
-sdi2INij2YHYttmEINin2YTYrtmK2KfYsdin2Kog2KfZhNmF2KrYp9it2Kkg2YHZiiDZh9iw2Ycg
-2KfZhNmF2YbYp9i32YLYjCDZhdi5INmG2LXYp9im2K0NCtmH2KfZhdipINmE2KrYs9mH2YrZhCDY
-p9mE2YbZgtmELg0KLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQoxLiDYo9mH2YXZitip
-INin2K7YqtmK2KfYsSDYtNix2YPYqSDZhtmC2YQg2LnZgdi0INmF2YjYq9mI2YLYqSDZgdmKINis
-2KfYstin2YYNCg0K2KrYudiq2KjYsSAq2LTYsdmD2Kkg2YbZgtmEINi52YHYtCDYrNin2LLYp9mG
-IDxodHRwczovL2FsLXNhaWRpdHJhbnNwb3J0LmluZm8vPiog2KfZhNiu2YrYp9ixINin2YTYo9mF
-2KvZhA0K2YTZhNij2YHYsdin2K8g2YjYp9mE2LnYp9im2YTYp9iqINmB2Yog2KzYp9iy2KfZhiDY
-p9mE2LDZitmGINmK2KjYrdir2YjZhiDYudmGINiu2K/ZhdipINi52KfZhNmK2Kkg2KfZhNis2YjY
-r9ipLiDYqtmI2YHYsSDYp9mE2LTYsdmD2KkNCtiu2K/Zhdin2Kog2LTYp9mF2YTYqSDYqti02YXZ
-hDoNCg0KICAgLQ0KDQogICDYp9mE2KrYudio2KbYqSDZiNin2YTYqti62YTZitmBINin2YTYp9it
-2KrYsdin2YHZiiDZhNmD2YQg2KPZhtmI2KfYuSDYp9mE2KPYq9in2KsNCiAgIC0NCg0KICAg2YbZ
-gtmEINin2YTYo9ir2KfYqyDYp9mE2KvZgtmK2YQg2YjYp9mE2YfYtCDYqNij2YXYp9mGDQogICAt
-DQoNCiAgINmB2LHZitmCINmF2K/YsdioINi52YTZiSDYp9mE2KrYudin2YXZhCDZhdi5INis2YXZ
-iti5INmF2LHYp9it2YQg2KfZhNmG2YLZhA0KDQrYp9i52KrZhdin2K/ZgyDYudmE2Ykg2LTYsdmD
-2Kkg2YXZiNir2YjZgtipINmK2YLZhNmEINmF2YYg2YXYrtin2LfYsSDYp9mE2KrZhNmBINmI2YrZ
-iNmB2LEg2KfZhNmI2YLYqiDZiNin2YTYrNmH2K8g2KPYq9mG2KfYoQ0K2KfZhNin2YbYqtmC2KfZ
-hC4NCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KMi4g2K7Yr9mF2KfYqiDZhtmC2YQg
-2KfZhNi52YHYtCDZgdmKINi12KfZhdi32KkNCg0K2YHZiiDYtdin2YXYt9ip2Iwg2KrYudiq2KjY
-sSAq2LTYsdmD2Kkg2YbZgtmEINi52YHYtCDYtdin2YXYt9ipDQo8aHR0cHM6Ly9hbC1zYWlkaXRy
-YW5zcG9ydC5pbmZvLyVEOCVCNCVEOCVCMSVEOSU4MyVEOCVBOS0lRDklODYlRDklODIlRDklODQt
-JUQ4JUI5JUQ5JTgxJUQ4JUI0LSVEOCVBOCVEOCVCNSVEOCVBNyVEOSU4NSVEOCVCNyVEOCVBOS8+
-Kg0K2YXZhiDYo9io2LHYsiDYp9mE2LTYsdmD2KfYqiDYp9mE2KrZiiDYqtmC2K/ZhSDYrdmE2YjZ
-hNin2Ysg2YXYqNiq2YPYsdipINmE2YbZgtmEINin2YTYo9ir2KfYqy4g2KPYqNix2LIg2YXYstin
-2YrYpyDYrtiv2YXYp9iq2YfYpzoNCg0KICAgLQ0KDQogICDYp9iz2KrYrtiv2KfZhSDYtNin2K3Z
-htin2Kog2YXYrNmH2LLYqSDYrti12YrYtdmL2Kcg2YTZhtmC2YQg2KfZhNi52YHYtA0KICAgLQ0K
-DQogICDYp9mE2KrYudio2KbYqSDZiNin2YTYqti62YTZitmBINio2KPYrdiv2Ksg2KfZhNij2LPY
-p9mE2YrYqCDZhNi22YXYp9mGINin2YTYrdmF2KfZitipDQogICAtDQoNCiAgINiu2YrYp9ix2KfY
-qiDZhdix2YbYqSDYqtmG2KfYs9ioINmF2K7YqtmE2YEg2KfZhNmF2YrYstin2YbZitin2KoNCg0K
-2YPZhdinINiq2YjZgdixINin2YTYtNix2YPYqSDYp9iz2KrYtNin2LHYp9iqINmC2KjZhCDYudmF
-2YTZitipINin2YTZhtmC2YQg2YTYqtit2K/ZitivINij2YHYttmEINin2YTYt9ix2YIg2YjYp9mE
-2KzYr9mI2YQg2KfZhNiy2YXZhtmKDQrZhNmE2KfZhtiq2YLYp9mELg0KLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tDQozLiDZhtmC2YQg2KfZhNi52YHYtCDZgdmKINi12KjZitinOiDYo9mF
-2KfZhiDZiNiz2LHYudipDQoNCtmE2LbZhdin2YYg2YbZgtmEINin2YTYudmB2LQg2KjYo9mF2KfZ
-hiDZgdmKINi12KjZitin2Iwg2KrYudivICrYtNix2YPYqSDZhtmC2YQg2LnZgdi0INi12KjZitin
-DQo8aHR0cHM6Ly9hbC1zYWlkaXRyYW5zcG9ydC5pbmZvLyVEOCVCNCVEOCVCMSVEOSU4MyVEOCVB
-OS0lRDklODYlRDklODIlRDklODQtJUQ4JUI5JUQ5JTgxJUQ4JUI0LSVEOCVBOCVEOCVCNSVEOCVB
-OCVEOSU4QSVEOCVBNy0lRDglQTUlRDklODQlRDklOEElRDklODMlRDklODUtJUQ4JUEzJUQ5JTg3
-JUQ5JTg1LSVEOCVBNyVEOSU4NCVEOCVCNCVEOCVCMSVEOSU4MyVEOCVBNyVEOCVBQS8+Kg0K2YXZ
-hiDYo9io2LHYsiDYp9mE2K7Zitin2LHYp9iqLiDYqtmC2K/ZhSDYp9mE2LTYsdmD2Kk6DQoNCiAg
-IC0NCg0KICAg2K7Yr9mF2KfYqiDZhtmC2YQg2YXYqtmD2KfZhdmE2Kkg2YXZhiDYp9mE2KrYudio
-2KbYqSDYrdiq2Ykg2KfZhNiq2LPZhNmK2YUNCiAgIC0NCg0KICAg2YHYsdmK2YIg2YXYqtiu2LXY
-tSDZhNmE2KrYudin2YXZhCDZhdi5INin2YTYo9ir2KfYqyDYp9mE2YfYtCDZiNin2YTYrdiz2KfY
-sw0KICAgLQ0KDQogICDYttmF2KfZhiDZiNi12YjZhCDYp9mE2LnZgdi0INio2K3Yp9mE2KrZhyDY
-p9mE2KPYtdmE2YrYqSDYr9mI2YYg2KPZiiDYrtiv2YjYtA0KDQrYp9i52KrZhdin2K8g2KfZhNi0
-2LHZg9ipINmK2LbZhdmGINiq2KzYsdio2Kkg2KfZhtiq2YLYp9mEINiz2YTYs9ip2Iwg2YXZiNmB
-2LHYqSDZhNmE2YjZgtiqINmI2KfZhNis2YfYr9iMINmF2Lkg2KfZhNit2YHYp9i4INi52YTZiQ0K
-2LPZhNin2YXYqSDYrNmF2YrYuSDZhdmF2KrZhNmD2KfYqtmDLg0KLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tDQo0LiDZhti12KfYptitINmH2KfZhdipINmC2KjZhCDZiNij2KvZhtin2KEg
-2KfZhNmG2YLZhA0KDQogICAtDQoNCiAgICrYp9mE2KrYrti32YrYtyDYp9mE2YXYs9io2YIqOiDY
-tti5INiu2LfYqSDZg9in2YXZhNipINmE2YTZhtmC2YQg2KrYrdiv2K8g2YPZhCDZgti32LnYqSDY
-o9ir2KfYqyDZiNmF2LPYp9ix2YfYpw0KICAgLQ0KDQogICAq2KfZhNiq2LnYqNim2Kkg2KfZhNiw
-2YPZitipKjog2KfYs9iq2K7Yr9mFINmF2YjYp9ivINin2YTYqti62YTZitmBINin2YTZhdmG2KfY
-s9io2Kkg2YTZg9mEINmG2YjYuSDZhdmGINin2YTYudmB2LQNCiAgIC0NCg0KICAgKtin2YTYqtij
-2YXZitmGINi52YTZiSDYp9mE2KPYq9in2KsqOiDZhNiq2KzZhtioINij2Yog2K7Ys9in2KbYsSDZ
-hdin2YTZitipINmF2K3YqtmF2YTYqQ0KDQrYqNin2KrYqNin2Lkg2YfYsNmHINin2YTZhti12KfY
-ptitINmI2KfYrtiq2YrYp9ixINin2YTYtNix2YPYp9iqINin2YTZhdmG2KfYs9io2Kkg2YHZiiDZ
-g9mEINmF2YbYt9mC2KnYjCDZitmF2YPZhtmDINi22YXYp9mGINiq2KzYsdio2KkNCtmG2YLZhCDY
-s9mE2LPYqSDZiNii2YXZhtipLg0KLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQo1LiDY
-p9mE2K7ZhNin2LXYqQ0KDQrYp9iu2KrZitin2LEg2LTYsdmD2Kkg2YbZgtmEINi52YHYtCDZhdit
-2KrYsdmB2Kkg2YHZiiDYrNin2LLYp9mGINmI2LXYqNmK2Kcg2YjYtdin2YXYt9ipINmK2KzYudmE
-INi52YXZhNmK2Kkg2KfZhNin2YbYqtmC2KfZhCDYo9iz2YfZhA0K2YjYo9mD2KvYsSDYo9mF2KfZ
-htmL2KcuINin2YTYqtiu2LfZiti3INin2YTYrNmK2K/YjCDYp9mE2KrYudio2KbYqSDYp9mE2LXY
-rdmK2K3YqdiMINmI2KfYs9iq2K7Yr9in2YUg2KfZhNmF2LnYr9in2Kog2KfZhNit2K/Zitir2KnY
-jA0K2YPZhNmH2Kcg2LnZiNin2YXZhCDYqti22YXZhiDZiNi12YjZhCDYo9ir2KfYq9mDINio2K3Y
-p9mE2KrZhyDYp9mE2KPYtdmE2YrYqSDZhdi5INiq2YLZhNmK2YQg2KfZhNmI2YLYqiDZiNin2YTY
-rNmH2K8g2KfZhNmF2KjYsNmI2YQNCtij2KvZhtin2KEg2KfZhNmG2YLZhC4NCi0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLQ0K
---0000000000006aead50641c3384f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: base64
+ this series is the next part of my effort to change directory-op
+ locking to allow multiple concurrent ops in a directory.  Ultimately we
+ will (in my plan) lock the target dentry(s) rather than the whole
+ parent directory.
 
-PGRpdiBkaXI9Imx0ciI+PHA+PC9wPg0KPGgxIGRpcj0icnRsIj7YtNix2YPYqSDZhtmC2YQg2LnZ
-gdi0INis2KfYstin2YY8L2gxPjxoMSBkaXI9InJ0bCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZTpz
-bWFsbDtmb250LXdlaWdodDpub3JtYWwiPti52YbYryDYp9mE2KfZhtiq2YLYp9mEINmF2YYg2YXZ
-htiy2YQg2KXZhNmJINii2K7YsdiMINiz2YjYp9ihINiv2KfYrtmEINis2KfYstin2YYg2KPZiCDY
-pdmE2Ykg2LXYqNmK2Kcg2YjYtdin2YXYt9ip2Iwg2YrYudiq2KjYsSA8L3NwYW4+PHN0cm9uZyBz
-dHlsZT0iZm9udC1zaXplOnNtYWxsIj7ZhtmC2YQg2KfZhNi52YHYtDwvc3Ryb25nPjxzcGFuIHN0
-eWxlPSJmb250LXNpemU6c21hbGw7Zm9udC13ZWlnaHQ6bm9ybWFsIj4g2YXZhiDYo9mH2YUg2KfZ
-hNiu2LfZiNin2Kog2KfZhNiq2Yog2KrYqti32YTYqCDYp9mE2KrYrti32YrYtyDZiNin2YTYr9mC
-2KkuINin2K7YqtmK2KfYsSDYp9mE2LTYsdmD2Kkg2KfZhNmF2YbYp9iz2KjYqSDZitmF2YPZhiDY
-o9mGINmK2LPZh9mR2YQg2KfZhNi52YXZhNmK2Kkg2YjZiti22YXZhiDZiNi12YjZhCDYo9ir2KfY
-q9mDINio2K3Yp9mE2Kkg2YXZhdiq2KfYstipINiv2YjZhiDYo9mKINiq2YTZgS4g2YHZiiDZh9iw
-2Kcg2KfZhNmF2YLYp9mE2Iwg2YbYs9iq2LnYsdi2INij2YHYttmEINin2YTYrtmK2KfYsdin2Kog
-2KfZhNmF2KrYp9it2Kkg2YHZiiDZh9iw2Ycg2KfZhNmF2YbYp9i32YLYjCDZhdi5INmG2LXYp9im
-2K0g2YfYp9mF2Kkg2YTYqtiz2YfZitmEINin2YTZhtmC2YQuPC9zcGFuPjwvaDE+DQo8aHI+DQo8
-aDI+MS4g2KPZh9mF2YrYqSDYp9iu2KrZitin2LEg2LTYsdmD2Kkg2YbZgtmEINi52YHYtCDZhdmI
-2KvZiNmC2Kkg2YHZiiDYrNin2LLYp9mGPC9oMj4NCjxwPtiq2LnYqtio2LEgPHN0cm9uZz48YSBo
-cmVmPSJodHRwczovL2FsLXNhaWRpdHJhbnNwb3J0LmluZm8vIj7YtNix2YPYqSDZhtmC2YQg2LnZ
-gdi0INis2KfYstin2YY8L2E+PC9zdHJvbmc+INin2YTYrtmK2KfYsSDYp9mE2KPZhdir2YQg2YTZ
-hNij2YHYsdin2K8g2YjYp9mE2LnYp9im2YTYp9iqINmB2Yog2KzYp9iy2KfZhiDYp9mE2LDZitmG
-INmK2KjYrdir2YjZhiDYudmGINiu2K/ZhdipINi52KfZhNmK2Kkg2KfZhNis2YjYr9ipLiDYqtmI
-2YHYsSDYp9mE2LTYsdmD2Kkg2K7Yr9mF2KfYqiDYtNin2YXZhNipINiq2LTZhdmEOjwvcD4NCjx1
-bD4NCjxsaT4NCjxwPtin2YTYqti52KjYptipINmI2KfZhNiq2LrZhNmK2YEg2KfZhNin2K3Yqtix
-2KfZgdmKINmE2YPZhCDYo9mG2YjYp9i5INin2YTYo9ir2KfYqzwvcD4NCjwvbGk+DQo8bGk+DQo8
-cD7ZhtmC2YQg2KfZhNij2KvYp9irINin2YTYq9mC2YrZhCDZiNin2YTZh9i0INio2KPZhdin2YY8
-L3A+DQo8L2xpPg0KPGxpPg0KPHA+2YHYsdmK2YIg2YXYr9ix2Kgg2LnZhNmJINin2YTYqti52KfZ
-hdmEINmF2Lkg2KzZhdmK2Lkg2YXYsdin2K3ZhCDYp9mE2YbZgtmEPC9wPg0KPC9saT4NCjwvdWw+
-DQo8cD7Yp9i52KrZhdin2K/ZgyDYudmE2Ykg2LTYsdmD2Kkg2YXZiNir2YjZgtipINmK2YLZhNmE
-INmF2YYg2YXYrtin2LfYsSDYp9mE2KrZhNmBINmI2YrZiNmB2LEg2KfZhNmI2YLYqiDZiNin2YTY
-rNmH2K8g2KPYq9mG2KfYoSDYp9mE2KfZhtiq2YLYp9mELjwvcD4NCjxocj4NCjxoMj4yLiDYrtiv
-2YXYp9iqINmG2YLZhCDYp9mE2LnZgdi0INmB2Yog2LXYp9mF2LfYqTwvaDI+DQo8cD7ZgdmKINi1
-2KfZhdi32KnYjCDYqti52KrYqNixIDxzdHJvbmc+PGEgaHJlZj0iaHR0cHM6Ly9hbC1zYWlkaXRy
-YW5zcG9ydC5pbmZvLyVEOCVCNCVEOCVCMSVEOSU4MyVEOCVBOS0lRDklODYlRDklODIlRDklODQt
-JUQ4JUI5JUQ5JTgxJUQ4JUI0LSVEOCVBOCVEOCVCNSVEOCVBNyVEOSU4NSVEOCVCNyVEOCVBOS8i
-Pti02LHZg9ipINmG2YLZhCDYudmB2LQg2LXYp9mF2LfYqTwvYT48L3N0cm9uZz4g2YXZhiDYo9io
-2LHYsiDYp9mE2LTYsdmD2KfYqiDYp9mE2KrZiiDYqtmC2K/ZhSDYrdmE2YjZhNin2Ysg2YXYqNiq
-2YPYsdipINmE2YbZgtmEINin2YTYo9ir2KfYqy4g2KPYqNix2LIg2YXYstin2YrYpyDYrtiv2YXY
-p9iq2YfYpzo8L3A+DQo8dWw+DQo8bGk+DQo8cD7Yp9iz2KrYrtiv2KfZhSDYtNin2K3Zhtin2Kog
-2YXYrNmH2LLYqSDYrti12YrYtdmL2Kcg2YTZhtmC2YQg2KfZhNi52YHYtDwvcD4NCjwvbGk+DQo8
-bGk+DQo8cD7Yp9mE2KrYudio2KbYqSDZiNin2YTYqti62YTZitmBINio2KPYrdiv2Ksg2KfZhNij
-2LPYp9mE2YrYqCDZhNi22YXYp9mGINin2YTYrdmF2KfZitipPC9wPg0KPC9saT4NCjxsaT4NCjxw
-Ptiu2YrYp9ix2KfYqiDZhdix2YbYqSDYqtmG2KfYs9ioINmF2K7YqtmE2YEg2KfZhNmF2YrYstin
-2YbZitin2Ko8L3A+DQo8L2xpPg0KPC91bD4NCjxwPtmD2YXYpyDYqtmI2YHYsSDYp9mE2LTYsdmD
-2Kkg2KfYs9iq2LTYp9ix2KfYqiDZgtio2YQg2LnZhdmE2YrYqSDYp9mE2YbZgtmEINmE2KrYrdiv
-2YrYryDYo9mB2LbZhCDYp9mE2LfYsdmCINmI2KfZhNis2K/ZiNmEINin2YTYstmF2YbZiiDZhNmE
-2KfZhtiq2YLYp9mELjwvcD4NCjxocj4NCjxoMj4zLiDZhtmC2YQg2KfZhNi52YHYtCDZgdmKINi1
-2KjZitinOiDYo9mF2KfZhiDZiNiz2LHYudipPC9oMj4NCjxwPtmE2LbZhdin2YYg2YbZgtmEINin
-2YTYudmB2LQg2KjYo9mF2KfZhiDZgdmKINi12KjZitin2Iwg2KrYudivIDxzdHJvbmc+PGEgaHJl
-Zj0iaHR0cHM6Ly9hbC1zYWlkaXRyYW5zcG9ydC5pbmZvLyVEOCVCNCVEOCVCMSVEOSU4MyVEOCVB
-OS0lRDklODYlRDklODIlRDklODQtJUQ4JUI5JUQ5JTgxJUQ4JUI0LSVEOCVBOCVEOCVCNSVEOCVB
-OCVEOSU4QSVEOCVBNy0lRDglQTUlRDklODQlRDklOEElRDklODMlRDklODUtJUQ4JUEzJUQ5JTg3
-JUQ5JTg1LSVEOCVBNyVEOSU4NCVEOCVCNCVEOCVCMSVEOSU4MyVEOCVBNyVEOCVBQS8iPti02LHZ
-g9ipINmG2YLZhCDYudmB2LQg2LXYqNmK2Kc8L2E+PC9zdHJvbmc+INmF2YYg2KPYqNix2LIg2KfZ
-hNiu2YrYp9ix2KfYqi4g2KrZgtiv2YUg2KfZhNi02LHZg9ipOjwvcD4NCjx1bD4NCjxsaT4NCjxw
-Ptiu2K/Zhdin2Kog2YbZgtmEINmF2KrZg9in2YXZhNipINmF2YYg2KfZhNiq2LnYqNim2Kkg2K3Y
-qtmJINin2YTYqtiz2YTZitmFPC9wPg0KPC9saT4NCjxsaT4NCjxwPtmB2LHZitmCINmF2KrYrti1
-2LUg2YTZhNiq2LnYp9mF2YQg2YXYuSDYp9mE2KPYq9in2Ksg2KfZhNmH2LQg2YjYp9mE2K3Ys9in
-2LM8L3A+DQo8L2xpPg0KPGxpPg0KPHA+2LbZhdin2YYg2YjYtdmI2YQg2KfZhNi52YHYtCDYqNit
-2KfZhNiq2Ycg2KfZhNij2LXZhNmK2Kkg2K/ZiNmGINij2Yog2K7Yr9mI2LQ8L3A+DQo8L2xpPg0K
-PC91bD4NCjxwPtin2LnYqtmF2KfYryDYp9mE2LTYsdmD2Kkg2YrYttmF2YYg2KrYrNix2KjYqSDY
-p9mG2KrZgtin2YQg2LPZhNiz2KnYjCDZhdmI2YHYsdipINmE2YTZiNmC2Kog2YjYp9mE2KzZh9iv
-2Iwg2YXYuSDYp9mE2K3Zgdin2Lgg2LnZhNmJINiz2YTYp9mF2Kkg2KzZhdmK2Lkg2YXZhdiq2YTZ
-g9in2KrZgy48L3A+DQo8aHI+DQo8aDI+NC4g2YbYtdin2KbYrSDZh9in2YXYqSDZgtio2YQg2YjY
-o9ir2YbYp9ihINin2YTZhtmC2YQ8L2gyPg0KPHVsPg0KPGxpPg0KPHA+PHN0cm9uZz7Yp9mE2KrY
-rti32YrYtyDYp9mE2YXYs9io2YI8L3N0cm9uZz46INi22Lkg2K7Yt9ipINmD2KfZhdmE2Kkg2YTZ
-hNmG2YLZhCDYqtit2K/YryDZg9mEINmC2LfYudipINij2KvYp9irINmI2YXYs9in2LHZh9inPC9w
-Pg0KPC9saT4NCjxsaT4NCjxwPjxzdHJvbmc+2KfZhNiq2LnYqNim2Kkg2KfZhNiw2YPZitipPC9z
-dHJvbmc+OiDYp9iz2KrYrtiv2YUg2YXZiNin2K8g2KfZhNiq2LrZhNmK2YEg2KfZhNmF2YbYp9iz
-2KjYqSDZhNmD2YQg2YbZiNi5INmF2YYg2KfZhNi52YHYtDwvcD4NCjwvbGk+DQo8bGk+DQo8cD48
-c3Ryb25nPtin2YTYqtij2YXZitmGINi52YTZiSDYp9mE2KPYq9in2Ks8L3N0cm9uZz46INmE2KrY
-rNmG2Kgg2KPZiiDYrtiz2KfYptixINmF2KfZhNmK2Kkg2YXYrdiq2YXZhNipPC9wPg0KPC9saT4N
-CjwvdWw+DQo8cD7YqNin2KrYqNin2Lkg2YfYsNmHINin2YTZhti12KfYptitINmI2KfYrtiq2YrY
-p9ixINin2YTYtNix2YPYp9iqINin2YTZhdmG2KfYs9io2Kkg2YHZiiDZg9mEINmF2YbYt9mC2KnY
-jCDZitmF2YPZhtmDINi22YXYp9mGINiq2KzYsdio2Kkg2YbZgtmEINiz2YTYs9ipINmI2KLZhdmG
-2KkuPC9wPg0KPGhyPg0KPGgyPjUuINin2YTYrtmE2KfYtdipPC9oMj4NCjxwPtin2K7YqtmK2KfY
-sSDYtNix2YPYqSDZhtmC2YQg2LnZgdi0INmF2K3Yqtix2YHYqSDZgdmKINis2KfYstin2YYg2YjY
-tdio2YrYpyDZiNi12KfZhdi32Kkg2YrYrNi52YQg2LnZhdmE2YrYqSDYp9mE2KfZhtiq2YLYp9mE
-INij2LPZh9mEINmI2KPZg9ir2LEg2KPZhdin2YbZi9inLiDYp9mE2KrYrti32YrYtyDYp9mE2KzZ
-itiv2Iwg2KfZhNiq2LnYqNim2Kkg2KfZhNi12K3Zitit2KnYjCDZiNin2LPYqtiu2K/Yp9mFINin
-2YTZhdi52K/Yp9iqINin2YTYrdiv2YrYq9ip2Iwg2YPZhNmH2Kcg2LnZiNin2YXZhCDYqti22YXZ
-hiDZiNi12YjZhCDYo9ir2KfYq9mDINio2K3Yp9mE2KrZhyDYp9mE2KPYtdmE2YrYqSDZhdi5INiq
-2YLZhNmK2YQg2KfZhNmI2YLYqiDZiNin2YTYrNmH2K8g2KfZhNmF2KjYsNmI2YQg2KPYq9mG2KfY
-oSDYp9mE2YbZgtmELjwvcD4NCjxocj4NCjxwPjxicj48L3A+PC9kaXY+DQo=
---0000000000006aead50641c3384f--
+ To help with changing the locking protocol, this series centralises
+ locking and lookup in some helpers.  The various helpers are introduced
+ and then used in the same patch - roughly one patch per helper though
+ with various exceptions.
+
+ I haven't introduced these helpers into the various filesystems that
+ Al's tree-in-dcache series is changing.  That series introduces and
+ uses similar helpers tuned to the specific needs of that set of
+ filesystems.  Ultimately all the helpers will use the same backends
+ which can then be adjusted when it is time to change the locking
+ protocol.
+
+ One change that deserves highlighting is in patch 13 where vfs_mkdir()
+ is changed to unlock the parent on failure, as well as the current
+ behaviour of dput()ing the dentry on failure.  Once this change is in
+ place, the final step of both create and an remove sequences only
+ requires the target dentry, not the parent.  So e.g.  end_creating() is
+ only given the dentry (which may be IS_ERR() after vfs_mkdir()).  This
+ helps establish the pattern that it is the dentry that is being locked
+ and unlocked (the lock is currently held on dentry->d_parent->d_inode,
+ but that can change).
+
+ Please review the changes I've made to your respective code areas and
+ let us know of any problems.
+
+Thanks,
+NeilBrown
+
+
+ [PATCH v4 01/14] debugfs: rename end_creating() to
+ [PATCH v4 02/14] VFS: introduce start_dirop() and end_dirop()
+ [PATCH v4 03/14] VFS: tidy up do_unlinkat()
+ [PATCH v4 04/14] VFS/nfsd/cachefiles/ovl: add start_creating() and
+ [PATCH v4 05/14] VFS/nfsd/cachefiles/ovl: introduce start_removing()
+ [PATCH v4 06/14] VFS: introduce start_creating_noperm() and
+ [PATCH v4 07/14] VFS: introduce start_removing_dentry()
+ [PATCH v4 08/14] VFS: add start_creating_killable() and
+ [PATCH v4 09/14] VFS/nfsd/ovl: introduce start_renaming() and
+ [PATCH v4 10/14] VFS/ovl/smb: introduce start_renaming_dentry()
+ [PATCH v4 11/14] Add start_renaming_two_dentries()
+ [PATCH v4 12/14] ecryptfs: use new start_creating/start_removing APIs
+ [PATCH v4 13/14] VFS: change vfs_mkdir() to unlock on failure.
+ [PATCH v4 14/14] VFS: introduce end_creating_keep()
 
