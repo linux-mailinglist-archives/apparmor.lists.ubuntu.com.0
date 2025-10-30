@@ -2,34 +2,33 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24AF3C1F737
-	for <lists+apparmor@lfdr.de>; Thu, 30 Oct 2025 11:07:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AF42C1F73B
+	for <lists+apparmor@lfdr.de>; Thu, 30 Oct 2025 11:08:00 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vEPZP-0006hd-6K; Thu, 30 Oct 2025 10:07:51 +0000
+	id 1vEPZL-0006eO-Vp; Thu, 30 Oct 2025 10:07:47 +0000
 Received: from zeniv.linux.org.uk ([62.89.141.173])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <viro@ftp.linux.org.uk>)
- id 1vELtR-0001kQ-Ql
- for apparmor@lists.ubuntu.com; Thu, 30 Oct 2025 06:12:17 +0000
+ id 1vEM3E-0002Uz-2A
+ for apparmor@lists.ubuntu.com; Thu, 30 Oct 2025 06:22:24 +0000
 Received: from viro by zeniv.linux.org.uk with local (Exim 4.98.2 #2 (Red Hat
- Linux)) id 1vELt9-00000008mUB-2sjF; Thu, 30 Oct 2025 06:11:59 +0000
-Date: Thu, 30 Oct 2025 06:11:59 +0000
+ Linux)) id 1vEM34-00000008yCG-1FE4; Thu, 30 Oct 2025 06:22:14 +0000
+Date: Thu, 30 Oct 2025 06:22:14 +0000
 From: Al Viro <viro@zeniv.linux.org.uk>
 To: NeilBrown <neil@brown.name>
-Message-ID: <20251030061159.GV2441659@ZenIV>
+Message-ID: <20251030062214.GW2441659@ZenIV>
 References: <20251029234353.1321957-1-neilb@ownmail.net>
- <20251029234353.1321957-8-neilb@ownmail.net>
+ <20251029234353.1321957-12-neilb@ownmail.net>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20251029234353.1321957-8-neilb@ownmail.net>
+In-Reply-To: <20251029234353.1321957-12-neilb@ownmail.net>
 Received-SPF: none client-ip=62.89.141.173; envelope-from=viro@ftp.linux.org.uk;
  helo=zeniv.linux.org.uk
 X-Mailman-Approved-At: Thu, 30 Oct 2025 10:07:44 +0000
-Subject: Re: [apparmor] [PATCH v4 07/14] VFS: introduce
-	start_removing_dentry()
+Subject: Re: [apparmor] [PATCH v4 11/14] Add start_renaming_two_dentries()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -65,29 +64,57 @@ Cc: Jan Kara <jack@suse.cz>, "Rafael J. Wysocki" <rafael@kernel.org>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On Thu, Oct 30, 2025 at 10:31:07AM +1100, NeilBrown wrote:
+On Thu, Oct 30, 2025 at 10:31:11AM +1100, NeilBrown wrote:
 
-> @@ -428,11 +429,14 @@ static bool cachefiles_invalidate_cookie(struct fscache_cookie *cookie)
->  		if (!old_tmpfile) {
->  			struct cachefiles_volume *volume = object->volume;
->  			struct dentry *fan = volume->fanout[(u8)cookie->key_hash];
-> -
-> -			inode_lock_nested(d_inode(fan), I_MUTEX_PARENT);
-> -			cachefiles_bury_object(volume->cache, object, fan,
-> -					       old_file->f_path.dentry,
-> -					       FSCACHE_OBJECT_INVALIDATED);
-> +			struct dentry *obj;
-> +
-> +			obj = start_removing_dentry(fan, old_file->f_path.dentry);
-> +			if (!IS_ERR(obj))
-> +				cachefiles_bury_object(volume->cache, object,
-> +						       fan, obj,
-> +						       FSCACHE_OBJECT_INVALIDATED);
-> +			end_removing(obj);
+> +++ b/fs/debugfs/inode.c
 
-Huh?  Where did you change cachefiles_bury_object to *not* unlock the parent?
-Not in this commit, AFAICS, and that means at least a bisection hazard around
-here...
+Why does debugfs_change_name() need any of that horror?  Seriously, WTF?
+This is strictly a name change on a filesystem that never, ever moves
+anything from one directory to another.
 
-Confused...
+IMO struct renamedata is a fucking eyesore, but that aside, this:
+
+> @@ -539,22 +540,30 @@ static int sel_make_policy_nodes(struct selinux_fs_info *fsi,
+>  	if (ret)
+>  		goto out;
+>  
+> -	lock_rename(tmp_parent, fsi->sb->s_root);
+> +	rd.old_parent = tmp_parent;
+> +	rd.new_parent = fsi->sb->s_root;
+>  
+>  	/* booleans */
+> -	d_exchange(tmp_bool_dir, fsi->bool_dir);
+> +	ret = start_renaming_two_dentries(&rd, tmp_bool_dir, fsi->bool_dir);
+> +	if (!ret) {
+> +		d_exchange(tmp_bool_dir, fsi->bool_dir);
+>  
+> -	swap(fsi->bool_num, bool_num);
+> -	swap(fsi->bool_pending_names, bool_names);
+> -	swap(fsi->bool_pending_values, bool_values);
+> +		swap(fsi->bool_num, bool_num);
+> +		swap(fsi->bool_pending_names, bool_names);
+> +		swap(fsi->bool_pending_values, bool_values);
+>  
+> -	fsi->bool_dir = tmp_bool_dir;
+> +		fsi->bool_dir = tmp_bool_dir;
+> +		end_renaming(&rd);
+> +	}
+>  
+>  	/* classes */
+> -	d_exchange(tmp_class_dir, fsi->class_dir);
+> -	fsi->class_dir = tmp_class_dir;
+> +	ret = start_renaming_two_dentries(&rd, tmp_class_dir, fsi->class_dir);
+> +	if (ret == 0) {
+> +		d_exchange(tmp_class_dir, fsi->class_dir);
+> +		fsi->class_dir = tmp_class_dir;
+>  
+> -	unlock_rename(tmp_parent, fsi->sb->s_root);
+> +		end_renaming(&rd);
+> +	}
+>  
+>  out:
+>  	sel_remove_old_bool_data(bool_num, bool_names, bool_values);
+
+is very interesting - suddenly you get two non-overlapping scopes instead of one.
+Why is that OK?
 
