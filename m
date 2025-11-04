@@ -2,52 +2,80 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 403CCC2F4F9
-	for <lists+apparmor@lfdr.de>; Tue, 04 Nov 2025 05:43:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5A3DC31941
+	for <lists+apparmor@lfdr.de>; Tue, 04 Nov 2025 15:42:11 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vG8sf-00028D-MV; Tue, 04 Nov 2025 04:42:53 +0000
-Received: from mail-vs1-f41.google.com ([209.85.217.41])
+	id 1vGIEM-0003gX-HP; Tue, 04 Nov 2025 14:41:54 +0000
+Received: from sonic313-14.consmr.mail.ne1.yahoo.com ([66.163.185.37])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <alsaiditransport0@gmail.com>)
- id 1vG8sd-00027u-3m
- for apparmor@lists.ubuntu.com; Tue, 04 Nov 2025 04:42:51 +0000
-Received: by mail-vs1-f41.google.com with SMTP id
- ada2fe7eead31-5dbddd71c46so649846137.2
- for <apparmor@lists.ubuntu.com>; Mon, 03 Nov 2025 20:42:50 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762231369; x=1762836169;
- h=to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=sW9CPzcgKyz90ekHT/sTlYtuOQd+wlbixg2FfMV4OEM=;
- b=B+03b5Gp0h6il+Ors4v+QxgQigAyEq3euibskLD16KLCqoXuzDV8jkr6QRdjLkd3Rd
- VZKsKf2yD/tyhiQmfa7kHSYQjdmLRbQOGkBrm6LXVz+9QsM6MbM5GSjgN8Yo3cIXktGi
- 2XRGPqalG3NJ+xGD3D3MU0QnSHPvvO0NtgiPtZThTrmcCZ8s+L8O0/k+QseCVaS7tauG
- +dTa6mtU+HCEtRtoudPg4jx7sfr26AVKv5sWUIStMeKcjhumjgDnvlXviwZ2hodHoBVE
- afHSv73EnO3DqdoVNVYdP0tDb7htbjR3/HFijojO8GQuiU2Xu4XrbW7kh9VJifVUyNOT
- ovsg==
-X-Gm-Message-State: AOJu0YxfLfIGadnkCuYgRv8M2R7oKGbtct5ccyMCmtQniwl4t2KF5yiV
- sy5f4arHedJC1tf2WgKYBCJHgZJFagMa01VE7ZydgDHCukTxtBqsZRyCSFOYPBk5TGBWx4SptNt
- yPKl5OchcFTCjQkPosUARhul8tPMRYnwiVXiLsKQ=
-X-Gm-Gg: ASbGncsaM2clEXNQblfQGk07mFRVewLIxhi34yAM9+Oi7RcnPWuidnShs1H5T/GheUA
- k9IFgD3lcVn9ftRb88kpbizt14yzIdeMA9+8NXggm3rq4OA8xUgwZHbYSIxYYvRiGNTCmVUD+gI
- SIhQ9nSZqqfgBwS10X6QnNM48dJ/Oo+YauhR1ujMhVWaqfrMxP5p63WePKG3en6lPdoEM0tkbqn
- bsdn/dGg5es2YNXWKbbAdpRC4lL1n63zWGseXm5s4JI+tYm6EpcAPQyqkibfIc=
-X-Google-Smtp-Source: AGHT+IHEexci2I7viji5n1GNRNRBEdwKFgZY6Ku4m0sRMHzbbKIIKogPUeOnnOZQMHcYez25fqg8h5Lm+03rWU8ETGg=
-X-Received: by 2002:a05:6102:cc6:b0:5d6:676:2af with SMTP id
- ada2fe7eead31-5dbb120ba74mr4069918137.12.1762231369413; Mon, 03 Nov 2025
- 20:42:49 -0800 (PST)
+ (Exim 4.86_2) (envelope-from <casey@schaufler-ca.com>)
+ id 1vGIEJ-0003Zb-W1
+ for apparmor@lists.ubuntu.com; Tue, 04 Nov 2025 14:41:52 +0000
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1762267310; bh=zCePZtJ8RGx6GQDV3V6c0HbTlPF5Ux5OmI6yCWPcO2D=;
+ h=X-Sonic-MF:Date:Subject:To:From:From:Subject;
+ b=tz66av+Lm9cMn9lrnXYiLv6Bp81YoxH++GItp1uy4napXSIbzoHdb0ypvWJlu+IQP7E7yH/UyLlizFpAHHtChf8lEpT6oHyuBXKbLMJ40tuH/pSbAS/XgoLGOcVfxC7J0VHEwNcJ2mcSs3CF4SfhPHnM36P5CJxWlSfHOiVdI1fz05IBAU4i6sT/YVzsp/LrQenB9K0KVmHngnk1BpP+pWqu0EFQHBxaNg5N6YRGp+8jjQbht64HdFJidFEquQWmAM129xZkheArxxBf7WaV3J2Nu8DUOyl2fTCyxyqXRwFI0hWCQZ7Ifi73LoMsGKjUO3DNX4tOHRh0SmKU7UwdCg==
+X-YMail-OSG: 3EpOxPsVM1mNUj.CKRL_wvcXMQ40.2IpkvgTsz30yBQk6cM6nkgb_yZTcCFDKD7
+ EB4fJPQFwbtLfNooyHM4GCKeGmhBo.49at.zeBAeDGv1KspCM3Gvr.AsLmywUI7T6xLxe1OAxlVW
+ _mK1WHntd8BMntDDOxTzJ.WFmmxkqMKvrkptk9WDOcAFgz407ixpDDMXNwymHR2AStDhznymDDg1
+ pdCfp1uZWQwRX1qb9jNSL7irEVcZUO8GNQHt6oOiEgK7odOs.6kYXKKlLm2ZU2cPOpslPRiiuBsf
+ TPrID8ObVBGfoedtbfem7h2PtCPPSXftQ6Lsv_IXuhLM3KGeBU9sxN_hTFvLJBApvs26SFOKq8Kz
+ AAo48U0DvBj26.hTXIZ2JD.mCYpR5IYdMxIxWZRN8ypC4smbSxCDsDm48U1Vf8Y4bqjc1dgnTp7G
+ 5Zz0PKMTIwBmx08UV77Xj7vF9.J4NXwsM5aTlWZsGIeO8G.CovaM9na1K5Du0DRkWZhFv6DZ.5dW
+ IAWrmBDI8mZcRg07CCtkq9Cpbf1Pn7HzWmYYbJ8x6Nd9hMkoGzpSZMnLB5Ey5e.263cQTL7A2sjC
+ Zwnnbqq8s__7tAaw5BCGuKnaTyoN0lslknw_oQMvnv5NicEAVXM5mmnDPwsD0q5YKcdyO.Nh5J8j
+ OGvQUYt_0rJ9HR0n.8JgP_G0ZxsP8BTuzAwlUNYRsLaZmyRzlnW4pT9omDeM0QBbYcgg9_xrI3hj
+ LljqEapvMRdF6jgIy0S.YU34cwP4tH6yU1mQ2YYd5dWyIDZ00bpSmvFCdlOjwNkm3HuGQdECuTBf
+ j1bDbvBvg7uYuG0ggvmMTf1RMUEiaUp2qbwfiomgBA.RSlpOjEyzOS0ghAs.wEMwcQ77EHWOnW3V
+ xxzX4PuN2lSilVSgZpQeP9l4YTgv67hju02hAA2yA9NJyHucJHy8A9eW2Yb6wIBjOGgWMm.1F5Hp
+ IN6q27q9QYVooBqGqbCGvAku0MLPzE0MCH7h6IGs2044VdVjvFg1jPtNzghNyEGcfRz1CqkMgOO.
+ EtXuKcvN38ZxPONL76YB0oVRlqkSw_5zbCmcXrk5FCe5_.bJXuxVUhzFTzKWil7NMrY7wnzoOr4H
+ rMW_qrh2jlvlC9z5AFl3Na2kVW2vTywdxRKkukl0cIsk27OZ6Xj.Nf5yPfgRFu16b.PdEUfuxzpj
+ kr5hlFBNptR48ShGuXWjC805J3RAtye_JjBNGeAmH9SyGPOij7t.xJN7YJW51eVY_aKCx89PeT_T
+ fzsa1WajS30Z.go_xkBwLI3cObvEaBcv6ZBSy7FEwJjb2LfWdHgRer.f7dKykeWOMcRQXR2METXf
+ 1oPJ9z8XO2SGYeQbjWAKfxIMczmxWgqaFU6RV0.cMhj2pum.9grSqu5J_1DEX3DgkIXjkmuHSAYk
+ FxwLOi1yhNNqiiN_umK.edMA1rEmsIUhNLIeGiW9fJOVsSbTqXo_EpbTHDdoovPEPFzH3WCe8Aoe
+ .IqMc5KT4CyIjg85Nb83xh30vIe1xSwRLxnKkfQjtffO5xjDHw_HMLHsd9GVOihkQd3_T3KlTQ.H
+ 7LHj3fWg3ZFvR0A6YmncHzCPVxoLlIv6tsYlxKRLoKe.A6yxEx_FUKsCWXO4URDUxdmnVswsSUuC
+ h7wlBApoQfOArchYDMjUQPH_RHvTB06O4I.gI0lk3AQdXpPwYs1MQN_vyfapRJN_iHjM1kiDCJfB
+ LoqhKnubK5aLkEsw31sj4lUkgJmAfoYjix4OP0_QEPtPkhWM.82MExaiY4yQxYvRb17H03rzYYoG
+ QzXISL0Vqpf5ECToPZXGR4VqFazESsilQWeojFhJ4vq41XIzrz.6qNpaRRzd3mZ4hy2QcmK9dkPg
+ HSNWomXqaK6mgB1_GgUXJHMq0k1ul57hxkVKHL1iJUdhRMPbkwi1Ubgu4CffF9aIqIAMzktELZzb
+ Ke.Ob2xykz1NGicoeqcBkw5yFslgY85KDym1ADkBgOViP1AEopoYm0boHGIkAYarMIOfhf.bvcEz
+ pfkSFNdXjfEkqKDiKf3Oy5uqpNy8RMEN1ZvaDsD02AUFTI2HrcIVMuDIODIZmwhrzCeoJlhJGf2P
+ qaD1Ogf.l5xSqmEVnpldHuQlcH7hmvMFZA9txhjR_oJ0Vz6yDbZc1sg9LB25kqtqQ_obaOr2R.zp
+ FUEmaczsHFHItG1dnWGmBBdfePvTJ3alDjkbGBQ2TqHaocq3jRW6Y_k_vd5IUdXlvuWhj8Ff9Nln
+ NxaQehjMVVkQqQJWhYzZxnTp3BIN257AZyi7Onc2OJaYV0hyv9WKQltMbyLVS7Lq.FfDt4Yrwjer
+ zq4P5EcID0imcD8vzbzonhugE4lyd
+X-Sonic-MF: <casey@schaufler-ca.com>
+X-Sonic-ID: 7d77c22d-a5a2-45c8-a786-651590860dcf
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic313.consmr.mail.ne1.yahoo.com with HTTP; Tue, 4 Nov 2025 14:41:50 +0000
+Received: by hermes--production-gq1-86c5846576-9kznp (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID b319eceaf085359051caa19a21ae3d2e; 
+ Tue, 04 Nov 2025 14:41:44 +0000 (UTC)
+Message-ID: <5252d5ed-4e10-42c2-b0fd-071c04ce98f9@schaufler-ca.com>
+Date: Tue, 4 Nov 2025 06:41:42 -0800
 MIME-Version: 1.0
-From: Alsaiditransport <alsaiditransport0@gmail.com>
-Date: Tue, 4 Nov 2025 06:42:38 +0200
-X-Gm-Features: AWmQ_bkSnXyZ-LvdOLlfphmBOORFLPT-Z3fFlMEH27aGU0gsuZuAsBmVHTmuu20
-Message-ID: <CAEeabLPP_dNS5eEWQ4RGT82-i8Ah=37ueCXt3mmfoXduLGgDNw@mail.gmail.com>
-To: apparmor@lists.ubuntu.com
-Content-Type: multipart/alternative; boundary="000000000000c939b90642bd7649"
-Received-SPF: pass client-ip=209.85.217.41;
- envelope-from=alsaiditransport0@gmail.com; helo=mail-vs1-f41.google.com
-Subject: [apparmor] =?utf-8?b?2YbZgtmEINin2YTYp9ir2KfYqw==?=
+User-Agent: Mozilla Thunderbird
+To: =?UTF-8?Q?Maxime_B=C3=A9lair?= <maxime.belair@canonical.com>,
+ linux-security-module@vger.kernel.org
+References: <20251010132610.12001-1-maxime.belair@canonical.com>
+ <20251010132610.12001-6-maxime.belair@canonical.com>
+Content-Language: en-US
+From: Casey Schaufler <casey@schaufler-ca.com>
+In-Reply-To: <20251010132610.12001-6-maxime.belair@canonical.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailer: WebService/1.1.24652
+ mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Received-SPF: none client-ip=66.163.185.37;
+ envelope-from=casey@schaufler-ca.com;
+ helo=sonic313-14.consmr.mail.ne1.yahoo.com
+Subject: Re: [apparmor] [PATCH v6 5/5] Smack: add support for
+ lsm_config_self_policy and lsm_config_system_policy
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -59,221 +87,164 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: paul@paul-moore.com, song@kernel.org, kees@kernel.org,
+ linux-api@vger.kernel.org, stephen.smalley.work@gmail.com,
+ rdunlap@infradead.org, apparmor@lists.ubuntu.com, jmorris@namei.org,
+ linux-kernel@vger.kernel.org, penguin-kernel@I-love.SAKURA.ne.jp,
+ mic@digikod.net, takedakn@nttdata.co.jp, serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
---000000000000c939b90642bd7649
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+On 10/10/2025 6:25 AM, Maxime Bélair wrote:
+> Enable users to manage Smack policies through the new hooks
+> lsm_config_self_policy and lsm_config_system_policy.
+>
+> lsm_config_self_policy allows adding Smack policies for the current cred.
+> For now it remains restricted to CAP_MAC_ADMIN.
+>
+> lsm_config_system_policy allows adding globabl Smack policies. This is
+> restricted to CAP_MAC_ADMIN.
+>
+> Signed-off-by: Maxime Bélair <maxime.belair@canonical.com>
 
-2KPZgdi22YQg2LTYsdmD2Kkg2YbZgtmEINi52YHYtCDZgdmKINiu2YXZitizINmF2LTZiti3INmI
-2K7Yr9mF2KfYqiDYp9it2KrYsdin2YHZitipINiq2LrYt9mKINmF2K3Yp9mK2YQg2LnYs9mK2LEg
-2YjYqNmK2LTYqQ0KDQrZgdmKINi42YQg2KfZhNiq2LfZiNixINin2YTZg9io2YrYsSDYp9mE2LDZ
-iiDYqti02YfYr9mHINmF2YbYp9i32YIg2KfZhNis2YbZiNioINmB2Yog2KfZhNmF2YXZhNmD2Kkg
-2KfZhNi52LHYqNmK2Kkg2KfZhNiz2LnZiNiv2YrYqdiMDQrYo9i12KjYrdiqINiu2K/Zhdin2Kog
-KtmG2YLZhCDYp9mE2LnZgdi0KiDZhdmGINij2YfZhSDYp9mE2K7Yr9mF2KfYqiDYp9mE2KrZiiDZ
-itio2K3YqyDYudmG2YfYpyDYp9mE2KPZgdix2KfYryDZiNin2YTYudin2KbZhNin2KouDQrYs9mI
-2KfYoSDZg9mG2Kog2KrYrti32Lcg2YTZhNin2YbYqtmC2KfZhCDYpdmE2Ykg2YXZhtiy2YQg2KzY
-r9mK2K8g2KPZiCDZhdmD2KrYqCDYrNiv2YrYr9iMINmB2KXZhiDYp9mE2LnYq9mI2LEg2LnZhNmJ
-INi02LHZg9ipDQrZhdmI2KvZiNmC2Kkg2YjYsNin2Kog2K7YqNix2Kkg2LnYp9mE2YrYqSDZiti5
-2K8g2KPZhdix2YvYpyDYttix2YjYsdmK2YvYpyDZhNi22YXYp9mGINiz2YTYp9mF2Kkg2KPYq9in
-2KvZgyDZiNmF2YLYqtmG2YrYp9iq2YMuDQrZiNin2YTZitmI2YUg2YbYs9mE2Lcg2KfZhNi22YjY
-oSDYudmE2Ykg2KPZgdi22YQg2LTYsdmD2KfYqiAq2YbZgtmEINin2YTYudmB2LQg2KjYrtmF2YrY
-syDZhdi02YrYtyrYjCDZiNmD2LDZhNmDINmB2YogKtmF2K3Yp9mK2YQNCti52LPZitixKiDZiCrY
-qNmK2LTYqSrYjCDYp9mE2KrZiiDYqtmC2K/ZhSDYrtiv2YXYp9iqINin2K3Yqtix2KfZgdmK2Kkg
-2KrZhNio2Yog2KzZhdmK2Lkg2KfYrdiq2YrYp9is2KfYqiDYp9mE2LnZhdmE2KfYoS4NCvCfn6Ig
-2KPZiNmE2KfZizog2K7Yr9mF2KfYqiDZhtmC2YQg2KfZhNi52YHYtCDYqNiu2YXZitizINmF2LTZ
-iti3IOKAkyDYr9mC2Kkg2YjZhdmH2KfYsdipINmB2Yog2YPZhCDYrti32YjYqQ0KDQrYqti52K8g
-2YXZhti32YLYqSDYrtmF2YrYsyDZhdi02YrYtyDZhdmGINij2YPYq9ixINin2YTZhdmG2KfYt9mC
-INmG2LTYp9i32YvYpyDZgdmKINmF2KzYp9mEINmG2YLZhCDYp9mE2KPYq9in2KvYjCDYqNmB2LbZ
-hCDYp9mE2KrZiNiz2LkNCtin2YTYudmF2LHYp9mG2Yog2YjYp9mE2LfZhNioINin2YTZg9io2YrY
-sSDYudmE2Ykg2KfZhNiu2K/Zhdin2Kog2KfZhNiz2YPZhtmK2Kkg2YjYp9mE2KrYrNin2LHZitip
-LiDYpdiw2Kcg2YPZhtiqINiq2KjYrdirINi52YYg2K7Yr9mF2KkNCtii2YXZhtipINmI2LPYsdmK
-2LnYqdiMINmB2KXZhiDYp9mE2KfYudiq2YXYp9ivINi52YTZiSDZhtmC2YQg2LnZgdi0INio2K7Z
-hdmK2LMg2YXYtNmK2LcNCjxodHRwczovL2FsLXNhaWRpdHJhbnNwb3J0LmluZm8vJUQ4JUI0JUQ4
-JUIxJUQ5JTgzJUQ4JUE5LSVEOSU4NiVEOSU4MiVEOSU4NC0lRDglQjklRDklODElRDglQjQtJUQ4
-JUE4JUQ4JUFFJUQ5JTg1JUQ5JThBJUQ4JUIzLSVEOSU4NSVEOCVCNCVEOSU4QSVEOCVCNy8+DQrZ
-h9mIINin2YTYrtmK2KfYsSDYp9mE2KPZhdir2YQg2YTZgy4NCtiq2KrZhdmK2LIg2KfZhNi02LHZ
-g9in2Kog2YHZiiDYrtmF2YrYsyDZhdi02YrYtyDYqNin2LPYqtiu2K/Yp9mFINij2K/ZiNin2Kog
-2K3Yr9mK2KvYqSDZhNmE2LHZgdi5INmI2KfZhNiq2K3ZhdmK2YTYjCDYpdi22KfZgdip2Ysg2KXZ
-hNmJDQrZgdix2YIg2LnZhdmEINmF2K/Ysdio2Kkg2LnZhNmJINiq2LrZhNmK2YEg2KfZhNij2KvY
-p9irINio2KPYs9in2YTZitioINin2K3Yqtix2KfZgdmK2Kkg2KrYrdin2YHYuCDYudmE2Ykg2KfZ
-hNmC2LfYuSDZhdmGINij2Yog2K7Yr9mI2LQNCtij2Ygg2KPYttix2KfYsSDYo9ir2YbYp9ihINin
-2YTZhtmC2YQuINmD2YXYpyDYo9mGINmH2LDZhyDYp9mE2LTYsdmD2KfYqiDYqtmI2YHYsSDYrtiv
-2YXYp9iq2YfYpyDYudmE2Ykg2YXYr9in2LEg2KfZhNij2LPYqNmI2Lkg2YXYuQ0K2KXZhdmD2KfZ
-htmK2Kkg2KfZhNmG2YLZhCDYr9in2K7ZhCDZiNiu2KfYsdisINin2YTZhdiv2YrZhtipLg0K8J+U
-tSDYq9in2YbZitmL2Kc6INmG2YLZhCDYp9mE2LnZgdi0INio2YXYrdin2YrZhCDYudiz2YrYsSDi
-gJMg2KfZhNiq2LLYp9mFINio2KfZhNmF2YjYp9i52YrYryDZiNis2YjYr9ipINi52KfZhNmK2KkN
-Cg0K2YHZiiDZhdit2KfZitmEINi52LPZitix2Iwg2YrZj9mG2LjYsSDYpdmE2Ykg2LnZhdmE2YrY
-qSDZhtmC2YQg2KfZhNij2KvYp9irINi52YTZiSDYo9mG2YfYpyDZhdmH2YXYqSDYqtiq2LfZhNio
-INiv2YLYqSDZgdmKDQrYp9mE2KrZgdin2LXZitmEINmI2KrZhti42YrZhdmL2Kcg2YHZiiDYp9mE
-2YjZgtiqLiDZhNiw2YTZgyDZgdil2YYg2YbZgtmEINi52YHYtCDYqNmF2K3Yp9mK2YQg2LnYs9mK
-2LENCjxodHRwczovL2FsLXNhaWRpdHJhbnNwb3J0LmluZm8vJUQ4JUE3JUQ5JTgxJUQ4JUI2JUQ5
-JTg0LTI3LSVEOCVCNCVEOCVCMSVEOSU4MyVEOCVBOS0lRDklODYlRDklODIlRDklODQtJUQ4JUI5
-JUQ5JTgxJUQ4JUI0LSVEOCVBOCVEOSU4NSVEOCVBRCVEOCVBNyVEOSU4QSVEOSU4NC0lRDglQjkl
-RDglQjMlRDklOEElRDglQjEvPg0K2YrZgtiv2YUg2K3ZhNmI2YTZi9inINmF2YXZitiy2Kkg2KrY
-qtmG2KfYs9ioINmF2Lkg2LfYqNmK2LnYqSDYp9mE2YXZhtin2LLZhCDZh9mG2KfZgy4NCtiq2KjY
-r9ijINin2YTYrtiv2YXYqSDYqNmF2LnYp9mK2YbYqSDZhdis2KfZhtmK2Kkg2YTZhNi52YHYtCDZ
-iNiq2K3Yr9mK2K8g2KfZhNij2K/ZiNin2Kog2KfZhNmF2YbYp9iz2KjYqSDZhNmE2YbZgtmE2Iwg
-2KvZhSDZitiq2YUNCtiq2LrZhNmK2YEg2KfZhNij2KvYp9irINio2LTZg9mEINii2YXZhiDYqNin
-2LPYqtiu2K/Yp9mFINmF2YjYp9ivINmF2KrZitmG2Kkg2YXZgtin2YjZhdipINmE2YTYsdi32YjY
-qNipINmI2KfZhNi12K/Zhdin2KouINmD2YXYpyDYqtmI2YHYsQ0K2KfZhNi02LHZg9in2Kog2YHZ
-iiDZhdit2KfZitmEINi52LPZitixINiz2YrYp9ix2KfYqiDZhtmC2YQg2YXYrNmH2LLYqSDYqNij
-2K3Yr9irINij2YbYuNmF2Kkg2KfZhNiq2KvYqNmK2Kog2YTYqtij2YXZitmGINin2YTYo9ir2KfY
-qw0K2KPYq9mG2KfYoSDYp9mE2LHYrdmE2KnYjCDZhdmF2Kcg2YrYrNi52YQg2KrYrNix2KjYqSDY
-p9mE2YbZgtmEINij2YPYq9ixINiz2YfZiNmE2Kkg2YjYp9i32YXYptmG2KfZhtmL2KcuDQrwn5+h
-INir2KfZhNir2YvYpzog2YbZgtmEINin2YTYudmB2LQg2KjZiti02Kkg4oCTINit2YTZiNmEINmF
-2LHZhtipINmI2KPYs9i52KfYsSDYqtmG2KfZgdiz2YrYqQ0KDQrYo9mF2Kcg2YHZiiDZhdiv2YrZ
-htipINio2YrYtNip2Iwg2YHZgtivINio2LHYstiqINin2YTYudiv2YrYryDZhdmGINin2YTYtNix
-2YPYp9iqINin2YTYqtmKINiq2YLYr9mFINiu2K/Zhdin2KogKtmG2YLZhCDYp9mE2KPYq9in2KsN
-Ctin2YTZhdmG2LLZhNmKINmI2KfZhNmF2YPYqtio2YoqINio2KzZiNiv2Kkg2LnYp9mE2YrYqS4g
-2K3ZitirINmK2YXZg9mGINmE2YTYudmF2YTYp9ihINin2YTYp9i52KrZhdin2K8g2LnZhNmJINmG
-2YLZhCDYudmB2LQg2KjZiti02KkNCjxodHRwczovL2FsLXNhaWRpdHJhbnNwb3J0LmluZm8vJUQ4
-JUE3JUQ5JTgxJUQ4JUI2JUQ5JTg0LTI3LSVEOCVCNCVEOCVCMSVEOSU4MyVEOCVBOS0lRDklODYl
-RDklODIlRDklODQtJUQ4JUI5JUQ5JTgxJUQ4JUI0LSVEOSU4MSVEOSU4QS0lRDglQTglRDklOEEl
-RDglQjQlRDglQTkvPg0K2YTZhNit2LXZiNmEINi52YTZiSDYqtis2LHYqNipINmG2YLZhCDZhdiq
-2YPYp9mF2YTYqSDYqti02YXZhCDZgdmDINmI2KrYsdmD2YrYqCDYp9mE2KPYq9in2Ksg2YjYqti6
-2YTZitmB2Ycg2KjYt9ix2YIg2YXYqNiq2YPYsdipLg0K2YXYpyDZitmF2YrYsiDYtNix2YPYp9iq
-INio2YrYtNipINmH2Ygg2YXYsdmI2YbYqtmH2Kcg2YHZiiDYqtmC2K/ZitmFINin2YTYudix2YjY
-tiDZiNiq2YjZgdmK2LEg2K7Yt9i3INmF2YbYp9iz2KjYqSDZhNis2YXZiti5DQrYp9mE2YXZitiy
-2KfZhtmK2KfYqtiMINmF2Lkg2KfZhNin2YTYqtiy2KfZhSDYp9mE2YPYp9mF2YQg2KjZhdmI2KfY
-udmK2K8g2KfZhNmG2YLZhCDZiNit2YXYp9mK2Kkg2KfZhNij2KvYp9irINmF2YYg2KPZiiDYttix
-2LEg2YXYrdiq2YXZhC4NCvCflLYg2KfZhNiu2YTYp9i12KkNCg0K2LPZiNin2KEg2YPZhtiqINmB
-2Yog2K7ZhdmK2LMg2YXYtNmK2Lcg2KPZiCDZhdit2KfZitmEINi52LPZitixINij2Ygg2KjZiti0
-2KnYjCDZgdil2YYg2KfYrtiq2YrYp9ixINin2YTYtNix2YPYqSDYp9mE2YXZhtin2LPYqNipDQrZ
-hNmG2YLZhCDYp9mE2LnZgdi0INmK2LbZhdmGINmE2YMg2LHYp9it2Kkg2KfZhNio2KfZhCDZiNiz
-2YTYp9mF2Kkg2YXZhdiq2YTZg9in2KrZgy4g2YjYqtio2YLZiSDYp9mE2LTYsdmD2KfYqiDYp9mE
-2YXYrdmE2YrYqSDYp9mE2KrZig0K2KrZhdmE2YMg2K7YqNix2Kkg2LfZiNmK2YTYqSDZiNmB2LHZ
-itmCINi52YXZhCDZhdit2KrYsdmBINmH2Yog2KfZhNiu2YrYp9ixINin2YTYo9mB2LbZhCDYr9mI
-2YXZi9inLiDYp9it2LHYtSDYudmE2Ykg2KfZhNiq2YjYp9i12YQNCtin2YTZhdiz2KjZgiDZiNiq
-2K3Yr9mK2K8g2YXZiNi52K8g2KfZhNmG2YLZhCDYqNmF2Kcg2YrZhtin2LPYqNmD2Iwg2YjYp9iz
-2KrZgdivINmF2YYg2KfZhNiu2K/Zhdin2Kog2KfZhNmF2KrZg9in2YXZhNipINin2YTYqtmKDQrY
-qtmI2YHYsdmH2Kcg2YfYsNmHINin2YTYtNix2YPYp9iqINmE2YbZgtmEINi52YHYtNmDINio2KPZ
-hdin2YYg2YjYs9ix2LnYqSDZiNmD2YHYp9ih2Kkg2LnYp9mE2YrYqS4NCg==
---000000000000c939b90642bd7649
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Apologies for the late review. I see that Paul has suggested the set
+wait until the LSM namespace discussions have moved forward.
 
-PGRpdiBkaXI9Imx0ciI+PGRpdiBjbGFzcz0iZ21haWwtdGV4dC1iYXNlIGdtYWlsLW15LWF1dG8g
-Z21haWwtbXgtYXV0byBnbWFpbC1wYi0xMCBnbWFpbC1bLS10aHJlYWQtY29udGVudC1tYXJnaW46
-LS1zcGFjaW5nKDQpXSBnbWFpbC10aHJlYWQtc206Wy0tdGhyZWFkLWNvbnRlbnQtbWFyZ2luOi0t
-c3BhY2luZyg2KV0gZ21haWwtdGhyZWFkLWxnOlstLXRocmVhZC1jb250ZW50LW1hcmdpbjotLXNw
-YWNpbmcoMTYpXSBnbWFpbC1weC0oLS10aHJlYWQtY29udGVudC1tYXJnaW4pIj48ZGl2IGNsYXNz
-PSJnbWFpbC1bLS10aHJlYWQtY29udGVudC1tYXgtd2lkdGg6NDByZW1dIGdtYWlsLXRocmVhZC1s
-ZzpbLS10aHJlYWQtY29udGVudC1tYXgtd2lkdGg6NDhyZW1dIGdtYWlsLW14LWF1dG8gZ21haWwt
-bWF4LXctKC0tdGhyZWFkLWNvbnRlbnQtbWF4LXdpZHRoKSBnbWFpbC1mbGV4LTEgZ21haWwtZ3Jv
-dXAvdHVybi1tZXNzYWdlcyBnbWFpbC1mb2N1cy12aXNpYmxlOm91dGxpbmUtaGlkZGVuIGdtYWls
-LXJlbGF0aXZlIGdtYWlsLWZsZXggZ21haWwtdy1mdWxsIGdtYWlsLW1pbi13LTAgZ21haWwtZmxl
-eC1jb2wgZ21haWwtYWdlbnQtdHVybiIgdGFiaW5kZXg9Ii0xIj48ZGl2IGNsYXNzPSJnbWFpbC1m
-bGV4IGdtYWlsLW1heC13LWZ1bGwgZ21haWwtZmxleC1jb2wgZ21haWwtZ3JvdyI+PGRpdiBkaXI9
-ImF1dG8iIGNsYXNzPSJnbWFpbC1taW4taC04IGdtYWlsLXRleHQtbWVzc2FnZSBnbWFpbC1yZWxh
-dGl2ZSBnbWFpbC1mbGV4IGdtYWlsLXctZnVsbCBnbWFpbC1mbGV4LWNvbCBnbWFpbC1pdGVtcy1l
-bmQgZ21haWwtZ2FwLTIgZ21haWwtdGV4dC1zdGFydCBnbWFpbC1icmVhay13b3JkcyBnbWFpbC13
-aGl0ZXNwYWNlLW5vcm1hbCBnbWFpbC1bLnRleHQtbWVzc2FnZSsmYW1wO106bXQtMSI+PGRpdiBj
-bGFzcz0iZ21haWwtZmxleCBnbWFpbC13LWZ1bGwgZ21haWwtZmxleC1jb2wgZ21haWwtZ2FwLTEg
-ZW1wdHk6aGlkZGVuIGdtYWlsLWZpcnN0OnB0LVsxcHhdIj48ZGl2IGNsYXNzPSJnbWFpbC1tYXJr
-ZG93biBnbWFpbC1wcm9zZSBnbWFpbC1kYXJrOnByb3NlLWludmVydCBnbWFpbC13LWZ1bGwgZ21h
-aWwtYnJlYWstd29yZHMgZ21haWwtbGlnaHQgZ21haWwtbWFya2Rvd24tbmV3LXN0eWxpbmciPjxo
-Mz7Yo9mB2LbZhCDYtNix2YPYqSDZhtmC2YQg2LnZgdi0INmB2Yog2K7ZhdmK2LMg2YXYtNmK2Lcg
-2YjYrtiv2YXYp9iqINin2K3Yqtix2KfZgdmK2Kkg2KrYuti32Yog2YXYrdin2YrZhCDYudiz2YrY
-sSDZiNio2YrYtNipPC9oMz4NCjxwPtmB2Yog2LjZhCDYp9mE2KrYt9mI2LEg2KfZhNmD2KjZitix
-INin2YTYsNmKINiq2LTZh9iv2Ycg2YXZhtin2LfZgiDYp9mE2KzZhtmI2Kgg2YHZiiDYp9mE2YXZ
-hdmE2YPYqSDYp9mE2LnYsdio2YrYqSDYp9mE2LPYudmI2K/Zitip2Iwg2KPYtdio2K3YqiDYrtiv
-2YXYp9iqIDxzdHJvbmc+2YbZgtmEINin2YTYudmB2LQ8L3N0cm9uZz4g2YXZhiDYo9mH2YUg2KfZ
-hNiu2K/Zhdin2Kog2KfZhNiq2Yog2YrYqNit2Ksg2LnZhtmH2Kcg2KfZhNij2YHYsdin2K8g2YjY
-p9mE2LnYp9im2YTYp9iqLiDYs9mI2KfYoSDZg9mG2Kog2KrYrti32Lcg2YTZhNin2YbYqtmC2KfZ
-hCDYpdmE2Ykg2YXZhtiy2YQg2KzYr9mK2K8g2KPZiCDZhdmD2KrYqCDYrNiv2YrYr9iMINmB2KXZ
-hiDYp9mE2LnYq9mI2LEg2LnZhNmJINi02LHZg9ipINmF2YjYq9mI2YLYqSDZiNiw2KfYqiDYrtio
-2LHYqSDYudin2YTZitipINmK2LnYryDYo9mF2LHZi9inINi22LHZiNix2YrZi9inINmE2LbZhdin
-2YYg2LPZhNin2YXYqSDYo9ir2KfYq9mDINmI2YXZgtiq2YbZitin2KrZgy4g2YjYp9mE2YrZiNmF
-INmG2LPZhNi3INin2YTYttmI2KEg2LnZhNmJINij2YHYttmEINi02LHZg9in2KogPHN0cm9uZz7Z
-htmC2YQg2KfZhNi52YHYtCDYqNiu2YXZitizINmF2LTZiti3PC9zdHJvbmc+2Iwg2YjZg9iw2YTZ
-gyDZgdmKIDxzdHJvbmc+2YXYrdin2YrZhCDYudiz2YrYsTwvc3Ryb25nPiDZiDxzdHJvbmc+2KjZ
-iti02Kk8L3N0cm9uZz7YjCDYp9mE2KrZiiDYqtmC2K/ZhSDYrtiv2YXYp9iqINin2K3Yqtix2KfZ
-gdmK2Kkg2KrZhNio2Yog2KzZhdmK2Lkg2KfYrdiq2YrYp9is2KfYqiDYp9mE2LnZhdmE2KfYoS48
-L3A+DQo8aDQ+8J+foiDYo9mI2YTYp9mLOiDYrtiv2YXYp9iqINmG2YLZhCDYp9mE2LnZgdi0INio
-2K7ZhdmK2LMg2YXYtNmK2Lcg4oCTINiv2YLYqSDZiNmF2YfYp9ix2Kkg2YHZiiDZg9mEINiu2LfZ
-iNipPC9oND4NCjxwPtiq2LnYryDZhdmG2LfZgtipINiu2YXZitizINmF2LTZiti3INmF2YYg2KPZ
-g9ir2LEg2KfZhNmF2YbYp9i32YIg2YbYtNin2LfZi9inINmB2Yog2YXYrNin2YQg2YbZgtmEINin
-2YTYo9ir2KfYq9iMINio2YHYttmEINin2YTYqtmI2LPYuSDYp9mE2LnZhdix2KfZhtmKINmI2KfZ
-hNi32YTYqCDYp9mE2YPYqNmK2LEg2LnZhNmJINin2YTYrtiv2YXYp9iqINin2YTYs9mD2YbZitip
-INmI2KfZhNiq2KzYp9ix2YrYqS4g2KXYsNinINmD2YbYqiDYqtio2K3YqyDYudmGINiu2K/Zhdip
-INii2YXZhtipINmI2LPYsdmK2LnYqdiMINmB2KXZhiDYp9mE2KfYudiq2YXYp9ivINi52YTZiSA8
-YSByZWw9Im5vb3BlbmVyIiBjbGFzcz0iZ21haWwtZGVjb3JhdGVkLWxpbmsiIGhyZWY9Imh0dHBz
-Oi8vYWwtc2FpZGl0cmFuc3BvcnQuaW5mby8lRDglQjQlRDglQjElRDklODMlRDglQTktJUQ5JTg2
-JUQ5JTgyJUQ5JTg0LSVEOCVCOSVEOSU4MSVEOCVCNC0lRDglQTglRDglQUUlRDklODUlRDklOEEl
-RDglQjMtJUQ5JTg1JUQ4JUI0JUQ5JThBJUQ4JUI3LyI+2YbZgtmEINi52YHYtCDYqNiu2YXZitiz
-INmF2LTZiti3PHNwYW4gYXJpYS1oaWRkZW49InRydWUiIGNsYXNzPSJnbWFpbC1tcy0wLjUgZ21h
-aWwtaW5saW5lLWJsb2NrIGdtYWlsLWFsaWduLW1pZGRsZSBnbWFpbC1sZWFkaW5nLW5vbmUiPjwv
-c3Bhbj48L2E+INmH2Ygg2KfZhNiu2YrYp9ixINin2YTYo9mF2KvZhCDZhNmDLjxicj4NCtiq2KrZ
-hdmK2LIg2KfZhNi02LHZg9in2Kog2YHZiiDYrtmF2YrYsyDZhdi02YrYtyDYqNin2LPYqtiu2K/Y
-p9mFINij2K/ZiNin2Kog2K3Yr9mK2KvYqSDZhNmE2LHZgdi5INmI2KfZhNiq2K3ZhdmK2YTYjCDY
-pdi22KfZgdip2Ysg2KXZhNmJINmB2LHZgiDYudmF2YQg2YXYr9ix2KjYqSDYudmE2Ykg2KrYutmE
-2YrZgSDYp9mE2KPYq9in2Ksg2KjYo9iz2KfZhNmK2Kgg2KfYrdiq2LHYp9mB2YrYqSDYqtit2KfZ
-gdi4INi52YTZiSDYp9mE2YLYt9i5INmF2YYg2KPZiiDYrtiv2YjYtCDYo9mIINij2LbYsdin2LEg
-2KPYq9mG2KfYoSDYp9mE2YbZgtmELiDZg9mF2Kcg2KPZhiDZh9iw2Ycg2KfZhNi02LHZg9in2Kog
-2KrZiNmB2LEg2K7Yr9mF2KfYqtmH2Kcg2LnZhNmJINmF2K/Yp9ixINin2YTYo9iz2KjZiNi5INmF
-2Lkg2KXZhdmD2KfZhtmK2Kkg2KfZhNmG2YLZhCDYr9in2K7ZhCDZiNiu2KfYsdisINin2YTZhdiv
-2YrZhtipLjwvcD4NCjxoND7wn5S1INir2KfZhtmK2YvYpzog2YbZgtmEINin2YTYudmB2LQg2KjZ
-hdit2KfZitmEINi52LPZitixIOKAkyDYp9mE2KrYstin2YUg2KjYp9mE2YXZiNin2LnZitivINmI
-2KzZiNiv2Kkg2LnYp9mE2YrYqTwvaDQ+DQo8cD7ZgdmKINmF2K3Yp9mK2YQg2LnYs9mK2LHYjCDZ
-itmP2YbYuNixINil2YTZiSDYudmF2YTZitipINmG2YLZhCDYp9mE2KPYq9in2Ksg2LnZhNmJINij
-2YbZh9inINmF2YfZhdipINiq2KrYt9mE2Kgg2K/ZgtipINmB2Yog2KfZhNiq2YHYp9i12YrZhCDZ
-iNiq2YbYuNmK2YXZi9inINmB2Yog2KfZhNmI2YLYqi4g2YTYsNmE2YMg2YHYpdmGIDxhIHJlbD0i
-bm9vcGVuZXIiIGNsYXNzPSJnbWFpbC1kZWNvcmF0ZWQtbGluayIgaHJlZj0iaHR0cHM6Ly9hbC1z
-YWlkaXRyYW5zcG9ydC5pbmZvLyVEOCVBNyVEOSU4MSVEOCVCNiVEOSU4NC0yNy0lRDglQjQlRDgl
-QjElRDklODMlRDglQTktJUQ5JTg2JUQ5JTgyJUQ5JTg0LSVEOCVCOSVEOSU4MSVEOCVCNC0lRDgl
-QTglRDklODUlRDglQUQlRDglQTclRDklOEElRDklODQtJUQ4JUI5JUQ4JUIzJUQ5JThBJUQ4JUIx
-LyI+2YbZgtmEINi52YHYtCDYqNmF2K3Yp9mK2YQg2LnYs9mK2LE8c3BhbiBhcmlhLWhpZGRlbj0i
-dHJ1ZSIgY2xhc3M9ImdtYWlsLW1zLTAuNSBnbWFpbC1pbmxpbmUtYmxvY2sgZ21haWwtYWxpZ24t
-bWlkZGxlIGdtYWlsLWxlYWRpbmctbm9uZSI+PC9zcGFuPjwvYT4g2YrZgtiv2YUg2K3ZhNmI2YTZ
-i9inINmF2YXZitiy2Kkg2KrYqtmG2KfYs9ioINmF2Lkg2LfYqNmK2LnYqSDYp9mE2YXZhtin2LLZ
-hCDZh9mG2KfZgy48YnI+DQrYqtio2K/YoyDYp9mE2K7Yr9mF2Kkg2KjZhdi52KfZitmG2Kkg2YXY
-rNin2YbZitipINmE2YTYudmB2LQg2YjYqtit2K/ZitivINin2YTYo9iv2YjYp9iqINin2YTZhdmG
-2KfYs9io2Kkg2YTZhNmG2YLZhNiMINir2YUg2YrYqtmFINiq2LrZhNmK2YEg2KfZhNij2KvYp9ir
-INio2LTZg9mEINii2YXZhiDYqNin2LPYqtiu2K/Yp9mFINmF2YjYp9ivINmF2KrZitmG2Kkg2YXZ
-gtin2YjZhdipINmE2YTYsdi32YjYqNipINmI2KfZhNi12K/Zhdin2KouINmD2YXYpyDYqtmI2YHY
-sSDYp9mE2LTYsdmD2KfYqiDZgdmKINmF2K3Yp9mK2YQg2LnYs9mK2LEg2LPZitin2LHYp9iqINmG
-2YLZhCDZhdis2YfYstipINio2KPYrdiv2Ksg2KPZhti42YXYqSDYp9mE2KrYq9io2YrYqiDZhNiq
-2KPZhdmK2YYg2KfZhNij2KvYp9irINij2KvZhtin2KEg2KfZhNix2K3ZhNip2Iwg2YXZhdinINmK
-2KzYudmEINiq2KzYsdio2Kkg2KfZhNmG2YLZhCDYo9mD2KvYsSDYs9mH2YjZhNipINmI2KfYt9mF
-2KbZhtin2YbZi9inLjwvcD4NCjxoND7wn5+hINir2KfZhNir2YvYpzog2YbZgtmEINin2YTYudmB
-2LQg2KjZiti02Kkg4oCTINit2YTZiNmEINmF2LHZhtipINmI2KPYs9i52KfYsSDYqtmG2KfZgdiz
-2YrYqTwvaDQ+DQo8cD7Yo9mF2Kcg2YHZiiDZhdiv2YrZhtipINio2YrYtNip2Iwg2YHZgtivINio
-2LHYstiqINin2YTYudiv2YrYryDZhdmGINin2YTYtNix2YPYp9iqINin2YTYqtmKINiq2YLYr9mF
-INiu2K/Zhdin2KogPHN0cm9uZz7ZhtmC2YQg2KfZhNij2KvYp9irINin2YTZhdmG2LLZhNmKINmI
-2KfZhNmF2YPYqtio2Yo8L3N0cm9uZz4g2KjYrNmI2K/YqSDYudin2YTZitipLiDYrdmK2Ksg2YrZ
-hdmD2YYg2YTZhNi52YXZhNin2KEg2KfZhNin2LnYqtmF2KfYryDYudmE2YkgPGEgcmVsPSJub29w
-ZW5lciIgY2xhc3M9ImdtYWlsLWRlY29yYXRlZC1saW5rIiBocmVmPSJodHRwczovL2FsLXNhaWRp
-dHJhbnNwb3J0LmluZm8vJUQ4JUE3JUQ5JTgxJUQ4JUI2JUQ5JTg0LTI3LSVEOCVCNCVEOCVCMSVE
-OSU4MyVEOCVBOS0lRDklODYlRDklODIlRDklODQtJUQ4JUI5JUQ5JTgxJUQ4JUI0LSVEOSU4MSVE
-OSU4QS0lRDglQTglRDklOEElRDglQjQlRDglQTkvIj7ZhtmC2YQg2LnZgdi0INio2YrYtNipPHNw
-YW4gYXJpYS1oaWRkZW49InRydWUiIGNsYXNzPSJnbWFpbC1tcy0wLjUgZ21haWwtaW5saW5lLWJs
-b2NrIGdtYWlsLWFsaWduLW1pZGRsZSBnbWFpbC1sZWFkaW5nLW5vbmUiPjwvc3Bhbj48L2E+INmE
-2YTYrdi12YjZhCDYudmE2Ykg2KrYrNix2KjYqSDZhtmC2YQg2YXYqtmD2KfZhdmE2Kkg2KrYtNmF
-2YQg2YHZgyDZiNiq2LHZg9mK2Kgg2KfZhNij2KvYp9irINmI2KrYutmE2YrZgdmHINio2LfYsdmC
-INmF2KjYqtmD2LHYqS48YnI+DQrZhdinINmK2YXZitiyINi02LHZg9in2Kog2KjZiti02Kkg2YfZ
-iCDZhdix2YjZhtiq2YfYpyDZgdmKINiq2YLYr9mK2YUg2KfZhNi52LHZiNi2INmI2KrZiNmB2YrY
-sSDYrti32Lcg2YXZhtin2LPYqNipINmE2KzZhdmK2Lkg2KfZhNmF2YrYstin2YbZitin2KrYjCDZ
-hdi5INin2YTYp9mE2KrYstin2YUg2KfZhNmD2KfZhdmEINio2YXZiNin2LnZitivINin2YTZhtmC
-2YQg2YjYrdmF2KfZitipINin2YTYo9ir2KfYqyDZhdmGINij2Yog2LbYsdixINmF2K3YqtmF2YQu
-PC9wPg0KPGg0PvCflLYg2KfZhNiu2YTYp9i12Kk8L2g0Pg0KPHA+2LPZiNin2KEg2YPZhtiqINmB
-2Yog2K7ZhdmK2LMg2YXYtNmK2Lcg2KPZiCDZhdit2KfZitmEINi52LPZitixINij2Ygg2KjZiti0
-2KnYjCDZgdil2YYg2KfYrtiq2YrYp9ixINin2YTYtNix2YPYqSDYp9mE2YXZhtin2LPYqNipINmE
-2YbZgtmEINin2YTYudmB2LQg2YrYttmF2YYg2YTZgyDYsdin2K3YqSDYp9mE2KjYp9mEINmI2LPZ
-hNin2YXYqSDZhdmF2KrZhNmD2KfYqtmDLiDZiNiq2KjZgtmJINin2YTYtNix2YPYp9iqINin2YTZ
-hdit2YTZitipINin2YTYqtmKINiq2YXZhNmDINiu2KjYsdipINi32YjZitmE2Kkg2YjZgdix2YrZ
-giDYudmF2YQg2YXYrdiq2LHZgSDZh9mKINin2YTYrtmK2KfYsSDYp9mE2KPZgdi22YQg2K/ZiNmF
-2YvYpy4g2KfYrdix2LUg2LnZhNmJINin2YTYqtmI2KfYtdmEINin2YTZhdiz2KjZgiDZiNiq2K3Y
-r9mK2K8g2YXZiNi52K8g2KfZhNmG2YLZhCDYqNmF2Kcg2YrZhtin2LPYqNmD2Iwg2YjYp9iz2KrZ
-gdivINmF2YYg2KfZhNiu2K/Zhdin2Kog2KfZhNmF2KrZg9in2YXZhNipINin2YTYqtmKINiq2YjZ
-gdix2YfYpyDZh9iw2Ycg2KfZhNi02LHZg9in2Kog2YTZhtmC2YQg2LnZgdi02YMg2KjYo9mF2KfZ
-hiDZiNiz2LHYudipINmI2YPZgdin2KHYqSDYudin2YTZitipLjwvcD48L2Rpdj48L2Rpdj48L2Rp
-dj48L2Rpdj48ZGl2IGNsYXNzPSJnbWFpbC16LTAgZ21haWwtZmxleCBnbWFpbC1taW4taC1bNDZw
-eF0gZ21haWwtanVzdGlmeS1zdGFydCI+PC9kaXY+PGRpdiBjbGFzcz0iZ21haWwtbXQtMyBnbWFp
-bC13LWZ1bGwgZW1wdHk6aGlkZGVuIj48ZGl2IGNsYXNzPSJnbWFpbC10ZXh0LWNlbnRlciI+PC9k
-aXY+PC9kaXY+PC9kaXY+PC9kaXY+PGRpdiBhcmlhLWhpZGRlbj0idHJ1ZSIgY2xhc3M9ImdtYWls
-LXBvaW50ZXItZXZlbnRzLW5vbmUgZ21haWwtaC1weCBnbWFpbC13LXB4Ij48L2Rpdj48L2Rpdj4N
-Cg==
---000000000000c939b90642bd7649--
+> ---
+>  security/smack/smack.h     |  8 +++++
+>  security/smack/smack_lsm.c | 73 ++++++++++++++++++++++++++++++++++++++
+>  security/smack/smackfs.c   |  2 +-
+>  3 files changed, 82 insertions(+), 1 deletion(-)
+>
+> diff --git a/security/smack/smack.h b/security/smack/smack.h
+> index bf6a6ed3946c..3e3d30dfdcf7 100644
+> --- a/security/smack/smack.h
+> +++ b/security/smack/smack.h
+> @@ -275,6 +275,14 @@ struct smk_audit_info {
+>  #endif
+>  };
+>  
+> +/*
+> + * This function is in smackfs.c
+> + */
+> +ssize_t smk_write_rules_list(struct file *file, const char __user *buf,
+> +			     size_t count, loff_t *ppos,
+> +			     struct list_head *rule_list,
+> +			     struct mutex *rule_lock, int format);
+> +
+>  /*
+>   * These functions are in smack_access.c
+>   */
+> diff --git a/security/smack/smack_lsm.c b/security/smack/smack_lsm.c
+> index 99833168604e..bf4bb2242768 100644
+> --- a/security/smack/smack_lsm.c
+> +++ b/security/smack/smack_lsm.c
+> @@ -5027,6 +5027,76 @@ static int smack_uring_cmd(struct io_uring_cmd *ioucmd)
+>  
+>  #endif /* CONFIG_IO_URING */
+>  
+> +/**
+> + * smack_lsm_config_system_policy - Configure a system smack policy
+
+Smack prefers to say "rule set" instead of "policy". Smack policy
+doesn't change, but the allowed exceptions to the policy (rules)
+are mutable.
+
+> + * @op: operation to perform. Currently, only LSM_POLICY_LOAD is supported
+> + * @buf: User-supplied buffer in the form "<fmt><policy>"
+> + *        <fmt> is the 1-byte format of <policy>
+> + *        <policy> is the policy to load
+> + * @size: size of @buf
+> + * @flags: reserved for future use; must be zero
+> + *
+> + * Returns: number of written rules on success, negative value on error
+> + */
+> +static int smack_lsm_config_system_policy(u32 op, void __user *buf, size_t size,
+> +					  u32 flags)
+> +{
+> +	loff_t pos = 0;
+> +	u8 fmt;
+> +
+> +	if (op != LSM_POLICY_LOAD || flags)
+> +		return -EOPNOTSUPP;
+> +
+> +	if (size < 2)
+> +		return -EINVAL;
+
+There should be a max check as well.
+
+> +
+> +	if (get_user(fmt, (uint8_t *)buf))
+> +		return -EFAULT;
+> +
+> +	return smk_write_rules_list(NULL, buf + 1, size - 1, &pos, NULL, NULL, fmt);
+> +}
+> +
+> +/**
+> + * smack_lsm_config_self_policy - Configure a smack policy for the current cred
+> + * @op: operation to perform. Currently, only LSM_POLICY_LOAD is supported
+> + * @buf: User-supplied buffer in the form "<fmt><policy>"
+> + *        <fmt> is the 1-byte format of <policy>
+> + *        <policy> is the policy to load
+> + * @size: size of @buf
+> + * @flags: reserved for future use; must be zero
+> + *
+> + * Returns: number of written rules on success, negative value on error
+> + */
+> +static int smack_lsm_config_self_policy(u32 op, void __user *buf, size_t size,
+> +					u32 flags)
+> +{
+> +	loff_t pos = 0;
+> +	u8 fmt;
+> +	struct task_smack *tsp;
+> +
+> +	if (op != LSM_POLICY_LOAD || flags)
+> +		return -EOPNOTSUPP;
+> +
+> +	if (size < 2)
+> +		return -EINVAL;
+> +
+> +	if (get_user(fmt, (uint8_t *)buf))
+> +		return -EFAULT;
+> +	/**
+> +	 * smk_write_rules_list could be used to gain privileges.
+> +	 * This function is thus restricted to CAP_MAC_ADMIN.
+> +	 * TODO: Ensure that the new rule does not give extra privileges
+> +	 * before dropping this CAP_MAC_ADMIN check.
+> +	 */
+> +	if (!capable(CAP_MAC_ADMIN))
+> +		return -EPERM;
+> +
+> +
+> +	tsp = smack_cred(current_cred());
+> +	return smk_write_rules_list(NULL, buf + 1, size - 1, &pos, &tsp->smk_rules,
+> +				    &tsp->smk_rules_lock, fmt);
+> +}
+> +
+>  struct lsm_blob_sizes smack_blob_sizes __ro_after_init = {
+>  	.lbs_cred = sizeof(struct task_smack),
+>  	.lbs_file = sizeof(struct smack_known *),
+> @@ -5203,6 +5273,9 @@ static struct security_hook_list smack_hooks[] __ro_after_init = {
+>  	LSM_HOOK_INIT(uring_sqpoll, smack_uring_sqpoll),
+>  	LSM_HOOK_INIT(uring_cmd, smack_uring_cmd),
+>  #endif
+> +	LSM_HOOK_INIT(lsm_config_self_policy, smack_lsm_config_self_policy),
+> +	LSM_HOOK_INIT(lsm_config_system_policy, smack_lsm_config_system_policy),
+> +
+>  };
+>  
+>  
+> diff --git a/security/smack/smackfs.c b/security/smack/smackfs.c
+> index 90a67e410808..ed1814588d56 100644
+> --- a/security/smack/smackfs.c
+> +++ b/security/smack/smackfs.c
+> @@ -441,7 +441,7 @@ static ssize_t smk_parse_long_rule(char *data, struct smack_parsed_rule *rule,
+>   *	"subject<whitespace>object<whitespace>
+>   *	 acc_enable<whitespace>acc_disable[<whitespace>...]"
+>   */
+> -static ssize_t smk_write_rules_list(struct file *file, const char __user *buf,
+> +ssize_t smk_write_rules_list(struct file *file, const char __user *buf,
+>  					size_t count, loff_t *ppos,
+>  					struct list_head *rule_list,
+>  					struct mutex *rule_lock, int format)
 
