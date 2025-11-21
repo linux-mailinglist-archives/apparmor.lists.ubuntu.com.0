@@ -2,161 +2,84 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97CD4C760E4
-	for <lists+apparmor@lfdr.de>; Thu, 20 Nov 2025 20:21:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE4EEC7C0EF
+	for <lists+apparmor@lfdr.de>; Sat, 22 Nov 2025 02:00:41 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vMADm-00013F-Gi; Thu, 20 Nov 2025 19:21:34 +0000
-Received: from mout.gmx.net ([212.227.17.22])
+	id 1vMbzD-0008BH-9R; Sat, 22 Nov 2025 01:00:23 +0000
+Received: from smtp-relay-internal-1.internal ([10.131.114.114]
+ helo=smtp-relay-internal-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <deller@gmx.de>) id 1vLL9Q-00057I-IN
- for apparmor@lists.ubuntu.com; Tue, 18 Nov 2025 12:49:40 +0000
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from [192.168.20.55] ([109.250.50.247]) by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MZCfJ-1vhWhW2XSr-00X6zU; Tue, 18
- Nov 2025 13:49:23 +0100
-Message-ID: <be9c143d-1d5e-4c5b-9078-4a7804489258@gmx.de>
-Date: Tue, 18 Nov 2025 13:49:22 +0100
+ (Exim 4.86_2) (envelope-from <ryan.lee@canonical.com>)
+ id 1vMaDg-00017y-Ix
+ for apparmor@lists.ubuntu.com; Fri, 21 Nov 2025 23:07:12 +0000
+Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com
+ [209.85.128.198])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 81F3E3F949
+ for <apparmor@lists.ubuntu.com>; Fri, 21 Nov 2025 23:07:10 +0000 (UTC)
+Received: by mail-yw1-f198.google.com with SMTP id
+ 00721157ae682-78692e4e1faso69193307b3.1
+ for <apparmor@lists.ubuntu.com>; Fri, 21 Nov 2025 15:07:10 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1763766429; x=1764371229;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=mURGdZgdGyl5h9hsbUzCtRvDVWH4yABOB0i1o0xgZtw=;
+ b=h4icDFWVL/ik3eKcXtAi80VVbyQgalZUAsLtkRXOMHiIsHKEAS62mtDKQDwfsK+01x
+ V2NKHRKQw1wwhkvbyJmm8OzYACQ17+kF/5/cFCPwTMz+Kt0FwEMmj91SwjmxU0Nsv2EO
+ tew8zWoZrRRRSy9J2J7lYu20u6aNRhBW53KFsLLG4AVB88w7ayFlnsJi7YE6p3761nB5
+ j1261hRr0pW5BsU8UkTtzbXNdWvQhxozQM9DprayuGoz+SAkyS9y7i35pgoxEgb7DMjW
+ /RQomMgX5IguMfMYX2vywjbNGVBxqAzREWrpJhD9moB71Rw5kzzZDYevxXDMcCBUeiod
+ FzKw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWlOvbv0Dvg2qYn2jM6utLhVfguICePiJqCJjv/iLeKa2M01opDhml6hfXagCf/M+HaibHwwPF8VA==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0YyJq5RK+WOdSZAJseka5cfXd5JSAqNvpTFBFRUCzJ5W8DSA8WZ6
+ t6ASxngXL1Xkz8BxQ8fr51Vqqt690/ImmvCaPN/eOYvsH5WxGpudMChdUTMVMBpiVOT2muTxyTd
+ cZ0jeN0mf6JvLrIfmo7dGPjRvDBZVKYTNOlivTmkQGjLuH3abjn1FzY6LXe4f97po/kQ3TGDIK4
+ 9MixHKa6b7wI9wqhR5q4RRD2a/RLjUW7XxRW21vMDkcyXQv/NVcIHz
+X-Gm-Gg: ASbGncuLJEel9PaoRu2Iy+zpkqenDcq1BI0WkT7b2P4a5BOCPOSZBHosmxCyv4ZBMvh
+ kmmpuIzKNlJWwz6uoJVFW9UXcmIM4r0/iz/HrbEv7rd3v+aVvMVdfK4ZwxRN0KBu7antqoBUpdK
+ /0YOQGOH0VBghcvdqxzFxwUTHAsGs9KVcpTmzDkq1WP9VizQJBq5/d/MCEVQHRObBQWQ==
+X-Received: by 2002:a53:b10a:0:b0:63f:c019:23bc with SMTP id
+ 956f58d0204a3-642f8e30acamr6393243d50.27.1763766428791; 
+ Fri, 21 Nov 2025 15:07:08 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGNbsczd5MfsDryDTrdB8miQHCP9n6FhmNbRk59/WbSb6lt9I6iTtdnnpp053CuQIcThR+YHVO/xZ+HKm10C6g=
+X-Received: by 2002:a53:b10a:0:b0:63f:c019:23bc with SMTP id
+ 956f58d0204a3-642f8e30acamr6393202d50.27.1763766428362; Fri, 21 Nov 2025
+ 15:07:08 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Helge Deller <deller@kernel.org>
-References: <20250531150822.135803-1-deller@kernel.org>
- <bc21bee14ca44077ae9323bfc251ad12390fa841.camel@physik.fu-berlin.de>
- <aRxT78fdN5v2Ajyl@p100>
- <90513f85cc8d060ebccd3972cc7709e4b6f13f34.camel@physik.fu-berlin.de>
-Content-Language: en-US
-From: Helge Deller <deller@gmx.de>
-Autocrypt: addr=deller@gmx.de; keydata=
- xsFNBF3Ia3MBEAD3nmWzMgQByYAWnb9cNqspnkb2GLVKzhoH2QD4eRpyDLA/3smlClbeKkWT
- HLnjgkbPFDmcmCz5V0Wv1mKYRClAHPCIBIJgyICqqUZo2qGmKstUx3pFAiztlXBANpRECgwJ
- r+8w6mkccOM9GhoPU0vMaD/UVJcJQzvrxVHO8EHS36aUkjKd6cOpdVbCt3qx8cEhCmaFEO6u
- CL+k5AZQoABbFQEBocZE1/lSYzaHkcHrjn4cQjc3CffXnUVYwlo8EYOtAHgMDC39s9a7S90L
- 69l6G73lYBD/Br5lnDPlG6dKfGFZZpQ1h8/x+Qz366Ojfq9MuuRJg7ZQpe6foiOtqwKym/zV
- dVvSdOOc5sHSpfwu5+BVAAyBd6hw4NddlAQUjHSRs3zJ9OfrEx2d3mIfXZ7+pMhZ7qX0Axlq
- Lq+B5cfLpzkPAgKn11tfXFxP+hcPHIts0bnDz4EEp+HraW+oRCH2m57Y9zhcJTOJaLw4YpTY
- GRUlF076vZ2Hz/xMEvIJddRGId7UXZgH9a32NDf+BUjWEZvFt1wFSW1r7zb7oGCwZMy2LI/G
- aHQv/N0NeFMd28z+deyxd0k1CGefHJuJcOJDVtcE1rGQ43aDhWSpXvXKDj42vFD2We6uIo9D
- 1VNre2+uAxFzqqf026H6cH8hin9Vnx7p3uq3Dka/Y/qmRFnKVQARAQABzRxIZWxnZSBEZWxs
- ZXIgPGRlbGxlckBnbXguZGU+wsGRBBMBCAA7AhsDBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheA
- FiEERUSCKCzZENvvPSX4Pl89BKeiRgMFAl3J1zsCGQEACgkQPl89BKeiRgNK7xAAg6kJTPje
- uBm9PJTUxXaoaLJFXbYdSPfXhqX/BI9Xi2VzhwC2nSmizdFbeobQBTtRIz5LPhjk95t11q0s
- uP5htzNISPpwxiYZGKrNnXfcPlziI2bUtlz4ke34cLK6MIl1kbS0/kJBxhiXyvyTWk2JmkMi
- REjR84lCMAoJd1OM9XGFOg94BT5aLlEKFcld9qj7B4UFpma8RbRUpUWdo0omAEgrnhaKJwV8
- qt0ULaF/kyP5qbI8iA2PAvIjq73dA4LNKdMFPG7Rw8yITQ1Vi0DlDgDT2RLvKxEQC0o3C6O4
- iQq7qamsThLK0JSDRdLDnq6Phv+Yahd7sDMYuk3gIdoyczRkXzncWAYq7XTWl7nZYBVXG1D8
- gkdclsnHzEKpTQIzn/rGyZshsjL4pxVUIpw/vdfx8oNRLKj7iduf11g2kFP71e9v2PP94ik3
- Xi9oszP+fP770J0B8QM8w745BrcQm41SsILjArK+5mMHrYhM4ZFN7aipK3UXDNs3vjN+t0zi
- qErzlrxXtsX4J6nqjs/mF9frVkpv7OTAzj7pjFHv0Bu8pRm4AyW6Y5/H6jOup6nkJdP/AFDu
- 5ImdlA0jhr3iLk9s9WnjBUHyMYu+HD7qR3yhX6uWxg2oB2FWVMRLXbPEt2hRGq09rVQS7DBy
- dbZgPwou7pD8MTfQhGmDJFKm2jvOwU0EXchrcwEQAOsDQjdtPeaRt8EP2pc8tG+g9eiiX9Sh
- rX87SLSeKF6uHpEJ3VbhafIU6A7hy7RcIJnQz0hEUdXjH774B8YD3JKnAtfAyuIU2/rOGa/v
- UN4BY6U6TVIOv9piVQByBthGQh4YHhePSKtPzK9Pv/6rd8H3IWnJK/dXiUDQllkedrENXrZp
- eLUjhyp94ooo9XqRl44YqlsrSUh+BzW7wqwfmu26UjmAzIZYVCPCq5IjD96QrhLf6naY6En3
- ++tqCAWPkqKvWfRdXPOz4GK08uhcBp3jZHTVkcbo5qahVpv8Y8mzOvSIAxnIjb+cklVxjyY9
- dVlrhfKiK5L+zA2fWUreVBqLs1SjfHm5OGuQ2qqzVcMYJGH/uisJn22VXB1c48yYyGv2HUN5
- lC1JHQUV9734I5cczA2Gfo27nTHy3zANj4hy+s/q1adzvn7hMokU7OehwKrNXafFfwWVK3OG
- 1dSjWtgIv5KJi1XZk5TV6JlPZSqj4D8pUwIx3KSp0cD7xTEZATRfc47Yc+cyKcXG034tNEAc
- xZNTR1kMi9njdxc1wzM9T6pspTtA0vuD3ee94Dg+nDrH1As24uwfFLguiILPzpl0kLaPYYgB
- wumlL2nGcB6RVRRFMiAS5uOTEk+sJ/tRiQwO3K8vmaECaNJRfJC7weH+jww1Dzo0f1TP6rUa
- fTBRABEBAAHCwXYEGAEIACAWIQRFRIIoLNkQ2+89Jfg+Xz0Ep6JGAwUCXchrcwIbDAAKCRA+
- Xz0Ep6JGAxtdEAC54NQMBwjUNqBNCMsh6WrwQwbg9tkJw718QHPw43gKFSxFIYzdBzD/YMPH
- l+2fFiefvmI4uNDjlyCITGSM+T6b8cA7YAKvZhzJyJSS7pRzsIKGjhk7zADL1+PJei9p9idy
- RbmFKo0dAL+ac0t/EZULHGPuIiavWLgwYLVoUEBwz86ZtEtVmDmEsj8ryWw75ZIarNDhV74s
- BdM2ffUJk3+vWe25BPcJiaZkTuFt+xt2CdbvpZv3IPrEkp9GAKof2hHdFCRKMtgxBo8Kao6p
- Ws/Vv68FusAi94ySuZT3fp1xGWWf5+1jX4ylC//w0Rj85QihTpA2MylORUNFvH0MRJx4mlFk
- XN6G+5jIIJhG46LUucQ28+VyEDNcGL3tarnkw8ngEhAbnvMJ2RTx8vGh7PssKaGzAUmNNZiG
- MB4mPKqvDZ02j1wp7vthQcOEg08z1+XHXb8ZZKST7yTVa5P89JymGE8CBGdQaAXnqYK3/yWf
- FwRDcGV6nxanxZGKEkSHHOm8jHwvQWvPP73pvuPBEPtKGLzbgd7OOcGZWtq2hNC6cRtsRdDx
- 4TAGMCz4j238m+2mdbdhRh3iBnWT5yPFfnv/2IjFAk+sdix1Mrr+LIDF++kiekeq0yUpDdc4
- ExBy2xf6dd+tuFFBp3/VDN4U0UfG4QJ2fg19zE5Z8dS4jGIbLg==
-In-Reply-To: <90513f85cc8d060ebccd3972cc7709e4b6f13f34.camel@physik.fu-berlin.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+References: <AM8PR10MB470801D01A0CF24BC32C25E7E40E9@AM8PR10MB4708.EURPRD10.PROD.OUTLOOK.COM>
+ <AS8P193MB12851AC1F862B97FCE9B3F4FE4AAA@AS8P193MB1285.EURP193.PROD.OUTLOOK.COM>
+ <AS8P193MB1285FF445694F149B70B21D0E46C2@AS8P193MB1285.EURP193.PROD.OUTLOOK.COM>
+ <AS8P193MB1285937F9831CECAF2A9EEE2E4752@AS8P193MB1285.EURP193.PROD.OUTLOOK.COM>
+ <GV2PPF74270EBEEEDE0B9742310DE91E9A7E431A@GV2PPF74270EBEE.EURP195.PROD.OUTLOOK.COM>
+ <GV2PPF74270EBEE9EF78827D73D3D7212F7E432A@GV2PPF74270EBEE.EURP195.PROD.OUTLOOK.COM>
+ <GV2PPF74270EBEEE807D016A79FE7A2F463E4D6A@GV2PPF74270EBEE.EURP195.PROD.OUTLOOK.COM>
+ <87tsyozqdu.fsf@email.froward.int.ebiederm.org>
+ <87wm3ky5n9.fsf@email.froward.int.ebiederm.org>
+ <87h5uoxw06.fsf_-_@email.froward.int.ebiederm.org>
+ <87a50gxo0i.fsf@email.froward.int.ebiederm.org>
+ <GV2PPF74270EBEEAD4CACA124C05BE1CE45E4D5A@GV2PPF74270EBEE.EURP195.PROD.OUTLOOK.COM>
+ <87o6ovx38h.fsf@email.froward.int.ebiederm.org>
+ <GV2PPF74270EBEEFA106F4EF26B087ED898E4D5A@GV2PPF74270EBEE.EURP195.PROD.OUTLOOK.COM>
+ <GV2PPF74270EBEED0840E45459881C0EDD4E4D5A@GV2PPF74270EBEE.EURP195.PROD.OUTLOOK.COM>
+ <87ikf3w5us.fsf@email.froward.int.ebiederm.org>
+In-Reply-To: <87ikf3w5us.fsf@email.froward.int.ebiederm.org>
+From: Ryan Lee <ryan.lee@canonical.com>
+Date: Fri, 21 Nov 2025 15:06:57 -0800
+X-Gm-Features: AWmQ_bl4fHuqSO33WuXiPW9zqHuMd1nfWUHzCuIgifbxs4kTz1ezfJlXQS9fZjo
+Message-ID: <CAKCV-6sH03G2xuZrhqEMExx-AAKPZgQ7Z1BnDgV5HimFVGCWwg@mail.gmail.com>
+To: "Eric W. Biederman" <ebiederm@xmission.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:k7uGqPBX4vyP6nH12PGPTO5sc/p9vWrDRQPWGi8QQ11sy7lJeIP
- tBk7RbzkzBap1MZeDqyzBWxtVXnjKNjfbDiyf9Z4VVRa3ZcXinbqtVMwPtWQ6y7rXmOOTBi
- btHrb3Fcpr8qRmmF3+yFZCrrk6rZYXLVjvc+N96RvCgttm7ha+0UX303X2yHgar6U/R3bMB
- AKZVMh+bzVTILzighisbQ==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:jfJ5T5yJd9s=;fK5qNuHbWoepBT/354tnxEkgXSW
- 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
- +cCkNlMg=
-Received-SPF: pass client-ip=212.227.17.22; envelope-from=deller@gmx.de;
- helo=mout.gmx.net
-X-Mailman-Approved-At: Thu, 20 Nov 2025 19:21:33 +0000
-Subject: Re: [apparmor] [PATCH 0/2] apparmor unaligned memory fixes
+X-Mailman-Approved-At: Sat, 22 Nov 2025 01:00:21 +0000
+Subject: Re: [apparmor] [RFC][PATCH] exec: Move cred computation under
+	exec_update_lock
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -168,83 +91,215 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
- linux-kernel@vger.kernel.org
+Cc: Michal Hocko <mhocko@suse.com>, Jan Kara <jack@suse.cz>,
+ David Hildenbrand <david@redhat.com>, Kees Cook <kees@kernel.org>,
+ "Peter Zijlstra \(Intel\)" <peterz@infradead.org>,
+ Alexei Starovoitov <ast@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
+ linux-mm@kvack.org, Eric Dumazet <edumazet@google.com>,
+ Yafang Shao <laoar.shao@gmail.com>, xu xin <xu.xin16@zte.com.cn>,
+ linux-kselftest@vger.kernel.org,
+ "Joel Fernandes \(Google\)" <joel@joelfernandes.org>,
+ tiozhang <tiozhang@didiglobal.com>, Shuah Khan <shuah@kernel.org>,
+ Ard Biesheuvel <ardb@kernel.org>, Elena Reshetova <elena.reshetova@intel.com>,
+ "Paulo Alcantara \(SUSE\)" <pc@manguebit.com>,
+ Paul Moore <paul@paul-moore.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Helge Deller <deller@gmx.de>, YueHaibing <yuehaibing@huawei.com>,
+ Luis Chamberlain <mcgrof@kernel.org>,
+ James Morris <jamorris@linux.microsoft.com>, Ingo Molnar <mingo@kernel.org>,
+ Penglei Jiang <superman.xpt@gmail.com>, Hans Liljestrand <ishkamiel@gmail.com>,
+ Alexey Dobriyan <adobriyan@gmail.com>, Serge Hallyn <serge@hallyn.com>,
+ Randy Dunlap <rdunlap@infradead.org>, Stefan Roesch <shr@devkernel.io>,
+ Frederic Weisbecker <frederic@kernel.org>, Chao Yu <chao@kernel.org>,
+ apparmor <apparmor@lists.ubuntu.com>,
+ "Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
+ Aleksa Sarai <cyphar@cyphar.com>, Bernd Edlinger <bernd.edlinger@hotmail.de>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, Dave Chinner <dchinner@redhat.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Suren Baghdasaryan <surenb@google.com>,
+ David Windsor <dwindsor@gmail.com>, Jens Axboe <axboe@kernel.dk>,
+ Christian Brauner <brauner@kernel.org>, Mateusz Guzik <mjguzik@gmail.com>,
+ Will Drewry <wad@chromium.org>, Adrian Ratiu <adrian.ratiu@collabora.com>,
+ Adrian Reber <areber@redhat.com>, Jeff Layton <jlayton@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Andy Lutomirski <luto@amacapital.net>, Cyrill Gorcunov <gorcunov@gmail.com>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>,
+ linux-security-module@vger.kernel.org,
+ "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Hi Adrian,
+On Fri, Nov 21, 2025 at 11:20=E2=80=AFAM Eric W. Biederman
+<ebiederm@xmission.com> wrote:
+>
+> Bernd Edlinger <bernd.edlinger@hotmail.de> writes:
+>
+> > On 11/21/25 10:35, Bernd Edlinger wrote:
+> >> On 11/21/25 08:18, Eric W. Biederman wrote:
+> >>> Bernd Edlinger <bernd.edlinger@hotmail.de> writes:
+> >>>
+> >>>> Hi Eric,
+> >>>>
+> >>>> thanks for you valuable input on the topic.
+> >>>>
+> >>>> On 11/21/25 00:50, Eric W. Biederman wrote:
+> >>>>> "Eric W. Biederman" <ebiederm@xmission.com> writes:
+> >>>>>
+> >>>>>> Instead of computing the new cred before we pass the point of no
+> >>>>>> return compute the new cred just before we use it.
+> >>>>>>
+> >>>>>> This allows the removal of fs_struct->in_exec and cred_guard_mutex=
+.
+> >>>>>>
+> >>>>>> I am not certain why we wanted to compute the cred for the new
+> >>>>>> executable so early.  Perhaps I missed something but I did not see=
+ any
+> >>>>>> common errors being signaled.   So I don't think we loose anything=
+ by
+> >>>>>> computing the new cred later.
+> >>>>>
+> >>>>> I should add that the permission checks happen in open_exec,
+> >>>>> everything that follows credential wise is just about representing =
+in
+> >>>>> struct cred the credentials the new executable will have.
+> >>>>>
+> >>>>> So I am really at a loss why we have had this complicated way of
+> >>>>> computing of computed the credentials all of these years full of
+> >>>>> time of check to time of use problems.
+> >>>>>
+> >>>>
+> >>>> Well, I think I see a problem with your patch:
+> >>>>
+> >>>> When the security engine gets the LSM_UNSAFE_PTRACE flag, it might
+> >>>> e.g. return -EPERM in bprm_creds_for_exec in the apparmor, selinux
+> >>>> or the smack security engines at least.  Previously that callback
+> >>>> was called before the point of no return, and the return code should
+> >>>> be returned as a return code the the caller of execve.  But if we mo=
+ve
+> >>>> that check after the point of no return, the caller will get killed
+> >>>> due to the failed security check.
+> >>>>
+> >>>> Or did I miss something?
+> >>>
+> >>> I think we definitely need to document this change in behavior.  I wo=
+uld
+> >>> call ending the exec with SIGSEGV vs -EPERM a quality of implementati=
+on
+> >>> issue.  The exec is failing one way or the other so I don't see it as=
+ a
+> >>> correctness issue.
+> >>>
+> >>> In the case of ptrace in general I think it is a bug if the mere act =
+of
+> >>> debugging a program changes it's behavior.  So which buggy behavior
+> >>> should we prefer?  SIGSEGV where it is totally clear that the behavio=
+r
+> >>> has changed or -EPERM and ask the debugged program to handle it.
+> >>> I lean towards SIGSEGV because then it is clear the code should not
+> >>> handle it.
+> >>>
+> >>> In the case of LSM_UNSAFE_NO_NEW_PRIVS I believe the preferred way to
+> >>> handle unexpected things happening is to terminate the application.
+> >>>
+> >>> In the case of LSM_UNSAFE_SHARE -EPERM might be better.  I don't know
+> >>> of any good uses of any good uses of sys_clone(CLONE_FS ...) outside
+> >>> of CLONE_THREAD.
+> >>>
+> >>>
+> >>> Plus all of these things are only considerations if we are exec'ing a
+> >>> program that transitions to a different set of credentials.  Somethin=
+g
+> >>> that happens but is quite rare itself.
 
-On 11/18/25 12:43, John Paul Adrian Glaubitz wrote:
-> On Tue, 2025-11-18 at 12:09 +0100, Helge Deller wrote:
->> My patch fixed two call sites, but I suspect you see another call site =
-which
->> hasn't been fixed yet.
->>
->> Can you try attached patch? It might indicate the caller of the functio=
-n and
->> maybe prints the struct name/address which isn't aligned.
->>
->> Helge
->>
->>
->> diff --git a/security/apparmor/match.c b/security/apparmor/match.c
->> index c5a91600842a..b477430c07eb 100644
->> --- a/security/apparmor/match.c
->> +++ b/security/apparmor/match.c
->> @@ -313,6 +313,9 @@ struct aa_dfa *aa_dfa_unpack(void *blob, size_t siz=
-e, int flags)
->>   	if (size < sizeof(struct table_set_header))
->>   		goto fail;
->>  =20
->> +	if (WARN_ON(((unsigned long)data) & (BITS_PER_LONG/8 - 1)))
->> +		pr_warn("dfa blob stream %pS not aligned.\n", data);
->> +
->>   	if (ntohl(*(__be32 *) data) !=3D YYTH_MAGIC)
->>   		goto fail;
->=20
-> Here is the relevant output with the patch applied:
->=20
-> [   73.840639] ------------[ cut here ]------------
-> [   73.901376] WARNING: CPU: 0 PID: 341 at security/apparmor/match.c:316=
- aa_dfa_unpack+0x6cc/0x720
-> [   74.015867] Modules linked in: binfmt_misc evdev flash sg drm drm_pan=
-el_orientation_quirks backlight i2c_core configfs nfnetlink autofs4 ext4 c=
-rc16 mbcache jbd2 hid_generic usbhid sr_mod hid cdrom
-> sd_mod ata_generic ohci_pci ehci_pci ehci_hcd ohci_hcd pata_ali libata s=
-ym53c8xx scsi_transport_spi tg3 scsi_mod usbcore libphy scsi_common mdio_b=
-us usb_common
-> [   74.428977] CPU: 0 UID: 0 PID: 341 Comm: apparmor_parser Not tainted =
-6.18.0-rc6+ #9 NONE
-> [   74.536543] Call Trace:
-> [   74.568561] [<0000000000434c24>] dump_stack+0x8/0x18
-> [   74.633757] [<0000000000476438>] __warn+0xd8/0x100
-> [   74.696664] [<00000000004296d4>] warn_slowpath_fmt+0x34/0x74
-> [   74.771006] [<00000000008db28c>] aa_dfa_unpack+0x6cc/0x720
-> [   74.843062] [<00000000008e643c>] unpack_pdb+0xbc/0x7e0
-> [   74.910545] [<00000000008e7740>] unpack_profile+0xbe0/0x1300
-> [   74.984888] [<00000000008e82e0>] aa_unpack+0xe0/0x6a0
-> [   75.051226] [<00000000008e3ec4>] aa_replace_profiles+0x64/0x1160
-> [   75.130144] [<00000000008d4d90>] policy_update+0xf0/0x280
-> [   75.201057] [<00000000008d4fc8>] profile_replace+0xa8/0x100
-> [   75.274258] [<0000000000766bd0>] vfs_write+0x90/0x420
-> [   75.340594] [<00000000007670cc>] ksys_write+0x4c/0xe0
-> [   75.406932] [<0000000000767174>] sys_write+0x14/0x40
-> [   75.472126] [<0000000000406174>] linux_sparc_syscall+0x34/0x44
-> [   75.548802] ---[ end trace 0000000000000000 ]---
-> [   75.609503] dfa blob stream 0xfff0000008926b96 not aligned.
-> [   75.682695] Kernel unaligned access at TPC[8db2a8] aa_dfa_unpack+0x6e=
-8/0x720
+AppArmor's exec rules rely heavily on transitioning to different creds
+on exec. For example, an AppArmor policy like
 
-The non-8-byte-aligned address (0xfff0000008926b96) is coming from userspa=
-ce
-(via the write syscall).
-Some apparmor userspace tool writes into the apparmor ".replace" virtual f=
-ile with
-a source address which is not correctly aligned.
-You should be able to debug/find the problematic code with strace from use=
-rspace.
-Maybe someone with apparmor knowledge here on the list has an idea?
+profile example_1 /usr/bin/example_1 {
+    /usr/bin/example_2 Px -> example_2_profile,
+    /usr/bin/example_3 Px,
+}
 
-Helge
+will allow binary example_1 to execute binaries example_2 and
+example_3, launching those processes under a different confinement
+(example_2_profile and a profile that attaches to /usr/bin/example_3,
+respectively). We will need to look into how much this patch (or a
+corresponding change in behavior) would affect our use case, but
+confinement transitions (where the confinement information is stored
+as an LSM blob on the cred struct) are extremely common in a system
+that uses AppArmor as an LSM.
+
+> >>>
+> >>> In practice I don't expect there is anything that depends on the exac=
+t
+> >>> behavior of what happens when exec'ing a suid executable to gain
+> >>> privileges when ptraced.   The closes I can imagine is upstart and
+> >>> I think upstart ran as root when ptracing other programs so there is =
+no
+> >>> gaining of privilege and thus no reason for a security module to
+> >>> complain.
+> >>>
+> >>> Who knows I could be wrong, and someone could actually care.  Which i=
+s
+> >>> hy I think we should document it.>>
+> >>
+> >>
+> >> Well, I dont know for sure, but the security engine could deny the exe=
+cution
+> >> for any reason, not only because of being ptraced.
+> >> Maybe there can be a policy which denies user X to execute e.g. any su=
+id programs.
+> >>
+> >>
+> >> Bernd.
+> >>
+> >
+> > Hmm, funny..
+> >
+> > I installed this patch on top of
+> >
+> > commit fd95357fd8c6778ac7dea6c57a19b8b182b6e91f (HEAD -> master, origin=
+/master, origin/HEAD)
+> > Merge: c966813ea120 7b6216baae75
+> > Author: Linus Torvalds <torvalds@linux-foundation.org>
+> > Date:   Thu Nov 20 11:04:37 2025 -0800
+> >
+> > but it does panic when I try to boot:
+> >
+> > [  0.870539]     TERM=3D1inux
+> > [  0.870573] Starting init: /bin/sh exists but couldn't execute it (err=
+or -14) 0.8705751 Kernel panic- not syncing: No working init found. Try pas=
+sing i mit=3D option to kernel. See Linux Documentation/admin-guide/init.rs=
+t for guidance
+> > [  0.870577] CPU: UID: 0 PID: 1 Comm: sh Not tainted 6.18.0-rc6+ #1 PRE=
+EMPT(voluntary)
+> > [  0.870579] Hardware name: innotek GmbH VirtualBox/VirtualBox, BIOS Vi=
+rtualBo x 12/01/2006
+> > [  0.870580] Call Trace:
+> > [  0.870590]  <TASK>
+> > [  0.870592]  vpanic+0x36d/0x380
+> > [  0.870607]  ? __pfx_kernel_init+0x10/0x10
+> > [  0.870615]  panic+0x5b/0x60
+> > [  0.870617]  kernel_init+0x17d/0x1c0
+> > [  0.870623]  ret_from_fork+0x124/0x150
+> > [  0.870625}  ? __pfx_kernel_init+0x10/0x10
+> > [  0.870627]  ret_from_fork_asm+0x1a/0x30
+> > [  0.870632]  </TASK>
+> > [  0.8706631 Kernel Offset: 0x3a800000 from Oxffffffff81000000 (relocat=
+ion ran ge: 0xffffffff80000000-0xffffffffbfffffff)
+> > [  0.880034] ---[ end Kernel panic - not syncing: No working init found=
+. Try passing init option to kernel. See Linux Documentation/admin-guide/in=
+it.rst for guidance. 1---`
+> >
+> >
+> > Is that a known problem?
+>
+> Nope.  It looks like the code needs a little bit bug fixing testing.
+>
+> I will take see about taking a look.
+>
+> Eric
+>
+
+I've also CC'ed the AppArmor mailing list on this patch to facilitate
+discussion if, upon further investigation, this patch would require
+changes or cause other problems on the AppArmor side.
 
