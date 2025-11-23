@@ -2,142 +2,126 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88E49C7DE73
-	for <lists+apparmor@lfdr.de>; Sun, 23 Nov 2025 09:48:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15ABDC7DABA
+	for <lists+apparmor@lfdr.de>; Sun, 23 Nov 2025 03:09:09 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vN5lV-0004eF-IR; Sun, 23 Nov 2025 08:48:13 +0000
-Received: from mail-westeuropeazolkn19013081.outbound.protection.outlook.com
- ([52.103.33.81] helo=AM0PR02CU008.outbound.protection.outlook.com)
+	id 1vMzWy-0004EQ-5p; Sun, 23 Nov 2025 02:08:48 +0000
+Received: from smtp-relay-internal-1.internal ([10.131.114.114]
+ helo=smtp-relay-internal-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <bernd.edlinger@hotmail.de>)
- id 1vMr7n-0002sD-MH
- for apparmor@lists.ubuntu.com; Sat, 22 Nov 2025 17:10:15 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=I1Q0QfGsxkbC5C7Na6dLYQ8+dKnycXKWlsoN3U5Hl9XlInMRX2WL91zy32ftyQ7ClaaK+4arR41Hkup7dBo3lTT/s+0qyyYpG1ddafFOcjVOlMzM10tdRHt6Sr1ty4r7ltRo29S0DexHFs4pA5aTzHKEfK9p6rL6wBC9wWgVdJd5FrOzAp/tUMWSpUER98ZmDs8+yQCAFjzSvXSWF6OmtAkorCRhc99xxNFBWl5r4gRn/Src5ri7ixGkLLTqfPXiunnCqehkmpaoSC0uIzhAKY4iU3gMROG4Xy2S47fzIIXh1Qm56SMRuN63+ZBwu46Wcrlz12lapp+KYmllc+WXAQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Fh94mW012b4b4pM7k9F/n2kTOFskPj6U9WAq5+2R+pU=;
- b=L/FpZZ8BFnI3FOWJD9K2S6hPuMMbpSnJzsv71FRIGIDHwnY0fM6edk2++EPBfAgnKPj+ha0VqAuylEyM9rap/W5MxaQYEUjgDg6frBBn91tYUT5j173YO59PoFKs1c1t6EE8qEatmqvcOzUsx9lSGmW/vND8Ye6zdtiMw3JoUIRkUTIQZBJS8Zcq54bABsfBa6Lo4E2+uBv5k9FfUzXT2kk7GGyGjwgOc1oBaMQQusdyrTz0zeQ37jfA1VsmWBCVD9JGLKoCAGT4XnFi5dDgmjY8NmWdiz88SzlBYIa/VnwStvKcrlyDefGaSw/Pu355ARdcnKoSLS8rBpwaykvvEg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-Received: from GV2PPF74270EBEE.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:158:401::8d4) by PRAP195MB1484.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:102:292::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.15; Sat, 22 Nov
- 2025 17:10:13 +0000
-Received: from GV2PPF74270EBEE.EURP195.PROD.OUTLOOK.COM
- ([fe80::dde:411d:b5f2:49]) by GV2PPF74270EBEE.EURP195.PROD.OUTLOOK.COM
- ([fe80::dde:411d:b5f2:49%8]) with mapi id 15.20.9343.009; Sat, 22 Nov 2025
- 17:10:13 +0000
-Message-ID: <GV2PPF74270EBEE354926B365D9F3C60C22E4D2A@GV2PPF74270EBEE.EURP195.PROD.OUTLOOK.COM>
-Date: Sat, 22 Nov 2025 18:10:10 +0100
-User-Agent: Mozilla Thunderbird
-To: "Eric W. Biederman" <ebiederm@xmission.com>
-References: <AM8PR10MB470801D01A0CF24BC32C25E7E40E9@AM8PR10MB4708.EURPRD10.PROD.OUTLOOK.COM>
- <AM8PR10MB470875B22B4C08BEAEC3F77FE4169@AM8PR10MB4708.EURPRD10.PROD.OUTLOOK.COM>
- <AS8P193MB1285DF698D7524EDE22ABFA1E4A1A@AS8P193MB1285.EURP193.PROD.OUTLOOK.COM>
- <AS8P193MB12851AC1F862B97FCE9B3F4FE4AAA@AS8P193MB1285.EURP193.PROD.OUTLOOK.COM>
- <AS8P193MB1285FF445694F149B70B21D0E46C2@AS8P193MB1285.EURP193.PROD.OUTLOOK.COM>
- <AS8P193MB1285937F9831CECAF2A9EEE2E4752@AS8P193MB1285.EURP193.PROD.OUTLOOK.COM>
- <GV2PPF74270EBEEEDE0B9742310DE91E9A7E431A@GV2PPF74270EBEE.EURP195.PROD.OUTLOOK.COM>
- <GV2PPF74270EBEE9EF78827D73D3D7212F7E432A@GV2PPF74270EBEE.EURP195.PROD.OUTLOOK.COM>
- <GV2PPF74270EBEEE807D016A79FE7A2F463E4D6A@GV2PPF74270EBEE.EURP195.PROD.OUTLOOK.COM>
- <87tsyozqdu.fsf@email.froward.int.ebiederm.org>
- <87wm3ky5n9.fsf@email.froward.int.ebiederm.org>
-Content-Language: en-US
-From: Bernd Edlinger <bernd.edlinger@hotmail.de>
-In-Reply-To: <87wm3ky5n9.fsf@email.froward.int.ebiederm.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0339.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ea::13) To GV2PPF74270EBEE.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:158:401::8d4)
-X-Microsoft-Original-Message-ID: <d6f1ddb4-a044-4200-8710-198bb521e69a@hotmail.de>
+ (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
+ id 1vMzWw-0004C2-Ew
+ for apparmor@lists.ubuntu.com; Sun, 23 Nov 2025 02:08:46 +0000
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
+ [209.85.210.199])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 08C383F2AB
+ for <apparmor@lists.ubuntu.com>; Sun, 23 Nov 2025 02:08:46 +0000 (UTC)
+Received: by mail-pf1-f199.google.com with SMTP id
+ d2e1a72fcca58-7b8a12f0cb4so3349976b3a.3
+ for <apparmor@lists.ubuntu.com>; Sat, 22 Nov 2025 18:08:45 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1763863724; x=1764468524;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=8a0z/wk/mu0JDwpB1nlChburcNktUNgCK6fbMb2S5Qg=;
+ b=oNUZI9NMl9dUtpcuKU7uCVR7ApMeS2udBdlqpcaXBU70ZSfxGetiU00qJeAoxu2cU4
+ YsIW8yOaY4EfqezdpLATo2MhSlvPqLLb2NhZFc56/XDxX14CQbEjpJguZlN6gekL4e0J
+ sqij37CCac9xZWL/yzEdOv/cQ+aMsqbgOxk6HTs2DWFC8wEISLedmP8muU2yo9Sjb8Ln
+ UkN+OSJna/aA7KkBbbXa26DxB3N1BYPECElIKv+Q/ct2YpcujUv2GhPXM6A8A8R5Za+m
+ 3PdL2Q9UMNwk09GBW1+qB9LaBj7KrCsD1hROPx7DaP5wUpX/UMYd/LFwKTK4XmdHFKDg
+ pEsw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXLywqfVupr6d5fbHh+YLhJVvq3aDtjjM519DrOiwiHcMt7R9piGe3/znYHVRu6Fsn/ZbA1ciXaNQ==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0Yyt0INEckwOqdydExYs2Z9UXIPb+Y49BbIQaPaBPquKK1eoGQ8C
+ jYPZ3p3MuIHrprlbyjUgKLgVC5SWNSTapadpSoCuY/qOavoXp+GI/bSgr2NqnOOUzmmT/UpVr1Q
+ wKhk6tAOzBwnxztuSd/IvbMsiRCKVPeFS3lYEkqB4Hx5DH/2Em3u7+pCi+UoQcfSbollddE/++y
+ Lkbg==
+X-Gm-Gg: ASbGncvia33W34IQdT6nNii7jMbdqp9sufo9IqYf/CyCeySXgiQ4PurZF/R77OTADTE
+ K/BLsdJ6hsCNs8hIedvVO30vhEOxU5d88z9Ra0xk+cAb9wlBOKZSjQj7Inb+urvuk+pmXGv8+80
+ n3rTX8tgW6yJAgFwcVIWAE7Vai5Z/mBMuGDu02sQ6zqExFAidLeD78J5wyQV0ExqxBsWRYmtdMg
+ v2I4w3jv3fy65QZVXuiUV0u4tOwQtOM6pUHgIW3xt1kJiz5GWMv0mse4poqBSK5Xn6YqbwIatGn
+ 9iJEPHxWvTq6quKG7b2OG1p5TIb4HjXwgtepz2NyMFyJg6uH7Ufm/eIyfbS1K+Xz7TS4OYodWD0
+ b2fvKCv5rbvhOIj1ojvquxX6W
+X-Received: by 2002:a05:6a00:2d0a:b0:7aa:5053:f42d with SMTP id
+ d2e1a72fcca58-7c58e607616mr7156859b3a.22.1763863724193; 
+ Sat, 22 Nov 2025 18:08:44 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IF5EdW7DViLURFiTiYnDZdHr/ASDQFEH7LIzlahpAsWvtIRd3Fq9k5rfNebu9eARHSIFcAxzw==
+X-Received: by 2002:a05:6a00:2d0a:b0:7aa:5053:f42d with SMTP id
+ d2e1a72fcca58-7c58e607616mr7156836b3a.22.1763863723731; 
+ Sat, 22 Nov 2025 18:08:43 -0800 (PST)
+Received: from [192.168.192.85] ([50.47.129.42])
+ by smtp.googlemail.com with ESMTPSA id
+ d2e1a72fcca58-7c3f155d053sm10164138b3a.62.2025.11.22.18.08.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 22 Nov 2025 18:08:43 -0800 (PST)
+Message-ID: <ba3d5651-fa68-4bb5-84aa-35576044e7b0@canonical.com>
+Date: Sat, 22 Nov 2025 18:08:42 -0800
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PPF74270EBEE:EE_|PRAP195MB1484:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6a0cab07-1e0e-4009-d723-08de29e9ffc3
-X-Microsoft-Antispam: BCL:0;
- ARA:14566002|51005399006|6090799003|5072599009|461199028|15080799012|23021999003|12121999013|8060799015|19110799012|440099028|3412199025|40105399003|12091999003|56899033;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?MVZvYk1tdzB6YXBjRFNZUTlMMHVtU1gxTGFCaEVKZlZvRC9RcVdzbDFRRTBa?=
- =?utf-8?B?U0J3QUo4V1B4ZTEzM3BIbjN0MS9HeTIwaEhnR3RnV1lBbWw2TzRKNkpLMmQ2?=
- =?utf-8?B?REZmSWppQkFhY1VCaVNsL1ZmN3UrNTRpemVNajJ2MFpROUVwYjJqVG9pcU5Q?=
- =?utf-8?B?dWJTSnZ5MzE3NldnMXlTb0QyRlRZbUsvK0lmZFZHcFpjbFZoRDV0a2d4b2Nj?=
- =?utf-8?B?cjVWbmF5SVdkc1pmbk9hdzF4eXR5dmdRSjVaQXE4c002OFRnWjRBaEQvMVgx?=
- =?utf-8?B?aEVKZGhGazFhNmZ4RktNcmhmdTJRNWZaNTQ4dU9qU0FaYjRKY1R0NDVrR2Fw?=
- =?utf-8?B?ZFVKdGpvdnlmR2xxR1FVNUtvWWVlcVJ1THdKRHZLSzFSV1kwSm5oVGs4a3dY?=
- =?utf-8?B?a1d0VUJZUWxMelBqeFUxbkIxaVhaWmJZb2J2ak9LMWRQdHdvUEd6bTF4eDZQ?=
- =?utf-8?B?Y2ZaUFZlNGRMaUxENG4vT3dvVWcycEZWdlpaeWltQSt2RGp1UkI0MmFaaGVt?=
- =?utf-8?B?cE1acTJYNjMxTGJSd0xaY0taWm1rQWlmNitMdzFjVk5NTThUbGxhUi9yUmdl?=
- =?utf-8?B?UW5wbzRKWXBCWFhqb2ZpRWJ5bmFNcHNoenI5d1B5NnhzRjNkcnpCbERWbkxL?=
- =?utf-8?B?WnpmM3Urd2FJM3dRd0dSU29OSFZZdk9VNVUxc2xtc0xDYmQ4ZzdNZXdrbk5E?=
- =?utf-8?B?czBnUlI5UG5mNGFMK0NiTHgzR2VmWW9lVjUwalMwSENseDVuSTNES2VaTEox?=
- =?utf-8?B?UURucHZEVFFPU0Zud3RXZG5LNGdNWVF1WkFWVkJlTWhmajhTNTdZSkxSQlJM?=
- =?utf-8?B?bUk5MmNRWlVVOXVzUnlqbjNKMG80MzJLQ3V0Ym9iRUg0YVRRRFF2enpHVUhR?=
- =?utf-8?B?b0VNbU8vYlM5WExyQzluTXlLRGQ0aGJTUjIzNmdZbnJVbVJDUjlLNllEeTRr?=
- =?utf-8?B?WnZQc09HREdTNFIrOGhEdWFSdHlETnJLWGR3VjlDNmttNFI3U01nQkhnejdM?=
- =?utf-8?B?dlBjYXV4OStpWVphMGJ4SW81N0xZaUk0OEZWR0ZiUjVDVWplcTBLVTNPL1Nm?=
- =?utf-8?B?ZTdHSUs2Z29RTjZPWWhaUVF5aDlPYXhhQk5oVzVWQmZvRjFpVE5hWGxhYlI0?=
- =?utf-8?B?NFl2Z1A0MjR6RmhsRUFHSzZ4bmNQNXhkRVVraTRYOWhLWStvNjlDdW02cHFB?=
- =?utf-8?B?V1NlTVE1VkttTGFaNG84MjVteUYweHU3cFB2ZEZMNU5yMmNobFZXc2h5aUMr?=
- =?utf-8?B?anRXRVZ4bmVwUlFhL0VQbmNVWlF5VXkxVFNiYWszVUlHRmp1Wmt3SHhoclpn?=
- =?utf-8?B?ejc0TDNVeGZpS2ZwNEtsTXNXVlZGSTlYdTBZVFIyZjhLYzNncjI4ZXNESnJv?=
- =?utf-8?B?a1FLaEErQlkzeU5zaGxpckU0dUdFTXczbnlITVUrNjhNOThXNDV3OWUxWU5U?=
- =?utf-8?B?OFpSVklHVGpyellGUkxqSEtWa1NZVVM5WEx5ZjJ2cGR1WDhqSnM5Zm1vWStF?=
- =?utf-8?B?OTNFcDl4bllVYUtRSGg1NEdMN0k4M2REclNQeG9RTHhVcWhZVTk0bFhpai9K?=
- =?utf-8?B?dkw2cnpQbUxWNHFQVktuZnJ6YXFVWUo2UnR4L0VyV2hGZzlMYmNrNi85RnJO?=
- =?utf-8?B?TlZiSUR0VkZhR3d3b3NuU3pnYkF2UmhXQWl5aTNyNlRCTWtsMU5DdEluMENU?=
- =?utf-8?B?dzE1TGNPYXhpYURvZXN2bGJSQU04RG5wMHRFR1pqYVJuR1JySVlzZnlRPT0=?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?anRiL1lsa2ZOdXB4WVowM3NkMklYNnJvbENhY1AxTzVVdk1wQ081S3FrK1gz?=
- =?utf-8?B?b2lXbnlJZzQwZ0VqZ291QnRLbmlmVW9zRExheEpEQXp5VVlhV1pJT2RlRmdH?=
- =?utf-8?B?UHVCdndmNTJUMFFZVmtLY2hyWnFPWTRsZFhJMHNRNHpYMnJHK1Q5d3JoT252?=
- =?utf-8?B?d1l6WUtKV1pUNStJRXNWNlVhRStBaVpsV1F2ZjNqUlA0WEY5a3pqUUswcVRS?=
- =?utf-8?B?SXM1RU9aTWgvMDBRQWs3TnB6QVlhRTRNNkFvYzJaWlFCOTVQTmozeEFXZ0pG?=
- =?utf-8?B?UzRzaEpKNlFRcEFzNTBqTWVNRWVSWXZkYzM0ZXdkbWFRTUNsMDROVE9mME00?=
- =?utf-8?B?bUNoWnlkWHIyckFYd2llSU9KZVNhSWRRQk1rNjBtTTFtMThQd0c2aWlCcnJS?=
- =?utf-8?B?WllFbGhuditkSVNETmh3RVpZZ05JNFpObUdDZFJ2Ni93OHRhT2lMSWU5KzdU?=
- =?utf-8?B?UEJ2eHlhYUk1K1RRdDV4L3BEbDBHRnVNWVliZ3RkL3ZNbzN4ZDlBYkhyY0RW?=
- =?utf-8?B?K1BZdVNkaFZ4bEFPZldNbGZxL1FCeGwvMmEwb3EzLzdKZ2JKWFo0YjBoOFFj?=
- =?utf-8?B?RG93RnJ1R3M2MzZqcHZsTXMxTXBUWjU3bFRYQW15ZzFDb3JRV0JWSUJ0SnJ0?=
- =?utf-8?B?ZllXMTlqQnFWQTNoa1FlWUxGMnNCTUpoR05mWlNMRzJwOFpyUDJ6K1NUd1cx?=
- =?utf-8?B?TmJWc083Vkt2M2wyUmZDK0lWVmo3dEpaMW1ZbURzK21SWTNYdFlRV08wMk1L?=
- =?utf-8?B?dXlSQUtwNU9yMzVtRE9zZ25UR0N1VmpoYU5ZZnRVUUxkclM1VG1aZ0RCMEgx?=
- =?utf-8?B?QzZVand4VmVLWVhmRll3MTNvYzViQndRNW1Gek5CQUpGdGorOEg5VFR0K1NL?=
- =?utf-8?B?VENHWW1RaFJEMmVqbDVMQUxGQzlHYzBPR29FT1lSYlNqbldIbmFFSFhNOUVX?=
- =?utf-8?B?ZUwvSFRka3R5T1JLZTJrTkpwcjZUdkRGL3dXUU5hdys1bkhkc05uZmJTUnhJ?=
- =?utf-8?B?K3AyeWhOQjY2UHVYRlExRm04QkZUaHpaNU12UFBUelE5ZjUrd2dLL2MrQ1RG?=
- =?utf-8?B?RTFaaC8rTnZMQitVYUlkUmRWSHBKNnJsWktFWjA5ZHBwOW01NGZ3SjR3WXhU?=
- =?utf-8?B?NnRSWUtsb3d3eUxVVXZSRDBDcXBaVmp3K3dvWHFHTXVKb0JDV21GSlpSb2tG?=
- =?utf-8?B?eDliSndRclQrMmU0dWRjY1o2OVhqa09SVnFXdG8xdGExY2ZnRCtLUmtaMTY3?=
- =?utf-8?B?U1B0aTIxQmRTN0xOeFFCTnNSYmhvWlN3Tng0eW1Wb2JqeEZndzBwY0cwWUw4?=
- =?utf-8?B?Zm5oUGVHZGc5WThQY2RGaHJZK0xpbm1lOFdQaGZXNVlieUNjVE9RMERIYTdp?=
- =?utf-8?B?N2VFcXF3YnJOa3VjRC9Pa0tzOCtmOFRQM0NNREpwamxqRnNkRTQ2MmZBeW5a?=
- =?utf-8?B?Y3BYOThobEtVYXhscG5Ja3plLzRSZzdtLzRUMnY4QUp4Mk4vZnNoUTN0Y3Qv?=
- =?utf-8?B?OE90TldmN1l2b0h1UFExeDU4bEs5Q1I0dXZOZFFBSnF6WUc5RTFUVHZVLzdY?=
- =?utf-8?B?c0tHNDZ3b0czT1pNMUViUDRob2hMVDZvd0NKUFZSVFYwaDI4OVI4R0h2ZkN6?=
- =?utf-8?B?Wk54WlR0bmdnVHdMd0lDL1ZzdmlrZlBtZjR2anJzQWczWjV1eWIySmRPV2NT?=
- =?utf-8?B?NlhoYTYzYzhHN3VNSGtjYzFaT0d2T0RnbUNkNWcrR3NjUWxSY0IxRlZqcE5X?=
- =?utf-8?Q?wCMBaYQO+gJGciPYFPG1rTFVHrFDvZQoT68y7EB?=
-X-OriginatorOrg: sct-15-20-8534-20-msonline-outlook-87dd8.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6a0cab07-1e0e-4009-d723-08de29e9ffc3
-X-MS-Exchange-CrossTenant-AuthSource: GV2PPF74270EBEE.EURP195.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Nov 2025 17:10:13.3583 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PRAP195MB1484
-Received-SPF: pass client-ip=52.103.33.81;
- envelope-from=bernd.edlinger@hotmail.de;
- helo=AM0PR02CU008.outbound.protection.outlook.com
-X-Mailman-Approved-At: Sun, 23 Nov 2025 08:48:11 +0000
-Subject: Re: [apparmor] [PATCH v18] exec: Fix dead-lock in de_thread with
-	ptrace_attach
+User-Agent: Mozilla Thunderbird
+To: Helge Deller <deller@gmx.de>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Helge Deller <deller@kernel.org>
+References: <20250531150822.135803-1-deller@kernel.org>
+ <bc21bee14ca44077ae9323bfc251ad12390fa841.camel@physik.fu-berlin.de>
+ <aRxT78fdN5v2Ajyl@p100>
+ <90513f85cc8d060ebccd3972cc7709e4b6f13f34.camel@physik.fu-berlin.de>
+ <be9c143d-1d5e-4c5b-9078-4a7804489258@gmx.de>
+Content-Language: en-US
+From: John Johansen <john.johansen@canonical.com>
+Autocrypt: addr=john.johansen@canonical.com; keydata=
+ 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 lT9Q
+Organization: Canonical
+In-Reply-To: <be9c143d-1d5e-4c5b-9078-4a7804489258@gmx.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [apparmor] [PATCH 0/2] apparmor unaligned memory fixes
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -149,147 +133,88 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Michal Hocko <mhocko@suse.com>, Jan Kara <jack@suse.cz>,
- David Hildenbrand <david@redhat.com>, Kees Cook <kees@kernel.org>,
- "Peter Zijlstra \(Intel\)" <peterz@infradead.org>,
- Alexei Starovoitov <ast@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
- linux-mm@kvack.org, Eric Dumazet <edumazet@google.com>,
- Yafang Shao <laoar.shao@gmail.com>, xu xin <xu.xin16@zte.com.cn>,
- linux-kselftest@vger.kernel.org,
- "Joel Fernandes \(Google\)" <joel@joelfernandes.org>,
- tiozhang <tiozhang@didiglobal.com>, Shuah Khan <shuah@kernel.org>,
- Ard Biesheuvel <ardb@kernel.org>, Elena Reshetova <elena.reshetova@intel.com>,
- "Paulo Alcantara \(SUSE\)" <pc@manguebit.com>,
- Paul Moore <paul@paul-moore.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- Helge Deller <deller@gmx.de>, YueHaibing <yuehaibing@huawei.com>,
- Luis Chamberlain <mcgrof@kernel.org>,
- James Morris <jamorris@linux.microsoft.com>, Ingo Molnar <mingo@kernel.org>,
- Penglei Jiang <superman.xpt@gmail.com>, Hans Liljestrand <ishkamiel@gmail.com>,
- Alexey Dobriyan <adobriyan@gmail.com>, Serge Hallyn <serge@hallyn.com>,
- Randy Dunlap <rdunlap@infradead.org>, Stefan Roesch <shr@devkernel.io>,
- selinux@vger.kernel.org, Frederic Weisbecker <frederic@kernel.org>,
- Chao Yu <chao@kernel.org>, apparmor@lists.ubuntu.com,
- "Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
- Aleksa Sarai <cyphar@cyphar.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Dave Chinner <dchinner@redhat.com>, Thomas Gleixner <tglx@linutronix.de>,
- Suren Baghdasaryan <surenb@google.com>, David Windsor <dwindsor@gmail.com>,
- Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>,
- Mateusz Guzik <mjguzik@gmail.com>, Will Drewry <wad@chromium.org>,
- Adrian Ratiu <adrian.ratiu@collabora.com>, Adrian Reber <areber@redhat.com>,
- Jeff Layton <jlayton@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Andy Lutomirski <luto@amacapital.net>, Cyrill Gorcunov <gorcunov@gmail.com>,
- Sergey Senozhatsky <senozhatsky@chromium.org>,
- linux-security-module@vger.kernel.org,
- "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
+ linux-kernel@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 11/20/25 18:29, Eric W. Biederman wrote:
-> "Eric W. Biederman" <ebiederm@xmission.com> writes:
+On 11/18/25 04:49, Helge Deller wrote:
+> Hi Adrian,
 > 
->> Bernd Edlinger <bernd.edlinger@hotmail.de> writes:
+> On 11/18/25 12:43, John Paul Adrian Glaubitz wrote:
+>> On Tue, 2025-11-18 at 12:09 +0100, Helge Deller wrote:
+>>> My patch fixed two call sites, but I suspect you see another call site which
+>>> hasn't been fixed yet.
+>>>
+>>> Can you try attached patch? It might indicate the caller of the function and
+>>> maybe prints the struct name/address which isn't aligned.
+>>>
+>>> Helge
+>>>
+>>>
+>>> diff --git a/security/apparmor/match.c b/security/apparmor/match.c
+>>> index c5a91600842a..b477430c07eb 100644
+>>> --- a/security/apparmor/match.c
+>>> +++ b/security/apparmor/match.c
+>>> @@ -313,6 +313,9 @@ struct aa_dfa *aa_dfa_unpack(void *blob, size_t size, int flags)
+>>>       if (size < sizeof(struct table_set_header))
+>>>           goto fail;
+>>> +    if (WARN_ON(((unsigned long)data) & (BITS_PER_LONG/8 - 1)))
+>>> +        pr_warn("dfa blob stream %pS not aligned.\n", data);
+>>> +
+>>>       if (ntohl(*(__be32 *) data) != YYTH_MAGIC)
+>>>           goto fail;
 >>
->>> This introduces signal->exec_bprm, which is used to
->>> fix the case when at least one of the sibling threads
->>> is traced, and therefore the trace process may dead-lock
->>> in ptrace_attach, but de_thread will need to wait for the
->>> tracer to continue execution.
+>> Here is the relevant output with the patch applied:
 >>
->> A small quibble it isn't a dead lock.  It isn't even really a live lock,
->> as it is possible to SIGKILL our way out.
->>
+>> [   73.840639] ------------[ cut here ]------------
+>> [   73.901376] WARNING: CPU: 0 PID: 341 at security/apparmor/match.c:316 aa_dfa_unpack+0x6cc/0x720
+>> [   74.015867] Modules linked in: binfmt_misc evdev flash sg drm drm_panel_orientation_quirks backlight i2c_core configfs nfnetlink autofs4 ext4 crc16 mbcache jbd2 hid_generic usbhid sr_mod hid cdrom
+>> sd_mod ata_generic ohci_pci ehci_pci ehci_hcd ohci_hcd pata_ali libata sym53c8xx scsi_transport_spi tg3 scsi_mod usbcore libphy scsi_common mdio_bus usb_common
+>> [   74.428977] CPU: 0 UID: 0 PID: 341 Comm: apparmor_parser Not tainted 6.18.0-rc6+ #9 NONE
+>> [   74.536543] Call Trace:
+>> [   74.568561] [<0000000000434c24>] dump_stack+0x8/0x18
+>> [   74.633757] [<0000000000476438>] __warn+0xd8/0x100
+>> [   74.696664] [<00000000004296d4>] warn_slowpath_fmt+0x34/0x74
+>> [   74.771006] [<00000000008db28c>] aa_dfa_unpack+0x6cc/0x720
+>> [   74.843062] [<00000000008e643c>] unpack_pdb+0xbc/0x7e0
+>> [   74.910545] [<00000000008e7740>] unpack_profile+0xbe0/0x1300
+>> [   74.984888] [<00000000008e82e0>] aa_unpack+0xe0/0x6a0
+>> [   75.051226] [<00000000008e3ec4>] aa_replace_profiles+0x64/0x1160
+>> [   75.130144] [<00000000008d4d90>] policy_update+0xf0/0x280
+>> [   75.201057] [<00000000008d4fc8>] profile_replace+0xa8/0x100
+>> [   75.274258] [<0000000000766bd0>] vfs_write+0x90/0x420
+>> [   75.340594] [<00000000007670cc>] ksys_write+0x4c/0xe0
+>> [   75.406932] [<0000000000767174>] sys_write+0x14/0x40
+>> [   75.472126] [<0000000000406174>] linux_sparc_syscall+0x34/0x44
+>> [   75.548802] ---[ end trace 0000000000000000 ]---
+>> [   75.609503] dfa blob stream 0xfff0000008926b96 not aligned.
+>> [   75.682695] Kernel unaligned access at TPC[8db2a8] aa_dfa_unpack+0x6e8/0x720
+> 
+> The non-8-byte-aligned address (0xfff0000008926b96) is coming from userspace
+> (via the write syscall).
+> Some apparmor userspace tool writes into the apparmor ".replace" virtual file with
+> a source address which is not correctly aligned.
 
-That is of course what I meant to say with that sentence.  In my language an
-application process can "dead-lock" by waiting on a mutex forever.
-Indeed the original problem with the dead-lock (I think in mm_access) was
-worse, as both involved processes were only killable by "kill -9", but with the
-remaining problem in ptrace_attach, the debugger can be killed by a simple CTRL-C.
+the userpace buffer passed to write(2) has to be aligned? Its certainly nice if it
+is but the userspace tooling hasn't been treating it as aligned. With that said,
+the dfa should be padded to be aligned. So this tripping in the dfa is a bug,
+and there really should be some validation to catch it.
 
-So if I understand you right, you want me use a different term here like
-"the trace process may be blocked in trace_attach" or so?
-Or could you please give me a concrete suggestion how to rephrase the patch
-description.
+> You should be able to debug/find the problematic code with strace from userspace.
+> Maybe someone with apparmor knowledge here on the list has an idea?
+> 
+This is likely an unaligned 2nd profile, being split out and loaded separately
+from the rest of the container. Basically the loader for some reason (there
+are a few different possible reasons) is poking into the container format and
+pulling out the profile at some offset, this gets loaded to the kernel but
+it would seem that its causing an issue with the dfa alignment within the container,
+which should be aligned to the original container.
 
-BTW, unless there are objections I would also want to rephrase the description
-of cred_guard_mutex to replace the term "Deprecated" with "Not recommended",
-like this:
-
---- a/include/linux/sched/signal.h
-+++ b/include/linux/sched/signal.h
-@@ -260,11 +260,11 @@ struct signal_struct {
-        struct mutex cred_guard_mutex;  /* guard against foreign influences on
-                                         * credential calculations
-                                         * (notably. ptrace)
-                                         * Held while execve runs, except when
-                                         * a sibling thread is being traced.
--                                        * Deprecated do not use in new code.
-+                                        * Not recommended to use in new code.
-                                         * Use exec_update_lock instead.
-                                         */
-
-
->> Thinking about this there is a really silly and simple way we can deal
->> with this situation for PTRACE_ATTACH.  We can send SIGSTOP and wait for
->> the thread to stop before doing anything with cred_guard_mutex.
->>
->> PTRACE_ATTACH already implies sending SIGSTOP so as long as we have
->> enough permissions to send SIGSTOP I don't see that being a problem.
->>
->> The worst case I can see is that we get a case where we stop the
->> process, the permission check fails under cred_guard_mutex and
->> and ptrace attach has fails and has to send SIGCONT to undo it's
->> premature SIGSTOP.  That might almost be visible, but it would still
->> be legitimate because we can still check that we have permission to
->> send SIGSTOP.
-> 
-> Bah no I am full of it.
-> 
-> The challenging behavior is in the semantics of the kernel operations.
-> We need to describe it as such please.
-> 
-> It is the same class of problem as a single threaded process calls exec
-> with a pipe attached to both stdin and stdout of the new process.
-> 
-> For the stdin and stdout we can say just use pull and nonblocking I/O.
-> 
-> The problem is that both PTRACE_ATTACH and PTRACE_SEIZE block over
-> the duration of exec, and if exec is waiting for a thread to exit,
-> and that thread is blocked in PTRACE_EVENT_EXIT waiting for that very
-> same tracer those processes will hang. Not deadlock.
-> 
-> 
-> I haven't seen anyone clearly describe the problem lately so I am
-> repeating it.
-> 
-> 
-> Just looking at the code I don't think there is any fundamental reason
-> to call commit_creds after de_thread.  If we can change that we can sort
-> this out without any change in userspace semantics.
-> 
-> If we can't move commit_creds we have to either give
-> PTRACE_ATTACH/PTRACE_SEIZE a non-block mode, or break out of
-> PTRACE_EVENT_EXIT in de_thread.
-> 
-> I will post a proof of concept of moving commit_creds in just a minute.
-> 
-> Eric
-
-Note: I forgot to add apparmor and selinux mailing list to this patch, previous
-versions of this did try to avoid to touch the security engine code, and did
-instead temporarily install the new credentials, mostiy for the benefit of the
-security engines.  But that is considered an unacceptable solution, therefore
-I want to use instead a new option to ptrace_may_access.
-All security engines have to handle this option, but the advantage is, that the
-engines could detect and maybe also deny the unsafe execve.
-
-This is an alternative to Eric's patch: "exec: Move cred computation under
-exec_update_lock" that is supposed to solve the same problem, but tries instead
-to avoid any user visible API change.
+Kernel side, we are going to need to add some extra verification checks, it should
+be catching this, as unaligned as part of the unpack. Userspace side, we will have
+to verify my guess and fix the loader.
 
 
-Thanks
-Bernd.
 
 
