@@ -2,96 +2,86 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CABAC8C30F
-	for <lists+apparmor@lfdr.de>; Wed, 26 Nov 2025 23:19:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF3D4C8C44D
+	for <lists+apparmor@lfdr.de>; Wed, 26 Nov 2025 23:58:23 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vONqh-0000w2-WD; Wed, 26 Nov 2025 22:18:56 +0000
+	id 1vOOSf-0005nY-UC; Wed, 26 Nov 2025 22:58:09 +0000
 Received: from smtp-relay-internal-1.internal ([10.131.114.114]
  helo=smtp-relay-internal-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1vONqf-0000tA-Qa
- for apparmor@lists.ubuntu.com; Wed, 26 Nov 2025 22:18:53 +0000
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199])
+ id 1vOOSe-0005nR-6N
+ for apparmor@lists.ubuntu.com; Wed, 26 Nov 2025 22:58:08 +0000
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
+ [209.85.210.197])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id A46B23F18C
- for <apparmor@lists.ubuntu.com>; Wed, 26 Nov 2025 22:18:52 +0000 (UTC)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 15FEA3F1CC
+ for <apparmor@lists.ubuntu.com>; Wed, 26 Nov 2025 22:58:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20251003; t=1764195532;
- bh=EWLswifZk8W7RVO7o2nC8/wfB/P4Mw8E9xKT5fZ7qS4=;
- h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+ s=20251003; t=1764197887;
+ bh=zk/4TWscelIA8xrZ67/zM0lNT/rHcU1T664MZE8+fZg=;
+ h=Message-ID:Date:MIME-Version:Subject:To:References:From:
  In-Reply-To:Content-Type;
- b=dlZTmZDMlJ9Rqio1Yk/drnpdv0VwIACrlDuPE1Gvk8jqe47iRYvGXSByadOGmfCaR
- wmSrGhfzFW6Y8O7PAo8pVDD/B5hOMo78dukEI7OeJTlMi4E/KNMtn3gpYqsp7TptsD
- jS5zdBye01wDZV+mjGuuz+sljkB5V2kR2yMzO1hg/EstAQH7D4QxkZUa2De5Donzhb
- 7DN9aMWypfodBnHPcOd8n4dMuMSnB6mvCCvQjjleD1Kyd0E/TuZPEnISR13V1OffVX
- FqYWc258dBOPI2HrvhIZfAzDkNvWKpoysCvx5Gx9UFwmP2WeOLrrCrka19OJYGnVbI
- 3KQMgH+UwuF88aMoNiNWZpjQTGpxiU4Y4wWvvLYc1yS1sLr4kJcdvSD7f39WLFJPpd
- n4zKbqF74RfSGGQBW6iBfokN8s/BvsH6CSdDMj9a0mXGuV4u65EYSF4ZwdzKte+PSD
- +vV3eD1d8zM+2jjOQkIAoF78j+oIw6YWPjuTBnx1gXS+pSZTWzWmByElIIuE07572V
- wphJjEyysxMbIbMKvAU6fzN+9Ep1AbIscs7CoUmOmOdavYHKiUzfgQVWcDQsVyOZJk
- 050uE9dBUxvRvbCXcflT9+8K/+3Af3sA/n2m9kLGKuVmPg6jha1+KcNDO32p1WzTz3
- ley54WI2W8KDu554XAVYj8s8=
-Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-297dfae179bso4364715ad.1
- for <apparmor@lists.ubuntu.com>; Wed, 26 Nov 2025 14:18:52 -0800 (PST)
+ b=abhcPwrxvDFr86+GR8PtLgklNdsjaftYler40Qd4VNjx0o09pNBw3hyDwQOu4iedU
+ ZLfe+9R+50UKScblIoTCxMg1iCtXnhn8cjv+cxnkyCsFigHeebxTLqi/1Tp8Skk1zT
+ r8ZPFVmNQb6e2oqsW+y+wX/F4lvealsHVBecgITulYJpT404q1RJwMJg10sPpfVzxE
+ xXX7cChblcpKF54sZOcgE0w/bRqLLjE2SsighO75+47ehyTsRDZ4V9ChuER2Ordesu
+ 66zqU1GlqJ3WfDN0t+CubXhagkWLJ7WXxIABERQWIVB3UOTwMXKvzRa+wjuk0tSn4s
+ cKR/kbsBSxbeLSG7IXMQb274Ixl/hbf5KU7gthdRYAu5BtHzd3wMum8Z/xFdyaafX5
+ c+NklVPYbujTRi4aTtB16XLlMO/qlmvTnC0QITMl/O3az2fr+iQlWtpcKMO/8wu6Z7
+ F3oIjhIxYISkdU7N9oqQ44Sb1aWw3LE143hFRx0JUKxNGKU98TWRcQxqEw4M5fQxer
+ zGTyFdDqTPN501kF8H61RxM2CC2XOqZs/SJ3iI1awej3gZYhZFORB4PuKyGI1RX+uD
+ 1xkjC6cmADwHwDM3BQ021jTQjDdDl+VCXmETY9K3EEfZp1Y7NQWmGtDBIU7u2zBV/D
+ bUmLq7B02zQLumg1lcKCH2qk=
+Received: by mail-pf1-f197.google.com with SMTP id
+ d2e1a72fcca58-7c240728e2aso324939b3a.3
+ for <apparmor@lists.ubuntu.com>; Wed, 26 Nov 2025 14:58:07 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764195530; x=1764800330;
+ d=1e100.net; s=20230601; t=1764197886; x=1764802686;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=EWLswifZk8W7RVO7o2nC8/wfB/P4Mw8E9xKT5fZ7qS4=;
- b=YMWwV6eFym++VcHS9/sAtxZNNPe6zJfdW4oPdOGiAxYjD3nqgktlGgm/cGGlZKOYLG
- j4y+SG70hnHamwzdu53iAj8HMoExazCem3J2r2Iq+lYKyF3AbzCOVO0ZFXh50KxbDusr
- sXCLx0YLwOJaNXmucM1KBqzxTDsvgsHkyyGB+LBu3T/NuVf1TsNtsuJa1aaPcHnzR5uz
- 6dHubXF4bwjFI3sW5BZknvH33hKjjpNWLSsT6Xbi24XbkMbKEljFSUd27S/Q8QuSYTdu
- pk2HyO262ZHfYNYghf37nPLHH6JfTT9Xu4EVeCfmxilvEHgr520yxHyaFzL2Ueh6Azqy
- 4adg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXnruVXdzHXVOBVgF1SHYkRgf+vHg1qaGsoT08F2v35WSKI3xE6oYrcA/pui02OMMDSSfJujClJeQ==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0YwIue/n+Hx5qpMQdRys+biDY9U6QZw/o0FAk07atSYalUPZzMo2
- BPFpJut7x8ACKqzNE/px/86vpaKX0kvyECIE04KfqRs+uoOIAUFMeEINTSAN1fk0PFZ5qKBbsT+
- xXOBm5JAEFWXbWlnV1nyaJhkrAc6eQCg/g4AWh8IAcpS5fO8SbcFW2o5PEt9BdUE1DaW2cfcTc+
- Ch5w==
-X-Gm-Gg: ASbGnctw6Svk9sgAYCO/+jeYLNGc30XRuw4Ny5zHdHzAyn7In9/vXsS3PoVN3DfdJ/X
- lExe94kY5IJg5lggi4ZDBhQwSDfJRqEusBxwpq4UPcjh+Z0KvW8diDLXEhxR5ypv1HSkrbOQn4t
- UUyUTqoZPeY4MptoXiG2esPYkiyLEy8vQVMoKS+uCpcMiQrLJhcvA/oC7etfG02ym1IdEvyOv0D
- dEpA6g8ELHkbSEkLSf1g5GUAwPwRJ+/YIPM5AI4pYnxs58sPe3gbXRlDNf6S1YC9uGpIukhjIAe
- GVbh+Ntm3y2GKNI+BzqmDf7oueXlZJxOw/c1eGbnnhjiS90OUMaMeSLp3wZuUkkhdj8RxSPm13r
- 2ceIxVgu81oJs0eP5ME8RhhJ0
-X-Received: by 2002:a17:903:32d0:b0:297:c272:80ec with SMTP id
- d9443c01a7336-29b6bf5f043mr270437575ad.42.1764195530585; 
- Wed, 26 Nov 2025 14:18:50 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEV/47TcylDWnynw0IegjvGte6oOrnpgytH7KDdPGYUiPs6G00R+gbmz61mmC5UNS/phV0I1w==
-X-Received: by 2002:a17:903:32d0:b0:297:c272:80ec with SMTP id
- d9443c01a7336-29b6bf5f043mr270437385ad.42.1764195530156; 
- Wed, 26 Nov 2025 14:18:50 -0800 (PST)
+ bh=zk/4TWscelIA8xrZ67/zM0lNT/rHcU1T664MZE8+fZg=;
+ b=DOsMOjKnVjhnVCmtUL97mxrbzPbalUnnMFXIKs/Y7z4BZlh3att1WOy+Y+xbAC8hC0
+ 5OhwGgwYigIOYg0wtMAoS21T2fF3SzhLXThJwKNNpOOa0BTLpCDGHvv2cQD/KCQmi7T5
+ p0xDM+ZpWLuTwo4SMe2TNp20zD8bdPrxuiGmirplClz9mYM9wmoftn4oMDOaLdo2w5n+
+ N3XTz0/estgPr03JsH4m0YdSjhxGih4NecvIoCXhE66MXTh4+8/RdSMH6Pt/EOKs6Gav
+ BFp7hcrrm7ePcTHAY86ec7yAGwtvyVeMxr0FpblZQMIFIvmyw0h4zjvQ/aFnx9v1dyL7
+ Xj1g==
+X-Gm-Message-State: AOJu0YzoEdeNIug6TKThzyFmHk8rNl21LdR8IFfCGwc6RJsWuM0eYfu9
+ EhlMlipjAdT1WxL3WsjyaL807549xYds4TAj9iUN3i82VKvFCs017pzqTSPb5jXvlOdjGYTAs0z
+ IuKfysDpNNECwAcXgjSzzc7mxQlAjE3UlaGQB2VbUJ6liI0tPexmMnXjnKSH3Bre19/cfgGSaQq
+ MGQVU0RP5Jdm3T
+X-Gm-Gg: ASbGncuWI1qaavAnJFGnC6k/ribgnssiwq3jHro7zXHTTNciZ0UYWy5oRiWNBqJcbPi
+ zNGmKZYl3wk6X0v8YlJzX0dXaLvCkhcrkqFpdAohypTqrA5pQAkAu3yNxTfJAQs/7CzM9k+4WiH
+ i/BCmal0dT7u6saDAhAX/pBkwFfSRDCJkSxhiOhf8depDwGDMMgnnrXVnfick9w9Giq2n7AedEf
+ Gx63yhEjhOLvJ3ltoL1/NqPlbeGI7RyLvg1pR1GI/K+I1EmYN5ChvUFutFZorAuR3Uo7qD1awv6
+ r6+XxBj/VcJccJvWrYJbNVXZT30jOSD4ssN6JtkREyYmuZU32e7mfy9Kq1aqE0lqDPbnUKTx7CI
+ Kb9z9WV65wJ1YJtQlhho6IZpg
+X-Received: by 2002:a05:6a20:748d:b0:361:4ca3:e17d with SMTP id
+ adf61e73a8af0-3614eb0e251mr23291055637.13.1764197885779; 
+ Wed, 26 Nov 2025 14:58:05 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IELfxXjGnvmWdo+Ead+udpiextfXH0h+2t1ugE7t1IhWv8HyDA9I+gupeWv2hk01kN0uWL8VA==
+X-Received: by 2002:a05:6a20:748d:b0:361:4ca3:e17d with SMTP id
+ adf61e73a8af0-3614eb0e251mr23291035637.13.1764197885330; 
+ Wed, 26 Nov 2025 14:58:05 -0800 (PST)
 Received: from [192.168.192.85] ([50.47.129.42])
  by smtp.googlemail.com with ESMTPSA id
- d9443c01a7336-29b5b138bcbsm205326555ad.29.2025.11.26.14.18.48
+ d2e1a72fcca58-7c3f174ba7dsm22364990b3a.64.2025.11.26.14.58.04
+ for <apparmor@lists.ubuntu.com>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Nov 2025 14:18:48 -0800 (PST)
-Message-ID: <dd72b14d-3025-452a-889b-f2456a7ae431@canonical.com>
-Date: Wed, 26 Nov 2025 14:18:47 -0800
+ Wed, 26 Nov 2025 14:58:04 -0800 (PST)
+Message-ID: <d5fccb40-62a9-43d9-89d7-eb1c4c78c43b@canonical.com>
+Date: Wed, 26 Nov 2025 14:58:04 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: david laight <david.laight@runbox.com>, Helge Deller <deller@kernel.org>
-References: <90513f85cc8d060ebccd3972cc7709e4b6f13f34.camel@physik.fu-berlin.de>
- <be9c143d-1d5e-4c5b-9078-4a7804489258@gmx.de>
- <ba3d5651-fa68-4bb5-84aa-35576044e7b0@canonical.com> <aSXHCyH_rS-c5BgP@p100>
- <e88c32c2-fb18-4f3e-9ec2-a749695aaf0a@canonical.com>
- <c192140a-0575-41e9-8895-6c8257ce4682@gmx.de>
- <d35010b3-7d07-488c-b5a4-a13380d0ef7c@canonical.com>
- <20251126104444.29002552@pumpkin>
- <4034ad19-8e09-440c-a042-a66a488c048b@gmx.de>
- <20251126142201.27e23076@pumpkin> <aScY13MEBATreotz@carbonx1>
- <20251126212309.5b21edca@pumpkin>
+To: apparmor@lists.ubuntu.com
+References: <7c1c83ac-c8d3-490b-a6b5-c718b1dbc016@zygoon.pl>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -137,10 +127,10 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20251126212309.5b21edca@pumpkin>
+In-Reply-To: <7c1c83ac-c8d3-490b-a6b5-c718b1dbc016@zygoon.pl>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH 0/2] apparmor unaligned memory fixes
+Subject: Re: [apparmor] Huge pages mediation class?
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -152,146 +142,33 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: linux-parisc@vger.kernel.org, Helge Deller <deller@gmx.de>,
- apparmor@lists.ubuntu.com, linux-kernel@vger.kernel.org,
- linux-security-module@vger.kernel.org,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 11/26/25 13:23, david laight wrote:
-> On Wed, 26 Nov 2025 16:12:23 +0100
-> Helge Deller <deller@kernel.org> wrote:
+On 11/26/25 02:04, Zygmunt Krynicki wrote:
+> Hello
 > 
->> * david laight <david.laight@runbox.com>:
->>> On Wed, 26 Nov 2025 12:03:03 +0100
->>> Helge Deller <deller@gmx.de> wrote:
->>>    
->>>> On 11/26/25 11:44, david laight wrote:
->>> ...
->>>>>> diff --git a/security/apparmor/match.c b/security/apparmor/match.c
->>>>>> index 26e82ba879d44..3dcc342337aca 100644
->>>>>> --- a/security/apparmor/match.c
->>>>>> +++ b/security/apparmor/match.c
->>>>>> @@ -71,10 +71,10 @@ static struct table_header *unpack_table(char *blob, size_t bsize)
->>>>>>     				     u8, u8, byte_to_byte);
->>>>>
->>>>> Is that that just memcpy() ?
->>>>
->>>> No, it's memcpy() only on big-endian machines.
->>>
->>> You've misread the quoting...
->>> The 'data8' case that was only half there is a memcpy().
->>>    
->>>> On little-endian machines it converts from big-endian
->>>> 16/32-bit ints to little-endian 16/32-bit ints.
->>>>
->>>> But I see some potential for optimization here:
->>>> a) on big-endian machines just use memcpy()
->>>
->>> true
->>>    
->>>> b) on little-endian machines use memcpy() to copy from possibly-unaligned
->>>>      memory to then known-to-be-aligned destination. Then use a loop with
->>>>      be32_to_cpu() instead of get_unaligned_xx() as it's faster.
->>>
->>> There is a function that does a loop byteswap of a buffer - no reason
->>> to re-invent it.
->>
->> I assumed there must be something, but I did not see it. Which one?
+> As a part of investigation into issue affecting mmap with MAP_HUGETLB [1], I was thinking if huge pages should have a dedicated mediation class and be handled similarly to how mqueue was recently added.
 > 
-> I can't find it either - just some functions to do an in-place swap.
-> (Which aren't usually a good idea)
-> 
->>
->>> But I doubt it is always (if ever) faster to do a copy and then byteswap.
->>> The loop control and extra memory accesses kill performance.
->>
->> Yes, you are probably right.
->>
->>> Not that I've seen a fast get_unaligned() - I don't think gcc or clang
->>> generate optimal code - For LE I think it is something like:
->>> 	low = *(addr & ~3);
->>> 	high = *((addr + 3) & ~3);
->>> 	shift = (addr & 3) * 8;
->>> 	value = low << shift | high >> (32 - shift);
->>> Note that it is only 2 aligned memory reads - even for 64bit.
->>
->> Ok, then maybe we should keep it simple like this patch:
->>
->> [PATCH v2] apparmor: Optimize table creation from possibly unaligned memory
->>
->> Source blob may come from userspace and might be unaligned.
->> Try to optize the copying process by avoiding unaligned memory accesses.
-> 
-> Not sure that reads right.
-> 'Allow for misaligned data from userspace when byteswapping source blob' ?
-> 
->>
->> Signed-off-by: Helge Deller <deller@gmx.de>
->>
->> diff --git a/security/apparmor/include/match.h b/security/apparmor/include/match.h
->> index 1fbe82f5021b..386da2023d50 100644
->> --- a/security/apparmor/include/match.h
->> +++ b/security/apparmor/include/match.h
->> @@ -104,16 +104,20 @@ struct aa_dfa {
->>   	struct table_header *tables[YYTD_ID_TSIZE];
->>   };
->>   
->> -#define byte_to_byte(X) (X)
->> +#define byte_to_byte(X) (*(X))
-> 
-> It's a bit of a shame you need something for the above...
-> 
-We got rid of that in the last patch by just replacing the call to
-UNPACK_ARRAY for bytes with just a call to memcpy.
 
-> 	David
+yes we want to split it off, it could potentially go into its own class or potentially share a class with a few other memory operations that we want to handle better.
+
+The trade-off being whether we want to handle them in a separate feature abi or not. If we put them in the same class then they need to move together
+
+
+> In the kernel, `aa_file_perm` function could special case hugetlbfs so that mmap would not end up using odd (possibly disconnected) paths for accessing it.
 > 
+> I'd be happy to pick up this work if there is consensus on the general direction. I would need some help with reviews and guidance along the way.
 > 
->>   
->>   #define UNPACK_ARRAY(TABLE, BLOB, LEN, TTYPE, BTYPE, NTOHX)	\
->>   	do { \
->>   		typeof(LEN) __i; \
->>   		TTYPE *__t = (TTYPE *) TABLE; \
->>   		BTYPE *__b = (BTYPE *) BLOB; \
->> -		for (__i = 0; __i < LEN; __i++) { \
->> -			__t[__i] = NTOHX(__b[__i]); \
->> -		} \
->> +		BUILD_BUG_ON(sizeof(TTYPE) != sizeof(BTYPE)); \
->> +		if (IS_ENABLED(CONFIG_CPU_BIG_ENDIAN) || sizeof(BTYPE) == 1) \
->> +			memcpy(__t, __b, (LEN) * sizeof(BTYPE)); \
->> +		else /* copy & convert convert from big-endian */ \
->> +			for (__i = 0; __i < LEN; __i++) { \
->> +				__t[__i] = NTOHX(&__b[__i]); \
->> +			} \
->>   	} while (0)
->>   
->>   static inline size_t table_size(size_t len, size_t el_size)
->> diff --git a/security/apparmor/match.c b/security/apparmor/match.c
->> index c5a91600842a..13e2f6873329 100644
->> --- a/security/apparmor/match.c
->> +++ b/security/apparmor/match.c
->> @@ -15,6 +15,7 @@
->>   #include <linux/vmalloc.h>
->>   #include <linux/err.h>
->>   #include <linux/kref.h>
->> +#include <linux/unaligned.h>
->>   
->>   #include "include/lib.h"
->>   #include "include/match.h"
->> @@ -70,10 +71,10 @@ static struct table_header *unpack_table(char *blob, size_t bsize)
->>   				     u8, u8, byte_to_byte);
->>   		else if (th.td_flags == YYTD_DATA16)
->>   			UNPACK_ARRAY(table->td_data, blob, th.td_lolen,
->> -				     u16, __be16, be16_to_cpu);
->> +				     u16, __be16, get_unaligned_be16);
->>   		else if (th.td_flags == YYTD_DATA32)
->>   			UNPACK_ARRAY(table->td_data, blob, th.td_lolen,
->> -				     u32, __be32, be32_to_cpu);
->> +				     u32, __be32, get_unaligned_be32);
->>   		else
->>   			goto fail;
->>   		/* if table was vmalloced make sure the page tables are synced
+
+I am not opposed to free work, it should likely use the newer task based pattern/operations as a starting point. I need to get those posted. Though its probably not going to happen this week.
+
+
+
+> Best regards
+> ZK
 > 
+> [1] https://gitlab.com/apparmor/apparmor/-/issues/571
+> 
+.
 
