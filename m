@@ -2,36 +2,46 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7A9CC93918
-	for <lists+apparmor@lfdr.de>; Sat, 29 Nov 2025 09:12:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FAEFC93933
+	for <lists+apparmor@lfdr.de>; Sat, 29 Nov 2025 09:12:08 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vPG3m-0005eP-Ja; Sat, 29 Nov 2025 08:12:02 +0000
-Received: from tor.source.kernel.org ([172.105.4.254])
- by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <deller@kernel.org>) id 1vOHLr-0005Av-QX
- for apparmor@lists.ubuntu.com; Wed, 26 Nov 2025 15:22:39 +0000
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id AB8AC601D9;
- Wed, 26 Nov 2025 15:12:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 468F9C4CEF7;
- Wed, 26 Nov 2025 15:12:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1764169949;
- bh=A31ZEtB8hXgwmnRmCuYTs0YXUNocajsrU+V31FS5PcQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=BymReTMgbvFervNxB8f5k+j8RwfG6V71WiKCc0ukKREmcVSt/35mtWiBqV4bRcgso
- Zd5qN7TYdy4CkHaoA73q92T8eIQrX89FkTEt7iM0wU0gOuWqwz/nTn3l2Zh7zxdvi2
- oq38RpQSAEuwBYGPre2TFhLKY8EUYVP83x9yl6KP3XDc1Ty2vh+M6W6K4H8f07k+rx
- fTEejYRkb+pZvlz0J9BdZnbf7ufgEsLYKtwqk5uMDdWMHhMfjOV7knTA7VTXLuZqFE
- nVUZ8KW/UMSGXSNQIbJDAOiUWcG+7RUnSvNHuKKqVHksGmmFJX7GVCYNt5e/SpUat5
- pxombUnx+2/og==
-Date: Wed, 26 Nov 2025 16:12:23 +0100
-From: Helge Deller <deller@kernel.org>
-To: david laight <david.laight@runbox.com>
-Message-ID: <aScY13MEBATreotz@carbonx1>
-References: <90513f85cc8d060ebccd3972cc7709e4b6f13f34.camel@physik.fu-berlin.de>
+	id 1vPG3g-0005XQ-RP; Sat, 29 Nov 2025 08:11:56 +0000
+Received: from outpost1.zedat.fu-berlin.de ([130.133.4.66])
+ by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.86_2) (envelope-from <glaubitz@zedat.fu-berlin.de>)
+ id 1vOICM-0006mp-K0
+ for apparmor@lists.ubuntu.com; Wed, 26 Nov 2025 16:16:54 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+ Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+ Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+ References; bh=Gg5/D68mHg67K6ACJ/qySf1Tuf5DCYbgvIMuPbJ81jA=; t=1764173814;
+ x=1764778614; b=K8SYocF/b+QrsxxeFidmpXGIDrqfK2akoEKmPzAZhfoarO4FBBQEz1bYwnZ+I
+ ND6URdsvDX38w5y3V6JAD1wtosD4NkewdcbBpbyCEa7PA5l5AHXVGjtAY8B7Y8a0V+NIZBDdNkaQw
+ 6OxkMnFDDxKOzGHXHz9WbtS4fuE7ZpciVSOMlXQSjszkloX0ptJncajDrACpkLBBUX0deTJ8hdew+
+ OKPkDW3cf5d0cFjpec1C7aIGSCaHTnJGrdPwBn8jQq9kf8z1JurkSbfmgMJjCuq+FfEKX8kLcBeAw
+ yT6lsN7ST4yx4cG3k7pNXUEflHGcGnd3AuzgiZph5cXO6mxsZg==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+ by outpost.zedat.fu-berlin.de (Exim 4.99) with esmtps (TLS1.3)
+ tls TLS_AES_256_GCM_SHA384
+ (envelope-from <glaubitz@zedat.fu-berlin.de>)
+ id 1vOICL-00000002PRw-0ZHl; Wed, 26 Nov 2025 17:16:53 +0100
+Received: from p5b13aa34.dip0.t-ipconnect.de ([91.19.170.52]
+ helo=[192.168.178.61]) by inpost2.zedat.fu-berlin.de (Exim 4.99)
+ with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (envelope-from <glaubitz@physik.fu-berlin.de>)
+ id 1vOICK-00000003I3Z-3pko; Wed, 26 Nov 2025 17:16:53 +0100
+Message-ID: <78f1ff26f06c0e61d71c1a7f05a7c03c4ec03bef.camel@physik.fu-berlin.de>
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Helge Deller <deller@kernel.org>, John Johansen
+ <john.johansen@canonical.com>, david laight <david.laight@runbox.com>
+Date: Wed, 26 Nov 2025 17:16:52 +0100
+In-Reply-To: <aSblGNyoSV4LfKji@carbonx1>
+References: <aRxT78fdN5v2Ajyl@p100>
+ <90513f85cc8d060ebccd3972cc7709e4b6f13f34.camel@physik.fu-berlin.de>
  <be9c143d-1d5e-4c5b-9078-4a7804489258@gmx.de>
  <ba3d5651-fa68-4bb5-84aa-35576044e7b0@canonical.com>
  <aSXHCyH_rS-c5BgP@p100>
@@ -39,14 +49,16 @@ References: <90513f85cc8d060ebccd3972cc7709e4b6f13f34.camel@physik.fu-berlin.de>
  <c192140a-0575-41e9-8895-6c8257ce4682@gmx.de>
  <d35010b3-7d07-488c-b5a4-a13380d0ef7c@canonical.com>
  <20251126104444.29002552@pumpkin>
- <4034ad19-8e09-440c-a042-a66a488c048b@gmx.de>
- <20251126142201.27e23076@pumpkin>
+ <4034ad19-8e09-440c-a042-a66a488c048b@gmx.de> <aSblGNyoSV4LfKji@carbonx1>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.1 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20251126142201.27e23076@pumpkin>
-Received-SPF: pass client-ip=172.105.4.254; envelope-from=deller@kernel.org;
- helo=tor.source.kernel.org
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-Originating-IP: 91.19.170.52
+X-ZEDAT-Hint: PO
+Received-SPF: pass client-ip=130.133.4.66;
+ envelope-from=glaubitz@zedat.fu-berlin.de; helo=outpost1.zedat.fu-berlin.de
 X-Mailman-Approved-At: Sat, 29 Nov 2025 08:11:54 +0000
 Subject: Re: [apparmor] [PATCH 0/2] apparmor unaligned memory fixes
 X-BeenThere: apparmor@lists.ubuntu.com
@@ -60,124 +72,54 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: linux-parisc@vger.kernel.org, Helge Deller <deller@gmx.de>,
- apparmor@lists.ubuntu.com, linux-kernel@vger.kernel.org,
- linux-security-module@vger.kernel.org,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
+ linux-kernel@vger.kernel.org, linux-parisc@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-* david laight <david.laight@runbox.com>:
-> On Wed, 26 Nov 2025 12:03:03 +0100
-> Helge Deller <deller@gmx.de> wrote:
-> 
-> > On 11/26/25 11:44, david laight wrote:
-> ...   
-> > >> diff --git a/security/apparmor/match.c b/security/apparmor/match.c
-> > >> index 26e82ba879d44..3dcc342337aca 100644
-> > >> --- a/security/apparmor/match.c
-> > >> +++ b/security/apparmor/match.c
-> > >> @@ -71,10 +71,10 @@ static struct table_header *unpack_table(char *blob, size_t bsize)
-> > >>    				     u8, u8, byte_to_byte);  
-> > > 
-> > > Is that that just memcpy() ?  
-> > 
-> > No, it's memcpy() only on big-endian machines.
-> 
-> You've misread the quoting...
-> The 'data8' case that was only half there is a memcpy().
-> 
-> > On little-endian machines it converts from big-endian
-> > 16/32-bit ints to little-endian 16/32-bit ints.
-> > 
-> > But I see some potential for optimization here:
-> > a) on big-endian machines just use memcpy()
-> 
-> true
-> 
-> > b) on little-endian machines use memcpy() to copy from possibly-unaligned
-> >     memory to then known-to-be-aligned destination. Then use a loop with
-> >     be32_to_cpu() instead of get_unaligned_xx() as it's faster.
-> 
-> There is a function that does a loop byteswap of a buffer - no reason
-> to re-invent it.
+Hi Helge,
 
-I assumed there must be something, but I did not see it. Which one?
+On Wed, 2025-11-26 at 12:31 +0100, Helge Deller wrote:
+> Like this (untested!) patch:
+>=20
+> [PATCH] apparmor: Optimize table creation from possibly unaligned memory
+>=20
+> Source blob may come from userspace and might be unaligned.
+> Try to optize the copying process by avoiding unaligned memory accesses.
+>=20
+> Signed-off-by: Helge Deller <deller@gmx.de>
+>=20
+> diff --git a/security/apparmor/include/match.h b/security/apparmor/includ=
+e/match.h
+> index 1fbe82f5021b..225df6495c84 100644
+> --- a/security/apparmor/include/match.h
+> +++ b/security/apparmor/include/match.h
+> @@ -111,9 +111,14 @@ struct aa_dfa {
+>  		typeof(LEN) __i; \
+>  		TTYPE *__t =3D (TTYPE *) TABLE; \
+>  		BTYPE *__b =3D (BTYPE *) BLOB; \
+> -		for (__i =3D 0; __i < LEN; __i++) { \
+> -			__t[__i] =3D NTOHX(__b[__i]); \
+> -		} \
+> +		BUILD_BUG_ON(sizeof(TTYPE) !=3D sizeof(BTYPE)); \
+> +		/* copy to naturally aligned table address */ \
+> +		memcpy(__t, __b, (LEN) * sizeof(BTYPE)); \
+> +		/* convert from big-endian if necessary */ \
+> +		if (!IS_ENABLED(CONFIG_CPU_BIG_ENDIAN)) \
+> +			for (__i =3D 0; __i < LEN; __i++, __t++) { \
+> +				*__t =3D NTOHX(*__t); \
+> +			} \
+>  	} while (0)
+> =20
+>  static inline size_t table_size(size_t len, size_t el_size)
 
-> But I doubt it is always (if ever) faster to do a copy and then byteswap.
-> The loop control and extra memory accesses kill performance.
+So, is this patch supposed to replace all the other proposed patches?
 
-Yes, you are probably right.
+Adrian
 
-> Not that I've seen a fast get_unaligned() - I don't think gcc or clang
-> generate optimal code - For LE I think it is something like:
-> 	low = *(addr & ~3);
-> 	high = *((addr + 3) & ~3);
-> 	shift = (addr & 3) * 8;
-> 	value = low << shift | high >> (32 - shift);
-> Note that it is only 2 aligned memory reads - even for 64bit.
-
-Ok, then maybe we should keep it simple like this patch:
-
-[PATCH v2] apparmor: Optimize table creation from possibly unaligned memory
-
-Source blob may come from userspace and might be unaligned.
-Try to optize the copying process by avoiding unaligned memory accesses.
-
-Signed-off-by: Helge Deller <deller@gmx.de>
-
-diff --git a/security/apparmor/include/match.h b/security/apparmor/include/match.h
-index 1fbe82f5021b..386da2023d50 100644
---- a/security/apparmor/include/match.h
-+++ b/security/apparmor/include/match.h
-@@ -104,16 +104,20 @@ struct aa_dfa {
- 	struct table_header *tables[YYTD_ID_TSIZE];
- };
- 
--#define byte_to_byte(X) (X)
-+#define byte_to_byte(X) (*(X))
- 
- #define UNPACK_ARRAY(TABLE, BLOB, LEN, TTYPE, BTYPE, NTOHX)	\
- 	do { \
- 		typeof(LEN) __i; \
- 		TTYPE *__t = (TTYPE *) TABLE; \
- 		BTYPE *__b = (BTYPE *) BLOB; \
--		for (__i = 0; __i < LEN; __i++) { \
--			__t[__i] = NTOHX(__b[__i]); \
--		} \
-+		BUILD_BUG_ON(sizeof(TTYPE) != sizeof(BTYPE)); \
-+		if (IS_ENABLED(CONFIG_CPU_BIG_ENDIAN) || sizeof(BTYPE) == 1) \
-+			memcpy(__t, __b, (LEN) * sizeof(BTYPE)); \
-+		else /* copy & convert convert from big-endian */ \
-+			for (__i = 0; __i < LEN; __i++) { \
-+				__t[__i] = NTOHX(&__b[__i]); \
-+			} \
- 	} while (0)
- 
- static inline size_t table_size(size_t len, size_t el_size)
-diff --git a/security/apparmor/match.c b/security/apparmor/match.c
-index c5a91600842a..13e2f6873329 100644
---- a/security/apparmor/match.c
-+++ b/security/apparmor/match.c
-@@ -15,6 +15,7 @@
- #include <linux/vmalloc.h>
- #include <linux/err.h>
- #include <linux/kref.h>
-+#include <linux/unaligned.h>
- 
- #include "include/lib.h"
- #include "include/match.h"
-@@ -70,10 +71,10 @@ static struct table_header *unpack_table(char *blob, size_t bsize)
- 				     u8, u8, byte_to_byte);
- 		else if (th.td_flags == YYTD_DATA16)
- 			UNPACK_ARRAY(table->td_data, blob, th.td_lolen,
--				     u16, __be16, be16_to_cpu);
-+				     u16, __be16, get_unaligned_be16);
- 		else if (th.td_flags == YYTD_DATA32)
- 			UNPACK_ARRAY(table->td_data, blob, th.td_lolen,
--				     u32, __be32, be32_to_cpu);
-+				     u32, __be32, get_unaligned_be32);
- 		else
- 			goto fail;
- 		/* if table was vmalloced make sure the page tables are synced
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
 
