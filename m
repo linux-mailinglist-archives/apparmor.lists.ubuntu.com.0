@@ -2,43 +2,43 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C1C5C93912
-	for <lists+apparmor@lfdr.de>; Sat, 29 Nov 2025 09:12:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E997BC93942
+	for <lists+apparmor@lfdr.de>; Sat, 29 Nov 2025 09:12:09 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vPG3f-0005WS-Do; Sat, 29 Nov 2025 08:11:55 +0000
+	id 1vPG3m-0005dn-9t; Sat, 29 Nov 2025 08:12:02 +0000
 Received: from outpost1.zedat.fu-berlin.de ([130.133.4.66])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <glaubitz@zedat.fu-berlin.de>)
- id 1vO9wV-0007iA-CP
- for apparmor@lists.ubuntu.com; Wed, 26 Nov 2025 07:27:59 +0000
+ id 1vOAJq-0003wP-Mh
+ for apparmor@lists.ubuntu.com; Wed, 26 Nov 2025 07:52:06 +0000
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
  Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
  Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
- References; bh=BbRar5ALRK9J3A5yU5VFUuIOPYE6KvC6jWD+BX5+PGA=; t=1764142079;
- x=1764746879; b=Ew2WIFjEfeaKI7JwXwIDdgo1gCPcUs896/KxDXhuiu+pObLFMlC4DW1v++/6T
- elig+a5croHVubxA5Z7BVhkmroFggM9aFGLXnNMKUDfDnc2q1H7gYDQc5G+KUt2ANhUerXqLu0JKN
- hcoCfTTzN8Uo2TLULIXGFI/Q9L4vlWDlMa3FVGgcHhIAWYvJ3oAarq8RTD6Rugs6eTVL13ULDsnK7
- DL7mSruIdwFGlStiXn/rb6EVOwm8JF2e1Hiex95jyjlyPX0nQFiqBHfYfrlQnOI4YIo51uWPn8/KR
- hMyCK3nxyGINywfBds3Yl9GNswnzzi8/k/Dtklo1v81y3SCkXA==;
+ References; bh=ESKQjQsauXnAhWqFvMKIHtVXQ0piXgBraZ576m4aBZo=; t=1764143526;
+ x=1764748326; b=O9MVvSQJnJ6118wP48CmP3LJWu58RuTnJPBNymTPsfdqFSwluoLgYqR3EvN8W
+ 92tCvVRSLHwiZQtRGCCwyI/afCcYMcnHGC4/emoLF20mnzTBnj5+C93SJB+V6pITgZw6dEF+PRVvi
+ edlYdx6qduvZFCY8a8cFLJ1nyUPRWh8azo4ssWhWVOgowM1rtEJHeWC9pUCDCiHJkMM6NUeXpxJmP
+ dnSi2MT2/3xvF4lyEwpHTOzSaKQNj2fWY0/EnxW5lQBhV3rQxGmyVFJA8b3WNqyPHxbUYJkVTjOtP
+ HtWQ8DzsWu5vhwbEVZLPXNznEYoRP7XjjzeAi9Vig27Ig0nP3g==;
 Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
  by outpost.zedat.fu-berlin.de (Exim 4.99) with esmtps (TLS1.3)
  tls TLS_AES_256_GCM_SHA384
  (envelope-from <glaubitz@zedat.fu-berlin.de>)
- id 1vO9wU-00000002dUX-1dZ4; Wed, 26 Nov 2025 08:27:58 +0100
+ id 1vOAJp-00000002oDL-2kwS; Wed, 26 Nov 2025 08:52:05 +0100
 Received: from p5b13aa34.dip0.t-ipconnect.de ([91.19.170.52]
  helo=[192.168.178.61]) by inpost2.zedat.fu-berlin.de (Exim 4.99)
  with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
  (envelope-from <glaubitz@physik.fu-berlin.de>)
- id 1vO9wU-00000001VMY-0gGN; Wed, 26 Nov 2025 08:27:58 +0100
-Message-ID: <70e2ea005b090c8b3747c6724a19e6d697f5c9e8.camel@physik.fu-berlin.de>
+ id 1vOAJp-00000001aEr-1oEF; Wed, 26 Nov 2025 08:52:05 +0100
+Message-ID: <78ebb7db92ada9078b419b241d92722f6fc20864.camel@physik.fu-berlin.de>
 From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
 To: Helge Deller <deller@kernel.org>, John Johansen
  <john.johansen@canonical.com>
-Date: Wed, 26 Nov 2025 08:27:56 +0100
+Date: Wed, 26 Nov 2025 08:52:04 +0100
 In-Reply-To: <aSXHCyH_rS-c5BgP@p100>
 References: <20250531150822.135803-1-deller@kernel.org>
  <bc21bee14ca44077ae9323bfc251ad12390fa841.camel@physik.fu-berlin.de>
@@ -91,9 +91,7 @@ e will have
 gned
 > can help, e.g. with the following (untested) patch.
 > Adrian, maybe you want to test?
-
-Yes, I'll test that one.
-
+>=20
 > ------------------------
 >=20
 > [PATCH] Allow apparmor to handle unaligned dfa tables
@@ -164,6 +162,88 @@ e, int flags)
 >  	 *	if (dfa->max <=3D MAX_OOB_SUPPORTED) {
 >  	 *		pr_err("AppArmor DFA OOB greater than supported\n");
 >  	 *		goto fail;
+
+I can confirm that this fixes the unaligned access warnings.
+
+Without the patch:
+
+[   72.073526] audit: type=3D1400 audit(1764145307.711:2): apparmor=3D"STAT=
+US" operation=3D"profile_load" profile=3D"unconfined" name=3D"1password" pi=
+d=3D292 comm=3D"apparmor_parser"
+[   72.413269] audit: type=3D1400 audit(1764145308.051:3): apparmor=3D"STAT=
+US" operation=3D"profile_load" profile=3D"unconfined" name=3D"Discord" pid=
+=3D294 comm=3D"apparmor_parser"
+[   72.645135] audit: type=3D1400 audit(1764145308.283:4): apparmor=3D"STAT=
+US" operation=3D"profile_load" profile=3D"unconfined" name=3D4D6F6E676F4442=
+20436F6D70617373 pid=3D296 comm=3D"apparmor_parser"
+[   72.901297] audit: type=3D1400 audit(1764145308.539:5): apparmor=3D"STAT=
+US" operation=3D"profile_load" profile=3D"unconfined" name=3D"QtWebEnginePr=
+ocess" pid=3D297 comm=3D"apparmor_parser"
+[   73.245252] audit: type=3D1400 audit(1764145308.879:6): apparmor=3D"STAT=
+US" operation=3D"profile_load" profile=3D"unconfined" name=3D"Xorg" pid=3D2=
+98 comm=3D"apparmor_parser"
+[   73.468571] audit: type=3D1400 audit(1764145309.107:7): apparmor=3D"STAT=
+US" operation=3D"profile_load" profile=3D"unconfined" name=3D"balena-etcher=
+" pid=3D299 comm=3D"apparmor_parser"
+[   73.688642] audit: type=3D1400 audit(1764145309.327:8): apparmor=3D"STAT=
+US" operation=3D"profile_load" profile=3D"unconfined" name=3D"brave" pid=3D=
+300 comm=3D"apparmor_parser"
+[   73.897068] audit: type=3D1400 audit(1764145309.531:9): apparmor=3D"STAT=
+US" operation=3D"profile_load" profile=3D"unconfined" name=3D"buildah" pid=
+=3D301 comm=3D"apparmor_parser"
+[   74.104434] audit: type=3D1400 audit(1764145309.739:10): apparmor=3D"STA=
+TUS" operation=3D"profile_load" profile=3D"unconfined" name=3D"busybox" pid=
+=3D302 comm=3D"apparmor_parser"
+[   74.313359] audit: type=3D1400 audit(1764145309.951:11): apparmor=3D"STA=
+TUS" operation=3D"profile_load" profile=3D"unconfined" name=3D"cam" pid=3D3=
+03 comm=3D"apparmor_parser"
+[   74.808437] Kernel unaligned access at TPC[8dabdc] aa_dfa_unpack+0x3c/0x=
+6e0
+[   74.900032] Kernel unaligned access at TPC[8dabec] aa_dfa_unpack+0x4c/0x=
+6e0
+[   74.991608] Kernel unaligned access at TPC[8dacd0] aa_dfa_unpack+0x130/0=
+x6e0
+[   75.084339] Kernel unaligned access at TPC[8dacd0] aa_dfa_unpack+0x130/0=
+x6e0
+[   75.176997] Kernel unaligned access at TPC[8dacd0] aa_dfa_unpack+0x130/0=
+x6e0
+
+With the patch:
+
+[   78.058157] audit: type=3D1400 audit(1764145018.691:2): apparmor=3D"STAT=
+US" operation=3D"profile_load" profile=3D"unconfined" name=3D"1password" pi=
+d=3D294 comm=3D"apparmor_parser"
+[   78.294742] audit: type=3D1400 audit(1764145018.927:3): apparmor=3D"STAT=
+US" operation=3D"profile_load" profile=3D"unconfined" name=3D"Discord" pid=
+=3D295 comm=3D"apparmor_parser"
+[   78.516989] audit: type=3D1400 audit(1764145019.127:4): apparmor=3D"STAT=
+US" operation=3D"profile_load" profile=3D"unconfined" name=3D4D6F6E676F4442=
+20436F6D70617373 pid=3D297 comm=3D"apparmor_parser"
+[   78.748842] audit: type=3D1400 audit(1764145019.379:5): apparmor=3D"STAT=
+US" operation=3D"profile_load" profile=3D"unconfined" name=3D"QtWebEnginePr=
+ocess" pid=3D298 comm=3D"apparmor_parser"
+[   79.101544] audit: type=3D1400 audit(1764145019.731:6): apparmor=3D"STAT=
+US" operation=3D"profile_load" profile=3D"unconfined" name=3D"Xorg" pid=3D2=
+99 comm=3D"apparmor_parser"
+[   79.335655] audit: type=3D1400 audit(1764145019.967:7): apparmor=3D"STAT=
+US" operation=3D"profile_load" profile=3D"unconfined" name=3D"balena-etcher=
+" pid=3D300 comm=3D"apparmor_parser"
+[   79.559475] audit: type=3D1400 audit(1764145020.191:8): apparmor=3D"STAT=
+US" operation=3D"profile_load" profile=3D"unconfined" name=3D"brave" pid=3D=
+301 comm=3D"apparmor_parser"
+[   79.768389] audit: type=3D1400 audit(1764145020.399:9): apparmor=3D"STAT=
+US" operation=3D"profile_load" profile=3D"unconfined" name=3D"buildah" pid=
+=3D302 comm=3D"apparmor_parser"
+[   79.974008] audit: type=3D1400 audit(1764145020.607:10): apparmor=3D"STA=
+TUS" operation=3D"profile_load" profile=3D"unconfined" name=3D"busybox" pid=
+=3D303 comm=3D"apparmor_parser"
+[   80.194378] audit: type=3D1400 audit(1764145020.827:11): apparmor=3D"STA=
+TUS" operation=3D"profile_load" profile=3D"unconfined" name=3D"cam" pid=3D3=
+04 comm=3D"apparmor_parser"
+
+So, it seems your approach works as expected.
+
+Tested-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
 
 Adrian
 
