@@ -2,81 +2,77 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 329FEC8D5BD
-	for <lists+apparmor@lfdr.de>; Thu, 27 Nov 2025 09:36:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44AB3C8D647
+	for <lists+apparmor@lfdr.de>; Thu, 27 Nov 2025 09:44:17 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vOXTj-0002DD-Ny; Thu, 27 Nov 2025 08:35:51 +0000
-Received: from fhigh-b3-smtp.messagingengine.com ([202.12.124.154])
+	id 1vOXbj-0003IH-FR; Thu, 27 Nov 2025 08:44:07 +0000
+Received: from fout-b3-smtp.messagingengine.com ([202.12.124.146])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <me@zygoon.pl>) id 1vOXTh-0002Cx-Ei
- for apparmor@lists.ubuntu.com; Thu, 27 Nov 2025 08:35:49 +0000
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
- by mailfhigh.stl.internal (Postfix) with ESMTP id 475557A01A7
- for <apparmor@lists.ubuntu.com>; Thu, 27 Nov 2025 03:35:48 -0500 (EST)
+ (Exim 4.86_2) (envelope-from <me@zygoon.pl>) id 1vOXbh-0003I8-Sc
+ for apparmor@lists.ubuntu.com; Thu, 27 Nov 2025 08:44:06 +0000
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+ by mailfout.stl.internal (Postfix) with ESMTP id 876391D0019C
+ for <apparmor@lists.ubuntu.com>; Thu, 27 Nov 2025 03:44:04 -0500 (EST)
 Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-01.internal (MEProxy); Thu, 27 Nov 2025 03:35:48 -0500
+ by phl-compute-04.internal (MEProxy); Thu, 27 Nov 2025 03:44:04 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zygoon.pl; h=cc
  :content-transfer-encoding:content-type:content-type:date:date
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm3; t=1764232548;
- x=1764318948; bh=8dZ+6xmz4ZuKM9RmebN/fZuLxld5ERNQ1nb8mj/wB6Y=; b=
- 1B/9D7h0DCNou2I9Z7KU9j2TGsPsI2oR+vG1jBj2ntw4z+X/0pYEWiCYalflY4fn
- A8WlnP3j+d01jCyFOOAuaxX6ifHGpCAvX7txcJRlyU3c2rIyAUiBWn8eQAkZg+h3
- QaHUnNIcMrYAK/BUFcQYBzibcQdolc9J28tk2P90Nm+3p9+s5GJzds81x2iP7uj8
- KRCt/dYoUxPS4uBe1eX3AnPYqV45gDrCyfx7OOE1mvKny28AeO8LBi3RCqDm7uy3
- 2ta99ZOJXtctYXny3rTJCOs7bCFYSMY/LlP+sL472NlXhhXiw2P+UnUutxcQQdXM
- PO7q4yf+TUX0ukEPDPRWmw==
+ :from:from:in-reply-to:message-id:mime-version:reply-to:subject
+ :subject:to:to; s=fm3; t=1764233044; x=1764319444; bh=BTMNxqG84j
+ dBA+znlWdPf3IVApxggN+KEUiaHSs0YAU=; b=RWXNJvjYJmi7x4AXh7AlmCegPA
+ WG1/YXv/EMVPczkfByG0VWYk6GU5KPglRJESdtN16DXQzR45PnrsLpdiRSnuqlRu
+ 58CbER8Cw69lLdh39WMrpdthWtD5Q1ikxqjrQjkvlL8kv1EymKYNdqkN1P50/Lbr
+ r/XketKqO/gdXUOmpCxBwKRjypMDH35XbLkPhNz73DdnQj0MO4kn1ijPMxd6/UsP
+ zBylRupOeuaPYuF5rwIuCgVTnXxCKKDNBGiIhjJ+8zacMu2iZZheWIl2QhaEHxt5
+ AWNRX5J9i5FJCNRk0HGg5V0OzFm8Kr1IwLwSqoAd58KgLaQTYHpcdBtpIf4Q==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:content-type
  :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; t=1764232548; x=1764318948; bh=8
- dZ+6xmz4ZuKM9RmebN/fZuLxld5ERNQ1nb8mj/wB6Y=; b=Wnu6tX1kGysyS6jep
- ioaCKSCcT/U94g3DzZuW5Yogetnp7K8OKgyfGpFpbDd3pjiE41a5bwKAiKrUgLLO
- 5EQL+0MLb6m+h1CNR6FRBivgG5KlhdrG7sJPOiSp+hEcMvT9K38nRR8yRXUwCLOi
- 9f4F+5DPYfOmyaFZNavxB+KmzWt05gP4UHAxybVLb1PUJTIUyWAkc1AbWanCzfKA
- xm04NckuN8rwfGUjzb8CDdJjJGjX81w+KPb6qGR2gUIlGe9h8qdHIJDWuMZWwB+P
- 1CD6NTqZhAuL2t9TRyR94qHdVMauc1x0DyFzIgDnr/pLNVZ01SnM+cum2l9Gg9X2
- Dkysw==
-X-ME-Sender: <xms:Yw0oaatwKD2VSz_qfW6PHL1_dxJtNHAOANLayskzkavCVH6-2Qte3Q>
- <xme:Yw0oaWavtS0vgC4uL45X2XJJStqchhrB7AqKZH2Qu6AvldU8WpJRZ5zE7Fyt5WyH7
- O2bkEIJp7nmDJi3spv1dSwNQp5z2NRGfaaOczia3kX-_7Is3gT3eNY>
-X-ME-Received: <xmr:Yw0oaba9G1SweshUZiIQpMJw-16m6keDPkI6XivDkzgzUPwYrez3vX2WzPbiOJijFg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggddvgeeijeeiucetufdoteggodetrf
+ :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+ 1764233044; x=1764319444; bh=BTMNxqG84jdBA+znlWdPf3IVApxggN+KEUi
+ aHSs0YAU=; b=u72vGwpOGxpIwoEExxV7UtovXOtcmUw9VzHkVf1rV01qpjRVfYz
+ j/04ULWRoaox4ZjpuVjZbCjhLwccZ939f1s3eqMZbTkv5KoVHduYIlYFt8kp5UR7
+ PU4UBZbTA8rix5l61PxicD+X+xy5xGbK/NSXk/Nr7AZf11XSupMGX7YnsU5B9PEy
+ VeWAi/E2m12UfNvnAhWRkEWGH8ri+NYvSDxb5NS0IL15KwkaIXo35x4oLyUFUcpw
+ 4IjLmxHgu8nQ6BygP5SiqrzJC2BRn0nBenV4UDVYO3FuQ8PwSykWMKuaVSfoR9GG
+ zw0CkooWD/XViZ/0ahNncN4vCGh0ltRmbLQ==
+X-ME-Sender: <xms:VA8oaVDV4TObfGXHSDjmKKaE1h4QK1wXl9oNHLKd-oMCC_5dQKh9Ww>
+ <xme:VA8oaafHLaltJTnDRAz0hRRQ4zlMXXFbkt1PFQGj6y1o6Wjmb-EzWtrBFbsFzNqro
+ lib0oVHZ--tOpoO4rIlrHSW08TMkDHLCF1SBQeBEnfoCRujYcr-2A>
+X-ME-Received: <xmr:VA8oaWN39IVD6KfEVSGkjoVwNZmAoTUYcrtkEaKUQXIHhyfKo8cxbRCuvkErNCqn8Q>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggddvgeeijeejucetufdoteggodetrf
  dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
- rghilhhouhhtmecufedttdenucenucfjughrpefkffggfgfuvfhfhfgjtgfgsehtkeertd
- dtvdejnecuhfhrohhmpegkhihgmhhunhhtucfmrhihnhhitghkihcuoehmvgesiiihghho
- ohhnrdhplheqnecuggftrfgrthhtvghrnhepheelvdeiudefudeuhedtiedtgeetvefhgf
- efgeetkeehhffhleekudettdfhfedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghr
- rghmpehmrghilhhfrhhomhepmhgvseiihihgohhonhdrphhlpdhnsggprhgtphhtthhope
- dupdhmohguvgepshhmthhpohhuthdprhgtphhtthhopegrphhprghrmhhorheslhhishht
- shdruhgsuhhnthhurdgtohhm
-X-ME-Proxy: <xmx:Yw0oaaXLftx8SjzkihmiZ8mUc8Se4Kkoscx1nj5nvvNlsXIiqcbeQQ>
- <xmx:Yw0oaa3oM0DgV06wY3-lTRSkaMGIZ6Y-P_argxyUjgzdR7VO9WCh7A>
- <xmx:Yw0oaZZsTEBUjRK__NbcjkDQZSL6_zx7xJKF6ivgnpS5OjXANDCfVA>
- <xmx:Yw0oaVoJYEc9jFtyoAQMdBN0yZWHiTuy-gphdZ5A36gDBizp4094LQ>
- <xmx:ZA0oaXn-oLfiUJTnh4ZuJrL722sOYs3C8gzpKwVlsrg867wspqtK9A_M>
+ rghilhhouhhtmecufedttdenucenucfjughrpefkffggfgfvhffutgfgsehtjeertddtvd
+ ejnecuhfhrohhmpegkhihgmhhunhhtucfmrhihnhhitghkihcuoehmvgesiiihghhoohhn
+ rdhplheqnecuggftrfgrthhtvghrnhepudejhfelveffjeduledvkeeivdevvdfggedtie
+ ejkedvgedvteekledvffevhfeunecuffhomhgrihhnpehgihhtlhgrsgdrtghomhdpuhgs
+ uhhnthhurdgtohhmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
+ hfrhhomhepmhgvseiihihgohhonhdrphhlpdhnsggprhgtphhtthhopedupdhmohguvgep
+ shhmthhpohhuthdprhgtphhtthhopegrphhprghrmhhorheslhhishhtshdruhgsuhhnth
+ hurdgtohhm
+X-ME-Proxy: <xmx:VA8oaU5IE_6O8PwzJgiRXSpBrx2A4WiZeZ12mFB5TAICm1az1a2ZqA>
+ <xmx:VA8oaaLSOG4EfYAzE5ewHsUc5OW8D9FlKsDhjLUp24XeHetVnEkUfQ>
+ <xmx:VA8oaecncmaMf3g2pFnOIV3wjcQMhmW5aSKPRYkLkGRlTh21drtSqQ>
+ <xmx:VA8oadeQZ1imxKmMrO39QA2hq2ewGJjljW6P_g_ldJuF1hM5RHfH1Q>
+ <xmx:VA8oafqow16xnZrhKY8fG5mnBoU4GOvC0HTZWum8d-6uME8d8BSR0Prj>
 Feedback-ID: i416c40e7:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA for
- <apparmor@lists.ubuntu.com>; Thu, 27 Nov 2025 03:35:47 -0500 (EST)
-Message-ID: <51ee7f9b-fddb-425b-89a5-8e778e3641bb@zygoon.pl>
-Date: Thu, 27 Nov 2025 09:35:46 +0100
+ <apparmor@lists.ubuntu.com>; Thu, 27 Nov 2025 03:44:03 -0500 (EST)
+Message-ID: <fe0d079f-bcf0-4ca3-92fa-231c742c073e@zygoon.pl>
+Date: Thu, 27 Nov 2025 09:44:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: apparmor@lists.ubuntu.com
-References: <7c1c83ac-c8d3-490b-a6b5-c718b1dbc016@zygoon.pl>
- <d5fccb40-62a9-43d9-89d7-eb1c4c78c43b@canonical.com>
 Content-Language: en-US
+To: apparmor@lists.ubuntu.com
 From: Zygmunt Krynicki <me@zygoon.pl>
-In-Reply-To: <d5fccb40-62a9-43d9-89d7-eb1c4c78c43b@canonical.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=202.12.124.154; envelope-from=me@zygoon.pl;
- helo=fhigh-b3-smtp.messagingengine.com
-Subject: Re: [apparmor] Huge pages mediation class?
+Content-Transfer-Encoding: 7bit
+Received-SPF: pass client-ip=202.12.124.146; envelope-from=me@zygoon.pl;
+ helo=fout-b3-smtp.messagingengine.com
+Subject: [apparmor] File PDB with both Accept2 and Perms tables
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -91,45 +87,38 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
+This is a technical follow-up to the MR 1863 [1] which attempts to 
+correct a recently discovered issue between the parser and the kernel 
+with regards to handling conditional user/other (aka owner) rules.
 
+I've separately posted the kernel patch which adds missing 
+initialization to the accept2 table in the case one is not provided in 
+the file pdb.
 
-W dniu 26.11.2025 o 23:58, John Johansen pisze:
-> On 11/26/25 02:04, Zygmunt Krynicki wrote:
->> Hello
->>
->> As a part of investigation into issue affecting mmap with MAP_HUGETLB 
->> [1], I was thinking if huge pages should have a dedicated mediation 
->> class and be handled similarly to how mqueue was recently added.
->>
-> 
-> yes we want to split it off, it could potentially go into its own class 
-> or potentially share a class with a few other memory operations that we 
-> want to handle better.
+When looking at the parser, I had to make two modifications:
 
-What other operations would go there?
+1) In libapparmor_re I would allocate accept2 when permission index was 
+used. I would then set the owner bit in each state/index of accept2.
 
-> The trade-off being whether we want to handle them in a separate feature 
-> abi or not. If we put them in the same class then they need to move 
-> together
+2) In the parser proper I would emit the permsv field, just after the 
+perms structure with the perms array. The value of the field was set to 
+3. This I did not initially expect and it took me a moment to see why 
+the kernel was rejecting my policy.
 
-Right
+The kernel only loads accept2 (as u32 values) if the optional permsv 
+field is present and the value is larger than 2. I feel I'm stepping 
+over some future-proofing design I'm not aware of.
 
->> In the kernel, `aa_file_perm` function could special case hugetlbfs so 
->> that mmap would not end up using odd (possibly disconnected) paths for 
->> accessing it.
->>
->> I'd be happy to pick up this work if there is consensus on the general 
->> direction. I would need some help with reviews and guidance along the 
->> way.
->>
-> 
-> I am not opposed to free work, it should likely use the newer task based 
-> pattern/operations as a starting point. I need to get those posted. 
-> Though its probably not going to happen this week.
-
-I'm looking forward to those then.
+My main question is: is the issue 570 [2] something that can be fixed in 
+the parser for the benefit of all past and future kernels regardless of 
+my earlier-posted kernel patch [3] or is it something that would, for 
+proper design and not doing the wrong short-term fix, require a 
+coordinated patch on both sides?
 
 Best regards
 ZK
 
+[1] https://gitlab.com/apparmor/apparmor/-/merge_requests/1863
+[2] https://gitlab.com/apparmor/apparmor/-/issues/570
+[3] https://lists.ubuntu.com/archives/apparmor/2025-November/013873.html
 
