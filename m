@@ -2,86 +2,86 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF3D4C8C44D
-	for <lists+apparmor@lfdr.de>; Wed, 26 Nov 2025 23:58:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D152EC8C8C7
+	for <lists+apparmor@lfdr.de>; Thu, 27 Nov 2025 02:29:29 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vOOSf-0005nY-UC; Wed, 26 Nov 2025 22:58:09 +0000
-Received: from smtp-relay-internal-1.internal ([10.131.114.114]
- helo=smtp-relay-internal-1.canonical.com)
+	id 1vOQor-0005Bx-FY; Thu, 27 Nov 2025 01:29:13 +0000
+Received: from smtp-relay-internal-0.internal ([10.131.114.225]
+ helo=smtp-relay-internal-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1vOOSe-0005nR-6N
- for apparmor@lists.ubuntu.com; Wed, 26 Nov 2025 22:58:08 +0000
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
- [209.85.210.197])
+ id 1vOQop-0005Ai-CV
+ for apparmor@lists.ubuntu.com; Thu, 27 Nov 2025 01:29:11 +0000
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
+ [209.85.216.71])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 15FEA3F1CC
- for <apparmor@lists.ubuntu.com>; Wed, 26 Nov 2025 22:58:07 +0000 (UTC)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id D184A3FB78
+ for <apparmor@lists.ubuntu.com>; Thu, 27 Nov 2025 01:29:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20251003; t=1764197887;
- bh=zk/4TWscelIA8xrZ67/zM0lNT/rHcU1T664MZE8+fZg=;
+ s=20251003; t=1764206949;
+ bh=U4M7mgDxA4tUcoc6dcnV+qz9/p8kEtqTGsq9raDibsE=;
  h=Message-ID:Date:MIME-Version:Subject:To:References:From:
  In-Reply-To:Content-Type;
- b=abhcPwrxvDFr86+GR8PtLgklNdsjaftYler40Qd4VNjx0o09pNBw3hyDwQOu4iedU
- ZLfe+9R+50UKScblIoTCxMg1iCtXnhn8cjv+cxnkyCsFigHeebxTLqi/1Tp8Skk1zT
- r8ZPFVmNQb6e2oqsW+y+wX/F4lvealsHVBecgITulYJpT404q1RJwMJg10sPpfVzxE
- xXX7cChblcpKF54sZOcgE0w/bRqLLjE2SsighO75+47ehyTsRDZ4V9ChuER2Ordesu
- 66zqU1GlqJ3WfDN0t+CubXhagkWLJ7WXxIABERQWIVB3UOTwMXKvzRa+wjuk0tSn4s
- cKR/kbsBSxbeLSG7IXMQb274Ixl/hbf5KU7gthdRYAu5BtHzd3wMum8Z/xFdyaafX5
- c+NklVPYbujTRi4aTtB16XLlMO/qlmvTnC0QITMl/O3az2fr+iQlWtpcKMO/8wu6Z7
- F3oIjhIxYISkdU7N9oqQ44Sb1aWw3LE143hFRx0JUKxNGKU98TWRcQxqEw4M5fQxer
- zGTyFdDqTPN501kF8H61RxM2CC2XOqZs/SJ3iI1awej3gZYhZFORB4PuKyGI1RX+uD
- 1xkjC6cmADwHwDM3BQ021jTQjDdDl+VCXmETY9K3EEfZp1Y7NQWmGtDBIU7u2zBV/D
- bUmLq7B02zQLumg1lcKCH2qk=
-Received: by mail-pf1-f197.google.com with SMTP id
- d2e1a72fcca58-7c240728e2aso324939b3a.3
- for <apparmor@lists.ubuntu.com>; Wed, 26 Nov 2025 14:58:07 -0800 (PST)
+ b=DT2boofCpxuwEe8G3KnaPwfo07FWR5L8akYE7dZSuxg6SwIcWKhWUtql4CXD5B0Nc
+ kxad8fKtUqyCqWYHKC9v6Ipl5nxQxd3OkGZb+fEidil8Tcd4XP+P9yt/xwsF8ftYCR
+ 8N6Y+iWKWkeZ4cVUTH18XabtlVKgy+hc9I96qhC6uUGE9sW/8+LIEPzdhwsl36aegf
+ 7xkcG+x8EisUZbNAS00JNfoWS1krF+C4HsspH0ZPvzcMfVUCSwK9S6XeGAWN+YPNAT
+ OkDAuFQhZSWIf/7JKDpDP1f2a0vIEUxNiORbDrTMceubrGa4HBOOnCD3yWDSJEs8+e
+ n92GrO3teY7EcwbraY6oz81JA1J0HF8Wjk5jj4gOCoOaVpHjnfhKRfze2KWnlSH1Ay
+ NQlSJ+3VjypW+OVK84eqRp/OjruB2F/An3YAZ/ZCie73JuI/mQgkDbgQFhRW5FETgh
+ NczkhjYq9PVlgjC72l0zTLlR9XdJxVlISIt071fvZ3vtuL59jPSY6h88cgS4OnGxjh
+ 8537CJD5+xOqAcGEPj4MrFgi+/EAsXIQ4GkkXI9kCecLDsXpo1djWS2jHm+QhDrYoC
+ n9pu0gt3i2uH6aGkTjZ6Icy01DGYJ/fLZ1ckcuVGSumfxZ1gn6WtSNTschq5yQfcNo
+ RcZVniHGPpi50/ZOeXNCTShA=
+Received: by mail-pj1-f71.google.com with SMTP id
+ 98e67ed59e1d1-341616a6fb7so351882a91.0
+ for <apparmor@lists.ubuntu.com>; Wed, 26 Nov 2025 17:29:09 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764197886; x=1764802686;
+ d=1e100.net; s=20230601; t=1764206948; x=1764811748;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
  :content-language:references:to:subject:user-agent:mime-version:date
  :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=zk/4TWscelIA8xrZ67/zM0lNT/rHcU1T664MZE8+fZg=;
- b=DOsMOjKnVjhnVCmtUL97mxrbzPbalUnnMFXIKs/Y7z4BZlh3att1WOy+Y+xbAC8hC0
- 5OhwGgwYigIOYg0wtMAoS21T2fF3SzhLXThJwKNNpOOa0BTLpCDGHvv2cQD/KCQmi7T5
- p0xDM+ZpWLuTwo4SMe2TNp20zD8bdPrxuiGmirplClz9mYM9wmoftn4oMDOaLdo2w5n+
- N3XTz0/estgPr03JsH4m0YdSjhxGih4NecvIoCXhE66MXTh4+8/RdSMH6Pt/EOKs6Gav
- BFp7hcrrm7ePcTHAY86ec7yAGwtvyVeMxr0FpblZQMIFIvmyw0h4zjvQ/aFnx9v1dyL7
- Xj1g==
-X-Gm-Message-State: AOJu0YzoEdeNIug6TKThzyFmHk8rNl21LdR8IFfCGwc6RJsWuM0eYfu9
- EhlMlipjAdT1WxL3WsjyaL807549xYds4TAj9iUN3i82VKvFCs017pzqTSPb5jXvlOdjGYTAs0z
- IuKfysDpNNECwAcXgjSzzc7mxQlAjE3UlaGQB2VbUJ6liI0tPexmMnXjnKSH3Bre19/cfgGSaQq
- MGQVU0RP5Jdm3T
-X-Gm-Gg: ASbGncuWI1qaavAnJFGnC6k/ribgnssiwq3jHro7zXHTTNciZ0UYWy5oRiWNBqJcbPi
- zNGmKZYl3wk6X0v8YlJzX0dXaLvCkhcrkqFpdAohypTqrA5pQAkAu3yNxTfJAQs/7CzM9k+4WiH
- i/BCmal0dT7u6saDAhAX/pBkwFfSRDCJkSxhiOhf8depDwGDMMgnnrXVnfick9w9Giq2n7AedEf
- Gx63yhEjhOLvJ3ltoL1/NqPlbeGI7RyLvg1pR1GI/K+I1EmYN5ChvUFutFZorAuR3Uo7qD1awv6
- r6+XxBj/VcJccJvWrYJbNVXZT30jOSD4ssN6JtkREyYmuZU32e7mfy9Kq1aqE0lqDPbnUKTx7CI
- Kb9z9WV65wJ1YJtQlhho6IZpg
-X-Received: by 2002:a05:6a20:748d:b0:361:4ca3:e17d with SMTP id
- adf61e73a8af0-3614eb0e251mr23291055637.13.1764197885779; 
- Wed, 26 Nov 2025 14:58:05 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IELfxXjGnvmWdo+Ead+udpiextfXH0h+2t1ugE7t1IhWv8HyDA9I+gupeWv2hk01kN0uWL8VA==
-X-Received: by 2002:a05:6a20:748d:b0:361:4ca3:e17d with SMTP id
- adf61e73a8af0-3614eb0e251mr23291035637.13.1764197885330; 
- Wed, 26 Nov 2025 14:58:05 -0800 (PST)
+ bh=U4M7mgDxA4tUcoc6dcnV+qz9/p8kEtqTGsq9raDibsE=;
+ b=oJeF+Zkn6WFEPlczmzClUPfNpkuwRkKY2lEHTR6AA2yEr8LyIyGYNRmkONvolGrUzp
+ B5tio1sQAQV6RtKMhV2xaIC/22/OzcYwztifkQzvaG50LgEKzhcqaGqKF3Qv2Z01wdQ7
+ qSx2syXjptg7YmP1v/CBxf3UQz17W97x6MggncrW2QhruhFnOTv4CoC015VoMPuILfqR
+ oHi5Xe57Am709O+3Yo63kXqVQUwNbigma69rdXHJvV+zJn2g8bCZxEk99n4vREpzflsm
+ rM75ygtlG3l1dVogNFTOjye70Np6MfYOHEMeny0Bn6iCGPtRmH2gc/JMuQlBWALDdzSO
+ Pjpw==
+X-Gm-Message-State: AOJu0YwFUa1VRJzd8TJWqRIX0F1xRfDCal12F8GUB5foN5qEoWdjBpDt
+ ORc1nNN6oyLNg+NqegEunRR1shpHTJGuP4ZXSEFl0GO7eBEvu4fxPESH0NZX03/41uUmMM5hHr1
+ 7BKt8SQZNXNa6Yv5TJBX7j7bDemh6uOaPvxlcSYCgfmBstK8GI161jwDx8w3Y3jCqLBOzY0ZL/s
+ HSyJz+I0cvPSd9
+X-Gm-Gg: ASbGncsW8S6K31LtRmfKwBKxyLRVLAvNoXVm0RxvQl0CLwaOpNWBcPib1C4UMOLELli
+ bT9FPwHtxUiUIUaBD8TreLT0unlMfjRGi8Q8h0HbkA/HldJfoKzEOnZhaxbDTxn3sE86RQDsris
+ 9WUHmnTMxAROV5pTTUmi48GcMLy9kxZyKaqejFhLH+a8MQczKtHhduhi67UFStCUz/rP6+fiVaD
+ G60Yz8Wi89R0C9SB9BdCp4UCSlHMKrg35wEpaya7pA2Hd4umglprLRAonqKdSPhf1QxevkoALQa
+ E6X2aPE18TL9dRZSsZdlKSHsAOapLClGdzNC8mYDJYyTDVe856ITM34MquhmVUFzWem/vMuLGNm
+ 6w1iLa0BGUnLHRtzntR4g2wiA
+X-Received: by 2002:a17:903:2b0f:b0:298:46a9:df01 with SMTP id
+ d9443c01a7336-29b6c3bf292mr244469405ad.3.1764206948439; 
+ Wed, 26 Nov 2025 17:29:08 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEIOGtmH0KuxSGiYG35kZrxiQaOypPxWcxQDXKfC0wSDullkyK9dj/BsSoJ5fciAFwUzGJDdg==
+X-Received: by 2002:a17:903:2b0f:b0:298:46a9:df01 with SMTP id
+ d9443c01a7336-29b6c3bf292mr244469245ad.3.1764206947954; 
+ Wed, 26 Nov 2025 17:29:07 -0800 (PST)
 Received: from [192.168.192.85] ([50.47.129.42])
  by smtp.googlemail.com with ESMTPSA id
- d2e1a72fcca58-7c3f174ba7dsm22364990b3a.64.2025.11.26.14.58.04
+ d9443c01a7336-29b5b274d39sm209977675ad.77.2025.11.26.17.29.07
  for <apparmor@lists.ubuntu.com>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Nov 2025 14:58:04 -0800 (PST)
-Message-ID: <d5fccb40-62a9-43d9-89d7-eb1c4c78c43b@canonical.com>
-Date: Wed, 26 Nov 2025 14:58:04 -0800
+ Wed, 26 Nov 2025 17:29:07 -0800 (PST)
+Message-ID: <363f581c-d820-48db-8a5d-7d399e741fb0@canonical.com>
+Date: Wed, 26 Nov 2025 17:29:06 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: apparmor@lists.ubuntu.com
-References: <7c1c83ac-c8d3-490b-a6b5-c718b1dbc016@zygoon.pl>
+References: <9bbb2148-6dd4-40e5-a1dd-8afe59e68cad@zygoon.pl>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -127,10 +127,10 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <7c1c83ac-c8d3-490b-a6b5-c718b1dbc016@zygoon.pl>
+In-Reply-To: <9bbb2148-6dd4-40e5-a1dd-8afe59e68cad@zygoon.pl>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] Huge pages mediation class?
+Subject: Re: [apparmor] Splitting unlink from write
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -145,30 +145,47 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 11/26/25 02:04, Zygmunt Krynicki wrote:
+On 11/26/25 05:17, Zygmunt Krynicki wrote:
 > Hello
 > 
-> As a part of investigation into issue affecting mmap with MAP_HUGETLB [1], I was thinking if huge pages should have a dedicated mediation class and be handled similarly to how mqueue was recently added.
+> I'd like to propose splitting the textual permission "w", so that it does not imply AA_MAY_DELETE if the file is a device, fifo or socket. Profiles routinely grant "w" permission, but nobody in their right mind expects applications to delete such files.
+> 
+this has been planned and is supported on the backend. We still need to fix the frontend (long term todo that is coming)
+
+The question is how to deal with it in policy, there are basically two ways, introduce finer permission to policy that can be used along side the current.
+
+Or stick it behind an abi flag. The abi flag seems like a cleaner solution to me
+
+> Both userspace and kernel can already kind-of express this. The only question is how to do that in a way that doesn't force a painful profile transition. I think we need a new permission bit.
 > 
 
-yes we want to split it off, it could potentially go into its own class or potentially share a class with a few other memory operations that we want to handle better.
+we have that is the backend. An update to the front end, that moves the mapping for old perms to the backend is coming, its something I very much would have liked to have had landed already
 
-The trade-off being whether we want to handle them in a separate feature abi or not. If we put them in the same class then they need to move together
-
-
-> In the kernel, `aa_file_perm` function could special case hugetlbfs so that mmap would not end up using odd (possibly disconnected) paths for accessing it.
-> 
-> I'd be happy to pick up this work if there is consensus on the general direction. I would need some help with reviews and guidance along the way.
+> My suggestion would be to add a AA_MAY_DELETE_SPECIAL permission. Starting with some future ABI deleting devices, fifos and sockets would check AA_MAY_DELETE_SPECIAL. Compatibility layer in the kernel would then continue to grant AA_MAY_DELETE_SPECIAL for older ABIs.
 > 
 
-I am not opposed to free work, it should likely use the newer task based pattern/operations as a starting point. I need to get those posted. Though its probably not going to happen this week.
+Well the plan here was to actually expose fifo/socket/link/.. as a rule conditional. Then you don't need a special MAY_DELETE, you just need delete, and the correct conditional.
 
+For compatibility we map the permissions, and the conditional is just defaulted to all types.
 
+> On the userspace side we might define new syntax such as:
+> 
+> allow file PATH D,
+> 
+> Where D implies delete special.
+> 
+I was thinking more of using
 
+   allow file type=file /foo delete,
+
+   allow file type!=char /foo delete,
+
+> I'm happy to take a stab at implementing it. The only thing I'm not sure is how to name the new feature "delete_special".
+> 
+> I'm grateful for your thoughts
+> 
 > Best regards
 > ZK
 > 
-> [1] https://gitlab.com/apparmor/apparmor/-/issues/571
-> 
-.
+
 
