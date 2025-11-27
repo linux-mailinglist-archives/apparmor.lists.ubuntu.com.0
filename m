@@ -2,86 +2,87 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id D152EC8C8C7
-	for <lists+apparmor@lfdr.de>; Thu, 27 Nov 2025 02:29:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40F5AC8C8CD
+	for <lists+apparmor@lfdr.de>; Thu, 27 Nov 2025 02:33:15 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vOQor-0005Bx-FY; Thu, 27 Nov 2025 01:29:13 +0000
-Received: from smtp-relay-internal-0.internal ([10.131.114.225]
- helo=smtp-relay-internal-0.canonical.com)
+	id 1vOQsY-0005YK-Ic; Thu, 27 Nov 2025 01:33:02 +0000
+Received: from smtp-relay-internal-1.internal ([10.131.114.114]
+ helo=smtp-relay-internal-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1vOQop-0005Ai-CV
- for apparmor@lists.ubuntu.com; Thu, 27 Nov 2025 01:29:11 +0000
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71])
+ id 1vOQsW-0005Xe-6v
+ for apparmor@lists.ubuntu.com; Thu, 27 Nov 2025 01:33:00 +0000
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
+ [209.85.215.200])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id D184A3FB78
- for <apparmor@lists.ubuntu.com>; Thu, 27 Nov 2025 01:29:09 +0000 (UTC)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id F1AE33F125
+ for <apparmor@lists.ubuntu.com>; Thu, 27 Nov 2025 01:32:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20251003; t=1764206949;
- bh=U4M7mgDxA4tUcoc6dcnV+qz9/p8kEtqTGsq9raDibsE=;
- h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+ s=20251003; t=1764207180;
+ bh=bHVUgP8TVtYbK/RH59jYqEOFLp2rfeRbE8F3eHfE2h8=;
+ h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
  In-Reply-To:Content-Type;
- b=DT2boofCpxuwEe8G3KnaPwfo07FWR5L8akYE7dZSuxg6SwIcWKhWUtql4CXD5B0Nc
- kxad8fKtUqyCqWYHKC9v6Ipl5nxQxd3OkGZb+fEidil8Tcd4XP+P9yt/xwsF8ftYCR
- 8N6Y+iWKWkeZ4cVUTH18XabtlVKgy+hc9I96qhC6uUGE9sW/8+LIEPzdhwsl36aegf
- 7xkcG+x8EisUZbNAS00JNfoWS1krF+C4HsspH0ZPvzcMfVUCSwK9S6XeGAWN+YPNAT
- OkDAuFQhZSWIf/7JKDpDP1f2a0vIEUxNiORbDrTMceubrGa4HBOOnCD3yWDSJEs8+e
- n92GrO3teY7EcwbraY6oz81JA1J0HF8Wjk5jj4gOCoOaVpHjnfhKRfze2KWnlSH1Ay
- NQlSJ+3VjypW+OVK84eqRp/OjruB2F/An3YAZ/ZCie73JuI/mQgkDbgQFhRW5FETgh
- NczkhjYq9PVlgjC72l0zTLlR9XdJxVlISIt071fvZ3vtuL59jPSY6h88cgS4OnGxjh
- 8537CJD5+xOqAcGEPj4MrFgi+/EAsXIQ4GkkXI9kCecLDsXpo1djWS2jHm+QhDrYoC
- n9pu0gt3i2uH6aGkTjZ6Icy01DGYJ/fLZ1ckcuVGSumfxZ1gn6WtSNTschq5yQfcNo
- RcZVniHGPpi50/ZOeXNCTShA=
-Received: by mail-pj1-f71.google.com with SMTP id
- 98e67ed59e1d1-341616a6fb7so351882a91.0
- for <apparmor@lists.ubuntu.com>; Wed, 26 Nov 2025 17:29:09 -0800 (PST)
+ b=KSznulbO5R7CwtFn1aVVyZ+zM7sLofTkFM9Myb9JIpUwKooyUKLYieBUasZ2Ab7mp
+ UTmfKWKg0Hx5ZMNHG5OU6MIynkbfccW2IV6hjvVdRzXFRVVEGs8MFomuhbPIXxQdLq
+ ykEjuARYZxeZ8A+sC0do10w/gG9KLxiBK0XI2/02CncDn0m0WEZemUx57fDpD8Z45r
+ HiwTXk+W6l4DIb/0X6KUd7RUDD/em2sILeHlYSJHF0KcK5npGTJ8Q/t41SOXyowdOF
+ nUOLwA81oceAMePyGOTjs36xlXqkNaRb/YV0ZuZprIGIhKnJi1voXQlzRrCf1ERe/m
+ vLRUfvAHbQ5XqoJ17DkJAsPKuz5kQfB1PYQOZx9XxnXGPiex6g9utjG+4zPl7bpe4H
+ CFrbEPFZ7aX+E+vr6l6wqoZBB/Op3pk0kPbdIjWgMhLZ/m760eXzBTUckJ6C1IZKbK
+ TTmvtDjM7R7JWWDAW5tviKWUlKi2ZGaEa5EqF+H7u8MPgZCIr1jjZJP7ZgY0Bbv3wT
+ OCGwBAiBYplD9GfG5pVUUA1HxTAW+JMjR3zy9E0HpJ/+GkmRsWB6R5mWDOh9nPsTXI
+ 0VGAa71wUCtgdYIln7ZTo9HrTmzTke62oYmkEqzFLI6vkvCqf04yUkUhjWNiR5Gse+
+ 2yr/U/lB1NlOQ8iSVysv48VI=
+Received: by mail-pg1-f200.google.com with SMTP id
+ 41be03b00d2f7-bbcf3bd4c8fso235648a12.0
+ for <apparmor@lists.ubuntu.com>; Wed, 26 Nov 2025 17:32:59 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764206948; x=1764811748;
+ d=1e100.net; s=20230601; t=1764207178; x=1764811978;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
- :content-language:references:to:subject:user-agent:mime-version:date
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=U4M7mgDxA4tUcoc6dcnV+qz9/p8kEtqTGsq9raDibsE=;
- b=oJeF+Zkn6WFEPlczmzClUPfNpkuwRkKY2lEHTR6AA2yEr8LyIyGYNRmkONvolGrUzp
- B5tio1sQAQV6RtKMhV2xaIC/22/OzcYwztifkQzvaG50LgEKzhcqaGqKF3Qv2Z01wdQ7
- qSx2syXjptg7YmP1v/CBxf3UQz17W97x6MggncrW2QhruhFnOTv4CoC015VoMPuILfqR
- oHi5Xe57Am709O+3Yo63kXqVQUwNbigma69rdXHJvV+zJn2g8bCZxEk99n4vREpzflsm
- rM75ygtlG3l1dVogNFTOjye70Np6MfYOHEMeny0Bn6iCGPtRmH2gc/JMuQlBWALDdzSO
- Pjpw==
-X-Gm-Message-State: AOJu0YwFUa1VRJzd8TJWqRIX0F1xRfDCal12F8GUB5foN5qEoWdjBpDt
- ORc1nNN6oyLNg+NqegEunRR1shpHTJGuP4ZXSEFl0GO7eBEvu4fxPESH0NZX03/41uUmMM5hHr1
- 7BKt8SQZNXNa6Yv5TJBX7j7bDemh6uOaPvxlcSYCgfmBstK8GI161jwDx8w3Y3jCqLBOzY0ZL/s
- HSyJz+I0cvPSd9
-X-Gm-Gg: ASbGncsW8S6K31LtRmfKwBKxyLRVLAvNoXVm0RxvQl0CLwaOpNWBcPib1C4UMOLELli
- bT9FPwHtxUiUIUaBD8TreLT0unlMfjRGi8Q8h0HbkA/HldJfoKzEOnZhaxbDTxn3sE86RQDsris
- 9WUHmnTMxAROV5pTTUmi48GcMLy9kxZyKaqejFhLH+a8MQczKtHhduhi67UFStCUz/rP6+fiVaD
- G60Yz8Wi89R0C9SB9BdCp4UCSlHMKrg35wEpaya7pA2Hd4umglprLRAonqKdSPhf1QxevkoALQa
- E6X2aPE18TL9dRZSsZdlKSHsAOapLClGdzNC8mYDJYyTDVe856ITM34MquhmVUFzWem/vMuLGNm
- 6w1iLa0BGUnLHRtzntR4g2wiA
-X-Received: by 2002:a17:903:2b0f:b0:298:46a9:df01 with SMTP id
- d9443c01a7336-29b6c3bf292mr244469405ad.3.1764206948439; 
- Wed, 26 Nov 2025 17:29:08 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEIOGtmH0KuxSGiYG35kZrxiQaOypPxWcxQDXKfC0wSDullkyK9dj/BsSoJ5fciAFwUzGJDdg==
-X-Received: by 2002:a17:903:2b0f:b0:298:46a9:df01 with SMTP id
- d9443c01a7336-29b6c3bf292mr244469245ad.3.1764206947954; 
- Wed, 26 Nov 2025 17:29:07 -0800 (PST)
+ bh=bHVUgP8TVtYbK/RH59jYqEOFLp2rfeRbE8F3eHfE2h8=;
+ b=a3eW8iBMGsG1mNveSgTd+W1xk2g0+c2Lt0J0mR5INGT0Rhhry0bHWDWJdXhOHCimEa
+ qcf0rFyQnDjKYoHCNMoQgNO3ncw1ob+BGhkM8OvabX6Jg2KTZ5LyC8mmOFF7okMu26le
+ fBsPNKw8s9il0Jr3HK1OzZF/Zz6EIn+3bPla//dJOXC8KH6uxSwx2zRLhxA5L7QHtxln
+ 5xrHC00QWFRKG/6TLIQBmhwy+cx2FGrfOJXRYkrCiEDS6gm6rsBZMu0DGyvrCw4YClCu
+ CzSyIeoe1M/78kv6YdGnhc8TSm04GnDdQYci6sElb9QlN87jz9ZBMvq/gI2xSrTLKUwj
+ zajg==
+X-Gm-Message-State: AOJu0YwXbMZ0XFzq+2TDgD0HL7/IrmnqhhKHovTjiqYwNNFadkinbt/T
+ GF2LXE5s67sKhpcv84WSKVaFE1Rq/3jvLjRyhpFglmXaklXXI9ozcPE/B88x+Ep1NYY2vsIBenE
+ znw23yuZekBhqnY3deSNbiWIOKCxJvfJqVCt4lRV5DRJyCXFGi2L8G8iTaeV4SqLS5ygc/4p2Vg
+ ygGw==
+X-Gm-Gg: ASbGncvaFnlABBB4YlbVapFFMIQHqP8DTYvQSgGMEjkR5DzBJ2MaMEb5z9VA2IO3rqw
+ 1NpkKz68287MmFM3KW9u6s2ibT26Yp+KbBq5QcDROLUf37TyZkEFAbXmPwLpC5jfm/IP8MNl+5i
+ V2F3oDrS1j+bkTDncapuJimorBJqTGxCM84LWEZdYmOc8cJ4Smhra9qAVncZGxSbgCJyNarpd5Z
+ TpKvPKcad8fr+LyiFouG64/UhonrB9hCuExjomOmLJuaDVZDDSOzk1H3igIZvwTJ27cvuxIK/h9
+ 7C4ngQ/qpc2r8SRMK0an9zOhS9OATkXna4TwhZMKepFZPMaWiccb05J1waPqFd7F2thnivf2cFT
+ wzDara7NwZioCrLXcowOi/9PF
+X-Received: by 2002:a05:6a20:734a:b0:348:b6af:5023 with SMTP id
+ adf61e73a8af0-3613e3c4f74mr32471018637.10.1764207178381; 
+ Wed, 26 Nov 2025 17:32:58 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IF9poROxMcqJmE/ZSFgYiynf+n9P/aaj4L9EtwLq9gxjSC4Men5EwCCzbfLvhQxV0VS86hawg==
+X-Received: by 2002:a05:6a20:734a:b0:348:b6af:5023 with SMTP id
+ adf61e73a8af0-3613e3c4f74mr32470984637.10.1764207177997; 
+ Wed, 26 Nov 2025 17:32:57 -0800 (PST)
 Received: from [192.168.192.85] ([50.47.129.42])
  by smtp.googlemail.com with ESMTPSA id
- d9443c01a7336-29b5b274d39sm209977675ad.77.2025.11.26.17.29.07
- for <apparmor@lists.ubuntu.com>
+ 41be03b00d2f7-be509d58e47sm86462a12.31.2025.11.26.17.32.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Nov 2025 17:29:07 -0800 (PST)
-Message-ID: <363f581c-d820-48db-8a5d-7d399e741fb0@canonical.com>
-Date: Wed, 26 Nov 2025 17:29:06 -0800
+ Wed, 26 Nov 2025 17:32:57 -0800 (PST)
+Message-ID: <1da23c89-dc2c-41cb-8260-098deb8ae917@canonical.com>
+Date: Wed, 26 Nov 2025 17:32:56 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: apparmor@lists.ubuntu.com
-References: <9bbb2148-6dd4-40e5-a1dd-8afe59e68cad@zygoon.pl>
+To: Thorsten Blum <thorsten.blum@linux.dev>, Paul Moore
+ <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>
+References: <20251126165701.97158-2-thorsten.blum@linux.dev>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -127,10 +128,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <9bbb2148-6dd4-40e5-a1dd-8afe59e68cad@zygoon.pl>
+In-Reply-To: <20251126165701.97158-2-thorsten.blum@linux.dev>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] Splitting unlink from write
+Subject: Re: [apparmor] [PATCH RESEND] apparmor: Replace deprecated strcpy
+ with memcpy in gen_symlink_name
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -142,50 +144,66 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
+ linux-kernel@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 11/26/25 05:17, Zygmunt Krynicki wrote:
-> Hello
+On 11/26/25 08:57, Thorsten Blum wrote:
+> strcpy() is deprecated; use memcpy() instead. Unlike strcpy(), memcpy()
+> does not copy the NUL terminator from the source string, which would be
+> overwritten anyway on every iteration when using strcpy(). snprintf()
+> then ensures that 'char *s' is NUL-terminated.
 > 
-> I'd like to propose splitting the textual permission "w", so that it does not imply AA_MAY_DELETE if the file is a device, fifo or socket. Profiles routinely grant "w" permission, but nobody in their right mind expects applications to delete such files.
+> Replace the hard-coded path length to remove the magic number 6, and add
+> a comment explaining the extra 11 bytes.
 > 
-this has been planned and is supported on the backend. We still need to fix the frontend (long term todo that is coming)
+> Link: https://github.com/KSPP/linux/issues/88
+> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
 
-The question is how to deal with it in policy, there are basically two ways, introduce finer permission to policy that can be used along side the current.
+hey Thorsten,
 
-Or stick it behind an abi flag. The abi flag seems like a cleaner solution to me
+sorry I have actually pulled these in, and tested them. I didn't send out
+the acks yet because I have another patch that I was waiting on a proper
+signed-off-by: on.
 
-> Both userspace and kernel can already kind-of express this. The only question is how to do that in a way that doesn't force a painful profile transition. I think we need a new permission bit.
+I am going to have to pull that one so I can push. I'll add acks now but
+the push isn't going to happen for a few hours.
+
+Acked-by: John Johansen <john.johansen@canonical.com>
+
+>   security/apparmor/apparmorfs.c | 12 ++++++++----
+>   1 file changed, 8 insertions(+), 4 deletions(-)
 > 
+> diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
+> index 391a586d0557..4b2752200ce2 100644
+> --- a/security/apparmor/apparmorfs.c
+> +++ b/security/apparmor/apparmorfs.c
+> @@ -1602,16 +1602,20 @@ static char *gen_symlink_name(int depth, const char *dirname, const char *fname)
+>   {
+>   	char *buffer, *s;
+>   	int error;
+> -	int size = depth * 6 + strlen(dirname) + strlen(fname) + 11;
+> +	const char *path = "../../";
+> +	size_t path_len = strlen(path);
+> +	int size;
+>   
+> +	/* Extra 11 bytes: "raw_data" (9) + two slashes "//" (2) */
+> +	size = depth * path_len + strlen(dirname) + strlen(fname) + 11;
+>   	s = buffer = kmalloc(size, GFP_KERNEL);
+>   	if (!buffer)
+>   		return ERR_PTR(-ENOMEM);
+>   
+>   	for (; depth > 0; depth--) {
+> -		strcpy(s, "../../");
+> -		s += 6;
+> -		size -= 6;
+> +		memcpy(s, path, path_len);
+> +		s += path_len;
+> +		size -= path_len;
+>   	}
+>   
+>   	error = snprintf(s, size, "raw_data/%s/%s", dirname, fname);
 
-we have that is the backend. An update to the front end, that moves the mapping for old perms to the backend is coming, its something I very much would have liked to have had landed already
-
-> My suggestion would be to add a AA_MAY_DELETE_SPECIAL permission. Starting with some future ABI deleting devices, fifos and sockets would check AA_MAY_DELETE_SPECIAL. Compatibility layer in the kernel would then continue to grant AA_MAY_DELETE_SPECIAL for older ABIs.
-> 
-
-Well the plan here was to actually expose fifo/socket/link/.. as a rule conditional. Then you don't need a special MAY_DELETE, you just need delete, and the correct conditional.
-
-For compatibility we map the permissions, and the conditional is just defaulted to all types.
-
-> On the userspace side we might define new syntax such as:
-> 
-> allow file PATH D,
-> 
-> Where D implies delete special.
-> 
-I was thinking more of using
-
-   allow file type=file /foo delete,
-
-   allow file type!=char /foo delete,
-
-> I'm happy to take a stab at implementing it. The only thing I'm not sure is how to name the new feature "delete_special".
-> 
-> I'm grateful for your thoughts
-> 
-> Best regards
-> ZK
-> 
 
 
