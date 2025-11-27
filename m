@@ -2,87 +2,87 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40F5AC8C8CD
-	for <lists+apparmor@lfdr.de>; Thu, 27 Nov 2025 02:33:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99D24C8C8D9
+	for <lists+apparmor@lfdr.de>; Thu, 27 Nov 2025 02:33:43 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vOQsY-0005YK-Ic; Thu, 27 Nov 2025 01:33:02 +0000
-Received: from smtp-relay-internal-1.internal ([10.131.114.114]
- helo=smtp-relay-internal-1.canonical.com)
+	id 1vOQt6-0005dT-Or; Thu, 27 Nov 2025 01:33:36 +0000
+Received: from smtp-relay-internal-0.internal ([10.131.114.225]
+ helo=smtp-relay-internal-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1vOQsW-0005Xe-6v
- for apparmor@lists.ubuntu.com; Thu, 27 Nov 2025 01:33:00 +0000
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
- [209.85.215.200])
+ id 1vOQt5-0005d6-2c
+ for apparmor@lists.ubuntu.com; Thu, 27 Nov 2025 01:33:35 +0000
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
+ [209.85.214.199])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id F1AE33F125
- for <apparmor@lists.ubuntu.com>; Thu, 27 Nov 2025 01:32:59 +0000 (UTC)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 6038040F05
+ for <apparmor@lists.ubuntu.com>; Thu, 27 Nov 2025 01:33:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20251003; t=1764207180;
- bh=bHVUgP8TVtYbK/RH59jYqEOFLp2rfeRbE8F3eHfE2h8=;
+ s=20251003; t=1764207214;
+ bh=w1WNEsEOXQyU5I7NFYOe1wob1k7a/n93rnsmBECbBUA=;
  h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
  In-Reply-To:Content-Type;
- b=KSznulbO5R7CwtFn1aVVyZ+zM7sLofTkFM9Myb9JIpUwKooyUKLYieBUasZ2Ab7mp
- UTmfKWKg0Hx5ZMNHG5OU6MIynkbfccW2IV6hjvVdRzXFRVVEGs8MFomuhbPIXxQdLq
- ykEjuARYZxeZ8A+sC0do10w/gG9KLxiBK0XI2/02CncDn0m0WEZemUx57fDpD8Z45r
- HiwTXk+W6l4DIb/0X6KUd7RUDD/em2sILeHlYSJHF0KcK5npGTJ8Q/t41SOXyowdOF
- nUOLwA81oceAMePyGOTjs36xlXqkNaRb/YV0ZuZprIGIhKnJi1voXQlzRrCf1ERe/m
- vLRUfvAHbQ5XqoJ17DkJAsPKuz5kQfB1PYQOZx9XxnXGPiex6g9utjG+4zPl7bpe4H
- CFrbEPFZ7aX+E+vr6l6wqoZBB/Op3pk0kPbdIjWgMhLZ/m760eXzBTUckJ6C1IZKbK
- TTmvtDjM7R7JWWDAW5tviKWUlKi2ZGaEa5EqF+H7u8MPgZCIr1jjZJP7ZgY0Bbv3wT
- OCGwBAiBYplD9GfG5pVUUA1HxTAW+JMjR3zy9E0HpJ/+GkmRsWB6R5mWDOh9nPsTXI
- 0VGAa71wUCtgdYIln7ZTo9HrTmzTke62oYmkEqzFLI6vkvCqf04yUkUhjWNiR5Gse+
- 2yr/U/lB1NlOQ8iSVysv48VI=
-Received: by mail-pg1-f200.google.com with SMTP id
- 41be03b00d2f7-bbcf3bd4c8fso235648a12.0
- for <apparmor@lists.ubuntu.com>; Wed, 26 Nov 2025 17:32:59 -0800 (PST)
+ b=jnomzRyUdnXZnmo0PTxOb513s6O2egAlLadiJ+zENWoOeqkmma38DSICPRio7r29k
+ gz0ZMxkUR+X5EPcguAcONsLlGZhZQcfP91J94yl7rpoHuOyB/99jHacn6kphrky93/
+ /Vs7JPWg/2DP9fkFsee2khCiBseq54d2lYAV4gJSUfQhr4At9Do7uTggopZEZ9NoQK
+ uzjnUEh3peiUc4I7qeMSvKTTVFJBWCM3v3ZH5z+jjeBQUtyljgXDyYXLxD1+VjQ2pw
+ rl1yyserGjrp5SxmiRqfD5pQPaNkAO6cC8JRxl5RqwbvTLhRpFHyqg3tMawowmjr3x
+ 4boZapD2z4bkZvpXkwazW8F9xOia8vuqgXwToGD4/6U2AyVAFcjJ6crMtkRpf5Muzr
+ ZEYMmNdnbXGEzhVHooBhAjCtviM7nkk7++UpQG9RSgAcUy4JtRTfMohQjj++OS9wqi
+ v1nbn3KMkSbw632ecJFzFEhqogpVwLwAjOsLJ9R1sMJj40rmp3OIpb93Eq5ckAgZU1
+ DA8rwpIBZDvvuBX4Yn3UulgbaTR00ahkoBO16w205WaLjxsO9YBbt/+4b2R3lrLtnK
+ AYzChpgFtEb4szf9LSvZJZPA7muSfhnfhL0WxJls6L/gWwwcwD7ogCISHg3HS+kGE1
+ BfYJU7R5f+fyapbnMxheeOVo=
+Received: by mail-pl1-f199.google.com with SMTP id
+ d9443c01a7336-298535ef0ccso3692505ad.3
+ for <apparmor@lists.ubuntu.com>; Wed, 26 Nov 2025 17:33:34 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764207178; x=1764811978;
+ d=1e100.net; s=20230601; t=1764207213; x=1764812013;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=bHVUgP8TVtYbK/RH59jYqEOFLp2rfeRbE8F3eHfE2h8=;
- b=a3eW8iBMGsG1mNveSgTd+W1xk2g0+c2Lt0J0mR5INGT0Rhhry0bHWDWJdXhOHCimEa
- qcf0rFyQnDjKYoHCNMoQgNO3ncw1ob+BGhkM8OvabX6Jg2KTZ5LyC8mmOFF7okMu26le
- fBsPNKw8s9il0Jr3HK1OzZF/Zz6EIn+3bPla//dJOXC8KH6uxSwx2zRLhxA5L7QHtxln
- 5xrHC00QWFRKG/6TLIQBmhwy+cx2FGrfOJXRYkrCiEDS6gm6rsBZMu0DGyvrCw4YClCu
- CzSyIeoe1M/78kv6YdGnhc8TSm04GnDdQYci6sElb9QlN87jz9ZBMvq/gI2xSrTLKUwj
- zajg==
-X-Gm-Message-State: AOJu0YwXbMZ0XFzq+2TDgD0HL7/IrmnqhhKHovTjiqYwNNFadkinbt/T
- GF2LXE5s67sKhpcv84WSKVaFE1Rq/3jvLjRyhpFglmXaklXXI9ozcPE/B88x+Ep1NYY2vsIBenE
- znw23yuZekBhqnY3deSNbiWIOKCxJvfJqVCt4lRV5DRJyCXFGi2L8G8iTaeV4SqLS5ygc/4p2Vg
- ygGw==
-X-Gm-Gg: ASbGncvaFnlABBB4YlbVapFFMIQHqP8DTYvQSgGMEjkR5DzBJ2MaMEb5z9VA2IO3rqw
- 1NpkKz68287MmFM3KW9u6s2ibT26Yp+KbBq5QcDROLUf37TyZkEFAbXmPwLpC5jfm/IP8MNl+5i
- V2F3oDrS1j+bkTDncapuJimorBJqTGxCM84LWEZdYmOc8cJ4Smhra9qAVncZGxSbgCJyNarpd5Z
- TpKvPKcad8fr+LyiFouG64/UhonrB9hCuExjomOmLJuaDVZDDSOzk1H3igIZvwTJ27cvuxIK/h9
- 7C4ngQ/qpc2r8SRMK0an9zOhS9OATkXna4TwhZMKepFZPMaWiccb05J1waPqFd7F2thnivf2cFT
- wzDara7NwZioCrLXcowOi/9PF
-X-Received: by 2002:a05:6a20:734a:b0:348:b6af:5023 with SMTP id
- adf61e73a8af0-3613e3c4f74mr32471018637.10.1764207178381; 
- Wed, 26 Nov 2025 17:32:58 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IF9poROxMcqJmE/ZSFgYiynf+n9P/aaj4L9EtwLq9gxjSC4Men5EwCCzbfLvhQxV0VS86hawg==
-X-Received: by 2002:a05:6a20:734a:b0:348:b6af:5023 with SMTP id
- adf61e73a8af0-3613e3c4f74mr32470984637.10.1764207177997; 
- Wed, 26 Nov 2025 17:32:57 -0800 (PST)
+ bh=w1WNEsEOXQyU5I7NFYOe1wob1k7a/n93rnsmBECbBUA=;
+ b=Y5rmVbDPtcpIVz8HI2Hp8ckLAce32bi8p6OFpShLQXeD1gmqKirkmsBc6B4sbDPONw
+ mRYb3YpKCLXZ0GVKZpAIeK+3O0Oz7X44PhVP1J786ZbjtJ7ktp1aK5VjqJ7Sq79e7dpy
+ MYwLb7sXbwwkFvZdTH97B7KWiL5AjOdZw/pmoszgWD430IdF8loc8ikNmenOkq8tSY0Y
+ lVB7vgHwocF3otJtGVySsVGp55tnov9rpxFCzPPtngjEozE+Lgh4Vm2XgpeAELNIiIM6
+ sIbNN9+QLGy2NnAYSROFpLzgfvKOgyweN+S7M3s1+wVD9TDJ9CC4dLiYwsDLRj+Eqcgd
+ FD/A==
+X-Gm-Message-State: AOJu0Yyb8Nn9pAH/ARF7ntnjT4qfNR0xlHomIUWW1o/6agLpAVjM51Gf
+ 2Bl0AV/xE/EUfmDUEXwKfDlGKJiYlcvvFTQWpi2iO8VVNYd3P5oroB8T9LMQQYSYXnQCU7mi9k0
+ YAuBMI0iWiRxfM4tk/Ku6WMsPaxNi/6L0y8c3sRb5s8SrNj9HbLRiRjFHLsUk/925xcKsstNRsv
+ yXpw==
+X-Gm-Gg: ASbGncs6pvqwmUzzMYsg6tCYW5uJDs1YimLqHoDVy8LGUj6hvXNwzJL2z1t14ZJPZWF
+ fR4pzaButvZvUgWEQWdhQUlztL2COwdwBvWErctT0R37zZLqSg71cilfg39Ncee4iDkFRZcPmKx
+ tqhK2EtmnpLl65d4uN6es22WM6tgQJIplrKh2b+ongoxoCaaquwg354Qdx1juGGclDkeTRe0/P6
+ v2tVP20bKuEnE/kl/iZlZEQgAdxxnvcDPXkUcVAOvXZEamtlT44/cFQAjpOVr+/+wH0LEYvwNnb
+ RKDRY2zoFQR8X9lizxZW353KUdRUk/J+yEYib03Wx9/A6wvXk7Kkno0Nlf7vwnNveLr7CF0T6iZ
+ qoQyWzbu0s5WaOGqGxwxc2KsN
+X-Received: by 2002:a17:903:90c:b0:295:54cb:a8df with SMTP id
+ d9443c01a7336-29bab160a4amr86858795ad.36.1764207212681; 
+ Wed, 26 Nov 2025 17:33:32 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGlGuhRGgdpoYL6MEbEVDBJWRcjdLBA9zSDy8IX0iEmr5D08qy2ccENoEiBbRJ8CCWPELi0jA==
+X-Received: by 2002:a17:903:90c:b0:295:54cb:a8df with SMTP id
+ d9443c01a7336-29bab160a4amr86858595ad.36.1764207212335; 
+ Wed, 26 Nov 2025 17:33:32 -0800 (PST)
 Received: from [192.168.192.85] ([50.47.129.42])
  by smtp.googlemail.com with ESMTPSA id
- 41be03b00d2f7-be509d58e47sm86462a12.31.2025.11.26.17.32.57
+ d9443c01a7336-29b5b107edesm207043365ad.5.2025.11.26.17.33.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Nov 2025 17:32:57 -0800 (PST)
-Message-ID: <1da23c89-dc2c-41cb-8260-098deb8ae917@canonical.com>
-Date: Wed, 26 Nov 2025 17:32:56 -0800
+ Wed, 26 Nov 2025 17:33:30 -0800 (PST)
+Message-ID: <72b1d078-7283-45a7-9709-ee899af09bdb@canonical.com>
+Date: Wed, 26 Nov 2025 17:33:30 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Thorsten Blum <thorsten.blum@linux.dev>, Paul Moore
  <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
  "Serge E. Hallyn" <serge@hallyn.com>
-References: <20251126165701.97158-2-thorsten.blum@linux.dev>
+References: <20251122115549.448042-3-thorsten.blum@linux.dev>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -128,11 +128,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20251126165701.97158-2-thorsten.blum@linux.dev>
+In-Reply-To: <20251122115549.448042-3-thorsten.blum@linux.dev>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH RESEND] apparmor: Replace deprecated strcpy
- with memcpy in gen_symlink_name
+Subject: Re: [apparmor] [PATCH RESEND] apparmor: Replace sprintf/strcpy with
+ scnprintf/strscpy in aa_policy_init
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -149,61 +149,56 @@ Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 11/26/25 08:57, Thorsten Blum wrote:
-> strcpy() is deprecated; use memcpy() instead. Unlike strcpy(), memcpy()
-> does not copy the NUL terminator from the source string, which would be
-> overwritten anyway on every iteration when using strcpy(). snprintf()
-> then ensures that 'char *s' is NUL-terminated.
+On 11/22/25 03:55, Thorsten Blum wrote:
+> strcpy() is deprecated and sprintf() does not perform bounds checking
+> either. Although an overflow is unlikely, it's better to proactively
+> avoid it by using the safer strscpy() and scnprintf(), respectively.
 > 
-> Replace the hard-coded path length to remove the magic number 6, and add
-> a comment explaining the extra 11 bytes.
+> Additionally, unify memory allocation for 'hname' to simplify and
+> improve aa_policy_init().
 > 
 > Link: https://github.com/KSPP/linux/issues/88
+> Reviewed-by: Serge Hallyn <serge@hallyn.com>
 > Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
 
-hey Thorsten,
-
-sorry I have actually pulled these in, and tested them. I didn't send out
-the acks yet because I have another patch that I was waiting on a proper
-signed-off-by: on.
-
-I am going to have to pull that one so I can push. I'll add acks now but
-the push isn't going to happen for a few hours.
+I have pulled this into my tree
 
 Acked-by: John Johansen <john.johansen@canonical.com>
 
->   security/apparmor/apparmorfs.c | 12 ++++++++----
->   1 file changed, 8 insertions(+), 4 deletions(-)
+> ---
+>   security/apparmor/lib.c | 16 +++++++---------
+>   1 file changed, 7 insertions(+), 9 deletions(-)
 > 
-> diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
-> index 391a586d0557..4b2752200ce2 100644
-> --- a/security/apparmor/apparmorfs.c
-> +++ b/security/apparmor/apparmorfs.c
-> @@ -1602,16 +1602,20 @@ static char *gen_symlink_name(int depth, const char *dirname, const char *fname)
+> diff --git a/security/apparmor/lib.c b/security/apparmor/lib.c
+> index 82dbb97ad406..acf7f5189bec 100644
+> --- a/security/apparmor/lib.c
+> +++ b/security/apparmor/lib.c
+> @@ -478,19 +478,17 @@ bool aa_policy_init(struct aa_policy *policy, const char *prefix,
+>   		    const char *name, gfp_t gfp)
 >   {
->   	char *buffer, *s;
->   	int error;
-> -	int size = depth * 6 + strlen(dirname) + strlen(fname) + 11;
-> +	const char *path = "../../";
-> +	size_t path_len = strlen(path);
-> +	int size;
+>   	char *hname;
+> +	size_t hname_sz;
 >   
-> +	/* Extra 11 bytes: "raw_data" (9) + two slashes "//" (2) */
-> +	size = depth * path_len + strlen(dirname) + strlen(fname) + 11;
->   	s = buffer = kmalloc(size, GFP_KERNEL);
->   	if (!buffer)
->   		return ERR_PTR(-ENOMEM);
->   
->   	for (; depth > 0; depth--) {
-> -		strcpy(s, "../../");
-> -		s += 6;
-> -		size -= 6;
-> +		memcpy(s, path, path_len);
-> +		s += path_len;
-> +		size -= path_len;
->   	}
->   
->   	error = snprintf(s, size, "raw_data/%s/%s", dirname, fname);
-
+> +	hname_sz = (prefix ? strlen(prefix) + 2 : 0) + strlen(name) + 1;
+>   	/* freed by policy_free */
+> -	if (prefix) {
+> -		hname = aa_str_alloc(strlen(prefix) + strlen(name) + 3, gfp);
+> -		if (hname)
+> -			sprintf(hname, "%s//%s", prefix, name);
+> -	} else {
+> -		hname = aa_str_alloc(strlen(name) + 1, gfp);
+> -		if (hname)
+> -			strcpy(hname, name);
+> -	}
+> +	hname = aa_str_alloc(hname_sz, gfp);
+>   	if (!hname)
+>   		return false;
+> +	if (prefix)
+> +		scnprintf(hname, hname_sz, "%s//%s", prefix, name);
+> +	else
+> +		strscpy(hname, name, hname_sz);
+>   	policy->hname = hname;
+>   	/* base.name is a substring of fqname */
+>   	policy->name = basename(policy->hname);
 
 
