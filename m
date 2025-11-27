@@ -2,81 +2,81 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5E7FC8D5A8
-	for <lists+apparmor@lfdr.de>; Thu, 27 Nov 2025 09:33:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 329FEC8D5BD
+	for <lists+apparmor@lfdr.de>; Thu, 27 Nov 2025 09:36:04 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vOXRf-00024Y-0Z; Thu, 27 Nov 2025 08:33:43 +0000
-Received: from fout-b3-smtp.messagingengine.com ([202.12.124.146])
+	id 1vOXTj-0002DD-Ny; Thu, 27 Nov 2025 08:35:51 +0000
+Received: from fhigh-b3-smtp.messagingengine.com ([202.12.124.154])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <me@zygoon.pl>) id 1vOXRc-00024J-Rd
- for apparmor@lists.ubuntu.com; Thu, 27 Nov 2025 08:33:41 +0000
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
- by mailfout.stl.internal (Postfix) with ESMTP id 8729B1D00170
- for <apparmor@lists.ubuntu.com>; Thu, 27 Nov 2025 03:33:39 -0500 (EST)
+ (Exim 4.86_2) (envelope-from <me@zygoon.pl>) id 1vOXTh-0002Cx-Ei
+ for apparmor@lists.ubuntu.com; Thu, 27 Nov 2025 08:35:49 +0000
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id 475557A01A7
+ for <apparmor@lists.ubuntu.com>; Thu, 27 Nov 2025 03:35:48 -0500 (EST)
 Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-06.internal (MEProxy); Thu, 27 Nov 2025 03:33:39 -0500
+ by phl-compute-01.internal (MEProxy); Thu, 27 Nov 2025 03:35:48 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zygoon.pl; h=cc
  :content-transfer-encoding:content-type:content-type:date:date
  :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm3; t=1764232419;
- x=1764318819; bh=vv46oeI1+vqLOz26cZ/9KLjlBopJs9xqbqv7FI6hgM4=; b=
- 2uQ/psVMSE7faynxrxQhztIU37Vl4gS1JSF8dVoz2LBux8cIr6DYmYLEfqvfcPxY
- 6BIfbr0dZQNipUjXLf6DzZnBvIRzndsEQeNGa2gCDuBIDp/qmDK6AJDlWWx0Q0Uf
- 70Alm11fO6jS+AYhgEyOp06SEyGFG7w+xjRZ0vbthWvckfJ+pgOJfG2Hvzm6pXOK
- uPiZgH+lQ6iYXOlMamTZNpJAG2fTZ+5Q3sGVd+Liuv0aBPv3mxPJ2Xfj5gpWmW3N
- 5CQPxiIfs3ASY7Q4t+Zmks55zbnGGYEbseYb9DGtDLIq3IarTcEVlq4wENh/cDoU
- w4fuzxCL3HrK+SLM1G6huA==
+ :references:reply-to:subject:subject:to:to; s=fm3; t=1764232548;
+ x=1764318948; bh=8dZ+6xmz4ZuKM9RmebN/fZuLxld5ERNQ1nb8mj/wB6Y=; b=
+ 1B/9D7h0DCNou2I9Z7KU9j2TGsPsI2oR+vG1jBj2ntw4z+X/0pYEWiCYalflY4fn
+ A8WlnP3j+d01jCyFOOAuaxX6ifHGpCAvX7txcJRlyU3c2rIyAUiBWn8eQAkZg+h3
+ QaHUnNIcMrYAK/BUFcQYBzibcQdolc9J28tk2P90Nm+3p9+s5GJzds81x2iP7uj8
+ KRCt/dYoUxPS4uBe1eX3AnPYqV45gDrCyfx7OOE1mvKny28AeO8LBi3RCqDm7uy3
+ 2ta99ZOJXtctYXny3rTJCOs7bCFYSMY/LlP+sL472NlXhhXiw2P+UnUutxcQQdXM
+ PO7q4yf+TUX0ukEPDPRWmw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:content-type
  :content-type:date:date:feedback-id:feedback-id:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
  :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; t=1764232419; x=1764318819; bh=v
- v46oeI1+vqLOz26cZ/9KLjlBopJs9xqbqv7FI6hgM4=; b=Xph53+zxgwjo0sO8v
- biYaKxH+GsT7RrrmgCnv1pgTlVxUeaG0O6Z46TZCUsyUil4uasCnA0NzasAXQDM+
- 51/Qlvk7xIoT5yIwI7CFbysUvSMhrcldkigKZgCD5vnI6EOmM4dcF0zYACtvoIzH
- SkB3gY1NOV/+STGzt6TQZ+NDoSym7SuBfXVyzNPSB1nF6F3B7aJ3EJ9/eQe6oG8T
- G1FifqhF5L1xFpQ8OI7N6Ovd2SXws9MCsMsv0UFZY+7anxulk1yUsX8E7P0qMcJb
- RLX+x8SmwT8lrYwKFYnTsAeCCEK4XpBC2j8vi8GlRe2r/kG5aUYNl/2e/vgXVxYU
- xtXuQ==
-X-ME-Sender: <xms:4wwoaQTf0xu9QvZQ919t8L9PeDU3UqmuxtdJZM9qQxlbm_0Ko8c0WA>
- <xme:4wwoafz3Zb-hd7bonGfiUgbK_FhsgOZLTC1StR428YvS9PR2Y79s8bFdCspOZRMzT
- O3G4wpI909OLx62J0E0Ayq2gw9_7Uv5mjEbCgtEf4oXNjD75qMABg>
-X-ME-Received: <xmr:4wwoaXN__KckawL8dyRN-fZy7IhUctzo4l-E65MguYkM5IxkFFDcCWWriPuGzQexoQ>
+ :x-me-sender:x-sasl-enc; s=fm1; t=1764232548; x=1764318948; bh=8
+ dZ+6xmz4ZuKM9RmebN/fZuLxld5ERNQ1nb8mj/wB6Y=; b=Wnu6tX1kGysyS6jep
+ ioaCKSCcT/U94g3DzZuW5Yogetnp7K8OKgyfGpFpbDd3pjiE41a5bwKAiKrUgLLO
+ 5EQL+0MLb6m+h1CNR6FRBivgG5KlhdrG7sJPOiSp+hEcMvT9K38nRR8yRXUwCLOi
+ 9f4F+5DPYfOmyaFZNavxB+KmzWt05gP4UHAxybVLb1PUJTIUyWAkc1AbWanCzfKA
+ xm04NckuN8rwfGUjzb8CDdJjJGjX81w+KPb6qGR2gUIlGe9h8qdHIJDWuMZWwB+P
+ 1CD6NTqZhAuL2t9TRyR94qHdVMauc1x0DyFzIgDnr/pLNVZ01SnM+cum2l9Gg9X2
+ Dkysw==
+X-ME-Sender: <xms:Yw0oaatwKD2VSz_qfW6PHL1_dxJtNHAOANLayskzkavCVH6-2Qte3Q>
+ <xme:Yw0oaWavtS0vgC4uL45X2XJJStqchhrB7AqKZH2Qu6AvldU8WpJRZ5zE7Fyt5WyH7
+ O2bkEIJp7nmDJi3spv1dSwNQp5z2NRGfaaOczia3kX-_7Is3gT3eNY>
+X-ME-Received: <xmr:Yw0oaba9G1SweshUZiIQpMJw-16m6keDPkI6XivDkzgzUPwYrez3vX2WzPbiOJijFg>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggddvgeeijeeiucetufdoteggodetrf
  dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
- rghilhhouhhtmecufedttdenucenucfjughrpefkffggfgfuvfhfhfgjtgfgsehtjeertd
+ rghilhhouhhtmecufedttdenucenucfjughrpefkffggfgfuvfhfhfgjtgfgsehtkeertd
  dtvdejnecuhfhrohhmpegkhihgmhhunhhtucfmrhihnhhitghkihcuoehmvgesiiihghho
- ohhnrdhplheqnecuggftrfgrthhtvghrnhepvedtvefhtefgueejudetieegkeehleffte
- eijeffvdelffdvhfekudffvdfhveeinecuvehluhhsthgvrhfuihiivgeptdenucfrrghr
+ ohhnrdhplheqnecuggftrfgrthhtvghrnhepheelvdeiudefudeuhedtiedtgeetvefhgf
+ efgeetkeehhffhleekudettdfhfedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghr
  rghmpehmrghilhhfrhhomhepmhgvseiihihgohhonhdrphhlpdhnsggprhgtphhtthhope
  dupdhmohguvgepshhmthhpohhuthdprhgtphhtthhopegrphhprghrmhhorheslhhishht
  shdruhgsuhhnthhurdgtohhm
-X-ME-Proxy: <xmx:4wwoaWOLLDrMK10fzrd3WJ2vjx6WGvFYJM7_lr4H7JvfiHOBYA-m8w>
- <xmx:4wwoaRQ4IeX4fEEYmsTKqKfQnnee3LM4W-B9Z7ZRBgDgcyy4MKs5JQ>
- <xmx:4wwoaQDi9YC4V_NAlGVfvaD9z93yLXtbW1STskLCLYVw9A-YPGtMcQ>
- <xmx:4wwoaYjZUAIAhS-C0gcJumiwyyLS34ENNuUqod1hZSX1UDKCauV4lQ>
- <xmx:4wwoaSFxkUHkN5DBB56QH_TqdtTTjExJqTIfAlfTjf8tRyR2EM0SVWX1>
+X-ME-Proxy: <xmx:Yw0oaaXLftx8SjzkihmiZ8mUc8Se4Kkoscx1nj5nvvNlsXIiqcbeQQ>
+ <xmx:Yw0oaa3oM0DgV06wY3-lTRSkaMGIZ6Y-P_argxyUjgzdR7VO9WCh7A>
+ <xmx:Yw0oaZZsTEBUjRK__NbcjkDQZSL6_zx7xJKF6ivgnpS5OjXANDCfVA>
+ <xmx:Yw0oaVoJYEc9jFtyoAQMdBN0yZWHiTuy-gphdZ5A36gDBizp4094LQ>
+ <xmx:ZA0oaXn-oLfiUJTnh4ZuJrL722sOYs3C8gzpKwVlsrg867wspqtK9A_M>
 Feedback-ID: i416c40e7:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA for
- <apparmor@lists.ubuntu.com>; Thu, 27 Nov 2025 03:33:38 -0500 (EST)
-Message-ID: <85e5fcc9-b952-4a0f-9619-cc21e3436d9e@zygoon.pl>
-Date: Thu, 27 Nov 2025 09:33:36 +0100
+ <apparmor@lists.ubuntu.com>; Thu, 27 Nov 2025 03:35:47 -0500 (EST)
+Message-ID: <51ee7f9b-fddb-425b-89a5-8e778e3641bb@zygoon.pl>
+Date: Thu, 27 Nov 2025 09:35:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: apparmor@lists.ubuntu.com
-References: <9bbb2148-6dd4-40e5-a1dd-8afe59e68cad@zygoon.pl>
- <363f581c-d820-48db-8a5d-7d399e741fb0@canonical.com>
+References: <7c1c83ac-c8d3-490b-a6b5-c718b1dbc016@zygoon.pl>
+ <d5fccb40-62a9-43d9-89d7-eb1c4c78c43b@canonical.com>
 Content-Language: en-US
 From: Zygmunt Krynicki <me@zygoon.pl>
-In-Reply-To: <363f581c-d820-48db-8a5d-7d399e741fb0@canonical.com>
+In-Reply-To: <d5fccb40-62a9-43d9-89d7-eb1c4c78c43b@canonical.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=202.12.124.146; envelope-from=me@zygoon.pl;
- helo=fout-b3-smtp.messagingengine.com
-Subject: Re: [apparmor] Splitting unlink from write
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=202.12.124.154; envelope-from=me@zygoon.pl;
+ helo=fhigh-b3-smtp.messagingengine.com
+Subject: Re: [apparmor] Huge pages mediation class?
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -93,71 +93,43 @@ Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
 
 
-W dniu 27.11.2025 o 02:29, John Johansen pisze:
- > On 11/26/25 05:17, Zygmunt Krynicki wrote:
- >> Hello
- >>
- >> I'd like to propose splitting the textual permission "w", so that it
- >> does not imply AA_MAY_DELETE if the file is a device, fifo or socket.
- >> Profiles routinely grant "w" permission, but nobody in their right
- >> mind expects applications to delete such files.
- >>
- > this has been planned and is supported on the backend. We still need to
- > fix the frontend (long term todo that is coming)
- >
- > The question is how to deal with it in policy, there are basically two
- > ways, introduce finer permission to policy that can be used along side
- > the current.
- >
- > Or stick it behind an abi flag. The abi flag seems like a cleaner
- > solution to me
+W dniu 26.11.2025 o 23:58, John Johansen pisze:
+> On 11/26/25 02:04, Zygmunt Krynicki wrote:
+>> Hello
+>>
+>> As a part of investigation into issue affecting mmap with MAP_HUGETLB 
+>> [1], I was thinking if huge pages should have a dedicated mediation 
+>> class and be handled similarly to how mqueue was recently added.
+>>
+> 
+> yes we want to split it off, it could potentially go into its own class 
+> or potentially share a class with a few other memory operations that we 
+> want to handle better.
 
-I think the ABI flag is far cleaner. The desire to allow this uncommon 
-behavior is small. Porting policy should be straightforward.
+What other operations would go there?
 
-How do you think this would look like in the profile text? ABI 5.1 that 
-sets it by default? A flags=(...) field that one needs to use to opt 
-into one or the other behavior (cond-allow-all or cond-allow-regular)?
+> The trade-off being whether we want to handle them in a separate feature 
+> abi or not. If we put them in the same class then they need to move 
+> together
 
- > Well the plan here was to actually expose fifo/socket/link/.. as a rule
- > conditional. Then you don't need a special MAY_DELETE, you just need
- > delete, and the correct conditional.
- >
- > For compatibility we map the permissions, and the conditional is just
- > defaulted to all types.
-Ah, so is that what the Perms.Cond field is for?
+Right
 
-What might the encoding look like? Each element class would get a 
-distinct bit, so a rule like:
+>> In the kernel, `aa_file_perm` function could special case hugetlbfs so 
+>> that mmap would not end up using odd (possibly disconnected) paths for 
+>> accessing it.
+>>
+>> I'd be happy to pick up this work if there is consensus on the general 
+>> direction. I would need some help with reviews and guidance along the 
+>> way.
+>>
+> 
+> I am not opposed to free work, it should likely use the newer task based 
+> pattern/operations as a starting point. I need to get those posted. 
+> Though its probably not going to happen this week.
 
-allow file type=regular /foo delete
-
-Would grant AA_MAY_DELETE but also set, say, AA_COND_FILE_REG bit in the 
-Perms.Cond field?
-
-Then conversion from the current policy to n+1 policy would set all the 
-bits to one?
-
- >> On the userspace side we might define new syntax such as:
- >>
- >> allow file PATH D,
- >>
- >> Where D implies delete special.
- >>
- > I was thinking more of using
- >
- >    allow file type=file /foo delete,
- >
- >    allow file type!=char /foo delete,
-
-I like this approach much better, the type would then be a set of 
-possible values, with every combination being encoded into the cond field.
-
-Do we have any patches towards this? I think the kernel side is somewhat 
-straightforward (assuming my hunch on how to use the cond field 
-applies). The frontend is also rather simple. The backend I don't know 
-because I spent only a fraction of time there, so far :)
+I'm looking forward to those then.
 
 Best regards
 ZK
+
 
