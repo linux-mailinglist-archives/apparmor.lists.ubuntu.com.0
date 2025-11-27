@@ -2,77 +2,65 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44AB3C8D647
-	for <lists+apparmor@lfdr.de>; Thu, 27 Nov 2025 09:44:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED4CFC93919
+	for <lists+apparmor@lfdr.de>; Sat, 29 Nov 2025 09:12:06 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vOXbj-0003IH-FR; Thu, 27 Nov 2025 08:44:07 +0000
-Received: from fout-b3-smtp.messagingengine.com ([202.12.124.146])
+	id 1vPG3h-0005Y0-Gq; Sat, 29 Nov 2025 08:11:57 +0000
+Received: from outpost1.zedat.fu-berlin.de ([130.133.4.66])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <me@zygoon.pl>) id 1vOXbh-0003I8-Sc
- for apparmor@lists.ubuntu.com; Thu, 27 Nov 2025 08:44:06 +0000
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
- by mailfout.stl.internal (Postfix) with ESMTP id 876391D0019C
- for <apparmor@lists.ubuntu.com>; Thu, 27 Nov 2025 03:44:04 -0500 (EST)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-04.internal (MEProxy); Thu, 27 Nov 2025 03:44:04 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zygoon.pl; h=cc
- :content-transfer-encoding:content-type:content-type:date:date
- :from:from:in-reply-to:message-id:mime-version:reply-to:subject
- :subject:to:to; s=fm3; t=1764233044; x=1764319444; bh=BTMNxqG84j
- dBA+znlWdPf3IVApxggN+KEUiaHSs0YAU=; b=RWXNJvjYJmi7x4AXh7AlmCegPA
- WG1/YXv/EMVPczkfByG0VWYk6GU5KPglRJESdtN16DXQzR45PnrsLpdiRSnuqlRu
- 58CbER8Cw69lLdh39WMrpdthWtD5Q1ikxqjrQjkvlL8kv1EymKYNdqkN1P50/Lbr
- r/XketKqO/gdXUOmpCxBwKRjypMDH35XbLkPhNz73DdnQj0MO4kn1ijPMxd6/UsP
- zBylRupOeuaPYuF5rwIuCgVTnXxCKKDNBGiIhjJ+8zacMu2iZZheWIl2QhaEHxt5
- AWNRX5J9i5FJCNRk0HGg5V0OzFm8Kr1IwLwSqoAd58KgLaQTYHpcdBtpIf4Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
- :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
- 1764233044; x=1764319444; bh=BTMNxqG84jdBA+znlWdPf3IVApxggN+KEUi
- aHSs0YAU=; b=u72vGwpOGxpIwoEExxV7UtovXOtcmUw9VzHkVf1rV01qpjRVfYz
- j/04ULWRoaox4ZjpuVjZbCjhLwccZ939f1s3eqMZbTkv5KoVHduYIlYFt8kp5UR7
- PU4UBZbTA8rix5l61PxicD+X+xy5xGbK/NSXk/Nr7AZf11XSupMGX7YnsU5B9PEy
- VeWAi/E2m12UfNvnAhWRkEWGH8ri+NYvSDxb5NS0IL15KwkaIXo35x4oLyUFUcpw
- 4IjLmxHgu8nQ6BygP5SiqrzJC2BRn0nBenV4UDVYO3FuQ8PwSykWMKuaVSfoR9GG
- zw0CkooWD/XViZ/0ahNncN4vCGh0ltRmbLQ==
-X-ME-Sender: <xms:VA8oaVDV4TObfGXHSDjmKKaE1h4QK1wXl9oNHLKd-oMCC_5dQKh9Ww>
- <xme:VA8oaafHLaltJTnDRAz0hRRQ4zlMXXFbkt1PFQGj6y1o6Wjmb-EzWtrBFbsFzNqro
- lib0oVHZ--tOpoO4rIlrHSW08TMkDHLCF1SBQeBEnfoCRujYcr-2A>
-X-ME-Received: <xmr:VA8oaWN39IVD6KfEVSGkjoVwNZmAoTUYcrtkEaKUQXIHhyfKo8cxbRCuvkErNCqn8Q>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdeggddvgeeijeejucetufdoteggodetrf
- dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
- rghilhhouhhtmecufedttdenucenucfjughrpefkffggfgfvhffutgfgsehtjeertddtvd
- ejnecuhfhrohhmpegkhihgmhhunhhtucfmrhihnhhitghkihcuoehmvgesiiihghhoohhn
- rdhplheqnecuggftrfgrthhtvghrnhepudejhfelveffjeduledvkeeivdevvdfggedtie
- ejkedvgedvteekledvffevhfeunecuffhomhgrihhnpehgihhtlhgrsgdrtghomhdpuhgs
- uhhnthhurdgtohhmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
- hfrhhomhepmhgvseiihihgohhonhdrphhlpdhnsggprhgtphhtthhopedupdhmohguvgep
- shhmthhpohhuthdprhgtphhtthhopegrphhprghrmhhorheslhhishhtshdruhgsuhhnth
- hurdgtohhm
-X-ME-Proxy: <xmx:VA8oaU5IE_6O8PwzJgiRXSpBrx2A4WiZeZ12mFB5TAICm1az1a2ZqA>
- <xmx:VA8oaaLSOG4EfYAzE5ewHsUc5OW8D9FlKsDhjLUp24XeHetVnEkUfQ>
- <xmx:VA8oaecncmaMf3g2pFnOIV3wjcQMhmW5aSKPRYkLkGRlTh21drtSqQ>
- <xmx:VA8oadeQZ1imxKmMrO39QA2hq2ewGJjljW6P_g_ldJuF1hM5RHfH1Q>
- <xmx:VA8oafqow16xnZrhKY8fG5mnBoU4GOvC0HTZWum8d-6uME8d8BSR0Prj>
-Feedback-ID: i416c40e7:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA for
- <apparmor@lists.ubuntu.com>; Thu, 27 Nov 2025 03:44:03 -0500 (EST)
-Message-ID: <fe0d079f-bcf0-4ca3-92fa-231c742c073e@zygoon.pl>
-Date: Thu, 27 Nov 2025 09:44:02 +0100
+ (Exim 4.86_2) (envelope-from <glaubitz@zedat.fu-berlin.de>)
+ id 1vOYFd-0004lB-9C
+ for apparmor@lists.ubuntu.com; Thu, 27 Nov 2025 09:25:21 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+ Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+ Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+ References; bh=i42dTfiGDnlPRdQ/xPGyaB6FM4LqJLuJS/OfgBUfGtY=; t=1764235521;
+ x=1764840321; b=gMPUCa+08YVh6txBzItUylC1GPYZdsn1PimqJFB58HQWSdiihjKpL/mdNoJQA
+ D4nlmCdSmuQfVW7Q63XOmAXlcfAAUCrXAShywvTRt9Rel+e6CYLSfxn16TwJ/joR5R0SLTIPDmXt3
+ RvP8Le+NI9jiKHjIGLJWCN0+DInlmvnrJ2NcVZIurqfei1O72EN5B9ZykDUmiWeWvimBpRPDnaOmv
+ yNXyElp+yfY984SLafsi/ZBxmW3XzIY6vSb8+SpT97ifKCU9ZKpGudmd2MxQtA4UkQlYXFWelKpDN
+ VqdSBU9MjITgkUIuPUvvQW2I0+BvsFh3AARVBNVQ/LbtZNNInw==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+ by outpost.zedat.fu-berlin.de (Exim 4.99) with esmtps (TLS1.3)
+ tls TLS_AES_256_GCM_SHA384
+ (envelope-from <glaubitz@zedat.fu-berlin.de>)
+ id 1vOYFa-00000002SzL-1BUq; Thu, 27 Nov 2025 10:25:18 +0100
+Received: from p5b13aa34.dip0.t-ipconnect.de ([91.19.170.52]
+ helo=[192.168.178.61]) by inpost2.zedat.fu-berlin.de (Exim 4.99)
+ with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (envelope-from <glaubitz@physik.fu-berlin.de>)
+ id 1vOYFa-00000001ITL-0FZh; Thu, 27 Nov 2025 10:25:18 +0100
+Message-ID: <6d80f9bc5fd6d91ed2451d140227b866d6273af4.camel@physik.fu-berlin.de>
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Helge Deller <deller@kernel.org>, John Johansen
+ <john.johansen@canonical.com>
+Date: Thu, 27 Nov 2025 10:25:17 +0100
+In-Reply-To: <aSdfyGv2T88T5FEu@carbonx1>
+References: <ba3d5651-fa68-4bb5-84aa-35576044e7b0@canonical.com>
+ <aSXHCyH_rS-c5BgP@p100>
+ <e88c32c2-fb18-4f3e-9ec2-a749695aaf0a@canonical.com>
+ <c192140a-0575-41e9-8895-6c8257ce4682@gmx.de>
+ <d35010b3-7d07-488c-b5a4-a13380d0ef7c@canonical.com>
+ <20251126104444.29002552@pumpkin>
+ <4034ad19-8e09-440c-a042-a66a488c048b@gmx.de>
+ <20251126142201.27e23076@pumpkin> <aScY13MEBATreotz@carbonx1>
+ <f5637038-9661-47fe-ba69-e461760ac975@canonical.com>
+ <aSdfyGv2T88T5FEu@carbonx1>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.1 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: apparmor@lists.ubuntu.com
-From: Zygmunt Krynicki <me@zygoon.pl>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=202.12.124.146; envelope-from=me@zygoon.pl;
- helo=fout-b3-smtp.messagingengine.com
-Subject: [apparmor] File PDB with both Accept2 and Perms tables
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-Originating-IP: 91.19.170.52
+X-ZEDAT-Hint: PO
+Received-SPF: pass client-ip=130.133.4.66;
+ envelope-from=glaubitz@zedat.fu-berlin.de; helo=outpost1.zedat.fu-berlin.de
+X-Mailman-Approved-At: Sat, 29 Nov 2025 08:11:54 +0000
+Subject: Re: [apparmor] [PATCH 0/2] apparmor unaligned memory fixes
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -84,41 +72,108 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: david laight <david.laight@runbox.com>, linux-parisc@vger.kernel.org,
+ Helge Deller <deller@gmx.de>, apparmor@lists.ubuntu.com,
+ linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-This is a technical follow-up to the MR 1863 [1] which attempts to 
-correct a recently discovered issue between the parser and the kernel 
-with regards to handling conditional user/other (aka owner) rules.
+Hi Helge,
 
-I've separately posted the kernel patch which adds missing 
-initialization to the accept2 table in the case one is not provided in 
-the file pdb.
+On Wed, 2025-11-26 at 21:15 +0100, Helge Deller wrote:
+> So, here is a (untested) v3:
+>=20
+>=20
+> [PATCH v3] apparmor: Optimize table creation from possibly unaligned memo=
+ry
+>=20
+> Source blob may come from userspace and might be unaligned.
+> Try to optize the copying process by avoiding unaligned memory accesses.
+>=20
+> Signed-off-by: Helge Deller <deller@gmx.de>
+>=20
+> diff --git a/security/apparmor/include/match.h b/security/apparmor/includ=
+e/match.h
+> index 1fbe82f5021b..19e72b3e8f49 100644
+> --- a/security/apparmor/include/match.h
+> +++ b/security/apparmor/include/match.h
+> @@ -104,16 +104,18 @@ struct aa_dfa {
+>  	struct table_header *tables[YYTD_ID_TSIZE];
+>  };
+> =20
+> -#define byte_to_byte(X) (X)
+> -
+>  #define UNPACK_ARRAY(TABLE, BLOB, LEN, TTYPE, BTYPE, NTOHX)	\
+>  	do { \
+>  		typeof(LEN) __i; \
+>  		TTYPE *__t =3D (TTYPE *) TABLE; \
+>  		BTYPE *__b =3D (BTYPE *) BLOB; \
+> -		for (__i =3D 0; __i < LEN; __i++) { \
+> -			__t[__i] =3D NTOHX(__b[__i]); \
+> -		} \
+> +		BUILD_BUG_ON(sizeof(TTYPE) !=3D sizeof(BTYPE)); \
+> +		if (IS_ENABLED(CONFIG_CPU_BIG_ENDIAN)) \
+> +			memcpy(__t, __b, (LEN) * sizeof(BTYPE)); \
+> +		else /* copy & convert convert from big-endian */ \
+> +			for (__i =3D 0; __i < LEN; __i++) { \
+> +				__t[__i] =3D NTOHX(&__b[__i]); \
+> +			} \
+>  	} while (0)
+> =20
+>  static inline size_t table_size(size_t len, size_t el_size)
+> diff --git a/security/apparmor/match.c b/security/apparmor/match.c
+> index c5a91600842a..1e32c8ba14ae 100644
+> --- a/security/apparmor/match.c
+> +++ b/security/apparmor/match.c
+> @@ -15,6 +15,7 @@
+>  #include <linux/vmalloc.h>
+>  #include <linux/err.h>
+>  #include <linux/kref.h>
+> +#include <linux/unaligned.h>
+> =20
+>  #include "include/lib.h"
+>  #include "include/match.h"
+> @@ -66,14 +67,13 @@ static struct table_header *unpack_table(char *blob, =
+size_t bsize)
+>  		table->td_flags =3D th.td_flags;
+>  		table->td_lolen =3D th.td_lolen;
+>  		if (th.td_flags =3D=3D YYTD_DATA8)
+> -			UNPACK_ARRAY(table->td_data, blob, th.td_lolen,
+> -				     u8, u8, byte_to_byte);
+> +			memcpy(table->td_data, blob, th.td_lolen);
+>  		else if (th.td_flags =3D=3D YYTD_DATA16)
+>  			UNPACK_ARRAY(table->td_data, blob, th.td_lolen,
+> -				     u16, __be16, be16_to_cpu);
+> +				     u16, __be16, get_unaligned_be16);
+>  		else if (th.td_flags =3D=3D YYTD_DATA32)
+>  			UNPACK_ARRAY(table->td_data, blob, th.td_lolen,
+> -				     u32, __be32, be32_to_cpu);
+> +				     u32, __be32, get_unaligned_be32);
+>  		else
+>  			goto fail;
+>  		/* if table was vmalloced make sure the page tables are synced
 
-When looking at the parser, I had to make two modifications:
+This one does not apply:
 
-1) In libapparmor_re I would allocate accept2 when permission index was 
-used. I would then set the owner bit in each state/index of accept2.
+glaubitz@node54:/data/home/glaubitz/linux> git am ../20251125_app_armor_una=
+lign_2nd.mbx
+Applying: apparmor unaligned memory fixes
+error: patch failed: security/apparmor/match.c:15
+error: security/apparmor/match.c: patch does not apply
+Patch failed at 0001 apparmor unaligned memory fixes
+hint: Use 'git am --show-current-patch=3Ddiff' to see the failed patch
+hint: When you have resolved this problem, run "git am --continue".
+hint: If you prefer to skip this patch, run "git am --skip" instead.
+hint: To restore the original branch and stop patching, run "git am --abort=
+".
+hint: Disable this message with "git config set advice.mergeConflict false"
+glaubitz@node54:/data/home/glaubitz/linux>
 
-2) In the parser proper I would emit the permsv field, just after the 
-perms structure with the perms array. The value of the field was set to 
-3. This I did not initially expect and it took me a moment to see why 
-the kernel was rejecting my policy.
+Adrian
 
-The kernel only loads accept2 (as u32 values) if the optional permsv 
-field is present and the value is larger than 2. I feel I'm stepping 
-over some future-proofing design I'm not aware of.
-
-My main question is: is the issue 570 [2] something that can be fixed in 
-the parser for the benefit of all past and future kernels regardless of 
-my earlier-posted kernel patch [3] or is it something that would, for 
-proper design and not doing the wrong short-term fix, require a 
-coordinated patch on both sides?
-
-Best regards
-ZK
-
-[1] https://gitlab.com/apparmor/apparmor/-/merge_requests/1863
-[2] https://gitlab.com/apparmor/apparmor/-/issues/570
-[3] https://lists.ubuntu.com/archives/apparmor/2025-November/013873.html
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
 
