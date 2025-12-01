@@ -2,65 +2,100 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 199A7C9391E
-	for <lists+apparmor@lfdr.de>; Sat, 29 Nov 2025 09:12:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CE62C9B22A
+	for <lists+apparmor@lfdr.de>; Tue, 02 Dec 2025 11:26:58 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vPG3f-0005Wh-RL; Sat, 29 Nov 2025 08:11:55 +0000
-Received: from outpost1.zedat.fu-berlin.de ([130.133.4.66])
+	id 1vQNah-0000mB-AF; Tue, 02 Dec 2025 10:26:39 +0000
+Received: from out02.mta.xmission.com ([166.70.13.232])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <glaubitz@zedat.fu-berlin.de>)
- id 1vOvBV-0007Wn-FJ
- for apparmor@lists.ubuntu.com; Fri, 28 Nov 2025 09:54:37 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
- Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
- Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
- References; bh=znKwaoS12heTTIaC8HIQotcIgnIoXFFh5BL229hmjIw=; t=1764323677;
- x=1764928477; b=OGoUUE8mwwI9s1Q+xZVEA+LfnhS2zxXF3dbzD2TcR3K3AFFKRkIW2CiNq2fgR
- TsDiO2Myq3pnKwa9QBsz3swuWHEixwpOWtukEY49EQcVCp7SO0ulNLrgemjoPONufQoqGpl7E+SxI
- ppJHS6zu/wOyULZssPXFo1+mvFSMwWkYiSCk96XbVMOJYrcaFNbPKrspKIoCArrxf6aRDrQDEnNPp
- ftMLU3z5NJmbta/Iqvn4wQyslLhzAnJt+0KaPges5pY2dD0B2+mfOhO7fp2Qen8YyaMETr7SxFH4a
- vsZ8GTwMtmM6VNqc0zHxeu0vPbLitt5RlQJYdjXZ4W5Ew+HbpA==;
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
- by outpost.zedat.fu-berlin.de (Exim 4.99) with esmtps (TLS1.3)
- tls TLS_AES_256_GCM_SHA384
- (envelope-from <glaubitz@zedat.fu-berlin.de>)
- id 1vOvBQ-00000002G4E-1km8; Fri, 28 Nov 2025 10:54:32 +0100
-Received: from p5b13aa34.dip0.t-ipconnect.de ([91.19.170.52]
- helo=[192.168.178.61]) by inpost2.zedat.fu-berlin.de (Exim 4.99)
- with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (envelope-from <glaubitz@physik.fu-berlin.de>)
- id 1vOvBQ-00000003NTO-0lOp; Fri, 28 Nov 2025 10:54:32 +0100
-Message-ID: <8485bdec75a0584ae765a45eea4828ca5a5a49d1.camel@physik.fu-berlin.de>
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: Helge Deller <deller@kernel.org>, John Johansen
- <john.johansen@canonical.com>
-Date: Fri, 28 Nov 2025 10:54:31 +0100
-In-Reply-To: <aSdfyGv2T88T5FEu@carbonx1>
-References: <ba3d5651-fa68-4bb5-84aa-35576044e7b0@canonical.com>
- <aSXHCyH_rS-c5BgP@p100>
- <e88c32c2-fb18-4f3e-9ec2-a749695aaf0a@canonical.com>
- <c192140a-0575-41e9-8895-6c8257ce4682@gmx.de>
- <d35010b3-7d07-488c-b5a4-a13380d0ef7c@canonical.com>
- <20251126104444.29002552@pumpkin>
- <4034ad19-8e09-440c-a042-a66a488c048b@gmx.de>
- <20251126142201.27e23076@pumpkin> <aScY13MEBATreotz@carbonx1>
- <f5637038-9661-47fe-ba69-e461760ac975@canonical.com>
- <aSdfyGv2T88T5FEu@carbonx1>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.1 
+ (Exim 4.86_2) (envelope-from <ebiederm@xmission.com>)
+ id 1vQ6Pw-0007i4-MO
+ for apparmor@lists.ubuntu.com; Mon, 01 Dec 2025 16:06:24 +0000
+Received: from in01.mta.xmission.com ([166.70.13.51]:50512)
+ by out02.mta.xmission.com with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.93)
+ (envelope-from <ebiederm@xmission.com>)
+ id 1vQ6Pi-009mGN-1t; Mon, 01 Dec 2025 09:06:10 -0700
+Received: from ip72-198-198-28.om.om.cox.net ([72.198.198.28]:40282
+ helo=email.froward.int.ebiederm.org.xmission.com)
+ by in01.mta.xmission.com with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.93)
+ (envelope-from <ebiederm@xmission.com>)
+ id 1vQ6Pg-00Cg1V-BQ; Mon, 01 Dec 2025 09:06:09 -0700
+From: "Eric W. Biederman" <ebiederm@xmission.com>
+To: Roberto Sassu <roberto.sassu@huaweicloud.com>
+In-Reply-To: <6dc556a0a93c18fffec71322bf97441c74b3134e.camel@huaweicloud.com>
+ (Roberto Sassu's message of "Tue, 25 Nov 2025 12:55:00 +0100")
+References: <AM8PR10MB470801D01A0CF24BC32C25E7E40E9@AM8PR10MB4708.EURPRD10.PROD.OUTLOOK.COM>
+ <AM8PR10MB470875B22B4C08BEAEC3F77FE4169@AM8PR10MB4708.EURPRD10.PROD.OUTLOOK.COM>
+ <AS8P193MB1285DF698D7524EDE22ABFA1E4A1A@AS8P193MB1285.EURP193.PROD.OUTLOOK.COM>
+ <AS8P193MB12851AC1F862B97FCE9B3F4FE4AAA@AS8P193MB1285.EURP193.PROD.OUTLOOK.COM>
+ <AS8P193MB1285FF445694F149B70B21D0E46C2@AS8P193MB1285.EURP193.PROD.OUTLOOK.COM>
+ <AS8P193MB1285937F9831CECAF2A9EEE2E4752@AS8P193MB1285.EURP193.PROD.OUTLOOK.COM>
+ <GV2PPF74270EBEEEDE0B9742310DE91E9A7E431A@GV2PPF74270EBEE.EURP195.PROD.OUTLOOK.COM>
+ <GV2PPF74270EBEE9EF78827D73D3D7212F7E432A@GV2PPF74270EBEE.EURP195.PROD.OUTLOOK.COM>
+ <GV2PPF74270EBEEE807D016A79FE7A2F463E4D6A@GV2PPF74270EBEE.EURP195.PROD.OUTLOOK.COM>
+ <87tsyozqdu.fsf@email.froward.int.ebiederm.org>
+ <87wm3ky5n9.fsf@email.froward.int.ebiederm.org>
+ <87h5uoxw06.fsf_-_@email.froward.int.ebiederm.org>
+ <6dc556a0a93c18fffec71322bf97441c74b3134e.camel@huaweicloud.com>
+Date: Mon, 01 Dec 2025 10:06:00 -0600
+Message-ID: <87v7iqtcev.fsf_-_@email.froward.int.ebiederm.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-Originating-IP: 91.19.170.52
-X-ZEDAT-Hint: PO
-Received-SPF: pass client-ip=130.133.4.66;
- envelope-from=glaubitz@zedat.fu-berlin.de; helo=outpost1.zedat.fu-berlin.de
-X-Mailman-Approved-At: Sat, 29 Nov 2025 08:11:54 +0000
-Subject: Re: [apparmor] [PATCH 0/2] apparmor unaligned memory fixes
+Content-Type: text/plain
+X-XM-SPF: eid=1vQ6Pg-00Cg1V-BQ; ; ;
+ mid=<87v7iqtcev.fsf_-_@email.froward.int.ebiederm.org>; ; ;
+ hst=in01.mta.xmission.com; ; ; ip=72.198.198.28; ; ; frm=ebiederm@xmission.com;
+ ; ; spf=pass
+X-XM-AID: U2FsdGVkX1/O4IKUzWWwapDxt1axB69s37nkia9NNac=
+X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on sa01.xmission.com
+X-Spam-Level: ****
+X-Spam-Status: No, score=4.0 required=8.0 tests=ALL_TRUSTED,BAYES_50,
+ DCC_CHECK_NEGATIVE,TR_AI_Phishing,TR_XM_PhishingBody,XMGappySubj_01,
+ XMGappySubj_02,XMSubLong,XM_B_AI_SPAM_COMBINATION,XM_B_Phish_Phrases,
+ XM_Multi_Part_URI autolearn=disabled version=3.4.2
+X-Spam-Virus: No
+X-Spam-Report: * -1.0 ALL_TRUSTED Passed through trusted hosts only via SMTP
+ *  0.1 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+ *      [score: 0.5000] *  0.7 XMSubLong Long Subject
+ *  1.0 XMGappySubj_02 Gappier still
+ *  0.5 XMGappySubj_01 Very gappy subject
+ *  1.2 XM_Multi_Part_URI URI: Long-Multi-Part URIs
+ * -0.0 DCC_CHECK_NEGATIVE Not listed in DCC
+ *      [sa01 1397; Body=1 Fuz1=1 Fuz2=1]
+ *  1.0 XM_B_Phish_Phrases Commonly used Phishing Phrases
+ *  0.0 XM_B_AI_SPAM_COMBINATION Email matches multiple AI-related
+ *      patterns
+ *  0.5 TR_AI_Phishing Email matches multiple AI-related patterns
+ *  0.0 TR_XM_PhishingBody Phishing flag in body of message
+X-Spam-DCC: XMission; sa01 1397; Body=1 Fuz1=1 Fuz2=1 
+X-Spam-Combo: ****;Roberto Sassu <roberto.sassu@huaweicloud.com>
+X-Spam-Relay-Country: 
+X-Spam-Timing: total 576 ms - load_scoreonly_sql: 0.03 (0.0%),
+ signal_user_changed: 2.8 (0.5%), b_tie_ro: 1.85 (0.3%), parse: 1.32
+ (0.2%), extract_message_metadata: 17 (2.9%), get_uri_detail_list: 2.5
+ (0.4%), tests_pri_-2000: 24 (4.1%), tests_pri_-1000: 14 (2.5%),
+ tests_pri_-950: 1.46 (0.3%), tests_pri_-900: 1.33 (0.2%),
+ tests_pri_-90: 118 (20.4%), check_bayes: 116 (20.1%), b_tokenize: 24
+ (4.1%), b_tok_get_all: 11 (1.9%), b_comp_prob: 3.5 (0.6%),
+ b_tok_touch_all: 74 (12.9%), b_finish: 0.62 (0.1%), tests_pri_0: 385
+ (66.9%), check_dkim_signature: 0.44 (0.1%), check_dkim_adsp: 2.7
+ (0.5%), poll_dns_idle: 0.61 (0.1%), tests_pri_10: 1.64 (0.3%),
+ tests_pri_500: 7 (1.1%), rewrite_mail: 0.00 (0.0%)
+X-SA-Exim-Connect-IP: 166.70.13.51
+X-SA-Exim-Rcpt-To: too long (recipient list exceeded maximum allowed size of
+ 512 bytes)
+X-SA-Exim-Mail-From: ebiederm@xmission.com
+X-SA-Exim-Scanned: No (on out02.mta.xmission.com);
+ SAEximRunCond expanded to false
+Received-SPF: pass client-ip=166.70.13.232; envelope-from=ebiederm@xmission.com;
+ helo=out02.mta.xmission.com
+X-Mailman-Approved-At: Tue, 02 Dec 2025 10:26:37 +0000
+Subject: [apparmor] Are setuid shell scripts safe? (Implied by
+ security_bprm_creds_for_exec)
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -72,241 +107,119 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: david laight <david.laight@runbox.com>, linux-parisc@vger.kernel.org,
- Helge Deller <deller@gmx.de>, apparmor@lists.ubuntu.com,
- linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org
+Cc: Michal Hocko <mhocko@suse.com>, Jan Kara <jack@suse.cz>,
+ David Hildenbrand <david@redhat.com>, Kees Cook <kees@kernel.org>,
+ "Peter Zijlstra \(Intel\)" <peterz@infradead.org>,
+ Alexei Starovoitov <ast@kernel.org>, zohar@linux.ibm.com,
+ Oleg Nesterov <oleg@redhat.com>, linux-mm@kvack.org,
+ Eric Dumazet <edumazet@google.com>, Yafang Shao <laoar.shao@gmail.com>,
+ xu xin <xu.xin16@zte.com.cn>, linux-kselftest@vger.kernel.org,
+ "Joel Fernandes \(Google\)" <joel@joelfernandes.org>,
+ tiozhang <tiozhang@didiglobal.com>, Shuah Khan <shuah@kernel.org>,
+ Ard Biesheuvel <ardb@kernel.org>, Elena Reshetova <elena.reshetova@intel.com>,
+ "Paulo
+ Alcantara \(SUSE\)" <pc@manguebit.com>, Paul Moore <paul@paul-moore.com>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, Helge Deller <deller@gmx.de>,
+ YueHaibing <yuehaibing@huawei.com>, Luis Chamberlain <mcgrof@kernel.org>,
+ James Morris <jamorris@linux.microsoft.com>, Ingo Molnar <mingo@kernel.org>,
+ Penglei Jiang <superman.xpt@gmail.com>, Hans Liljestrand <ishkamiel@gmail.com>,
+ Alexey Dobriyan <adobriyan@gmail.com>, Serge Hallyn <serge@hallyn.com>,
+ Randy Dunlap <rdunlap@infradead.org>, Stefan Roesch <shr@devkernel.io>,
+ Frederic Weisbecker <frederic@kernel.org>, Chao Yu <chao@kernel.org>,
+ apparmor <apparmor@lists.ubuntu.com>,
+ "Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
+ Aleksa Sarai <cyphar@cyphar.com>, Bernd Edlinger <bernd.edlinger@hotmail.de>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, Dave Chinner <dchinner@redhat.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Suren Baghdasaryan <surenb@google.com>,
+ linux-integrity@vger.kernel.org, David Windsor <dwindsor@gmail.com>,
+ Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>,
+ Mateusz Guzik <mjguzik@gmail.com>, Will Drewry <wad@chromium.org>,
+ Adrian Ratiu <adrian.ratiu@collabora.com>, Adrian Reber <areber@redhat.com>,
+ Jeff Layton <jlayton@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Andy Lutomirski <luto@amacapital.net>, Cyrill Gorcunov <gorcunov@gmail.com>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>,
+ linux-security-module@vger.kernel.org,
+ "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Hi Helge,
+Roberto Sassu <roberto.sassu@huaweicloud.com> writes:
 
-On Wed, 2025-11-26 at 21:15 +0100, Helge Deller wrote:
-> * John Johansen <john.johansen@canonical.com>:
-> > On 11/26/25 07:12, Helge Deller wrote:
-> > > * david laight <david.laight@runbox.com>:
-> > > > On Wed, 26 Nov 2025 12:03:03 +0100
-> > > > Helge Deller <deller@gmx.de> wrote:
-> > > >=20
-> > > > > On 11/26/25 11:44, david laight wrote:
-> > > > ...
-> > > > > > > diff --git a/security/apparmor/match.c b/security/apparmor/ma=
-tch.c
-> > > > > > > index 26e82ba879d44..3dcc342337aca 100644
-> > > > > > > --- a/security/apparmor/match.c
-> > > > > > > +++ b/security/apparmor/match.c
-> > > > > > > @@ -71,10 +71,10 @@ static struct table_header *unpack_table(=
-char *blob, size_t bsize)
-> > > > > > >     				     u8, u8, byte_to_byte);
-> > > > > >=20
-> > > > > > Is that that just memcpy() ?
-> > > > >=20
-> > > > > No, it's memcpy() only on big-endian machines.
-> > > >=20
-> > > > You've misread the quoting...
-> > > > The 'data8' case that was only half there is a memcpy().
-> > > >=20
-> > > > > On little-endian machines it converts from big-endian
-> > > > > 16/32-bit ints to little-endian 16/32-bit ints.
-> > > > >=20
-> > > > > But I see some potential for optimization here:
-> > > > > a) on big-endian machines just use memcpy()
-> > > >=20
-> > > > true
-> > > >=20
-> > > > > b) on little-endian machines use memcpy() to copy from possibly-u=
-naligned
-> > > > >      memory to then known-to-be-aligned destination. Then use a l=
-oop with
-> > > > >      be32_to_cpu() instead of get_unaligned_xx() as it's faster.
-> > > >=20
-> > > > There is a function that does a loop byteswap of a buffer - no reas=
-on
-> > > > to re-invent it.
-> > >=20
-> > > I assumed there must be something, but I did not see it. Which one?
-> > >=20
-> > > > But I doubt it is always (if ever) faster to do a copy and then byt=
-eswap.
-> > > > The loop control and extra memory accesses kill performance.
-> > >=20
-> > > Yes, you are probably right.
-> > >=20
-> > > > Not that I've seen a fast get_unaligned() - I don't think gcc or cl=
-ang
-> > > > generate optimal code - For LE I think it is something like:
-> > > > 	low =3D *(addr & ~3);
-> > > > 	high =3D *((addr + 3) & ~3);
-> > > > 	shift =3D (addr & 3) * 8;
-> > > > 	value =3D low << shift | high >> (32 - shift);
-> > > > Note that it is only 2 aligned memory reads - even for 64bit.
-> > >=20
-> > > Ok, then maybe we should keep it simple like this patch:
-> > >=20
-> > > [PATCH v2] apparmor: Optimize table creation from possibly unaligned =
-memory
-> > >=20
-> > > Source blob may come from userspace and might be unaligned.
-> > > Try to optize the copying process by avoiding unaligned memory access=
-es.
-> > >=20
-> > > Signed-off-by: Helge Deller <deller@gmx.de>
-> > >=20
-> > > diff --git a/security/apparmor/include/match.h b/security/apparmor/in=
-clude/match.h
-> > > index 1fbe82f5021b..386da2023d50 100644
-> > > --- a/security/apparmor/include/match.h
-> > > +++ b/security/apparmor/include/match.h
-> > > @@ -104,16 +104,20 @@ struct aa_dfa {
-> > >   	struct table_header *tables[YYTD_ID_TSIZE];
-> > >   };
-> > > -#define byte_to_byte(X) (X)
-> > > +#define byte_to_byte(X) (*(X))
-> > >   #define UNPACK_ARRAY(TABLE, BLOB, LEN, TTYPE, BTYPE, NTOHX)	\
-> > >   	do { \
-> > >   		typeof(LEN) __i; \
-> > >   		TTYPE *__t =3D (TTYPE *) TABLE; \
-> > >   		BTYPE *__b =3D (BTYPE *) BLOB; \
-> > > -		for (__i =3D 0; __i < LEN; __i++) { \
-> > > -			__t[__i] =3D NTOHX(__b[__i]); \
-> > > -		} \
-> > > +		BUILD_BUG_ON(sizeof(TTYPE) !=3D sizeof(BTYPE)); \
-> > > +		if (IS_ENABLED(CONFIG_CPU_BIG_ENDIAN) || sizeof(BTYPE) =3D=3D 1) \
-> > > +			memcpy(__t, __b, (LEN) * sizeof(BTYPE)); \
-> > > +		else /* copy & convert convert from big-endian */ \
-> > > +			for (__i =3D 0; __i < LEN; __i++) { \
-> > > +				__t[__i] =3D NTOHX(&__b[__i]); \
-> > > +			} \
-> > >   	} while (0)
-> > >   static inline size_t table_size(size_t len, size_t el_size)
-> > > diff --git a/security/apparmor/match.c b/security/apparmor/match.c
-> > > index c5a91600842a..13e2f6873329 100644
-> > > --- a/security/apparmor/match.c
-> > > +++ b/security/apparmor/match.c
-> > > @@ -15,6 +15,7 @@
-> > >   #include <linux/vmalloc.h>
-> > >   #include <linux/err.h>
-> > >   #include <linux/kref.h>
-> > > +#include <linux/unaligned.h>
-> > >   #include "include/lib.h"
-> > >   #include "include/match.h"
-> > > @@ -70,10 +71,10 @@ static struct table_header *unpack_table(char *bl=
-ob, size_t bsize)
-> > >   				     u8, u8, byte_to_byte);
-> > >   		else if (th.td_flags =3D=3D YYTD_DATA16)
-> > >   			UNPACK_ARRAY(table->td_data, blob, th.td_lolen,
-> > > -				     u16, __be16, be16_to_cpu);
-> > > +				     u16, __be16, get_unaligned_be16);
-> > >   		else if (th.td_flags =3D=3D YYTD_DATA32)
-> > >   			UNPACK_ARRAY(table->td_data, blob, th.td_lolen,
-> > > -				     u32, __be32, be32_to_cpu);
-> > > +				     u32, __be32, get_unaligned_be32);
-> > >   		else
-> > >   			goto fail;
-> > >   		/* if table was vmalloced make sure the page tables are synced
-> >=20
-> > I think we can make one more tweak, in just not using UNPACK_ARRAY at a=
-ll for the byte case
-> > ie.
-> >=20
-> > diff --git a/security/apparmor/match.c b/security/apparmor/match.c
-> > index 26e82ba879d44..389202560675c 100644
-> > --- a/security/apparmor/match.c
-> > +++ b/security/apparmor/match.c
-> > @@ -67,8 +67,7 @@ static struct table_header *unpack_table(char *blob, =
-size_t bsize)
-> >  		table->td_flags =3D th.td_flags;
-> >  		table->td_lolen =3D th.td_lolen;
-> >  		if (th.td_flags =3D=3D YYTD_DATA8)
-> > -			UNPACK_ARRAY(table->td_data, blob, th.td_lolen,
-> > -				     u8, u8, byte_to_byte);
-> > +			memcp(table->td_data, blob, th.td_lolen);
->=20
-> True.
-> Then byte_to_byte() can go away in match.h as well.
-> So, here is a (untested) v3:
->=20
->=20
-> [PATCH v3] apparmor: Optimize table creation from possibly unaligned memo=
-ry
->=20
-> Source blob may come from userspace and might be unaligned.
-> Try to optize the copying process by avoiding unaligned memory accesses.
->=20
-> Signed-off-by: Helge Deller <deller@gmx.de>
->=20
-> diff --git a/security/apparmor/include/match.h b/security/apparmor/includ=
-e/match.h
-> index 1fbe82f5021b..19e72b3e8f49 100644
-> --- a/security/apparmor/include/match.h
-> +++ b/security/apparmor/include/match.h
-> @@ -104,16 +104,18 @@ struct aa_dfa {
->  	struct table_header *tables[YYTD_ID_TSIZE];
->  };
-> =20
-> -#define byte_to_byte(X) (X)
-> -
->  #define UNPACK_ARRAY(TABLE, BLOB, LEN, TTYPE, BTYPE, NTOHX)	\
->  	do { \
->  		typeof(LEN) __i; \
->  		TTYPE *__t =3D (TTYPE *) TABLE; \
->  		BTYPE *__b =3D (BTYPE *) BLOB; \
-> -		for (__i =3D 0; __i < LEN; __i++) { \
-> -			__t[__i] =3D NTOHX(__b[__i]); \
-> -		} \
-> +		BUILD_BUG_ON(sizeof(TTYPE) !=3D sizeof(BTYPE)); \
-> +		if (IS_ENABLED(CONFIG_CPU_BIG_ENDIAN)) \
-> +			memcpy(__t, __b, (LEN) * sizeof(BTYPE)); \
-> +		else /* copy & convert convert from big-endian */ \
-> +			for (__i =3D 0; __i < LEN; __i++) { \
-> +				__t[__i] =3D NTOHX(&__b[__i]); \
-> +			} \
->  	} while (0)
-> =20
->  static inline size_t table_size(size_t len, size_t el_size)
-> diff --git a/security/apparmor/match.c b/security/apparmor/match.c
-> index c5a91600842a..1e32c8ba14ae 100644
-> --- a/security/apparmor/match.c
-> +++ b/security/apparmor/match.c
-> @@ -15,6 +15,7 @@
->  #include <linux/vmalloc.h>
->  #include <linux/err.h>
->  #include <linux/kref.h>
-> +#include <linux/unaligned.h>
-> =20
->  #include "include/lib.h"
->  #include "include/match.h"
-> @@ -66,14 +67,13 @@ static struct table_header *unpack_table(char *blob, =
-size_t bsize)
->  		table->td_flags =3D th.td_flags;
->  		table->td_lolen =3D th.td_lolen;
->  		if (th.td_flags =3D=3D YYTD_DATA8)
-> -			UNPACK_ARRAY(table->td_data, blob, th.td_lolen,
-> -				     u8, u8, byte_to_byte);
-> +			memcpy(table->td_data, blob, th.td_lolen);
->  		else if (th.td_flags =3D=3D YYTD_DATA16)
->  			UNPACK_ARRAY(table->td_data, blob, th.td_lolen,
-> -				     u16, __be16, be16_to_cpu);
-> +				     u16, __be16, get_unaligned_be16);
->  		else if (th.td_flags =3D=3D YYTD_DATA32)
->  			UNPACK_ARRAY(table->td_data, blob, th.td_lolen,
-> -				     u32, __be32, be32_to_cpu);
-> +				     u32, __be32, get_unaligned_be32);
->  		else
->  			goto fail;
->  		/* if table was vmalloced make sure the page tables are synced
+> + Mimi, linux-integrity (would be nice if we are in CC when linux-
+> security-module is in CC).
+>
+> Apologies for not answering earlier, it seems I don't receive the
+> emails from the linux-security-module mailing list (thanks Serge for
+> letting me know!).
+>
+> I see two main effects of this patch. First, the bprm_check_security
+> hook implementations will not see bprm->cred populated. That was a
+> problem before we made this patch:
+>
+> https://patchew.org/linux/20251008113503.2433343-1-roberto.sassu@huaweicloud.com/
 
-I have applied both patches, the latter required minimal rework, and I conf=
-irm the issue is gone.
+Thanks, that is definitely needed.
 
-Could you post a cleaned up series with both patches so I can add my Tested=
--by?
+Does calling process_measurement(CREDS_CHECK) on only the final file
+pass review?  Do you know of any cases where that will break things?
 
-Thanks,
-Adrian
+As it stands I don't think it should be assumed that any LSM has
+computed it's final creds until bprm_creds_from_file.  Not just the
+uid and gid.
 
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
+If the patch you posted for review works that helps sort that mess out.
+
+> to work around the problem of not calculating the final DAC credentials
+> early enough (well, we actually had to change our CREDS_CHECK hook
+> behavior).
+>
+> The second, I could not check. If I remember well, unlike the
+> capability LSM, SELinux/Apparmor/SMACK calculate the final credentials
+> based on the first file being executed (thus the script, not the
+> interpreter). Is this patch keeping the same behavior despite preparing
+> the credentials when the final binary is found?
+
+The patch I posted was.
+
+My brain is still reeling from the realization that our security modules
+have the implicit assumption that it is safe to calculate their security
+information from shell scripts.
+
+In the first half of the 90's I remember there was lots of effort to try
+and make setuid shell scripts and setuid perl scripts work, and the
+final conclusion was it was a lost cause.
+
+Now I look at security_bprm_creds_for_exec and security_bprm_check which
+both have the implicit assumption that it is indeed safe to compute the
+credentials from a shell script.
+
+When passing a file descriptor to execat we have
+BINPRM_FLAGS_PATH_INACCESSIBLE and use /dev/fd/NNN as the filename
+which reduces some of the races.
+
+However when just plain executing a shell script we pass the filename of
+the shell script as a command line argument, and expect the shell to
+open the filename again.  This has been a time of check to time of use
+race for decades, and one of the reasons we don't have setuid shell
+scripts.
+
+Yet the IMA implementation (without the above mentioned patch) assumes
+the final creds will be calculated before security_bprm_check is called,
+and security_bprm_creds_for_exec busily calculate the final creds.
+
+For some of the security modules I believe anyone can set any label they
+want on a file and they remain secure (At which point I don't understand
+the point of having labels on files).  I don't believe that is the case
+for selinux, or in general.
+
+So just to remove the TOCTOU race the security_bprm_creds_for_exec
+and security_bprm_check hooks need to be removed, after moving their
+code into something like security_bprm_creds_from_file.
+
+Or am I missing something and even with the TOCTOU race are setuid shell
+scripts somehow safe now?
+
+Eric
 
