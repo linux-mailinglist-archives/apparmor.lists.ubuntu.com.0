@@ -2,32 +2,31 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CE62C9B22A
-	for <lists+apparmor@lfdr.de>; Tue, 02 Dec 2025 11:26:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F779C9B224
+	for <lists+apparmor@lfdr.de>; Tue, 02 Dec 2025 11:26:53 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vQNah-0000mB-AF; Tue, 02 Dec 2025 10:26:39 +0000
-Received: from out02.mta.xmission.com ([166.70.13.232])
+	id 1vQNah-0000mH-D2; Tue, 02 Dec 2025 10:26:39 +0000
+Received: from frasgout13.his.huawei.com ([14.137.139.46])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <ebiederm@xmission.com>)
- id 1vQ6Pw-0007i4-MO
- for apparmor@lists.ubuntu.com; Mon, 01 Dec 2025 16:06:24 +0000
-Received: from in01.mta.xmission.com ([166.70.13.51]:50512)
- by out02.mta.xmission.com with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.93)
- (envelope-from <ebiederm@xmission.com>)
- id 1vQ6Pi-009mGN-1t; Mon, 01 Dec 2025 09:06:10 -0700
-Received: from ip72-198-198-28.om.om.cox.net ([72.198.198.28]:40282
- helo=email.froward.int.ebiederm.org.xmission.com)
- by in01.mta.xmission.com with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.93)
- (envelope-from <ebiederm@xmission.com>)
- id 1vQ6Pg-00Cg1V-BQ; Mon, 01 Dec 2025 09:06:09 -0700
-From: "Eric W. Biederman" <ebiederm@xmission.com>
-To: Roberto Sassu <roberto.sassu@huaweicloud.com>
-In-Reply-To: <6dc556a0a93c18fffec71322bf97441c74b3134e.camel@huaweicloud.com>
- (Roberto Sassu's message of "Tue, 25 Nov 2025 12:55:00 +0100")
+ (Exim 4.86_2) (envelope-from <roberto.sassu@huaweicloud.com>)
+ id 1vQ76G-0006Uf-Ag
+ for apparmor@lists.ubuntu.com; Mon, 01 Dec 2025 16:50:08 +0000
+Received: from mail.maildlp.com (unknown [172.18.224.235])
+ by frasgout13.his.huawei.com (SkyGuard) with ESMTPS id 4dKqbp2dpSzpV02
+ for <apparmor@lists.ubuntu.com>; Tue,  2 Dec 2025 00:48:38 +0800 (CST)
+Received: from mail02.huawei.com (unknown [7.182.16.47])
+ by mail.maildlp.com (Postfix) with ESMTP id 58E504056C
+ for <apparmor@lists.ubuntu.com>; Tue,  2 Dec 2025 00:50:06 +0800 (CST)
+Received: from [10.204.63.22] (unknown [10.204.63.22])
+ by APP1 (Coremail) with SMTP id LxC2BwDH0TUexy1puQwiAA--.23436S2;
+ Mon, 01 Dec 2025 17:50:04 +0100 (CET)
+Message-ID: <dca0f01500f9d6705dccf3b3ef616468b1f53f57.camel@huaweicloud.com>
+From: Roberto Sassu <roberto.sassu@huaweicloud.com>
+To: "Eric W. Biederman" <ebiederm@xmission.com>
+Date: Mon, 01 Dec 2025 17:49:31 +0100
+In-Reply-To: <87v7iqtcev.fsf_-_@email.froward.int.ebiederm.org>
 References: <AM8PR10MB470801D01A0CF24BC32C25E7E40E9@AM8PR10MB4708.EURPRD10.PROD.OUTLOOK.COM>
  <AM8PR10MB470875B22B4C08BEAEC3F77FE4169@AM8PR10MB4708.EURPRD10.PROD.OUTLOOK.COM>
  <AS8P193MB1285DF698D7524EDE22ABFA1E4A1A@AS8P193MB1285.EURP193.PROD.OUTLOOK.COM>
@@ -41,60 +40,33 @@ References: <AM8PR10MB470801D01A0CF24BC32C25E7E40E9@AM8PR10MB4708.EURPRD10.PROD.
  <87wm3ky5n9.fsf@email.froward.int.ebiederm.org>
  <87h5uoxw06.fsf_-_@email.froward.int.ebiederm.org>
  <6dc556a0a93c18fffec71322bf97441c74b3134e.camel@huaweicloud.com>
-Date: Mon, 01 Dec 2025 10:06:00 -0600
-Message-ID: <87v7iqtcev.fsf_-_@email.froward.int.ebiederm.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+ <87v7iqtcev.fsf_-_@email.froward.int.ebiederm.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1 
 MIME-Version: 1.0
-Content-Type: text/plain
-X-XM-SPF: eid=1vQ6Pg-00Cg1V-BQ; ; ;
- mid=<87v7iqtcev.fsf_-_@email.froward.int.ebiederm.org>; ; ;
- hst=in01.mta.xmission.com; ; ; ip=72.198.198.28; ; ; frm=ebiederm@xmission.com;
- ; ; spf=pass
-X-XM-AID: U2FsdGVkX1/O4IKUzWWwapDxt1axB69s37nkia9NNac=
-X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on sa01.xmission.com
-X-Spam-Level: ****
-X-Spam-Status: No, score=4.0 required=8.0 tests=ALL_TRUSTED,BAYES_50,
- DCC_CHECK_NEGATIVE,TR_AI_Phishing,TR_XM_PhishingBody,XMGappySubj_01,
- XMGappySubj_02,XMSubLong,XM_B_AI_SPAM_COMBINATION,XM_B_Phish_Phrases,
- XM_Multi_Part_URI autolearn=disabled version=3.4.2
-X-Spam-Virus: No
-X-Spam-Report: * -1.0 ALL_TRUSTED Passed through trusted hosts only via SMTP
- *  0.1 BAYES_50 BODY: Bayes spam probability is 40 to 60%
- *      [score: 0.5000] *  0.7 XMSubLong Long Subject
- *  1.0 XMGappySubj_02 Gappier still
- *  0.5 XMGappySubj_01 Very gappy subject
- *  1.2 XM_Multi_Part_URI URI: Long-Multi-Part URIs
- * -0.0 DCC_CHECK_NEGATIVE Not listed in DCC
- *      [sa01 1397; Body=1 Fuz1=1 Fuz2=1]
- *  1.0 XM_B_Phish_Phrases Commonly used Phishing Phrases
- *  0.0 XM_B_AI_SPAM_COMBINATION Email matches multiple AI-related
- *      patterns
- *  0.5 TR_AI_Phishing Email matches multiple AI-related patterns
- *  0.0 TR_XM_PhishingBody Phishing flag in body of message
-X-Spam-DCC: XMission; sa01 1397; Body=1 Fuz1=1 Fuz2=1 
-X-Spam-Combo: ****;Roberto Sassu <roberto.sassu@huaweicloud.com>
-X-Spam-Relay-Country: 
-X-Spam-Timing: total 576 ms - load_scoreonly_sql: 0.03 (0.0%),
- signal_user_changed: 2.8 (0.5%), b_tie_ro: 1.85 (0.3%), parse: 1.32
- (0.2%), extract_message_metadata: 17 (2.9%), get_uri_detail_list: 2.5
- (0.4%), tests_pri_-2000: 24 (4.1%), tests_pri_-1000: 14 (2.5%),
- tests_pri_-950: 1.46 (0.3%), tests_pri_-900: 1.33 (0.2%),
- tests_pri_-90: 118 (20.4%), check_bayes: 116 (20.1%), b_tokenize: 24
- (4.1%), b_tok_get_all: 11 (1.9%), b_comp_prob: 3.5 (0.6%),
- b_tok_touch_all: 74 (12.9%), b_finish: 0.62 (0.1%), tests_pri_0: 385
- (66.9%), check_dkim_signature: 0.44 (0.1%), check_dkim_adsp: 2.7
- (0.5%), poll_dns_idle: 0.61 (0.1%), tests_pri_10: 1.64 (0.3%),
- tests_pri_500: 7 (1.1%), rewrite_mail: 0.00 (0.0%)
-X-SA-Exim-Connect-IP: 166.70.13.51
-X-SA-Exim-Rcpt-To: too long (recipient list exceeded maximum allowed size of
- 512 bytes)
-X-SA-Exim-Mail-From: ebiederm@xmission.com
-X-SA-Exim-Scanned: No (on out02.mta.xmission.com);
- SAEximRunCond expanded to false
-Received-SPF: pass client-ip=166.70.13.232; envelope-from=ebiederm@xmission.com;
- helo=out02.mta.xmission.com
+X-CM-TRANSID: LxC2BwDH0TUexy1puQwiAA--.23436S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3Xr1xWrWDZrWkWr47XFWrXwb_yoW7tFWfpF
+ WrKay7Jr1DGF4Iyrn7Gw4xWF4SkFWrJ3y3Jrn5K34F9a98Wr1rKr1S9FWY9FWUWr1rK3W2
+ yw429r93Za4DZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvFb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
+ 6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+ vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7Cj
+ xVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv6xkF7I
+ 0E14v26r4j6r4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG
+ 6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFV
+ Cjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS
+ 14v26rWY6Fy7MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
+ 8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWrXVW8
+ Jr1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7
+ CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AK
+ xVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvj
+ xUVZ2-UUUUU
+X-CM-SenderInfo: purev21wro2thvvxqx5xdzvxpfor3voofrz/1tbiAgAJBGktg2sEdgAAsR
+Received-SPF: pass client-ip=14.137.139.46;
+ envelope-from=roberto.sassu@huaweicloud.com; helo=frasgout13.his.huawei.com
 X-Mailman-Approved-At: Tue, 02 Dec 2025 10:26:37 +0000
-Subject: [apparmor] Are setuid shell scripts safe? (Implied by
+Subject: Re: [apparmor] Are setuid shell scripts safe? (Implied by
  security_bprm_creds_for_exec)
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -145,81 +117,141 @@ Cc: Michal Hocko <mhocko@suse.com>, Jan Kara <jack@suse.cz>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Roberto Sassu <roberto.sassu@huaweicloud.com> writes:
+On Mon, 2025-12-01 at 10:06 -0600, Eric W. Biederman wrote:
+> Roberto Sassu <roberto.sassu@huaweicloud.com> writes:
+>=20
+> > + Mimi, linux-integrity (would be nice if we are in CC when linux-
+> > security-module is in CC).
+> >=20
+> > Apologies for not answering earlier, it seems I don't receive the
+> > emails from the linux-security-module mailing list (thanks Serge for
+> > letting me know!).
+> >=20
+> > I see two main effects of this patch. First, the bprm_check_security
+> > hook implementations will not see bprm->cred populated. That was a
+> > problem before we made this patch:
+> >=20
+> > https://patchew.org/linux/20251008113503.2433343-1-roberto.sassu@huawei=
+cloud.com/
+>=20
+> Thanks, that is definitely needed.
+>=20
+> Does calling process_measurement(CREDS_CHECK) on only the final file
+> pass review?  Do you know of any cases where that will break things?
 
-> + Mimi, linux-integrity (would be nice if we are in CC when linux-
-> security-module is in CC).
->
-> Apologies for not answering earlier, it seems I don't receive the
-> emails from the linux-security-module mailing list (thanks Serge for
-> letting me know!).
->
-> I see two main effects of this patch. First, the bprm_check_security
-> hook implementations will not see bprm->cred populated. That was a
-> problem before we made this patch:
->
-> https://patchew.org/linux/20251008113503.2433343-1-roberto.sassu@huaweicloud.com/
+We intentionally changed the behavior of CREDS_CHECK to be invoked only
+for the final file. We are monitoring for bug reports, if we receive
+complains from people that the patch breaks their expectation we will
+revisit the issue.
 
-Thanks, that is definitely needed.
+Any LSM implementing bprm_check_security looking for brpm->cred would
+be affected by recalculating the DAC credentials for the final binary.
 
-Does calling process_measurement(CREDS_CHECK) on only the final file
-pass review?  Do you know of any cases where that will break things?
+> As it stands I don't think it should be assumed that any LSM has
+> computed it's final creds until bprm_creds_from_file.  Not just the
+> uid and gid.
 
-As it stands I don't think it should be assumed that any LSM has
-computed it's final creds until bprm_creds_from_file.  Not just the
-uid and gid.
+Uhm, I can be wrong, but most LSMs calculate their state change in
+bprm_creds_for_exec (git grep bprm_creds_for_exec|grep LSM_HOOK_INIT).
 
-If the patch you posted for review works that helps sort that mess out.
+> If the patch you posted for review works that helps sort that mess out.
 
-> to work around the problem of not calculating the final DAC credentials
-> early enough (well, we actually had to change our CREDS_CHECK hook
-> behavior).
->
-> The second, I could not check. If I remember well, unlike the
-> capability LSM, SELinux/Apparmor/SMACK calculate the final credentials
-> based on the first file being executed (thus the script, not the
-> interpreter). Is this patch keeping the same behavior despite preparing
-> the credentials when the final binary is found?
+Well, it works because we changed the expectation :)
 
-The patch I posted was.
+> > to work around the problem of not calculating the final DAC credentials
+> > early enough (well, we actually had to change our CREDS_CHECK hook
+> > behavior).
+> >=20
+> > The second, I could not check. If I remember well, unlike the
+> > capability LSM, SELinux/Apparmor/SMACK calculate the final credentials
+> > based on the first file being executed (thus the script, not the
+> > interpreter). Is this patch keeping the same behavior despite preparing
+> > the credentials when the final binary is found?
+>=20
+> The patch I posted was.
+>=20
+> My brain is still reeling from the realization that our security modules
+> have the implicit assumption that it is safe to calculate their security
+> information from shell scripts.
 
-My brain is still reeling from the realization that our security modules
-have the implicit assumption that it is safe to calculate their security
-information from shell scripts.
+If I'm interpreting this behavior correctly (please any LSM maintainer
+could comment on it), the intent is just to transition to a different
+security context where a different set of rules could apply (since we
+are executing a script).
 
-In the first half of the 90's I remember there was lots of effort to try
-and make setuid shell scripts and setuid perl scripts work, and the
-final conclusion was it was a lost cause.
+Imagine if for every script, the security transition is based on the
+interpreter, it would be hard to differentiate between scripts and
+associate to the respective processes different security labels.
 
-Now I look at security_bprm_creds_for_exec and security_bprm_check which
-both have the implicit assumption that it is indeed safe to compute the
-credentials from a shell script.
+> In the first half of the 90's I remember there was lots of effort to try
+> and make setuid shell scripts and setuid perl scripts work, and the
+> final conclusion was it was a lost cause.
 
-When passing a file descriptor to execat we have
-BINPRM_FLAGS_PATH_INACCESSIBLE and use /dev/fd/NNN as the filename
-which reduces some of the races.
+Definitely I lack a lot of context...
 
-However when just plain executing a shell script we pass the filename of
-the shell script as a command line argument, and expect the shell to
-open the filename again.  This has been a time of check to time of use
-race for decades, and one of the reasons we don't have setuid shell
-scripts.
+> Now I look at security_bprm_creds_for_exec and security_bprm_check which
+> both have the implicit assumption that it is indeed safe to compute the
+> credentials from a shell script.
+>=20
+> When passing a file descriptor to execat we have
+> BINPRM_FLAGS_PATH_INACCESSIBLE and use /dev/fd/NNN as the filename
+> which reduces some of the races.
+>=20
+> However when just plain executing a shell script we pass the filename of
+> the shell script as a command line argument, and expect the shell to
+> open the filename again.  This has been a time of check to time of use
+> race for decades, and one of the reasons we don't have setuid shell
+> scripts.
 
-Yet the IMA implementation (without the above mentioned patch) assumes
-the final creds will be calculated before security_bprm_check is called,
-and security_bprm_creds_for_exec busily calculate the final creds.
+Yes, it would be really nice to fix it!
 
-For some of the security modules I believe anyone can set any label they
-want on a file and they remain secure (At which point I don't understand
-the point of having labels on files).  I don't believe that is the case
-for selinux, or in general.
+> Yet the IMA implementation (without the above mentioned patch) assumes
+> the final creds will be calculated before security_bprm_check is called,
+> and security_bprm_creds_for_exec busily calculate the final creds.
+>=20
+> For some of the security modules I believe anyone can set any label they
+> want on a file and they remain secure (At which point I don't understand
+> the point of having labels on files).  I don't believe that is the case
+> for selinux, or in general.
 
-So just to remove the TOCTOU race the security_bprm_creds_for_exec
-and security_bprm_check hooks need to be removed, after moving their
-code into something like security_bprm_creds_from_file.
+A simple example for SELinux. Suppose that the parent process has type
+initrc_t, then the SELinux policy configures the following transitions
+based on the label of the first file executed (sesearch -T -s initrc_t
+-c process):
 
-Or am I missing something and even with the TOCTOU race are setuid shell
-scripts somehow safe now?
+type_transition initrc_t NetworkManager_dispatcher_exec_t:process NetworkMa=
+nager_dispatcher_t;
+type_transition initrc_t NetworkManager_exec_t:process NetworkManager_t;
+type_transition initrc_t NetworkManager_initrc_exec_t:process initrc_t;
+type_transition initrc_t NetworkManager_priv_helper_exec_t:process NetworkM=
+anager_priv_helper_t;
+type_transition initrc_t abrt_dump_oops_exec_t:process abrt_dump_oops_t;
+type_transition initrc_t abrt_exec_t:process abrt_t;
+[...]
 
-Eric
+(there are 747 rules in my system).
+
+If the transition would be based on the interpreter label, it would be
+hard to express with rules.
+
+If the transition does not occur for any reason the parent process
+policy would still apply, but maybe it would not have the necessary
+permissions for the execution of the script.
+
+> So just to remove the TOCTOU race the security_bprm_creds_for_exec
+> and security_bprm_check hooks need to be removed, after moving their
+> code into something like security_bprm_creds_from_file.
+>=20
+> Or am I missing something and even with the TOCTOU race are setuid shell
+> scripts somehow safe now?
+
+Take this with a looot of salt, if there is a TOCTOU race, the script
+will be executed with a security context that does not belong to it.
+But the transition already happened. Not sure if it is safe.
+
+I also don't know how the TOCTOU race could be solved, but I also would
+like it to be fixed. I'm available to comment on any proposal!
+
+Roberto
+
 
