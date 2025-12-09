@@ -2,88 +2,85 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id CABFBCAB2D9
-	for <lists+apparmor@lfdr.de>; Sun, 07 Dec 2025 09:44:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB65BCAEDBC
+	for <lists+apparmor@lfdr.de>; Tue, 09 Dec 2025 05:22:47 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vSANL-00059D-Jq; Sun, 07 Dec 2025 08:44:15 +0000
+	id 1vSpFD-00015J-7X; Tue, 09 Dec 2025 04:22:35 +0000
 Received: from smtp-relay-internal-1.internal ([10.131.114.114]
  helo=smtp-relay-internal-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1vSANJ-000592-HN
- for apparmor@lists.ubuntu.com; Sun, 07 Dec 2025 08:44:13 +0000
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
- [209.85.210.200])
+ id 1vSpF9-00014u-4x
+ for apparmor@lists.ubuntu.com; Tue, 09 Dec 2025 04:22:31 +0000
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
+ [209.85.215.200])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id DE2A33F129
- for <apparmor@lists.ubuntu.com>; Sun,  7 Dec 2025 08:44:12 +0000 (UTC)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 671F63F323
+ for <apparmor@lists.ubuntu.com>; Tue,  9 Dec 2025 04:22:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20251003; t=1765097052;
- bh=RaLR5hegrCH3Jg8Uw/361tsJ3PyXIqeRrVTsGyOxw1M=;
- h=Message-ID:Date:MIME-Version:Subject:To:References:From:
- In-Reply-To:Content-Type;
- b=IsIUyx6v9oWV1tmX2eTVRa1U8WtnlGNY38EVgl+BpAos6e1nVXAyJfSKd3pE5IrY+
- ClTYF+EW9pXD7NaP/z+ajnFZ9KZhydXCla0Tt6A4MCm///oKQKzxhqTsulrOnWYfpa
- sr8987UcT/msq+fsqKrT0Ij7+4uAH1G/AXHWZJFSv8hkCV5r0Kk0frXecwRXexno3R
- 2T0QsJT4SqVNNTd08EMnJkdyo7LWR8YXl2Bdkbef96YG97+rp/dpnHdWaBpoPz3Q1P
- w+6BuFLVg6RWu4UpdEtNdkLos7kg0YnayxMMkfc0lSLoCspSOhO6O77O9ZlAdagQFB
- TZPwZM9r0kfoO4wRA493ZZzwL349q61ZcA1RhFmxQMy+er+viCn6CtVLjeHv/l+jjf
- Gn+u/UTAwRzM6FDvAgg9d0NTJ7YVv1PUhUh4o7Oef2D0/oy9gRLgSZySdD/FY7vDkd
- jiaqqcPSP9q+CeYIsL9rzJiRT31mzbblOd1QI0kgWwhVF9F4aDycEcEJNGegu6/IXC
- evH48lVPmtChv3oApXidfas2ol2QQz5xrbRK/ZoZ2thMFLMgK1DnZxBEOMFcwD0aqp
- o+9VH4sfgqZ3pz0hw75bOq6/JNnvHNFu9lcqyd9p+3tAml+31Su+f1nkctUTF+9zbO
- Es2KGuQ0YsYbItOsN84vnN2E=
-Received: by mail-pf1-f200.google.com with SMTP id
- d2e1a72fcca58-7b90740249dso5328710b3a.0
- for <apparmor@lists.ubuntu.com>; Sun, 07 Dec 2025 00:44:12 -0800 (PST)
+ s=20251003; t=1765254149;
+ bh=jvafHzXRPUmrNizKatC1kt/Vv2WRs307DxCc2nFCER8=;
+ h=Message-ID:Date:MIME-Version:From:Subject:To:Content-Type;
+ b=PJGoOSH2UHHM+v9zCKscHwAU41JelAtBWty8wUbwGlceUqoNdoB/uiMdp1OkluFK9
+ u3mVtM11sk55BbM3Xa1ZwwGuspFmsOrNiPYKGIVywq/AQScPgF+ofu8GL9MCRV1lUD
+ BH8SQFcE+ptRrHHJ/GZJKvN3ndi/hHrlwtzSsekAd7ac4zoniAb+yKEa6qjlRtGYCD
+ 8IEvXeKswPqz6K1quwvsvefqhe3GBZcNC2ZOUj5D+twJIK9Hs9YJ1NlilkPrCONGhy
+ uagJA3PWDpsFF0G6rAR9YacX6wycOzp/3wKIwXDdM81r8KxdBsIxC3WOTpvwPwf6+3
+ l33fUuK+ilSLNJK1UnPczNKLBQEhTmSEIAaZ4fDdONZSjWhps3UDRPt4Sis3XnnAOw
+ 7Hoz2U7VlF8NzTHswG5gKNOLAIWWgAjiC6BqnHFnVdxBjJ76no64/akXWe7SG/7NE7
+ K1q719DPdrNdX/yxHI2du2Yt32kGKvOJ5HLcMKQBQABjalTk+P0JLo7tRaybaU+Cl3
+ 41XBL9EKE/5Yc0j5im90W4xRqNJk7vV5C6clVnkzaM/zpv5NI5P6M90amWaYMbPufq
+ pYC+23YOoepb+a7DUwSqjwC5kNS42L6rBShr2QJjH1bMzRdLwCy5hi1bYX2ezHbzGk
+ V/9A315pnBA+dpdR2axs/Kk4=
+Received: by mail-pg1-f200.google.com with SMTP id
+ 41be03b00d2f7-bc240cdb249so5166894a12.3
+ for <apparmor@lists.ubuntu.com>; Mon, 08 Dec 2025 20:22:29 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765097051; x=1765701851;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
- :content-language:references:to:subject:user-agent:mime-version:date
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=RaLR5hegrCH3Jg8Uw/361tsJ3PyXIqeRrVTsGyOxw1M=;
- b=rfremL4Iy4bXTw+N9wP+qADMe2jOV7y3JLhpkFHIFOVuM9GkDpAzxTAKkkIYUrLsnW
- NEyzHVPpJeIRKZyO7gn/dojQDfZdFJcHvvuD++D33aJxMZ7wDDwKwCEG3Ahz2URaxFeW
- FVhoZKYJWaitgDkRYrdh4m71ASIOg91NwKu0K4R1keexZdFIRtRWC50Ky5uSQHB2Oy8X
- RnuY6c7mMlX5FGHOfAE3i1fyY3YMu+BXLtbfhcrxUdy4lFhQeull15ONkX8VF0Ly3zn2
- FyiBdCeYisHSb6rN1Hw6So0aep65Ocs9fyIyg5sIb79FMZjtG1I2hFnD14ajZ+Wiio2Y
- VJZA==
-X-Gm-Message-State: AOJu0YwbV7SMDSQJ/bzxtOmQ0Z3T0V1XtTp89uYlgTLZTR9gF6dt3mzN
- 1ibr24rlqZ8+u1gI+nKmlphP8rBilLWcaelY84FQK7kqPV7sC9T0+vjuiBCFNY6v+RMMpc1hZSh
- F3GHOsM3pnYdyqbQD72qSDjUf5CnhDW2X1n7HPFc28mhfaPtM8iNpuiN0aqd56xP0DVIiPWiAy5
- eQHQ1+5qkMBA==
-X-Gm-Gg: ASbGncu7NGBmzOapLPG4n2YsHJBO0BlCOgXJy7F5J2XEdZIQ7zedxSN9OlCFdY9vgRJ
- mliOcLG//KfdWw9veZwhuJfpeaTxX8YYFkYe3aRhuKhM7NLqrHvLldjP3S48TKkAd0D7raESxE6
- E5Y56ZXt9hjcmRPOGNweiyoeviZZBvZlMCrJCjmkm4IsXSeE3ZBp9oS9yQVEnFTq3gDIqVim4oD
- bOPP72ZdsDng93ASvjOmHVXbs4QuMV3RacEScJBOMC+R7KGuklCZeJZzTdjbdhmx1jjRHtVYgZ/
- iBdFRPzAO47Sr+UeG3ptTKZH7d6sT6K4WEBdgry3Rz6r74ZxSAOW69GkKMujiencNdiwn8dMRis
- fqymR5/vbw6gRx4bOs7rOtHeW
-X-Received: by 2002:a05:6a00:a13:b0:792:f084:404f with SMTP id
- d2e1a72fcca58-7e8bb35f842mr4153187b3a.0.1765097050975; 
- Sun, 07 Dec 2025 00:44:10 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGf0Q9sXLws/tOnSUBZvZenrz0QcQXPR5KZFEfOpgmpb6CBe9DrVDtN1ljufmXJALrbSkIe+g==
-X-Received: by 2002:a05:6a00:a13:b0:792:f084:404f with SMTP id
- d2e1a72fcca58-7e8bb35f842mr4153178b3a.0.1765097050507; 
- Sun, 07 Dec 2025 00:44:10 -0800 (PST)
+ d=1e100.net; s=20230601; t=1765254148; x=1765858948;
+ h=content-transfer-encoding:organization:autocrypt:content-language
+ :to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=jvafHzXRPUmrNizKatC1kt/Vv2WRs307DxCc2nFCER8=;
+ b=SyIoQmryRBp6g+0/rKDkGvaniKuLD2mpN4Ki7iCSxqCKCPwCComRDHPzFuKNVAvodC
+ AkcEOgUOn9dVXb5KecB0u+PewTZOe4f+E9kmokOXGVUjv44qqnMafJRAv4xPIIDsWtKH
+ BL5X1bcZiPlfCz9FoUNloffDELxBoRi0ZjH8JJuc3P8fikbCU4jSnFrdMziXw47gBuGg
+ t1GAiqGuOE4oZVjciE+M7eYLsVXNHMtQntrW73AGX6S8STYdxqQccF1pEoG4Iyzi01sH
+ JHOdkwflTl/YZhsnscuSYv8RBaBntRrzxGVVqnJ0EK5b1zm7KMV1guuF6JB8r6LuX+Nf
+ OBAg==
+X-Gm-Message-State: AOJu0Yz59NrNfmKus9wGQ0oHytQBA8Uq1YsTcUkb3rtqrTzXNpJjajKB
+ KRImi5ugH3qH9AiV/+QfNooqaQhFZEqjWCBKqnL4VJTfRzxevxE7RvRYfEtWJ61yJ8+GYKsJk6n
+ MiIrZikYZo77IJvTfiUNYjzXIi35J/xrmh03OqDGcSp0fR42+DRGMpv39tcbHJnuuZAYcoM2wvu
+ gq+BdfQZrowg==
+X-Gm-Gg: ASbGncsSHpCdQjrQPudObsIqMhmF0kTQ2WtiR+NrpOiej3eoxn5qtlG463evZtCiVTS
+ d2miCtDz0ps8vZlB1xFWkz6Lzv6i6DfIAVOHBWEz1yDnN8isk60UWX2hPcO0/V3T1bRxS/CryWK
+ o8NALxks0N0dSAffu4a/FKX+JeEXWvsz3QYx7rswZ/qIKAgti8X90J4n/I/qDkzHKGLV/sbbj6y
+ Z0yzMGwYowaaQ7Gk+d/GvSI53UJ8RT+Ur3ywKk/NRd9QZNQzaTGegMR3S+4byi9Py7ZYP79hUDF
+ DBKRwIK8X+5dDAuwtVNgKa/nXx8o4i2AzPCpFr8VMXS0sE5JwDfqcpqZFl/XSp4T/kpX1nXlwO0
+ xyRqWfJiq+1bRwxY/WSfq4gUH
+X-Received: by 2002:a17:902:ce90:b0:290:dd1f:3d60 with SMTP id
+ d9443c01a7336-29df632948dmr81671975ad.51.1765254147944; 
+ Mon, 08 Dec 2025 20:22:27 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFS0srmvJy07nATsRkr5m8GW3T23SbYiYGTejBp42M+sRLQOS83MFpW8tpoSmBre6Uw+y97EA==
+X-Received: by 2002:a17:902:ce90:b0:290:dd1f:3d60 with SMTP id
+ d9443c01a7336-29df632948dmr81671765ad.51.1765254147433; 
+ Mon, 08 Dec 2025 20:22:27 -0800 (PST)
 Received: from [192.168.192.85] ([50.47.129.42])
  by smtp.googlemail.com with ESMTPSA id
- d2e1a72fcca58-7e7ecb848c8sm5157728b3a.9.2025.12.07.00.44.09
+ d9443c01a7336-29e4f15accfsm42175615ad.35.2025.12.08.20.22.26
  for <apparmor@lists.ubuntu.com>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 07 Dec 2025 00:44:09 -0800 (PST)
-Message-ID: <cd425800-a81b-494b-a51d-2d439e886063@canonical.com>
-Date: Sun, 7 Dec 2025 00:44:09 -0800
+ Mon, 08 Dec 2025 20:22:26 -0800 (PST)
+Message-ID: <d79f4f2f-7630-4651-99f7-e5c49654694e@canonical.com>
+Date: Mon, 8 Dec 2025 20:22:25 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: apparmor@lists.ubuntu.com
-References: <7950efda-5bbf-4e50-96ff-a7c80c21ea56@app.fastmail.com>
-Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
+To: apparmor <apparmor@lists.ubuntu.com>
+Content-Language: en-US
 Autocrypt: addr=john.johansen@canonical.com; keydata=
  xsFNBE5mrPoBEADAk19PsgVgBKkImmR2isPQ6o7KJhTTKjJdwVbkWSnNn+o6Up5knKP1f49E
  BQlceWg1yp/NwbR8ad+eSEO/uma/K+PqWvBptKC9SWD97FG4uB4/caomLEU97sLQMtnvGWdx
@@ -127,11 +124,9 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <7950efda-5bbf-4e50-96ff-a7c80c21ea56@app.fastmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] Questions about compat encoding in accept1 and
- accept2 tables
+Subject: [apparmor] AppArmor Dec 9 IRC meeting on irc.oftc.net
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -146,79 +141,6 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 12/4/25 07:03, Zygmunt Krynicki wrote:
-> Hello!
-> 
-> I've been trying to document some of the bit-patterns and magic values present in the code. Looking at the macros dfa_{user,other}_{allow,xbits,audit,quiet,xindex} in security/apparmor/policy_compat.c, defined as follows:
-> 
-> #define dfa_user_allow(dfa, state) (((ACCEPT_TABLE(dfa)[state]) & 0x7f) | \
->                                      ((ACCEPT_TABLE(dfa)[state]) & 0x80000000))
-> #define dfa_user_xbits(dfa, state) (((ACCEPT_TABLE(dfa)[state]) >> 7) & 0x7f)
-> #define dfa_user_audit(dfa, state) ((ACCEPT_TABLE2(dfa)[state]) & 0x7f)
-> #define dfa_user_quiet(dfa, state) (((ACCEPT_TABLE2(dfa)[state]) >> 7) & 0x7f)
-> #define dfa_user_xindex(dfa, state) \
->          (dfa_map_xindex(ACCEPT_TABLE(dfa)[state] & 0x3fff))
-> 
-> #define dfa_other_allow(dfa, state) ((((ACCEPT_TABLE(dfa)[state]) >> 14) & \
->                                        0x7f) |                           \
->                                       ((ACCEPT_TABLE(dfa)[state]) & 0x80000000))
-> #define dfa_other_xbits(dfa, state) \
->          ((((ACCEPT_TABLE(dfa)[state]) >> 7) >> 14) & 0x7f)
-> #define dfa_other_audit(dfa, state) (((ACCEPT_TABLE2(dfa)[state]) >> 14) & 0x7f)
-> #define dfa_other_quiet(dfa, state) \
->          ((((ACCEPT_TABLE2(dfa)[state]) >> 7) >> 14) & 0x7f)
-> #define dfa_other_xindex(dfa, state) \
->          dfa_map_xindex((ACCEPT_TABLE(dfa)[state] >> 14) & 0x3fff)
-> 
-> I came up with a C type definition, ignoring undefined ordering of bitfield encoding, for a conceptual structure with the two accept fields:
-> 
-> struct packed_perms {
->    union {
->      accept1 uint32_t;
->      struct {
->        union {
->          struct {
->            user_allow uint32_t : 7;
->            user_xbits uint32_t : 7;
->          };
->          user_xindex uint32_t : 14;
->        };
->        union {
->          struct {
->            other_allow uint32_t : 7;
->            other_xbits uint32_t : 7;
->          };
->          other_xindex uint32_t : 14;
->        };
->        _ uint32_t : 3;
->        change_profile uint32_t : 1; // allow bit shared between user and other.
->      };
->    };
->    union {
->      accept2 uint32_t;
->      struct {
->        user_audit uint32_t : 7;
->        user_quiet uint32_t : 7;
->        other_audit uint32_t : 7;
->        other_quiet uint32_t : 7;
->        _ uint32_t : 4;
->      };
->    };
-> };
-> 
-> The following is true for kernel ABI v9+:
-> 
-> What strikes me is the overlap of the user_{allow,xbits} with the user_xindex field. All seven bits of user_allow are meaningful - as they encode "exec", "write", "read", "append", "link", "lock" and "exec-map". The user_xbits field is only used by map_xbits which effectively bitwise-ands it with the mask 0xfc80, or in binary 0b1111_1100_1000_0000. This selects the highest bit (exec-map) and a the upper six bits of user_xbits itself. The result is interpreted as the full 32bit permission set bit-map so the bits correspond to "rename" (0x80), "set-creds" (0x400), "get-creds" (0x800), "chmod" (0x1000), "chown" (0x2000), "chgrp" (0x4000) and "lock" (0xx8000) - all granted to aa_perms.allow.
-> 
-> How is this co-inhabited with xindex which uses the very same bits to derive, among other, an index into the transition table?
-> 
-The file state machines accept1/2 mapping uses a different encoding than the newer policydb which uses a flatter mapping. The policydb originally skipped the "xbits" due to limitations in the compiler, but once that limitation was fixed those bits started to be used. Internally (and then externally via perms table 32) the kernel moved to mapping these to a permission table, with accept 1 becoming an index into the table. The kernel does a mapping for both the file and policydb accept table permissions to the permission table.
-Originally the 7 xbits encoded the exec type + the xindex (up to 12 entries) but only if the xtable type was set in the xbits. With the new mapping moving permissions from the accept tables to an external wider permission table, the xbits get remapped to a 32 bit entry with 8 bits being used for type info, and up to 24 being used for xindex.
-
-The bits previously used by the 7 xbits are used for other permissions in the 32 bit fields. We actually have the start of a doc around this
-
-https://gitlab.com/apparmor/apparmor/-/blob/master/documentation/Permission%20Layout.pdf?ref_type=heads
-
-
+The next monthly irc meeting is scheduled for Tuesday Dec 9, @18:00 UTC in #apparmor on irc.oftc.net
 
 
