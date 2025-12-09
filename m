@@ -2,131 +2,111 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB65BCAEDBC
-	for <lists+apparmor@lfdr.de>; Tue, 09 Dec 2025 05:22:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 316B7CB0814
+	for <lists+apparmor@lfdr.de>; Tue, 09 Dec 2025 17:07:30 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vSpFD-00015J-7X; Tue, 09 Dec 2025 04:22:35 +0000
-Received: from smtp-relay-internal-1.internal ([10.131.114.114]
- helo=smtp-relay-internal-1.canonical.com)
+	id 1vT0F8-0002RE-CW; Tue, 09 Dec 2025 16:07:14 +0000
+Received: from smtp-out2.suse.de ([195.135.223.131])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1vSpF9-00014u-4x
- for apparmor@lists.ubuntu.com; Tue, 09 Dec 2025 04:22:31 +0000
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
- [209.85.215.200])
+ (Exim 4.86_2) (envelope-from <jack@suse.cz>) id 1vSwpp-0004dJ-GY
+ for apparmor@lists.ubuntu.com; Tue, 09 Dec 2025 12:28:53 +0000
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 671F63F323
- for <apparmor@lists.ubuntu.com>; Tue,  9 Dec 2025 04:22:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20251003; t=1765254149;
- bh=jvafHzXRPUmrNizKatC1kt/Vv2WRs307DxCc2nFCER8=;
- h=Message-ID:Date:MIME-Version:From:Subject:To:Content-Type;
- b=PJGoOSH2UHHM+v9zCKscHwAU41JelAtBWty8wUbwGlceUqoNdoB/uiMdp1OkluFK9
- u3mVtM11sk55BbM3Xa1ZwwGuspFmsOrNiPYKGIVywq/AQScPgF+ofu8GL9MCRV1lUD
- BH8SQFcE+ptRrHHJ/GZJKvN3ndi/hHrlwtzSsekAd7ac4zoniAb+yKEa6qjlRtGYCD
- 8IEvXeKswPqz6K1quwvsvefqhe3GBZcNC2ZOUj5D+twJIK9Hs9YJ1NlilkPrCONGhy
- uagJA3PWDpsFF0G6rAR9YacX6wycOzp/3wKIwXDdM81r8KxdBsIxC3WOTpvwPwf6+3
- l33fUuK+ilSLNJK1UnPczNKLBQEhTmSEIAaZ4fDdONZSjWhps3UDRPt4Sis3XnnAOw
- 7Hoz2U7VlF8NzTHswG5gKNOLAIWWgAjiC6BqnHFnVdxBjJ76no64/akXWe7SG/7NE7
- K1q719DPdrNdX/yxHI2du2Yt32kGKvOJ5HLcMKQBQABjalTk+P0JLo7tRaybaU+Cl3
- 41XBL9EKE/5Yc0j5im90W4xRqNJk7vV5C6clVnkzaM/zpv5NI5P6M90amWaYMbPufq
- pYC+23YOoepb+a7DUwSqjwC5kNS42L6rBShr2QJjH1bMzRdLwCy5hi1bYX2ezHbzGk
- V/9A315pnBA+dpdR2axs/Kk4=
-Received: by mail-pg1-f200.google.com with SMTP id
- 41be03b00d2f7-bc240cdb249so5166894a12.3
- for <apparmor@lists.ubuntu.com>; Mon, 08 Dec 2025 20:22:29 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1765254148; x=1765858948;
- h=content-transfer-encoding:organization:autocrypt:content-language
- :to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=jvafHzXRPUmrNizKatC1kt/Vv2WRs307DxCc2nFCER8=;
- b=SyIoQmryRBp6g+0/rKDkGvaniKuLD2mpN4Ki7iCSxqCKCPwCComRDHPzFuKNVAvodC
- AkcEOgUOn9dVXb5KecB0u+PewTZOe4f+E9kmokOXGVUjv44qqnMafJRAv4xPIIDsWtKH
- BL5X1bcZiPlfCz9FoUNloffDELxBoRi0ZjH8JJuc3P8fikbCU4jSnFrdMziXw47gBuGg
- t1GAiqGuOE4oZVjciE+M7eYLsVXNHMtQntrW73AGX6S8STYdxqQccF1pEoG4Iyzi01sH
- JHOdkwflTl/YZhsnscuSYv8RBaBntRrzxGVVqnJ0EK5b1zm7KMV1guuF6JB8r6LuX+Nf
- OBAg==
-X-Gm-Message-State: AOJu0Yz59NrNfmKus9wGQ0oHytQBA8Uq1YsTcUkb3rtqrTzXNpJjajKB
- KRImi5ugH3qH9AiV/+QfNooqaQhFZEqjWCBKqnL4VJTfRzxevxE7RvRYfEtWJ61yJ8+GYKsJk6n
- MiIrZikYZo77IJvTfiUNYjzXIi35J/xrmh03OqDGcSp0fR42+DRGMpv39tcbHJnuuZAYcoM2wvu
- gq+BdfQZrowg==
-X-Gm-Gg: ASbGncsSHpCdQjrQPudObsIqMhmF0kTQ2WtiR+NrpOiej3eoxn5qtlG463evZtCiVTS
- d2miCtDz0ps8vZlB1xFWkz6Lzv6i6DfIAVOHBWEz1yDnN8isk60UWX2hPcO0/V3T1bRxS/CryWK
- o8NALxks0N0dSAffu4a/FKX+JeEXWvsz3QYx7rswZ/qIKAgti8X90J4n/I/qDkzHKGLV/sbbj6y
- Z0yzMGwYowaaQ7Gk+d/GvSI53UJ8RT+Ur3ywKk/NRd9QZNQzaTGegMR3S+4byi9Py7ZYP79hUDF
- DBKRwIK8X+5dDAuwtVNgKa/nXx8o4i2AzPCpFr8VMXS0sE5JwDfqcpqZFl/XSp4T/kpX1nXlwO0
- xyRqWfJiq+1bRwxY/WSfq4gUH
-X-Received: by 2002:a17:902:ce90:b0:290:dd1f:3d60 with SMTP id
- d9443c01a7336-29df632948dmr81671975ad.51.1765254147944; 
- Mon, 08 Dec 2025 20:22:27 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFS0srmvJy07nATsRkr5m8GW3T23SbYiYGTejBp42M+sRLQOS83MFpW8tpoSmBre6Uw+y97EA==
-X-Received: by 2002:a17:902:ce90:b0:290:dd1f:3d60 with SMTP id
- d9443c01a7336-29df632948dmr81671765ad.51.1765254147433; 
- Mon, 08 Dec 2025 20:22:27 -0800 (PST)
-Received: from [192.168.192.85] ([50.47.129.42])
- by smtp.googlemail.com with ESMTPSA id
- d9443c01a7336-29e4f15accfsm42175615ad.35.2025.12.08.20.22.26
- for <apparmor@lists.ubuntu.com>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Dec 2025 20:22:26 -0800 (PST)
-Message-ID: <d79f4f2f-7630-4651-99f7-e5c49654694e@canonical.com>
-Date: Mon, 8 Dec 2025 20:22:25 -0800
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C74D95BE26;
+ Tue,  9 Dec 2025 12:28:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1765283332; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ygaHW8o5EWTBSXhXnK7ekdPvbFwd/VSzrB9zkhVTLRQ=;
+ b=VJlXEdXFL5fd4Sem3MzdBi6M+Hr11U7VtVbf3ME1dk5aSuhjv3O/iSL8Yd/XI8EpEFKwGn
+ qt5OE3BhUWleFUONVE7NBCIrv8ySHriCLSY0zQvS97diMAG7hRy1P55heddbwQqqP5orwx
+ zke8vzmd4c6IaLFBZbk/OIH2tq5XjmE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1765283332;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ygaHW8o5EWTBSXhXnK7ekdPvbFwd/VSzrB9zkhVTLRQ=;
+ b=7U2McOFDYb7YMgNpJuCJtvWZaYZMflyH94JOMxO/WJFjXPjjRW/ONo04eFBGZ6oK+Zhnh3
+ bJ4+1uZfHqHgl3Dw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1765283332; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ygaHW8o5EWTBSXhXnK7ekdPvbFwd/VSzrB9zkhVTLRQ=;
+ b=VJlXEdXFL5fd4Sem3MzdBi6M+Hr11U7VtVbf3ME1dk5aSuhjv3O/iSL8Yd/XI8EpEFKwGn
+ qt5OE3BhUWleFUONVE7NBCIrv8ySHriCLSY0zQvS97diMAG7hRy1P55heddbwQqqP5orwx
+ zke8vzmd4c6IaLFBZbk/OIH2tq5XjmE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1765283332;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ygaHW8o5EWTBSXhXnK7ekdPvbFwd/VSzrB9zkhVTLRQ=;
+ b=7U2McOFDYb7YMgNpJuCJtvWZaYZMflyH94JOMxO/WJFjXPjjRW/ONo04eFBGZ6oK+Zhnh3
+ bJ4+1uZfHqHgl3Dw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B094C3EA63;
+ Tue,  9 Dec 2025 12:28:52 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id EYIZKwQWOGnwYgAAD6G6ig
+ (envelope-from <jack@suse.cz>); Tue, 09 Dec 2025 12:28:52 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+ id 4850FA08E4; Tue,  9 Dec 2025 13:28:48 +0100 (CET)
+Date: Tue, 9 Dec 2025 13:28:48 +0100
+From: Jan Kara <jack@suse.cz>
+To: Bernd Edlinger <bernd.edlinger@hotmail.de>
+Message-ID: <722m42dxrfxao7y6ul5cb26orxoinsrozwqlf7ts52lpbfzgxs@gm6kakrzlhkz>
+References: <87tsyozqdu.fsf@email.froward.int.ebiederm.org>
+ <87wm3ky5n9.fsf@email.froward.int.ebiederm.org>
+ <87h5uoxw06.fsf_-_@email.froward.int.ebiederm.org>
+ <6dc556a0a93c18fffec71322bf97441c74b3134e.camel@huaweicloud.com>
+ <87v7iqtcev.fsf_-_@email.froward.int.ebiederm.org>
+ <dca0f01500f9d6705dccf3b3ef616468b1f53f57.camel@huaweicloud.com>
+ <87ms42rq3t.fsf@email.froward.int.ebiederm.org>
+ <GV2PPF74270EBEE90CDCD964F69E806EF58E4D9A@GV2PPF74270EBEE.EURP195.PROD.OUTLOOK.COM>
+ <20251204054915.GI1712166@ZenIV>
+ <GV2PPF74270EBEE0AAAE2EB22B668EE21A7E4A6A@GV2PPF74270EBEE.EURP195.PROD.OUTLOOK.COM>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: John Johansen <john.johansen@canonical.com>
-To: apparmor <apparmor@lists.ubuntu.com>
-Content-Language: en-US
-Autocrypt: addr=john.johansen@canonical.com; keydata=
- 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 lT9Q
-Organization: Canonical
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: [apparmor] AppArmor Dec 9 IRC meeting on irc.oftc.net
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <GV2PPF74270EBEE0AAAE2EB22B668EE21A7E4A6A@GV2PPF74270EBEE.EURP195.PROD.OUTLOOK.COM>
+X-Spamd-Result: default: False [-2.30 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ MID_RHS_NOT_FQDN(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; FREEMAIL_TO(0.00)[hotmail.de];
+ MIME_TRACE(0.00)[0:+]; RCVD_TLS_LAST(0.00)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ TO_DN_EQ_ADDR_SOME(0.00)[]; RCVD_COUNT_THREE(0.00)[3];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ ARC_NA(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de,hotmail.de];
+ FREEMAIL_CC(0.00)[zeniv.linux.org.uk,xmission.com,huaweicloud.com,gmail.com,redhat.com,kernel.org,amacapital.net,chromium.org,linux-foundation.org,suse.com,hallyn.com,linux.microsoft.com,infradead.org,google.com,gmx.de,linutronix.de,kernel.dk,vger.kernel.org,kvack.org,didiglobal.com,manguebit.com,huawei.com,paul-moore.com,cyphar.com,devkernel.io,zte.com.cn,suse.cz,intel.com,joelfernandes.org,oracle.com,collabora.com,linux.ibm.com,canonical.com,lists.ubuntu.com];
+ R_RATELIMIT(0.00)[to_ip_from(RLnys8keiybp4qp9x9peydjp1o)];
+ TO_MATCH_ENVRCPT_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ RCPT_COUNT_GT_50(0.00)[61]; TAGGED_RCPT(0.00)[];
+ SUBJECT_HAS_QUESTION(0.00)[]; MISSING_XM_UA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email]
+X-Spam-Level: 
+X-Spam-Flag: NO
+X-Spam-Score: -2.30
+Received-SPF: pass client-ip=195.135.223.131; envelope-from=jack@suse.cz;
+ helo=smtp-out2.suse.de
+X-Mailman-Approved-At: Tue, 09 Dec 2025 16:07:12 +0000
+Subject: Re: [apparmor] Are setuid shell scripts safe? (Implied by
+ security_bprm_creds_for_exec)
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -138,9 +118,85 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: Michal Hocko <mhocko@suse.com>, Jan Kara <jack@suse.cz>,
+ David Hildenbrand <david@redhat.com>, Kees Cook <kees@kernel.org>,
+ "Peter Zijlstra \(Intel\)" <peterz@infradead.org>,
+ Alexei Starovoitov <ast@kernel.org>, zohar@linux.ibm.com,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ linux-mm@kvack.org, Eric Dumazet <edumazet@google.com>,
+ Yafang Shao <laoar.shao@gmail.com>, xu xin <xu.xin16@zte.com.cn>,
+ linux-kselftest@vger.kernel.org,
+ "Joel Fernandes \(Google\)" <joel@joelfernandes.org>,
+ tiozhang <tiozhang@didiglobal.com>, Shuah Khan <shuah@kernel.org>,
+ Ard Biesheuvel <ardb@kernel.org>, Elena Reshetova <elena.reshetova@intel.com>,
+ "Paulo Alcantara \(SUSE\)" <pc@manguebit.com>,
+ Paul Moore <paul@paul-moore.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Helge Deller <deller@gmx.de>, YueHaibing <yuehaibing@huawei.com>,
+ Luis Chamberlain <mcgrof@kernel.org>,
+ James Morris <jamorris@linux.microsoft.com>, Ingo Molnar <mingo@kernel.org>,
+ Penglei Jiang <superman.xpt@gmail.com>, Hans Liljestrand <ishkamiel@gmail.com>,
+ Alexey Dobriyan <adobriyan@gmail.com>, Serge Hallyn <serge@hallyn.com>,
+ Randy Dunlap <rdunlap@infradead.org>, Stefan Roesch <shr@devkernel.io>,
+ Frederic Weisbecker <frederic@kernel.org>, Chao Yu <chao@kernel.org>,
+ apparmor <apparmor@lists.ubuntu.com>,
+ "Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
+ Aleksa Sarai <cyphar@cyphar.com>,
+ Roberto Sassu <roberto.sassu@huaweicloud.com>,
+ Al Viro <viro@zeniv.linux.org.uk>, Dave Chinner <dchinner@redhat.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Suren Baghdasaryan <surenb@google.com>,
+ linux-integrity@vger.kernel.org, David Windsor <dwindsor@gmail.com>,
+ Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>,
+ Mateusz Guzik <mjguzik@gmail.com>, Will Drewry <wad@chromium.org>,
+ Adrian Ratiu <adrian.ratiu@collabora.com>, Adrian Reber <areber@redhat.com>,
+ Jeff Layton <jlayton@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
+ Andy Lutomirski <luto@amacapital.net>, Cyrill Gorcunov <gorcunov@gmail.com>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>,
+ linux-security-module@vger.kernel.org,
+ "Eric W. Biederman" <ebiederm@xmission.com>,
+ "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-The next monthly irc meeting is scheduled for Tuesday Dec 9, @18:00 UTC in #apparmor on irc.oftc.net
+On Thu 04-12-25 14:03:27, Bernd Edlinger wrote:
+> On 12/4/25 06:49, Al Viro wrote:
+> > On Wed, Dec 03, 2025 at 02:16:29PM +0100, Bernd Edlinger wrote:
+> > 
+> >> Hmm, yes, that looks like an issue.
+> >>
+> >> I would have expected the security engine to look at bprm->filenanme
+> >> especially in the case, when bprm->interp != bprm->filename,
+> >> and check that it is not a sym-link with write-access for the
+> >> current user and of course also that the bprm->file is not a regular file
+> >> which is writable by the current user, if that is the case I would have expected
+> >> the secuity engine to enforce non-new-privs on a SUID executable somehow.
+> > 
+> > Check that _what_ is not a symlink?  And while we are at it, what do write
+> > permissions to any symlinks have to do with anything whatsoever?
+> 
+> When we execve a normal executable, we do open the binary file with
+> deny_write_access so this might allow the security engine to inspaect the
+> binary, before it is used.
 
+That would be seriously flawed IMO because there are lot of cases where
+code is executed without deny_write_access() - like shared libraries, code
+loaded by interpreter, and probably more.
+
+> However this behavior has changed recently,
+> now it has some exceptions, where even this behavior is no longer
+> guaranteed for binary executables, due to commit
+> 0357ef03c94ef835bd44a0658b8edb672a9dbf51, but why?  I have no idea...
+
+Because for hierarchical storage implementation you may need to fill in the
+executable data from remote storage on demand and the deny_write_access
+logic was making this impossible. We even tried to completely remove the
+deny_write_access logic exactly because it has very limited use and
+complicates things (commit 2a010c412853 ("fs: don't block i_writecount
+during exec")) but that had to be reverted because some userspace depends
+on the ETXTBUSY behavior.
+
+								Honza
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
 
