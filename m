@@ -2,82 +2,77 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26C19D20979
-	for <lists+apparmor@lfdr.de>; Wed, 14 Jan 2026 18:43:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51443D2097C
+	for <lists+apparmor@lfdr.de>; Wed, 14 Jan 2026 18:44:46 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vg4tU-0002gx-AM; Wed, 14 Jan 2026 17:42:56 +0000
+	id 1vg4v6-0002sm-Vf; Wed, 14 Jan 2026 17:44:36 +0000
 Received: from fhigh-a2-smtp.messagingengine.com ([103.168.172.153])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <me@zygoon.pl>) id 1vg4tS-0002gf-SM
- for apparmor@lists.ubuntu.com; Wed, 14 Jan 2026 17:42:55 +0000
+ (Exim 4.86_2) (envelope-from <me@zygoon.pl>) id 1vg4v4-0002sa-Hl
+ for apparmor@lists.ubuntu.com; Wed, 14 Jan 2026 17:44:34 +0000
 Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
- by mailfhigh.phl.internal (Postfix) with ESMTP id 78C271400045;
- Wed, 14 Jan 2026 12:42:53 -0500 (EST)
+ by mailfhigh.phl.internal (Postfix) with ESMTP id A606B140011F
+ for <apparmor@lists.ubuntu.com>; Wed, 14 Jan 2026 12:44:33 -0500 (EST)
 Received: from phl-imap-14 ([10.202.2.87])
- by phl-compute-02.internal (MEProxy); Wed, 14 Jan 2026 12:42:53 -0500
+ by phl-compute-02.internal (MEProxy); Wed, 14 Jan 2026 12:44:33 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zygoon.pl; h=cc
- :cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm1; t=1768412573;
- x=1768498973; bh=9TucFw04oXAPAoVOWOS+c0pja5tPrvUwc5ZeUznv/8s=; b=
- ho5gmHtlT9NKaBUR1B+IPf7Yf00vI0HU4t82QNqbfBa5QsYCJAYTCRWmOE3FTwZM
- nENmflmGiH5ikuJF1BPiKsUOynuHeWUmEZU9zwFGTUDJjUAY23Qsb8/UgeD0aqNI
- O7ysW1+rAYr6LAa2aeoua5BM6ORGEtIjVWAXLre5K5C2PcZSrnI+2h87prgERRBh
- cbbroAPYl5Hfp+f+ziv+arYm1iO8Z95lpD0z4qfhy1UrGLjUUApjh0pao7pUMtlF
- /aT8RlHC1x0Ws+PdIHyey74Wwh1PmH+VJSP70fZpcVbHtqi4PXm4ydh/lt1Z2HvG
- sEJmPXMTizVeBTqLG905Jg==
+ :content-type:content-type:date:date:from:from:in-reply-to
+ :in-reply-to:message-id:mime-version:references:reply-to:subject
+ :subject:to:to; s=fm1; t=1768412673; x=1768499073; bh=1qkDw2zuQW
+ vkNLKUahP/bsf72ejd6OkidlFc2S1MYgo=; b=EKjwQ62k0IW6vyMFdgKNlib8ZT
+ WkE54kpsyBJ4CiWorsYd6g1LrTWScdxzWy/ZEM6HtJ1dXpguP0PajDkA28bvRdlt
+ gO5qmt2Aysozvj6kJmHzAl/MXYC+aP7o4EKND9apozvapmFD7JugfkkaaGcAjNxN
+ WbX/ut2gZGrgQLXDGooHC+wg71vvgocXVapKcbkon+qEsWKAPXH1PTdwwI1cJPEe
+ I7dnaZ4QXal9l86O/9cC4L1SAaE0fDsvrY4OZzkgv1FQsxrft6l0qf7DYjy71AQ2
+ +S7P99EgVH/thIMuHS4yc7d5pNpj2Rj/tledoEbYluUneiUJMU1CkMHfpZ+Q==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1768412573; x=
- 1768498973; bh=9TucFw04oXAPAoVOWOS+c0pja5tPrvUwc5ZeUznv/8s=; b=B
- EQKQRqCW8UzxRdzi1w+vTAoK08lpNWkYwVBQJm/eMdMXDsrc0j5ibSKJAlzUA6ed
- pDCAy6Lw9/I+gtWBy9FwUChXxuAniJh8EhJzpLmP8hdW+g1e/Fe3AACJyyey+NNS
- ka0YE8Ty1bLwh8ePUhxSwJlaifjyoWI1lZ4o2Wkf/RT6jQXHeQY3U6lgp/zjvfhB
- 2fv369cn4PBVYRVYEjTyUrmO8BsyPOc6d4I8t1BZxUpfL7y+zgJqlbHZWSOFJul5
- mT9NVcAPEsOXJAAPLUtBVlAhCU2+vZ6CG16ZvgLftRcW7GXJ5tOpX6qmcS/8Rinh
- 8QhE3DjDSDRn2Qpnqq06A==
-X-ME-Sender: <xms:ndVnaT0s0w4lyW4tDQji6Ih-DoqOk-queJsdg9uUIz6sgQzjqxgMyQ>
- <xme:ndVnac53c5OcL47JH7T9G2nZe_WqfOyvXK86by3qtsc656jPuXHVbQItA3JT_1Qm5
- Y1txKjseZZe9rlLJPCwdmcAx2rr2ztr2GcACLW4xVOjD0pPinBJNFQ>
+ messagingengine.com; h=cc:content-type:content-type:date:date
+ :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+ 1768412673; x=1768499073; bh=1qkDw2zuQWvkNLKUahP/bsf72ejd6OkidlF
+ c2S1MYgo=; b=nLi0dwPfadNa39hpkxnsBSBRVcwkpRE7459yRaZktHC9ZfIfH7g
+ rWO+eYdgoefUj2+W5IG6gZdbspu2wIx96YkQLe0lzgXs2aEhXiDSYysTMyTRZOvO
+ TJTItTa5svfVQuIxaFlyU17crduEXZc6VHOTbYZMFvskp183LgcyqFcNQEjFGvJL
+ 3LogXqSLvqtAXxiJJkn9lGmUpY/wOk72Hn76LtbI2XZtVBb6TscmRqPNR3iXQ5I4
+ Cvk3B7w922Jk+88r7yjyOFgynhkBKubLPTgMreJHykmXFK5kpXD0KyvMelhtbZp7
+ gmiiuuM4ZLoViRy3id2WbDsMv6WCxDpB/hQ==
+X-ME-Sender: <xms:AdZnadf8QNllBcMeoqX4ycyec6jJTt5GaDO3PZlozebgrJXOcA6z7w>
+ <xme:AdZnaWCll0e4UDx3J7nW6qDZOMHsuSzywtiHk67ha_9oNd4cSiRMs44Wzyl75d2B6
+ jG00CKjRNwtfsR0BQ2F-5mt1IkFHLxN9GMURD2Br27XPVujjVbLVw>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgdduvdefkeduucetufdoteggodetrf
  dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
- rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
- gurhepofggfffhvfevkfgjfhfutgfgsehtjeertdertddtnecuhfhrohhmpedfkgihghhm
- uhhnthcumfhrhihnihgtkhhifdcuoehmvgesiiihghhoohhnrdhplheqnecuggftrfgrth
- htvghrnhepfeehveevudfhgfevledtleetuedugedugefhleffkeetgedtgfefieefieeh
- veffnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmh
- gvseiihihgohhonhdrphhlpdhnsggprhgtphhtthhopeefpdhmohguvgepshhmthhpohhu
- thdprhgtphhtthhopehrhigrnhdrlhgvvgestggrnhhonhhitggrlhdrtghomhdprhgtph
- htthhopeiihihgmhhunhhtrdhkrhihnhhitghkihestggrnhhonhhitggrlhdrtghomhdp
- rhgtphhtthhopegrphhprghrmhhorheslhhishhtshdruhgsuhhnthhurdgtohhm
-X-ME-Proxy: <xmx:ndVnaex-6NT9ywtgE9RPAyhsmR1TsS-QBfggAR0F6s9WUS5xWxCWZQ>
- <xmx:ndVnaSCWYBvOF707dO8WNikUAUL4DPs8n1Yt23i--UTkFekGAI6lwQ>
- <xmx:ndVnaTYn4v5LxmiKFxi2t8d2fB8r87PnJ3LXr_IiRLo2KoWhmK2LxA>
- <xmx:ndVnaSi33rkXrnjCjlc0pzj4vQnjwgDwcT8WFYt4t2IieA6pobgBUA>
- <xmx:ndVnabYyPpljLNMzTuXlxK1A7fbybH5X5NHRcSgfaY5PYpv1zdth3u3m>
+ rghilhhouhhtmecufedttdenucenucfjughrpefoggffhffvkfgjfhfutgesrgdtreerre
+ dttdenucfhrhhomhepfdgkhihgmhhunhhtucfmrhihnhhitghkihdfuceomhgvseiihihg
+ ohhonhdrphhlqeenucggtffrrghtthgvrhhnpefgtedttdeffeegteetffduiefhteeghf
+ egudffjeevtdduffdttddvhfeuheejvdenucevlhhushhtvghrufhiiigvpedtnecurfgr
+ rhgrmhepmhgrihhlfhhrohhmpehmvgesiiihghhoohhnrdhplhdpnhgspghrtghpthhtoh
+ epuddpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtoheprghpphgrrhhmohhrsehlihhs
+ thhsrdhusghunhhtuhdrtghomh
+X-ME-Proxy: <xmx:AdZnaeOx_1A-i-TVEiwq1GBoXZLE9WLrl4R5q_LDZmIerYOZNCknXg>
+ <xmx:AdZnac4wanahIAhAXJedLBbbhaAYMIqA8Br57rdJYB8ogJn36ScOXA>
+ <xmx:AdZnaSLRHBZxc6WnqXPSEyaFX9ubuzK5VDPVmFxydt6LQTDMXIp7Mw>
+ <xmx:AdZnaWeELFcOB19A3kU26Kq7LQzqTcq5e3UizNNZyWIzzB_Q6Ojrjw>
+ <xmx:AdZnaZDbGYCK40HsTW_qs_u_ReXdb3Bf-qhqqD6FBeflNQH11RTEjf6V>
 Feedback-ID: i416c40e7:Fastmail
 Received: by mailuser.phl.internal (Postfix, from userid 501)
- id 02E33C4006D; Wed, 14 Jan 2026 12:42:52 -0500 (EST)
+ id 835C0C4006D; Wed, 14 Jan 2026 12:44:33 -0500 (EST)
 X-Mailer: MessagingEngine.com Webmail Interface
 MIME-Version: 1.0
-X-ThreadId: AbSz-3K0BucB
-Date: Wed, 14 Jan 2026 18:42:31 +0100
+X-ThreadId: AmXWyHko4MNs
+Date: Wed, 14 Jan 2026 18:44:13 +0100
 From: "Zygmunt Krynicki" <me@zygoon.pl>
-To: "Ryan Lee" <ryan.lee@canonical.com>, apparmor@lists.ubuntu.com
-Message-Id: <93e697f2-c67c-4020-9a24-4e2d149797ed@app.fastmail.com>
-In-Reply-To: <20260113173558.15401-1-ryan.lee@canonical.com>
-References: <20260113173558.15401-1-ryan.lee@canonical.com>
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+To: apparmor@lists.ubuntu.com
+Message-Id: <f885c626-0a89-40fe-9a7e-814ec3666abe@app.fastmail.com>
+In-Reply-To: <3ef6ce03-637e-4e4c-875a-180d9daa400a@163.com>
+References: <3ef6ce03-637e-4e4c-875a-180d9daa400a@163.com>
+Content-Type: multipart/alternative; boundary=a53c4a742702449a9cceaa165d418503
 Received-SPF: pass client-ip=103.168.172.153; envelope-from=me@zygoon.pl;
  helo=fhigh-a2-smtp.messagingengine.com
-Subject: Re: [apparmor] [PATCH] apparmor: return -ENOMEM in
- unpack_perms_tableupon alloc failure
+Subject: Re: [apparmor] [ISSUE]Why my python script can't override the
+	DACplease?
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -89,50 +84,29 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Zygmunt Bazyli Krynicki <zygmunt.krynicki@canonical.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-W dniu 13.01.2026 o 18:35 Ryan Lee pisze:
-> In policy_unpack.c:unpack_perms_table, the perms struct is allocated via
-> kcalloc, with the position being reset if the allocation fails. However,
-> the error path results in -EPROTO being retured instead of -ENOMEM. Fix
-> this to return the correct error code.
->
-> Reported-by: Zygmunt Krynicki <zygmunt.krynicki@canonical.com>
-> Fixes: fd1b2b95a2117 ("apparmor: add the ability for policy to specify 
-> a permission table")
-> Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
-> ---
->  security/apparmor/policy_unpack.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/security/apparmor/policy_unpack.c 
-> b/security/apparmor/policy_unpack.c
-> index 019430225e4a..2280a8f7a843 100644
-> --- a/security/apparmor/policy_unpack.c
-> +++ b/security/apparmor/policy_unpack.c
-> @@ -700,8 +700,10 @@ static ssize_t unpack_perms_table(struct aa_ext 
-> *e, struct aa_perms **perms)
->  		if (!aa_unpack_array(e, NULL, &size))
->  			goto fail_reset;
->  		*perms = kcalloc(size, sizeof(struct aa_perms), GFP_KERNEL);
-> -		if (!*perms)
-> -			goto fail_reset;
-> +		if (!*perms) {
-> +			e->pos = pos;
-> +			return -ENOMEM;
-> +		}
->  		for (i = 0; i < size; i++) {
->  			if (!unpack_perm(e, version, &(*perms)[i]))
->  				goto fail;
-> -- 
-> 2.43.0
+--a53c4a742702449a9cceaa165d418503
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-This looks good.
 
-I'm unfamiliar with kernel acked protocol so I'll refrain from that.
+
+W dniu 14.01.2026 o 10:19 Fei Shao pisze:
+> Would you like tell me why the py script can't create file when test 
+> folder is 555 please?
+
+Apparmor capability rules allow you to use an existing capability. They do not grant that capability up front.
+
+Did you have the capability when invoking the script?
 
 Best regards
 ZK
+--a53c4a742702449a9cceaa165d418503
+Content-Type: text/html
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html><html><head><title></title></head><body><div><br></div><div><br></div><div>W dniu 14.01.2026 o 10:19 Fei Shao pisze:</div><blockquote type="cite" id="qt" style=""><div>Would you like tell me why the py script can't create file when test&nbsp;</div><div>folder is 555 please?</div></blockquote><div><br></div><div>Apparmor capability rules allow you to use an existing capability. They do not grant that capability up front.</div><div><br></div><div>Did you have the capability when invoking the script?</div><div><br></div><div>Best regards</div><div>ZK</div></body></html>
+--a53c4a742702449a9cceaa165d418503--
 
