@@ -2,88 +2,86 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DC7BD22CD8
-	for <lists+apparmor@lfdr.de>; Thu, 15 Jan 2026 08:27:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7856D39330
+	for <lists+apparmor@lfdr.de>; Sun, 18 Jan 2026 08:54:03 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vgHl3-0004BB-FA; Thu, 15 Jan 2026 07:27:05 +0000
+	id 1vhNbW-0001i1-2N; Sun, 18 Jan 2026 07:53:46 +0000
 Received: from smtp-relay-internal-0.internal ([10.131.114.225]
  helo=smtp-relay-internal-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1vgHl1-0004Aw-Hb
- for apparmor@lists.ubuntu.com; Thu, 15 Jan 2026 07:27:03 +0000
+ id 1vhNbU-0001hu-T9
+ for apparmor@lists.ubuntu.com; Sun, 18 Jan 2026 07:53:44 +0000
 Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
  [209.85.214.198])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 5E3D43F1C0
- for <apparmor@lists.ubuntu.com>; Thu, 15 Jan 2026 07:27:03 +0000 (UTC)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id AE0D83FBB3
+ for <apparmor@lists.ubuntu.com>; Sun, 18 Jan 2026 07:53:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20251003; t=1768462023;
- bh=/KBNgon4Vfxjc8ejqhITVlCDpPeV9PH0mD3SmrzCBDY=;
+ s=20251003; t=1768722824;
+ bh=v7U1iagX4vJbfzuHqFXq77v5wZjwn6HrXJlBdamcTNk=;
  h=Message-ID:Date:MIME-Version:Subject:To:References:From:
  In-Reply-To:Content-Type;
- b=KQOtdjluLIW8wc7rx9c/KuubLFfEVJpjeqOnEMvDWpBWTlEWn6kbNNoDCEJTFkUt3
- +aXOX/XyhvtAJRlGR1F/zLat9zSJpsNDa4UpAkjv01AAiOMJc/D20pzU0jSEeJepUx
- GciC6TYPxcNqW7LtVKH9dtDG6o8PwWCshOIZVSaFJj7ZgkGc1ANDvQ/kgbmUu9wZsv
- n22wwD7x+pICvRBzieRwNFkE1bD43Zrs8cPJnvMRRJEB9xDS1ziBUoBSYZZxl8RaA5
- g+CU7zgzc2mnk38cqbDrr4v/wbfHJPMEfMQwk0ztroojiF9HFurZAas2789t5FMI/7
- 4R0q99vp4AXdXlazIehzp1AB6ZQ2xXmS76Rqdnxp4VBG0j9tj4pT+thzdCPLvE4m3j
- ISIOp94afUf8ml6dZwZdwiwAwBSTWlZfDZ5oLc9xs2up1cKBFvWamt35PT4ChCCt2q
- lk/paJLEwPPs1Ah6LrHxYz4BfMpvtmC71H4ha219DjKO5rmRfQ4Yb+IqpQMlcLn8+e
- 4uZyw43bIgM7CH85WPqPUMTP3AU8QP1nka45wZwH739kHiV3EMjuQLVWs/3YLfCJSn
- +fNwfIIj3DSRsAUiSM3aOQ5eFIOysiO4ReoCMrWnHBByPFTsk+5/v0bnwhNABQsiN9
- AFenk0bkZ1avDmzLtVsJULd8=
+ b=XHpFUh7icbzqhy+BOikeZoscLrQZ7Jr+Ol9NRSgeeuWb+Rk54I0rL6W/NHR1e6IJt
+ TSDXZpZm0mtaUcKccyDCFSuqBLiiK5YcmrBGx/lAjFWg82LlQS4EkEG16fwMd85K3t
+ 24I66P5fgl3xpgSK+WPxd6HsrYpoNYmkINF2gR/VLNzlHSr4XIA/DYdNvhXcKjU1BU
+ OlFXuQ7K07ZTKBD0qVg6VsnD9abfD3fdKaZIW48MgcA0s973rH1obNtaoWeYS5keWc
+ T4F0EnYlBkIPhGWCiz0nmvDqnjHdlNaYCyIQLRG/Yc1p0hWR+0R06GMHmxBUIMsAbp
+ 9fcwNMsABBCqP5ac/FjgjO1iFJ2FW0MTwVIqwR48HVz/g2HkVVFWttJMqjU+d6m7rV
+ G0ga+1lIbA/1DFQ0F2GdJMY0TyC/Ph8ZKIQsTp+qu2Ymqs4d4et9Ove0+KfJoTuqSm
+ aGv3ZZO/yn1EKK9qDPjbwoQPLwCfQLhl0be5uQ2N6ET3g1bbjd/lUBjpam0lCuTv0K
+ hGrZHEVocozY45YjiOphZMYDrrDyl+zDUGwAVTeSoFK132MbWmITQq57TH98d785CP
+ iN+mETCAqJE4dVKvsBBTg8K2EKXovDz+wzLKLsC2nGgGtlv9PmBC0xbpeU9FgvpH8T
+ t82lKU6PSE5fa9JzzTs2COAs=
 Received: by mail-pl1-f198.google.com with SMTP id
- d9443c01a7336-2a13be531b2so7012465ad.2
- for <apparmor@lists.ubuntu.com>; Wed, 14 Jan 2026 23:27:03 -0800 (PST)
+ d9443c01a7336-2a0a0bad5dfso55973555ad.0
+ for <apparmor@lists.ubuntu.com>; Sat, 17 Jan 2026 23:53:44 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768462022; x=1769066822;
+ d=1e100.net; s=20230601; t=1768722823; x=1769327623;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
  :content-language:references:to:subject:user-agent:mime-version:date
  :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=/KBNgon4Vfxjc8ejqhITVlCDpPeV9PH0mD3SmrzCBDY=;
- b=h/VfC8ishaXbYZR6zDseXVPR7N7PpV/bXcTfTvfEDiqb6PTkIgvHfAFH14mhn+R34l
- 5pkh9JnPKuTZWhydziChNXtHgdZ8nY1gGZMGdbPA2h7PQ3ztbK3Amrkn+TOzrwCfyyM+
- 61Qg9y2svKsT4pO+wYhHRZ+gMfKnlLwgvxRvX46tasF7gRiugtmL4LbCEB9mFM0sjYwF
- SGWqZY7RQMSD3juck1w8VSKros1oQPm+FO/xUPxp/JUIB5+/kws1XEDk58tGT9mQ3Q97
- 2SGYOJlX5aupBtnT4LovzNhLtdlMlbM+jgcqWeKH1vwxjISNXjuOSVPfbx98SZyqvLC9
- 5MNg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUyuEaP2AnabMUbZWjeH6l3HkWmEjqotA/7aaMJL74C6FuWDVp1DOXFDCr7nOEmDFVEZU2vEGEZrA==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0YzD4fid26UqtqVUQRHL1VY9Tacp0HySuAZOic5sJtQmGbbU+24m
- DNKrcmxItv8DZtLfqa9GgM2vu5v15yQQwz1vOxs7CsYos6jolgBbgLoRkBBVOkRENAO4nrVsCXW
- 5PrL9jf03hWYCWSOze8K1AkJjCz4nY/PzsUqQ4eHBxjf1hiZXOpaKkZqsYlEKac4dnvFsMojubS
- ukO2ZEEXD7oQ==
-X-Gm-Gg: AY/fxX6b2KOmQ7exzRrYJInjcw1VN8dEYcRf2cEKtAaCifzv7AcXGlZdhMPGVQDHV2L
- 0y3lKHKcvk9E2eR17f+MCy6gzNTR/8MmemeUuzylnqFCFY3fgisX01Ev6sjxQMNYkAX+7mdH7+n
- SKMATUO4TMz/odQ7S9mDsgF66Fj6QBxutYYZigCUmrAgiiDmhcqFt4UqHfMjtO+Mzo4abe4a27C
- QwEztU4yMqN7m343JW2WbUOuNGq9oem9z2dFOnRkTUXhir1qI9nrV9pKyf9m7fLXf2NUH+y3UyF
- QmYzOe9XcS520A/vBSQ166P5igvNMqW7rcXtRrJqP1zgjag22XobpIdTXqde5XpHVIhrWId1ls4
- cyM5w4axRtnijSO/aJWQYId1Q
-X-Received: by 2002:a17:903:2304:b0:29e:5623:7fc3 with SMTP id
- d9443c01a7336-2a59bae7ebbmr45733155ad.12.1768462021854; 
- Wed, 14 Jan 2026 23:27:01 -0800 (PST)
-X-Received: by 2002:a17:903:2304:b0:29e:5623:7fc3 with SMTP id
- d9443c01a7336-2a59bae7ebbmr45733005ad.12.1768462021437; 
- Wed, 14 Jan 2026 23:27:01 -0800 (PST)
+ bh=v7U1iagX4vJbfzuHqFXq77v5wZjwn6HrXJlBdamcTNk=;
+ b=GlZKrpDPxJtVxf3hk2v3DgJ+OxvIrpHsEyR97SkniPbM1s64oOJOqDZQ0A4kgbLwya
+ yG8vRcLln0K7WMZ3/FU6qo2tr/HvduTUy9vTyb48WHrygmmVt0b5soXCJ6Q3Ye347odk
+ jhtQ2+QEvsWjo5z97Cl7faLpux214Y+QW944ELdn7XQAJdlGmk4qZJFFBmhGu/T3ld7F
+ D6NHD1Glr8KWEBXL5O7oTM2lPtGid1QiXq5nlSyl0IeJbJev+JpM/3sqTdE8S7pBAZMv
+ GPen0jXxBJMiWFtaPNPO0x0aiTAGmP7xMAJeH7Vgcu5cNCPe2uQ8XcxUnrQA5vvFt/rT
+ OACA==
+X-Gm-Message-State: AOJu0YzVHKNFUT9T+QbOTJpePfZjFrdCvWsWJRHh/88pSnWVLknXggqJ
+ P+l/7MpBTcMbh0W+8Gq/fDGYGHQv9eoX/bZntkiJDZd2LUUlReO5QhomZgcc33vB3ppF11sjw7Z
+ hGx1/MrskXQwDU/Gs2v0GuwJEaqsNhhFy55R/O8/eM3ORD9IvnzztRJ9pPz0Rje8Oy1JI4f0bxB
+ sSgXwyotMQoQ==
+X-Gm-Gg: AY/fxX4GN5Xep4x//3kybdmv9V6XJlejZMKZ6F4swJVCd/zCFs00Z8Lz4TbFTx/bPUI
+ /lj1/nsVjZcPcwR1sI2vGU3+zbdiPB0/mvoUJi9RhlitS58gIgXsn3d4aKkT2IEMJJEH1I8YwP3
+ xcvAsCJjdgRC/Mib1xMohUsd+BXp3G+q9/AlqoIMaGjV9kTg4NMe8wS6cBPLnNFqcEbCL8ThayB
+ EJVR999sQvJXwS4J1Arw4mftepXwn5G0lYiltUslGJPfTU/rNk/Nbi3Hg774l2mhZ7HK1lz2n/o
+ /gjmI7EACawjRHyMJjjH6WdaMJW6YjNevo/OU+NGqVqhJhBUvo5Uz50y6GsROqhmhamvBOnW/bb
+ 7QzqazJDIm5aU8DBAoEU69uHL
+X-Received: by 2002:a17:903:1a2e:b0:298:6a79:397b with SMTP id
+ d9443c01a7336-2a7176cc35bmr71897345ad.56.1768722822872; 
+ Sat, 17 Jan 2026 23:53:42 -0800 (PST)
+X-Received: by 2002:a17:903:1a2e:b0:298:6a79:397b with SMTP id
+ d9443c01a7336-2a7176cc35bmr71897255ad.56.1768722822527; 
+ Sat, 17 Jan 2026 23:53:42 -0800 (PST)
 Received: from [192.168.192.85] ([50.47.129.42])
  by smtp.googlemail.com with ESMTPSA id
- d9443c01a7336-2a3e3c3a204sm241678355ad.1.2026.01.14.23.27.00
+ d9443c01a7336-2a7190d14cfsm63013165ad.38.2026.01.17.23.53.41
+ for <apparmor@lists.ubuntu.com>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Jan 2026 23:27:00 -0800 (PST)
-Message-ID: <e8c5e37a-f718-4165-8043-ca123055941a@canonical.com>
-Date: Wed, 14 Jan 2026 23:26:59 -0800
+ Sat, 17 Jan 2026 23:53:42 -0800 (PST)
+Message-ID: <20755c13-c094-4441-8679-85bd1447cabf@canonical.com>
+Date: Sat, 17 Jan 2026 23:53:40 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Fei Shao <robinshao007@163.com>, apparmor@lists.ubuntu.com
-References: <3ef6ce03-637e-4e4c-875a-180d9daa400a@163.com>
- <c0bd2921-2f1c-405d-bab6-eb9ca6bcb141@canonical.com>
- <ae030ecd-c7f0-4c34-94e4-48addc78c9f9@163.com>
+To: apparmor@lists.ubuntu.com
+References: <20260113173558.15401-1-ryan.lee@canonical.com>
+ <93e697f2-c67c-4020-9a24-4e2d149797ed@app.fastmail.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -129,11 +127,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <ae030ecd-c7f0-4c34-94e4-48addc78c9f9@163.com>
+In-Reply-To: <93e697f2-c67c-4020-9a24-4e2d149797ed@app.fastmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [apparmor] [ISSUE]Why my python script can't override the DAC
- please?
+Content-Transfer-Encoding: 7bit
+Subject: Re: [apparmor] [PATCH] apparmor: return -ENOMEM in
+ unpack_perms_tableupon alloc failure
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -148,124 +146,54 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 1/14/26 18:05, Fei Shao wrote:
+On 1/14/26 09:42, Zygmunt Krynicki wrote:
+> W dniu 13.01.2026 o 18:35 Ryan Lee pisze:
+>> In policy_unpack.c:unpack_perms_table, the perms struct is allocated via
+>> kcalloc, with the position being reset if the allocation fails. However,
+>> the error path results in -EPROTO being retured instead of -ENOMEM. Fix
+>> this to return the correct error code.
+>>
+>> Reported-by: Zygmunt Krynicki <zygmunt.krynicki@canonical.com>
+>> Fixes: fd1b2b95a2117 ("apparmor: add the ability for policy to specify
+>> a permission table")
+>> Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
+>> ---
+>>   security/apparmor/policy_unpack.c | 6 ++++--
+>>   1 file changed, 4 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/security/apparmor/policy_unpack.c
+>> b/security/apparmor/policy_unpack.c
+>> index 019430225e4a..2280a8f7a843 100644
+>> --- a/security/apparmor/policy_unpack.c
+>> +++ b/security/apparmor/policy_unpack.c
+>> @@ -700,8 +700,10 @@ static ssize_t unpack_perms_table(struct aa_ext
+>> *e, struct aa_perms **perms)
+>>   		if (!aa_unpack_array(e, NULL, &size))
+>>   			goto fail_reset;
+>>   		*perms = kcalloc(size, sizeof(struct aa_perms), GFP_KERNEL);
+>> -		if (!*perms)
+>> -			goto fail_reset;
+>> +		if (!*perms) {
+>> +			e->pos = pos;
+>> +			return -ENOMEM;
+>> +		}
+>>   		for (i = 0; i < size; i++) {
+>>   			if (!unpack_perm(e, version, &(*perms)[i]))
+>>   				goto fail;
+>> -- 
+>> 2.43.0
 > 
+> This looks good.
 > 
-> 在 2026-01-15 5:24, John Johansen 写道:
->> On 1/14/26 01:19, Fei Shao wrote:
->>> Hi all,
->>>
->>>
->>> I write a py script to test the dac_override option, but I failed.
->>> The py script is :
->>> ----------------------------------------------------
->>> #!/usr/bin/env python3
->>> import os  # 用于文件/目录的基础操作（删除、判断文件是否存在）
->>> import time
->>>
->>> def create_file(file_path, content="默认初始内容\n"):
->>>      try:
->>>          if os.path.exists(file_path):
->>>              print(f"⚠️ 文件 {file_path} 已存在，跳过新建操作")
->>>              return False
->>>
->>>          with open(file_path, "w", encoding="utf-8") as f:
->>>              f.write(content)
->>>          print(f"successfully :{file_path}")
->>>          return True
->>>      except Exception as e:
->>>          print(f" failed : {e}")
->>>          return False
->>>
->>>
->>> if __name__ == "__main__":
->>>      test_file = "/home/sf/apparmor/test/test_file"+str(int(time.time())) +".txt"
->>>      create_file(test_file, "content of file \n")
->>> ----------------------------------------------------
->>>
->>>
->>> the profile is :
->>> --------------------------------------------------------
->>> abi <abi/4.0>,
->>>
->>> include <tunables/global>
->>>
->>> profile /home/sf/apparmor/operfile.py {
->>>    include <abstractions/base>
->>>    include <abstractions/evince>
->>>    include <abstractions/python>
->>>
->>>    capability dac_override,
->>>    capability dac_read_search,
->>>
->>>    /etc/apt/apt.conf.d/ r,
->>>    /etc/apt/apt.conf.d/** r,
->>>
->>>    /home/sf/apparmor/operfile.py r,
->>>    /home/sf/apparmor/test/ rwix,
->>>    /home/sf/apparmor/test/** rw,
->>>
->>>    /proc/self/mem r, # 进程内存访问（Python 运行必需）
->>>    /sys/devices/** r, # 系统设备信息（可选，视脚本需求）
->>>    /tmp/** rw, # 临时文件目录（Python 常用）
->>>    /usr/bin/python3.12 mrix,
->>>    /var/tmp/** rw, # 系统临时目录
->>>    owner /home/*/apparmor/ r,
->>>    /usr/lib/python3*/** r,        # Python 库文件读取
->>>
->>> }
->>>
->>> ---------------------------------------------------------------
->>>
->>> I use the command "sudo aa-enforce home.sf.apparmor.operfile.py" to make sure the profile is loaded.
->>>
->>> When the attribute of "/home/sf/apparmor/test/" is 755, the script worked well with command "./operfile.py".
->>>
->>> When the attribute of "/home/sf/apparmor/test/" is 555,  command "./operfile.py" returned "failed : [Errno 13] Permission denied: '/home/sf/apparmor/test/test_file1768381998.txt'". If I use the "sudo ./operfile.py", the file could be created well.  It seems the dac_overried doesn't work here.
->>>
->>
->> who is the owner of the file in the failure case, and what is the user
->> id of the task trying to access the file.
->>
->> As Zygmunt has already pointed out the AppArmor capability rule
->> doesn't elevate capabilities, it just ensures that the task can have
->> the given capability. AppArmor mediation works in conjunction with
->> regular DAC mediation, and is purely restrictive, that is to say
->> it will not allow something DAC doesn't allow.
->>
->> While I don't have the full information about your system I am fairly
->> sure you are seeing DAC reject access to the file. If you look in your
->> system logs, you will find that there isn't an AppArmor denial message
->> for this event. Instead what is happening is AppArmor is allowing the
->> access but DAC is denying it.
->>
->>> I checked with "sudo aa-logprof", but no information is returned.
->>
->> this indicates that there isn't a denial message from apparmor in your logs
->>
->>> Would you like tell me why the py script can't create file when test folder is 555 please?
->>>
->> so as stated above this looks to be a DAC permission issue. Though I
->> will add on the AppArmor side the director permissions are not what is
->> important (they still are important on the DAC side). Instead AppArmor
->> permissions have to be set for the file within the dir (which you do
->> have in the profile).
+> I'm unfamiliar with kernel acked protocol so I'll refrain from that.
 > 
-> What is the function of the configuration option *|capability dac_override|*?
-> 
-removing the dac_override capability from privileged processes (aka root), so
-where possible the application runs with a reduced privilege set.
+Essentially here, since you reviewed the patch you could add a
+Reviewed-by: Zygmunt Krynicki <me@zygoon.pl>
+like Tyler did.
 
->>
->>> My os is ubuntu 2404 and my apparmor is 4.0.1.
->>>
->>> Thanks
->>>
->>> Fei Shao
->>>
->>>
->>>
->>
-> 
+You can find the tag descriptions in
+Documentation/process/5.Posting.rst
+
+search for "tags in common"
 
 
