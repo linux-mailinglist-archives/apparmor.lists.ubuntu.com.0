@@ -2,86 +2,86 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38283D39334
-	for <lists+apparmor@lfdr.de>; Sun, 18 Jan 2026 08:57:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84605D39335
+	for <lists+apparmor@lfdr.de>; Sun, 18 Jan 2026 08:58:29 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vhNet-00023q-IZ; Sun, 18 Jan 2026 07:57:15 +0000
-Received: from smtp-relay-internal-0.internal ([10.131.114.225]
- helo=smtp-relay-internal-0.canonical.com)
+	id 1vhNfx-0002BV-4a; Sun, 18 Jan 2026 07:58:21 +0000
+Received: from smtp-relay-internal-1.internal ([10.131.114.114]
+ helo=smtp-relay-internal-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1vhNes-00023h-Id
- for apparmor@lists.ubuntu.com; Sun, 18 Jan 2026 07:57:14 +0000
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199])
+ id 1vhNfv-0002As-1N
+ for apparmor@lists.ubuntu.com; Sun, 18 Jan 2026 07:58:19 +0000
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
+ [209.85.210.198])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 6FEEB3FBB3
- for <apparmor@lists.ubuntu.com>; Sun, 18 Jan 2026 07:57:14 +0000 (UTC)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id E29143F29F
+ for <apparmor@lists.ubuntu.com>; Sun, 18 Jan 2026 07:58:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20251003; t=1768723034;
- bh=OkFucOEIPscVpFYqOJILl70h26k3vPeLAZ1bAbjl6V8=;
- h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+ s=20251003; t=1768723098;
+ bh=f0P3fyaL8jQDNR4Wu3v8iL1NAvWou/N8RJqK3iy3F/k=;
+ h=Message-ID:Date:MIME-Version:Subject:To:References:From:
  In-Reply-To:Content-Type;
- b=aT+N67F/F3Gnlszz9LqmJJ50EcznP9NaXMoPKhYw6kPqrx49aeXMx+YldbZV9CF3M
- sgrozvVYvjwRUs+8bnt3O0q/C99nrAyxFEqIuPRKvMAEdKCcT6mWtfoTcBrwPA/N1u
- NcxJM1vF7fdcl23INXzeBclwZeeKq9si20iAmzpul+yLTEnErUp7l2MT9kD1oeoF7z
- 9APIopv8LGejGc4LTkhI9jKLxKx7xo1pdMVeeh+eLdw8IEKAP3wjrhr8Ij6FjZoUrt
- Vx6bgmOP+QhLFZNxP9HxK/yxfEqFI35x6Lj5NeTHzXcGqSlec3KSFcF5flN0KmWs9H
- T/1bY9QnCrsw37i68elZRfT4OKoVL6Idxiczj0I0+c5nLPpv9VIFzdwRnuOaobDaL2
- 4AW85MLQagyqOPt1ZA10OdlDj4pZ4vFmpbTwOTTEPkgLpiw9kgZBVXrxv4kMhlLFY9
- 1qhTcWo7ocrxjDahCwzadKEnYwX/kZyDDgyfKOgdcrYPGaLuKcMN4zz7oVpE/tlBks
- 68E0ZwgYxlAHOOBod3mY+0emkOceh/PL+METFizDjiqa4NZ4jRGL5OzpdbApptyMcz
- Fp5rwgdZj52/g7eO8BxaEgZ+l8jsPnob6K5dTlh9lfKEYK+wYLII+Ll4nuIz6JwU80
- BigCvYX4/UgWdglGUyF/fnIM=
-Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-2a0e9e0fd49so39942195ad.0
- for <apparmor@lists.ubuntu.com>; Sat, 17 Jan 2026 23:57:14 -0800 (PST)
+ b=PSeItWrnG8289COy9lgxMFlHUdKfXRyfl8nQ16PIgk2cI22UYD3JEG34OV81La5Oo
+ gp4Ihr9NSaBuNHMItIJkr4UMeqRsdCTwPD3G69Tat0PXwKoZgEN4CpefVzt2C8gq40
+ GkNQ5vk4R74+Jo4Pi+lq1eSOX06LAlN93C90pnNVAPnwQNY/zgSNgi58+F/Bxw/EP5
+ Bb2y9sCCTTQcyNa3uwqZXcZ8RcR8POvKsG9vva9n960w9ERcALLSYAmQzYNdXiKoFY
+ QZXX3b0aMiiwG88BUZOd0QtxwXiLRDA1S3TMA0WzOPGIry17+2o03ilcb4VFXUEYu2
+ XI+ISFz8Bc/kgSUJvJXx+71erSLN5Hb0zw10VfoN9JOJ2EQHPA8mFctnKFMYvI2OOF
+ zMqjJNLHRlGJxrEjOzFYIdBRi4zGL0LaFvOzVj+xwk68v8VTU5AEsvXzZCeYwqQk9r
+ 86idVHT8pUIlgpypClE8DkOsx+8xMiCBe2jWYhrsgOmvlMF9kd3SMYCIi1+3wHgmK/
+ rmF6zDObM1veO9e//hHIrmmluq2SlO0Y25bvQJNTVTbnJjfjv/W+ONsqnYZvm/Tx70
+ aSQr3Og782VnJfu2TH4S1TH58DjvNOfjxXMkTQ2ep6UX/DhM2MakjgIcI8Fc4Zobie
+ N18kH+PQPS3vYRGNDrZ9ZVew=
+Received: by mail-pf1-f198.google.com with SMTP id
+ d2e1a72fcca58-81e81fbbb8cso3248553b3a.3
+ for <apparmor@lists.ubuntu.com>; Sat, 17 Jan 2026 23:58:18 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768723033; x=1769327833;
+ d=1e100.net; s=20230601; t=1768723097; x=1769327897;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=OkFucOEIPscVpFYqOJILl70h26k3vPeLAZ1bAbjl6V8=;
- b=M6zeLWLWNGl+cfpI8qoyfscdXnFkLp4Vu00qL6QORWoga6McdBAewZfD1gjYra2+LO
- 7NxGZV54SYOE+fLMd0WCP1IKpXMOMiQj0KEtysrgLXiiAZycsI0zxQ5quuluetoMKH5p
- +nCAMbsSPzdHNK4Ae4KdC0CDfxL42l+D/2qpzyucrzwDFwAkUSvop09kTlWASBDMVVSl
- 5GqbbyJ+tDNouDAGqT+qIEYeljBR8NswWplHulEOTJNr+pFw+m8fYb7fVA6HUaSZpak4
- 3hOKoovS9EorbQyVDiH4NSkt8dYaPRkoSDLe3CbvLbS6RGgo+5uekO1BLohXg6GVRdD9
- Du4A==
+ bh=f0P3fyaL8jQDNR4Wu3v8iL1NAvWou/N8RJqK3iy3F/k=;
+ b=JzJToffe9M6Ck4Yc4NUV56e04y6Lsrk1Y6U6fpvRoI721Wu1HKsRKegQcUu1mwYTI8
+ Mjs5YyWzmbiIQW0/AbroNx71o7BVFAQu12vR9ijWkzh4UKKv2hDrzPEfzUDv9HpZgpJD
+ JGylwr+lXEbhBNbNGiL6J/HoknCtGilfjPyA5NZvm2+1eVuThkGJCuUgJDxCE3Hr954v
+ U/jEkbeXZW7y7u9QgaUsPNHjnyC7AcHlCtUkoOgNAW6/uTOHsK8UgQBkw5Z+WiYiGGSH
+ opuJ3IjnZdiIojd02k1q1HWEWFePue/OxhxNbidCUT+DamgmPCT36wFTdb8egkdqM8KE
+ fDLA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVAgQUNv92yZwGGwt4O/BGS+9LNjde5nXTEjaot/pYLcD0ClAjNGCBN1bnLpNfmKuZ/xn6XY49SHQ==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0YzOI7E0p7Xz7V3SDM08dBCnRUXG8yRVI1mZdcPDE144eAIhHffN
- 3PleHC6B1nxz8RuPs7UIO3b7T8SdTt7x90qHsqdbyKubgh7aTPAO0ccglMQ5DWZ7cVw/Iu1iLwb
- YniVjFpnLE852LZJ1OgI5s3Y2K9+mozvNyaxZ2td0NfVMuCAN9xiRlBb4DOqUiaZcMucmf0ZtT9
- s5w75UU9EIBA==
-X-Gm-Gg: AY/fxX58tGDYf1jqx3BsPOVLK5V13J+Nkn9SEQt2Vp6TgS/87kcigivYyni1IXOB0RM
- tgfz2I/Uzn61vj5Ms5H8nWPPyWsB9/9qpYRwjAzrzNtgtebncnyQmpTiDr9AUXKyptsCsfeQU0a
- iwvrcgAWo395zYMBnSDhYO0I8DJaaQiqEcX8QzpiFtUJlI4VR4fZ6dLdHynPAJIf+dH9ssNudW0
- +sR/rw87UQgbhUSLjyiczMKg2GFkMxMKDQ4Yuv7q8DkdVwIh1vxRd995DP3+2c/mJlKShSFyJSU
- X8SFL0HQBVZUJiQQIeifYo5ajHoszMpgZqNVAFdxzg5Mr6LoF8qMkARguSNo25PlbgwcTSWRfPp
- lhIyR1wKfP2eSY3g9tyuwrGZL
-X-Received: by 2002:a05:6a21:15cf:b0:35e:caf1:78e3 with SMTP id
- adf61e73a8af0-38deeabf5dbmr10252938637.11.1768723033032; 
- Sat, 17 Jan 2026 23:57:13 -0800 (PST)
-X-Received: by 2002:a05:6a21:15cf:b0:35e:caf1:78e3 with SMTP id
- adf61e73a8af0-38deeabf5dbmr10252934637.11.1768723032734; 
- Sat, 17 Jan 2026 23:57:12 -0800 (PST)
+ AJvYcCVHApFIidIZSKDo6Y2BlCqZ73Th2PRzWE+MHDSRME8NmSFG/I2K7qQaAsO2AdyQBOyKE8aNtXHe3w==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0YwzCwnrBrgODtzxdropD+TFuvjfvayWf2mVILgEY6wnOIz2CDU4
+ YKypp9qmIIyzunRDwCdq2ieumUOqtjwSi1egZUc9S6nAUK0Kg0DB4D4vcCKruDYaqPD0lFtfKed
+ 5gieW5kc1tsG6tNK99Ox56YqxzAdmknkP6oqD9Ag/BTn7YBYPBJgyfACZoPrtw43F4ph4z1HJto
+ lhQLQW09lGpw==
+X-Gm-Gg: AY/fxX5YPjDE6FGzOIbUV/fFaRZ4WE8Piy3FvcRsyJhXD3Ie8x36oxqOWUy+0+H4Jsv
+ kudLHi9e5tnI+V3rlqC8mfFtidhZr/ISCG/kg4SDPToyrGYq0UqUZ0DyW8eykssdL+LzrI+1kcX
+ 6f3KRTyzkqapCJEgUQgq4BQf1YrQurzGJq9rwsOnLKrxx3aTWbn0MQcJO5P9Pz+TzkODyomX+Vu
+ VxVWcPUPACN6XCnm2d5XAgsGFGi0e9lB2sQleY3D3D5DWFrfvfTBRD7gfCooWYzLFn1/rh7bD6a
+ HNT88uzNmyEntkCEqLEU6stRL+Q7F2/8wPdUml/T0dSi1QJbI1RoU8WbljUH0h9ValXF7S5ndbH
+ 4lmWhF3vBXPOy0d/q9TFhOy+O
+X-Received: by 2002:a05:6a00:808:b0:81c:6ca8:8007 with SMTP id
+ d2e1a72fcca58-81fa03b431fmr8248222b3a.69.1768723097427; 
+ Sat, 17 Jan 2026 23:58:17 -0800 (PST)
+X-Received: by 2002:a05:6a00:808:b0:81c:6ca8:8007 with SMTP id
+ d2e1a72fcca58-81fa03b431fmr8248215b3a.69.1768723097078; 
+ Sat, 17 Jan 2026 23:58:17 -0800 (PST)
 Received: from [192.168.192.85] ([50.47.129.42])
  by smtp.googlemail.com with ESMTPSA id
- 41be03b00d2f7-c5edf2330d4sm6233739a12.5.2026.01.17.23.57.09
+ d2e1a72fcca58-81fa10be07fsm6102162b3a.20.2026.01.17.23.58.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 17 Jan 2026 23:57:11 -0800 (PST)
-Message-ID: <d2f7bbe3-c0fe-4925-ab70-c9e777b64fc3@canonical.com>
-Date: Sat, 17 Jan 2026 23:57:09 -0800
+ Sat, 17 Jan 2026 23:58:16 -0800 (PST)
+Message-ID: <7617e0b9-21a4-4caa-9ded-51f4d240b273@canonical.com>
+Date: Sat, 17 Jan 2026 23:58:15 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Ryan Lee <ryan.lee@canonical.com>, apparmor@lists.ubuntu.com
-References: <20260113173558.15401-1-ryan.lee@canonical.com>
+References: <20260114173226.14956-1-ryan.lee@canonical.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -127,11 +127,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20260113173558.15401-1-ryan.lee@canonical.com>
+In-Reply-To: <20260114173226.14956-1-ryan.lee@canonical.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH] apparmor: return -ENOMEM in
- unpack_perms_table upon alloc failure
+Subject: Re: [apparmor] [PATCH] apparmor: fix boolean argument in
+	apparmor_mmap_file
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -143,44 +143,38 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Zygmunt Krynicki <zygmunt.krynicki@canonical.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 1/13/26 09:35, Ryan Lee wrote:
-> In policy_unpack.c:unpack_perms_table, the perms struct is allocated via
-> kcalloc, with the position being reset if the allocation fails. However,
-> the error path results in -EPROTO being retured instead of -ENOMEM. Fix
-> this to return the correct error code.
+On 1/14/26 09:32, Ryan Lee wrote:
+> The previous value of GFP_ATOMIC is an int and not a bool, potentially
+> resulting in UB when being assigned to a bool. In addition, the mmap hook
+> is called outside of locks (i.e. in a non-atomic context), so we can pass
+> a fixed constant value of false instead to common_mmap.
 > 
-> Reported-by: Zygmunt Krynicki <zygmunt.krynicki@canonical.com>
-> Fixes: fd1b2b95a2117 ("apparmor: add the ability for policy to specify a permission table")
 > Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
 
 Acked-by: John Johansen <john.johansen@canonical.com>
 
-I have pulled this into the apparmor tree
+I have pulled this into the apparmor tree as is, but added
+another patch to do as Tyler suggested
 
 > ---
->   security/apparmor/policy_unpack.c | 6 ++++--
->   1 file changed, 4 insertions(+), 2 deletions(-)
+>   security/apparmor/lsm.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
-> index 019430225e4a..2280a8f7a843 100644
-> --- a/security/apparmor/policy_unpack.c
-> +++ b/security/apparmor/policy_unpack.c
-> @@ -700,8 +700,10 @@ static ssize_t unpack_perms_table(struct aa_ext *e, struct aa_perms **perms)
->   		if (!aa_unpack_array(e, NULL, &size))
->   			goto fail_reset;
->   		*perms = kcalloc(size, sizeof(struct aa_perms), GFP_KERNEL);
-> -		if (!*perms)
-> -			goto fail_reset;
-> +		if (!*perms) {
-> +			e->pos = pos;
-> +			return -ENOMEM;
-> +		}
->   		for (i = 0; i < size; i++) {
->   			if (!unpack_perm(e, version, &(*perms)[i]))
->   				goto fail;
+> diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
+> index 08757f372972..320e4e1e1748 100644
+> --- a/security/apparmor/lsm.c
+> +++ b/security/apparmor/lsm.c
+> @@ -826,7 +826,7 @@ static int common_mmap(const char *op, struct file *file, unsigned long prot,
+>   static int apparmor_mmap_file(struct file *file, unsigned long reqprot,
+>   			      unsigned long prot, unsigned long flags)
+>   {
+> -	return common_mmap(OP_FMMAP, file, prot, flags, GFP_ATOMIC);
+> +	return common_mmap(OP_FMMAP, file, prot, flags, false);
+>   }
+>   
+>   static int apparmor_file_mprotect(struct vm_area_struct *vma,
 
 
