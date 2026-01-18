@@ -2,86 +2,86 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7856D39330
-	for <lists+apparmor@lfdr.de>; Sun, 18 Jan 2026 08:54:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38283D39334
+	for <lists+apparmor@lfdr.de>; Sun, 18 Jan 2026 08:57:27 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vhNbW-0001i1-2N; Sun, 18 Jan 2026 07:53:46 +0000
+	id 1vhNet-00023q-IZ; Sun, 18 Jan 2026 07:57:15 +0000
 Received: from smtp-relay-internal-0.internal ([10.131.114.225]
  helo=smtp-relay-internal-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1vhNbU-0001hu-T9
- for apparmor@lists.ubuntu.com; Sun, 18 Jan 2026 07:53:44 +0000
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
- [209.85.214.198])
+ id 1vhNes-00023h-Id
+ for apparmor@lists.ubuntu.com; Sun, 18 Jan 2026 07:57:14 +0000
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
+ [209.85.214.199])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id AE0D83FBB3
- for <apparmor@lists.ubuntu.com>; Sun, 18 Jan 2026 07:53:44 +0000 (UTC)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 6FEEB3FBB3
+ for <apparmor@lists.ubuntu.com>; Sun, 18 Jan 2026 07:57:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20251003; t=1768722824;
- bh=v7U1iagX4vJbfzuHqFXq77v5wZjwn6HrXJlBdamcTNk=;
- h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+ s=20251003; t=1768723034;
+ bh=OkFucOEIPscVpFYqOJILl70h26k3vPeLAZ1bAbjl6V8=;
+ h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
  In-Reply-To:Content-Type;
- b=XHpFUh7icbzqhy+BOikeZoscLrQZ7Jr+Ol9NRSgeeuWb+Rk54I0rL6W/NHR1e6IJt
- TSDXZpZm0mtaUcKccyDCFSuqBLiiK5YcmrBGx/lAjFWg82LlQS4EkEG16fwMd85K3t
- 24I66P5fgl3xpgSK+WPxd6HsrYpoNYmkINF2gR/VLNzlHSr4XIA/DYdNvhXcKjU1BU
- OlFXuQ7K07ZTKBD0qVg6VsnD9abfD3fdKaZIW48MgcA0s973rH1obNtaoWeYS5keWc
- T4F0EnYlBkIPhGWCiz0nmvDqnjHdlNaYCyIQLRG/Yc1p0hWR+0R06GMHmxBUIMsAbp
- 9fcwNMsABBCqP5ac/FjgjO1iFJ2FW0MTwVIqwR48HVz/g2HkVVFWttJMqjU+d6m7rV
- G0ga+1lIbA/1DFQ0F2GdJMY0TyC/Ph8ZKIQsTp+qu2Ymqs4d4et9Ove0+KfJoTuqSm
- aGv3ZZO/yn1EKK9qDPjbwoQPLwCfQLhl0be5uQ2N6ET3g1bbjd/lUBjpam0lCuTv0K
- hGrZHEVocozY45YjiOphZMYDrrDyl+zDUGwAVTeSoFK132MbWmITQq57TH98d785CP
- iN+mETCAqJE4dVKvsBBTg8K2EKXovDz+wzLKLsC2nGgGtlv9PmBC0xbpeU9FgvpH8T
- t82lKU6PSE5fa9JzzTs2COAs=
-Received: by mail-pl1-f198.google.com with SMTP id
- d9443c01a7336-2a0a0bad5dfso55973555ad.0
- for <apparmor@lists.ubuntu.com>; Sat, 17 Jan 2026 23:53:44 -0800 (PST)
+ b=aT+N67F/F3Gnlszz9LqmJJ50EcznP9NaXMoPKhYw6kPqrx49aeXMx+YldbZV9CF3M
+ sgrozvVYvjwRUs+8bnt3O0q/C99nrAyxFEqIuPRKvMAEdKCcT6mWtfoTcBrwPA/N1u
+ NcxJM1vF7fdcl23INXzeBclwZeeKq9si20iAmzpul+yLTEnErUp7l2MT9kD1oeoF7z
+ 9APIopv8LGejGc4LTkhI9jKLxKx7xo1pdMVeeh+eLdw8IEKAP3wjrhr8Ij6FjZoUrt
+ Vx6bgmOP+QhLFZNxP9HxK/yxfEqFI35x6Lj5NeTHzXcGqSlec3KSFcF5flN0KmWs9H
+ T/1bY9QnCrsw37i68elZRfT4OKoVL6Idxiczj0I0+c5nLPpv9VIFzdwRnuOaobDaL2
+ 4AW85MLQagyqOPt1ZA10OdlDj4pZ4vFmpbTwOTTEPkgLpiw9kgZBVXrxv4kMhlLFY9
+ 1qhTcWo7ocrxjDahCwzadKEnYwX/kZyDDgyfKOgdcrYPGaLuKcMN4zz7oVpE/tlBks
+ 68E0ZwgYxlAHOOBod3mY+0emkOceh/PL+METFizDjiqa4NZ4jRGL5OzpdbApptyMcz
+ Fp5rwgdZj52/g7eO8BxaEgZ+l8jsPnob6K5dTlh9lfKEYK+wYLII+Ll4nuIz6JwU80
+ BigCvYX4/UgWdglGUyF/fnIM=
+Received: by mail-pl1-f199.google.com with SMTP id
+ d9443c01a7336-2a0e9e0fd49so39942195ad.0
+ for <apparmor@lists.ubuntu.com>; Sat, 17 Jan 2026 23:57:14 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768722823; x=1769327623;
+ d=1e100.net; s=20230601; t=1768723033; x=1769327833;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
- :content-language:references:to:subject:user-agent:mime-version:date
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=v7U1iagX4vJbfzuHqFXq77v5wZjwn6HrXJlBdamcTNk=;
- b=GlZKrpDPxJtVxf3hk2v3DgJ+OxvIrpHsEyR97SkniPbM1s64oOJOqDZQ0A4kgbLwya
- yG8vRcLln0K7WMZ3/FU6qo2tr/HvduTUy9vTyb48WHrygmmVt0b5soXCJ6Q3Ye347odk
- jhtQ2+QEvsWjo5z97Cl7faLpux214Y+QW944ELdn7XQAJdlGmk4qZJFFBmhGu/T3ld7F
- D6NHD1Glr8KWEBXL5O7oTM2lPtGid1QiXq5nlSyl0IeJbJev+JpM/3sqTdE8S7pBAZMv
- GPen0jXxBJMiWFtaPNPO0x0aiTAGmP7xMAJeH7Vgcu5cNCPe2uQ8XcxUnrQA5vvFt/rT
- OACA==
-X-Gm-Message-State: AOJu0YzVHKNFUT9T+QbOTJpePfZjFrdCvWsWJRHh/88pSnWVLknXggqJ
- P+l/7MpBTcMbh0W+8Gq/fDGYGHQv9eoX/bZntkiJDZd2LUUlReO5QhomZgcc33vB3ppF11sjw7Z
- hGx1/MrskXQwDU/Gs2v0GuwJEaqsNhhFy55R/O8/eM3ORD9IvnzztRJ9pPz0Rje8Oy1JI4f0bxB
- sSgXwyotMQoQ==
-X-Gm-Gg: AY/fxX4GN5Xep4x//3kybdmv9V6XJlejZMKZ6F4swJVCd/zCFs00Z8Lz4TbFTx/bPUI
- /lj1/nsVjZcPcwR1sI2vGU3+zbdiPB0/mvoUJi9RhlitS58gIgXsn3d4aKkT2IEMJJEH1I8YwP3
- xcvAsCJjdgRC/Mib1xMohUsd+BXp3G+q9/AlqoIMaGjV9kTg4NMe8wS6cBPLnNFqcEbCL8ThayB
- EJVR999sQvJXwS4J1Arw4mftepXwn5G0lYiltUslGJPfTU/rNk/Nbi3Hg774l2mhZ7HK1lz2n/o
- /gjmI7EACawjRHyMJjjH6WdaMJW6YjNevo/OU+NGqVqhJhBUvo5Uz50y6GsROqhmhamvBOnW/bb
- 7QzqazJDIm5aU8DBAoEU69uHL
-X-Received: by 2002:a17:903:1a2e:b0:298:6a79:397b with SMTP id
- d9443c01a7336-2a7176cc35bmr71897345ad.56.1768722822872; 
- Sat, 17 Jan 2026 23:53:42 -0800 (PST)
-X-Received: by 2002:a17:903:1a2e:b0:298:6a79:397b with SMTP id
- d9443c01a7336-2a7176cc35bmr71897255ad.56.1768722822527; 
- Sat, 17 Jan 2026 23:53:42 -0800 (PST)
+ bh=OkFucOEIPscVpFYqOJILl70h26k3vPeLAZ1bAbjl6V8=;
+ b=M6zeLWLWNGl+cfpI8qoyfscdXnFkLp4Vu00qL6QORWoga6McdBAewZfD1gjYra2+LO
+ 7NxGZV54SYOE+fLMd0WCP1IKpXMOMiQj0KEtysrgLXiiAZycsI0zxQ5quuluetoMKH5p
+ +nCAMbsSPzdHNK4Ae4KdC0CDfxL42l+D/2qpzyucrzwDFwAkUSvop09kTlWASBDMVVSl
+ 5GqbbyJ+tDNouDAGqT+qIEYeljBR8NswWplHulEOTJNr+pFw+m8fYb7fVA6HUaSZpak4
+ 3hOKoovS9EorbQyVDiH4NSkt8dYaPRkoSDLe3CbvLbS6RGgo+5uekO1BLohXg6GVRdD9
+ Du4A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVAgQUNv92yZwGGwt4O/BGS+9LNjde5nXTEjaot/pYLcD0ClAjNGCBN1bnLpNfmKuZ/xn6XY49SHQ==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0YzOI7E0p7Xz7V3SDM08dBCnRUXG8yRVI1mZdcPDE144eAIhHffN
+ 3PleHC6B1nxz8RuPs7UIO3b7T8SdTt7x90qHsqdbyKubgh7aTPAO0ccglMQ5DWZ7cVw/Iu1iLwb
+ YniVjFpnLE852LZJ1OgI5s3Y2K9+mozvNyaxZ2td0NfVMuCAN9xiRlBb4DOqUiaZcMucmf0ZtT9
+ s5w75UU9EIBA==
+X-Gm-Gg: AY/fxX58tGDYf1jqx3BsPOVLK5V13J+Nkn9SEQt2Vp6TgS/87kcigivYyni1IXOB0RM
+ tgfz2I/Uzn61vj5Ms5H8nWPPyWsB9/9qpYRwjAzrzNtgtebncnyQmpTiDr9AUXKyptsCsfeQU0a
+ iwvrcgAWo395zYMBnSDhYO0I8DJaaQiqEcX8QzpiFtUJlI4VR4fZ6dLdHynPAJIf+dH9ssNudW0
+ +sR/rw87UQgbhUSLjyiczMKg2GFkMxMKDQ4Yuv7q8DkdVwIh1vxRd995DP3+2c/mJlKShSFyJSU
+ X8SFL0HQBVZUJiQQIeifYo5ajHoszMpgZqNVAFdxzg5Mr6LoF8qMkARguSNo25PlbgwcTSWRfPp
+ lhIyR1wKfP2eSY3g9tyuwrGZL
+X-Received: by 2002:a05:6a21:15cf:b0:35e:caf1:78e3 with SMTP id
+ adf61e73a8af0-38deeabf5dbmr10252938637.11.1768723033032; 
+ Sat, 17 Jan 2026 23:57:13 -0800 (PST)
+X-Received: by 2002:a05:6a21:15cf:b0:35e:caf1:78e3 with SMTP id
+ adf61e73a8af0-38deeabf5dbmr10252934637.11.1768723032734; 
+ Sat, 17 Jan 2026 23:57:12 -0800 (PST)
 Received: from [192.168.192.85] ([50.47.129.42])
  by smtp.googlemail.com with ESMTPSA id
- d9443c01a7336-2a7190d14cfsm63013165ad.38.2026.01.17.23.53.41
- for <apparmor@lists.ubuntu.com>
+ 41be03b00d2f7-c5edf2330d4sm6233739a12.5.2026.01.17.23.57.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 17 Jan 2026 23:53:42 -0800 (PST)
-Message-ID: <20755c13-c094-4441-8679-85bd1447cabf@canonical.com>
-Date: Sat, 17 Jan 2026 23:53:40 -0800
+ Sat, 17 Jan 2026 23:57:11 -0800 (PST)
+Message-ID: <d2f7bbe3-c0fe-4925-ab70-c9e777b64fc3@canonical.com>
+Date: Sat, 17 Jan 2026 23:57:09 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: apparmor@lists.ubuntu.com
+To: Ryan Lee <ryan.lee@canonical.com>, apparmor@lists.ubuntu.com
 References: <20260113173558.15401-1-ryan.lee@canonical.com>
- <93e697f2-c67c-4020-9a24-4e2d149797ed@app.fastmail.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -127,11 +127,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <93e697f2-c67c-4020-9a24-4e2d149797ed@app.fastmail.com>
+In-Reply-To: <20260113173558.15401-1-ryan.lee@canonical.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Subject: Re: [apparmor] [PATCH] apparmor: return -ENOMEM in
- unpack_perms_tableupon alloc failure
+ unpack_perms_table upon alloc failure
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -143,57 +143,44 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: Zygmunt Krynicki <zygmunt.krynicki@canonical.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-On 1/14/26 09:42, Zygmunt Krynicki wrote:
-> W dniu 13.01.2026 o 18:35 Ryan Lee pisze:
->> In policy_unpack.c:unpack_perms_table, the perms struct is allocated via
->> kcalloc, with the position being reset if the allocation fails. However,
->> the error path results in -EPROTO being retured instead of -ENOMEM. Fix
->> this to return the correct error code.
->>
->> Reported-by: Zygmunt Krynicki <zygmunt.krynicki@canonical.com>
->> Fixes: fd1b2b95a2117 ("apparmor: add the ability for policy to specify
->> a permission table")
->> Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
->> ---
->>   security/apparmor/policy_unpack.c | 6 ++++--
->>   1 file changed, 4 insertions(+), 2 deletions(-)
->>
->> diff --git a/security/apparmor/policy_unpack.c
->> b/security/apparmor/policy_unpack.c
->> index 019430225e4a..2280a8f7a843 100644
->> --- a/security/apparmor/policy_unpack.c
->> +++ b/security/apparmor/policy_unpack.c
->> @@ -700,8 +700,10 @@ static ssize_t unpack_perms_table(struct aa_ext
->> *e, struct aa_perms **perms)
->>   		if (!aa_unpack_array(e, NULL, &size))
->>   			goto fail_reset;
->>   		*perms = kcalloc(size, sizeof(struct aa_perms), GFP_KERNEL);
->> -		if (!*perms)
->> -			goto fail_reset;
->> +		if (!*perms) {
->> +			e->pos = pos;
->> +			return -ENOMEM;
->> +		}
->>   		for (i = 0; i < size; i++) {
->>   			if (!unpack_perm(e, version, &(*perms)[i]))
->>   				goto fail;
->> -- 
->> 2.43.0
+On 1/13/26 09:35, Ryan Lee wrote:
+> In policy_unpack.c:unpack_perms_table, the perms struct is allocated via
+> kcalloc, with the position being reset if the allocation fails. However,
+> the error path results in -EPROTO being retured instead of -ENOMEM. Fix
+> this to return the correct error code.
 > 
-> This looks good.
-> 
-> I'm unfamiliar with kernel acked protocol so I'll refrain from that.
-> 
-Essentially here, since you reviewed the patch you could add a
-Reviewed-by: Zygmunt Krynicki <me@zygoon.pl>
-like Tyler did.
+> Reported-by: Zygmunt Krynicki <zygmunt.krynicki@canonical.com>
+> Fixes: fd1b2b95a2117 ("apparmor: add the ability for policy to specify a permission table")
+> Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
 
-You can find the tag descriptions in
-Documentation/process/5.Posting.rst
+Acked-by: John Johansen <john.johansen@canonical.com>
 
-search for "tags in common"
+I have pulled this into the apparmor tree
+
+> ---
+>   security/apparmor/policy_unpack.c | 6 ++++--
+>   1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
+> index 019430225e4a..2280a8f7a843 100644
+> --- a/security/apparmor/policy_unpack.c
+> +++ b/security/apparmor/policy_unpack.c
+> @@ -700,8 +700,10 @@ static ssize_t unpack_perms_table(struct aa_ext *e, struct aa_perms **perms)
+>   		if (!aa_unpack_array(e, NULL, &size))
+>   			goto fail_reset;
+>   		*perms = kcalloc(size, sizeof(struct aa_perms), GFP_KERNEL);
+> -		if (!*perms)
+> -			goto fail_reset;
+> +		if (!*perms) {
+> +			e->pos = pos;
+> +			return -ENOMEM;
+> +		}
+>   		for (i = 0; i < size; i++) {
+>   			if (!unpack_perm(e, version, &(*perms)[i]))
+>   				goto fail;
 
 
