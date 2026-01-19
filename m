@@ -2,73 +2,76 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12087D3BC0F
-	for <lists+apparmor@lfdr.de>; Tue, 20 Jan 2026 00:52:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C31C2D3BC0D
+	for <lists+apparmor@lfdr.de>; Tue, 20 Jan 2026 00:51:59 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vhz2D-0000aC-O3; Mon, 19 Jan 2026 23:51:49 +0000
-Received: from mail-yw1-f182.google.com ([209.85.128.182])
+	id 1vhz2D-0000aJ-Rr; Mon, 19 Jan 2026 23:51:49 +0000
+Received: from mail-yw1-f180.google.com ([209.85.128.180])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <huzhengmian@gmail.com>)
- id 1vhoGM-0005zK-Vu
- for apparmor@lists.ubuntu.com; Mon, 19 Jan 2026 12:21:43 +0000
-Received: by mail-yw1-f182.google.com with SMTP id
- 00721157ae682-790ac42fd00so39435037b3.3
- for <apparmor@lists.ubuntu.com>; Mon, 19 Jan 2026 04:21:42 -0800 (PST)
+ id 1vhoGN-00061i-V5
+ for apparmor@lists.ubuntu.com; Mon, 19 Jan 2026 12:21:44 +0000
+Received: by mail-yw1-f180.google.com with SMTP id
+ 00721157ae682-79276cef7beso35750827b3.2
+ for <apparmor@lists.ubuntu.com>; Mon, 19 Jan 2026 04:21:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1768825301; x=1769430101; darn=lists.ubuntu.com;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=y8g1Nep66Hb2o5ywZmQKK5xS7oJRmgLsmW5flAXw3ZA=;
- b=kP2eQ3vBFWooFfG3kQKUo9yWep0E/x1bw9AtjznCA0vZamGqsBPHoQiHK/fbmGWzlQ
- PFKulDbiVjPT5hwuuepSxeExCOVX+POMI39557jF9vsX/mqael/j/KLkdhn3LthfnUgj
- emyyJuxlBQ6k7Mqq05nM9LG7s3uMzif/BLZX884WfnJC6C3VZhpnsNfBCGD0uzJtjN3G
- 6wNAmyaGK266zYATw099WdXXsjC/WDm/XCtdL2Q1OP2bl/skVMB3yRr4DAlxgfg27M0T
- DwUTehXDT+edEEfo/7Tto0ncnIdo0lWzAnSDZnIpSfwW4uEtumoi5b+Jiw309hKju3sC
- 0aTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768825301; x=1769430101;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1768825303; x=1769430103; darn=lists.ubuntu.com;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=y8g1Nep66Hb2o5ywZmQKK5xS7oJRmgLsmW5flAXw3ZA=;
- b=mn8IRHkeY9zwzujxssesOSPKtiRo2RflvO7KC4LR3fOxtPMbX0vr7rwuvk9fMmk8py
- XN77ci3ABiz1s3CufpMdHFgRto7VJczVqeaqTevNpmCA43fQR1BlWYw1bz15geNl73zC
- mPxK78isKX0OXkFyNebUfhGiVBK2GlF6xsfOj4Mw8u7aunai5IsmEOHUsOY8QBKvhlPI
- 95rBL5iVsd8qwO6c2FTryogIblM/U7hk5BHc7J3/ITZHOC8e+OtDvkVX/5r+87EVP4UW
- k3g704udizGsgenCLbH58nbvluitJ1j/TgmQC+i7H6VmGJQYCxxrkKnsrKrN7u6AueQe
- tc2w==
+ bh=4xpUlBJUkRI9BEvvEPmE2BefrFSelS9EOH7w/G+TnZM=;
+ b=mBanpqGcTDifFyAZ2X81DMe7HC55oHLyGmPt0OkGs55vqkvXgU5WUK5G1CRa93QYDi
+ QJk+bK4vR2KIX/Q9B+TcxjEhC9OV84AuXtzTY+ZXjEJR/bEl/VmoS0c+aRUlCeSps3Qt
+ XAbJKfpEsR/gbNnMnYON6pTqLKE6b84mmY4WEqQTfG1wyfjTA2cuCo+Pl7EYeMCdSbAZ
+ tdVyencrtoTSOeW5f0Ft399SyVVSj2zvl+GSFHUzeukW06yTrhxnuo/dum9zM779OzZY
+ GNKpEGS8C5bX+Byq7gTKbrui2uLhNBghYbyebn2eKYma7mwNSh1Lk9rD/iKR3uU0x72g
+ iLgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1768825303; x=1769430103;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=4xpUlBJUkRI9BEvvEPmE2BefrFSelS9EOH7w/G+TnZM=;
+ b=MRLKO88Z0KnSw6LLCckt2AqkOPrrRfft6wWQ6xOCMAuF4fyx3YnpMA/o/rDx2DYCCP
+ SPabbpFNkmFKKhqsTRyCa6JGXyGgwAdb2VdWTPRNy20JuzJeb4yl0RLY6e1OQqV/kZ3J
+ ZZ9kQJi70OORs1fHPemxvbZyJTkDA0dQL+RmqdVofFmAnqOPCmzov8Cr+MA/D4dLUq4J
+ XBvZBuS3nmd3f8jlFIPFkUR8m9fGYpKqcaHLfcS4qdFOB18oAuG7Smdesy8QfxwVIFms
+ HkKhNeOPzKopFKBED5dqPW+ySk9xhNTqm1YCi4XIKYuCXPKBCoHJ5aEQqTFy5pVN5g+Y
+ ssFw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVAzh2WrwwIfRZRBOuGjQcWmm4aD2iViaxJ6dNVvEYU+bf2xwghUSQWNsj7DzFJ1BgVA8ug5pZ1eA==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0Yx0vMp8MSfcWhocgjflbjBQE5RQcrcTpOG8+pP+qsu6SXII6+cB
- VKS4hSUuTOFkdIpRv9Fp3axjhwK+3lcgIrRr27vonBE8ZFQgXkidzdmJ
-X-Gm-Gg: AZuq6aIGiyn/crLJKshlUSmWLSIB8WoEkdrFeCCKGnWHUf2fFUjpdfh+ZKKxdaEyrbU
- sS9KsN9wKiMxvae2vALtqcpyBF+/HGyvPGtr0SPJfp6c5qhYZ9syfdY1J4IC1SwIlN1VAaVz5PQ
- GUmoIgiR//lKKBkq2AgSd+oIx3pR/m9+dhXHocUjxWUnKpflq7EAnbLhdapfbkcr9hpVDJyFx6r
- vpVWU+lEQUveZs5XtXEZk94Ibm6+gH+3JWw/rvRetGKkxHxIzrK+diYBX3YrKdtIgWw/fJFdWYz
- bLTRihFrZKe302/KVbba/Q3YK4xOKWU6kRY/oJGkocGEw5ToDQnm0KyYuOGAdY+btlrJQULsUZu
- raIWctUh5SYf6ayF2znZN3QifawQigIzj2uGCtdC9rIX1QSOZYOQiCGG+2cwJ/UWZNBHVmC74h4
- 3BHib7deH/O4DH9D4RqH0uUuG0eps=
-X-Received: by 2002:a05:690c:e3ec:b0:793:d0b2:ff08 with SMTP id
- 00721157ae682-793d0b30206mr160688377b3.8.1768825301553; 
- Mon, 19 Jan 2026 04:21:41 -0800 (PST)
+ AJvYcCUM93zicj2mIbyaApDgf88jX2IMf2xdm4lCfRib4BuFMEi0itZFbJyEsAS2wDrrBUmpRX08K+Coqg==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0YxuAWK7eeCJA6kcnTvFFi8WsC87HnrLWXym62zg5KqbmG1I42ue
+ Dn6G0xD3MQR2C1rmW1HgzNrsslgDqRVl4N0yzgrZxWU52toRWSyiNXX0
+X-Gm-Gg: AZuq6aLqw6/7rG/o1BhC5mM3x9WYHrfli8TqVn/45nfG/prXsAOiPsYHx49oIeKeI1p
+ wsop/khTzbwdHCemv0PVfgCrD4k16LegqzRwlInhD870Ngg0vVkXeyI3/81OiJ/ZnMIwNQUyOlQ
+ w0tpI3wYwUgyXWAz2MjgbKSS8yAN4lD0sBIRMswhkHfiIqT5XccgEAUqSyyvs13ZeAencK07cNd
+ qxFWCvUYYe32XmxCJft30M8xIgj6PRI368DD1N0tW/mNMAF+dMxA6Wg0MK5RulUX1Dw/BGprTpQ
+ aSGgOfXuJGRMv1Ho1K3806Bj482xTCEge+fgiKFq3u38onvyBEx7iP40V8zYs6jrt6pzK/khons
+ PxToS9Wkg3ZHdjq7oIeATaEx0UTDWjDbONT7UStfIA0Ozqg8s7K6JqBnY+zV9eDBtSCYoglRVDX
+ 87G3KzxLXNFTDek56zvSGgQ6z/HPw=
+X-Received: by 2002:a05:690c:60c7:b0:78c:2473:ae79 with SMTP id
+ 00721157ae682-793c5393a8emr70353737b3.39.1768825302663; 
+ Mon, 19 Jan 2026 04:21:42 -0800 (PST)
 Received: from msi2.sky.cl ([2600:1700:65a1:210::47])
  by smtp.gmail.com with ESMTPSA id
- 00721157ae682-793c66f326bsm39600677b3.19.2026.01.19.04.21.40
+ 00721157ae682-793c66f326bsm39600677b3.19.2026.01.19.04.21.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Jan 2026 04:21:41 -0800 (PST)
+ Mon, 19 Jan 2026 04:21:42 -0800 (PST)
 From: Zhengmian Hu <huzhengmian@gmail.com>
 To: john.johansen@canonical.com, john@apparmor.net, apparmor@lists.ubuntu.com
-Date: Mon, 19 Jan 2026 07:21:18 -0500
-Message-ID: <20260119122119.3648154-1-huzhengmian@gmail.com>
+Date: Mon, 19 Jan 2026 07:21:19 -0500
+Message-ID: <20260119122119.3648154-2-huzhengmian@gmail.com>
 X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260119122119.3648154-1-huzhengmian@gmail.com>
+References: <20260119122119.3648154-1-huzhengmian@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=209.85.128.182;
- envelope-from=huzhengmian@gmail.com; helo=mail-yw1-f182.google.com
+Received-SPF: pass client-ip=209.85.128.180;
+ envelope-from=huzhengmian@gmail.com; helo=mail-yw1-f180.google.com
 X-Mailman-Approved-At: Mon, 19 Jan 2026 23:51:48 +0000
-Subject: [apparmor] [PATCH 0/1] apparmor: avoid per-cpu hold underflow in
+Subject: [apparmor] [PATCH 1/1] apparmor: avoid per-cpu hold underflow in
 	aa_get_buffer
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -86,40 +89,26 @@ Cc: linux-security-module@vger.kernel.org, Zhengmian Hu <huzhengmian@gmail.com>,
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 
-Hi all,
-
-This series fixes a per-cpu hold counter underflow in the AppArmor buffer
-cache. Under high-frequency execve workloads with AppArmor enabled, cache->hold
-can wrap to UINT_MAX, preventing buffers from returning to the global list and
-forcing repeated kmalloc(aa_g_path_max) allocations.
-
-Summary:
-On high-frequency execve workloads with AppArmor enabled, the per-CPU buffer
-cache can enter a pathological state: aa_get_buffer() decrements hold even
-when it is already zero, causing an unsigned underflow. The resulting huge
-hold value prevents aa_put_buffer() from refilling the global list, which
-starves other CPUs and forces repeated kmalloc(aa_g_path_max) allocations.
-Because the AppArmor pool does not shrink, this accumulates into large
-kmalloc-8k slab growth over time.
-
-Repro (QEMU TCG, 4 vCPU, 1 GiB RAM, v6.16):
-- Unpatched: kmalloc-8k objects grow 12->16 in 120s (run1), 16->20 in 120s (run2)
-- Patched: kmalloc-8k stays at 12 for 120s
-
-Notes:
-This fix targets the observed underflow mechanism without changing the overall
-AppArmor buffer pool design. Happy to provide the reproduction script and logs
-on request.
-
-Thanks,
-Zhengmian Hu
-
-Zhengmian Hu (1):
-  apparmor: avoid per-cpu hold underflow in aa_get_buffer
-
+Signed-off-by: Zhengmian Hu <huzhengmian@gmail.com>
+---
  security/apparmor/lsm.c | 3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 
+diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
+index 9b6c2f157..a6c884ba6 100644
+--- a/security/apparmor/lsm.c
++++ b/security/apparmor/lsm.c
+@@ -1868,7 +1868,8 @@ char *aa_get_buffer(bool in_atomic)
+ 	if (!list_empty(&cache->head)) {
+ 		aa_buf = list_first_entry(&cache->head, union aa_buffer, list);
+ 		list_del(&aa_buf->list);
+-		cache->hold--;
++		if (cache->hold)
++			cache->hold--;
+ 		cache->count--;
+ 		put_cpu_ptr(&aa_local_buffers);
+ 		return &aa_buf->buffer[0];
 -- 
 2.52.0
+
 
