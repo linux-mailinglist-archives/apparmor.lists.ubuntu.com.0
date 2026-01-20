@@ -1,139 +1,79 @@
 Return-Path: <apparmor-bounces@lists.ubuntu.com>
-X-Original-To: lists+apparmor@lfdr.de
 Delivered-To: lists+apparmor@lfdr.de
+Received: from mail.lfdr.de
+	by lfdr with LMTP
+	id 2I3kHsQYcmksawAAu9opvQ
+	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
+	for <lists+apparmor@lfdr.de>; Thu, 22 Jan 2026 13:32:04 +0100
+X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29FAFD3BC7E
-	for <lists+apparmor@lfdr.de>; Tue, 20 Jan 2026 01:44:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DC4A66A9D
+	for <lists+apparmor@lfdr.de>; Thu, 22 Jan 2026 13:32:04 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vhzrL-0000ny-SM; Tue, 20 Jan 2026 00:44:39 +0000
-Received: from smtp-relay-internal-1.internal ([10.131.114.114]
- helo=smtp-relay-internal-1.canonical.com)
+	id 1vitqr-0005Bk-SS; Thu, 22 Jan 2026 12:31:53 +0000
+Received: from mail-pl1-f179.google.com ([209.85.214.179])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1vhzrK-0000nr-CB
- for apparmor@lists.ubuntu.com; Tue, 20 Jan 2026 00:44:38 +0000
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
- [209.85.214.200])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 41E893FE15
- for <apparmor@lists.ubuntu.com>; Tue, 20 Jan 2026 00:44:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20251003; t=1768869878;
- bh=QYIUKitptevaGw1P3/4y8IjKDAu5WlM17haDrLnfc/U=;
- h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
- In-Reply-To:Content-Type;
- b=aTlOmiYNTchPSZS6gSnxFsq+kY7r5dtFvPt1cbSn9YM9Cdo6SiH5esbjjtmfSx1Tv
- sX9RGWLzwKzlp/KgYTSJBLyvpb0K4TeXU5OeBeoPUweTlS+mtJ1rgcSUG9Mi0mUiNJ
- zRYb33kbaIt628bBGOkOXaepVY4ngICdvne+8wRlW724qvJW4yWAZ9gFAdHtmR8ZM3
- OKCxbELXopnfqpHxPgW9NdgKOVW+vGBJPbL2onfiwJ7n1zYzTmUrugQcTuNaBVUyoD
- LXRm91Syx5p+juxr+SdZOptDo7p5FeJLKfSmFXg7nxnTgfaHrp+nilovR1EbxNdAo5
- q2UlqkzHO4Q0My7H7BaKFusZXAsjFukAkmIXQ064xWM/NRvtK3ca9++oPXmS2ALYTl
- uxx7c5NchaU379z7a3ghVvVgctjdTrWW+D+gtragL0kaw4wksgtgiqzvBkv5uQDpir
- cJgkr19bxENL6IfzkywviMUeUV94waohPd0wEKgg/4Wv1H6QiCkyLBFjqA1/ssIgjU
- nJBFV89GM0j84tLO9YE+uBbTwLwmD79/NLZ+Oryn8QYP69v7xOwJ8Nyk6ZVvRYngtT
- gTrf/a/Im2uLC0xkSfBxyN9RASpCJWMWU97dUVCBr7Ecg/85csXGuQ6UUdDwycZk7+
- 1pUlfr1l+TWTqCqzY+Z8fDwA=
-Received: by mail-pl1-f200.google.com with SMTP id
- d9443c01a7336-2a0f0c7a06eso44572735ad.2
- for <apparmor@lists.ubuntu.com>; Mon, 19 Jan 2026 16:44:38 -0800 (PST)
+ (Exim 4.86_2) (envelope-from <foster.ryan.r@gmail.com>)
+ id 1viD3u-0002si-Dz
+ for apparmor@lists.ubuntu.com; Tue, 20 Jan 2026 14:50:30 +0000
+Received: by mail-pl1-f179.google.com with SMTP id
+ d9443c01a7336-2a0a95200e8so35705765ad.0
+ for <apparmor@lists.ubuntu.com>; Tue, 20 Jan 2026 06:50:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1768920629; x=1769525429; darn=lists.ubuntu.com;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=B8hFGxkidyH1x7WVOh/MmDC5refkrkaMi3SKwdLwH6Q=;
+ b=URD0Gy0ioW7U2GkvGSfxOKxBXYcn6/BmUpG5NyBWzLOl2ZmoJ7dccfFWzqfp/JcAFP
+ J5pxmiKHa/13FA5UXnXh1PnC0PEh6AV+cMGlX1ea+C0W+uQiPTkmcl1VijZ0zJeiANuH
+ Vz140iwrRep2JNgge3X7DgpJfWub/yXPtJovhQeOBl6ueOlTDZM1Txi9HsFXjaWhK8i1
+ CipSJCoKgQc7i6yasx8ttCMyTns4mzpr4XnFG3VsgUbe01kYn559QVOr046L+Fxps58z
+ dsR3WO+Qb9nphnpj9WJf/qZUUbFuFujMGx+GQFu73vStRMC0DUN+MpjgmypljmT3M3Tc
+ OvdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768869876; x=1769474676;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20230601; t=1768920629; x=1769525429;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=QYIUKitptevaGw1P3/4y8IjKDAu5WlM17haDrLnfc/U=;
- b=qDp5R0PRhUA9S6fo6i0zjB05rLrZiIhWstf6E9iqCDBFMlpHI39lhRxFck8pPkhUzJ
- uVgJ3/8f4baPoW2G6VTZ/LpDgsItyfxrIyRWmXvmEdh4hWTQKgUrYDtZn1quJfyDHwaW
- 8gPGBaEe+xqjVXOKW0YsOYls1VOYfZ+o9HQ10MNriByDyewcvIBxxw6v7UavpnFQC7fl
- 9hdzJkGX1IwFh5xafwChh8iGRl+69XthQmiw2VUNEbc7WY54vo7jT8A10jJ19k0rWk4B
- 9YnsoyK7Zw2lt7EWUdqFowXxyz4Yh2irfZokVQZDyhBdE1rl6dYzzhHDJILenUKmoa30
- d2qQ==
+ bh=B8hFGxkidyH1x7WVOh/MmDC5refkrkaMi3SKwdLwH6Q=;
+ b=rJdtLNl6dJC/h4RpiZjMJDVOYQ+ekdupoG68O23syFhD4ZJVFqsikWJAEqaStUtKiz
+ vQIJLlJABP2qCK30bPdase6V1K95zzG2ha2pN3+mpCKc44NN0U108BLJairgJwUKgrVK
+ o0xDR7JbBSSu9ugIu7k4/zcqec5ZGH0foW4o68wVBoapYziPtzHINXPF3+XO4o0yk3it
+ HC2Bxbg2wnh+EfmWAvdIqIpcdyghBCqUfvk4sqnjnYt9QbprO23sbqPNX4OsIGPlt6Hp
+ en/vSCJ1KF0FznuGhqE5XQHPUU10rStCvcPtM4t5iHfVAZ9gD7hwcqHZB3dSK6THj+zR
+ Qa4Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWkQinJpgtDtnXMtmy1n9trgwe/TXkm46F5hlgVHEcirwLIk+xptjHyna91SAGgysyqgJsCmOiIjw==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0YxG8tqqft3XZeISuO6yXngajta9/ewBs7TdWLnGijA7XMbeflL/
- jxZwvE2sD0H3MPsbjC+kY56yCuW80ngvEBGcIZvYEv1r//CbkkQ6xrR6Y3fgXMtTar3/+KtLHpx
- xSUS3Z3F02cirkgOtDdoQ1QINlDh8QZNXACk3TVFizJaMMoI+eNY6dgaOloQ81AeeIlmS0ATj9L
- CWNQ==
-X-Gm-Gg: AZuq6aI3sGqB3SSvp+En78KAMYTYGi5sUJIZPShM7O9Biuat7I8Qs1goDRnVqvtaxbi
- iNHGxeHo4UGioFTo+V54LRORWr6FJsc327EYPvi9BdvwkWvJ7tG1XNCnVxqheRz7LU3Qy+eKpfY
- IJ9UIzUyG4IBtv+gQ0lNc2bAZ7HwQRMZsE2pD8s90SW6vNJMAdTSSPhUKrgoeMv8GUXzUzLjc+8
- muozvuvwpQY0XcgG92SGxds5kBuJ/ogwwj0hc+IYKvmdD48+9oi1nwFSDfGPy9B1OymxZDa12Ac
- er7pu0J9D7zYO37McymrDa+KaUEH38f+abErRsbk2G0GHBRiHGYVG69EeprMHwaxFp3wEBrC3hm
- OtG3pLXu9gixrkZhQcSZkSLiG
-X-Received: by 2002:a17:902:da8c:b0:2a0:bb0a:a5dd with SMTP id
- d9443c01a7336-2a7177e99eamr103222925ad.57.1768869876687; 
- Mon, 19 Jan 2026 16:44:36 -0800 (PST)
-X-Received: by 2002:a17:902:da8c:b0:2a0:bb0a:a5dd with SMTP id
- d9443c01a7336-2a7177e99eamr103222825ad.57.1768869876264; 
- Mon, 19 Jan 2026 16:44:36 -0800 (PST)
-Received: from [192.168.192.85] ([50.47.129.42])
- by smtp.googlemail.com with ESMTPSA id
- d9443c01a7336-2a7190d14cfsm106460445ad.38.2026.01.19.16.44.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Jan 2026 16:44:35 -0800 (PST)
-Message-ID: <35869346-9eed-4120-9e4b-cdc1b04dc844@canonical.com>
-Date: Mon, 19 Jan 2026 16:44:35 -0800
+ AJvYcCVRhswKX69Wi2r8V1r72+vzEWjnbAlWvNzn8F3/EdBCBWHeo6wBXMD/G4FTe8+IBKoJSMqWcj7LQg==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0YwtGUR2s4PpWGYyMWCSTXU52t0XCCtOupyeGD2a0iUcJGhS/uP4
+ JnTY8DE/qWkNd87MZpmt+g7pUgbdERD7WaKXeHQ7x21sIw+tfFZFwyvH
+X-Gm-Gg: AZuq6aJK4lX+rpN1GVmZoH4JSEvqS0q/8pc8YrRcLK+ZAnnls8BW+1QKK5y1LMCSkkI
+ 59a93hPSII/YajO6Ed4l84V1NpN6SONwf8ne4s4u6EFN68ltjFzAg8d10gUvTyULPbPJ8TtFslf
+ x7LQIi7/1dpM/nw2uHFpkfaQMW8CI5DtsxeDPIiGsD13GAenkFl1HdIsZ2HQAjiqREuJG6xwpLC
+ 9F/4OE9sDBxUNdyTkXCmw8Csc1kCoEax/AlhHaWe5Eh5dG2Wgtvmb5+cUSdMtlmKCzF1Gv5EQp8
+ zm3KLyZyiYxM16b6X1InvQ3LwUwPeG74P4pmtDINDaMVddKPs31Yqsib7lvMxtvU5VOItXlG6fX
+ gvwUtxRK0myDrlFJTfihcotLCO+DJxBW57Mgn5MzfRMeypjv7EshzYSuOPWOjBe6NmgcN/3MZ9O
+ FHLGPPP+BpE8Rw3QUhV5+2A83cLze+wWFpFXCNVTqF96rHVlyKUeaN
+X-Received: by 2002:a17:902:cf41:b0:29e:c283:39fb with SMTP id
+ d9443c01a7336-2a76b16a396mr20182525ad.52.1768920628516; 
+ Tue, 20 Jan 2026 06:50:28 -0800 (PST)
+Received: from kailas.hsd1.or.comcast.net ([2601:1c2:1803:3ab0::2e2b])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2a7193dd523sm127679975ad.62.2026.01.20.06.50.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 20 Jan 2026 06:50:27 -0800 (PST)
+From: Ryan Foster <foster.ryan.r@gmail.com>
+To: john.johansen@canonical.com
+Date: Tue, 20 Jan 2026 06:50:24 -0800
+Message-ID: <20260120145024.261806-1-foster.ryan.r@gmail.com>
+X-Mailer: git-send-email 2.52.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Zhengmian Hu <huzhengmian@gmail.com>, john@apparmor.net,
- apparmor@lists.ubuntu.com
-References: <20260120000307.369587-1-huzhengmian@gmail.com>
- <20260120000307.369587-2-huzhengmian@gmail.com>
-Content-Language: en-US
-From: John Johansen <john.johansen@canonical.com>
-Autocrypt: addr=john.johansen@canonical.com; keydata=
- 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 lT9Q
-Organization: Canonical
-In-Reply-To: <20260120000307.369587-2-huzhengmian@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH v2 1/1] apparmor: avoid per-cpu hold
- underflow in aa_get_buffer
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=209.85.214.179;
+ envelope-from=foster.ryan.r@gmail.com; helo=mail-pl1-f179.google.com
+X-Mailman-Approved-At: Thu, 22 Jan 2026 12:31:53 +0000
+Subject: [apparmor] [PATCH] apparmor: replace strcpy with strscpy
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -145,43 +85,93 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: paul@paul-moore.com, apparmor@lists.ubuntu.com,
+ linux-kernel@vger.kernel.org, jmorris@namei.org,
+ linux-security-module@vger.kernel.org, Ryan Foster <foster.ryan.r@gmail.com>,
+ serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
+X-Rspamd-Server: lfdr
+X-Spamd-Result: default: False [3.59 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DATE_IN_PAST(1.00)[45];
+	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
+	R_MISSING_CHARSET(0.50)[];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
+	MAILLIST(-0.20)[mailman];
+	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
+	MIME_GOOD(-0.10)[text/plain];
+	HAS_LIST_UNSUB(-0.01)[];
+	FORGED_RECIPIENTS(0.00)[m:john.johansen@canonical.com,m:paul@paul-moore.com,m:apparmor@lists.ubuntu.com,m:linux-kernel@vger.kernel.org,m:jmorris@namei.org,m:linux-security-module@vger.kernel.org,m:foster.ryan.r@gmail.com,m:serge@hallyn.com,m:fosterryanr@gmail.com,s:lists@lfdr.de];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_SENDER(0.00)[fosterryanr@gmail.com,apparmor-bounces@lists.ubuntu.com];
+	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
+	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TAGGED_FROM(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FREEMAIL_CC(0.00)[paul-moore.com,lists.ubuntu.com,vger.kernel.org,namei.org,gmail.com,hallyn.com];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	TAGGED_RCPT(0.00)[apparmor];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[fosterryanr@gmail.com,apparmor-bounces@lists.ubuntu.com];
+	RWL_MAILSPIKE_POSSIBLE(0.00)[185.125.189.65:from];
+	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:-];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FROM_HAS_DN(0.00)[]
+X-Rspamd-Queue-Id: 1DC4A66A9D
+X-Rspamd-Action: no action
 
-On 1/19/26 16:03, Zhengmian Hu wrote:
-> When aa_get_buffer() pulls from the per-cpu list it unconditionally
-> decrements cache->hold. If hold reaches 0 while count is still non-zero,
-> the unsigned decrement wraps to UINT_MAX. This keeps hold non-zero for a
-> very long time, so aa_put_buffer() never returns buffers to the global
-> list, which can starve other CPUs and force repeated kmalloc(aa_g_path_max)
-> allocations.
-> 
-> Guard the decrement so hold never underflows.
-> 
-> Signed-off-by: Zhengmian Hu <huzhengmian@gmail.com>
+Found by checkpatch. Replace strcpy() with strscpy() for safer
+string handling per KSPP recommendations.
 
-thanks, Acked-by: John Johansen <john.johansen@canonical.com>
+Two changes:
+- apparmorfs.c: gen_symlink_name() uses tracked buffer size
+- lib.c: aa_policy_init() uses exact allocation size
 
-I have pulled this into apparmor-next
+Link: https://github.com/KSPP/linux/issues/88
+Signed-off-by: Ryan Foster <foster.ryan.r@gmail.com>
+---
+ security/apparmor/apparmorfs.c | 2 +-
+ security/apparmor/lib.c        | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-> ---
->   security/apparmor/lsm.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
-> index 9b6c2f157..a6c884ba6 100644
-> --- a/security/apparmor/lsm.c
-> +++ b/security/apparmor/lsm.c
-> @@ -1868,7 +1868,8 @@ char *aa_get_buffer(bool in_atomic)
->   	if (!list_empty(&cache->head)) {
->   		aa_buf = list_first_entry(&cache->head, union aa_buffer, list);
->   		list_del(&aa_buf->list);
-> -		cache->hold--;
-> +		if (cache->hold)
-> +			cache->hold--;
->   		cache->count--;
->   		put_cpu_ptr(&aa_local_buffers);
->   		return &aa_buf->buffer[0];
+diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
+index 907bd2667e28..f38974231df2 100644
+--- a/security/apparmor/apparmorfs.c
++++ b/security/apparmor/apparmorfs.c
+@@ -1614,7 +1614,7 @@ static char *gen_symlink_name(int depth, const char *dirname, const char *fname)
+ 		return ERR_PTR(-ENOMEM);
+ 
+ 	for (; depth > 0; depth--) {
+-		strcpy(s, "../../");
++		strscpy(s, "../../", size);
+ 		s += 6;
+ 		size -= 6;
+ 	}
+diff --git a/security/apparmor/lib.c b/security/apparmor/lib.c
+index 82dbb97ad406..7cb393f91a10 100644
+--- a/security/apparmor/lib.c
++++ b/security/apparmor/lib.c
+@@ -487,7 +487,7 @@ bool aa_policy_init(struct aa_policy *policy, const char *prefix,
+ 	} else {
+ 		hname = aa_str_alloc(strlen(name) + 1, gfp);
+ 		if (hname)
+-			strcpy(hname, name);
++			strscpy(hname, name, strlen(name) + 1);
+ 	}
+ 	if (!hname)
+ 		return false;
+-- 
+2.52.0
 
 
