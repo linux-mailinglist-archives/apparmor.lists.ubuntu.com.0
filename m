@@ -2,93 +2,93 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OJQ6FwrYb2n8RwAAu9opvQ
+	id I3AQFQvYb2kKSwAAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Tue, 20 Jan 2026 20:31:22 +0100
+	for <lists+apparmor@lfdr.de>; Tue, 20 Jan 2026 20:31:23 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02D814A702
-	for <lists+apparmor@lfdr.de>; Tue, 20 Jan 2026 20:31:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E2444A71E
+	for <lists+apparmor@lfdr.de>; Tue, 20 Jan 2026 20:31:23 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1viHRU-0000zz-Fk; Tue, 20 Jan 2026 19:31:08 +0000
+	id 1viHRW-00010I-Sa; Tue, 20 Jan 2026 19:31:10 +0000
 Received: from smtp-relay-internal-0.internal ([10.131.114.225]
  helo=smtp-relay-internal-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <ryan.lee@canonical.com>)
- id 1viHRS-0000zj-9V
- for apparmor@lists.ubuntu.com; Tue, 20 Jan 2026 19:31:06 +0000
+ id 1viHRU-000104-IQ
+ for apparmor@lists.ubuntu.com; Tue, 20 Jan 2026 19:31:08 +0000
 Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com
  [74.125.82.199])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 1B5613FBD1
- for <apparmor@lists.ubuntu.com>; Tue, 20 Jan 2026 19:31:06 +0000 (UTC)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 696503FBDA
+ for <apparmor@lists.ubuntu.com>; Tue, 20 Jan 2026 19:31:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20251003; t=1768937466;
- bh=zsQsyBCejB/Fvx8zDTMnZxaLwgNvLvHWb04mK5Y+/mc=;
+ s=20251003; t=1768937468;
+ bh=RlWWnxcx+7S/ZPnCsvCSgGucUIQO8rpn0wP//wj4hLI=;
  h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
  MIME-Version;
- b=Pdj/NfMZqmCmqrb6cj+3mYojdOnnob58+nbIP8r5h8DgI0TmdBKPC7WnbYCTLCutE
- S+grDQkDGqcTOYDRZGoLnbjpDN8QO1Bx3rKEhN5MEluEnfDK6+7NSE3nC6tuv1kaA0
- WiEN58V4w2JKIoKi6srwKVRPdRJLK/NHHzV2Bmdf29gpStqhHVBAc6cYhCjncXu/iX
- oA4dNKdsyiA+YORKqhEhUoxV512/JYYqgq9XcVa4eVTsHvgnC0lLRp+hkRzhk9yooI
- 3ftvu+j4GH08oCx4qVuuta+gNFdG9ZG2N6BrGF4r0sroyk9BzIn607dbUrsvUBF3op
- 47kK0IQ4e167H+S0IBkdjSstiusHzOWiSg5tD41UyEgd7FQQZvafMmeYAqmLiWd05S
- FUvQlrFSoI/3pEqrGYFxemNyrRJai05RxOQqXA4TTe0uqb//GCeG7HPtrzSYL/vpWT
- DbDv/Npu4cTmNjffodxhnYREe/V1LM4Ge2D2O977HwZihH1oNgRuPpG4iSyq5BDL38
- xvKKAXPMI5b3zD227lB7sRFfnstSH+tVMbgSyV9+CS9zDJAYHGKChrosw2A8UD9F8V
- N03K/G/QwG1EVYR7jIkC4fzg/ITEmtYcH+AsJ/VTg/tcppdIdF2N1APFgZUDwkHFmD
- dNjTFOrRIjoNCds/ByGxEmqw=
+ b=MHBNWkfZQWgVArWGIlWr1aeb+Xzoy3//lSyzxvAafIHOIuvWDwZpw1tmTeBE1I0G6
+ xX7qPrjUzcDvxtUgnziOOZySdc+Q4zqzxnMD/7wAKFgwz3Vn+p5X3DO8jMzA3wVp17
+ MtxQBCqNO8WGAJfVCxldSFDjOp7Rtxvt3r9r2VgPHx7otcwBleztFfrXKY3BZZe0OU
+ /cTYJ9edPX2PZMseAGG7ewvO1y8XSFjqHqU/iMxAu1J/rxfyWJop514yU4V/pEjz8N
+ JnhRHoXL5CM6HSw7NYw7ibH8tS3txWtEChhmqcvEIvD7LEldwmReDNKRQaVJ/tVThr
+ cnt2hO78BljcyW5EXowVIvPZGTyOzKNwb8993XVa98NsLERYIRdHxN9f2e4py/0/Tk
+ 2eyunnbSR/outNqK2NjAMA785cSmTicwKYe8apcxwqLZrbDpcQWuLrecE8XaDnVtPT
+ HfewHlhgElnREy9WGqMKvM2R6oM8kG5Sgj69XvC7HLNsIzQr3228XHOzemkUqhTptS
+ 4Gt+SXc5+2Dkvla4wxhhejZ197G7ZooDEcXeveJqzLKR7XjR0JZ9snIbSHqf/F4ZZb
+ VL8mynlVy0N1NFrkg6W72jYRIdq6sEh2MkLNCFGOtAEryfOPszyGLswsmEMQp9P2G4
+ PWu/D8UfCQSqC1M0FXi+P3rI=
 Received: by mail-dy1-f199.google.com with SMTP id
- 5a478bee46e88-2b6be90b6d1so192561eec.1
- for <apparmor@lists.ubuntu.com>; Tue, 20 Jan 2026 11:31:06 -0800 (PST)
+ 5a478bee46e88-2b6e793cc0bso2082103eec.1
+ for <apparmor@lists.ubuntu.com>; Tue, 20 Jan 2026 11:31:08 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768937465; x=1769542265;
+ d=1e100.net; s=20230601; t=1768937467; x=1769542267;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=zsQsyBCejB/Fvx8zDTMnZxaLwgNvLvHWb04mK5Y+/mc=;
- b=S16iLnuiDBp39yGAOV/utioYCFdxHiPmp3zfqqbeqL/mAV9qnfUhNkLD3x/yXYA4se
- s4OUD+o7ivuK1dbmUrbd8bNsmmkifH4FOXUXZpGd9hsy3/PFJ8Nr7L9tbN9HfFnaHE81
- mRTAQzwkCDQYkHN6CLR25w4ZihlyUPiyzBxWcRsHqkaGSVgMbHemSCgmUCpy5pidpS/X
- 6r49HTZTlhcq1KTrFc2G+0K3fHeU9VjH55IUi4Wd3n72ZQF6XIv3B+4Q2SMtXXozb2Gc
- XAC00Nr2prXwDL6STbYyvS15pURmgzJ1lEO6fZ3vsFOxTebSVuyPVjdC8ECZB5vaxKwf
- H63g==
-X-Gm-Message-State: AOJu0YxvnyuIxzl1aMZx3cD822njy6WsE3aEOavAH3VguFLkNcbzSiST
- 0NzYzm+ZgHI8pXPbswgL1Ub1wnrdF79FgdY1uy8o2T/wwVW/yd3v10eeUCXm4NrkI+KjKdRio44
- ywQUl14maMPZLg42Yd6Yvv8Pm/baylLi2VyARs0AAF8eu/JqFQCzKvXWTbcaIHgABIzoicQe+rN
- Mg5WJM0jx3Bg==
-X-Gm-Gg: AZuq6aLErMF2faoGSHbqnZX67ehsafS9zSTBYUEH98uSxuUWLaNGbYozQc0OaVcmsvv
- c4TyYZTtS20hx5lzABDZjDgtnBN0O1D7gsAxWxkP53PLroLhFs2dLM7gSX07IT92mAMpzQmWxYa
- pYcHdbAEp3R1lsej39dCLP9ShEeLm8D2I+g+9IG6U0ULLDQ2+oTvhdAiasaQMtpVJ5GcfpGAMSA
- J2SbJKETBXZeDB/4SMtOToJyNc28byMjMhWrsmxI0o3AxZo7vfyBtQ/SCImsXN0Fr8/xrlBfpDS
- 9Kk6xO1Qe5cVNDZ7sjt26lplIFoVtnmB+V1wfLivlDf/Wfbjx1wH2PFf9L67rIeNekyh/e5w+lc
- 2cq5lmTX1+9VbUwXkyzHbOueUUOtr0l3GBPKAafGMMm5ouhsV/vzp1R2VDubd9blidbs=
-X-Received: by 2002:a05:7300:fb94:b0:2b6:bd8c:4903 with SMTP id
- 5a478bee46e88-2b6fd7ed928mr1767801eec.1.1768937464675; 
- Tue, 20 Jan 2026 11:31:04 -0800 (PST)
-X-Received: by 2002:a05:7300:fb94:b0:2b6:bd8c:4903 with SMTP id
- 5a478bee46e88-2b6fd7ed928mr1767778eec.1.1768937464175; 
- Tue, 20 Jan 2026 11:31:04 -0800 (PST)
+ bh=RlWWnxcx+7S/ZPnCsvCSgGucUIQO8rpn0wP//wj4hLI=;
+ b=co76Igk/s3hlgmqOFFk3p2BVPEfz7/3oremFiwgGa3PxG60e+RTCVq63VXwWBIAF8Z
+ 6Q5Ki2QsR0yGndahULMhPQ/gNXCjAk8y6DtJ8wctQfcgk1NqC4ZVauqxycP88NSvVl94
+ +rMHcWLkea/xAJaIPvURkuStEshEibnTyqCjVMc0qwMnuuiztAz7qnIy0AQCxe++cFTT
+ sx5jVD70fOeO3blJ2ioh7TtoJ46tCmHlW2YyEBHD/eTwzOkrKaKUwCJ6AIkBBl3cHBYy
+ g+ilb6EkclD2JwON7UHDLiVeFrQPMzJoAH0yYaEhTZR7YEbf7ibVUIYaw3sZMklKbbOD
+ RM6w==
+X-Gm-Message-State: AOJu0Yy/AL6oXrzDFWpMfIqQK/coF+B1sQyBf7HYa6R20w2Ot7TYK+l0
+ lpkAo5NpiAzFpnt5+i/o/0/ILzYrr5whelQYvNTfIlFr33dWlm0z8mwpDmcxdBCA6Yy5rG9Iwbp
+ i7ktxeqSwXuxJH5zT3AlL/yENzu/QrY/Iy+EnD93RLT4X6APPkMhgapfmQ3nEqMmLMzf313S+f5
+ 4LgM7YQkJxXg==
+X-Gm-Gg: AZuq6aJmUTL00URprcjwbaQ1Cg9hrQoWkU5mywJ2ZtkP86YaUh63OYQZU+guumH4HOx
+ m64ltRmk9llLdGcRc6sWa7RwZkbNK6U0vIddPt+v4UZBwHn7JQC1KcM+6Uagr09vPYw3LZxLrWU
+ HR/4Y2RTrx+L05hjU/EMsH9eQs5wAoEu52OHrtZuP1hd2eGkAruWv5O0UyYDZP7fhrox9GMSD0i
+ U9a8Tessew4LSO7AMNKw+ZXj8/CAw6P5mBXTVFCFvMxW6+tqR+kUrcT7+uOUsvlIasc9a/FytxR
+ cI9BmC/kBiszQRi+XO7vNTJi89sT9nQcvLU/bj62EccyMU35MKq4JY+EMplA4vlPCbT/b36DdLQ
+ 6uX4CNPUcm2496mz4TtO5AcBVqttmxh1kKghaQ5J+XCrZ/xIaHBAsd7bqZjzNNakEZ6E=
+X-Received: by 2002:a05:7301:7c0e:b0:2b0:4c12:d74d with SMTP id
+ 5a478bee46e88-2b6fd746d53mr1871451eec.15.1768937466612; 
+ Tue, 20 Jan 2026 11:31:06 -0800 (PST)
+X-Received: by 2002:a05:7301:7c0e:b0:2b0:4c12:d74d with SMTP id
+ 5a478bee46e88-2b6fd746d53mr1871427eec.15.1768937466071; 
+ Tue, 20 Jan 2026 11:31:06 -0800 (PST)
 Received: from ryan-lee-laptop-13-amd.. (c-71-202-93-145.hsd1.ca.comcast.net.
  [71.202.93.145]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-2b6fc2820a2sm3641399eec.35.2026.01.20.11.31.02
+ 5a478bee46e88-2b6fc2820a2sm3641399eec.35.2026.01.20.11.31.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Jan 2026 11:31:03 -0800 (PST)
+ Tue, 20 Jan 2026 11:31:04 -0800 (PST)
 From: Ryan Lee <ryan.lee@canonical.com>
 To: apparmor@lists.ubuntu.com
-Date: Tue, 20 Jan 2026 11:30:47 -0800
-Message-ID: <20260120193050.78700-2-ryan.lee@canonical.com>
+Date: Tue, 20 Jan 2026 11:30:48 -0800
+Message-ID: <20260120193050.78700-3-ryan.lee@canonical.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260120193050.78700-1-ryan.lee@canonical.com>
 References: <20260120193050.78700-1-ryan.lee@canonical.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [apparmor] [PATCH 1/2] apparmor: introduce
-	adaptive_current_label_crit_section helpers
+Subject: [apparmor] [PATCH 2/2] apparmor: use
+	adaptive_current_label_crit_section helper in common_file_perm
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -107,96 +107,55 @@ X-Spamd-Result: default: False [3.99 / 15.00];
 	R_DKIM_REJECT(1.00)[canonical.com:s=20251003];
 	MID_CONTAINS_FROM(1.00)[];
 	R_MISSING_CHARSET(0.50)[];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[ryan.lee@canonical.com,apparmor-bounces@lists.ubuntu.com];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	ARC_NA(0.00)[];
 	DKIM_TRACE(0.00)[canonical.com:-];
-	RCPT_COUNT_ONE(0.00)[1];
-	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	TO_DN_NONE(0.00)[];
-	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
-	TAGGED_RCPT(0.00)[apparmor];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:rdns,lists.ubuntu.com:helo];
+	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
+	RCVD_COUNT_FIVE(0.00)[5];
+	TAGGED_RCPT(0.00)[apparmor];
+	RCPT_COUNT_ONE(0.00)[1];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:rdns,lists.ubuntu.com:helo]
-X-Rspamd-Queue-Id: 02D814A702
+	TO_DN_NONE(0.00)[]
+X-Rspamd-Queue-Id: 3E2444A71E
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-These helpers encapsulate selection logic that chooses between the atomic
-and the non-atomic versions of the current_label_crit_section helpers,
-allowing dynamic selection when atomicity is conditional.
+common_file_perm can be called from both non-atomic and atomic contexts,
+so select the atomic or non-atomic version accordingly.
 
 Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
 ---
- security/apparmor/include/cred.h | 38 ++++++++++++++++++++++++++++++++
- 1 file changed, 38 insertions(+)
+ security/apparmor/lsm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/security/apparmor/include/cred.h b/security/apparmor/include/cred.h
-index b028e4c13b6f..d5e7d4203ac5 100644
---- a/security/apparmor/include/cred.h
-+++ b/security/apparmor/include/cred.h
-@@ -142,6 +142,24 @@ static inline void end_current_label_crit_section(struct aa_label *label)
- 		aa_put_label(label);
- }
+diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
+index a87cd60ed206..834f91cb3278 100644
+--- a/security/apparmor/lsm.c
++++ b/security/apparmor/lsm.c
+@@ -531,9 +531,9 @@ static int common_file_perm(const char *op, struct file *file, u32 mask,
+ 	if (unlikely(file->f_path.dentry == aa_null.dentry))
+ 		return -EACCES;
  
-+/**
-+ * end_adaptive_label_crit_section - end crit section begun with begin_adaptive...
-+ * @label: label obtained from begin_adaptive_label_crit_section
-+ * @needput: bool obtained from begin_adaptive_label_crit_section
-+ * @in_atomic: whether we are in an atomic section
-+ *
-+ * Adaptively calls either the atomic or nonatomic version of
-+ * end_current_label_crit_section depending on in_atomic
-+ */
-+static inline void end_adaptive_current_label_crit_section(
-+	struct aa_label *label, bool needput, bool in_atomic)
-+{
-+	if (in_atomic)
-+		__end_current_label_crit_section(label, needput);
-+	else
-+		end_current_label_crit_section(label);
-+}
-+
- /**
-  * __begin_current_label_crit_section - current's confining label
-  * @needput: store whether the label needs to be put when ending crit section
-@@ -196,6 +214,26 @@ static inline struct aa_label *begin_current_label_crit_section(void)
- 	return label;
- }
+-	label = __begin_current_label_crit_section(&needput);
++	label = begin_adaptive_current_label_crit_section(&needput, in_atomic);
+ 	error = aa_file_perm(op, current_cred(), label, file, mask, in_atomic);
+-	__end_current_label_crit_section(label, needput);
++	end_adaptive_current_label_crit_section(label, needput, in_atomic);
  
-+/**
-+ * begin_adaptive_label_crit_section - current's confining label
-+ * @needput: output bool of whether label should be put
-+ * @in_atomic: whether we are in an atomic section
-+ *
-+ * Adaptively calls either the atomic or nonatomic version of
-+ * begin_current_label_crit_section depending on in_atomic
-+ */
-+static inline struct aa_label *begin_adaptive_current_label_crit_section(
-+	bool *needput, bool in_atomic)
-+{
-+	if (in_atomic)
-+		return __begin_current_label_crit_section(needput);
-+	else {
-+		/* Value is not used in this case but still initialize it */
-+		*needput = false;
-+		return begin_current_label_crit_section();
-+	}
-+}
-+
- static inline struct aa_ns *aa_get_current_ns(void)
- {
- 	struct aa_label *label;
+ 	return error;
+ }
 -- 
 2.43.0
 
