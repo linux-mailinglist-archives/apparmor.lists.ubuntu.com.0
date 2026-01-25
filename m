@@ -2,85 +2,55 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +AHIBjZBd2mMdQEAu9opvQ
+	id HDpWHo0Hdml3KwEAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Mon, 26 Jan 2026 11:25:58 +0100
+	for <lists+apparmor@lfdr.de>; Sun, 25 Jan 2026 13:07:41 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id D120A86DC8
-	for <lists+apparmor@lfdr.de>; Mon, 26 Jan 2026 11:25:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F251380743
+	for <lists+apparmor@lfdr.de>; Sun, 25 Jan 2026 13:07:40 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vkJmv-0004zU-1K; Mon, 26 Jan 2026 10:25:41 +0000
-Received: from mail-pl1-f182.google.com ([209.85.214.182])
+	id 1vjytk-00073Y-CU; Sun, 25 Jan 2026 12:07:20 +0000
+Received: from bout4.ijzerbout.nl ([91.99.166.32])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <sakamo.ryota@gmail.com>)
- id 1vjx0N-0006nW-MF
- for apparmor@lists.ubuntu.com; Sun, 25 Jan 2026 10:06:03 +0000
-Received: by mail-pl1-f182.google.com with SMTP id
- d9443c01a7336-2a09757004cso34386195ad.3
- for <apparmor@lists.ubuntu.com>; Sun, 25 Jan 2026 02:06:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1769335562; x=1769940362; darn=lists.ubuntu.com;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=4Xnf6p+2Hlq5eWfuvYyYtXu3LZrwEbd4KRfL66TNxW0=;
- b=CsN64C0/LGYEPaR9uztDcM6aTFCYM8iznuWBZVyc5JTjYnG9LiZZNJ98chFoAau/RD
- lRdHA9TA7J5wBpvhACzsONa8lMoeJXqhWdvzWCIdHh4UeuuM8gh2Wa/S1QDI1ev8xGzB
- Fk3Pg6qT4mFm+p4TciXsN0iPL2C2OvA63DzwQirboPSVVVJcpOiWwO0yUPiDlMgm8w95
- LXdss88pP5k2sVzfQKmPFPpO6/UjqV2wIk5rDFZewpZyV+Cz8NCWDgzaKl2+rIQbQBts
- pgWMn2V6nq187fiF1W9GM1Bz7xIyTFAyGakEEj0Y7VI7N1FjwU1Sp8xsBrDAuivVb5eq
- Ttww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769335562; x=1769940362;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=4Xnf6p+2Hlq5eWfuvYyYtXu3LZrwEbd4KRfL66TNxW0=;
- b=QklXeQOSfX0E7AaHxPqHF9gNIxCY8zIiBSiG6TTM40hZOxMXNptN5eLsVAouDxfqHJ
- PcpRP6cVMN+vQ5jnApG4vWIvK0xtwaiypJAZqEpjuOJckfGi9Iug0cOXgdx1Pnc1+7Ow
- aUk+H8HxC+lsSBiablFHXx5OFEIEiO+zPjYpSOG/ourKSXk0qEqV10Okxyg658nfR1xs
- UgHqVqj1ZG5wbYG5F0K+kyTYlhHrsBCwwRSNF//lPJ3qxRTEihKwMMwROtn+udu23uFq
- +QRsK/NtWi0ZiZoou7B94pLLVAkE1ZiqfAoZ513zBW4DYxIYt3xTGhAb5gPqYesem3Wj
- LNiA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXIWPYqdQ71O0+OkDnv6nPb9ewXCJdWk7BVoQ2mVoGdUTN2viB/z9c8u4K0zGnTVmpEDvcGPO/nfA==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0YyIWqjk6pcH100b5HxDWP8DN6SYVqGprMjpVfs637ibXuTJwtrD
- ocVBj9vPs2dex/U6aVtuuKYLOj5iOHSCUiTNt0vQxl5iw9vmGDttPIqR
-X-Gm-Gg: AZuq6aLVbHYAVeTt6LLRJ9arypd3RsYPJpFO5mumXVlnjrDPODLakNQ10RhY0CWes+H
- B20NjBE/64WJhlIhPQUOTaIzxCvBkutXAn1i7SeKPJVFXQhL2IsgFKeTgViPWDMssDX/10deS7m
- VWfrfY8SPUUv1Lf2OR7ZX+a3lcBrzQ4kb98QYPewggCUwirq/ijcgo9HDvyg/LIF+f/909sWN7B
- i0800NSdtXD54O3lj/DNG9FTobj0hOkOCd5iQ3IIvhz6B1TX3aoi0kNdE2OCJ66TwMlCUWiysZC
- mWwEzSX6EBZ9uhHllObq+UxktHKycgprBbWll/vScU3q6pIk2oZh66oJVLljoWdthy2H8dQ8b+v
- 2470zVrgrQOgOoXVAJb4f7ZQcQGIwbEv7zZnbL8sHvBdzKt4Y6mOOoT5Tst3FIfQmOjQY62VQTk
- ATrCO3wh6SaItzTxAlm28=
-X-Received: by 2002:a17:903:2351:b0:2a0:c1be:f436 with SMTP id
- d9443c01a7336-2a845336da4mr12371785ad.59.1769335561700; 
- Sun, 25 Jan 2026 02:06:01 -0800 (PST)
-Received: from [172.16.80.107] ([210.228.119.9])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2a802dcdb8csm64627475ad.31.2026.01.25.02.05.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 25 Jan 2026 02:06:01 -0800 (PST)
-From: Ryota Sakamoto <sakamo.ryota@gmail.com>
-Date: Sun, 25 Jan 2026 19:05:48 +0900
+ (Exim 4.86_2) (envelope-from <kees@ijzerbout.nl>) id 1vjyti-00072y-Q1
+ for apparmor@lists.ubuntu.com; Sun, 25 Jan 2026 12:07:18 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ijzerbout.nl; s=key;
+ t=1769342838; bh=MxzEKi06xfeVctcJCvrOZfXwOULBPXEV7rjxyr5Su0k=;
+ h=Date:Subject:To:References:From:In-Reply-To:From;
+ b=aP2iPEDXiHpYUX2efQFFzYccsSsoyIm8XcPBtxFmZ2lRnUz20IeUjE1LUwe7/H7FV
+ Hdnqx7Fp6ga0WUUw8iAK5SY4XO8xauz9VB2OTRNMrgprhvBC61Od8Ob0zIi3rdEbfr
+ 0ZWDyVC/2Djd58C5kFXmFpWl8VgChUGjOAHqSUGebkjMRFaEv7bXEsfQs5X+fJdYm5
+ 5+MCWUH0Z+kqAwW1p/EPopdlw+CBEF5uPiLVHIj12KPgcJU1VMkq5XPsXgacxdECeI
+ cI1j1hGt1DHae61EhqtrN/dOZQ8CBinPjuxinkcrClb+L8CUOGpuQvHScqqAo56Der
+ cDOR8qFsnG0L/VDEJBz6foR3clNyiwgJdUa3Q25C9v8YwA84fES/3kMqyFMq7vOiv+
+ l42wAvscqx0D21uYyQh+QOO/RMnv/wvNhWMOIFcCaIkVJnOJf+vg8GlsG9xKTUZDA6
+ K1PImmb0yWQup8Vke7fhMQr5yU8w433i4poGiXCP+N8ykr+1oSE8kwE9+QxvSxLv6s
+ WfPlaG2rADpGAqZOOYS6uBOhljQ+EwNx6bt20LJLx2QxQzgQvLWs0juyj4AHCWqLwN
+ 2o7vkaggVcAsS/okzbqfb2yO4NrOe0I+CXQxM17tGyizxK+blHZ94+K1sQoxTpdr6c
+ 2+mlCCbE5HvQRGeZhB0qDXNI=
+Received: from [IPV6:2a10:3781:99:1:aaff:e11f:3a25:db5a] (unknown
+ [IPv6:2a10:3781:99:1:aaff:e11f:3a25:db5a])
+ by bout4.ijzerbout.nl (Postfix) with ESMTPSA id 36288414D8
+ for <apparmor@lists.ubuntu.com>; Sun, 25 Jan 2026 13:07:18 +0100 (CET)
+Message-ID: <ee6202a3-6e72-42c3-8374-4b8c709e70bd@ijzerbout.nl>
+Date: Sun, 25 Jan 2026 13:07:15 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260125-add-apparmor-kunitconfig-v1-1-e815cec415df@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MTQqDMBBA4avIrB1I4g/SqxQX02TUoTQJE1sK4
- t0NLr/FewcUVuECj+YA5Z8USbHCtg34jeLKKKEanHGjsW5ACgEpZ9JPUnx/o+w+xUVWdBO9qO+
- 8HSYDNc/Ki/zv9XM+zwtQAe6dagAAAA==
-X-Change-ID: 20260125-add-apparmor-kunitconfig-28aba43c1580
-To: John Johansen <john.johansen@canonical.com>, 
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
- "Serge E. Hallyn" <serge@hallyn.com>
-X-Mailer: b4 0.14.2
-Received-SPF: pass client-ip=209.85.214.182;
- envelope-from=sakamo.ryota@gmail.com; helo=mail-pl1-f182.google.com
-X-Mailman-Approved-At: Mon, 26 Jan 2026 10:25:39 +0000
-Subject: [apparmor] [PATCH] apparmor: add .kunitconfig
+User-Agent: Mozilla Thunderbird Beta
+To: apparmor@lists.ubuntu.com
+References: <034d652f-ebdc-4d9a-8f7f-05c5596b23e5@ijzerbout.nl>
+ <e4903a39-6883-43ad-90e7-824c035e6d52@canonical.com>
+Content-Language: en-US
+From: Kees Bakker <kees@ijzerbout.nl>
+In-Reply-To: <e4903a39-6883-43ad-90e7-824c035e6d52@canonical.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=91.99.166.32; envelope-from=kees@ijzerbout.nl;
+ helo=bout4.ijzerbout.nl
+Subject: Re: [apparmor] Need assistance with DENIED userns_create for
+ non-root podman inside an Incus container
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -92,85 +62,94 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Ryota Sakamoto <sakamo.ryota@gmail.com>,
- linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
- linux-kernel@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.09 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DATE_IN_PAST(1.00)[24];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
+X-Spamd-Result: default: False [-1.21 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[ijzerbout.nl,reject];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
+	R_DKIM_ALLOW(-0.20)[ijzerbout.nl:s=key];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	ARC_NA(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[];
-	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_RECIPIENTS(0.00)[m:john.johansen@canonical.com,m:paul@paul-moore.com,m:jmorris@namei.org,m:serge@hallyn.com,m:sakamo.ryota@gmail.com,m:linux-security-module@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:linux-kernel@vger.kernel.org,m:sakamoryota@gmail.com,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER(0.00)[sakamoryota@gmail.com,apparmor-bounces@lists.ubuntu.com];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	MID_RHS_MATCH_FROM(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
-	FROM_NEQ_ENVFROM(0.00)[sakamoryota@gmail.com,apparmor-bounces@lists.ubuntu.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org,lists.ubuntu.com];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	TAGGED_RCPT(0.00)[apparmor];
-	DKIM_TRACE(0.00)[gmail.com:-];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_ONE(0.00)[1];
+	DKIM_TRACE(0.00)[ijzerbout.nl:+];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns]
-X-Rspamd-Queue-Id: D120A86DC8
+	ARC_NA(0.00)[];
+	TO_DN_NONE(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[kees@ijzerbout.nl,apparmor-bounces@lists.ubuntu.com];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
+	MID_RHS_MATCH_FROM(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	TAGGED_RCPT(0.00)[apparmor];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[ubuntu.com:url,lists.ubuntu.com:helo,lists.ubuntu.com:rdns]
+X-Rspamd-Queue-Id: F251380743
 X-Rspamd-Action: no action
 
-Add .kunitconfig file to the AppArmor directory to enable easy execution of
-KUnit tests.
-
-AppArmor tests (CONFIG_SECURITY_APPARMOR_KUNIT_TEST) depend on
-CONFIG_SECURITY_APPARMOR which also depends on CONFIG_SECURITY and
-CONFIG_NET. Without explicitly enabling these configs in the .kunitconfig,
-developers will need to specify config manually.
-
-With the .kunitconfig, developers can run the tests:
-  $ ./tools/testing/kunit/kunit.py run --kunitconfig security/apparmor
-
-Signed-off-by: Ryota Sakamoto <sakamo.ryota@gmail.com>
----
- security/apparmor/.kunitconfig | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/security/apparmor/.kunitconfig b/security/apparmor/.kunitconfig
-new file mode 100644
-index 0000000000000000000000000000000000000000..aa842a0266e9d33c3333ec2ea180206187b0eb4c
---- /dev/null
-+++ b/security/apparmor/.kunitconfig
-@@ -0,0 +1,5 @@
-+CONFIG_KUNIT=y
-+CONFIG_NET=y
-+CONFIG_SECURITY=y
-+CONFIG_SECURITY_APPARMOR=y
-+CONFIG_SECURITY_APPARMOR_KUNIT_TEST=y
-
----
-base-commit: d91a46d6805af41e7f2286e0fc22d498f45a682b
-change-id: 20260125-add-apparmor-kunitconfig-28aba43c1580
-
-Best regards,
+Op 25-01-2026 om 04:44 schreef John Johansen:
+> On 1/24/26 07:37, Kees Bakker wrote:
+>> Hi,
+>>
+>> My setup is a Ubuntu24 with an Incus server (6.20).
+>> One Incus container runs Fedora 43 where I want to run non-root podman.
+>>
+>> Inside the container
+>>
+>> [root@f43 ~]# sudo -u fedora -i
+>> [fedora@f43 ~]$ podman run -t -i hello-world
+>> cannot clone: Permission denied
+>> Error: cannot re-exec process
+>>
+>> On the Ubuntu24 host I see this in journalctl
+>>
+>> jan 24 16:33:41 rapper kernel: audit: type=1400 
+>> audit(1769268821.264:1554): apparmor="DENIED" 
+>> operation="userns_create" class="namespace" info="Userns create 
+>> restricted - failed to find unprivileged_userns profile" error=-13 
+>> namespace="root//incus-f43_<var-lib-incus>" profile="unconfined" 
+>> pid=2332667 comm="podman" requested="userns_create" 
+>> denied="userns_create" target="unprivileged_userns"
+>>
+>> My question, what do I have to do on the Ubuntu24 server to allow 
+>> running non-root podman?
+>> Any help or suggestion is greatly appreciated.
+>
+> you are encountering the unprivileged user namespace restriction(1-5).
+>
+> You either need to confine the container, giving access to user 
+> namespaces, or you need to disable the restriction.
+>
+> to temporarily disable you can do
+>
+>   sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+>
+> to permanently disable
+>
+>   sudo bash -c "echo kernel.apparmor_restrict_unprivileged_userns=0 > 
+> /etc/sysctl.d/60-apparmor-namespace.conf"
+>
+>
+>
+> 1. 
+> https://gitlab.com/apparmor/apparmor/-/wikis/unprivileged_userns_restriction
+> 2. 
+> https://discourse.ubuntu.com/t/understanding-apparmor-user-namespace-restriction/58007
+> 3. https://discourse.ubuntu.com/t/plucky-puffin-release-notes/48687
+> 4. 
+> https://ubuntu.com/blog/ubuntu-23-10-restricted-unprivileged-user-namespaces
+> 5. 
+> https://discourse.ubuntu.com/t/spec-unprivileged-user-namespace-restrictions-via-apparmor-in-ubuntu-23-10/37626
+>
+>
+Thank you for the links.
+I now have quite a bit of reading to do :-)
 -- 
-Ryota Sakamoto <sakamo.ryota@gmail.com>
-
+Kees
 
