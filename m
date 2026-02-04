@@ -2,144 +2,70 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 8M5fE/kBg2lGggMAu9opvQ
+	id yE9nMHwmg2kxigMAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Wed, 04 Feb 2026 09:23:21 +0100
+	for <lists+apparmor@lfdr.de>; Wed, 04 Feb 2026 11:59:08 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 051CDE315E
-	for <lists+apparmor@lfdr.de>; Wed, 04 Feb 2026 09:23:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78573E4D6E
+	for <lists+apparmor@lfdr.de>; Wed, 04 Feb 2026 11:59:08 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vnY9s-0006yN-Mt; Wed, 04 Feb 2026 08:22:44 +0000
-Received: from smtp-relay-internal-0.internal ([10.131.114.225]
- helo=smtp-relay-internal-0.canonical.com)
+	id 1vnaaz-0005n9-2Y; Wed, 04 Feb 2026 10:58:53 +0000
+Received: from mgamail.intel.com ([198.175.65.10])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1vnY9r-0006yB-O3
- for apparmor@lists.ubuntu.com; Wed, 04 Feb 2026 08:22:43 +0000
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
- [209.85.216.70])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 846FD40374
- for <apparmor@lists.ubuntu.com>; Wed,  4 Feb 2026 08:22:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20251003; t=1770193363;
- bh=fnu5fidMh9uXV7OSySPR42Ndmsbyued3h42jFd0q6Wc=;
- h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
- In-Reply-To:Content-Type;
- b=gosvyoxLJuBHrmNytQERSUh40GJYj4w7DzX3X3Q5N8xpab1yowg1nenzoDS32EgNa
- CsHO+XOunyVSg7nXHg98IDVlpeBoTIXwLv8uy0n38hJd1hhLJyhTr+AHViuFWc0UPD
- iegeAcibd/bUSYxVjs8q+Y6kfcnYacgfVkF0qyX/oX8LPqWgaP1X4uHguAlgOn2ygu
- 2mBLTn3zxn5sNec4RyW2FFLmJ/PM3Rd2d7kAqnPmbuuwMvFaLTHdbXpwRHlg18Pz33
- pQZy6/59j7+GK2Oz5qNh37WE4/HDFvWbX4K4UH0SUhiRs1wY3yO+RgmKZ8WjFWuekU
- xdiHeHfFucP+nHGk7t6MxRpVhKBfDERIihC9xu47xUYmZgRbSwmBVOnnnbZluQbqzc
- CDU0qYd2VHJ4XPxc6tZUujDN9OEOag07GRWdgV2qwfzOILdJyv1e8K1qZMhpbH0TTz
- nmJR7mQ4odU+e25vuV6WcQO81iKMKiBjiQpcjr2lgJYWIWuxfzW44QIWl/jYvSWuAb
- UYnMjNCvDvaTLPFft/cUNDmf0ZDSYD4D2lduQPAy3k5JNDvSK3+bIxatJ0Nwnc0uBi
- O0m4s3ip0tDyKtt3sFrV6+LqfKnUMS7NlnyCo8bUWbo6C+hNTZQh0No1U23zVLIbhz
- /tNsDPsxOTUujWYWLWsxYONc=
-Received: by mail-pj1-f70.google.com with SMTP id
- 98e67ed59e1d1-34cc8bf226cso5997612a91.3
- for <apparmor@lists.ubuntu.com>; Wed, 04 Feb 2026 00:22:43 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1770193362; x=1770798162;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=fnu5fidMh9uXV7OSySPR42Ndmsbyued3h42jFd0q6Wc=;
- b=oiyWt85cegFbmATa3Cb0jFTAgb+cojYG4btsTQjLzzSZ+YXcAIu6YfgBxIRBdyyqDe
- H7nGAV/xL0AWFsDq5iUPh59aIbc6E9VirQwiRwpTGnWGK5MppG6WP/q9xfy84ksgrNpC
- hIRB4VKgl3tiSy0hVq/H0JOt7O94xgjsOOQweUlSSvey7xO7H/HxPK4b3iOh6Znu3vJO
- JgDR3mXCAQcyLssvHSYKLxEqB/uKBlBl1rEUMqFEndrCt079rqKb1tIuedV1a48V34wy
- oaNIn3FofZokKiOjMyrDFvtBT0wRkUah0/MB8bm9fJyq+YrkfD4CfxNg8++SpF+GZS2X
- 1dBQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXYlPuZI9+rwITJIMM+MYg+mh/oezvqD3Fo99NHQk5QJmg3V8wqbZdTj6+4oH+tu/ooc7sqdJHQ6A==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0Yzj36O1xyYgscOogomwegV1eiboWEpZzpZJ5Eg3u1zVXcOPDle3
- brlGYELDOc260vczDQrsDOD+Z9bAQV2SjqIV+bmjyi3KvoCMgU5WO0TM4n6MWDq8zsXSVEpYteB
- wGUAPtHkXsndtAPa5u62XGUNPuk+ZtMEXree7q7onqbkc6aqVkv6uZNxz/dLxsTdqS4DB/in00g
- 2UCA==
-X-Gm-Gg: AZuq6aINlhkfA/0vUz/G1V9NSRLKsrjDYkGV+e7a47wZ1ros+EI42vk9V3+US7uN1Gu
- j6eJYc/ke5zb0at5s/roOM/vozQPeFb0tHQb7C0aaegtQuMSijYChYUQrqgkpxRUS/3s5D8OPoY
- hfggxZEYryHBe3UURF+jcgwDJCSgbcn6zqhzcl1qfQMT47PgOzJEImmB0A4kOSKw/ez/FlM84G3
- dexZtsfRggEBNgGKUrSfF1PzWofVvMnxBIL4qwNxZSbbphdhulZtQrt2jfk2fxtGwekIHSP2uR8
- 9J1LNiCga1+dJimOdrAAFR4HgkEH178RPXJs5S1xXmh8vsuCNHDOgU2Lz9Tgs1fsgr8u6ZLdhUX
- quG5PQu7/AjHbxePW2kxwo+4Y
-X-Received: by 2002:a17:90b:1a89:b0:343:eb40:8dca with SMTP id
- 98e67ed59e1d1-35487190e1emr1958924a91.19.1770193362071; 
- Wed, 04 Feb 2026 00:22:42 -0800 (PST)
-X-Received: by 2002:a17:90b:1a89:b0:343:eb40:8dca with SMTP id
- 98e67ed59e1d1-35487190e1emr1958902a91.19.1770193361689; 
- Wed, 04 Feb 2026 00:22:41 -0800 (PST)
-Received: from [192.168.192.85] ([50.47.129.42])
- by smtp.googlemail.com with ESMTPSA id
- 98e67ed59e1d1-354862effa6sm1676639a91.9.2026.02.04.00.22.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Feb 2026 00:22:40 -0800 (PST)
-Message-ID: <68a53bd2-aaa1-4071-9ec7-87b11b935adb@canonical.com>
-Date: Wed, 4 Feb 2026 00:22:39 -0800
+ (Exim 4.86_2) (envelope-from <lkp@intel.com>) id 1vnaax-0005ma-9a
+ for apparmor@lists.ubuntu.com; Wed, 04 Feb 2026 10:58:51 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1770202731; x=1801738731;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=e4OYY/P0s+n3f6l0Un+2wnNzSCxA9PSWh2mQE2h/QLI=;
+ b=hqNR841utIngbsWawjnZ0aiXnuVPRsIUqADG7ZL2m1yKeBtmpBoOMzko
+ CuSElyk3WQbUDQ+CeFEWRio9dZJlRWZK8ZSm8Qz6jbdZMsglRhxq0J4/S
+ Th2viGDVK6Zy0CVbwDgwJXc4LAHw83nbGInHW+KwnydYdDMbSSkXNZypf
+ f1JNily4m2l6BQ5QoWaixfJ+NPBPvy3wqSYl0co/gJU/OjZNrW99fiT81
+ Be5YNK43oC3gh2RdBQE+xU5DIIcWJXy/gjGKJTzNyVq2tuHaDJ3L7HRM4
+ KOIYpKzkjA7dNV/9ai6NJPTK72TnuNd+1dGJ7U9Yu6cqvWlV66BR/w8QA Q==;
+X-CSE-ConnectionGUID: +GEEsD6vSRmwDDbIV63w7Q==
+X-CSE-MsgGUID: bVNHOCqiTrCcR4FIt5htLg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11691"; a="88807948"
+X-IronPort-AV: E=Sophos;i="6.21,272,1763452800"; d="scan'208";a="88807948"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Feb 2026 02:58:40 -0800
+X-CSE-ConnectionGUID: oBTx9fyySBW7CeLiYKyMow==
+X-CSE-MsgGUID: 6hswnyijS3qwmcCTJ28ksw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,272,1763452800"; d="scan'208";a="209230824"
+Received: from lkp-server01.sh.intel.com (HELO 765f4a05e27f) ([10.239.97.150])
+ by orviesa006.jf.intel.com with ESMTP; 04 Feb 2026 02:58:17 -0800
+Received: from kbuild by 765f4a05e27f with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1vnaaN-00000000hii-2R8J;
+ Wed, 04 Feb 2026 10:58:15 +0000
+Date: Wed, 4 Feb 2026 18:58:08 +0800
+From: kernel test robot <lkp@intel.com>
+To: NeilBrown <neilb@ownmail.net>, Christian Brauner <brauner@kernel.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ David Howells <dhowells@redhat.com>, Jan Kara <jack@suse.cz>,
+ Chuck Lever <chuck.lever@oracle.com>, Jeff Layton <jlayton@kernel.org>,
+ Miklos Szeredi <miklos@szeredi.hu>, Amir Goldstein <amir73il@gmail.com>,
+ John Johansen <john.johansen@canonical.com>,
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>
+Message-ID: <202602041851.x2RfFgKO-lkp@intel.com>
+References: <20260204050726.177283-5-neilb@ownmail.net>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Thorsten Blum <thorsten.blum@linux.dev>
-References: <20251126165701.97158-2-thorsten.blum@linux.dev>
- <1da23c89-dc2c-41cb-8260-098deb8ae917@canonical.com>
- <D73FFEAA-F246-4777-8CA8-32807F378423@linux.dev>
- <3CA1F386-2217-405B-AB6E-85195AD09CA8@linux.dev>
-Content-Language: en-US
-From: John Johansen <john.johansen@canonical.com>
-Autocrypt: addr=john.johansen@canonical.com; keydata=
- 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 lT9Q
-Organization: Canonical
-In-Reply-To: <3CA1F386-2217-405B-AB6E-85195AD09CA8@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH RESEND] apparmor: Replace deprecated strcpy
- with memcpy in gen_symlink_name
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260204050726.177283-5-neilb@ownmail.net>
+Received-SPF: pass client-ip=198.175.65.10; envelope-from=lkp@intel.com;
+ helo=mgamail.intel.com
+Subject: Re: [apparmor] [PATCH 04/13] Apparmor: Use simple_start_creating()
+ / simple_done_creating()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -151,77 +77,135 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Paul Moore <paul@paul-moore.com>, apparmor@lists.ubuntu.com,
- linux-kernel@vger.kernel.org, James Morris <jmorris@namei.org>,
- linux-security-module@vger.kernel.org, "Serge E. Hallyn" <serge@hallyn.com>
+Cc: linux-nfs@vger.kernel.org, selinux@vger.kernel.org,
+ apparmor@lists.ubuntu.com, linux-unionfs@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
+ oe-kbuild-all@lists.linux.dev, linux-fsdevel@vger.kernel.org,
+ netfs@lists.linux.dev
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [2.09 / 15.00];
-	DMARC_POLICY_REJECT(2.00)[canonical.com : SPF not aligned (relaxed),reject];
-	R_DKIM_REJECT(1.00)[canonical.com:s=20251003];
+X-Spamd-Result: default: False [2.69 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_REJECT(1.00)[intel.com:s=Intel];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
 	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
 	MAILLIST(-0.20)[mailman];
+	DMARC_POLICY_SOFTFAIL(0.10)[intel.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:thorsten.blum@linux.dev,m:paul@paul-moore.com,m:apparmor@lists.ubuntu.com,m:linux-kernel@vger.kernel.org,m:jmorris@namei.org,m:linux-security-module@vger.kernel.org,m:serge@hallyn.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[23];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER(0.00)[john.johansen@canonical.com,apparmor-bounces@lists.ubuntu.com];
+	FORGED_SENDER(0.00)[lkp@intel.com,apparmor-bounces@lists.ubuntu.com];
+	FORGED_RECIPIENTS(0.00)[m:neilb@ownmail.net,m:brauner@kernel.org,m:viro@zeniv.linux.org.uk,m:dhowells@redhat.com,m:jack@suse.cz,m:chuck.lever@oracle.com,m:jlayton@kernel.org,m:miklos@szeredi.hu,m:amir73il@gmail.com,m:john.johansen@canonical.com,m:paul@paul-moore.com,m:jmorris@namei.org,m:serge@hallyn.com,m:stephen.smalley.work@gmail.com,m:linux-nfs@vger.kernel.org,m:selinux@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:linux-unionfs@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-security-module@vger.kernel.org,m:oe-kbuild-all@lists.linux.dev,m:linux-fsdevel@vger.kernel.org,m:netfs@lists.linux.dev,m:stephensmalleywork@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[ownmail.net,kernel.org,zeniv.linux.org.uk,redhat.com,suse.cz,oracle.com,szeredi.hu,gmail.com,canonical.com,paul-moore.com,namei.org,hallyn.com];
 	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
-	DKIM_TRACE(0.00)[canonical.com:-];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[gitlab.com:url,lists.ubuntu.com:helo,lists.ubuntu.com:rdns,canonical.com:mid,canonical.com:email];
-	NEURAL_HAM(-0.00)[-1.000];
-	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	RCVD_COUNT_FIVE(0.00)[5];
-	FROM_NEQ_ENVFROM(0.00)[john.johansen@canonical.com,apparmor-bounces@lists.ubuntu.com];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	HAS_ORG_HEADER(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[lkp@intel.com,apparmor-bounces@lists.ubuntu.com];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[intel.com:-];
+	NEURAL_HAM(-0.00)[-0.996];
 	TAGGED_RCPT(0.00)[apparmor];
-	FORGED_SENDER_FORWARDING(0.00)[]
-X-Rspamd-Queue-Id: 051CDE315E
+	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[01.org:url,git-scm.com:url,intel.com:mid,intel.com:email]
+X-Rspamd-Queue-Id: 78573E4D6E
 X-Rspamd-Action: no action
 
-On 2/1/26 04:42, Thorsten Blum wrote:
-> Hi John,
-> 
-> On 27. Nov 2025, at 11:18, Thorsten Blum wrote:
->> On 27. Nov 2025, at 02:32, John Johansen wrote:
->>> hey Thorsten,
->>>
->>> sorry I have actually pulled these in, and tested them. I didn't send out
->>> the acks yet because I have another patch that I was waiting on a proper
->>> signed-off-by: on.
->>>
->>> I am going to have to pull that one so I can push. I'll add acks now but
->>> the push isn't going to happen for a few hours.
->>>
->>> Acked-by: John Johansen <john.johansen@canonical.com>
->>
->> Ah sorry for resending then, didn't know you looked at them already.
-> 
-> Did you ever push the commits? I can't find them anywhere.
-> 
-sorry I am having "fun" email issue atm
+Hi NeilBrown,
 
-it should be in apparmor-next. I have been staging that through gitlab
+kernel test robot noticed the following build warnings:
 
-https://gitlab.com/apparmor/apparmor-kernel
-and
-https://gitlab.com/jjohansen/apparmor-kernel
+[auto build test WARNING on brauner-vfs/vfs.all]
+[also build test WARNING on viro-vfs/for-next linus/master v6.19-rc8 next-20260203]
+[cannot apply to pcmoore-selinux/next]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-trying to get better CI integration with the userspace side. It was stuck
-again and I had to manually kick it last week.
+url:    https://github.com/intel-lab-lkp/linux/commits/NeilBrown/fs-proc-Don-t-lock-root-inode-when-creating-self-and-thread-self/20260204-131659
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git vfs.all
+patch link:    https://lore.kernel.org/r/20260204050726.177283-5-neilb%40ownmail.net
+patch subject: [PATCH 04/13] Apparmor: Use simple_start_creating() / simple_done_creating()
+config: arm-randconfig-r133-20260204 (https://download.01.org/0day-ci/archive/20260204/202602041851.x2RfFgKO-lkp@intel.com/config)
+compiler: arm-linux-gnueabi-gcc (GCC) 11.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260204/202602041851.x2RfFgKO-lkp@intel.com/reproduce)
 
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202602041851.x2RfFgKO-lkp@intel.com/
+
+sparse warnings: (new ones prefixed by >>)
+>> security/apparmor/apparmorfs.c:295:16: sparse: sparse: Using plain integer as NULL pointer
+
+vim +295 security/apparmor/apparmorfs.c
+
+   247	
+   248	/**
+   249	 * aafs_create - create a dentry in the apparmorfs filesystem
+   250	 *
+   251	 * @name: name of dentry to create
+   252	 * @mode: permissions the file should have
+   253	 * @parent: parent directory for this dentry
+   254	 * @data: data to store on inode.i_private, available in open()
+   255	 * @link: if symlink, symlink target string
+   256	 * @fops: struct file_operations that should be used for
+   257	 * @iops: struct of inode_operations that should be used
+   258	 *
+   259	 * This is the basic "create a xxx" function for apparmorfs.
+   260	 *
+   261	 * Returns a pointer to a dentry if it succeeds, that must be free with
+   262	 * aafs_remove(). Will return ERR_PTR on failure.
+   263	 */
+   264	static struct dentry *aafs_create(const char *name, umode_t mode,
+   265					  struct dentry *parent, void *data, void *link,
+   266					  const struct file_operations *fops,
+   267					  const struct inode_operations *iops)
+   268	{
+   269		struct dentry *dentry;
+   270		struct inode *dir;
+   271		int error;
+   272	
+   273		AA_BUG(!name);
+   274		AA_BUG(!parent);
+   275	
+   276		if (!(mode & S_IFMT))
+   277			mode = (mode & S_IALLUGO) | S_IFREG;
+   278	
+   279		error = simple_pin_fs(&aafs_ops, &aafs_mnt, &aafs_count);
+   280		if (error)
+   281			return ERR_PTR(error);
+   282	
+   283		dir = d_inode(parent);
+   284	
+   285		dentry = simple_start_creating(parent, name);
+   286		if (IS_ERR(dentry)) {
+   287			error = PTR_ERR(dentry);
+   288			goto fail;
+   289		}
+   290	
+   291		error = __aafs_setup_d_inode(dir, dentry, mode, data, link, fops, iops);
+   292		simple_done_creating(dentry);
+   293		if (error)
+   294			goto fail;
+ > 295		return 0;
+   296	fail:
+   297		simple_release_fs(&aafs_mnt, &aafs_count);
+   298		return ERR_PTR(error);
+   299	}
+   300	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 
