@@ -2,61 +2,61 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KqjeLd1Lg2kulAMAu9opvQ
+	id ewgiJN1Lg2kolAMAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
 	for <lists+apparmor@lfdr.de>; Wed, 04 Feb 2026 14:38:37 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D3CFE68BE
+	by mail.lfdr.de (Postfix) with ESMTPS id 09A94E68AB
 	for <lists+apparmor@lfdr.de>; Wed, 04 Feb 2026 14:38:37 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vnd5S-0001hv-TR; Wed, 04 Feb 2026 13:38:30 +0000
+	id 1vnd5T-0001i1-Kq; Wed, 04 Feb 2026 13:38:31 +0000
 Received: from flow-a6-smtp.messagingengine.com ([103.168.172.141])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <neilb@ownmail.net>) id 1vnV8n-00063M-Ra
- for apparmor@lists.ubuntu.com; Wed, 04 Feb 2026 05:09:25 +0000
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
- by mailflow.phl.internal (Postfix) with ESMTP id 167271380795;
- Wed,  4 Feb 2026 00:09:25 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-12.internal (MEProxy); Wed, 04 Feb 2026 00:09:25 -0500
+ (Exim 4.86_2) (envelope-from <neilb@ownmail.net>) id 1vnV8v-00067S-HK
+ for apparmor@lists.ubuntu.com; Wed, 04 Feb 2026 05:09:33 +0000
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+ by mailflow.phl.internal (Postfix) with ESMTP id B6E671380795;
+ Wed,  4 Feb 2026 00:09:32 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-05.internal (MEProxy); Wed, 04 Feb 2026 00:09:32 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
  cc:cc:content-transfer-encoding:content-type:date:date:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:reply-to:subject:subject:to:to; s=fm3; t=1770181765;
- x=1770188965; bh=nJtSWChYFVufGICSrThoSoHlrNw9bn4Yse/vvvU70+A=; b=
- E/sOgPKToHWjYxZ6WIVxtMg9YuDoZQP0lcZ2muf991rjavLEhG+pl/gFz02ICbaP
- L/M17TOEmg2crZrRhARRBq5ukpFeBmgnqMQvU5G6WgQhvwJbxCDawutyFhC6Nlhe
- vobCn5z4kz4T6jHgcHv7teaPSFfnAu7Ay9VUI5SUA1rH/Uj78x6YGNcFHiODfLal
- PEro/Kgiy8kZls/H7Qn1t31kk0zWU4jUqdamK2Fm3svwKOVzyHoxEb5Mbph5LqDD
- YP722hFWE190uElSrRDc7Z8kesz4Fu/KUldnGz37+mwg3+6uxyQ/fJf3fameixJE
- MecIUqq88RblWsIofUCYNA==
+ :reply-to:reply-to:subject:subject:to:to; s=fm3; t=1770181772;
+ x=1770188972; bh=9U7bJknmYXYCA1dkmsoUlWkn0IRUITK1b1AZf1IzOUM=; b=
+ RqZMQe4WnaihO+TWsj+gd7Ixiw0mbJ4BhG6QYZQDl28w/G7to6z2Kndv/bnsazjv
+ ajyTccbCXciqla7nf/Cy66upnAQ7PwKH7j7UyNlSqRgM2068MAUDazTgucqF29H/
+ JtskH1hwDGJUCvjohGf1QWG/WrhQsdXx/xeB/vMaKagllaytn0zgfYYaSiGD1anJ
+ NoKjThPVYSt6ucv5kuoqq/VacF6CEkN1Jm75ZzSuyixBBCMPjI7NulYyvl1aKhpj
+ VoGxFdM872tb3NLpmRma0NQnnTIUWn2xDU+XhMXN/Px/5+1/d0bX7PkS1/ZlE+tS
+ Dkaq4V7mZbi8EYCwVWqY+Q==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:feedback-id:feedback-id:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
  :reply-to:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; t=1770181765; x=1770188965; bh=n
- JtSWChYFVufGICSrThoSoHlrNw9bn4Yse/vvvU70+A=; b=ZOvcqmcBE67ozty1S
- rVttn8hUDMPFlNtD7/lhG4wDoHsZmqTdmz8T82HxnxvlslRWWQdOXdkZT5/wrodS
- 7Fz8rnQCPhzj4PoFF50jwGWQ2wPqiRBQ/DJE7XviD0+iwL22XN2y5H4xWbQ0vHFq
- NodUgFjKZJsg0sFtZOtPD9i6eiHbd9VobQAUA/bQDU941rwF/50JkT+6twrspaan
- uS0Y0gzLjHRVad5RH6NNUtTy2FKunqV4+gvX7sbBF1tjajLaDPLhCXcUID/l/14D
- NVU5cXGi3YnIhdJHVyCQf28d6R2RF/JiMDshKLxAGjFZVAwXNfBGgnwLz8VLpqno
- MUXVg==
-X-ME-Sender: <xms:hNSCaaJ3jxmWC-Yztd67k7nKdiCFe3bYDM3rVfoDbGmy9aZOYCf9Tg>
- <xme:hNSCadsi-1LRJa48a13UlYKzWKI_0bqvuQhsiadix0-jyhQc3HGIRw_FddghE9rH8
- FZD_yVijan_WH2tlOGClz3ujrsx2vRsYgstBsRYPgj_eGsiDQ>
-X-ME-Received: <xmr:hNSCaas1HdAHGM-rhlTM7y5nTL0ybkRZGhLNAMxNIDC90JVrt-6xEYaj8pEt_hezTEZ9dfR50gvdRc7YyKN_yzAeDmIv9qm6Yc9k612m9aKm>
+ :x-me-sender:x-sasl-enc; s=fm3; t=1770181772; x=1770188972; bh=9
+ U7bJknmYXYCA1dkmsoUlWkn0IRUITK1b1AZf1IzOUM=; b=itXUm3c3OeaQByV6J
+ ECwwF2r+B+6H0ntCq8vLw0JfBSVwK1MdJVAetWwZwLOHyd5yvAmM6N6bPlmgKXAp
+ HakA6/V3ET0r12K4hI9QCi31A/7kw7UiMP5z0TUh8OAsum+lScV1AOweiFYG+dh8
+ SGlbJd5XAmW/AJ+t3wXz03fDlc1Glm24haprX86ikXMVwC+6LbP9//3Zz6ZgqoIL
+ NMIs0nmK2FSlzA55qbII4SJbkBJdTbFtmfmmBFGbnJdcCOomYJewWHp4+dGPIO24
+ uBEfcBOSSsBvSvfVX/fe2vitlNwnEUD3v6GvR8lqNgysh5FeGTK0Eq/ja3QmAmir
+ hyPAg==
+X-ME-Sender: <xms:jNSCaeP-N9ufT7_VO9x0KwR9TBY1ecSwFBoBeDdoSbNvBsNbM_kdBg>
+ <xme:jNSCaYgfLT9B2OKf-5xHcEZTcWvmhwiSTqIQopCx3xLwCNVNlBszZfMwEYb7N9qOl
+ ohcbxxTjYth8qwhtRkiz8UD46q5bdPDMN616KSbo6h1jzk>
+X-ME-Received: <xmr:jNSCaVQ55T8dj4D55AaOzle6iviI-hKz_5Q9iLbwaW-jnfgiIOmdSGe9PEvuf8kk9AfnwJxyhcHNR5qDkqnILqynT0CO8ecdAvbmcEhX4fCH>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddukedukeeiucetufdoteggodetrf
  dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
  rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
  gurhephffvvefufffkofgjfhhrggfgsedtkeertdertddtnecuhfhrohhmpefpvghilheu
  rhhofihnuceonhgvihhlsgesohifnhhmrghilhdrnhgvtheqnecuggftrfgrthhtvghrnh
  epveevkeffudeuvefhieeghffgudektdelkeejiedtjedugfeukedvkeffvdefvddunecu
- vehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepnhgvihhlsg
+ vehluhhsthgvrhfuihiivgepudenucfrrghrrghmpehmrghilhhfrhhomhepnhgvihhlsg
  esohifnhhmrghilhdrnhgvthdpnhgspghrtghpthhtohepvddupdhmohguvgepshhmthhp
  ohhuthdprhgtphhtthhopehvihhrohesiigvnhhivhdrlhhinhhugidrohhrghdruhhkpd
  hrtghpthhtohepshgvlhhinhhugiesvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgtphht
@@ -67,14 +67,14 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddukedukeeiucetufdote
  vghlrdhorhhgpdhrtghpthhtoheplhhinhhugidqfhhsuggvvhgvlhesvhhgvghrrdhkvg
  hrnhgvlhdrohhrghdprhgtphhtthhopehmihhklhhoshesshiivghrvgguihdrhhhupdhr
  tghpthhtohepjhgrtghksehsuhhsvgdrtgii
-X-ME-Proxy: <xmx:hNSCaUVvnKDBm49DadJMBtzP60M3LaY0QwUYgucgLuuluHyHtG8fYA>
- <xmx:hdSCaTVvW7BJnqcQP-ta1EDtqawEGUS47cJqgPr5VXeWcxo-WJuIyw>
- <xmx:hdSCaXTHVsTFpco-dF0U69SB6O_p2lzlEkn4m8ZL3BeFGsXsavrQDg>
- <xmx:hdSCaaF9XaNjvfw9hOKHwOtmFdcTlAkqAk9poB7jrxOj1-VArZkcpg>
- <xmx:hdSCaZQiXqVic_VKMEghlflygMschjbZRRb8iLUpZb5-Gw5rARyjNqVL>
+X-ME-Proxy: <xmx:jNSCaTrU29kKFPm32IlYEk22fhaVC4jxLHCt6Uj4smHNqRD4Dwpx9Q>
+ <xmx:jNSCaYaJ6YyhBE80ztKBR7oWP1zQcwQoIStR5tslT0q03R0PT25BYQ>
+ <xmx:jNSCafHBKNmGBxt3o7o-hNBvND2iF5nhnIgbdVPFvSxS6_FQZvHgow>
+ <xmx:jNSCadpyDXkLcZEQACVTKpgRg60IXxYkA-uauS-EIaf7gq0nC__Tnw>
+ <xmx:jNSCaW3JgtrYqPCVAVpiKjXq83zT00dSlIEZnsseBxy1XBqXDDb2QxYZ>
 Feedback-ID: iab3e480c:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 4 Feb 2026 00:09:19 -0500 (EST)
+ 4 Feb 2026 00:09:27 -0500 (EST)
 From: NeilBrown <neilb@ownmail.net>
 To: Christian Brauner <brauner@kernel.org>,
  Alexander Viro <viro@zeniv.linux.org.uk>,
@@ -85,8 +85,8 @@ To: Christian Brauner <brauner@kernel.org>,
  Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
  "Serge E. Hallyn" <serge@hallyn.com>,
  Stephen Smalley <stephen.smalley.work@gmail.com>
-Date: Wed,  4 Feb 2026 15:57:54 +1100
-Message-ID: <20260204050726.177283-11-neilb@ownmail.net>
+Date: Wed,  4 Feb 2026 15:57:55 +1100
+Message-ID: <20260204050726.177283-12-neilb@ownmail.net>
 X-Mailer: git-send-email 2.50.0.107.gf914562f5916.dirty
 In-Reply-To: <20260204050726.177283-1-neilb@ownmail.net>
 References: <20260204050726.177283-1-neilb@ownmail.net>
@@ -95,8 +95,8 @@ Content-Transfer-Encoding: 8bit
 Received-SPF: pass client-ip=103.168.172.141; envelope-from=neilb@ownmail.net;
  helo=flow-a6-smtp.messagingengine.com
 X-Mailman-Approved-At: Wed, 04 Feb 2026 13:38:26 +0000
-Subject: [apparmor] [PATCH 10/13] ovl: change ovl_create_real() to get a new
-	lock when re-opening created file.
+Subject: [apparmor] [PATCH 11/13] ovl: use is_subdir() for testing if one
+	thing is a subdir of another
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -121,7 +121,7 @@ X-Spamd-Result: default: False [2.19 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	R_MISSING_CHARSET(0.50)[];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
 	MAILLIST(-0.20)[mailman];
 	DMARC_POLICY_SOFTFAIL(0.10)[ownmail.net : SPF not aligned (relaxed), No valid DKIM,none];
 	MIME_GOOD(-0.10)[text/plain];
@@ -129,8 +129,8 @@ X-Spamd-Result: default: False [2.19 / 15.00];
 	FREEMAIL_TO(0.00)[kernel.org,zeniv.linux.org.uk,redhat.com,suse.cz,oracle.com,szeredi.hu,gmail.com,canonical.com,paul-moore.com,namei.org,hallyn.com];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:brauner@kernel.org,m:viro@zeniv.linux.org.uk,m:dhowells@redhat.com,m:jack@suse.cz,m:chuck.lever@oracle.com,m:jlayton@kernel.org,m:miklos@szeredi.hu,m:amir73il@gmail.com,m:john.johansen@canonical.com,m:paul@paul-moore.com,m:jmorris@namei.org,m:serge@hallyn.com,m:stephen.smalley.work@gmail.com,m:linux-nfs@vger.kernel.org,m:selinux@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:linux-kernel@vger.kernel.org,m:linux-unionfs@vger.kernel.org,m:linux-security-module@vger.kernel.org,m:linux-fsdevel@vger.kernel.org,m:netfs@lists.linux.dev,m:stephensmalleywork@gmail.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
 	FORGED_SENDER(0.00)[neilb@ownmail.net,apparmor-bounces@lists.ubuntu.com];
+	ARC_NA(0.00)[];
 	RCVD_COUNT_FIVE(0.00)[5];
 	RCVD_TLS_LAST(0.00)[];
 	TO_DN_SOME(0.00)[];
@@ -147,114 +147,59 @@ X-Spamd-Result: default: False [2.19 / 15.00];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[brown.name:replyto,brown.name:email];
 	FROM_HAS_DN(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_SPAM(0.00)[0.968];
+	NEURAL_SPAM(0.00)[0.966];
 	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
 	HAS_REPLYTO(0.00)[neil@brown.name];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	REPLYTO_DOM_NEQ_TO_DOM(0.00)[]
-X-Rspamd-Queue-Id: 9D3CFE68BE
+X-Rspamd-Queue-Id: 09A94E68AB
 X-Rspamd-Action: no action
 
 From: NeilBrown <neil@brown.name>
 
-When ovl_create_real() is used to create a file on the upper filesystem
-it needs to return the resulting dentry - positive and hashed.
-It is usually the case the that dentry passed to the create function
-(e.g.  vfs_create()) will be suitable but this is not guaranteed.  The
-filesystem may unhash that dentry forcing a repeat lookup next time the
-name is wanted.
+Rather than using lock_rename(), use the more obvious is_subdir() for
+ensuring that neither upper nor workdir contain the other.
+Also be explicit in the comment that the two directories cannot be the
+same.
 
-So ovl_create_real() must be (and is) aware of this and prepared to
-perform that lookup to get a hash positive dentry.
-
-This is currently done under that same directory lock that provided
-exclusion for the create.  Proposed changes to locking will make this
-not possible - as the name, rather than the directory, will be locked.
-The new APIs provided for lookup and locking do not and cannot support
-this pattern.
-
-The lock isn't needed.  ovl_create_real() can drop the lock and then get
-a new lock for the lookup - then check that the lookup returned the
-correct inode.  In a well-behaved configuration where the upper
-filesystem is not being modified by a third party, this will always work
-reliably, and if there are separate modification it will fail cleanly.
-
-So change ovl_create_real() to drop the lock and call
-ovl_start_creating_upper() to find the correct dentry.  Note that
-start_creating doesn't fail if the name already exists.
-
-This removes the only remaining use of ovl_lookup_upper, so it is
-removed.
+As this is a point-it-time sanity check and does not provide any
+on-going guarantees, the removal of locking does not introduce any
+interesting races.
 
 Signed-off-by: NeilBrown <neil@brown.name>
 ---
- fs/overlayfs/dir.c       | 24 ++++++++++++++++++------
- fs/overlayfs/overlayfs.h |  7 -------
- 2 files changed, 18 insertions(+), 13 deletions(-)
+ fs/overlayfs/super.c | 15 +++++----------
+ 1 file changed, 5 insertions(+), 10 deletions(-)
 
-diff --git a/fs/overlayfs/dir.c b/fs/overlayfs/dir.c
-index ff3dbd1ca61f..ec08904d084d 100644
---- a/fs/overlayfs/dir.c
-+++ b/fs/overlayfs/dir.c
-@@ -219,21 +219,33 @@ struct dentry *ovl_create_real(struct ovl_fs *ofs, struct dentry *parent,
- 		err = -EIO;
- 	} else if (d_unhashed(newdentry)) {
- 		struct dentry *d;
-+		struct name_snapshot name;
- 		/*
- 		 * Some filesystems (i.e. casefolded) may return an unhashed
--		 * negative dentry from the ovl_lookup_upper() call before
-+		 * negative dentry from the ovl_start_creating_upper() call before
- 		 * ovl_create_real().
- 		 * In that case, lookup again after making the newdentry
- 		 * positive, so ovl_create_upper() always returns a hashed
- 		 * positive dentry.
-+		 * As we have to drop the lock before the lookup a race
-+		 * could result in a lookup failure.  In that case we return
-+		 * an error.
- 		 */
--		d = ovl_lookup_upper(ofs, newdentry->d_name.name, parent,
--				     newdentry->d_name.len);
--		dput(newdentry);
--		if (IS_ERR_OR_NULL(d))
-+		take_dentry_name_snapshot(&name, newdentry);
-+		end_creating_keep(newdentry);
-+		d = ovl_start_creating_upper(ofs, parent, &name.name);
-+		release_dentry_name_snapshot(&name);
-+
-+		if (IS_ERR_OR_NULL(d)) {
- 			err = d ? PTR_ERR(d) : -ENOENT;
--		else
-+		} else if (d->d_inode != newdentry->d_inode) {
-+			err = -EIO;
-+			dput(newdentry);
-+		} else {
-+			dput(newdentry);
- 			return d;
-+		}
-+		return ERR_PTR(err);
- 	}
- out:
- 	if (err) {
-diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
-index 315882a360ce..4fb4750a83e4 100644
---- a/fs/overlayfs/overlayfs.h
-+++ b/fs/overlayfs/overlayfs.h
-@@ -406,13 +406,6 @@ static inline struct file *ovl_do_tmpfile(struct ovl_fs *ofs,
- 	return file;
+diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
+index ba9146f22a2c..2fd3e0aee50e 100644
+--- a/fs/overlayfs/super.c
++++ b/fs/overlayfs/super.c
+@@ -451,18 +451,13 @@ static int ovl_lower_dir(const char *name, const struct path *path,
+ 	return 0;
  }
  
--static inline struct dentry *ovl_lookup_upper(struct ovl_fs *ofs,
--					      const char *name,
--					      struct dentry *base, int len)
--{
--	return lookup_one(ovl_upper_mnt_idmap(ofs), &QSTR_LEN(name, len), base);
--}
+-/* Workdir should not be subdir of upperdir and vice versa */
++/*
++ * Workdir should not be subdir of upperdir and vice versa, and
++ * they should not be the same.
++ */
+ static bool ovl_workdir_ok(struct dentry *workdir, struct dentry *upperdir)
+ {
+-	bool ok = false;
 -
- static inline struct dentry *ovl_lookup_upper_unlocked(struct ovl_fs *ofs,
- 						       const char *name,
- 						       struct dentry *base,
+-	if (workdir != upperdir) {
+-		struct dentry *trap = lock_rename(workdir, upperdir);
+-		if (!IS_ERR(trap))
+-			unlock_rename(workdir, upperdir);
+-		ok = (trap == NULL);
+-	}
+-	return ok;
++	return !is_subdir(workdir, upperdir) && !is_subdir(upperdir, workdir);
+ }
+ 
+ static int ovl_setup_trap(struct super_block *sb, struct dentry *dir,
 -- 
 2.50.0.107.gf914562f5916.dirty
 
