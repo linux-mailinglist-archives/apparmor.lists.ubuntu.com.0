@@ -2,77 +2,79 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 8JFhA+FLg2kulAMAu9opvQ
+	id IKy5JN1Lg2n4kwMAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Wed, 04 Feb 2026 14:38:41 +0100
+	for <lists+apparmor@lfdr.de>; Wed, 04 Feb 2026 14:38:37 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5C15E68F8
-	for <lists+apparmor@lfdr.de>; Wed, 04 Feb 2026 14:38:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2820EE68AD
+	for <lists+apparmor@lfdr.de>; Wed, 04 Feb 2026 14:38:37 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vnd5Q-0001gy-H0; Wed, 04 Feb 2026 13:38:28 +0000
+	id 1vnd5R-0001hC-4l; Wed, 04 Feb 2026 13:38:29 +0000
 Received: from flow-a6-smtp.messagingengine.com ([103.168.172.141])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <neilb@ownmail.net>) id 1vnV7Y-0005gp-3q
- for apparmor@lists.ubuntu.com; Wed, 04 Feb 2026 05:08:08 +0000
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
- by mailflow.phl.internal (Postfix) with ESMTP id 033571380778;
- Wed,  4 Feb 2026 00:08:07 -0500 (EST)
+ (Exim 4.86_2) (envelope-from <neilb@ownmail.net>) id 1vnV7f-0005iq-Qc
+ for apparmor@lists.ubuntu.com; Wed, 04 Feb 2026 05:08:15 +0000
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+ by mailflow.phl.internal (Postfix) with ESMTP id EA7B0138077B;
+ Wed,  4 Feb 2026 00:08:14 -0500 (EST)
 Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-04.internal (MEProxy); Wed, 04 Feb 2026 00:08:07 -0500
+ by phl-compute-02.internal (MEProxy); Wed, 04 Feb 2026 00:08:14 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
  cc:cc:content-transfer-encoding:content-type:date:date:from:from
- :in-reply-to:message-id:mime-version:reply-to:reply-to:subject
- :subject:to:to; s=fm3; t=1770181686; x=1770188886; bh=XrOETrfLvn
- IX9izHaz3N3kjXjvH1wtHjpHJBz8OfYz8=; b=CiEJ6HuaYbyBncQK0Lqj0/lNF8
- DhAmxjQyJmxvozS5jXPzzY+XP7IqzDOshTUQIx5F8q3jdVkAJYIqxAnNmTKZc1Gc
- Rz6Gaz9g7gPNDWVQt/eBmoyqW1ED0k4S51L6PgC88F91vhkAkANrbidvxi4Ft6kn
- Z2QnDJeyZyYC7DOrS8xQ4bely67rhZsZ1nPcgZbLnLAfZTV0geZRruUBh41QxYNj
- RMHAnpZjEY2jeseKrnxpnBqyZa169DbRKrWWyH1qV5TRi5qaQv0Q/gzB/4Frw3Sj
- gqXeBzBZPeZAkYNF4LZQWDkWzdvk596wFMvuBn/FtrqS50DqnP9FXdCRp3DQ==
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:reply-to:subject:subject:to:to; s=fm3; t=1770181694;
+ x=1770188894; bh=3vylP70Td4gLvBkKBkP+NDaQ107NjHxVZqjmkf4RPM4=; b=
+ DhtD8bzCE/oNQIkGTTjyqSX4LQFUqFhjVSWKj/iXxrgRLl9NMJgIFm1xZ4/+udL+
+ /9QWvwMQV6geJ18mtU4+cgzDERVj1ReQO2ExjsJaVPBAVXtasGRepSdMNCEs3Cen
+ CSHYUma0vbM4ukuPPL8Z+pOn/nj6EBbbHKgw+8Uy+6hKfGk7XO7tQ6p6EyhH6c8C
+ 6p87VF0V5HVZ3l4zZJvwKWrqJ1tuJ4YK8Vb4OGfaZgK4ZEwkYmQGCwmBQcSAAb+W
+ YTqNDXuE4QXcuT2g5nwtYr+JVfmjJkqqHAoAEzlxhbyx6v3JmJad53Gh8DcrsokT
+ ZZ8ubTAUQbE5Utbhr9g6Ng==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:message-id:mime-version:reply-to:reply-to:subject
- :subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; t=1770181686; x=1770188886; bh=XrOETrfLvnIX9izHaz3N3kjXjvH1
- wtHjpHJBz8OfYz8=; b=pgfRNb3GFaNvHPggUPmqU3BzhV1DYsxFsfCeubzJ34Z2
- IAXUcDPPY6B4jFTc/sHFd+FFVWOCN61ZY1n4FSp/lZ/Gm8OL3IoxKdmtGG4mwtRB
- 0cvuLMaVwfbCkuk6RJ2Z63jD94vV4qNep/luiPmUR+3LvEv6P8s37xlYrISuSGuK
- wEYDRQ498aJsPgxTcI5zvZ6ka/ASQo1kuhn1czQJTHfYm1VOYKS8UMSqyacqcxV7
- WNLo000OpWyqHhPs34vOA0xlHoFgXDDUMaUZybJyVpOdqP0l7sYl91BeFNKbwqHN
- X25D7DUOSE4gBsH5flU2yCWtokXqSMsawaOX095y/A==
-X-ME-Sender: <xms:NdSCacyHAcWi0GB6-jJHZwbkg7Gp-Z8lim-4rJwYDEn4tUsEpVVp5A>
- <xme:NdSCaUi2sidAli4k4HESJm4YuHT-yfhGDUFNfA9wk6-Xew_E4Id6MUquzyDqQgKWj
- 6oVs_Or_AOLCF3MayEIM7vc75zzFysDBEkNd25_ItQdv_Uc0w>
-X-ME-Received: <xmr:NdSCaR5AjfPMw9UHtqMCUY3gZiF0HwOinEkXMxQrj_q1sM-SP-zb0drYuARdpjKpES6FgKhhf7urx73AS9dGuMBwFTAN-m-EErtLCvsusGkf>
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm3; t=1770181694; x=1770188894; bh=3
+ vylP70Td4gLvBkKBkP+NDaQ107NjHxVZqjmkf4RPM4=; b=w89hP2rEFqQl9e3q2
+ g2FP5CWLzoLxvBPctBENFDxM58CxydFLvse3FHdP6d0+csiZVe2ZvqhGTbwvpjLN
+ 8RZExjMi7fsXAsrW2rNHsW8myHB3LnaOhRbyUB74IWtr8/qkS7dOTCDnbVKBtB1o
+ TkoG0g9EuxvgI28XT+UnTGzKof8yNAjVTmIBkM2hvmtfEnwcacSmkVx000eCS3VM
+ GKno6xlQSBDJjHWqV8Jzuvr5kjZ3q7qpw40XTCPMFdJu7SnRFt3E98DL/BqeNVEF
+ P+RWyaXoyUXGMz2W7fIKHBAtXLUjLtTMg1lzqsBu+G8WvZ+9okCIlHHVcJNQBI95
+ IeHAQ==
+X-ME-Sender: <xms:PtSCaRWK9CbwYmtwwlh5aoV8Dyt096I5dx4dm5-UQ2ahT-mugdIwog>
+ <xme:PtSCadJPm5HNUHC82q7naFpsh7T9mJ46Be5jIwHNl69dpLD-CxhuM2O2thJ8k_Ur8
+ IaAnukIuBfqVdHk1DOtI5ax30L0AChNU-7_9TfKpwrWh3vwqg>
+X-ME-Received: <xmr:PtSCadZEaggWHYq0wx4dK8BuY-9dGYzUuqF2q6qf-sxhwmMWZQ-R_uLTVUYkVeWcBDFKqwc2gTH0q1PsjPJRVRlloKGWvQXJOycNcA_OjKEG>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddukedukeeiucetufdoteggodetrf
  dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
  rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
- gurhephffvvefufffkofhrggfgsedtkeertdertddtnecuhfhrohhmpefpvghilheurhho
- fihnuceonhgvihhlsgesohifnhhmrghilhdrnhgvtheqnecuggftrfgrthhtvghrnhepge
- etfeegtddtvdeigfegueevfeelleelgfejueefueektdelieeikeevtdelveelnecuvehl
- uhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepnhgvihhlsgesoh
- ifnhhmrghilhdrnhgvthdpnhgspghrtghpthhtohepvddupdhmohguvgepshhmthhpohhu
- thdprhgtphhtthhopehvihhrohesiigvnhhivhdrlhhinhhugidrohhrghdruhhkpdhrtg
- hpthhtohepshgvlhhinhhugiesvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgtphhtthho
- pehlihhnuhigqdhunhhiohhnfhhssehvghgvrhdrkhgvrhhnvghlrdhorhhgpdhrtghpth
- htoheplhhinhhugidqshgvtghurhhithihqdhmohguuhhlvgesvhhgvghrrdhkvghrnhgv
- lhdrohhrghdprhgtphhtthhopehlihhnuhigqdhnfhhssehvghgvrhdrkhgvrhhnvghlrd
- horhhgpdhrtghpthhtoheplhhinhhugidqkhgvrhhnvghlsehvghgvrhdrkhgvrhhnvghl
- rdhorhhgpdhrtghpthhtoheplhhinhhugidqfhhsuggvvhgvlhesvhhgvghrrdhkvghrnh
- gvlhdrohhrghdprhgtphhtthhopehmihhklhhoshesshiivghrvgguihdrhhhupdhrtghp
- thhtohepjhgrtghksehsuhhsvgdrtgii
-X-ME-Proxy: <xmx:NdSCaZpRkxJWPNmIpcpGeNAy50vMwvTXVXySj4QxXdsBDVBq8ly_5w>
- <xmx:NdSCaXXqpBY4J628Zt1MD0CWCDQFIjb_nD-zpyZCDCVuAS2xOS78Aw>
- <xmx:NdSCaQ5LAQWkq85YI4N5auTuRMssrLuYMh8Grxsq06CB1xQnOGG43A>
- <xmx:NdSCaV3QDW52SEeAdjmfBcdJhYLQR-XjBl5pKwa3C3AKajI2bStWiA>
- <xmx:NtSCaTz-dtrlfjILOYM9GTMXnZa_VQglEYUC71RT6cu45HHOJ53g7HKW>
+ gurhephffvvefufffkofgjfhhrggfgsedtkeertdertddtnecuhfhrohhmpefpvghilheu
+ rhhofihnuceonhgvihhlsgesohifnhhmrghilhdrnhgvtheqnecuggftrfgrthhtvghrnh
+ epveevkeffudeuvefhieeghffgudektdelkeejiedtjedugfeukedvkeffvdefvddunecu
+ vehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepnhgvihhlsg
+ esohifnhhmrghilhdrnhgvthdpnhgspghrtghpthhtohepvddupdhmohguvgepshhmthhp
+ ohhuthdprhgtphhtthhopehvihhrohesiigvnhhivhdrlhhinhhugidrohhrghdruhhkpd
+ hrtghpthhtohepshgvlhhinhhugiesvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgtphht
+ thhopehlihhnuhigqdhunhhiohhnfhhssehvghgvrhdrkhgvrhhnvghlrdhorhhgpdhrtg
+ hpthhtoheplhhinhhugidqshgvtghurhhithihqdhmohguuhhlvgesvhhgvghrrdhkvghr
+ nhgvlhdrohhrghdprhgtphhtthhopehlihhnuhigqdhnfhhssehvghgvrhdrkhgvrhhnvg
+ hlrdhorhhgpdhrtghpthhtoheplhhinhhugidqkhgvrhhnvghlsehvghgvrhdrkhgvrhhn
+ vghlrdhorhhgpdhrtghpthhtoheplhhinhhugidqfhhsuggvvhgvlhesvhhgvghrrdhkvg
+ hrnhgvlhdrohhrghdprhgtphhtthhopehmihhklhhoshesshiivghrvgguihdrhhhupdhr
+ tghpthhtohepjhgrtghksehsuhhsvgdrtgii
+X-ME-Proxy: <xmx:PtSCaZSGsBqfYqbFFS8dtfzI2ivVNXNwDGaqiKOPBmwCVKJrs0LH5g>
+ <xmx:PtSCadhVrra5MkiI8N6tG94c5mXG8tip-xJcKGrKu_bp0501UG2d7A>
+ <xmx:PtSCadtsHemgaPVocEe53BqPbwoeWP6Fz8DlHNPTF7gvd3V3UWs00A>
+ <xmx:PtSCaXx0gJHSWG2JkZc3PQb04rk9gpV4HtUVRHcN2h3onw-czQ39mA>
+ <xmx:PtSCaU9Mqd1v6-21hkHMOFCVfaR5earMybe2t_lXznNPm_tYkXKs48Ir>
 Feedback-ID: iab3e480c:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 4 Feb 2026 00:08:00 -0500 (EST)
+ 4 Feb 2026 00:08:09 -0500 (EST)
 From: NeilBrown <neilb@ownmail.net>
 To: Christian Brauner <brauner@kernel.org>,
  Alexander Viro <viro@zeniv.linux.org.uk>,
@@ -83,16 +85,18 @@ To: Christian Brauner <brauner@kernel.org>,
  Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
  "Serge E. Hallyn" <serge@hallyn.com>,
  Stephen Smalley <stephen.smalley.work@gmail.com>
-Date: Wed,  4 Feb 2026 15:57:44 +1100
-Message-ID: <20260204050726.177283-1-neilb@ownmail.net>
+Date: Wed,  4 Feb 2026 15:57:45 +1100
+Message-ID: <20260204050726.177283-2-neilb@ownmail.net>
 X-Mailer: git-send-email 2.50.0.107.gf914562f5916.dirty
+In-Reply-To: <20260204050726.177283-1-neilb@ownmail.net>
+References: <20260204050726.177283-1-neilb@ownmail.net>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Received-SPF: pass client-ip=103.168.172.141; envelope-from=neilb@ownmail.net;
  helo=flow-a6-smtp.messagingengine.com
 X-Mailman-Approved-At: Wed, 04 Feb 2026 13:38:26 +0000
-Subject: [apparmor] [PATCH 00/13] Further centralising of directory locking
-	for name ops.
+Subject: [apparmor] [PATCH 01/13] fs/proc: Don't lock root inode when
+	creating "self" and "thread-self"
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -140,57 +144,86 @@ X-Spamd-Result: default: False [2.19 / 15.00];
 	TAGGED_RCPT(0.00)[apparmor];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[brown.name:replyto];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[brown.name:replyto,brown.name:email];
 	FROM_HAS_DN(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_SPAM(0.00)[0.968];
+	NEURAL_SPAM(0.00)[0.966];
 	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
 	HAS_REPLYTO(0.00)[neil@brown.name];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	REPLYTO_DOM_NEQ_TO_DOM(0.00)[]
-X-Rspamd-Queue-Id: E5C15E68F8
+X-Rspamd-Queue-Id: 2820EE68AD
 X-Rspamd-Action: no action
 
-I am working towards changing the locking rules for name-operations: locking
-the name rather than the whole directory.
+From: NeilBrown <neil@brown.name>
 
-The current part of this process is centralising all the locking so that
-it can be changed in one place.
+proc_setup_self() and proc_setup_thread_self() are only called from
+proc_fill_super() which is before the filesystem is "live".  So there is
+no need to lock the root directory when adding "self" and "thread-self".
+This is clear from simple_fill_super() which provides similar
+functionality for other filesystems and does not lock anything.
 
-Recently "start_creating", "start_removing", "start_renaming" and related
-interaces were added which combine the locking and the lookup.  At that time
-many callers were changed to use the new interfaces.  However there are still
-an assortment of places out side of fs/namei.c where the directory is locked
-explictly, whether with inode_lock() or lock_rename() or similar.  These were
-missed in the first pass for an assortment of uninteresting reasons.
+The locking is not harmful, except that it may be confusing to a reader.
+As part of a an effort to centralise all locking for directories for
+name-based operations (prior to changing some locking rules), it is
+simplest to remove the locking here.
 
-This series addresses the remaining places where explicit locking is
-used, and changes them to use the new interfaces, or otherwise removes
-the explicit locking.
+Signed-off-by: NeilBrown <neil@brown.name>
+---
+ fs/proc/self.c        | 3 ---
+ fs/proc/thread_self.c | 3 ---
+ 2 files changed, 6 deletions(-)
 
-The biggest changes are in overlayfs.  The other changes are quite
-simple, though maybe the cachefiles changes is the least simple of those.
+diff --git a/fs/proc/self.c b/fs/proc/self.c
+index 62d2c0cfe35c..56adf1c68f7a 100644
+--- a/fs/proc/self.c
++++ b/fs/proc/self.c
+@@ -35,11 +35,9 @@ unsigned self_inum __ro_after_init;
+ 
+ int proc_setup_self(struct super_block *s)
+ {
+-	struct inode *root_inode = d_inode(s->s_root);
+ 	struct dentry *self;
+ 	int ret = -ENOMEM;
+ 
+-	inode_lock(root_inode);
+ 	self = d_alloc_name(s->s_root, "self");
+ 	if (self) {
+ 		struct inode *inode = new_inode(s);
+@@ -55,7 +53,6 @@ int proc_setup_self(struct super_block *s)
+ 		}
+ 		dput(self);
+ 	}
+-	inode_unlock(root_inode);
+ 
+ 	if (ret)
+ 		pr_err("proc_fill_super: can't allocate /proc/self\n");
+diff --git a/fs/proc/thread_self.c b/fs/proc/thread_self.c
+index d6113dbe58e0..61ac62c3fd9f 100644
+--- a/fs/proc/thread_self.c
++++ b/fs/proc/thread_self.c
+@@ -35,11 +35,9 @@ unsigned thread_self_inum __ro_after_init;
+ 
+ int proc_setup_thread_self(struct super_block *s)
+ {
+-	struct inode *root_inode = d_inode(s->s_root);
+ 	struct dentry *thread_self;
+ 	int ret = -ENOMEM;
+ 
+-	inode_lock(root_inode);
+ 	thread_self = d_alloc_name(s->s_root, "thread-self");
+ 	if (thread_self) {
+ 		struct inode *inode = new_inode(s);
+@@ -55,7 +53,6 @@ int proc_setup_thread_self(struct super_block *s)
+ 		}
+ 		dput(thread_self);
+ 	}
+-	inode_unlock(root_inode);
+ 
+ 	if (ret)
+ 		pr_err("proc_fill_super: can't allocate /proc/thread-self\n");
+-- 
+2.50.0.107.gf914562f5916.dirty
 
-I'm running the --overlay tests in xfstests and nothing has popped yet.
-I'll continue with this and run some NFS tests too.
-
-Thanks for your review of these patches!
-
-NeilBrown
-
-
- [PATCH 01/13] fs/proc: Don't lock root inode when creating "self" and
- [PATCH 02/13] VFS: move the start_dirop() kerndoc comment to before
- [PATCH 03/13] libfs: change simple_done_creating() to use
- [PATCH 04/13] Apparmor: Use simple_start_creating() /
- [PATCH 05/13] selinux: Use simple_start_creating() /
- [PATCH 06/13] nfsd: switch purge_old() to use start_removing_noperm()
- [PATCH 07/13] VFS: make lookup_one_qstr_excl() static.
- [PATCH 08/13] ovl: Simplify ovl_lookup_real_one()
- [PATCH 09/13] cachefiles: change cachefiles_bury_object to use
- [PATCH 10/13] ovl: change ovl_create_real() to get a new lock when
- [PATCH 11/13] ovl: use is_subdir() for testing if one thing is a
- [PATCH 12/13] ovl: remove ovl_lock_rename_workdir()
- [PATCH 13/13] VFS: unexport lock_rename(), lock_rename_child(),
 
