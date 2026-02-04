@@ -2,61 +2,61 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OLFWFeFLg2ktlAMAu9opvQ
+	id OFAcEN5Lg2kulAMAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Wed, 04 Feb 2026 14:38:41 +0100
+	for <lists+apparmor@lfdr.de>; Wed, 04 Feb 2026 14:38:38 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4516FE68FF
-	for <lists+apparmor@lfdr.de>; Wed, 04 Feb 2026 14:38:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1BC2E68DA
+	for <lists+apparmor@lfdr.de>; Wed, 04 Feb 2026 14:38:37 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vnd5S-0001hY-3j; Wed, 04 Feb 2026 13:38:30 +0000
+	id 1vnd5Q-0001gk-4t; Wed, 04 Feb 2026 13:38:28 +0000
 Received: from flow-a6-smtp.messagingengine.com ([103.168.172.141])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <neilb@ownmail.net>) id 1vnV8A-0005pZ-Gq
- for apparmor@lists.ubuntu.com; Wed, 04 Feb 2026 05:08:46 +0000
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
- by mailflow.phl.internal (Postfix) with ESMTP id A26ED1380787;
- Wed,  4 Feb 2026 00:08:45 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-12.internal (MEProxy); Wed, 04 Feb 2026 00:08:45 -0500
+ (Exim 4.86_2) (envelope-from <neilb@ownmail.net>) id 1vnV8I-0005rT-7g
+ for apparmor@lists.ubuntu.com; Wed, 04 Feb 2026 05:08:54 +0000
+Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
+ by mailflow.phl.internal (Postfix) with ESMTP id 4795D138078E;
+ Wed,  4 Feb 2026 00:08:53 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-11.internal (MEProxy); Wed, 04 Feb 2026 00:08:53 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
  cc:cc:content-transfer-encoding:content-type:date:date:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:reply-to:subject:subject:to:to; s=fm3; t=1770181725;
- x=1770188925; bh=Xtl8I0VkwBbZNObKLjoeIAfJSZzFqP3UknI7fOZwH+Q=; b=
- OSIwwhCEIjbM7LfTzPSJhSef5BBZmE0JkVyVx8l1KZYiVpsDnn8K8qnCgjCtUOaJ
- 1Pnh+pZiP/QcXciClhvqrLQFzLMPKbeoBnE3g5YQbQwerqhiws1FDQ4chBNhkbN/
- 2lDaZNN6gNBt+MnpXZYJWqkAyYNq7lNd83ZjcUASBD+tA3wS1rkcfhkbO0+GAfh0
- lhE3cvfuuWY5eNpY2Le9uVITGvStkAYDSKcBLNSIaIcyiwdWUK+ayeJPisbkvXcC
- PiZhs0+4jHUpt5g0NJZDcHizH/NsBlNAlDfdgwt9HyUSXWMC2u5fRthtBesiYAGo
- bd5WKG+KnYWB8PKlEkgc2g==
+ :reply-to:reply-to:subject:subject:to:to; s=fm3; t=1770181733;
+ x=1770188933; bh=dlJn5fjDHHJoTWsI4P2Q723YQf/tI/C5cM/SmaJ+5tY=; b=
+ OM3atnOEau3pjHPWUS+XNXAPWU0+DV5lW/4kD8G68mLyz/jBiyKMW8654CvgrsQu
+ Ijpet03LuJBeR55yOqREIAsWOxI9GQaW7t+8u6Qmu5RxeyGozk/Qyb5xPcO0CVcA
+ P65B30oW14XFWXyRseJkx4GgizLj9a3MviH8mX8Tho+baH/UtwIuQJGl4pVDJ9MS
+ tjPEnhIOboaLjurukC5XbQkanfCBYf/J9Q2T7jbcTK8BImTMgk0rDzTY9HPW31Ph
+ IkBM5emdXLol0waOIhNv2DPN9co1TDkKlj1AXt8uwBnq0Du+FbYLtU0Ubz4E/uh9
+ D8kBSXMnhsFiP+T/0usRQw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:feedback-id:feedback-id:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
  :reply-to:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; t=1770181725; x=1770188925; bh=X
- tl8I0VkwBbZNObKLjoeIAfJSZzFqP3UknI7fOZwH+Q=; b=IckxQb5eQ1teD/JC2
- 2C6z4aLlWpOTXy+n37BxxAqbOsLUj5xcRzP18ybcP3MRqFT/MLZNgdepc46XyL73
- g85vy9/StufIHnLyOqaq/camuvYgVNST4xUFhb4+pEifAy6L/rxaifEfcctnW+iA
- dHgmFs1KGK7kMNPQRh3YS6wAFPj+7xYatkzBkd/MRhHvS1P71IULuYQs3HzkwOBb
- dT0PwfrWQleQdyKJOBwHM/6OnoX8ohPLx8/L4haPzwFCp33oEByj49+nyRpymIZu
- erYAXlHSL9+fnRNWKOPb336GZdqXNLeureCB1uQyQs1e277cOfDhM9rMJ+4YB1qb
- u07iQ==
-X-ME-Sender: <xms:XdSCaWsfh2d-ioUmeNlRIDMj8rwlBG4jcTV5wl3rDs9Q1MzOh_1LaQ>
- <xme:XdSCafseYQkm6EX2rJn4Ud5eKs0MI05TmsSDaCR-Gk_OKpUk45GZcGXVpvXNLGc4x
- UxmaW6m6j7UZvQQ2plA_XKilTAcnzHYDNguYzDFl_Wkb3pq7K4>
-X-ME-Received: <xmr:XdSCaVWm5HvaISOhWExU6yJRWs1YLPHaIho4mJwuAD8yVE9SbjiJJKkqbdeiuhs4NmE8uiIz0u8kWaucuvXhuMPUZmNpToftJzlTK4_8Ve_B>
+ :x-me-sender:x-sasl-enc; s=fm3; t=1770181733; x=1770188933; bh=d
+ lJn5fjDHHJoTWsI4P2Q723YQf/tI/C5cM/SmaJ+5tY=; b=NsdEeoqnXG043UXih
+ 3duarZcI3Q0aOWXv42GjSOOhBCMB57FsVmsHwlxXxSfmCVDHUrAt9r9T4MNY503h
+ qIGcw/Gy/oir7FqqmTI0PdYx6bgpriKzQ+T7F+gao2JFP93fgWjkGDTin0hOLZHn
+ CufXI7zEq+57hVdZ3nBoUAlJM5Je7RTiYlSeLpK8Hz5Wp7AVTOmZ1kZYXobHQpyk
+ OHMfcpC/KMA6+JYGw7hIK8hZg40uYxgIjxQWLPaUnuwc1mg2wRYJMeL6bgaX57bK
+ cAW+yKyHR+B6IIKIW0N2FV5yfh23VDXScApj/g4yceUzHB1WROEO8tqMTU33qRDC
+ VRpPg==
+X-ME-Sender: <xms:ZdSCafRAOtf6XHmz6Fbr_IF3kN9L1LJrkzG1XvkLDOfiifFnzGo40A>
+ <xme:ZdSCacWGKjkVLMCCU67oBxRTyRS5NmEbR1zt0gc-8swH71Adi6l9dZgXHG8scJPv_
+ Qc0-cK9b_qnvckMYSY7PPkgkybrrI60mscu1n6YXela-FzPEg>
+X-ME-Received: <xmr:ZdSCaU38xm3m3u4jtZfdesJH4aAoNlNp1VLNUWNB-PfJRjc49-POvuzRl5HTH73iFXGW-Z2VNkWlayzWQAisPe7DnhjlD-yF4_DufHATTsq6>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddukedukeeiucetufdoteggodetrf
  dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
  rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
  gurhephffvvefufffkofgjfhhrggfgsedtkeertdertddtnecuhfhrohhmpefpvghilheu
  rhhofihnuceonhgvihhlsgesohifnhhmrghilhdrnhgvtheqnecuggftrfgrthhtvghrnh
  epveevkeffudeuvefhieeghffgudektdelkeejiedtjedugfeukedvkeffvdefvddunecu
- vehluhhsthgvrhfuihiivgepudenucfrrghrrghmpehmrghilhhfrhhomhepnhgvihhlsg
+ vehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepnhgvihhlsg
  esohifnhhmrghilhdrnhgvthdpnhgspghrtghpthhtohepvddupdhmohguvgepshhmthhp
  ohhuthdprhgtphhtthhopehvihhrohesiigvnhhivhdrlhhinhhugidrohhrghdruhhkpd
  hrtghpthhtohepshgvlhhinhhugiesvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgtphht
@@ -67,14 +67,14 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddukedukeeiucetufdote
  vghlrdhorhhgpdhrtghpthhtoheplhhinhhugidqfhhsuggvvhgvlhesvhhgvghrrdhkvg
  hrnhgvlhdrohhrghdprhgtphhtthhopehmihhklhhoshesshiivghrvgguihdrhhhupdhr
  tghpthhtohepjhgrtghksehsuhhsvgdrtgii
-X-ME-Proxy: <xmx:XdSCaQVBU5IFoGFzV_wMu4KhZOjgRt10-YzzGZGXeMJabUhaGOQqYA>
- <xmx:XdSCaQT9G21T-9mjN0ptcYqmG_IOgMV4OlmhxXqmuBD4vVIljXISew>
- <xmx:XdSCafGrNO6uLKF4PoVFr0wvgJReoWMkuxqvjyapMBDqmIfjy-Ktsw>
- <xmx:XdSCaQQDPg2A9xmYsrnIw2GPGz1OOTaLAapSLpyryM3UmhtVEi5LZQ>
- <xmx:XdSCaUOrX_qr5Y4DPfFCLAWZvu_7P23WIOE4jqM2FyFvWuPH8wJDcVPA>
+X-ME-Proxy: <xmx:ZdSCaT-Os-NXFm9rkqmDp-hPlnS-wA87CHcHWapOcazK6Xgc8Y55aw>
+ <xmx:ZdSCaac7gGHcsPOYloUaW7RSTmQ7ryQi_PtgBc5NkfdmV4jakHGmlQ>
+ <xmx:ZdSCaf4_yJWAMGl6NHU_ioxQuvoZWa-f4rVZQOcD9-AQM5og0-kz4A>
+ <xmx:ZdSCaWPMMY45QKvZclfwK_FySuNft6Qf09QX3CM8XZ5soLGNq_UzqA>
+ <xmx:ZdSCaZbmF-s3cXOcl2CXqTibHukiwITQJoj-8b6ApLFmuY2GsjApIfXR>
 Feedback-ID: iab3e480c:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 4 Feb 2026 00:08:40 -0500 (EST)
+ 4 Feb 2026 00:08:47 -0500 (EST)
 From: NeilBrown <neilb@ownmail.net>
 To: Christian Brauner <brauner@kernel.org>,
  Alexander Viro <viro@zeniv.linux.org.uk>,
@@ -85,8 +85,8 @@ To: Christian Brauner <brauner@kernel.org>,
  Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
  "Serge E. Hallyn" <serge@hallyn.com>,
  Stephen Smalley <stephen.smalley.work@gmail.com>
-Date: Wed,  4 Feb 2026 15:57:49 +1100
-Message-ID: <20260204050726.177283-6-neilb@ownmail.net>
+Date: Wed,  4 Feb 2026 15:57:50 +1100
+Message-ID: <20260204050726.177283-7-neilb@ownmail.net>
 X-Mailer: git-send-email 2.50.0.107.gf914562f5916.dirty
 In-Reply-To: <20260204050726.177283-1-neilb@ownmail.net>
 References: <20260204050726.177283-1-neilb@ownmail.net>
@@ -95,8 +95,8 @@ Content-Transfer-Encoding: 8bit
 Received-SPF: pass client-ip=103.168.172.141; envelope-from=neilb@ownmail.net;
  helo=flow-a6-smtp.messagingengine.com
 X-Mailman-Approved-At: Wed, 04 Feb 2026 13:38:26 +0000
-Subject: [apparmor] [PATCH 05/13] selinux: Use simple_start_creating() /
-	simple_done_creating()
+Subject: [apparmor] [PATCH 06/13] nfsd: switch purge_old() to use
+	start_removing_noperm()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -147,72 +147,50 @@ X-Spamd-Result: default: False [2.19 / 15.00];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[brown.name:replyto,brown.name:email];
 	FROM_HAS_DN(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_SPAM(0.00)[0.965];
+	NEURAL_SPAM(0.00)[0.912];
 	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
 	HAS_REPLYTO(0.00)[neil@brown.name];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	REPLYTO_DOM_NEQ_TO_DOM(0.00)[]
-X-Rspamd-Queue-Id: 4516FE68FF
+X-Rspamd-Queue-Id: E1BC2E68DA
 X-Rspamd-Action: no action
 
 From: NeilBrown <neil@brown.name>
 
-Instead of explicitly locking the parent and performing a lookup in
-selinux, use simple_start_creating(), and then use
-simple_done_creating() to unlock.
-
-This extends the region that the directory is locked for, and also
-performs a lookup.
-The lock extension is of no real consequence.
-The lookup uses simple_lookup() and so always succeeds.  Thus when
-d_make_persistent() is called the dentry will already be hashed.
-d_make_persistent() handles this case.
+Rather than explicit locking, use the start_removing_noperm() and
+end_removing() wrappers.
+This was not done with other start_removing changes due to conflicting
+in-flight patches.
 
 Signed-off-by: NeilBrown <neil@brown.name>
 ---
- security/selinux/selinuxfs.c | 15 +++++++--------
- 1 file changed, 7 insertions(+), 8 deletions(-)
+ fs/nfsd/nfs4recover.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/security/selinux/selinuxfs.c b/security/selinux/selinuxfs.c
-index 896acad1f5f7..97e02cd5a9dc 100644
---- a/security/selinux/selinuxfs.c
-+++ b/security/selinux/selinuxfs.c
-@@ -1930,15 +1930,16 @@ static const struct inode_operations swapover_dir_inode_operations = {
- static struct dentry *sel_make_swapover_dir(struct super_block *sb,
- 						unsigned long *ino)
- {
--	struct dentry *dentry = d_alloc_name(sb->s_root, ".swapover");
-+	struct dentry *dentry;
- 	struct inode *inode;
+diff --git a/fs/nfsd/nfs4recover.c b/fs/nfsd/nfs4recover.c
+index 441dfbfe2d2b..52fbe723a3c8 100644
+--- a/fs/nfsd/nfs4recover.c
++++ b/fs/nfsd/nfs4recover.c
+@@ -351,16 +351,14 @@ purge_old(struct dentry *parent, char *cname, struct nfsd_net *nn)
+ 	if (nfs4_has_reclaimed_state(name, nn))
+ 		goto out_free;
  
--	if (!dentry)
-+	inode = sel_make_inode(sb, S_IFDIR);
-+	if (!inode)
- 		return ERR_PTR(-ENOMEM);
- 
--	inode = sel_make_inode(sb, S_IFDIR);
--	if (!inode) {
--		dput(dentry);
-+	dentry = simple_start_creating(sb->s_root, ".swapover");
-+	if (!dentry) {
-+		iput(inode);
- 		return ERR_PTR(-ENOMEM);
+-	inode_lock_nested(d_inode(parent), I_MUTEX_PARENT);
+-	child = lookup_one(&nop_mnt_idmap, &QSTR(cname), parent);
++	child = start_removing_noperm(parent, &QSTR(cname));
+ 	if (!IS_ERR(child)) {
+ 		status = vfs_rmdir(&nop_mnt_idmap, d_inode(parent), child, NULL);
+ 		if (status)
+ 			printk("failed to remove client recovery directory %pd\n",
+ 			       child);
+-		dput(child);
  	}
+-	inode_unlock(d_inode(parent));
++	end_removing(child);
  
-@@ -1946,11 +1947,9 @@ static struct dentry *sel_make_swapover_dir(struct super_block *sb,
- 	inode->i_ino = ++(*ino);
- 	/* directory inodes start off with i_nlink == 2 (for "." entry) */
- 	inc_nlink(inode);
--	inode_lock(sb->s_root->d_inode);
- 	d_make_persistent(dentry, inode);
- 	inc_nlink(sb->s_root->d_inode);
--	inode_unlock(sb->s_root->d_inode);
--	dput(dentry);
-+	simple_done_creating(dentry);
- 	return dentry;	// borrowed
- }
- 
+ out_free:
+ 	kfree(name.data);
 -- 
 2.50.0.107.gf914562f5916.dirty
 
