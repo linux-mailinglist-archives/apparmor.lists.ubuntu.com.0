@@ -2,37 +2,37 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id Np8OMUCRhGk43gMAu9opvQ
+	id QNFvLkORhGk43gMAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 13:46:56 +0100
+	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 13:46:59 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B904F2C33
-	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 13:46:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A65A6F2C4A
+	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 13:46:59 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vnykv-0002NT-HE; Thu, 05 Feb 2026 12:46:45 +0000
+	id 1vnykv-0002NL-Aj; Thu, 05 Feb 2026 12:46:45 +0000
 Received: from tor.source.kernel.org ([172.105.4.254])
  by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <jlayton@kernel.org>) id 1vnykt-0002M6-7L
+ (envelope-from <jlayton@kernel.org>) id 1vnykt-0002M5-47
  for apparmor@lists.ubuntu.com; Thu, 05 Feb 2026 12:46:43 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 0C9DA60010;
- Thu,  5 Feb 2026 12:38:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8B16C16AAE;
- Thu,  5 Feb 2026 12:38:31 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 485E86013C;
+ Thu,  5 Feb 2026 12:38:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1042BC4CEF7;
+ Thu,  5 Feb 2026 12:38:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1770295113;
- bh=ZFCAVurOAODnUWuC42DcwQ1f8hacTr/mLSJJhxqxUJE=;
+ s=k20201202; t=1770295135;
+ bh=G9qHb9p0MPYty9W2bqZeDirLOVPesrzx4Ei/lgeOCRA=;
  h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=KBjBx33oVnMR9gFD5SCO3tA1yh1XFz0bmnu2AneWHNpOYVSruH05XhP/Mp38yecGa
- sUbdRkUWAP0n0mJxp3G22N2PTV0W+u3/PT5xe3sV6bG9ngAONpiTVQ/czJtA8aXZ9A
- rAMgH+4iNVeYTSxT+KI3oQlAc7Ngbih98XreqyfxiN7WctB6CMVNJKi1YP5Ywh1WEO
- Xrs7jZKWZiJEYR8ou82aFGU50tf21JUDdAIeW36CWqQoZ0dbJj0kYIZCXcB47Y002O
- fdvy8PUqeaQAJsdtvD3PZnSPVAghvjHAiWgES8M0vav55p4PCWarwRAaEgEg55cuZ4
- sTdY0SSdgJkYA==
-Message-ID: <4d2c35c1b627f1ad26062a92d653677d7b79bd81.camel@kernel.org>
+ b=AH2UzJ0oUDVcL390IygZ5kEiEAojgl8odoQ3KAjqbiFXfHBGLmz5bMu51boYaY+VD
+ sAdILXp3eIJngbsv0/hIvYZNP9usrSjIp1vqGT5x51WhcxUN4NOg5i0D92Fkt3onWj
+ Z6k8Lrgcq8NhtRpCBsSkxMklVvogfeWyn2TF89SHArhTOh2myE8CITFFMhH9k5KwgN
+ X3rbQZQpCJfxSEERajtHka8wsvMw1fDk8idcYs7NfRKDwlPKGAjewutiezQm2na7Fr
+ 1vDGRIPsPDHUgCsiVe1GcvsXveA0CuG1G4tTDyYNNGmepDqEYYrKqYrUO40iI0Awe6
+ +3/gkPxG11tfw==
+Message-ID: <c7445f68809ea699c73da0282a9e2b3f99ff3bcf.camel@kernel.org>
 From: Jeff Layton <jlayton@kernel.org>
 To: NeilBrown <neil@brown.name>, Christian Brauner <brauner@kernel.org>, 
  Alexander Viro <viro@zeniv.linux.org.uk>, David Howells
@@ -42,10 +42,10 @@ To: NeilBrown <neil@brown.name>, Christian Brauner <brauner@kernel.org>,
  <john.johansen@canonical.com>, Paul Moore	 <paul@paul-moore.com>, James
  Morris <jmorris@namei.org>, "Serge E. Hallyn"	 <serge@hallyn.com>, Stephen
  Smalley <stephen.smalley.work@gmail.com>
-Date: Thu, 05 Feb 2026 07:38:30 -0500
-In-Reply-To: <20260204050726.177283-10-neilb@ownmail.net>
+Date: Thu, 05 Feb 2026 07:38:52 -0500
+In-Reply-To: <20260204050726.177283-12-neilb@ownmail.net>
 References: <20260204050726.177283-1-neilb@ownmail.net>
- <20260204050726.177283-10-neilb@ownmail.net>
+ <20260204050726.177283-12-neilb@ownmail.net>
 Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
  keydata=mQINBE6V0TwBEADXhJg7s8wFDwBMEvn0qyhAnzFLTOCHooMZyx7XO7dAiIhDSi7G1NPxw
  n8jdFUQMCR/GlpozMFlSFiZXiObE7sef9rTtM68ukUyZM4pJ9l0KjQNgDJ6Fr342Htkjxu/kFV1Wv
@@ -126,8 +126,8 @@ User-Agent: Evolution 3.58.2 (3.58.2-1.fc43)
 MIME-Version: 1.0
 Received-SPF: pass client-ip=172.105.4.254; envelope-from=jlayton@kernel.org;
  helo=tor.source.kernel.org
-Subject: Re: [apparmor] [PATCH 09/13] cachefiles: change
- cachefiles_bury_object to use start_renaming_dentry()
+Subject: Re: [apparmor] [PATCH 11/13] ovl: use is_subdir() for testing if
+ one thing is a subdir of another
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -179,157 +179,56 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[brown.name:email,lists.ubuntu.com:helo,lists.ubuntu.com:rdns]
-X-Rspamd-Queue-Id: 8B904F2C33
+X-Rspamd-Queue-Id: A65A6F2C4A
 X-Rspamd-Action: no action
 
 On Wed, 2026-02-04 at 15:57 +1100, NeilBrown wrote:
 > From: NeilBrown <neil@brown.name>
 >=20
-> Rather then using lock_rename() and lookup_one() etc we can use
-> the new start_renaming_dentry().  This is part of centralising dir
-> locking and lookup so that locking rules can be changed.
+> Rather than using lock_rename(), use the more obvious is_subdir() for
+> ensuring that neither upper nor workdir contain the other.
+> Also be explicit in the comment that the two directories cannot be the
+> same.
 >=20
-> Some error check are removed as not necessary.  Checks for rep being a
-> non-dir or IS_DEADDIR and the check that ->graveyard is still a
-> directory only provide slightly more informative errors and have been
-> dropped.
+> As this is a point-it-time sanity check and does not provide any
+> on-going guarantees, the removal of locking does not introduce any
+> interesting races.
 >=20
 > Signed-off-by: NeilBrown <neil@brown.name>
 > ---
->  fs/cachefiles/namei.c | 76 ++++++++-----------------------------------
->  1 file changed, 14 insertions(+), 62 deletions(-)
+>  fs/overlayfs/super.c | 15 +++++----------
+>  1 file changed, 5 insertions(+), 10 deletions(-)
 >=20
-> diff --git a/fs/cachefiles/namei.c b/fs/cachefiles/namei.c
-> index e5ec90dccc27..3af42ec78411 100644
-> --- a/fs/cachefiles/namei.c
-> +++ b/fs/cachefiles/namei.c
-> @@ -270,7 +270,8 @@ int cachefiles_bury_object(struct cachefiles_cache *c=
-ache,
->  			   struct dentry *rep,
->  			   enum fscache_why_object_killed why)
->  {
-> -	struct dentry *grave, *trap;
-> +	struct dentry *grave;
-> +	struct renamedata rd =3D {};
->  	struct path path, path_to_graveyard;
->  	char nbuffer[8 + 8 + 1];
->  	int ret;
-> @@ -302,77 +303,36 @@ int cachefiles_bury_object(struct cachefiles_cache =
-*cache,
->  		(uint32_t) ktime_get_real_seconds(),
->  		(uint32_t) atomic_inc_return(&cache->gravecounter));
-> =20
-> -	/* do the multiway lock magic */
-> -	trap =3D lock_rename(cache->graveyard, dir);
-> -	if (IS_ERR(trap))
-> -		return PTR_ERR(trap);
-> -
-> -	/* do some checks before getting the grave dentry */
-> -	if (rep->d_parent !=3D dir || IS_DEADDIR(d_inode(rep))) {
-> -		/* the entry was probably culled when we dropped the parent dir
-> -		 * lock */
-> -		unlock_rename(cache->graveyard, dir);
-> -		_leave(" =3D 0 [culled?]");
-> -		return 0;
-> -	}
-> -
-> -	if (!d_can_lookup(cache->graveyard)) {
-> -		unlock_rename(cache->graveyard, dir);
-> -		cachefiles_io_error(cache, "Graveyard no longer a directory");
-> -		return -EIO;
-> -	}
-> -
-> -	if (trap =3D=3D rep) {
-> -		unlock_rename(cache->graveyard, dir);
-> -		cachefiles_io_error(cache, "May not make directory loop");
-> +	rd.mnt_idmap =3D &nop_mnt_idmap;
-> +	rd.old_parent =3D dir;
-> +	rd.new_parent =3D cache->graveyard;
-> +	rd.flags =3D 0;
-> +	ret =3D start_renaming_dentry(&rd, 0, rep, &QSTR(nbuffer));
-> +	if (ret) {
-> +		cachefiles_io_error(cache, "Cannot lock/lookup in graveyard");
->  		return -EIO;
->  	}
-> =20
->  	if (d_mountpoint(rep)) {
-> -		unlock_rename(cache->graveyard, dir);
-> +		end_renaming(&rd);
->  		cachefiles_io_error(cache, "Mountpoint in cache");
->  		return -EIO;
->  	}
-> =20
-> -	grave =3D lookup_one(&nop_mnt_idmap, &QSTR(nbuffer), cache->graveyard);
-> -	if (IS_ERR(grave)) {
-> -		unlock_rename(cache->graveyard, dir);
-> -		trace_cachefiles_vfs_error(object, d_inode(cache->graveyard),
-> -					   PTR_ERR(grave),
-> -					   cachefiles_trace_lookup_error);
-> -
-> -		if (PTR_ERR(grave) =3D=3D -ENOMEM) {
-> -			_leave(" =3D -ENOMEM");
-> -			return -ENOMEM;
-> -		}
-> -
-> -		cachefiles_io_error(cache, "Lookup error %ld", PTR_ERR(grave));
-> -		return -EIO;
-> -	}
-> -
-> +	grave =3D rd.new_dentry;
->  	if (d_is_positive(grave)) {
-> -		unlock_rename(cache->graveyard, dir);
-> -		dput(grave);
-> +		end_renaming(&rd);
->  		grave =3D NULL;
->  		cond_resched();
->  		goto try_again;
->  	}
-> =20
->  	if (d_mountpoint(grave)) {
-> -		unlock_rename(cache->graveyard, dir);
-> -		dput(grave);
-> +		end_renaming(&rd);
->  		cachefiles_io_error(cache, "Mountpoint in graveyard");
->  		return -EIO;
->  	}
-> =20
-> -	/* target should not be an ancestor of source */
-> -	if (trap =3D=3D grave) {
-> -		unlock_rename(cache->graveyard, dir);
-> -		dput(grave);
-> -		cachefiles_io_error(cache, "May not make directory loop");
-> -		return -EIO;
-> -	}
-> -
->  	/* attempt the rename */
->  	path.mnt =3D cache->mnt;
->  	path.dentry =3D dir;
-> @@ -382,13 +342,6 @@ int cachefiles_bury_object(struct cachefiles_cache *=
-cache,
->  	if (ret < 0) {
->  		cachefiles_io_error(cache, "Rename security error %d", ret);
->  	} else {
-> -		struct renamedata rd =3D {
-> -			.mnt_idmap	=3D &nop_mnt_idmap,
-> -			.old_parent	=3D dir,
-> -			.old_dentry	=3D rep,
-> -			.new_parent	=3D cache->graveyard,
-> -			.new_dentry	=3D grave,
-> -		};
->  		trace_cachefiles_rename(object, d_inode(rep)->i_ino, why);
->  		ret =3D cachefiles_inject_read_error();
->  		if (ret =3D=3D 0)
-> @@ -402,8 +355,7 @@ int cachefiles_bury_object(struct cachefiles_cache *c=
-ache,
->  	}
-> =20
->  	__cachefiles_unmark_inode_in_use(object, d_inode(rep));
-> -	unlock_rename(cache->graveyard, dir);
-> -	dput(grave);
-> +	end_renaming(&rd);
->  	_leave(" =3D 0");
+> diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
+> index ba9146f22a2c..2fd3e0aee50e 100644
+> --- a/fs/overlayfs/super.c
+> +++ b/fs/overlayfs/super.c
+> @@ -451,18 +451,13 @@ static int ovl_lower_dir(const char *name, const st=
+ruct path *path,
 >  	return 0;
 >  }
+> =20
+> -/* Workdir should not be subdir of upperdir and vice versa */
+> +/*
+> + * Workdir should not be subdir of upperdir and vice versa, and
+> + * they should not be the same.
+> + */
+>  static bool ovl_workdir_ok(struct dentry *workdir, struct dentry *upperd=
+ir)
+>  {
+> -	bool ok =3D false;
+> -
+> -	if (workdir !=3D upperdir) {
+> -		struct dentry *trap =3D lock_rename(workdir, upperdir);
+> -		if (!IS_ERR(trap))
+> -			unlock_rename(workdir, upperdir);
+> -		ok =3D (trap =3D=3D NULL);
+> -	}
+> -	return ok;
+> +	return !is_subdir(workdir, upperdir) && !is_subdir(upperdir, workdir);
+>  }
+> =20
+>  static int ovl_setup_trap(struct super_block *sb, struct dentry *dir,
 
 Reviewed-by: Jeff Layton <jlayton@kernel.org>
 
