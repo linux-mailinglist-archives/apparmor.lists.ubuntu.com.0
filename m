@@ -2,132 +2,99 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cJKgFpiMhGl43QMAu9opvQ
+	id yHucH57uhGkU6wMAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 13:27:04 +0100
+	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 20:25:18 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DF8BF2759
-	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 13:27:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68D80F6D31
+	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 20:25:18 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vnyRY-0007aU-Qf; Thu, 05 Feb 2026 12:26:44 +0000
-Received: from tor.source.kernel.org ([172.105.4.254])
- by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <jlayton@kernel.org>) id 1vnyRX-0007aJ-NJ
- for apparmor@lists.ubuntu.com; Thu, 05 Feb 2026 12:26:43 +0000
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 6466F60129;
- Thu,  5 Feb 2026 12:19:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 214F5C4CEF7;
- Thu,  5 Feb 2026 12:19:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1770293989;
- bh=z3KU6pequ5UORHIA7zVEBwJwRpnNOFlwskEISNJb7+4=;
- h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=LX7uYxxq1pV5VILRYDffEw0VxJ2nJpZfybd+ATxWh3LxbYiN0fF45TFfR+Xq7Jjmm
- Sp31HuzCDH3vMYwhuUo2D4GPujnkJQS0DHl6thQ+14hRxNjm3QbqaYCeR8dA3VZly9
- hL89Bj4mo706ujxgAezw7kxRsCy8+gwiSUkrJif5nT83eZ85A/sQn983v3AP+XyFw4
- zaTQn9vbVrwF+tFJ7Jqz2NbSwQXFFm4cPlURtWzJ3GxD+WMt9fekNQuWetEJOaQOib
- 6+rOTXQ5QkJCRjw2XDPYjw4y9vf+9sO6yHt+x1x99rplFvQdD9K0xlOGydW81RneLY
- 2uQhHapcSmnnA==
-Message-ID: <8d907c67ccab1db0e7bcabe0c34c66722a2970e2.camel@kernel.org>
-From: Jeff Layton <jlayton@kernel.org>
-To: NeilBrown <neil@brown.name>, Christian Brauner <brauner@kernel.org>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, David Howells
- <dhowells@redhat.com>, Jan Kara <jack@suse.cz>, Chuck Lever
- <chuck.lever@oracle.com>, Miklos Szeredi <miklos@szeredi.hu>, Amir
- Goldstein	 <amir73il@gmail.com>, John Johansen
- <john.johansen@canonical.com>, Paul Moore	 <paul@paul-moore.com>, James
- Morris <jmorris@namei.org>, "Serge E. Hallyn"	 <serge@hallyn.com>, Stephen
- Smalley <stephen.smalley.work@gmail.com>
-Date: Thu, 05 Feb 2026 07:19:45 -0500
-In-Reply-To: <20260204050726.177283-4-neilb@ownmail.net>
+	id 1vo4yL-0001LH-Cf; Thu, 05 Feb 2026 19:25:01 +0000
+Received: from mail-ed1-f42.google.com ([209.85.208.42])
+ by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.86_2) (envelope-from <amir73il@gmail.com>)
+ id 1vnyRR-0007ZR-4Z
+ for apparmor@lists.ubuntu.com; Thu, 05 Feb 2026 12:26:37 +0000
+Received: by mail-ed1-f42.google.com with SMTP id
+ 4fb4d7f45d1cf-65808d08423so1398374a12.1
+ for <apparmor@lists.ubuntu.com>; Thu, 05 Feb 2026 04:26:36 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1770294396; cv=none;
+ d=google.com; s=arc-20240605;
+ b=PA4N3f2LNtdOLjRu6MTMm+BO0X2CtmfGb8YHBQ+GyL9A3hmpCu1zj6ZTpjCFDv1Oo5
+ Ew2WaHlqoE0Z+jofezzjlDcwtttsuLWqLMsL8SvxasvMKspXdunFz261lficC3u/p3wa
+ AmFb0Ub2QrUmd5lA60yInx/n3jf5T6DdqWf2EPltuBwQ1ct3TaGAbjwCV4iHUyujSvOn
+ +d25SzK95u2ebuEg0j+QjE1Vou1l6qfBg6XYVFLlM33u6Tfgvqm/FJl3EZei2og/BLgz
+ Rz6mgg8nlBd0modHLhQYWP4UIrqDCxzlNjMqOCyTRTd0KnC2sHVC3hFayZqInraZ/E54
+ 6knQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=UfB0UXxHCYVgd7CIr3QzJ56G7ROPE9D9qGfdOM8KDP8=;
+ fh=6AvIqM8duTOpMcZ0Wy8CcFtYBsBQq2D+hlcntC4v1PE=;
+ b=WOXjCzXeQuv8Mp4zHR3R+y2pFJYFI3i7BZn1d5lbNXVEWTQEn2tI2TyN5kk8wFzWkF
+ xhqv2xeQarWRD5na9+Cgmafn/Zb7hqjsIgVL/Esc5U5Lx8xXQceKUokMxdZFBb5ioW71
+ vKKbECcumKMOcMU8+mvfAk4FrpT+wnJMuK+LhSr+3B80Dz/pf4/C148RqOtD+0btWKFo
+ 32R00N17vRg7LOhB79WprFdh1Rq4hgLCHLHenuF3Zb3mgY/uOZZRfFAI8w4RcYmRq4DO
+ JRL0qdet1KbEz7VFrf3q4V9wjLrgzwqX4ia7X3zM27jx8gOdn5XWyoLIUt6o0MiCMUpb
+ F36Q==; darn=lists.ubuntu.com
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1770294396; x=1770899196; darn=lists.ubuntu.com;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=UfB0UXxHCYVgd7CIr3QzJ56G7ROPE9D9qGfdOM8KDP8=;
+ b=GlojQqusWZ079d95je1mk0s2vv/aB1PzRWpprC5eqfGBAObfM8Fg1vU9HcoCYZsR6n
+ EvjFO9yZk2kM/I76oXbnXFsFGaP/JcObAKOe3VSBIQdMU1aiYxO5ke0cxlAeNc8e9zlV
+ HpO/h0sgLXjTIMapLze0TFGGTwvRh8sw6S2UJoaaOkOk6QhSnKJFIMKC//G+olR3QpSE
+ 7fS41NkNRyOpiVFR1+SP9dOpxiw+waHJxTk/kAADNLUGn63H6RF4eCxgkYOaRYBJSXX+
+ XtYewDia1J3U8AjD1aJeFPV21F/pnfScIT/r4537o+EgBU/ZQ4+imGT37QRmRrvGQmYe
+ ia9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1770294396; x=1770899196;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=UfB0UXxHCYVgd7CIr3QzJ56G7ROPE9D9qGfdOM8KDP8=;
+ b=UNV0rUdHy72e4jFG/O2ycP4Ax+xvznOv2YZg2bixCHbHFpjA3MyVvAhAQgsyUvl+wK
+ 0dFH6gkztIUztaTVU5tVrbZZ68+I4bU5gBInJc/TLISVW6yrt5mRRnS3z4kMmhtilmR3
+ 57ldgJiuhux0EpHOMOL03eBIqtMu+qdRWt0y/TpmU7qd9hIbPyxZwE1g80dRqKzcOEaj
+ tYLc0p2XPKODHWL9fZAot2KVnOHvPDl+G2gpiF9n0sJ8+Lh7hcmPBcbO9z7cu6Sji/l6
+ qcBPINNcSSOGbEtuVIVwYSL38JF1F2vRI+cK/zAT6/1SUfwJvUBaz9mPkZqpCt6MRmkE
+ CNDg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX2dl5V7JOAr2mYLwZW+YDv4NNNMfuYVJHUoW7MZKJhrDDaJW+qr2Vdhr/T4xmSQMS9TiYxEKTqjw==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0Ywkml3W8z1dG+2T6GRVMJbB5DqPZoDiDJnuRsbM+JJ3yBZo7pWd
+ YPgKTj5QOQfm1n3hQzLqzpbkFwlsJJTwbJjwtWHZQF/aqRfLU/+6zGWXFWt7lH4SMR2KdQj9kTC
+ Ne1pFsWpuf6mgUPxy/dcOF8HSoTKY0Jk=
+X-Gm-Gg: AZuq6aJQweBGuxFN3pTO4GG3DrYGkz2jmPRQqI5Y5fuKNnrYShx0ZYXvziO88slHEvU
+ 2Rn4QntNmB35UDeM2qY/xzlppysNOyEv9AcHwBO8H712YQ29H4ZH5k7q8mU6n0QjBbH9Xku1pXu
+ Nyra7xQbv955omxLKi7L2kyeHQ29Dc8YV4SEV7JaQikQ+a5eWDm7TNXs7H4QRK+tnEisDPb/fl/
+ 1mF9Ltdsig/WQri+2suKIFeeGKHISHh1AjsH8bPHLPKtqG46cvT0QqQdeN1qBaCwveH5RbX/lPi
+ +ZU43JJjbjMUpzFF8U+G0DWdxhYEuw==
+X-Received: by 2002:a05:6402:2711:b0:658:da9:787d with SMTP id
+ 4fb4d7f45d1cf-65949dc2762mr3243637a12.21.1770294396096; Thu, 05 Feb 2026
+ 04:26:36 -0800 (PST)
+MIME-Version: 1.0
 References: <20260204050726.177283-1-neilb@ownmail.net>
- <20260204050726.177283-4-neilb@ownmail.net>
-Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
- keydata=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
- QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
+ <20260204050726.177283-11-neilb@ownmail.net>
+In-Reply-To: <20260204050726.177283-11-neilb@ownmail.net>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Thu, 5 Feb 2026 13:26:24 +0100
+X-Gm-Features: AZwV_QhSomAYq3e-9LVlkwiUvLVwnQqEgYbdyasP4aBJdb_z_a8NyX57euMmGhk
+Message-ID: <CAOQ4uxh-MLgwZCstwr6HyPXHVRmtj2F_=xS8pE3FN6Ex-wex4w@mail.gmail.com>
+To: NeilBrown <neil@brown.name>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.2 (3.58.2-1.fc43) 
-MIME-Version: 1.0
-Received-SPF: pass client-ip=172.105.4.254; envelope-from=jlayton@kernel.org;
- helo=tor.source.kernel.org
-Subject: Re: [apparmor] [PATCH 03/13] libfs: change simple_done_creating()
- to use end_creating()
+Received-SPF: pass client-ip=209.85.208.42; envelope-from=amir73il@gmail.com;
+ helo=mail-ed1-f42.google.com
+X-Mailman-Approved-At: Thu, 05 Feb 2026 19:25:00 +0000
+Subject: Re: [apparmor] [PATCH 10/13] ovl: change ovl_create_real() to get a
+ new lock when re-opening created file.
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -139,76 +106,149 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: linux-nfs@vger.kernel.org, selinux@vger.kernel.org,
- apparmor@lists.ubuntu.com, linux-kernel@vger.kernel.org,
- linux-unionfs@vger.kernel.org, linux-security-module@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, netfs@lists.linux.dev
+Cc: Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Paul Moore <paul@paul-moore.com>, Miklos Szeredi <miklos@szeredi.hu>,
+ selinux@vger.kernel.org, apparmor@lists.ubuntu.com,
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Jeff Layton <jlayton@kernel.org>, James Morris <jmorris@namei.org>,
+ linux-kernel@vger.kernel.org, David Howells <dhowells@redhat.com>,
+ linux-security-module@vger.kernel.org, Chuck Lever <chuck.lever@oracle.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org,
+ netfs@lists.linux.dev, linux-unionfs@vger.kernel.org,
+ linux-nfs@vger.kernel.org, "Serge E. Hallyn" <serge@hallyn.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.09 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+X-Spamd-Result: default: False [2.69 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:google.com:reject}];
+	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FREEMAIL_TO(0.00)[brown.name,kernel.org,zeniv.linux.org.uk,redhat.com,suse.cz,oracle.com,szeredi.hu,gmail.com,canonical.com,paul-moore.com,namei.org,hallyn.com];
-	FORGED_RECIPIENTS(0.00)[m:neil@brown.name,m:brauner@kernel.org,m:viro@zeniv.linux.org.uk,m:dhowells@redhat.com,m:jack@suse.cz,m:chuck.lever@oracle.com,m:miklos@szeredi.hu,m:amir73il@gmail.com,m:john.johansen@canonical.com,m:paul@paul-moore.com,m:jmorris@namei.org,m:serge@hallyn.com,m:stephen.smalley.work@gmail.com,m:linux-nfs@vger.kernel.org,m:selinux@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:linux-kernel@vger.kernel.org,m:linux-unionfs@vger.kernel.org,m:linux-security-module@vger.kernel.org,m:linux-fsdevel@vger.kernel.org,m:netfs@lists.linux.dev,m:stephensmalleywork@gmail.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[jlayton@kernel.org,apparmor-bounces@lists.ubuntu.com];
-	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
+	FORGED_RECIPIENTS(0.00)[m:neil@brown.name,m:brauner@kernel.org,m:jack@suse.cz,m:paul@paul-moore.com,m:miklos@szeredi.hu,m:selinux@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:stephen.smalley.work@gmail.com,m:jlayton@kernel.org,m:jmorris@namei.org,m:linux-kernel@vger.kernel.org,m:dhowells@redhat.com,m:linux-security-module@vger.kernel.org,m:chuck.lever@oracle.com,m:viro@zeniv.linux.org.uk,m:linux-fsdevel@vger.kernel.org,m:netfs@lists.linux.dev,m:linux-unionfs@vger.kernel.org,m:linux-nfs@vger.kernel.org,m:serge@hallyn.com,m:stephensmalleywork@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_FROM(0.00)[gmail.com];
 	RCVD_TLS_LAST(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[21];
+	RCVD_COUNT_THREE(0.00)[3];
+	RCPT_COUNT_TWELVE(0.00)[20];
 	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:-];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	NEURAL_HAM(-0.00)[-0.997];
-	FROM_NEQ_ENVFROM(0.00)[jlayton@kernel.org,apparmor-bounces@lists.ubuntu.com];
-	TAGGED_RCPT(0.00)[apparmor];
-	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[amir73il@gmail.com,apparmor-bounces@lists.ubuntu.com];
+	DKIM_TRACE(0.00)[gmail.com:-];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns,brown.name:email]
-X-Rspamd-Queue-Id: 2DF8BF2759
+	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[amir73il@gmail.com,apparmor-bounces@lists.ubuntu.com];
+	FREEMAIL_CC(0.00)[kernel.org,suse.cz,paul-moore.com,szeredi.hu,vger.kernel.org,lists.ubuntu.com,gmail.com,namei.org,redhat.com,oracle.com,zeniv.linux.org.uk,lists.linux.dev,hallyn.com];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	TAGGED_RCPT(0.00)[apparmor];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[brown.name:email,mail.gmail.com:mid,lists.ubuntu.com:helo,lists.ubuntu.com:rdns]
+X-Rspamd-Queue-Id: 68D80F6D31
 X-Rspamd-Action: no action
 
-On Wed, 2026-02-04 at 15:57 +1100, NeilBrown wrote:
+On Wed, Feb 4, 2026 at 6:09=E2=80=AFAM NeilBrown <neilb@ownmail.net> wrote:
+>
 > From: NeilBrown <neil@brown.name>
->=20
-> simple_done_creating() and end_creating() are identical.
-> So change the former to use the latter.  This further centralises
-> unlocking of directories.
->=20
+>
+> When ovl_create_real() is used to create a file on the upper filesystem
+> it needs to return the resulting dentry - positive and hashed.
+> It is usually the case the that dentry passed to the create function
+> (e.g.  vfs_create()) will be suitable but this is not guaranteed.  The
+> filesystem may unhash that dentry forcing a repeat lookup next time the
+> name is wanted.
+>
+> So ovl_create_real() must be (and is) aware of this and prepared to
+> perform that lookup to get a hash positive dentry.
+>
+> This is currently done under that same directory lock that provided
+> exclusion for the create.  Proposed changes to locking will make this
+> not possible - as the name, rather than the directory, will be locked.
+> The new APIs provided for lookup and locking do not and cannot support
+> this pattern.
+>
+> The lock isn't needed.  ovl_create_real() can drop the lock and then get
+> a new lock for the lookup - then check that the lookup returned the
+> correct inode.  In a well-behaved configuration where the upper
+> filesystem is not being modified by a third party, this will always work
+> reliably, and if there are separate modification it will fail cleanly.
+>
+> So change ovl_create_real() to drop the lock and call
+> ovl_start_creating_upper() to find the correct dentry.  Note that
+> start_creating doesn't fail if the name already exists.
+>
+> This removes the only remaining use of ovl_lookup_upper, so it is
+> removed.
+>
 > Signed-off-by: NeilBrown <neil@brown.name>
 > ---
->  fs/libfs.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
->=20
-> diff --git a/fs/libfs.c b/fs/libfs.c
-> index f1860dff86f2..db18b53fc189 100644
-> --- a/fs/libfs.c
-> +++ b/fs/libfs.c
-> @@ -2318,7 +2318,6 @@ EXPORT_SYMBOL(simple_start_creating);
->  /* parent must have been held exclusive since simple_start_creating() */
->  void simple_done_creating(struct dentry *child)
->  {
-> -	inode_unlock(child->d_parent->d_inode);
-> -	dput(child);
-> +	end_creating(child);
->  }
->  EXPORT_SYMBOL(simple_done_creating);
+>  fs/overlayfs/dir.c       | 24 ++++++++++++++++++------
+>  fs/overlayfs/overlayfs.h |  7 -------
+>  2 files changed, 18 insertions(+), 13 deletions(-)
+>
+> diff --git a/fs/overlayfs/dir.c b/fs/overlayfs/dir.c
+> index ff3dbd1ca61f..ec08904d084d 100644
+> --- a/fs/overlayfs/dir.c
+> +++ b/fs/overlayfs/dir.c
+> @@ -219,21 +219,33 @@ struct dentry *ovl_create_real(struct ovl_fs *ofs, =
+struct dentry *parent,
+>                 err =3D -EIO;
+>         } else if (d_unhashed(newdentry)) {
+>                 struct dentry *d;
+> +               struct name_snapshot name;
+>                 /*
+>                  * Some filesystems (i.e. casefolded) may return an unhas=
+hed
+> -                * negative dentry from the ovl_lookup_upper() call befor=
+e
+> +                * negative dentry from the ovl_start_creating_upper() ca=
+ll before
+>                  * ovl_create_real().
 
-nit: seems like it would be better to turn this into a static inline
---=20
-Jeff Layton <jlayton@kernel.org>
+
+According to the new locking rules, if the hashed dentry itself is
+the synchronization object, is it going to be allowed to
+filesystem to unhash the dentry while the dentry still in the
+"creating" scope? It is hard for me to wrap my head around this.
+
+Or do we need this here because some filesystems (casefold in
+particular) are not going to support parallel creations?
+
+>                  * In that case, lookup again after making the newdentry
+>                  * positive, so ovl_create_upper() always returns a hashe=
+d
+>                  * positive dentry.
+> +                * As we have to drop the lock before the lookup a race
+> +                * could result in a lookup failure.  In that case we ret=
+urn
+> +                * an error.
+>                  */
+> -               d =3D ovl_lookup_upper(ofs, newdentry->d_name.name, paren=
+t,
+> -                                    newdentry->d_name.len);
+> -               dput(newdentry);
+> -               if (IS_ERR_OR_NULL(d))
+> +               take_dentry_name_snapshot(&name, newdentry);
+> +               end_creating_keep(newdentry);
+> +               d =3D ovl_start_creating_upper(ofs, parent, &name.name);
+> +               release_dentry_name_snapshot(&name);
+
+OK. not saying no to this (yet) but I have to admit that it is pretty
+ugly that the callers of ovl_create_real() want to create a specific
+stable name, which is could be passed in as const char *name
+and yet we end up doing this weird dance here just to keep the name
+from newdentry.
+
+Thanks,
+Amir.
 
