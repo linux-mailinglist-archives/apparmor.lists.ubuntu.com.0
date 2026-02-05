@@ -2,89 +2,93 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KE1WL0NJhGk/2QMAu9opvQ
+	id uKG3B65JhGk/2QMAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 08:39:47 +0100
+	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 08:41:34 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66777EF7ED
-	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 08:39:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6EBBEF82E
+	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 08:41:33 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vntxX-0004w4-OY; Thu, 05 Feb 2026 07:39:27 +0000
-Received: from smtp-relay-internal-1.internal ([10.131.114.114]
- helo=smtp-relay-internal-1.canonical.com)
+	id 1vntzM-00059H-IX; Thu, 05 Feb 2026 07:41:20 +0000
+Received: from smtp-relay-internal-0.internal ([10.131.114.225]
+ helo=smtp-relay-internal-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1vntxV-0004vx-Ms
- for apparmor@lists.ubuntu.com; Thu, 05 Feb 2026 07:39:25 +0000
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
+ id 1vntzL-00059A-7s
+ for apparmor@lists.ubuntu.com; Thu, 05 Feb 2026 07:41:19 +0000
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 850D03FE1C
- for <apparmor@lists.ubuntu.com>; Thu,  5 Feb 2026 07:39:25 +0000 (UTC)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 034C53F784
+ for <apparmor@lists.ubuntu.com>; Thu,  5 Feb 2026 07:41:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20251003; t=1770277165;
- bh=bLlZPCPH2auAgudTJ7AKXxYDpYkt3kL9xAdZD+1ZEoA=;
+ s=20251003; t=1770277279;
+ bh=zxCZUzd2xfkMizEOYKRbaOGQsI1X2IZR0QVgIaFzVaA=;
  h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
  In-Reply-To:Content-Type;
- b=Pvv7N1lmzUdFy3kbYk38NEdOKpDmdUhe73ZQh+5wr/jYg29uHHRB80p5LERWINbbt
- WskuCBkRRAcZTEZwXmuB1wg5f6a07kyvAfqQ3Y7C3eBQYFTzNfT+jKotUQhhhv8ye8
- YDJXBxuUfSyTSiFThLnYLwudlZKXpv3BLJeMjMzudNPE3M853QGsp+Q+AoppgkHsOE
- 7s3HkfIb0CScMudyHg8eg4lm4UyjnKriR6tfiLuCzYCBInI4MYw3jI2/DkD417C2Xi
- Rp8L3VOCNxIpWg81CCUTuHrzA0hzEZZ49+oXKu44BeO7z116Nk88yhCa7+84ziyHkj
- xlpOb361VuXwsXoVYH2VJelUnAWK5j0UuuSdkCzz4mNuag3M1kco2Wn6IQp8o3xc9U
- zTCm4Q8vcM9uhe5/Fp5lPRlq+IXNEUzVWplFD4Ro1tsVp0I3T8Ddugc10kU8yeN+Us
- 94qjPmtd5EHEzAS+XDd2/PwCQiODB/BFzkY+ER8Deb9nD9Ivtxcl9lH+3rXSDJwSy9
- WZ5VcDwMV70EnnMxQqbPpE+kQ/f6Ja1K/XBuET0/3GlC6t/rFiTtk83xh9GojjRWVW
- KvhRVyhoAxzDO/pCDYMfAr6I9yZf2fK61rVWR+KYDjnQ1BpVlrTPHqxwyXCGTGJF4X
- lj89TNA13JEysK0f2wraIs30=
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-29f29ae883bso5133665ad.3
- for <apparmor@lists.ubuntu.com>; Wed, 04 Feb 2026 23:39:25 -0800 (PST)
+ b=ZEgGfJku8lLHH2UimQ+yHYAMrObB65G6SoQ/NF7R53egv37sJw3Xbw8CLjFcCmq0j
+ DYyRGSyt08spxlS6RbAZ/ZeONmup7Lb5sLtOcwi6iEdP94i/+wf2BdD1zvyxb7D5xx
+ chxG311vmlk/dGwhKBKkwRe6u89pUxpagTvd7fNkS73Ml3tD7Hxu5h5xQ+hIWEK4lr
+ XTu9Z+TN5On+B/qxs8MRceEukhrv3XOucUJFAH2p4EJP68EQKyL2+DKP6Z24ooK6cr
+ z+N3SRlR/6XeG3erT1u5wH2mckixP6eCi05MzHBtZTzt6gG1meyuxFhe8Nt1XIAnXt
+ Rxejw59iMh5i9fp3QGDwHevx2SFixMtQHH7fqQjXcZcCsTMQzsmpMRgpTnzldRvFZB
+ O6TWWoOBB/qmlY3OD1LZG9X366epVvQMwIPcM/kpP5Z2wG+Il38Z5s9MvDq42S7q4G
+ JUI0J3IGIAzhGifgaom8RQ4kmjWYwqZjlPYg51aVRYeXG7ITe8lUrOXS8krWRWUSqA
+ Tgv1vfmGoSfUTaCQxK+nI8uY0iRyWA5OHaNEqKQvdZv6r8o7kvN6HBBZ83vv/m2+Vz
+ 7dfHU0YP7lkuHFriCqwXWAQwvRuGH84/I5ApD3FMmpVJXvRHTwiNoObZdJAhrdvOVV
+ UtyeNTXDQwL2UlSJ9IXRW6KE=
+Received: by mail-pj1-f70.google.com with SMTP id
+ 98e67ed59e1d1-34abd303b4aso1450042a91.1
+ for <apparmor@lists.ubuntu.com>; Wed, 04 Feb 2026 23:41:18 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1770277164; x=1770881964;
+ d=1e100.net; s=20230601; t=1770277277; x=1770882077;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=bLlZPCPH2auAgudTJ7AKXxYDpYkt3kL9xAdZD+1ZEoA=;
- b=arLZHGsq8JZXa39yHIB69YcsbRw3annM5aQiVsCXrIwzRHro8uGPX7VOuNmxgHNb60
- ls9NwHovOW8QzWupJVDrWq4tcUMUq/hdJaYLWvcAm4zXhM5aWbjf3d2cju9OnALM8Ul4
- tO+ILy9pyBvhsL3FzidNxRxM4ZD/bgb1uaCfqEYevJ+o1SHP8tNcSI7/mblNpW5ijqko
- nnZvwgVz64lAdkQzQwDO+3XTW5YhJEJN1frbIPSM7xPNWljfd2u83ivdNF6Y75FBxdEp
- jQ4hpihYPfq9hb9b4QDzQ1J9ePfG9GuzO9zONOxFqrZleGt1URViRKJDkyBYj2BSBD0T
- W0Lg==
-X-Gm-Message-State: AOJu0YyCWe96KyeTn87OlWWRsC8reLqr7dSxQBWmsbxFMWvGUCV7Niom
- ff9jxNXWdPU4ksQ7lUITBRWAWFop8ObAKUihVrWak2B9i8mLXtODi9yIWr/UDjFnrA+84Crse9s
- n2UWNKB0hxR/GQT9cpjpcWa9Ij1GnBtxhn8P+Rkb2e7xEmB/Sg+cBvuz2VtJrCMAhLLATUZikUy
- pZXQ==
-X-Gm-Gg: AZuq6aLGbyHdpys22I7RAMGiz5o0HBer9MiJU9PfLa0jFlL9osFcs+MNOX6GxxWKXly
- TrttP805atoClNYAzYXXyB6EfAyuNIm0ptgbcw9O0F7v46Kzc9MpeAA1IgblWcJrcWh/QU8hPf2
- WLmYyUP+lVge4M2YhnvTHJ2AX8M8Z7qjMu0CQPn5NoZ4va9JfKcD7+X0l0yvJMeTxv28KmJsatd
- 6LZkqK9ZEisz1Fy0LvJEllNb/3ZLVq0z8qJPbAbEnWFdPhbu7k9bAdGCVI6jHsgiwQAYncXiZS+
- L+05XJeURaSo3RU4gt6FLFlLz3d+l/G9fXfBR3pDtdNjX3UHPg0Whi6Iqn+0HgE/BSk2RECnzPT
- UUMtuPu5wrB9KiRzlY0V2j/tR
-X-Received: by 2002:a17:902:c411:b0:2a8:ac0f:9ae4 with SMTP id
- d9443c01a7336-2a933fb5b7amr54914435ad.48.1770277164085; 
- Wed, 04 Feb 2026 23:39:24 -0800 (PST)
-X-Received: by 2002:a17:902:c411:b0:2a8:ac0f:9ae4 with SMTP id
- d9443c01a7336-2a933fb5b7amr54914275ad.48.1770277163673; 
- Wed, 04 Feb 2026 23:39:23 -0800 (PST)
+ bh=zxCZUzd2xfkMizEOYKRbaOGQsI1X2IZR0QVgIaFzVaA=;
+ b=qhcaR4msm7AHQ8DcYjVC1K5RrCZTMi3tNkQHYv4yrhNCuyOb8zEbcy6E3P2hvi6RYF
+ 8kaOi7Wn3RI/G9tkhcpBriNlfVCem7gbFQmrBeks9GIyWzENB6/0MHDrC3G8g9xjqCga
+ wIex6cl7d2VUx0IbPhb+KZhf/ecUidWKBgY7kulPeMc5dpE4e5nfHTQ3MQb3hIZrCghn
+ XdE5PGehhxbi+8+oLbJXMvBR2fwvW0/vuBibTbK1exjOfMLx5TrfT77gqGBOFD/jed3W
+ 6qp+WWQsw17hrE+Rkyq7Sri+tt+Rt3F0pf2ZnwayI+wo09cF5ljL3RAim+tMp8a0PELP
+ Gvzw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV74JliCwGEU+2Rc944z513toMpVxyB+2gnn4rD6u/C/2QK4e88Aiz3WAOGd6uhFfpbisqsjWv5JQ==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0YzWO22sw8IrTHTWEipgqkQLDdctjgxj/Q6ZnI4cgAKbzST3jFuV
+ 6aJBdvXBl1obEv+APH6pqHIK5KVjWkrmgLuWwzUHt4xHVn9rGn+bfoOdtriLEBHUfYlV00dxglc
+ IkASzZa//5GHv+Xx50wIzal3fXHRtqN6OkFZEveWH7Jjgq0aiHP8kYH1cq0pQSMru19fXS4jC9H
+ arCDxJZJDRqA==
+X-Gm-Gg: AZuq6aIW14QvCMGTOVsVEW56FFG/IAq+jDf8+gOugic6gK0PibJIZtQQ0QGigX1JcD1
+ n3PelXhLe0YRmE2rKG8Xrx9upCIZ13N0ibLqsFpWAniUwhttvpYLUAFoTinTrCst5kCQsmYIL5h
+ OSqrd+i93eU2q8L7yUudI5PZIiztkWdspEJo+Jr8oAwMD+n80dgw0GjPx4LoR6gTdOSRVfJRL9S
+ tWh1NUEP9kmNZRHQyedduIEaKEDsRC2LHsuB+Xxjpupwx85b36cC5af0rEmNoa2QfFnsYYXGEV6
+ OVu7Bi1O8H26ot9upgIdK0paRF3+xrI1/0ZtKBW9xV5aE5CtOxqOe2VplTJgH1h6tKbidEQ0EBK
+ FOj+FXcl+MxwmrLS7LyEcKRAR
+X-Received: by 2002:a17:90b:3c49:b0:353:356c:6840 with SMTP id
+ 98e67ed59e1d1-354870e76abmr4514902a91.14.1770277277743; 
+ Wed, 04 Feb 2026 23:41:17 -0800 (PST)
+X-Received: by 2002:a17:90b:3c49:b0:353:356c:6840 with SMTP id
+ 98e67ed59e1d1-354870e76abmr4514884a91.14.1770277277365; 
+ Wed, 04 Feb 2026 23:41:17 -0800 (PST)
 Received: from [192.168.192.85] ([50.47.129.42])
  by smtp.googlemail.com with ESMTPSA id
- d9443c01a7336-2a933966305sm43483225ad.71.2026.02.04.23.39.22
+ 98e67ed59e1d1-3549c28204esm1621107a91.10.2026.02.04.23.41.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Feb 2026 23:39:23 -0800 (PST)
-Message-ID: <4f25c8f1-7c03-4838-abbe-756adc3610cc@canonical.com>
-Date: Wed, 4 Feb 2026 23:39:22 -0800
+ Wed, 04 Feb 2026 23:41:16 -0800 (PST)
+Message-ID: <1695a9cc-0d50-48f3-8c44-c84f3424924f@canonical.com>
+Date: Wed, 4 Feb 2026 23:41:15 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Georgia Garcia <georgia.garcia@canonical.com>
-References: <20260129185846.3169624-1-georgia.garcia@canonical.com>
+To: Ryota Sakamoto <sakamo.ryota@gmail.com>, Paul Moore
+ <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>
+References: <20260125-add-apparmor-kunitconfig-v1-1-e815cec415df@gmail.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -130,11 +134,10 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20260129185846.3169624-1-georgia.garcia@canonical.com>
+In-Reply-To: <20260125-add-apparmor-kunitconfig-v1-1-e815cec415df@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH 1/2] apparmor: fix invalid deref of rawdata
- when export_binary is unset
+Subject: Re: [apparmor] [PATCH] apparmor: add .kunitconfig
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -146,120 +149,88 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: apparmor@lists.ubuntu.com
+Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
+ linux-kernel@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [2.09 / 15.00];
+X-Spamd-Result: default: False [3.59 / 15.00];
 	DMARC_POLICY_REJECT(2.00)[canonical.com : SPF not aligned (relaxed),reject];
+	SUSPICIOUS_RECIPS(1.50)[];
 	R_DKIM_REJECT(1.00)[canonical.com:s=20251003];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FORGED_RECIPIENTS(0.00)[m:sakamo.ryota@gmail.com,m:paul@paul-moore.com,m:jmorris@namei.org,m:serge@hallyn.com,m:linux-security-module@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:linux-kernel@vger.kernel.org,m:sakamoryota@gmail.com,s:lists@lfdr.de];
+	RCVD_COUNT_FIVE(0.00)[5];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:georgia.garcia@canonical.com,m:apparmor@lists.ubuntu.com,s:lists@lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com,paul-moore.com,namei.org,hallyn.com];
 	RCVD_TLS_LAST(0.00)[];
 	ARC_NA(0.00)[];
-	RCPT_COUNT_TWO(0.00)[2];
-	TO_DN_SOME(0.00)[];
 	FORGED_SENDER(0.00)[john.johansen@canonical.com,apparmor-bounces@lists.ubuntu.com];
 	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[canonical.com:-];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FROM_NEQ_ENVFROM(0.00)[john.johansen@canonical.com,apparmor-bounces@lists.ubuntu.com];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_NEQ_ENVFROM(0.00)[john.johansen@canonical.com,apparmor-bounces@lists.ubuntu.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
-	MID_RHS_MATCH_FROM(0.00)[];
-	HAS_ORG_HEADER(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
+	MID_RHS_MATCH_FROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns];
+	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
+	DKIM_TRACE(0.00)[canonical.com:-];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	TAGGED_RCPT(0.00)[apparmor];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns]
-X-Rspamd-Queue-Id: 66777EF7ED
+	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
+	HAS_ORG_HEADER(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[]
+X-Rspamd-Queue-Id: C6EBBEF82E
 X-Rspamd-Action: no action
 
-On 1/29/26 10:58, Georgia Garcia wrote:
-> If the export_binary parameter is disabled on runtime, profiles that
-> were loaded before that will still have their rawdata stored in
-> apparmorfs, with a symbolic link to the rawdata on the policy
-> directory. When one of those profiles are replaced, the rawdata is set
-> to NULL, but when trying to resolve the symbolic links to rawdata for
-> that profile, it will try to dereference profile->rawdata->name when
-> profile->rawdata is now NULL causing an oops. Fix it by checking if
-> rawdata is set.
+On 1/25/26 02:05, Ryota Sakamoto wrote:
+> Add .kunitconfig file to the AppArmor directory to enable easy execution of
+> KUnit tests.
 > 
-> [  168.653080] BUG: kernel NULL pointer dereference, address: 0000000000000088
-> [  168.657420] #PF: supervisor read access in kernel mode
-> [  168.660619] #PF: error_code(0x0000) - not-present page
-> [  168.663613] PGD 0 P4D 0
-> [  168.665450] Oops: Oops: 0000 [#1] SMP NOPTI
-> [  168.667836] CPU: 1 UID: 0 PID: 1729 Comm: ls Not tainted 6.19.0-rc7+ #3 PREEMPT(voluntary)
-> [  168.672308] Hardware name: QEMU Ubuntu 24.04 PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-> [  168.679327] RIP: 0010:rawdata_get_link_base.isra.0+0x23/0x330
-> [  168.682768] Code: 90 90 90 90 90 90 90 0f 1f 44 00 00 55 48 89 e5 41 57 41 56 41 55 41 54 53 48 83 ec 18 48 89 55 d0 48 85 ff 0f 84 e3 01 00 00 <48> 83 3c 25 88 00 00 00 00 0f 84 d4 01 00 00 49 89 f6 49 89 cc e8
-> [  168.689818] RSP: 0018:ffffcdcb8200fb80 EFLAGS: 00010282
-> [  168.690871] RAX: ffffffffaee74ec0 RBX: 0000000000000000 RCX: ffffffffb0120158
-> [  168.692251] RDX: ffffcdcb8200fbe0 RSI: ffff88c187c9fa80 RDI: ffff88c186c98a80
-> [  168.693593] RBP: ffffcdcb8200fbc0 R08: 0000000000000000 R09: 0000000000000000
-> [  168.694941] R10: 0000000000000000 R11: 0000000000000000 R12: ffff88c186c98a80
-> [  168.696289] R13: 00007fff005aaa20 R14: 0000000000000080 R15: ffff88c188f4fce0
-> [  168.697637] FS:  0000790e81c58280(0000) GS:ffff88c20a957000(0000) knlGS:0000000000000000
-> [  168.699227] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [  168.700349] CR2: 0000000000000088 CR3: 000000012fd3e000 CR4: 0000000000350ef0
-> [  168.701696] Call Trace:
-> [  168.702325]  <TASK>
-> [  168.702995]  rawdata_get_link_data+0x1c/0x30
-> [  168.704145]  vfs_readlink+0xd4/0x160
-> [  168.705152]  do_readlinkat+0x114/0x180
-> [  168.706214]  __x64_sys_readlink+0x1e/0x30
-> [  168.708653]  x64_sys_call+0x1d77/0x26b0
-> [  168.709525]  do_syscall_64+0x81/0x500
-> [  168.710348]  ? do_statx+0x72/0xb0
-> [  168.711109]  ? putname+0x3e/0x80
-> [  168.711845]  ? __x64_sys_statx+0xb7/0x100
-> [  168.712711]  ? x64_sys_call+0x10fc/0x26b0
-> [  168.713577]  ? do_syscall_64+0xbf/0x500
-> [  168.714412]  ? do_user_addr_fault+0x1d2/0x8d0
-> [  168.715404]  ? irqentry_exit+0xb2/0x740
-> [  168.716359]  ? exc_page_fault+0x90/0x1b0
-> [  168.717307]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+> AppArmor tests (CONFIG_SECURITY_APPARMOR_KUNIT_TEST) depend on
+> CONFIG_SECURITY_APPARMOR which also depends on CONFIG_SECURITY and
+> CONFIG_NET. Without explicitly enabling these configs in the .kunitconfig,
+> developers will need to specify config manually.
 > 
-> Signed-off-by: Georgia Garcia <georgia.garcia@canonical.com>
+> With the .kunitconfig, developers can run the tests:
+>    $ ./tools/testing/kunit/kunit.py run --kunitconfig security/apparmor
+> 
+> Signed-off-by: Ryota Sakamoto <sakamo.ryota@gmail.com>
 
 Acked-by: John Johansen <john.johansen@canonical.com>
 
-I pulled patch 1/2 (bug fix) in, patch 2/2 will need more review, and have to wait in the queue for next cycle
+sorry, for the delay I actually pulled this in a while ago, but the initial reply seems
+to have gone into the void.
 
 > ---
->   security/apparmor/apparmorfs.c | 8 ++++++++
->   1 file changed, 8 insertions(+)
+>   security/apparmor/.kunitconfig | 5 +++++
+>   1 file changed, 5 insertions(+)
 > 
-> diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
-> index 907bd2667e28..4fb251a7e85a 100644
-> --- a/security/apparmor/apparmorfs.c
-> +++ b/security/apparmor/apparmorfs.c
-> @@ -1644,6 +1644,14 @@ static const char *rawdata_get_link_base(struct dentry *dentry,
->   
->   	label = aa_get_label_rcu(&proxy->label);
->   	profile = labels_profile(label);
-> +
-> +	/* rawdata can be null when aa_g_export_binary is unset during
-> +	 * runtime and a profile is replaced */
-> +	if (!profile->rawdata) {
-> +		aa_put_label(label);
-> +		return ERR_PTR(-ENOENT);
-> +	}
-> +
->   	depth = profile_depth(profile);
->   	target = gen_symlink_name(depth, profile->rawdata->name, name);
->   	aa_put_label(label);
+> diff --git a/security/apparmor/.kunitconfig b/security/apparmor/.kunitconfig
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..aa842a0266e9d33c3333ec2ea180206187b0eb4c
+> --- /dev/null
+> +++ b/security/apparmor/.kunitconfig
+> @@ -0,0 +1,5 @@
+> +CONFIG_KUNIT=y
+> +CONFIG_NET=y
+> +CONFIG_SECURITY=y
+> +CONFIG_SECURITY_APPARMOR=y
+> +CONFIG_SECURITY_APPARMOR_KUNIT_TEST=y
+> 
+> ---
+> base-commit: d91a46d6805af41e7f2286e0fc22d498f45a682b
+> change-id: 20260125-add-apparmor-kunitconfig-28aba43c1580
+> 
+> Best regards,
 
 
