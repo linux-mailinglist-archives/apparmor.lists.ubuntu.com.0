@@ -2,37 +2,37 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UBVdH4mQhGkh3gMAu9opvQ
+	id QMfjFIiQhGkt3gMAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 13:43:53 +0100
+	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 13:43:52 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E542F2BD9
-	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 13:43:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D9D9F2BD2
+	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 13:43:52 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vnyhs-0001mt-U1; Thu, 05 Feb 2026 12:43:36 +0000
+	id 1vnyhu-0001nc-Az; Thu, 05 Feb 2026 12:43:38 +0000
 Received: from sea.source.kernel.org ([172.234.252.31])
  by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <jlayton@kernel.org>) id 1vnyhr-0001mC-Bi
+ (envelope-from <jlayton@kernel.org>) id 1vnyhr-0001mE-CF
  for apparmor@lists.ubuntu.com; Thu, 05 Feb 2026 12:43:35 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A944643B7D;
- Thu,  5 Feb 2026 12:33:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9121EC4CEF7;
- Thu,  5 Feb 2026 12:33:41 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 30854401B8;
+ Thu,  5 Feb 2026 12:36:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39CABC4CEF7;
+ Thu,  5 Feb 2026 12:36:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1770294823;
- bh=CaXL8ohZ+lkHdRJ/tD+tctQc0FL7TkIgyk0SVIeXBEw=;
+ s=k20201202; t=1770295000;
+ bh=Z4RrUOar5IY07sVSkNFHddtdmN+HsMiaWLmTRVAtFeE=;
  h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=svlmrh2e4/PYJ/R1UYry2jKf8WEzkrJomGEu/0jiA+w2/HrFywaH1c0xtHdTF0yox
- JdchkjWy10jWkN5jY6ScsEAXLVurARxBncLP4M47jPABPU29vgjJ+XyOH0E16o+Kaa
- NEpgdfeEOWapbWWpWDCOSwpFTzrgZpABzIGkYPbYdTkpWV2qcDBClohlxu7y1tDqHE
- Y5EW4mpBaT7MxG+rrSje/KdsKv19GOgpVLa7H4XItKyb22gT+j1kf3wZ6P4fPQI3PT
- niajs2NJkEe3Enor23mG/AO7QSGMQH9C5BTk0hh+cut3+Vsghi0t7LS4iOUnQLWXBb
- eFnZdXAbbreTA==
-Message-ID: <bcb8c138027576d6e3c9d6816b372c3b4c26695c.camel@kernel.org>
+ b=OfcJU9pPQwfzqsf0wBl/LDo5tOJtRaNxRidTai1u56gqbtkAqS/poI2CbgA9tKIEx
+ aEO7kOhrFJSs0vZEqA9blM/oE/ZwvKUyu6Z6DVhEhNtrznTWhzIG9xq1hphG0q00x3
+ QlujwkGLEDeVfyOBXmElE+l6AuxJYE6q4VZJcYg4TZ/z7GIf2C+9z4sEFrBvI76Jrg
+ EOtbFNNbVyZDS6h7064Lf1NjXRHOWbaeNaiHggGGufNEksNvxrUSwavWvGXP5X1ftd
+ 8kctTHWRB3Odnywbk5+QtGCpAohYDifllS6yP0d+md4umWSX0rCzsIDb71BfNIUfBj
+ ERIcrfho9tLNQ==
+Message-ID: <3d8aeaea14712ad2cd0199cba62bc1398f7cc4a0.camel@kernel.org>
 From: Jeff Layton <jlayton@kernel.org>
 To: NeilBrown <neil@brown.name>, Christian Brauner <brauner@kernel.org>, 
  Alexander Viro <viro@zeniv.linux.org.uk>, David Howells
@@ -42,10 +42,10 @@ To: NeilBrown <neil@brown.name>, Christian Brauner <brauner@kernel.org>,
  <john.johansen@canonical.com>, Paul Moore	 <paul@paul-moore.com>, James
  Morris <jmorris@namei.org>, "Serge E. Hallyn"	 <serge@hallyn.com>, Stephen
  Smalley <stephen.smalley.work@gmail.com>
-Date: Thu, 05 Feb 2026 07:33:40 -0500
-In-Reply-To: <20260204050726.177283-3-neilb@ownmail.net>
+Date: Thu, 05 Feb 2026 07:36:37 -0500
+In-Reply-To: <20260204050726.177283-6-neilb@ownmail.net>
 References: <20260204050726.177283-1-neilb@ownmail.net>
- <20260204050726.177283-3-neilb@ownmail.net>
+ <20260204050726.177283-6-neilb@ownmail.net>
 Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
  keydata=mQINBE6V0TwBEADXhJg7s8wFDwBMEvn0qyhAnzFLTOCHooMZyx7XO7dAiIhDSi7G1NPxw
  n8jdFUQMCR/GlpozMFlSFiZXiObE7sef9rTtM68ukUyZM4pJ9l0KjQNgDJ6Fr342Htkjxu/kFV1Wv
@@ -126,8 +126,8 @@ User-Agent: Evolution 3.58.2 (3.58.2-1.fc43)
 MIME-Version: 1.0
 Received-SPF: pass client-ip=172.234.252.31; envelope-from=jlayton@kernel.org;
  helo=sea.source.kernel.org
-Subject: Re: [apparmor] [PATCH 02/13] VFS: move the start_dirop() kerndoc
- comment to before start_dirop()
+Subject: Re: [apparmor] [PATCH 05/13] selinux: Use simple_start_creating() /
+ simple_done_creating()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -179,81 +179,69 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[brown.name:email,lists.ubuntu.com:helo,lists.ubuntu.com:rdns]
-X-Rspamd-Queue-Id: 4E542F2BD9
+X-Rspamd-Queue-Id: 3D9D9F2BD2
 X-Rspamd-Action: no action
 
 On Wed, 2026-02-04 at 15:57 +1100, NeilBrown wrote:
 > From: NeilBrown <neil@brown.name>
 >=20
-> This kerneldoc comment was always meant for start_dirop(), not for
-> __start_dirop() which is a static function and doesn't need
-> documentation.
+> Instead of explicitly locking the parent and performing a lookup in
+> selinux, use simple_start_creating(), and then use
+> simple_done_creating() to unlock.
 >=20
-> It was in the wrong place and was then incorrectly renamed (instead of
-> moved) and useless "documentation" was added for "@state" was provided.
->=20
-> This patch reverts the name, removes the mention of @state, and moves
-> the comment to where it belongs.
+> This extends the region that the directory is locked for, and also
+> performs a lookup.
+> The lock extension is of no real consequence.
+> The lookup uses simple_lookup() and so always succeeds.  Thus when
+> d_make_persistent() is called the dentry will already be hashed.
+> d_make_persistent() handles this case.
 >=20
 > Signed-off-by: NeilBrown <neil@brown.name>
 > ---
->  fs/namei.c | 27 +++++++++++++--------------
->  1 file changed, 13 insertions(+), 14 deletions(-)
+>  security/selinux/selinuxfs.c | 15 +++++++--------
+>  1 file changed, 7 insertions(+), 8 deletions(-)
 >=20
-> diff --git a/fs/namei.c b/fs/namei.c
-> index b28ecb699f32..40af78ddfb1b 100644
-> --- a/fs/namei.c
-> +++ b/fs/namei.c
-> @@ -2841,20 +2841,6 @@ static int filename_parentat(int dfd, struct filen=
-ame *name,
->  	return __filename_parentat(dfd, name, flags, parent, last, type, NULL);
->  }
-> =20
-> -/**
-> - * __start_dirop - begin a create or remove dirop, performing locking an=
-d lookup
-> - * @parent:       the dentry of the parent in which the operation will o=
-ccur
-> - * @name:         a qstr holding the name within that parent
-> - * @lookup_flags: intent and other lookup flags.
-> - * @state:        task state bitmask
-> - *
-> - * The lookup is performed and necessary locks are taken so that, on suc=
-cess,
-> - * the returned dentry can be operated on safely.
-> - * The qstr must already have the hash value calculated.
-> - *
-> - * Returns: a locked dentry, or an error.
-> - *
-> - */
->  static struct dentry *__start_dirop(struct dentry *parent, struct qstr *=
-name,
->  				    unsigned int lookup_flags,
->  				    unsigned int state)
-> @@ -2876,6 +2862,19 @@ static struct dentry *__start_dirop(struct dentry =
-*parent, struct qstr *name,
->  	return dentry;
->  }
-> =20
-> +/**
-> + * start_dirop - begin a create or remove dirop, performing locking and =
-lookup
-> + * @parent:       the dentry of the parent in which the operation will o=
-ccur
-> + * @name:         a qstr holding the name within that parent
-> + * @lookup_flags: intent and other lookup flags.
-> + *
-> + * The lookup is performed and necessary locks are taken so that, on suc=
-cess,
-> + * the returned dentry can be operated on safely.
-> + * The qstr must already have the hash value calculated.
-> + *
-> + * Returns: a locked dentry, or an error.
-> + *
-> + */
->  struct dentry *start_dirop(struct dentry *parent, struct qstr *name,
->  			   unsigned int lookup_flags)
+> diff --git a/security/selinux/selinuxfs.c b/security/selinux/selinuxfs.c
+> index 896acad1f5f7..97e02cd5a9dc 100644
+> --- a/security/selinux/selinuxfs.c
+> +++ b/security/selinux/selinuxfs.c
+> @@ -1930,15 +1930,16 @@ static const struct inode_operations swapover_dir=
+_inode_operations =3D {
+>  static struct dentry *sel_make_swapover_dir(struct super_block *sb,
+>  						unsigned long *ino)
 >  {
+> -	struct dentry *dentry =3D d_alloc_name(sb->s_root, ".swapover");
+> +	struct dentry *dentry;
+>  	struct inode *inode;
+> =20
+> -	if (!dentry)
+> +	inode =3D sel_make_inode(sb, S_IFDIR);
+> +	if (!inode)
+>  		return ERR_PTR(-ENOMEM);
+> =20
+> -	inode =3D sel_make_inode(sb, S_IFDIR);
+> -	if (!inode) {
+> -		dput(dentry);
+> +	dentry =3D simple_start_creating(sb->s_root, ".swapover");
+> +	if (!dentry) {
+> +		iput(inode);
+>  		return ERR_PTR(-ENOMEM);
+>  	}
+> =20
+> @@ -1946,11 +1947,9 @@ static struct dentry *sel_make_swapover_dir(struct=
+ super_block *sb,
+>  	inode->i_ino =3D ++(*ino);
+>  	/* directory inodes start off with i_nlink =3D=3D 2 (for "." entry) */
+>  	inc_nlink(inode);
+> -	inode_lock(sb->s_root->d_inode);
+>  	d_make_persistent(dentry, inode);
+>  	inc_nlink(sb->s_root->d_inode);
+> -	inode_unlock(sb->s_root->d_inode);
+> -	dput(dentry);
+> +	simple_done_creating(dentry);
+>  	return dentry;	// borrowed
+>  }
+> =20
 
 Reviewed-by: Jeff Layton <jlayton@kernel.org>
 
