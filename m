@@ -2,37 +2,37 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QMfjFIiQhGkt3gMAu9opvQ
+	id YNQ3L0CRhGkh3gMAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 13:43:52 +0100
+	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 13:46:56 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D9D9F2BD2
-	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 13:43:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64D39F2C32
+	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 13:46:56 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vnyhu-0001nc-Az; Thu, 05 Feb 2026 12:43:38 +0000
-Received: from sea.source.kernel.org ([172.234.252.31])
+	id 1vnykv-0002Na-Ly; Thu, 05 Feb 2026 12:46:45 +0000
+Received: from tor.source.kernel.org ([172.105.4.254])
  by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <jlayton@kernel.org>) id 1vnyhr-0001mE-CF
- for apparmor@lists.ubuntu.com; Thu, 05 Feb 2026 12:43:35 +0000
+ (envelope-from <jlayton@kernel.org>) id 1vnykt-0002M9-7U
+ for apparmor@lists.ubuntu.com; Thu, 05 Feb 2026 12:46:43 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 30854401B8;
- Thu,  5 Feb 2026 12:36:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39CABC4CEF7;
- Thu,  5 Feb 2026 12:36:38 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6A1CA60128;
+ Thu,  5 Feb 2026 12:36:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37E9CC19423;
+ Thu,  5 Feb 2026 12:36:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1770295000;
- bh=Z4RrUOar5IY07sVSkNFHddtdmN+HsMiaWLmTRVAtFeE=;
+ s=k20201202; t=1770295019;
+ bh=r/RWmitTDtOL5zacBcM1kz+XoL+DdBMTmApl8Pq8ui8=;
  h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=OfcJU9pPQwfzqsf0wBl/LDo5tOJtRaNxRidTai1u56gqbtkAqS/poI2CbgA9tKIEx
- aEO7kOhrFJSs0vZEqA9blM/oE/ZwvKUyu6Z6DVhEhNtrznTWhzIG9xq1hphG0q00x3
- QlujwkGLEDeVfyOBXmElE+l6AuxJYE6q4VZJcYg4TZ/z7GIf2C+9z4sEFrBvI76Jrg
- EOtbFNNbVyZDS6h7064Lf1NjXRHOWbaeNaiHggGGufNEksNvxrUSwavWvGXP5X1ftd
- 8kctTHWRB3Odnywbk5+QtGCpAohYDifllS6yP0d+md4umWSX0rCzsIDb71BfNIUfBj
- ERIcrfho9tLNQ==
-Message-ID: <3d8aeaea14712ad2cd0199cba62bc1398f7cc4a0.camel@kernel.org>
+ b=YFZT7KVAa5p4zKtTDyCaxee5VRJZOnFGXi4oTMUzFY2FBOD/pz7iS7JCcxsiuntfC
+ mv1CnHEWss1lbx5p1myttORt3TyAbZhdG6hloq3KrhXWNbOoKp2vvUyKbIxgicUIWD
+ nf8sRBPWihATme4F0s0uGzZeLtyLkB1eDL2ngwHEjv7JeWvBa/p+PS7naOtX99zVMW
+ ijOfqZwmruNnbGvSyw9bmI2fa/qDoxdiBqnERWam1XRUrT+QDu29LG4EMiiIvVVrW9
+ 4cOED4MLS8Jg26e5FUt7rR+dJGDalHZ1oM0w9C338s5NGMod5ptrYd5OZ9wWgmDScG
+ sHQ6UN/jEeROA==
+Message-ID: <b4cc667f93cd16b251ba063898055b3a754e3496.camel@kernel.org>
 From: Jeff Layton <jlayton@kernel.org>
 To: NeilBrown <neil@brown.name>, Christian Brauner <brauner@kernel.org>, 
  Alexander Viro <viro@zeniv.linux.org.uk>, David Howells
@@ -42,10 +42,10 @@ To: NeilBrown <neil@brown.name>, Christian Brauner <brauner@kernel.org>,
  <john.johansen@canonical.com>, Paul Moore	 <paul@paul-moore.com>, James
  Morris <jmorris@namei.org>, "Serge E. Hallyn"	 <serge@hallyn.com>, Stephen
  Smalley <stephen.smalley.work@gmail.com>
-Date: Thu, 05 Feb 2026 07:36:37 -0500
-In-Reply-To: <20260204050726.177283-6-neilb@ownmail.net>
+Date: Thu, 05 Feb 2026 07:36:56 -0500
+In-Reply-To: <20260204050726.177283-7-neilb@ownmail.net>
 References: <20260204050726.177283-1-neilb@ownmail.net>
- <20260204050726.177283-6-neilb@ownmail.net>
+ <20260204050726.177283-7-neilb@ownmail.net>
 Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
  keydata=mQINBE6V0TwBEADXhJg7s8wFDwBMEvn0qyhAnzFLTOCHooMZyx7XO7dAiIhDSi7G1NPxw
  n8jdFUQMCR/GlpozMFlSFiZXiObE7sef9rTtM68ukUyZM4pJ9l0KjQNgDJ6Fr342Htkjxu/kFV1Wv
@@ -124,10 +124,10 @@ Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.58.2 (3.58.2-1.fc43) 
 MIME-Version: 1.0
-Received-SPF: pass client-ip=172.234.252.31; envelope-from=jlayton@kernel.org;
- helo=sea.source.kernel.org
-Subject: Re: [apparmor] [PATCH 05/13] selinux: Use simple_start_creating() /
- simple_done_creating()
+Received-SPF: pass client-ip=172.105.4.254; envelope-from=jlayton@kernel.org;
+ helo=tor.source.kernel.org
+Subject: Re: [apparmor] [PATCH 06/13] nfsd: switch purge_old() to use
+ start_removing_noperm()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -171,77 +171,54 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	NEURAL_HAM(-0.00)[-0.997];
+	NEURAL_HAM(-0.00)[-0.999];
 	FROM_NEQ_ENVFROM(0.00)[jlayton@kernel.org,apparmor-bounces@lists.ubuntu.com];
 	TAGGED_RCPT(0.00)[apparmor];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[brown.name:email,lists.ubuntu.com:helo,lists.ubuntu.com:rdns]
-X-Rspamd-Queue-Id: 3D9D9F2BD2
+	DBL_BLOCKED_OPENRESOLVER(0.00)[brown.name:email,lists.ubuntu.com:helo,lists.ubuntu.com:rdns,name.data:url]
+X-Rspamd-Queue-Id: 64D39F2C32
 X-Rspamd-Action: no action
 
 On Wed, 2026-02-04 at 15:57 +1100, NeilBrown wrote:
 > From: NeilBrown <neil@brown.name>
 >=20
-> Instead of explicitly locking the parent and performing a lookup in
-> selinux, use simple_start_creating(), and then use
-> simple_done_creating() to unlock.
->=20
-> This extends the region that the directory is locked for, and also
-> performs a lookup.
-> The lock extension is of no real consequence.
-> The lookup uses simple_lookup() and so always succeeds.  Thus when
-> d_make_persistent() is called the dentry will already be hashed.
-> d_make_persistent() handles this case.
+> Rather than explicit locking, use the start_removing_noperm() and
+> end_removing() wrappers.
+> This was not done with other start_removing changes due to conflicting
+> in-flight patches.
 >=20
 > Signed-off-by: NeilBrown <neil@brown.name>
 > ---
->  security/selinux/selinuxfs.c | 15 +++++++--------
->  1 file changed, 7 insertions(+), 8 deletions(-)
+>  fs/nfsd/nfs4recover.c | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
 >=20
-> diff --git a/security/selinux/selinuxfs.c b/security/selinux/selinuxfs.c
-> index 896acad1f5f7..97e02cd5a9dc 100644
-> --- a/security/selinux/selinuxfs.c
-> +++ b/security/selinux/selinuxfs.c
-> @@ -1930,15 +1930,16 @@ static const struct inode_operations swapover_dir=
-_inode_operations =3D {
->  static struct dentry *sel_make_swapover_dir(struct super_block *sb,
->  						unsigned long *ino)
->  {
-> -	struct dentry *dentry =3D d_alloc_name(sb->s_root, ".swapover");
-> +	struct dentry *dentry;
->  	struct inode *inode;
+> diff --git a/fs/nfsd/nfs4recover.c b/fs/nfsd/nfs4recover.c
+> index 441dfbfe2d2b..52fbe723a3c8 100644
+> --- a/fs/nfsd/nfs4recover.c
+> +++ b/fs/nfsd/nfs4recover.c
+> @@ -351,16 +351,14 @@ purge_old(struct dentry *parent, char *cname, struc=
+t nfsd_net *nn)
+>  	if (nfs4_has_reclaimed_state(name, nn))
+>  		goto out_free;
 > =20
-> -	if (!dentry)
-> +	inode =3D sel_make_inode(sb, S_IFDIR);
-> +	if (!inode)
->  		return ERR_PTR(-ENOMEM);
-> =20
-> -	inode =3D sel_make_inode(sb, S_IFDIR);
-> -	if (!inode) {
-> -		dput(dentry);
-> +	dentry =3D simple_start_creating(sb->s_root, ".swapover");
-> +	if (!dentry) {
-> +		iput(inode);
->  		return ERR_PTR(-ENOMEM);
+> -	inode_lock_nested(d_inode(parent), I_MUTEX_PARENT);
+> -	child =3D lookup_one(&nop_mnt_idmap, &QSTR(cname), parent);
+> +	child =3D start_removing_noperm(parent, &QSTR(cname));
+>  	if (!IS_ERR(child)) {
+>  		status =3D vfs_rmdir(&nop_mnt_idmap, d_inode(parent), child, NULL);
+>  		if (status)
+>  			printk("failed to remove client recovery directory %pd\n",
+>  			       child);
+> -		dput(child);
 >  	}
+> -	inode_unlock(d_inode(parent));
+> +	end_removing(child);
 > =20
-> @@ -1946,11 +1947,9 @@ static struct dentry *sel_make_swapover_dir(struct=
- super_block *sb,
->  	inode->i_ino =3D ++(*ino);
->  	/* directory inodes start off with i_nlink =3D=3D 2 (for "." entry) */
->  	inc_nlink(inode);
-> -	inode_lock(sb->s_root->d_inode);
->  	d_make_persistent(dentry, inode);
->  	inc_nlink(sb->s_root->d_inode);
-> -	inode_unlock(sb->s_root->d_inode);
-> -	dput(dentry);
-> +	simple_done_creating(dentry);
->  	return dentry;	// borrowed
->  }
-> =20
+>  out_free:
+>  	kfree(name.data);
 
 Reviewed-by: Jeff Layton <jlayton@kernel.org>
 
