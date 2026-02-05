@@ -2,99 +2,98 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YCMMB5/uhGkU6wMAu9opvQ
+	id 2JJ0NJzuhGkU6wMAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 20:25:19 +0100
+	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 20:25:16 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF032F6D38
-	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 20:25:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CB08F6D2A
+	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 20:25:16 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vo4yL-0001L3-75; Thu, 05 Feb 2026 19:25:01 +0000
-Received: from mail-ed1-f54.google.com ([209.85.208.54])
+	id 1vo4yO-0001N1-O1; Thu, 05 Feb 2026 19:25:04 +0000
+Received: from mail-ed1-f49.google.com ([209.85.208.49])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <amir73il@gmail.com>)
- id 1vnvnm-0006Pm-Kr
- for apparmor@lists.ubuntu.com; Thu, 05 Feb 2026 09:37:30 +0000
-Received: by mail-ed1-f54.google.com with SMTP id
- 4fb4d7f45d1cf-65378ba2ff7so961574a12.2
- for <apparmor@lists.ubuntu.com>; Thu, 05 Feb 2026 01:37:30 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1770284250; cv=none;
+ id 1vnvvs-0007Nl-9x
+ for apparmor@lists.ubuntu.com; Thu, 05 Feb 2026 09:45:52 +0000
+Received: by mail-ed1-f49.google.com with SMTP id
+ 4fb4d7f45d1cf-6582e8831aeso1211172a12.1
+ for <apparmor@lists.ubuntu.com>; Thu, 05 Feb 2026 01:45:52 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1770284751; cv=none;
  d=google.com; s=arc-20240605;
- b=bA8JjWXP/gdF5qmPkzaza1Mba1petB8vPtWHhg2wUrRgxnQ5Z2J7hVRBvELaREPmh4
- 10m67KWOpjEmKoRYpth2IU+9ijssip7wFKGx0kZDpCMvQrEjX27d/GQdgha9bwGHWh8M
- Xd4SwBSRCR1X3VrAxVb9gECd9QFnIudpja/DCGz3Gx/6kbrNxAGbQJbAw1j625lF4Ao2
- 6IBXwEH4pcgpiu+5nTragWh3ocomVGmXgAaYLu/4jDoeY3blTsNJ7fu/dPRHq4IuGLYh
- Jo4uxEgjq6uEla4zgJyj7cPyY2cEYoW8okCzYy7Wom+RyHRVWSJuuG5N6iAkx+Cqk+KL
- Ekfg==
+ b=MOxhrniVSoIVPXy9a0Qy6VLt69BO/Jx3RZuwbX4clsPiEIVYKXOnO9qRiMQPD3C1oN
+ x+r3/mx2fAWcsY+pxXiScMi0+N6tc6cetXD+dZIfYphuJar8RTRipGS8KOsiHlpEAXY1
+ OfhebVjgK287FyQDDWxT0huXW/6ERsN4BRx0rNLpw2ds0k7XZ4KFQOlakDAcdQXA70w/
+ n1fe5j1U/Uk2bLPReHqsYT9v9+zgE/eHj+S3lLGuMO/Sltgl5CehW7zF96hzXSOEC5RS
+ KTEdlDCgvmk9pWmeAuYwbgWjgkM8LZsmS7ylrTv3yIokxu7A6f89xLCz8ZHShlVl1PX+
+ DBbQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=ts7BIpqOHUIYO1yz8UgL/PwCOZwIbnvcvFeQ/hBIaCk=;
- fh=4cgumQyOVqOaSuMXPM91IZ7FvECkPQSG/qPgaxU2n4g=;
- b=ifPy+lyWT8L2e4TPPfuKhvx6bKzsQX1rT0jdJgmwi/f2ls1gUtInW5sJdUdhfSwYXL
- A/7Z2o0WISfWiDLQo93giRZ4eKihmlOlUTZFk//qJQVbD8XCLosmgcCWJ++WLIetoJks
- K0OtEaDFIAYIwpAQy7zq499C/TbOthg6sh95oabwNlcUxFyhdRa5OKHAxdLB/NXtP87V
- NxAHVzwfVlqptilFZ5/y0duEIS4G4nJv9uE0sMxjmi1OeRRd9EKlb5rylOX9yuLhtmaR
- 7fBvwW5BTjGtT1/n9Le6UdsUFb3ErtEQPMopNs0u69Qf6t+O6G+VvOCDLoGU0A9bigaA
- aMVQ==; darn=lists.ubuntu.com
+ bh=gTHjRNg48uqIhlFUjNVy6w29gFOiVNhUd1etS9WljNU=;
+ fh=BX8oe7ein1RwY3Ah6a4W11hXtKfuEiWdcOm2up39/UE=;
+ b=XmBEwWZU2rjZjevOTB/49uKWSzy0wqL/5H/bQL0LouuxHF+847v01tfOawPaPTE4qh
+ gBlHaipl1asNDYVuEm7vYw2fDgJHcAFKe0TSpImNQi1ftVjQpjShOgiVkYRabsWyrDwL
+ IbxECgxw6q26mS3gWvm3UmCsfl45ZJteEvxHRwWcyrRZ/vH38JpT9F8uiFI/sHaLeGg6
+ yyclbzucFRvNoF1D6fVbyEJNp2REIq3jFvHIVItpNtKoNviXB65RTvWhfSTLuQqKl/Km
+ LqPsZA4K8pGE3oinw8sTFH3DyZXOqKiBOYLcdc0VhjhfeqeagfcADi2SJRiN/wlbXQRG
+ CTuQ==; darn=lists.ubuntu.com
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1770284250; x=1770889050; darn=lists.ubuntu.com;
+ d=gmail.com; s=20230601; t=1770284751; x=1770889551; darn=lists.ubuntu.com;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ts7BIpqOHUIYO1yz8UgL/PwCOZwIbnvcvFeQ/hBIaCk=;
- b=C4PdOwY/Lumzs8+Z/4D/eJUukycJpV5jxDKuSGeg9wlyWTvIL3fPNkty8/TtYYGzif
- xib/h8qknEyBkApx/XE25gKy3/fmlLww/2ZmrydgCl0S2cusDVGkK2/fluCiQC8mfTsF
- 39kKx1jpmCo7tsie7faXPLBOPhHs7cOjVQznzH4vTRf9WM7hbZ1dsNQODffRJh1/alX1
- r9rLbox1oNthr1fP1n0O47xffz3qiT/Lo7BqXzJPEPc6eGJ98WNjD3VaLAMAVdK6YwUB
- 16krKXRalWmaM0A0t9z13kd/9IPGZywpYrGMetLolL3lkkPaKt5G+XWBbVHjjesv4KGl
- b0EA==
+ bh=gTHjRNg48uqIhlFUjNVy6w29gFOiVNhUd1etS9WljNU=;
+ b=HQ5meKor1XLOWO2i/YGuWkAk4Ct9Sx+6EdwOwzYWZarMVvv6LDrI3xTXcKcrMA5XOj
+ 5ZvsadyFnKyDe/VU3gXpw4NvkfrifCXQ5ovyCjbS/EBBgLVBOWCSSUsVGJGkgyz6iwQ6
+ snEL5t0zxcsi+II8IPckuhy0Sf1ny2l5HWXnl11+3DwgPXDSRC6toT8NAqPUUk3qKbav
+ e2Rs+nJlrR5RbXgu4u8ZhS0J1gNio9WFcIihCvL+BT3B9y793YcXDRvoJOfcXC/m5Yu6
+ zTFQ7jOwZi7uEnME7pb+zw5iCE7P1EPQ9ALtSe14TFmOgXR2dlxlSk19W0rqNTkymuCL
+ IPuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1770284250; x=1770889050;
+ d=1e100.net; s=20230601; t=1770284751; x=1770889551;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=ts7BIpqOHUIYO1yz8UgL/PwCOZwIbnvcvFeQ/hBIaCk=;
- b=AkKEqQkPgMPQXZ4jkcv9s4azyPPnWLD8a5d1sZs6i1vIjHKNHbDe6Mpg5uS53BUUCN
- e2emKAoS10+nGDtuCRqQHs6GJY99zpbordMdwr8cpJKHqNcB8/1bTN5yRC7gODOKU2WN
- M+MWZk+WgzXfNQGpKTaWZEhd7jAA+4hDTKK6JFgU4sophVak92i0vkFIDcRNWG0dFLGh
- sCzyOn+VlGdUomr8484N4tDqJ2iYW1aloMVQ6zCgHS9I+38kTwyx1iKLBp6QrVxSLCsq
- Lu3fDzZC+yL8/Nlt89R4dyO6ShGNsug+xAzu/QlZqOyPNftuSdzUWQ5x6+0vAwiTqSQF
- N9mw==
+ bh=gTHjRNg48uqIhlFUjNVy6w29gFOiVNhUd1etS9WljNU=;
+ b=wcRDiHHvb9QYhsE2vYi38+OcAiYNatyMELOZvTZjieL5a+BfwePGFkkiBzEYjA8dlB
+ xR0IBhtPRfKOvwuoKfY3xxjkePjW7rht4+n1U8XyeA1+UNp1LeJFk2xUHqYHvlliUEFC
+ TErnNyRterXGJurheflnBTrSBE/IbiA/D9Pq3f7S1PW4jCFBiOXlngg+F4A/7lxbmo30
+ EQavzXyK9gdfpYfEniYEssOIg4ca9OI2qgDN7/2X84GP9R2nmMvnAx1NpvtE9Vp2E3C+
+ YOk1ijmmXC9Ig59m1dCLzAFJqTUKc4D9e0WVUjvQnWNJdc8KDT4voxBLo245R99j3OTA
+ 2fpw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVSIC7CKsM6QExwDZhd4bcFmA2cnKIHRE5TGKW519cvn05tYiIvgZVrLTc//Ni+l65pjjULSOE/lQ==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0Yy9Wtg31r21agx65hgn+gQGnOPdgkXu2rfivIv9Nslw95sXuERt
- +2R9G9YrylEKtRrDud0riDjpm55zPAVTtCj9dGRJytLH2i6mLbwhvVE/PqfmScnxev6USl0EFvt
- qFDWJmvtpDIVs0zWWtx0lJU7NuM9UCSY=
-X-Gm-Gg: AZuq6aI05iFnnDew1wcvIqvnRzRgoFpxhte3FtUbQBsDFHRpIvqNCSNuuFOj3iNaFTE
- zLm4P2gvo/2BdnlcdbVgclw7AvCCzO6DguaSEENE7oyAtEwMxW2SdylHLbmHbnISdc2quFx4Ivx
- xn8wI+18JHpSLuag6wWHp7qeQY596t1oGK6+vMeDYvFF0j3BlokpzroaGZV6vm1JWcUKLwzb+dC
- hqqJhXaKXw6eyiRkWx0X8JfRSSSYSxNrKMLKLcDcl1wGwllTmzfjkzn5I9HLr6DcXS8k1MEf0AA
- t2IGrus3yo+WwBhiuYoMaVpKZp56cg==
-X-Received: by 2002:a05:6402:2688:b0:658:cf28:90ed with SMTP id
- 4fb4d7f45d1cf-65949cc1e5emr3920680a12.15.1770284249654; Thu, 05 Feb 2026
- 01:37:29 -0800 (PST)
+ AJvYcCWFzsMbVPQikKtipvjmjS9uXvSbAoi9YykiotUyvvgrei9aqqGL9rQ7P4GZq+9XErREKVVRXjRlOw==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0Yzta8CK+1Gb1lZs6nHBdaRknd6Ak+ZyPBPlKjXChyBbwihbJGPY
+ LugweFZ3JD8iwiGSZfQrZmZ6NUztHXI2dqFq/iWJ5Gs7GZ68SJ4FWTI8Ix7U5QT+kihFb9HOFIg
+ ELV8IhvLRlZp+IkICISVpJFIiSkY9ezw=
+X-Gm-Gg: AZuq6aIqkB1I2ZC7unLQHq5Qav3Jcarh+vWRYMTWgwvRV/AnJvRw1HIXpCK+lrggAa8
+ zlBmRscLQ2bNY3ovhpw+lOqvc0P5sFE6X9fUv2wNgOWY++RsOC7NsyRTCq+jHuxHgEQ2YIWQQFm
+ gvDVbevIs7Q6fhHvu8UtiDo7GIwhgT1H4ZVla7funFpOvsGeUnUz90Zm4DaOy99EnWtwQhMHuZV
+ vvdSIbSOsa030gdOqFd7GrIhAg/AoKYIZVfYzooVoRX/MworKw/FZjVDl0ybBdPOvkw5UkVlhum
+ TT07278e8XhczcwnlK0A/OvxjxKkjg==
+X-Received: by 2002:a17:907:7f92:b0:b87:31d1:4131 with SMTP id
+ a640c23a62f3a-b8e9f64603cmr435430866b.60.1770284751163; Thu, 05 Feb 2026
+ 01:45:51 -0800 (PST)
 MIME-Version: 1.0
 References: <20260204050726.177283-1-neilb@ownmail.net>
- <20260204050726.177283-12-neilb@ownmail.net>
-In-Reply-To: <20260204050726.177283-12-neilb@ownmail.net>
+ <20260204050726.177283-13-neilb@ownmail.net>
+In-Reply-To: <20260204050726.177283-13-neilb@ownmail.net>
 From: Amir Goldstein <amir73il@gmail.com>
-Date: Thu, 5 Feb 2026 10:37:18 +0100
-X-Gm-Features: AZwV_QjDs8XEOiRuWGAHzisKUrokVjcatEGo5N0FYjLzK48UQXH5p374RE5BkHo
-Message-ID: <CAOQ4uxiYUTi=8BjRFbY_GdBZR_5CuP6680me=_xQaPcQk7EFuQ@mail.gmail.com>
+Date: Thu, 5 Feb 2026 10:45:38 +0100
+X-Gm-Features: AZwV_Qg7CM-kXxjB2Qin-euJkaOUd7ni190R_n_ZLhun34eHr5T-i9uF6CbqXdo
+Message-ID: <CAOQ4uxi3bNYq1b4=qL-JLi19hRwurntfLZXhUMVL003NarBdGg@mail.gmail.com>
 To: NeilBrown <neil@brown.name>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=209.85.208.54; envelope-from=amir73il@gmail.com;
- helo=mail-ed1-f54.google.com
+Received-SPF: pass client-ip=209.85.208.49; envelope-from=amir73il@gmail.com;
+ helo=mail-ed1-f49.google.com
 X-Mailman-Approved-At: Thu, 05 Feb 2026 19:25:00 +0000
-Subject: Re: [apparmor] [PATCH 11/13] ovl: use is_subdir() for testing if
- one thing is a subdir of another
+Subject: Re: [apparmor] [PATCH 12/13] ovl: remove ovl_lock_rename_workdir()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -130,10 +129,10 @@ X-Spamd-Result: default: False [2.69 / 15.00];
 	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
+	FORGED_RECIPIENTS(0.00)[m:neil@brown.name,m:brauner@kernel.org,m:jack@suse.cz,m:paul@paul-moore.com,m:miklos@szeredi.hu,m:selinux@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:stephen.smalley.work@gmail.com,m:jlayton@kernel.org,m:jmorris@namei.org,m:linux-kernel@vger.kernel.org,m:dhowells@redhat.com,m:linux-security-module@vger.kernel.org,m:chuck.lever@oracle.com,m:viro@zeniv.linux.org.uk,m:linux-fsdevel@vger.kernel.org,m:netfs@lists.linux.dev,m:linux-unionfs@vger.kernel.org,m:linux-nfs@vger.kernel.org,m:serge@hallyn.com,m:stephensmalleywork@gmail.com,s:lists@lfdr.de];
 	FREEMAIL_FROM(0.00)[gmail.com];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:neil@brown.name,m:brauner@kernel.org,m:jack@suse.cz,m:paul@paul-moore.com,m:miklos@szeredi.hu,m:selinux@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:stephen.smalley.work@gmail.com,m:jlayton@kernel.org,m:jmorris@namei.org,m:linux-kernel@vger.kernel.org,m:dhowells@redhat.com,m:linux-security-module@vger.kernel.org,m:chuck.lever@oracle.com,m:viro@zeniv.linux.org.uk,m:linux-fsdevel@vger.kernel.org,m:netfs@lists.linux.dev,m:linux-unionfs@vger.kernel.org,m:linux-nfs@vger.kernel.org,m:serge@hallyn.com,m:stephensmalleywork@gmail.com,s:lists@lfdr.de];
+	RCVD_COUNT_THREE(0.00)[3];
 	RCPT_COUNT_TWELVE(0.00)[20];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
@@ -153,65 +152,29 @@ X-Spamd-Result: default: False [2.69 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[brown.name:email,lists.ubuntu.com:helo,lists.ubuntu.com:rdns,mail.gmail.com:mid]
-X-Rspamd-Queue-Id: EF032F6D38
+	DBL_BLOCKED_OPENRESOLVER(0.00)[brown.name:email,mail.gmail.com:mid,lists.ubuntu.com:helo,lists.ubuntu.com:rdns]
+X-Rspamd-Queue-Id: 8CB08F6D2A
 X-Rspamd-Action: no action
 
 On Wed, Feb 4, 2026 at 6:09=E2=80=AFAM NeilBrown <neilb@ownmail.net> wrote:
 >
 > From: NeilBrown <neil@brown.name>
 >
-> Rather than using lock_rename(), use the more obvious is_subdir() for
-> ensuring that neither upper nor workdir contain the other.
-> Also be explicit in the comment that the two directories cannot be the
-> same.
+> This function is unused.
 >
-> As this is a point-it-time sanity check and does not provide any
-> on-going guarantees, the removal of locking does not introduce any
-> interesting races.
->
-> Signed-off-by: NeilBrown <neil@brown.name>
 
-Looks reasonable
+I am confused.
+What was this "fix" fixing an unused function:
+
+e9c70084a64e5 ovl: fail ovl_lock_rename_workdir() if either target is unhas=
+hed
+
+What am I missing?
+
+Otherwise, feel free to add:
 
 Reviewed-by: Amir Goldstein <amir73il@gmail.com>
 
-> ---
->  fs/overlayfs/super.c | 15 +++++----------
->  1 file changed, 5 insertions(+), 10 deletions(-)
->
-> diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-> index ba9146f22a2c..2fd3e0aee50e 100644
-> --- a/fs/overlayfs/super.c
-> +++ b/fs/overlayfs/super.c
-> @@ -451,18 +451,13 @@ static int ovl_lower_dir(const char *name, const st=
-ruct path *path,
->         return 0;
->  }
->
-> -/* Workdir should not be subdir of upperdir and vice versa */
-> +/*
-> + * Workdir should not be subdir of upperdir and vice versa, and
-> + * they should not be the same.
-> + */
->  static bool ovl_workdir_ok(struct dentry *workdir, struct dentry *upperd=
-ir)
->  {
-> -       bool ok =3D false;
-> -
-> -       if (workdir !=3D upperdir) {
-> -               struct dentry *trap =3D lock_rename(workdir, upperdir);
-> -               if (!IS_ERR(trap))
-> -                       unlock_rename(workdir, upperdir);
-> -               ok =3D (trap =3D=3D NULL);
-> -       }
-> -       return ok;
-> +       return !is_subdir(workdir, upperdir) && !is_subdir(upperdir, work=
-dir);
->  }
->
->  static int ovl_setup_trap(struct super_block *sb, struct dentry *dir,
-> --
-> 2.50.0.107.gf914562f5916.dirty
->
+Thanks,
+Amir.
 
