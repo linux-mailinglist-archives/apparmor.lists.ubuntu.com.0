@@ -2,37 +2,37 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kBpyOBiQhGkh3gMAu9opvQ
+	id UBVdH4mQhGkh3gMAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 13:42:00 +0100
+	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 13:43:53 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79D1BF2B76
-	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 13:42:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E542F2BD9
+	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 13:43:53 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vnyg4-0001dn-VU; Thu, 05 Feb 2026 12:41:45 +0000
-Received: from tor.source.kernel.org ([172.105.4.254])
+	id 1vnyhs-0001mt-U1; Thu, 05 Feb 2026 12:43:36 +0000
+Received: from sea.source.kernel.org ([172.234.252.31])
  by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <jlayton@kernel.org>) id 1vnyg3-0001db-Gf
- for apparmor@lists.ubuntu.com; Thu, 05 Feb 2026 12:41:43 +0000
+ (envelope-from <jlayton@kernel.org>) id 1vnyhr-0001mC-Bi
+ for apparmor@lists.ubuntu.com; Thu, 05 Feb 2026 12:43:35 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 59E7360122;
- Thu,  5 Feb 2026 12:33:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29711C4CEF7;
- Thu,  5 Feb 2026 12:33:28 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A944643B7D;
+ Thu,  5 Feb 2026 12:33:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9121EC4CEF7;
+ Thu,  5 Feb 2026 12:33:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1770294810;
- bh=VcYawSYKQWzcGxTHl4C7MZ/rlIG2I3H8pMBKM6kljoE=;
+ s=k20201202; t=1770294823;
+ bh=CaXL8ohZ+lkHdRJ/tD+tctQc0FL7TkIgyk0SVIeXBEw=;
  h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=HLHfN/zT02Wa01eqev1yUCpZ/2m8H9NBw3WndZsNBuRDv5s9pesffgQTxC+TZ3+A6
- B3cExM8vIiwJf2aaCZm9Y7GNGxmjBXFQ+YcIisj2Im/YUcv+Qq6WG8m4ZVqKwL8C9q
- /AnX3QIeu6BMRo/GMZH/kDtK3TAJPD3ZJ+GMLHSR7lKyheiekj8TcdgERuQE2bgLjd
- XRiiz797NrfCOxE40wgOzQGuxmzDP038kx4cJmCb0peUFlgW9PMmh0JHv22xUPEMMF
- 2xKpI03yl702Nlk0Pil3e3fv9nUh1GQPlWaQB5irVVhi3c/ITzMxqgx+hdtVmwdQB2
- +Lk6EgMrPWEIQ==
-Message-ID: <b62d43c08545d26772a5fff45f13832767d766bb.camel@kernel.org>
+ b=svlmrh2e4/PYJ/R1UYry2jKf8WEzkrJomGEu/0jiA+w2/HrFywaH1c0xtHdTF0yox
+ JdchkjWy10jWkN5jY6ScsEAXLVurARxBncLP4M47jPABPU29vgjJ+XyOH0E16o+Kaa
+ NEpgdfeEOWapbWWpWDCOSwpFTzrgZpABzIGkYPbYdTkpWV2qcDBClohlxu7y1tDqHE
+ Y5EW4mpBaT7MxG+rrSje/KdsKv19GOgpVLa7H4XItKyb22gT+j1kf3wZ6P4fPQI3PT
+ niajs2NJkEe3Enor23mG/AO7QSGMQH9C5BTk0hh+cut3+Vsghi0t7LS4iOUnQLWXBb
+ eFnZdXAbbreTA==
+Message-ID: <bcb8c138027576d6e3c9d6816b372c3b4c26695c.camel@kernel.org>
 From: Jeff Layton <jlayton@kernel.org>
 To: NeilBrown <neil@brown.name>, Christian Brauner <brauner@kernel.org>, 
  Alexander Viro <viro@zeniv.linux.org.uk>, David Howells
@@ -42,10 +42,10 @@ To: NeilBrown <neil@brown.name>, Christian Brauner <brauner@kernel.org>,
  <john.johansen@canonical.com>, Paul Moore	 <paul@paul-moore.com>, James
  Morris <jmorris@namei.org>, "Serge E. Hallyn"	 <serge@hallyn.com>, Stephen
  Smalley <stephen.smalley.work@gmail.com>
-Date: Thu, 05 Feb 2026 07:33:26 -0500
-In-Reply-To: <20260204050726.177283-2-neilb@ownmail.net>
+Date: Thu, 05 Feb 2026 07:33:40 -0500
+In-Reply-To: <20260204050726.177283-3-neilb@ownmail.net>
 References: <20260204050726.177283-1-neilb@ownmail.net>
- <20260204050726.177283-2-neilb@ownmail.net>
+ <20260204050726.177283-3-neilb@ownmail.net>
 Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
  keydata=mQINBE6V0TwBEADXhJg7s8wFDwBMEvn0qyhAnzFLTOCHooMZyx7XO7dAiIhDSi7G1NPxw
  n8jdFUQMCR/GlpozMFlSFiZXiObE7sef9rTtM68ukUyZM4pJ9l0KjQNgDJ6Fr342Htkjxu/kFV1Wv
@@ -124,10 +124,10 @@ Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.58.2 (3.58.2-1.fc43) 
 MIME-Version: 1.0
-Received-SPF: pass client-ip=172.105.4.254; envelope-from=jlayton@kernel.org;
- helo=tor.source.kernel.org
-Subject: Re: [apparmor] [PATCH 01/13] fs/proc: Don't lock root inode when
- creating "self" and "thread-self"
+Received-SPF: pass client-ip=172.234.252.31; envelope-from=jlayton@kernel.org;
+ helo=sea.source.kernel.org
+Subject: Re: [apparmor] [PATCH 02/13] VFS: move the start_dirop() kerndoc
+ comment to before start_dirop()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -152,7 +152,7 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
@@ -160,8 +160,8 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	FORGED_RECIPIENTS(0.00)[m:neil@brown.name,m:brauner@kernel.org,m:viro@zeniv.linux.org.uk,m:dhowells@redhat.com,m:jack@suse.cz,m:chuck.lever@oracle.com,m:miklos@szeredi.hu,m:amir73il@gmail.com,m:john.johansen@canonical.com,m:paul@paul-moore.com,m:jmorris@namei.org,m:serge@hallyn.com,m:stephen.smalley.work@gmail.com,m:linux-nfs@vger.kernel.org,m:selinux@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:linux-kernel@vger.kernel.org,m:linux-unionfs@vger.kernel.org,m:linux-security-module@vger.kernel.org,m:linux-fsdevel@vger.kernel.org,m:netfs@lists.linux.dev,m:stephensmalleywork@gmail.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	ARC_NA(0.00)[];
 	FORGED_SENDER(0.00)[jlayton@kernel.org,apparmor-bounces@lists.ubuntu.com];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
 	RCVD_TLS_LAST(0.00)[];
 	RCPT_COUNT_TWELVE(0.00)[21];
@@ -178,78 +178,82 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns,brown.name:email]
-X-Rspamd-Queue-Id: 79D1BF2B76
+	DBL_BLOCKED_OPENRESOLVER(0.00)[brown.name:email,lists.ubuntu.com:helo,lists.ubuntu.com:rdns]
+X-Rspamd-Queue-Id: 4E542F2BD9
 X-Rspamd-Action: no action
 
 On Wed, 2026-02-04 at 15:57 +1100, NeilBrown wrote:
 > From: NeilBrown <neil@brown.name>
 >=20
-> proc_setup_self() and proc_setup_thread_self() are only called from
-> proc_fill_super() which is before the filesystem is "live".  So there is
-> no need to lock the root directory when adding "self" and "thread-self".
-> This is clear from simple_fill_super() which provides similar
-> functionality for other filesystems and does not lock anything.
+> This kerneldoc comment was always meant for start_dirop(), not for
+> __start_dirop() which is a static function and doesn't need
+> documentation.
 >=20
-> The locking is not harmful, except that it may be confusing to a reader.
-> As part of a an effort to centralise all locking for directories for
-> name-based operations (prior to changing some locking rules), it is
-> simplest to remove the locking here.
+> It was in the wrong place and was then incorrectly renamed (instead of
+> moved) and useless "documentation" was added for "@state" was provided.
+>=20
+> This patch reverts the name, removes the mention of @state, and moves
+> the comment to where it belongs.
 >=20
 > Signed-off-by: NeilBrown <neil@brown.name>
 > ---
->  fs/proc/self.c        | 3 ---
->  fs/proc/thread_self.c | 3 ---
->  2 files changed, 6 deletions(-)
+>  fs/namei.c | 27 +++++++++++++--------------
+>  1 file changed, 13 insertions(+), 14 deletions(-)
 >=20
-> diff --git a/fs/proc/self.c b/fs/proc/self.c
-> index 62d2c0cfe35c..56adf1c68f7a 100644
-> --- a/fs/proc/self.c
-> +++ b/fs/proc/self.c
-> @@ -35,11 +35,9 @@ unsigned self_inum __ro_after_init;
+> diff --git a/fs/namei.c b/fs/namei.c
+> index b28ecb699f32..40af78ddfb1b 100644
+> --- a/fs/namei.c
+> +++ b/fs/namei.c
+> @@ -2841,20 +2841,6 @@ static int filename_parentat(int dfd, struct filen=
+ame *name,
+>  	return __filename_parentat(dfd, name, flags, parent, last, type, NULL);
+>  }
 > =20
->  int proc_setup_self(struct super_block *s)
+> -/**
+> - * __start_dirop - begin a create or remove dirop, performing locking an=
+d lookup
+> - * @parent:       the dentry of the parent in which the operation will o=
+ccur
+> - * @name:         a qstr holding the name within that parent
+> - * @lookup_flags: intent and other lookup flags.
+> - * @state:        task state bitmask
+> - *
+> - * The lookup is performed and necessary locks are taken so that, on suc=
+cess,
+> - * the returned dentry can be operated on safely.
+> - * The qstr must already have the hash value calculated.
+> - *
+> - * Returns: a locked dentry, or an error.
+> - *
+> - */
+>  static struct dentry *__start_dirop(struct dentry *parent, struct qstr *=
+name,
+>  				    unsigned int lookup_flags,
+>  				    unsigned int state)
+> @@ -2876,6 +2862,19 @@ static struct dentry *__start_dirop(struct dentry =
+*parent, struct qstr *name,
+>  	return dentry;
+>  }
+> =20
+> +/**
+> + * start_dirop - begin a create or remove dirop, performing locking and =
+lookup
+> + * @parent:       the dentry of the parent in which the operation will o=
+ccur
+> + * @name:         a qstr holding the name within that parent
+> + * @lookup_flags: intent and other lookup flags.
+> + *
+> + * The lookup is performed and necessary locks are taken so that, on suc=
+cess,
+> + * the returned dentry can be operated on safely.
+> + * The qstr must already have the hash value calculated.
+> + *
+> + * Returns: a locked dentry, or an error.
+> + *
+> + */
+>  struct dentry *start_dirop(struct dentry *parent, struct qstr *name,
+>  			   unsigned int lookup_flags)
 >  {
-> -	struct inode *root_inode =3D d_inode(s->s_root);
->  	struct dentry *self;
->  	int ret =3D -ENOMEM;
-> =20
-> -	inode_lock(root_inode);
->  	self =3D d_alloc_name(s->s_root, "self");
->  	if (self) {
->  		struct inode *inode =3D new_inode(s);
-> @@ -55,7 +53,6 @@ int proc_setup_self(struct super_block *s)
->  		}
->  		dput(self);
->  	}
-> -	inode_unlock(root_inode);
-> =20
->  	if (ret)
->  		pr_err("proc_fill_super: can't allocate /proc/self\n");
-> diff --git a/fs/proc/thread_self.c b/fs/proc/thread_self.c
-> index d6113dbe58e0..61ac62c3fd9f 100644
-> --- a/fs/proc/thread_self.c
-> +++ b/fs/proc/thread_self.c
-> @@ -35,11 +35,9 @@ unsigned thread_self_inum __ro_after_init;
-> =20
->  int proc_setup_thread_self(struct super_block *s)
->  {
-> -	struct inode *root_inode =3D d_inode(s->s_root);
->  	struct dentry *thread_self;
->  	int ret =3D -ENOMEM;
-> =20
-> -	inode_lock(root_inode);
->  	thread_self =3D d_alloc_name(s->s_root, "thread-self");
->  	if (thread_self) {
->  		struct inode *inode =3D new_inode(s);
-> @@ -55,7 +53,6 @@ int proc_setup_thread_self(struct super_block *s)
->  		}
->  		dput(thread_self);
->  	}
-> -	inode_unlock(root_inode);
-> =20
->  	if (ret)
->  		pr_err("proc_fill_super: can't allocate /proc/thread-self\n");
 
 Reviewed-by: Jeff Layton <jlayton@kernel.org>
 
