@@ -2,37 +2,37 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gGdDDPaVhGk43gMAu9opvQ
+	id aJ+xFGOWhGk43gMAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 14:07:02 +0100
+	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 14:08:51 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4F78F2F82
-	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 14:07:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05388F3002
+	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 14:08:50 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vnz4H-0008A6-1Y; Thu, 05 Feb 2026 13:06:45 +0000
-Received: from tor.source.kernel.org ([172.105.4.254])
+	id 1vnz64-0008Iz-NB; Thu, 05 Feb 2026 13:08:36 +0000
+Received: from sea.source.kernel.org ([172.234.252.31])
  by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <jlayton@kernel.org>) id 1vnz4F-00089u-DQ
- for apparmor@lists.ubuntu.com; Thu, 05 Feb 2026 13:06:43 +0000
+ (envelope-from <jlayton@kernel.org>) id 1vnz63-0008Ie-20
+ for apparmor@lists.ubuntu.com; Thu, 05 Feb 2026 13:08:35 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 7E36D60010;
- Thu,  5 Feb 2026 12:58:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B856C19424;
- Thu,  5 Feb 2026 12:58:53 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9A60540685;
+ Thu,  5 Feb 2026 12:58:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BBE0C4CEF7;
+ Thu,  5 Feb 2026 12:58:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1770296335;
- bh=9Q7RomOb06jXqeFlfjuA47rwkNfZ48q07KB0txG+cDU=;
+ s=k20201202; t=1770296338;
+ bh=TTo8r9PU9WJ6p301M7VHEuMS9EHbRX/m7krx1R/8ncs=;
  h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=d0PDIpJqdaagnxHuoM+slc3pVT8cJDMtTaD6ptFqt4pbITjYOIIBy92VgM8dFquWp
- gHCC72pgm3N2zYkM+SKGDi1y74CJr9ny0oJ3aWBQ7ige4nCo586bJfwRqcv/McH/+A
- DN6Cy52ELCGQNpT7B1YMYEpiPGTE1pp1yDpP9w1begCDMOhy4M5SpzomdVrtLp8Sox
- QBWnNZFlOuzKSBXcXE1H5KaTnXaFRhc+sdmEBAPezbSo3Z3rc7gC9rohb7vuw054nH
- tNPaaTijYXxpyTOkVAJv+oD5lyTmwITC6Fbv9tyeXC3CdjfcG3rwcv1574GXblSDzQ
- FYYfj7rQPrZDQ==
-Message-ID: <7fbfbeb0d57484172304b727bd888d1a1105f96d.camel@kernel.org>
+ b=TrZzsXq8/IeJGvekWOJD8/evsUIm5SOl9z+KhoV8UyThlwVrA90ZXHIqaANB3LS98
+ HSuuuT+GFT7d2Tj6/a5rABk67obWc553Y6YdmBYeG23Nc5lcTX4HzKlr+mM1Ksm7Nl
+ e8jzNqyUnTMo3CIMJEnhUSI0mTi8P/VnTwapLnplUSZ2zHfGKKHl9q/rm9YUw/oiKq
+ 2wUXacanqbEhFFO8DtDfpu1pijzMi1ui2PWp8Qvhfp6m85Td8VNBHTnXmSYUAQ1RXv
+ ND87CwlOH4KhjLBXNIcNjxo4W9BlJ+zwxClBCS10rS+HivlnOf978+IqfHk4lOjX94
+ 9fypZSAAf7OXQ==
+Message-ID: <00ea86285ce8dcf7860b9df3bcbcf77af87e4686.camel@kernel.org>
 From: Jeff Layton <jlayton@kernel.org>
 To: NeilBrown <neil@brown.name>, Christian Brauner <brauner@kernel.org>, 
  Alexander Viro <viro@zeniv.linux.org.uk>, David Howells
@@ -42,10 +42,10 @@ To: NeilBrown <neil@brown.name>, Christian Brauner <brauner@kernel.org>,
  <john.johansen@canonical.com>, Paul Moore	 <paul@paul-moore.com>, James
  Morris <jmorris@namei.org>, "Serge E. Hallyn"	 <serge@hallyn.com>, Stephen
  Smalley <stephen.smalley.work@gmail.com>
-Date: Thu, 05 Feb 2026 07:58:52 -0500
-In-Reply-To: <20260204050726.177283-5-neilb@ownmail.net>
+Date: Thu, 05 Feb 2026 07:58:55 -0500
+In-Reply-To: <20260204050726.177283-13-neilb@ownmail.net>
 References: <20260204050726.177283-1-neilb@ownmail.net>
- <20260204050726.177283-5-neilb@ownmail.net>
+ <20260204050726.177283-13-neilb@ownmail.net>
 Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
  keydata=mQINBE6V0TwBEADXhJg7s8wFDwBMEvn0qyhAnzFLTOCHooMZyx7XO7dAiIhDSi7G1NPxw
  n8jdFUQMCR/GlpozMFlSFiZXiObE7sef9rTtM68ukUyZM4pJ9l0KjQNgDJ6Fr342Htkjxu/kFV1Wv
@@ -124,10 +124,9 @@ Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.58.2 (3.58.2-1.fc43) 
 MIME-Version: 1.0
-Received-SPF: pass client-ip=172.105.4.254; envelope-from=jlayton@kernel.org;
- helo=tor.source.kernel.org
-Subject: Re: [apparmor] [PATCH 04/13] Apparmor: Use simple_start_creating()
- / simple_done_creating()
+Received-SPF: pass client-ip=172.234.252.31; envelope-from=jlayton@kernel.org;
+ helo=sea.source.kernel.org
+Subject: Re: [apparmor] [PATCH 12/13] ovl: remove ovl_lock_rename_workdir()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -152,7 +151,7 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
@@ -160,8 +159,8 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	FORGED_RECIPIENTS(0.00)[m:neil@brown.name,m:brauner@kernel.org,m:viro@zeniv.linux.org.uk,m:dhowells@redhat.com,m:jack@suse.cz,m:chuck.lever@oracle.com,m:miklos@szeredi.hu,m:amir73il@gmail.com,m:john.johansen@canonical.com,m:paul@paul-moore.com,m:jmorris@namei.org,m:serge@hallyn.com,m:stephen.smalley.work@gmail.com,m:linux-nfs@vger.kernel.org,m:selinux@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:linux-kernel@vger.kernel.org,m:linux-unionfs@vger.kernel.org,m:linux-security-module@vger.kernel.org,m:linux-fsdevel@vger.kernel.org,m:netfs@lists.linux.dev,m:stephensmalleywork@gmail.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	ARC_NA(0.00)[];
 	FORGED_SENDER(0.00)[jlayton@kernel.org,apparmor-bounces@lists.ubuntu.com];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
 	RCVD_TLS_LAST(0.00)[];
 	RCPT_COUNT_TWELVE(0.00)[21];
@@ -179,116 +178,71 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns,brown.name:email]
-X-Rspamd-Queue-Id: C4F78F2F82
+X-Rspamd-Queue-Id: 05388F3002
 X-Rspamd-Action: no action
 
 On Wed, 2026-02-04 at 15:57 +1100, NeilBrown wrote:
 > From: NeilBrown <neil@brown.name>
 >=20
-> Instead of explicitly locking the parent and performing a look up in
-> apparmor, use simple_start_creating(), and then simple_done_creating()
-> to unlock and drop the dentry.
->=20
-> This removes the need to check for an existing entry (as
-> simple_start_creating() acts like an exclusive create and can return
-> -EEXIST), simplifies error paths, and keeps dir locking code
-> centralised.
+> This function is unused.
 >=20
 > Signed-off-by: NeilBrown <neil@brown.name>
 > ---
->  security/apparmor/apparmorfs.c | 38 ++++++++--------------------------
->  1 file changed, 9 insertions(+), 29 deletions(-)
+>  fs/overlayfs/overlayfs.h |  2 --
+>  fs/overlayfs/util.c      | 25 -------------------------
+>  2 files changed, 27 deletions(-)
 >=20
-> diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorf=
-s.c
-> index 907bd2667e28..7f78c36e6e50 100644
-> --- a/security/apparmor/apparmorfs.c
-> +++ b/security/apparmor/apparmorfs.c
-> @@ -282,32 +282,19 @@ static struct dentry *aafs_create(const char *name,=
- umode_t mode,
-> =20
->  	dir =3D d_inode(parent);
-> =20
-> -	inode_lock(dir);
-> -	dentry =3D lookup_noperm(&QSTR(name), parent);
-> +	dentry =3D simple_start_creating(parent, name);
->  	if (IS_ERR(dentry)) {
->  		error =3D PTR_ERR(dentry);
-> -		goto fail_lock;
-> -	}
-> -
-> -	if (d_really_is_positive(dentry)) {
-> -		error =3D -EEXIST;
-> -		goto fail_dentry;
-> +		goto fail;
->  	}
-> =20
->  	error =3D __aafs_setup_d_inode(dir, dentry, mode, data, link, fops, iop=
-s);
-> +	simple_done_creating(dentry);
->  	if (error)
-> -		goto fail_dentry;
-> -	inode_unlock(dir);
-> -
-> -	return dentry;
-> -
-> -fail_dentry:
-> -	dput(dentry);
-> -
-> -fail_lock:
-> -	inode_unlock(dir);
-> +		goto fail;
-> +	return 0;
-
-As KTR points out, this should be "return NULL;"
-
-> +fail:
->  	simple_release_fs(&aafs_mnt, &aafs_count);
-> -
->  	return ERR_PTR(error);
+> diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
+> index 4fb4750a83e4..3eedc2684c23 100644
+> --- a/fs/overlayfs/overlayfs.h
+> +++ b/fs/overlayfs/overlayfs.h
+> @@ -569,8 +569,6 @@ bool ovl_is_inuse(struct dentry *dentry);
+>  bool ovl_need_index(struct dentry *dentry);
+>  int ovl_nlink_start(struct dentry *dentry);
+>  void ovl_nlink_end(struct dentry *dentry);
+> -int ovl_lock_rename_workdir(struct dentry *workdir, struct dentry *work,
+> -			    struct dentry *upperdir, struct dentry *upper);
+>  int ovl_check_metacopy_xattr(struct ovl_fs *ofs, const struct path *path=
+,
+>  			     struct ovl_metacopy *data);
+>  int ovl_set_metacopy_xattr(struct ovl_fs *ofs, struct dentry *d,
+> diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
+> index 94986d11a166..810c8752b4f7 100644
+> --- a/fs/overlayfs/util.c
+> +++ b/fs/overlayfs/util.c
+> @@ -1213,31 +1213,6 @@ void ovl_nlink_end(struct dentry *dentry)
+>  	ovl_inode_unlock(inode);
 >  }
 > =20
-> @@ -2572,8 +2559,7 @@ static int aa_mk_null_file(struct dentry *parent)
->  	if (error)
->  		return error;
-> =20
-> -	inode_lock(d_inode(parent));
-> -	dentry =3D lookup_noperm(&QSTR(NULL_FILE_NAME), parent);
-> +	dentry =3D simple_start_creating(parent, NULL_FILE_NAME);
->  	if (IS_ERR(dentry)) {
->  		error =3D PTR_ERR(dentry);
->  		goto out;
-> @@ -2581,7 +2567,7 @@ static int aa_mk_null_file(struct dentry *parent)
->  	inode =3D new_inode(parent->d_inode->i_sb);
->  	if (!inode) {
->  		error =3D -ENOMEM;
-> -		goto out1;
-> +		goto out;
->  	}
-> =20
->  	inode->i_ino =3D get_next_ino();
-> @@ -2593,18 +2579,12 @@ static int aa_mk_null_file(struct dentry *parent)
->  	aa_null.dentry =3D dget(dentry);
->  	aa_null.mnt =3D mntget(mount);
-> =20
-> -	error =3D 0;
+> -int ovl_lock_rename_workdir(struct dentry *workdir, struct dentry *work,
+> -			    struct dentry *upperdir, struct dentry *upper)
+> -{
+> -	struct dentry *trap;
 > -
-> -out1:
-> -	dput(dentry);
->  out:
-> -	inode_unlock(d_inode(parent));
-> +	simple_done_creating(dentry);
->  	simple_release_fs(&mount, &count);
->  	return error;
->  }
-> =20
+> -	/* Workdir should not be subdir of upperdir and vice versa */
+> -	trap =3D lock_rename(workdir, upperdir);
+> -	if (IS_ERR(trap))
+> -		goto err;
+> -	if (trap)
+> -		goto err_unlock;
+> -	if (work && (work->d_parent !=3D workdir || d_unhashed(work)))
+> -		goto err_unlock;
+> -	if (upper && (upper->d_parent !=3D upperdir || d_unhashed(upper)))
+> -		goto err_unlock;
 > -
+> -	return 0;
 > -
->  static const char *policy_get_link(struct dentry *dentry,
->  				   struct inode *inode,
->  				   struct delayed_call *done)
-
-Assuming you fix the minor problem above.
+> -err_unlock:
+> -	unlock_rename(workdir, upperdir);
+> -err:
+> -	pr_err("failed to lock workdir+upperdir\n");
+> -	return -EIO;
+> -}
+> -
+>  /*
+>   * err < 0, 0 if no metacopy xattr, metacopy data size if xattr found.
+>   * an empty xattr returns OVL_METACOPY_MIN_SIZE to distinguish from no x=
+attr value.
 
 Reviewed-by: Jeff Layton <jlayton@kernel.org>
 
