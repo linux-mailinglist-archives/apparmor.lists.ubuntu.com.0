@@ -2,37 +2,37 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QNFvLkORhGk43gMAu9opvQ
+	id qK+BEkORhGk43gMAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
 	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 13:46:59 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id A65A6F2C4A
+	by mail.lfdr.de (Postfix) with ESMTPS id 2862FF2C42
 	for <lists+apparmor@lfdr.de>; Thu, 05 Feb 2026 13:46:59 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vnykv-0002NL-Aj; Thu, 05 Feb 2026 12:46:45 +0000
+	id 1vnykw-0002P9-RC; Thu, 05 Feb 2026 12:46:46 +0000
 Received: from tor.source.kernel.org ([172.105.4.254])
  by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <jlayton@kernel.org>) id 1vnykt-0002M5-47
+ (envelope-from <jlayton@kernel.org>) id 1vnykt-0002M7-47
  for apparmor@lists.ubuntu.com; Thu, 05 Feb 2026 12:46:43 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 485E86013C;
- Thu,  5 Feb 2026 12:38:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1042BC4CEF7;
- Thu,  5 Feb 2026 12:38:52 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7B6A660129;
+ Thu,  5 Feb 2026 12:40:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C7C9C4CEF7;
+ Thu,  5 Feb 2026 12:40:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1770295135;
- bh=G9qHb9p0MPYty9W2bqZeDirLOVPesrzx4Ei/lgeOCRA=;
+ s=k20201202; t=1770295222;
+ bh=TTo8r9PU9WJ6p301M7VHEuMS9EHbRX/m7krx1R/8ncs=;
  h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=AH2UzJ0oUDVcL390IygZ5kEiEAojgl8odoQ3KAjqbiFXfHBGLmz5bMu51boYaY+VD
- sAdILXp3eIJngbsv0/hIvYZNP9usrSjIp1vqGT5x51WhcxUN4NOg5i0D92Fkt3onWj
- Z6k8Lrgcq8NhtRpCBsSkxMklVvogfeWyn2TF89SHArhTOh2myE8CITFFMhH9k5KwgN
- X3rbQZQpCJfxSEERajtHka8wsvMw1fDk8idcYs7NfRKDwlPKGAjewutiezQm2na7Fr
- 1vDGRIPsPDHUgCsiVe1GcvsXveA0CuG1G4tTDyYNNGmepDqEYYrKqYrUO40iI0Awe6
- +3/gkPxG11tfw==
-Message-ID: <c7445f68809ea699c73da0282a9e2b3f99ff3bcf.camel@kernel.org>
+ b=Pq5gKTGXx6JR3lb+qq6orh1a1VSzWc+mhFsNflnQAHNDOD+e0X+VUoDNVHDF26Fnz
+ VIE/m9nsND5GMTC8Z/0Nl9Xyv7SzJ81zcexFaknJBM4VhlTyiT3ShA0f+xyVCsIXbS
+ 34rqXsllKty+OFDsF6+1APR7/Nd8qS9IHmsMS8i9yYg0sXTPbmkxT2REbFFs+723Uf
+ 8tb0bn967E8RaJgVIPT7C3bbJncnXyVSAVDsfaZPIPhiHnOPvWjAMfEYrtwm1xmZuB
+ hCBXa+7G1ykhGEdZIupfQp6Abwf22GAouhF5X9rpkQ9fSA/+j5aMII7cyZHA36SjNE
+ Zu8MBdCpLjsdQ==
+Message-ID: <11fd2fde84cffcc39798160570e24e54684c5b71.camel@kernel.org>
 From: Jeff Layton <jlayton@kernel.org>
 To: NeilBrown <neil@brown.name>, Christian Brauner <brauner@kernel.org>, 
  Alexander Viro <viro@zeniv.linux.org.uk>, David Howells
@@ -42,10 +42,10 @@ To: NeilBrown <neil@brown.name>, Christian Brauner <brauner@kernel.org>,
  <john.johansen@canonical.com>, Paul Moore	 <paul@paul-moore.com>, James
  Morris <jmorris@namei.org>, "Serge E. Hallyn"	 <serge@hallyn.com>, Stephen
  Smalley <stephen.smalley.work@gmail.com>
-Date: Thu, 05 Feb 2026 07:38:52 -0500
-In-Reply-To: <20260204050726.177283-12-neilb@ownmail.net>
+Date: Thu, 05 Feb 2026 07:40:19 -0500
+In-Reply-To: <20260204050726.177283-13-neilb@ownmail.net>
 References: <20260204050726.177283-1-neilb@ownmail.net>
- <20260204050726.177283-12-neilb@ownmail.net>
+ <20260204050726.177283-13-neilb@ownmail.net>
 Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
  keydata=mQINBE6V0TwBEADXhJg7s8wFDwBMEvn0qyhAnzFLTOCHooMZyx7XO7dAiIhDSi7G1NPxw
  n8jdFUQMCR/GlpozMFlSFiZXiObE7sef9rTtM68ukUyZM4pJ9l0KjQNgDJ6Fr342Htkjxu/kFV1Wv
@@ -126,8 +126,7 @@ User-Agent: Evolution 3.58.2 (3.58.2-1.fc43)
 MIME-Version: 1.0
 Received-SPF: pass client-ip=172.105.4.254; envelope-from=jlayton@kernel.org;
  helo=tor.source.kernel.org
-Subject: Re: [apparmor] [PATCH 11/13] ovl: use is_subdir() for testing if
- one thing is a subdir of another
+Subject: Re: [apparmor] [PATCH 12/13] ovl: remove ovl_lock_rename_workdir()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -179,56 +178,71 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[brown.name:email,lists.ubuntu.com:helo,lists.ubuntu.com:rdns]
-X-Rspamd-Queue-Id: A65A6F2C4A
+X-Rspamd-Queue-Id: 2862FF2C42
 X-Rspamd-Action: no action
 
 On Wed, 2026-02-04 at 15:57 +1100, NeilBrown wrote:
 > From: NeilBrown <neil@brown.name>
 >=20
-> Rather than using lock_rename(), use the more obvious is_subdir() for
-> ensuring that neither upper nor workdir contain the other.
-> Also be explicit in the comment that the two directories cannot be the
-> same.
->=20
-> As this is a point-it-time sanity check and does not provide any
-> on-going guarantees, the removal of locking does not introduce any
-> interesting races.
+> This function is unused.
 >=20
 > Signed-off-by: NeilBrown <neil@brown.name>
 > ---
->  fs/overlayfs/super.c | 15 +++++----------
->  1 file changed, 5 insertions(+), 10 deletions(-)
+>  fs/overlayfs/overlayfs.h |  2 --
+>  fs/overlayfs/util.c      | 25 -------------------------
+>  2 files changed, 27 deletions(-)
 >=20
-> diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-> index ba9146f22a2c..2fd3e0aee50e 100644
-> --- a/fs/overlayfs/super.c
-> +++ b/fs/overlayfs/super.c
-> @@ -451,18 +451,13 @@ static int ovl_lower_dir(const char *name, const st=
-ruct path *path,
->  	return 0;
+> diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
+> index 4fb4750a83e4..3eedc2684c23 100644
+> --- a/fs/overlayfs/overlayfs.h
+> +++ b/fs/overlayfs/overlayfs.h
+> @@ -569,8 +569,6 @@ bool ovl_is_inuse(struct dentry *dentry);
+>  bool ovl_need_index(struct dentry *dentry);
+>  int ovl_nlink_start(struct dentry *dentry);
+>  void ovl_nlink_end(struct dentry *dentry);
+> -int ovl_lock_rename_workdir(struct dentry *workdir, struct dentry *work,
+> -			    struct dentry *upperdir, struct dentry *upper);
+>  int ovl_check_metacopy_xattr(struct ovl_fs *ofs, const struct path *path=
+,
+>  			     struct ovl_metacopy *data);
+>  int ovl_set_metacopy_xattr(struct ovl_fs *ofs, struct dentry *d,
+> diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
+> index 94986d11a166..810c8752b4f7 100644
+> --- a/fs/overlayfs/util.c
+> +++ b/fs/overlayfs/util.c
+> @@ -1213,31 +1213,6 @@ void ovl_nlink_end(struct dentry *dentry)
+>  	ovl_inode_unlock(inode);
 >  }
 > =20
-> -/* Workdir should not be subdir of upperdir and vice versa */
-> +/*
-> + * Workdir should not be subdir of upperdir and vice versa, and
-> + * they should not be the same.
-> + */
->  static bool ovl_workdir_ok(struct dentry *workdir, struct dentry *upperd=
-ir)
->  {
-> -	bool ok =3D false;
+> -int ovl_lock_rename_workdir(struct dentry *workdir, struct dentry *work,
+> -			    struct dentry *upperdir, struct dentry *upper)
+> -{
+> -	struct dentry *trap;
 > -
-> -	if (workdir !=3D upperdir) {
-> -		struct dentry *trap =3D lock_rename(workdir, upperdir);
-> -		if (!IS_ERR(trap))
-> -			unlock_rename(workdir, upperdir);
-> -		ok =3D (trap =3D=3D NULL);
-> -	}
-> -	return ok;
-> +	return !is_subdir(workdir, upperdir) && !is_subdir(upperdir, workdir);
->  }
-> =20
->  static int ovl_setup_trap(struct super_block *sb, struct dentry *dir,
+> -	/* Workdir should not be subdir of upperdir and vice versa */
+> -	trap =3D lock_rename(workdir, upperdir);
+> -	if (IS_ERR(trap))
+> -		goto err;
+> -	if (trap)
+> -		goto err_unlock;
+> -	if (work && (work->d_parent !=3D workdir || d_unhashed(work)))
+> -		goto err_unlock;
+> -	if (upper && (upper->d_parent !=3D upperdir || d_unhashed(upper)))
+> -		goto err_unlock;
+> -
+> -	return 0;
+> -
+> -err_unlock:
+> -	unlock_rename(workdir, upperdir);
+> -err:
+> -	pr_err("failed to lock workdir+upperdir\n");
+> -	return -EIO;
+> -}
+> -
+>  /*
+>   * err < 0, 0 if no metacopy xattr, metacopy data size if xattr found.
+>   * an empty xattr returns OVL_METACOPY_MIN_SIZE to distinguish from no x=
+attr value.
 
 Reviewed-by: Jeff Layton <jlayton@kernel.org>
 
