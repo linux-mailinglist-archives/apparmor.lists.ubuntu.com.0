@@ -2,76 +2,55 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id WGGrJ0ppi2k1UQAAu9opvQ
+	id yISdKRCCjGkYqAAAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Tue, 10 Feb 2026 18:22:18 +0100
+	for <lists+apparmor@lfdr.de>; Wed, 11 Feb 2026 14:20:16 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64A2911DD55
-	for <lists+apparmor@lfdr.de>; Tue, 10 Feb 2026 18:22:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31FCE124B45
+	for <lists+apparmor@lfdr.de>; Wed, 11 Feb 2026 14:20:16 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vprRB-0006Ev-Hm; Tue, 10 Feb 2026 17:22:09 +0000
-Received: from mail-wm1-f46.google.com ([209.85.128.46])
+	id 1vqA8J-00061c-6v; Wed, 11 Feb 2026 13:19:55 +0000
+Received: from smtp-relay-canonical-0.internal ([10.131.114.83]
+ helo=smtp-relay-canonical-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <mpellizzer.dev@gmail.com>)
- id 1vprRA-0006ES-Eb
- for apparmor@lists.ubuntu.com; Tue, 10 Feb 2026 17:22:08 +0000
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-47edd9024b1so55843385e9.3
- for <apparmor@lists.ubuntu.com>; Tue, 10 Feb 2026 09:22:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1770744128; x=1771348928; darn=lists.ubuntu.com;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=SmyYHYkCf6isXqHI8LRLyQfyBIoea8jRfojSGa+OYoI=;
- b=R3rpxpIaS3Vh26sPncYWdUB4dSkfnVUHL0CkxSERbCe5hChqOXyXZigZZGC26gpgjb
- MSJOkg7tYloZE3fT99BnNpQyyJadvVYkXqfg9V3OZoMTLqD55i3E4iMoEuAhTshSJP/k
- uFbILyIxekYFXUxFg2xOpk8yBr945Y7tHq5DN2AUuqBXGKL3CcHjRGCI8w4A8ra9wkif
- BVqxEJxs/Vso5OL+668Qd2FPFypI0MCGzN1wOlb+vFqch6gyt7dYvdaEHe65qaqg4kDx
- zUTbb60qXxgxdwd+xi+o2tXLUjVIAUYZ1D1CsCEGsJSXLJJnV6ABVUy/GTC6C3zJUHEL
- 9ljw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1770744128; x=1771348928;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=SmyYHYkCf6isXqHI8LRLyQfyBIoea8jRfojSGa+OYoI=;
- b=waBRNkLQVc14nhkXsO4ngn+alB6VhW18XbxtjUi5zAOrIe1rtsoME6jz7/TkQ3cBMf
- WoLHrCqDprqrtDlcX1mi0DtQjs70zR4mO+wZRpF54vwruWBEOvm4+mTqs6uh1zQ3frr2
- D8m8MN9kAzBdlKg5bq58aoo4is8dcUSZ3ID3+Cyk/BVgw24mg38xoHYnXqtTMKp62x0D
- S1sKat3T5QALW9S6rj/+3r+9e4IBbFnEX2SPe5fL9lZJ7HODR72YoiKBH1qvCSECaOH9
- ftx1MKi0o5Gz9tiiV1uvoxrhuenSUB0yh0c1zXoIGoTOoKKvqrELgu4XO+0cabl15oSJ
- 2DRw==
-X-Gm-Message-State: AOJu0YwLOa+zg2wEKkNyAalwxf0AEDUm8cOc7sC88xSKJT30SfT1Vuxt
- atX6GWlZu2jL5AW7/VqVs2m3FwPi1hsxHQLgRrM+8vm3jGQ3Mwf61oHs
-X-Gm-Gg: AZuq6aKJObcWtBYmd7UbGtmG6PFVbUtva2g8T2kHkeQ3d5LnbKOo5Ixx/8cY0xUDBLr
- 2KldIYpFaNs+GcUmqq09prhMOQmSRxFjYPXbJO0yZizpdzqcz+LYT/qwqmOzgu+TOV3sXtZg1e3
- f3MSG7LE5/d+niihZr5tkHQGMHMpum9FI6H+b5oVyFuIwV5KvoNvFl0ZDwfJYLCKMD5ZISKXvX4
- k7tLh+s5XpuLTAq/L0qnf3UAMg9UTziwULEu8yQN+Rw80ec4Ds6XHbV8GMKnXTP8FSltwzog8Mx
- Q9NRxB64YFnRQeVV9CgI1uhe1bHPtirxoq3XbfBZPE0gGf7oHPpfgZzYnWl0kM4cvqiQazEAJ9S
- J91UkrAcMPE21T+W0axjzzsXRHwTf89AVP40uFuAW+IMmwVgKGEyCJxsx2k3ZXQ3SWgtS7QWzS0
- sySUuIOb4jOn+e/8IuH2j1lULvSj1ZgJ5POEZsjD3kv9bP5KD5rz02OrD6FVAWhQ==
-X-Received: by 2002:a05:600c:8116:b0:480:1c10:5633 with SMTP id
- 5b1f17b1804b1-4832021c74cmr239650605e9.26.1770744127455; 
- Tue, 10 Feb 2026 09:22:07 -0800 (PST)
-Received: from geekom-a8 (net-93-66-82-32.cust.vodafonedsl.it. [93.66.82.32])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4834d480530sm118237175e9.0.2026.02.10.09.22.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Feb 2026 09:22:07 -0800 (PST)
-From: Massimiliano Pellizzer <mpellizzer.dev@gmail.com>
-To: john.johansen@canonical.com
-Date: Tue, 10 Feb 2026 18:21:24 +0100
-Message-ID: <20260210172159.535137-1-mpellizzer.dev@gmail.com>
-X-Mailer: git-send-email 2.51.0
+ (Exim 4.86_2) (envelope-from <maxime.belair@canonical.com>)
+ id 1vqA8H-00061R-2c
+ for apparmor@lists.ubuntu.com; Wed, 11 Feb 2026 13:19:53 +0000
+Received: from sec-noble-amd64.. (lau06-h06-176-136-128-80.dsl.sta.abo.bbox.fr
+ [176.136.128.80])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id C875D3FE76
+ for <apparmor@lists.ubuntu.com>; Wed, 11 Feb 2026 13:19:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20251003; t=1770815992;
+ bh=4eWzH2gPjKk7UxO+9zkl7oVbYenlwPVpY2iSfwRQl8k=;
+ h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
+ b=EMKc46RxnETXiQEaNANWMD3HfpTM83Vt3TqDhuH/dq92SWVMvOSJryQmhd/u56FRi
+ ek/fca3Y2QVzQ/kzETutLCkLkqXyXNNkvJ1AUa4doNWtMq8JLHWfI1s9XD3Xmrj5w/
+ YvOasOUf5/0Z7UwepQLurBBYNTNhCskTnQNy+qmOHkg7gkBMOpfHP7y4ViCBZcAP7W
+ kbSDiGvNr/FaqrqixPBKobjp+kRvDgK2VwCcKo8s/9z5rE/Bmhyq1ZSuDQm+uFE3IV
+ NywrDc5K2tgjzxa7htwqKKz9nYPUfZ/v7+m0tow9ARSPQGp1fOgzbofpnqvS+nCKIf
+ hYYCtOg2sYsEfHqkHnsP/iQLAQQP/v/C+mKjEa14cjpcQX7a40p6sqp4Raie/lAlec
+ 87nChKAPmQapgZ71cqGW6hK/ZqHaAS6rC6RYTcv1oBYinIFwln1Qa9xCsNvU085RJU
+ 68APQNjApTNYWUdpcTp4FbMwtcWGjRle3c+v4x7L5LgAuRYcD1WKRWUp9vefFbSnVW
+ YEcusnOxQrCg8m2p0cZpzFG9oeolTFBAQj3/8GVnVLxCFArgdYd7nIq+A2V+uSxXaz
+ bHAf2xgGZxLu+u5GV/hW5qa+mIQxboBvstGALHVcBZDXyD/BmiFnPyJhrDe4qwC7oN
+ Fmsk2/38x9ZNpVgxg2GvpTz8=
+From: =?UTF-8?q?Maxime=20B=C3=A9lair?= <maxime.belair@canonical.com>
+To: apparmor@lists.ubuntu.com
+Date: Wed, 11 Feb 2026 14:19:32 +0100
+Message-ID: <20260211131952.391532-1-maxime.belair@canonical.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=209.85.128.46;
- envelope-from=mpellizzer.dev@gmail.com; helo=mail-wm1-f46.google.com
-Subject: [apparmor] [PATCH] apparmor: fix incorrect success return value in
-	unpack_tag_headers()
+Subject: [apparmor] [PATCH] apparmor: propagate -ENOMEM correctly in
+	unpack_table
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -83,75 +62,105 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
- linux-kernel@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.69 / 15.00];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
-	R_MISSING_CHARSET(0.50)[];
+X-Spamd-Result: default: False [3.09 / 15.00];
+	DMARC_POLICY_REJECT(2.00)[canonical.com : SPF not aligned (relaxed),reject];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_REJECT(1.00)[canonical.com:s=20251003];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:john.johansen@canonical.com,m:linux-security-module@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:linux-kernel@vger.kernel.org,s:lists@lfdr.de];
-	RCVD_COUNT_THREE(0.00)[4];
+	RCPT_COUNT_ONE(0.00)[1];
+	DKIM_TRACE(0.00)[canonical.com:-];
+	ARC_NA(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[mpellizzerdev@gmail.com,apparmor-bounces@lists.ubuntu.com];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	TAGGED_FROM(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:-];
-	FROM_NEQ_ENVFROM(0.00)[mpellizzerdev@gmail.com,apparmor-bounces@lists.ubuntu.com];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns];
-	MID_RHS_MATCH_FROM(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
-	TO_DN_NONE(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[apparmor];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_NEQ_ENVFROM(0.00)[maxime.belair@canonical.com,apparmor-bounces@lists.ubuntu.com];
+	FROM_HAS_DN(0.00)[];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
-	RCPT_COUNT_THREE(0.00)[4]
-X-Rspamd-Queue-Id: 64A2911DD55
+	TO_DN_NONE(0.00)[];
+	TAGGED_RCPT(0.00)[apparmor];
+	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gitlab.com:url,lists.ubuntu.com:helo,lists.ubuntu.com:rdns]
+X-Rspamd-Queue-Id: 31FCE124B45
 X-Rspamd-Action: no action
 
-unpack_tag_headers() returns `true` (1) on success instead of 0.
-Since it's caller unpack_tags() checks the return value with
-`if (error)`, a non-zero success value is incorrectly treated as
-a failure, causing tag header unpacking to always even if the data
-is well-formed.
+Currently, if the `kvzalloc` in `unpack_table` fails, it returns NULL.
+This is masked by `aa_dfa_unpack` which interprets NULL as a -EPROTO,
+leading to confusing error messages in `apparmor_parser` [1].
 
-Change the success return in unpack_tag_headers() from `true` to 0.
+The fixed behavior correctly propagates -ENOMEM on allocation failure.
 
-Fixes: 3d28e2397af7 ("apparmor: add support loading per permission tagging")
-Signed-off-by: Massimiliano Pellizzer <mpellizzer.dev@gmail.com>
+[1] https://gitlab.com/apparmor/apparmor/-/issues/592
+
+Signed-off-by: Maxime Bélair <maxime.belair@canonical.com>
 ---
- security/apparmor/policy_unpack.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ security/apparmor/match.c | 20 ++++++++++++--------
+ 1 file changed, 12 insertions(+), 8 deletions(-)
 
-diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
-index dc908e1f5a88..221208788025 100644
---- a/security/apparmor/policy_unpack.c
-+++ b/security/apparmor/policy_unpack.c
-@@ -825,7 +825,7 @@ static int unpack_tag_headers(struct aa_ext *e, struct aa_tags_struct *tags)
- 	tags->hdrs.size = size;
- 	tags->hdrs.table = hdrs;
- 	AA_DEBUG(DEBUG_UNPACK, "headers %ld size %d", (long) hdrs, size);
--	return true;
-+	return 0;
+diff --git a/security/apparmor/match.c b/security/apparmor/match.c
+index bbeb3be68572..6cca29c1f209 100644
+--- a/security/apparmor/match.c
++++ b/security/apparmor/match.c
+@@ -33,7 +33,7 @@
+  */
+ static struct table_header *unpack_table(char *blob, size_t bsize)
+ {
+-	struct table_header *table = NULL;
++	struct table_header *table = ERR_PTR(-EPROTO);
+ 	struct table_header th;
+ 	size_t tsize;
  
- fail:
- 	kfree_sensitive(hdrs);
+@@ -74,20 +74,21 @@ static struct table_header *unpack_table(char *blob, size_t bsize)
+ 		else if (th.td_flags == YYTD_DATA32)
+ 			UNPACK_ARRAY(table->td_data, blob, th.td_lolen,
+ 				     u32, __be32, get_unaligned_be32);
+-		else
+-			goto fail;
++		else {
++			kvfree(table);
++			table = ERR_PTR(-EPROTO);
++			goto out;
++		}
+ 		/* if table was vmalloced make sure the page tables are synced
+ 		 * before it is used, as it goes live to all cpus.
+ 		 */
+ 		if (is_vmalloc_addr(table))
+ 			vm_unmap_aliases();
+-	}
++	} else
++		table = ERR_PTR(-ENOMEM);
+ 
+ out:
+ 	return table;
+-fail:
+-	kvfree(table);
+-	return NULL;
+ }
+ 
+ /**
+@@ -343,8 +344,11 @@ struct aa_dfa *aa_dfa_unpack(void *blob, size_t size, int flags)
+ 
+ 	while (size > 0) {
+ 		table = unpack_table(data, size);
+-		if (!table)
++		if (IS_ERR(table)) {
++			error = PTR_ERR(table);
++			table = NULL;
+ 			goto fail;
++		}
+ 
+ 		switch (table->td_id) {
+ 		case YYTD_ID_ACCEPT:
 -- 
 2.51.0
 
