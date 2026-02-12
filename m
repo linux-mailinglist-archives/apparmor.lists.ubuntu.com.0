@@ -2,86 +2,86 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id APqZJStDjml3BQEAu9opvQ
+	id 2Mk5JERDjml3BQEAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Thu, 12 Feb 2026 22:16:27 +0100
+	for <lists+apparmor@lfdr.de>; Thu, 12 Feb 2026 22:16:52 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70A721312E5
-	for <lists+apparmor@lfdr.de>; Thu, 12 Feb 2026 22:16:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 561521312F5
+	for <lists+apparmor@lfdr.de>; Thu, 12 Feb 2026 22:16:52 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vqe2p-0000az-7O; Thu, 12 Feb 2026 21:16:15 +0000
-Received: from smtp-relay-internal-0.internal ([10.131.114.225]
- helo=smtp-relay-internal-0.canonical.com)
+	id 1vqe3G-0000fU-DU; Thu, 12 Feb 2026 21:16:42 +0000
+Received: from smtp-relay-internal-1.internal ([10.131.114.114]
+ helo=smtp-relay-internal-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <ryan.lee@canonical.com>)
- id 1vqe2n-0000ad-BO
- for apparmor@lists.ubuntu.com; Thu, 12 Feb 2026 21:16:13 +0000
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
- [74.125.82.200])
+ id 1vqe3E-0000fI-VW
+ for apparmor@lists.ubuntu.com; Thu, 12 Feb 2026 21:16:41 +0000
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com
+ [74.125.82.197])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 386323F787
- for <apparmor@lists.ubuntu.com>; Thu, 12 Feb 2026 21:16:13 +0000 (UTC)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id CD7D83F46B
+ for <apparmor@lists.ubuntu.com>; Thu, 12 Feb 2026 21:16:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20251003; t=1770930973;
- bh=I3S+5O/8i3EyTZ0UMVUJI7pPlKSkzw2mskyiGUZrUkU=;
+ s=20251003; t=1770931000;
+ bh=uhgvpkjd7FaEumtYgCggk4y5L2tVVyR/5Cef4BLSqgI=;
  h=From:To:Cc:Subject:Date:Message-ID:MIME-Version;
- b=dQk5A+hxX505v3WmlIOycMvXDfJvsiUhXwow/BSD3CDEe9ASO+VEPHDGHRmbKNwpw
- 9K98CAPpKjUZOec9nnBKSAggx+8iqrc2qnQF0pXyCHMiXveMOrFxrP2rmorTEiaFpM
- wHpIVYAs8BGYiBCa8Nw+P3pKUk+vdzEM6YbE0xsw4050p4XLLxUooDimCF3oMLymYX
- 33hZmjcQn/0pPZvnOoqetzjjyJjEvQHu/XSl2yblEyzE+UbEKuzqiOg2VWhkTTtRwX
- Nv0LYfeMZlK2E8VAdJ0BafmiekrK1UdgHLuqOznpWxkqduQUiM90W28Y9nnRJwTq51
- aFa0KbsKj1trL0xSkgeVSTW4oOMywXRKf5ndbE5KoIOUu4WBZmdrMrxZ1mydhrYKrv
- qX7GCZkojYWZFhGXUzhTroomVJ7nQqU1J/AxTaNKvPL+sAXtIQWYCfl5aRK1fMO9ES
- sKWweLuX/PRjP0uwjvfG3VnX7OsVXZA7/A0nblRbXHVaWrM3bV/giGNeL33YqNKAm/
- o96EGzcThhY2zOdo2XB1trVHTTO7JvtNBg9U7XexpP/GutgCuW6AethqeqWlD3frPz
- EUyg08qo5zKevT5j0t/drt9uIPp+Dkm0paAdxmxYdWV6jGf8MGkJfAEF4865cgZowh
- pCKwW30PXXi/A5XZA9vOFD9o=
-Received: by mail-dy1-f200.google.com with SMTP id
- 5a478bee46e88-2b9ea5408fbso277811eec.1
- for <apparmor@lists.ubuntu.com>; Thu, 12 Feb 2026 13:16:13 -0800 (PST)
+ b=gFqS4Z3dwCI3dRkN6wY82COGkZJQWU1dAfTLhdtIRbjcKZrp/uhywEOgZYWXmM/Df
+ KhHUHtKt0KitQ1O15zifECfGWgyOEm2x0KsQdfc7o8pWaPssvhCUPfGisyxBuUIsi1
+ wUuG6hkvosMUWQPN0Sj34P/imK0snRmwzioG8S6zOkdoBESi6tnBjVvB/B2tt2eBhH
+ 8HpIoPJOYut8lStUjzDI/zcXd2pm792lj7loAkabRDykI6Df6Swmpk9w1kh3MszBnL
+ 4jIEdfKhAPT3WUhLWR8XnYBm08z2V/kJlMdjvRBIxaXpOOaCdSXjQZe5za6kwgcCbv
+ qvJzE5ow+RKD3qR75kPhRELnbtQ07pwjejOAkC7xQ0V5K8hINJ6XLdt0aOabWzYeGg
+ 5dxx2kuFHtNvN0pl0AGnA0cnCgNyjNOm1UraWnFccGrYgBK6+BasUziv4ci1XdAWru
+ DLg96L/cRuisbkwDdgteCaKpZvuubkwhVKDi2Ym0VWAs92huqlWBK5sFVwLPVvRJzA
+ FSQjgv6jEuOCPlK6M0asskHwnZwjaoloNmyd2TWo7Q2SOp12DP9guhZENC8+I21+3S
+ d+bwbfYcQIztA7Rv0/4SeLxBifeZZiAfrJVNdUQ/9iCaM0izcWsfSDGToDT5MMoUNQ
+ OTiD9y3xZIWAUdodmtoIPDDA=
+Received: by mail-dy1-f197.google.com with SMTP id
+ 5a478bee46e88-2b7ef896edcso3864561eec.0
+ for <apparmor@lists.ubuntu.com>; Thu, 12 Feb 2026 13:16:40 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1770930972; x=1771535772;
+ d=1e100.net; s=20230601; t=1770930999; x=1771535799;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=I3S+5O/8i3EyTZ0UMVUJI7pPlKSkzw2mskyiGUZrUkU=;
- b=oFA1/vIPTDzVfXXBsQPzrYlUKtD+nR+JZjJ91apMcunNrLfpro2uGply7dVMN67ujO
- pZznRhUaShaeKgSny+t9ZRWca2C0qLNdhxo+U6aS4e29jEFf0xGd8x4MmI8GNg1s+MQt
- OhX/QH6Jy+/SDWjhTixeKlo8eX/1QCfMnTyHgzLchh/f1F9OUWnSFykPVUhGcO6jEKQ4
- ah5Aed+JUxtI7DD2y1Ne4g/Maj+s3AgnEjzM99+YOWGv1Hsza3K2+ZbgkSLpD9fqn+GD
- 4h0WcTX6uTgSOXY/SqhrNmkGFAQVqRMCF4rvv2lmJclzl3I/XqtUgIb8ZuBc//KigpFk
- meDQ==
-X-Gm-Message-State: AOJu0YwaK3Wn7H88O2j238LQvaiGGJ4cy0rUZiPbQRRMkSmGjwMIjgRN
- QYbLbdaq1IKr35YoqA2xoICqF09Ngo4GihLUi88IztxNNQDilEROOUIo/XMU50tcEZlToNGHriZ
- 6EGizHMOpjqwojf96QPRfAJ7H1pWjgna6GBVsUXT2vjdkMhpzBd2TGAY32jk5dSAe2PjCLZLdDA
- IWctv8kkLOCw==
-X-Gm-Gg: AZuq6aLKYUQGFa3hEMpeZX6YLdtsaBTDShhZc6eyQD0+WLw/Hkxik20mhlNpaI4HYem
- wuJTAKuKoBv5xcGF1jnZRdGXkSxmERM8obU7KUvvepvmJlKgJxnIRgjdhzRlfkZaKTrIFvLI0Bb
- TgfuIzeBBUGTS2Tcrxj55yiOCgss5sy09n4A0QS8l3X7zoU0kBPo/ku2N0lT2Urep8NsdeiZsMB
- UqQtKxXLyi2LatT5Uf2TRsR/WBwhKR8hJ7bM0g1iq5O1qXJzbBh02C4n+qJLAj3gxCiaIsUQ6fk
- eMXbkRuJcm5KjKeHEm6pwVYZn/m8/ur/K78OF9ha6EZy4p5E9OItBb48P5u3G0iKHgf7tA/GB8e
- Gh1BPW9l7FwJu1jzZUmYH3TAlkl2HqP1d8rxaZFH70XZu58CPNwJ4YdSxXM6/GXea54LYRnw+ev
- 2OyYUWbk+stz+Ww+kN9r97pXOrId5OzOs1Zf0cn77xpZq6LuOTIY5WOp9RqA6L76eHrQ==
-X-Received: by 2002:a05:7300:bc8a:b0:2ab:8ef5:df2 with SMTP id
- 5a478bee46e88-2baba1095b2mr100520eec.35.1770930971729; 
- Thu, 12 Feb 2026 13:16:11 -0800 (PST)
-X-Received: by 2002:a05:7300:bc8a:b0:2ab:8ef5:df2 with SMTP id
- 5a478bee46e88-2baba1095b2mr100507eec.35.1770930971169; 
- Thu, 12 Feb 2026 13:16:11 -0800 (PST)
+ bh=uhgvpkjd7FaEumtYgCggk4y5L2tVVyR/5Cef4BLSqgI=;
+ b=aeYoKf7c0wOa3P4EPDXPSF6+fZpcY0Ew5nB8r1a4o17SBv+Z6JCQJoFjdeeddEJP9R
+ YSZRUoTjpZ+q2NKeKJsFfuhD7zB+a7qFAoLfsVZeZb/JgtcldgtdpVa6to5Sbw68gbIk
+ oKZMkg06B/TQTvC96tT1wMP4bpFNQzCsw7gtt9ngnIQ3HI5J6SNGuwvshp0l/ADMgobO
+ mRaDpymB37CXySYAFqK2nUA6FI0k+Egm4Db2q9mlR1mAe7VgQF/OtnC2G6+vrnY8h2YH
+ /5bDmQnXwyx2fwBfcePjAcaVhprhv1s7uQXusi7Hl7sqI/DYOLv0EfR6zV6qXNQAvqKf
+ 9bGw==
+X-Gm-Message-State: AOJu0YzGXn5XLPH0QBiYkGTZCKqRvIlScpmFs/sCbflBXMPpL3kZYnj5
+ uyl5xoZ+ie7M3nyCI0YfkgPhuMB8m9KCq03PlNyD9u6+v3kNPGJEXEadF2Texm4LuCBryhCB99Z
+ kHPDQpbaugU9x1CzrQgh5qWXEgafHbYTaJ/EEH9CNj5ESHCHaDc/ooN8gRpzWo0noWs5sGDICBm
+ KJOJ5LoIfyqw==
+X-Gm-Gg: AZuq6aKfTXlVQIdz+UWSsFp2oB8FncxUZ6KItWQG6RsHrNZoKdqO8U+uFjzslFA6rNH
+ rcSk1Vzgo6rmSGT4tQtf4kDE1QAPSFjD3i8xFd74Se//omYDTWskXRSiM01++dm2f5uCSs5USLy
+ epejR3mf66AyLhbFiEek9poWqrwng+sYK2Mv421LPbPC/UeqpFoTHzEW3vkn+1jpQu4or9QE4oc
+ 7loTL/aja/ifVSll7c8MbRNBRf2lOQ2SspktiWcUB/hbN1aVTcHW9icXrd7LUnyZko9o9sq6ukR
+ AgmMRAJqqv1XpTuaxNyPqe4X1bJ7UrDw102HC22EcLDyQSE7+RJ8i9LTaNsUtFWluYA24FrGO43
+ UbPCHa4267mhoxxJdkBIuDJKhm4xit0ttibtbk1P1Jd9MSp5fPdmGtRsakhEPjrfN/PAJH/UWKj
+ M6qY5uBE32BXSj1iHOKg4l1jhZcgtfv/n6LFZ57fWICylSKVEX73NfNujC0Yt/QMj5jw==
+X-Received: by 2002:a05:693c:3742:b0:2ba:9b30:37f3 with SMTP id
+ 5a478bee46e88-2bab9ff5aa2mr157291eec.6.1770930999365; 
+ Thu, 12 Feb 2026 13:16:39 -0800 (PST)
+X-Received: by 2002:a05:693c:3742:b0:2ba:9b30:37f3 with SMTP id
+ 5a478bee46e88-2bab9ff5aa2mr157282eec.6.1770930998990; 
+ Thu, 12 Feb 2026 13:16:38 -0800 (PST)
 Received: from ryan-lee-laptop-13-amd.. (c-71-202-93-145.hsd1.ca.comcast.net.
  [71.202.93.145]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-2ba9dba2fe9sm4257860eec.7.2026.02.12.13.16.10
+ 5a478bee46e88-2ba9dbe127dsm4084689eec.11.2026.02.12.13.16.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Feb 2026 13:16:10 -0800 (PST)
+ Thu, 12 Feb 2026 13:16:38 -0800 (PST)
 From: Ryan Lee <ryan.lee@canonical.com>
 To: apparmor@lists.ubuntu.com
-Date: Thu, 12 Feb 2026 13:16:03 -0800
-Message-ID: <20260212211604.396098-1-ryan.lee@canonical.com>
+Date: Thu, 12 Feb 2026 13:16:33 -0800
+Message-ID: <20260212211635.396422-1-ryan.lee@canonical.com>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -128,7 +128,7 @@ X-Spamd-Result: default: False [3.59 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCPT_COUNT_ONE(0.00)[1];
 	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com]
-X-Rspamd-Queue-Id: 70A721312E5
+X-Rspamd-Queue-Id: 561521312F5
 X-Rspamd-Action: no action
 
 While the #ifdef guards prevent the circular include from blowing up,
@@ -137,29 +137,16 @@ and instead include net.h in the other files that need it.
 
 Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
 ---
- security/apparmor/af_inet.c        | 2 +-
  security/apparmor/af_unix.c        | 1 +
  security/apparmor/apparmorfs.c     | 1 +
  security/apparmor/include/policy.h | 1 -
  security/apparmor/policy.c         | 1 +
  security/apparmor/policy_unpack.c  | 1 +
- 6 files changed, 5 insertions(+), 2 deletions(-)
+ 5 files changed, 4 insertions(+), 1 deletions(-)
 
-This patch applies cleanly to the Ubuntu 6.17 kernel.
+This patch applies cleanly to upstream master, excluding the af_inet changes
+because security/apparmor/af_inet.c does not exist upstream. 
 
-diff --git a/security/apparmor/af_inet.c b/security/apparmor/af_inet.c
-index 5255595a6876..c30a14bd7822 100644
---- a/security/apparmor/af_inet.c
-+++ b/security/apparmor/af_inet.c
-@@ -18,7 +18,7 @@
- #include "include/apparmor.h"
- #include "include/file.h"
- #include "include/label.h"
--#include "include/path.h"
-+#include "include/net.h"
- #include "include/policy.h"
- #include "include/cred.h"
- 
 diff --git a/security/apparmor/af_unix.c b/security/apparmor/af_unix.c
 index f8f7d17a61ca..543f18121be3 100644
 --- a/security/apparmor/af_unix.c
