@@ -2,89 +2,98 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oBDjKqeKj2nURQEAu9opvQ
+	id 0BnNB7LkmGn3NwMAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Fri, 13 Feb 2026 21:33:43 +0100
+	for <lists+apparmor@lfdr.de>; Fri, 20 Feb 2026 23:48:18 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81737139723
-	for <lists+apparmor@lfdr.de>; Fri, 13 Feb 2026 21:33:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA80916B500
+	for <lists+apparmor@lfdr.de>; Fri, 20 Feb 2026 23:48:17 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vqzqy-0000ip-DI; Fri, 13 Feb 2026 20:33:28 +0000
-Received: from smtp-relay-internal-0.internal ([10.131.114.225]
- helo=smtp-relay-internal-0.canonical.com)
+	id 1vtZHz-0007ne-7T; Fri, 20 Feb 2026 22:47:59 +0000
+Received: from mail-pj1-f53.google.com ([209.85.216.53])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <ryan.lee@canonical.com>)
- id 1vqzqx-0000ic-0y
- for apparmor@lists.ubuntu.com; Fri, 13 Feb 2026 20:33:27 +0000
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id D99A33FCC5
- for <apparmor@lists.ubuntu.com>; Fri, 13 Feb 2026 20:33:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20251003; t=1771014806;
- bh=i9DCpvmhvH3AlttUkDaI/3fWdUR5B3nkDXB2hKoi5z4=;
- h=From:To:Cc:Subject:Date:Message-ID:MIME-Version;
- b=shqhnINwQ1FTAOC7uoSPARpJQKLFsNw1PlL6UiwCOQTuHsG2In0j0nUowigj9Y2P+
- +eiAdfcQep4csVYuo6w+zSlBgY+hSQwXldScWisH3W4mQfGbch39sh5UUjaLR+mIMP
- n8yZLUKY45MdT5E8cGmfJ3+9SJnmG1ciU8zjc4tO2m/SHYzmYTEZeVVC4cikVo4mJG
- 0og5UhAD+7q7J4cdYo7ku3fa25rZ0Ezyt60bGMHTrPG0DVEM6ZdaLK01cGMiMHoeq6
- Oy2AUUL4wHW3oqvPkxaPJjd9yx9foXJkshQ2ClKhvbR0WBq7MNjfd+30ySWITx0OW1
- q6msD0HHpsdpsQUvognMlVs7gWJZRH5+urn/Ukq4MSicfBzKDt1kpyaTXV6da0RGVC
- RERc/JsrprnX7qtp1vp8HeEB/xSMzuMSisfpIkb62Lx2SYOWlwWB5ex8ksmwlWrghM
- Zjr2bJR1SL8GOb8ZW3mavlXn6++wLiPZJovQIEQGrZFkj57shie5zOEFnigOCZ1uSX
- pZxBuzw3myUSYIM3NvhXppcl+1wwAgckDW/S7jLYAmRktFELcDiqQ0S09BRvV4OJ5C
- PUIeKw5/k+cJTgDkmFfDsrluhcaRhvCCdUfZLy3mGCIfUPNc6YIJ/fnlgVlNJqymyn
- yfVvLlTIGgQNxwLLL3xrIoZw=
-Received: by mail-dl1-f69.google.com with SMTP id
- a92af1059eb24-12737f276a2so3715481c88.1
- for <apparmor@lists.ubuntu.com>; Fri, 13 Feb 2026 12:33:26 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771014805; x=1771619605;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ (Exim 4.86_2) (envelope-from <paul@paul-moore.com>)
+ id 1vtZHx-0007m6-HD
+ for apparmor@lists.ubuntu.com; Fri, 20 Feb 2026 22:47:57 +0000
+Received: by mail-pj1-f53.google.com with SMTP id
+ 98e67ed59e1d1-352dda4a34eso1100044a91.1
+ for <apparmor@lists.ubuntu.com>; Fri, 20 Feb 2026 14:47:57 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1771627676; cv=none;
+ d=google.com; s=arc-20240605;
+ b=ZZHBnISwg8ZsOS4ZDHAO0BJbb0Bod/bqgfV6m1pkJXRA8BYdjQOR3Em2kTzUJG1T08
+ RqFtaeSfMH69ar2Ien34C3brhMjtEHWDycZo+Yba+BKmMeZUJmc9lmLcSKIp9sEiXkjn
+ dVupoRI+vHH9f66Ol90sykUDbVfzZuyH/8K/W8jo92KxUcvaBis8xyLfIQVoDGhGQf1j
+ u2XFqXN1PBTOurpI1n1puxLFPamsOIbojrwdX1ApyjKs1GdLhUqQeunmeAPNL6gq4tjX
+ G2j93jON2r6xL7lat3rxdKH9MR7c+aV9EGFPd4cFRFQj8WVznwdzF2Jg3Ql2+x5V3WL8
+ V66Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=DDXd3tXPluWk2oCytZ/1RJVm/UKOezpDOPY6avX6ips=;
+ fh=FmFpkTw3N2UmEkS5XZXGMUnh4nDxkzXdA5uN+DDQ2/E=;
+ b=SaJLP3vZhVcXrxXbqmiggYku9grVhev1Ghc2bLK5BUhR0DZxgbIteJiWlQO16vd2YY
+ f2QQdSIi7CeEvQ+8kzuWkRKVRd5ZdcwWgw6QswpV6oPLB2gXBtP2++UOSyBYfR/WTVaJ
+ b3D+dcosWjchcA7NFnYBvBV54EwIQPXhP6rESX9bU4V7sW3aR4HKxTSf/abeKEcSm+v3
+ IFIk4PrzxIIe+pJE7Djn0B5HjM0pjpA06zxKGMzXuc3A7O8DORBa97FX479dn0ZrTuYq
+ /xPpHLEWaNiXuP4YgxNecqfj/U4kw5Kiagh4FvLP0DwVUkwZmGRhp61GKySFKuwNSTXs
+ A+rg==; darn=lists.ubuntu.com
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=paul-moore.com; s=google; t=1771627676; x=1772232476; darn=lists.ubuntu.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=i9DCpvmhvH3AlttUkDaI/3fWdUR5B3nkDXB2hKoi5z4=;
- b=eFqj18XJiGjcW34uAH5fb4+uf0/BV0RQvB16e1a5tH9NrMwVVagEBwBDA2jC6Kfw5h
- iwfG3k0akc6XRfF3hF/P1WfW1aVcdHANk+9XqfbPH2FLgJ23WcBuoT/I6GTiLVgk2q9u
- JAds/laNXnrqa45J6EOEi1TGzAgqHWbYTh1UtDwDkFbn6hwBhXU3zP7fqmkzPFqL9EZm
- ASS+Ix3ddLctjeiwHkQs78U+mrLMGx03MgrSNsX11mSm1IZz4pF7HW+r5Q1eN4mBzgjP
- SShRZxGCvZprLqIqQEGGhW5EZEg4UYsKidZxs0vdt8KVTAhcfYxGaRnSaqRtbA+uz2Qc
- Yd5w==
-X-Gm-Message-State: AOJu0YwjEizQeC1LkZCSEuTt5Yfq4nDY1kYirfxxAZf64MNIvVTXRwYI
- gBTxsUTZ+C3NPbOdT6wUyYffH4MJV54zws8NfCK9Ss/I/Io8kihSTkCPUeMmoe3pW8CUjQGFMEg
- FAzxrgMEMZhvKw0mJlTZXv+Wuude2dNy2MZFdsm+t/oAZGLS7KiHgcSxbZR7upnlUNSyqtI+rJF
- k0OWXIVONwjw==
-X-Gm-Gg: AZuq6aKIqIOalC9I1mF1B5gHzLmjXEI6eY1XGMLeg5zDyyOcoj3el0aBn5Kk9Bbig0F
- qtu/UpxQOD4HMcQ+P8nvFnpty8HZ9aq7XsaAQ24Jz9MbyfYsQPZeTVEbx0302214gvsM+lrPUsc
- f0j+gnsmYbg8VS8+NT5Z/hmiQ8TaisEeAYS7NR5SNQSJH/q3msFzewT7gok3E4lpcsnV0kKcufF
- xv2WMd4Jp2pFsLLImd420GpJZq3hP22C3ptKpKm0RyI6s8PXFegMcmX/5yriOGHIya11D1Z3XeR
- +875BgG7OsZsduOZWP8yPLcLtudMP8Bo1NVTAK5Eqx9Al6wpD0bRvfGVHQ/6INHMCKdHL7/MxmN
- vyWAeEX9s6e2vaBBX3GAUIRvkxpfRSAfONkayeL0byblXt4b1ppanWgRRL0lBU+wNBxyWClQt3O
- SF17ToxC4fFScr47yW3+CdK/TUJqxOk3NVRWVc42BC1OdVyeeRn/JNC2P79DpXhjbayw==
-X-Received: by 2002:a05:7022:249c:b0:119:e56b:989b with SMTP id
- a92af1059eb24-1273adef076mr1037854c88.2.1771014805233; 
- Fri, 13 Feb 2026 12:33:25 -0800 (PST)
-X-Received: by 2002:a05:7022:249c:b0:119:e56b:989b with SMTP id
- a92af1059eb24-1273adef076mr1037844c88.2.1771014804744; 
- Fri, 13 Feb 2026 12:33:24 -0800 (PST)
-Received: from ryan-lee-laptop-13-amd.. (c-71-202-93-145.hsd1.ca.comcast.net.
- [71.202.93.145]) by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-12742aff32asm35089c88.0.2026.02.13.12.33.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Feb 2026 12:33:24 -0800 (PST)
-From: Ryan Lee <ryan.lee@canonical.com>
-To: apparmor@lists.ubuntu.com
-Date: Fri, 13 Feb 2026 12:33:20 -0800
-Message-ID: <20260213203321.996417-1-ryan.lee@canonical.com>
-X-Mailer: git-send-email 2.43.0
+ bh=DDXd3tXPluWk2oCytZ/1RJVm/UKOezpDOPY6avX6ips=;
+ b=HkIcY25maz0mC9o4xIr4Erv2EuBiBHj9CAESE3k6i+UqFA+qgmiW2ZW2qRe/XipKfd
+ cDLLeO6mmdmd+ztxiM9xTCKhWlIdxeVZVP11aofejKB9TlpP8vFsJwI1R/xBALGD9WDc
+ EBwUivnLYqVdAkuN2QpLYW5WsxiWZPvSmukyQ5BVVwngj92wQkyzGBqUwLevw74myD0I
+ ANaCb4nkNMw8vKpyooUL8LQ284e1f8Hro0EPsFMLSt3nPHGDFJCb4FlLd222cEvPhFY5
+ 6qhnU+viniYaPEk0LZPWjtea1S+C6mL8sbbYXKoFH+3rzAdzW83hL8ImB3be+ZA1ew4C
+ jxMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1771627676; x=1772232476;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=DDXd3tXPluWk2oCytZ/1RJVm/UKOezpDOPY6avX6ips=;
+ b=Gkj/ZEqkGbHJ8pEUv6ne2JPggJQPnZ0YBruNPTmKUPhJZYo53ico8Cgf5vhsYxBTXZ
+ iBpATWD0vtZkSShH3H6BpUVVBnLx6gNO6rLNhOavmiXL7yU9KrLG5jzNpWmoOXImdKJH
+ U9/UoZOPvGeICM/BdIvxofxsPsuy0ZyqiBcrzAeMVT98HIiz5DC456htB+EwKREMvEQ3
+ b63cANN0pPBD2ixEPjj9+meUOyjVKoGKPVtanP++9rhKz/0F730LqmHvLyV+eAfrPHSL
+ b0sqSfwOBbhVtXsc8IWbwHwS1sdryRAV+ozApMUEdOoYi7/ICVtyF5wT8YE7OgT5F1mK
+ z7LQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVUy1mR9PvfPvoJoqX+HV5+ABZx5RBY+9CaUpEPZWlJSdJZyIjFUeiK6KeIevaAk75XstQ6wHYKiA==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0YweusEj1r/Xro9JJQDb/PqIlraDzKkUGxjvLoqkACSOqgXg5YTP
+ HR49+SGpXIV39QQYkcyDlbQIHNoAJJfutY53Kzn4l8lqY2Kdtx7+0wENOUD4Z45KpGy8sKd2hit
+ WE+BCguzZMfBTLCvGBJ8u6oPjUFzSZEX6x9xKEXaZ
+X-Gm-Gg: AZuq6aIwi2gUPinCNf+zeFAy4b7+QgUTxD/+OZc8HcfrXJHM/dy50s+5Ki/Q31K7M+l
+ tz00rBPbo1hy6BTM5awyvZII2wAPcSfm/L+qOUxMKJEf9pp2rRWbc8cgu61SnXLfcHNrihELF/0
+ UBwN/xPL/m+dwdyY/5pk2EdNb19yLCjAoAK4rNAyEm2A3Qyd0UZgdsK4Sv4/BE95O4sWYwwBaoP
+ ObHufTyR6uAZZbm1j+WewDg+I8m74rOrzpOgUcdjcaSvNAmyxdLPvWVRM8YKubWuuvj/wiuPqCr
+ JgAKjpA=
+X-Received: by 2002:a17:90b:3a08:b0:34c:fe7e:84fe with SMTP id
+ 98e67ed59e1d1-358ae8c0983mr894544a91.28.1771627675691; Fri, 20 Feb 2026
+ 14:47:55 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [apparmor] [PATCH] apparmor: make include headers self-contained
+References: <20260204050726.177283-1-neilb@ownmail.net>
+ <20260204050726.177283-6-neilb@ownmail.net>
+In-Reply-To: <20260204050726.177283-6-neilb@ownmail.net>
+From: Paul Moore <paul@paul-moore.com>
+Date: Fri, 20 Feb 2026 17:47:42 -0500
+X-Gm-Features: AaiRm531rz23NInLiaMybHfJxR35OGBc7KTvM6WC-U0WofFc5pma3F6ygsFUv1A
+Message-ID: <CAHC9VhThChVk1Dk+f-KANGj7Tu7zzHCiA==taeQ+=nQaH6a7sg@mail.gmail.com>
+To: NeilBrown <neil@brown.name>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=209.85.216.53; envelope-from=paul@paul-moore.com;
+ helo=mail-pj1-f53.google.com
+Subject: Re: [apparmor] [PATCH 05/13] selinux: Use simple_start_creating() /
+	simple_done_creating()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -96,206 +105,80 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Miklos Szeredi <miklos@szeredi.hu>, selinux@vger.kernel.org,
+ apparmor@lists.ubuntu.com, Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Amir Goldstein <amir73il@gmail.com>, Jeff Layton <jlayton@kernel.org>,
+ James Morris <jmorris@namei.org>, linux-kernel@vger.kernel.org,
+ David Howells <dhowells@redhat.com>, linux-security-module@vger.kernel.org,
+ Chuck Lever <chuck.lever@oracle.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ linux-fsdevel@vger.kernel.org, netfs@lists.linux.dev,
+ linux-unionfs@vger.kernel.org, linux-nfs@vger.kernel.org,
+ "Serge E. Hallyn" <serge@hallyn.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.59 / 15.00];
-	DMARC_POLICY_REJECT(2.00)[canonical.com : SPF not aligned (relaxed),reject];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_REJECT(1.00)[canonical.com:s=20251003];
-	R_MISSING_CHARSET(0.50)[];
+X-Spamd-Result: default: False [2.69 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:google.com:reject}];
+	R_DKIM_REJECT(1.00)[paul-moore.com:s=google];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[paul-moore.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FROM_NEQ_ENVFROM(0.00)[ryan.lee@canonical.com,apparmor-bounces@lists.ubuntu.com];
-	DKIM_TRACE(0.00)[canonical.com:-];
-	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
-	TO_DN_NONE(0.00)[];
-	TAGGED_RCPT(0.00)[apparmor];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[20];
+	RCVD_TLS_LAST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	FORGED_RECIPIENTS(0.00)[m:neil@brown.name,m:brauner@kernel.org,m:jack@suse.cz,m:miklos@szeredi.hu,m:selinux@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:stephen.smalley.work@gmail.com,m:amir73il@gmail.com,m:jlayton@kernel.org,m:jmorris@namei.org,m:linux-kernel@vger.kernel.org,m:dhowells@redhat.com,m:linux-security-module@vger.kernel.org,m:chuck.lever@oracle.com,m:viro@zeniv.linux.org.uk,m:linux-fsdevel@vger.kernel.org,m:netfs@lists.linux.dev,m:linux-unionfs@vger.kernel.org,m:linux-nfs@vger.kernel.org,m:serge@hallyn.com,m:stephensmalleywork@gmail.com,s:lists@lfdr.de];
+	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_ONE(0.00)[1];
-	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com]
-X-Rspamd-Queue-Id: 81737139723
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[paul@paul-moore.com,apparmor-bounces@lists.ubuntu.com];
+	DKIM_TRACE(0.00)[paul-moore.com:-];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
+	FROM_NEQ_ENVFROM(0.00)[paul@paul-moore.com,apparmor-bounces@lists.ubuntu.com];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,suse.cz,szeredi.hu,vger.kernel.org,lists.ubuntu.com,gmail.com,namei.org,redhat.com,oracle.com,zeniv.linux.org.uk,lists.linux.dev,hallyn.com];
+	NEURAL_HAM(-0.00)[-0.931];
+	TAGGED_RCPT(0.00)[apparmor];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[paul-moore.com:url,brown.name:email,mail.gmail.com:mid,ownmail.net:email,lists.ubuntu.com:helo,lists.ubuntu.com:rdns]
+X-Rspamd-Queue-Id: CA80916B500
 X-Rspamd-Action: no action
 
-Besides of resolving clangd IDE warnings, self-contained headers will be
-less likely to break if the surrounding includes in .c files using them
-change.
+On Wed, Feb 4, 2026 at 12:08=E2=80=AFAM NeilBrown <neilb@ownmail.net> wrote=
+:
+>
+> From: NeilBrown <neil@brown.name>
+>
+> Instead of explicitly locking the parent and performing a lookup in
+> selinux, use simple_start_creating(), and then use
+> simple_done_creating() to unlock.
+>
+> This extends the region that the directory is locked for, and also
+> performs a lookup.
+> The lock extension is of no real consequence.
+> The lookup uses simple_lookup() and so always succeeds.  Thus when
+> d_make_persistent() is called the dentry will already be hashed.
+> d_make_persistent() handles this case.
+>
+> Signed-off-by: NeilBrown <neil@brown.name>
+> ---
+>  security/selinux/selinuxfs.c | 15 +++++++--------
+>  1 file changed, 7 insertions(+), 8 deletions(-)
 
-Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
----
- security/apparmor/include/apparmorfs.h    | 3 +++
- security/apparmor/include/audit.h         | 3 ++-
- security/apparmor/include/capability.h    | 1 +
- security/apparmor/include/ipc.h           | 2 ++
- security/apparmor/include/path.h          | 3 +++
- security/apparmor/include/perms.h         | 1 +
- security/apparmor/include/policy_unpack.h | 1 +
- security/apparmor/include/procattr.h      | 2 ++
- security/apparmor/include/resource.h      | 1 +
- security/apparmor/include/secid.h         | 1 +
- security/apparmor/include/task.h          | 5 +++++
- 11 files changed, 22 insertions(+), 1 deletion(-)
+Unless I'm missing something, there is no reason why I couldn't take
+just this patch into the SELinux tree once the merge window closes,
+yes?
 
-This patch applies cleanly to the upstream kernel.
-
-diff --git a/security/apparmor/include/apparmorfs.h b/security/apparmor/include/apparmorfs.h
-index dd580594dfb7..e8f8c0953364 100644
---- a/security/apparmor/include/apparmorfs.h
-+++ b/security/apparmor/include/apparmorfs.h
-@@ -11,6 +11,9 @@
- #ifndef __AA_APPARMORFS_H
- #define __AA_APPARMORFS_H
- 
-+#include <linux/init.h>
-+#include <linux/types.h>
-+
- extern struct path aa_null;
- 
- enum aa_sfs_type {
-diff --git a/security/apparmor/include/audit.h b/security/apparmor/include/audit.h
-index 1a71a94ea19c..851fd2821a6c 100644
---- a/security/apparmor/include/audit.h
-+++ b/security/apparmor/include/audit.h
-@@ -17,9 +17,10 @@
- #include <linux/sched.h>
- #include <linux/slab.h>
- 
--#include "file.h"
- #include "label.h"
- 
-+struct aa_profile;
-+
- extern const char *const audit_mode_names[];
- #define AUDIT_MAX_INDEX 5
- enum audit_mode {
-diff --git a/security/apparmor/include/capability.h b/security/apparmor/include/capability.h
-index 1ddcec2d1160..3fb8b8f2182a 100644
---- a/security/apparmor/include/capability.h
-+++ b/security/apparmor/include/capability.h
-@@ -11,6 +11,7 @@
- #ifndef __AA_CAPABILITY_H
- #define __AA_CAPABILITY_H
- 
-+#include <linux/capability.h>
- #include <linux/sched.h>
- 
- #include "apparmorfs.h"
-diff --git a/security/apparmor/include/ipc.h b/security/apparmor/include/ipc.h
-index 323dd071afe9..98dc0b6c05a7 100644
---- a/security/apparmor/include/ipc.h
-+++ b/security/apparmor/include/ipc.h
-@@ -13,6 +13,8 @@
- 
- #include <linux/sched.h>
- 
-+#include "label.h"
-+
- #define SIGUNKNOWN 0
- #define MAXMAPPED_SIG 35
- 
-diff --git a/security/apparmor/include/path.h b/security/apparmor/include/path.h
-index 8bb915d48dc7..250812a77e11 100644
---- a/security/apparmor/include/path.h
-+++ b/security/apparmor/include/path.h
-@@ -11,6 +11,9 @@
- #ifndef __AA_PATH_H
- #define __AA_PATH_H
- 
-+#include <linux/path.h>
-+#include <linux/types.h>
-+
- enum path_flags {
- 	PATH_IS_DIR = 0x1,		/* path is a directory */
- 	PATH_SOCK_COND = 0x2,
-diff --git a/security/apparmor/include/perms.h b/security/apparmor/include/perms.h
-index 37a3781b99a0..3a472c11c4b1 100644
---- a/security/apparmor/include/perms.h
-+++ b/security/apparmor/include/perms.h
-@@ -11,6 +11,7 @@
- #define __AA_PERM_H
- 
- #include <linux/fs.h>
-+#include "audit.h"
- #include "label.h"
- 
- #define AA_MAY_EXEC		MAY_EXEC
-diff --git a/security/apparmor/include/policy_unpack.h b/security/apparmor/include/policy_unpack.h
-index a6f4611ee50c..c65a83682737 100644
---- a/security/apparmor/include/policy_unpack.h
-+++ b/security/apparmor/include/policy_unpack.h
-@@ -16,6 +16,7 @@
- #include <linux/dcache.h>
- #include <linux/workqueue.h>
- 
-+#include "lib.h"
- 
- struct aa_load_ent {
- 	struct list_head list;
-diff --git a/security/apparmor/include/procattr.h b/security/apparmor/include/procattr.h
-index 03dbfdb2f2c0..56acd1bdb634 100644
---- a/security/apparmor/include/procattr.h
-+++ b/security/apparmor/include/procattr.h
-@@ -11,6 +11,8 @@
- #ifndef __AA_PROCATTR_H
- #define __AA_PROCATTR_H
- 
-+#include "label.h"
-+
- int aa_getprocattr(struct aa_label *label, char **string, bool newline);
- int aa_setprocattr_changehat(char *args, size_t size, int flags);
- 
-diff --git a/security/apparmor/include/resource.h b/security/apparmor/include/resource.h
-index ad2c0da8e64f..a3d1cd28b403 100644
---- a/security/apparmor/include/resource.h
-+++ b/security/apparmor/include/resource.h
-@@ -15,6 +15,7 @@
- #include <linux/sched.h>
- 
- #include "apparmorfs.h"
-+#include "label.h"
- 
- struct aa_profile;
- 
-diff --git a/security/apparmor/include/secid.h b/security/apparmor/include/secid.h
-index 6025d3849cf8..a0d458d7ffa4 100644
---- a/security/apparmor/include/secid.h
-+++ b/security/apparmor/include/secid.h
-@@ -10,6 +10,7 @@
- #ifndef __AA_SECID_H
- #define __AA_SECID_H
- 
-+#include <linux/security.h>
- #include <linux/slab.h>
- #include <linux/types.h>
- 
-diff --git a/security/apparmor/include/task.h b/security/apparmor/include/task.h
-index b1aaaf60fa8b..017d8b06b8f2 100644
---- a/security/apparmor/include/task.h
-+++ b/security/apparmor/include/task.h
-@@ -10,6 +10,11 @@
- #ifndef __AA_TASK_H
- #define __AA_TASK_H
- 
-+#include <linux/sched.h>
-+
-+#include "audit.h"
-+#include "label.h"
-+
- static inline struct aa_task_ctx *task_ctx(struct task_struct *task)
- {
- 	return task->security + apparmor_blob_sizes.lbs_task;
--- 
-2.43.0
-
+--=20
+paul-moore.com
 
