@@ -2,77 +2,78 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 4EzhLYaDnGlwIwQAu9opvQ
+	id WP2iOZ59nGm6IQQAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Mon, 23 Feb 2026 17:42:46 +0100
+	for <lists+apparmor@lfdr.de>; Mon, 23 Feb 2026 17:17:34 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 987EB17A04B
-	for <lists+apparmor@lfdr.de>; Mon, 23 Feb 2026 17:42:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A2C0179905
+	for <lists+apparmor@lfdr.de>; Mon, 23 Feb 2026 17:17:34 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vuYN6-0002kd-0e; Mon, 23 Feb 2026 16:01:20 +0000
+	id 1vuYN3-0002kO-9F; Mon, 23 Feb 2026 16:01:17 +0000
 Received: from mx0a-00082601.pphosted.com ([67.231.145.42])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <prvs=0514939b58=clm@meta.com>)
- id 1vuVs1-0001IV-DV
- for apparmor@lists.ubuntu.com; Mon, 23 Feb 2026 13:21:05 +0000
+ id 1vuVvg-0002dc-Rs
+ for apparmor@lists.ubuntu.com; Mon, 23 Feb 2026 13:24:53 +0000
 Received: from pps.filterd (m0148461.ppops.net [127.0.0.1])
  by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 61N7LjTw1689366; Mon, 23 Feb 2026 05:20:44 -0800
+ 61N7Limb1689352; Mon, 23 Feb 2026 05:24:41 -0800
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
  :content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=+jj35zgXKhtaxe8slFh2KjLza6PRHJYalc4EKFRj1xk=; b=uQ3peFVpfrPv
- P1eNTCmO7sZzHHxSMqkZfrVpKFA1ZEnJiWX/K6a64owsi6ZEvoptl9inCEq4kFSR
- Su3fW5cc6nGdrgVNPCMEUHbdk304q1HIsAN5FKV59LzaXWQZsFEs71Pf7qXlwkbr
- F1H13bcXnIobrOpdVfZtgIPQN5ydQKhi0m9N/GEp8DNUUNu5Rob+j0mAtAx1MUoS
- 73kX4wyXHXprW//vO0Qp4cgTVmqpvdF/05FYmEpkjjsqM2FdjNLFT7GqCHFxTynJ
- bR/pXaaD35diR2KJiYAqPbwXBM2QqHLdbXRSVrAGsxgdiHxWZRHZZjVcXqa4V3D4
- puHFLDf/GA==
+ bh=ylAoujAb11HbDuBJyzbfnejKsZ07LLMDi9nKW5p43Pk=; b=SxdNRDr0l2Y7
+ /Y0FpYGKOuz1CKUHtmblr+gQjq7wZ4HHSG+sqvO6cMny74VitKUvdzrwNzewZiZZ
+ ZedKtDiv3GHJ+vuP15gayZJ8Ms72r8/zYQJufhWxhIj1YmHhbvHaKlQhEB3BmqhQ
+ HZsT9iAPeFJb5Wyv6kACOzkmIvfvmZchVyjVwKEd6P7UrXZpHzZ7O6dfNhJrc0pX
+ 6OMpo+MdANYnVT0yrP8hVbxFP/jaaeH2c8bxpuRdagMs9CJIV0Io+PMsT/jAKTk5
+ rZC5wxJjdUysYERtOMUg0Lz6Gx2aaf1INXCoPJ4pAfONsJUh0LOYV1FLKhCr962Z
+ ru0KmcjETg==
 Received: from mail.thefacebook.com ([163.114.134.16])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4cgjehhvnu-1
+ by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4cgjehhwcq-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Mon, 23 Feb 2026 05:20:44 -0800 (PST)
+ Mon, 23 Feb 2026 05:24:40 -0800 (PST)
 Received: from devbig003.atn7.facebook.com (2620:10d:c085:208::f) by
  mail.thefacebook.com (2620:10d:c08b:78::c78f) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.35; Mon, 23 Feb 2026 13:20:42 +0000
+ 15.2.2562.35; Mon, 23 Feb 2026 13:24:38 +0000
 From: Chris Mason <clm@meta.com>
 To: NeilBrown <neil@brown.name>
-Date: Mon, 23 Feb 2026 05:13:37 -0800
-Message-ID: <20260223132027.4165509-1-clm@meta.com>
+Date: Mon, 23 Feb 2026 05:23:00 -0800
+Message-ID: <20260223132424.105125-1-clm@meta.com>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260223011210.3853517-10-neilb@ownmail.net>
+In-Reply-To: <20260223011210.3853517-13-neilb@ownmail.net>
 References: <20260223011210.3853517-1-neilb@ownmail.net>
- <20260223011210.3853517-10-neilb@ownmail.net>
+ <20260223011210.3853517-13-neilb@ownmail.net>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [2620:10d:c085:208::f]
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMjIzMDExNCBTYWx0ZWRfX+kME6KZmr89V
- FuKP+HbtK6Ll3Q33VPnvmu6dSF4itJ8mVYWVnJ7GZz07InfaInBIu5fTcVWC3E0zX9IPFY3omT/
- NFDzwO5fxPFfsJlAau4AJFE+l9AIU3wjNX4G3ORzecBxHBbJ8oF+WaRyFx+8A/R3s1DZchoPfZn
- BibQx0Mjpw9jKbymWVR73+564ZbtEGwqzDPmsW7IOuY/8Obw6csoIk2hJfyMafNi5SrOz8czyFJ
- uJ70XH74dPoeTLXMkqjRRdbf1qWlwih5nYz3Hg/ux3VdEAVnTH6MFH+Puak3DUvyCgsTd+5B5ZN
- rWHWmiL/tZIpuwkvGsKU1fAPjFfWQNcucF5wuE/C/bPPnyiF4xRWJPNDkDJWCTjma7twh5jrIJ4
- J19KZBZpHaCGFAR0Vi8F67Zew8QnYtdM0FhaOWXjdsvx/vRaCJFcBkpGw5CiMVv0w84749y9QKq
- 0TDcj6dO/tU+Kqu3s2Q==
-X-Proofpoint-GUID: Fa5SgpH4NiF5_GiC7hGWmJ-OFXDNqwP8
-X-Proofpoint-ORIG-GUID: Fa5SgpH4NiF5_GiC7hGWmJ-OFXDNqwP8
-X-Authority-Analysis: v=2.4 cv=cK/tc1eN c=1 sm=1 tr=0 ts=699c542c cx=c_pps
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMjIzMDExNSBTYWx0ZWRfX0dgT0g6QYSuu
+ PEGLVNnMsGePov8R8l1QB8LfoyGl2lb8QDvaN/NlBSu8a681sCD4iddZXWsCugetgQyRI9j1XX6
+ o36cgFOkf0FYItI80uVv4SsgsYwS0NWXG6+3ATVVfENiiT2ZEsxIRRndr4cm0/HaX7yRwdABHg+
+ NLmaiw0XL25XYH4mavUh75rhG0n+M5piP9hRWGfNB3PtfX9DYJGc6zRlz06viQHz6Oc7KKErcV8
+ mqIGBevUJCYjIK7fbCiQiztsp1zUVqUAHchSymCQwcCrbNCgww9cWNUntK49I73Mp12aXcVtzGB
+ e4kQBNGdW8DTT4qZV+rvYoQ1m2fOCwTGi7FeuW3FLk/H7uPenBvDWz4s+TWXkXZyZOzTlmDG0KM
+ 89FMzYalqBzRqsi267bF/1ugnRavbGw8zAGi9Ie31dO2Rz0JFT//NrZkN7HaHCThrdPyLo4RuCh
+ YhDCGR8IhfI2s47VYsQ==
+X-Proofpoint-GUID: J5EmcEgOR7K6M1JAMJLysnrhG-etdjNl
+X-Proofpoint-ORIG-GUID: J5EmcEgOR7K6M1JAMJLysnrhG-etdjNl
+X-Authority-Analysis: v=2.4 cv=cK/tc1eN c=1 sm=1 tr=0 ts=699c5518 cx=c_pps
  a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
  a=HzLeVaNsDn8A:10 a=VkNPw1HP01LnGYTKEx00:22 a=Mpw57Om8IfrbqaoTuvik:22
- a=GgsMoib0sEa3-_RKJdDe:22 a=e8O0uTMVAAAA:20 a=I-1mG6jRAAAA:8
- a=jAaqfGSQgQmH2hLIMWsA:9 a=vAntc5lzOlbkVmf1VcWC:22 a=bA3UWDv6hWIuX7UZL3qL:22
+ a=GgsMoib0sEa3-_RKJdDe:22 a=I-1mG6jRAAAA:8 a=cpV2LRKSBlBd3YnpoBYA:9
+ a=vAntc5lzOlbkVmf1VcWC:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-02-23_02,2026-02-23_02,2025-10-01_01
 Received-SPF: pass client-ip=67.231.145.42;
  envelope-from=prvs=0514939b58=clm@meta.com; helo=mx0a-00082601.pphosted.com
 X-Mailman-Approved-At: Mon, 23 Feb 2026 16:01:16 +0000
-Subject: Re: [apparmor] [PATCH v2 09/15] ovl: Simplify ovl_lookup_real_one()
+Subject: Re: [apparmor] [PATCH v2 12/15] ovl: change ovl_create_real() to
+	get a new lock when re-opening created file.
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -102,227 +103,150 @@ X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [5.09 / 15.00];
 	DMARC_POLICY_REJECT(2.00)[meta.com : SPF not aligned (relaxed),reject];
 	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
 	R_DKIM_REJECT(1.00)[meta.com:s=s2048-2025-q2];
+	MID_CONTAINS_FROM(1.00)[];
 	R_MISSING_CHARSET(0.50)[];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	HAS_XOIP(0.00)[];
 	GREYLIST(0.00)[pass,body];
-	FORGED_RECIPIENTS(0.00)[m:neil@brown.name,m:jack@suse.cz,m:djwong@kernel.org,m:amir73il@gmail.com,m:linux-unionfs@vger.kernel.org,m:dhowells@redhat.com,m:paul@paul-moore.com,m:miklos@szeredi.hu,m:jmorris@namei.org,m:serge@hallyn.com,m:selinux@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:linux-nfs@vger.kernel.org,m:viro@zeniv.linux.org.uk,m:brauner@kernel.org,m:stephen.smalley.work@gmail.com,m:jlayton@kernel.org,m:linux-kernel@vger.kernel.org,m:linux-security-module@vger.kernel.org,m:chuck.lever@oracle.com,m:linux-fsdevel@vger.kernel.org,m:netfs@lists.linux.dev,m:stephensmalleywork@gmail.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FREEMAIL_CC(0.00)[suse.cz,kernel.org,gmail.com,vger.kernel.org,redhat.com,paul-moore.com,szeredi.hu,namei.org,hallyn.com,lists.ubuntu.com,zeniv.linux.org.uk,oracle.com,lists.linux.dev];
+	FORGED_RECIPIENTS(0.00)[m:neil@brown.name,m:jack@suse.cz,m:djwong@kernel.org,m:amir73il@gmail.com,m:linux-unionfs@vger.kernel.org,m:dhowells@redhat.com,m:paul@paul-moore.com,m:miklos@szeredi.hu,m:jmorris@namei.org,m:serge@hallyn.com,m:selinux@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:linux-nfs@vger.kernel.org,m:viro@zeniv.linux.org.uk,m:brauner@kernel.org,m:stephen.smalley.work@gmail.com,m:jlayton@kernel.org,m:linux-kernel@vger.kernel.org,m:linux-security-module@vger.kernel.org,m:chuck.lever@oracle.com,m:linux-fsdevel@vger.kernel.org,m:netfs@lists.linux.dev,m:stephensmalleywork@gmail.com,s:lists@lfdr.de];
 	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	FORGED_SENDER(0.00)[clm@meta.com,apparmor-bounces@lists.ubuntu.com];
-	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
 	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[clm@meta.com,apparmor-bounces@lists.ubuntu.com];
 	RCPT_COUNT_TWELVE(0.00)[22];
-	MIME_TRACE(0.00)[0:+];
 	RCVD_TLS_LAST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[clm@meta.com,apparmor-bounces@lists.ubuntu.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	TAGGED_RCPT(0.00)[apparmor];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
 	FROM_HAS_DN(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[meta.com:mid,lists.ubuntu.com:helo,lists.ubuntu.com:rdns,ownmail.net:email,brown.name:email];
+	RCVD_COUNT_FIVE(0.00)[5];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[ownmail.net:email,brown.name:email,lists.ubuntu.com:helo,lists.ubuntu.com:rdns];
+	NEURAL_HAM(-0.00)[-1.000];
+	HAS_XOIP(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[clm@meta.com,apparmor-bounces@lists.ubuntu.com];
+	TAGGED_RCPT(0.00)[apparmor];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	DKIM_TRACE(0.00)[meta.com:-];
 	TO_DN_SOME(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[]
-X-Rspamd-Queue-Id: 987EB17A04B
+X-Rspamd-Queue-Id: 8A2C0179905
 X-Rspamd-Action: no action
 
 NeilBrown <neilb@ownmail.net> wrote:
 > From: NeilBrown <neil@brown.name>
 > 
-> The primary purpose of this patch is to remove the locking from
-> ovl_lookup_real_one() as part of centralising all locking of directories
-> for name operations.
+> When ovl_create_real() is used to create a file on the upper filesystem
+> it needs to return the resulting dentry - positive and hashed.
+> It is usually the case the that dentry passed to the create function
+> (e.g.  vfs_create()) will be suitable but this is not guaranteed.  The
+> filesystem may unhash that dentry forcing a repeat lookup next time the
+> name is wanted.
 > 
-> The locking here isn't needed.  By performing consistency tests after
-> the lookup we can be sure that the result of the lookup was valid at
-> least for a moment, which is all the original code promised.
-> 
-> lookup_noperm_unlocked() is used for the lookup and it will take the
-> lock if needed only where it is needed.
-> 
-> Also:
->  - don't take a reference to real->d_parent.  The parent is
->    only use for a pointer comparison, and no reference is needed for
->    that.
->  - Several "if" statements have a "goto" followed by "else" - the
->    else isn't needed: the following statement can directly follow
->    the "if" as a new statement
->  - Use a consistent pattern of setting "err" before performing a test
->    and possibly going to "fail".
->  - remove the "out" label (now that we don't need to dput(parent) or
->    unlock) and simply return from fail:.
 
 Hi everyone,
 
-Amir asked me to run these through, and this commit was flagged.  I recently
-changed the prompts to include some vfs knowledge:
+Amir suggested I run these through, and this commit was flagged:
 
-https://github.com/masoncl/review-prompts/blob/main/kernel/subsystem/vfs.md
-
-And I also put in some words to make it prefer reporting problems that might
-not be bugs, but that do violate some rule in the .md files.  This might
-be a false positive from that new shift toward blindly trusting the guides,
-but I'll let everyone here decide:
-
-commit d1bfcef048896cdc9e4c57e3249b6ad344d64c02
+commit 62d49d1e44667e4f93bec415faabec5526992ac0
 Author: NeilBrown <neil@brown.name>
 
-ovl: Simplify ovl_lookup_real_one()
+ovl: change ovl_create_real() to get a new lock when re-opening created file.
 
-This patch removes locking from ovl_lookup_real_one() and reorganizes the
-control flow. The function now uses lookup_noperm_unlocked() instead of
-lookup_noperm() and performs consistency validation after the lookup rather
-than holding a lock during the operation.
+This commit changes ovl_create_real() to drop the directory lock and
+reacquire a new lock for lookup when the created dentry is unhashed. It
+also removes ovl_lookup_upper() which is no longer used.
 
-> diff --git a/fs/overlayfs/export.c b/fs/overlayfs/export.c
-> index 83f80fdb15674..b448fc9424b64 100644
-> --- a/fs/overlayfs/export.c
-> +++ b/fs/overlayfs/export.c
-> @@ -349,69 +349,64 @@ static struct dentry *ovl_dentry_real_at(struct dentry *dentry, int idx)
->  	return NULL;
+Signed-off-by: NeilBrown <neil@brown.name>
+
+> diff --git a/fs/overlayfs/dir.c b/fs/overlayfs/dir.c
+> index c4feb89ad1e39..6285069ccc590 100644
+> --- a/fs/overlayfs/dir.c
+> +++ b/fs/overlayfs/dir.c
+> @@ -159,7 +159,8 @@ int ovl_cleanup_and_whiteout(struct ovl_fs *ofs, struct dentry *dir,
 >  }
 >
-> -/*
-> - * Lookup a child overlay dentry to get a connected overlay dentry whose real
-> - * dentry is @real. If @real is on upper layer, we lookup a child overlay
-> - * dentry with the same name as the real dentry. Otherwise, we need to consult
-> - * index for lookup.
-> +/**
-> + * ovl_lookup_real_one -  Lookup a child overlay dentry to get an overlay dentry whose real dentry is given
-> + * @connected: parent overlay dentry
-> + * @real: given child real dentry
-> + * @layer: layer in which @real exists
-> + *
-> + *
-> + * Lookup a child overlay dentry in @connected with the same name as the @real
-> + * dentry.  Then check that the parent of the result is the real dentry for
-> + * @connected, and @real is the real dentry for the result.
-> + *
-> + * Returns:
-> + *   %-ECHILD if the parent of @real is no longer the real dentry for @connected.
-> + *   %-ESTALE if @real is no the real dentry of the found dentry.
-                                       ^^
-There's a typo here: "is no the" should be "is not the".
-
-> + *   Otherwise the found dentry is returned.
->   */
->  static struct dentry *ovl_lookup_real_one(struct dentry *connected,
->  					  struct dentry *real,
->  					  const struct ovl_layer *layer)
+>  struct dentry *ovl_create_real(struct ovl_fs *ofs, struct dentry *parent,
+> -			       struct dentry *newdentry, struct ovl_cattr *attr)
+> +			       struct dentry *newdentry, struct qstr *qname,
+> +			       struct ovl_cattr *attr)
 >  {
-> -	struct inode *dir = d_inode(connected);
-> -	struct dentry *this, *parent = NULL;
-> +	struct dentry *this;
->  	struct name_snapshot name;
+>  	struct inode *dir = parent->d_inode;
 >  	int err;
->
->  	/*
-> -	 * Lookup child overlay dentry by real name. The dir mutex protects us
-> -	 * from racing with overlay rename. If the overlay dentry that is above
-> -	 * real has already been moved to a parent that is not under the
-> -	 * connected overlay dir, we return -ECHILD and restart the lookup of
-> -	 * connected real path from the top.
-> -	 */
-> -	inode_lock_nested(dir, I_MUTEX_PARENT);
-> -	err = -ECHILD;
-> -	parent = dget_parent(real);
-> -	if (ovl_dentry_real_at(connected, layer->idx) != parent)
-> -		goto fail;
-> -
-> -	/*
-> -	 * We also need to take a snapshot of real dentry name to protect us
-> +	 * We need to take a snapshot of real dentry name to protect us
->  	 * from racing with underlying layer rename. In this case, we don't
->  	 * care about returning ESTALE, only from dereferencing a free name
->  	 * pointer because we hold no lock on the real dentry.
->  	 */
->  	take_dentry_name_snapshot(&name, real);
-> -	/*
-> -	 * No idmap handling here: it's an internal lookup.
-> -	 */
-> -	this = lookup_noperm(&name.name, connected);
-> +	this = lookup_noperm_unlocked(&name.name, connected);
->  	release_dentry_name_snapshot(&name);
+> @@ -221,19 +222,29 @@ struct dentry *ovl_create_real(struct ovl_fs *ofs, struct dentry *parent,
+>  		struct dentry *d;
+>  		/*
+>  		 * Some filesystems (i.e. casefolded) may return an unhashed
+> -		 * negative dentry from the ovl_lookup_upper() call before
+> +		 * negative dentry from the ovl_start_creating_upper() call before
+>  		 * ovl_create_real().
+>  		 * In that case, lookup again after making the newdentry
+>  		 * positive, so ovl_create_upper() always returns a hashed
+> -		 * positive dentry.
+> +		 * positive dentry.  We lookup using qname which should be
+> +		 * the same name as newentry, but is certain not to change.
+> +		 * As we have to drop the lock before the lookup a race
+> +		 * could result in a lookup failure.  In that case we return
+> +		 * an error.
+>  		 */
+> -		d = ovl_lookup_upper(ofs, newdentry->d_name.name, parent,
+> -				     newdentry->d_name.len);
+> -		dput(newdentry);
+> -		if (IS_ERR_OR_NULL(d))
+> +		end_creating_keep(newdentry);
+> +		d = ovl_start_creating_upper(ofs, parent, qname);
 > +
-> +	err = -ECHILD;
-> +	if (ovl_dentry_real_at(connected, layer->idx) != real->d_parent)
-> +		goto fail;
-> +
+> +		if (IS_ERR_OR_NULL(d)) {
+>  			err = d ? PTR_ERR(d) : -ENOENT;
+> +		} else if (d->d_inode != newdentry->d_inode) {
+> +			err = -EIO;
+> +			dput(newdentry);
+> +		} else {
+> +			dput(newdentry);
+>  			return d;
+> +		}
+> +		return ERR_PTR(err);
+>  	}
 
-A subsystem pattern flags this as potentially concerning: the VFS subsystem
-guide indicates that TOCTOU validation checking d_parent should also check
-d_unhashed() because a dentry can be unhashed (removed from dcache by
-concurrent operations) while its d_parent pointer remains unchanged.
+Does this leak the newdentry reference when IS_ERR_OR_NULL(d) is true?
 
-The old code held inode_lock_nested(dir, I_MUTEX_PARENT) during the entire
-lookup and validation, which serialized with operations that could unhash the
-dentry. The new lockless pattern creates a window where:
+The code now calls end_creating_keep(newdentry) which keeps the reference,
+then calls ovl_start_creating_upper(). If that returns an error or NULL,
+the function returns ERR_PTR(err) without cleaning up newdentry:
 
-1. lookup_noperm_unlocked() completes and returns dentry `this`
-2. A concurrent unlink/remove operation unhashes `this`
-3. The d_parent validation passes (parent pointer unchanged)
-4. The function returns an unhashed dentry
+	end_creating_keep(newdentry);
+	d = ovl_start_creating_upper(ofs, parent, qname);
 
-Other overlayfs code uses the complete pattern. For example, in
-ovl_lock_rename_workdir() at fs/overlayfs/util.c:
+	if (IS_ERR_OR_NULL(d)) {
+		err = d ? PTR_ERR(d) : -ENOENT;
+	} ...
+	return ERR_PTR(err);
 
-    if (work->d_parent != workdir || d_unhashed(work)) {
-        ...
-    }
+The old code always went through the 'out:' label which called
+end_creating(newdentry) on error. The new code bypasses that cleanup.
 
-Could this validation miss a race where the dentry is unhashed but d_parent
-still matches? The subsequent checks (!this->d_inode for -ENOENT,
-wrong real dentry for -ESTALE) might catch some cases, but is that
-sufficient for all the scenarios where an unhashed dentry could cause
-problems?
 
->  	err = PTR_ERR(this);
-> -	if (IS_ERR(this)) {
-> +	if (IS_ERR(this))
->  		goto fail;
-> -	} else if (!this || !this->d_inode) {
-> -		dput(this);
-> -		err = -ENOENT;
-> +
-> +	err = -ENOENT;
-> +	if (!this || !this->d_inode)
->  		goto fail;
-> -	} else if (ovl_dentry_real_at(this, layer->idx) != real) {
-> -		dput(this);
-> -		err = -ESTALE;
-> +
-> +	err = -ESTALE;
-> +	if (ovl_dentry_real_at(this, layer->idx) != real)
->  		goto fail;
-> -	}
->
-> -out:
-> -	dput(parent);
-> -	inode_unlock(dir);
->  	return this;
->
->  fail:
->  	pr_warn_ratelimited("failed to lookup one by real (%pd2, layer=%d, connected=%pd2, err=%i)\n",
->  			    real, layer->idx, connected, err);
-> -	this = ERR_PTR(err);
-> -	goto out;
-> +	if (!IS_ERR(this))
-> +		dput(this);
-> +	return ERR_PTR(err);
->  }
->
->  static struct dentry *ovl_lookup_real(struct super_block *sb,
+Does this leak both the parent lock and the dentry 'd' when the lookup
+returns a different inode?
+
+When d->d_inode != newdentry->d_inode, the code sets err = -EIO and calls
+dput(newdentry), but doesn't clean up 'd':
+
+	} else if (d->d_inode != newdentry->d_inode) {
+		err = -EIO;
+		dput(newdentry);
+	} ...
+	return ERR_PTR(err);
+
+The dentry 'd' was returned by ovl_start_creating_upper() with the parent
+directory lock held. The code needs to call end_creating(d) to release the
+lock via end_dirop()->inode_unlock() and release the dentry reference via
+end_dirop()->dput().
 
 
