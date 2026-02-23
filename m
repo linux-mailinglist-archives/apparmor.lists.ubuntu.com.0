@@ -2,54 +2,54 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 8OVLLqOpm2l94QMAu9opvQ
+	id gHTfA62pm2l94QMAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Mon, 23 Feb 2026 02:13:07 +0100
+	for <lists+apparmor@lfdr.de>; Mon, 23 Feb 2026 02:13:17 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C05417116C
-	for <lists+apparmor@lfdr.de>; Mon, 23 Feb 2026 02:13:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEBFC17117C
+	for <lists+apparmor@lfdr.de>; Mon, 23 Feb 2026 02:13:16 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vuKVL-0000cn-GA; Mon, 23 Feb 2026 01:12:55 +0000
+	id 1vuKVT-0000gy-Mf; Mon, 23 Feb 2026 01:13:03 +0000
 Received: from flow-a1-smtp.messagingengine.com ([103.168.172.136])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <neilb@ownmail.net>) id 1vuKVK-0000bu-Cr
- for apparmor@lists.ubuntu.com; Mon, 23 Feb 2026 01:12:54 +0000
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
- by mailflow.phl.internal (Postfix) with ESMTP id A2F1113807AC;
- Sun, 22 Feb 2026 20:12:53 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-04.internal (MEProxy); Sun, 22 Feb 2026 20:12:53 -0500
+ (Exim 4.86_2) (envelope-from <neilb@ownmail.net>) id 1vuKVT-0000gY-01
+ for apparmor@lists.ubuntu.com; Mon, 23 Feb 2026 01:13:03 +0000
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailflow.phl.internal (Postfix) with ESMTP id 21CB313807AC;
+ Sun, 22 Feb 2026 20:13:02 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-06.internal (MEProxy); Sun, 22 Feb 2026 20:13:02 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
  cc:cc:content-transfer-encoding:content-type:date:date:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:reply-to:subject:subject:to:to; s=fm3; t=1771809173;
- x=1771816373; bh=tPobfa0i3jHvv1Dk9y6zx4amsTjnJAZYw4PN6GvcHrM=; b=
- VkG7WHzvoixd6ubzY5odJm09mG7iXftREpH9V2EzdLf9yyiCnXGgkgFg2Ggmhzwe
- 3OiwiLKtH1+YR83Tg3vQb9Ydhimkce8HxkJ7SF7Drmn+nShtszmdw53Kvvy+mRzU
- eMnWsZ5FE/15Nm7ohJcX8YuDt+x/Gub0XKS8wiykDyJy0dAwP21d6DTdY3RXnKMd
- XXrdNoamG0MrSPSdD0cfMV6dNkbkrOrw1FIo8rogEFun8+TSlTB4hePn7eshCvfT
- 7aLMU55YFR7HAWWM/Hx9lCiy4G1dQ3cMhOy9Jh24J2DV6pB6zbQOhvX/IdwnBegS
- ZOQSeW1oQ+2oxXFYuR9DyA==
+ :reply-to:reply-to:subject:subject:to:to; s=fm3; t=1771809182;
+ x=1771816382; bh=F2ruswJ16EK8VK0D0nBKaLrqHDOOMda6+QvATeDl+8E=; b=
+ Y+szD3Ynj5pQxiT1amJ9JRzMiTU/5dq33ZQZsAJWRtpNKRayvYQwTypJhnvy/ojZ
+ BZ+CF73qMI7UJWEOTstRXc1SFji9Ox8lCS6X/tJeyYp9vSwWZrB3JCJZvc3Q4stt
+ EdjynsjtTO8UabzpZMp4p0QQLSsuwMfOWUqlNvGx7t9WPLrSwLjHSuzet7Kz7QZo
+ obKcMNSPIQr6N4oCh4N0FgMWV7Gj+Bogh/vukVX+A9PQjvEXQjxhV9996InFpy2m
+ oUS4P4vBecwQYHne/HqIYwK66sJUTdQxiUj1W4jBidfgHhdD6iOTjn/VYiwcst2h
+ M/n82QyuTwdabyzA3vr6/Q==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:feedback-id:feedback-id:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
  :reply-to:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; t=1771809173; x=1771816373; bh=t
- Pobfa0i3jHvv1Dk9y6zx4amsTjnJAZYw4PN6GvcHrM=; b=MHlFIILFDj3wzrnNG
- RyuyfvcDfRHL4BRuVeDj7AMglolqTP6qpECXlGclix2LWF9HfNQMPLLCP6DO/2K7
- yOm6A3RYzil40Xcx5B7CsXBbXz4B8eZ6UEjc1hirXnc3ySK+sWTiI9CRprRnEdQL
- GAOXS9CD45c6RGc9EWEmvQRoKnuNGzreiRmRraLHE5NvKwcsKCIIrefcOL0xO6j6
- grNBiQXhW82i+6doKjKElSDPrslncryMV4oRzRfMPANm4TJhDmwtG9tpe+O+aUbE
- u3Mx0kJATT3B03IypfIiIb264NAeGIGw9Koy8B7iDhQ5hoZq54zUWqhWn1JX394t
- 0rsDw==
-X-ME-Sender: <xms:lambaU743a3N7nteg2wyOFOGEsyv6Fy4eku-r8muYPeaBF834D4ZaA>
- <xme:lambaQ7eXHKq9aPhGGTq8oCkWy9U0Crzd5MstxiI2tkvxOKrp0yWBAZO8ZRDz6xtL
- e2ynAC4zOwJudOm2tNV2EuqSR_bXG-nx43r6PFYNkDnUlLW8f4>
-X-ME-Received: <xmr:lambaaFyu8j6f1gP46miBRNu83vK5hWI9jhv6VwgKwO8v8qqrZ0k1iXTo-k_9ir--F-qtNZssCMujms7JgH032sR13xyQzCYHGKKq0KRlSkF>
+ :x-me-sender:x-sasl-enc; s=fm3; t=1771809182; x=1771816382; bh=F
+ 2ruswJ16EK8VK0D0nBKaLrqHDOOMda6+QvATeDl+8E=; b=eVhfSbghVue9dXdoe
+ Nlq9dlIpBi/bXDjuQIuQiSdyRz7ZSqLucVqmD977FWQT8t1xgmG8dcQ/65SlNc9F
+ h8m/MBmuI3KIxq2kYhv0wKk2C9kICoGcCwWHdn0qlaZLJWbfQbks2zbtsG0K+wOc
+ 3+nbwV6oavX5vUBUwlpskR2zQiTeRLRpi12hYBPw7kAEX/aDJXYcNMv+PWxlM0vq
+ Sc+RelU5LcmPgTCtP72z/L6nSv2o+VoDXqS4/h0kU41V9kIqzfpZv53jske+bRxF
+ sr3ttbBIa601YHzqJhscY+66qaq/kYV+OdtWR+7rs0JB+V8Oeu505CwhoefRxQlP
+ dSw/w==
+X-ME-Sender: <xms:nambaS-UAv85VtS3xj0mMiSIIY9BbNdxpJUyNSLiJYPIQpuwDE8eiw>
+ <xme:nambaWqZuRAaAFC-OK6HnOzWTGVw8_wNk_nGSSRGIeth6C8verBLqvz56D7eJeDcF
+ X73AXHLnPH4vJYQEXAE2iF6urUE3I5Ha6G6FWqRKbD-WfAP>
+X-ME-Received: <xmr:nambaQjOUIFx_bY-zlpcxAIvcEtBf-KaL5dfECizuZxX6lNcguuMgpP4EWLk9j2bInAVyzpBPXtrxfuZlaPdmbCKe9DLCMWPM7kg_f0UHa8f>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvfeehkeegucetufdoteggodetrf
  dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
  rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
@@ -67,14 +67,14 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvfeehkeegucetufdote
  vghlrdhorhhgpdhrtghpthhtoheplhhinhhugidqfhhsuggvvhgvlhesvhhgvghrrdhkvg
  hrnhgvlhdrohhrghdprhgtphhtthhopehmihhklhhoshesshiivghrvgguihdrhhhupdhr
  tghpthhtohepjhgrtghksehsuhhsvgdrtgii
-X-ME-Proxy: <xmx:lambaWyGgSoxCgxtx3FWiiTgRP4Qp2ZW73Cj8kspFOvi-gM1ul8ECQ>
- <xmx:lambaS1qbFshcFgb3bxsW8hniyOSLf-37I4Bb-vnni0Tr4oTk6TB7Q>
- <xmx:lambaRPSq5Ty73GNFmygRB1zWCX8kYCdrwcJPAQs5y7cJrKmRNcJNQ>
- <xmx:lambaWvQs_e1fRYirwpoQuAeCIiCRILakQyRCX7oNsue-26X0zyFnA>
- <xmx:lambaXOXWDohSgpEDyzKkoC3_Phzfj6CIQk-iF47gaNr0zMO8IrXhpc7>
+X-ME-Proxy: <xmx:nambaUD6vvkPX4AAfOLjeIGp_m2IH6QMkoK9EfVq0_FoEav9czxd4w>
+ <xmx:nambaetf7uzY2gIehqhiHp90njXwxuwiK5RlLgdxZ0oMA5wndC3lxA>
+ <xmx:nambae4KmUFLs6UT8nRadTKWJruhmxxsDzTc8DVJvsOft27m32zUrw>
+ <xmx:nambaYehVDWoyM5jfXdY3DTLkReLv8rLKsgbS1o6jxbGTz2Zk0fPTw>
+ <xmx:nqmbaSGqOa6WaCwYYGhEbWOmDI4U699_PXeZrYZ4DW1qNiX61CxsHgkg>
 Feedback-ID: i9d664b8f:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 22 Feb 2026 20:12:47 -0500 (EST)
+ 22 Feb 2026 20:12:55 -0500 (EST)
 From: NeilBrown <neilb@ownmail.net>
 To: Christian Brauner <brauner@kernel.org>,
  Alexander Viro <viro@zeniv.linux.org.uk>,
@@ -86,8 +86,8 @@ To: Christian Brauner <brauner@kernel.org>,
  "Serge E. Hallyn" <serge@hallyn.com>,
  Stephen Smalley <stephen.smalley.work@gmail.com>,
  "Darrick J. Wong" <djwong@kernel.org>
-Date: Mon, 23 Feb 2026 12:06:17 +1100
-Message-ID: <20260223011210.3853517-3-neilb@ownmail.net>
+Date: Mon, 23 Feb 2026 12:06:18 +1100
+Message-ID: <20260223011210.3853517-4-neilb@ownmail.net>
 X-Mailer: git-send-email 2.50.0.107.gf914562f5916.dirty
 In-Reply-To: <20260223011210.3853517-1-neilb@ownmail.net>
 References: <20260223011210.3853517-1-neilb@ownmail.net>
@@ -95,8 +95,8 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Received-SPF: pass client-ip=103.168.172.136; envelope-from=neilb@ownmail.net;
  helo=flow-a1-smtp.messagingengine.com
-Subject: [apparmor] [PATCH v2 02/15] fs/proc: Don't lock root inode when
-	creating "self" and "thread-self"
+Subject: [apparmor] [PATCH v2 03/15] VFS: move the start_dirop() kerndoc
+	comment to before start_dirop()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -155,77 +155,72 @@ X-Spamd-Result: default: False [3.19 / 15.00];
 	HAS_REPLYTO(0.00)[neil@brown.name];
 	DKIM_TRACE(0.00)[ownmail.net:-,messagingengine.com:-];
 	REPLYTO_DOM_NEQ_TO_DOM(0.00)[]
-X-Rspamd-Queue-Id: 8C05417116C
+X-Rspamd-Queue-Id: EEBFC17117C
 X-Rspamd-Action: no action
 
 From: NeilBrown <neil@brown.name>
 
-proc_setup_self() and proc_setup_thread_self() are only called from
-proc_fill_super() which is before the filesystem is "live".  So there is
-no need to lock the root directory when adding "self" and "thread-self".
-This is clear from simple_fill_super() which provides similar
-functionality for other filesystems and does not lock anything.
+This kerneldoc comment was always meant for start_dirop(), not for
+__start_dirop() which is a static function and doesn't need
+documentation.
 
-The locking is not harmful, except that it may be confusing to a reader.
-As part of an effort to centralise all locking for directories for
-name-based operations (prior to changing some locking rules), it is
-simplest to remove the locking here.
+It was in the wrong place and was then incorrectly renamed (instead of
+moved) and useless "documentation" was added for "@state" was provided.
+
+This patch reverts the name, removes the mention of @state, and moves
+the comment to where it belongs.
 
 Reviewed-by: Jeff Layton <jlayton@kernel.org>
 Signed-off-by: NeilBrown <neil@brown.name>
 ---
- fs/proc/self.c        | 3 ---
- fs/proc/thread_self.c | 3 ---
- 2 files changed, 6 deletions(-)
+ fs/namei.c | 27 +++++++++++++--------------
+ 1 file changed, 13 insertions(+), 14 deletions(-)
 
-diff --git a/fs/proc/self.c b/fs/proc/self.c
-index 62d2c0cfe35c..56adf1c68f7a 100644
---- a/fs/proc/self.c
-+++ b/fs/proc/self.c
-@@ -35,11 +35,9 @@ unsigned self_inum __ro_after_init;
+diff --git a/fs/namei.c b/fs/namei.c
+index e4ac07a4090e..d80b81a1f06a 100644
+--- a/fs/namei.c
++++ b/fs/namei.c
+@@ -2893,20 +2893,6 @@ static int filename_parentat(int dfd, struct filename *name,
+ 	return __filename_parentat(dfd, name, flags, parent, last, type, NULL);
+ }
  
- int proc_setup_self(struct super_block *s)
+-/**
+- * __start_dirop - begin a create or remove dirop, performing locking and lookup
+- * @parent:       the dentry of the parent in which the operation will occur
+- * @name:         a qstr holding the name within that parent
+- * @lookup_flags: intent and other lookup flags.
+- * @state:        task state bitmask
+- *
+- * The lookup is performed and necessary locks are taken so that, on success,
+- * the returned dentry can be operated on safely.
+- * The qstr must already have the hash value calculated.
+- *
+- * Returns: a locked dentry, or an error.
+- *
+- */
+ static struct dentry *__start_dirop(struct dentry *parent, struct qstr *name,
+ 				    unsigned int lookup_flags,
+ 				    unsigned int state)
+@@ -2928,6 +2914,19 @@ static struct dentry *__start_dirop(struct dentry *parent, struct qstr *name,
+ 	return dentry;
+ }
+ 
++/**
++ * start_dirop - begin a create or remove dirop, performing locking and lookup
++ * @parent:       the dentry of the parent in which the operation will occur
++ * @name:         a qstr holding the name within that parent
++ * @lookup_flags: intent and other lookup flags.
++ *
++ * The lookup is performed and necessary locks are taken so that, on success,
++ * the returned dentry can be operated on safely.
++ * The qstr must already have the hash value calculated.
++ *
++ * Returns: a locked dentry, or an error.
++ *
++ */
+ struct dentry *start_dirop(struct dentry *parent, struct qstr *name,
+ 			   unsigned int lookup_flags)
  {
--	struct inode *root_inode = d_inode(s->s_root);
- 	struct dentry *self;
- 	int ret = -ENOMEM;
- 
--	inode_lock(root_inode);
- 	self = d_alloc_name(s->s_root, "self");
- 	if (self) {
- 		struct inode *inode = new_inode(s);
-@@ -55,7 +53,6 @@ int proc_setup_self(struct super_block *s)
- 		}
- 		dput(self);
- 	}
--	inode_unlock(root_inode);
- 
- 	if (ret)
- 		pr_err("proc_fill_super: can't allocate /proc/self\n");
-diff --git a/fs/proc/thread_self.c b/fs/proc/thread_self.c
-index d6113dbe58e0..61ac62c3fd9f 100644
---- a/fs/proc/thread_self.c
-+++ b/fs/proc/thread_self.c
-@@ -35,11 +35,9 @@ unsigned thread_self_inum __ro_after_init;
- 
- int proc_setup_thread_self(struct super_block *s)
- {
--	struct inode *root_inode = d_inode(s->s_root);
- 	struct dentry *thread_self;
- 	int ret = -ENOMEM;
- 
--	inode_lock(root_inode);
- 	thread_self = d_alloc_name(s->s_root, "thread-self");
- 	if (thread_self) {
- 		struct inode *inode = new_inode(s);
-@@ -55,7 +53,6 @@ int proc_setup_thread_self(struct super_block *s)
- 		}
- 		dput(thread_self);
- 	}
--	inode_unlock(root_inode);
- 
- 	if (ret)
- 		pr_err("proc_fill_super: can't allocate /proc/thread-self\n");
 -- 
 2.50.0.107.gf914562f5916.dirty
 
