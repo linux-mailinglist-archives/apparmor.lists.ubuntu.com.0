@@ -2,51 +2,97 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aFvxJ8hvnWlyQAQAu9opvQ
+	id OCEZOIslnmn5TgQAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Tue, 24 Feb 2026 10:30:48 +0100
+	for <lists+apparmor@lfdr.de>; Tue, 24 Feb 2026 23:26:19 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DFA51849F3
-	for <lists+apparmor@lfdr.de>; Tue, 24 Feb 2026 10:30:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADA9D18D206
+	for <lists+apparmor@lfdr.de>; Tue, 24 Feb 2026 23:26:19 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vuokU-0006UQ-1j; Tue, 24 Feb 2026 09:30:34 +0000
-Received: from tor.source.kernel.org ([172.105.4.254])
- by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <brauner@kernel.org>) id 1vuokS-0006UF-H4
- for apparmor@lists.ubuntu.com; Tue, 24 Feb 2026 09:30:32 +0000
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 23E5360145;
- Tue, 24 Feb 2026 09:20:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFC04C116D0;
- Tue, 24 Feb 2026 09:20:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1771924853;
- bh=zQsck/PbdutrfjuyGfWsZrSGCznNVHiinSu2WQcwhXM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=d33MvPatWU9dWg+Iyd8o/6Y/ldYwKOH8cRg0Twmt0370/HtNEBoWP3z5uOe6wmFXJ
- YM9ycD9PQCBY6f2pUjrO96/u5KF7xm8ivKI2Fh9vCGLwg5th0xGGx+/N3bPn616+er
- dlPZiqPuHcSGvxYT6sAfWt7q6WkwtO/P0RFeZQS+YU296u3wkl+HM6Pc0aQp5zvzEE
- X6nxMKN1zyPs4ALdzch6DfnAy/FTnYRsMnHX+NVzC9EriWNJBe5KoE1zL64sE0Qrsj
- no9HXBs4Wj5/XGONNbVLX4l0ye+IcMDVik2w/nSZhnQyRG+ywegsYDlZMV36f9l8VM
- i7cfOC2T30jgw==
-Date: Tue, 24 Feb 2026 10:20:46 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Chris Mason <clm@meta.com>
-Message-ID: <20260224-granulat-joggen-cd082d178959@brauner>
-References: <20260223011210.3853517-1-neilb@ownmail.net>
- <20260223011210.3853517-13-neilb@ownmail.net>
- <20260223132424.105125-1-clm@meta.com>
+	id 1vv0qw-0005Ff-02; Tue, 24 Feb 2026 22:26:02 +0000
+Received: from flow-a2-smtp.messagingengine.com ([103.168.172.137])
+ by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.86_2) (envelope-from <neilb@ownmail.net>) id 1vv0qt-0005FB-IX
+ for apparmor@lists.ubuntu.com; Tue, 24 Feb 2026 22:26:00 +0000
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailflow.phl.internal (Postfix) with ESMTP id 3CA271380B87;
+ Tue, 24 Feb 2026 17:25:58 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-06.internal (MEProxy); Tue, 24 Feb 2026 17:25:58 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
+ cc:cc:content-transfer-encoding:content-type:date:date:from:from
+ :in-reply-to:message-id:mime-version:reply-to:reply-to:subject
+ :subject:to:to; s=fm3; t=1771971958; x=1771979158; bh=h1rNXkHkcZ
+ 4cMhepaUBJCHY4sMt0fLPm1jE4sfNdLx8=; b=Bm41EYvDY3wWjoKO9Dg4GQs+K7
+ cZ+9rkdCqW4DWg2/n02Xxhll8WET1UKRv2xjVnyISv5eTeXPxw9lMuqv5LWlj2/l
+ YzC39szJXiGzqhHmPIW5unvAljd9AINf44jC46QUbSkxJC4Uzj5S8g9wTyymc5eK
+ 6umAKASGZ5SNoXvX4WYCPTmKnbviVxKOlaNXi81+nMH7HsX3Dwh2OQCaVce5MXUm
+ TOefBGwt4W4JhCs2+rPA2w1fHcgyz/0nJrkPoTgnTm7f1ragqA5M49ZsUqF41+Lz
+ 48FljGfvzG8iuI1HHzhizGeeqEg7uEPgx68xfh1Fw0MLAPKTcktOG4vlSi/g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:message-id:mime-version:reply-to:reply-to:subject
+ :subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm3; t=1771971958; x=1771979158; bh=h1rNXkHkcZ4cMhepaUBJCHY4sMt0
+ fLPm1jE4sfNdLx8=; b=YVWCZYztzFJEgw0/P15jwVo2Zq6mHpQLCPU8/3LKBLGh
+ 57MvUxA/kPjZOfEgwroCqeJIvAocpDonpTTzeO7VkSd0vdcYEgfAjfz1S+J27yPH
+ ibp9xn/SlbXIOAANLTgfTdZ1VBtOVuFLNu74RzyUBZ2rzwFmi84V1lO1ee7nU5eU
+ Swv0iwDFvsYUytGKwUXuWkuDN3ReejDJF50ww/Sv1JfeqxdlO97psVCMg5qpJdLN
+ l5589hLjqQ/AdCfNnx6DH184ui/VMrHllibdRaU1oS7s4SUxTuLHTlhmeIUXIPmc
+ 3w/hA6dPTMTYuh/8a/5BjLr6Ydwxhtk1buo0GnixtA==
+X-ME-Sender: <xms:dCWeaeN68INVWUP76lm6LSn_-KPn-BpbZV20agYBbf3-MRusda4nxg>
+ <xme:dCWeaQ6MOi1M6jhBiz321-vu_icRM95I_6tTHrBS3kjPG6P4H7qv4MS40GFqlOXeL
+ JWaPc9gZdbNSC717W5pWIYUDnEX-0yoZjFskhRJ0jAXvUrcsPs>
+X-ME-Received: <xmr:dCWeadx1Z2VeucV0GVjerBQHJFbLfewF1ivvXIk7V7xM93rCDRjuVW8hJh3_pbP0Wvi7GoOlKRPxJbTKzbfoXXp4xdHx9RB-R1G_GBK_NM7c>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvgedufeejucetufdoteggodetrf
+ dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+ rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
+ gurhephffvvefufffkofhrggfgsedtkeertdertddtnecuhfhrohhmpefpvghilheurhho
+ fihnuceonhgvihhlsgesohifnhhmrghilhdrnhgvtheqnecuggftrfgrthhtvghrnhepge
+ etfeegtddtvdeigfegueevfeelleelgfejueefueektdelieeikeevtdelveelnecuvehl
+ uhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepnhgvihhlsgesoh
+ ifnhhmrghilhdrnhgvthdpnhgspghrtghpthhtohepvddvpdhmohguvgepshhmthhpohhu
+ thdprhgtphhtthhopehvihhrohesiigvnhhivhdrlhhinhhugidrohhrghdruhhkpdhrtg
+ hpthhtohepshgvlhhinhhugiesvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgtphhtthho
+ pehlihhnuhigqdhunhhiohhnfhhssehvghgvrhdrkhgvrhhnvghlrdhorhhgpdhrtghpth
+ htoheplhhinhhugidqshgvtghurhhithihqdhmohguuhhlvgesvhhgvghrrdhkvghrnhgv
+ lhdrohhrghdprhgtphhtthhopehlihhnuhigqdhnfhhssehvghgvrhdrkhgvrhhnvghlrd
+ horhhgpdhrtghpthhtoheplhhinhhugidqkhgvrhhnvghlsehvghgvrhdrkhgvrhhnvghl
+ rdhorhhgpdhrtghpthhtoheplhhinhhugidqfhhsuggvvhgvlhesvhhgvghrrdhkvghrnh
+ gvlhdrohhrghdprhgtphhtthhopehmihhklhhoshesshiivghrvgguihdrhhhupdhrtghp
+ thhtohepjhgrtghksehsuhhsvgdrtgii
+X-ME-Proxy: <xmx:dCWeaYTnnAGgE05nS_GR7sZfZRuy59Y0zqIVusI9LOlQQpHGDIRuzA>
+ <xmx:dCWead99R1zdBpDm82pTcMeZYBPKAx6sGnfp62gsSSCupDW5ykpRug>
+ <xmx:dCWeadIDZPDRPdCUp43NByezinPatv8WUvR63xK4ud410k9ifxlfSw>
+ <xmx:dCWeaZtyjSe5uARiEy6VurJ-WbKbb-zsEPhCG0-qX0zcrp0SUVBvMg>
+ <xmx:diWeaSWS-R28POMt9UY8aq--iCqH1D9ZQByHSNfCqNcdrRW7UTOfk-tL>
+Feedback-ID: i9d664b8f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 24 Feb 2026 17:25:50 -0500 (EST)
+From: NeilBrown <neilb@ownmail.net>
+To: Christian Brauner <brauner@kernel.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ David Howells <dhowells@redhat.com>, Jan Kara <jack@suse.cz>,
+ Chuck Lever <chuck.lever@oracle.com>, Jeff Layton <jlayton@kernel.org>,
+ Miklos Szeredi <miklos@szeredi.hu>, Amir Goldstein <amir73il@gmail.com>,
+ John Johansen <john.johansen@canonical.com>,
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ "Darrick J. Wong" <djwong@kernel.org>
+Date: Wed, 25 Feb 2026 09:16:45 +1100
+Message-ID: <20260224222542.3458677-1-neilb@ownmail.net>
+X-Mailer: git-send-email 2.50.0.107.gf914562f5916.dirty
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260223132424.105125-1-clm@meta.com>
-Received-SPF: pass client-ip=172.105.4.254; envelope-from=brauner@kernel.org;
- helo=tor.source.kernel.org
-Subject: Re: [apparmor] [PATCH v2 12/15] ovl: change ovl_create_real() to
- get a new lock when re-opening created file.
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=103.168.172.137; envelope-from=neilb@ownmail.net;
+ helo=flow-a2-smtp.messagingengine.com
+Subject: [apparmor] [PATCH v3 00/15] Further centralising of directory
+	locking for name ops.
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -58,89 +104,112 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Jan Kara <jack@suse.cz>, "Darrick J. Wong" <djwong@kernel.org>,
- Amir Goldstein <amir73il@gmail.com>, linux-unionfs@vger.kernel.org,
- David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>,
- Miklos Szeredi <miklos@szeredi.hu>, James Morris <jmorris@namei.org>,
- NeilBrown <neil@brown.name>, "Serge E. Hallyn" <serge@hallyn.com>,
- selinux@vger.kernel.org, apparmor@lists.ubuntu.com,
- Alexander Viro <viro@zeniv.linux.org.uk>, linux-nfs@vger.kernel.org,
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Jeff Layton <jlayton@kernel.org>, linux-kernel@vger.kernel.org,
- linux-security-module@vger.kernel.org, Chuck Lever <chuck.lever@oracle.com>,
+Reply-To: NeilBrown <neil@brown.name>
+Cc: linux-nfs@vger.kernel.org, selinux@vger.kernel.org,
+ apparmor@lists.ubuntu.com, linux-kernel@vger.kernel.org,
+ linux-unionfs@vger.kernel.org, linux-security-module@vger.kernel.org,
  linux-fsdevel@vger.kernel.org, netfs@lists.linux.dev
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [7.59 / 15.00];
-	MID_END_EQ_FROM_USER_PART(4.00)[];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+X-Spamd-Result: default: False [3.19 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
-	MID_RHS_NOT_FQDN(0.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_REJECT(1.00)[ownmail.net:s=fm3,messagingengine.com:s=fm3];
+	R_MISSING_CHARSET(0.50)[];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
 	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[ownmail.net : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	GREYLIST(0.00)[pass,meta];
-	MIME_TRACE(0.00)[0:+];
 	RCPT_COUNT_TWELVE(0.00)[22];
-	RCVD_TLS_LAST(0.00)[];
-	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_RECIPIENTS(0.00)[m:clm@meta.com,m:jack@suse.cz,m:djwong@kernel.org,m:amir73il@gmail.com,m:linux-unionfs@vger.kernel.org,m:dhowells@redhat.com,m:paul@paul-moore.com,m:miklos@szeredi.hu,m:jmorris@namei.org,m:neil@brown.name,m:serge@hallyn.com,m:selinux@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:viro@zeniv.linux.org.uk,m:linux-nfs@vger.kernel.org,m:stephen.smalley.work@gmail.com,m:jlayton@kernel.org,m:linux-kernel@vger.kernel.org,m:linux-security-module@vger.kernel.org,m:chuck.lever@oracle.com,m:linux-fsdevel@vger.kernel.org,m:netfs@lists.linux.dev,m:stephensmalleywork@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[brauner@kernel.org,apparmor-bounces@lists.ubuntu.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:-];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.998];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[brauner@kernel.org,apparmor-bounces@lists.ubuntu.com];
-	FREEMAIL_CC(0.00)[suse.cz,kernel.org,gmail.com,vger.kernel.org,redhat.com,paul-moore.com,szeredi.hu,namei.org,brown.name,hallyn.com,lists.ubuntu.com,zeniv.linux.org.uk,oracle.com,lists.linux.dev];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:brauner@kernel.org,m:viro@zeniv.linux.org.uk,m:dhowells@redhat.com,m:jack@suse.cz,m:chuck.lever@oracle.com,m:jlayton@kernel.org,m:miklos@szeredi.hu,m:amir73il@gmail.com,m:john.johansen@canonical.com,m:paul@paul-moore.com,m:jmorris@namei.org,m:serge@hallyn.com,m:stephen.smalley.work@gmail.com,m:djwong@kernel.org,m:linux-nfs@vger.kernel.org,m:selinux@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:linux-kernel@vger.kernel.org,m:linux-unionfs@vger.kernel.org,m:linux-security-module@vger.kernel.org,m:linux-fsdevel@vger.kernel.org,m:netfs@lists.linux.dev,m:stephensmalleywork@gmail.com,s:lists@lfdr.de];
 	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FREEMAIL_FROM(0.00)[ownmail.net];
+	FREEMAIL_TO(0.00)[kernel.org,zeniv.linux.org.uk,redhat.com,suse.cz,oracle.com,szeredi.hu,gmail.com,canonical.com,paul-moore.com,namei.org,hallyn.com];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[neilb@ownmail.net,apparmor-bounces@lists.ubuntu.com];
+	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
+	RCVD_TLS_LAST(0.00)[];
+	REPLYTO_DN_EQ_FROM_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[neilb@ownmail.net,apparmor-bounces@lists.ubuntu.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	TAGGED_RCPT(0.00)[apparmor];
-	MISSING_XM_UA(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[brown.name:replyto];
+	NEURAL_HAM(-0.00)[-0.905];
+	RCVD_COUNT_FIVE(0.00)[5];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[ownmail.net:email,brown.name:email,lists.ubuntu.com:helo,lists.ubuntu.com:rdns]
-X-Rspamd-Queue-Id: 3DFA51849F3
-X-Rspamd-Action: add header
-X-Spam: Yes
+	HAS_REPLYTO(0.00)[neil@brown.name];
+	DKIM_TRACE(0.00)[ownmail.net:-,messagingengine.com:-];
+	REPLYTO_DOM_NEQ_TO_DOM(0.00)[]
+X-Rspamd-Queue-Id: ADA9D18D206
+X-Rspamd-Action: no action
 
-On Mon, Feb 23, 2026 at 05:23:00AM -0800, Chris Mason wrote:
-> NeilBrown <neilb@ownmail.net> wrote:
-> > From: NeilBrown <neil@brown.name>
-> > 
-> > When ovl_create_real() is used to create a file on the upper filesystem
-> > it needs to return the resulting dentry - positive and hashed.
-> > It is usually the case the that dentry passed to the create function
-> > (e.g.  vfs_create()) will be suitable but this is not guaranteed.  The
-> > filesystem may unhash that dentry forcing a repeat lookup next time the
-> > name is wanted.
-> > 
-> 
-> Hi everyone,
-> 
-> Amir suggested I run these through, and this commit was flagged:
-> 
-> commit 62d49d1e44667e4f93bec415faabec5526992ac0
-> Author: NeilBrown <neil@brown.name>
-> 
-> ovl: change ovl_create_real() to get a new lock when re-opening created file.
-> 
-> This commit changes ovl_create_real() to drop the directory lock and
-> reacquire a new lock for lookup when the created dentry is unhashed. It
-> also removes ovl_lookup_upper() which is no longer used.
-> 
-> Signed-off-by: NeilBrown <neil@brown.name>
+Following Chris Mason's tool-based review, here is v3 with some fixes.
+Particularly 06/15 mistakenly tested the result of start_creating for NULL
+and 09/15 had some really messed up flow in error handling.
+Also human-language typos fixed.
 
-Fwiw, all patches that are applied go through AI review. My plan is to
-have a discussion on getting automation set up for this at LSFMM so that
-we can have the bot directly reply to reviews but under our control so
-we can vet reviews.
+This code is in 
+  github.com:neilbrown/linux.git
+  branch pdirops
+
+For anyone interested, my next batch is in branch pdirops-next
+
+Original patch description below.
+
+Thanks,
+NeilBrown
+
+I am working towards changing the locking rules for name-operations: locking
+the name rather than the whole directory.
+
+The current part of this process is centralising all the locking so that
+it can be changed in one place.
+
+Recently "start_creating", "start_removing", "start_renaming" and related
+interaces were added which combine the locking and the lookup.  At that time
+many callers were changed to use the new interfaces.  However there are still
+an assortment of places out side of fs/namei.c where the directory is locked
+explictly, whether with inode_lock() or lock_rename() or similar.  These were
+missed in the first pass for an assortment of uninteresting reasons.
+
+This series addresses the remaining places where explicit locking is
+used, and changes them to use the new interfaces, or otherwise removes
+the explicit locking.
+
+The biggest changes are in overlayfs.  The other changes are quite
+simple, though maybe the cachefiles changes is the least simple of those.
+
+I'm running the --overlay tests in xfstests and nothing has popped yet.
+I'll continue with this and run some NFS tests too.
+
+Thanks for your review of these patches!
+
+NeilBrown
+
+ [PATCH v3 01/15] VFS: note error returns in documentation for various
+ [PATCH v3 02/15] fs/proc: Don't lock root inode when creating "self"
+ [PATCH v3 03/15] VFS: move the start_dirop() kerndoc comment to
+ [PATCH v3 04/15] libfs: change simple_done_creating() to use
+ [PATCH v3 05/15] Apparmor: Use simple_start_creating() /
+ [PATCH v3 06/15] selinux: Use simple_start_creating() /
+ [PATCH v3 07/15] nfsd: switch purge_old() to use
+ [PATCH v3 08/15] VFS: make lookup_one_qstr_excl() static.
+ [PATCH v3 09/15] ovl: Simplify ovl_lookup_real_one()
+ [PATCH v3 10/15] cachefiles: change cachefiles_bury_object to use
+ [PATCH v3 11/15] ovl: pass name buffer to ovl_start_creating_temp()
+ [PATCH v3 12/15] ovl: change ovl_create_real() to get a new lock when
+ [PATCH v3 13/15] ovl: use is_subdir() for testing if one thing is a
+ [PATCH v3 14/15] ovl: remove ovl_lock_rename_workdir()
+ [PATCH v3 15/15] VFS: unexport lock_rename(), lock_rename_child(),
 
