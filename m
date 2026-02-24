@@ -2,61 +2,61 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id IBY4FLclnmn5TgQAu9opvQ
+	id wF2xIb8lnmn5TgQAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Tue, 24 Feb 2026 23:27:03 +0100
+	for <lists+apparmor@lfdr.de>; Tue, 24 Feb 2026 23:27:11 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0807018D28A
-	for <lists+apparmor@lfdr.de>; Tue, 24 Feb 2026 23:27:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 349A118D29C
+	for <lists+apparmor@lfdr.de>; Tue, 24 Feb 2026 23:27:10 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vv0rj-0005li-GF; Tue, 24 Feb 2026 22:26:51 +0000
+	id 1vv0rr-0005p8-S1; Tue, 24 Feb 2026 22:26:59 +0000
 Received: from flow-a2-smtp.messagingengine.com ([103.168.172.137])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <neilb@ownmail.net>) id 1vv0rh-0005kP-Dd
- for apparmor@lists.ubuntu.com; Tue, 24 Feb 2026 22:26:49 +0000
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
- by mailflow.phl.internal (Postfix) with ESMTP id A3CA213805A6;
- Tue, 24 Feb 2026 17:26:48 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-01.internal (MEProxy); Tue, 24 Feb 2026 17:26:48 -0500
+ (Exim 4.86_2) (envelope-from <neilb@ownmail.net>) id 1vv0rp-0005np-Ot
+ for apparmor@lists.ubuntu.com; Tue, 24 Feb 2026 22:26:57 +0000
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailflow.phl.internal (Postfix) with ESMTP id C3727138052C;
+ Tue, 24 Feb 2026 17:26:56 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-06.internal (MEProxy); Tue, 24 Feb 2026 17:26:56 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
  cc:cc:content-transfer-encoding:content-type:date:date:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:reply-to:subject:subject:to:to; s=fm3; t=1771972008;
- x=1771979208; bh=uXMU6tWLxH62oiHRDx59UoQh2FcFUEj9XaKWMgxDywE=; b=
- DxxendxgyK6rTiqG/fxumh1kOC6ytof4U4niPIav51NX7ee/mCUy0bU+TUm+/0Mm
- rFj2T38yPbTdz9PP3+zc+ovcdQXWWs/Dd5/r2DA0CLQy6p4a6DvvBx6FDbv+CVXL
- uDjQuYQvf5ea1y9rg2MrEzKlaEEZCht9eSHlLCMx3AkrdMwxU+aN7fBkpoek9xTR
- 4PVF+NCj1EPeG7h/0P9DsB77rKWQnnchfa7OErS6boEFK0f1NfQAD+lrFjz9Asgc
- HrAkn3QmXAQteBcAckwenqh5ufmzzshcWB1aKTyHJ+xzE4IHeYTh/CIvXHa9CGg3
- 3gAB0KwqmPs7v3X3LpnZBA==
+ :reply-to:reply-to:subject:subject:to:to; s=fm3; t=1771972016;
+ x=1771979216; bh=rVzESsgVzPWBQDwiGwCUvziOL/TfwILm1t61in7kI2M=; b=
+ NtFrFE2QVE+2ipr34uM+dRqKe3r3yLSuEPRUk+aYDIljPIYgY7ZfqwUFuXqzCNJo
+ tVXrahJnvkYjxPmVezqczcfaQYbpJhcyl04KBH+2H0E7QqUVchPu2hRjiWq7IxPi
+ qkZDpnBPu95f/t5XllvkNWBvsN7JXzRieMeUXTwYOabIQcgkhtdy1CgxqlIIGury
+ LnqOLWomEzWCkMmHxbLdDEWt/RGB0c5usWNRAGGsUzrXFAzKIOZPIztMP2GOEpW8
+ hcqidRHW+zWmSepLdUYcRMUbEbfzBZ80bY8Zr5n+P/kpBw5S7zzNSV/Kp3rDEOhB
+ m2VQONs9b+WZxEApQ+Dk8g==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:feedback-id:feedback-id:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
  :reply-to:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; t=1771972008; x=1771979208; bh=u
- XMU6tWLxH62oiHRDx59UoQh2FcFUEj9XaKWMgxDywE=; b=fW+7qVBmtWMZCbjyx
- hnRlX0IaoiA7RThWcfCR03kI9XQ2zX8Khs3d/poMc4rqnMGdv1tfcfF6tWtGGgJ1
- duI9rVPkdEpp/HjFy/BXyhblmTBTS5ML+2s9HqJ/S1RathJXRQP4FKvtpM/KTLsT
- 8c4FAq5J2neZoaWMwkcEetoH1+FfPadcHWq+L0E0IBNjkulXWQSJJi0+NbKBQXF4
- Yyzhasq874CLbWLTM6lr47KRLYE51Ru9oVY4i4rIDpZFr28ntAjnC+zFAiqonBAh
- m7WOlInrlEOnf99F0tljLcn3JbSLPx73PnRrj6toPcnwq8rhagPp7ttw+bvyvLyl
- Luvdw==
-X-ME-Sender: <xms:qCWeaVkYQ78gPUeqLQtjiJTx-x7yYC8cPurx1YbJB5DawYS6ehqIbA>
- <xme:qCWeaUybpyULqy32aBrTL0fMszuSm8bVC0JiFR98Vv-qGHGdmJ_qyMd2MHe6TIQzv
- IRlFSTLc9lWTw1Qcdr025dknQZFGarMHhw2xvKeCzMn56TTaA>
-X-ME-Received: <xmr:qCWeaUKnsPg9ZYhrYCzu0CkjIeOK9YJfe3ohg4ZB4IWVjE7S18o0z7sS_qJLFa6sseL4VtYjeodZFb5BElgH2PyXVKmVoLpBMoD9RNwlRHR->
+ :x-me-sender:x-sasl-enc; s=fm3; t=1771972016; x=1771979216; bh=r
+ VzESsgVzPWBQDwiGwCUvziOL/TfwILm1t61in7kI2M=; b=FPYcK4wAdpHOQpMy0
+ MDzN3mz8EVFuGNUjJhfFtFZd7hs8sHCL2JfMdhQ/xvOGleGZNmojqwUwBmoicAEf
+ IpsbcDoIyJGAD+O2yuLEYwZ8b0Xk5Lqir7PTlRPpFF+XHbB5m07n+BzYSWW0+cfQ
+ +7OEjYAEFuHw3wEtaROVsFegYjCrMtEExbYuGopVGmTSfJN0MCaYTIk/1JrefPA/
+ qUKJNwAN1+f2qwDSDUhhhpu1WwXmj75W2O7ZogP/vIdQaP6gkcRJdvWUTexZdHf/
+ 1ZcCoqE70b+ixg7cEwY4Z6fLOwPNoYL3XCbKl4yXdOil49B5Kk1KwB0xtssZCYpE
+ 6foog==
+X-ME-Sender: <xms:sCWeaZTFH_Y80I17DlByEuYMy-IHTcHLXyrXMPhQ1NhYblwZsp7rzQ>
+ <xme:sCWeaWtfpKGGMn3_tART1Il-Bb8_-Cosh9q7jLSvusRozjBB55_9Wvb-z8jJl2gWr
+ XKt05jGgsSpaeA23VueCGoIMAl6YpfRskjGe22k36DxXMpTfQ>
+X-ME-Received: <xmr:sCWeaXUCGIrLnLQgIyleRGHpxZGe7gPwHfSuLZ3QmfkIfQAc-rCr6_sH2ibP8hUr-s6J9DREIQQSWqMbeQqYSsr67W8dguufr6UKBePDczxX>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvgedufeekucetufdoteggodetrf
  dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
  rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
  gurhephffvvefufffkofgjfhhrggfgsedtkeertdertddtnecuhfhrohhmpefpvghilheu
  rhhofihnuceonhgvihhlsgesohifnhhmrghilhdrnhgvtheqnecuggftrfgrthhtvghrnh
  epveevkeffudeuvefhieeghffgudektdelkeejiedtjedugfeukedvkeffvdefvddunecu
- vehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepnhgvihhlsg
+ vehluhhsthgvrhfuihiivgepvdenucfrrghrrghmpehmrghilhhfrhhomhepnhgvihhlsg
  esohifnhhmrghilhdrnhgvthdpnhgspghrtghpthhtohepvddvpdhmohguvgepshhmthhp
  ohhuthdprhgtphhtthhopehvihhrohesiigvnhhivhdrlhhinhhugidrohhrghdruhhkpd
  hrtghpthhtohepshgvlhhinhhugiesvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgtphht
@@ -67,14 +67,14 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvgedufeekucetufdote
  vghlrdhorhhgpdhrtghpthhtoheplhhinhhugidqfhhsuggvvhgvlhesvhhgvghrrdhkvg
  hrnhgvlhdrohhrghdprhgtphhtthhopehmihhklhhoshesshiivghrvgguihdrhhhupdhr
  tghpthhtohepjhgrtghksehsuhhsvgdrtgii
-X-ME-Proxy: <xmx:qCWeafKTMHiq7iIMBA5BL27TsongeqK4NAsayui5BdmkXUZxKtB8Pg>
- <xmx:qCWeabW8et8RJwPavnEC8dIPftIY7Cb5NXWbxwTUC35F9CPfo3UgCw>
- <xmx:qCWeafAI8lg-t-gW6clAGStqeniJGlIo4NNuywjazIXwFvdRiACTGA>
- <xmx:qCWeaWGURgAbAWSCZXP8ZyXd-5hALipgb2wMo9CUtdfYfVwdI-hOnw>
- <xmx:qCWeaTPMKQOqg1XyBHJ0e_4tDbXyOXOJuY0gCG5CS4-lfUXQ_hZbqy5h>
+X-ME-Proxy: <xmx:sCWeaak6Jopqhxgu5kKCAls78STkCAlYPhIAxwyqrSIWqXGVGvxz1w>
+ <xmx:sCWeaaAij5tANGUxSlzPfLZVviMyKWRe87exWnbEZ_HXD2Lr4dn8hQ>
+ <xmx:sCWeaf-P1n-IkAXVBf674gwbfLcULkG-SONZZ0y2zi3tVGh8zi9mCQ>
+ <xmx:sCWeacSPv2ToPTDLDPQonRD3vk-eJ8QuW1_D1jJ8i8yl5xBEPWvg9g>
+ <xmx:sCWeabqRgMOKYecizgJ8UEDERgd9V4tISucStSlY0JDUIMuS1lxRMPpj>
 Feedback-ID: i9d664b8f:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 24 Feb 2026 17:26:42 -0500 (EST)
+ 24 Feb 2026 17:26:50 -0500 (EST)
 From: NeilBrown <neilb@ownmail.net>
 To: Christian Brauner <brauner@kernel.org>,
  Alexander Viro <viro@zeniv.linux.org.uk>,
@@ -86,8 +86,8 @@ To: Christian Brauner <brauner@kernel.org>,
  "Serge E. Hallyn" <serge@hallyn.com>,
  Stephen Smalley <stephen.smalley.work@gmail.com>,
  "Darrick J. Wong" <djwong@kernel.org>
-Date: Wed, 25 Feb 2026 09:16:51 +1100
-Message-ID: <20260224222542.3458677-7-neilb@ownmail.net>
+Date: Wed, 25 Feb 2026 09:16:52 +1100
+Message-ID: <20260224222542.3458677-8-neilb@ownmail.net>
 X-Mailer: git-send-email 2.50.0.107.gf914562f5916.dirty
 In-Reply-To: <20260224222542.3458677-1-neilb@ownmail.net>
 References: <20260224222542.3458677-1-neilb@ownmail.net>
@@ -95,8 +95,8 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Received-SPF: pass client-ip=103.168.172.137; envelope-from=neilb@ownmail.net;
  helo=flow-a2-smtp.messagingengine.com
-Subject: [apparmor] [PATCH v3 06/15] selinux: Use simple_start_creating() /
-	simple_done_creating()
+Subject: [apparmor] [PATCH v3 07/15] nfsd: switch purge_old() to use
+	start_removing_noperm()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -145,8 +145,8 @@ X-Spamd-Result: default: False [3.19 / 15.00];
 	TAGGED_RCPT(0.00)[apparmor];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[ownmail.net:mid,paul-moore.com:email,lists.ubuntu.com:helo,lists.ubuntu.com:rdns,brown.name:replyto,brown.name:email];
-	NEURAL_HAM(-0.00)[-0.915];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns,ownmail.net:mid,brown.name:replyto,brown.name:email,name.data:url];
+	NEURAL_HAM(-0.00)[-0.794];
 	RCVD_COUNT_FIVE(0.00)[5];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
@@ -155,69 +155,45 @@ X-Spamd-Result: default: False [3.19 / 15.00];
 	HAS_REPLYTO(0.00)[neil@brown.name];
 	DKIM_TRACE(0.00)[ownmail.net:-,messagingengine.com:-];
 	REPLYTO_DOM_NEQ_TO_DOM(0.00)[]
-X-Rspamd-Queue-Id: 0807018D28A
+X-Rspamd-Queue-Id: 349A118D29C
 X-Rspamd-Action: no action
 
 From: NeilBrown <neil@brown.name>
 
-Instead of explicitly locking the parent and performing a lookup in
-selinux, use simple_start_creating(), and then use
-simple_done_creating() to unlock.
-
-This extends the region that the directory is locked for, and also
-performs a lookup.
-The lock extension is of no real consequence.
-The lookup uses simple_lookup() and so always succeeds.  Thus when
-d_make_persistent() is called the dentry will already be hashed.
-d_make_persistent() handles this case.
+Rather than explicit locking, use the start_removing_noperm() and
+end_removing() wrappers.
+This was not done with other start_removing changes due to conflicting
+in-flight patches.
 
 Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Acked-by: Paul Moore <paul@paul-moore.com>
 Signed-off-by: NeilBrown <neil@brown.name>
 ---
- security/selinux/selinuxfs.c | 17 ++++++++---------
- 1 file changed, 8 insertions(+), 9 deletions(-)
+ fs/nfsd/nfs4recover.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/security/selinux/selinuxfs.c b/security/selinux/selinuxfs.c
-index 3245cc531555..83aa765a09f9 100644
---- a/security/selinux/selinuxfs.c
-+++ b/security/selinux/selinuxfs.c
-@@ -1931,27 +1931,26 @@ static const struct inode_operations swapover_dir_inode_operations = {
- static struct dentry *sel_make_swapover_dir(struct super_block *sb,
- 						unsigned long *ino)
- {
--	struct dentry *dentry = d_alloc_name(sb->s_root, ".swapover");
-+	struct dentry *dentry;
- 	struct inode *inode;
+diff --git a/fs/nfsd/nfs4recover.c b/fs/nfsd/nfs4recover.c
+index b4bf85f96f6e..b338473d6e52 100644
+--- a/fs/nfsd/nfs4recover.c
++++ b/fs/nfsd/nfs4recover.c
+@@ -352,16 +352,14 @@ purge_old(struct dentry *parent, char *cname, struct nfsd_net *nn)
+ 	if (nfs4_has_reclaimed_state(name, nn))
+ 		goto out_free;
  
--	if (!dentry)
--		return ERR_PTR(-ENOMEM);
--
- 	inode = sel_make_inode(sb, S_IFDIR);
--	if (!inode) {
--		dput(dentry);
-+	if (!inode)
- 		return ERR_PTR(-ENOMEM);
-+
-+	dentry = simple_start_creating(sb->s_root, ".swapover");
-+	if (IS_ERR(dentry)) {
-+		iput(inode);
-+		return dentry;
+-	inode_lock_nested(d_inode(parent), I_MUTEX_PARENT);
+-	child = lookup_one(&nop_mnt_idmap, &QSTR(cname), parent);
++	child = start_removing_noperm(parent, &QSTR(cname));
+ 	if (!IS_ERR(child)) {
+ 		status = vfs_rmdir(&nop_mnt_idmap, d_inode(parent), child, NULL);
+ 		if (status)
+ 			printk("failed to remove client recovery directory %pd\n",
+ 			       child);
+-		dput(child);
  	}
+-	inode_unlock(d_inode(parent));
++	end_removing(child);
  
- 	inode->i_op = &swapover_dir_inode_operations;
- 	inode->i_ino = ++(*ino);
- 	/* directory inodes start off with i_nlink == 2 (for "." entry) */
- 	inc_nlink(inode);
--	inode_lock(sb->s_root->d_inode);
- 	d_make_persistent(dentry, inode);
- 	inc_nlink(sb->s_root->d_inode);
--	inode_unlock(sb->s_root->d_inode);
--	dput(dentry);
-+	simple_done_creating(dentry);
- 	return dentry;	// borrowed
- }
- 
+ out_free:
+ 	kfree(name.data);
 -- 
 2.50.0.107.gf914562f5916.dirty
 
