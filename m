@@ -2,61 +2,61 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yOTWCNQlnmn5TgQAu9opvQ
+	id mPBWOd8lnmn5TgQAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Tue, 24 Feb 2026 23:27:32 +0100
+	for <lists+apparmor@lfdr.de>; Tue, 24 Feb 2026 23:27:43 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B03B18D2F2
-	for <lists+apparmor@lfdr.de>; Tue, 24 Feb 2026 23:27:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D19DB18D31A
+	for <lists+apparmor@lfdr.de>; Tue, 24 Feb 2026 23:27:43 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vv0sG-00065B-Q9; Tue, 24 Feb 2026 22:27:24 +0000
+	id 1vv0sO-00068Y-3G; Tue, 24 Feb 2026 22:27:32 +0000
 Received: from flow-a2-smtp.messagingengine.com ([103.168.172.137])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <neilb@ownmail.net>) id 1vv0sE-000647-Du
- for apparmor@lists.ubuntu.com; Tue, 24 Feb 2026 22:27:22 +0000
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
- by mailflow.phl.internal (Postfix) with ESMTP id 916FE138052C;
- Tue, 24 Feb 2026 17:27:21 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-03.internal (MEProxy); Tue, 24 Feb 2026 17:27:21 -0500
+ (Exim 4.86_2) (envelope-from <neilb@ownmail.net>) id 1vv0sM-00067Y-JX
+ for apparmor@lists.ubuntu.com; Tue, 24 Feb 2026 22:27:30 +0000
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailflow.phl.internal (Postfix) with ESMTP id B446513805A6;
+ Tue, 24 Feb 2026 17:27:29 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-06.internal (MEProxy); Tue, 24 Feb 2026 17:27:29 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
  cc:cc:content-transfer-encoding:content-type:date:date:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:reply-to:subject:subject:to:to; s=fm3; t=1771972041;
- x=1771979241; bh=Vj23dTx8hYfvjWUpL8KmWQGYvEI277aBCAy+9LFoa/c=; b=
- ac7NN+mS0EFDNPiwo8c907vK2y43OM8r/UqvyTneeok+wx5FRLRj5S5ME/gTb2q9
- rOgeRuvFPd/YBkvTtgtIN9g/YNVSthdjHTXH1CXV4m1hCjK2Ih0x5hr/wBQsri9D
- sv35ybqI2JJz9bjbVtyPYGgAfwZ0oLGDA/1bP2KBODyCemS4m3YiJtZc2t2RGjRc
- J95k8sMNiltNfqtINj6Yfv7ap9xGF2QpmDPtheE5p/9BArMglMMWU6GBq0loiVW/
- yp4K0D9rx9U4BAMPc79xwJUtT1SKg6jvviHif7GIVhdRyEBRcVEVoBOIhbTLDxN2
- ORt0tzWprp366sHlIq7m3A==
+ :reply-to:reply-to:subject:subject:to:to; s=fm3; t=1771972049;
+ x=1771979249; bh=vIMZKjfxmKkyu011y6KfL+N7g881UsmJU+U6+HLmMTM=; b=
+ NebVhl4Uf0rQN6394D508zLVskPRA5kGJQqYtRAomfY3tJEG/4rasGHfTSOQlFW2
+ WYW6BfxyHAvW/qQwxEumP0R5MCvRDhPpu9AQXj2AnNolzy3Ns4w3Qp4xuHt4rp8Q
+ I06NaoDbmb7beCZ9P9gbf43WiOocoR91ywAFr4d6z/a2T71UrVG06faOxckf5MUE
+ qsAxeIDt9S3qbq24h6OpAhKXm73qOHK6fW3hmyqPZ7aRN06ZuUJ6kegrpCuQQyjy
+ 1eFPRLI2Ipo+3CDUNp6upNbj/utD+G2SfrT48EEPjRhkeZnMwAa756C5B/8Nj1y2
+ XJM81OYuELL69EX+3EAzFw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:feedback-id:feedback-id:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
  :reply-to:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; t=1771972041; x=1771979241; bh=V
- j23dTx8hYfvjWUpL8KmWQGYvEI277aBCAy+9LFoa/c=; b=jypiJw/CZ95Rcl/y3
- 0NqKjvCvJ5capr659QfzFe+Lx3zRg9R5LmtT22t1tLEbomCDyDfquLkNXSxHMr6+
- 7GgORgvf4WHNEZN7WLZTE07hyB+GSX+/2kZyxzduA8zY9jh4l9QLDaeObtOTr/Ti
- XPWLoYkNG/q26UVRUxGUbVwEu3NZr3YIjsZE1Yyo58UJGjhVrp4d+3R6XhsrQOJC
- R86kYOmWCwp8xTD15fGfk53eYxGpnLHCcAELQPwWrGg2R9rN0RHFVkmhFHgPN3Ji
- XKZ9N5qE5kjzNcz4aIXyoVi12aoHadXqz0oCGd7V3sQhIc6FZt0Au3IRQX5NoCWI
- oKZDA==
-X-ME-Sender: <xms:ySWeaWSDZskC3H-i4WasjYdZYUyzLMXw4AdGUkmUv9HELq22arUuYg>
- <xme:ySWeafsQDIE4csTEAvH_MK4zK7uN42mig0IlVhuF5OCkCw4dazc1PVi7pCCcUJvG6
- Athv-uN-zZ7tzBYvNxWdSTQJ4da7vrNFAW2LXyun1SVh-gHDFA>
-X-ME-Received: <xmr:ySWeacX8hWODJd_kkiF2ZwEAR-BVuAapimlKFj-3DTqmgNvAse1yfjahtvRWEgePePdXLTQnXzAOytaCC-eXPju_oQTYhHYJQju18aZ0XRKS>
+ :x-me-sender:x-sasl-enc; s=fm3; t=1771972049; x=1771979249; bh=v
+ IMZKjfxmKkyu011y6KfL+N7g881UsmJU+U6+HLmMTM=; b=Fdd69+d/T013npC8h
+ 52Nt0SQ4HswdfJ5xjrIYiPjnQ2MDsau2C5CUT14zXzgT0dq8pXaGGo7Fhp17T7TB
+ 6yYDrW9oIFE0QRMnBsDBlea/pmF7yOrJ/VzKxmAAURgQafKsfdWaGuZ/CwWVfO97
+ tHZewOpTmP0m9Ar0XChtj6RLLPf8GZEQ58EuHWdzZiIIqeY2E6k2NfyCdKVU4DHJ
+ WfgxLcrxIU/nf0FvAcHwfexPQ0PTmrIX9LUb7Ldx/D4lFZGGORySIU8+6dYO1dfq
+ 2zpbyhjoFF5S5jsiEWBywRGPd74v8ISQr9eEeJC8nP/DmZtDPtO6xcHVU1DXIlwG
+ J4ivw==
+X-ME-Sender: <xms:0SWeaSe__UelJqauzvKjb8dBe2ssw74aa5xZm9gTEl7RVTWgNrfftg>
+ <xme:0SWeaQK15XiUYwoW2R6B8cRwib_1BFxwlrfL9s3fDqyRPMpNUtoHHRJ5xBQpUvWof
+ iuMsqg-8ZVGhDCj8Q8bnN70sufPPl66kHhLtFMy79JK7sQ3fg>
+X-ME-Received: <xmr:0SWeacAdA716rIg0a6w0foGljLybvYaBk1u6IilFkiIuFOCnPVm8Tqr4bJrPmtyQ2PcdfVLe2iTacsebrv9WX57yPUpI_nfP6lzkFxAJlEeN>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvgedufeekucetufdoteggodetrf
  dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
  rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
  gurhephffvvefufffkofgjfhhrggfgsedtkeertdertddtnecuhfhrohhmpefpvghilheu
  rhhofihnuceonhgvihhlsgesohifnhhmrghilhdrnhgvtheqnecuggftrfgrthhtvghrnh
  epveevkeffudeuvefhieeghffgudektdelkeejiedtjedugfeukedvkeffvdefvddunecu
- vehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepnhgvihhlsg
+ vehluhhsthgvrhfuihiivgepgeenucfrrghrrghmpehmrghilhhfrhhomhepnhgvihhlsg
  esohifnhhmrghilhdrnhgvthdpnhgspghrtghpthhtohepvddvpdhmohguvgepshhmthhp
  ohhuthdprhgtphhtthhopehvihhrohesiigvnhhivhdrlhhinhhugidrohhrghdruhhkpd
  hrtghpthhtohepshgvlhhinhhugiesvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgtphht
@@ -67,14 +67,14 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvgedufeekucetufdote
  vghlrdhorhhgpdhrtghpthhtoheplhhinhhugidqfhhsuggvvhgvlhesvhhgvghrrdhkvg
  hrnhgvlhdrohhrghdprhgtphhtthhopehmihhklhhoshesshiivghrvgguihdrhhhupdhr
  tghpthhtohepjhgrtghksehsuhhsvgdrtgii
-X-ME-Proxy: <xmx:ySWeabmunQ7h81DOgUqvNEEK9eXJ0RjDGhCV7HOOv2qI7voTMW2ZuQ>
- <xmx:ySWeaXDtcTMy3nn8uoPvcJYpic4sXlfOejDQlGbSrO0bKudTdz8AAw>
- <xmx:ySWeaY_KXUUNSOQT7puTdOP2sFEa83kdLUIXVcTyznUBNOp4DHZySA>
- <xmx:ySWeaRTfsNoDqnnc0JGxb3CNDJ_QeVfukpwOQFOVjO-npS0LQGK7CQ>
- <xmx:ySWeadaHXqw92pRRHGG_5eOw4dBPE3p-nzJOnVcwQ5l0TongogFZZTf4>
+X-ME-Proxy: <xmx:0SWeaZg76qW1kadSC2zWUSznnvk-bRVH6IzXhORXNigu1_8mRgveDw>
+ <xmx:0SWeaWNCLqVnHeuyRgytgouAXNnhtVcSoC3t6XWh6LAZDfJj8dsQhw>
+ <xmx:0SWeaQZI5PDVRjMPFsTw2S-WgRNIGtqjm7gyQLZZCYCWRK-jx5SdBw>
+ <xmx:0SWeab80YZP_XNxpfzgGFFPyuyWopzDNjkAPcOl5cptPOY5kkEhz_A>
+ <xmx:0SWeadloxb2KJg35QewtDb4ElbVa5O-lhBjw_G2rPRq3SPVD-dBjlFEQ>
 Feedback-ID: i9d664b8f:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 24 Feb 2026 17:27:15 -0500 (EST)
+ 24 Feb 2026 17:27:23 -0500 (EST)
 From: NeilBrown <neilb@ownmail.net>
 To: Christian Brauner <brauner@kernel.org>,
  Alexander Viro <viro@zeniv.linux.org.uk>,
@@ -86,8 +86,8 @@ To: Christian Brauner <brauner@kernel.org>,
  "Serge E. Hallyn" <serge@hallyn.com>,
  Stephen Smalley <stephen.smalley.work@gmail.com>,
  "Darrick J. Wong" <djwong@kernel.org>
-Date: Wed, 25 Feb 2026 09:16:55 +1100
-Message-ID: <20260224222542.3458677-11-neilb@ownmail.net>
+Date: Wed, 25 Feb 2026 09:16:56 +1100
+Message-ID: <20260224222542.3458677-12-neilb@ownmail.net>
 X-Mailer: git-send-email 2.50.0.107.gf914562f5916.dirty
 In-Reply-To: <20260224222542.3458677-1-neilb@ownmail.net>
 References: <20260224222542.3458677-1-neilb@ownmail.net>
@@ -95,8 +95,8 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Received-SPF: pass client-ip=103.168.172.137; envelope-from=neilb@ownmail.net;
  helo=flow-a2-smtp.messagingengine.com
-Subject: [apparmor] [PATCH v3 10/15] cachefiles: change
-	cachefiles_bury_object to use start_renaming_dentry()
+Subject: [apparmor] [PATCH v3 11/15] ovl: pass name buffer to
+	ovl_start_creating_temp()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -145,8 +145,8 @@ X-Spamd-Result: default: False [3.19 / 15.00];
 	TAGGED_RCPT(0.00)[apparmor];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns,ownmail.net:mid,brown.name:replyto,brown.name:email];
-	NEURAL_HAM(-0.00)[-0.900];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[ownmail.net:mid,lists.ubuntu.com:helo,lists.ubuntu.com:rdns,brown.name:replyto,brown.name:email];
+	NEURAL_HAM(-0.00)[-0.917];
 	RCVD_COUNT_FIVE(0.00)[5];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
@@ -155,153 +155,72 @@ X-Spamd-Result: default: False [3.19 / 15.00];
 	HAS_REPLYTO(0.00)[neil@brown.name];
 	DKIM_TRACE(0.00)[ownmail.net:-,messagingengine.com:-];
 	REPLYTO_DOM_NEQ_TO_DOM(0.00)[]
-X-Rspamd-Queue-Id: 0B03B18D2F2
+X-Rspamd-Queue-Id: D19DB18D31A
 X-Rspamd-Action: no action
 
 From: NeilBrown <neil@brown.name>
 
-Rather then using lock_rename() and lookup_one() etc we can use
-the new start_renaming_dentry().  This is part of centralising dir
-locking and lookup so that locking rules can be changed.
+Now ovl_start_creating_temp() is passed a buffer in which to store the
+temp name.  This will be useful in a future patch were ovl_create_real()
+will need access to that name.
 
-Some error check are removed as not necessary.  Checks for rep being a
-non-dir or IS_DEADDIR and the check that ->graveyard is still a
-directory only provide slightly more informative errors and have been
-dropped.
-
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Reviewed-by: Amir Goldstein <amir73il@gmail.com>
 Signed-off-by: NeilBrown <neil@brown.name>
 ---
- fs/cachefiles/namei.c | 76 ++++++++-----------------------------------
- 1 file changed, 14 insertions(+), 62 deletions(-)
+ fs/overlayfs/dir.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/fs/cachefiles/namei.c b/fs/cachefiles/namei.c
-index e5ec90dccc27..3af42ec78411 100644
---- a/fs/cachefiles/namei.c
-+++ b/fs/cachefiles/namei.c
-@@ -270,7 +270,8 @@ int cachefiles_bury_object(struct cachefiles_cache *cache,
- 			   struct dentry *rep,
- 			   enum fscache_why_object_killed why)
- {
--	struct dentry *grave, *trap;
-+	struct dentry *grave;
-+	struct renamedata rd = {};
- 	struct path path, path_to_graveyard;
- 	char nbuffer[8 + 8 + 1];
- 	int ret;
-@@ -302,77 +303,36 @@ int cachefiles_bury_object(struct cachefiles_cache *cache,
- 		(uint32_t) ktime_get_real_seconds(),
- 		(uint32_t) atomic_inc_return(&cache->gravecounter));
- 
--	/* do the multiway lock magic */
--	trap = lock_rename(cache->graveyard, dir);
--	if (IS_ERR(trap))
--		return PTR_ERR(trap);
--
--	/* do some checks before getting the grave dentry */
--	if (rep->d_parent != dir || IS_DEADDIR(d_inode(rep))) {
--		/* the entry was probably culled when we dropped the parent dir
--		 * lock */
--		unlock_rename(cache->graveyard, dir);
--		_leave(" = 0 [culled?]");
--		return 0;
--	}
--
--	if (!d_can_lookup(cache->graveyard)) {
--		unlock_rename(cache->graveyard, dir);
--		cachefiles_io_error(cache, "Graveyard no longer a directory");
--		return -EIO;
--	}
--
--	if (trap == rep) {
--		unlock_rename(cache->graveyard, dir);
--		cachefiles_io_error(cache, "May not make directory loop");
-+	rd.mnt_idmap = &nop_mnt_idmap;
-+	rd.old_parent = dir;
-+	rd.new_parent = cache->graveyard;
-+	rd.flags = 0;
-+	ret = start_renaming_dentry(&rd, 0, rep, &QSTR(nbuffer));
-+	if (ret) {
-+		cachefiles_io_error(cache, "Cannot lock/lookup in graveyard");
- 		return -EIO;
- 	}
- 
- 	if (d_mountpoint(rep)) {
--		unlock_rename(cache->graveyard, dir);
-+		end_renaming(&rd);
- 		cachefiles_io_error(cache, "Mountpoint in cache");
- 		return -EIO;
- 	}
- 
--	grave = lookup_one(&nop_mnt_idmap, &QSTR(nbuffer), cache->graveyard);
--	if (IS_ERR(grave)) {
--		unlock_rename(cache->graveyard, dir);
--		trace_cachefiles_vfs_error(object, d_inode(cache->graveyard),
--					   PTR_ERR(grave),
--					   cachefiles_trace_lookup_error);
--
--		if (PTR_ERR(grave) == -ENOMEM) {
--			_leave(" = -ENOMEM");
--			return -ENOMEM;
--		}
--
--		cachefiles_io_error(cache, "Lookup error %ld", PTR_ERR(grave));
--		return -EIO;
--	}
--
-+	grave = rd.new_dentry;
- 	if (d_is_positive(grave)) {
--		unlock_rename(cache->graveyard, dir);
--		dput(grave);
-+		end_renaming(&rd);
- 		grave = NULL;
- 		cond_resched();
- 		goto try_again;
- 	}
- 
- 	if (d_mountpoint(grave)) {
--		unlock_rename(cache->graveyard, dir);
--		dput(grave);
-+		end_renaming(&rd);
- 		cachefiles_io_error(cache, "Mountpoint in graveyard");
- 		return -EIO;
- 	}
- 
--	/* target should not be an ancestor of source */
--	if (trap == grave) {
--		unlock_rename(cache->graveyard, dir);
--		dput(grave);
--		cachefiles_io_error(cache, "May not make directory loop");
--		return -EIO;
--	}
--
- 	/* attempt the rename */
- 	path.mnt = cache->mnt;
- 	path.dentry = dir;
-@@ -382,13 +342,6 @@ int cachefiles_bury_object(struct cachefiles_cache *cache,
- 	if (ret < 0) {
- 		cachefiles_io_error(cache, "Rename security error %d", ret);
- 	} else {
--		struct renamedata rd = {
--			.mnt_idmap	= &nop_mnt_idmap,
--			.old_parent	= dir,
--			.old_dentry	= rep,
--			.new_parent	= cache->graveyard,
--			.new_dentry	= grave,
--		};
- 		trace_cachefiles_rename(object, d_inode(rep)->i_ino, why);
- 		ret = cachefiles_inject_read_error();
- 		if (ret == 0)
-@@ -402,8 +355,7 @@ int cachefiles_bury_object(struct cachefiles_cache *cache,
- 	}
- 
- 	__cachefiles_unmark_inode_in_use(object, d_inode(rep));
--	unlock_rename(cache->graveyard, dir);
--	dput(grave);
-+	end_renaming(&rd);
- 	_leave(" = 0");
- 	return 0;
+diff --git a/fs/overlayfs/dir.c b/fs/overlayfs/dir.c
+index ff3dbd1ca61f..c4feb89ad1e3 100644
+--- a/fs/overlayfs/dir.c
++++ b/fs/overlayfs/dir.c
+@@ -66,10 +66,9 @@ void ovl_tempname(char name[OVL_TEMPNAME_SIZE])
  }
+ 
+ static struct dentry *ovl_start_creating_temp(struct ovl_fs *ofs,
+-					      struct dentry *workdir)
++					      struct dentry *workdir,
++					      char name[OVL_TEMPNAME_SIZE])
+ {
+-	char name[OVL_TEMPNAME_SIZE];
+-
+ 	ovl_tempname(name);
+ 	return start_creating(ovl_upper_mnt_idmap(ofs), workdir,
+ 			      &QSTR(name));
+@@ -81,11 +80,12 @@ static struct dentry *ovl_whiteout(struct ovl_fs *ofs)
+ 	struct dentry *whiteout, *link;
+ 	struct dentry *workdir = ofs->workdir;
+ 	struct inode *wdir = workdir->d_inode;
++	char name[OVL_TEMPNAME_SIZE];
+ 
+ 	guard(mutex)(&ofs->whiteout_lock);
+ 
+ 	if (!ofs->whiteout) {
+-		whiteout = ovl_start_creating_temp(ofs, workdir);
++		whiteout = ovl_start_creating_temp(ofs, workdir, name);
+ 		if (IS_ERR(whiteout))
+ 			return whiteout;
+ 		err = ovl_do_whiteout(ofs, wdir, whiteout);
+@@ -97,7 +97,7 @@ static struct dentry *ovl_whiteout(struct ovl_fs *ofs)
+ 	}
+ 
+ 	if (!ofs->no_shared_whiteout) {
+-		link = ovl_start_creating_temp(ofs, workdir);
++		link = ovl_start_creating_temp(ofs, workdir, name);
+ 		if (IS_ERR(link))
+ 			return link;
+ 		err = ovl_do_link(ofs, ofs->whiteout, wdir, link);
+@@ -247,7 +247,9 @@ struct dentry *ovl_create_temp(struct ovl_fs *ofs, struct dentry *workdir,
+ 			       struct ovl_cattr *attr)
+ {
+ 	struct dentry *ret;
+-	ret = ovl_start_creating_temp(ofs, workdir);
++	char name[OVL_TEMPNAME_SIZE];
++
++	ret = ovl_start_creating_temp(ofs, workdir, name);
+ 	if (IS_ERR(ret))
+ 		return ret;
+ 	ret = ovl_create_real(ofs, workdir, ret, attr);
 -- 
 2.50.0.107.gf914562f5916.dirty
 
