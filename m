@@ -2,61 +2,61 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mPBWOd8lnmn5TgQAu9opvQ
+	id mKyMJOQlnmn5TgQAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Tue, 24 Feb 2026 23:27:43 +0100
+	for <lists+apparmor@lfdr.de>; Tue, 24 Feb 2026 23:27:48 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id D19DB18D31A
-	for <lists+apparmor@lfdr.de>; Tue, 24 Feb 2026 23:27:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4910018D328
+	for <lists+apparmor@lfdr.de>; Tue, 24 Feb 2026 23:27:48 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vv0sO-00068Y-3G; Tue, 24 Feb 2026 22:27:32 +0000
+	id 1vv0sW-0006DF-D2; Tue, 24 Feb 2026 22:27:40 +0000
 Received: from flow-a2-smtp.messagingengine.com ([103.168.172.137])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <neilb@ownmail.net>) id 1vv0sM-00067Y-JX
- for apparmor@lists.ubuntu.com; Tue, 24 Feb 2026 22:27:30 +0000
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
- by mailflow.phl.internal (Postfix) with ESMTP id B446513805A6;
- Tue, 24 Feb 2026 17:27:29 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-06.internal (MEProxy); Tue, 24 Feb 2026 17:27:29 -0500
+ (Exim 4.86_2) (envelope-from <neilb@ownmail.net>) id 1vv0sV-0006Bc-5f
+ for apparmor@lists.ubuntu.com; Tue, 24 Feb 2026 22:27:39 +0000
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+ by mailflow.phl.internal (Postfix) with ESMTP id 52966138052C;
+ Tue, 24 Feb 2026 17:27:38 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-02.internal (MEProxy); Tue, 24 Feb 2026 17:27:38 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
  cc:cc:content-transfer-encoding:content-type:date:date:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:reply-to:subject:subject:to:to; s=fm3; t=1771972049;
- x=1771979249; bh=vIMZKjfxmKkyu011y6KfL+N7g881UsmJU+U6+HLmMTM=; b=
- NebVhl4Uf0rQN6394D508zLVskPRA5kGJQqYtRAomfY3tJEG/4rasGHfTSOQlFW2
- WYW6BfxyHAvW/qQwxEumP0R5MCvRDhPpu9AQXj2AnNolzy3Ns4w3Qp4xuHt4rp8Q
- I06NaoDbmb7beCZ9P9gbf43WiOocoR91ywAFr4d6z/a2T71UrVG06faOxckf5MUE
- qsAxeIDt9S3qbq24h6OpAhKXm73qOHK6fW3hmyqPZ7aRN06ZuUJ6kegrpCuQQyjy
- 1eFPRLI2Ipo+3CDUNp6upNbj/utD+G2SfrT48EEPjRhkeZnMwAa756C5B/8Nj1y2
- XJM81OYuELL69EX+3EAzFw==
+ :reply-to:reply-to:subject:subject:to:to; s=fm3; t=1771972058;
+ x=1771979258; bh=+n/TdNDWt0YGfbs3tUCUsBBqqY8Ht+jCITPiyVgI6RU=; b=
+ KAE+Cx8KQQbP885GNTbuAul7FA9qjVN7lT8hINyLuxP9Qg0MObojudF5zU7fzTSV
+ R6PcHD8qNIftJq+qt0KpO/PyawHBxnCxjiP2cGcDWMezbjsuYX4T0J4E+cM0Aj+0
+ XyiKCjtpqjMCcJksd+WG+LVyrJwXYqbCKglNoV5kB0yHO7yvvo/g7zJTw9wcF1US
+ kICdc4KjC7m5q8QJRvnIQKHK+osKj2jLfC85q9lt/iXDRVTX619EomNjJz+aKcGe
+ HGVDofOSCtj7ifgDW+WuRG/b1LPlLNA7C5/NgDiFu8UxNr+QvfiOtsEzXZsYhaVN
+ cnQEXsb0q5LJV9aENuJPdQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:feedback-id:feedback-id:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
  :reply-to:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; t=1771972049; x=1771979249; bh=v
- IMZKjfxmKkyu011y6KfL+N7g881UsmJU+U6+HLmMTM=; b=Fdd69+d/T013npC8h
- 52Nt0SQ4HswdfJ5xjrIYiPjnQ2MDsau2C5CUT14zXzgT0dq8pXaGGo7Fhp17T7TB
- 6yYDrW9oIFE0QRMnBsDBlea/pmF7yOrJ/VzKxmAAURgQafKsfdWaGuZ/CwWVfO97
- tHZewOpTmP0m9Ar0XChtj6RLLPf8GZEQ58EuHWdzZiIIqeY2E6k2NfyCdKVU4DHJ
- WfgxLcrxIU/nf0FvAcHwfexPQ0PTmrIX9LUb7Ldx/D4lFZGGORySIU8+6dYO1dfq
- 2zpbyhjoFF5S5jsiEWBywRGPd74v8ISQr9eEeJC8nP/DmZtDPtO6xcHVU1DXIlwG
- J4ivw==
-X-ME-Sender: <xms:0SWeaSe__UelJqauzvKjb8dBe2ssw74aa5xZm9gTEl7RVTWgNrfftg>
- <xme:0SWeaQK15XiUYwoW2R6B8cRwib_1BFxwlrfL9s3fDqyRPMpNUtoHHRJ5xBQpUvWof
- iuMsqg-8ZVGhDCj8Q8bnN70sufPPl66kHhLtFMy79JK7sQ3fg>
-X-ME-Received: <xmr:0SWeacAdA716rIg0a6w0foGljLybvYaBk1u6IilFkiIuFOCnPVm8Tqr4bJrPmtyQ2PcdfVLe2iTacsebrv9WX57yPUpI_nfP6lzkFxAJlEeN>
+ :x-me-sender:x-sasl-enc; s=fm3; t=1771972058; x=1771979258; bh=+
+ n/TdNDWt0YGfbs3tUCUsBBqqY8Ht+jCITPiyVgI6RU=; b=TOUwpW+T4OdE92Y2P
+ 2tnlKVavGx6kUdGEzSgdSQf13DXhfLnDXhBDe+XndeX8jVp3iM5MJbL4U2iJocoK
+ nBBrVH3hF9gjBPpIyZig+IQpLOsWiyVS72zfBfsM0JmwcFt1SywrFNserBJR+fFX
+ SZY41v1zFZWSiR+pVz/bpLtH7NrT8W0tYRKfeetkqesJHXpGRBsD5qYAjsDZV34M
+ TsMqfxz5f6CpB7wZnewmutz+8eT5tXaEIwuy5gqJS/msxbaW2FB5qWVyPTLar0bC
+ akZin1PFpK0cYraooH71uUUxsGNeAMXoHePhg3sVIDFdXsP2VUEtUE0uAQYCd4PT
+ WuCMg==
+X-ME-Sender: <xms:2SWeaWRsUqWqIvR69-C9xIekTemSirprZ1ZOtIzLdtTkJ8eWvbXCWw>
+ <xme:2SWeaftF1OMtDycEVCM2VSsPCAX7BX8s4ys30RcTtT8AZ_eb5UjN9oFeZ_2ddudsI
+ Oge0HQ9oK8XumPVpdJhM84WfoBl3kgNFy2uOlx1fgzqmlnrgrw>
+X-ME-Received: <xmr:2SWeacWNYi5UKBrcrTUtA-_Z6pjp-ViUsuRrRRxUaI8k20X5i1Oy5OjltgQIYm9Kc-BuWcqWOPHdEtEWgxgC3vpc1WoMKkVzZdIRK_KlDPtc>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvgedufeekucetufdoteggodetrf
  dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
  rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
  gurhephffvvefufffkofgjfhhrggfgsedtkeertdertddtnecuhfhrohhmpefpvghilheu
  rhhofihnuceonhgvihhlsgesohifnhhmrghilhdrnhgvtheqnecuggftrfgrthhtvghrnh
  epveevkeffudeuvefhieeghffgudektdelkeejiedtjedugfeukedvkeffvdefvddunecu
- vehluhhsthgvrhfuihiivgepgeenucfrrghrrghmpehmrghilhhfrhhomhepnhgvihhlsg
+ vehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepnhgvihhlsg
  esohifnhhmrghilhdrnhgvthdpnhgspghrtghpthhtohepvddvpdhmohguvgepshhmthhp
  ohhuthdprhgtphhtthhopehvihhrohesiigvnhhivhdrlhhinhhugidrohhrghdruhhkpd
  hrtghpthhtohepshgvlhhinhhugiesvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgtphht
@@ -67,14 +67,14 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvgedufeekucetufdote
  vghlrdhorhhgpdhrtghpthhtoheplhhinhhugidqfhhsuggvvhgvlhesvhhgvghrrdhkvg
  hrnhgvlhdrohhrghdprhgtphhtthhopehmihhklhhoshesshiivghrvgguihdrhhhupdhr
  tghpthhtohepjhgrtghksehsuhhsvgdrtgii
-X-ME-Proxy: <xmx:0SWeaZg76qW1kadSC2zWUSznnvk-bRVH6IzXhORXNigu1_8mRgveDw>
- <xmx:0SWeaWNCLqVnHeuyRgytgouAXNnhtVcSoC3t6XWh6LAZDfJj8dsQhw>
- <xmx:0SWeaQZI5PDVRjMPFsTw2S-WgRNIGtqjm7gyQLZZCYCWRK-jx5SdBw>
- <xmx:0SWeab80YZP_XNxpfzgGFFPyuyWopzDNjkAPcOl5cptPOY5kkEhz_A>
- <xmx:0SWeadloxb2KJg35QewtDb4ElbVa5O-lhBjw_G2rPRq3SPVD-dBjlFEQ>
+X-ME-Proxy: <xmx:2SWeablrzUTm1RixdP63G17JvymBDWzWR6Ue1Jb997ou4TW7JeSFug>
+ <xmx:2SWeaXBmk2UlBRNA_4zg8On0W4QXn4P_4EnMTunW1nDnC4P-loIruw>
+ <xmx:2SWeaY9PVDzM2UuSbi0dQUWiYUZxMGSqxF4nk68Tos8Fnmzk4FkVpQ>
+ <xmx:2SWeaRSAJRkhUwC1wCf5tOlXI1PkmZfgovM39Z0m4HyYBdPZtKlH7Q>
+ <xmx:2iWeacrtuKjgol5xmRtiQ_8RZBlQ5L36T7UStvttdHnm29OmUMUm4qju>
 Feedback-ID: i9d664b8f:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 24 Feb 2026 17:27:23 -0500 (EST)
+ 24 Feb 2026 17:27:31 -0500 (EST)
 From: NeilBrown <neilb@ownmail.net>
 To: Christian Brauner <brauner@kernel.org>,
  Alexander Viro <viro@zeniv.linux.org.uk>,
@@ -86,8 +86,8 @@ To: Christian Brauner <brauner@kernel.org>,
  "Serge E. Hallyn" <serge@hallyn.com>,
  Stephen Smalley <stephen.smalley.work@gmail.com>,
  "Darrick J. Wong" <djwong@kernel.org>
-Date: Wed, 25 Feb 2026 09:16:56 +1100
-Message-ID: <20260224222542.3458677-12-neilb@ownmail.net>
+Date: Wed, 25 Feb 2026 09:16:57 +1100
+Message-ID: <20260224222542.3458677-13-neilb@ownmail.net>
 X-Mailer: git-send-email 2.50.0.107.gf914562f5916.dirty
 In-Reply-To: <20260224222542.3458677-1-neilb@ownmail.net>
 References: <20260224222542.3458677-1-neilb@ownmail.net>
@@ -95,8 +95,8 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Received-SPF: pass client-ip=103.168.172.137; envelope-from=neilb@ownmail.net;
  helo=flow-a2-smtp.messagingengine.com
-Subject: [apparmor] [PATCH v3 11/15] ovl: pass name buffer to
-	ovl_start_creating_temp()
+Subject: [apparmor] [PATCH v3 12/15] ovl: change ovl_create_real() to get a
+	new lock when re-opening created file.
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -145,8 +145,8 @@ X-Spamd-Result: default: False [3.19 / 15.00];
 	TAGGED_RCPT(0.00)[apparmor];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[ownmail.net:mid,lists.ubuntu.com:helo,lists.ubuntu.com:rdns,brown.name:replyto,brown.name:email];
-	NEURAL_HAM(-0.00)[-0.917];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns,ownmail.net:mid,brown.name:replyto,brown.name:email];
+	NEURAL_HAM(-0.00)[-0.890];
 	RCVD_COUNT_FIVE(0.00)[5];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
@@ -155,72 +155,173 @@ X-Spamd-Result: default: False [3.19 / 15.00];
 	HAS_REPLYTO(0.00)[neil@brown.name];
 	DKIM_TRACE(0.00)[ownmail.net:-,messagingengine.com:-];
 	REPLYTO_DOM_NEQ_TO_DOM(0.00)[]
-X-Rspamd-Queue-Id: D19DB18D31A
+X-Rspamd-Queue-Id: 4910018D328
 X-Rspamd-Action: no action
 
 From: NeilBrown <neil@brown.name>
 
-Now ovl_start_creating_temp() is passed a buffer in which to store the
-temp name.  This will be useful in a future patch were ovl_create_real()
-will need access to that name.
+When ovl_create_real() is used to create a file on the upper filesystem
+it needs to return the resulting dentry - positive and hashed.
+It is usually the case the that dentry passed to the create function
+(e.g.  vfs_create()) will be suitable but this is not guaranteed.  The
+filesystem may unhash that dentry forcing a repeat lookup next time the
+name is wanted.
+
+So ovl_create_real() must be (and is) aware of this and prepared to
+perform that lookup to get a hash positive dentry.
+
+This is currently done under that same directory lock that provided
+exclusion for the create.  Proposed changes to locking will make this
+not possible - as the name, rather than the directory, will be locked.
+The new APIs provided for lookup and locking do not and cannot support
+this pattern.
+
+The lock isn't needed.  ovl_create_real() can drop the lock and then get
+a new lock for the lookup - then check that the lookup returned the
+correct inode.  In a well-behaved configuration where the upper
+filesystem is not being modified by a third party, this will always work
+reliably, and if there are separate modification it will fail cleanly.
+
+So change ovl_create_real() to drop the lock and call
+ovl_start_creating_upper() to find the correct dentry.  Note that
+start_creating doesn't fail if the name already exists.
+
+The lookup previously used the name from newdentry which was guaranteed
+to be stable because the parent directory was locked.  As we now drop
+the lock we lose that guarantee.  As newdentry is unhashed it is
+unlikely for the name to change, but safest not to depend on that.  So
+the expected name is now passed in to ovl_create_real() and that is
+used.
+
+This removes the only remaining use of ovl_lookup_upper, so it is
+removed.
 
 Reviewed-by: Amir Goldstein <amir73il@gmail.com>
 Signed-off-by: NeilBrown <neil@brown.name>
 ---
- fs/overlayfs/dir.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+ fs/overlayfs/dir.c       | 37 +++++++++++++++++++++++++------------
+ fs/overlayfs/overlayfs.h |  8 +-------
+ fs/overlayfs/super.c     |  1 +
+ 3 files changed, 27 insertions(+), 19 deletions(-)
 
 diff --git a/fs/overlayfs/dir.c b/fs/overlayfs/dir.c
-index ff3dbd1ca61f..c4feb89ad1e3 100644
+index c4feb89ad1e3..8c0a3d876fef 100644
 --- a/fs/overlayfs/dir.c
 +++ b/fs/overlayfs/dir.c
-@@ -66,10 +66,9 @@ void ovl_tempname(char name[OVL_TEMPNAME_SIZE])
+@@ -159,7 +159,8 @@ int ovl_cleanup_and_whiteout(struct ovl_fs *ofs, struct dentry *dir,
  }
  
- static struct dentry *ovl_start_creating_temp(struct ovl_fs *ofs,
--					      struct dentry *workdir)
-+					      struct dentry *workdir,
-+					      char name[OVL_TEMPNAME_SIZE])
+ struct dentry *ovl_create_real(struct ovl_fs *ofs, struct dentry *parent,
+-			       struct dentry *newdentry, struct ovl_cattr *attr)
++			       struct dentry *newdentry, struct qstr *qname,
++			       struct ovl_cattr *attr)
  {
--	char name[OVL_TEMPNAME_SIZE];
--
- 	ovl_tempname(name);
- 	return start_creating(ovl_upper_mnt_idmap(ofs), workdir,
- 			      &QSTR(name));
-@@ -81,11 +80,12 @@ static struct dentry *ovl_whiteout(struct ovl_fs *ofs)
- 	struct dentry *whiteout, *link;
- 	struct dentry *workdir = ofs->workdir;
- 	struct inode *wdir = workdir->d_inode;
-+	char name[OVL_TEMPNAME_SIZE];
- 
- 	guard(mutex)(&ofs->whiteout_lock);
- 
- 	if (!ofs->whiteout) {
--		whiteout = ovl_start_creating_temp(ofs, workdir);
-+		whiteout = ovl_start_creating_temp(ofs, workdir, name);
- 		if (IS_ERR(whiteout))
- 			return whiteout;
- 		err = ovl_do_whiteout(ofs, wdir, whiteout);
-@@ -97,7 +97,7 @@ static struct dentry *ovl_whiteout(struct ovl_fs *ofs)
- 	}
- 
- 	if (!ofs->no_shared_whiteout) {
--		link = ovl_start_creating_temp(ofs, workdir);
-+		link = ovl_start_creating_temp(ofs, workdir, name);
- 		if (IS_ERR(link))
- 			return link;
- 		err = ovl_do_link(ofs, ofs->whiteout, wdir, link);
-@@ -247,7 +247,9 @@ struct dentry *ovl_create_temp(struct ovl_fs *ofs, struct dentry *workdir,
- 			       struct ovl_cattr *attr)
- {
- 	struct dentry *ret;
--	ret = ovl_start_creating_temp(ofs, workdir);
-+	char name[OVL_TEMPNAME_SIZE];
+ 	struct inode *dir = parent->d_inode;
+ 	int err;
+@@ -221,19 +222,30 @@ struct dentry *ovl_create_real(struct ovl_fs *ofs, struct dentry *parent,
+ 		struct dentry *d;
+ 		/*
+ 		 * Some filesystems (i.e. casefolded) may return an unhashed
+-		 * negative dentry from the ovl_lookup_upper() call before
++		 * negative dentry from the ovl_start_creating_upper() call before
+ 		 * ovl_create_real().
+ 		 * In that case, lookup again after making the newdentry
+ 		 * positive, so ovl_create_upper() always returns a hashed
+-		 * positive dentry.
++		 * positive dentry.  We lookup using qname which should be
++		 * the same name as newentry, but is certain not to change.
++		 * As we have to drop the lock before the lookup a race
++		 * could result in a lookup failure.  In that case we return
++		 * an error.
+ 		 */
+-		d = ovl_lookup_upper(ofs, newdentry->d_name.name, parent,
+-				     newdentry->d_name.len);
+-		dput(newdentry);
+-		if (IS_ERR_OR_NULL(d))
++		end_creating_keep(newdentry);
++		d = ovl_start_creating_upper(ofs, parent, qname);
 +
-+	ret = ovl_start_creating_temp(ofs, workdir, name);
++		if (IS_ERR_OR_NULL(d)) {
+ 			err = d ? PTR_ERR(d) : -ENOENT;
+-		else
++		} else if (d->d_inode != newdentry->d_inode) {
++			err = -EIO;
++		} else {
++			dput(newdentry);
+ 			return d;
++		}
++		end_creating(d);
++		dput(newdentry);
++		return ERR_PTR(err);
+ 	}
+ out:
+ 	if (err) {
+@@ -252,7 +264,7 @@ struct dentry *ovl_create_temp(struct ovl_fs *ofs, struct dentry *workdir,
+ 	ret = ovl_start_creating_temp(ofs, workdir, name);
  	if (IS_ERR(ret))
  		return ret;
- 	ret = ovl_create_real(ofs, workdir, ret, attr);
+-	ret = ovl_create_real(ofs, workdir, ret, attr);
++	ret = ovl_create_real(ofs, workdir, ret, &QSTR(name), attr);
+ 	return end_creating_keep(ret);
+ }
+ 
+@@ -352,14 +364,15 @@ static int ovl_create_upper(struct dentry *dentry, struct inode *inode,
+ 	struct ovl_fs *ofs = OVL_FS(dentry->d_sb);
+ 	struct dentry *upperdir = ovl_dentry_upper(dentry->d_parent);
+ 	struct dentry *newdentry;
++	struct qstr qname = QSTR_LEN(dentry->d_name.name,
++				     dentry->d_name.len);
+ 	int err;
+ 
+ 	newdentry = ovl_start_creating_upper(ofs, upperdir,
+-					     &QSTR_LEN(dentry->d_name.name,
+-						       dentry->d_name.len));
++					     &qname);
+ 	if (IS_ERR(newdentry))
+ 		return PTR_ERR(newdentry);
+-	newdentry = ovl_create_real(ofs, upperdir, newdentry, attr);
++	newdentry = ovl_create_real(ofs, upperdir, newdentry, &qname, attr);
+ 	if (IS_ERR(newdentry))
+ 		return PTR_ERR(newdentry);
+ 
+diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
+index cad2055ebf18..714a1cec3709 100644
+--- a/fs/overlayfs/overlayfs.h
++++ b/fs/overlayfs/overlayfs.h
+@@ -406,13 +406,6 @@ static inline struct file *ovl_do_tmpfile(struct ovl_fs *ofs,
+ 	return file;
+ }
+ 
+-static inline struct dentry *ovl_lookup_upper(struct ovl_fs *ofs,
+-					      const char *name,
+-					      struct dentry *base, int len)
+-{
+-	return lookup_one(ovl_upper_mnt_idmap(ofs), &QSTR_LEN(name, len), base);
+-}
+-
+ static inline struct dentry *ovl_lookup_upper_unlocked(struct ovl_fs *ofs,
+ 						       const char *name,
+ 						       struct dentry *base,
+@@ -888,6 +881,7 @@ struct ovl_cattr {
+ 
+ struct dentry *ovl_create_real(struct ovl_fs *ofs,
+ 			       struct dentry *parent, struct dentry *newdentry,
++			       struct qstr *qname,
+ 			       struct ovl_cattr *attr);
+ int ovl_cleanup(struct ovl_fs *ofs, struct dentry *workdir, struct dentry *dentry);
+ #define OVL_TEMPNAME_SIZE 20
+diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
+index d4c12feec039..109643930b9f 100644
+--- a/fs/overlayfs/super.c
++++ b/fs/overlayfs/super.c
+@@ -634,6 +634,7 @@ static struct dentry *ovl_lookup_or_create(struct ovl_fs *ofs,
+ 	if (!IS_ERR(child)) {
+ 		if (!child->d_inode)
+ 			child = ovl_create_real(ofs, parent, child,
++						&QSTR(name),
+ 						OVL_CATTR(mode));
+ 		end_creating_keep(child);
+ 	}
 -- 
 2.50.0.107.gf914562f5916.dirty
 
