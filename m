@@ -2,61 +2,61 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id uLDHOPclnmn5TgQAu9opvQ
+	id 2BZaIAImnmn5TgQAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Tue, 24 Feb 2026 23:28:07 +0100
+	for <lists+apparmor@lfdr.de>; Tue, 24 Feb 2026 23:28:18 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id DACE818D3B1
-	for <lists+apparmor@lfdr.de>; Tue, 24 Feb 2026 23:28:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43C6818D3C2
+	for <lists+apparmor@lfdr.de>; Tue, 24 Feb 2026 23:28:18 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vv0sn-0006Ko-Tz; Tue, 24 Feb 2026 22:27:57 +0000
+	id 1vv0sx-0006Qw-5z; Tue, 24 Feb 2026 22:28:07 +0000
 Received: from flow-a2-smtp.messagingengine.com ([103.168.172.137])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <neilb@ownmail.net>) id 1vv0sm-0006K2-5X
- for apparmor@lists.ubuntu.com; Tue, 24 Feb 2026 22:27:56 +0000
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
- by mailflow.phl.internal (Postfix) with ESMTP id 3D3A1138052C;
- Tue, 24 Feb 2026 17:27:55 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-04.internal (MEProxy); Tue, 24 Feb 2026 17:27:55 -0500
+ (Exim 4.86_2) (envelope-from <neilb@ownmail.net>) id 1vv0su-0006OT-Nz
+ for apparmor@lists.ubuntu.com; Tue, 24 Feb 2026 22:28:04 +0000
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+ by mailflow.phl.internal (Postfix) with ESMTP id B1B5F138052C;
+ Tue, 24 Feb 2026 17:28:03 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-09.internal (MEProxy); Tue, 24 Feb 2026 17:28:03 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
  cc:cc:content-transfer-encoding:content-type:date:date:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:reply-to:subject:subject:to:to; s=fm3; t=1771972074;
- x=1771979274; bh=bIUlSuwFKeFIuLZj8rOB/AbskaH/BxVOAKu2PHwCVKQ=; b=
- hy7u65I+Q9tpvbtcV5WQpUFJvQgpsRwv2rvP+I7kvnfDA2SHObxNGtFreHDTOSpg
- 09z5WCa/28GuKNBjXyppssw8J3Uj1ZOsoC2eGUwFjpwUIWUgfIT4JJLNTK0hpsd1
- zxUbyQbXhfWzRKrmAQu8x9zmGv/ZfgfbNGFvmC6BaloDTtBfY5R29PQfmXaV0gNk
- trMCyaOl7XwljFqdU53OxnkUFmdtLoA/vRTpRsha+Ms+jfYYr3n+68C6FJkCUc1j
- 1fCICJdAnXvQuuxISxUUEI88SC9G/7WxaiGqvMgSdpfPetdheLPfbciehBmpb4Pb
- d/j8SR622VN3qhsTWP5PdA==
+ :reply-to:reply-to:subject:subject:to:to; s=fm3; t=1771972083;
+ x=1771979283; bh=wijvxZQWm9lKy/h3JSFEVjiYfslMBA04IhCaGLEm+aw=; b=
+ Qsc1ePeSEaLWi8BDrsD9vY2ogxq/J/OJ+6DtZSsY4kpbC630IqfzW2ELvRLbF0xH
+ n4n/hLKHJSnJiMVp1uNGG9Rlxq7ptH66Wbkf+bBs6qm42CnmQkbjQ5NXMMEBGMoH
+ h7PMEuKXYCi19HURgYdLP3S9jxRjkCqwMchfscEqtL3c4vBlqOlEUBAK97192xNf
+ 6Ov/iwuTkTMx0yjx6vpVUsTSbCOyIXhOBPbDM6okDqghjBNbm+nEGNs8MDP1Uf7d
+ 1ID2SjWug65BTZe73wsuY9EGSugYjl9IlHJ1k+IknPOIaYGQr90i6+2nvRg7L+0x
+ 0cVwg5VLWo1u+dJo7qF0DQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:feedback-id:feedback-id:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
  :reply-to:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; t=1771972074; x=1771979274; bh=b
- IUlSuwFKeFIuLZj8rOB/AbskaH/BxVOAKu2PHwCVKQ=; b=ChwCLTxk1c0zImyBL
- o1kANErg77ogwCm8US7Si3pa7+uAi2BjF1NsmTVx3inbCEynTVl8WEWS5fZtkU3E
- +OTBB6d7aLRGIZyoZawqFkFwK7a+MXQGmKlrEdkl5rnr++KLM9EX1OxzNaDO2lUK
- GRUNm7ZTjM6l9ww9i2GH8rxX9lRdyf9JwFBo3ghiv4aijGzJx2YDOab042LFVSRK
- GrDV8MaV2eIFCSiUpJoqKE0Y/DqGGDDYsrWNeBsgVrOzgiLLJjYFNhzAUVGq4MB/
- VNt0nmx6+E4H/n7tMX/4MDGaSiw9olL3vcDDbKfFzfFURKIKzbFQ+0qVESQIhMM5
- kn+Ww==
-X-ME-Sender: <xms:6iWeaR8zjrSULEgJxL4HxQeMb0iNrr7oldp1caBAy34wh68VNn6jIQ>
- <xme:6iWeaZrlN3Pvk6uuJlkWEtNzi9_Xgju7-jOWrKwNAwErzBbyJYjHMThEdno8Sh_al
- 2GAuGyHkHHsPoHHCLAmYsv8vFyVNgQf1rRAGCP03l9kV0rxOA>
-X-ME-Received: <xmr:6iWeaXheysVn-uoUcSyQv4xBDu9Api4cdR_yaIJwU7jIWGz2IGp3Pug8ie9SzTS_qRMVE2o_yJLpED929HsTd4H-yxFV3N_egTxE0nBhDhF1>
+ :x-me-sender:x-sasl-enc; s=fm3; t=1771972083; x=1771979283; bh=w
+ ijvxZQWm9lKy/h3JSFEVjiYfslMBA04IhCaGLEm+aw=; b=JJyeWTwqbNVQ7ik2z
+ 5xdf8bbM5zDUFVdjfpi/zzOa4qnkq62FeoQ/DA5Z+vQmEJZ3al1E1urqxtv4d0Ld
+ bE1ikLaQU7vA7bjRcHCKFDcGsJm16dhB6MypAhLDUFS4hyxWokG7yCbDgvKL9Q4e
+ 05Tz8O9CuryBcvGdj330lyokQejeynz5uXNSrCFgFmWDYFqg9CSSPo8XTTnnC5iK
+ qWAUDw+Qd/WvQhLieYeLl20fh1gs7DZndVW7Ou9sCisHuObLPHB2NuZ2SkbwWMBb
+ zCtwpOmP25+0KbHOPRdBmp+0GApQWThdjOdVsVn+3Bu+0AordG3i6cFHx7kw67Rj
+ DiUcQ==
+X-ME-Sender: <xms:8yWeaV50ce2t6SX59updm27nWQp8eGTKxw3rAaNZjL4DXBBbZSebtw>
+ <xme:8yWeaW1HraDo8_99jFRL_aecm-h1fk4i_3OGtcuNhB--O_d9DxhUuRfSUi879bqbG
+ qKZB0631GoQG-wU0UrmkcXYrikooe74BWIE3MGcCFOrhPDz>
+X-ME-Received: <xmr:8yWeaU-XLL_iiElhQE7t7J8AyUG3uo0EVt7_NHMg2d7Fu4ruE0u3FtfmxMP3FVr3s10BZVC3OC719hMiadZwuRCKmukNcpVQa2t6ZnAr5kfs>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvgedufeekucetufdoteggodetrf
  dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
  rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
  gurhephffvvefufffkofgjfhhrggfgsedtkeertdertddtnecuhfhrohhmpefpvghilheu
  rhhofihnuceonhgvihhlsgesohifnhhmrghilhdrnhgvtheqnecuggftrfgrthhtvghrnh
  epveevkeffudeuvefhieeghffgudektdelkeejiedtjedugfeukedvkeffvdefvddunecu
- vehluhhsthgvrhfuihiivgepudenucfrrghrrghmpehmrghilhhfrhhomhepnhgvihhlsg
+ vehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepnhgvihhlsg
  esohifnhhmrghilhdrnhgvthdpnhgspghrtghpthhtohepvddvpdhmohguvgepshhmthhp
  ohhuthdprhgtphhtthhopehvihhrohesiigvnhhivhdrlhhinhhugidrohhrghdruhhkpd
  hrtghpthhtohepshgvlhhinhhugiesvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgtphht
@@ -67,14 +67,14 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvgedufeekucetufdote
  vghlrdhorhhgpdhrtghpthhtoheplhhinhhugidqfhhsuggvvhgvlhesvhhgvghrrdhkvg
  hrnhgvlhdrohhrghdprhgtphhtthhopehmihhklhhoshesshiivghrvgguihdrhhhupdhr
  tghpthhtohepjhgrtghksehsuhhsvgdrtgii
-X-ME-Proxy: <xmx:6iWeafAZhqD0o-xubhL_NLxGif5moM4AVm6R2w-HkR4VrNBWFRCyCw>
- <xmx:6iWeadv9bqx7fnW0gA_j7o77UPv6Is2EdCFioHTryJPYnBKYXo1nNw>
- <xmx:6iWeaR7qgRLo6XdfLxRwDTRgu2O927KGrOYBde6D_XveM6jd-YwYkg>
- <xmx:6iWeaffIQMEmijHro1jv9uWsOZ1i6qlbmbESWKz3svGjNkr9-nkXpw>
- <xmx:6iWeadFi3JtRYFd-LF_nWGJ_7B0vwYcxYUH6IZHFBvnbRAwHQP5h9N2L>
+X-ME-Proxy: <xmx:8yWeaXt3neb7aslKJKcFebjTHhwfQfaqArxLek_2NK9m5pOR6El_1Q>
+ <xmx:8yWeaQq0kEjtPws5Iv1mh25sJdoENaWIfgZyqM9V_JOnSEBMhRBEnQ>
+ <xmx:8yWeaSG23osBRWpmi-0jY49_lLWwSTQ7Jm6D4szgx_LxwBw-LjnaqA>
+ <xmx:8yWeaT5Y0nn_7QnsucvZuSrdnEqWFyMkR86WvQXCmZU-pM2CpKItwA>
+ <xmx:8yWeaexc3PiU1gq6QfAmp2yyI8lJDKi8Zck37lv-r0FJGHXHFn_25csr>
 Feedback-ID: i9d664b8f:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 24 Feb 2026 17:27:48 -0500 (EST)
+ 24 Feb 2026 17:27:57 -0500 (EST)
 From: NeilBrown <neilb@ownmail.net>
 To: Christian Brauner <brauner@kernel.org>,
  Alexander Viro <viro@zeniv.linux.org.uk>,
@@ -86,8 +86,8 @@ To: Christian Brauner <brauner@kernel.org>,
  "Serge E. Hallyn" <serge@hallyn.com>,
  Stephen Smalley <stephen.smalley.work@gmail.com>,
  "Darrick J. Wong" <djwong@kernel.org>
-Date: Wed, 25 Feb 2026 09:16:59 +1100
-Message-ID: <20260224222542.3458677-15-neilb@ownmail.net>
+Date: Wed, 25 Feb 2026 09:17:00 +1100
+Message-ID: <20260224222542.3458677-16-neilb@ownmail.net>
 X-Mailer: git-send-email 2.50.0.107.gf914562f5916.dirty
 In-Reply-To: <20260224222542.3458677-1-neilb@ownmail.net>
 References: <20260224222542.3458677-1-neilb@ownmail.net>
@@ -95,7 +95,8 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Received-SPF: pass client-ip=103.168.172.137; envelope-from=neilb@ownmail.net;
  helo=flow-a2-smtp.messagingengine.com
-Subject: [apparmor] [PATCH v3 14/15] ovl: remove ovl_lock_rename_workdir()
+Subject: [apparmor] [PATCH v3 15/15] VFS: unexport lock_rename(),
+	lock_rename_child(), unlock_rename()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -154,71 +155,97 @@ X-Spamd-Result: default: False [3.19 / 15.00];
 	HAS_REPLYTO(0.00)[neil@brown.name];
 	DKIM_TRACE(0.00)[ownmail.net:-,messagingengine.com:-];
 	REPLYTO_DOM_NEQ_TO_DOM(0.00)[]
-X-Rspamd-Queue-Id: DACE818D3B1
+X-Rspamd-Queue-Id: 43C6818D3C2
 X-Rspamd-Action: no action
 
 From: NeilBrown <neil@brown.name>
 
-This function is unused since
-   Commit 833d2b3a072f ("Add start_renaming_two_dentries()")
+These three function are now only used in namei.c, so they don't need to
+be exported.
 
-Reviewed-by: Amir Goldstein <amir73il@gmail.com>
 Reviewed-by: Jeff Layton <jlayton@kernel.org>
 Signed-off-by: NeilBrown <neil@brown.name>
 ---
- fs/overlayfs/overlayfs.h |  2 --
- fs/overlayfs/util.c      | 25 -------------------------
- 2 files changed, 27 deletions(-)
+ Documentation/filesystems/porting.rst | 7 +++++++
+ fs/namei.c                            | 9 +++------
+ include/linux/namei.h                 | 3 ---
+ 3 files changed, 10 insertions(+), 9 deletions(-)
 
-diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
-index 714a1cec3709..6fb99c583c31 100644
---- a/fs/overlayfs/overlayfs.h
-+++ b/fs/overlayfs/overlayfs.h
-@@ -569,8 +569,6 @@ bool ovl_is_inuse(struct dentry *dentry);
- bool ovl_need_index(struct dentry *dentry);
- int ovl_nlink_start(struct dentry *dentry);
- void ovl_nlink_end(struct dentry *dentry);
--int ovl_lock_rename_workdir(struct dentry *workdir, struct dentry *work,
--			    struct dentry *upperdir, struct dentry *upper);
- int ovl_check_metacopy_xattr(struct ovl_fs *ofs, const struct path *path,
- 			     struct ovl_metacopy *data);
- int ovl_set_metacopy_xattr(struct ovl_fs *ofs, struct dentry *d,
-diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
-index 3f1b763a8bb4..aa2a32793c2f 100644
---- a/fs/overlayfs/util.c
-+++ b/fs/overlayfs/util.c
-@@ -1213,31 +1213,6 @@ void ovl_nlink_end(struct dentry *dentry)
- 	ovl_inode_unlock(inode);
- }
+diff --git a/Documentation/filesystems/porting.rst b/Documentation/filesystems/porting.rst
+index 1dd31ab417a2..d02aa57e4477 100644
+--- a/Documentation/filesystems/porting.rst
++++ b/Documentation/filesystems/porting.rst
+@@ -1368,3 +1368,10 @@ lifetime, consider using inode_set_cached_link() instead.
  
--int ovl_lock_rename_workdir(struct dentry *workdir, struct dentry *work,
--			    struct dentry *upperdir, struct dentry *upper)
--{
--	struct dentry *trap;
--
--	/* Workdir should not be subdir of upperdir and vice versa */
--	trap = lock_rename(workdir, upperdir);
--	if (IS_ERR(trap))
--		goto err;
--	if (trap)
--		goto err_unlock;
--	if (work && (work->d_parent != workdir || d_unhashed(work)))
--		goto err_unlock;
--	if (upper && (upper->d_parent != upperdir || d_unhashed(upper)))
--		goto err_unlock;
--
--	return 0;
--
--err_unlock:
--	unlock_rename(workdir, upperdir);
--err:
--	pr_err("failed to lock workdir+upperdir\n");
--	return -EIO;
--}
--
+ lookup_one_qstr_excl() is no longer exported - use start_creating() or
+ similar.
++---
++
++** mandatory**
++
++lock_rename(), lock_rename_child(), unlock_rename() are no
++longer available.  Use start_renaming() or similar.
++
+diff --git a/fs/namei.c b/fs/namei.c
+index a5daa62399d7..77189335bbcc 100644
+--- a/fs/namei.c
++++ b/fs/namei.c
+@@ -3775,7 +3775,7 @@ static struct dentry *lock_two_directories(struct dentry *p1, struct dentry *p2)
  /*
-  * err < 0, 0 if no metacopy xattr, metacopy data size if xattr found.
-  * an empty xattr returns OVL_METACOPY_MIN_SIZE to distinguish from no xattr value.
+  * p1 and p2 should be directories on the same fs.
+  */
+-struct dentry *lock_rename(struct dentry *p1, struct dentry *p2)
++static struct dentry *lock_rename(struct dentry *p1, struct dentry *p2)
+ {
+ 	if (p1 == p2) {
+ 		inode_lock_nested(p1->d_inode, I_MUTEX_PARENT);
+@@ -3785,12 +3785,11 @@ struct dentry *lock_rename(struct dentry *p1, struct dentry *p2)
+ 	mutex_lock(&p1->d_sb->s_vfs_rename_mutex);
+ 	return lock_two_directories(p1, p2);
+ }
+-EXPORT_SYMBOL(lock_rename);
+ 
+ /*
+  * c1 and p2 should be on the same fs.
+  */
+-struct dentry *lock_rename_child(struct dentry *c1, struct dentry *p2)
++static struct dentry *lock_rename_child(struct dentry *c1, struct dentry *p2)
+ {
+ 	if (READ_ONCE(c1->d_parent) == p2) {
+ 		/*
+@@ -3827,9 +3826,8 @@ struct dentry *lock_rename_child(struct dentry *c1, struct dentry *p2)
+ 	mutex_unlock(&c1->d_sb->s_vfs_rename_mutex);
+ 	return NULL;
+ }
+-EXPORT_SYMBOL(lock_rename_child);
+ 
+-void unlock_rename(struct dentry *p1, struct dentry *p2)
++static void unlock_rename(struct dentry *p1, struct dentry *p2)
+ {
+ 	inode_unlock(p1->d_inode);
+ 	if (p1 != p2) {
+@@ -3837,7 +3835,6 @@ void unlock_rename(struct dentry *p1, struct dentry *p2)
+ 		mutex_unlock(&p1->d_sb->s_vfs_rename_mutex);
+ 	}
+ }
+-EXPORT_SYMBOL(unlock_rename);
+ 
+ /**
+  * __start_renaming - lookup and lock names for rename
+diff --git a/include/linux/namei.h b/include/linux/namei.h
+index c7a7288cdd25..2ad6dd9987b9 100644
+--- a/include/linux/namei.h
++++ b/include/linux/namei.h
+@@ -165,9 +165,6 @@ extern int follow_down_one(struct path *);
+ extern int follow_down(struct path *path, unsigned int flags);
+ extern int follow_up(struct path *);
+ 
+-extern struct dentry *lock_rename(struct dentry *, struct dentry *);
+-extern struct dentry *lock_rename_child(struct dentry *, struct dentry *);
+-extern void unlock_rename(struct dentry *, struct dentry *);
+ int start_renaming(struct renamedata *rd, int lookup_flags,
+ 		   struct qstr *old_last, struct qstr *new_last);
+ int start_renaming_dentry(struct renamedata *rd, int lookup_flags,
 -- 
 2.50.0.107.gf914562f5916.dirty
 
