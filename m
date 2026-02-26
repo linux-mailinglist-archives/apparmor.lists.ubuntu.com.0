@@ -2,42 +2,42 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id EK1UEWzqoWmSxAQAu9opvQ
+	id iHDfNurqoWkdxQQAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Fri, 27 Feb 2026 20:03:08 +0100
+	for <lists+apparmor@lfdr.de>; Fri, 27 Feb 2026 20:05:14 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BD3D1BC4A2
-	for <lists+apparmor@lfdr.de>; Fri, 27 Feb 2026 20:03:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C72AD1BC657
+	for <lists+apparmor@lfdr.de>; Fri, 27 Feb 2026 20:05:14 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vw2qa-0007c7-1C; Fri, 27 Feb 2026 18:45:56 +0000
-Received: from sea.source.kernel.org ([172.234.252.31])
+	id 1vw2pe-0004B5-VA; Fri, 27 Feb 2026 18:44:58 +0000
+Received: from tor.source.kernel.org ([172.105.4.254])
  by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <jlayton@kernel.org>) id 1vvdrV-0000mS-7b
- for apparmor@lists.ubuntu.com; Thu, 26 Feb 2026 16:05:13 +0000
+ (envelope-from <jlayton@kernel.org>) id 1vvdrr-0001Gj-Pl
+ for apparmor@lists.ubuntu.com; Thu, 26 Feb 2026 16:05:35 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 8568B44329;
+ by tor.source.kernel.org (Postfix) with ESMTP id 304A3600AE;
+ Thu, 26 Feb 2026 15:59:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BCBFC19424;
  Thu, 26 Feb 2026 15:59:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21497C2BCB2;
- Thu, 26 Feb 2026 15:59:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772121553;
- bh=/dIyAeV0SWp+d5wV41a2YQTvW0T+tDEAvSeW39MxQrw=;
+ s=k20201202; t=1772121565;
+ bh=g5wV3nKd2fkYaUzdtAFph9msp5xwJ6RZyVnJ1pAoKXQ=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=ghaIMgZ0Kc9sSFxLqN3M3k3TK+60uJC0pPBBx9i2Lxpt0oo/B72RlYrHZ5doKyEj4
- p/nyNLpPDIidxOkEnm7U3/35E11ov0+Rb0jIejiEJmkHCz0aVwJZRyvIN1zXco/Yjz
- d6H2cjgr2HTg0vooB26P2lu8M8somfn6uC4kg8yaF3AKM7eZGMimt73uTMiqXnPm0N
- yhIX1ErPK7xbvUpa2Y3UR81NlDwbK+tc3MCOm3fD704u1tguf4hCtEdOipJWTvG+90
- W0dnZ3lqQTX5vShOId2hTZvCGE6hOF7cSapC3LXaJJboq6djJCIAwfUZQXky+bBZKX
- KEYsgUDdZmazA==
+ b=N77oxwXzWSmqiv4n9JoAOeNfszEZBfeOgSv8Tvh6hdzfxMHzcWkg6NqzIwzXL1t9J
+ lIfgR0aoySbF9TxW4bRiTuva6YbgTY7qIIkaiL0SyNKorrLDxsWZwwc77811vnw/4z
+ kH1IrYSjgNM/SD7ioFxLkm0RjZqGM3zdAdSxhKHrqgU2v6KjjiZEedNO1Oay17zKYI
+ m29sPyavc2gZoemVxxngEEdBgYx7vYYt6cswz+cjE+UpRoOcJEabGTgYyhStcY/9PD
+ W7SiFP1Zc9ivzrBKhGK10ZSSiECGZ/2W0j3mghQNRu4TT6vd2HuPhzeOT3wYYlaDHD
+ SFeO6K5okNvrQ==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Thu, 26 Feb 2026 10:55:16 -0500
+Date: Thu, 26 Feb 2026 10:55:17 -0500
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260226-iino-u64-v1-14-ccceff366db9@kernel.org>
+Message-Id: <20260226-iino-u64-v1-15-ccceff366db9@kernel.org>
 References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 In-Reply-To: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -113,26 +113,27 @@ To: Alexander Viro <viro@zeniv.linux.org.uk>,
  James Clark <james.clark@linaro.org>, "Darrick J. Wong" <djwong@kernel.org>, 
  Martin Schiller <ms@dev.tdt.de>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2241; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=/dIyAeV0SWp+d5wV41a2YQTvW0T+tDEAvSeW39MxQrw=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0HEnCSKK/SHb3sYW/c+eUblqdBA7d53olyL
- 4HBWYDiVJmJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtBwAKCRAADmhBGVaC
- FZpYEACU6I0oc4IB+ERKTJODeo5sUbUQRcurbkTkmeBdHU+MAD5YdiZ6z83x8OfcmpXWliPk5Ya
- u7AmLMTAsggh98Rh4QxIO+fwJLpw4ZIK1sEPEhfrzx2Mgoa9MXxpfxwLrHMTDktm0UmImLGKuIf
- yIsqBYSeqK50NLbrZmGWoz6GnXH2YyhrZboFMWnt3vm2eKyCA2IfY5cpb8RmBEzOhc2MIYSUKJp
- c1vDjKmB5HdCEbItlJxl0T+SLOrSQSDwqM2tt75fI2d0FL4k36/L5myAi/kfDy85B/w7xVV6VpB
- EPgaEOCOTjEOfCNsZ3dMpzRZ1OxTuEfuYWvqD/qrQYx30qYjjv2BTr6x8/8i0AjFF2MxCT6cMUF
- JEtme2MWU9XZ6fOnYlbsXvScqGY89Xrq0gULrm//VGWgzKBiZRLR9JDj+rpklL65JZvEyXG9ODI
- v2DH1wdJq7wy+QuXfNJrHleTpkA1Efl7+FFi1OBwkJVrdFEKMDxkFUDYJlRUXEFaZqcaBZZwazU
- QjNwVDsgfKk44TmlVoSyAOa9vYw/0LYojdfN8/k6ojhYSAyaCwmTTWi8n7vY7cgmuqoJXf+DuEV
- bTHCuOqlSQp/scKU84C72kyiBfqs3OKPxgoG0kfTlDICkZK3DbX/LfyRxd4grRdimZjMkLQgkOf
- Qzu15dS5Cp6Qypw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1741; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=g5wV3nKd2fkYaUzdtAFph9msp5xwJ6RZyVnJ1pAoKXQ=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0HH319jkE4Yrl34DaunuDnGYZ75BXLH9h46
+ zoQskxUz6GJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtBwAKCRAADmhBGVaC
+ FUwjEAC2ZD0qhNxn0eTdG9w5L7ZFtQ6MZt/PduR8tBc3steDLPNlVr1HlkztvzNhjEOjeFzGNPU
+ 4noqHrsD5fArwVU/hc6LnjXeQ8RAy/6Hlf3azXhaKWbWbrzkh13zrEYDIdOJ14A9y6jY3+xttky
+ D8J0Zr1cBS+Fea9EypNUH9iUbsMWzobZMoFdR0QuVJKHuORdhQcCVeBdduppG5CLBlz8mDe9fO4
+ fl87CAf8I8SWWGbHr+Ci6+/7Cr8hK6ED5HB2IDSeilxnKXdaHNFgGNGNGzYwowpMPX6H/JlrNSN
+ EanbpucgYZEbZp8Q5AP8enVYbOCx8iesoQSTsYqhB4YbEZyRXe/HyQcclJ+1cKiT+/mKW7y8Krc
+ M0+g4XeUfCV28zdM/SRcop8nhoVyuv4ZR9JNdA9pb4+iiVb41A9l8m9vkxO/uFsXMfaG2sPRjk3
+ l3rQ2itrahMP9pU9pjjJ3pO6wU4VI1O8I3iw87/ngaPXuWbRUxWm+ZQ3BLLijixSs2EGPRHP0s1
+ FP/nnlD54YoVMLF9vPr4rvBWgP4pY2pJsjAOTLFpNvYzfvlVpGWBUhJwm6vSBhfysRhoV3ME84C
+ 9U+FefjqnYIccrpU9UZdDviywXX3E9g8/fiSYVJTayZJdkBeH4Qdvg+hgVcv3BrX1XcZxdljHr4
+ zqhW1CQyEOF9qKA==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
-Received-SPF: pass client-ip=172.234.252.31; envelope-from=jlayton@kernel.org;
- helo=sea.source.kernel.org
+Received-SPF: pass client-ip=172.105.4.254; envelope-from=jlayton@kernel.org;
+ helo=tor.source.kernel.org
 X-Mailman-Approved-At: Fri, 27 Feb 2026 18:44:52 +0000
-Subject: [apparmor] [PATCH 14/61] smb: remove cifs_uniqueid_to_ino_t()
+Subject: [apparmor] [PATCH 15/61] locks: update /proc/locks format for u64
+	i_ino
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -187,7 +188,7 @@ X-Spamd-Result: default: False [4.09 / 15.00];
  ,m:kuniyu@google.com,m:pabeni@redhat.com,m:willemb@google.com,m:davem@davemloft.net,m:kuba@kernel.org,m:horms@kernel.org,m:oleg@redhat.com,m:peterz@infradead.org,m:mingo@redhat.com,m:acme@kernel.org,m:namhyung@kernel.org,m:mark.rutland@arm.com,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
-	GREYLIST(0.00)[pass,meta];
+	GREYLIST(0.00)[pass,body];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
@@ -202,73 +203,48 @@ X-Spamd-Result: default: False [4.09 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[apparmor];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns]
-X-Rspamd-Queue-Id: 2BD3D1BC4A2
+X-Rspamd-Queue-Id: C72AD1BC657
 X-Rspamd-Action: no action
 
-Now that i_ino is u64, cifs_uniqueid_to_ino_t() is a trivial identity
-function. Remove it and use fattr->cf_uniqueid directly at both call
-sites.
-
-Also remove the now-unused #include <linux/hash.h>, which was only
-needed for the old XOR-folding logic.
+Update the seq_printf format string in lock_get_status() from %lu to
+%llu for printing inode->i_ino, since i_ino is now u64.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/smb/client/cifsfs.h  | 11 -----------
- fs/smb/client/inode.c   |  2 +-
- fs/smb/client/readdir.c |  2 +-
- 3 files changed, 2 insertions(+), 13 deletions(-)
+ fs/locks.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/fs/smb/client/cifsfs.h b/fs/smb/client/cifsfs.h
-index 4a1f18022c711a7ff5b141d08ec6cac8483a6b6a..f71b490b548c0274f314dd0dc76bf570ee3cfd09 100644
---- a/fs/smb/client/cifsfs.h
-+++ b/fs/smb/client/cifsfs.h
-@@ -9,19 +9,8 @@
- #ifndef _CIFSFS_H
- #define _CIFSFS_H
+diff --git a/fs/locks.c b/fs/locks.c
+index d13ec930b7bb03905df50bdce30b84749edab8d0..d8b066fb42108971f6b3c7449dbc9b5f8df16b13 100644
+--- a/fs/locks.c
++++ b/fs/locks.c
+@@ -234,7 +234,7 @@ locks_check_ctx_lists(struct inode *inode)
+ 	if (unlikely(!list_empty(&ctx->flc_flock) ||
+ 		     !list_empty(&ctx->flc_posix) ||
+ 		     !list_empty(&ctx->flc_lease))) {
+-		pr_warn("Leaked locks on dev=0x%x:0x%x ino=0x%lx:\n",
++		pr_warn("Leaked locks on dev=0x%x:0x%x ino=0x%llx:\n",
+ 			MAJOR(inode->i_sb->s_dev), MINOR(inode->i_sb->s_dev),
+ 			inode->i_ino);
+ 		locks_dump_ctx_list(&ctx->flc_flock, "FLOCK");
+@@ -251,7 +251,7 @@ locks_check_ctx_file_list(struct file *filp, struct list_head *list, char *list_
  
--#include <linux/hash.h>
--
- #define ROOT_I 2
- 
--/*
-- * With i_ino being u64, we can store the full 64-bit uniqueid directly.
-- */
--static inline u64
--cifs_uniqueid_to_ino_t(u64 fileid)
--{
--	return fileid;
--}
--
- static inline void cifs_set_time(struct dentry *dentry, unsigned long time)
- {
- 	dentry->d_fsdata = (void *) time;
-diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
-index 102e7615b658726551e9b01ba25065d1f0c505ac..a82f4fbf8146572e522080bcd7df41153403978d 100644
---- a/fs/smb/client/inode.c
-+++ b/fs/smb/client/inode.c
-@@ -1618,7 +1618,7 @@ cifs_iget(struct super_block *sb, struct cifs_fattr *fattr)
- 	cifs_dbg(FYI, "looking for uniqueid=%llu\n", fattr->cf_uniqueid);
- 
- 	/* With u64 i_ino, we can use the full uniqueid */
--	hash = cifs_uniqueid_to_ino_t(fattr->cf_uniqueid);
-+	hash = fattr->cf_uniqueid;
- 
- 	inode = iget5_locked(sb, hash, cifs_find_inode, cifs_init_inode, fattr);
+ 	list_for_each_entry(flc, list, flc_list)
+ 		if (flc->flc_file == filp)
+-			pr_warn("Leaked %s lock on dev=0x%x:0x%x ino=0x%lx "
++			pr_warn("Leaked %s lock on dev=0x%x:0x%x ino=0x%llx "
+ 				" fl_owner=%p fl_flags=0x%x fl_type=0x%x fl_pid=%u\n",
+ 				list_type, MAJOR(inode->i_sb->s_dev),
+ 				MINOR(inode->i_sb->s_dev), inode->i_ino,
+@@ -2896,7 +2896,7 @@ static void lock_get_status(struct seq_file *f, struct file_lock_core *flc,
+ 			     (type == F_RDLCK) ? "READ" : "UNLCK");
  	if (inode) {
-diff --git a/fs/smb/client/readdir.c b/fs/smb/client/readdir.c
-index 8615a8747b7f0127a781b9b3795535df4c9b73cd..cec74bd2e2302c3baeba8d7e1348ba5114d4b1e4 100644
---- a/fs/smb/client/readdir.c
-+++ b/fs/smb/client/readdir.c
-@@ -919,7 +919,7 @@ static bool cifs_dir_emit(struct dir_context *ctx,
- {
- 	size_t delta_bytes = 0;
- 	bool rc, added = false;
--	ino_t ino = cifs_uniqueid_to_ino_t(fattr->cf_uniqueid);
-+	ino_t ino = fattr->cf_uniqueid;
- 
- 	rc = dir_emit(ctx, name, namelen, ino, fattr->cf_dtype);
- 	if (!rc)
+ 		/* userspace relies on this representation of dev_t */
+-		seq_printf(f, "%d %02x:%02x:%lu ", pid,
++		seq_printf(f, "%d %02x:%02x:%llu ", pid,
+ 				MAJOR(inode->i_sb->s_dev),
+ 				MINOR(inode->i_sb->s_dev), inode->i_ino);
+ 	} else {
 
 -- 
 2.53.0
