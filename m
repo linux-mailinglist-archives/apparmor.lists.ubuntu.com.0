@@ -2,42 +2,42 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id WJLtLMTqoWnbxAQAu9opvQ
+	id IOEBG6HuoWlDxQQAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Fri, 27 Feb 2026 20:04:36 +0100
+	for <lists+apparmor@lfdr.de>; Fri, 27 Feb 2026 20:21:05 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CFB81BC5DA
-	for <lists+apparmor@lfdr.de>; Fri, 27 Feb 2026 20:04:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CB7E1BC9CF
+	for <lists+apparmor@lfdr.de>; Fri, 27 Feb 2026 20:21:05 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vw2q6-0005f4-Ma; Fri, 27 Feb 2026 18:45:26 +0000
+	id 1vw2pf-0004BJ-BM; Fri, 27 Feb 2026 18:44:59 +0000
 Received: from sea.source.kernel.org ([172.234.252.31])
  by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <jlayton@kernel.org>) id 1vvdwM-0002hQ-R1
- for apparmor@lists.ubuntu.com; Thu, 26 Feb 2026 16:10:15 +0000
+ (envelope-from <jlayton@kernel.org>) id 1vvdwK-0002dS-3O
+ for apparmor@lists.ubuntu.com; Thu, 26 Feb 2026 16:10:12 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 1B311440BA;
+ by sea.source.kernel.org (Postfix) with ESMTP id A9B024027A;
+ Thu, 26 Feb 2026 16:02:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38BA9C2BCB0;
  Thu, 26 Feb 2026 16:02:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B310CC2BC86;
- Thu, 26 Feb 2026 16:01:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772121728;
- bh=YTbr7TKt4LQ2o1+jxlObzx7emPxn1Oeq/I0LezRxo6Y=;
+ s=k20201202; t=1772121741;
+ bh=r4NQTMCAdJdTju60BKkzI9ZgcdPji05KczFBMoCN7/E=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=KTS2PWGC6R9Sylx3hK9EcI/jfttT97QjRqd4AxXZUUK2JrVz0ftTQ/sVqVpNcj4eO
- x34z5H3Bp+9OPPDwFyhn+iHp2VkfykINv4c9c6+QMG28V8N8KPeLaFGRC/bLjUttS2
- FnuDol5Y0RXjQ0cI0VQJFRBbWVJO6yRgUFs85sQu80Rc0dBsfXAlHLyt4ofWn4lpvG
- n2+A4jL7FsRm6RFi0xVb1CxYgffoFDsAdB/eWsn14lebKKPT2qtt1HYSch9UwRjAhT
- 36q57LVuDl9ME+VWcfuj36QVmM+TDuiK/XhR4RVuQmT+n89sm9P5XsxkNMhU9uzjiX
- kVoil9mKcnsOw==
+ b=IIeKZc37Ng9MR9i0PG4PHPUvKUs8x/8M97lxx3hpHB6pv6XDnOisZ0nNCgz+ACp6X
+ bBneW9dqcyJmA8N+DzE/wME74yqR5PkAwepfFzbD+XqLAyHNdiia5tZqfdlvjRAwQ1
+ smLKQTnhuV1zmjp3kBX25ZNfa30WPnU/cl80mUs6X+8RJeVBFThXa5OX7cB405ODBB
+ 020q3Aryu5IZs4v+b7uNLOH7f+2zOdchH0stYwjryyY512Vr5vj5LljegQZ30ee8C8
+ 8dLkD6MWawf6hLtiijiZyqrNKFzSJSQZpHDIcfpMuYNMjJmubAY7lULJU7bbCo9sY9
+ dxMpjBOROvlcQ==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Thu, 26 Feb 2026 10:55:30 -0500
+Date: Thu, 26 Feb 2026 10:55:31 -0500
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260226-iino-u64-v1-28-ccceff366db9@kernel.org>
+Message-Id: <20260226-iino-u64-v1-29-ccceff366db9@kernel.org>
 References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 In-Reply-To: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -113,27 +113,26 @@ To: Alexander Viro <viro@zeniv.linux.org.uk>,
  James Clark <james.clark@linaro.org>, "Darrick J. Wong" <djwong@kernel.org>, 
  Martin Schiller <ms@dev.tdt.de>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2296; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=YTbr7TKt4LQ2o1+jxlObzx7emPxn1Oeq/I0LezRxo6Y=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0L4Mj1AxIDQm1k1xmtwQArsrOZBQzBXsRIl
- tJOq34H56SJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtCwAKCRAADmhBGVaC
- FYHFD/9/4SmDq0NVf4WyTJj1QscpH29q4srVz/eMwSxi0pL+MnvNyTuo59lf1LRqS3dEpDBzDYJ
- DiZ01OllPxKnt8d4cJhXmfuIURz6vvcDRxuYsedQe4ns8+CcAl7xfzom83oshqp7Ja36Nqx7X1E
- NocldtEIlx/Xeb1waUhyR91Tg2yVfnsLWdlYaBiIy529/ksoQihkbkepd8QVGAVlP44SnqfVEyn
- HbUx6CUjW4bfMZ4N6flUhVl78JBAHpZ1rn6jNxdGOXhL++NZCwCHZ7q5OhhpDYF0iSdfelnzUsU
- 5zjIIg3pCzsznlwpIlqYIoIeVGF22rauK90zWoDPByftW6+t9XFEVCTTGZdihafkl502Cld+4cW
- 9Ma20UDTYRBB2WOflt4RgpKuKQSRY31MPpLYp0QmUkrn8cG3Qhf+MPxRXrAmKTPh44k4xSRmNeY
- UIWoy//TjdKKCa/DHvCQ6R8BUC9/xdLut6keDa985ONgQ6y7Jhf+JHrn01215JzBAYXqNYhZlNw
- Q0UNmqycS3rp/nY1u8a+JOzH6rwCIw60HOclnd2vrEvaNKF46a0I9nAO6JfL2D5BbGGW2dqhwCt
- lIO4QxejAs5/blU84QUTM6sWE8ra1z4nUEP/3JR7Ox4CodTj+5LIsx7AsH/jviyD86jq++0GzBh
- l0kMb25Ke5SmJqg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1558; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=r4NQTMCAdJdTju60BKkzI9ZgcdPji05KczFBMoCN7/E=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0L8HIg1mrked5hBecpnNFa4Zl5RR0TOro28
+ 77DuvubI2yJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtCwAKCRAADmhBGVaC
+ FXCEEACs4uqez2OwdNTA8bdFfOCIcaeA9+QQy5AhCZlueauFg4niQjP5FJUQqWj4EBcdYUUgDSD
+ 9O0MfFdiD55b9s2B2y1C0WprMQ1LAVc3V+c8BGmy0H7ReRxXViINdENWWjrUcGerbCPglhUulBA
+ CiwgQKfHNJ6ojEwzWX1KE3GHnhl1ocMC430TV0xpEa0USKFXzhqLcTdHzWdC1sKgtcZhTGjCzyd
+ eX0cEv+Vx0LBY81mvN7XaYLRyCcRR6yRMH42/2Q7hS8hWQO3IAvzL1sBV2mnnSmH6TYdvS25kdA
+ x2EeCUoLJggmEGF/Q5KZf55MTXLOqgCkS1OiP9zYAkBH6EzgOSnv9X8JCRs62gtX7WNhd/nxJKl
+ IKFFe4x+mQ7xnWu9W4IXNyWKrIIQ23TlzZtv361xWzq/2GmHoUNPyxhRPNyg28Z0UB8OO/mtKBd
+ o2rv4l7wtdRyby/QV+6G5SC0Ob/19MX77a+4FPGMH8PmkZ2qcwn7t6MouQvthGV+kXJ01bi9ttC
+ /5wgOjnQ8vZM1dZzyGhI6phRI8+/jLlJTFXmqLX+ZCfR/ke3hjxf7HmgZ+NjOLyMguXbm6HpDnn
+ 3+aI5rjLOyX/Rgn+wHYy296J0xSZvRbHMi5b8Qf/GGMH3A85276g/4QHvszZ+XFQyLR6LUgUPSx
+ XQpdfsjLgWPecOg==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 Received-SPF: pass client-ip=172.234.252.31; envelope-from=jlayton@kernel.org;
  helo=sea.source.kernel.org
 X-Mailman-Approved-At: Fri, 27 Feb 2026 18:44:53 +0000
-Subject: [apparmor] [PATCH 28/61] ecryptfs: update format strings for u64
-	i_ino
+Subject: [apparmor] [PATCH 29/61] efs: update format strings for u64 i_ino
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -203,62 +202,48 @@ X-Spamd-Result: default: False [4.09 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[apparmor];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns]
-X-Rspamd-Queue-Id: 9CFB81BC5DA
+X-Rspamd-Queue-Id: 2CB7E1BC9CF
 X-Rspamd-Action: no action
 
-Update format strings and local variable types in ecryptfs for the
+Update format strings and local variable types in efs for the
 i_ino type change from unsigned long to u64.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/ecryptfs/crypto.c | 6 +++---
- fs/ecryptfs/file.c   | 2 +-
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ fs/efs/inode.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/fs/ecryptfs/crypto.c b/fs/ecryptfs/crypto.c
-index 3b59346d68c594fcd7e27bae87849d3e19eff56e..f25c9a49e251a591695a143f64d1a81c5211ec18 100644
---- a/fs/ecryptfs/crypto.c
-+++ b/fs/ecryptfs/crypto.c
-@@ -1313,7 +1313,7 @@ int ecryptfs_read_metadata(struct dentry *ecryptfs_dentry)
- 		rc = ecryptfs_read_xattr_region(page_virt, ecryptfs_inode);
- 		if (rc) {
- 			printk(KERN_DEBUG "Valid eCryptfs headers not found in "
--			       "file header region or xattr region, inode %lu\n",
-+			       "file header region or xattr region, inode %llu\n",
- 				ecryptfs_inode->i_ino);
- 			rc = -EINVAL;
- 			goto out;
-@@ -1323,7 +1323,7 @@ int ecryptfs_read_metadata(struct dentry *ecryptfs_dentry)
- 						ECRYPTFS_DONT_VALIDATE_HEADER_SIZE);
- 		if (rc) {
- 			printk(KERN_DEBUG "Valid eCryptfs headers not found in "
--			       "file xattr region either, inode %lu\n",
-+			       "file xattr region either, inode %llu\n",
- 				ecryptfs_inode->i_ino);
- 			rc = -EINVAL;
- 		}
-@@ -1335,7 +1335,7 @@ int ecryptfs_read_metadata(struct dentry *ecryptfs_dentry)
- 			       "crypto metadata only in the extended attribute "
- 			       "region, but eCryptfs was mounted without "
- 			       "xattr support enabled. eCryptfs will not treat "
--			       "this like an encrypted file, inode %lu\n",
-+			       "this like an encrypted file, inode %llu\n",
- 				ecryptfs_inode->i_ino);
- 			rc = -EINVAL;
- 		}
-diff --git a/fs/ecryptfs/file.c b/fs/ecryptfs/file.c
-index 7929411837cf5b2e98e1d4288791d2e07c44a4eb..49b0fbe0428a2d202434ce4b5fd7d82d2a63cf58 100644
---- a/fs/ecryptfs/file.c
-+++ b/fs/ecryptfs/file.c
-@@ -253,7 +253,7 @@ static int ecryptfs_open(struct inode *inode, struct file *file)
- 	if (rc)
- 		goto out_put;
- 	ecryptfs_printk(KERN_DEBUG, "inode w/ addr = [0x%p], i_ino = "
--			"[0x%.16lx] size: [0x%.16llx]\n", inode, inode->i_ino,
-+			"[0x%.16llx] size: [0x%.16llx]\n", inode, inode->i_ino,
- 			(unsigned long long)i_size_read(inode));
- 	goto out;
- out_put:
+diff --git a/fs/efs/inode.c b/fs/efs/inode.c
+index 28407578f83ad5db1b8a7b082fa3e990b6b442ec..4b132729e6385de196e156400d17a86ed04dc2f4 100644
+--- a/fs/efs/inode.c
++++ b/fs/efs/inode.c
+@@ -132,7 +132,7 @@ struct inode *efs_iget(struct super_block *super, unsigned long ino)
+ 	for(i = 0; i < EFS_DIRECTEXTENTS; i++) {
+ 		extent_copy(&(efs_inode->di_u.di_extents[i]), &(in->extents[i]));
+ 		if (i < in->numextents && in->extents[i].cooked.ex_magic != 0) {
+-			pr_warn("extent %d has bad magic number in inode %lu\n",
++			pr_warn("extent %d has bad magic number in inode %llu\n",
+ 				i, inode->i_ino);
+ 			brelse(bh);
+ 			goto read_inode_error;
+@@ -140,7 +140,7 @@ struct inode *efs_iget(struct super_block *super, unsigned long ino)
+ 	}
+ 
+ 	brelse(bh);
+-	pr_debug("efs_iget(): inode %lu, extents %d, mode %o\n",
++	pr_debug("efs_iget(): inode %llu, extents %d, mode %o\n",
+ 		 inode->i_ino, in->numextents, inode->i_mode);
+ 	switch (inode->i_mode & S_IFMT) {
+ 		case S_IFDIR: 
+@@ -171,7 +171,7 @@ struct inode *efs_iget(struct super_block *super, unsigned long ino)
+ 	return inode;
+         
+ read_inode_error:
+-	pr_warn("failed to read inode %lu\n", inode->i_ino);
++	pr_warn("failed to read inode %llu\n", inode->i_ino);
+ 	iget_failed(inode);
+ 	return ERR_PTR(-EIO);
+ }
 
 -- 
 2.53.0
