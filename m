@@ -2,42 +2,42 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gNkvIcrqoWkdxQQAu9opvQ
+	id WPS6FsrqoWkdxQQAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
 	for <lists+apparmor@lfdr.de>; Fri, 27 Feb 2026 20:04:42 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 716E11BC601
+	by mail.lfdr.de (Postfix) with ESMTPS id 157591BC5F9
 	for <lists+apparmor@lfdr.de>; Fri, 27 Feb 2026 20:04:42 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vw2pi-0004KP-EU; Fri, 27 Feb 2026 18:45:02 +0000
+	id 1vw2po-0004O8-3P; Fri, 27 Feb 2026 18:45:08 +0000
 Received: from sea.source.kernel.org ([172.234.252.31])
  by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <jlayton@kernel.org>) id 1vve1C-0004SU-1w
+ (envelope-from <jlayton@kernel.org>) id 1vve1C-0004SX-2p
  for apparmor@lists.ubuntu.com; Thu, 26 Feb 2026 16:15:14 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 9499E4030B;
+ by sea.source.kernel.org (Postfix) with ESMTP id 12B6940A73;
+ Thu, 26 Feb 2026 16:05:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADAD6C116C6;
  Thu, 26 Feb 2026 16:05:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D351C19424;
- Thu, 26 Feb 2026 16:05:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772121916;
- bh=+pnQ8La3nnL9HS2EVrCQAp5yF4hT3O2Rul83Y/lIgNA=;
+ s=k20201202; t=1772121928;
+ bh=6UN3al2tzYcVr4bhkYBjIiJcg7kY6ll3XiJLa1oVlfY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=XWjYSLSM8MNgl2VhR7assRMUrmqUb67e41ZpF/HEp+Zl76IEXGuo46t/ehib5cQBv
- uRggDYTAjpxRBx11gOz/2fJIuuvPmvuWkGTu4obykRoSb55b521uUBDBAJswshCq4W
- FfDbrXkqiC/VTfVNiOOtM2Qk9HmR17AeneKUXOsujG21SDPDltVV3jXMryG8Dqq0S3
- CNLLXVe9zBwekQT5q9/s84LHJKckbhBy3ow41/xdmP7c4idOzDAmUTPdcE3RIx3GeP
- e7Meln1rBS/c0NKNAiubURo9NOegQGPt0lDuRM1xPOAwg6pJoIOg3LVj5p1GWs7TqI
- mo+zGjUGJSrTg==
+ b=ZFzN5/gWqI9gVceO21c3BlE3ZOAJdQoQM8i9DH0/agwltGQfJBEj2IZiSMGobNPVQ
+ qBR6afkadV23GWyE9polaKgasPkxRt9pVcNxjkkCRuv75exdLsba1i4bjFk30U4fFD
+ UX9ijQ9hwUqkVl3r/XBmRg0F7V8PSUA2ZpThgY+oEqEpq0zqD4e/ryCk4JajBRvsAv
+ lVCjmimZLSzAFRgQh9TG2Gwr5k+xiKNxvFGnRUWmrCTyM3Gc0rXm3YT9wEYE6kitvS
+ EI2JXuKLyYi2twKciyQHWfESTvgYf9be/q35EEgBc1xBLbg4ilPdK1D8vnIy3OWz0g
+ FHhaJQ7ROg3VQ==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Thu, 26 Feb 2026 10:55:45 -0500
+Date: Thu, 26 Feb 2026 10:55:46 -0500
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260226-iino-u64-v1-43-ccceff366db9@kernel.org>
+Message-Id: <20260226-iino-u64-v1-44-ccceff366db9@kernel.org>
 References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 In-Reply-To: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -113,26 +113,26 @@ To: Alexander Viro <viro@zeniv.linux.org.uk>,
  James Clark <james.clark@linaro.org>, "Darrick J. Wong" <djwong@kernel.org>, 
  Martin Schiller <ms@dev.tdt.de>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=790; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=+pnQ8La3nnL9HS2EVrCQAp5yF4hT3O2Rul83Y/lIgNA=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0PbsKa4p2zwoBYu+jpKVGBywcC4wbxn3Fv5
- QY8YgoZQSCJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtDwAKCRAADmhBGVaC
- FSAnD/0e97/yCaqr7LNCmzcAr94/eBgG3Od2/vIhcgrO6Zln1dxic8+5A7hSqtBdq4KBmKHPaIK
- pSBT53zlzsY2pX1f4afF8oL6VmFbimSF+WRZCol8xpgAeupsdciq/ixwa+AIh4Rgh29o435mRiU
- b/KwWh8/b4A1jZNF1tx01xtGz9WhcpFzM6Z5NN43rsmkQYoEk2uznZNsFgN9u4eQ2JbFnUAhX/8
- hfwulzL0D44QxG3vVr+9qsNnBQAvFMZV08Ll/ouL24zfpvmhYU/rfF2Y02YvUsho6fDu5OhyRa8
- nR2Ffu8KMbSXuPWda5b1asEmlVFPpNoWCl+uIflVF4u+PKmpZwkUtOMN0vCJoGq8YPmtd1rNBlk
- zxU1iNqHblPpTDeGveFLkrJ2cWNCp3pTZ41DuCcsaSaFK+Ynke1MerNc6eCOkKiMbXTpNUiK4oy
- hv+0NIr/Gw59YsdFgdQvGDqsqIQCxbZDGYg10dRlDMJB664nqgHAFTQrXLUXvseIvgu4MX88LL6
- 94xFysFTeAHGFompkZj7dRrr48abb8itvzdfgqgsfXGpb5zhn1AnYtekOJ5gLNQz1KW9uLk7jCt
- D5Cs2FcilYhaHSUO/iap3WkBQD1K3hmMvKhUJ6JDw9qsBmj6DtT445IAMGtTNn9rTeDwVCI+B9q
- y/+cbUENvzLt/Rg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2573; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=6UN3al2tzYcVr4bhkYBjIiJcg7kY6ll3XiJLa1oVlfY=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0PmAX6po+Me1LtXOxELbE3YbRF+E3FwKFhW
+ iRe4MINX9GJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtDwAKCRAADmhBGVaC
+ FfUvD/9jNP3wjvadvWrklZqzkFB0cB/NqSi8mDICkvziy9OFAtTNtEYvzW+khlIKBucHQ54yIOM
+ zY/xF5a7/YoFhl9C5394YJjBShWBN6KvHBfe8MnxqXAiRGCDX2AF9XRxZTwbl40wcxMQ837uA2X
+ 9StKcjWI012KgN3nMFJ4wJUCCBvHGlzZODxlnzPYuc73B8I6LzYkjL7b1Hrdol24+O7nOyUipAr
+ fFldocux2lUhdNtFG7o51ByNpYPvZR9ikm4Eq+M7CUk7NFbHViPsh0ZazAsodIfS4KWawW3EuCh
+ BbPcItOXDx4PD/GtKrZchiaeBTGQs56DFgH27H2I1skP7wG7/tU4qWkZOYGp1ynUj8nWjdM5jzJ
+ lz8WUSw4nXKgGxltV/z//r1obNY8QYL6RMPvILX5WCmvazbWL3p7fENvjKNzlbOI8RWZQkgUrt+
+ 09RTMnokkTxKg+zs77OKTRBHDu8x58IdE3xaecJG5TmrObPp1lXiMnCpU5baPwXt/FHuI+x+La1
+ eH5/LL/aIOL1lk1vt3yWAnQrzMgtRXV5VlqxeT4lS5U0iaQEDcWRikUd5yoBXNOM+8loEjduUTw
+ 7eoLOS0VNr9gAabi/VS2wquojz/TBJKG0K054mFYwl5ABhYOoge/H7vCbLV87Kq5cRYyVIoYdM0
+ DEiwZhMl+TVsm4g==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 Received-SPF: pass client-ip=172.234.252.31; envelope-from=jlayton@kernel.org;
  helo=sea.source.kernel.org
-X-Mailman-Approved-At: Fri, 27 Feb 2026 18:44:54 +0000
-Subject: [apparmor] [PATCH 43/61] orangefs: update format strings for u64
+X-Mailman-Approved-At: Fri, 27 Feb 2026 18:44:53 +0000
+Subject: [apparmor] [PATCH 44/61] overlayfs: update format strings for u64
 	i_ino
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -203,30 +203,67 @@ X-Spamd-Result: default: False [4.09 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[apparmor];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns]
-X-Rspamd-Queue-Id: 716E11BC601
+X-Rspamd-Queue-Id: 157591BC5F9
 X-Rspamd-Action: no action
 
-Update format strings and local variable types in orangefs for the
+Update format strings and local variable types in overlayfs for the
 i_ino type change from unsigned long to u64.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/orangefs/inode.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/overlayfs/export.c | 2 +-
+ fs/overlayfs/namei.c  | 4 ++--
+ fs/overlayfs/util.c   | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/fs/orangefs/inode.c b/fs/orangefs/inode.c
-index 2d4710d0e05e195855186c6bedd211bc419abc36..9e8a2a9e5229861a4976d67483a0f6452048f86b 100644
---- a/fs/orangefs/inode.c
-+++ b/fs/orangefs/inode.c
-@@ -1062,7 +1062,7 @@ struct inode *orangefs_iget(struct super_block *sb,
- 	unlock_new_inode(inode);
+diff --git a/fs/overlayfs/export.c b/fs/overlayfs/export.c
+index 83f80fdb156749e65a4ea0ab708cbff338dacdad..0a35d1a20f13fbab5bbee5f271d41f52334a9a6a 100644
+--- a/fs/overlayfs/export.c
++++ b/fs/overlayfs/export.c
+@@ -262,7 +262,7 @@ static int ovl_dentry_to_fid(struct ovl_fs *ofs, struct inode *inode,
+ 	return err;
  
- 	gossip_debug(GOSSIP_INODE_DEBUG,
--		     "iget handle %pU, fsid %d hash %ld i_ino %lu\n",
-+		     "iget handle %pU, fsid %d hash %ld i_ino %llu\n",
- 		     &ref->khandle,
- 		     ref->fs_id,
- 		     hash,
+ fail:
+-	pr_warn_ratelimited("failed to encode file handle (ino=%lu, err=%i)\n",
++	pr_warn_ratelimited("failed to encode file handle (ino=%llu, err=%i)\n",
+ 			    inode->i_ino, err);
+ 	goto out;
+ }
+diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
+index d8dd4b0529843bc20e4efc1924c2be3b5712b343..ca899fdfaafd21f4bb31807e73883b4978116732 100644
+--- a/fs/overlayfs/namei.c
++++ b/fs/overlayfs/namei.c
+@@ -591,7 +591,7 @@ int ovl_verify_origin_xattr(struct ovl_fs *ofs, struct dentry *dentry,
+ 
+ fail:
+ 	inode = d_inode(real);
+-	pr_warn_ratelimited("failed to verify %s (%pd2, ino=%lu, err=%i)\n",
++	pr_warn_ratelimited("failed to verify %s (%pd2, ino=%llu, err=%i)\n",
+ 			    is_upper ? "upper" : "origin", real,
+ 			    inode ? inode->i_ino : 0, err);
+ 	goto out;
+@@ -831,7 +831,7 @@ struct dentry *ovl_lookup_index(struct ovl_fs *ofs, struct dentry *upper,
+ 			index = NULL;
+ 			goto out;
+ 		}
+-		pr_warn_ratelimited("failed inode index lookup (ino=%lu, key=%.*s, err=%i);\n"
++		pr_warn_ratelimited("failed inode index lookup (ino=%llu, key=%.*s, err=%i);\n"
+ 				    "overlayfs: mount with '-o index=off' to disable inodes index.\n",
+ 				    d_inode(origin)->i_ino, name.len, name.name,
+ 				    err);
+diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
+index 3f1b763a8bb4cb842e5d5cebffbee6b8dbe01de9..2edad9a146486bda5edf47dc60e1645d49af6539 100644
+--- a/fs/overlayfs/util.c
++++ b/fs/overlayfs/util.c
+@@ -1092,7 +1092,7 @@ static void ovl_cleanup_index(struct dentry *dentry)
+ 	got_write = true;
+ 	inode = d_inode(upperdentry);
+ 	if (!S_ISDIR(inode->i_mode) && inode->i_nlink != 1) {
+-		pr_warn_ratelimited("cleanup linked index (%pd2, ino=%lu, nlink=%u)\n",
++		pr_warn_ratelimited("cleanup linked index (%pd2, ino=%llu, nlink=%u)\n",
+ 				    upperdentry, inode->i_ino, inode->i_nlink);
+ 		/*
+ 		 * We either have a bug with persistent union nlink or a lower
 
 -- 
 2.53.0
