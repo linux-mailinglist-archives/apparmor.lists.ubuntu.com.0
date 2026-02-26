@@ -2,42 +2,42 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GFh3NqrqoWmSxAQAu9opvQ
+	id 0PeuBjHtoWmJxQQAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Fri, 27 Feb 2026 20:04:10 +0100
+	for <lists+apparmor@lfdr.de>; Fri, 27 Feb 2026 20:14:57 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id C53AD1BC562
-	for <lists+apparmor@lfdr.de>; Fri, 27 Feb 2026 20:04:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9DD01BC8AB
+	for <lists+apparmor@lfdr.de>; Fri, 27 Feb 2026 20:14:56 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vw2q8-0005k6-BO; Fri, 27 Feb 2026 18:45:28 +0000
-Received: from sea.source.kernel.org ([172.234.252.31])
+	id 1vw2qC-00060f-Qr; Fri, 27 Feb 2026 18:45:32 +0000
+Received: from tor.source.kernel.org ([172.105.4.254])
  by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <jlayton@kernel.org>) id 1vve19-0004RS-Ve
- for apparmor@lists.ubuntu.com; Thu, 26 Feb 2026 16:15:12 +0000
+ (envelope-from <jlayton@kernel.org>) id 1vve1W-0004d6-Ex
+ for apparmor@lists.ubuntu.com; Thu, 26 Feb 2026 16:15:34 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id D2F3841B33;
+ by tor.source.kernel.org (Postfix) with ESMTP id 745C86013C;
+ Thu, 26 Feb 2026 16:08:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECC59C19423;
  Thu, 26 Feb 2026 16:07:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F8EBC2BCB3;
- Thu, 26 Feb 2026 16:07:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772122078;
- bh=fTlsE7xIWGKtPxu9A4dIX/2EfFegpqcLPW063s/2aCU=;
+ s=k20201202; t=1772122091;
+ bh=QVP/A0Wr2Abx3BWIf3M/CTqVpPmV8SXmSE5S4tBQdB8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=P5Qat2eaWeMJWSNbtbPb7TpssYG2R9fYa73uH36IJRKkrjh/Bv+fUfpwN6cP9WDq9
- UT4+i5Gplk4UtP6zP3QUJ95kSeNbpg1idRA3kc/O68WXwQ3VtlA/HFA6zMAAwobJ88
- MhMK5aZ9YYDr+dTtfzliJkxCykXqTGOn2lyIJzveFELASHMhX8mb3bNd9QYi8cYmeV
- avQAyurn9qwP+hebKlrqi6PAtiUo9AZqYQNfMY4powCPRWIebRYpLD43nSebNYj1Hw
- BdzPaR1JP0OGe1R2ueyC7P/JMDMQsO2oQpV72QpsrDqjDNFAvatfTaCDrYaVhhTtk/
- UJ2zcdhYUN0mw==
+ b=N/iU9fkY7C+X0gBA8Fi8wI+B9cgJ3ZSt6kN4EuqYE+eP8vng3qyDWNfsyIhvtKLdH
+ b+b4Aulfg3FxrO0Nm/YcWTCOcXO8KCjAYbQRgQ7mVqFUqT4sm4WDf0eBVloGkV76Qr
+ nzuEqM5tBQz8ltYFpBlQxn9/JiVP72na6rLnacqYsI4nNdpxGTgdAMyZLHYRXq/4hX
+ iUesVZMqUqLc1V+1j2OQrGrDnS19dzjRGvGlWMVyWmletccEF567lF82pATRt0e1O/
+ TjpBPU5Ieg1IbZKo5hjqzncuK/qa9dvo9N2Li7BzU0aNxcuEYodPJfkpyZdtWwQ3zU
+ M4VIYqh/JOBMg==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Thu, 26 Feb 2026 10:55:58 -0500
+Date: Thu, 26 Feb 2026 10:55:59 -0500
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260226-iino-u64-v1-56-ccceff366db9@kernel.org>
+Message-Id: <20260226-iino-u64-v1-57-ccceff366db9@kernel.org>
 References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 In-Reply-To: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -113,26 +113,27 @@ To: Alexander Viro <viro@zeniv.linux.org.uk>,
  James Clark <james.clark@linaro.org>, "Darrick J. Wong" <djwong@kernel.org>, 
  Martin Schiller <ms@dev.tdt.de>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=837; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=fTlsE7xIWGKtPxu9A4dIX/2EfFegpqcLPW063s/2aCU=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0SMsGdpHT/6AyJ46OU8MjGpSyFuqiOdnoRG
- f97y3cZtQ+JAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtEgAKCRAADmhBGVaC
- FV5GD/0frD8N2TX7MN9ww3xhGZMnd4dWX9d+yK6vEV5xACRIttjaQ2/Ik8mZ3s6QPAhMBo9E2/Q
- t8hsDnDufvG0W+XVW1sHNUwxNxVSgFNW5CSyRnV8G6AmGYVP1RCNqp3xYFXm6XW+t9FEmmCil1Q
- cc4UDYvzQskcL3uWsEFbYgkBRZO7VHcmjJIzmGULLv7LHeYGjldonwahUsaUPOidLRuLMN5sDWS
- XNtG/abqnOGQXl+g4W2wGBgADJ4VNDp/mmZI+Taw2+hyoiE5Pwvj+PfTOuBoEZVt3blA6zTfmcg
- bU08yjsWyKFleE1X7lIrRCA+dPzSDfdtnJMQKfQSSTm2hLhz4HVku/YYqKILPPd3xwGOEtvB1ZY
- JDaHMmHUGAFoZ4zSz9yQi5PKTFkSpHKjS7ddZ9SPAAF5PEnBPpCv5BApbrq8+7kBbFH3Vmh+GIx
- W+G1+Nhr1IR0jIQY4q1x8bZUOtbtiAlU0zQwv+scQGLf891dde//IjznORtfE6g0QclGRHS3UJ6
- YTm1cYrCjF14aSUiT5QGghXtgzer6uOrdXyKjuGOFOc5Py4660JUMayozrKUTgjPdRLimGMNO1M
- eVe9CVDJIN5mKJzi2B0ZO8jK2PXzJE3gH129N/iSj10aWI8Ut4JNlXdM2kTn5CUKiWDOAW6PP9B
- 5THgnVzAVl5CBVQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2279; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=QVP/A0Wr2Abx3BWIf3M/CTqVpPmV8SXmSE5S4tBQdB8=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0Sq+j7M9feeeWsEEfnIcsU2CbAxEDqyZD2b
+ 80+R1w14vOJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtEgAKCRAADmhBGVaC
+ FVKJEAC5sid11Go6fuJI7CWXgk/4O9Urmq5+faYtXDswS3e3Xney5z3y6yARF5s8jF6mfhgzQla
+ vQ5vaTZ4z5mXQy/RAzR9sUFhWtITbMTuDCT5t/OkYsBp8k7TwPqeEVypA51Ep4SVoYatBJBiLQf
+ 2fat2kabGqKEdxfCFhYZ/T/0dQV3iRAt9D43qR/WxIm6MSoTlo9YHWCG91yTvgD0CJW04McaD9e
+ nABf28Ev6HbF1zoK9hLfjRiwAC29acMvnrI3Im5gXXzJ3e46OOwusoMZtJhXXd2agPTunLgXcRl
+ +/ycDsR+Tty6dLu6VAPvTR3bnQezZb781kcYoTcQIWu/ddCkKz0VN6tP3bv0JkLuXRGp5oMuJvs
+ FLd0RNjIJ8Ld9Cxg6Okd724968ObOXOBed5IGmMNSiyI1onguOK2GPh5Y4UcuvhDl3Hb9B3YLPv
+ GQoEkhHN0x/lNXU8GCxcaTPkOHjEdaymP6yleBH4f2aw30WmtBhphVmnABJ3EIHcDVimT+dukC3
+ 7UJg7jQn/8YGDHpTw5kC/uLPLgLMuwHYtsmRsnrvs61gYC+3Qtk3Y7gYe4FIJx76xaByCFyzY87
+ rBIQo95KFdLZQVVKUfEH8H44JnZ0KGwlz9muKgqItA3T9f5veP4BQOKpi5i+iTywd4a4kYDOPcK
+ EQzZuVxQyu+fRsA==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
-Received-SPF: pass client-ip=172.234.252.31; envelope-from=jlayton@kernel.org;
- helo=sea.source.kernel.org
-X-Mailman-Approved-At: Fri, 27 Feb 2026 18:44:53 +0000
-Subject: [apparmor] [PATCH 56/61] dma-buf: update format string for u64 i_ino
+Received-SPF: pass client-ip=172.105.4.254; envelope-from=jlayton@kernel.org;
+ helo=tor.source.kernel.org
+X-Mailman-Approved-At: Fri, 27 Feb 2026 18:44:54 +0000
+Subject: [apparmor] [PATCH 57/61] fscrypt: update format strings for u64
+	i_ino
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -202,30 +203,58 @@ X-Spamd-Result: default: False [4.09 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[apparmor];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns]
-X-Rspamd-Queue-Id: C53AD1BC562
+X-Rspamd-Queue-Id: C9DD01BC8AB
 X-Rspamd-Action: no action
 
-Update %lu to %llu in debugfs seq_printf for printing i_ino, since
-i_ino is now u64.
+Update format strings from %lu to %llu for inode->i_ino now that
+i_ino is u64 instead of unsigned long.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- drivers/dma-buf/dma-buf.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/crypto/crypto.c   | 2 +-
+ fs/crypto/hooks.c    | 2 +-
+ fs/crypto/keysetup.c | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 11711874a325b954940fb289f09936de0152e683..8c16c8c425cc84cf379d7f790d054e140471c8ac 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -1708,7 +1708,7 @@ static int dma_buf_debug_show(struct seq_file *s, void *unused)
+diff --git a/fs/crypto/crypto.c b/fs/crypto/crypto.c
+index 07f9cbfe3ea4115b8fcc881ae5154b3c3e898c04..570a2231c945a6c649cf8dc3b457f0b55657e0c3 100644
+--- a/fs/crypto/crypto.c
++++ b/fs/crypto/crypto.c
+@@ -365,7 +365,7 @@ void fscrypt_msg(const struct inode *inode, const char *level,
+ 	vaf.fmt = fmt;
+ 	vaf.va = &args;
+ 	if (inode && inode->i_ino)
+-		printk("%sfscrypt (%s, inode %lu): %pV\n",
++		printk("%sfscrypt (%s, inode %llu): %pV\n",
+ 		       level, inode->i_sb->s_id, inode->i_ino, &vaf);
+ 	else if (inode)
+ 		printk("%sfscrypt (%s): %pV\n", level, inode->i_sb->s_id, &vaf);
+diff --git a/fs/crypto/hooks.c b/fs/crypto/hooks.c
+index b97de0d1430fd6ec764f4a758dffe00263496118..a7a8a3f581a0460537f5ff955bc8b5d30573a033 100644
+--- a/fs/crypto/hooks.c
++++ b/fs/crypto/hooks.c
+@@ -62,7 +62,7 @@ int fscrypt_file_open(struct inode *inode, struct file *filp)
+ 	dentry_parent = dget_parent(dentry);
+ 	if (!fscrypt_has_permitted_context(d_inode(dentry_parent), inode)) {
+ 		fscrypt_warn(inode,
+-			     "Inconsistent encryption context (parent directory: %lu)",
++			     "Inconsistent encryption context (parent directory: %llu)",
+ 			     d_inode(dentry_parent)->i_ino);
+ 		err = -EPERM;
+ 	}
+diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
+index 40fa05688d3a1d4aa33d29e9508441faf4bca933..df58ca4a5e3cb1df94e2f08e3f3b093c33368993 100644
+--- a/fs/crypto/keysetup.c
++++ b/fs/crypto/keysetup.c
+@@ -91,7 +91,7 @@ select_encryption_mode(const union fscrypt_policy *policy,
+ 	if (S_ISDIR(inode->i_mode) || S_ISLNK(inode->i_mode))
+ 		return &fscrypt_modes[fscrypt_policy_fnames_mode(policy)];
  
- 
- 		spin_lock(&buf_obj->name_lock);
--		seq_printf(s, "%08zu\t%08x\t%08x\t%08ld\t%s\t%08lu\t%s\n",
-+		seq_printf(s, "%08zu\t%08x\t%08x\t%08ld\t%s\t%08llu\t%s\n",
- 				buf_obj->size,
- 				buf_obj->file->f_flags, buf_obj->file->f_mode,
- 				file_count(buf_obj->file),
+-	WARN_ONCE(1, "fscrypt: filesystem tried to load encryption info for inode %lu, which is not encryptable (file type %d)\n",
++	WARN_ONCE(1, "fscrypt: filesystem tried to load encryption info for inode %llu, which is not encryptable (file type %d)\n",
+ 		  inode->i_ino, (inode->i_mode & S_IFMT));
+ 	return ERR_PTR(-EINVAL);
+ }
 
 -- 
 2.53.0
