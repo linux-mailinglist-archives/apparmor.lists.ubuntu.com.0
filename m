@@ -2,34 +2,34 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 8EgEGHL1oWkwxgQAu9opvQ
+	id 2FG/EZTuoWlDxQQAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Fri, 27 Feb 2026 20:50:10 +0100
+	for <lists+apparmor@lfdr.de>; Fri, 27 Feb 2026 20:20:52 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB4D71BD163
-	for <lists+apparmor@lfdr.de>; Fri, 27 Feb 2026 20:50:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18F471BC9AA
+	for <lists+apparmor@lfdr.de>; Fri, 27 Feb 2026 20:20:52 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vw2pr-0004jQ-Oi; Fri, 27 Feb 2026 18:45:12 +0000
+	id 1vw2pd-00044K-Hk; Fri, 27 Feb 2026 18:44:57 +0000
 Received: from mx1.manguebit.org ([143.255.12.172])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <pc@manguebit.org>) id 1vvehK-000397-RL
+ (Exim 4.86_2) (envelope-from <pc@manguebit.org>) id 1vvehK-000396-RH
  for apparmor@lists.ubuntu.com; Thu, 26 Feb 2026 16:58:47 +0000
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
  In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=lHNPvXjvxrRY/KHE3atTkGQgKEoBn4K5FRw/b5IfwZY=; b=ulkKHiYzv6I+6IIa14ftoupjDe
- J6D5Nic3w9+LTbwjPerGaRkKolwfy2KcZUzYubTFBR1C6YfViQ9IzWzOqE1PMBvOSLtWvDqYWHDkS
- e8YKhk2RZVgK/kgJGqWlaX1VlOeT5XV51JNx7TY19yYOoCL9WPMfL7DEx3UWQDxjJXBn4KZXjEq/L
- QYbtmeNM6AGz7YQoWObfC/Wgr1ca8Ha69hN8dnEa+b8qtPVTc9YoU/4JL/CqWgk9ghL/akGLMqNBo
- zcPi7YHA7wTZsVYKJPKxzvhBKFb5Xcdj6osXFB4VEMUpfmqou7ST10TYaQkSCLGoa+WvRtMN6QWb5
- s7cLVI5g==;
+ bh=GBAAeNpvfWupATD/Mqi5LhBKxQa5mgBWtQkeTAghv8U=; b=nlx+CJv1x/UuNttwKXynH0qJFV
+ GGPlyhyb56jCAmfo2Dkhao6Akb/whBUWKrLHAtLp2UnbAxsZRiEEnc/PA6a02dlJyun7VB/WjZ/4Y
+ gSNeA6HN4mQbMGOcTdkRiDsoEk5l6Ssb6qUdMgoH7JYTbpZDll0K3Gc9Sl8LgYozq3/3dgHYhmDwe
+ fRUIm7haKSMEmY1/NzzgcvEuyT7l/TJWKX2NJMO7AKfx12ThZPHB/q8MyHq+NyeW4NqEFdN0DjrLH
+ BhCTcfbtcrlXDP67PmPWXw2HF4zz7VIOb15e9g0uBhXA6DI+uxHuKzWDbVQB6y2V+HCbHUW7dwsue
+ 9tQXYUVA==;
 Received: from pc by mx1.manguebit.org with local (Exim 4.99.1)
- id 1vvegP-00000000rdH-33sy; Thu, 26 Feb 2026 13:57:49 -0300
-Message-ID: <5687bdf62ddd20660394eb0d7dabb96a@manguebit.org>
+ id 1vvegu-00000000rdY-0Taa; Thu, 26 Feb 2026 13:58:20 -0300
+Message-ID: <8dcf2c77013a0de245c4417eb4726752@manguebit.org>
 From: Paulo Alcantara <pc@manguebit.org>
 To: Jeff Layton <jlayton@kernel.org>, Alexander Viro
  <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan
@@ -91,17 +91,16 @@ To: Jeff Layton <jlayton@kernel.org>, Alexander Viro
  <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, Adrian Hunter
  <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, "Darrick
  J. Wong" <djwong@kernel.org>, Martin Schiller <ms@dev.tdt.de>
-In-Reply-To: <20260226-iino-u64-v1-13-ccceff366db9@kernel.org>
+In-Reply-To: <20260226-iino-u64-v1-14-ccceff366db9@kernel.org>
 References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
- <20260226-iino-u64-v1-13-ccceff366db9@kernel.org>
-Date: Thu, 26 Feb 2026 13:57:49 -0300
+ <20260226-iino-u64-v1-14-ccceff366db9@kernel.org>
+Date: Thu, 26 Feb 2026 13:58:19 -0300
 MIME-Version: 1.0
 Content-Type: text/plain
 Received-SPF: pass client-ip=143.255.12.172; envelope-from=pc@manguebit.org;
  helo=mx1.manguebit.org
 X-Mailman-Approved-At: Fri, 27 Feb 2026 18:44:51 +0000
-Subject: Re: [apparmor] [PATCH 13/61] smb: store full 64-bit uniqueid in
-	i_ino
+Subject: Re: [apparmor] [PATCH 14/61] smb: remove cifs_uniqueid_to_ino_t()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -172,24 +171,24 @@ X-Spamd-Result: default: False [4.59 / 15.00];
 	DKIM_TRACE(0.00)[manguebit.org:-];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[]
-X-Rspamd-Queue-Id: CB4D71BD163
+X-Rspamd-Queue-Id: 18F471BC9AA
 X-Rspamd-Action: no action
 
 Jeff Layton <jlayton@kernel.org> writes:
 
-> With i_ino now u64, CIFS/SMB can store the full 64-bit uniqueid in
-> i_ino without the XOR-folding hack previously needed on 32-bit
-> architectures.
+> Now that i_ino is u64, cifs_uniqueid_to_ino_t() is a trivial identity
+> function. Remove it and use fattr->cf_uniqueid directly at both call
+> sites.
 >
-> - Simplify cifs_uniqueid_to_ino_t() to return u64 directly
-> - Update hash variable type in cifs_get_inode_info()
-> - Update format strings from %lu to %llu
+> Also remove the now-unused #include <linux/hash.h>, which was only
+> needed for the old XOR-folding logic.
 >
 > Signed-off-by: Jeff Layton <jlayton@kernel.org>
 > ---
->  fs/smb/client/cifsfs.h | 12 +++---------
->  fs/smb/client/inode.c  |  4 ++--
->  2 files changed, 5 insertions(+), 11 deletions(-)
+>  fs/smb/client/cifsfs.h  | 11 -----------
+>  fs/smb/client/inode.c   |  2 +-
+>  fs/smb/client/readdir.c |  2 +-
+>  3 files changed, 2 insertions(+), 13 deletions(-)
 
 Acked-by: Paulo Alcantara (Red Hat) <pc@manguebit.org>
 
