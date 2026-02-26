@@ -2,51 +2,51 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yHbDKpnqoWnbxAQAu9opvQ
+	id yNmNER/toWlDxQQAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Fri, 27 Feb 2026 20:03:53 +0100
+	for <lists+apparmor@lfdr.de>; Fri, 27 Feb 2026 20:14:39 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 947B71BC518
-	for <lists+apparmor@lfdr.de>; Fri, 27 Feb 2026 20:03:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BD821BC88C
+	for <lists+apparmor@lfdr.de>; Fri, 27 Feb 2026 20:14:38 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vw2qF-0006DJ-Vq; Fri, 27 Feb 2026 18:45:36 +0000
+	id 1vw2qF-00068U-Ei; Fri, 27 Feb 2026 18:45:35 +0000
 Received: from tor.source.kernel.org ([172.105.4.254])
  by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <djwong@kernel.org>) id 1vveG2-0001AD-LQ
+ (envelope-from <djwong@kernel.org>) id 1vveG2-0001AE-LP
  for apparmor@lists.ubuntu.com; Thu, 26 Feb 2026 16:30:34 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id ABFAD60134;
- Thu, 26 Feb 2026 16:21:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C94FC116C6;
- Thu, 26 Feb 2026 16:21:16 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A6E5A6013A;
+ Thu, 26 Feb 2026 16:22:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FBF5C116C6;
+ Thu, 26 Feb 2026 16:22:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772122876;
- bh=V1fVfV5JdygsYqqvdLgkTi9eHo8yzA5OHJNuP74kT5M=;
+ s=k20201202; t=1772122943;
+ bh=zBSOHROIWzwnJvs9/9cwNsUSUVDRgXIG4XZCDyNzlZs=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=sDDw8eYqwACHaj4O7vDcEY3Z3DSJW484PKPOPXOKy0boTF8UTmzICoiE1cyykKiIM
- xOBYZnf88DGWi93IfTOYIQmn8jqOXrSJr2ShZA56rqbg0hmfpRiu0o0LAQFqCN3kbN
- l7bFZXaFkR1tNue7G1SE2sRPdcliKClo/uCAM6VErQTG1ybCP3jdOu/hVxSSjxEks3
- VUzWScs/xItv1vurP+yGi08YkgXCjGpKTqvsk5MSnA/Lz7IU4uGDaXbH0vz/GujZLV
- De4HiUvA9a6pugKUqRxzcuDcG+x6k8c7HKvA0XOAeCpB6hQxZsN26OBFzIyNkqkG3n
- aZJXtG7dphM0g==
-Date: Thu, 26 Feb 2026 08:21:15 -0800
+ b=JssZjrPw1BO0Mw8Q9yfwnQsgaD6FpgkNgIWpbVUWXLyeJnokKKg4hk1SAaRN/4Pl2
+ p5YBVNEqJjiqtkjLnya4b8Ga67KiibEKKFpBd87HHM6a9Nr/QZeAv6psBrGRdFMMiz
+ A9DSSr/iUARrTgSnBid48sZtR6nbfqnBEMtEEnmZIzWpuH9bLY6kY9ErKk7lBImyBm
+ /Lk4+mloyiRijQ2SiVpy8mPc9oycbHcUIEINyu+Tm3ChF79dz7yAux92+Q0KlVrv/G
+ LUTkHVEDI976MFOVD4JvxorvgEXP2iFNe7YZQj9uo/QF6AdIL6XZAAV6xKOXhQSqTF
+ qLmaMxW89/z7g==
+Date: Thu, 26 Feb 2026 08:22:22 -0800
 From: "Darrick J. Wong" <djwong@kernel.org>
 To: Jeff Layton <jlayton@kernel.org>
-Message-ID: <20260226162115.GG13829@frogsfrogsfrogs>
+Message-ID: <20260226162222.GH13829@frogsfrogsfrogs>
 References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
- <20260226-iino-u64-v1-59-ccceff366db9@kernel.org>
+ <20260226-iino-u64-v1-61-ccceff366db9@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260226-iino-u64-v1-59-ccceff366db9@kernel.org>
+In-Reply-To: <20260226-iino-u64-v1-61-ccceff366db9@kernel.org>
 Received-SPF: pass client-ip=172.105.4.254; envelope-from=djwong@kernel.org;
  helo=tor.source.kernel.org
 X-Mailman-Approved-At: Fri, 27 Feb 2026 18:44:51 +0000
-Subject: Re: [apparmor] [PATCH 59/61] iomap: update format string for u64
-	i_ino
+Subject: Re: [apparmor] [PATCH 61/61] vfs: update core format strings for
+	u64 i_ino
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -147,7 +147,7 @@ X-Spamd-Result: default: False [4.59 / 15.00];
 	DATE_IN_PAST(1.00)[26];
 	MID_RHS_NOT_FQDN(0.50)[];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -156,9 +156,9 @@ X-Spamd-Result: default: False [4.59 / 15.00];
 	TO_DN_SOME(0.00)[];
 	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
 	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_SENDER(0.00)[djwong@kernel.org,apparmor-bounces@lists.ubuntu.com];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	ARC_NA(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[djwong@kernel.org,apparmor-bounces@lists.ubuntu.com];
 	FORGED_RECIPIENTS(0.00)[m:jlayton@kernel.org,m:lucho@ionkov.net,m:nvdimm@lists.linux.dev,m:pc@manguebit.org,m:al@alarsen.net,m:dri-devel@lists.freedesktop.org,m:linux-hams@vger.kernel.org,m:sumit.semwal@linaro.org,m:hubcap@omnibond.com,m:linux-xfs@vger.kernel.org,m:wufan@kernel.org,m:ceph-devel@vger.kernel.org,m:jmorris@namei.org,m:code@tyhicks.com,m:hch@infradead.org,m:devel@lists.orangefs.org,m:sprasad@microsoft.com,m:ms@dev.tdt.de,m:jaharkes@cs.cmu.edu,m:willemb@google.com,m:acme@kernel.org,m:linux-fscrypt@vger.kernel.org,m:viro@zeniv.linux.org.uk,m:ronniesahlberg@gmail.com,m:glaubitz@physik.fu-berlin.de,m:david@kernel.org,m:ericvh@kernel.org,m:chengzhihao1@huawei.com,m:brauner@kernel.org,m:dmitry.kasatkin@gmail.com,m:stephen.smalley.work@gmail.com,m:linux-kernel@vger.kernel.org,m:linux-perf-users@vger.kernel.org,m:chuck.lever@oracle.com,m:mhiramat@kernel.org,m:jolsa@kernel.org,m:jack@suse.com,m:alexander.deucher@amd.com,m:linux-media@vger.kernel.org,m:trondmy@kernel.org,m:mark.r
  utland@arm.com,m:shaggy@kernel.org,m:zohar@linux.ibm.com,m:oleg@redhat.com,m:edumazet@google.com,m:simona@ffwll.ch,m:linux-cifs@vger.kernel.org,m:kuniyu@google.com,m:linux-nilfs@vger.kernel.org,m:paul@paul-moore.com,m:codalist@coda.cs.cmu.edu,m:linux-trace-kernel@vger.kernel.org,m:okorniev@redhat.com,m:frank.li@vivo.com,m:selinux@vger.kernel.org,m:linaro-mm-sig@lists.linaro.org,m:netfs@lists.linux.dev,m:jaegeuk@kernel.org,m:fsverity@lists.linux.dev,m:tytso@mit.edu,m:nico@fluxnic.net,m:muchun.song@linux.dev,m:roberto.sassu@huawei.com,m:davem@davemloft.net,m:anna@kernel.org,m:linux-integrity@vger.kernel.org,m:amarkuze@redhat.com,m:martin@omnibond.com,m:alexander.shishkin@linux.intel.com,m:ocfs2-devel@lists.linux.dev,m:jfs-discussion@lists.sourceforge.net,m:linux-mtd@lists.infradead.org,m:amd-gfx@lists.freedesktop.org,m:marc.dionne@auristor.com,m:linux-afs@lists.infradead.org,m:raven@themaw.net,m:naohiro.aota@wdc.com,m:ebiggers@kernel.org,m:miklos@szeredi.hu,m:willy@infradead.org,m:cod
  a@cs.cmu.edu,m:slava@dubeyko.com,m:neil@brown.name,m:idryomov@gmail.com,m:pabeni@redhat.com,m:serge@hallyn.com,m:amir73il@gmail.com,m:james.clark@linaro.org,m:autofs@vger.kernel.org,m:rostedt@goodmis.org,m:dlemoal@kernel.org,m:mathieu.desnoyers@efficios.com,m:dan.j.williams@intel.com,m:osalvador@suse.de,m:almaz.alexandrovich@paragon-software.com,m:linux-nfs@vger.kernel.org,m:linux-ext4@vger.kernel.org,m:linux-mm@kvack.org,m:samba-technical@lists.samba.org,s:lists@lfdr.de];
@@ -178,39 +178,84 @@ X-Spamd-Result: default: False [4.59 / 15.00];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns]
-X-Rspamd-Queue-Id: 947B71BC518
+X-Rspamd-Queue-Id: 0BD821BC88C
 X-Rspamd-Action: no action
 
-On Thu, Feb 26, 2026 at 10:56:01AM -0500, Jeff Layton wrote:
-> Update format string from %lu to %llu for inode->i_ino now that
-> i_ino is u64 instead of unsigned long.
+On Thu, Feb 26, 2026 at 10:56:03AM -0500, Jeff Layton wrote:
+> Update format strings from %lu/%lx to %llu/%llx and 0UL literal to
+> 0ULL in pipe, dcache, fserror, and eventpoll, now that i_ino is u64
+> instead of unsigned long.
 > 
 > Signed-off-by: Jeff Layton <jlayton@kernel.org>
 
-Looks fine to me, though I'm a bit sad there's no xfs_inode::i_ino ->
-inode::i_ino conversion patch... ;)
-
-Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+Acked-by: "Darrick J. Wong" <djwong@kernel.org>
 
 --D
 
 > ---
->  fs/iomap/ioend.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  fs/dcache.c    | 4 ++--
+>  fs/eventpoll.c | 2 +-
+>  fs/fserror.c   | 2 +-
+>  fs/pipe.c      | 2 +-
+>  4 files changed, 5 insertions(+), 5 deletions(-)
 > 
-> diff --git a/fs/iomap/ioend.c b/fs/iomap/ioend.c
-> index 4d1ef8a2cee90b91591d387f8e1c3f75350c1da0..94d9a3c77bd68581d752fef4c16b88e1cb5f88da 100644
-> --- a/fs/iomap/ioend.c
-> +++ b/fs/iomap/ioend.c
-> @@ -48,7 +48,7 @@ static u32 iomap_finish_ioend_buffered(struct iomap_ioend *ioend)
->  		mapping_set_error(inode->i_mapping, ioend->io_error);
->  		if (!bio_flagged(bio, BIO_QUIET)) {
->  			pr_err_ratelimited(
-> -"%s: writeback error on inode %lu, offset %lld, sector %llu",
-> +"%s: writeback error on inode %llu, offset %lld, sector %llu",
->  				inode->i_sb->s_id, inode->i_ino,
->  				ioend->io_offset, ioend->io_sector);
->  		}
+> diff --git a/fs/dcache.c b/fs/dcache.c
+> index 24f4f3acaa8cffd6f98124eec38c1a92d6c9fd8e..9e8425ecd88955c72027d21591b1d12c87e7e8aa 100644
+> --- a/fs/dcache.c
+> +++ b/fs/dcache.c
+> @@ -1637,11 +1637,11 @@ static enum d_walk_ret umount_check(void *_data, struct dentry *dentry)
+>  	if (dentry == _data && dentry->d_lockref.count == 1)
+>  		return D_WALK_CONTINUE;
+>  
+> -	WARN(1, "BUG: Dentry %p{i=%lx,n=%pd} "
+> +	WARN(1, "BUG: Dentry %p{i=%llx,n=%pd} "
+>  			" still in use (%d) [unmount of %s %s]\n",
+>  		       dentry,
+>  		       dentry->d_inode ?
+> -		       dentry->d_inode->i_ino : 0UL,
+> +		       dentry->d_inode->i_ino : 0ULL,
+>  		       dentry,
+>  		       dentry->d_lockref.count,
+>  		       dentry->d_sb->s_type->name,
+> diff --git a/fs/eventpoll.c b/fs/eventpoll.c
+> index 5714e900567c499739bb205f43bb6bf73f7ebe54..4ccd4d2e31adf571f939d2e777123e40302e565f 100644
+> --- a/fs/eventpoll.c
+> +++ b/fs/eventpoll.c
+> @@ -1080,7 +1080,7 @@ static void ep_show_fdinfo(struct seq_file *m, struct file *f)
+>  		struct inode *inode = file_inode(epi->ffd.file);
+>  
+>  		seq_printf(m, "tfd: %8d events: %8x data: %16llx "
+> -			   " pos:%lli ino:%lx sdev:%x\n",
+> +			   " pos:%lli ino:%llx sdev:%x\n",
+>  			   epi->ffd.fd, epi->event.events,
+>  			   (long long)epi->event.data,
+>  			   (long long)epi->ffd.file->f_pos,
+> diff --git a/fs/fserror.c b/fs/fserror.c
+> index 06ca86adab9b769dfb72ec58b9e51627abee5152..1e4d11fd9562fd158a23b64ca60e9b7e01719cb8 100644
+> --- a/fs/fserror.c
+> +++ b/fs/fserror.c
+> @@ -176,7 +176,7 @@ void fserror_report(struct super_block *sb, struct inode *inode,
+>  lost:
+>  	if (inode)
+>  		pr_err_ratelimited(
+> - "%s: lost file I/O error report for ino %lu type %u pos 0x%llx len 0x%llx error %d",
+> + "%s: lost file I/O error report for ino %llu type %u pos 0x%llx len 0x%llx error %d",
+>  		       sb->s_id, inode->i_ino, type, pos, len, error);
+>  	else
+>  		pr_err_ratelimited(
+> diff --git a/fs/pipe.c b/fs/pipe.c
+> index b44a756c0b4165edc2801b2290bf35480245d7a6..9841648c9cf3e8e569cf6ba5c792624fe92396f5 100644
+> --- a/fs/pipe.c
+> +++ b/fs/pipe.c
+> @@ -873,7 +873,7 @@ static struct vfsmount *pipe_mnt __ro_after_init;
+>   */
+>  static char *pipefs_dname(struct dentry *dentry, char *buffer, int buflen)
+>  {
+> -	return dynamic_dname(buffer, buflen, "pipe:[%lu]",
+> +	return dynamic_dname(buffer, buflen, "pipe:[%llu]",
+>  				d_inode(dentry)->i_ino);
+>  }
+>  
 > 
 > -- 
 > 2.53.0
