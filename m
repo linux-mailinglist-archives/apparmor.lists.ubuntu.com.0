@@ -2,42 +2,42 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mL+BDfDqoWkdxQQAu9opvQ
+	id WNQqIWbqoWnbxAQAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Fri, 27 Feb 2026 20:05:20 +0100
+	for <lists+apparmor@lfdr.de>; Fri, 27 Feb 2026 20:03:02 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10BF01BC65E
-	for <lists+apparmor@lfdr.de>; Fri, 27 Feb 2026 20:05:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71BC11BC48D
+	for <lists+apparmor@lfdr.de>; Fri, 27 Feb 2026 20:03:02 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vw2pf-0004Ju-Tt; Fri, 27 Feb 2026 18:44:59 +0000
+	id 1vw2qb-0007fv-8h; Fri, 27 Feb 2026 18:45:57 +0000
 Received: from tor.source.kernel.org ([172.105.4.254])
  by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <jlayton@kernel.org>) id 1vvdwg-0002w9-5u
+ (envelope-from <jlayton@kernel.org>) id 1vvdwg-0002wB-8F
  for apparmor@lists.ubuntu.com; Thu, 26 Feb 2026 16:10:34 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 7011161337;
+ by tor.source.kernel.org (Postfix) with ESMTP id E8A8C61840;
+ Thu, 26 Feb 2026 16:01:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60656C19423;
  Thu, 26 Feb 2026 16:00:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9001C2BC86;
- Thu, 26 Feb 2026 16:00:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772121654;
- bh=/Rh5l92pxUR0Hc+NWiEklxCWU8fkH3LHs6FMqZ19Oo8=;
+ s=k20201202; t=1772121666;
+ bh=7Xz1UJJfqeBRm3KK7yj9hLaG5S2SE5Y3JXXRiEG1LdI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Al9v4g11bgttBretqCk6v+BK+murK6wO5/oUmaNNieQtPjIMVjtuBO8PMZCCyv/5+
- X8jdGZPNJ3Fz/FAWtJMVYZybLTu0jAyAiSWOJwgQtVZSWj7pQcO0riI2lmq7rC4Jth
- BDf1bLNgHpQRr3qrClsuzCYSIm/wZNEjHIvoniQuogUVRVQhiudWxOeF0x6s3TdCol
- IfHTDEbWAbTw0dspo7vWT/gYzIm2KIAMtE5csK3lSM3M53qqo4hmxiK0S9h17zteF7
- 3LvhC5cERiGItYRrQrFzWgcBUAKKqhnM0ywV1SL7X70zb/FKxoNkZCVAzfkqw8nZwA
- 2Su+wJiblkW6g==
+ b=tKwM+R80wvtJ2UQiy1J/R0hfUKnaZfinJ6dUoaFZtMDTIxMyAqaGuN2BHRO4fFbab
+ q7P0zROfKP+2iC23lppRzRcdEw+c1NyNeUf9JfSqlxu5DLOxdk61DhH43iQT7zADEM
+ erL8kbhNIXuLt6XxvjGN2DxbNefjiwFMyQaJqbzP4EbhuvKVXxouew8f0QfkY3ISkw
+ 7PnCV9755KVTitBYoHD0RLqiMZ3IFj3GIKRAiBT98wwpQTGUiLsGhGcsx1H7dj86mq
+ t9rIdqLaOeRCpgmkfGx6qqG4EdsubayvJGsEg9NxnsvfvDiMaVxAwYpXeHQIzX873s
+ 6KwBo2ZV79OfA==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Thu, 26 Feb 2026 10:55:24 -0500
+Date: Thu, 26 Feb 2026 10:55:25 -0500
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260226-iino-u64-v1-22-ccceff366db9@kernel.org>
+Message-Id: <20260226-iino-u64-v1-23-ccceff366db9@kernel.org>
 References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 In-Reply-To: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -113,26 +113,26 @@ To: Alexander Viro <viro@zeniv.linux.org.uk>,
  James Clark <james.clark@linaro.org>, "Darrick J. Wong" <djwong@kernel.org>, 
  Martin Schiller <ms@dev.tdt.de>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3936; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=/Rh5l92pxUR0Hc+NWiEklxCWU8fkH3LHs6FMqZ19Oo8=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0Jvmm76WStrh5xahUTKUjiwtcnMq9ptlqKZ
- tqDyJlo9miJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtCQAKCRAADmhBGVaC
- FbmUD/9q5ZqayUoYrNWZkjLIrqrANg3Io4MBJ6MmK3WYFloPzA6GMTaNhuhwZKsYzL7+nxAIapv
- pXVOs2Vc0T4DbTVK49XTh0Ak98am85jThlTD1sq+Tzh7C64LE4MCRLirQG75+bclLqRFhek8FUi
- 7JaaQRNSQeVvJbVY13poNMa6w5xyLnXXvTkezLGWfkAO6iG2zDNevRjhNzizbfq6fjuBqenD1O4
- Cpmh9/t0YPuPpceU7G/qxPhwGQ+uz9RQx6y8iPTY9lWyWo1fjIJLf87FXqLnjGT39NnfuLl4MQC
- 2wURNAbVNF8xbZs78b1tPxp2YHop5vI05kxdwnqJC881GAzBpy3zqJGxTA98tExCGG5tXIPkjiI
- jBhDIIzyKFZtfBvcEXttoK2b9x8U6kNs+uSCT1WZRLhLlv7Bv7dSo4PR9Bih9LV8Oqj+sx9sl1Y
- kusaOE5oDwfnhkjNusNUQNSpVO1U8Cv1eMUODJx1cORGtqci+dqTQJJltibPcrPoAj5ExD0VMvS
- 1Ic2P472u61RvIhg7soyu0jhEJi8ZwT5bEw19a+dkpLoQPlrJOJ+anDi5hL9QM5l/BFiZ6v/eEf
- lXRJN/PX62lhGypSgM4xlJPcKRmNY9fIklDVBTIp+GeYU+uuxwAqKOK5wTMNybQqHCkbrR0zciD
- 3KB09K53Ips4MBQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1107; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=7Xz1UJJfqeBRm3KK7yj9hLaG5S2SE5Y3JXXRiEG1LdI=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0J6t6tAHYClGd62fXWh3aD6R0JIxKC6WIfQ
+ qH6RcFEaVCJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtCQAKCRAADmhBGVaC
+ FVDGD/sFG10TSohP0ZZ2AeGUAmdad+S2uCijCN7EK9gYsFfVXhxvbQSLD1EgEXKfMb60YawxYV4
+ msM9kXN9SvzMM8q7NsemBtVDtmqnHunALM0Alfibn23+O259I7pulNXd+X31Z6Ww6AT5emWQzjp
+ 2zfBuwXIE0VZeISxHYPcgge0M5QCMHpO+aiMPnqH+gyzY6hhuIhLBEE2uFA9Jwt6uPY4L1pjn7w
+ YVmjT8CeakBDnokgfYNEN3yQSOKc4Tug8svWt7c9+DVbzSh/CRY+vmn56e17RVe2SCI+zH8HNfk
+ 1M2oe/Ab7bLVX3Gj4sDNVg8BvB+okTSoNxOR554k+ku2olLUjgt5EwePyh5LxtXg090fG7xbPzw
+ W/N3RxocuhQ9+9XW7Nw0Uo6WsDW8l6IUoQSABE5tK/wKZlXPdyMAt28n7Wp5JyME7zGKFujGmtx
+ 2ePsN0IZI4a88M+8xfRzRZg0dH1yRsodpH60IvqbuegH15JcPcHDrj4/ELAaKwnrA1rQ3SYr0Ej
+ t9MXA1lQFg9IjKyoU0elmhE+iUailxHJliMljHf57qG2gRwOLi5CLjNWKBCGyyBzt7Lvn7XaFgG
+ 6ea+FEnYn0NjOKJpgDaOQvNrE15zRYDlR/+xrb8UaVXILYZPHoZngBD4MNFibOMd8JqSnJ23x3R
+ oKBiMHqoCoK1mqA==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 Received-SPF: pass client-ip=172.105.4.254; envelope-from=jlayton@kernel.org;
  helo=tor.source.kernel.org
 X-Mailman-Approved-At: Fri, 27 Feb 2026 18:44:53 +0000
-Subject: [apparmor] [PATCH 22/61] befs: update format strings for u64 i_ino
+Subject: [apparmor] [PATCH 23/61] bfs: update format strings for u64 i_ino
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -187,7 +187,7 @@ X-Spamd-Result: default: False [4.09 / 15.00];
  ,m:kuniyu@google.com,m:pabeni@redhat.com,m:willemb@google.com,m:davem@davemloft.net,m:kuba@kernel.org,m:horms@kernel.org,m:oleg@redhat.com,m:peterz@infradead.org,m:mingo@redhat.com,m:acme@kernel.org,m:namhyung@kernel.org,m:mark.rutland@arm.com,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
-	GREYLIST(0.00)[pass,body];
+	GREYLIST(0.00)[pass,meta];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
@@ -202,113 +202,39 @@ X-Spamd-Result: default: False [4.09 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[apparmor];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns]
-X-Rspamd-Queue-Id: 10BF01BC65E
+X-Rspamd-Queue-Id: 71BC11BC48D
 X-Rspamd-Action: no action
 
-Update format strings and local variable types in befs for the
+Update format strings and local variable types in bfs for the
 i_ino type change from unsigned long to u64.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/befs/linuxvfs.c | 28 ++++++++++++++--------------
- 1 file changed, 14 insertions(+), 14 deletions(-)
+ fs/bfs/dir.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/befs/linuxvfs.c b/fs/befs/linuxvfs.c
-index cecbc92f959aa5098313050b515c9af38662c8e6..fac23d6cb6c49f2cab691af357f76a17e1c0ef29 100644
---- a/fs/befs/linuxvfs.c
-+++ b/fs/befs/linuxvfs.c
-@@ -140,20 +140,20 @@ befs_get_block(struct inode *inode, sector_t block,
- 	int res;
- 	ulong disk_off;
+diff --git a/fs/bfs/dir.c b/fs/bfs/dir.c
+index c375e22c4c0c15ba27307d266adfe3f093b90ab8..481514db4eae3c33c280d04371a17ef321486ac1 100644
+--- a/fs/bfs/dir.c
++++ b/fs/bfs/dir.c
+@@ -35,7 +35,7 @@ static int bfs_readdir(struct file *f, struct dir_context *ctx)
+ 	int block;
  
--	befs_debug(sb, "---> befs_get_block() for inode %lu, block %ld",
--		   (unsigned long)inode->i_ino, (long)block);
-+	befs_debug(sb, "---> befs_get_block() for inode %llu, block %ld",
-+		   (unsigned long long)inode->i_ino, (long)block);
- 	if (create) {
- 		befs_error(sb, "befs_get_block() was asked to write to "
--			   "block %ld in inode %lu", (long)block,
--			   (unsigned long)inode->i_ino);
-+			   "block %ld in inode %llu", (long)block,
-+			   (unsigned long long)inode->i_ino);
- 		return -EPERM;
- 	}
+ 	if (ctx->pos & (BFS_DIRENT_SIZE - 1)) {
+-		printf("Bad f_pos=%08lx for %s:%08lx\n",
++		printf("Bad f_pos=%08lx for %s:%08llx\n",
+ 					(unsigned long)ctx->pos,
+ 					dir->i_sb->s_id, dir->i_ino);
+ 		return -EINVAL;
+@@ -180,7 +180,7 @@ static int bfs_unlink(struct inode *dir, struct dentry *dentry)
+ 		goto out_brelse;
  
- 	res = befs_fblock2brun(sb, ds, block, &run);
- 	if (res != BEFS_OK) {
- 		befs_error(sb,
--			   "<--- %s for inode %lu, block %ld ERROR",
--			   __func__, (unsigned long)inode->i_ino,
-+			   "<--- %s for inode %llu, block %ld ERROR",
-+			   __func__, (unsigned long long)inode->i_ino,
- 			   (long)block);
- 		return -EFBIG;
- 	}
-@@ -162,8 +162,8 @@ befs_get_block(struct inode *inode, sector_t block,
- 
- 	map_bh(bh_result, inode->i_sb, disk_off);
- 
--	befs_debug(sb, "<--- %s for inode %lu, block %ld, disk address %lu",
--		  __func__, (unsigned long)inode->i_ino, (long)block,
-+	befs_debug(sb, "<--- %s for inode %llu, block %ld, disk address %lu",
-+		  __func__, (unsigned long long)inode->i_ino, (long)block,
- 		  (unsigned long)disk_off);
- 
- 	return 0;
-@@ -181,7 +181,7 @@ befs_lookup(struct inode *dir, struct dentry *dentry, unsigned int flags)
- 	char *utfname;
- 	const char *name = dentry->d_name.name;
- 
--	befs_debug(sb, "---> %s name %pd inode %ld", __func__,
-+	befs_debug(sb, "---> %s name %pd inode %lld", __func__,
- 		   dentry, dir->i_ino);
- 
- 	/* Convert to UTF-8 */
-@@ -224,7 +224,7 @@ befs_readdir(struct file *file, struct dir_context *ctx)
- 	size_t keysize;
- 	char keybuf[BEFS_NAME_LEN + 1];
- 
--	befs_debug(sb, "---> %s name %pD, inode %ld, ctx->pos %lld",
-+	befs_debug(sb, "---> %s name %pD, inode %lld, ctx->pos %lld",
- 		  __func__, file, inode->i_ino, ctx->pos);
- 
- 	while (1) {
-@@ -233,7 +233,7 @@ befs_readdir(struct file *file, struct dir_context *ctx)
- 
- 		if (result == BEFS_ERR) {
- 			befs_debug(sb, "<--- %s ERROR", __func__);
--			befs_error(sb, "IO error reading %pD (inode %lu)",
-+			befs_error(sb, "IO error reading %pD (inode %llu)",
- 				   file, inode->i_ino);
- 			return -EIO;
- 
-@@ -324,7 +324,7 @@ static struct inode *befs_iget(struct super_block *sb, unsigned long ino)
- 	bh = sb_bread(sb, inode->i_ino);
- 	if (!bh) {
- 		befs_error(sb, "unable to read inode block - "
--			   "inode = %lu", inode->i_ino);
-+			   "inode = %llu", inode->i_ino);
- 		goto unacquire_none;
- 	}
- 
-@@ -333,7 +333,7 @@ static struct inode *befs_iget(struct super_block *sb, unsigned long ino)
- 	befs_dump_inode(sb, raw_inode);
- 
- 	if (befs_check_inode(sb, raw_inode, inode->i_ino) != BEFS_OK) {
--		befs_error(sb, "Bad inode: %lu", inode->i_ino);
-+		befs_error(sb, "Bad inode: %llu", inode->i_ino);
- 		goto unacquire_bh;
- 	}
- 
-@@ -407,7 +407,7 @@ static struct inode *befs_iget(struct super_block *sb, unsigned long ino)
- 			inode->i_op = &simple_symlink_inode_operations;
- 		}
- 	} else {
--		befs_error(sb, "Inode %lu is not a regular file, "
-+		befs_error(sb, "Inode %llu is not a regular file, "
- 			   "directory or symlink. THAT IS WRONG! BeFS has no "
- 			   "on disk special files", inode->i_ino);
- 		goto unacquire_bh;
+ 	if (!inode->i_nlink) {
+-		printf("unlinking non-existent file %s:%lu (nlink=%d)\n",
++		printf("unlinking non-existent file %s:%llu (nlink=%d)\n",
+ 					inode->i_sb->s_id, inode->i_ino,
+ 					inode->i_nlink);
+ 		set_nlink(inode, 1);
 
 -- 
 2.53.0
