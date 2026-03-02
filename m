@@ -2,42 +2,42 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oN8LKTZnpmljPQAAu9opvQ
+	id kG1MAahgpmnSOwAAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 05:44:38 +0100
+	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 05:16:40 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B2C51E8FB2
-	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 05:44:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7A2D1E8AB6
+	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 05:16:39 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vxHC8-0003Tx-Pj; Tue, 03 Mar 2026 04:17:16 +0000
-Received: from tor.source.kernel.org ([172.105.4.254])
+	id 1vxHBQ-0000kZ-Ng; Tue, 03 Mar 2026 04:16:32 +0000
+Received: from sea.source.kernel.org ([172.234.252.31])
  by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <jlayton@kernel.org>) id 1vxA97-0004Ao-8l
- for apparmor@lists.ubuntu.com; Mon, 02 Mar 2026 20:45:41 +0000
+ (envelope-from <jlayton@kernel.org>) id 1vxA8k-0003zW-Bc
+ for apparmor@lists.ubuntu.com; Mon, 02 Mar 2026 20:45:18 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 2C0E160133;
+ by sea.source.kernel.org (Postfix) with ESMTP id 4E2CA43A76;
+ Mon,  2 Mar 2026 20:39:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1720FC2BC9E;
  Mon,  2 Mar 2026 20:39:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BF15C19423;
- Mon,  2 Mar 2026 20:38:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772483948;
- bh=Gs35boKyxgnd6AK1hIGNOaT7cmCaVBjAuSuFUf3Jc5I=;
+ s=k20201202; t=1772483963;
+ bh=m5qXv8LzTjrrHawpXG4FjY1bAed0fpNbFRdYn+t2iRc=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=J/0mEX+2I5d/RuqYCJxGEFWFGN5i/FNi9MYTRfJiWPgEv4WyyoxOBiSwB9doWNhqu
- 8HzBDuWTWgvBnu+W5upst9Tq+IdSmegMnQfpocbi8KPqZbkqll00OGn0sxmveqikZ4
- VrvQthnnu2V0O3B5pRmnq2ED1EMTlXl2WaQHejYEj4H07IsKE63RH0EdzulikApjz+
- P/+4Kj3ShwuKtZGGzptw8AqpVLiduNYywEJrjLhZ6oBQnAXjOpSGsQoSG4oPYtW3WB
- vMET5jWxbonNAxxI6wa4LZioME0jG5p1zH3tehu+VG6P/G2IaJ+m6V4/vc/C/bmA6w
- xOBqUG2q4Sq5w==
+ b=tWGaH2eIcCtGq0rj5uXX9kFap7NkcKiDhEc10PxrY8ua/QCr9LbkB3Sb8J6gOA5Dq
+ dO87Cz7Vne8kcK5oUGLznzZ6+roGhrkPGv6EMOeBwhlJXNCXfzB1dIe+jt05hLfts5
+ h56xMnhkZ/tt3ulE6x9GDMS/D+zAOKhV6LMo2SXyD1pO+aCyJRZWsU991uJKSoZuYa
+ zzw+Vm4VqQAipdWITuMMIITaAYNjGaEd3YWaHeRsvi5qHCFOumortMStpiruRHJTib
+ V+DAun1eGMXdM+R62dFYPRbH3sIjSUUi9NTfRFIFhbL8xUM1O9+S9o9Jpv2xJ7OsAm
+ blcxJcmsMD34g==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:24:43 -0500
+Date: Mon, 02 Mar 2026 15:24:44 -0500
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-59-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-60-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -130,26 +130,27 @@ To: Alexander Viro <viro@zeniv.linux.org.uk>,
  Jesper Dangaard Brouer <hawk@kernel.org>, 
  John Fastabend <john.fastabend@gmail.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2761; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=Gs35boKyxgnd6AK1hIGNOaT7cmCaVBjAuSuFUf3Jc5I=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH+91J4KBDB2hDn0qDUxRonhElkhdedME3xJ
- B/BW/0vlnGJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx/gAKCRAADmhBGVaC
- FcuFD/oD8Yp/dzC9uRSQy4WTdSxX8N7nmwgkzyjPPieVQ/3bXxk9KNtjb9+aWRD+STEIs8UBGGT
- galtNwy0DCULHM4+oOeWuzxvnPo/CBCX0Qh5zx2NWhrXh8MVqKpfA79Sn/O9m0Hmv3FklJ859tS
- sm+eqGxgsaQakSp/u3f6SkouNLsnZqjcceDWMSG1AWwkWiJvehD8lOmKaZ9dNPkBbnhSt918QLl
- obKXJ5KjPeYa5voKMeGcXKqB0to6HV6xOKHaIA5UnTAuDlB8u3s+PlV7XFZ4DzkrZBHZ0IT/c4F
- E/rwhRhVGfA86rfwZbgzFdK8JpGMFG5ckQcNMH5Vf+e/hZzkXcJo8c7kDXUU8Xhol8N7ot3aaS/
- xVfP2nrw1IAhdKbGyuCT107lRvbh0s/gKOJ3iVhyTE0Dh3jRmFOPhvBDrNWIHoEJ7JnGgIO3A4m
- WOJptVxnl8uo5IGP6ChBXt6KiRCxdhiugZGm7t90o3dTvgoKr7nm7XoOM8HaM8j9fJJTI1gCNKd
- 7IGZ94XW8QjdzKaDjaIgiy+0VF3g/dA4yPOnShFNKYyr6mQyO2YS9sGDMI1Q94uCI6S8ZhV1R2n
- W0xzM63QkE+KdaN7pM7W7jOIuD/Uwq8WSR1xbEl0YdsHQs9VNWYDyDKnRDkE01chpjHLLlLKOCa
- QKr/nNSOgss4FYQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1545; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=m5qXv8LzTjrrHawpXG4FjY1bAed0fpNbFRdYn+t2iRc=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH/CelvtxYkmubgwQL93hbaaeF/Lcipca1TD
+ nmG1ZIz+3WJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx/wAKCRAADmhBGVaC
+ FcekD/40SfgYN98/I/iKb83ETfOTpXWW+m/XTvqQjbiYJ0yb9cGecrukv9U+LuSoCRp2F8qjaEG
+ KwSKcoNeD3bLi8YRSx0Jo55zpvV+0GEF5pYMsLyuz2mgss7nYEHu7KNvJeInMOxwowpPdPqRNu7
+ Ppq1dp/1AM3AymC/FXqtq2Tv8HTmfQeqCuOp/6YYnMJFIJhWoBAfvpsQTSWM9HY1SuWEDoQbE5N
+ 2LEftI8/pUeKAX167/iekCZsEzvYlRky3lNIuB0wQIW1djQpCAugeGhsaFp9AZWL3zSj87xiuO9
+ UNszqAcxPs1LyIDZmw2MRd9bSJ3IQhQpaI+4Dukg4Nd17YjfU1riCW2fCSYtV8+JCExOFPFNCxZ
+ fHlcLe24YBWqG/j0FJfWiYPh0puc/2EhgeruwgUAW3dNz41A7H5gyNzLLTk/G1j0lt1DHq91uHg
+ TbL0yQHkqQ2yZgnf9niLxrsdMDgb4kc9TeNtWlwf12yQAsLX2pvxob+xrImW9RxTi+fTWwlIxqF
+ e2aTVNNTvEQe/FfANNViNtWa2//y7pcFg2ozKI7hHopJ7lhDIrFuzmUePxlgKpPeyxWO9eZGLCb
+ 9/qek6yqPKgzxPKPxMFaxLl8qKdTUtBKAWaADTleXG3rC4d+u1Wt4aN50RoaFgA/UKqBF1BWrAW
+ 881Y6dqAC+vEbnA==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
-Received-SPF: pass client-ip=172.105.4.254; envelope-from=jlayton@kernel.org;
- helo=tor.source.kernel.org
-X-Mailman-Approved-At: Tue, 03 Mar 2026 04:16:27 +0000
-Subject: [apparmor] [PATCH v2 059/110] vfs: use PRIino format for i_ino
+Received-SPF: pass client-ip=172.234.252.31; envelope-from=jlayton@kernel.org;
+ helo=sea.source.kernel.org
+X-Mailman-Approved-At: Tue, 03 Mar 2026 04:16:26 +0000
+Subject: [apparmor] [PATCH v2 060/110] vfs: change kino_t from unsigned long
+	to u64
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -183,7 +184,7 @@ Cc: nvdimm@lists.linux.dev, jfs-discussion@lists.sourceforge.net,
  netfs@lists.linux.dev, linux-integrity@vger.kernel.org, ntfs3@lists.linux.dev
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Rspamd-Queue-Id: 8B2C51E8FB2
+X-Rspamd-Queue-Id: E7A2D1E8AB6
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.09 / 15.00];
 	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
@@ -211,7 +212,7 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	NEURAL_HAM(-0.00)[-0.978];
+	NEURAL_HAM(-0.00)[-0.977];
 	RCPT_COUNT_GT_50(0.00)[172];
 	FROM_NEQ_ENVFROM(0.00)[jlayton@kernel.org,apparmor-bounces@lists.ubuntu.com];
 	TAGGED_RCPT(0.00)[apparmor];
@@ -222,75 +223,45 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:rdns,lists.ubuntu.com:helo]
 X-Rspamd-Action: no action
 
-Convert i_ino format strings in pipe, dcache, fserror, and eventpoll to
-use the PRIino format macro and update the 0UL literal in dcache to
-(kino_t)0.
+Change kino_t from unsigned long to u64, and update PRIino from "l"
+to "ll" accordingly. This is the actual type widening of i_ino.
+
+All format strings have already been converted to use PRIino, so this
+change compiles warning-free on both 32-bit and 64-bit architectures.
+
+On 64-bit architectures, unsigned long is already 64 bits, so this is
+effectively a type alias change with no runtime impact. On 32-bit
+architectures, this widens i_ino from 32 to 64 bits, allowing
+filesystems like NFS, CIFS, XFS, Ceph, and FUSE to store their native
+64-bit inode numbers without folding/hashing.
+
+The VFS already handles 64-bit inode numbers in kstat.ino (u64) and
+statx.stx_ino (__u64). The existing overflow checks in cp_new_stat(),
+cp_old_stat(), and cp_compat_stat() handle narrowing to 32-bit st_ino
+with -EOVERFLOW, so userspace ABI is preserved.
+
+struct inode will grow by 4 bytes on 32-bit architectures.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/dcache.c    | 4 ++--
- fs/eventpoll.c | 2 +-
- fs/fserror.c   | 2 +-
- fs/pipe.c      | 2 +-
- 4 files changed, 5 insertions(+), 5 deletions(-)
+ include/linux/fs.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/dcache.c b/fs/dcache.c
-index 24f4f3acaa8cffd6f98124eec38c1a92d6c9fd8e..13fb3e89cba7442c9bed74c41ca18be5e43e28c9 100644
---- a/fs/dcache.c
-+++ b/fs/dcache.c
-@@ -1637,11 +1637,11 @@ static enum d_walk_ret umount_check(void *_data, struct dentry *dentry)
- 	if (dentry == _data && dentry->d_lockref.count == 1)
- 		return D_WALK_CONTINUE;
+diff --git a/include/linux/fs.h b/include/linux/fs.h
+index d0c4789838b5852111583a3e4cced88999496e68..4193817e02e8bf94f29514ca43379af21f37ac61 100644
+--- a/include/linux/fs.h
++++ b/include/linux/fs.h
+@@ -758,8 +758,8 @@ struct inode_state_flags {
+ 	enum inode_state_flags_enum __state;
+ };
  
--	WARN(1, "BUG: Dentry %p{i=%lx,n=%pd} "
-+	WARN(1, "BUG: Dentry %p{i=%" PRIino "x,n=%pd} "
- 			" still in use (%d) [unmount of %s %s]\n",
- 		       dentry,
- 		       dentry->d_inode ?
--		       dentry->d_inode->i_ino : 0UL,
-+		       dentry->d_inode->i_ino : (kino_t)0,
- 		       dentry,
- 		       dentry->d_lockref.count,
- 		       dentry->d_sb->s_type->name,
-diff --git a/fs/eventpoll.c b/fs/eventpoll.c
-index 5714e900567c499739bb205f43bb6bf73f7ebe54..90fd92425492221d13bd0cf067d47579bb407a01 100644
---- a/fs/eventpoll.c
-+++ b/fs/eventpoll.c
-@@ -1080,7 +1080,7 @@ static void ep_show_fdinfo(struct seq_file *m, struct file *f)
- 		struct inode *inode = file_inode(epi->ffd.file);
+-typedef unsigned long	kino_t;
+-#define PRIino		"l"
++typedef u64		kino_t;
++#define PRIino		"ll"
  
- 		seq_printf(m, "tfd: %8d events: %8x data: %16llx "
--			   " pos:%lli ino:%lx sdev:%x\n",
-+			   " pos:%lli ino:%" PRIino "x sdev:%x\n",
- 			   epi->ffd.fd, epi->event.events,
- 			   (long long)epi->event.data,
- 			   (long long)epi->ffd.file->f_pos,
-diff --git a/fs/fserror.c b/fs/fserror.c
-index 06ca86adab9b769dfb72ec58b9e51627abee5152..b685b329b5956a639c41b25c42cfff16e6e5ab6e 100644
---- a/fs/fserror.c
-+++ b/fs/fserror.c
-@@ -176,7 +176,7 @@ void fserror_report(struct super_block *sb, struct inode *inode,
- lost:
- 	if (inode)
- 		pr_err_ratelimited(
-- "%s: lost file I/O error report for ino %lu type %u pos 0x%llx len 0x%llx error %d",
-+ "%s: lost file I/O error report for ino %" PRIino "u type %u pos 0x%llx len 0x%llx error %d",
- 		       sb->s_id, inode->i_ino, type, pos, len, error);
- 	else
- 		pr_err_ratelimited(
-diff --git a/fs/pipe.c b/fs/pipe.c
-index b44a756c0b4165edc2801b2290bf35480245d7a6..311928e8713989747605fd79f653e36d27ce8c0e 100644
---- a/fs/pipe.c
-+++ b/fs/pipe.c
-@@ -873,7 +873,7 @@ static struct vfsmount *pipe_mnt __ro_after_init;
-  */
- static char *pipefs_dname(struct dentry *dentry, char *buffer, int buflen)
- {
--	return dynamic_dname(buffer, buflen, "pipe:[%lu]",
-+	return dynamic_dname(buffer, buflen, "pipe:[%" PRIino "u]",
- 				d_inode(dentry)->i_ino);
- }
- 
+ /*
+  * Keep mostly read-only and often accessed (especially for
 
 -- 
 2.53.0
