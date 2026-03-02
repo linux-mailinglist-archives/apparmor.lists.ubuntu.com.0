@@ -2,38 +2,38 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 0EkeDitmpmljPQAAu9opvQ
+	id uJ7uMpdnpmljPQAAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 05:40:11 +0100
+	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 05:46:15 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB5E21E8E3A
-	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 05:40:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A26401E9062
+	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 05:46:15 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vxHCx-00070G-Ui; Tue, 03 Mar 2026 04:18:07 +0000
-Received: from sea.source.kernel.org ([172.234.252.31])
+	id 1vxHBo-0002Cd-3I; Tue, 03 Mar 2026 04:16:56 +0000
+Received: from tor.source.kernel.org ([172.105.4.254])
  by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <dlemoal@kernel.org>) id 1vxCKF-000269-5E
- for apparmor@lists.ubuntu.com; Mon, 02 Mar 2026 23:05:19 +0000
+ (envelope-from <dlemoal@kernel.org>) id 1vxCKb-0002Vx-3M
+ for apparmor@lists.ubuntu.com; Mon, 02 Mar 2026 23:05:41 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 4098643FCE;
- Mon,  2 Mar 2026 22:58:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65343C19423;
- Mon,  2 Mar 2026 22:57:55 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D4E2F60123;
+ Mon,  2 Mar 2026 22:58:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 998A6C19425;
+ Mon,  2 Mar 2026 22:58:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772492300;
- bh=dSvaafq7s+HEj/Y72jLuoeKNRy1B3Rikjpm6NcM7diE=;
+ s=k20201202; t=1772492325;
+ bh=Aim55mS4QOPHiq3lGIrwAq6clR3sCfuIHZBW63a7sLU=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=p0GsC9woFCUKtxDwipZDfc1GU9rUyiVi0vJPYP2u+0lYlFaKaiE4wvtujTtUsUSSG
- y9tJP1pMFCSZdbVlZJsp/30PmZ1S1faPO832d6Ub6IMUIFkIp8SCUMEnJc2IJ8q+Ka
- ZpyDlt5SN2HnUNutEs6KYH5Vx0HXoq7KvmUrZbG2IxG5LEgsEnTMz87mdm/+x6Ju03
- 1GI4Matlc31LEhXo5LtVUEq5GJUiz63iWVRgT2s1o3D5+9nJtUMseF11lElVDkS1f/
- DQZuLjZC0NNLwbtBL3D60LeHl8deT4SR0u9RtbK2+hz+nll+4jjYRTC9U8dXhLefK3
- ACgo7vVXPcUag==
-Message-ID: <8f2d476f-5c2a-48d5-8e20-998c06d7ea88@kernel.org>
-Date: Tue, 3 Mar 2026 07:57:53 +0900
+ b=efMzfnopH2WSmNEYj3Hb820DIXfhzmcNJQ+sj/RP5P5QhetapCfR9yKeXE3Q32qWL
+ YVb9vOAaaOxUE3OlnOU5qf5pp6AHKS/GqlvGT2NTaXOtfg8ico+u9+NLobylZ9jGe5
+ LIRJTz6mbzZrhcM3c/rF6WYhaGgyQIy0R+sbukSxUfdpvrrZqMaAAPwWkFe+MDR+Vo
+ V/3L9nVrysUo3+FPRD9XrnVjqJAs9NpsT26I97mvOAs/um3Zb5oulM1EyoABscyNmC
+ z6PR0/q/hUZXduKPkmtA4rzmBEcDgyq0zy09oPANN6tF4vzCXJvY2VgdQ9jrOAeA8T
+ /AhcQbZn+87sw==
+Message-ID: <d13b3907-3bdf-4a13-bebd-dc6081d40600@kernel.org>
+Date: Tue, 3 Mar 2026 07:58:10 +0900
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Jeff Layton <jlayton@kernel.org>, Alexander Viro
@@ -123,18 +123,18 @@ To: Jeff Layton <jlayton@kernel.org>, Alexander Viro
  Jesper Dangaard Brouer <hawk@kernel.org>,
  John Fastabend <john.fastabend@gmail.com>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
- <20260302-iino-u64-v2-48-e5388800dae0@kernel.org>
+ <20260302-iino-u64-v2-100-e5388800dae0@kernel.org>
 Content-Language: en-US
 From: Damien Le Moal <dlemoal@kernel.org>
 Organization: Western Digital Research
-In-Reply-To: <20260302-iino-u64-v2-48-e5388800dae0@kernel.org>
+In-Reply-To: <20260302-iino-u64-v2-100-e5388800dae0@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=172.234.252.31; envelope-from=dlemoal@kernel.org;
- helo=sea.source.kernel.org
+Received-SPF: pass client-ip=172.105.4.254; envelope-from=dlemoal@kernel.org;
+ helo=tor.source.kernel.org
 X-Mailman-Approved-At: Tue, 03 Mar 2026 04:16:28 +0000
-Subject: Re: [apparmor] [PATCH v2 048/110] zonefs: use PRIino format for
-	i_ino
+Subject: Re: [apparmor] [PATCH v2 100/110] zonefs: replace PRIino with
+ %llu/%llx format strings
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -167,7 +167,7 @@ Cc: nvdimm@lists.linux.dev, jfs-discussion@lists.sourceforge.net,
  netfs@lists.linux.dev, linux-integrity@vger.kernel.org, ntfs3@lists.linux.dev
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Rspamd-Queue-Id: DB5E21E8E3A
+X-Rspamd-Queue-Id: A26401E9062
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.09 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -207,14 +207,13 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:rdns,lists.ubuntu.com:helo]
 X-Rspamd-Action: no action
 
-On 3/3/26 05:24, Jeff Layton wrote:
-> Convert zonefs i_ino format strings to use the PRIino format
-> macro in preparation for the widening of i_ino via kino_t.
+On 3/3/26 05:25, Jeff Layton wrote:
+> Now that i_ino is u64 and the PRIino format macro has been removed,
+> replace all uses in zonefs with the concrete format strings.
 > 
 > Signed-off-by: Jeff Layton <jlayton@kernel.org>
 
 Acked-by: Damien Le Moal <dlemoal@kernel.org>
-
 
 -- 
 Damien Le Moal
