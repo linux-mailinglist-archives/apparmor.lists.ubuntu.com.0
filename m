@@ -2,42 +2,42 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id WCZGNjtmpmljPQAAu9opvQ
+	id iIHtDbhgpmnUOwAAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 05:40:27 +0100
+	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 05:16:56 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB4D61E8E50
-	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 05:40:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28C5E1E8B93
+	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 05:16:56 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vxHCr-0006SZ-0d; Tue, 03 Mar 2026 04:18:01 +0000
-Received: from sea.source.kernel.org ([172.234.252.31])
+	id 1vxHBi-0001gq-8s; Tue, 03 Mar 2026 04:16:50 +0000
+Received: from tor.source.kernel.org ([172.105.4.254])
  by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <jlayton@kernel.org>) id 1vxAIR-0007Vg-4l
- for apparmor@lists.ubuntu.com; Mon, 02 Mar 2026 20:55:19 +0000
+ (envelope-from <jlayton@kernel.org>) id 1vxAIn-0007eT-Ej
+ for apparmor@lists.ubuntu.com; Mon, 02 Mar 2026 20:55:41 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 3436643FFA;
+ by tor.source.kernel.org (Postfix) with ESMTP id ABA346111A;
+ Mon,  2 Mar 2026 20:47:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E051C2BC87;
  Mon,  2 Mar 2026 20:47:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3D5CC19425;
- Mon,  2 Mar 2026 20:47:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772484465;
- bh=NxjvYMp7mxab9bptASYUwAt9ZY5sMtCtrMkINyf4Lcg=;
+ s=k20201202; t=1772484479;
+ bh=aRx+vBv2M2iRm6msaGNPhasqatamVupEcEqra1pj50U=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=mKF118EbNTK1Q1JUm9zwYzLqmUqwW6hCPa6VhG06QJSh9gQRRQlhj48rBLELE2moS
- ar+wMJ0VUkk9bJ3zmdqav5lqol2OWllhoiXWdAhQiADxgu1TM32Uk3nkqrPSU1EBtC
- cOFO6OSQqnZrWXlWrX29lqXNAQDHdTGIkcRToSyBMgCrTEpUxTgYkfZBg/tJpvkClT
- 4AUWKg+1Uj+xABZgUfW/xSDHNL8jydoULCCCXXJ6C4Ck1CZw+OWSCPQ5sjr2jCOUsU
- M22kG90SsDj2mIOwFRJCm9veSRej5OGv2Oqv0cm7PIOSvtGTv42ooCNsZ2RAPqSJmV
- YOhPUJxpdP5vA==
+ b=nlzXdd2d2jmb6ZCZJlUjsUWRxHX5Ef4p0g3CYJDJ6NRTC9wfC8nnMXQz81G3kHFIf
+ bk3ktV1oHOpMcMQOnvKOeWGTvG6ZnQ/MocHukfvCturZOxU/Bi8OvGApPLNcUd/hK4
+ bhwDnT+CVtxrCw78WPAaFCT09qXHfgAYMWpTDutUEUGqFkMaNaLBVSyEo0cNPh7I3Q
+ h9fZyYNh4rrnUZV+4xi2MJGXnJEhnuj+XvYPzs61Ct4ZpVnyPq3IXEWJt7Ine4BMIk
+ /gTcT4ElgQ2QlP4iB+YuH6gEdPvIx61yjxxZ3x4tL+yQ5hudAkroDrPOeTNPOXK5Wv
+ EYBb/ZIP/1i/A==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:25:19 -0500
+Date: Mon, 02 Mar 2026 15:25:20 -0500
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-95-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-96-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -130,26 +130,26 @@ To: Alexander Viro <viro@zeniv.linux.org.uk>,
  Jesper Dangaard Brouer <hawk@kernel.org>, 
  John Fastabend <john.fastabend@gmail.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1224; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=NxjvYMp7mxab9bptASYUwAt9ZY5sMtCtrMkINyf4Lcg=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIJgP6owvPx6m4AecvkwS2n3SHqtsEhINcBU
- pHfVmz8frGJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyCQAKCRAADmhBGVaC
- FQGCEACfHvP6/q3GLuGZ3TS9t0/lSTulN0XS7r9+2/P3SZbBO22xao3gkyH9Kg0UHItz/okfvjd
- CBSNAlu0vC2UpEVaFkN0vJAy563Q5AEsg5zHOhDs/mCzlCxfWySyO3bIe7yoq/tTH7GqrUOPEKX
- ym072YWOMvHXuEFrJizTgOu0JwtiP9/CLIJuGbiokKXmELraTmmoIH/3hguaJSRDlUuKcWMuqOh
- V6lbAYhrp2Ww/+Z6oNOaADOIwcMvZeX0FbcwZc9cIUj3LojkSThWvRALJUImWCPjHmYHkzok6tV
- NQGX4vI+03B/kJa04kExDMCqhK/zaUfCJSbwbt8sm91xiIbijmBBqSSQ9Oph1yQG7fJIveQR3m6
- 90vBLCxRjJIgD264u5wvR7VjZNdbEFZ1EzOPcQ2hP4mD/vT4jStUT6ZO+7KChUgKoGDbSXLXlVK
- YWtnAbs8gYWIZx++mqPFpNIQOq+2lH+0oGmU67E8s8GQn1tHV9kP3iwPiNiaBOzmWKYtiGrpueD
- e4xJZO2lhWqKQOOlU/Sewzw35+YTV3Qc0WqKBnLK+xNdb8CgMs8GTfxIeLxHXP8w4jxh7IpIy09
- ut6Y+AwYf0NWJq+dmqoYtGmDVp+LWbbU5O8xS+ngUV1Jn8NcXzZrnpn8L7PJQxM07xG1j7iqFML
- BGuz/QSgMhcfFng==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=785; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=aRx+vBv2M2iRm6msaGNPhasqatamVupEcEqra1pj50U=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIJiw1odsluet/XL7Mqa4kgajSxQPLdtlQBP
+ Cnhi68Zt2uJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyCQAKCRAADmhBGVaC
+ FabQEACmwH3xIV1kMlBE8jZgQl7+E4xyQ9Ct8W8zuWbIuWwDYMbjqugxPOEv67u11lXTH29X2dg
+ T+teVLNpE9KEA+QSZStGPzfwjKkV2dmFsTfKy60GPnda3f/FkiCLwnnd5OPZ80Q+3AnEBxZHH6f
+ wAWAjTFt9+1olQE+oiRr2tCPwDyirwOWOhhzxpvJoDphHy9s/VnilrBBjEMj6H2mLI7JbcMEroZ
+ awVclVwRnT+oYmRgjWvjJf6E5h9jseIrrvPZz0RDJyl0oW9Bgd1rd0fJ/aaA8iaijQhkqrz53M2
+ wfSxfIEH8oZCg2cxuxhf09hMyZoEB7LosomyOY/lHkHSRNeaXoKS/vu++fmfG4Zetr0mv2qRTP5
+ X/CZConNXt4BZWWp5ZTPBSrRraBWY2RnP8jO0mp3Ju+6PBk2uvnbjniN7GNlDPpdLvINPUYoyX3
+ tIl+GoSDldlirpwTmIkMxsPtzVi1aNgq5PflX3rr3L35rBTC/Ag2NHL82QBb0bpG5hUB/wEDzAf
+ BQ/2pzx8lCQp1KW0rqYQ3+NZ9O5fVnj13wHOKy1FiOOK94ifA+A9WKPPTy/wVGIsarmfnH9D5Zl
+ KYc8wQvQe0PIpa6fpTWJxlUHZ617zXMAkBSZldBDPIZrtfWQm65IggBJCjJnu6Y9BueSk6yfJlT
+ fi7dwf/3MTPla3g==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
-Received-SPF: pass client-ip=172.234.252.31; envelope-from=jlayton@kernel.org;
- helo=sea.source.kernel.org
-X-Mailman-Approved-At: Tue, 03 Mar 2026 04:16:27 +0000
-Subject: [apparmor] [PATCH v2 095/110] qnx4: replace PRIino with %llu/%llx
+Received-SPF: pass client-ip=172.105.4.254; envelope-from=jlayton@kernel.org;
+ helo=tor.source.kernel.org
+X-Mailman-Approved-At: Tue, 03 Mar 2026 04:16:28 +0000
+Subject: [apparmor] [PATCH v2 096/110] qnx6: replace PRIino with %llu/%llx
  format strings
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -184,7 +184,7 @@ Cc: nvdimm@lists.linux.dev, jfs-discussion@lists.sourceforge.net,
  netfs@lists.linux.dev, linux-integrity@vger.kernel.org, ntfs3@lists.linux.dev
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Rspamd-Queue-Id: CB4D61E8E50
+X-Rspamd-Queue-Id: 28C5E1E8B93
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.09 / 15.00];
 	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
@@ -224,35 +224,26 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 X-Rspamd-Action: no action
 
 Now that i_ino is u64 and the PRIino format macro has been removed,
-replace all uses in qnx4 with the concrete format strings.
+replace all uses in qnx6 with the concrete format strings.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/qnx4/inode.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/qnx6/inode.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/qnx4/inode.c b/fs/qnx4/inode.c
-index 1226de01f2d3c1d79fc054f2b882fdca2d9d78ff..4deb0eeadbdef3a580d57fbe4e8518da0f550cb7 100644
---- a/fs/qnx4/inode.c
-+++ b/fs/qnx4/inode.c
-@@ -62,7 +62,7 @@ static int qnx4_get_block( struct inode *inode, sector_t iblock, struct buffer_h
+diff --git a/fs/qnx6/inode.c b/fs/qnx6/inode.c
+index 630ebaa8a1c554b4d83ae75e5940a512e847bf51..6de49333acadbf08a8ce20d86e566433bc911f7d 100644
+--- a/fs/qnx6/inode.c
++++ b/fs/qnx6/inode.c
+@@ -75,7 +75,7 @@ static int qnx6_get_block(struct inode *inode, sector_t iblock,
  {
- 	unsigned long phys;
+ 	unsigned phys;
  
--	QNX4DEBUG((KERN_INFO "qnx4: qnx4_get_block inode=[%" PRIino "u] iblock=[%ld]\n", inode->i_ino, iblock));
-+	QNX4DEBUG((KERN_INFO "qnx4: qnx4_get_block inode=[%llu] iblock=[%ld]\n", inode->i_ino, iblock));
+-	pr_debug("qnx6_get_block inode=[%" PRIino "u] iblock=[%ld]\n",
++	pr_debug("qnx6_get_block inode=[%llu] iblock=[%ld]\n",
+ 		 inode->i_ino, (unsigned long)iblock);
  
- 	phys = qnx4_block_map( inode, iblock );
- 	if ( phys ) {
-@@ -128,7 +128,7 @@ unsigned long qnx4_block_map( struct inode *inode, long iblock )
- 			brelse( bh );
- 	}
- 
--	QNX4DEBUG((KERN_INFO "qnx4: mapping block %ld of inode %" PRIino "u = %ld\n", iblock, inode->i_ino, block));
-+	QNX4DEBUG((KERN_INFO "qnx4: mapping block %ld of inode %llu = %ld\n", iblock, inode->i_ino, block));
- 	return block;
- }
- 
+ 	phys = qnx6_block_map(inode, iblock);
 
 -- 
 2.53.0
