@@ -2,42 +2,42 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id CEflKqdgpmlVOwAAu9opvQ
+	id IJH8JDtnpmljPQAAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 05:16:39 +0100
+	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 05:44:43 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9ED9E1E8AA5
-	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 05:16:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F4B61E8FB9
+	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 05:44:43 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vxHBR-0000kg-Dh; Tue, 03 Mar 2026 04:16:33 +0000
-Received: from sea.source.kernel.org ([172.234.252.31])
+	id 1vxHC8-0003SU-Co; Tue, 03 Mar 2026 04:17:16 +0000
+Received: from tor.source.kernel.org ([172.105.4.254])
  by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <jlayton@kernel.org>) id 1vxA8k-0003zY-Ch
- for apparmor@lists.ubuntu.com; Mon, 02 Mar 2026 20:45:18 +0000
+ (envelope-from <jlayton@kernel.org>) id 1vxA97-0004Ap-8Q
+ for apparmor@lists.ubuntu.com; Mon, 02 Mar 2026 20:45:41 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A747543F3F;
+ by tor.source.kernel.org (Postfix) with ESMTP id 5F88F60127;
+ Mon,  2 Mar 2026 20:37:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0EFAC2BCB5;
  Mon,  2 Mar 2026 20:36:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A117C2BC9E;
- Mon,  2 Mar 2026 20:36:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772483819;
- bh=0ZE73lCrVEdpMXz91AbIXmMh1XqQRzyOg6foj3qrPFg=;
+ s=k20201202; t=1772483834;
+ bh=UgVJPM8BqxMlT560fdqc1noj6F6UhsdCukOI8Wq5nIg=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=B9vuT9SdMGIoze9C+yqVn924bJJ+P/cFYMS6dixpaI5Btyb/sfbUJp8vwEjCPXFiF
- Wmk8b6d4Axkj6LczBx/A/OoW3u1aHAnxcHJdbIsYggfPkj2YKpPbtaS/8r+efGtClW
- 8H/hAkIZkrIY/5sQQSYKCjNVm/qeQgD0wGVvUEc+1ikXnv04zuqRFju31Hcb99Acf+
- RoVPQXBDoiqz1kshO4InItYtqH6ICN97dgbrf7T/OCW418hsz06O0t989B2uXdGYcy
- yESxdVOw7NdL0gBdMXC+eip8AmrHMKjU0yfEuICWHSK657x0Psg3TqwaupkEb+oNTt
- DPGNx3BwIGc+w==
+ b=HXw1miefYXbtIR6JE39RM09xEPjBmSrYJnc3qKdbSp6N5ItcD+3dqGMszplv1N51y
+ FWyqgcWzhdjGCTvf4qERhS6VpTiXBI8l4n7NfS5KqzE84xU9lOB1OBDinG2QVBUc0U
+ 6WHJFMrk5n2jcImnUlQrHHjr5Pfi+8D6j/0VttCKj7s4ZbjYP4yoVdh5s65pBnHnKU
+ eQEHEcm+TWFIcZLQPDS6f/az/q7e1/JvJU1wVI2zC2IkbPObkZWYj/YlqOkmiugZtE
+ Io2SG6evn1tZgNUCy/ziVq5GkMQ52nu/w/LQNuTBDxOYr6RT9Btat+MaRhpqETOL+f
+ gjSkv9mWpqP+g==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:24:34 -0500
+Date: Mon, 02 Mar 2026 15:24:35 -0500
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-50-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-51-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -130,27 +130,26 @@ To: Alexander Viro <viro@zeniv.linux.org.uk>,
  Jesper Dangaard Brouer <hawk@kernel.org>, 
  John Fastabend <john.fastabend@gmail.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1231; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=0ZE73lCrVEdpMXz91AbIXmMh1XqQRzyOg6foj3qrPFg=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH8bWEVwsBbOa/3fhQXi5WtIWQ3JhiCAoIem
- 86pCTSDgfGJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx/AAKCRAADmhBGVaC
- Fd7JEAC4rhc+en5RK1++F7YzWXknLhX6D5LT7nLIWMuNPlNshWUqaUZgLyrGqrRxvONjVg6lljX
- w/XxprnxonbekUKFhURqX5POoQg7A7fly0I63bfHa582/Z44VdFqR8dJfc4rlKNLrKXgHXm/GHa
- eREHxVCd/KoQ6okzPx42ZNo1EgiajVbz9rRzAb9FnLUemaXHJn8FR0GZNpHUC/ZCtKNBrQdQHBz
- DBRqngy6qSL5zK5nJf3uIVMhdc2wfh65Bqv/L+kBuRiAXZzBdSFa8d+L6GjuG4HHvvHAu5aT9ln
- kBTohpygzBp+Lfi3Pbkigv75oeLO0BqvpkCe7/WOjwzbGGM1u70iFGcx+aJLcT8dOyGBsd18/fW
- 5qTXdZ5DqeKbeLczod/TumsCebxfh2wOI0Fp4O07ncbj7dG6RRUswbkWgvMa9O7hGtrebzvJa/e
- I6MIfMCMBRO32PFvsFjGfdF12IS1OqtD6boc7kn8yOhn1M67Oy24tV2rqoM6wADl8VSG/dcj72s
- DV2GMyXe8bmMXE/zXxXwNMqRHMdlJUqnyrXY+cuNlsdhc5WP3hRRyqrchkhS1Kjk35fOczwuL2Z
- F4zLOqTUP0EwBDdlSP1mhpuR6DxSpllNHXjKclV91I2uBWHZjKbczXkJHACIGsmkn9Wn8lc1opU
- MWMpr+08JwGFnlQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1485; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=UgVJPM8BqxMlT560fdqc1noj6F6UhsdCukOI8Wq5nIg=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH8DjQ61VuGHYqnx4y2RrHHfswITVgpEIRC2
+ nyttXLIXcKJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx/AAKCRAADmhBGVaC
+ FSp0EAC2mUe7VbzdzmXlDBKaHjpH8DkeAZ99MO7xXMFQrxi8LyQHDnksKIabJ1CMbWRV/7a+AcG
+ JhcXJYEASNFrvvQlot+lJ1YU5aBLLnWRSDfbjx3I+nN8wIkqyKJlZcfaf6UJw7ynquQlQbO0q/1
+ hCj4l4ff5JhTCvb4SGY85ttZDXzHn69Qo5KrvTTZxYtAyobrzpPZntiPtLl9Tf+GufsnYlSxss1
+ wF1/NMmA1v8Orp6i1U8bP7B6eaWyLPpLg3NBtHMWGI1rl8HV0YGoj76ycIWtfNDtl9K4zcKwE0b
+ eHeIQBn0KnUhRvigirZeqGAq2xj4LQykixIs2eWy6TK3U4ASfA5xNgeoU++63nkZ5gqpjB+CE5d
+ Ut3/4LrcQSE4ZJlhvlPuetDghmdNKQ3zOgtxJPTe+Q1eITJMTliYd+0GuN6eCtPEkjGUOmo3R0F
+ z20u/6T1nghDE37cI2psJQNUBlUOR5XPH5wqhA5cxuuDAe3Jd7ZmOOfLZefbivFHSm+A3pU07H/
+ gKWVwXcZmY3tDJR126BbBscgE1xItR4sp9XIK8qY0AbIlUtahC4Ofs3+0E2Urzwm2pRgHvPcfAq
+ HIqKoifPwSRSVoW5nkPIXYjrJGonxL2GGljvkLW7tnGX26B9t7VI2PyKvW47n31dx19lKsk4ze3
+ D4V8Yn2yXUUmYmg==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
-Received-SPF: pass client-ip=172.234.252.31; envelope-from=jlayton@kernel.org;
- helo=sea.source.kernel.org
-X-Mailman-Approved-At: Tue, 03 Mar 2026 04:16:26 +0000
-Subject: [apparmor] [PATCH v2 050/110] drm/amdgpu: use PRIino format for
-	i_ino
+Received-SPF: pass client-ip=172.105.4.254; envelope-from=jlayton@kernel.org;
+ helo=tor.source.kernel.org
+X-Mailman-Approved-At: Tue, 03 Mar 2026 04:16:27 +0000
+Subject: [apparmor] [PATCH v2 051/110] fsnotify: use PRIino format for i_ino
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -184,7 +183,7 @@ Cc: nvdimm@lists.linux.dev, jfs-discussion@lists.sourceforge.net,
  netfs@lists.linux.dev, linux-integrity@vger.kernel.org, ntfs3@lists.linux.dev
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Rspamd-Queue-Id: 9ED9E1E8AA5
+X-Rspamd-Queue-Id: 7F4B61E8FB9
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.09 / 15.00];
 	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
@@ -212,7 +211,7 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	NEURAL_HAM(-0.00)[-0.978];
+	NEURAL_HAM(-0.00)[-0.975];
 	RCPT_COUNT_GT_50(0.00)[172];
 	FROM_NEQ_ENVFROM(0.00)[jlayton@kernel.org,apparmor-bounces@lists.ubuntu.com];
 	TAGGED_RCPT(0.00)[apparmor];
@@ -223,30 +222,36 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:rdns,lists.ubuntu.com:helo]
 X-Rspamd-Action: no action
 
-Convert drm/amdgpu i_ino format strings to use the PRIino format
+Convert fsnotify i_ino format strings to use the PRIino format
 macro in preparation for the widening of i_ino via kino_t.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 4 ++--
+ fs/notify/fdinfo.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index 1fb95640069667bf731df05990b57c6e0a0d2c16..d62f7cd1bdd3643803a99c3cbe35fa5b19217eeb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -1676,9 +1676,9 @@ u64 amdgpu_bo_print_info(int id, struct amdgpu_bo *bo, struct seq_file *m)
- 	attachment = READ_ONCE(bo->tbo.base.import_attach);
- 
- 	if (attachment)
--		seq_printf(m, " imported from ino:%lu", file_inode(dma_buf->file)->i_ino);
-+		seq_printf(m, " imported from ino:%" PRIino "u", file_inode(dma_buf->file)->i_ino);
- 	else if (dma_buf)
--		seq_printf(m, " exported as ino:%lu", file_inode(dma_buf->file)->i_ino);
-+		seq_printf(m, " exported as ino:%" PRIino "u", file_inode(dma_buf->file)->i_ino);
- 
- 	amdgpu_bo_print_flag(m, bo, CPU_ACCESS_REQUIRED);
- 	amdgpu_bo_print_flag(m, bo, NO_CPU_ACCESS);
+diff --git a/fs/notify/fdinfo.c b/fs/notify/fdinfo.c
+index 9cc7eb863643774b83da8b6228c38db16d0dbed1..586eaa7f65a4a61b892fb9c39e6a0d81e025b790 100644
+--- a/fs/notify/fdinfo.c
++++ b/fs/notify/fdinfo.c
+@@ -84,7 +84,7 @@ static void inotify_fdinfo(struct seq_file *m, struct fsnotify_mark *mark)
+ 	inode_mark = container_of(mark, struct inotify_inode_mark, fsn_mark);
+ 	inode = igrab(fsnotify_conn_inode(mark->connector));
+ 	if (inode) {
+-		seq_printf(m, "inotify wd:%x ino:%lx sdev:%x mask:%x ignored_mask:0 ",
++		seq_printf(m, "inotify wd:%x ino:%" PRIino "x sdev:%x mask:%x ignored_mask:0 ",
+ 			   inode_mark->wd, inode->i_ino, inode->i_sb->s_dev,
+ 			   inotify_mark_user_mask(mark));
+ 		show_mark_fhandle(m, inode);
+@@ -111,7 +111,7 @@ static void fanotify_fdinfo(struct seq_file *m, struct fsnotify_mark *mark)
+ 		inode = igrab(fsnotify_conn_inode(mark->connector));
+ 		if (!inode)
+ 			return;
+-		seq_printf(m, "fanotify ino:%lx sdev:%x mflags:%x mask:%x ignored_mask:%x ",
++		seq_printf(m, "fanotify ino:%" PRIino "x sdev:%x mflags:%x mask:%x ignored_mask:%x ",
+ 			   inode->i_ino, inode->i_sb->s_dev,
+ 			   mflags, mark->mask, mark->ignore_mask);
+ 		show_mark_fhandle(m, inode);
 
 -- 
 2.53.0
