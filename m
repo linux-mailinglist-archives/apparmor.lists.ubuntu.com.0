@@ -2,37 +2,37 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aGR9BhfxpWlLHwAAu9opvQ
+	id qAvWORXxpWlLHwAAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Mon, 02 Mar 2026 21:20:39 +0100
+	for <lists+apparmor@lfdr.de>; Mon, 02 Mar 2026 21:20:37 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id E35651DF3EE
-	for <lists+apparmor@lfdr.de>; Mon, 02 Mar 2026 21:20:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 933481DF3E7
+	for <lists+apparmor@lfdr.de>; Mon, 02 Mar 2026 21:20:37 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vx9ka-0004dw-HJ; Mon, 02 Mar 2026 20:20:20 +0000
+	id 1vx9ka-0004dp-4W; Mon, 02 Mar 2026 20:20:20 +0000
 Received: from sea.source.kernel.org ([172.234.252.31])
  by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <jlayton@kernel.org>) id 1vx9kY-0004da-07
+ (envelope-from <jlayton@kernel.org>) id 1vx9kX-0004dZ-Vo
  for apparmor@lists.ubuntu.com; Mon, 02 Mar 2026 20:20:18 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 58B3F4340E;
- Mon,  2 Mar 2026 20:11:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 491A3C19425;
- Mon,  2 Mar 2026 20:11:03 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5FEB640610;
+ Mon,  2 Mar 2026 20:11:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 559B2C19423;
+ Mon,  2 Mar 2026 20:11:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772482265;
- bh=jxMNWDwdHnBzeQXGjwHec86Pw+l4VieaGKcp7ushtfw=;
+ s=k20201202; t=1772482285;
+ bh=OeesmHf3iWo9LtRryWZuWbYdY/megKXE7dF4xhYO/Yw=;
  h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=Qjk4bcuqJowii1X/fCGGAvXKvBkXXtkb5Nti2iZE9U1kFgMX+MPoWaRG7l9ev/3iV
- 6MAHsFguKbcCB4Lg2XIXt/LoqGCzBxTCmJkmhopLX8gUNx2zPMBdRM6CBfkHxc9MG9
- MhpEz6RYP2l+njY+H++JHuCeos9LpDsq63D3b9hsymESxQJA5Rrj5rUzcYOVcY5yCC
- F0eMkCCADJLo1qtYD0rIj5NXYJqhVcpvff0wBhsV5ePWtbRMW2DKxCJPKOrekxZWFl
- 9yLrYAFrUE8vwOypY7g1cyC74/Y5c1lpgFZM8y93LEpAizvIx6A0dHwNy5y+meeb7r
- +H7h2htsNaf8Q==
-Message-ID: <df3a0c1d7c2aa4653725a20401264de2ca1645b3.camel@kernel.org>
+ b=iaQKJ3Zf+/uYu0JpQomyuZl4ezZ/TzbD5T+rWmF+rwgMM1/fkZ2JjKtZjHVG99lgn
+ SdlEZoWstA0foY/uu+sx6Vj7CASfv/FwLtZjw4Cvmqo6MqrJUvrbAYtkib7hCBew0x
+ dQhMotLt124Ynq2JmmEJYX10w1XQthjChF8hfJKwKJQ+Jw8YJKtpOP7lmMy5qSQsLR
+ fTVun0F6KD068/UmIweHqKXDYrSI0yuAnWL3NDRk16etB7U3tCJep650wYSBfeCjsI
+ DSQcp5UvqPMUCLaP/jOIU2NKdV9E1bZADgKAhKB0ElUz+v5XskEhn+KdhC0+gg4taK
+ 3w6CIqNbmnzqg==
+Message-ID: <35865d210f4b22781ad5de1dc39627b61ba7fb49.camel@kernel.org>
 From: Jeff Layton <jlayton@kernel.org>
 To: NeilBrown <neil@brown.name>, Christian Brauner <brauner@kernel.org>, 
  Alexander Viro <viro@zeniv.linux.org.uk>, David Howells
@@ -43,10 +43,10 @@ To: NeilBrown <neil@brown.name>, Christian Brauner <brauner@kernel.org>,
  Morris <jmorris@namei.org>, "Serge E. Hallyn"	 <serge@hallyn.com>, Stephen
  Smalley <stephen.smalley.work@gmail.com>,  "Darrick J. Wong"	
  <djwong@kernel.org>
-Date: Mon, 02 Mar 2026 15:11:00 -0500
-In-Reply-To: <20260224222542.3458677-2-neilb@ownmail.net>
+Date: Mon, 02 Mar 2026 15:11:21 -0500
+In-Reply-To: <20260224222542.3458677-5-neilb@ownmail.net>
 References: <20260224222542.3458677-1-neilb@ownmail.net>
- <20260224222542.3458677-2-neilb@ownmail.net>
+ <20260224222542.3458677-5-neilb@ownmail.net>
 Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
  keydata=mQINBE6V0TwBEADXhJg7s8wFDwBMEvn0qyhAnzFLTOCHooMZyx7XO7dAiIhDSi7G1NPxw
  n8jdFUQMCR/GlpozMFlSFiZXiObE7sef9rTtM68ukUyZM4pJ9l0KjQNgDJ6Fr342Htkjxu/kFV1Wv
@@ -127,8 +127,8 @@ User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
 MIME-Version: 1.0
 Received-SPF: pass client-ip=172.234.252.31; envelope-from=jlayton@kernel.org;
  helo=sea.source.kernel.org
-Subject: Re: [apparmor] [PATCH v3 01/15] VFS: note error returns in
- documentation for various lookup functions
+Subject: Re: [apparmor] [PATCH v3 04/15] libfs: change
+ simple_done_creating() to use end_creating()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -146,7 +146,7 @@ Cc: linux-nfs@vger.kernel.org, selinux@vger.kernel.org,
  linux-fsdevel@vger.kernel.org, netfs@lists.linux.dev
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Rspamd-Queue-Id: E35651DF3EE
+X-Rspamd-Queue-Id: 933481DF3E7
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.09 / 15.00];
 	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
@@ -154,7 +154,7 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
@@ -162,8 +162,8 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	FORGED_RECIPIENTS(0.00)[m:neil@brown.name,m:brauner@kernel.org,m:viro@zeniv.linux.org.uk,m:dhowells@redhat.com,m:jack@suse.cz,m:chuck.lever@oracle.com,m:miklos@szeredi.hu,m:amir73il@gmail.com,m:john.johansen@canonical.com,m:paul@paul-moore.com,m:jmorris@namei.org,m:serge@hallyn.com,m:stephen.smalley.work@gmail.com,m:djwong@kernel.org,m:linux-nfs@vger.kernel.org,m:selinux@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:linux-kernel@vger.kernel.org,m:linux-unionfs@vger.kernel.org,m:linux-security-module@vger.kernel.org,m:linux-fsdevel@vger.kernel.org,m:netfs@lists.linux.dev,m:stephensmalleywork@gmail.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_SENDER(0.00)[jlayton@kernel.org,apparmor-bounces@lists.ubuntu.com];
 	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[jlayton@kernel.org,apparmor-bounces@lists.ubuntu.com];
 	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
 	RCVD_TLS_LAST(0.00)[];
 	RCPT_COUNT_TWELVE(0.00)[22];
@@ -173,101 +173,41 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	NEURAL_HAM(-0.00)[-0.965];
+	NEURAL_HAM(-0.00)[-0.979];
 	FROM_NEQ_ENVFROM(0.00)[jlayton@kernel.org,apparmor-bounces@lists.ubuntu.com];
 	TAGGED_RCPT(0.00)[apparmor];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:rdns,lists.ubuntu.com:helo,brown.name:email]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[brown.name:email,lists.ubuntu.com:rdns,lists.ubuntu.com:helo]
 X-Rspamd-Action: no action
 
 On Wed, 2026-02-25 at 09:16 +1100, NeilBrown wrote:
 > From: NeilBrown <neil@brown.name>
 >=20
-> Darrick recently noted that try_lookup_noperm() is documented as
-> "Look up a dentry by name in the dcache, returning NULL if it does not
-> currently exist." but it can in fact return an error.
+> simple_done_creating() and end_creating() are identical.
+> So change the former to use the latter.  This further centralises
+> unlocking of directories.
 >=20
-> So update the documentation for that and related functions.
->=20
-> Link: https://lore.kernel.org/all/20260218234917.GA6490@frogsfrogsfrogs/
-> Cc: "Darrick J. Wong" <djwong@kernel.org>
 > Signed-off-by: NeilBrown <neil@brown.name>
 > ---
->  fs/namei.c | 29 ++++++++++++++++++++++++++++-
->  1 file changed, 28 insertions(+), 1 deletion(-)
+>  fs/libfs.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
 >=20
-> diff --git a/fs/namei.c b/fs/namei.c
-> index 58f715f7657e..6f595f58acfe 100644
-> --- a/fs/namei.c
-> +++ b/fs/namei.c
-> @@ -3124,7 +3124,8 @@ static int lookup_one_common(struct mnt_idmap *idma=
-p,
->   * @base:	base directory to lookup from
->   *
->   * Look up a dentry by name in the dcache, returning NULL if it does not
-> - * currently exist.  The function does not try to create a dentry and if=
- one
-> + * currently exist or an error if there is a problem with the name.
-> + * The function does not try to create a dentry and if one
->   * is found it doesn't try to revalidate it.
->   *
->   * Note that this routine is purely a helper for filesystem usage and sh=
-ould
-> @@ -3132,6 +3133,11 @@ static int lookup_one_common(struct mnt_idmap *idm=
-ap,
->   *
->   * No locks need be held - only a counted reference to @base is needed.
->   *
-> + * Returns:
-> + *   - ref-counted dentry on success, or
-> + *   - %NULL if name could not be found, or
-> + *   - ERR_PTR(-EACCES) if name is dot or dotdot or contains a slash or =
-nul, or
-> + *   - ERR_PTR() if fs provide ->d_hash, and this returned an error.
->   */
->  struct dentry *try_lookup_noperm(struct qstr *name, struct dentry *base)
+> diff --git a/fs/libfs.c b/fs/libfs.c
+> index 74134ba2e8d1..63b4fb082435 100644
+> --- a/fs/libfs.c
+> +++ b/fs/libfs.c
+> @@ -2318,7 +2318,6 @@ EXPORT_SYMBOL(simple_start_creating);
+>  /* parent must have been held exclusive since simple_start_creating() */
+>  void simple_done_creating(struct dentry *child)
 >  {
-> @@ -3208,6 +3214,11 @@ EXPORT_SYMBOL(lookup_one);
->   *
->   * Unlike lookup_one, it should be called without the parent
->   * i_rwsem held, and will take the i_rwsem itself if necessary.
-> + *
-> + * Returns: - A dentry, possibly negative, or
-> + *	    - same errors as try_lookup_noperm() or
-> + *	    - ERR_PTR(-ENOENT) if parent has been removed, or
-> + *	    - ERR_PTR(-EACCES) if parent directory is not searchable.
->   */
->  struct dentry *lookup_one_unlocked(struct mnt_idmap *idmap, struct qstr =
-*name,
->  				   struct dentry *base)
-> @@ -3244,6 +3255,10 @@ EXPORT_SYMBOL(lookup_one_unlocked);
->   * It should be called without the parent i_rwsem held, and will take
->   * the i_rwsem itself if necessary.  If a fatal signal is pending or
->   * delivered, it will return %-EINTR if the lock is needed.
-> + *
-> + * Returns: A dentry, possibly negative, or
-> + *	   - same errors as lookup_one_unlocked() or
-> + *	   - ERR_PTR(-EINTR) if a fatal signal is pending.
->   */
->  struct dentry *lookup_one_positive_killable(struct mnt_idmap *idmap,
->  					    struct qstr *name,
-
-Claude says:
-
-  lookup_one_positive_killable() documentation says "A dentry, possibly neg=
-ative" but the function
-  explicitly converts negative dentries to ERR_PTR(-ENOENT). It should say =
-"A positive dentry" like
-  the companion functions lookup_one_positive_unlocked() and lookup_noperm_=
-positive_unlocked().
-
-...but that seems to be the only "regression" it found.=20
-
-
-Aside from that nit, this looks fine to me.
+> -	inode_unlock(child->d_parent->d_inode);
+> -	dput(child);
+> +	end_creating(child);
+>  }
+>  EXPORT_SYMBOL(simple_done_creating);
 
 Reviewed-by: Jeff Layton <jlayton@kernel.org>
 
