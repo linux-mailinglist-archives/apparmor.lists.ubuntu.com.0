@@ -2,42 +2,42 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cPZfJVVnpmljPQAAu9opvQ
+	id YA6rNnBmpmljPQAAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 05:45:09 +0100
+	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 05:41:20 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DE681E8FE6
-	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 05:45:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD8AB1E8E97
+	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 05:41:20 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vxHC4-0003Cb-Ai; Tue, 03 Mar 2026 04:17:12 +0000
-Received: from sea.source.kernel.org ([172.234.252.31])
+	id 1vxHCl-0005nL-7V; Tue, 03 Mar 2026 04:17:55 +0000
+Received: from tor.source.kernel.org ([172.105.4.254])
  by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <jlayton@kernel.org>) id 1vxA8l-00041N-V1
- for apparmor@lists.ubuntu.com; Mon, 02 Mar 2026 20:45:20 +0000
+ (envelope-from <jlayton@kernel.org>) id 1vxA96-0004A3-2T
+ for apparmor@lists.ubuntu.com; Mon, 02 Mar 2026 20:45:40 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 8ADDD43444;
+ by tor.source.kernel.org (Postfix) with ESMTP id 0BC4B6013E;
+ Mon,  2 Mar 2026 20:37:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5093C2BC9E;
  Mon,  2 Mar 2026 20:37:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AC4AC2BC87;
- Mon,  2 Mar 2026 20:37:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772483848;
- bh=alIboQURMSK+ocSf/bFc1ar67kVswLEBUSDYfenVfUM=;
+ s=k20201202; t=1772483862;
+ bh=fGYHXlsbo3hX+sj46S1AiPXUKeQiwqzfiJrHDisSkHY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=kk2zQoYkBDVLmoWgKHZGKpn6ciMFY0Lbxt9dGlgIR/0lSt9KnofVckQ/mlSO61Wd/
- JUadFiLXBbn75sghsOdtPcAm1W0R+9zn7xYBbZd8Z9SUbEkfHQaN0R1rsKSsPj+Xmn
- MgSlyPKkbHTzlCSvGcKDN6rfFlkyCWv/Qp1l0NoPWsIIo6XbKx2AFBTeAIRA5boOPV
- qckOmImvtrEhq3IfTiENBL1u8UnTNC70aoQfpfo3E3c+ESJRJmLbAPOmVNChAxcqNj
- Fre4JczkJH6RIUREqUj8fF0NayvsPuWmvQCQr2RaNhqGgQ2jiBHhT1hgnCt+uvBxbH
- VBBzAjyYbLQwA==
+ b=c/9X266oNOfvKAvPFmZGiBXLStP5cBXK0Dp0mJyjQEeHjqImF2hEL5wpLYtcaUFcw
+ 2sC0owKXlvgaZa5sWulnQuOCpp4CtmHNQds98lbOD2Yc1Il/Drz4gKpPzn21zZd9VP
+ HebEipWl98MlWo1FiW0+1kLGHSXoqdAkY1+SICHjyLUtlZiZIGYgOm06vONwEmE9v/
+ FBnsJ04VtuxHXf5Gwb4XHQpyHl1iOnlDJTkIbIBzNRsylsPuJdTlc5BH7z4MTjE3J2
+ qfTS80KOfLnK4Iav6vFw73aUFojUrfUSEZwKTH9BaNVj1bF8aUXr2R/vVacChhuNK1
+ 9bDJbs+kDbGrw==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:24:36 -0500
+Date: Mon, 02 Mar 2026 15:24:37 -0500
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-52-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-53-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -130,26 +130,26 @@ To: Alexander Viro <viro@zeniv.linux.org.uk>,
  Jesper Dangaard Brouer <hawk@kernel.org>, 
  John Fastabend <john.fastabend@gmail.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=725; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=alIboQURMSK+ocSf/bFc1ar67kVswLEBUSDYfenVfUM=;
- b=owEBbAKT/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH8QXEIw/5gHEXeNiHaVL979z6DfrTJZcwhr
- 5Wh/IhWaSaJAjIEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx/AAKCRAADmhBGVaC
- FadsD/jqW06qbLKQK8ySWMls9LvJMwDTfI0waxgMsD3IIx5QvU7aM2FC4Dzo533i69av7HWEhvG
- AL5R3yXp7BtQ1uhorCB1GGR9HPQDeZnkxUBmuR7b/D422qzz6wmLet1jyHw7x3AYUDXKo1hc7qS
- KV9z8VBGFhfutf2zvQqvKDr0HI54etmLsRNGzphVmsn/xpAFZrbDaRYrkv3dG16RrIWFIIJ1z6p
- iJBtOkUzcnyydqX/T2U4yMAQ/cYn5B3Ff8byI1QIFb88cQbgv9jRQce7DVC6Be1RpdJGxat2QLg
- DSu6J+cB1HiZ6FMJOzsocwII5LsCxvTORHzkuHcONuuqxERq+e82InEA9w7HJQ7VDTfDSHOmtTa
- X9kgWHAicmgUEVJjouiXOGERNrOdM9noz8bYXFmeFlDhs8gTW8VNwsqW6BkLRaCs7SC5BBd5MNQ
- JKsUnY8t4txGe3bRKcHDJOaAhfqWJX2vIjeWNBQVz7REBu9gXcMK/L3QIaGDSelXK0JvXWxJDmq
- rQg06k6xTCn54Hp3APckPu5S7lmRwAS/pGeL9MesU51wK+5r6lUmk814kj6Y9FVd+3ycy2ZiHvc
- fepQJzb1f/55QB+/pq3Mor1mYgPcV/SjzpEp3xUZRqIeC9FpR076/m1Wxy1t11+r73esUyAK9SS
- 5kqXEvwauhcaj
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1464; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=fGYHXlsbo3hX+sj46S1AiPXUKeQiwqzfiJrHDisSkHY=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH9tW5Nkdlwch0QiCW7vQI7VKCIy7wElai9y
+ ll7ocJEhdWJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx/QAKCRAADmhBGVaC
+ FZarD/9y54Q4L+jetMNmFB+qs8kAlh2TWuAHEq5hwBxHmBX7IVgfxOu88FDR1I00AXN5QfiePfD
+ O6OFcz5I4MiPCLCBJBQPz4Q9C1ZIpBw3oMbpJDj96b8eyV5qhbHxwhhMJWjVnz2ZdBXSMlcoilq
+ xT64Mf4SnaSaZ5qqDJonVw2sQojOYQPj2jyv1Y7MjqbdEl9cP4VwYpYWCUrlacGaDPNYdQDnvv0
+ jnkGFhH804OSUuCW0QDL1BrL2BKWEQ0DEaQndw9rEvommzO9vPfIaIrN4pifQrPpiU5PG3eLaH3
+ FoqXQQ6Wn/huK6WATaLKmvAdoZH2uWOzdotg9nis2NEB+MkciwWQn70+O5oiln1vfZDg+dEgRVE
+ MAXLiNymeViZ4KJU/IhQIZMtGNQua2Rf/vFL8p9tagtZWkuLlWFclZkXff0hABRJFfEPVkRIK7y
+ H4z5ar1z9lRZXAYBhfJJms7RYg9lN8G5/TC7SdOJypT/eapE0gVHIIe2H/3/DV6lx0VPJPG7tr7
+ IVlUN+zyvxD/xjX8JzuowRkWr2TYrIz6kNrmMiS+1mVqwAhW5PoPELrP3ywc1RLKdDz1jCP1p96
+ aZ8yYfF8SX2pljfP84I3kAXfU2nYgdVofWDZXxSPrT5YacltotUUtPJDc8pJB0215HikbZacWff
+ HVnb+5hitlPg+Fg==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
-Received-SPF: pass client-ip=172.234.252.31; envelope-from=jlayton@kernel.org;
- helo=sea.source.kernel.org
+Received-SPF: pass client-ip=172.105.4.254; envelope-from=jlayton@kernel.org;
+ helo=tor.source.kernel.org
 X-Mailman-Approved-At: Tue, 03 Mar 2026 04:16:26 +0000
-Subject: [apparmor] [PATCH v2 052/110] net: use PRIino format for i_ino
+Subject: [apparmor] [PATCH v2 053/110] uprobes: use PRIino format for i_ino
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -183,7 +183,7 @@ Cc: nvdimm@lists.linux.dev, jfs-discussion@lists.sourceforge.net,
  netfs@lists.linux.dev, linux-integrity@vger.kernel.org, ntfs3@lists.linux.dev
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Rspamd-Queue-Id: 6DE681E8FE6
+X-Rspamd-Queue-Id: CD8AB1E8E97
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.09 / 15.00];
 	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
@@ -211,7 +211,7 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	NEURAL_HAM(-0.00)[-0.982];
+	NEURAL_HAM(-0.00)[-0.976];
 	RCPT_COUNT_GT_50(0.00)[172];
 	FROM_NEQ_ENVFROM(0.00)[jlayton@kernel.org,apparmor-bounces@lists.ubuntu.com];
 	TAGGED_RCPT(0.00)[apparmor];
@@ -222,27 +222,36 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:rdns,lists.ubuntu.com:helo]
 X-Rspamd-Action: no action
 
-Convert the i_ino format string in sockfs_dname() to use the PRIino
-format macro.
+Convert uprobes i_ino format strings to use the PRIino format
+macro in preparation for the widening of i_ino via kino_t.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- net/socket.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ kernel/events/uprobes.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/net/socket.c b/net/socket.c
-index d25be67e4b84a5a0a033802404ad06a837b299b3..24b89b8e39405972dd602f3373ae53d56a4c625d 100644
---- a/net/socket.c
-+++ b/net/socket.c
-@@ -399,7 +399,7 @@ static const struct super_operations sockfs_ops = {
-  */
- static char *sockfs_dname(struct dentry *dentry, char *buffer, int buflen)
+diff --git a/kernel/events/uprobes.c b/kernel/events/uprobes.c
+index 923b24b321cc0fbdecaf016645cdac0457a74463..d5bf51565851223730c63b50436c493c0c05eafd 100644
+--- a/kernel/events/uprobes.c
++++ b/kernel/events/uprobes.c
+@@ -344,7 +344,7 @@ __update_ref_ctr(struct mm_struct *mm, unsigned long vaddr, short d)
+ static void update_ref_ctr_warn(struct uprobe *uprobe,
+ 				struct mm_struct *mm, short d)
  {
--	return dynamic_dname(buffer, buflen, "socket:[%lu]",
-+	return dynamic_dname(buffer, buflen, "socket:[%" PRIino "u]",
- 				d_inode(dentry)->i_ino);
- }
- 
+-	pr_warn("ref_ctr %s failed for inode: 0x%lx offset: "
++	pr_warn("ref_ctr %s failed for inode: 0x%" PRIino "x offset: "
+ 		"0x%llx ref_ctr_offset: 0x%llx of mm: 0x%p\n",
+ 		d > 0 ? "increment" : "decrement", uprobe->inode->i_ino,
+ 		(unsigned long long) uprobe->offset,
+@@ -982,7 +982,7 @@ static struct uprobe *insert_uprobe(struct uprobe *uprobe)
+ static void
+ ref_ctr_mismatch_warn(struct uprobe *cur_uprobe, struct uprobe *uprobe)
+ {
+-	pr_warn("ref_ctr_offset mismatch. inode: 0x%lx offset: 0x%llx "
++	pr_warn("ref_ctr_offset mismatch. inode: 0x%" PRIino "x offset: 0x%llx "
+ 		"ref_ctr_offset(old): 0x%llx ref_ctr_offset(new): 0x%llx\n",
+ 		uprobe->inode->i_ino, (unsigned long long) uprobe->offset,
+ 		(unsigned long long) cur_uprobe->ref_ctr_offset,
 
 -- 
 2.53.0
