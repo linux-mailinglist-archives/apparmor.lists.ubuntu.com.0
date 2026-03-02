@@ -2,42 +2,42 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 2FrqFNZmpmljPQAAu9opvQ
+	id eJRsE69gpmnWOwAAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 05:43:02 +0100
+	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 05:16:47 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F3621E8F30
-	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 05:43:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D2851E8B4C
+	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 05:16:47 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vxHCd-0005Ka-Qp; Tue, 03 Mar 2026 04:17:47 +0000
-Received: from sea.source.kernel.org ([172.234.252.31])
+	id 1vxHBZ-000137-66; Tue, 03 Mar 2026 04:16:41 +0000
+Received: from tor.source.kernel.org ([172.105.4.254])
  by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <jlayton@kernel.org>) id 1vx9z3-0000ff-J4
- for apparmor@lists.ubuntu.com; Mon, 02 Mar 2026 20:35:17 +0000
+ (envelope-from <jlayton@kernel.org>) id 1vx9zR-0000r8-7A
+ for apparmor@lists.ubuntu.com; Mon, 02 Mar 2026 20:35:41 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 452F243AE6;
+ by tor.source.kernel.org (Postfix) with ESMTP id D2DD86013C;
+ Mon,  2 Mar 2026 20:28:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DD42C19425;
  Mon,  2 Mar 2026 20:27:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EC6BC2BCB6;
- Mon,  2 Mar 2026 20:27:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772483273;
- bh=nciTTDQZK5qL3LQUCUCqIfcKo6ZHsmG0S/2Wz1vkROU=;
+ s=k20201202; t=1772483287;
+ bh=1ivESi7OxYMAVoEUneLRmG4iZ+3lem17D5YDwFd2su4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=fKcWRljkyhMMZ3o199G7gg005clJYunnzB1iU9CZy8suR9Alt4Fp/YmNJgWwziFIL
- XzB1Y/wziCsMMUW6GFHvAtNpfbWNrPOdzvRRa2OuXPjlQu2g4Zv5bXzVhnK06KwWNl
- KKaQ6raK6f4pfxIrCYYqz+30cr1BdbxPh6IE3chZdzaXtxXxSscfIE5515NT6Wvi3I
- PN2ZFMFeIYs4Mp9nXp6zaUXXIVdZ2v8mI94J9wTJbxdLlwq10bbFI8bddDYEvNsa+b
- HlcOdAcyVO+cdIHOy00NQtU/ZS5WT9oJQvXrOk1jVweeSJpTUNnjY6N76k09M+LWkx
- lBMDt0baT98bg==
+ b=qacI2mHYOWhdrqERQd+Otx6N+q+X1OOGn+EwKATQdVjMN1diiif/VEBc7q/vu7SNx
+ Dh9eqRvl7o9ps9FAzqtuLCUPaCfRbcEwZV8JfI8TnYqD5HHV4PIJ0W8i/KNlCR4cNG
+ T6R78TMDKrj2ir4GlKURJo1gK+WU1BzKR05rLmivRey5OahoHbNrrYuvcSKo9Ymzsh
+ K+Yeql0LeKhntftA7AY56wCiMOYQ/jzYTPAdnLBGI/+qvUdH8YaaARcXDtqBmfiQUT
+ lB0UxAtQ9jbphFQ/OkXpTHx7azoKW+t+f2O+gV5uDqkItqaFeVxzk/d+2Oc275mF1C
+ 5+Dse9wkztsVA==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:23:56 -0500
+Date: Mon, 02 Mar 2026 15:23:57 -0500
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-12-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-13-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -130,26 +130,26 @@ To: Alexander Viro <viro@zeniv.linux.org.uk>,
  Jesper Dangaard Brouer <hawk@kernel.org>, 
  John Fastabend <john.fastabend@gmail.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3318; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=nciTTDQZK5qL3LQUCUCqIfcKo6ZHsmG0S/2Wz1vkROU=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfHy3iEDWlbvoHl989GkXqWG5TvmCd867TP2y
- WqatYkLrY+JAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx8gAKCRAADmhBGVaC
- FVbVEADAsWmGMRTMR35XMoh+WB/EpKPAdnqyUxMzTxYr+ydkirRcnOxigphvl447C9K2I+s/djB
- G913QXK/8KM7sI90vMXGcwv09RasMmupJlyAQ58Sqyk8FOktvffY8AMjJUAAmQBb/lJ2Xa7goYY
- MM1iYebddqHF563/QzS4sYMTNEvGY5/uyP0t+7XBvk/YhmlvcKg3Nd7AyWhbke/D1Gh/NXU3UTn
- ZFl8lkGlpQN6+P+kM+7riEvZkcVXVJCVgjNXh2pDlDcdCCjve8LLHR2mag/kehPzZP5cSFLC42l
- KZNZ7xkE39Xb8+WUnCf8LDTF2427hxu2kQhIeyFs58FiU+PjtkrgZo6eM6Ml/ZAYoTYqDkjDRRg
- tLaqlAAsIE5wwLKLL+3XrZjH4kh6xVjJH5abuHNT1A3i4Z8FaIOhgpsWbfk479xTdXlCs2bc4cw
- LMAPoL32oMU6WgbqFBW0vqYUUdhSwJfqcohfkttig3Ouay8lvsZtcxl7rtyGFtPXLHRXWrJAIvy
- 6KZF3ChI0I8zdoBll2VDlcB5bFDwspGq0zjEpv/fLlt93xFpilUl9qHwAz8WENXoK7t7dWqIIOl
- ZO+RIVg7MsVjLQ9fYFd0z/XQMQjENm3UeaSSkDmRD28bXOrfCP3hzSceHRKWKQ/OhnBIPlIAgD8
- FxliLLn7VHmr43w==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1759; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=1ivESi7OxYMAVoEUneLRmG4iZ+3lem17D5YDwFd2su4=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfHyS0FdhrZYEU4R3h5I4O4CjVxowV5X+2BwL
+ fyWGe6UxOWJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx8gAKCRAADmhBGVaC
+ FbDhEACS/+k5beSLIB49AO1LucZKn6unZyW+FWBqW0V3kTE4HZ1xhQ5WhYx6NSrb76dDqiFudwD
+ +j9+krlU79fUTPsJzF/r0O+83Hm62pPpNXzsii9XlSfL+rtJX/Bo5nmOJUqn2Kz1pZtLbbt+Kgv
+ xHvvBLGX2QLK7qytBDicAI7dzgq1BlSdNjqIDUcnwf5tt3z4c9i/qaPQjEc4IYWHi1WP0mgMqYc
+ TTHnu8RcGhKs2M0dIeCZTT58wTGvL0anGnmhE1fhRbqoAP8cGjlFOjz9J3jNnNOFJDqk9mGeIFy
+ 8s7rLfkcy5xTSSfPcLCy8ZMQ2RAzJnhTBzjC7B3i6qLPZoxIU7kgeWdsfXzN5iObNz1MaTb7J5M
+ jEyiuSgVVVYtxnAMWW7wtqVjrb6844OziSVigT0MUV7fivHiVSGO54eeVWbP5lX4CNag/y7GEwO
+ zl+o6G64hjSDUnviLuvGhB37l6I+Y54GDbugfgOMd+1Y2ToBwTBDTlX5HTA32bPmlPW6YEe4GgJ
+ ShijJPtTgPXPq/EkgSct0D9fpNqma9uiRhiM5490x+qkuTkfch2OdZ8n6K3oImWcyXJFPf5hiq+
+ zakfFyuziCYzCLJrH2i4F3feY7KE56q+60ZnxyWrD+sIPn81mSSMnqALQrqQgBJ68Oo8Ch8txde
+ hcx5uXX89U7AuGA==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
-Received-SPF: pass client-ip=172.234.252.31; envelope-from=jlayton@kernel.org;
- helo=sea.source.kernel.org
-X-Mailman-Approved-At: Tue, 03 Mar 2026 04:16:25 +0000
-Subject: [apparmor] [PATCH v2 012/110] nfsd: use PRIino format for i_ino
+Received-SPF: pass client-ip=172.105.4.254; envelope-from=jlayton@kernel.org;
+ helo=tor.source.kernel.org
+X-Mailman-Approved-At: Tue, 03 Mar 2026 04:16:26 +0000
+Subject: [apparmor] [PATCH v2 013/110] locks: use PRIino format for i_ino
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -183,7 +183,7 @@ Cc: nvdimm@lists.linux.dev, jfs-discussion@lists.sourceforge.net,
  netfs@lists.linux.dev, linux-integrity@vger.kernel.org, ntfs3@lists.linux.dev
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Rspamd-Queue-Id: 3F3621E8F30
+X-Rspamd-Queue-Id: 3D2851E8B4C
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.09 / 15.00];
 	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
@@ -222,84 +222,45 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:rdns,lists.ubuntu.com:helo]
 X-Rspamd-Action: no action
 
-Convert nfsd i_ino format strings to use the PRIino format
+Convert locks i_ino format strings to use the PRIino format
 macro in preparation for the widening of i_ino via kino_t.
-
-Also correct signed format specifiers to unsigned, since inode
-numbers are unsigned values.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/nfsd/export.c    | 2 +-
- fs/nfsd/nfs4state.c | 4 ++--
- fs/nfsd/nfsfh.c     | 4 ++--
- fs/nfsd/vfs.c       | 2 +-
- 4 files changed, 6 insertions(+), 6 deletions(-)
+ fs/locks.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/fs/nfsd/export.c b/fs/nfsd/export.c
-index 8fdbba7cad96443d92cc7fdeea6158c4cc681be1..5dfdd836bbb63d6af17204c8df7ecf3f450998c2 100644
---- a/fs/nfsd/export.c
-+++ b/fs/nfsd/export.c
-@@ -1039,7 +1039,7 @@ exp_rootfh(struct net *net, struct auth_domain *clp, char *name,
- 	}
- 	inode = d_inode(path.dentry);
+diff --git a/fs/locks.c b/fs/locks.c
+index d13ec930b7bb03905df50bdce30b84749edab8d0..9c5aa23f09b6e061dc94c81cd802bb65dd0053c1 100644
+--- a/fs/locks.c
++++ b/fs/locks.c
+@@ -234,7 +234,7 @@ locks_check_ctx_lists(struct inode *inode)
+ 	if (unlikely(!list_empty(&ctx->flc_flock) ||
+ 		     !list_empty(&ctx->flc_posix) ||
+ 		     !list_empty(&ctx->flc_lease))) {
+-		pr_warn("Leaked locks on dev=0x%x:0x%x ino=0x%lx:\n",
++		pr_warn("Leaked locks on dev=0x%x:0x%x ino=0x%" PRIino "x:\n",
+ 			MAJOR(inode->i_sb->s_dev), MINOR(inode->i_sb->s_dev),
+ 			inode->i_ino);
+ 		locks_dump_ctx_list(&ctx->flc_flock, "FLOCK");
+@@ -251,7 +251,7 @@ locks_check_ctx_file_list(struct file *filp, struct list_head *list, char *list_
  
--	dprintk("nfsd: exp_rootfh(%s [%p] %s:%s/%ld)\n",
-+	dprintk("nfsd: exp_rootfh(%s [%p] %s:%s/%" PRIino "u)\n",
- 		 name, path.dentry, clp->name,
- 		 inode->i_sb->s_id, inode->i_ino);
- 	exp = exp_parent(cd, clp, &path);
-diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
-index 6b9c399b89dfb71a52b9c97f0efe9a1dea0558a6..d9d548225afb764326b2bb211919e24c87f15a00 100644
---- a/fs/nfsd/nfs4state.c
-+++ b/fs/nfsd/nfs4state.c
-@@ -1253,7 +1253,7 @@ static void nfsd4_finalize_deleg_timestamps(struct nfs4_delegation *dp, struct f
- 	if (ret) {
- 		struct inode *inode = file_inode(f);
- 
--		pr_notice_ratelimited("nfsd: Unable to update timestamps on inode %02x:%02x:%lu: %d\n",
-+		pr_notice_ratelimited("nfsd: Unable to update timestamps on inode %02x:%02x:%" PRIino "u: %d\n",
- 					MAJOR(inode->i_sb->s_dev),
- 					MINOR(inode->i_sb->s_dev),
- 					inode->i_ino, ret);
-@@ -2888,7 +2888,7 @@ static void nfs4_show_superblock(struct seq_file *s, struct nfsd_file *f)
- {
- 	struct inode *inode = file_inode(f->nf_file);
- 
--	seq_printf(s, "superblock: \"%02x:%02x:%ld\"",
-+	seq_printf(s, "superblock: \"%02x:%02x:%" PRIino "u\"",
- 					MAJOR(inode->i_sb->s_dev),
- 					 MINOR(inode->i_sb->s_dev),
- 					 inode->i_ino);
-diff --git a/fs/nfsd/nfsfh.c b/fs/nfsd/nfsfh.c
-index ed85dd43da18e6d4c4667ff14dc035f2eacff1d6..22df07be0650d9260a30e12c1371ccc4f89234db 100644
---- a/fs/nfsd/nfsfh.c
-+++ b/fs/nfsd/nfsfh.c
-@@ -601,9 +601,9 @@ fh_compose(struct svc_fh *fhp, struct svc_export *exp, struct dentry *dentry,
- 	struct inode * inode = d_inode(dentry);
- 	dev_t ex_dev = exp_sb(exp)->s_dev;
- 
--	dprintk("nfsd: fh_compose(exp %02x:%02x/%ld %pd2, ino=%ld)\n",
-+	dprintk("nfsd: fh_compose(exp %02x:%02x/%" PRIino "u %pd2, ino=%" PRIino "u)\n",
- 		MAJOR(ex_dev), MINOR(ex_dev),
--		(long) d_inode(exp->ex_path.dentry)->i_ino,
-+		d_inode(exp->ex_path.dentry)->i_ino,
- 		dentry,
- 		(inode ? inode->i_ino : 0));
- 
-diff --git a/fs/nfsd/vfs.c b/fs/nfsd/vfs.c
-index c884c3f34afb044ee5cacc962a04a97de2f7fd88..4c2095c83503e7fddc7e1ec528f55e36b6a326a4 100644
---- a/fs/nfsd/vfs.c
-+++ b/fs/nfsd/vfs.c
-@@ -1163,7 +1163,7 @@ nfsd_direct_read(struct svc_rqst *rqstp, struct svc_fh *fhp,
- 	} else if (unlikely(host_err == -EINVAL)) {
- 		struct inode *inode = d_inode(fhp->fh_dentry);
- 
--		pr_info_ratelimited("nfsd: Direct I/O alignment failure on %s/%ld\n",
-+		pr_info_ratelimited("nfsd: Direct I/O alignment failure on %s/%" PRIino "u\n",
- 				    inode->i_sb->s_id, inode->i_ino);
- 		host_err = -ESERVERFAULT;
- 	}
+ 	list_for_each_entry(flc, list, flc_list)
+ 		if (flc->flc_file == filp)
+-			pr_warn("Leaked %s lock on dev=0x%x:0x%x ino=0x%lx "
++			pr_warn("Leaked %s lock on dev=0x%x:0x%x ino=0x%" PRIino "x "
+ 				" fl_owner=%p fl_flags=0x%x fl_type=0x%x fl_pid=%u\n",
+ 				list_type, MAJOR(inode->i_sb->s_dev),
+ 				MINOR(inode->i_sb->s_dev), inode->i_ino,
+@@ -2896,7 +2896,7 @@ static void lock_get_status(struct seq_file *f, struct file_lock_core *flc,
+ 			     (type == F_RDLCK) ? "READ" : "UNLCK");
+ 	if (inode) {
+ 		/* userspace relies on this representation of dev_t */
+-		seq_printf(f, "%d %02x:%02x:%lu ", pid,
++		seq_printf(f, "%d %02x:%02x:%" PRIino "u ", pid,
+ 				MAJOR(inode->i_sb->s_dev),
+ 				MINOR(inode->i_sb->s_dev), inode->i_ino);
+ 	} else {
 
 -- 
 2.53.0
