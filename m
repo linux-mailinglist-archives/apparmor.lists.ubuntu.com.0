@@ -2,126 +2,100 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id CHydOHE9p2kNgAAAu9opvQ
+	id oh0mHXI9p2kVgAAAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 20:58:41 +0100
+	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 20:58:42 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCD1A1F6815
-	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 20:58:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 316E31F681C
+	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 20:58:42 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vxVt5-0003Ij-M6; Tue, 03 Mar 2026 19:58:35 +0000
-Received: from sea.source.kernel.org ([172.234.252.31])
- by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <jlayton@kernel.org>) id 1vxSTr-0008Br-AG
- for apparmor@lists.ubuntu.com; Tue, 03 Mar 2026 16:20:19 +0000
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id B3C5643E45;
- Tue,  3 Mar 2026 16:12:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C998C2BCAF;
- Tue,  3 Mar 2026 16:12:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772554348;
- bh=DHwb1w4rbyjffvv/2dbDWAHJ7e/mef+KxqtMj51rARA=;
- h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=DAmilg92EMM5p+oBAiJod0pyfJNnnEgeo/FHI7Mt2tLqRb5btdUmLaBqveM9jVjLi
- Rs1bZ9VXqnLLBPtsKjZiGU65p9YwK2O90hnrBBB5IbBGxbV5fsqsFCL5BPjNoFktRM
- 9pbG4QDyP022c1s8Z36onUYV0x0hfc5XlTzhqulI2XOKQGvhykIef5J78h7gEF8HAr
- vrL1Kdx04gNh7dqXDuFHHcf6i6Nln3Le9QC/xXvIfu2MMc08R/9VQf0UWHcDryW4zP
- wt4aUnI0TUpn7Jgy6RntsLOuNDb3tu0L/3jw/oOf46o04Iv9Xc1ksw8iqkEfgP4p7Y
- l/HlE10Zw24ow==
-Message-ID: <add39953250a4a1b2fe2b09deb3373c2a7482b88.camel@kernel.org>
-From: Jeff Layton <jlayton@kernel.org>
-To: Paul Moore <paul@paul-moore.com>
-Date: Tue, 03 Mar 2026 11:12:12 -0500
-In-Reply-To: <CAHC9VhTyhnG7-ojnTnVdh_m1x=rKxw9YEH9g7Xp9m4F78aA5cA@mail.gmail.com>
+	id 1vxVt5-0003Ic-GZ; Tue, 03 Mar 2026 19:58:35 +0000
+Received: from mail-pj1-f43.google.com ([209.85.216.43])
+ by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.86_2) (envelope-from <paul@paul-moore.com>)
+ id 1vxSRR-00075C-Q8
+ for apparmor@lists.ubuntu.com; Tue, 03 Mar 2026 16:17:50 +0000
+Received: by mail-pj1-f43.google.com with SMTP id
+ 98e67ed59e1d1-3599019ae92so1246846a91.0
+ for <apparmor@lists.ubuntu.com>; Tue, 03 Mar 2026 08:17:49 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1772554668; cv=none;
+ d=google.com; s=arc-20240605;
+ b=gV1kpfVIMor/U4NCdjDjwyi1N2Yg/70ocrhrPNyMPhykNNqHfHLxyBLB6gBhwZi1Mb
+ YegX/EQFGdlnDBvNe2f5ua/EsJUPzwBOUmlxIkvSDm0i5OE9+GaR57fu/P8lPGBQyN8O
+ f7ro3WDYO+Q69As09j2VCgMchD0fNJqRj+g+AgAbYB0FWub5D9dMG9hf0JwYeqOTlKep
+ IOFcomx34gX2yEEdzzO2fHFdTnSi0KOH6Ut82uFtb7kIjhPLiQx47ZZpTOQtxUAPsrz5
+ lu4ukhNv1pBvfNvEn0u774/0yV8T8J9ZmYE/aBs3RZpgKGfCiWFOOcnPRWXydhh0jc3R
+ RbOA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=vlM0HTuT+/Lu8GovscjfA3KZuqms5GnXWRMciKBvDhQ=;
+ fh=Q7hN0gjKhR9eiprRJuXWT7o+DgNrzN6eumdbsr8mvkA=;
+ b=Kr3okWTlx4akj+ZCqwGKS20BXCRXMThLchkmxABeHiOrN9kbL/tykdLgqexHOkF2ZW
+ rUAftFD0RgacKVTkgcCwYYVwzRW+gvzgVNCQj+Ia+o/r0fli/eqhq8M88dU9dv+oIclu
+ D0ZOE8d0jgrOxhncCa/drhCoDPweLJGu6f4dLnve2VencZ2tnJWbZVfe8F9i5SF6MCu3
+ 7OVcnvW/z2Q1OXeEGCM4E2QYQDoqX0ATdI8ReMqJPKX3vABS8GobWo5b2nsxYlZLIlPo
+ tha/FxdJ5I22OlSpFvSvXD7Qc/hPsa+RqwX6YymeVIUiSfM7QqNbCYb2IRKP3n00E/eZ
+ t5zA==; darn=lists.ubuntu.com
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=paul-moore.com; s=google; t=1772554668; x=1773159468; darn=lists.ubuntu.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=vlM0HTuT+/Lu8GovscjfA3KZuqms5GnXWRMciKBvDhQ=;
+ b=awQdExY6f2SOD3yXhDNl6IS87lpSfE/We6Wsuw2kXAmsBNw6UD9StNcpUnx+xMDquk
+ vTyq/wTnBtu6GHYRYfRzyQBCpibYDINfiCPU9Z0FAY9KpIiUHZgjBuyYU9W05k9Exdud
+ 41F6R6Yb03f2O5NlXYbpa4W1a2sjXMojKLdGvwduin6bI86H+MRzxFKnLegDvZYh8B51
+ IjOlfpxQ6Uhn8DB1EjzyuKxlf2oodqCXQyZrFl8Pj+RTxDn93u4M100SeerzKHFak4O5
+ ZC5u1epQBSBZ+RJANjj3L63HwFuA9sbX3By9gOuJCY/tq7RgwAANsnS0iem/em5aqC8b
+ cW2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1772554668; x=1773159468;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=vlM0HTuT+/Lu8GovscjfA3KZuqms5GnXWRMciKBvDhQ=;
+ b=HExPWjg9lhx6vxmuqpfgQI9qp1AnJHladsVu0jVHJOW0F8hoMDBENhbW3ZiCivaQeS
+ 2RA4m9ueFDDl6ZMF9SZNb7SEcXPTv58CyaSbpMy+XWLfVLh64Zh/XPyhGaQiAUm6N8eq
+ E/xoTNDfqkntth69cAkmvNjxknqrAOfWv9FuA+kxlwP/LdTY3puKrJUXP590Vic3Wnif
+ KwKli8XeT51GnRqjd7PvblqbZ9QqS3oQMalTnc/gw51duXrTDW3Lubff+v0dIkS44/f2
+ Uj5tQUej8Es0Mh17lvyFDprHBI8WhELlgBfMcgJibL2oRglcswPc0AHFVETc8hvwx6eH
+ rjRQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUt+sqmLCmOdYsFSjN/ep+BvQjb7HrKNqFP7qAB3Zg/Oe867+SCcBltK+WRMrJ95iuS73WJ5oQTqw==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0YxVNQS7lpihLrMXYMDhuExPstiXpJFnyjZopKJHHoMYAff6Trki
+ yKTenpFxsZ67kIsm9GSicyK2DIuxkBO6NKt2NowVlSSNnjCCFDL8f+fqylpjfrMiPR95NweFpNi
+ cOkU+U6RIsu/ar9uzO3D0bdVQrJmaqexckbEi2m0h
+X-Gm-Gg: ATEYQzwFNeGL3IVNYBthJ22n52K+mR1f8I2YrjtUR6dYd8e3crkJCI6rcnX+irUadt6
+ sXu7/x3OfOW/oMSKqEbLIXgmKL2qAzxt15AyTh5uIif8yWdO4VNRSVUlHU/4rbOu9tM76ifUVMZ
+ /qBt+l3pXXLBkfcVZgjc/61Ez++Dq+5z7uqQudKWFXFO7KfEne+EPKI4L4fjNbcFt98S0OAjDu7
+ q80X0kKgHkgYvBEFxanONAzJrjP/fp5QhXFjI3E23R3FEkKwcJg5GoyxaVpHJzGY2ZuzZuR5jl7
+ +QeDaXs=
+X-Received: by 2002:a17:90b:4c12:b0:359:8d70:c4e6 with SMTP id
+ 98e67ed59e1d1-3598d70c5admr5344309a91.1.1772554667658; Tue, 03 Mar 2026
+ 08:17:47 -0800 (PST)
+MIME-Version: 1.0
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
  <20260302-iino-u64-v2-3-e5388800dae0@kernel.org>
  <CAHC9VhRnmBuXEKkUPQhJ_LDzcksjoAJL-ne6mFoJdR1hnDdzsg@mail.gmail.com>
  <7a0165fe39e82a1effd8cce5c2c4e82d6a42cb3a.camel@kernel.org>
  <CAHC9VhTyhnG7-ojnTnVdh_m1x=rKxw9YEH9g7Xp9m4F78aA5cA@mail.gmail.com>
-Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
- keydata=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
- QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
+ <add39953250a4a1b2fe2b09deb3373c2a7482b88.camel@kernel.org>
+In-Reply-To: <add39953250a4a1b2fe2b09deb3373c2a7482b88.camel@kernel.org>
+From: Paul Moore <paul@paul-moore.com>
+Date: Tue, 3 Mar 2026 11:17:34 -0500
+X-Gm-Features: AaiRm503AvilRZsmzje3hsLVwZQN2UeIDoaYrT0wwtgoCj-_LcRzyWRvZdGrFAo
+Message-ID: <CAHC9VhSb3nAsJBxhqitDVQw=J8hX1CJDe1xqL-JMjOA5J4tUkw@mail.gmail.com>
+To: Jeff Layton <jlayton@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
-MIME-Version: 1.0
-Received-SPF: pass client-ip=172.234.252.31; envelope-from=jlayton@kernel.org;
- helo=sea.source.kernel.org
+Received-SPF: pass client-ip=209.85.216.43; envelope-from=paul@paul-moore.com;
+ helo=mail-pj1-f43.google.com
 X-Mailman-Approved-At: Tue, 03 Mar 2026 19:58:32 +0000
 Subject: Re: [apparmor] [PATCH v2 003/110] audit: widen ino fields to u64
 X-BeenThere: apparmor@lists.ubuntu.com
@@ -175,8 +149,8 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>, nvdimm@lists.linux.dev,
  netfs@lists.linux.dev, Jaegeuk Kim <jaegeuk@kernel.org>,
  fsverity@lists.linux.dev, "Theodore Y. Ts'o" <tytso@mit.edu>,
  Nicolas Pitre <nico@fluxnic.net>, Muchun Song <muchun.song@linux.dev>,
- Roberto Sassu <roberto.sassu@huawei.com>, "David S.
- Miller" <davem@davemloft.net>, Anna Schumaker <anna@kernel.org>,
+ Roberto Sassu <roberto.sassu@huawei.com>,
+ "David S. Miller" <davem@davemloft.net>, Anna Schumaker <anna@kernel.org>,
  linux-integrity@vger.kernel.org,
  Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
  Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
@@ -202,7 +176,7 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>, nvdimm@lists.linux.dev,
  samba-technical@lists.samba.org, Ondrej Mosnacek <omosnace@redhat.com>,
  Steve French <sfrench@samba.org>, netdev@vger.kernel.org,
  linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org, ntfs3@lists.linux.dev,
- Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  Ian Rogers <irogers@google.com>, Alexander Aring <alex.aring@gmail.com>,
  Jan Kara <jack@suse.cz>, Peter Zijlstra <peterz@infradead.org>,
  Dominique Martinet <asmadeus@codewreck.org>,
@@ -233,99 +207,110 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>, nvdimm@lists.linux.dev,
  David Woodhouse <dwmw2@infradead.org>, Joel Becker <jlbec@evilplan.org>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Rspamd-Queue-Id: CCD1A1F6815
+X-Rspamd-Queue-Id: 316E31F681C
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.09 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+X-Spamd-Result: default: False [2.69 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
+	R_DKIM_REJECT(1.00)[paul-moore.com:s=google];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:google.com:reject}];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
 	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
 	MAILLIST(-0.20)[mailman];
+	DMARC_POLICY_SOFTFAIL(0.10)[paul-moore.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:paul@paul-moore.com,m:lucho@ionkov.net,m:nvdimm@lists.linux.dev,m:pc@manguebit.org,m:djwong@kernel.org,m:al@alarsen.net,m:dri-devel@lists.freedesktop.org,m:linux-sctp@vger.kernel.org,m:linux-hams@vger.kernel.org,m:sumit.semwal@linaro.org,m:hubcap@omnibond.com,m:linux-xfs@vger.kernel.org,m:wufan@kernel.org,m:lucien.xin@gmail.com,m:ceph-devel@vger.kernel.org,m:jmorris@namei.org,m:code@tyhicks.com,m:hch@infradead.org,m:devel@lists.orangefs.org,m:sprasad@microsoft.com,m:ms@dev.tdt.de,m:hawk@kernel.org,m:jaharkes@cs.cmu.edu,m:willemb@google.com,m:acme@kernel.org,m:linux-fscrypt@vger.kernel.org,m:viro@zeniv.linux.org.uk,m:ronniesahlberg@gmail.com,m:glaubitz@physik.fu-berlin.de,m:david@kernel.org,m:ericvh@kernel.org,m:chengzhihao1@huawei.com,m:magnus.karlsson@intel.com,m:brauner@kernel.org,m:dmitry.kasatkin@gmail.com,m:stephen.smalley.work@gmail.com,m:linux-kernel@vger.kernel.org,m:eparis@redhat.com,m:linux-perf-users@vger.kernel.org,m:chuck.lever@oracle.com,m:mhi
- ramat@kernel.org,m:jolsa@kernel.org,m:jack@suse.com,m:alexander.deucher@amd.com,m:linux-media@vger.kernel.org,m:trondmy@kernel.org,m:mark.rutland@arm.com,m:shaggy@kernel.org,m:zohar@linux.ibm.com,m:oleg@redhat.com,m:edumazet@google.com,m:johan.hedberg@gmail.com,m:simona@ffwll.ch,m:linux-cifs@vger.kernel.org,m:kuniyu@google.com,m:linux-nilfs@vger.kernel.org,m:john.fastabend@gmail.com,m:codalist@coda.cs.cmu.edu,m:courmisch@gmail.com,m:linux-trace-kernel@vger.kernel.org,m:okorniev@redhat.com,m:maciej.fijalkowski@intel.com,m:frank.li@vivo.com,m:selinux@vger.kernel.org,m:v9fs@lists.linux.dev,m:linux-can@vger.kernel.org,m:linaro-mm-sig@lists.linaro.org,m:netfs@lists.linux.dev,m:jaegeuk@kernel.org,m:fsverity@lists.linux.dev,m:tytso@mit.edu,m:nico@fluxnic.net,m:muchun.song@linux.dev,m:roberto.sassu@huawei.com,m:davem@davemloft.net,m:anna@kernel.org,m:linux-integrity@vger.kernel.org,m:marcelo.leitner@gmail.com,m:luiz.dentz@gmail.com,m:amarkuze@redhat.com,m:martin@omnibond.com,m:alexander.shi
- shkin@linux.intel.com,m:ocfs2-devel@lists.linux.dev,m:ast@kernel.org,m:linux-mtd@lists.infradead.org,m:amd-gfx@lists.freedesktop.org,m:marc.dionne@auristor.com,m:ncardwell@google.com,m:linux-afs@lists.infradead.org,m:raven@themaw.net,m:naohiro.aota@wdc.com,m:ebiggers@kernel.org,m:daniel@iogearbox.net,m:miklos@szeredi.hu,m:willy@infradead.org,m:coda@cs.cmu.edu,m:sdf@fomichev.me,m:slava@dubeyko.com,m:neil@brown.name,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FROM_NEQ_ENVFROM(0.00)[jlayton@kernel.org,apparmor-bounces@lists.ubuntu.com];
+	FORGED_RECIPIENTS(0.00)[m:jlayton@kernel.org,m:lucho@ionkov.net,m:nvdimm@lists.linux.dev,m:pc@manguebit.org,m:djwong@kernel.org,m:al@alarsen.net,m:dri-devel@lists.freedesktop.org,m:linux-sctp@vger.kernel.org,m:linux-hams@vger.kernel.org,m:sumit.semwal@linaro.org,m:hubcap@omnibond.com,m:linux-xfs@vger.kernel.org,m:wufan@kernel.org,m:lucien.xin@gmail.com,m:ceph-devel@vger.kernel.org,m:jmorris@namei.org,m:code@tyhicks.com,m:hch@infradead.org,m:devel@lists.orangefs.org,m:sprasad@microsoft.com,m:ms@dev.tdt.de,m:hawk@kernel.org,m:jaharkes@cs.cmu.edu,m:willemb@google.com,m:acme@kernel.org,m:linux-fscrypt@vger.kernel.org,m:viro@zeniv.linux.org.uk,m:ronniesahlberg@gmail.com,m:glaubitz@physik.fu-berlin.de,m:david@kernel.org,m:ericvh@kernel.org,m:chengzhihao1@huawei.com,m:magnus.karlsson@intel.com,m:brauner@kernel.org,m:dmitry.kasatkin@gmail.com,m:stephen.smalley.work@gmail.com,m:linux-kernel@vger.kernel.org,m:eparis@redhat.com,m:linux-perf-users@vger.kernel.org,m:chuck.lever@oracle.com,m:mhir
+ amat@kernel.org,m:jolsa@kernel.org,m:jack@suse.com,m:alexander.deucher@amd.com,m:linux-media@vger.kernel.org,m:trondmy@kernel.org,m:mark.rutland@arm.com,m:shaggy@kernel.org,m:zohar@linux.ibm.com,m:oleg@redhat.com,m:edumazet@google.com,m:johan.hedberg@gmail.com,m:simona@ffwll.ch,m:linux-cifs@vger.kernel.org,m:kuniyu@google.com,m:linux-nilfs@vger.kernel.org,m:john.fastabend@gmail.com,m:codalist@coda.cs.cmu.edu,m:courmisch@gmail.com,m:linux-trace-kernel@vger.kernel.org,m:okorniev@redhat.com,m:maciej.fijalkowski@intel.com,m:frank.li@vivo.com,m:selinux@vger.kernel.org,m:v9fs@lists.linux.dev,m:linux-can@vger.kernel.org,m:linaro-mm-sig@lists.linaro.org,m:netfs@lists.linux.dev,m:jaegeuk@kernel.org,m:fsverity@lists.linux.dev,m:tytso@mit.edu,m:nico@fluxnic.net,m:muchun.song@linux.dev,m:roberto.sassu@huawei.com,m:davem@davemloft.net,m:anna@kernel.org,m:linux-integrity@vger.kernel.org,m:marcelo.leitner@gmail.com,m:luiz.dentz@gmail.com,m:amarkuze@redhat.com,m:martin@omnibond.com,m:alexander.shis
+ hkin@linux.intel.com,m:ocfs2-devel@lists.linux.dev,m:ast@kernel.org,m:linux-mtd@lists.infradead.org,m:amd-gfx@lists.freedesktop.org,m:marc.dionne@auristor.com,m:ncardwell@google.com,m:linux-afs@lists.infradead.org,m:raven@themaw.net,m:naohiro.aota@wdc.com,m:ebiggers@kernel.org,m:daniel@iogearbox.net,m:miklos@szeredi.hu,m:willy@infradead.org,m:coda@cs.cmu.edu,m:sdf@fomichev.me,m:slava@dubeyko.com,m:neil@brown.name,s:lists@lfdr.de];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
-	FORGED_SENDER(0.00)[jlayton@kernel.org,apparmor-bounces@lists.ubuntu.com];
+	FORGED_SENDER(0.00)[paul@paul-moore.com,apparmor-bounces@lists.ubuntu.com];
+	RCVD_TLS_LAST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FREEMAIL_CC(0.00)[ionkov.net,lists.linux.dev,manguebit.org,kernel.org,alarsen.net,lists.freedesktop.org,vger.kernel.org,linaro.org,omnibond.com,gmail.com,namei.org,tyhicks.com,infradead.org,lists.orangefs.org,microsoft.com,dev.tdt.de,cs.cmu.edu,google.com,zeniv.linux.org.uk,physik.fu-berlin.de,huawei.com,intel.com,redhat.com,oracle.com,suse.com,amd.com,arm.com,linux.ibm.com,ffwll.ch,coda.cs.cmu.edu,vivo.com,lists.linaro.org,mit.edu,fluxnic.net,linux.dev,davemloft.net,linux.intel.com,lists.infradead.org,auristor.com,themaw.net,wdc.com,iogearbox.net,szeredi.hu,fomichev.me,dubeyko.com,brown.name,lists.sourceforge.net,hallyn.com,goodmis.org,efficios.com,suse.de,paragon-software.com,kvack.org,lists.samba.org,samba.org,suse.cz,codewreck.org,crudebyte.com,linux.alibaba.com,dilger.ca,artax.karlin.mff.cuni.cz,secunet.com,gondor.apana.org.au,nod.at,fasheh.com,holtmann.org,yaina.de,lists.ubuntu.com,talpey.com,pengutronix.de,hartkopp.net,evilplan.org];
-	DKIM_TRACE(0.00)[kernel.org:-];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	NEURAL_HAM(-0.00)[-0.999];
-	RCPT_COUNT_GT_50(0.00)[169];
+	MIME_TRACE(0.00)[0:+];
 	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
+	FROM_NEQ_ENVFROM(0.00)[paul@paul-moore.com,apparmor-bounces@lists.ubuntu.com];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[paul-moore.com:-];
+	RCPT_COUNT_GT_50(0.00)[169];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[apparmor];
-	TO_DN_SOME(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	NEURAL_HAM(-0.00)[-0.945];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
-	FORGED_SENDER_MAILLIST(0.00)[]
+	TAGGED_RCPT(0.00)[apparmor];
+	TO_DN_SOME(0.00)[]
 X-Rspamd-Action: no action
 
-On Tue, 2026-03-03 at 11:03 -0500, Paul Moore wrote:
-> On Tue, Mar 3, 2026 at 6:05=E2=80=AFAM Jeff Layton <jlayton@kernel.org> w=
-rote:
-> > On Mon, 2026-03-02 at 18:44 -0500, Paul Moore wrote:
-> > > On Mon, Mar 2, 2026 at 3:25=E2=80=AFPM Jeff Layton <jlayton@kernel.or=
-g> wrote:
-> > > >=20
-> > > > inode->i_ino is being widened from unsigned long to u64. The audit
-> > > > subsystem uses unsigned long ino in struct fields, function paramet=
-ers,
-> > > > and local variables that store inode numbers from arbitrary filesys=
-tems.
-> > > > On 32-bit platforms this truncates inode numbers that exceed 32 bit=
-s,
-> > > > which will cause incorrect audit log entries and broken watch/mark
-> > > > comparisons.
-> > > >=20
-> > > > Widen all audit ino fields, parameters, and locals to u64, and upda=
-te
-> > > > the inode format string from %lu to %llu to match.
-> > > >=20
-> > > > Signed-off-by: Jeff Layton <jlayton@kernel.org>
-> > > > ---
-> > > >  include/linux/audit.h   | 2 +-
-> > > >  kernel/audit.h          | 9 ++++-----
-> > > >  kernel/audit_fsnotify.c | 4 ++--
-> > > >  kernel/audit_watch.c    | 8 ++++----
-> > > >  kernel/auditsc.c        | 2 +-
-> > > >  5 files changed, 12 insertions(+), 13 deletions(-)
-> > >=20
-> > > We should also update audit_hash_ino() in kernel/audit.h.  It is a
-> > > *very* basic hash function, so I think leaving the function as-is and
-> > > just changing the inode parameter from u32 to u64 should be fine.
->=20
-> ...
->=20
-> > It doesn't look like changing the argument type will make any material
-> > difference. Given that it should still work without that change, can we
-> > leave this cleanup for you to do in a follow-on patchset?
->=20
-> I would prefer if you made the change as part of the patch, mainly to
-> keep a patch record of this being related.
->=20
+On Tue, Mar 3, 2026 at 11:12=E2=80=AFAM Jeff Layton <jlayton@kernel.org> wr=
+ote:
+> On Tue, 2026-03-03 at 11:03 -0500, Paul Moore wrote:
+> > On Tue, Mar 3, 2026 at 6:05=E2=80=AFAM Jeff Layton <jlayton@kernel.org>=
+ wrote:
+> > > On Mon, 2026-03-02 at 18:44 -0500, Paul Moore wrote:
+> > > > On Mon, Mar 2, 2026 at 3:25=E2=80=AFPM Jeff Layton <jlayton@kernel.=
+org> wrote:
+> > > > >
+> > > > > inode->i_ino is being widened from unsigned long to u64. The audi=
+t
+> > > > > subsystem uses unsigned long ino in struct fields, function param=
+eters,
+> > > > > and local variables that store inode numbers from arbitrary files=
+ystems.
+> > > > > On 32-bit platforms this truncates inode numbers that exceed 32 b=
+its,
+> > > > > which will cause incorrect audit log entries and broken watch/mar=
+k
+> > > > > comparisons.
+> > > > >
+> > > > > Widen all audit ino fields, parameters, and locals to u64, and up=
+date
+> > > > > the inode format string from %lu to %llu to match.
+> > > > >
+> > > > > Signed-off-by: Jeff Layton <jlayton@kernel.org>
+> > > > > ---
+> > > > >  include/linux/audit.h   | 2 +-
+> > > > >  kernel/audit.h          | 9 ++++-----
+> > > > >  kernel/audit_fsnotify.c | 4 ++--
+> > > > >  kernel/audit_watch.c    | 8 ++++----
+> > > > >  kernel/auditsc.c        | 2 +-
+> > > > >  5 files changed, 12 insertions(+), 13 deletions(-)
+> > > >
+> > > > We should also update audit_hash_ino() in kernel/audit.h.  It is a
+> > > > *very* basic hash function, so I think leaving the function as-is a=
+nd
+> > > > just changing the inode parameter from u32 to u64 should be fine.
+> >
+> > ...
+> >
+> > > It doesn't look like changing the argument type will make any materia=
+l
+> > > difference. Given that it should still work without that change, can =
+we
+> > > leave this cleanup for you to do in a follow-on patchset?
+> >
+> > I would prefer if you made the change as part of the patch, mainly to
+> > keep a patch record of this being related.
+>
+> Ok, I'll see about factoring that in.
 
-Ok, I'll see about factoring that in.
+Thanks.
 
-> Ideally I'd really like to see kino_t used in the audit code instead
-> of u64, but perhaps that is done in a later patch that I didn't see.
+> > Ideally I'd really like to see kino_t used in the audit code instead
+> > of u64, but perhaps that is done in a later patch that I didn't see.
+>
+> I think I didn't make this clear enough in the cover letter, but kino_t
+> is removed at the end of the series. It's just there to support the
+> change during the interim.
 
-I think I didn't make this clear enough in the cover letter, but kino_t
-is removed at the end of the series. It's just there to support the
-change during the interim.
+Ah, gotcha, thanks for the education :)
 
-If HCH gets his way to do the changes as one big patch, it'll go away
-entirely.
+> If HCH gets his way to do the changes as one big patch, it'll go away
+> entirely.
+
 --=20
-Jeff Layton <jlayton@kernel.org>
+paul-moore.com
 
