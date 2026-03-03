@@ -2,53 +2,59 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YC0/GnM9p2kNgAAAu9opvQ
+	id 4PHtHHI9p2kNgAAAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 20:58:43 +0100
+	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 20:58:42 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 138F21F6825
-	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 20:58:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 498A91F681D
+	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 20:58:42 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vxVt3-0003Hz-Nr; Tue, 03 Mar 2026 19:58:33 +0000
-Received: from outgoing-auth-1.mit.edu ([18.9.28.11] helo=outgoing.mit.edu)
+	id 1vxVt5-0003IV-BF; Tue, 03 Mar 2026 19:58:35 +0000
+Received: from bombadil.infradead.org ([198.137.202.133])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <tytso@mit.edu>) id 1vxRUg-0005de-5j
- for apparmor@lists.ubuntu.com; Tue, 03 Mar 2026 15:17:06 +0000
-Received: from macsyma.thunk.org (pool-173-48-119-12.bstnma.fios.verizon.net
- [173.48.119.12]) (authenticated bits=0)
- (User authenticated as tytso@ATHENA.MIT.EDU)
- by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 623FGHAc030962
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 3 Mar 2026 10:16:19 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
- t=1772550987; bh=r6x2klXXgoU+8nt+Cp4vS5BDkY5WkDUr+eoNgGYMPDk=;
- h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
- b=KzTSOHRwT3LMbTHR0llsbZ8Elqs5CaJRZjxmNxQUFMAswuStpC31fs0yIcl+nwIjJ
- S3umgVQVGgNt1Oz1RTpJYxeDOSLWGS1lQWG0OF06WsyJthAOHPTEk63HFB378Gc+Z1
- 7AClTaSOQ+KtiOBjb8/C0ZU9vmqyHEnX8NnBL8RHxXhXKgJeC3i83ujxFmi6vH0p2g
- D27eKVQpmNlyvbKzOT3QHfYP30GkVsl3F2eGSBkR3cTjNKb8X0Ca5cSjf7eotj62mj
- 8tAKE8+0/pvSZn9wBTBUATHjwH/dtOFEvj1uXh0ceQlfb2thD+EORwMqde/Ys1tqiQ
- fLxLTxyRvRmmw==
-Received: by macsyma.thunk.org (Postfix, from userid 15806)
- id 99AD45ADBA78; Tue,  3 Mar 2026 10:16:17 -0500 (EST)
-Date: Tue, 3 Mar 2026 10:16:17 -0500
-From: "Theodore Tso" <tytso@mit.edu>
+ (Exim 4.86_2) (envelope-from
+ <BATV+880759e8e7db559b7569+8227+infradead.org+hch@bombadil.srs.infradead.org>)
+ id 1vxRcG-0000B0-9H
+ for apparmor@lists.ubuntu.com; Tue, 03 Mar 2026 15:24:57 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+ :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=FVOKKYXrgrNLIFNC3VguacredGR7s2JIN9XLcH6po4k=; b=qxYMrhdokZ5HXfsJyeZZ+fltiy
+ 1XEerkGQnRdFJFtxn82KxLYF5xmIBDbLKs4V5zGrkkAKdseaLA2m9lZs4IGEqH3A6LWUpxG3Ek+0v
+ CsFSDoyxjNUXK6JzWA2t741hlnnhb/IO6SKTq1jFtxCMKdi84yA3hG1047qxz6D3ckz2IMKUPrrZ+
+ IsefqNYtlHN3yxW5z7UoF5CjHCs3ZSN48O0RyskoLNNqzqmRayaRrfbdVH28j1Gcw0oa+snoJHb4N
+ qozTUybJXPeznhh0k0t81pNRkw9cK+17tfXfV/o+1HTdZPJiQ61RdyrlxyCx2e/u2tRFDLzeS3ydy
+ Ipijolfw==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.98.2 #2 (Red
+ Hat Linux)) id 1vxRb8-0000000FQIt-0QKR;
+ Tue, 03 Mar 2026 15:23:46 +0000
+Date: Tue, 3 Mar 2026 07:23:46 -0800
+From: Christoph Hellwig <hch@infradead.org>
 To: Jeff Layton <jlayton@kernel.org>
-Message-ID: <20260303151617.GD6520@macsyma-wired.lan>
-References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
- <20260302-iino-u64-v2-1-e5388800dae0@kernel.org>
+Message-ID: <aab9AlhqA5u4p5FY@infradead.org>
+References: <20260302-iino-u64-v2-1-e5388800dae0@kernel.org>
  <20260303012556.GA6520@macsyma-wired.lan>
  <20260303042546.GF13868@frogsfrogsfrogs>
  <33228005140684201de2ca0c157441d3b6a06413.camel@kernel.org>
+ <aabkBadGzo7IZpSU@infradead.org>
+ <19e4e79a59dcfc4c61c8cf263af345d0d7026fc8.camel@kernel.org>
+ <aabpPQxCTweoTp8Z@infradead.org>
+ <1310fc5c09cce52ec00344b936275fe584c88dea.camel@kernel.org>
+ <aabwflLfe2HcGv7X@infradead.org>
+ <4d3b9b92da613ad329b822f3f6043fa08f534451.camel@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <33228005140684201de2ca0c157441d3b6a06413.camel@kernel.org>
-Received-SPF: pass client-ip=18.9.28.11; envelope-from=tytso@mit.edu;
- helo=outgoing.mit.edu
+In-Reply-To: <4d3b9b92da613ad329b822f3f6043fa08f534451.camel@kernel.org>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ bombadil.infradead.org. See http://www.infradead.org/rpr.html
+Received-SPF: none client-ip=198.137.202.133;
+ envelope-from=BATV+880759e8e7db559b7569+8227+infradead.org+hch@bombadil.srs.infradead.org;
+ helo=bombadil.infradead.org
 X-Mailman-Approved-At: Tue, 03 Mar 2026 19:58:32 +0000
 Subject: Re: [apparmor] [PATCH v2 001/110] vfs: introduce kino_t typedef and
  PRIino format macro
@@ -102,8 +108,9 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>, nvdimm@lists.linux.dev,
  Yangtao Li <frank.li@vivo.com>, selinux@vger.kernel.org, v9fs@lists.linux.dev,
  linux-can@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
  netfs@lists.linux.dev, Jaegeuk Kim <jaegeuk@kernel.org>,
- fsverity@lists.linux.dev, Nicolas Pitre <nico@fluxnic.net>,
- Muchun Song <muchun.song@linux.dev>, Roberto Sassu <roberto.sassu@huawei.com>,
+ fsverity@lists.linux.dev, Theodore Tso <tytso@mit.edu>,
+ Nicolas Pitre <nico@fluxnic.net>, Muchun Song <muchun.song@linux.dev>,
+ Roberto Sassu <roberto.sassu@huawei.com>,
  "David S. Miller" <davem@davemloft.net>, Anna Schumaker <anna@kernel.org>,
  linux-integrity@vger.kernel.org,
  Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
@@ -161,64 +168,55 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>, nvdimm@lists.linux.dev,
  David Woodhouse <dwmw2@infradead.org>, Joel Becker <jlbec@evilplan.org>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Rspamd-Queue-Id: 138F21F6825
+X-Rspamd-Queue-Id: 498A91F681D
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [1.69 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[mit.edu:s=outgoing];
+	R_DKIM_REJECT(1.00)[infradead.org:s=bombadil.20210309];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
+	DMARC_POLICY_SOFTFAIL(0.10)[infradead.org : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[mit.edu : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jlayton@kernel.org,m:lucho@ionkov.net,m:nvdimm@lists.linux.dev,m:pc@manguebit.org,m:djwong@kernel.org,m:al@alarsen.net,m:dri-devel@lists.freedesktop.org,m:linux-sctp@vger.kernel.org,m:linux-hams@vger.kernel.org,m:sumit.semwal@linaro.org,m:hubcap@omnibond.com,m:linux-xfs@vger.kernel.org,m:wufan@kernel.org,m:lucien.xin@gmail.com,m:ceph-devel@vger.kernel.org,m:jmorris@namei.org,m:code@tyhicks.com,m:hch@infradead.org,m:devel@lists.orangefs.org,m:sprasad@microsoft.com,m:ms@dev.tdt.de,m:hawk@kernel.org,m:jaharkes@cs.cmu.edu,m:willemb@google.com,m:acme@kernel.org,m:linux-fscrypt@vger.kernel.org,m:viro@zeniv.linux.org.uk,m:ronniesahlberg@gmail.com,m:glaubitz@physik.fu-berlin.de,m:david@kernel.org,m:ericvh@kernel.org,m:chengzhihao1@huawei.com,m:magnus.karlsson@intel.com,m:brauner@kernel.org,m:dmitry.kasatkin@gmail.com,m:stephen.smalley.work@gmail.com,m:linux-kernel@vger.kernel.org,m:eparis@redhat.com,m:linux-perf-users@vger.kernel.org,m:chuck.lever@oracle.com,m:mhir
- amat@kernel.org,m:jolsa@kernel.org,m:jack@suse.com,m:alexander.deucher@amd.com,m:linux-media@vger.kernel.org,m:trondmy@kernel.org,m:mark.rutland@arm.com,m:shaggy@kernel.org,m:zohar@linux.ibm.com,m:oleg@redhat.com,m:edumazet@google.com,m:johan.hedberg@gmail.com,m:simona@ffwll.ch,m:linux-cifs@vger.kernel.org,m:kuniyu@google.com,m:linux-nilfs@vger.kernel.org,m:paul@paul-moore.com,m:john.fastabend@gmail.com,m:courmisch@gmail.com,m:linux-trace-kernel@vger.kernel.org,m:okorniev@redhat.com,m:maciej.fijalkowski@intel.com,m:frank.li@vivo.com,m:selinux@vger.kernel.org,m:v9fs@lists.linux.dev,m:linux-can@vger.kernel.org,m:linaro-mm-sig@lists.linaro.org,m:netfs@lists.linux.dev,m:jaegeuk@kernel.org,m:fsverity@lists.linux.dev,m:nico@fluxnic.net,m:muchun.song@linux.dev,m:roberto.sassu@huawei.com,m:davem@davemloft.net,m:anna@kernel.org,m:linux-integrity@vger.kernel.org,m:marcelo.leitner@gmail.com,m:luiz.dentz@gmail.com,m:amarkuze@redhat.com,m:martin@omnibond.com,m:alexander.shishkin@linux.intel.com,
- m:ocfs2-devel@lists.linux.dev,m:ast@kernel.org,m:linux-mtd@lists.infradead.org,m:amd-gfx@lists.freedesktop.org,m:marc.dionne@auristor.com,m:ncardwell@google.com,m:linux-afs@lists.infradead.org,m:raven@themaw.net,m:naohiro.aota@wdc.com,m:ebiggers@kernel.org,m:daniel@iogearbox.net,m:miklos@szeredi.hu,m:willy@infradead.org,m:coda@cs.cmu.edu,m:sdf@fomichev.me,m:slava@dubeyko.com,m:neil@brown.name,m:idryomov@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[tytso@mit.edu,apparmor-bounces@lists.ubuntu.com];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
 	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[ionkov.net,lists.linux.dev,manguebit.org,kernel.org,alarsen.net,lists.freedesktop.org,vger.kernel.org,linaro.org,omnibond.com,gmail.com,namei.org,tyhicks.com,infradead.org,lists.orangefs.org,microsoft.com,dev.tdt.de,cs.cmu.edu,google.com,zeniv.linux.org.uk,physik.fu-berlin.de,huawei.com,intel.com,redhat.com,oracle.com,suse.com,amd.com,arm.com,linux.ibm.com,ffwll.ch,paul-moore.com,vivo.com,lists.linaro.org,fluxnic.net,linux.dev,davemloft.net,linux.intel.com,lists.infradead.org,auristor.com,themaw.net,wdc.com,iogearbox.net,szeredi.hu,fomichev.me,dubeyko.com,brown.name,lists.sourceforge.net,hallyn.com,goodmis.org,efficios.com,suse.de,paragon-software.com,kvack.org,lists.samba.org,samba.org,suse.cz,codewreck.org,crudebyte.com,linux.alibaba.com,dilger.ca,artax.karlin.mff.cuni.cz,secunet.com,gondor.apana.org.au,nod.at,fasheh.com,holtmann.org,yaina.de,telemann.coda.cs.cmu.edu,lists.ubuntu.com,talpey.com,pengutronix.de,hartkopp.net,evilplan.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[hch@infradead.org,apparmor-bounces@lists.ubuntu.com];
 	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jlayton@kernel.org,m:lucho@ionkov.net,m:nvdimm@lists.linux.dev,m:pc@manguebit.org,m:djwong@kernel.org,m:al@alarsen.net,m:dri-devel@lists.freedesktop.org,m:linux-sctp@vger.kernel.org,m:linux-hams@vger.kernel.org,m:sumit.semwal@linaro.org,m:hubcap@omnibond.com,m:linux-xfs@vger.kernel.org,m:wufan@kernel.org,m:lucien.xin@gmail.com,m:ceph-devel@vger.kernel.org,m:jmorris@namei.org,m:code@tyhicks.com,m:hch@infradead.org,m:devel@lists.orangefs.org,m:sprasad@microsoft.com,m:ms@dev.tdt.de,m:hawk@kernel.org,m:jaharkes@cs.cmu.edu,m:willemb@google.com,m:acme@kernel.org,m:linux-fscrypt@vger.kernel.org,m:viro@zeniv.linux.org.uk,m:ronniesahlberg@gmail.com,m:glaubitz@physik.fu-berlin.de,m:david@kernel.org,m:ericvh@kernel.org,m:chengzhihao1@huawei.com,m:magnus.karlsson@intel.com,m:brauner@kernel.org,m:dmitry.kasatkin@gmail.com,m:stephen.smalley.work@gmail.com,m:linux-kernel@vger.kernel.org,m:eparis@redhat.com,m:linux-perf-users@vger.kernel.org,m:chuck.lever@oracle.com,m:mhir
+ amat@kernel.org,m:jolsa@kernel.org,m:jack@suse.com,m:alexander.deucher@amd.com,m:linux-media@vger.kernel.org,m:trondmy@kernel.org,m:mark.rutland@arm.com,m:shaggy@kernel.org,m:zohar@linux.ibm.com,m:oleg@redhat.com,m:edumazet@google.com,m:johan.hedberg@gmail.com,m:simona@ffwll.ch,m:linux-cifs@vger.kernel.org,m:kuniyu@google.com,m:linux-nilfs@vger.kernel.org,m:paul@paul-moore.com,m:john.fastabend@gmail.com,m:courmisch@gmail.com,m:linux-trace-kernel@vger.kernel.org,m:okorniev@redhat.com,m:maciej.fijalkowski@intel.com,m:frank.li@vivo.com,m:selinux@vger.kernel.org,m:v9fs@lists.linux.dev,m:linux-can@vger.kernel.org,m:linaro-mm-sig@lists.linaro.org,m:netfs@lists.linux.dev,m:jaegeuk@kernel.org,m:fsverity@lists.linux.dev,m:tytso@mit.edu,m:nico@fluxnic.net,m:muchun.song@linux.dev,m:roberto.sassu@huawei.com,m:davem@davemloft.net,m:anna@kernel.org,m:linux-integrity@vger.kernel.org,m:marcelo.leitner@gmail.com,m:luiz.dentz@gmail.com,m:amarkuze@redhat.com,m:martin@omnibond.com,m:alexander.shishkin@
+ linux.intel.com,m:ocfs2-devel@lists.linux.dev,m:ast@kernel.org,m:linux-mtd@lists.infradead.org,m:amd-gfx@lists.freedesktop.org,m:marc.dionne@auristor.com,m:ncardwell@google.com,m:linux-afs@lists.infradead.org,m:raven@themaw.net,m:naohiro.aota@wdc.com,m:ebiggers@kernel.org,m:daniel@iogearbox.net,m:miklos@szeredi.hu,m:willy@infradead.org,m:coda@cs.cmu.edu,m:sdf@fomichev.me,m:slava@dubeyko.com,m:neil@brown.name,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
+	FREEMAIL_CC(0.00)[ionkov.net,lists.linux.dev,manguebit.org,kernel.org,alarsen.net,lists.freedesktop.org,vger.kernel.org,linaro.org,omnibond.com,gmail.com,namei.org,tyhicks.com,infradead.org,lists.orangefs.org,microsoft.com,dev.tdt.de,cs.cmu.edu,google.com,zeniv.linux.org.uk,physik.fu-berlin.de,huawei.com,intel.com,redhat.com,oracle.com,suse.com,amd.com,arm.com,linux.ibm.com,ffwll.ch,paul-moore.com,vivo.com,lists.linaro.org,mit.edu,fluxnic.net,linux.dev,davemloft.net,linux.intel.com,lists.infradead.org,auristor.com,themaw.net,wdc.com,iogearbox.net,szeredi.hu,fomichev.me,dubeyko.com,brown.name,lists.sourceforge.net,hallyn.com,goodmis.org,efficios.com,suse.de,paragon-software.com,kvack.org,lists.samba.org,samba.org,suse.cz,codewreck.org,crudebyte.com,linux.alibaba.com,dilger.ca,artax.karlin.mff.cuni.cz,secunet.com,gondor.apana.org.au,nod.at,fasheh.com,holtmann.org,yaina.de,telemann.coda.cs.cmu.edu,lists.ubuntu.com,talpey.com,pengutronix.de,hartkopp.net,evilplan.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[169];
-	FROM_NEQ_ENVFROM(0.00)[tytso@mit.edu,apparmor-bounces@lists.ubuntu.com];
+	RCPT_COUNT_GT_50(0.00)[170];
+	FROM_NEQ_ENVFROM(0.00)[hch@infradead.org,apparmor-bounces@lists.ubuntu.com];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[mit.edu:-];
-	NEURAL_HAM(-0.00)[-0.997];
-	TAGGED_RCPT(0.00)[apparmor];
+	DKIM_TRACE(0.00)[infradead.org:-];
+	NEURAL_HAM(-0.00)[-0.998];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MISSING_XM_UA(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
-	FORGED_SENDER_MAILLIST(0.00)[]
+	TAGGED_RCPT(0.00)[apparmor];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[infradead.org:mid]
 X-Rspamd-Action: no action
 
-On Tue, Mar 03, 2026 at 05:53:39AM -0500, Jeff Layton wrote:
+On Tue, Mar 03, 2026 at 10:14:27AM -0500, Jeff Layton wrote:
+> I think we'll be looking at close to a 1000 line patch that touches
+> nearly 200 files if go that route. Roughly:
 > 
-> Like I said to Ted, this is just temporary scaffolding for the change.
-> The PRIino macro is removed in the end. Given that, perhaps you can
-> overlook the bikeshed's color in this instance?
+>  182 files changed, 910 insertions(+), 912 deletions(-)
 
-I didn't realize that this was going to disappear in the end.  That
-makes me feel much better about the change.  I'd suggest changing the
-commit description where it claims that we're using something that
-follows the inttypes.h convention and making it clear that this is
-temporary and only to preserve bisectability.
+That's not actually a lot, especially for a patch that should be
+scriped and mechnanical.
 
-One question though --- are there *really* places that are using
-signed inode numbers and trying to print them?  If people are trying
-to use negative inodes to signal an error or some such, the it implies
-that at least for some file systems, an inode number larger than 2**63
-might be problematic.  If there is core VFS code that uses a negative
-inode number then this could be a real potential trap.
+I also really don't understand the backport argument.  It's not like
+you could backport any of the split out patches individually anyway.
 
-So are there really code which is doing a printf of 'PRIino "d"'?  Or
-was this to allow the use of of 'PRiino "x"'?
-
-	    	    	      	     	- Ted
 
