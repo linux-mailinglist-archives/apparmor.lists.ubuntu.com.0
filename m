@@ -2,36 +2,36 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mO9tD+v6pmltbwAAu9opvQ
+	id +CoWJuv6pmk7bgAAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
 	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 16:14:51 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF50F1F241A
-	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 16:14:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13D281F241B
+	for <lists+apparmor@lfdr.de>; Tue, 03 Mar 2026 16:14:51 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vxRSF-00039X-JX; Tue, 03 Mar 2026 15:14:35 +0000
+	id 1vxRSG-0003Ao-1S; Tue, 03 Mar 2026 15:14:36 +0000
 Received: from kylie.crudebyte.com ([5.189.157.229])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <linux_oss@crudebyte.com>)
- id 1vxOLC-0001GA-Hu
- for apparmor@lists.ubuntu.com; Tue, 03 Mar 2026 11:55:06 +0000
+ id 1vxOeO-0008Ro-Mm
+ for apparmor@lists.ubuntu.com; Tue, 03 Mar 2026 12:14:56 +0000
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=crudebyte.com; s=kylie; h=Content-Type:Content-Transfer-Encoding:
  MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
  Content-ID:Content-Description;
- bh=sEoIOy08sNDPM7R5rm77ylqbd67+xSmbEywB7fDE1l0=; b=b45/xuqsDe3UOPQGaSOC3QVfXK
- OUdoPRzyNDl+yB4fHKVaFWk8VF87HMtM4PYj4R2Fj4RpvcBDUY2ZRib9drn+oqZiRxQCtGar4RuAz
- RYpsEbooDPugVAlnLrqpLhL+RChtlDNEybUZnd2yTo6Y9uqRr+1WKo0xl+84dQj8eWwrm7umz7n0w
- S0EXkqOXa2C/JE8ObWOt92H0I3bqxVdgJ9TfYidSDZtw7bmGYFyYek8qwJZQAKn3MZmmf/FUVClZB
- QWCtVuugHhF8BNOyUJFLJSfWPIXAHjH3TLcWIb8OST54dg+7vIizA1SPKkby0pw/QTg0kPbnj4Wj9
- VeB+nqiUcTgosudQMsEBFy4QC+CVa0DVQMYM3UhAhXRVcGAw2OrwsIYL9SNJioU6URY8vyDA6TwfM
- CFYsOZ3h1lK3cnDA5o2cflFeZC32omihqCAVM51Ge0wTTskASCR9w0ENeA5eVA/akwkz+TZ5d3AsE
- 7f82uN5RuzZACblKcmQqEKYQjiNJSERv0YAwUBb/EiPVB4IwaXQdg3R2xm5FyvBpIz+8+5sqHHPrp
- 714s96tE/7YqJbu0kX52r+TMH8FczKREFdRsqPG+YK+I8GIlGaziiB8fLP6RTgOHSdf3lUuYeXzdb
- ttbE75RJ/SInwkaKpg3BOdQZ8WJQK3Z8q+sKFDgvs=;
+ bh=6morsqL1rf2svzHpl7Mgcq7P7Za1rjxSr9X2GzDxJdQ=; b=HqDnIkLb9g/Hsc8NjMh6Jj9WuM
+ MzJbEDxoSbJB6oNviZ4lhLElZSwdxUq+F82IhdhMr3/l3EIr7ekENzTfWw1alK0l7gFMBknTTbllK
+ rQiTpC5jrJRp5O9Y1BXau586rPz904ODCjVtDrL/S+fcUwcyE3KQHYPQE7yHCQgEDc8jdW2FFMvnt
+ 8BFo41dQEnn19Baat6muvD8WHIuTeXI5DV3hJWIvjJJnnIbJ9NBNkEHuffv8Z0iXv2/2WH2/hxxuH
+ bQk7qyA82VKBDS4IWm4WLmrZDk/8F2VTqK9lWDvGIID23xeCtmOUbbOU5nkyVR/RcS3L+8d3GznDt
+ Co3UvqraJhe1cjvRT3F0oMQn4owK/B7J/FhwdoT/TARifEt06mcA+ESiihNW/SIasrPSJHOjZxjau
+ 19CUACfNAgbx8938xysaW9hCoTK95R7R5EP2KKkB7w4xq+Xr5QZHTBanCME4DOR0egc7lmc8Iwow+
+ 6QdiLyA9W5tnh0qszmpT1je2sF3FDWXPdKIW8B5OWRyh6mmktdJOqx2KnWKFBZUmJIRSr0SYCgoEj
+ OXekGpcPmr2OGrtA46WUBXf4g/mM8I/cnPWeWBCwtWVWaywFhrbuiZs4N+cAgdTRI0a7P2lT1kapU
+ +AuwoWhfJXGO+AHTpCpSIxdbyzli+byB6v/wTaiSQ=;
 From: Christian Schoenebeck <linux_oss@crudebyte.com>
 To: Alexander Viro <viro@zeniv.linux.org.uk>,
  Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
@@ -115,18 +115,19 @@ To: Alexander Viro <viro@zeniv.linux.org.uk>,
  Daniel Borkmann <daniel@iogearbox.net>,
  Jesper Dangaard Brouer <hawk@kernel.org>,
  John Fastabend <john.fastabend@gmail.com>, Jeff Layton <jlayton@kernel.org>
-Date: Tue, 03 Mar 2026 12:52:39 +0100
-Message-ID: <12847641.O9o76ZdvQC@weasel>
-In-Reply-To: <20260302-iino-u64-v2-16-e5388800dae0@kernel.org>
+Date: Tue, 03 Mar 2026 13:12:51 +0100
+Message-ID: <13960165.uLZWGnKmhe@weasel>
+In-Reply-To: <20260302-iino-u64-v2-69-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
- <20260302-iino-u64-v2-16-e5388800dae0@kernel.org>
+ <20260302-iino-u64-v2-69-e5388800dae0@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="utf-8"
 Received-SPF: pass client-ip=5.189.157.229;
  envelope-from=linux_oss@crudebyte.com; helo=kylie.crudebyte.com
 X-Mailman-Approved-At: Tue, 03 Mar 2026 15:14:25 +0000
-Subject: Re: [apparmor] [PATCH v2 016/110] 9p: use PRIino format for i_ino
+Subject: [apparmor] Re: [PATCH v2 069/110] 9p: replace PRIino with %llu/%llx
+	format strings
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -160,7 +161,7 @@ Cc: nvdimm@lists.linux.dev, jfs-discussion@lists.sourceforge.net,
  netfs@lists.linux.dev, linux-integrity@vger.kernel.org, ntfs3@lists.linux.dev
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Rspamd-Queue-Id: EF50F1F241A
+X-Rspamd-Queue-Id: 13D281F241B
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [4.09 / 15.00];
 	DMARC_POLICY_QUARANTINE(1.50)[crudebyte.com : SPF not aligned (relaxed),quarantine];
@@ -180,10 +181,10 @@ X-Spamd-Result: default: False [4.09 / 15.00];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FREEMAIL_TO(0.00)[zeniv.linux.org.uk,kernel.org,suse.cz,goodmis.org,efficios.com,intel.com,infradead.org,mit.edu,linux.dev,suse.de,redhat.com,manguebit.org,dilger.ca,suse.com,oracle.com,brown.name,talpey.com,samba.org,gmail.com,microsoft.com,dubeyko.com,ionkov.net,codewreck.org,auristor.com,themaw.net,cs.cmu.edu,fluxnic.net,tyhicks.com,physik.fu-berlin.de,vivo.com,artax.karlin.mff.cuni.cz,nod.at,paragon-software.com,fasheh.com,evilplan.org,linux.alibaba.com,omnibond.com,szeredi.hu,alarsen.net,huawei.com,wdc.com,canonical.com,paul-moore.com,namei.org,hallyn.com,linux.ibm.com,schaufler-ca.com,amd.com,ffwll.ch,linaro.org,google.com,davemloft.net,arm.com,linux.intel.com,dev.tdt.de,yaina.de,holtmann.org,hartkopp.net,pengutronix.de,secunet.com,gondor.apana.org.au,fomichev.me,iogearbox.net];
 	GREYLIST(0.00)[pass,meta];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[linux_oss@crudebyte.com,apparmor-bounces@lists.ubuntu.com];
 	FROM_HAS_DN(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER(0.00)[linux_oss@crudebyte.com,apparmor-bounces@lists.ubuntu.com];
+	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
 	RCVD_TLS_LAST(0.00)[];
@@ -191,7 +192,7 @@ X-Spamd-Result: default: False [4.09 / 15.00];
 	DKIM_TRACE(0.00)[crudebyte.com:-];
 	TAGGED_RCPT(0.00)[apparmor];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	NEURAL_HAM(-0.00)[-0.970];
+	NEURAL_HAM(-0.00)[-0.969];
 	FROM_NEQ_ENVFROM(0.00)[linux_oss@crudebyte.com,apparmor-bounces@lists.ubuntu.com];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
 	MISSING_XM_UA(0.00)[];
@@ -201,9 +202,9 @@ X-Spamd-Result: default: False [4.09 / 15.00];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[crudebyte.com:email]
 X-Rspamd-Action: no action
 
-On Monday, 2 March 2026 21:24:00 CET Jeff Layton wrote:
-> Convert 9p i_ino format strings to use the PRIino format
-> macro in preparation for the widening of i_ino via kino_t.
+On Monday, 2 March 2026 21:24:53 CET Jeff Layton wrote:
+> Now that i_ino is u64 and the PRIino format macro has been removed,
+> replace all uses in 9p with the concrete format strings.
 > 
 > Signed-off-by: Jeff Layton <jlayton@kernel.org>
 > ---
@@ -212,8 +213,26 @@ On Monday, 2 March 2026 21:24:00 CET Jeff Layton wrote:
 >  fs/9p/vfs_inode_dotl.c | 6 +++---
 >  3 files changed, 8 insertions(+), 8 deletions(-)
 
+9p uses the following macro to convert the 9p network protocol's QID path from
+u64 (all platforms) to ino_t. The 32-bit path of this macro should be dropped
+after this change, as it would unnecessarily truncate the value to 32-bit now
+[fs/9p/v9fs_vfs.h]:
+
+#if (BITS_PER_LONG == 32)
+#define QID2INO(q) ((ino_t) (((q)->path+2) ^ (((q)->path) >> 32)))
+#else
+#define QID2INO(q) ((ino_t) ((q)->path+2))
+#endif
+
+You are not breaking anything, if you happen to send a v3, that would be nice
+to be dropped, otherwise we'll handle that on our end later on:
+
 Reviewed-by: Christian Schoenebeck <linux_oss@crudebyte.com>
 
+I wonder whether that exceeded Claude's context size, or if that's in line
+with the prompt specified by you.
+
+/Christian
 
 
 
