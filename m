@@ -2,59 +2,157 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cHFPGitXqGlutQAAu9opvQ
+	id +MhgODZzqmkfRwEAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Wed, 04 Mar 2026 17:00:43 +0100
+	for <lists+apparmor@lfdr.de>; Fri, 06 Mar 2026 07:24:54 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 382802038C2
-	for <lists+apparmor@lfdr.de>; Wed, 04 Mar 2026 17:00:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFFB221C097
+	for <lists+apparmor@lfdr.de>; Fri, 06 Mar 2026 07:24:54 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vxo4U-0000SD-F6; Wed, 04 Mar 2026 15:23:34 +0000
+	id 1vyO6w-00080D-66; Fri, 06 Mar 2026 05:52:30 +0000
 Received: from tor.source.kernel.org ([172.105.4.254])
  by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <brauner@kernel.org>) id 1vxn5g-0007RC-B0
- for apparmor@lists.ubuntu.com; Wed, 04 Mar 2026 14:20:44 +0000
+ (envelope-from <jlayton@kernel.org>) id 1vxoPw-0004pG-NT
+ for apparmor@lists.ubuntu.com; Wed, 04 Mar 2026 15:45:44 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id DCC286057A;
- Wed,  4 Mar 2026 14:10:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81DE7C4CEF7;
- Wed,  4 Mar 2026 14:10:05 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D093C6132B;
+ Wed,  4 Mar 2026 15:33:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED6E0C2BC9E;
+ Wed,  4 Mar 2026 15:32:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772633441;
- bh=Bku8AHYCvwFigaxdtJ0ELP83jX+2snVdp3SrZhQcXMc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=sAz02NRT42GUSH/XghziBQEfEYYLQ50Z6H4Fr0B2eA5Ig7mTdF9TqYffX1JwUH063
- 6iPM05ojth9/rEwbEh7LlaKMnW/u/G/DBwkw1D4RYJpuNNZv9BhCLvT5PBe8IK+opn
- 1prADkLNYfSK2LwBPPaKHTGvsA77KEstjjcpOVzMmR0TqLvIhVflYrknnXy1YVCUsF
- KNWXNBL4UGedCW/N+3VD8K8WE8OpUqMxkpT+k7q13zK536d/Te1lHCzdRyNNW/lFIe
- pg0r1tP0OVdv3K3K3qvZzr4Ne1W/IxrE/2XIks7z/Ez5vNzwXN9J6wfHu8zNwQlTwO
- dc6E9EejFM6tg==
-Date: Wed, 4 Mar 2026 15:10:03 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Jeff Layton <jlayton@kernel.org>
-Message-ID: <20260304-gebadet-zufahrt-3dd11ba681d6@brauner>
-References: <20260302-iino-u64-v2-1-e5388800dae0@kernel.org>
- <20260303012556.GA6520@macsyma-wired.lan>
- <20260303042546.GF13868@frogsfrogsfrogs>
- <33228005140684201de2ca0c157441d3b6a06413.camel@kernel.org>
- <aabkBadGzo7IZpSU@infradead.org>
- <19e4e79a59dcfc4c61c8cf263af345d0d7026fc8.camel@kernel.org>
- <aabpPQxCTweoTp8Z@infradead.org>
- <1310fc5c09cce52ec00344b936275fe584c88dea.camel@kernel.org>
- <aabwflLfe2HcGv7X@infradead.org>
- <4d3b9b92da613ad329b822f3f6043fa08f534451.camel@kernel.org>
+ s=k20201202; t=1772638392;
+ bh=EvIxci8XOiLl4n/2GeBIsKqplwU5bONQrJ/+crL2wy0=;
+ h=From:Subject:Date:To:Cc:From;
+ b=tjZnrAfTQY1egcaOHf43QElBbuHttSDoazI+LhukmrntOJQQAiiebEjQy/XlLFIY6
+ YZBRowumS+CbfL8vCCZJ5ZNJ6/AuhMs+JKxLQn/rsiE38K0mrezhI9zm13iQXv/+v0
+ 8b4CaZIxgaqa06ai0MIFmXbaiCEa7u+DIQgSNfl/GZVw4IjFUwa0m1sAT+eBfYGNH+
+ /oAPpYF8Pr7sbmfd5yhxB31Nk/jRCBtZQSpT5OlmT7keh30sXYijYmK3N3sLlC34NN
+ e5vk9jzJkoQkaXORDozAzv3TLVD/vhk71bcohAk5Rj1zHBH/VsCs7Q4VVm9VmXnzkn
+ 19P4RrX9m9yDA==
+From: Jeff Layton <jlayton@kernel.org>
+Date: Wed, 04 Mar 2026 10:32:30 -0500
+Message-Id: <20260304-iino-u64-v3-0-2257ad83d372@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <4d3b9b92da613ad329b822f3f6043fa08f534451.camel@kernel.org>
-Received-SPF: pass client-ip=172.105.4.254; envelope-from=brauner@kernel.org;
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/1WMwQ6CMBAFf4X0bE3Zloqe/A/joZQFNpqWtNpoC
+ P9uITHocV7ezMQiBsLITsXEAiaK5F0GuSuYHYzrkVObmYEALQAUJ3KeP7XijVJGmgNUSlqW72P
+ Ajl5r6nLNPFB8+PBey6lc1m9Eb5FUcsGttdh1Uuu2OZ5vGBze9z70bKkk2Ewp4MeEbGIl67oWo
+ jUo/sx5nj+ixfmA2wAAAA==
+X-Change-ID: 20260224-iino-u64-b44a3a72543c
+To: Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Dan Williams <dan.j.williams@intel.com>, Eric Biggers <ebiggers@kernel.org>, 
+ "Theodore Y. Ts'o" <tytso@mit.edu>, Muchun Song <muchun.song@linux.dev>, 
+ Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>, 
+ David Howells <dhowells@redhat.com>, Paulo Alcantara <pc@manguebit.org>, 
+ Andreas Dilger <adilger.kernel@dilger.ca>, Jan Kara <jack@suse.com>, 
+ Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>, 
+ Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
+ Chuck Lever <chuck.lever@oracle.com>, NeilBrown <neil@brown.name>, 
+ Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, 
+ Tom Talpey <tom@talpey.com>, Steve French <sfrench@samba.org>, 
+ Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
+ Shyam Prasad N <sprasad@microsoft.com>, 
+ Bharath SM <bharathsm@microsoft.com>, 
+ Alexander Aring <alex.aring@gmail.com>, 
+ Ryusuke Konishi <konishi.ryusuke@gmail.com>, 
+ Viacheslav Dubeyko <slava@dubeyko.com>, 
+ Eric Van Hensbergen <ericvh@kernel.org>, 
+ Latchesar Ionkov <lucho@ionkov.net>, 
+ Dominique Martinet <asmadeus@codewreck.org>, 
+ Christian Schoenebeck <linux_oss@crudebyte.com>, 
+ David Sterba <dsterba@suse.com>, Marc Dionne <marc.dionne@auristor.com>, 
+ Ian Kent <raven@themaw.net>, Luis de Bethencourt <luisbg@kernel.org>, 
+ Salah Triki <salah.triki@gmail.com>, 
+ "Tigran A. Aivazian" <aivazian.tigran@gmail.com>, 
+ Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
+ Jan Harkes <jaharkes@cs.cmu.edu>, coda@cs.cmu.edu, 
+ Nicolas Pitre <nico@fluxnic.net>, Tyler Hicks <code@tyhicks.com>, 
+ Amir Goldstein <amir73il@gmail.com>, Christoph Hellwig <hch@infradead.org>, 
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
+ Yangtao Li <frank.li@vivo.com>, 
+ Mikulas Patocka <mikulas@artax.karlin.mff.cuni.cz>, 
+ David Woodhouse <dwmw2@infradead.org>, Richard Weinberger <richard@nod.at>, 
+ Dave Kleikamp <shaggy@kernel.org>, 
+ Konstantin Komarov <almaz.alexandrovich@paragon-software.com>, 
+ Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, 
+ Joseph Qi <joseph.qi@linux.alibaba.com>, 
+ Mike Marshall <hubcap@omnibond.com>, 
+ Martin Brandenburg <martin@omnibond.com>, 
+ Miklos Szeredi <miklos@szeredi.hu>, Anders Larsen <al@alarsen.net>, 
+ Zhihao Cheng <chengzhihao1@huawei.com>, Damien Le Moal <dlemoal@kernel.org>, 
+ Naohiro Aota <naohiro.aota@wdc.com>, Johannes Thumshirn <jth@kernel.org>, 
+ John Johansen <john.johansen@canonical.com>, 
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
+ "Serge E. Hallyn" <serge@hallyn.com>, Mimi Zohar <zohar@linux.ibm.com>, 
+ Roberto Sassu <roberto.sassu@huawei.com>, 
+ Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
+ Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Ondrej Mosnacek <omosnace@redhat.com>, 
+ Casey Schaufler <casey@schaufler-ca.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, Eric Dumazet <edumazet@google.com>, 
+ Kuniyuki Iwashima <kuniyu@google.com>, Paolo Abeni <pabeni@redhat.com>, 
+ Willem de Bruijn <willemb@google.com>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Simon Horman <horms@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, "Darrick J. Wong" <djwong@kernel.org>, 
+ Martin Schiller <ms@dev.tdt.de>, Eric Paris <eparis@redhat.com>, 
+ Joerg Reuter <jreuter@yaina.de>, Marcel Holtmann <marcel@holtmann.org>, 
+ Johan Hedberg <johan.hedberg@gmail.com>, 
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
+ Oliver Hartkopp <socketcan@hartkopp.net>, 
+ Marc Kleine-Budde <mkl@pengutronix.de>, David Ahern <dsahern@kernel.org>, 
+ Neal Cardwell <ncardwell@google.com>, 
+ Steffen Klassert <steffen.klassert@secunet.com>, 
+ Herbert Xu <herbert@gondor.apana.org.au>, 
+ Remi Denis-Courmont <courmisch@gmail.com>, 
+ Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, 
+ Xin Long <lucien.xin@gmail.com>, 
+ Magnus Karlsson <magnus.karlsson@intel.com>, 
+ Maciej Fijalkowski <maciej.fijalkowski@intel.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>, 
+ John Fastabend <john.fastabend@gmail.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=15620; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=EvIxci8XOiLl4n/2GeBIsKqplwU5bONQrJ/+crL2wy0=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpqFCmtSXlBjo6dQnzEqcLO8yRk/GwocfV+Ys43
+ 1r2nHJWZLKJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaahQpgAKCRAADmhBGVaC
+ FZUuD/9cUVHXDTOWJ8EHyosX0JVcAaa8EjHKBSKXi5RdtbvclsnQzxZFo3IHsJRUr5rS20/LlhZ
+ Q7bvvGD3ObSLMUnGJ5qEsuw6qLLQl+AHcZHkBNV82iTQ0HbycsLjgvug8TFq977jlXJnAdPObCG
+ lInf86Xw+IOQIHirr5f4X6M7dXlLOO2Sr7Z0aR+teb2fo6yeAO1PmY/3RSRNWUYP2OJHUwBbcKc
+ 2AUrx1vpCMEhOySlHJikzpiNMpdr08wVChoNCQCaXXnk6LUhVVYq77SBKfeRyZAEWlp5As2TiOd
+ zvjttN0LJ2Si7bJwcjlTZ08DjZxGiskZ6e56aWJqwoemPzH5xfZ7UQsIk5TThABLumTWSFb9Ytp
+ du3oW+3igfz8Mvl0naLgzAt68c3XULfxcmstOXn+iXTvjX0tc0CI4UVCQPpotbo1VIbTSouzh/u
+ OLKWsFTrGH3f5MksUXp7bHWVDjaxi3Y/7Kv7oLKpAmd2BzTFGcXjPGFZSx7Kp7uDEWj6h2t4EEN
+ bBZvroEHtbd9dUC4XmdWp3iuoRrniH7Tbbx4lD5BHONfGwGsvjttpdJ7DJCm6PgnZZQH22AvID4
+ /iG1k2TsVrnLswQvrKkb+SI2T36SGrQsRxcxKEWGtP3ttmRB+Ofhxy/K22a457401aBQq9wv5p/
+ thBn08iirCMMzCg==
+X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
+ fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
+Received-SPF: pass client-ip=172.105.4.254; envelope-from=jlayton@kernel.org;
  helo=tor.source.kernel.org
-X-Mailman-Approved-At: Wed, 04 Mar 2026 15:23:30 +0000
-Subject: Re: [apparmor] [PATCH v2 001/110] vfs: introduce kino_t typedef and
- PRIino format macro
+X-Mailman-Approved-At: Fri, 06 Mar 2026 05:52:25 +0000
+Subject: [apparmor] [PATCH v3 00/12] vfs: change inode->i_ino from unsigned
+ long to u64
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -66,215 +164,373 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Latchesar Ionkov <lucho@ionkov.net>, nvdimm@lists.linux.dev,
- Paulo Alcantara <pc@manguebit.org>, "Darrick J. Wong" <djwong@kernel.org>,
- Anders Larsen <al@alarsen.net>, dri-devel@lists.freedesktop.org,
- linux-sctp@vger.kernel.org, linux-hams@vger.kernel.org,
- Sumit Semwal <sumit.semwal@linaro.org>, Mike Marshall <hubcap@omnibond.com>,
- linux-xfs@vger.kernel.org, Fan Wu <wufan@kernel.org>,
- Xin Long <lucien.xin@gmail.com>, ceph-devel@vger.kernel.org,
- James Morris <jmorris@namei.org>, Tyler Hicks <code@tyhicks.com>,
- Christoph Hellwig <hch@infradead.org>, devel@lists.orangefs.org,
- Shyam Prasad N <sprasad@microsoft.com>, Martin Schiller <ms@dev.tdt.de>,
- Jesper Dangaard Brouer <hawk@kernel.org>, Jan Harkes <jaharkes@cs.cmu.edu>,
- Arnaldo Carvalho de Melo <acme@kernel.org>, linux-fscrypt@vger.kernel.org,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Ronnie Sahlberg <ronniesahlberg@gmail.com>,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- David Hildenbrand <david@kernel.org>, Eric Van Hensbergen <ericvh@kernel.org>,
- Zhihao Cheng <chengzhihao1@huawei.com>,
- Magnus Karlsson <magnus.karlsson@intel.com>,
- Willem de Bruijn <willemb@google.com>,
- Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
- Stephen Smalley <stephen.smalley.work@gmail.com>, linux-kernel@vger.kernel.org,
- Eric Paris <eparis@redhat.com>, linux-perf-users@vger.kernel.org,
- Chuck Lever <chuck.lever@oracle.com>, Masami Hiramatsu <mhiramat@kernel.org>,
- Jiri Olsa <jolsa@kernel.org>, Jan Kara <jack@suse.com>,
- Alex Deucher <alexander.deucher@amd.com>, linux-media@vger.kernel.org,
- Trond Myklebust <trondmy@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Dave Kleikamp <shaggy@kernel.org>, Mimi Zohar <zohar@linux.ibm.com>,
- Oleg Nesterov <oleg@redhat.com>, Eric Dumazet <edumazet@google.com>,
- Johan Hedberg <johan.hedberg@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-cifs@vger.kernel.org, Kuniyuki Iwashima <kuniyu@google.com>,
- linux-nilfs@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
- John Fastabend <john.fastabend@gmail.com>,
- Remi Denis-Courmont <courmisch@gmail.com>, linux-trace-kernel@vger.kernel.org,
- Olga Kornievskaia <okorniev@redhat.com>,
- Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
- Yangtao Li <frank.li@vivo.com>, selinux@vger.kernel.org, v9fs@lists.linux.dev,
- linux-can@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- netfs@lists.linux.dev, Jaegeuk Kim <jaegeuk@kernel.org>,
- fsverity@lists.linux.dev, Theodore Tso <tytso@mit.edu>,
- Nicolas Pitre <nico@fluxnic.net>, Muchun Song <muchun.song@linux.dev>,
- Roberto Sassu <roberto.sassu@huawei.com>,
- "David S. Miller" <davem@davemloft.net>, Anna Schumaker <anna@kernel.org>,
- linux-integrity@vger.kernel.org,
- Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- Alex Markuze <amarkuze@redhat.com>, Martin Brandenburg <martin@omnibond.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- ocfs2-devel@lists.linux.dev, Alexei Starovoitov <ast@kernel.org>,
- linux-mtd@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- Marc Dionne <marc.dionne@auristor.com>, Neal Cardwell <ncardwell@google.com>,
- linux-afs@lists.infradead.org, Ian Kent <raven@themaw.net>,
- Naohiro Aota <naohiro.aota@wdc.com>, Eric Biggers <ebiggers@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Miklos Szeredi <miklos@szeredi.hu>,
- Matthew Wilcox <willy@infradead.org>, coda@cs.cmu.edu,
- Stanislav Fomichev <sdf@fomichev.me>, Viacheslav Dubeyko <slava@dubeyko.com>,
- NeilBrown <neil@brown.name>, Ilya Dryomov <idryomov@gmail.com>,
- Paolo Abeni <pabeni@redhat.com>, jfs-discussion@lists.sourceforge.net,
- "Serge E. Hallyn" <serge@hallyn.com>, Amir Goldstein <amir73il@gmail.com>,
- James Clark <james.clark@linaro.org>, autofs@vger.kernel.org,
- Steven Rostedt <rostedt@goodmis.org>, Damien Le Moal <dlemoal@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Dan Williams <dan.j.williams@intel.com>, Oscar Salvador <osalvador@suse.de>,
- Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
- linux-nfs@vger.kernel.org, linux-ext4@vger.kernel.org, linux-mm@kvack.org,
- samba-technical@lists.samba.org, Ondrej Mosnacek <omosnace@redhat.com>,
- Steve French <sfrench@samba.org>, netdev@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org, ntfs3@lists.linux.dev,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Ian Rogers <irogers@google.com>, Alexander Aring <alex.aring@gmail.com>,
- Jan Kara <jack@suse.cz>, Peter Zijlstra <peterz@infradead.org>,
- Dominique Martinet <asmadeus@codewreck.org>,
- Christian Schoenebeck <linux_oss@crudebyte.com>, ecryptfs@vger.kernel.org,
- linux-unionfs@vger.kernel.org, David Howells <dhowells@redhat.com>,
- Joseph Qi <joseph.qi@linux.alibaba.com>,
- Andreas Dilger <adilger.kernel@dilger.ca>,
- Mikulas Patocka <mikulas@artax.karlin.mff.cuni.cz>,
- linux-f2fs-devel@lists.sourceforge.net, David Airlie <airlied@gmail.com>,
- Steffen Klassert <steffen.klassert@secunet.com>,
- Eric Snowberg <eric.snowberg@oracle.com>,
- Herbert Xu <herbert@gondor.apana.org.au>, linux-x25@vger.kernel.org,
- linux-bluetooth@vger.kernel.org, Richard Weinberger <richard@nod.at>,
- Mark Fasheh <mark@fasheh.com>, Dai Ngo <Dai.Ngo@oracle.com>,
- Ingo Molnar <mingo@redhat.com>, Jakub Kicinski <kuba@kernel.org>,
- Salah Triki <salah.triki@gmail.com>, Marcel Holtmann <marcel@holtmann.org>,
- Joerg Reuter <jreuter@yaina.de>, codalist@telemann.coda.cs.cmu.edu,
- Simon Horman <horms@kernel.org>, Chao Yu <chao@kernel.org>,
- apparmor@lists.ubuntu.com, Tom Talpey <tom@talpey.com>,
- Bharath SM <bharathsm@microsoft.com>, Marc Kleine-Budde <mkl@pengutronix.de>,
- "Tigran A. Aivazian" <aivazian.tigran@gmail.com>,
- David Sterba <dsterba@suse.com>, Namhyung Kim <namhyung@kernel.org>,
- Ryusuke Konishi <konishi.ryusuke@gmail.com>,
- Luis de Bethencourt <luisbg@kernel.org>,
- Oliver Hartkopp <socketcan@hartkopp.net>, David Ahern <dsahern@kernel.org>,
- Adrian Hunter <adrian.hunter@intel.com>, audit@vger.kernel.org,
- linux-security-module@vger.kernel.org, Johannes Thumshirn <jth@kernel.org>,
- David Woodhouse <dwmw2@infradead.org>, Joel Becker <jlbec@evilplan.org>
+Cc: nvdimm@lists.linux.dev, jfs-discussion@lists.sourceforge.net,
+ Jeff Layton <jlayton@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-unionfs@vger.kernel.org, linux-mm@kvack.org, linux-sctp@vger.kernel.org,
+ linux-mtd@lists.infradead.org, linux-afs@lists.infradead.org,
+ linux-cifs@vger.kernel.org, linux-nilfs@vger.kernel.org,
+ linux-x25@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, codalist@coda.cs.cmu.edu,
+ linux-ext4@vger.kernel.org, bpf@vger.kernel.org, devel@lists.orangefs.org,
+ linux-trace-kernel@vger.kernel.org, ecryptfs@vger.kernel.org,
+ selinux@vger.kernel.org, autofs@vger.kernel.org, apparmor@lists.ubuntu.com,
+ linux-media@vger.kernel.org, linux-can@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, ocfs2-devel@lists.linux.dev,
+ linux-fscrypt@vger.kernel.org, linux-hams@vger.kernel.org,
+ ceph-devel@vger.kernel.org, linux-xfs@vger.kernel.org,
+ fsverity@lists.linux.dev, linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
+ v9fs@lists.linux.dev, samba-technical@lists.samba.org,
+ linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ linux-perf-users@vger.kernel.org, audit@vger.kernel.org,
+ linux-security-module@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ netfs@lists.linux.dev, linux-integrity@vger.kernel.org, ntfs3@lists.linux.dev
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Rspamd-Queue-Id: 382802038C2
+X-Rspamd-Queue-Id: BFFB221C097
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [7.59 / 15.00];
-	MID_END_EQ_FROM_USER_PART(4.00)[];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+X-Spamd-Result: default: False [4.09 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
-	MID_RHS_NOT_FQDN(0.50)[];
+	DATE_IN_PAST(1.00)[38];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	RCVD_TLS_LAST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	ARC_NA(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jlayton@kernel.org,m:lucho@ionkov.net,m:nvdimm@lists.linux.dev,m:pc@manguebit.org,m:djwong@kernel.org,m:al@alarsen.net,m:dri-devel@lists.freedesktop.org,m:linux-sctp@vger.kernel.org,m:linux-hams@vger.kernel.org,m:sumit.semwal@linaro.org,m:hubcap@omnibond.com,m:linux-xfs@vger.kernel.org,m:wufan@kernel.org,m:lucien.xin@gmail.com,m:ceph-devel@vger.kernel.org,m:jmorris@namei.org,m:code@tyhicks.com,m:hch@infradead.org,m:devel@lists.orangefs.org,m:sprasad@microsoft.com,m:ms@dev.tdt.de,m:hawk@kernel.org,m:jaharkes@cs.cmu.edu,m:acme@kernel.org,m:linux-fscrypt@vger.kernel.org,m:viro@zeniv.linux.org.uk,m:ronniesahlberg@gmail.com,m:glaubitz@physik.fu-berlin.de,m:david@kernel.org,m:ericvh@kernel.org,m:chengzhihao1@huawei.com,m:magnus.karlsson@intel.com,m:willemb@google.com,m:dmitry.kasatkin@gmail.com,m:stephen.smalley.work@gmail.com,m:linux-kernel@vger.kernel.org,m:eparis@redhat.com,m:linux-perf-users@vger.kernel.org,m:chuck.lever@oracle.com,m:mhiramat@kernel.org,m:jol
- sa@kernel.org,m:jack@suse.com,m:alexander.deucher@amd.com,m:linux-media@vger.kernel.org,m:trondmy@kernel.org,m:mark.rutland@arm.com,m:shaggy@kernel.org,m:zohar@linux.ibm.com,m:oleg@redhat.com,m:edumazet@google.com,m:johan.hedberg@gmail.com,m:simona@ffwll.ch,m:linux-cifs@vger.kernel.org,m:kuniyu@google.com,m:linux-nilfs@vger.kernel.org,m:paul@paul-moore.com,m:john.fastabend@gmail.com,m:courmisch@gmail.com,m:linux-trace-kernel@vger.kernel.org,m:okorniev@redhat.com,m:maciej.fijalkowski@intel.com,m:frank.li@vivo.com,m:selinux@vger.kernel.org,m:v9fs@lists.linux.dev,m:linux-can@vger.kernel.org,m:linaro-mm-sig@lists.linaro.org,m:netfs@lists.linux.dev,m:jaegeuk@kernel.org,m:fsverity@lists.linux.dev,m:tytso@mit.edu,m:nico@fluxnic.net,m:muchun.song@linux.dev,m:roberto.sassu@huawei.com,m:davem@davemloft.net,m:anna@kernel.org,m:linux-integrity@vger.kernel.org,m:marcelo.leitner@gmail.com,m:luiz.dentz@gmail.com,m:amarkuze@redhat.com,m:martin@omnibond.com,m:alexander.shishkin@linux.intel.com,m:ocf
- s2-devel@lists.linux.dev,m:ast@kernel.org,m:linux-mtd@lists.infradead.org,m:amd-gfx@lists.freedesktop.org,m:marc.dionne@auristor.com,m:ncardwell@google.com,m:linux-afs@lists.infradead.org,m:raven@themaw.net,m:naohiro.aota@wdc.com,m:ebiggers@kernel.org,m:daniel@iogearbox.net,m:miklos@szeredi.hu,m:willy@infradead.org,m:coda@cs.cmu.edu,m:sdf@fomichev.me,m:slava@dubeyko.com,m:neil@brown.name,m:idryomov@gmail.com,s:lists@lfdr.de];
 	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_SENDER(0.00)[jlayton@kernel.org,apparmor-bounces@lists.ubuntu.com];
+	FREEMAIL_TO(0.00)[zeniv.linux.org.uk,kernel.org,suse.cz,goodmis.org,efficios.com,intel.com,mit.edu,linux.dev,suse.de,redhat.com,manguebit.org,dilger.ca,suse.com,oracle.com,brown.name,talpey.com,samba.org,gmail.com,microsoft.com,dubeyko.com,ionkov.net,codewreck.org,crudebyte.com,auristor.com,themaw.net,cs.cmu.edu,fluxnic.net,tyhicks.com,infradead.org,physik.fu-berlin.de,vivo.com,artax.karlin.mff.cuni.cz,nod.at,paragon-software.com,fasheh.com,evilplan.org,linux.alibaba.com,omnibond.com,szeredi.hu,alarsen.net,huawei.com,wdc.com,canonical.com,paul-moore.com,namei.org,hallyn.com,linux.ibm.com,schaufler-ca.com,amd.com,ffwll.ch,linaro.org,google.com,davemloft.net,arm.com,linux.intel.com,dev.tdt.de,yaina.de,holtmann.org,hartkopp.net,pengutronix.de,secunet.com,gondor.apana.org.au,fomichev.me,iogearbox.net];
+	FORGED_RECIPIENTS(0.00)[m:viro@zeniv.linux.org.uk,m:brauner@kernel.org,m:jack@suse.cz,m:rostedt@goodmis.org,m:mhiramat@kernel.org,m:mathieu.desnoyers@efficios.com,m:dan.j.williams@intel.com,m:ebiggers@kernel.org,m:tytso@mit.edu,m:muchun.song@linux.dev,m:osalvador@suse.de,m:david@kernel.org,m:dhowells@redhat.com,m:pc@manguebit.org,m:adilger.kernel@dilger.ca,m:jack@suse.com,m:jaegeuk@kernel.org,m:chao@kernel.org,m:trondmy@kernel.org,m:anna@kernel.org,m:chuck.lever@oracle.com,m:neil@brown.name,m:okorniev@redhat.com,m:Dai.Ngo@oracle.com,m:tom@talpey.com,m:sfrench@samba.org,m:ronniesahlberg@gmail.com,m:sprasad@microsoft.com,m:bharathsm@microsoft.com,m:alex.aring@gmail.com,m:konishi.ryusuke@gmail.com,m:slava@dubeyko.com,m:ericvh@kernel.org,m:lucho@ionkov.net,m:asmadeus@codewreck.org,m:linux_oss@crudebyte.com,m:dsterba@suse.com,m:marc.dionne@auristor.com,m:raven@themaw.net,m:luisbg@kernel.org,m:salah.triki@gmail.com,m:aivazian.tigran@gmail.com,m:idryomov@gmail.com,m:amarkuze@redhat.com,m:j
+ aharkes@cs.cmu.edu,m:coda@cs.cmu.edu,m:nico@fluxnic.net,m:code@tyhicks.com,m:amir73il@gmail.com,m:hch@infradead.org,m:glaubitz@physik.fu-berlin.de,m:frank.li@vivo.com,m:mikulas@artax.karlin.mff.cuni.cz,m:dwmw2@infradead.org,m:richard@nod.at,m:shaggy@kernel.org,m:almaz.alexandrovich@paragon-software.com,m:mark@fasheh.com,m:jlbec@evilplan.org,m:joseph.qi@linux.alibaba.com,m:hubcap@omnibond.com,m:martin@omnibond.com,m:miklos@szeredi.hu,m:al@alarsen.net,m:chengzhihao1@huawei.com,m:dlemoal@kernel.org,m:naohiro.aota@wdc.com,m:jth@kernel.org,m:john.johansen@canonical.com,m:paul@paul-moore.com,m:jmorris@namei.org,m:serge@hallyn.com,m:zohar@linux.ibm.com,m:roberto.sassu@huawei.com,m:dmitry.kasatkin@gmail.com,m:eric.snowberg@oracle.com,m:wufan@kernel.org,m:stephen.smalley.work@gmail.com,m:omosnace@redhat.com,m:casey@schaufler-ca.com,m:alexander.deucher@amd.com,m:christian.koenig@amd.com,m:airlied@gmail.com,m:simona@ffwll.ch,m:sumit.semwal@linaro.org,m:edumazet@google.com,m:kuniyu@google.com,m
+ :pabeni@redhat.com,m:willemb@google.com,m:davem@davemloft.net,m:kuba@kernel.org,m:horms@kernel.org,m:oleg@redhat.com,m:peterz@infradead.org,m:mingo@redhat.com,m:acme@kernel.org,m:namhyung@kernel.org,m:mark.rutland@arm.com,m:alexander.shishkin@linux.intel.com,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
-	GREYLIST(0.00)[pass,body];
-	FORGED_SENDER(0.00)[brauner@kernel.org,apparmor-bounces@lists.ubuntu.com];
+	GREYLIST(0.00)[pass,meta];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:-];
-	RCPT_COUNT_GT_50(0.00)[169];
-	NEURAL_HAM(-0.00)[-0.998];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[brauner@kernel.org,apparmor-bounces@lists.ubuntu.com];
-	FREEMAIL_CC(0.00)[ionkov.net,lists.linux.dev,manguebit.org,kernel.org,alarsen.net,lists.freedesktop.org,vger.kernel.org,linaro.org,omnibond.com,gmail.com,namei.org,tyhicks.com,infradead.org,lists.orangefs.org,microsoft.com,dev.tdt.de,cs.cmu.edu,zeniv.linux.org.uk,physik.fu-berlin.de,huawei.com,intel.com,google.com,redhat.com,oracle.com,suse.com,amd.com,arm.com,linux.ibm.com,ffwll.ch,paul-moore.com,vivo.com,lists.linaro.org,mit.edu,fluxnic.net,linux.dev,davemloft.net,linux.intel.com,lists.infradead.org,auristor.com,themaw.net,wdc.com,iogearbox.net,szeredi.hu,fomichev.me,dubeyko.com,brown.name,lists.sourceforge.net,hallyn.com,goodmis.org,efficios.com,suse.de,paragon-software.com,kvack.org,lists.samba.org,samba.org,suse.cz,codewreck.org,crudebyte.com,linux.alibaba.com,dilger.ca,artax.karlin.mff.cuni.cz,secunet.com,gondor.apana.org.au,nod.at,fasheh.com,holtmann.org,yaina.de,telemann.coda.cs.cmu.edu,lists.ubuntu.com,talpey.com,pengutronix.de,hartkopp.net,evilplan.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[apparmor];
-	MISSING_XM_UA(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[171];
+	FROM_NEQ_ENVFROM(0.00)[jlayton@kernel.org,apparmor-bounces@lists.ubuntu.com];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
+	NEURAL_HAM(-0.00)[-0.962];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[apparmor];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:rdns,lists.ubuntu.com:helo]
-X-Rspamd-Action: add header
-X-Spam: Yes
+X-Rspamd-Action: no action
 
-On Tue, Mar 03, 2026 at 10:14:27AM -0500, Jeff Layton wrote:
-> On Tue, 2026-03-03 at 06:30 -0800, Christoph Hellwig wrote:
-> > On Tue, Mar 03, 2026 at 09:19:42AM -0500, Jeff Layton wrote:
-> > > On Tue, 2026-03-03 at 05:59 -0800, Christoph Hellwig wrote:
-> > > > On Tue, Mar 03, 2026 at 08:43:15AM -0500, Jeff Layton wrote:
-> > > > > On Tue, 2026-03-03 at 05:37 -0800, Christoph Hellwig wrote:
-> > > > > > On Tue, Mar 03, 2026 at 05:53:39AM -0500, Jeff Layton wrote:
-> > > > > > > Like I said to Ted, this is just temporary scaffolding for the change.
-> > > > > > > The PRIino macro is removed in the end. Given that, perhaps you can
-> > > > > > > overlook the bikeshed's color in this instance?
-> > > > > > 
-> > > > > > So why add it in the first place?  
-> > > > > 
-> > > > > Bisectability. The first version I did of this would have broken the
-> > > > > ability to bisect properly across these changes. I don't love the
-> > > > > "churn" here either, but this should be cleanly bisectable.
-> > > > 
-> > > > What do you need to bisect in format string changes?  Splitting
-> > > > every variable type change outside of the main i_ino out - sure.
-> > > > But bisecting that "change to u64 in ext4" really broke ext4 and
-> > > > not "change to u64" is not very useful.  Commits should do one
-> > > > well defined thing.  Adding a weird transition layer for a format
-> > > > thing that just gets dropped is not one well defined thing.
-> > > 
-> > > In the middle stages of the series, you will get warnings or errors on
-> > > 32-bit hosts when i_ino's type doesn't match what the format string
-> > > expects.
-> > > 
-> > > There are really only three options here:
-> > > 
-> > > 1/ Do (almost) all of the changes in one giant patch
-> > > 
-> > > 2/ Accept that the build may break during the interim stages
-> > > 
-> > > 3/ This series: using a typedef and macro to work around the breakage
-> > > until the type can be changed, at the expense of some extra churn in
-> > > the codebase
-> > > 
-> > > 3 seems like the lesser evil.
-> > 
-> > No, 1 is by far the least evil.  Note that it's not really almost all,
-> > as all the local variables can easily and sanely be split out.  It's
-> > all of the format strings, and that makes sense.  The only "regressions"
-> > there are incorrect format strings which have good warnings and can
-> > be fixed easily.
-> 
-> Well, I've done 2 and 3 already. Why not 1? :)
-> 
-> It's not so much the regressions that are a problem here, but the merge
-> conflicts for anyone wanting to backport later patches that are near
-> these format changes. Having that change broken up by subsystem makes
-> it easier to handle that piecemeal later.
-> 
-> I think we'll be looking at close to a 1000 line patch that touches
-> nearly 200 files if go that route. Roughly:
-> 
->  182 files changed, 910 insertions(+), 912 deletions(-)
-> 
-> There are some tracepoint changes in some of the per-subsystem patches
-> that will need to be split out, so the count isn't exact, but it'll be
-> fairly close.
-> 
-> Since Christian will probably end up taking this series, I'd like to
-> get his opinion before I respin anything.
+This version squashes all of the format-string changes and the i_ino
+type change into the same patch. This results in a giant 600+ line patch
+at the end of the series, but it does remain bisectable.  Because the
+patchset was reorganized (again) some of the R-b's and A-b's have been
+dropped.
 
-I'm kinda surprised that we suddenly started caring about the amount of
-individual patches. I personally don't care either way. Do it in one
-giant patch if this moves us forward. I've done 1 and 3 and what you
-did. And I'd be really annoyed if during a bisect I start to get
-pointless build failures because someone did 2.
+The entire pile is in the "iino-u64" branch of my tree, if anyone is
+interested in testing this.
+
+    https://git.kernel.org/pub/scm/linux/kernel/git/jlayton/linux.git/
+
+Original cover letter follows:
+
+----------------------8<-----------------------
+
+Christian said [1] to "just do it" when I proposed this, so here we are!
+
+For historical reasons, the inode->i_ino field is an unsigned long,
+which means that it's 32 bits on 32 bit architectures. This has caused a
+number of filesystems to implement hacks to hash a 64-bit identifier
+into a 32-bit field, and deprives us of a universal identifier field for
+an inode.
+
+This patchset changes the inode->i_ino field from an unsigned long to a
+u64. This shouldn't make any material difference on 64-bit hosts, but
+32-bit hosts will see struct inode grow by at least 4 bytes. This could
+have effects on slabcache sizes and field alignment.
+
+The bulk of the changes are to format strings and tracepoints, since the
+kernel itself doesn't care that much about the i_ino field. The first
+patch changes some vfs function arguments, so check that one out
+carefully.
+
+With this change, we may be able to shrink some inode structures. For
+instance, struct nfs_inode has a fileid field that holds the 64-bit
+inode number. With this set of changes, that field could be eliminated.
+I'd rather leave that sort of cleanups for later just to keep this
+simple.
+
+Much of this set was generated by LLM, but I attributed it to myself
+since I consider this to be in the "menial tasks" category of LLM usage.
+
+[1]: https://lore.kernel.org/linux-fsdevel/20260219-portrait-winkt-959070cee42f@brauner/
+
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+---
+Changes in v3:
+- reorganize set for fewer patches, drop kino_t typedef and PRIino macro
+- reorganize more TP_struct fields for better packing
+- clean up ext4 goal calculation in ext4_ext_migrate()
+- make audit_inode_hash() take a 64-bit argument
+- Link to v2: https://lore.kernel.org/r/20260302-iino-u64-v2-0-e5388800dae0@kernel.org
+
+Changes in v2:
+- Use a typedef and macro and do the change in two steps to make it cleanly bisectable
+- Fix check_for_busy_inodes() in fscrypt
+- Added patch to reorganize tracepoint structs for better packing
+- Added patch to change sock.sk_ino to u64
+- Added patch to clean up internal handling of inode numbers in audit subsystem
+- Drop some unnecessary casts
+- Link to v1: https://lore.kernel.org/r/20260226-iino-u64-v1-0-ccceff366db9@kernel.org
+
+---
+Jeff Layton (12):
+      vfs: widen inode hash/lookup functions to u64
+      audit: widen ino fields to u64
+      net: change sock.sk_ino and sock_i_ino() to u64
+      vfs: widen trace event i_ino fields to u64
+      cachefiles: widen trace event i_ino fields to u64
+      ext2: widen trace event i_ino fields to u64
+      hugetlbfs: widen trace event i_ino fields to u64
+      zonefs: widen trace event i_ino fields to u64
+      ext4: widen trace event i_ino fields to u64
+      f2fs: widen trace event i_ino fields to u64
+      nilfs2: widen trace event i_ino fields to u64
+      treewide: change inode->i_ino from unsigned long to u64
+
+ drivers/dma-buf/dma-buf.c                  |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c |   4 +-
+ fs/9p/vfs_addr.c                           |   4 +-
+ fs/9p/vfs_inode.c                          |   6 +-
+ fs/9p/vfs_inode_dotl.c                     |   6 +-
+ fs/affs/amigaffs.c                         |  10 +-
+ fs/affs/bitmap.c                           |   2 +-
+ fs/affs/dir.c                              |   2 +-
+ fs/affs/file.c                             |  20 +-
+ fs/affs/inode.c                            |  12 +-
+ fs/affs/namei.c                            |  14 +-
+ fs/affs/symlink.c                          |   2 +-
+ fs/afs/dir.c                               |  10 +-
+ fs/afs/dir_search.c                        |   2 +-
+ fs/afs/dynroot.c                           |   2 +-
+ fs/afs/inode.c                             |   2 +-
+ fs/autofs/inode.c                          |   2 +-
+ fs/befs/linuxvfs.c                         |  28 +-
+ fs/bfs/dir.c                               |   4 +-
+ fs/cachefiles/io.c                         |   6 +-
+ fs/cachefiles/namei.c                      |  12 +-
+ fs/cachefiles/xattr.c                      |   2 +-
+ fs/ceph/crypto.c                           |   4 +-
+ fs/coda/dir.c                              |   2 +-
+ fs/coda/inode.c                            |   2 +-
+ fs/cramfs/inode.c                          |   2 +-
+ fs/crypto/crypto.c                         |   2 +-
+ fs/crypto/hooks.c                          |   2 +-
+ fs/crypto/keyring.c                        |   4 +-
+ fs/crypto/keysetup.c                       |   2 +-
+ fs/dcache.c                                |   4 +-
+ fs/ecryptfs/crypto.c                       |   6 +-
+ fs/ecryptfs/file.c                         |   2 +-
+ fs/efs/inode.c                             |   6 +-
+ fs/eventpoll.c                             |   2 +-
+ fs/exportfs/expfs.c                        |   4 +-
+ fs/ext2/dir.c                              |  10 +-
+ fs/ext2/ialloc.c                           |   9 +-
+ fs/ext2/inode.c                            |   2 +-
+ fs/ext2/trace.h                            |   8 +-
+ fs/ext2/xattr.c                            |  14 +-
+ fs/ext4/dir.c                              |   2 +-
+ fs/ext4/ext4.h                             |   4 +-
+ fs/ext4/extents.c                          |   8 +-
+ fs/ext4/extents_status.c                   |  28 +-
+ fs/ext4/fast_commit.c                      |   8 +-
+ fs/ext4/ialloc.c                           |  10 +-
+ fs/ext4/indirect.c                         |   2 +-
+ fs/ext4/inline.c                           |  14 +-
+ fs/ext4/inode.c                            |  22 +-
+ fs/ext4/ioctl.c                            |   4 +-
+ fs/ext4/mballoc.c                          |   6 +-
+ fs/ext4/migrate.c                          |   2 +-
+ fs/ext4/move_extent.c                      |  20 +-
+ fs/ext4/namei.c                            |  10 +-
+ fs/ext4/orphan.c                           |  16 +-
+ fs/ext4/page-io.c                          |  10 +-
+ fs/ext4/super.c                            |  22 +-
+ fs/ext4/xattr.c                            |  10 +-
+ fs/f2fs/compress.c                         |   4 +-
+ fs/f2fs/dir.c                              |   2 +-
+ fs/f2fs/extent_cache.c                     |   8 +-
+ fs/f2fs/f2fs.h                             |   6 +-
+ fs/f2fs/file.c                             |  12 +-
+ fs/f2fs/gc.c                               |   2 +-
+ fs/f2fs/inline.c                           |   4 +-
+ fs/f2fs/inode.c                            |  48 +--
+ fs/f2fs/namei.c                            |   8 +-
+ fs/f2fs/node.c                             |  12 +-
+ fs/f2fs/recovery.c                         |  10 +-
+ fs/f2fs/xattr.c                            |  10 +-
+ fs/freevxfs/vxfs_bmap.c                    |   4 +-
+ fs/fserror.c                               |   2 +-
+ fs/hfs/catalog.c                           |   2 +-
+ fs/hfs/extent.c                            |   4 +-
+ fs/hfs/inode.c                             |   4 +-
+ fs/hfsplus/attributes.c                    |  10 +-
+ fs/hfsplus/catalog.c                       |   2 +-
+ fs/hfsplus/dir.c                           |   6 +-
+ fs/hfsplus/extents.c                       |   6 +-
+ fs/hfsplus/inode.c                         |   8 +-
+ fs/hfsplus/super.c                         |   6 +-
+ fs/hfsplus/xattr.c                         |  10 +-
+ fs/hpfs/dir.c                              |   4 +-
+ fs/hpfs/dnode.c                            |   4 +-
+ fs/hpfs/ea.c                               |   4 +-
+ fs/hpfs/inode.c                            |   4 +-
+ fs/inode.c                                 |  49 ++-
+ fs/iomap/ioend.c                           |   2 +-
+ fs/iomap/trace.h                           |   8 +-
+ fs/isofs/compress.c                        |   2 +-
+ fs/isofs/dir.c                             |   2 +-
+ fs/isofs/inode.c                           |   6 +-
+ fs/isofs/namei.c                           |   2 +-
+ fs/jbd2/journal.c                          |   4 +-
+ fs/jbd2/transaction.c                      |   2 +-
+ fs/jffs2/dir.c                             |   4 +-
+ fs/jffs2/file.c                            |   4 +-
+ fs/jffs2/fs.c                              |  18 +-
+ fs/jfs/inode.c                             |   2 +-
+ fs/jfs/jfs_imap.c                          |   2 +-
+ fs/jfs/jfs_metapage.c                      |   2 +-
+ fs/lockd/svclock.c                         |   8 +-
+ fs/lockd/svcsubs.c                         |   2 +-
+ fs/locks.c                                 |   6 +-
+ fs/minix/inode.c                           |  10 +-
+ fs/nfs/dir.c                               |  20 +-
+ fs/nfs/file.c                              |   8 +-
+ fs/nfs/filelayout/filelayout.c             |   8 +-
+ fs/nfs/flexfilelayout/flexfilelayout.c     |   8 +-
+ fs/nfs/inode.c                             |   6 +-
+ fs/nfs/nfs4proc.c                          |   4 +-
+ fs/nfs/pnfs.c                              |  12 +-
+ fs/nfsd/export.c                           |   2 +-
+ fs/nfsd/nfs4state.c                        |   4 +-
+ fs/nfsd/nfsfh.c                            |   4 +-
+ fs/nfsd/vfs.c                              |   2 +-
+ fs/nilfs2/alloc.c                          |  10 +-
+ fs/nilfs2/bmap.c                           |   2 +-
+ fs/nilfs2/btnode.c                         |   2 +-
+ fs/nilfs2/btree.c                          |  12 +-
+ fs/nilfs2/dir.c                            |  12 +-
+ fs/nilfs2/direct.c                         |   4 +-
+ fs/nilfs2/gcinode.c                        |   2 +-
+ fs/nilfs2/inode.c                          |   8 +-
+ fs/nilfs2/mdt.c                            |   2 +-
+ fs/nilfs2/namei.c                          |   2 +-
+ fs/nilfs2/segment.c                        |   2 +-
+ fs/notify/fdinfo.c                         |   4 +-
+ fs/nsfs.c                                  |   4 +-
+ fs/ntfs3/super.c                           |   2 +-
+ fs/ocfs2/alloc.c                           |   2 +-
+ fs/ocfs2/aops.c                            |   4 +-
+ fs/ocfs2/dir.c                             |   8 +-
+ fs/ocfs2/dlmfs/dlmfs.c                     |  10 +-
+ fs/ocfs2/extent_map.c                      |  12 +-
+ fs/ocfs2/inode.c                           |   2 +-
+ fs/ocfs2/quota_local.c                     |   2 +-
+ fs/ocfs2/refcounttree.c                    |  10 +-
+ fs/ocfs2/xattr.c                           |   4 +-
+ fs/orangefs/inode.c                        |   2 +-
+ fs/overlayfs/export.c                      |   2 +-
+ fs/overlayfs/namei.c                       |   4 +-
+ fs/overlayfs/util.c                        |   2 +-
+ fs/pipe.c                                  |   2 +-
+ fs/proc/fd.c                               |   2 +-
+ fs/proc/task_mmu.c                         |   4 +-
+ fs/qnx4/inode.c                            |   4 +-
+ fs/qnx6/inode.c                            |   2 +-
+ fs/ubifs/debug.c                           |   8 +-
+ fs/ubifs/dir.c                             |  28 +-
+ fs/ubifs/file.c                            |  28 +-
+ fs/ubifs/journal.c                         |   6 +-
+ fs/ubifs/super.c                           |  16 +-
+ fs/ubifs/tnc.c                             |   4 +-
+ fs/ubifs/xattr.c                           |  14 +-
+ fs/udf/directory.c                         |  18 +-
+ fs/udf/file.c                              |   2 +-
+ fs/udf/inode.c                             |  12 +-
+ fs/udf/namei.c                             |   8 +-
+ fs/udf/super.c                             |   2 +-
+ fs/ufs/balloc.c                            |   6 +-
+ fs/ufs/dir.c                               |  10 +-
+ fs/ufs/ialloc.c                            |   6 +-
+ fs/ufs/inode.c                             |  18 +-
+ fs/ufs/ufs_fs.h                            |   6 +-
+ fs/ufs/util.c                              |   2 +-
+ fs/verity/init.c                           |   2 +-
+ fs/zonefs/super.c                          |   8 +-
+ fs/zonefs/trace.h                          |  18 +-
+ include/linux/audit.h                      |   2 +-
+ include/linux/fs.h                         |  28 +-
+ include/net/sock.h                         |   4 +-
+ include/trace/events/cachefiles.h          |  18 +-
+ include/trace/events/ext4.h                | 544 ++++++++++++++---------------
+ include/trace/events/f2fs.h                | 242 ++++++-------
+ include/trace/events/filelock.h            |  34 +-
+ include/trace/events/filemap.h             |  20 +-
+ include/trace/events/fs_dax.h              |  20 +-
+ include/trace/events/fsverity.h            |  30 +-
+ include/trace/events/hugetlbfs.h           |  42 +--
+ include/trace/events/netfs.h               |   8 +-
+ include/trace/events/nilfs2.h              |  12 +-
+ include/trace/events/readahead.h           |  18 +-
+ include/trace/events/timestamp.h           |  16 +-
+ include/trace/events/writeback.h           | 162 ++++-----
+ kernel/audit.h                             |  13 +-
+ kernel/audit_fsnotify.c                    |   4 +-
+ kernel/audit_watch.c                       |  12 +-
+ kernel/auditsc.c                           |   4 +-
+ kernel/events/uprobes.c                    |   4 +-
+ net/ax25/af_ax25.c                         |   2 +-
+ net/bluetooth/af_bluetooth.c               |   4 +-
+ net/can/bcm.c                              |   2 +-
+ net/ipv4/ping.c                            |   2 +-
+ net/ipv4/raw.c                             |   2 +-
+ net/ipv4/tcp_ipv4.c                        |   2 +-
+ net/ipv4/udp.c                             |   2 +-
+ net/ipv6/datagram.c                        |   2 +-
+ net/ipv6/tcp_ipv6.c                        |   2 +-
+ net/key/af_key.c                           |   2 +-
+ net/netlink/af_netlink.c                   |   2 +-
+ net/netlink/diag.c                         |   2 +-
+ net/netrom/af_netrom.c                     |   4 +-
+ net/packet/af_packet.c                     |   2 +-
+ net/packet/diag.c                          |   2 +-
+ net/phonet/socket.c                        |   4 +-
+ net/rose/af_rose.c                         |   4 +-
+ net/sctp/proc.c                            |   4 +-
+ net/socket.c                               |   2 +-
+ net/unix/af_unix.c                         |   2 +-
+ net/unix/diag.c                            |   6 +-
+ net/x25/x25_proc.c                         |   4 +-
+ net/xdp/xsk_diag.c                         |   2 +-
+ security/apparmor/apparmorfs.c             |   4 +-
+ security/integrity/integrity_audit.c       |   2 +-
+ security/ipe/audit.c                       |   2 +-
+ security/lsm_audit.c                       |  10 +-
+ security/selinux/hooks.c                   |  10 +-
+ security/smack/smack_lsm.c                 |  12 +-
+ 220 files changed, 1282 insertions(+), 1283 deletions(-)
+---
+base-commit: 842cfe0733c5a03982a7ae496de6fdc0dd661a41
+change-id: 20260224-iino-u64-b44a3a72543c
+
+Best regards,
+-- 
+Jeff Layton <jlayton@kernel.org>
+
 
