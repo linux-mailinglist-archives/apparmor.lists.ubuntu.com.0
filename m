@@ -2,38 +2,38 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YItsAhhzqmkfRwEAu9opvQ
+	id UMUdCTxzqmkWRwEAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Fri, 06 Mar 2026 07:24:24 +0100
+	for <lists+apparmor@lfdr.de>; Fri, 06 Mar 2026 07:25:00 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF4E121C073
-	for <lists+apparmor@lfdr.de>; Fri, 06 Mar 2026 07:24:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05FFF21C09E
+	for <lists+apparmor@lfdr.de>; Fri, 06 Mar 2026 07:24:59 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vyO6x-00083E-8e; Fri, 06 Mar 2026 05:52:31 +0000
+	id 1vyO6x-00083X-Ii; Fri, 06 Mar 2026 05:52:31 +0000
 Received: from sea.source.kernel.org ([172.234.252.31])
  by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <dlemoal@kernel.org>) id 1vxu6p-0002xh-1N
+ (envelope-from <dlemoal@kernel.org>) id 1vxu6p-0002xi-1b
  for apparmor@lists.ubuntu.com; Wed, 04 Mar 2026 21:50:23 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id D16CC432D4;
- Wed,  4 Mar 2026 21:41:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFDDDC4CEF7;
- Wed,  4 Mar 2026 21:41:22 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A3CB743232;
+ Wed,  4 Mar 2026 21:42:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07326C2BCB4;
+ Wed,  4 Mar 2026 21:41:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772660507;
- bh=PV67OS/91fsa6EbIf+u5pJQmbMnqcMaw7mOqQaMZtc4=;
+ s=k20201202; t=1772660533;
+ bh=xiOhB9YembJ+CStGf833o6vXChZ9R9iPIsGRMRIY668=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=WOy+ahU5UARQ0yTbDyVVAn1fSlv8RpYZwjPT+Gigf4F6vtlQM47BUEAaHpPl28jTi
- zijTiFmnsokrQhTEwusFFZyPjXjLpzptmexKVrqiO7zalnrs6jCk/4Dtvo7p2Wi1b1
- deFntjfjHaMPD1GtY9aIYLocTQHgNd9upu9na/Ju2G9Ir6nNYqwGJRWtco86cB0/5r
- uO2UQtHfq4CG7HDfigIocItuDJOTEaZae9H5bHTqKAx9IDkUJuakGJN2s0X8q9pydZ
- YUjxavtU51Dm29ViV1Ch1zVWrQIQ2z11hjkuPtHX/LzHUzaMqMA8RcsW3Ko5J8lxOB
- JCi7YwgNkSxnQ==
-Message-ID: <d5ef252a-02db-42d1-8ffa-1769189ae60a@kernel.org>
-Date: Thu, 5 Mar 2026 06:41:21 +0900
+ b=MTiNOmzumY+Ccr9Y25oeq5uYZKghdKy9YuMJBVJenlXMeDIlM5fFuFFctJXPSrlj1
+ KOikET8YCvcGy9yWYQw1bgH6uo7qLLK1Yimq397PsLMKP+QRrCFPLt2x5Iauoplbvb
+ eVdpKah8RLNh0zfOSHOOrQ3xqtsNbQi1nkFz6EB4vJXFLpSPJMg52b3nqo2mplKkNj
+ xJmYwih0yzyZ+saefyHXLopmh2Uw8y8KnyiNiI3ZzGwKqQQ7Bt9hEM//Ab6R2kTuX0
+ dvCJZkANj5UO/wUvSeTKYiDWcUSEi2O8IiF1HH0MkcYb0vMhcqKbNtD1e26QLX94o6
+ x5Esh08bkPubQ==
+Message-ID: <000dfca2-3101-45dd-8fdd-987ca885124a@kernel.org>
+Date: Thu, 5 Mar 2026 06:41:41 +0900
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Jeff Layton <jlayton@kernel.org>, Alexander Viro
@@ -122,18 +122,18 @@ To: Jeff Layton <jlayton@kernel.org>, Alexander Viro
  Jesper Dangaard Brouer <hawk@kernel.org>,
  John Fastabend <john.fastabend@gmail.com>
 References: <20260304-iino-u64-v3-0-2257ad83d372@kernel.org>
- <20260304-iino-u64-v3-12-2257ad83d372@kernel.org>
+ <20260304-iino-u64-v3-8-2257ad83d372@kernel.org>
 Content-Language: en-US
 From: Damien Le Moal <dlemoal@kernel.org>
 Organization: Western Digital Research
-In-Reply-To: <20260304-iino-u64-v3-12-2257ad83d372@kernel.org>
+In-Reply-To: <20260304-iino-u64-v3-8-2257ad83d372@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 Received-SPF: pass client-ip=172.234.252.31; envelope-from=dlemoal@kernel.org;
  helo=sea.source.kernel.org
 X-Mailman-Approved-At: Fri, 06 Mar 2026 05:52:25 +0000
-Subject: Re: [apparmor] [PATCH v3 12/12] treewide: change inode->i_ino from
- unsigned long to u64
+Subject: Re: [apparmor] [PATCH v3 08/12] zonefs: widen trace event i_ino
+	fields to u64
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -166,7 +166,7 @@ Cc: nvdimm@lists.linux.dev, jfs-discussion@lists.sourceforge.net,
  netfs@lists.linux.dev, linux-integrity@vger.kernel.org, ntfs3@lists.linux.dev
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Rspamd-Queue-Id: CF4E121C073
+X-Rspamd-Queue-Id: 05FFF21C09E
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [4.09 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -199,7 +199,7 @@ X-Spamd-Result: default: False [4.09 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[dlemoal@kernel.org,apparmor-bounces@lists.ubuntu.com];
 	DKIM_TRACE(0.00)[kernel.org:-];
-	NEURAL_HAM(-0.00)[-0.922];
+	NEURAL_HAM(-0.00)[-0.933];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
 	MID_RHS_MATCH_FROM(0.00)[];
@@ -209,25 +209,10 @@ X-Spamd-Result: default: False [4.09 / 15.00];
 X-Rspamd-Action: no action
 
 On 3/5/26 00:32, Jeff Layton wrote:
-> On 32-bit architectures, unsigned long is only 32 bits wide, which
-> causes 64-bit inode numbers to be silently truncated. Several
-> filesystems (NFS, XFS, BTRFS, etc.) can generate inode numbers that
-> exceed 32 bits, and this truncation can lead to inode number collisions
-> and other subtle bugs on 32-bit systems.
-> 
-> Change the type of inode->i_ino from unsigned long to u64 to ensure that
-> inode numbers are always represented as 64-bit values regardless of
-> architecture. Update all format specifiers treewide from %lu/%lx to
-> %llu/%llx to match the new type, along with corresponding local variable
-> types.
-> 
-> This is the bulk treewide conversion. Earlier patches in this series
-> handled trace events separately to allow trace field reordering for
-> better struct packing on 32-bit.
+> Update zonefs trace event definitions to use u64 instead of
+> ino_t/unsigned long for inode number fields.
 > 
 > Signed-off-by: Jeff Layton <jlayton@kernel.org>
-
-For the zonefs bits:
 
 Acked-by: Damien Le Moal <dlemoal@kernel.org>
 
