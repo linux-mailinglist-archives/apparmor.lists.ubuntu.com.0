@@ -2,54 +2,54 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id iB3UDU5zqmkfRwEAu9opvQ
+	id sHB3MCpzqmkWRwEAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Fri, 06 Mar 2026 07:25:18 +0100
+	for <lists+apparmor@lfdr.de>; Fri, 06 Mar 2026 07:24:42 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E4AD21C0B3
-	for <lists+apparmor@lfdr.de>; Fri, 06 Mar 2026 07:25:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6983421C089
+	for <lists+apparmor@lfdr.de>; Fri, 06 Mar 2026 07:24:42 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vyO6u-0007yn-G8; Fri, 06 Mar 2026 05:52:28 +0000
+	id 1vyO6u-0007yu-Mt; Fri, 06 Mar 2026 05:52:28 +0000
 Received: from bombadil.infradead.org ([198.137.202.133])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from
  <BATV+2e11e6930e970eb8572e+8229+infradead.org+hch@bombadil.srs.infradead.org>)
- id 1vy9e2-0007lh-R2
- for apparmor@lists.ubuntu.com; Thu, 05 Mar 2026 14:25:43 +0000
+ id 1vy9eA-0007t3-CR
+ for apparmor@lists.ubuntu.com; Thu, 05 Mar 2026 14:25:50 +0000
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
  :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=Q7WgSM2wxChLNQuC1Kvn6fELh/kLhkbo4HJpx2Cfu6A=; b=lH0MXtHysHRHd3GA37b3KZTjyP
- uu4y4Wtum5SU6K6sPfQMgC1wjjkW4oCqsV4k/47t6pQLQeF8ZoEj/MCqcOOGspH7qzymaVtmQP+Xz
- McOy8ppewKfneb0WSeWQnqvtEDYc/dlx8W/zl9H7IajaOG+qhDprLRbWd56Gq6X58gqQbt72A/1Fu
- 57Ga2O0/96vpcbtKCzVO+AvNbbfp5XHKwrSU0HjpCts8yao8Gtx0uNB3CTwnNFoO22s1yTa6uj5cz
- t5l/w2CXYVAlbsn9+teUymKx7c1e2jxul2t/6h7WcREQXT8EksTsachxtLADsrQgvaMckHOQQ2x5B
- kI8111qA==;
+ bh=M7NmYC/Iylm9myghHwqILim55SAUt9QrM+UZYk0eJlw=; b=N/OnFzWa9k33Gb8WoaORaZf8/1
+ omQzMxzv7AKB0iGBOiFBTlfDd8cv/SFY2cN/xlhCF9LD4axDr458b3KkJDHIqY9jaYSeX0Iuke/ea
+ ruLhr6C+ymLhOMKavxBklyL56gQe5kOFHaR9GqikFPQ4+YspElC14XRfWh6kM52omEOHgMpsSREro
+ y5uto1k++Slfwuo7nq2YzlvQFOIu0vNsS5w8AUmDYAa3V8L257/vRobIemRsPwt43jEH4dMBKvjE9
+ qvJU8j7WutreciL7iwRXCEmJf59WsaeHF8hGB2PcyqrdNOf6OBCyjpqgu7qzQ+34Omj2U+HU1z4kP
+ lBT6VZKQ==;
 Received: from hch by bombadil.infradead.org with local (Exim 4.98.2 #2 (Red
- Hat Linux)) id 1vy9ck-00000001ywt-2yR7;
- Thu, 05 Mar 2026 14:24:22 +0000
-Date: Thu, 5 Mar 2026 06:24:22 -0800
+ Hat Linux)) id 1vy9dP-00000001z65-3qix;
+ Thu, 05 Mar 2026 14:25:03 +0000
+Date: Thu, 5 Mar 2026 06:25:03 -0800
 From: Christoph Hellwig <hch@infradead.org>
 To: Jeff Layton <jlayton@kernel.org>
-Message-ID: <aamSFgXhrORAJLBC@infradead.org>
+Message-ID: <aamSP0KKicK3dvIf@infradead.org>
 References: <20260304-iino-u64-v3-0-2257ad83d372@kernel.org>
- <20260304-iino-u64-v3-1-2257ad83d372@kernel.org>
+ <20260304-iino-u64-v3-12-2257ad83d372@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260304-iino-u64-v3-1-2257ad83d372@kernel.org>
+In-Reply-To: <20260304-iino-u64-v3-12-2257ad83d372@kernel.org>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
  bombadil.infradead.org. See http://www.infradead.org/rpr.html
 Received-SPF: none client-ip=198.137.202.133;
  envelope-from=BATV+2e11e6930e970eb8572e+8229+infradead.org+hch@bombadil.srs.infradead.org;
  helo=bombadil.infradead.org
 X-Mailman-Approved-At: Fri, 06 Mar 2026 05:52:25 +0000
-Subject: Re: [apparmor] [PATCH v3 01/12] vfs: widen inode hash/lookup
-	functions to u64
+Subject: Re: [apparmor] [PATCH v3 12/12] treewide: change inode->i_ino from
+ unsigned long to u64
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -160,7 +160,7 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>, nvdimm@lists.linux.dev,
  David Woodhouse <dwmw2@infradead.org>, Joel Becker <jlbec@evilplan.org>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Rspamd-Queue-Id: 0E4AD21C0B3
+X-Rspamd-Queue-Id: 6983421C089
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [1.69 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -190,28 +190,16 @@ X-Spamd-Result: default: False [1.69 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[hch@infradead.org,apparmor-bounces@lists.ubuntu.com];
 	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[infradead.org:-];
-	NEURAL_HAM(-0.00)[-0.997];
+	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
 	TAGGED_RCPT(0.00)[apparmor];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lst.de:email,infradead.org:mid,lists.ubuntu.com:rdns,lists.ubuntu.com:helo]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:rdns,lists.ubuntu.com:helo,infradead.org:mid,lst.de:email]
 X-Rspamd-Action: no action
 
->  extern struct inode *ilookup5_nowait(struct super_block *sb,
-> -		unsigned long hashval, int (*test)(struct inode *, void *),
-> +		u64 hashval, int (*test)(struct inode *, void *),
->  		void *data, bool *isnew);
-> -extern struct inode *ilookup5(struct super_block *sb, unsigned long hashval,
-> +extern struct inode *ilookup5(struct super_block *sb, u64 hashval,
->  		int (*test)(struct inode *, void *), void *data);
-
-...
-
-Can you please drop all these pointless externs while you're at it?
-
-Otherwise looks good:
+Looks good:
 
 Reviewed-by: Christoph Hellwig <hch@lst.de>
 
