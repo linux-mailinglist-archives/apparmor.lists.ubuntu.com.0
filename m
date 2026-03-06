@@ -2,50 +2,50 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mIWvAG+jqml6UwEAu9opvQ
+	id iBmSJh+oqmmzVAEAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Fri, 06 Mar 2026 10:50:39 +0100
+	for <lists+apparmor@lfdr.de>; Fri, 06 Mar 2026 11:10:39 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DDE821E3A2
-	for <lists+apparmor@lfdr.de>; Fri, 06 Mar 2026 10:50:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA14321E7BB
+	for <lists+apparmor@lfdr.de>; Fri, 06 Mar 2026 11:10:38 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vyRpB-00019A-4d; Fri, 06 Mar 2026 09:50:25 +0000
+	id 1vyS8W-0004Tv-36; Fri, 06 Mar 2026 10:10:24 +0000
 Received: from sea.source.kernel.org ([172.234.252.31])
  by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <brauner@kernel.org>) id 1vyRp9-00017p-1f
- for apparmor@lists.ubuntu.com; Fri, 06 Mar 2026 09:50:23 +0000
+ (envelope-from <brauner@kernel.org>) id 1vyS8V-0004Tn-8C
+ for apparmor@lists.ubuntu.com; Fri, 06 Mar 2026 10:10:23 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 851EE4350A;
- Fri,  6 Mar 2026 09:42:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42949C4CEF7;
- Fri,  6 Mar 2026 09:42:05 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id DDB6140513;
+ Fri,  6 Mar 2026 10:03:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57A5FC4CEF7;
+ Fri,  6 Mar 2026 10:03:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772790130;
- bh=fFg7aWjPxphbulTb79Nt+ZDPqV4b3jllfkrmJmykajI=;
+ s=k20201202; t=1772791424;
+ bh=2k86Dtm5s9d5fuxoJ9fHeDpBAjwOVfZAGlB/JmB3VzI=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=HH0dSpc/NY5W6vJribQ+0/VUib+ntzCMXwsF44TqYjP1DQJWwC4t2dC/dm+Mi9VCk
- o33dauJ6s4cCsTKppZWf2FouzNEPL7RkNJM2sQRR0OWzENbwBdn2ID0ImWSfUdYA3d
- G6Ycyw5KRr1tlQpXPgOg/TNKn/xLOUpRQJQZzub+CTcJdgW5iyjjUZtTDAAdL3bOoz
- 15PnfIMPjE5DIc5W/D+cnLdq1HvN4kM0cGlnEspFGoym/UwjmuTFDwMIkZgkeyX7o3
- MH8iwSDfyPNa88MIts0uDSl97VM/yIsxUbTn60rD8OhRvxA6r4Zhu3gGkF95tj8S8t
- F7xNzkhP59KAA==
-Date: Fri, 6 Mar 2026 10:42:02 +0100
+ b=m5eJ64atM8CSqw/MFjNXRrxzHZxZT0IBlWe/NQZtx2XiegpWzk9QGLezy2pa/YbfU
+ xtk86J7xCw5xi/XgfSdxYaLcnSBQI+NqT6UnzHy0w4Tf/ewxqIXGBWBnoDewzKWpqt
+ gla/VKzwagTuoRDKQmlWYIGEo255wDo0Ruxpy+b4aKGeHwOu1OT4COczr0n1spvh6m
+ YYxtdzNadC/MvG7p7bpMrLJvbXCGKo0xO+V58N36G45KnREJAziJK+kkCiOwMVW7+p
+ 5H/AG3mUibbev5gybwevloaYp72DLAyI2k59DOJNlxe8cWCA5bqTCMKlTB4QC7I+m9
+ FpkwlN+s9sM0Q==
+Date: Fri, 6 Mar 2026 11:03:36 +0100
 From: Christian Brauner <brauner@kernel.org>
 To: NeilBrown <neil@brown.name>
-Message-ID: <20260306-fastnacht-kernig-3b350bd2fab0@brauner>
+Message-ID: <20260306-stolz-verzichten-2ee626da4503@brauner>
 References: <20260224222542.3458677-1-neilb@ownmail.net>
- <20260224222542.3458677-6-neilb@ownmail.net>
+ <20260224222542.3458677-11-neilb@ownmail.net>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260224222542.3458677-6-neilb@ownmail.net>
+In-Reply-To: <20260224222542.3458677-11-neilb@ownmail.net>
 Received-SPF: pass client-ip=172.234.252.31; envelope-from=brauner@kernel.org;
  helo=sea.source.kernel.org
-Subject: Re: [apparmor] [PATCH v3 05/15] Apparmor: Use
- simple_start_creating() / simple_done_creating()
+Subject: Re: [apparmor] [PATCH v3 10/15] cachefiles: change
+ cachefiles_bury_object to use start_renaming_dentry()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -70,7 +70,7 @@ Cc: linux-nfs@vger.kernel.org, Jan Kara <jack@suse.cz>,
  "Serge E. Hallyn" <serge@hallyn.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Rspamd-Queue-Id: 9DDE821E3A2
+X-Rspamd-Queue-Id: AA14321E7BB
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [7.59 / 15.00];
 	MID_END_EQ_FROM_USER_PART(4.00)[];
@@ -110,29 +110,111 @@ X-Spamd-Result: default: False [7.59 / 15.00];
 X-Rspamd-Action: add header
 X-Spam: Yes
 
-On Wed, Feb 25, 2026 at 09:16:50AM +1100, NeilBrown wrote:
+On Wed, Feb 25, 2026 at 09:16:55AM +1100, NeilBrown wrote:
 > From: NeilBrown <neil@brown.name>
 > 
-> Instead of explicitly locking the parent and performing a look up in
-> apparmor, use simple_start_creating(), and then simple_done_creating()
-> to unlock and drop the dentry.
+> Rather then using lock_rename() and lookup_one() etc we can use
+> the new start_renaming_dentry().  This is part of centralising dir
+> locking and lookup so that locking rules can be changed.
 > 
-> This removes the need to check for an existing entry (as
-> simple_start_creating() acts like an exclusive create and can return
-> -EEXIST), simplifies error paths, and keeps dir locking code
-> centralised.
+> Some error check are removed as not necessary.  Checks for rep being a
+> non-dir or IS_DEADDIR and the check that ->graveyard is still a
+> directory only provide slightly more informative errors and have been
+> dropped.
 > 
 > Reviewed-by: Jeff Layton <jlayton@kernel.org>
 > Signed-off-by: NeilBrown <neil@brown.name>
 > ---
+>  fs/cachefiles/namei.c | 76 ++++++++-----------------------------------
+>  1 file changed, 14 insertions(+), 62 deletions(-)
+> 
+> diff --git a/fs/cachefiles/namei.c b/fs/cachefiles/namei.c
+> index e5ec90dccc27..3af42ec78411 100644
+> --- a/fs/cachefiles/namei.c
+> +++ b/fs/cachefiles/namei.c
+> @@ -270,7 +270,8 @@ int cachefiles_bury_object(struct cachefiles_cache *cache,
+>  			   struct dentry *rep,
+>  			   enum fscache_why_object_killed why)
+>  {
+> -	struct dentry *grave, *trap;
+> +	struct dentry *grave;
+> +	struct renamedata rd = {};
+>  	struct path path, path_to_graveyard;
+>  	char nbuffer[8 + 8 + 1];
+>  	int ret;
+> @@ -302,77 +303,36 @@ int cachefiles_bury_object(struct cachefiles_cache *cache,
+>  		(uint32_t) ktime_get_real_seconds(),
+>  		(uint32_t) atomic_inc_return(&cache->gravecounter));
+>  
+> -	/* do the multiway lock magic */
+> -	trap = lock_rename(cache->graveyard, dir);
+> -	if (IS_ERR(trap))
+> -		return PTR_ERR(trap);
+> -
+> -	/* do some checks before getting the grave dentry */
+> -	if (rep->d_parent != dir || IS_DEADDIR(d_inode(rep))) {
+> -		/* the entry was probably culled when we dropped the parent dir
+> -		 * lock */
+> -		unlock_rename(cache->graveyard, dir);
+> -		_leave(" = 0 [culled?]");
+> -		return 0;
 
-Fwiw, I think this fixes a reference count leak:
+I think this is a subtle change in behavior?
 
-The old aafs_create returned dentries with refcount=2 (one from
-lookup_noperm, one from dget in __aafs_setup_d_inode). The cleanup path
-aafs_remove puts one reference leaving one reference that didn't get
-cleaned up.
+If rep->d_parent != dir after lock_rename this returned 0 in the old
+code. With your changes the same condition in __start_renaming_dentry
+returns -EINVAL which means cachefiles_io_error() sets CACHEFILES_DEAD
+and permanently disables the cache.
 
-After your changes this is now correct as simple_done_creating() puts
-the lookup reference.
+> -	}
+> -
+> -	if (!d_can_lookup(cache->graveyard)) {
+> -		unlock_rename(cache->graveyard, dir);
+> -		cachefiles_io_error(cache, "Graveyard no longer a directory");
+> -		return -EIO;
+> -	}
+> -
+> -	if (trap == rep) {
+> -		unlock_rename(cache->graveyard, dir);
+> -		cachefiles_io_error(cache, "May not make directory loop");
+> +	rd.mnt_idmap = &nop_mnt_idmap;
+> +	rd.old_parent = dir;
+> +	rd.new_parent = cache->graveyard;
+> +	rd.flags = 0;
+> +	ret = start_renaming_dentry(&rd, 0, rep, &QSTR(nbuffer));
+> +	if (ret) {
+> +		cachefiles_io_error(cache, "Cannot lock/lookup in graveyard");
+>  		return -EIO;
+>  	}
+>  
+>  	if (d_mountpoint(rep)) {
+> -		unlock_rename(cache->graveyard, dir);
+> +		end_renaming(&rd);
+>  		cachefiles_io_error(cache, "Mountpoint in cache");
+>  		return -EIO;
+>  	}
+>  
+> -	grave = lookup_one(&nop_mnt_idmap, &QSTR(nbuffer), cache->graveyard);
+> -	if (IS_ERR(grave)) {
+> -		unlock_rename(cache->graveyard, dir);
+> -		trace_cachefiles_vfs_error(object, d_inode(cache->graveyard),
+> -					   PTR_ERR(grave),
+> -					   cachefiles_trace_lookup_error);
+> -
+> -		if (PTR_ERR(grave) == -ENOMEM) {
+> -			_leave(" = -ENOMEM");
+> -			return -ENOMEM;
+> -		}
+
+This too?
+
+In the old code a -ENOMEM return from lookup_one() let the cache stay
+alive and returned directly. The new code gets sent via
+cachefiles_io_error() causing again CACHEFILES_DEAD to be set and
+permanently disabling the cache.
+
+Maybe both changes are intentional. If so we should probably note this
+in the commit message or this should be fixed?
+
+If you give me a fixup! on top of vfs-7.1.directory I can fold it.
 
