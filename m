@@ -2,98 +2,59 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qNLjGaRrqmniRAEAu9opvQ
+	id YH/YGvgdq2mPaAEAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Fri, 06 Mar 2026 06:52:36 +0100
+	for <lists+apparmor@lfdr.de>; Fri, 06 Mar 2026 19:33:28 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21CF321BD50
-	for <lists+apparmor@lfdr.de>; Fri, 06 Mar 2026 06:52:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C8EC226B4E
+	for <lists+apparmor@lfdr.de>; Fri, 06 Mar 2026 19:33:27 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vyO6y-00084I-7a; Fri, 06 Mar 2026 05:52:32 +0000
-Received: from mail-pj1-f43.google.com ([209.85.216.43])
- by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <paul@paul-moore.com>)
- id 1vyLZ8-0001LV-KK
- for apparmor@lists.ubuntu.com; Fri, 06 Mar 2026 03:09:26 +0000
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-3597b474cbdso3158018a91.1
- for <apparmor@lists.ubuntu.com>; Thu, 05 Mar 2026 19:09:26 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1772766565; cv=none;
- d=google.com; s=arc-20240605;
- b=iQi06GnkUMCX/Au/NJ5bYcj9VCpxSzTKUWPqbz+sRjrW8Pr4aouWTdRiLjXwzL5uyh
- qJivNodYXgIyHDttTD82GLuhEYuaUXqcNDfzyU3Hj9T0eElyFG5bTehNkiOMTyyedBcw
- 5NfxVT5DN2px94Fby+UMqhZd1x2yP4vJS0dL4r8pYXd2gp+v77g4FW2IPwj7RKl2D3P0
- 7JeB09n0Vi69DDRz69248enDhC0G2qS85S20rR6CJyWqh0wXVW5oBjrTS2O9D9f3JqNG
- j060/0IIKqYMBrlsaqhEEwd4GwztssuqwyytQJ0xYylIqb5ZEtIMK0jRySwRuUqxy3fl
- zzSA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=a2wyFmqtgQuSSxu/y1lHXpYQVnaUEjD/9HUkzSu97q4=;
- fh=x85COR9B57BAmEnDXmHa24PqNrKClKCkFpNZIwEBCvI=;
- b=W4T9RW/4TYWGpvFCqD9GtPCIhC8ldUnxFQLLiWiWCm3iF/ehV81dzpm/rDa4IPg+hJ
- XNaFoLJlLG+4TvopyrVQaTic782DARXuUl8rGVvwugX08AwGm+5vqbZNMIVsLMYlleC2
- zEy22XsN8EK5fXZDLaeVsu3peLTiVBrjODqREZsLjwF8d+3JmOFeUZXEyrflGOU3Fwlz
- zKAsSolkRyzQ7ZfP+AqgD2GgTjxfaYgTORbW7nFzGWdQ1iqwoQ2C251BQ0OBmLBQNvpN
- 0eYtAehcPz0eXlvF1FVurZ14fFaxoVnYbVX59SfwaqwaA4BLgIp07Z7notzyP/gRLsKP
- l1YQ==; darn=lists.ubuntu.com
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=paul-moore.com; s=google; t=1772766565; x=1773371365; darn=lists.ubuntu.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=a2wyFmqtgQuSSxu/y1lHXpYQVnaUEjD/9HUkzSu97q4=;
- b=ZWxXR3SQ+FWmI+j1nb7JhfikDAfnBlSwWRNIp9G7psMoaEFDa0lwdpVKUTRDr8ZS45
- lu/4WOeFjUc5P7yqtkLNca/+d/3K7/1Xo3+m8A4UV2un/AM0gDPEYNnJZzietTltC4Hf
- SoKrkQQd7rPHBDoUHMYTp2hVDREKuY8AnHJDG3Ww8jx2vb9JnaYfTOU55h78nozwEkhk
- C2kZKxbNTJO/TZOT2In/EKwmIilu8lwBsZolf059eh7HAcJsWowVzDrx+TQRAiouUKZs
- mo+Wnn+hN/wWMgH0Pgr2l/cslPTBkIszYsNwzjAivjYuiK/NKp9+KDd7m9iryntnIbjE
- Opjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772766565; x=1773371365;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=a2wyFmqtgQuSSxu/y1lHXpYQVnaUEjD/9HUkzSu97q4=;
- b=npm5SmKLvPmDPPFp2mjRq9WZsPZdhpPqkq1rA162wMvKUwUxyt8bm6XA2AdKHYjr/0
- gAVIAK8NZ8XPkazFrr2dpTPUUaXNtSmlAE5pMvbZbyoyhZc199Xkz2JDH/WH42bgpugA
- RejghAR449/m11EM59UUxX30KwPiBezvqgDGrQnD4dIcfXNPn7N68AjfwrGSvnlMLxDa
- wm7qUM36VQ6m3KiKx6CRE1y8t2aOSOv82T6s2zaYxQ5QAH5Zfu15c219nIhS8mg1wAdm
- x7tWsN0cvqlS+jnwAGnesv84Lfrh5RHEPGOV7ZFUSTGFYIdzSRrp7+0Hev6oIEIqbVWF
- I+lQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVYMjlkpujf0DqLIpgFV01bv7PyEc9eYeijQvTnkNPS4yLQGhSjidPk/sN2yvi8zN7h94Dq/MP33Q==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0YwuRX3iG2B/LYDon/906St5bG/HgYnGxMRHfmTnJ8cEInXo21QC
- pz6Oq9PK5ei8n0MLYd1B9JQ3R0HVVN56F2jDVNqx4y5MoEjrtRR/d276cFir2vwBKzpJOvJKEVj
- Sw3JKCyC2ITI7refRFQ9ckV8cYNM2hHkxieFJWmgC
-X-Gm-Gg: ATEYQzxUQRN1MwxD+2Yz3EofxOiq/q8nQSZm0hCNDv+qPOOiST9NWrE4NZegqGL6PXK
- NW0NzLOXDASdBkOSZGCSmcd3+R3IS9Ttxne+pNOMdvP3pk4eHnAS/h0HJ5Bt2IPuNi5Sz9LyjjN
- XpI9dxZJYj2uOtJ/coL4LXrDYEhhbQhoXZ3VhLcvwRDVZagbwsuvMO6aEqytTgpg0jnFnjQwmsK
- jwa6a5UBXUXjIMttkdl36F/1JbpHhbXDaFoUQNQ4WBjaijXkofp+2OrvzP0sDFA5ZpACAwXZtsn
- P7Bj844=
-X-Received: by 2002:a17:90b:390a:b0:34c:35ce:3c5f with SMTP id
- 98e67ed59e1d1-359be28da81mr585228a91.5.1772766564424; Thu, 05 Mar 2026
- 19:09:24 -0800 (PST)
-MIME-Version: 1.0
-References: <20260304-iino-u64-v3-0-2257ad83d372@kernel.org>
- <20260304-iino-u64-v3-2-2257ad83d372@kernel.org>
-In-Reply-To: <20260304-iino-u64-v3-2-2257ad83d372@kernel.org>
-From: Paul Moore <paul@paul-moore.com>
-Date: Thu, 5 Mar 2026 22:09:12 -0500
-X-Gm-Features: AaiRm51A9fGFpauPslQfX6LBJuSyutri4HG-shh7wAOHtGm4QDzvXC5jtThE_pI
-Message-ID: <CAHC9VhQix8opxrX--w-pw5vEAiLaYX=kPhnm4x+dEFEwHiVnfQ@mail.gmail.com>
+	id 1vyZyx-0007GG-OY; Fri, 06 Mar 2026 18:33:03 +0000
+Received: from tor.source.kernel.org ([172.105.4.254])
+ by lists.ubuntu.com with esmtp (Exim 4.86_2)
+ (envelope-from <brauner@kernel.org>) id 1vyRMU-000462-TV
+ for apparmor@lists.ubuntu.com; Fri, 06 Mar 2026 09:20:47 +0000
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id DAE616012A;
+ Fri,  6 Mar 2026 09:15:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C425BC4CEF7;
+ Fri,  6 Mar 2026 09:14:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1772788507;
+ bh=7RvOdnrFs/iEe9G84pPe+q4PLv+gFd3Sa58Nl0eTC8M=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=TyR366hpH5SBgvb3stJOO+3+JgB4eyp8Ub6SIcEY5Wv5+DIXq3qwQ1akUuyGzm4GI
+ oVWqv0SYGKFQk/aIJcLbDc3SkZdh03GwnjPJPfc8DHBxnnTk3pTwokbH2aquirHejB
+ nz1gJxpKMhkWSd0cvlbIm12Yo0dUUSzlaMGnA70lo5LCfYmGHYkoB3BEoaWxEw9skO
+ 0XSBCv8+kTn/Gf5HrA+24udlPqxoLhC1731SEC00PUdG+t6hKArOjAPEtT/hHxR1LY
+ s+VuE2scXcViJMBvNGcnMzw7bfK0RAeQxP1RLAMHfxMD+S62KQ5DOUo/0QF6h57vkJ
+ rf8R3FiiVNktg==
+From: Christian Brauner <brauner@kernel.org>
 To: Jeff Layton <jlayton@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=209.85.216.43; envelope-from=paul@paul-moore.com;
- helo=mail-pj1-f43.google.com
-X-Mailman-Approved-At: Fri, 06 Mar 2026 05:52:24 +0000
-Subject: Re: [apparmor] [PATCH v3 02/12] audit: widen ino fields to u64
+Date: Fri,  6 Mar 2026 10:09:33 +0100
+Message-ID: <20260306-kennen-zubrot-2605fcfd6950@brauner>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260304-iino-u64-v3-0-2257ad83d372@kernel.org>
+References: <20260304-iino-u64-v3-0-2257ad83d372@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2708; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=7RvOdnrFs/iEe9G84pPe+q4PLv+gFd3Sa58Nl0eTC8M=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSumvWu2uNxbBFXikaZQKrMtl0PLj1c+kZGWOrvZiHz/
+ W/CTGOed5SyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEzk4A5GhimT869vPnNH4Vqj
+ t6Tr0fqPLXs3v0g/qbXpwf6o52L5D7YyMnxU+idovG+O5JQe0WVOK45/sI9bw9AjJfah78/izrQ
+ aXg4A
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=172.105.4.254; envelope-from=brauner@kernel.org;
+ helo=tor.source.kernel.org
+X-Mailman-Approved-At: Fri, 06 Mar 2026 18:33:02 +0000
+Subject: Re: [apparmor] [PATCH v3 00/12] vfs: change inode->i_ino from
+	unsigned long to u64
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -106,18 +67,19 @@ List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
 Cc: Latchesar Ionkov <lucho@ionkov.net>, nvdimm@lists.linux.dev,
+ Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
  Paulo Alcantara <pc@manguebit.org>, "Darrick J. Wong" <djwong@kernel.org>,
  Anders Larsen <al@alarsen.net>, dri-devel@lists.freedesktop.org,
  linux-sctp@vger.kernel.org, linux-hams@vger.kernel.org,
- Sumit Semwal <sumit.semwal@linaro.org>, Mike Marshall <hubcap@omnibond.com>,
+ ceph-devel@vger.kernel.org, Mike Marshall <hubcap@omnibond.com>,
  linux-xfs@vger.kernel.org, Fan Wu <wufan@kernel.org>,
- Xin Long <lucien.xin@gmail.com>, ceph-devel@vger.kernel.org,
- James Morris <jmorris@namei.org>, Tyler Hicks <code@tyhicks.com>,
- Christoph Hellwig <hch@infradead.org>, devel@lists.orangefs.org,
- Shyam Prasad N <sprasad@microsoft.com>, Martin Schiller <ms@dev.tdt.de>,
- Jesper Dangaard Brouer <hawk@kernel.org>, Jan Harkes <jaharkes@cs.cmu.edu>,
+ Xin Long <lucien.xin@gmail.com>, James Morris <jmorris@namei.org>,
+ Tyler Hicks <code@tyhicks.com>, Eric Biggers <ebiggers@kernel.org>,
+ devel@lists.orangefs.org, Shyam Prasad N <sprasad@microsoft.com>,
+ Martin Schiller <ms@dev.tdt.de>, Jesper Dangaard Brouer <hawk@kernel.org>,
  Willem de Bruijn <willemb@google.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>, linux-fscrypt@vger.kernel.org,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Alexei Starovoitov <ast@kernel.org>, linux-fscrypt@vger.kernel.org,
  Alexander Viro <viro@zeniv.linux.org.uk>,
  Ronnie Sahlberg <ronniesahlberg@gmail.com>,
  John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
@@ -128,144 +90,180 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>, nvdimm@lists.linux.dev,
  Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
  Stephen Smalley <stephen.smalley.work@gmail.com>, linux-kernel@vger.kernel.org,
  Eric Paris <eparis@redhat.com>, linux-perf-users@vger.kernel.org,
- Chuck Lever <chuck.lever@oracle.com>, Masami Hiramatsu <mhiramat@kernel.org>,
- Jiri Olsa <jolsa@kernel.org>, Jan Kara <jack@suse.com>,
- Alex Deucher <alexander.deucher@amd.com>, linux-media@vger.kernel.org,
- Trond Myklebust <trondmy@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Dave Kleikamp <shaggy@kernel.org>, Mimi Zohar <zohar@linux.ibm.com>,
- Oleg Nesterov <oleg@redhat.com>, Eric Dumazet <edumazet@google.com>,
+ David Ahern <dsahern@kernel.org>, Chuck Lever <chuck.lever@oracle.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
+ Jan Kara <jack@suse.com>, linux-fsdevel@vger.kernel.org,
+ linux-media@vger.kernel.org, Trond Myklebust <trondmy@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Dave Kleikamp <shaggy@kernel.org>,
+ Mimi Zohar <zohar@linux.ibm.com>, Oleg Nesterov <oleg@redhat.com>,
+ Eric Dumazet <edumazet@google.com>, Alex Deucher <alexander.deucher@amd.com>,
  Johan Hedberg <johan.hedberg@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  linux-cifs@vger.kernel.org, Kuniyuki Iwashima <kuniyu@google.com>,
- linux-nilfs@vger.kernel.org, John Fastabend <john.fastabend@gmail.com>,
+ linux-nilfs@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ John Fastabend <john.fastabend@gmail.com>, Joerg Reuter <jreuter@yaina.de>,
  codalist@coda.cs.cmu.edu, Remi Denis-Courmont <courmisch@gmail.com>,
  linux-trace-kernel@vger.kernel.org, Olga Kornievskaia <okorniev@redhat.com>,
  Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
- Yangtao Li <frank.li@vivo.com>, selinux@vger.kernel.org, v9fs@lists.linux.dev,
+ Yangtao Li <frank.li@vivo.com>, selinux@vger.kernel.org,
  linux-can@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- netfs@lists.linux.dev, Jaegeuk Kim <jaegeuk@kernel.org>,
+ ocfs2-devel@lists.linux.dev, Jaegeuk Kim <jaegeuk@kernel.org>,
  fsverity@lists.linux.dev, "Theodore Y. Ts'o" <tytso@mit.edu>,
  Nicolas Pitre <nico@fluxnic.net>, Muchun Song <muchun.song@linux.dev>,
  Roberto Sassu <roberto.sassu@huawei.com>,
- "David S. Miller" <davem@davemloft.net>, Anna Schumaker <anna@kernel.org>,
+ linux-f2fs-devel@lists.sourceforge.net, Anna Schumaker <anna@kernel.org>,
  linux-integrity@vger.kernel.org,
  Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
  Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
  Alex Markuze <amarkuze@redhat.com>, Martin Brandenburg <martin@omnibond.com>,
  Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- ocfs2-devel@lists.linux.dev, Alexei Starovoitov <ast@kernel.org>,
- linux-mtd@lists.infradead.org, Marc Dionne <marc.dionne@auristor.com>,
- Neal Cardwell <ncardwell@google.com>, linux-afs@lists.infradead.org,
- Ian Kent <raven@themaw.net>, Naohiro Aota <naohiro.aota@wdc.com>,
- Eric Biggers <ebiggers@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Miklos Szeredi <miklos@szeredi.hu>, amd-gfx@lists.freedesktop.org,
- coda@cs.cmu.edu, Stanislav Fomichev <sdf@fomichev.me>,
- Viacheslav Dubeyko <slava@dubeyko.com>, NeilBrown <neil@brown.name>,
- Ilya Dryomov <idryomov@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
- jfs-discussion@lists.sourceforge.net, "Serge E. Hallyn" <serge@hallyn.com>,
+ Alexander Aring <alex.aring@gmail.com>, linux-mtd@lists.infradead.org,
+ Marc Dionne <marc.dionne@auristor.com>, Neal Cardwell <ncardwell@google.com>,
+ linux-afs@lists.infradead.org, Ian Kent <raven@themaw.net>,
+ Naohiro Aota <naohiro.aota@wdc.com>, Christoph Hellwig <hch@infradead.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Miklos Szeredi <miklos@szeredi.hu>,
+ amd-gfx@lists.freedesktop.org, coda@cs.cmu.edu,
+ Stanislav Fomichev <sdf@fomichev.me>, Viacheslav Dubeyko <slava@dubeyko.com>,
+ NeilBrown <neil@brown.name>, Ilya Dryomov <idryomov@gmail.com>,
+ linux-ext4@vger.kernel.org, "Serge E. Hallyn" <serge@hallyn.com>,
  Amir Goldstein <amir73il@gmail.com>, James Clark <james.clark@linaro.org>,
  autofs@vger.kernel.org, Steven Rostedt <rostedt@goodmis.org>,
  Damien Le Moal <dlemoal@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Dan Williams <dan.j.williams@intel.com>, Oscar Salvador <osalvador@suse.de>,
- Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
- linux-nfs@vger.kernel.org, linux-ext4@vger.kernel.org, linux-mm@kvack.org,
+ Jan Harkes <jaharkes@cs.cmu.edu>, linux-nfs@vger.kernel.org,
+ Paolo Abeni <pabeni@redhat.com>, Joseph Qi <joseph.qi@linux.alibaba.com>,
  samba-technical@lists.samba.org, Ondrej Mosnacek <omosnace@redhat.com>,
- Steve French <sfrench@samba.org>, netdev@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org, ntfs3@lists.linux.dev,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Ian Rogers <irogers@google.com>, Alexander Aring <alex.aring@gmail.com>,
+ Steve French <sfrench@samba.org>, Oliver Hartkopp <socketcan@hartkopp.net>,
+ netfs@lists.linux.dev, bpf@vger.kernel.org, ntfs3@lists.linux.dev,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Ian Rogers <irogers@google.com>, jfs-discussion@lists.sourceforge.net,
  Jan Kara <jack@suse.cz>, Peter Zijlstra <peterz@infradead.org>,
  Dominique Martinet <asmadeus@codewreck.org>,
- Christian Schoenebeck <linux_oss@crudebyte.com>, ecryptfs@vger.kernel.org,
- linux-unionfs@vger.kernel.org, David Howells <dhowells@redhat.com>,
- Joseph Qi <joseph.qi@linux.alibaba.com>,
- Andreas Dilger <adilger.kernel@dilger.ca>,
+ Christian Schoenebeck <linux_oss@crudebyte.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, David Howells <dhowells@redhat.com>,
+ linux-mm@kvack.org, Andreas Dilger <adilger.kernel@dilger.ca>,
  Mikulas Patocka <mikulas@artax.karlin.mff.cuni.cz>,
- linux-f2fs-devel@lists.sourceforge.net, David Airlie <airlied@gmail.com>,
+ David Airlie <airlied@gmail.com>,
  Steffen Klassert <steffen.klassert@secunet.com>,
  Eric Snowberg <eric.snowberg@oracle.com>,
  Herbert Xu <herbert@gondor.apana.org.au>, linux-x25@vger.kernel.org,
- linux-bluetooth@vger.kernel.org, Richard Weinberger <richard@nod.at>,
+ audit@vger.kernel.org, Richard Weinberger <richard@nod.at>,
  Mark Fasheh <mark@fasheh.com>, Dai Ngo <Dai.Ngo@oracle.com>,
  Ingo Molnar <mingo@redhat.com>, Jakub Kicinski <kuba@kernel.org>,
  Salah Triki <salah.triki@gmail.com>, Marcel Holtmann <marcel@holtmann.org>,
- Joerg Reuter <jreuter@yaina.de>, Simon Horman <horms@kernel.org>,
- Chao Yu <chao@kernel.org>, apparmor@lists.ubuntu.com,
+ Chao Yu <chao@kernel.org>, Simon Horman <horms@kernel.org>,
+ ecryptfs@vger.kernel.org, apparmor@lists.ubuntu.com,
  Tom Talpey <tom@talpey.com>, Bharath SM <bharathsm@microsoft.com>,
  Marc Kleine-Budde <mkl@pengutronix.de>,
  "Tigran A. Aivazian" <aivazian.tigran@gmail.com>,
  David Sterba <dsterba@suse.com>, Namhyung Kim <namhyung@kernel.org>,
  Ryusuke Konishi <konishi.ryusuke@gmail.com>,
- Luis de Bethencourt <luisbg@kernel.org>,
- Oliver Hartkopp <socketcan@hartkopp.net>, David Ahern <dsahern@kernel.org>,
- Adrian Hunter <adrian.hunter@intel.com>, audit@vger.kernel.org,
- linux-security-module@vger.kernel.org, Johannes Thumshirn <jth@kernel.org>,
- David Woodhouse <dwmw2@infradead.org>, Joel Becker <jlbec@evilplan.org>
+ Luis de Bethencourt <luisbg@kernel.org>, netdev@vger.kernel.org,
+ v9fs@lists.linux.dev, linux-unionfs@vger.kernel.org,
+ linux-bluetooth@vger.kernel.org, linux-security-module@vger.kernel.org,
+ Johannes Thumshirn <jth@kernel.org>, David Woodhouse <dwmw2@infradead.org>,
+ Joel Becker <jlbec@evilplan.org>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Rspamd-Queue-Id: 21CF321BD50
+X-Rspamd-Queue-Id: 4C8EC226B4E
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [2.69 / 15.00];
+X-Spamd-Result: default: False [7.59 / 15.00];
+	MID_END_EQ_FROM_USER_PART(4.00)[];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[paul-moore.com:s=google];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:google.com:reject}];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
+	MID_RHS_NOT_FQDN(0.50)[];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
 	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[paul-moore.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	FORGED_SENDER(0.00)[paul@paul-moore.com,apparmor-bounces@lists.ubuntu.com];
-	FORGED_RECIPIENTS(0.00)[m:jlayton@kernel.org,m:lucho@ionkov.net,m:nvdimm@lists.linux.dev,m:pc@manguebit.org,m:djwong@kernel.org,m:al@alarsen.net,m:dri-devel@lists.freedesktop.org,m:linux-sctp@vger.kernel.org,m:linux-hams@vger.kernel.org,m:sumit.semwal@linaro.org,m:hubcap@omnibond.com,m:linux-xfs@vger.kernel.org,m:wufan@kernel.org,m:lucien.xin@gmail.com,m:ceph-devel@vger.kernel.org,m:jmorris@namei.org,m:code@tyhicks.com,m:hch@infradead.org,m:devel@lists.orangefs.org,m:sprasad@microsoft.com,m:ms@dev.tdt.de,m:hawk@kernel.org,m:jaharkes@cs.cmu.edu,m:willemb@google.com,m:acme@kernel.org,m:linux-fscrypt@vger.kernel.org,m:viro@zeniv.linux.org.uk,m:ronniesahlberg@gmail.com,m:glaubitz@physik.fu-berlin.de,m:david@kernel.org,m:ericvh@kernel.org,m:chengzhihao1@huawei.com,m:magnus.karlsson@intel.com,m:brauner@kernel.org,m:dmitry.kasatkin@gmail.com,m:stephen.smalley.work@gmail.com,m:linux-kernel@vger.kernel.org,m:eparis@redhat.com,m:linux-perf-users@vger.kernel.org,m:chuck.lever@oracle.com,m:mhir
- amat@kernel.org,m:jolsa@kernel.org,m:jack@suse.com,m:alexander.deucher@amd.com,m:linux-media@vger.kernel.org,m:trondmy@kernel.org,m:mark.rutland@arm.com,m:shaggy@kernel.org,m:zohar@linux.ibm.com,m:oleg@redhat.com,m:edumazet@google.com,m:johan.hedberg@gmail.com,m:simona@ffwll.ch,m:linux-cifs@vger.kernel.org,m:kuniyu@google.com,m:linux-nilfs@vger.kernel.org,m:john.fastabend@gmail.com,m:codalist@coda.cs.cmu.edu,m:courmisch@gmail.com,m:linux-trace-kernel@vger.kernel.org,m:okorniev@redhat.com,m:maciej.fijalkowski@intel.com,m:frank.li@vivo.com,m:selinux@vger.kernel.org,m:v9fs@lists.linux.dev,m:linux-can@vger.kernel.org,m:linaro-mm-sig@lists.linaro.org,m:netfs@lists.linux.dev,m:jaegeuk@kernel.org,m:fsverity@lists.linux.dev,m:tytso@mit.edu,m:nico@fluxnic.net,m:muchun.song@linux.dev,m:roberto.sassu@huawei.com,m:davem@davemloft.net,m:anna@kernel.org,m:linux-integrity@vger.kernel.org,m:marcelo.leitner@gmail.com,m:luiz.dentz@gmail.com,m:amarkuze@redhat.com,m:martin@omnibond.com,m:alexander.shis
- hkin@linux.intel.com,m:ocfs2-devel@lists.linux.dev,m:ast@kernel.org,m:linux-mtd@lists.infradead.org,m:marc.dionne@auristor.com,m:ncardwell@google.com,m:linux-afs@lists.infradead.org,m:raven@themaw.net,m:naohiro.aota@wdc.com,m:ebiggers@kernel.org,m:daniel@iogearbox.net,m:miklos@szeredi.hu,m:amd-gfx@lists.freedesktop.org,m:coda@cs.cmu.edu,m:sdf@fomichev.me,m:slava@dubeyko.com,m:neil@brown.name,m:idryomov@gmail.com,s:lists@lfdr.de];
-	FREEMAIL_CC(0.00)[ionkov.net,lists.linux.dev,manguebit.org,kernel.org,alarsen.net,lists.freedesktop.org,vger.kernel.org,linaro.org,omnibond.com,gmail.com,namei.org,tyhicks.com,infradead.org,lists.orangefs.org,microsoft.com,dev.tdt.de,cs.cmu.edu,google.com,zeniv.linux.org.uk,physik.fu-berlin.de,huawei.com,intel.com,redhat.com,oracle.com,suse.com,amd.com,arm.com,linux.ibm.com,ffwll.ch,coda.cs.cmu.edu,vivo.com,lists.linaro.org,mit.edu,fluxnic.net,linux.dev,davemloft.net,linux.intel.com,lists.infradead.org,auristor.com,themaw.net,wdc.com,iogearbox.net,szeredi.hu,fomichev.me,dubeyko.com,brown.name,lists.sourceforge.net,hallyn.com,goodmis.org,efficios.com,suse.de,paragon-software.com,kvack.org,lists.samba.org,samba.org,suse.cz,codewreck.org,crudebyte.com,linux.alibaba.com,dilger.ca,artax.karlin.mff.cuni.cz,secunet.com,gondor.apana.org.au,nod.at,fasheh.com,holtmann.org,yaina.de,lists.ubuntu.com,talpey.com,pengutronix.de,hartkopp.net,evilplan.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:jlayton@kernel.org,m:lucho@ionkov.net,m:nvdimm@lists.linux.dev,m:almaz.alexandrovich@paragon-software.com,m:pc@manguebit.org,m:djwong@kernel.org,m:al@alarsen.net,m:dri-devel@lists.freedesktop.org,m:linux-sctp@vger.kernel.org,m:linux-hams@vger.kernel.org,m:ceph-devel@vger.kernel.org,m:hubcap@omnibond.com,m:linux-xfs@vger.kernel.org,m:wufan@kernel.org,m:lucien.xin@gmail.com,m:jmorris@namei.org,m:code@tyhicks.com,m:ebiggers@kernel.org,m:devel@lists.orangefs.org,m:sprasad@microsoft.com,m:ms@dev.tdt.de,m:hawk@kernel.org,m:willemb@google.com,m:acme@kernel.org,m:ast@kernel.org,m:linux-fscrypt@vger.kernel.org,m:viro@zeniv.linux.org.uk,m:ronniesahlberg@gmail.com,m:glaubitz@physik.fu-berlin.de,m:david@kernel.org,m:ericvh@kernel.org,m:chengzhihao1@huawei.com,m:magnus.karlsson@intel.com,m:brauner@kernel.org,m:dmitry.kasatkin@gmail.com,m:stephen.smalley.work@gmail.com,m:linux-kernel@vger.kernel.org,m:eparis@redhat.com,m:linux-perf-users@vger.kernel.org,m:dsahern@kernel.
+ org,m:chuck.lever@oracle.com,m:mhiramat@kernel.org,m:jolsa@kernel.org,m:jack@suse.com,m:linux-fsdevel@vger.kernel.org,m:linux-media@vger.kernel.org,m:trondmy@kernel.org,m:mark.rutland@arm.com,m:shaggy@kernel.org,m:zohar@linux.ibm.com,m:oleg@redhat.com,m:edumazet@google.com,m:alexander.deucher@amd.com,m:johan.hedberg@gmail.com,m:simona@ffwll.ch,m:linux-cifs@vger.kernel.org,m:kuniyu@google.com,m:linux-nilfs@vger.kernel.org,m:paul@paul-moore.com,m:davem@davemloft.net,m:john.fastabend@gmail.com,m:jreuter@yaina.de,m:codalist@coda.cs.cmu.edu,m:courmisch@gmail.com,m:linux-trace-kernel@vger.kernel.org,m:okorniev@redhat.com,m:maciej.fijalkowski@intel.com,m:frank.li@vivo.com,m:selinux@vger.kernel.org,m:linux-can@vger.kernel.org,m:linaro-mm-sig@lists.linaro.org,m:ocfs2-devel@lists.linux.dev,m:jaegeuk@kernel.org,m:fsverity@lists.linux.dev,m:tytso@mit.edu,m:nico@fluxnic.net,m:muchun.song@linux.dev,m:roberto.sassu@huawei.com,m:linux-f2fs-devel@lists.sourceforge.net,m:anna@kernel.org,m:linux-integ
+ rity@vger.kernel.org,m:marcelo.leitner@gmail.com,m:luiz.dentz@gmail.com,m:amarkuze@redhat.com,m:martin@omnibond.com,m:alexander.shishkin@linux.intel.com,m:alex.aring@gmail.com,m:linux-mtd@lists.infradead.org,m:marc.dionne@auristor.com,m:ncardwell@google.com,m:linux-afs@lists.infradead.org,m:raven@themaw.net,m:naohiro.aota@wdc.com,m:hch@infradead.org,m:daniel@iogearbox.net,m:miklos@szeredi.hu,m:amd-gfx@lists.freedesktop.org,m:coda@cs.cmu.edu,m:sdf@fomichev.me,s:lists@lfdr.de];
+	GREYLIST(0.00)[pass,meta];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
+	FORGED_SENDER(0.00)[brauner@kernel.org,apparmor-bounces@lists.ubuntu.com];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
-	FROM_NEQ_ENVFROM(0.00)[paul@paul-moore.com,apparmor-bounces@lists.ubuntu.com];
+	RCPT_COUNT_GT_50(0.00)[169];
+	FROM_NEQ_ENVFROM(0.00)[brauner@kernel.org,apparmor-bounces@lists.ubuntu.com];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[paul-moore.com:-];
-	RCPT_COUNT_GT_50(0.00)[168];
+	FREEMAIL_CC(0.00)[ionkov.net,lists.linux.dev,paragon-software.com,manguebit.org,kernel.org,alarsen.net,lists.freedesktop.org,vger.kernel.org,omnibond.com,gmail.com,namei.org,tyhicks.com,lists.orangefs.org,microsoft.com,dev.tdt.de,google.com,zeniv.linux.org.uk,physik.fu-berlin.de,huawei.com,intel.com,redhat.com,oracle.com,suse.com,arm.com,linux.ibm.com,amd.com,ffwll.ch,paul-moore.com,davemloft.net,yaina.de,coda.cs.cmu.edu,vivo.com,lists.linaro.org,mit.edu,fluxnic.net,linux.dev,lists.sourceforge.net,linux.intel.com,lists.infradead.org,auristor.com,themaw.net,wdc.com,infradead.org,iogearbox.net,szeredi.hu,cs.cmu.edu,fomichev.me,dubeyko.com,brown.name,hallyn.com,linaro.org,goodmis.org,efficios.com,suse.de,linux.alibaba.com,lists.samba.org,samba.org,hartkopp.net,suse.cz,codewreck.org,crudebyte.com,kvack.org,dilger.ca,artax.karlin.mff.cuni.cz,secunet.com,gondor.apana.org.au,nod.at,fasheh.com,holtmann.org,lists.ubuntu.com,talpey.com,pengutronix.de,evilplan.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	NEURAL_HAM(-0.00)[-0.950];
-	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[apparmor];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:rdns,lists.ubuntu.com:helo,mail.gmail.com:mid,paul-moore.com:url,paul-moore.com:email]
-X-Rspamd-Action: no action
+	NEURAL_SPAM(0.00)[0.929];
+	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:rdns,lists.ubuntu.com:helo]
+X-Rspamd-Action: add header
+X-Spam: Yes
 
-On Wed, Mar 4, 2026 at 10:33=E2=80=AFAM Jeff Layton <jlayton@kernel.org> wr=
-ote:
->
-> inode->i_ino is being widened from unsigned long to u64. The audit
-> subsystem uses unsigned long ino in struct fields, function parameters,
-> and local variables that store inode numbers from arbitrary filesystems.
-> On 32-bit platforms this truncates inode numbers that exceed 32 bits,
-> which will cause incorrect audit log entries and broken watch/mark
-> comparisons.
->
-> Widen all audit ino fields, parameters, and locals to u64, and update
-> the inode format string from %lu to %llu to match.
->
-> Signed-off-by: Jeff Layton <jlayton@kernel.org>
-> ---
->  include/linux/audit.h   |  2 +-
->  kernel/audit.h          | 13 ++++++-------
->  kernel/audit_fsnotify.c |  4 ++--
->  kernel/audit_watch.c    | 12 ++++++------
->  kernel/auditsc.c        |  4 ++--
->  5 files changed, 17 insertions(+), 18 deletions(-)
+On Wed, 04 Mar 2026 10:32:30 -0500, Jeff Layton wrote:
+> Christian said [1] to "just do it" when I proposed this, so here we are!
+> 
+> For historical reasons, the inode->i_ino field is an unsigned long,
+> which means that it's 32 bits on 32 bit architectures. This has caused a
+> number of filesystems to implement hacks to hash a 64-bit identifier
+> into a 32-bit field, and deprives us of a universal identifier field for
+> an inode.
+> 
+> [...]
 
-Acked-by: Paul Moore <paul@paul-moore.com>
+This series makes me happy. We've been talking about this conversion for
+a while and I'm thankful that you did this work. Without the automation
+available this probably wouldn't have happened as quickly as it did now.
+Let's see what bits and pieces it missed.
 
---=20
-paul-moore.com
+---
+
+Applied to the vfs-7.1.kino branch of the vfs/vfs.git tree.
+Patches in the vfs-7.1.kino branch should appear in linux-next soon.
+
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
+
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs-7.1.kino
+
+[01/12] vfs: widen inode hash/lookup functions to u64
+        https://git.kernel.org/vfs/vfs/c/2412a9fa518a
+[02/12] audit: widen ino fields to u64
+        https://git.kernel.org/vfs/vfs/c/a5e863be4d02
+[03/12] net: change sock.sk_ino and sock_i_ino() to u64
+        https://git.kernel.org/vfs/vfs/c/c21144a0a33f
+[04/12] vfs: widen trace event i_ino fields to u64
+        https://git.kernel.org/vfs/vfs/c/5e5c380870b2
+[05/12] cachefiles: widen trace event i_ino fields to u64
+        https://git.kernel.org/vfs/vfs/c/25291f67aad7
+[06/12] ext2: widen trace event i_ino fields to u64
+        https://git.kernel.org/vfs/vfs/c/797d04a355e3
+[07/12] hugetlbfs: widen trace event i_ino fields to u64
+        https://git.kernel.org/vfs/vfs/c/3c976fb36a9a
+[08/12] zonefs: widen trace event i_ino fields to u64
+        https://git.kernel.org/vfs/vfs/c/988f68c01b3a
+[09/12] ext4: widen trace event i_ino fields to u64
+        https://git.kernel.org/vfs/vfs/c/1c1427c79bc2
+[10/12] f2fs: widen trace event i_ino fields to u64
+        https://git.kernel.org/vfs/vfs/c/6e62bf74bd8a
+[11/12] nilfs2: widen trace event i_ino fields to u64
+        https://git.kernel.org/vfs/vfs/c/6ce73711525a
+[12/12] treewide: change inode->i_ino from unsigned long to u64
+        https://git.kernel.org/vfs/vfs/c/af82d143e869
 
