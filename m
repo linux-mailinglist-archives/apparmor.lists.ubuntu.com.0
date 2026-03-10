@@ -2,41 +2,35 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 2NeXDfJFsGnFhgIAu9opvQ
+	id 6P3UMB5EsGlLhgIAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Tue, 10 Mar 2026 17:25:22 +0100
+	for <lists+apparmor@lfdr.de>; Tue, 10 Mar 2026 17:17:34 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id E14C8254AC9
-	for <lists+apparmor@lfdr.de>; Tue, 10 Mar 2026 17:25:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92B2A25479D
+	for <lists+apparmor@lfdr.de>; Tue, 10 Mar 2026 17:17:34 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1vzzmL-0000QO-RA; Tue, 10 Mar 2026 16:17:53 +0000
-Received: from mail.avm.de ([212.42.244.120])
+	id 1vzzlx-0006rs-Mq; Tue, 10 Mar 2026 16:17:29 +0000
+Received: from mail.avm.de ([212.42.244.94])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <phahn-oss@avm.de>) id 1vzvgO-0005kB-MA
- for apparmor@lists.ubuntu.com; Tue, 10 Mar 2026 11:55:28 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=avm.de; s=mail;
- t=1773143724; bh=Z5CcgUmxb8TIHuxVENT8+Rdbeolb2IW3uV9KbiLoZl0=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=HvCb/8oi+QjPTMN2Yg58hVQgISqDho2KSemsYUZ+vy5VD2bnZIm5jRkx5UuokMrry
- Cd/bADEMvLj4WpFiDDooSYtHMuljYAEx/RujmrWNzucIvLCjqd0TnsL6u3xLqdwjKn
- SoUF7kcbAi1lGgdxzJJB8ERoQMMzj0TR7iF4FK9M=
+ (Exim 4.86_2) (envelope-from <phahn-oss@avm.de>) id 1vzvgM-0005gH-4z
+ for apparmor@lists.ubuntu.com; Tue, 10 Mar 2026 11:55:26 +0000
 Received: from [212.42.244.71] (helo=mail.avm.de)
  by mail.avm.de with ESMTP (eXpurgate 4.55.2)
  (envelope-from <phahn-oss@avm.de>)
- id 69b006ab-b734-7f0000032729-7f000001bfb4-1
- for <multiple-recipients>; Tue, 10 Mar 2026 12:55:23 +0100
+ id 69b006ac-e21d-7f0000032729-7f000001d9ae-1
+ for <multiple-recipients>; Tue, 10 Mar 2026 12:55:24 +0100
 Received: from mail-auth.avm.de (dovecot-mx-01.avm.de [212.42.244.71])
  by mail.avm.de (Postfix) with ESMTPS;
- Tue, 10 Mar 2026 12:55:23 +0100 (CET)
+ Tue, 10 Mar 2026 12:55:24 +0100 (CET)
 From: Philipp Hahn <phahn-oss@avm.de>
-Date: Tue, 10 Mar 2026 12:48:34 +0100
+Date: Tue, 10 Mar 2026 12:48:35 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260310-b4-is_err_or_null-v1-8-bd63b656022d@avm.de>
+Message-Id: <20260310-b4-is_err_or_null-v1-9-bd63b656022d@avm.de>
 References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
 In-Reply-To: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
 To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com, 
@@ -66,28 +60,28 @@ To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com,
  sched-ext@lists.linux.dev, target-devel@vger.kernel.org, 
  tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev, 
  Philipp Hahn <phahn-oss@avm.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=890; i=phahn-oss@avm.de;
- h=from:subject:message-id; bh=Z5CcgUmxb8TIHuxVENT8+Rdbeolb2IW3uV9KbiLoZl0=;
- b=owEBbQGS/pANAwAKATQtBlPRrKzbAcsmYgBpsAXxKvlvqCH0DwJSbq+UNs0LTyfOD3vzlRqtT
- 2TRtqiRMXSJATMEAAEKAB0WIQQ5bPBtrWDUcDQCppg0LQZT0ays2wUCabAF8QAKCRA0LQZT0ays
- 2xgMCACJUN2JSxzamJUFQvwc92wfvAAIT82LlFBC4CNAPLjUwClhfMFmMBmKAZA8HDz81VrcG/p
- fo2P5eS+rFs83E9iVI/bW+OpSphb7hd9/Pa3DNpSkaQcLQUMHw39s5ltgUYmcwhQdUpEa+pWYW+
- gg+34EAVtKnYkmIuH1aWQKSSPRHXFEEIj8Mu1YI3EnTGvDB+NleQt1zN6UaIksTNUf5+3I2W33b
- Z+hxOEmA2AEpaox3bemtlkSQbWv4qtVtcFYcWHKzhKpkUH0i5WAZ0lUSrDgtHsTI7KM+223fQQ9
- V7CmYp8rYAFlP8Yb8uQbtjIbd9Kw5z3oAZRh0mglz23o1NU6
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1617; i=phahn-oss@avm.de;
+ h=from:subject:message-id; bh=0D7JqCvM2HduGB7jcCjsvL2MgPxSPSMnqWoOW6gFXPg=;
+ b=owEBbQGS/pANAwAKATQtBlPRrKzbAcsmYgBpsAX0gr7ZqouZ6B9Y6l873KDZh87VRkMxmLSVt
+ AItcTzXYr2JATMEAAEKAB0WIQQ5bPBtrWDUcDQCppg0LQZT0ays2wUCabAF9AAKCRA0LQZT0ays
+ 2/XgCACwqNRVP1ceb2sCHMTvH8vznLrrwbRdBid2VGiRwlIoIqclnUBeLwwGZ/n/hBxtkijY1s3
+ NziYVgznq0k9VYxacmvzAvuKhhv5805K9y/+itK+PFXmzL3ZRzqmfWP6ng28fVSUYAufwVEc7CR
+ 9llIbOBq8N4aCpqTBELhb7mwymU8hNLZpMBK934i79wnmNx9OySShuCrTBL+FEQ9g/aUtfHcqTV
+ 4JM/tu/NHEvIwEfZrC8rjS3HwU+8fz/vbF4We+/TjORw4iEGT1m6VfBdB71QF+Wi1viRKTPIkVW
+ Nxf+o86GuJolrkUsNGy4WHdCFW95aUilkAjXyF+7XIpdZkLT
 X-Developer-Key: i=phahn-oss@avm.de; a=openpgp;
  fpr=58AF7C2E007CDBE62C59E078F50EFDCF8AD04B1A
-X-purgate-ID: 149429::1773143723-035C7A3D-B44CD0B6/0/0
+X-purgate-ID: 149429::1773143724-80E01F2F-4A43AD77/0/0
 X-purgate-type: clean
-X-purgate-size: 892
+X-purgate-size: 1619
 X-purgate-Ad: Categorized by eleven eXpurgate (R) https://www.eleven.de
 X-purgate: This mail is considered clean (visit https://www.eleven.de for
  further information)
 X-purgate: clean
-Received-SPF: pass client-ip=212.42.244.120; envelope-from=phahn-oss@avm.de;
+Received-SPF: pass client-ip=212.42.244.94; envelope-from=phahn-oss@avm.de;
  helo=mail.avm.de
 X-Mailman-Approved-At: Tue, 10 Mar 2026 16:17:18 +0000
-Subject: [apparmor] [PATCH 08/61] fuse: Prefer IS_ERR_OR_NULL over manual
+Subject: [apparmor] [PATCH 09/61] ntfs3: Prefer IS_ERR_OR_NULL over manual
 	NULL check
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -100,44 +94,43 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Miklos Szeredi <miklos@szeredi.hu>
+Cc: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Rspamd-Queue-Id: E14C8254AC9
+X-Rspamd-Queue-Id: 92B2A25479D
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.09 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[avm.de : SPF not aligned (relaxed),quarantine];
+X-Spamd-Result: default: False [2.09 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[avm.de : SPF not aligned (relaxed), No valid DKIM,quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[avm.de:s=mail];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:amd-gfx@lists.freedesktop.org,m:apparmor@lists.ubuntu.com,m:bpf@vger.kernel.org,m:ceph-devel@vger.kernel.org,m:cocci@inria.fr,m:dm-devel@lists.linux.dev,m:dri-devel@lists.freedesktop.org,m:gfs2@lists.linux.dev,m:intel-gfx@lists.freedesktop.org,m:intel-wired-lan@lists.osuosl.org,m:iommu@lists.linux.dev,m:kvm@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:linux-block@vger.kernel.org,m:linux-bluetooth@vger.kernel.org,m:linux-btrfs@vger.kernel.org,m:linux-cifs@vger.kernel.org,m:linux-clk@vger.kernel.org,m:linux-erofs@lists.ozlabs.org,m:linux-ext4@vger.kernel.org,m:linux-fsdevel@vger.kernel.org,m:linux-gpio@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:linux-input@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-leds@vger.kernel.org,m:linux-media@vger.kernel.org,m:linux-mips@vger.kernel.org,m:linux-mm@kvack.org,m:linux-modules@vger.kernel.org,m:linux-mtd@lists.infradead.org,m:linux-nfs@vger.kernel.org,m:linux-omap@vger.kernel.org,m:linux-phy@l
- ists.infradead.org,m:linux-pm@vger.kernel.org,m:linux-rockchip@lists.infradead.org,m:linux-s390@vger.kernel.org,m:linux-scsi@vger.kernel.org,m:linux-sctp@vger.kernel.org,m:linux-security-module@vger.kernel.org,m:linux-sh@vger.kernel.org,m:linux-sound@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-trace-kernel@vger.kernel.org,m:linux-usb@vger.kernel.org,m:linux-wireless@vger.kernel.org,m:netdev@vger.kernel.org,m:ntfs3@lists.linux.dev,m:samba-technical@lists.samba.org,m:sched-ext@lists.linux.dev,m:target-devel@vger.kernel.org,m:tipc-discussion@lists.sourceforge.net,m:v9fs@lists.linux.dev,m:phahn-oss@avm.de,m:miklos@szeredi.hu,s:lists@lfdr.de];
-	RCVD_COUNT_THREE(0.00)[4];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[phahn-oss@avm.de,apparmor-bounces@lists.ubuntu.com];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
-	FROM_NEQ_ENVFROM(0.00)[phahn-oss@avm.de,apparmor-bounces@lists.ubuntu.com];
-	DKIM_TRACE(0.00)[avm.de:-];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:amd-gfx@lists.freedesktop.org,m:apparmor@lists.ubuntu.com,m:bpf@vger.kernel.org,m:ceph-devel@vger.kernel.org,m:cocci@inria.fr,m:dm-devel@lists.linux.dev,m:dri-devel@lists.freedesktop.org,m:gfs2@lists.linux.dev,m:intel-gfx@lists.freedesktop.org,m:intel-wired-lan@lists.osuosl.org,m:iommu@lists.linux.dev,m:kvm@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:linux-block@vger.kernel.org,m:linux-bluetooth@vger.kernel.org,m:linux-btrfs@vger.kernel.org,m:linux-cifs@vger.kernel.org,m:linux-clk@vger.kernel.org,m:linux-erofs@lists.ozlabs.org,m:linux-ext4@vger.kernel.org,m:linux-fsdevel@vger.kernel.org,m:linux-gpio@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:linux-input@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-leds@vger.kernel.org,m:linux-media@vger.kernel.org,m:linux-mips@vger.kernel.org,m:linux-mm@kvack.org,m:linux-modules@vger.kernel.org,m:linux-mtd@lists.infradead.org,m:linux-nfs@vger.kernel.org,m:linux-omap@vger.kernel.org,m:linux-phy@l
+ ists.infradead.org,m:linux-pm@vger.kernel.org,m:linux-rockchip@lists.infradead.org,m:linux-s390@vger.kernel.org,m:linux-scsi@vger.kernel.org,m:linux-sctp@vger.kernel.org,m:linux-security-module@vger.kernel.org,m:linux-sh@vger.kernel.org,m:linux-sound@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-trace-kernel@vger.kernel.org,m:linux-usb@vger.kernel.org,m:linux-wireless@vger.kernel.org,m:netdev@vger.kernel.org,m:ntfs3@lists.linux.dev,m:samba-technical@lists.samba.org,m:sched-ext@lists.linux.dev,m:target-devel@vger.kernel.org,m:tipc-discussion@lists.sourceforge.net,m:v9fs@lists.linux.dev,m:phahn-oss@avm.de,m:almaz.alexandrovich@paragon-software.com,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_SENDER(0.00)[phahn-oss@avm.de,apparmor-bounces@lists.ubuntu.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	NEURAL_HAM(-0.00)[-0.985];
-	RCPT_COUNT_GT_50(0.00)[55];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ARC_NA(0.00)[];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
-	TAGGED_RCPT(0.00)[apparmor];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[55];
+	FROM_NEQ_ENVFROM(0.00)[phahn-oss@avm.de,apparmor-bounces@lists.ubuntu.com];
+	FROM_HAS_DN(0.00)[];
 	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:rdns,lists.ubuntu.com:helo,avm.de:mid,avm.de:email]
+	NEURAL_HAM(-0.00)[-0.945];
+	MID_RHS_MATCH_FROM(0.00)[];
+	R_DKIM_NA(0.00)[];
+	TAGGED_RCPT(0.00)[apparmor];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.dev:email,lists.ubuntu.com:rdns,lists.ubuntu.com:helo,avm.de:mid,avm.de:email]
 X-Rspamd-Action: no action
 
 Prefer using IS_ERR_OR_NULL() over using IS_ERR() and a manual NULL
@@ -145,27 +138,52 @@ check.
 
 Change generated with coccinelle.
 
-To: Miklos Szeredi <miklos@szeredi.hu>
-Cc: linux-fsdevel@vger.kernel.org
+To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Cc: ntfs3@lists.linux.dev
 Cc: linux-kernel@vger.kernel.org
 Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
 ---
- fs/fuse/dir.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/ntfs3/fsntfs.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/fs/fuse/dir.c b/fs/fuse/dir.c
-index 7ac6b232ef12323e3afb97b98301f623bce917a4..7b39c013027bd9c4ba6f080bfc9b3ec22bc2dd4a 100644
---- a/fs/fuse/dir.c
-+++ b/fs/fuse/dir.c
-@@ -1599,7 +1599,7 @@ int fuse_reverse_inval_entry(struct fuse_conn *fc, u64 parent_nodeid,
- 		goto put_parent;
- 	while (!entry) {
- 		struct dentry *child = try_lookup_noperm(name, dir);
--		if (!child || IS_ERR(child))
-+		if (IS_ERR_OR_NULL(child))
- 			goto put_parent;
- 		entry = start_removing_dentry(dir, child);
- 		dput(child);
+diff --git a/fs/ntfs3/fsntfs.c b/fs/ntfs3/fsntfs.c
+index 0df2aa81d8845f21bfb571c408bd65b9e1fb8128..3ced4f95c2e95bac1fe5b334f976b8c8a15cf19d 100644
+--- a/fs/ntfs3/fsntfs.c
++++ b/fs/ntfs3/fsntfs.c
+@@ -237,7 +237,7 @@ int ntfs_extend_init(struct ntfs_sb_info *sbi)
+ 
+ 	/* Try to find $ObjId */
+ 	inode2 = dir_search_u(inode, &NAME_OBJID, NULL);
+-	if (inode2 && !IS_ERR(inode2)) {
++	if (!IS_ERR_OR_NULL(inode2)) {
+ 		if (is_bad_inode(inode2)) {
+ 			iput(inode2);
+ 		} else {
+@@ -248,21 +248,21 @@ int ntfs_extend_init(struct ntfs_sb_info *sbi)
+ 
+ 	/* Try to find $Quota */
+ 	inode2 = dir_search_u(inode, &NAME_QUOTA, NULL);
+-	if (inode2 && !IS_ERR(inode2)) {
++	if (!IS_ERR_OR_NULL(inode2)) {
+ 		sbi->quota_no = inode2->i_ino;
+ 		iput(inode2);
+ 	}
+ 
+ 	/* Try to find $Reparse */
+ 	inode2 = dir_search_u(inode, &NAME_REPARSE, NULL);
+-	if (inode2 && !IS_ERR(inode2)) {
++	if (!IS_ERR_OR_NULL(inode2)) {
+ 		sbi->reparse.ni = ntfs_i(inode2);
+ 		sbi->reparse_no = inode2->i_ino;
+ 	}
+ 
+ 	/* Try to find $UsnJrnl */
+ 	inode2 = dir_search_u(inode, &NAME_USNJRNL, NULL);
+-	if (inode2 && !IS_ERR(inode2)) {
++	if (!IS_ERR_OR_NULL(inode2)) {
+ 		sbi->usn_jrnl_no = inode2->i_ino;
+ 		iput(inode2);
+ 	}
 
 -- 
 2.43.0
