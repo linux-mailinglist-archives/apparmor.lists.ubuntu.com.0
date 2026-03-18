@@ -2,91 +2,91 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 8GqmA2VAumnMTQIAu9opvQ
+	id +H/6DxtBumnMTQIAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Wed, 18 Mar 2026 07:04:21 +0100
+	for <lists+apparmor@lfdr.de>; Wed, 18 Mar 2026 07:07:23 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFF582B628B
-	for <lists+apparmor@lfdr.de>; Wed, 18 Mar 2026 07:04:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDAEB2B632A
+	for <lists+apparmor@lfdr.de>; Wed, 18 Mar 2026 07:07:22 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1w2k0t-0005M3-6H; Wed, 18 Mar 2026 06:04:15 +0000
+	id 1w2k3o-00062z-9V; Wed, 18 Mar 2026 06:07:16 +0000
 Received: from smtp-relay-internal-0.internal ([10.131.114.225]
  helo=smtp-relay-internal-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1w2k0r-0005Ls-R9
- for apparmor@lists.ubuntu.com; Wed, 18 Mar 2026 06:04:13 +0000
+ id 1w2k3l-00062G-Od
+ for apparmor@lists.ubuntu.com; Wed, 18 Mar 2026 06:07:13 +0000
 Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
  [209.85.210.197])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id A534E3F29F
- for <apparmor@lists.ubuntu.com>; Wed, 18 Mar 2026 06:04:13 +0000 (UTC)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 921A13F2B3
+ for <apparmor@lists.ubuntu.com>; Wed, 18 Mar 2026 06:07:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20251003; t=1773813853;
- bh=g5rPKteiApd7nJwaHeU4G59Ue8wG5WbFnYwXwXpyUP4=;
+ s=20251003; t=1773814033;
+ bh=Y9C0ll41pLo/w/XkMY5Phe0CSgY+/kCNKWKcRvEfNTg=;
  h=Message-ID:Date:MIME-Version:Subject:To:References:From:
  In-Reply-To:Content-Type;
- b=JJmj/3+lAV7ASUJARCLU+j/Ly2gpDJCiaYMRiXlKvD84dMvumeKzx+gTksJBjORQY
- 9sDbML/EuLcHbg7r4DoPT3W4chOFSurqUy/3A1sGZXWxFUEw9UkomItcVX3JY2MjQA
- yLASihwv2+iGqUImjabcr9ZwisXftl5IG+d800+l3z2N1M/nsr4Bqmq30M3VRWBon8
- 86vJpUzAKflW//SxFIwYZImrik0a8z9DbnmN0TSrBYPoUvfyWFw2LuZx8Oq+kF1BDk
- Ad/lWgOm09c1Ontjt0KiXzTDjc05V7PuTUs8Cy9y0Wxu4V6kunelhfj2HjCRt7/grF
- dW2rg/vS5vaZEL4D/buHZ0+pnQlzmTD72zXVYRIlOMs9x2YMbXR4rdBLkyTadosB40
- yFfwYjm8kKARsOs7uMUGsVbEIK6PUjVep8WWT+G89V3XAxNQk7ny2zfjsiACyKgQhr
- 4IX+uEDChQ/LO4ws2Wvf8UF89MDkUJr9cJf6IFMvWoKqPL3RybLmM38leMV8vCQa02
- QT8qFcgvf5dIS68GaHt309aTvT42S/4yDjrdIqfYaRlPG5ZzaSkCC+BGZ5wO4gbCp7
- nbtZneJ9yM6nw4Pszo9TBUFJ/CQJcEwNnPqHaAO16iGuUMjIPuXcFSdbDBNK0FOlhD
- djC7hgMWtRuWRzJrR3PsCVoQ=
+ b=S7ab/ibRRlys+mC99G2t79ADx1uHqiANI+H3Jo+QX4virQ+e06QazYVycpFLL65Hq
+ s5pWyRq4b90c7B6RbTgLhMnNluqaJ1WfZkbbBR1AQ1yy2dOcksPgKm5Ik1gfQzmf+U
+ C/dkJFJdMAOAUW8L3qVkz5wug3XGh+hfZdPXcStzgP13VE6+C53+9TZ/s3KruuVp/N
+ VUk5b6+GA5/nGQz0kVXkED5Ga0CmMGe4/xfZHbx1SVe4nDsMsSwgzWDnjX1BqgUPQN
+ 7XGzgzsn68Up4FGEDXQevWJFJLuNurLDdvlmvMPt5nTINchdtI6J6vvsdCPNyJy/F4
+ T0lO+c/6SKdBHW2HSzzWhTuhL58/U7BE7dUYGUjqyNfEvNRnk/+vm1W6MZCllE0arW
+ GhD4CP44kTQ4xFdDdAFsQVwy428ceDtEmX/kE03fG9xx83dbN709RRdKDWWy4j/tKU
+ ZYvOowoq7dJ5rGzMaqRagtFdKpurU3Qr4i9ohgN/6xgIReIUx4NF4DJn/wzLU90BsR
+ UrzwpEV8xXElaKhn4w+xcSO0XPoKudi/9mDKcz8FeVqAoDeJ1tmo0QDuiVWow58Lea
+ qgjjtvLj8PhthDDoIBpUdZ6Nri5PT/KrBOIwiBGayZe4ybUwjDwwIsrELTZCXajW17
+ VYG0k2tRLlilHtaEWYlNr8AA=
 Received: by mail-pf1-f197.google.com with SMTP id
- d2e1a72fcca58-829942cf9deso5588978b3a.0
- for <apparmor@lists.ubuntu.com>; Tue, 17 Mar 2026 23:04:13 -0700 (PDT)
+ d2e1a72fcca58-82a71ea4127so791264b3a.2
+ for <apparmor@lists.ubuntu.com>; Tue, 17 Mar 2026 23:07:13 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773813852; x=1774418652;
+ d=1e100.net; s=20251104; t=1773814032; x=1774418832;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
  :content-language:references:to:subject:user-agent:mime-version:date
  :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=g5rPKteiApd7nJwaHeU4G59Ue8wG5WbFnYwXwXpyUP4=;
- b=ENsA012rRI9y+uKhXFjbGtINPomznoX2Zy3KR/XJ8bKIzIycQaVzBwyt5WmXxvQCcu
- S7WIabPeRjr7R56W17TX4UxQYv5lQSLx1mUqi8Mvray2O8QaKt8bmKCb1gCSt9u0c/+y
- k4w0ObdWF+6pgEmgVCeVe5Tl3DVgA9dgOdcEPaJQGktj+BNgem3F9WqCIcxJduAjF+zP
- s3oPksqB32RVOGj5MBDgKQL2dpQRfkeVFNyKEU1tZ9NLMCNN11g4+9l8s/vD4VnU4zm5
- DhXXWxlWhXALp1+41+U+s/vO3ybd5Jr/aoQ+S4oBM5ti5iOcIeLZLJyuIXLE/7YFK/Fr
- EIyw==
+ bh=Y9C0ll41pLo/w/XkMY5Phe0CSgY+/kCNKWKcRvEfNTg=;
+ b=IfnqCWhSfpVXO1Ml5fk9OvF7ZCJZ3RcjkZPxIQNGc7MVnQd3M6uAVHpouRHK/dxK2L
+ x2Dk55kjzbZb15WW3dhJDTlERvgIG4SGktd0fyaL8JbnVnKubhuMybYQKY2rQ3k1KozH
+ 2lhCUaecvscY/6He8f5GLsvjZO+iD2E/cUJvmNH2wWrVU8X9pTqbXUs1+z2EKrgVmfUf
+ DihwmKZXCOay8okuLDuqWiRgb1EXDW4pC1rm6gpsxhL0/ztZlCXyxExUMobvwwxaHmxW
+ 5Dgfu+sv/Ya4AtiY1gAf5Rd+biELN3aD7iZLKrH/jr4xjkr57jHqf2SM5e7rmpSHidM3
+ pRNw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXL/2wfsTo6rfZe7Ev9ZX8Hh0kcCU+6NaRaOxTpg3Ce4FqNw5oiHCk1+bAeD/sUTEGTJR4/mGPn9w==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0YwCtRmv551z/ywCalh0kuyYr3BeM7TeFuHrK4YvtN/zrIxRcqI0
- mItdeIwGi7uo/u1/+baKSVVOfovRPg87glJRbPJFUd9j0uefKeX6cuE/4f5KuWZSXgsTSU5EPq4
- 62gloajXB+zPt9WpzD4LJius0+Xhqw58eM56/clS8kU6OqY3exMbZmm+M4pZCWp9945uFHV3aX1
- wMDw==
-X-Gm-Gg: ATEYQzzhqXAHUMUO2tD13laNG6whJuS297Cfzj5PN7d6sQz+h7v5dLM7h7H4DbK+nD2
- 9PdM7sbzkD7+tBmm6GFrL/6xR5ZeR+p4fBeWUS6jvh+1X2ZUI+0qX436ZD2jTpnX3NEOlxMkb/m
- KFiVtpj4cLxTiFitaBPC2jHppnVN8uXr+FQeA7notWnJ15gN/oleQ+PLy3WhrQhHrudXUBeTHZY
- 0AJcJtGqcWgxK/r0+rgpiGmoYmJflIlx/ZAfBlc5GFNGKiKACoiLyVmHscbMp9xqQld7Hlsg9d7
- 2G2NjexH+uJwaphT3L8erHPh50ZnRruFaBNXuG/eEs4kfMUUmgdt/9idBwrjg/J48+ZWyRBntxV
- 1cKWfychGuTXdG/NVxWmG4jbQTUzwiUvB13wi9Q==
-X-Received: by 2002:a05:6a00:1ca3:b0:81f:4ce8:d64b with SMTP id
- d2e1a72fcca58-82a6ae4f234mr1745008b3a.44.1773813851981; 
- Tue, 17 Mar 2026 23:04:11 -0700 (PDT)
-X-Received: by 2002:a05:6a00:1ca3:b0:81f:4ce8:d64b with SMTP id
- d2e1a72fcca58-82a6ae4f234mr1744994b3a.44.1773813851602; 
- Tue, 17 Mar 2026 23:04:11 -0700 (PDT)
+ AJvYcCXXFetl9YI3XuRyWvNUjJlR0pvNy4dcdnUmNuNp+7Dhlj+zLCGWg1J/nY7h77PV4RPR1r2QafljBA==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0YyaMi7+xmwgqnV0SJ7TaDUdsr7vHcaXbTZcAiCuiA2iGzfwKjJb
+ tzYWZPciubRlPRsUJUX3vgVSrThNQM/6yb4CSdw/mK+Re3OGdk9ShOzI88jWE35fsTDun5w3cmq
+ R/x3ry1vWZN7ZIqnw8//o52naiS5s//Ze/G8VCnBQ8WIelerP6WjRp/fUH70KOkBW1elTq+hVh6
+ gZN8KS5co+Rw==
+X-Gm-Gg: ATEYQzz34BMPaG8zV7iwpCxoHCqBDnri4+0DyP2a3YBmhfu+G0itqSpTvM6H/GyyjoP
+ BK3dQZizN9eAv45zpRLHu9OaCT8LjxcoRTkeCdHSPUtdelQQ91MyG6u/NSDJKsjbkbrxnAlsZ60
+ OjrldM0W3U0xaSKwfZ0lE9AwNJMwKOFEqA7V+/dfQeFF5fZogS84vYMUez7uljKJjkVRvPYCIEj
+ kJzNTPVgsMIqGqzogoLnPMeYp2pqZFPyMyMk0/bGtio3ntIONbm62RcwBPDRzUzhhs/JgUFCLCw
+ BodfyRU9wTw6LyOEVGfLuzN/1r5MhE9eUpvwcz2HD1Ef7ZmKHJAT0viqNb09vIoq1fiag86RtJG
+ yzfnXdQs396t4pdigIovUyvkaHKHdS/mN/vi90w==
+X-Received: by 2002:aa7:88d4:0:b0:82a:6967:a06d with SMTP id
+ d2e1a72fcca58-82a6af2da84mr2037732b3a.57.1773814032268; 
+ Tue, 17 Mar 2026 23:07:12 -0700 (PDT)
+X-Received: by 2002:aa7:88d4:0:b0:82a:6967:a06d with SMTP id
+ d2e1a72fcca58-82a6af2da84mr2037712b3a.57.1773814031889; 
+ Tue, 17 Mar 2026 23:07:11 -0700 (PDT)
 Received: from [192.168.192.71] ([50.39.102.197])
  by smtp.googlemail.com with ESMTPSA id
- d2e1a72fcca58-82a6bbb2f41sm1248682b3a.33.2026.03.17.23.04.10
+ d2e1a72fcca58-82a6bf0cf5fsm1648868b3a.61.2026.03.17.23.07.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Mar 2026 23:04:11 -0700 (PDT)
-Message-ID: <42f72eeb-0641-4ac9-bac6-1d0ce1248337@canonical.com>
-Date: Tue, 17 Mar 2026 23:04:10 -0700
+ Tue, 17 Mar 2026 23:07:11 -0700 (PDT)
+Message-ID: <a07056c3-cfb1-4b6c-809b-c445cd83ec59@canonical.com>
+Date: Tue, 17 Mar 2026 23:07:10 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Ryan Lee <ryan.lee@canonical.com>, apparmor@lists.ubuntu.com
-References: <20260212211516.393031-1-ryan.lee@canonical.com>
+References: <20260212211604.396098-1-ryan.lee@canonical.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -132,11 +132,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20260212211516.393031-1-ryan.lee@canonical.com>
+In-Reply-To: <20260212211604.396098-1-ryan.lee@canonical.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH] apparmor: use __label_make_stale in
-	__aa_proxy_redirect
+Subject: Re: [apparmor] [PATCH] apparmor: fix net.h and policy.h circular
+	include pattern
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -162,18 +162,18 @@ X-Spamd-Result: default: False [2.09 / 15.00];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:ryan.lee@canonical.com,m:apparmor@lists.ubuntu.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[john.johansen@canonical.com,apparmor-bounces@lists.ubuntu.com];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
 	RCVD_TLS_LAST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[john.johansen@canonical.com,apparmor-bounces@lists.ubuntu.com];
 	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[john.johansen@canonical.com,apparmor-bounces@lists.ubuntu.com];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[canonical.com:email,canonical.com:mid,lists.ubuntu.com:helo,lists.ubuntu.com:rdns];
-	NEURAL_HAM(-0.00)[-0.985];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns,canonical.com:email,canonical.com:mid];
+	NEURAL_HAM(-0.00)[-0.988];
 	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
 	RCVD_COUNT_FIVE(0.00)[5];
 	DKIM_TRACE(0.00)[canonical.com:-];
@@ -183,36 +183,105 @@ X-Spamd-Result: default: False [2.09 / 15.00];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
 	HAS_ORG_HEADER(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[]
-X-Rspamd-Queue-Id: CFF582B628B
+X-Rspamd-Queue-Id: DDAEB2B632A
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 2/12/26 13:15, Ryan Lee wrote:
-> The macro is equivalent to OR-ing in the bitflag manually, but using the
-> macro consistently makes grepping for these occurrences easier.
+On 2/12/26 13:16, Ryan Lee wrote:
+> While the #ifdef guards prevent the circular include from blowing up,
+> policy.h does not actually need anything from net.h. Remove, that include
+> and instead include net.h in the other files that need it.
 > 
 > Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
 
 Acked-by: John Johansen <john.johansen@canonical.com>
 
+I have pulled this into apparmor-next but dropped the out of tree portion
+of the patch
+
 > ---
->   security/apparmor/label.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+>   security/apparmor/af_inet.c        | 2 +-
+>   security/apparmor/af_unix.c        | 1 +
+>   security/apparmor/apparmorfs.c     | 1 +
+>   security/apparmor/include/policy.h | 1 -
+>   security/apparmor/policy.c         | 1 +
+>   security/apparmor/policy_unpack.c  | 1 +
+>   6 files changed, 5 insertions(+), 2 deletions(-)
 > 
-> This patch applies cleanly to both the Ubuntu 6.17 kernel and upstream master.
+> This patch applies cleanly to the Ubuntu 6.17 kernel.
 > 
-> diff --git a/security/apparmor/label.c b/security/apparmor/label.c
-> index 14bbed88aa83..ee9836ebc196 100644
-> --- a/security/apparmor/label.c
-> +++ b/security/apparmor/label.c
-> @@ -81,7 +81,7 @@ void __aa_proxy_redirect(struct aa_label *orig, struct aa_label *new)
->   	tmp = rcu_dereference_protected(orig->proxy->label,
->   					&labels_ns(orig)->lock);
->   	rcu_assign_pointer(orig->proxy->label, aa_get_label(new));
-> -	orig->flags |= FLAG_STALE;
-> +	__label_make_stale(orig);
->   	aa_put_label(tmp);
->   }
+> diff --git a/security/apparmor/af_inet.c b/security/apparmor/af_inet.c
+> index 5255595a6876..c30a14bd7822 100644
+> --- a/security/apparmor/af_inet.c
+> +++ b/security/apparmor/af_inet.c
+> @@ -18,7 +18,7 @@
+>   #include "include/apparmor.h"
+>   #include "include/file.h"
+>   #include "include/label.h"
+> -#include "include/path.h"
+> +#include "include/net.h"
+>   #include "include/policy.h"
+>   #include "include/cred.h"
 >   
+> diff --git a/security/apparmor/af_unix.c b/security/apparmor/af_unix.c
+> index f8f7d17a61ca..543f18121be3 100644
+> --- a/security/apparmor/af_unix.c
+> +++ b/security/apparmor/af_unix.c
+> @@ -20,6 +20,7 @@
+>   #include "include/apparmor.h"
+>   #include "include/file.h"
+>   #include "include/label.h"
+> +#include "include/net.h"
+>   #include "include/path.h"
+>   #include "include/policy.h"
+>   #include "include/cred.h"
+> diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
+> index 6b18775705f9..2253f4b7fd48 100644
+> --- a/security/apparmor/apparmorfs.c
+> +++ b/security/apparmor/apparmorfs.c
+> @@ -33,6 +33,7 @@
+>   #include "include/crypto.h"
+>   #include "include/ipc.h"
+>   #include "include/label.h"
+> +#include "include/net.h"
+>   #include "include/policy.h"
+>   #include "include/policy_ns.h"
+>   #include "include/resource.h"
+> diff --git a/security/apparmor/include/policy.h b/security/apparmor/include/policy.h
+> index e3cf1a03f79d..855657b3d2b9 100644
+> --- a/security/apparmor/include/policy.h
+> +++ b/security/apparmor/include/policy.h
+> @@ -26,7 +26,6 @@
+>   #include "file.h"
+>   #include "lib.h"
+>   #include "label.h"
+> -#include "net.h"
+>   #include "perms.h"
+>   #include "resource.h"
+>   
+> diff --git a/security/apparmor/policy.c b/security/apparmor/policy.c
+> index 7fa346000aa9..9ae858a203bc 100644
+> --- a/security/apparmor/policy.c
+> +++ b/security/apparmor/policy.c
+> @@ -81,6 +81,7 @@
+>   #include "include/file.h"
+>   #include "include/ipc.h"
+>   #include "include/match.h"
+> +#include "include/net.h"
+>   #include "include/path.h"
+>   #include "include/policy.h"
+>   #include "include/policy_ns.h"
+> diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
+> index 74cdfdd43d7e..7d4dd17a97be 100644
+> --- a/security/apparmor/policy_unpack.c
+> +++ b/security/apparmor/policy_unpack.c
+> @@ -25,6 +25,7 @@
+>   #include "include/crypto.h"
+>   #include "include/file.h"
+>   #include "include/match.h"
+> +#include "include/net.h"
+>   #include "include/path.h"
+>   #include "include/policy.h"
+>   #include "include/policy_unpack.h"
 
 
