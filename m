@@ -2,91 +2,91 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cKkDM0M/umlqTQIAu9opvQ
+	id 8GqmA2VAumnMTQIAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Wed, 18 Mar 2026 06:59:31 +0100
+	for <lists+apparmor@lfdr.de>; Wed, 18 Mar 2026 07:04:21 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EC6F2B6164
-	for <lists+apparmor@lfdr.de>; Wed, 18 Mar 2026 06:59:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFF582B628B
+	for <lists+apparmor@lfdr.de>; Wed, 18 Mar 2026 07:04:20 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1w2jwA-0004L1-Lz; Wed, 18 Mar 2026 05:59:22 +0000
+	id 1w2k0t-0005M3-6H; Wed, 18 Mar 2026 06:04:15 +0000
 Received: from smtp-relay-internal-0.internal ([10.131.114.225]
  helo=smtp-relay-internal-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1w2jw9-0004Ks-Ki
- for apparmor@lists.ubuntu.com; Wed, 18 Mar 2026 05:59:21 +0000
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
- [209.85.216.70])
+ id 1w2k0r-0005Ls-R9
+ for apparmor@lists.ubuntu.com; Wed, 18 Mar 2026 06:04:13 +0000
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
+ [209.85.210.197])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 6E6A13FBAD
- for <apparmor@lists.ubuntu.com>; Wed, 18 Mar 2026 05:59:21 +0000 (UTC)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id A534E3F29F
+ for <apparmor@lists.ubuntu.com>; Wed, 18 Mar 2026 06:04:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20251003; t=1773813561;
- bh=HnYxWZf82VZYFToxxlKhf4jSSNuvzsDXOVG4cgFbtgw=;
- h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+ s=20251003; t=1773813853;
+ bh=g5rPKteiApd7nJwaHeU4G59Ue8wG5WbFnYwXwXpyUP4=;
+ h=Message-ID:Date:MIME-Version:Subject:To:References:From:
  In-Reply-To:Content-Type;
- b=osYvrhJ/6x8DCgS13rclDQ/qnvBn3Rt1LB13wnTu3JMi+Q5Ir0U6e0h+mnNBfd9wN
- UyFBoo77juXzo09Z+Qcvy5JTmIaBpP7EXS8V5zDklNgbDufbym5d/60Nwkyp9wVyPV
- s2pVthwHhWHLq4CKW9wb1UnAy5Uiu449hgGFsH9M7rCmI7apPr6FMLZJFithHKBWFP
- ummuDHIT4ox7NdgaR/MOQEfOPUX1HMPYh2lQIE9dJU/gun8unEDEF1jrzuklzCUx1d
- pDp0AufktKhBQcMKJOR5j36P84o6YRrHtp/EETqBuPIpzxsGBiPjZN8BhJZrHFiAUv
- d9VPV6mhy4tv9W1s5QvkoqBvD/9ESaHYdiRggW8gqAeIusWM12ZNqPJzQw7sJo5JuK
- Um4h6MwcjIW1IL/aGsi8seqXe7SJR1z/OUHLpaHpqE4wq4x1XBax/IYtaVDFP997vQ
- 12bip3F5zBlpxUcHXjr5cuUM5aYR9iecz9HsR0+PrHOXJxKpgSJp4KUigEKcf4lth8
- IdmYo3QTEyRe5ZHxMwsfQjxC09VReRyEEGS9YJGgMpbyrrtaliTdp/6VL5o9BsP91P
- o7Q7zK8u9MiXtzyCtqWIvWi5tNPonCGJkHEQxyONuOfrBqCkhdliscF0SraUKTNptc
- ZDriHc3Es5cZzdEE+oLyXV7A=
-Received: by mail-pj1-f70.google.com with SMTP id
- 98e67ed59e1d1-35641c14663so708023a91.2
- for <apparmor@lists.ubuntu.com>; Tue, 17 Mar 2026 22:59:21 -0700 (PDT)
+ b=JJmj/3+lAV7ASUJARCLU+j/Ly2gpDJCiaYMRiXlKvD84dMvumeKzx+gTksJBjORQY
+ 9sDbML/EuLcHbg7r4DoPT3W4chOFSurqUy/3A1sGZXWxFUEw9UkomItcVX3JY2MjQA
+ yLASihwv2+iGqUImjabcr9ZwisXftl5IG+d800+l3z2N1M/nsr4Bqmq30M3VRWBon8
+ 86vJpUzAKflW//SxFIwYZImrik0a8z9DbnmN0TSrBYPoUvfyWFw2LuZx8Oq+kF1BDk
+ Ad/lWgOm09c1Ontjt0KiXzTDjc05V7PuTUs8Cy9y0Wxu4V6kunelhfj2HjCRt7/grF
+ dW2rg/vS5vaZEL4D/buHZ0+pnQlzmTD72zXVYRIlOMs9x2YMbXR4rdBLkyTadosB40
+ yFfwYjm8kKARsOs7uMUGsVbEIK6PUjVep8WWT+G89V3XAxNQk7ny2zfjsiACyKgQhr
+ 4IX+uEDChQ/LO4ws2Wvf8UF89MDkUJr9cJf6IFMvWoKqPL3RybLmM38leMV8vCQa02
+ QT8qFcgvf5dIS68GaHt309aTvT42S/4yDjrdIqfYaRlPG5ZzaSkCC+BGZ5wO4gbCp7
+ nbtZneJ9yM6nw4Pszo9TBUFJ/CQJcEwNnPqHaAO16iGuUMjIPuXcFSdbDBNK0FOlhD
+ djC7hgMWtRuWRzJrR3PsCVoQ=
+Received: by mail-pf1-f197.google.com with SMTP id
+ d2e1a72fcca58-829942cf9deso5588978b3a.0
+ for <apparmor@lists.ubuntu.com>; Tue, 17 Mar 2026 23:04:13 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773813560; x=1774418360;
+ d=1e100.net; s=20251104; t=1773813852; x=1774418652;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=HnYxWZf82VZYFToxxlKhf4jSSNuvzsDXOVG4cgFbtgw=;
- b=qRMttn6MA33S4AADsbWOUlkbBOSU9ZmOrQ6rtPsC5760xpmn0ubimsb8xMf8eq1vTR
- eePkEuQZngdTo95T0FUCDuz7333j0hFWyb/NZiFFei0ER1BlCcOXUKIpXBdk8f9zDDQN
- TmA8CtubSuZHwpF5Iz9r6jkbX/1kAyU05dAQbv1A8WJJqoliIKauALJWNvylwxAOnX6d
- yujT3Yar9Bsf5m4x9+bqHtiLAC03vKGnE3NZENFMIlmxg2XjPrxC9WmfJp4NRAvkLj1R
- lA9dbC9xzzJqdTsJNtkjRGvMSQBLn6iO+VxFfCDxNZuJ3pX4LtghWgtujpdxv5PhlM6+
- hHoQ==
-X-Gm-Message-State: AOJu0YztT7BNX/AUBL6m/SW9K5n+PLgk2an9t+/+kuYM9dtI66csGqMF
- zr5g5C7oA5rmVlEiUrcZECyeJbZBdUg26LOyjJorBI8OKFdvznpPbOyn0q9Uz1Owp/gmrqppnxf
- 6v8eByGJgHCB/AyUX322ZmYsn6+2sDwZlIrIGiNcXs3NR2AqfbEbqSCI/yB85r3M9M0ytWZ0SoZ
- eWHA==
-X-Gm-Gg: ATEYQzzePtOZjYPJVaDD2ul2ul9r31FBH1vYtOzG/lnsI+PcY2cYZdUWs45EtwA2aoB
- QelY0jQxXvDj39VQcw7mNWhvpfowme6OKtLpOSBe4Y9C8WBGmfMP7AOBlVFHyWVhpj4/FY9+gxI
- pfsbcbOzFVfyRD/jt+GNEVHWC5lxbS07wM5mpGgcQNlwyH34/SKFOiNNp43EGqQOX1scnEB2nCD
- e/7XNpYY5nt4EmBn18cx6AJtjFZxJ1bpSYHUKyFFePzxAIitZFCvO9+e3QfdUQqmHxjK/97pv+e
- aAA1szu/z8yKHyUnZGMgWEYj9XDF9Pksr7ETnuLCSP4kHEJ+c9S+DTNj62s2rYDWy8zIaBd/OYk
- RV9QpSYsbQxEQJD1t17R8lf/S8vYSlJI4TiXKuA==
-X-Received: by 2002:a17:903:984:b0:2ae:c88c:197 with SMTP id
- d9443c01a7336-2b06e34520fmr22225865ad.17.1773813560046; 
- Tue, 17 Mar 2026 22:59:20 -0700 (PDT)
-X-Received: by 2002:a17:903:984:b0:2ae:c88c:197 with SMTP id
- d9443c01a7336-2b06e34520fmr22225675ad.17.1773813559709; 
- Tue, 17 Mar 2026 22:59:19 -0700 (PDT)
+ bh=g5rPKteiApd7nJwaHeU4G59Ue8wG5WbFnYwXwXpyUP4=;
+ b=ENsA012rRI9y+uKhXFjbGtINPomznoX2Zy3KR/XJ8bKIzIycQaVzBwyt5WmXxvQCcu
+ S7WIabPeRjr7R56W17TX4UxQYv5lQSLx1mUqi8Mvray2O8QaKt8bmKCb1gCSt9u0c/+y
+ k4w0ObdWF+6pgEmgVCeVe5Tl3DVgA9dgOdcEPaJQGktj+BNgem3F9WqCIcxJduAjF+zP
+ s3oPksqB32RVOGj5MBDgKQL2dpQRfkeVFNyKEU1tZ9NLMCNN11g4+9l8s/vD4VnU4zm5
+ DhXXWxlWhXALp1+41+U+s/vO3ybd5Jr/aoQ+S4oBM5ti5iOcIeLZLJyuIXLE/7YFK/Fr
+ EIyw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXL/2wfsTo6rfZe7Ev9ZX8Hh0kcCU+6NaRaOxTpg3Ce4FqNw5oiHCk1+bAeD/sUTEGTJR4/mGPn9w==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0YwCtRmv551z/ywCalh0kuyYr3BeM7TeFuHrK4YvtN/zrIxRcqI0
+ mItdeIwGi7uo/u1/+baKSVVOfovRPg87glJRbPJFUd9j0uefKeX6cuE/4f5KuWZSXgsTSU5EPq4
+ 62gloajXB+zPt9WpzD4LJius0+Xhqw58eM56/clS8kU6OqY3exMbZmm+M4pZCWp9945uFHV3aX1
+ wMDw==
+X-Gm-Gg: ATEYQzzhqXAHUMUO2tD13laNG6whJuS297Cfzj5PN7d6sQz+h7v5dLM7h7H4DbK+nD2
+ 9PdM7sbzkD7+tBmm6GFrL/6xR5ZeR+p4fBeWUS6jvh+1X2ZUI+0qX436ZD2jTpnX3NEOlxMkb/m
+ KFiVtpj4cLxTiFitaBPC2jHppnVN8uXr+FQeA7notWnJ15gN/oleQ+PLy3WhrQhHrudXUBeTHZY
+ 0AJcJtGqcWgxK/r0+rgpiGmoYmJflIlx/ZAfBlc5GFNGKiKACoiLyVmHscbMp9xqQld7Hlsg9d7
+ 2G2NjexH+uJwaphT3L8erHPh50ZnRruFaBNXuG/eEs4kfMUUmgdt/9idBwrjg/J48+ZWyRBntxV
+ 1cKWfychGuTXdG/NVxWmG4jbQTUzwiUvB13wi9Q==
+X-Received: by 2002:a05:6a00:1ca3:b0:81f:4ce8:d64b with SMTP id
+ d2e1a72fcca58-82a6ae4f234mr1745008b3a.44.1773813851981; 
+ Tue, 17 Mar 2026 23:04:11 -0700 (PDT)
+X-Received: by 2002:a05:6a00:1ca3:b0:81f:4ce8:d64b with SMTP id
+ d2e1a72fcca58-82a6ae4f234mr1744994b3a.44.1773813851602; 
+ Tue, 17 Mar 2026 23:04:11 -0700 (PDT)
 Received: from [192.168.192.71] ([50.39.102.197])
  by smtp.googlemail.com with ESMTPSA id
- d9443c01a7336-2b06e603b2asm14262025ad.55.2026.03.17.22.59.18
+ d2e1a72fcca58-82a6bbb2f41sm1248682b3a.33.2026.03.17.23.04.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Mar 2026 22:59:18 -0700 (PDT)
-Message-ID: <717f90e0-41cc-4852-b3d7-5ea3b975bc95@canonical.com>
-Date: Tue, 17 Mar 2026 22:59:17 -0700
+ Tue, 17 Mar 2026 23:04:11 -0700 (PDT)
+Message-ID: <42f72eeb-0641-4ac9-bac6-1d0ce1248337@canonical.com>
+Date: Tue, 17 Mar 2026 23:04:10 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Thorsten Blum <thorsten.blum@linux.dev>, Paul Moore
- <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- "Serge E. Hallyn" <serge@hallyn.com>
-References: <20260204220734.1008069-2-thorsten.blum@linux.dev>
+To: Ryan Lee <ryan.lee@canonical.com>, apparmor@lists.ubuntu.com
+References: <20260212211516.393031-1-ryan.lee@canonical.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -132,11 +132,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20260204220734.1008069-2-thorsten.blum@linux.dev>
+In-Reply-To: <20260212211516.393031-1-ryan.lee@canonical.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH] apparmor: Remove redundant if check in
-	sk_peer_get_label
+Subject: Re: [apparmor] [PATCH] apparmor: use __label_make_stale in
+	__aa_proxy_redirect
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -148,81 +148,71 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
- linux-kernel@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 X-Spamd-Result: default: False [2.09 / 15.00];
 	DMARC_POLICY_REJECT(2.00)[canonical.com : SPF not aligned (relaxed),reject];
 	R_DKIM_REJECT(1.00)[canonical.com:s=20251003];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:thorsten.blum@linux.dev,m:paul@paul-moore.com,m:jmorris@namei.org,m:serge@hallyn.com,m:linux-security-module@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:linux-kernel@vger.kernel.org,s:lists@lfdr.de];
+	RCPT_COUNT_TWO(0.00)[2];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:ryan.lee@canonical.com,m:apparmor@lists.ubuntu.com,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[john.johansen@canonical.com,apparmor-bounces@lists.ubuntu.com];
 	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
-	DKIM_TRACE(0.00)[canonical.com:-];
+	RCVD_TLS_LAST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
+	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns,canonical.com:email,canonical.com:mid,linux.dev:email];
-	NEURAL_HAM(-0.00)[-0.991];
+	FROM_NEQ_ENVFROM(0.00)[john.johansen@canonical.com,apparmor-bounces@lists.ubuntu.com];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[canonical.com:email,canonical.com:mid,lists.ubuntu.com:helo,lists.ubuntu.com:rdns];
+	NEURAL_HAM(-0.00)[-0.985];
 	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
 	RCVD_COUNT_FIVE(0.00)[5];
-	FROM_NEQ_ENVFROM(0.00)[john.johansen@canonical.com,apparmor-bounces@lists.ubuntu.com];
+	DKIM_TRACE(0.00)[canonical.com:-];
 	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	HAS_ORG_HEADER(0.00)[];
 	TAGGED_RCPT(0.00)[apparmor];
-	FORGED_SENDER_FORWARDING(0.00)[]
-X-Rspamd-Queue-Id: 9EC6F2B6164
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
+	HAS_ORG_HEADER(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[]
+X-Rspamd-Queue-Id: CFF582B628B
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 2/4/26 14:07, Thorsten Blum wrote:
-> Remove the redundant if check in sk_peer_get_label() and return
-> ERR_PTR(-ENOPROTOOPT) directly.
+On 2/12/26 13:15, Ryan Lee wrote:
+> The macro is equivalent to OR-ing in the bitflag manually, but using the
+> macro consistently makes grepping for these occurrences easier.
 > 
-> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+> Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
 
 Acked-by: John Johansen <john.johansen@canonical.com>
 
-I have pulled this into my tree
-
 > ---
->   security/apparmor/lsm.c | 6 +-----
->   1 file changed, 1 insertion(+), 5 deletions(-)
+>   security/apparmor/label.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
-> index a87cd60ed206..54343f7c96a4 100644
-> --- a/security/apparmor/lsm.c
-> +++ b/security/apparmor/lsm.c
-> @@ -1536,15 +1536,11 @@ static int apparmor_socket_sock_rcv_skb(struct sock *sk, struct sk_buff *skb)
->   static struct aa_label *sk_peer_get_label(struct sock *sk)
->   {
->   	struct aa_sk_ctx *ctx = aa_sock(sk);
-> -	struct aa_label *label = ERR_PTR(-ENOPROTOOPT);
->   
->   	if (rcu_access_pointer(ctx->peer))
->   		return aa_get_label_rcu(&ctx->peer);
->   
-> -	if (sk->sk_family != PF_UNIX)
-> -		return ERR_PTR(-ENOPROTOOPT);
-> -
-> -	return label;
-> +	return ERR_PTR(-ENOPROTOOPT);
+> This patch applies cleanly to both the Ubuntu 6.17 kernel and upstream master.
+> 
+> diff --git a/security/apparmor/label.c b/security/apparmor/label.c
+> index 14bbed88aa83..ee9836ebc196 100644
+> --- a/security/apparmor/label.c
+> +++ b/security/apparmor/label.c
+> @@ -81,7 +81,7 @@ void __aa_proxy_redirect(struct aa_label *orig, struct aa_label *new)
+>   	tmp = rcu_dereference_protected(orig->proxy->label,
+>   					&labels_ns(orig)->lock);
+>   	rcu_assign_pointer(orig->proxy->label, aa_get_label(new));
+> -	orig->flags |= FLAG_STALE;
+> +	__label_make_stale(orig);
+>   	aa_put_label(tmp);
 >   }
 >   
->   /**
 
 
