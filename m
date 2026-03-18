@@ -2,90 +2,89 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 0KT5IqY9umlbTQIAu9opvQ
+	id iEZpNu49umlqTQIAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Wed, 18 Mar 2026 06:52:38 +0100
+	for <lists+apparmor@lfdr.de>; Wed, 18 Mar 2026 06:53:50 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F9B52B6030
-	for <lists+apparmor@lfdr.de>; Wed, 18 Mar 2026 06:52:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E4E82B607D
+	for <lists+apparmor@lfdr.de>; Wed, 18 Mar 2026 06:53:50 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1w2jpU-0001rL-JY; Wed, 18 Mar 2026 05:52:28 +0000
+	id 1w2jqh-00024d-SX; Wed, 18 Mar 2026 05:53:43 +0000
 Received: from smtp-relay-internal-1.internal ([10.131.114.114]
  helo=smtp-relay-internal-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1w2jpT-0001r8-2I
- for apparmor@lists.ubuntu.com; Wed, 18 Mar 2026 05:52:27 +0000
+ id 1w2jqf-00024U-QH
+ for apparmor@lists.ubuntu.com; Wed, 18 Mar 2026 05:53:41 +0000
 Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
  [209.85.210.197])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id E4D133F604
- for <apparmor@lists.ubuntu.com>; Wed, 18 Mar 2026 05:52:26 +0000 (UTC)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 9B1D83F604
+ for <apparmor@lists.ubuntu.com>; Wed, 18 Mar 2026 05:53:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20251003; t=1773813146;
- bh=rlLVK36GBtlh7PKwRHLXFZOzpJKiMH+joZLh5908m+4=;
- h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+ s=20251003; t=1773813221;
+ bh=TaXaxCufMl6szy9eE7qxF5U+KCmrPgzfU+BhVZEw+sU=;
+ h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
  In-Reply-To:Content-Type;
- b=HeoWQngdaFDuZ34a9tEceNaM/ELFgr8adpglDpn+Z+pB8BtkBcdI7uLB9WkJrDsrd
- b581ciFSfdUeHiisGrYIreFPISyj/zYjl59fWRDbR533kGydH/KKNZba3aQAs0cdeu
- p5gvBdM2WOrwbmaFWgoWvEzBJnZd6SBBFH4cmRT/XlbqNK7c5Vq+fsIR+rzqRcQPSO
- NuUCoFVN38NK2+hzd2euT9Y51e+nQC1k+F0xwIRZ03q58A5yPrZlC1JUFBiFj9oHND
- ywEd3VVAzdq4RVb9YD90U5MgxwTAXRGByN9VY1RVF1E+CS6sTcP6e7DOoCk3KqxnXR
- zrB0QFicHCoEBDrbo3fJSvGZueFuvxWd4dL7DXoA3v9CpgvFKNw2BLfDvRS59TiCpJ
- CYBwn8DgOUduhAC8kp5xpge5Bw4vgW/3nsE4i149ePV79HHA4zxVMj8Z9tWNGKeOLs
- 2O9UZ0MRCwunJxVJmCM6s7yEf7Rfq8tVVTVY9Lppfz2jvO4Kp4z9OlLyhA2Kag8bDc
- yy4YARNyIke1aQWaMOv9QEBHjhTl+oFEBC09mr7dywag7Us6H/YWcD74KfFeXnzRwE
- 9/nHXoiWsLWbH+VUhM6JMCXKbc3yWdrYJk1wEqHVKNkwWIO1iXicCtfnh/Kxgir/pG
- P5x7BDK/MrbFlUVkjhHBlTUw=
+ b=OgKDZzps2L0Wnex69+6ti8ktZRd5cq8jfADxnwdsKM5ETb2DcvSYj2/UHc5SRMfCr
+ 3C/w36tvTZ5zBjj21ZlU70r8SrW1bmX69u7lDbxbgWtsltPpIuXlYoBG8BsSZHD6y5
+ msYXeVHzQom2LBRODozOUT3Bj+DESUDhEoCZVlO6nCQlnvyJYPnjmuUr2+/Ero9e5M
+ OJ2mEMzMaQJVTKI1dcTPuLWm0eLp2EYiouU7tSAu/My+eafua1wLYpfCGym3JVktF8
+ c/vYW7Bl5TIkCcMMz/Lucrky2qt4Jgqpgy9/4GB0Dv7oN7rfMHC2H2A5ZsII1vxOvq
+ w0UqCPQ8K9O6hMzTnPsIlfdTaBbZSbQ/1Yn+FKzr0kIi7gjvCxi4yCYKFhgWBBSljZ
+ Y0xkR/8v3uVgXUy+kJZ3YohlN30D2Xyp9h+UAscfhK/3ZptfZNoJQ9A+WAMcoLFOn2
+ xkrj6BIousqHH5S89g9rpAwhMEFE1IzqZaWp6OPdBQlJ3dtxyMutaPIHX8tYiKuYvy
+ 3aa5lPRIc1m7vlYucPavQHJLEA8rmQBncdQeF4KMybGrI6tj/cUSORRJKHaHTEvgLZ
+ pd9bcVuwyvi8O95ipFEPL6/3MS3HbllcvhHIP8f+7+egKRgauZDzJXBWLhOIxH703F
+ +BShHMbhD08Tvfb8SVIZcTNI=
 Received: by mail-pf1-f197.google.com with SMTP id
- d2e1a72fcca58-8297d261a67so259787b3a.0
- for <apparmor@lists.ubuntu.com>; Tue, 17 Mar 2026 22:52:26 -0700 (PDT)
+ d2e1a72fcca58-82a6c70f1f8so439046b3a.0
+ for <apparmor@lists.ubuntu.com>; Tue, 17 Mar 2026 22:53:41 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773813145; x=1774417945;
+ d=1e100.net; s=20251104; t=1773813220; x=1774418020;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
- :content-language:references:to:subject:user-agent:mime-version:date
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=rlLVK36GBtlh7PKwRHLXFZOzpJKiMH+joZLh5908m+4=;
- b=tRv5JsHU7LyHp8pODbJMP4037xf4/WnpFY5ZsJ2TtdeRGc8dwfISZXcUN9ORTdwzv8
- dPNi3Y6DB+zkY8bP87VrU67D55uQPxpjnaUdghS29akRSZerCA7BNPxOhvBqFvOAGpez
- sGp0W8ToHH36pGcWU0cMQziScnZ2/WJOG8NXGTZEplwYFquQcJFa4HYjMHz92E8tre+U
- Opd9494Jk9pM04r4lNzTzBloNeNGuH9aSjw2SGGaGF6++W6BHwu9sBOQrkw7OlzHrhI/
- Gw+WPbThFFstyY2+xn2T6Hc+BKgk6V9TlIw5nGtxjYJWH/TeXKgJmyZyaMj7ECHxYDPA
- r69Q==
-X-Gm-Message-State: AOJu0Yzdpb+YnCPFDdbnDFEqeoIlEZ8qo2Ndl3hyb0fxIYlX1UFWpOMJ
- cMMf2xD3coaCPbg0slE3E9YMNJYGMSREdFpv7XPIU3/SnRvYe4Fy2zJ6Bb3+I7Ho5pc8hqzMVoo
- i2e4lG0yZF9IYWUEeeQVDLYiE38EBWmU0wMrLXkaaTSxe1Xjb+WcsgMQY8aJ8I3aI8Lh4WIRw4n
- DEtJu/kKZjfQ==
-X-Gm-Gg: ATEYQzxFXZqVEGyng9p/WJUzNVviteNPKcEvxUTlZ8JqwasDz7RIDyv0KWPFTvhAHwW
- p4wr3i2IavxKD7tIw7gcbAcf0ceCdtovbYHPMaHw+nGpJG0umEduUJlcDOM3VG/cHBJTSCjNof3
- oGbMUM5BH72MoxzsZPIG0pqRcSJDILlUbgneTKsg+3f0/g2rAzLcIXCdpD4bvHGHP05TjJtQQY8
- wc13tjXcu6ujRyhgL0YcTdcCA5J1drlNXIBZnlXoOl4zm27zgZe6nK6SZhWyhJkcXe4TGd6wiIv
- Zu283N9EmV2v1Sy6XalJwrvr2sDqdxDp/hnQBXbG2g+uf1bD6mIUzHacE7H1z1UkNeS1mTySPWJ
- wojMKTvTAqU5WkBUC39Xew2aCtiQa5A5NLtvpfA==
-X-Received: by 2002:a05:6a00:bd12:b0:829:a127:518 with SMTP id
- d2e1a72fcca58-82a6ae0c30bmr2107118b3a.40.1773813145281; 
- Tue, 17 Mar 2026 22:52:25 -0700 (PDT)
-X-Received: by 2002:a05:6a00:bd12:b0:829:a127:518 with SMTP id
- d2e1a72fcca58-82a6ae0c30bmr2107089b3a.40.1773813144753; 
- Tue, 17 Mar 2026 22:52:24 -0700 (PDT)
+ bh=TaXaxCufMl6szy9eE7qxF5U+KCmrPgzfU+BhVZEw+sU=;
+ b=AzQReVDgJeTjZvLmWWi27lSVybMSLqLNP6+AMLpz4Lf2z6E/TF7RCeS24vTjyB902S
+ VC4ZxQmMC0WkMij7hUTG6ws5IpesuDUkgLBGf2zzOcXdiVMWdVN7UF6Hr4jr3tmCNQh+
+ La0cbsPHgrkwxNQRUWVyIZJZBkWUn8CxLm3poEn57UB1OcEFMbbGzhQXMnshuR+6btc5
+ q3tOdpmwiuFPfcdOhB2bo6wa6JUpy0kNpZad7S8pWkm+ASWxnioNDEaEGjlBZAuqsyLY
+ F7ahewLfyLo3xUixp3HumgpIuL/j6f8+wCfltBqqrwZabwayQeMDH6WCqKbp7EEcMWQ/
+ ChPA==
+X-Gm-Message-State: AOJu0Yzd3VnwpBfo2uM5u8VpwYmKD5iY0mp5PoxAvVPDeeDJ58gHcQgB
+ vr6pgUqvWclZsnwS6IYhUTgPXWZsaio9x1TNrmekRXg1OpImkcWOW3XAi5ggLfXkJE9IVu0GAxH
+ +08BpHBN1wpedQHCtLMJEp+XlWe2oxsYDwuKG+JgZTjdckSC9M/EYwLZd46Ov8htUSs389lOqDe
+ WdwA==
+X-Gm-Gg: ATEYQzyPQXzUV+EjkOxhp2TJ1wdT+1wBeCyLnN+hyWPPBcZodG7vNcuf5hJg5mERhdy
+ P4pKWp1rRTGCXy4ze25fjtX4Svx0k/D+24uT140PNQu0kp2D5DxX8g6zyhwUqLTmPlQ9LeXhfmR
+ XPqhhFGDt7CnMFgJ6SCoKhR8riEk+zB/sMGRDKJMRSdyPArFybTprNdEjCvaXfV26MFz/AaKJC0
+ 5Oclwst40V70SIQJSmOwCz6AQ68SNC/2SkTszOKjdDxVAXnGZvSrxXjedIs1wTd8oriZNQ8H1KO
+ 2Q6JX9WzCLuevLFyHgKpBL1GQRa8VyUIJXEaBZBvdwgAnpVbvP5ckOsl0OcQTgNXNkiZAtbSi4V
+ nY2JneCMwMjQJEHhayvAG3vE/F4g8MsWNS+FT+g==
+X-Received: by 2002:a05:6a00:28c3:b0:81f:4884:4fed with SMTP id
+ d2e1a72fcca58-82a6adc8dacmr1917292b3a.7.1773813220133; 
+ Tue, 17 Mar 2026 22:53:40 -0700 (PDT)
+X-Received: by 2002:a05:6a00:28c3:b0:81f:4884:4fed with SMTP id
+ d2e1a72fcca58-82a6adc8dacmr1917283b3a.7.1773813219816; 
+ Tue, 17 Mar 2026 22:53:39 -0700 (PDT)
 Received: from [192.168.192.71] ([50.39.102.197])
  by smtp.googlemail.com with ESMTPSA id
- d2e1a72fcca58-82a6b5308f1sm1203191b3a.8.2026.03.17.22.52.23
- for <apparmor@lists.ubuntu.com>
+ d2e1a72fcca58-82a6bbe200bsm1436681b3a.44.2026.03.17.22.53.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Mar 2026 22:52:24 -0700 (PDT)
-Message-ID: <11115255-88c2-4c93-9c6f-587b82cc5c78@canonical.com>
-Date: Tue, 17 Mar 2026 22:52:22 -0700
+ Tue, 17 Mar 2026 22:53:39 -0700 (PDT)
+Message-ID: <779f2d5b-a5af-4137-a1ee-78dc9fed58e1@canonical.com>
+Date: Tue, 17 Mar 2026 22:53:38 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: apparmor@lists.ubuntu.com
-References: <20260211131952.391532-1-maxime.belair@canonical.com>
+To: Massimiliano Pellizzer <mpellizzer.dev@gmail.com>
+References: <20260210172159.535137-1-mpellizzer.dev@gmail.com>
 Content-Language: en-US
 From: John Johansen <john.johansen@canonical.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
@@ -131,11 +130,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20260211131952.391532-1-maxime.belair@canonical.com>
+In-Reply-To: <20260210172159.535137-1-mpellizzer.dev@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [apparmor] [PATCH] apparmor: propagate -ENOMEM correctly in
- unpack_table
+Content-Transfer-Encoding: 7bit
+Subject: Re: [apparmor] [PATCH] apparmor: fix incorrect success return value
+ in unpack_tag_headers()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -147,110 +146,82 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
+ linux-kernel@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Spamd-Result: default: False [-1.61 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[canonical.com,reject];
+X-Spamd-Result: default: False [2.09 / 15.00];
+	DMARC_POLICY_REJECT(2.00)[canonical.com : SPF not aligned (relaxed),reject];
+	R_DKIM_REJECT(1.00)[canonical.com:s=20251003];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
-	R_DKIM_ALLOW(-0.20)[canonical.com:s=20251003];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
-	RCVD_TLS_LAST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[john.johansen@canonical.com,apparmor-bounces@lists.ubuntu.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:mpellizzer.dev@gmail.com,m:linux-security-module@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:linux-kernel@vger.kernel.org,m:mpellizzerdev@gmail.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FROM_HAS_DN(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	RCVD_TLS_LAST(0.00)[];
 	ARC_NA(0.00)[];
-	RCPT_COUNT_ONE(0.00)[1];
-	DKIM_TRACE(0.00)[canonical.com:+];
-	HAS_ORG_HEADER(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCVD_COUNT_FIVE(0.00)[5];
-	TO_DN_NONE(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_SENDER(0.00)[john.johansen@canonical.com,apparmor-bounces@lists.ubuntu.com];
+	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[apparmor];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[canonical.com:dkim,canonical.com:email,canonical.com:mid,gitlab.com:url,lists.ubuntu.com:helo,lists.ubuntu.com:rdns]
-X-Rspamd-Queue-Id: 4F9B52B6030
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	FROM_NEQ_ENVFROM(0.00)[john.johansen@canonical.com,apparmor-bounces@lists.ubuntu.com];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[canonical.com:email,canonical.com:mid,lists.ubuntu.com:helo,lists.ubuntu.com:rdns];
+	NEURAL_HAM(-0.00)[-0.999];
+	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
+	RCVD_COUNT_FIVE(0.00)[5];
+	DKIM_TRACE(0.00)[canonical.com:-];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[apparmor];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	HAS_ORG_HEADER(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB]
+X-Rspamd-Queue-Id: 9E4E82B607D
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 2/11/26 05:19, Maxime Bélair wrote:
-> Currently, if the `kvzalloc` in `unpack_table` fails, it returns NULL.
-> This is masked by `aa_dfa_unpack` which interprets NULL as a -EPROTO,
-> leading to confusing error messages in `apparmor_parser` [1].
+On 2/10/26 09:21, Massimiliano Pellizzer wrote:
+> unpack_tag_headers() returns `true` (1) on success instead of 0.
+> Since it's caller unpack_tags() checks the return value with
+> `if (error)`, a non-zero success value is incorrectly treated as
+> a failure, causing tag header unpacking to always even if the data
+> is well-formed.
 > 
-> The fixed behavior correctly propagates -ENOMEM on allocation failure.
+> Change the success return in unpack_tag_headers() from `true` to 0.
 > 
-> [1] https://gitlab.com/apparmor/apparmor/-/issues/592
-> 
-> Signed-off-by: Maxime Bélair <maxime.belair@canonical.com>
+> Fixes: 3d28e2397af7 ("apparmor: add support loading per permission tagging")
+> Signed-off-by: Massimiliano Pellizzer <mpellizzer.dev@gmail.com>
+
+sorry, my reply to this seems to have failed. This was pulled in for the
+7.0 PR
 
 Acked-by: John Johansen <john.johansen@canonical.com>
 
+
 > ---
->   security/apparmor/match.c | 20 ++++++++++++--------
->   1 file changed, 12 insertions(+), 8 deletions(-)
+>   security/apparmor/policy_unpack.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/security/apparmor/match.c b/security/apparmor/match.c
-> index bbeb3be68572..6cca29c1f209 100644
-> --- a/security/apparmor/match.c
-> +++ b/security/apparmor/match.c
-> @@ -33,7 +33,7 @@
->    */
->   static struct table_header *unpack_table(char *blob, size_t bsize)
->   {
-> -	struct table_header *table = NULL;
-> +	struct table_header *table = ERR_PTR(-EPROTO);
->   	struct table_header th;
->   	size_t tsize;
+> diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
+> index dc908e1f5a88..221208788025 100644
+> --- a/security/apparmor/policy_unpack.c
+> +++ b/security/apparmor/policy_unpack.c
+> @@ -825,7 +825,7 @@ static int unpack_tag_headers(struct aa_ext *e, struct aa_tags_struct *tags)
+>   	tags->hdrs.size = size;
+>   	tags->hdrs.table = hdrs;
+>   	AA_DEBUG(DEBUG_UNPACK, "headers %ld size %d", (long) hdrs, size);
+> -	return true;
+> +	return 0;
 >   
-> @@ -74,20 +74,21 @@ static struct table_header *unpack_table(char *blob, size_t bsize)
->   		else if (th.td_flags == YYTD_DATA32)
->   			UNPACK_ARRAY(table->td_data, blob, th.td_lolen,
->   				     u32, __be32, get_unaligned_be32);
-> -		else
-> -			goto fail;
-> +		else {
-> +			kvfree(table);
-> +			table = ERR_PTR(-EPROTO);
-> +			goto out;
-> +		}
->   		/* if table was vmalloced make sure the page tables are synced
->   		 * before it is used, as it goes live to all cpus.
->   		 */
->   		if (is_vmalloc_addr(table))
->   			vm_unmap_aliases();
-> -	}
-> +	} else
-> +		table = ERR_PTR(-ENOMEM);
->   
->   out:
->   	return table;
-> -fail:
-> -	kvfree(table);
-> -	return NULL;
->   }
->   
->   /**
-> @@ -343,8 +344,11 @@ struct aa_dfa *aa_dfa_unpack(void *blob, size_t size, int flags)
->   
->   	while (size > 0) {
->   		table = unpack_table(data, size);
-> -		if (!table)
-> +		if (IS_ERR(table)) {
-> +			error = PTR_ERR(table);
-> +			table = NULL;
->   			goto fail;
-> +		}
->   
->   		switch (table->td_id) {
->   		case YYTD_ID_ACCEPT:
+>   fail:
+>   	kfree_sensitive(hdrs);
 
 
