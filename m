@@ -2,46 +2,96 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KPmlJKCbu2lhlwIAu9opvQ
+	id wCHBIImyu2k8mgIAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Thu, 19 Mar 2026 07:45:52 +0100
+	for <lists+apparmor@lfdr.de>; Thu, 19 Mar 2026 09:23:37 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 456732C6E6A
-	for <lists+apparmor@lfdr.de>; Thu, 19 Mar 2026 07:45:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68B4C2C7D17
+	for <lists+apparmor@lfdr.de>; Thu, 19 Mar 2026 09:23:37 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1w378Y-0004bb-2w; Thu, 19 Mar 2026 06:45:42 +0000
-Received: from sea.source.kernel.org ([172.234.252.31])
- by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <gregkh@linuxfoundation.org>) id 1w378W-0004bO-TU
- for apparmor@lists.ubuntu.com; Thu, 19 Mar 2026 06:45:41 +0000
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 955B843342;
- Thu, 19 Mar 2026 06:40:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 095C3C19425;
- Thu, 19 Mar 2026 06:40:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1773902414;
- bh=X9L49s7yEBoJxFTNA1J/pynK8VJPzrAxAQkztnEd9no=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=qE4xaQgEoQSrXGqL4bSi0CCuq6Dl27pCxcKN6vHpsK9qKeE15yQinCUUb7n87/7r1
- ncyzfjkxZdQqGcBDvgphlfIzVAuIhWoG1+yETlTu0yGSX19vJpgWMk/fuUo81fBKjW
- RVg+NLPaum5bk0Jwy4nHxD2LdO5znV+AGeGe2umg=
-Date: Thu, 19 Mar 2026 07:40:10 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Daniel J Blueman <daniel@quora.org>
-Message-ID: <2026031904-default-staining-0240@gregkh>
-References: <20260319062433.17648-1-daniel@quora.org>
+	id 1w38f9-0001G7-FY; Thu, 19 Mar 2026 08:23:27 +0000
+Received: from mail-ed1-f44.google.com ([209.85.208.44])
+ by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.86_2) (envelope-from <mpellizzer.dev@gmail.com>)
+ id 1w38f8-0001Fz-LD
+ for apparmor@lists.ubuntu.com; Thu, 19 Mar 2026 08:23:26 +0000
+Received: by mail-ed1-f44.google.com with SMTP id
+ 4fb4d7f45d1cf-666f646f5cfso2769781a12.1
+ for <apparmor@lists.ubuntu.com>; Thu, 19 Mar 2026 01:23:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773908606; cv=none;
+ d=google.com; s=arc-20240605;
+ b=erOqRVQ52K+q9/yy9K6vxBF84gCFU+5kwtxgSMrx2xVcanRb9zhLwrxm3hqumyumPo
+ 3Dl18JOxzRg5dad3+9MiE08E7VoIlaYPI4rNgUdcZfoMELi4nzzjP03GygeRtnbR0vkt
+ ME+ZVur8jQgB6uPiMO/OA87+fvs4SYjoBDaHBxKhVyB7ILQKOz83nNBUiJLX49o0Btgc
+ fZuotXdPnRy2cZwvhK9lRCkmlAf2NwGSdjen2kGVjbt7/MEKBXkoiMiZfKgX+FJ9na3k
+ ddnz45gFo3MhmezVeR0K/LfVKdfWktWNeuNB0g2QEvZLUjEqX/pcPEUoFe+tSZYtU1y7
+ pCzg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=bjUr6MGV3U2zzmMZUFw98rgTx4QpGsGZjMQDA4j0k88=;
+ fh=k88/jsi9NoGSTnxjnBZPrvQrNZ6qpoPwEZ6Nygp8cZ4=;
+ b=krQssGJHmyinFerIdDAx/XiBbr8z4Ts1cjop5coxI23yEfBRxfEza1PXRJxT/5DZqW
+ tNa9p7i415XSyyRFSUwfW4PKshVNJnoTupi2eYKzPEi+Il7rzofqns4bMnD7k37mV3hY
+ sh/fJFfgFocUb4U3K1gR+TRDn/5nc4+AYc2P5bVE9IYsQsYocYfykGnhriUFgUR8n3CP
+ xBRv62ztsmB9PtiIgmSMDP0rEeneBN364hy80fmpHeulfek74WpJjOCsuCrkmcii/YJf
+ fugff870o+5uS5cuuw8tOq0UaoMrTvtweIrQ/zDxUDmA3o2H+l95nGojeFnU0DnQxSzj
+ b+0Q==; darn=lists.ubuntu.com
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1773908606; x=1774513406; darn=lists.ubuntu.com;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=bjUr6MGV3U2zzmMZUFw98rgTx4QpGsGZjMQDA4j0k88=;
+ b=M2FOTiVXx9+uBtrgLEowratiDthctt8ew/X88lruw/0ur4KSOqo0ujW6hpNPurkASF
+ h0yiL+QC7TOrbRoUstyJkJiQIP8W7KkWLFOLCYUhcMWA6a+2WJtldsGi8zjTIFVL44Iy
+ j2YV4RU5iPr+24jrMvHSqE8PlEr4++0CaSxNyM2gQMcGJBHLSXlU5YdGn6oRrJKpQMYJ
+ 79xSexUNhEearRBkHEZB+o1XReZJ8T58lc5Yos6a5JOXRKdBDsOJKADFYQzkMlhxfByl
+ eLvvuorkJ96Idp8RIDkLx6gJ61F/1qjEarNeaPwNo2uUeA0lCMIgZloo4Gx2FnztO7Tn
+ r/Zg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773908606; x=1774513406;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=bjUr6MGV3U2zzmMZUFw98rgTx4QpGsGZjMQDA4j0k88=;
+ b=q5+iTOWDX5QxUaFog4XvqAVK0El5+o1jzXDkyq6tIJIkPYKb4PgjP+MSbcimPP7WAJ
+ lR4tn9Q5P7q2OQLPe/zKXUJYT1UZq8FEyfdfnM1itOZrgfNBTqLmZ+lU2WLpzOu47Sr5
+ tdpFkXDWRilN0cTt5LtYn1jGroXdubz3qJdK7hpy8heZg5AdwFqtMmrcgEL6RpdoJgRO
+ nYBhSv+hYmyMyu4eM9A0iGeKZ1OG12COkJNwILT3e4jX2/eFq8HaCrQTixxCwrFFmPR0
+ oe+yuQ/H6OQpdwDRnlT6dOk63qmDnVa46esrDehhCal0ipTkzD0UNfvO5K+U4dCDVMGZ
+ wyPw==
+X-Gm-Message-State: AOJu0YxuK7VurdEQxLrdngzoeZRjKRHCA9/CivF/w34agp3Bavw57B8F
+ Vu62OZ2ooSxlQ8SCe7l/Ebi4NxO/fR6VoXdhtxtfaZTM0gAUZvBPP17NMuybRe6SF87+NixE2fm
+ SW6NP3Yf9rGnAhp1CASSX/QW6YUwb9knTBLjw
+X-Gm-Gg: ATEYQzxTwdk865VSWwsUmvyVkJ4nQXFoUxaPV9J6FbrsRfs7OeQ8OFIyvRV0MU9jst/
+ cWrkNlmgJ1LjIwt3tJ7JCwTzYcAfzZtq5NdP1PlDnZ1vO3xDSjLLeFQbqfuSQwk1wbrGNWvLG9P
+ 5xqdUG11iNVstaDUegPT+YR/iETgsSzjndJ3gbUDes9vEYwvjPQxwmu5KeRnu/4OlBCBI+B60Yq
+ mWt4enIgQpb9lNxSREoA7mLbCICqpsghkxUbI+ou+9cnjlCqEdDzZAXDpkyOWY7y4Nu+ymHW7kU
+ CuA0
+X-Received: by 2002:a17:907:e11c:b0:b97:73ae:e2e with SMTP id
+ a640c23a62f3a-b980f9e248amr87553266b.18.1773908605574; Thu, 19 Mar 2026
+ 01:23:25 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260319062433.17648-1-daniel@quora.org>
-Received-SPF: pass client-ip=172.234.252.31;
- envelope-from=gregkh@linuxfoundation.org; helo=sea.source.kernel.org
-Subject: Re: [apparmor] [PATCH] apparmor: Fix string overrun due to missing
-	termination
+References: <20260210172159.535137-1-mpellizzer.dev@gmail.com>
+ <779f2d5b-a5af-4137-a1ee-78dc9fed58e1@canonical.com>
+In-Reply-To: <779f2d5b-a5af-4137-a1ee-78dc9fed58e1@canonical.com>
+From: Massimiliano Pellizzer <mpellizzer.dev@gmail.com>
+Date: Thu, 19 Mar 2026 09:23:14 +0100
+X-Gm-Features: AaiRm504G9ed9x5jw35d17aQJhgfrKxgvqcsFzi0qAVz3Org6Ozme7GafH5FEhk
+Message-ID: <CALUEkOc7n60MdBpA_hF5Uvhwxs+ABjn=fWrzUg1s95p8wAgWWg@mail.gmail.com>
+To: John Johansen <john.johansen@canonical.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=209.85.208.44;
+ envelope-from=mpellizzer.dev@gmail.com; helo=mail-ed1-f44.google.com
+Subject: Re: [apparmor] [PATCH] apparmor: fix incorrect success return value
+	in unpack_tag_headers()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -53,169 +103,100 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Paul Moore <paul@paul-moore.com>, apparmor@lists.ubuntu.com,
- James Morris <jmorris@namei.org>, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
- Thorsten Blum <thorsten.blum@linux.dev>, "Serge E. Hallyn" <serge@hallyn.com>
+Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
+ linux-kernel@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Spamd-Result: default: False [4.69 / 15.00];
-	MID_END_EQ_FROM_USER_PART(4.00)[];
-	R_DKIM_REJECT(1.00)[linuxfoundation.org:s=korg];
-	MID_RHS_NOT_FQDN(0.50)[];
+X-Spamd-Result: default: False [1.19 / 15.00];
+	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:google.com:reject}];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[linuxfoundation.org : SPF not aligned (relaxed),none];
+	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:daniel@quora.org,m:paul@paul-moore.com,m:apparmor@lists.ubuntu.com,m:jmorris@namei.org,m:stable@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-security-module@vger.kernel.org,m:thorsten.blum@linux.dev,m:serge@hallyn.com,s:lists@lfdr.de];
-	RCVD_COUNT_THREE(0.00)[4];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
+	TAGGED_FROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	FORGED_RECIPIENTS(0.00)[m:john.johansen@canonical.com,m:linux-security-module@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:linux-kernel@vger.kernel.org,s:lists@lfdr.de];
 	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	GREYLIST(0.00)[pass,meta];
-	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
-	ARC_NA(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER(0.00)[gregkh@linuxfoundation.org,apparmor-bounces@lists.ubuntu.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[mpellizzerdev@gmail.com,apparmor-bounces@lists.ubuntu.com];
+	DKIM_TRACE(0.00)[gmail.com:-];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[gregkh@linuxfoundation.org,apparmor-bounces@lists.ubuntu.com];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[linuxfoundation.org:-];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_SPAM(0.00)[0.124];
-	TAGGED_RCPT(0.00)[apparmor];
-	MISSING_XM_UA(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[mpellizzerdev@gmail.com,apparmor-bounces@lists.ubuntu.com];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns,quora.org:email]
-X-Rspamd-Queue-Id: 456732C6E6A
+	RCPT_COUNT_THREE(0.00)[4];
+	TAGGED_RCPT(0.00)[apparmor];
+	NEURAL_SPAM(0.00)[0.772];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gitlab.com:url,canonical.com:email,mail.gmail.com:mid]
+X-Rspamd-Queue-Id: 68B4C2C7D17
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Thu, Mar 19, 2026 at 02:24:32PM +0800, Daniel J Blueman wrote:
-> When booting Ubuntu 26.04 with Linux 7.0-rc4 on an ARM64 Qualcomm
-> Snapdragon X1 we see a string buffer overrun:
-> 
-> BUG: KASAN: slab-out-of-bounds in aa_dfa_match (security/apparmor/match.c:535)
-> Read of size 1 at addr ffff0008901cc000 by task snap-update-ns/2120
-> 
-> CPU: 5 UID: 60578 PID: 2120 Comm: snap-update-ns Not tainted 7.0.0-rc4+ #22 PREEMPTLAZY
-> Hardware name: LENOVO 83ED/LNVNB161216, BIOS NHCN60WW 09/11/2025
-> Call trace:
-> show_stack (arch/arm64/kernel/stacktrace.c:501) (C)
-> dump_stack_lvl (lib/dump_stack.c:122)
-> print_report (mm/kasan/report.c:379 mm/kasan/report.c:482)
-> kasan_report (mm/kasan/report.c:597)
-> __asan_report_load1_noabort (mm/kasan/report_generic.c:378)
-> aa_dfa_match (security/apparmor/match.c:535)
-> match_mnt_path_str (security/apparmor/mount.c:244 security/apparmor/mount.c:336)
-> match_mnt (security/apparmor/mount.c:371)
-> aa_bind_mount (security/apparmor/mount.c:447 (discriminator 4))
-> apparmor_sb_mount (security/apparmor/lsm.c:719 (discriminator 1))
-> security_sb_mount (security/security.c:1062 (discriminator 31))
-> path_mount (fs/namespace.c:4101)
-> __arm64_sys_mount (fs/namespace.c:4172 fs/namespace.c:4361 fs/namespace.c:4338 fs/namespace.c:4338)
-> invoke_syscall.constprop.0 (arch/arm64/kernel/syscall.c:35 arch/arm64/kernel/syscall.c:49)
-> el0_svc_common.constprop.0 (./include/linux/thread_info.h:142 (discriminator 2) arch/arm64/kernel/syscall.c:140 (discriminator 2))
-> do_el0_svc (arch/arm64/kernel/syscall.c:152)
-> el0_svc (arch/arm64/kernel/entry-common.c:80 arch/arm64/kernel/entry-common.c:725)
-> el0t_64_sync_handler (arch/arm64/kernel/entry-common.c:744)
-> el0t_64_sync (arch/arm64/kernel/entry.S:596)
-> 
-> Allocated by task 2120:
-> kasan_save_stack (mm/kasan/common.c:58)
-> kasan_save_track (./arch/arm64/include/asm/current.h:19 mm/kasan/common.c:70 mm/kasan/common.c:79)
-> kasan_save_alloc_info (mm/kasan/generic.c:571)
-> __kasan_kmalloc (mm/kasan/common.c:419)
-> __kmalloc_noprof (./include/linux/kasan.h:263 mm/slub.c:5260 mm/slub.c:5272)
-> aa_get_buffer (security/apparmor/lsm.c:2201)
-> aa_bind_mount (security/apparmor/mount.c:442)
-> apparmor_sb_mount (security/apparmor/lsm.c:719 (discriminator 1))
-> security_sb_mount (security/security.c:1062 (discriminator 31))
-> path_mount (fs/namespace.c:4101)
-> __arm64_sys_mount (fs/namespace.c:4172 fs/namespace.c:4361 fs/namespace.c:4338 fs/namespace.c:4338)
-> invoke_syscall.constprop.0 (arch/arm64/kernel/syscall.c:35 arch/arm64/kernel/syscall.c:49)
-> el0_svc_common.constprop.0 (./include/linux/thread_info.h:142 (discriminator 2) arch/arm64/kernel/syscall.c:140 (discriminator 2))
-> do_el0_svc (arch/arm64/kernel/syscall.c:152)
-> el0_svc (arch/arm64/kernel/entry-common.c:80 arch/arm64/kernel/entry-common.c:725)
-> el0t_64_sync_handler (arch/arm64/kernel/entry-common.c:744)
-> el0t_64_sync (arch/arm64/kernel/entry.S:596)
-> 
-> The buggy address belongs to the object at ffff0008901ca000
-> which belongs to the cache kmalloc-rnd-06-8k of size 8192
-> The buggy address is located 0 bytes to the right of
-> allocated 8192-byte region [ffff0008901ca000, ffff0008901cc000)
-> 
-> The buggy address belongs to the physical page:
-> page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x9101c8
-> head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:-1 pincount:0
-> flags: 0x8000000000000040(head|zone=2)
-> page_type: f5(slab)
-> raw: 8000000000000040 ffff000800016c40 fffffdffe2d14e10 ffff000800015c70
-> raw: 0000000000000000 0000000800010001 00000000f5000000 0000000000000000
-> head: 8000000000000040 ffff000800016c40 fffffdffe2d14e10 ffff000800015c70
-> head: 0000000000000000 0000000800010001 00000000f5000000 0000000000000000
-> head: 8000000000000003 fffffdffe2407201 fffffdffffffffff 00000000ffffffff
-> head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000008
-> page dumped because: kasan: bad access detected
-> 
-> Memory state around the buggy address:
-> ffff0008901cbf00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> ffff0008901cbf80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> >ffff0008901cc000: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-> ^
-> ffff0008901cc080: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-> ffff0008901cc100: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-> 
-> This was introduced by previous incorrect conversion from strcpy(). Fix it
-> by adding the missing terminator.
-> 
-> Signed-off-by: Daniel J Blueman <daniel@quora.org>
-> Fixes: 93d4dbdc8da0 ("apparmor: Replace deprecated strcpy in d_namespace_path")
-> ---
->  security/apparmor/path.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
-> 
-> diff --git a/security/apparmor/path.c b/security/apparmor/path.c
-> index 65a0ca5cc1bd..2494e8101538 100644
-> --- a/security/apparmor/path.c
-> +++ b/security/apparmor/path.c
-> @@ -164,14 +164,16 @@ static int d_namespace_path(const struct path *path, char *buf, char **name,
->  	}
->  
->  out:
-> -	/* Append "/" to directory paths, except for root "/" which
-> -	 * already ends in a slash.
-> +	/* Append "/" to directory paths and reterminate string, except for
-> +	 * root "/" which already ends in a slash.
->  	 */
->  	if (!error && isdir) {
->  		bool is_root = (*name)[0] == '/' && (*name)[1] == '\0';
->  
-> -		if (!is_root)
-> +		if (!is_root) {
->  			buf[aa_g_path_max - 2] = '/';
-> +			buf[aa_g_path_max - 1] = '\0';
-> +		}
->  	}
->  
->  	return error;
-> -- 
-> 2.53.0
-> 
-> 
+On Wed, Mar 18, 2026 at 6:53=E2=80=AFAM John Johansen
+<john.johansen@canonical.com> wrote:
+>
+> On 2/10/26 09:21, Massimiliano Pellizzer wrote:
+> > unpack_tag_headers() returns `true` (1) on success instead of 0.
+> > Since it's caller unpack_tags() checks the return value with
+> > `if (error)`, a non-zero success value is incorrectly treated as
+> > a failure, causing tag header unpacking to always even if the data
+> > is well-formed.
+> >
+> > Change the success return in unpack_tag_headers() from `true` to 0.
+> >
+> > Fixes: 3d28e2397af7 ("apparmor: add support loading per permission tagg=
+ing")
+> > Signed-off-by: Massimiliano Pellizzer <mpellizzer.dev@gmail.com>
+>
+> sorry, my reply to this seems to have failed. This was pulled in for the
+> 7.0 PR
+>
+> Acked-by: John Johansen <john.johansen@canonical.com>
+>
+>
+> > ---
+> >   security/apparmor/policy_unpack.c | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/poli=
+cy_unpack.c
+> > index dc908e1f5a88..221208788025 100644
+> > --- a/security/apparmor/policy_unpack.c
+> > +++ b/security/apparmor/policy_unpack.c
+> > @@ -825,7 +825,7 @@ static int unpack_tag_headers(struct aa_ext *e, str=
+uct aa_tags_struct *tags)
+> >       tags->hdrs.size =3D size;
+> >       tags->hdrs.table =3D hdrs;
+> >       AA_DEBUG(DEBUG_UNPACK, "headers %ld size %d", (long) hdrs, size);
+> > -     return true;
+> > +     return 0;
+> >
+> >   fail:
+> >       kfree_sensitive(hdrs);
+>
 
-<formletter>
+Hello JJ,
+I don't see this patch being part of v7.0-rc4:
+$ git --no-pager log --grep "apparmor: fix incorrect success return
+value in unpack"
 
-This is not the correct way to submit patches for inclusion in the
-stable kernel tree.  Please read:
-    https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
-for how to do this properly.
+I don't see the change applied to the apparmor-next branch either
+(https://gitlab.com/apparmor/apparmor-kernel/-/blob/apparmor-next/security/=
+apparmor/policy_unpack.c).
 
-</formletter>
+---
+Massimiliano Pellizzer
 
