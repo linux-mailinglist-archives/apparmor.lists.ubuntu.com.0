@@ -2,50 +2,50 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 2LFEDoZEvGmAwAIAu9opvQ
+	id 4FppEGCVvmnYTgMAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Thu, 19 Mar 2026 19:46:30 +0100
+	for <lists+apparmor@lfdr.de>; Sat, 21 Mar 2026 13:56:00 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB7572D1409
-	for <lists+apparmor@lfdr.de>; Thu, 19 Mar 2026 19:46:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40F4C2E55FB
+	for <lists+apparmor@lfdr.de>; Sat, 21 Mar 2026 13:55:59 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1w3INw-0000rS-4K; Thu, 19 Mar 2026 18:46:20 +0000
-Received: from mail.cboltz.de ([65.21.65.108])
+	id 1w3vri-0006uU-29; Sat, 21 Mar 2026 12:55:42 +0000
+Received: from www262.sakura.ne.jp ([202.181.97.72])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <apparmor@cboltz.de>)
- id 1w3INu-0000q3-Ep
- for apparmor@lists.ubuntu.com; Thu, 19 Mar 2026 18:46:18 +0000
-X-sprachakt.com-SMTP-Auth: no
-Received: from localhost (localhost [127.0.0.1])
- by mail.cboltz.de (Postfix) with ESMTP id 8A6DD3E2A299;
- Thu, 19 Mar 2026 19:46:17 +0100 (CET)
-X-Virus-Scanned: amavisd-new at mail.cboltz.de
-Received: from mail.cboltz.de ([127.0.0.1])
- by localhost (mail.cboltz.de [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id Zx6QjqtiOLKT; Thu, 19 Mar 2026 19:46:17 +0100 (CET)
-Received: from home.cboltz.de (unknown [10.10.0.6])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (Client did not present a certificate)
- by mail.cboltz.de (Postfix) with ESMTPSA;
- Thu, 19 Mar 2026 19:46:17 +0100 (CET)
-From: Christian Boltz <apparmor@cboltz.de>
-To: apparmor@lists.ubuntu.com
-Date: Thu, 19 Mar 2026 19:46:13 +0100
-Message-ID: <2336310.vFx2qVVIhK@tux.boltz.de.vu>
-In-Reply-To: <CAM3NJSLjedYiA=NA=fBFHdX_x7v1AuRwii3f8v8zh-iUAFh_bw@mail.gmail.com>
-References: <CAM3NJSLjedYiA=NA=fBFHdX_x7v1AuRwii3f8v8zh-iUAFh_bw@mail.gmail.com>
+ (Exim 4.86_2) (envelope-from <penguin-kernel@I-love.SAKURA.ne.jp>)
+ id 1w3vrf-0006th-FZ
+ for apparmor@lists.ubuntu.com; Sat, 21 Mar 2026 12:55:39 +0000
+Received: from www262.sakura.ne.jp (localhost [127.0.0.1])
+ by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 62LCseeN068067;
+ Sat, 21 Mar 2026 21:54:40 +0900 (JST)
+ (envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
+Received: from [192.168.1.2] (M106072072000.v4.enabler.ne.jp [106.72.72.0])
+ (authenticated bits=0)
+ by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 62LCseWX068062
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO);
+ Sat, 21 Mar 2026 21:54:40 +0900 (JST)
+ (envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
+Message-ID: <b720f521-e930-4f35-9505-1bfdf9e2818c@I-love.SAKURA.ne.jp>
+Date: Sat, 21 Mar 2026 21:54:39 +0900
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPart2777028.lGaqSPkdTl";
- micalg="pgp-sha256"; protocol="application/pgp-signature"
-X-Face: #?nL0}JpqNtLQy@q#bRm?B?pGS8[mx6r.6[91zp@*2DZ?18)haWs5wgvi, ,
- wF/JWMTUh+6x, b7_`pW3)m~0606sDW0&'EKA}_-W+)Bz~d]k>4E9TyU}k@b&1=%yk\
-Received-SPF: pass client-ip=65.21.65.108; envelope-from=apparmor@cboltz.de;
- helo=mail.cboltz.de
-Subject: Re: [apparmor] question about profile name when it is a symlink
+User-Agent: Mozilla Thunderbird
+To: Song Liu <song@kernel.org>, viro@zeniv.linux.org.uk
+References: <20260318184400.3502908-1-song@kernel.org>
+ <20260318184400.3502908-7-song@kernel.org>
+Content-Language: en-US
+From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+In-Reply-To: <20260318184400.3502908-7-song@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Virus-Status: clean
+X-Anti-Virus-Server: fsav201.rs.sakura.ne.jp
+Received-SPF: pass client-ip=202.181.97.72;
+ envelope-from=penguin-kernel@I-love.SAKURA.ne.jp; helo=www262.sakura.ne.jp
+Subject: Re: [apparmor] [PATCH 6/7] tomoyo: Convert from sb_mount to
+	granular mount hooks
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -57,107 +57,89 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Martin =?UTF-8?B?RnLDqXRpZ27DqQ==?= <martin.fretigne@gmail.com>
+Cc: herton@canonical.com, brauner@kernel.org, jack@suse.cz, paul@paul-moore.com,
+ selinux@vger.kernel.org, stephen.smalley.work@gmail.com, kernel-team@meta.com,
+ apparmor@lists.ubuntu.com, jmorris@namei.org, omosnace@redhat.com,
+ linux-fsdevel@vger.kernel.org, linux-security-module@vger.kernel.org,
+ gnoack@google.com, mic@digikod.net, takedakn@nttdata.co.jp, serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Spamd-Result: default: False [-3.01 / 15.00];
-	SIGNED_PGP(-2.00)[];
+X-Spamd-Result: default: False [0.59 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
 	MAILLIST(-0.20)[mailman];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:song@kernel.org,m:viro@zeniv.linux.org.uk,m:herton@canonical.com,m:brauner@kernel.org,m:jack@suse.cz,m:paul@paul-moore.com,m:selinux@vger.kernel.org,m:stephen.smalley.work@gmail.com,m:kernel-team@meta.com,m:apparmor@lists.ubuntu.com,m:jmorris@namei.org,m:omosnace@redhat.com,m:linux-fsdevel@vger.kernel.org,m:linux-security-module@vger.kernel.org,m:gnoack@google.com,m:mic@digikod.net,m:takedakn@nttdata.co.jp,m:serge@hallyn.com,m:stephensmalleywork@gmail.com,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
-	RCPT_COUNT_TWO(0.00)[2];
-	FREEMAIL_CC(0.00)[gmail.com];
-	DMARC_NA(0.00)[cboltz.de];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER(0.00)[penguin-kernel@I-love.SAKURA.ne.jp,apparmor-bounces@lists.ubuntu.com];
+	RCPT_COUNT_TWELVE(0.00)[18];
+	DMARC_NA(0.00)[i-love.sakura.ne.jp];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
+	FREEMAIL_CC(0.00)[canonical.com,kernel.org,suse.cz,paul-moore.com,vger.kernel.org,gmail.com,meta.com,lists.ubuntu.com,namei.org,redhat.com,google.com,digikod.net,nttdata.co.jp,hallyn.com];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FROM_NEQ_ENVFROM(0.00)[apparmor@cboltz.de,apparmor-bounces@lists.ubuntu.com];
-	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	NEURAL_HAM(-0.00)[-0.696];
-	TAGGED_RCPT(0.00)[apparmor];
-	R_DKIM_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns,tux.boltz.de.vu:mid]
-X-Rspamd-Queue-Id: DB7572D1409
+	FROM_NEQ_ENVFROM(0.00)[penguin-kernel@I-love.SAKURA.ne.jp,apparmor-bounces@lists.ubuntu.com];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	R_DKIM_NA(0.00)[];
+	TAGGED_RCPT(0.00)[apparmor];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns]
+X-Rspamd-Queue-Id: 40F4C2E55FB
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
---nextPart2777028.lGaqSPkdTl
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Christian Boltz <apparmor@cboltz.de>
-To: apparmor@lists.ubuntu.com
-Cc: Martin =?UTF-8?B?RnLDqXRpZ27DqQ==?= <martin.fretigne@gmail.com>
-Date: Thu, 19 Mar 2026 19:46:13 +0100
-Message-ID: <2336310.vFx2qVVIhK@tux.boltz.de.vu>
-MIME-Version: 1.0
+On 2026/03/19 3:43, Song Liu wrote:
+> Replace tomoyo_sb_mount() with granular mount hooks. Each hook
+> reconstructs the MS_* flags expected by tomoyo_mount_permission()
+> using the original flags parameter where available.
+> 
+> Key changes:
+> - mount_bind: passes the pre-resolved source path to
+>   tomoyo_mount_acl() via a new dev_path parameter, instead of
+>   re-resolving dev_name via kern_path(). This eliminates a TOCTOU
+>   vulnerability.
+> - mount_new, mount_remount, mount_reconfigure: use the original
+>   mount(2) flags for policy matching.
+> - mount_move: passes pre-resolved paths for both source and
+>   destination.
+> - mount_change_type: passes raw ms_flags directly.
+> 
+> Also removes the unused data_page parameter from
+> tomoyo_mount_permission().
+> 
+> Code generated with the assistance of Claude, reviewed by human.
+> 
+> Signed-off-by: Song Liu <song@kernel.org>
 
-Hello,
+Basically OK. One question to Al Viro.
 
-Am Donnerstag, 19. M=C3=A4rz 2026, 12:10 schrieb Martin Fr=C3=A9tign=C3=A9:
-> I'm currently trying to set up an apparmor profile for ntp on my
-> system. There is a profile for /usr/sbin/ntpd. However, on my system
-> /usr/sbin/ntpd is a symlink to /usr/bin/ntpd.ntp (the real
-> executable, it is symlinked by update-alternatives). Hence the
-> profile is not active.
->=20
-> I could change the profile name to /usr/sbin/ntpd.ntp, but is it the
-> right way or is there another ?
+Do you still refuse the idea of resolving dev_path argument before calling LSM hooks
+(the proposal you NAKed at https://lkml.kernel.org/r/20250709102410.GU1880847@ZenIV )
+despite this series removes security_sb_mount() and security_move_mount() hooks?
 
-Yes, this is the right way.
+> diff --git a/security/tomoyo/mount.c b/security/tomoyo/mount.c
+> index 322dfd188ada..82ffe7d02814 100644
+> --- a/security/tomoyo/mount.c
+> +++ b/security/tomoyo/mount.c
+> @@ -70,6 +70,7 @@ static bool tomoyo_check_mount_acl(struct tomoyo_request_info *r,
+>   * @dir:      Pointer to "struct path".
+>   * @type:     Name of filesystem type.
+>   * @flags:    Mount options.
+> + * @dev_path: Pre-resolved device/source path. Maybe NULL.
 
-You can also change the profile to   /usr/bin/ntpd{,.ntp}   so that it=20
-covers both filenames - just in case that the symlink becomes a real file=20
-one day.
-
-And since this will look ugly in your audit.log, you can (and should)=20
-give the profile a name:
-
-    profile ntpd /usr/bin/ntpd{,.ntp} {
-
-
-Regards,
-
-Christian Boltz
-=2D-=20
-if this crashes as well, make sure to create a bnc entry, add a
-backtrace, a copy of your sysconfig/proxy file and some cheese (Want
-to make a fondue). [Dominique Leuenberger in opensuse-factory]
-
---nextPart2777028.lGaqSPkdTl
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEcMqgYN4EKq6xsVGWxqaC6mPILxwFAmm8RHUbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEMamgupjyC8c0iwP/1pRIYWsEsZZ22k06NPZ
-tZ5LesuPtlmh+lLTEMoEKOV0CQCJHryBjn5bsEyOTRqKTVfiRVKEt1XRBIhl5dND
-Hq6bbGgO6b12mztXbcOi729I2oH9NejhL5RMrztF4z53dvACzxQ0iZd9Em1n9e15
-SKh6MTm5ZmNffSabER0Ap+6xe1DuKvhRQ2lbsmxIjd/1xeoICmP2TUFrSdKkuQCp
-QwQe0DCxXQqXxMkZuYCeJ58lWGUBr4nK4qSHmzuM9EFfx4F9q6KknNyEcTkI8jN1
-9l0regSdUCULEg3qOgwqN1ySGWWf4srohSOE7ZgW5W5o/fSXhU93tTNPTATF1Gp5
-50olLaK8nB87zBBZh8eBk0ZI/XaE9RidiBjMvOQvhjV+MOuI+WjmH0HNu2p/mT/b
-DUhRXbScGwbwq0A1n36bufkGfZ7Pn3vJUOh/2ifN8hcdj0o4yMBx2g8X3LykyXy2
-nwgKhauZAZ+fpCE4OK3srWe0+D0es92tOxMIWRFlP1ClQP5249riFFn9DpPW+mim
-FHtPMNB0fg72Q0Jj5eJRXLjgHTzIZYodbvSe2JuWMRGJwcZVVrOXB7f/QsOPKG5t
-MXRJwV9t09DUzJwhrIioD8uKThH2k36hDmyad5sfqbqCJjybtnxWhDEbiLl7sdM9
-Y2+OwDkL0epXMd2GMycBoRWd
-=CnWP
------END PGP SIGNATURE-----
-
---nextPart2777028.lGaqSPkdTl--
-
-
+I guess that we can avoid passing maybe-NULL dev_name if Al Viro can accept
+resolving maybe-NULL dev_path argument before calling LSM hooks.
 
 
