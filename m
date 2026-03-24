@@ -2,62 +2,57 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gPh6JejEwWlTWQQAu9opvQ
+	id cE3YGXArwml5ZwQAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Mon, 23 Mar 2026 23:55:36 +0100
+	for <lists+apparmor@lfdr.de>; Tue, 24 Mar 2026 07:13:04 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74C9F2FE9FC
-	for <lists+apparmor@lfdr.de>; Mon, 23 Mar 2026 23:55:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 744D8302A92
+	for <lists+apparmor@lfdr.de>; Tue, 24 Mar 2026 07:13:03 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1w4oBD-0005Jz-R7; Mon, 23 Mar 2026 22:55:27 +0000
-Received: from mgamail.intel.com ([198.175.65.19])
+	id 1w4v0V-0008Vy-Q8; Tue, 24 Mar 2026 06:12:51 +0000
+Received: from www262.sakura.ne.jp ([202.181.97.72])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <lkp@intel.com>) id 1w4oBC-0005Ig-EP
- for apparmor@lists.ubuntu.com; Mon, 23 Mar 2026 22:55:26 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774306526; x=1805842526;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=obUpamcW4SXV1lZNedXwbRTWMDTBANY2dB2b8QgkLJU=;
- b=dp+sAUI63nd1Vqlpcau4aorWa5DI8osw2VjksE2BkUiQooJfqgn8BTjb
- gODCJhit+6eqJJuvWsD7HuaKms3aATcYFP4gQEBAOG77k+VoblR5AkcNG
- 6XhBrOkxp4dbYmcgFBdcjBOdq8RsrdsDubH/KIvt4wXYn9KBWwwhOmk5O
- e6Pc5KAgr3QEzgw2Bha6HYIQ71YKQfchLAm7OpHnvFK2Atd3ePzWe4G1I
- u2AY/cK4mmlxLK58Y3SdqlsQO5Xnu1WXp/BXo49j/pLGrPL3I8H18XaY8
- 2EE8g+GYCx4sbV4yzNd/aXkqd04BALl0OnU681ORBufGzbvP0aSKM+beJ Q==;
-X-CSE-ConnectionGUID: kL//T67MS2KUEP2sJzlOfA==
-X-CSE-MsgGUID: mnjoNKlFSOaTesaCKGsgzw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11738"; a="75200038"
-X-IronPort-AV: E=Sophos;i="6.23,138,1770624000"; d="scan'208";a="75200038"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2026 15:55:24 -0700
-X-CSE-ConnectionGUID: rwro3G/aSRygcqgDcCEPkQ==
-X-CSE-MsgGUID: ZTQtoYOrRMipHeEYtZ4Geg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,138,1770624000"; d="scan'208";a="228902325"
-Received: from lkp-server01.sh.intel.com (HELO 3905d212be1b) ([10.239.97.150])
- by fmviesa005.fm.intel.com with ESMTP; 23 Mar 2026 15:55:20 -0700
-Received: from kbuild by 3905d212be1b with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1w4oB3-000000003MX-1jgX;
- Mon, 23 Mar 2026 22:55:17 +0000
-Date: Tue, 24 Mar 2026 06:55:04 +0800
-From: kernel test robot <lkp@intel.com>
-To: David Howells <dhowells@redhat.com>, netdev@vger.kernel.org
-Message-ID: <202603240650.DP6vwmk9-lkp@intel.com>
-References: <20260323150505.3513839-5-dhowells@redhat.com>
+ (Exim 4.86_2) (envelope-from <penguin-kernel@I-love.SAKURA.ne.jp>)
+ id 1w4v0U-0008Vc-KV
+ for apparmor@lists.ubuntu.com; Tue, 24 Mar 2026 06:12:51 +0000
+Received: from www262.sakura.ne.jp (localhost [127.0.0.1])
+ by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 62O6C6MJ020335;
+ Tue, 24 Mar 2026 15:12:06 +0900 (JST)
+ (envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
+Received: from [192.168.1.2] (M106072072000.v4.enabler.ne.jp [106.72.72.0])
+ (authenticated bits=0)
+ by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 62O6C6wv020332
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO);
+ Tue, 24 Mar 2026 15:12:06 +0900 (JST)
+ (envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
+Message-ID: <6609e11e-90aa-4021-974e-e9937688dd49@I-love.SAKURA.ne.jp>
+Date: Tue, 24 Mar 2026 15:12:08 +0900
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260323150505.3513839-5-dhowells@redhat.com>
-Received-SPF: pass client-ip=198.175.65.19; envelope-from=lkp@intel.com;
- helo=mgamail.intel.com
-Subject: Re: [apparmor] [PATCH net v2 04/10] list: Move on_list_rcu() to
- list.h and add on_list() also
+User-Agent: Mozilla Thunderbird
+From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+To: Song Liu <songliubraving@meta.com>
+References: <20260318184400.3502908-1-song@kernel.org>
+ <20260318184400.3502908-7-song@kernel.org>
+ <b720f521-e930-4f35-9505-1bfdf9e2818c@I-love.SAKURA.ne.jp>
+ <4DF5C4A8-7C92-4F76-9B34-2262089E7289@meta.com>
+ <33abcf34-13e2-4a37-83f3-78bb27ecbc11@I-love.SAKURA.ne.jp>
+ <F0A0D13E-8208-49A4-9AC6-89AC4BF3F4FB@meta.com>
+ <20260323-klappen-atemschutz-7a0af8c6b087@brauner>
+ <714a614b-cfb4-4b20-af8c-df3cc56dfb92@I-love.SAKURA.ne.jp>
+ <CAAeYb7k+TWArOKyOomkLZ8fwqUPjha9iORpJaj4nMyN=o4ZRQg@mail.gmail.com>
+Content-Language: en-US
+In-Reply-To: <CAAeYb7k+TWArOKyOomkLZ8fwqUPjha9iORpJaj4nMyN=o4ZRQg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Anti-Virus-Server: fsav305.rs.sakura.ne.jp
+X-Virus-Status: clean
+Received-SPF: pass client-ip=202.181.97.72;
+ envelope-from=penguin-kernel@I-love.SAKURA.ne.jp; helo=www262.sakura.ne.jp
+Subject: Re: [apparmor] [PATCH 6/7] tomoyo: Convert from sb_mount to
+	granular mount hooks
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -69,103 +64,324 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: apparmor@lists.ubuntu.com, linux-kernel@vger.kernel.org, stable@kernel.org,
- David Howells <dhowells@redhat.com>, Eric Dumazet <edumazet@google.com>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Simon Horman <horms@kernel.org>, oe-kbuild-all@lists.linux.dev,
- Marc Dionne <marc.dionne@auristor.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, linux-afs@lists.infradead.org
+Cc: "herton@canonical.com" <herton@canonical.com>,
+ Christian Brauner <brauner@kernel.org>, "jack@suse.cz" <jack@suse.cz>,
+ "paul@paul-moore.com" <paul@paul-moore.com>,
+ "selinux@vger.kernel.org" <selinux@vger.kernel.org>,
+ "stephen.smalley.work@gmail.com" <stephen.smalley.work@gmail.com>,
+ Kernel Team <kernel-team@meta.com>,
+ "apparmor@lists.ubuntu.com" <apparmor@lists.ubuntu.com>,
+ "jmorris@namei.org" <jmorris@namei.org>,
+ "omosnace@redhat.com" <omosnace@redhat.com>, Song Liu <song@kernel.org>,
+ "linux-security-module@vger.kernel.org"
+ <linux-security-module@vger.kernel.org>,
+ "viro@zeniv.linux.org.uk" <viro@zeniv.linux.org.uk>,
+ "gnoack@google.com" <gnoack@google.com>, "mic@digikod.net" <mic@digikod.net>,
+ "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+ "takedakn@nttdata.co.jp" <takedakn@nttdata.co.jp>,
+ "serge@hallyn.com" <serge@hallyn.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Spamd-Result: default: False [1.19 / 15.00];
-	R_DKIM_REJECT(1.00)[intel.com:s=Intel];
-	MID_CONTAINS_FROM(1.00)[];
+X-Spamd-Result: default: False [0.59 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[intel.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:songliubraving@meta.com,m:herton@canonical.com,m:brauner@kernel.org,m:jack@suse.cz,m:paul@paul-moore.com,m:selinux@vger.kernel.org,m:stephen.smalley.work@gmail.com,m:kernel-team@meta.com,m:apparmor@lists.ubuntu.com,m:jmorris@namei.org,m:omosnace@redhat.com,m:song@kernel.org,m:linux-security-module@vger.kernel.org,m:viro@zeniv.linux.org.uk,m:gnoack@google.com,m:mic@digikod.net,m:linux-fsdevel@vger.kernel.org,m:takedakn@nttdata.co.jp,m:serge@hallyn.com,m:stephensmalleywork@gmail.com,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[lkp@intel.com,apparmor-bounces@lists.ubuntu.com];
+	DMARC_NA(0.00)[i-love.sakura.ne.jp];
 	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	FORGED_RECIPIENTS(0.00)[m:dhowells@redhat.com,m:netdev@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:linux-kernel@vger.kernel.org,m:stable@kernel.org,m:edumazet@google.com,m:mathieu.desnoyers@efficios.com,m:horms@kernel.org,m:oe-kbuild-all@lists.linux.dev,m:marc.dionne@auristor.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:linux-afs@lists.infradead.org,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
-	DKIM_TRACE(0.00)[intel.com:-];
-	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[19];
+	FORGED_SENDER(0.00)[penguin-kernel@I-love.SAKURA.ne.jp,apparmor-bounces@lists.ubuntu.com];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FREEMAIL_CC(0.00)[canonical.com,kernel.org,suse.cz,paul-moore.com,vger.kernel.org,gmail.com,meta.com,lists.ubuntu.com,namei.org,redhat.com,zeniv.linux.org.uk,google.com,digikod.net,nttdata.co.jp,hallyn.com];
+	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FROM_NEQ_ENVFROM(0.00)[lkp@intel.com,apparmor-bounces@lists.ubuntu.com];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[penguin-kernel@I-love.SAKURA.ne.jp,apparmor-bounces@lists.ubuntu.com];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	R_DKIM_NA(0.00)[];
 	TAGGED_RCPT(0.00)[apparmor];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email,intel.com:mid,01.org:url]
-X-Rspamd-Queue-Id: 74C9F2FE9FC
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns,I-love.SAKURA.ne.jp:mid]
+X-Rspamd-Queue-Id: 744D8302A92
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Hi David,
+On 2026/03/24 4:31, Song Liu wrote:
+>> Then, how can LSM modules know that how the requested filesystem resolves
+>> the dev_name argument, without embedding filesystem specific resolution
+>> logic into individual LSM module?
+> 
+> IIUC, if an LSM cares about the dev_name of a new mount, it will have to look
+> into each individual filesystem. We can add a LSM hook for the filesystems to
+> call. But this will require changes to individual filesystem code. OTOH,
+> dev_name can probably bridge the gap as we change filesystems.
+> 
+> Would this work?
 
-kernel test robot noticed the following build errors:
+I guess something like untested diff shown below would work.
 
-[auto build test ERROR on net/main]
+ block/bdev.c               |   26 ++++++++++++++------------
+ fs/fs_context.c            |    4 ++++
+ fs/namespace.c             |   10 ++++++----
+ fs/super.c                 |    2 +-
+ include/linux/blkdev.h     |   12 +++++++++++-
+ include/linux/fs_context.h |    1 +
+ security/tomoyo/mount.c    |   26 ++------------------------
+ security/tomoyo/tomoyo.c   |    2 +-
+ 8 files changed, 40 insertions(+), 43 deletions(-)
 
-url:    https://github.com/intel-lab-lkp/linux/commits/David-Howells/rxrpc-Fix-key-quota-calculation-for-multitoken-keys/20260323-234846
-base:   net/main
-patch link:    https://lore.kernel.org/r/20260323150505.3513839-5-dhowells%40redhat.com
-patch subject: [PATCH net v2 04/10] list: Move on_list_rcu() to list.h and add on_list() also
-config: arc-randconfig-r071-20260324 (https://download.01.org/0day-ci/archive/20260324/202603240650.DP6vwmk9-lkp@intel.com/config)
-compiler: arc-linux-gcc (GCC) 10.5.0
-smatch: v0.5.0-9004-gb810ac53
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260324/202603240650.DP6vwmk9-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202603240650.DP6vwmk9-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/usb/dwc2/gadget.c:4313:13: error: conflicting types for 'on_list'
-    4313 | static bool on_list(struct dwc2_hsotg_ep *ep, struct dwc2_hsotg_req *test)
-         |             ^~~~~~~
-   In file included from include/linux/module.h:12,
-                    from drivers/usb/dwc2/gadget.c:15:
-   include/linux/list.h:392:20: note: previous definition of 'on_list' was here
-     392 | static inline bool on_list(const struct list_head *entry)
-         |                    ^~~~~~~
-
-
-vim +/on_list +4313 drivers/usb/dwc2/gadget.c
-
-4fe4f9fecc3695 drivers/usb/dwc2/gadget.c      Minas Harutyunyan 2018-12-10  4307  
-5b7d70c6dbf2db drivers/usb/gadget/s3c-hsotg.c Ben Dooks         2009-06-02  4308  /**
-5b7d70c6dbf2db drivers/usb/gadget/s3c-hsotg.c Ben Dooks         2009-06-02  4309   * on_list - check request is on the given endpoint
-5b7d70c6dbf2db drivers/usb/gadget/s3c-hsotg.c Ben Dooks         2009-06-02  4310   * @ep: The endpoint to check.
-5b7d70c6dbf2db drivers/usb/gadget/s3c-hsotg.c Ben Dooks         2009-06-02  4311   * @test: The request to test if it is on the endpoint.
-5b7d70c6dbf2db drivers/usb/gadget/s3c-hsotg.c Ben Dooks         2009-06-02  4312   */
-1f91b4cc03556b drivers/usb/dwc2/gadget.c      Felipe Balbi      2015-08-06 @4313  static bool on_list(struct dwc2_hsotg_ep *ep, struct dwc2_hsotg_req *test)
-5b7d70c6dbf2db drivers/usb/gadget/s3c-hsotg.c Ben Dooks         2009-06-02  4314  {
-1f91b4cc03556b drivers/usb/dwc2/gadget.c      Felipe Balbi      2015-08-06  4315  	struct dwc2_hsotg_req *req, *treq;
-5b7d70c6dbf2db drivers/usb/gadget/s3c-hsotg.c Ben Dooks         2009-06-02  4316  
-5b7d70c6dbf2db drivers/usb/gadget/s3c-hsotg.c Ben Dooks         2009-06-02  4317  	list_for_each_entry_safe(req, treq, &ep->queue, queue) {
-5b7d70c6dbf2db drivers/usb/gadget/s3c-hsotg.c Ben Dooks         2009-06-02  4318  		if (req == test)
-5b7d70c6dbf2db drivers/usb/gadget/s3c-hsotg.c Ben Dooks         2009-06-02  4319  			return true;
-5b7d70c6dbf2db drivers/usb/gadget/s3c-hsotg.c Ben Dooks         2009-06-02  4320  	}
-5b7d70c6dbf2db drivers/usb/gadget/s3c-hsotg.c Ben Dooks         2009-06-02  4321  
-5b7d70c6dbf2db drivers/usb/gadget/s3c-hsotg.c Ben Dooks         2009-06-02  4322  	return false;
-5b7d70c6dbf2db drivers/usb/gadget/s3c-hsotg.c Ben Dooks         2009-06-02  4323  }
-5b7d70c6dbf2db drivers/usb/gadget/s3c-hsotg.c Ben Dooks         2009-06-02  4324  
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+diff --git a/block/bdev.c b/block/bdev.c
+index ed022f8c48c7..35707a6144fa 100644
+--- a/block/bdev.c
++++ b/block/bdev.c
+@@ -1199,44 +1199,46 @@ void bdev_fput(struct file *bdev_file)
+ EXPORT_SYMBOL(bdev_fput);
+ 
+ /**
+- * lookup_bdev() - Look up a struct block_device by name.
++ * lookup_bdev_path() - Look up a struct block_device by name.
+  * @pathname: Name of the block device in the filesystem.
+  * @dev: Pointer to the block device's dev_t, if found.
++ * @path: Pointer to the block device's path, if found.
+  *
+- * Lookup the block device's dev_t at @pathname in the current
+- * namespace if possible and return it in @dev.
++ * Lookup the block device's dev_t and path at @pathname in the current
++ * namespace if possible and return these in @dev and @path
+  *
+  * Context: May sleep.
+  * Return: 0 if succeeded, negative errno otherwise.
++ * Caller must call path_put(@path) if this function returned 0.
+  */
+-int lookup_bdev(const char *pathname, dev_t *dev)
++int lookup_bdev_path(const char *pathname, dev_t *dev, struct path *path)
+ {
+ 	struct inode *inode;
+-	struct path path;
+ 	int error;
+ 
+ 	if (!pathname || !*pathname)
+ 		return -EINVAL;
+ 
+-	error = kern_path(pathname, LOOKUP_FOLLOW, &path);
++	error = kern_path(pathname, LOOKUP_FOLLOW, path);
+ 	if (error)
+ 		return error;
+ 
+-	inode = d_backing_inode(path.dentry);
++	inode = d_backing_inode(path->dentry);
+ 	error = -ENOTBLK;
+ 	if (!S_ISBLK(inode->i_mode))
+ 		goto out_path_put;
+ 	error = -EACCES;
+-	if (!may_open_dev(&path))
++	if (!may_open_dev(path))
+ 		goto out_path_put;
+-
+ 	*dev = inode->i_rdev;
+-	error = 0;
++	return 0;
+ out_path_put:
+-	path_put(&path);
++	path_put(path);
++	path->dentry = NULL;
++	path->mnt = NULL;
+ 	return error;
+ }
+-EXPORT_SYMBOL(lookup_bdev);
++EXPORT_SYMBOL(lookup_bdev_path);
+ 
+ /**
+  * bdev_mark_dead - mark a block device as dead
+diff --git a/fs/fs_context.c b/fs/fs_context.c
+index a37b0a093505..e5294f48eb32 100644
+--- a/fs/fs_context.c
++++ b/fs/fs_context.c
+@@ -377,6 +377,8 @@ struct fs_context *vfs_dup_fs_context(struct fs_context *src_fc)
+ 	fc->fs_private	= NULL;
+ 	fc->s_fs_info	= NULL;
+ 	fc->source	= NULL;
++	fc->source_path.dentry = NULL;
++	fc->source_path.mnt = NULL;
+ 	fc->security	= NULL;
+ 	get_filesystem(fc->fs_type);
+ 	get_net(fc->net_ns);
+@@ -504,6 +506,8 @@ void put_fs_context(struct fs_context *fc)
+ 	put_cred(fc->cred);
+ 	put_fc_log(fc);
+ 	put_filesystem(fc->fs_type);
++	if (fc->source_path.dentry)
++		path_put(&fc->source_path);
+ 	kfree(fc->source);
+ 	kfree(fc);
+ }
+diff --git a/fs/namespace.c b/fs/namespace.c
+index ba5baccdde67..621b8205a0af 100644
+--- a/fs/namespace.c
++++ b/fs/namespace.c
+@@ -3777,7 +3777,7 @@ static bool mount_too_revealing(const struct super_block *sb, int *new_mnt_flags
+  * be added to the namespace tree.
+  */
+ static int do_new_mount_fc(struct fs_context *fc, const struct path *mountpoint,
+-			   unsigned int mnt_flags)
++			   unsigned int mnt_flags, void *data, unsigned long flags)
+ {
+ 	struct super_block *sb;
+ 	struct vfsmount *mnt __free(mntput) = fc_mount(fc);
+@@ -3786,6 +3786,10 @@ static int do_new_mount_fc(struct fs_context *fc, const struct path *mountpoint,
+ 	if (IS_ERR(mnt))
+ 		return PTR_ERR(mnt);
+ 
++	error = security_mount_new(fc, mountpoint, mnt_flags, flags, data);
++	if (error)
++		return error;
++
+ 	sb = fc->root->d_sb;
+ 	error = security_sb_kern_mount(sb);
+ 	if (unlikely(error))
+@@ -3857,9 +3861,7 @@ static int do_new_mount(const struct path *path, const char *fstype,
+ 		err = -EPERM;
+ 
+ 	if (!err)
+-		err = security_mount_new(fc, path, mnt_flags, flags, data);
+-	if (!err)
+-		err = do_new_mount_fc(fc, path, mnt_flags);
++		err = do_new_mount_fc(fc, path, mnt_flags, data, flags);
+ 
+ 	put_fs_context(fc);
+ 	return err;
+diff --git a/fs/super.c b/fs/super.c
+index 378e81efe643..588f207f26ae 100644
+--- a/fs/super.c
++++ b/fs/super.c
+@@ -1670,7 +1670,7 @@ int get_tree_bdev_flags(struct fs_context *fc,
+ 	if (!fc->source)
+ 		return invalf(fc, "No source specified");
+ 
+-	error = lookup_bdev(fc->source, &dev);
++	error = lookup_bdev_path(fc->source, &dev, &fc->source_path);
+ 	if (error) {
+ 		if (!(flags & GET_TREE_BDEV_QUIET_LOOKUP))
+ 			errorf(fc, "%s: Can't lookup blockdev", fc->source);
+diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
+index d463b9b5a0a5..c38d538f2a07 100644
+--- a/include/linux/blkdev.h
++++ b/include/linux/blkdev.h
+@@ -1723,7 +1723,17 @@ static inline void bio_end_io_acct(struct bio *bio, unsigned long start_time)
+ int bdev_validate_blocksize(struct block_device *bdev, int block_size);
+ int set_blocksize(struct file *file, int size);
+ 
+-int lookup_bdev(const char *pathname, dev_t *dev);
++int lookup_bdev_path(const char *pathname, dev_t *dev, struct path *path);
++static inline int lookup_bdev(const char *pathname, dev_t *dev)
++{
++	struct path path = {};
++	int ret = lookup_bdev_path(pathname, dev, &path);
++
++	if (!ret)
++		path_put(&path);
++	return ret;
++}
++
+ 
+ void blkdev_show(struct seq_file *seqf, off_t offset);
+ 
+diff --git a/include/linux/fs_context.h b/include/linux/fs_context.h
+index 0d6c8a6d7be2..0dfa6b6fc256 100644
+--- a/include/linux/fs_context.h
++++ b/include/linux/fs_context.h
+@@ -99,6 +99,7 @@ struct fs_context {
+ 	const struct cred	*cred;		/* The mounter's credentials */
+ 	struct p_log		log;		/* Logging buffer */
+ 	const char		*source;	/* The source name (eg. dev path) */
++	struct path		source_path;    /* Fields are NULL unless resolved from the source name. */
+ 	void			*security;	/* LSM options */
+ 	void			*s_fs_info;	/* Proposed s_fs_info */
+ 	unsigned int		sb_flags;	/* Proposed superblock flags (SB_*) */
+diff --git a/security/tomoyo/mount.c b/security/tomoyo/mount.c
+index 82ffe7d02814..3a384b698557 100644
+--- a/security/tomoyo/mount.c
++++ b/security/tomoyo/mount.c
+@@ -84,7 +84,6 @@ static int tomoyo_mount_acl(struct tomoyo_request_info *r,
+ 	__must_hold_shared(&tomoyo_ss)
+ {
+ 	struct tomoyo_obj_info obj = { };
+-	struct file_system_type *fstype = NULL;
+ 	const char *requested_type = NULL;
+ 	const char *requested_dir_name = NULL;
+ 	const char *requested_dev_name = NULL;
+@@ -124,32 +123,16 @@ static int tomoyo_mount_acl(struct tomoyo_request_info *r,
+ 	} else if (type == tomoyo_mounts[TOMOYO_MOUNT_BIND] ||
+ 		   type == tomoyo_mounts[TOMOYO_MOUNT_MOVE]) {
+ 		need_dev = -1; /* dev_name is a directory */
+-	} else {
+-		fstype = get_fs_type(type);
+-		if (!fstype) {
+-			error = -ENODEV;
+-			goto out;
+-		}
+-		if (fstype->fs_flags & FS_REQUIRES_DEV)
+-			/* dev_name is a block device file. */
+-			need_dev = 1;
++	} else if (dev_path) {
++		need_dev = 1; /* dev_name is a block device file. */
+ 	}
+ 	if (need_dev) {
+ 		if (dev_path) {
+ 			/* Use pre-resolved path to avoid TOCTOU issues. */
+ 			obj.path1 = *dev_path;
+-			path_get(&obj.path1);
+ 		} else if (!dev_name) {
+ 			error = -ENOENT;
+ 			goto out;
+-		} else {
+-			struct path path;
+-
+-			if (kern_path(dev_name, LOOKUP_FOLLOW, &path)) {
+-				error = -ENOENT;
+-				goto out;
+-			}
+-			obj.path1 = path;
+ 		}
+ 		requested_dev_name = tomoyo_realpath_from_path(&obj.path1);
+ 		if (!requested_dev_name) {
+@@ -181,12 +164,7 @@ static int tomoyo_mount_acl(struct tomoyo_request_info *r,
+  out:
+ 	kfree(requested_dev_name);
+ 	kfree(requested_dir_name);
+-	if (fstype)
+-		put_filesystem(fstype);
+ 	kfree(requested_type);
+-	/* Drop refcount obtained by kern_path() or path_get(). */
+-	if (obj.path1.dentry)
+-		path_put(&obj.path1);
+ 	return error;
+ }
+ 
+diff --git a/security/tomoyo/tomoyo.c b/security/tomoyo/tomoyo.c
+index ac84e1f03d5e..6235e527cc20 100644
+--- a/security/tomoyo/tomoyo.c
++++ b/security/tomoyo/tomoyo.c
+@@ -413,7 +413,7 @@ static int tomoyo_mount_new(struct fs_context *fc, const struct path *mp,
+ {
+ 	/* Use original MS_* flags for policy matching */
+ 	return tomoyo_mount_permission(fc->source, mp, fc->fs_type->name,
+-				       flags, NULL);
++				       flags, &fc->source_path);
+ }
+ 
+ static int tomoyo_mount_remount(struct fs_context *fc, const struct path *mp,
 
