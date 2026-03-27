@@ -2,72 +2,97 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id WBH7DmnTxWnQCAUAu9opvQ
+	id CPNBCT3YxWnQCAUAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Fri, 27 Mar 2026 01:46:33 +0100
+	for <lists+apparmor@lfdr.de>; Fri, 27 Mar 2026 02:07:09 +0100
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDC4933D9BA
-	for <lists+apparmor@lfdr.de>; Fri, 27 Mar 2026 01:46:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFA9433DB80
+	for <lists+apparmor@lfdr.de>; Fri, 27 Mar 2026 02:07:08 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1w5vL9-00047x-8Y; Fri, 27 Mar 2026 00:46:19 +0000
-Received: from tor.source.kernel.org ([172.105.4.254])
- by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <song@kernel.org>) id 1w5vL8-00047I-8B
- for apparmor@lists.ubuntu.com; Fri, 27 Mar 2026 00:46:18 +0000
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id D78CD60054
- for <apparmor@lists.ubuntu.com>; Fri, 27 Mar 2026 00:41:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C3F4C2BC87
- for <apparmor@lists.ubuntu.com>; Fri, 27 Mar 2026 00:41:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774572061;
- bh=vt7T/qUGOGLlqaNchVHzH7ZNkaAHnV/vULH5YOrsQpM=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=RwQe+H24wpJs63oazuy6TuUNOuF2BjCXU/yfjRKeh++eEwS0at4Lvb8j79sHrpkpm
- dA6moXoBljhfGWmtVN+lqV8oQ1LEfCVys/pV5Bx5hjE8LBehBDflEkggtG63v1Kwug
- VncZhlxUAwK/3hTzlhWRzpfiLGjD9hGll5xRkrE/lTenAIXxuCHp7ek9OU5Bq8bJ/C
- ciUcTKl9B4NtkXEMEbw7p6fsTmUbY9Pp54U51JPiYJJ4+pL8J9osKnXg1imB8bwrqG
- MxBZFpGvt/u/vysUjaG794KzVBAmazVAXWbuE6t5vL1FZ8/KfRQWoVvondIaaPbn27
- WlPl4szD3hdHA==
-Received: by mail-qv1-f48.google.com with SMTP id
- 6a1803df08f44-89a05955720so19118476d6.2
- for <apparmor@lists.ubuntu.com>; Thu, 26 Mar 2026 17:41:01 -0700 (PDT)
+	id 1w5vf7-0004Dj-41; Fri, 27 Mar 2026 01:06:57 +0000
+Received: from mail-pl1-f179.google.com ([209.85.214.179])
+ by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.86_2) (envelope-from <paul@paul-moore.com>)
+ id 1w5vf5-0004DB-Li
+ for apparmor@lists.ubuntu.com; Fri, 27 Mar 2026 01:06:55 +0000
+Received: by mail-pl1-f179.google.com with SMTP id
+ d9443c01a7336-2aecc6b0861so9871175ad.2
+ for <apparmor@lists.ubuntu.com>; Thu, 26 Mar 2026 18:06:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774573614; cv=none;
+ d=google.com; s=arc-20240605;
+ b=bdAFYx9m/w8jlw7zSiArUkKf3O13Su/Oy5lUcQuaHsBI86lqX0zJhuZb+QNqGoKt7i
+ 3VuuTjErgYHNZxyKgJgY8/f2aOPi1AnO3iIuaiGZ70oJ/bcbTF3efQHVjAWpaBM7/nzc
+ bB23GxjemP5io1cTMkssbz2uewmS2sMndGYO9Xg3XOpPofF0OAPo8NruGl+FEog9ubrk
+ J8V140ELJ4j+kjs/qxoonTeS88CJ2bsQ5aec3MShkunqqwr/bePg+Q+z/FjnvKgoIenI
+ q3xhB3sOL7d5MLnOXpp5gjColXdfJt9MPOjy6oUxTthd+6UD+jHzCcS0jHEM8n7g6XMx
+ isjQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=NnHkamm+AEobpA8psr45RG6jMwGE1Y1ScbSXU6OCnyU=;
+ fh=hWfsM+8WnpOEwy/RCeRrjbXqIjGzld2/8xo9qAF4Xp0=;
+ b=S1c75ufzadVDA9v2PxTd874NjfLi/Xuh4T4ykZgF3g3SsVZTp/MR/Stmefn9FJPi9l
+ +CpaJEX4lMpxGrUEVeqfi06AdjXJ9PsEFaKpCLJXEMqw77jR0Xw9BQuYgaUEBMi+tkg/
+ 5ll3Vmv6JjvguHQk2RiUgVBUhu0sYFS7A7H6xhA0vPlnNDWWIPUNxDXWo0XIZEniQe31
+ tv+8imm8exF+qfah4b2BbC8xY0Wr4pjrR/GWrzShAajgM8azypmguca6dkeJBGf5k81X
+ 0DWqhAOkaI1P+vhXA+nRbrP0k+/EtvFBbDPJlun70b9In8BPDeICIta//TQHdPvpm6WT
+ BUKQ==; darn=lists.ubuntu.com
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=paul-moore.com; s=google; t=1774573614; x=1775178414; darn=lists.ubuntu.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=NnHkamm+AEobpA8psr45RG6jMwGE1Y1ScbSXU6OCnyU=;
+ b=LXLlPeMtl6J73znmB1AtY5KuZc9AqT5HpgvZXug8sYhlzDAxu3HR/kP+bsiPaR3avs
+ ZGg2HaS+2T4ksZlvHyfnv98RX6AFEa/VvJEzQOms6uA+SDTKCuPTQVJq1AQS6vxcu9Lq
+ YrKk29Ndw/qNXz9wuQbgqeNtlq4VV8yM9TIOjbEDDTkMSdDmkPB4nQC6fvo6ZJ7dpGqP
+ SxwienuuSMKF9ndo/Xhh7CJqe/ejqDFFtZPPwUs5V3ZoAiNPFb4agpjDDuwbQlM4HFfe
+ AV9wSLs6ZqzQOu1o39G9II28xhjpXgicD3X9Yj1wQBLsl64GKTeZAt2dIEcjMQ2eUOZB
+ XUyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774573614; x=1775178414;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=NnHkamm+AEobpA8psr45RG6jMwGE1Y1ScbSXU6OCnyU=;
+ b=dS4C/6fz66qgrDO9DKDvAxi+4UKWizMxuW9DEeVs55lQBcob8NaQ+6HfFEN9P7Vv1M
+ h+J/udfir6Au7kyoL8lj1JgIPzlvcufGj2BHarNj5DAd22GDbys1J+8DC7jFqg/x2VSA
+ sKVs72VzD/puZQmwbpTWwXpSiDPP4Vx3WRgoDYJU4Xk2rDI954d0KsQTHN6aCAJOGq4I
+ xskArkX50hiK+pXcJcKVNgSBsI+cnOBnpTIomz39KuFgAeTIqBrFMWj79byebIXPNCSv
+ j3in3HuE36RGlTIiYzwKr7hqun7HsxODtZb1q8CNrTBJnRApQjAgblkK3BQmNX6HJJAE
+ dLRA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW8jD9BVaTTtV5V4dApX4oj5tWP4WgnL4K69aDJO/xG9uSuluIBKC3QTke3byJKI5177dIOTBaPNw==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0YxjCstiM0/Mp6EQA4yFV5xANEe7p6BoT7GJ//N6MtXqcenk4SRG
- 8jo1brpvxqdxjHJPyaxWtFVJ8dOc7JzLUNj47aHrlnG+GHHemu5t6iXwS9NbtlqRskvUdhUAYtw
- V5DtO5ftWtJ8KaX+OJVT0uC/027PAnzg=
-X-Received: by 2002:ad4:5cc7:0:b0:89c:99f5:52c4 with SMTP id
- 6a1803df08f44-89ce8d43382mr7198476d6.15.1774572060621; Thu, 26 Mar 2026
- 17:41:00 -0700 (PDT)
+ AJvYcCWPLZp/EKg2vQqUa+QPCjemMBO4I0/XnJ52Pb8Hwus/6SSfOe6pem+GH3ddFvyhSPsl76/jJPamcQ==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0YwtIEPHe8vwGkx/eUS2khU5fOHdzeoQCNCoTC1xXjXY3DHNcg5m
+ QJMYWulUyfEsU54wLjv28CSujFH0ue99iBavph0EUZNokW7uU8dHVjvv1PGwOFeHXa9E8QeR10Q
+ Kmn1k0pzWP/mBwtEy5zj0JPTen/80FaCBGW8sz35n
+X-Gm-Gg: ATEYQzzWrZeMLur/aSL4ivxlPRCbVNpfxHZjBuzAFHAJXdZMwdIdCgN7V7Vy7Xo/HTQ
+ 2YZ4mNvv9lnZ2XEFsxMMrKW3LRUtXmDUf8axJxKfTJ0oQFBaxvAaAbL/FJA/1zKk7M7pzfsRIqu
+ HOAG9fVurdcWTmeM+1IOO4ntNu+qcIPVXIlRtgAGsqcqN/8XvUXvD5piokr2hrmFE+keOI4DHBk
+ GTQVdpfoHOCRDftLOxz5FruAbe8FgNDIDFIUZf5R6FhINkluvVIYkD4DVJaN9yYOeXkUj3cW6Tg
+ L9X94CU=
+X-Received: by 2002:a17:903:4407:b0:2b0:6621:cedd with SMTP id
+ d9443c01a7336-2b0cdd31a51mr5581795ad.49.1774573613689; Thu, 26 Mar 2026
+ 18:06:53 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260318184400.3502908-1-song@kernel.org>
- <20260318184400.3502908-7-song@kernel.org>
- <b720f521-e930-4f35-9505-1bfdf9e2818c@I-love.SAKURA.ne.jp>
- <4DF5C4A8-7C92-4F76-9B34-2262089E7289@meta.com>
- <33abcf34-13e2-4a37-83f3-78bb27ecbc11@I-love.SAKURA.ne.jp>
- <F0A0D13E-8208-49A4-9AC6-89AC4BF3F4FB@meta.com>
- <20260323-klappen-atemschutz-7a0af8c6b087@brauner>
- <714a614b-cfb4-4b20-af8c-df3cc56dfb92@I-love.SAKURA.ne.jp>
- <CAAeYb7k+TWArOKyOomkLZ8fwqUPjha9iORpJaj4nMyN=o4ZRQg@mail.gmail.com>
- <6609e11e-90aa-4021-974e-e9937688dd49@I-love.SAKURA.ne.jp>
-In-Reply-To: <6609e11e-90aa-4021-974e-e9937688dd49@I-love.SAKURA.ne.jp>
-From: Song Liu <song@kernel.org>
-Date: Thu, 26 Mar 2026 17:40:49 -0700
-X-Gmail-Original-Message-ID: <CAPhsuW5PyqkkAbLr9JZKtJ7F0sys3pENdSOQqG=dggbrEf11iA@mail.gmail.com>
-X-Gm-Features: AQROBzDUWLVisdSlnIPADASIVeAPQUaRFecDIf-Shx_lh3e_Wu7aKFzg04hWSF8
-Message-ID: <CAPhsuW5PyqkkAbLr9JZKtJ7F0sys3pENdSOQqG=dggbrEf11iA@mail.gmail.com>
-To: Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>, 
- Christian Brauner <brauner@kernel.org>,
- "viro@zeniv.linux.org.uk" <viro@zeniv.linux.org.uk>
+ <CAPhsuW5h=-BVp6g2UtHTUO8PQtbiSmqDrn0BT3rbdN4BkhQpeA@mail.gmail.com>
+In-Reply-To: <CAPhsuW5h=-BVp6g2UtHTUO8PQtbiSmqDrn0BT3rbdN4BkhQpeA@mail.gmail.com>
+From: Paul Moore <paul@paul-moore.com>
+Date: Thu, 26 Mar 2026 21:06:42 -0400
+X-Gm-Features: AQROBzBKwxHMqZrCazbp_EEoFhocvn47dYCOH9CjcWVrjXYp2B_xhHc7YALOkis
+Message-ID: <CAHC9VhQUU9L9OTtyo+2mdi0P5jCk1RXnJBxT1+YUyywMSfLuPg@mail.gmail.com>
+To: Song Liu <song@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Received-SPF: pass client-ip=172.105.4.254; envelope-from=song@kernel.org;
- helo=tor.source.kernel.org
-Subject: Re: [apparmor] [PATCH 6/7] tomoyo: Convert from sb_mount to
+Received-SPF: pass client-ip=209.85.214.179; envelope-from=paul@paul-moore.com;
+ helo=mail-pl1-f179.google.com
+Subject: Re: [apparmor] [PATCH 0/7] lsm: Replace security_sb_mount with
 	granular mount hooks
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -80,120 +105,70 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: "herton@canonical.com" <herton@canonical.com>,
- Kernel Team <kernel-team@meta.com>, "jack@suse.cz" <jack@suse.cz>,
- "paul@paul-moore.com" <paul@paul-moore.com>,
- "selinux@vger.kernel.org" <selinux@vger.kernel.org>,
- "stephen.smalley.work@gmail.com" <stephen.smalley.work@gmail.com>,
- Song Liu <songliubraving@meta.com>,
- "apparmor@lists.ubuntu.com" <apparmor@lists.ubuntu.com>,
- "jmorris@namei.org" <jmorris@namei.org>,
- "omosnace@redhat.com" <omosnace@redhat.com>,
- "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
- "linux-security-module@vger.kernel.org"
- <linux-security-module@vger.kernel.org>,
- "gnoack@google.com" <gnoack@google.com>, "mic@digikod.net" <mic@digikod.net>,
- "takedakn@nttdata.co.jp" <takedakn@nttdata.co.jp>,
- "serge@hallyn.com" <serge@hallyn.com>
+Cc: herton@canonical.com, brauner@kernel.org, jack@suse.cz,
+ selinux@vger.kernel.org, stephen.smalley.work@gmail.com,
+ penguin-kernel@i-love.sakura.ne.jp, apparmor@lists.ubuntu.com,
+ jmorris@namei.org, omosnace@redhat.com, mic@digikod.net,
+ linux-security-module@vger.kernel.org, viro@zeniv.linux.org.uk,
+ gnoack@google.com, linux-fsdevel@vger.kernel.org, takedakn@nttdata.co.jp,
+ kernel-team@meta.com, serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Spamd-Result: default: False [3.09 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+X-Spamd-Result: default: False [2.69 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:google.com:reject}];
+	R_DKIM_REJECT(1.00)[paul-moore.com:s=google];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[paul-moore.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:penguin-kernel@i-love.sakura.ne.jp,m:brauner@kernel.org,m:viro@zeniv.linux.org.uk,m:herton@canonical.com,m:kernel-team@meta.com,m:jack@suse.cz,m:paul@paul-moore.com,m:selinux@vger.kernel.org,m:stephen.smalley.work@gmail.com,m:songliubraving@meta.com,m:apparmor@lists.ubuntu.com,m:jmorris@namei.org,m:omosnace@redhat.com,m:linux-fsdevel@vger.kernel.org,m:linux-security-module@vger.kernel.org,m:gnoack@google.com,m:mic@digikod.net,m:takedakn@nttdata.co.jp,m:serge@hallyn.com,m:stephensmalleywork@gmail.com,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:song@kernel.org,m:herton@canonical.com,m:brauner@kernel.org,m:jack@suse.cz,m:selinux@vger.kernel.org,m:stephen.smalley.work@gmail.com,m:penguin-kernel@i-love.sakura.ne.jp,m:apparmor@lists.ubuntu.com,m:jmorris@namei.org,m:omosnace@redhat.com,m:mic@digikod.net,m:linux-security-module@vger.kernel.org,m:viro@zeniv.linux.org.uk,m:gnoack@google.com,m:linux-fsdevel@vger.kernel.org,m:takedakn@nttdata.co.jp,m:kernel-team@meta.com,m:serge@hallyn.com,m:stephensmalleywork@gmail.com,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER(0.00)[song@kernel.org,apparmor-bounces@lists.ubuntu.com];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
-	RCPT_COUNT_TWELVE(0.00)[19];
-	FROM_NEQ_ENVFROM(0.00)[song@kernel.org,apparmor-bounces@lists.ubuntu.com];
+	RCPT_COUNT_TWELVE(0.00)[18];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[canonical.com,meta.com,suse.cz,paul-moore.com,vger.kernel.org,gmail.com,lists.ubuntu.com,namei.org,redhat.com,google.com,digikod.net,nttdata.co.jp,hallyn.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	TAGGED_RCPT(0.00)[apparmor];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
-	DKIM_TRACE(0.00)[kernel.org:-];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
-	NEURAL_SPAM(0.00)[0.857];
+	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
+	FORGED_SENDER(0.00)[paul@paul-moore.com,apparmor-bounces@lists.ubuntu.com];
+	DKIM_TRACE(0.00)[paul-moore.com:-];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,lists.ubuntu.com:helo,lists.ubuntu.com:rdns]
-X-Rspamd-Queue-Id: DDC4933D9BA
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
+	FROM_NEQ_ENVFROM(0.00)[paul@paul-moore.com,apparmor-bounces@lists.ubuntu.com];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[canonical.com,kernel.org,suse.cz,vger.kernel.org,gmail.com,i-love.sakura.ne.jp,lists.ubuntu.com,namei.org,redhat.com,digikod.net,zeniv.linux.org.uk,google.com,nttdata.co.jp,meta.com,hallyn.com];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TAGGED_RCPT(0.00)[apparmor];
+	NEURAL_SPAM(0.00)[1.000];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns]
+X-Rspamd-Queue-Id: DFA9433DB80
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Hi Christian and Al,
-
-On Mon, Mar 23, 2026 at 11:12=E2=80=AFPM Tetsuo Handa
-<penguin-kernel@i-love.sakura.ne.jp> wrote:
-[...]
-> diff --git a/fs/namespace.c b/fs/namespace.c
-> index ba5baccdde67..621b8205a0af 100644
-> --- a/fs/namespace.c
-> +++ b/fs/namespace.c
-> @@ -3777,7 +3777,7 @@ static bool mount_too_revealing(const struct super_=
-block *sb, int *new_mnt_flags
->   * be added to the namespace tree.
->   */
->  static int do_new_mount_fc(struct fs_context *fc, const struct path *mou=
-ntpoint,
-> -                          unsigned int mnt_flags)
-> +                          unsigned int mnt_flags, void *data, unsigned l=
-ong flags)
->  {
->         struct super_block *sb;
->         struct vfsmount *mnt __free(mntput) =3D fc_mount(fc);
-> @@ -3786,6 +3786,10 @@ static int do_new_mount_fc(struct fs_context *fc, =
-const struct path *mountpoint,
->         if (IS_ERR(mnt))
->                 return PTR_ERR(mnt);
+On Thu, Mar 26, 2026 at 8:31=E2=80=AFPM Song Liu <song@kernel.org> wrote:
 >
-> +       error =3D security_mount_new(fc, mountpoint, mnt_flags, flags, da=
-ta);
-> +       if (error)
-> +               return error;
-> +
->         sb =3D fc->root->d_sb;
->         error =3D security_sb_kern_mount(sb);
->         if (unlikely(error))
-> @@ -3857,9 +3861,7 @@ static int do_new_mount(const struct path *path, co=
-nst char *fstype,
->                 err =3D -EPERM;
+> Hi folks, especially SELinux, AppArmor, and LandLock maintainers,
 >
->         if (!err)
-> -               err =3D security_mount_new(fc, path, mnt_flags, flags, da=
-ta);
-> -       if (!err)
-> -               err =3D do_new_mount_fc(fc, path, mnt_flags);
-> +               err =3D do_new_mount_fc(fc, path, mnt_flags, data, flags)=
-;
->
->         put_fs_context(fc);
->         return err;
+> Could you please share your comments on this set?
 
-Could you please comment on Tetsuo's proposal here? The core
-change (moving security_mount_new after fc_mount) makes sense
-to me. However, it seems to require a lot of code to support this
-change.
+I think we are all aware of this patchset, but most of us are fairly
+busy at the moment.  This patchset is in my queue to review, but it
+isn't something I'm going to be able to review this week.
 
-Given the current patchset addresses TOCTOU issues of bind
-mount, etc. Maybe we can land this set and address TOCTOU
-issue with new mount in follow-up patches?
+> If there are no issues with these changes, can we land the set in 7.1
+> kernels?
 
-Thanks,
-Song
+Given that we are near the end of -rc5, that is highly unlikely.
+
+https://github.com/LinuxSecurityModule/kernel?tab=3Dreadme-ov-file#kernel-d=
+evelopment-process
+
+--=20
+paul-moore.com
 
