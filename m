@@ -2,70 +2,75 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KDPGJFRVymn27gUAu9opvQ
+	id SDf7OdbYymmWAgYAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Mon, 30 Mar 2026 12:49:56 +0200
+	for <lists+apparmor@lfdr.de>; Mon, 30 Mar 2026 22:11:02 +0200
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 390AF359A8C
-	for <lists+apparmor@lfdr.de>; Mon, 30 Mar 2026 12:49:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94151360D73
+	for <lists+apparmor@lfdr.de>; Mon, 30 Mar 2026 22:11:02 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1w7ABh-0002wI-Tm; Mon, 30 Mar 2026 10:49:42 +0000
-Received: from us-smtp-delivery-124.mimecast.com ([170.10.129.124])
+	id 1w7Iwm-0000an-G1; Mon, 30 Mar 2026 20:10:52 +0000
+Received: from sea.source.kernel.org ([172.234.252.31])
  by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <dhowells@redhat.com>) id 1w7ABf-0002vf-VX
- for apparmor@lists.ubuntu.com; Mon, 30 Mar 2026 10:49:40 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1774867778;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=T6CbeBbXEhiNM7kEGDQxi0LjkO7hSdtdP9Ej33IXIkE=;
- b=Oh2PFAPBaI7VgLxhAdSo7LLQmIwaKSCoZeB9vyh9nXfLqQIyQpAET8xXfkdvWXtKrSIbsN
- wGjti8Q51JyMbqEEhlG4H9CHUQch4g4vrZK9VTYgseAytmpBfxqkvxR0Ki+mH+wYPu6Ylw
- Qss5/qNFFnnRx1m8AniyWE3jCh1Eog4=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-343-vgCQ4JUgMBOlmC67iSTGSQ-1; Mon,
- 30 Mar 2026 06:49:37 -0400
-X-MC-Unique: vgCQ4JUgMBOlmC67iSTGSQ-1
-X-Mimecast-MFC-AGG-ID: vgCQ4JUgMBOlmC67iSTGSQ_1774867775
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 5587C195608E; Mon, 30 Mar 2026 10:49:33 +0000 (UTC)
-Received: from warthog.procyon.org.uk (unknown [10.44.35.245])
- by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 4C7AD1955D84; Mon, 30 Mar 2026 10:49:28 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
- Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
- Kingdom.
- Registered in England and Wales under Company Registration No. 3798903
-In-Reply-To: <CAHk-=wiJ6gEELLviexdmSHnyjVoG7MFo8Qwhd1zxs_tCnL-=gQ@mail.gmail.com>
-References: <CAHk-=wiJ6gEELLviexdmSHnyjVoG7MFo8Qwhd1zxs_tCnL-=gQ@mail.gmail.com>
- <20260326131838.634095-1-dhowells@redhat.com>
- <20260326131838.634095-5-dhowells@redhat.com>
- <20260329121208.6092419d@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
+ (envelope-from <song@kernel.org>) id 1w7Iwl-0000aZ-9R
+ for apparmor@lists.ubuntu.com; Mon, 30 Mar 2026 20:10:51 +0000
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3810B443F7
+ for <apparmor@lists.ubuntu.com>; Mon, 30 Mar 2026 20:04:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15FCCC2BCB1
+ for <apparmor@lists.ubuntu.com>; Mon, 30 Mar 2026 20:04:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774901079;
+ bh=1X1yQpwKHXFHDTwoogHV/wsFWF8CFNxD4Jdw11uzolI=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=IDfKIL10p1+7rBp/suyM4lQdQ9SgBcvMG7bQmtXVp1lqia4FLJ2nYQGmv4H6yOLPZ
+ fLnLW7At8v1FFAJqxDlsdrfOmUhgn52Taok0gZ8ZMlpqmxQAlkZ4VWEMa5HQiMHDfn
+ ro4PxhFWpmhbYWxD5w4Ys9mYFEwoXPQNebe5IjMdLbZyFXBUwJrktLCEIXnXb0vsth
+ 0IvnJm7848RbA4U96ZBX1BX143qXHezDsBmu7s0pREUSC3LOB/vQ2XtKAdScrrSdIm
+ BTh7FKkOXYhPbP3L9teazTjzxQUoB6hOzDoEzqARuwy8G/LY6f+nbwa+1llwnbfory
+ X4sJlQr6yxwLw==
+Received: by mail-qv1-f42.google.com with SMTP id
+ 6a1803df08f44-8a032383008so29052346d6.1
+ for <apparmor@lists.ubuntu.com>; Mon, 30 Mar 2026 13:04:39 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWae0C3PBF4DiBMAtdjbqtD5IYBL7DOQF7LkVUaZQxwl6ickcGkddIiV4VFpOtpI3s806On0MdFBA==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0YxLuhqoN2rw3Jz8+Dmo9DveqB8ALlxAZMEVR/WcdpJTHvkBDGgH
+ a7p2sUwvoUO1xd21U+h6RGwqlKL+Xyjj+wUwhAPwEnd/6XX8+h7UEnfq1bxRirE5isN1gmXkJhw
+ BzZA/Xc23um0cietpD7bzRfBrZFxW8xI=
+X-Received: by 2002:a05:6214:2128:b0:89a:10d8:f9ca with SMTP id
+ 6a1803df08f44-89ce8dd0b9emr214870836d6.26.1774901078259; Mon, 30 Mar 2026
+ 13:04:38 -0700 (PDT)
 MIME-Version: 1.0
-From: David Howells <dhowells@redhat.com>
-Date: Mon, 30 Mar 2026 11:49:25 +0100
-Message-ID: <1179840.1774867765@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-X-Mimecast-MFC-PROC-ID: hr55NBSWLOS35L2vCMl60cFrnI3w_fmpuIu-JCVaGOM_1774867775
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <972872.1774858862.1@warthog.procyon.org.uk>
-Received-SPF: pass client-ip=170.10.129.124; envelope-from=dhowells@redhat.com;
- helo=us-smtp-delivery-124.mimecast.com
-Subject: Re: [apparmor] [PATCH net v3 04/11] list: Move on_list_rcu() to
-	list.h and add on_list() also
+References: <20260318184400.3502908-1-song@kernel.org>
+ <20260318184400.3502908-7-song@kernel.org>
+ <b720f521-e930-4f35-9505-1bfdf9e2818c@I-love.SAKURA.ne.jp>
+ <4DF5C4A8-7C92-4F76-9B34-2262089E7289@meta.com>
+ <33abcf34-13e2-4a37-83f3-78bb27ecbc11@I-love.SAKURA.ne.jp>
+ <F0A0D13E-8208-49A4-9AC6-89AC4BF3F4FB@meta.com>
+ <20260323-klappen-atemschutz-7a0af8c6b087@brauner>
+ <714a614b-cfb4-4b20-af8c-df3cc56dfb92@I-love.SAKURA.ne.jp>
+ <CAAeYb7k+TWArOKyOomkLZ8fwqUPjha9iORpJaj4nMyN=o4ZRQg@mail.gmail.com>
+ <6609e11e-90aa-4021-974e-e9937688dd49@I-love.SAKURA.ne.jp>
+ <CAPhsuW4G7vo-JZqenZ-sFHw9z02wZUJa1-+9U81U--vQhnfG_Q@mail.gmail.com>
+ <6c298238-8d87-4c41-84a7-e0373d466a15@I-love.SAKURA.ne.jp>
+ <CAPhsuW4E_BrF0ap5yg_6TbRAna=2Ajk2nuoT6WGwkS5cyyYB3w@mail.gmail.com>
+ <4f5d1b1f-ecb2-421a-8a46-36c7a12d48de@I-love.SAKURA.ne.jp>
+In-Reply-To: <4f5d1b1f-ecb2-421a-8a46-36c7a12d48de@I-love.SAKURA.ne.jp>
+From: Song Liu <song@kernel.org>
+Date: Mon, 30 Mar 2026 13:04:25 -0700
+X-Gmail-Original-Message-ID: <CAPhsuW6FewkhGoNCqJ9p5V4sGmJTC8pJM2BUv8Ekxcft93nuyQ@mail.gmail.com>
+X-Gm-Features: AQROBzC66Kh9nC3Ny7eCdzD0vCLOETw0qurKeL6o2A35S67y_YeSqFGNhcnT1NY
+Message-ID: <CAPhsuW6FewkhGoNCqJ9p5V4sGmJTC8pJM2BUv8Ekxcft93nuyQ@mail.gmail.com>
+To: Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass client-ip=172.234.252.31; envelope-from=song@kernel.org;
+ helo=sea.source.kernel.org
+Subject: Re: [apparmor] [PATCH 6/7] tomoyo: Convert from sb_mount to
+	granular mount hooks
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -77,76 +82,98 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: stable@kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- apparmor@lists.ubuntu.com, linux-kernel@vger.kernel.org,
- linux-afs@lists.infradead.org, dhowells@redhat.com,
- Minas Harutyunyan <hminas@synopsys.com>, Eric Dumazet <edumazet@google.com>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Simon Horman <horms@kernel.org>, Marc Dionne <marc.dionne@auristor.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>
+Cc: "herton@canonical.com" <herton@canonical.com>,
+ Christian Brauner <brauner@kernel.org>, "jack@suse.cz" <jack@suse.cz>,
+ "paul@paul-moore.com" <paul@paul-moore.com>,
+ "selinux@vger.kernel.org" <selinux@vger.kernel.org>,
+ "stephen.smalley.work@gmail.com" <stephen.smalley.work@gmail.com>,
+ Song Liu <songliubraving@meta.com>,
+ "apparmor@lists.ubuntu.com" <apparmor@lists.ubuntu.com>,
+ "jmorris@namei.org" <jmorris@namei.org>,
+ "omosnace@redhat.com" <omosnace@redhat.com>,
+ "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+ "linux-security-module@vger.kernel.org"
+ <linux-security-module@vger.kernel.org>,
+ "viro@zeniv.linux.org.uk" <viro@zeniv.linux.org.uk>,
+ "gnoack@google.com" <gnoack@google.com>, "mic@digikod.net" <mic@digikod.net>,
+ "takedakn@nttdata.co.jp" <takedakn@nttdata.co.jp>,
+ Kernel Team <kernel-team@meta.com>, "serge@hallyn.com" <serge@hallyn.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Spamd-Result: default: False [1.59 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[redhat.com : SPF not aligned (relaxed),quarantine];
-	R_DKIM_REJECT(1.00)[redhat.com:s=mimecast20190719];
+X-Spamd-Result: default: False [3.09 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
 	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:torvalds@linux-foundation.org,m:stable@kernel.org,m:netdev@vger.kernel.org,m:linux-usb@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:linux-kernel@vger.kernel.org,m:linux-afs@lists.infradead.org,m:dhowells@redhat.com,m:hminas@synopsys.com,m:edumazet@google.com,m:mathieu.desnoyers@efficios.com,m:horms@kernel.org,m:marc.dionne@auristor.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,s:lists@lfdr.de];
-	HAS_ORG_HEADER(0.00)[];
-	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
-	RCPT_COUNT_TWELVE(0.00)[16];
-	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[dhowells@redhat.com,apparmor-bounces@lists.ubuntu.com];
-	DKIM_TRACE(0.00)[redhat.com:-];
-	MISSING_XM_UA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FROM_NEQ_ENVFROM(0.00)[dhowells@redhat.com,apparmor-bounces@lists.ubuntu.com];
-	FROM_HAS_DN(0.00)[];
+	URIBL_MULTI_FAIL(0.00)[i-love.sakura.ne.jp:server fail,lists.ubuntu.com:server fail,mail.gmail.com:server fail];
+	RCPT_COUNT_TWELVE(0.00)[19];
+	FREEMAIL_CC(0.00)[canonical.com,kernel.org,suse.cz,paul-moore.com,vger.kernel.org,gmail.com,meta.com,lists.ubuntu.com,namei.org,redhat.com,zeniv.linux.org.uk,google.com,digikod.net,nttdata.co.jp,hallyn.com];
+	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[song@kernel.org,apparmor-bounces@lists.ubuntu.com];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
+	FORGED_RECIPIENTS(0.00)[m:penguin-kernel@i-love.sakura.ne.jp,m:herton@canonical.com,m:brauner@kernel.org,m:jack@suse.cz,m:paul@paul-moore.com,m:selinux@vger.kernel.org,m:stephen.smalley.work@gmail.com,m:songliubraving@meta.com,m:apparmor@lists.ubuntu.com,m:jmorris@namei.org,m:omosnace@redhat.com,m:linux-fsdevel@vger.kernel.org,m:linux-security-module@vger.kernel.org,m:viro@zeniv.linux.org.uk,m:gnoack@google.com,m:mic@digikod.net,m:takedakn@nttdata.co.jp,m:kernel-team@meta.com,m:serge@hallyn.com,m:stephensmalleywork@gmail.com,s:lists@lfdr.de];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.999];
-	TAGGED_RCPT(0.00)[apparmor];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[5];
+	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[song@kernel.org,apparmor-bounces@lists.ubuntu.com];
+	NEURAL_SPAM(0.00)[0.782];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns,warthog.procyon.org.uk:mid]
-X-Rspamd-Queue-Id: 390AF359A8C
+	MISSING_XM_UA(0.00)[];
+	TAGGED_RCPT(0.00)[apparmor];
+	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,i-love.sakura.ne.jp:email,lists.ubuntu.com:helo,lists.ubuntu.com:rdns]
+X-Rspamd-Queue-Id: 94151360D73
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Linus Torvalds <torvalds@linux-foundation.org> wrote:
+Hi Tetsuo,
 
-> ... and I do *not* see a huge advantage to a helper function that just wraps
-> "list_empty()" with another name that is actually *less* descriptive.
+On Tue, Mar 24, 2026 at 6:02=E2=80=AFPM Tetsuo Handa
+<penguin-kernel@i-love.sakura.ne.jp> wrote:
+[...]
+> >
+> > If I understand Christian correctly, the main challenge here is that
+> > FS_REQUIRES_DEV doesn't imply fc->source is the path of a device.
+>
+> Correct. FS_REQUIRES_DEV no longer implies that fc->source is a pathname.
+>
+> > Changing this assumption is a major change between VFS and many
+> > filesystems.
+>
+> Wrong. I'm not trying to change this assumption. I'm trying to move LSM h=
+ook
+> to a location after fc->source was interpreted by individual filesystem.
 
-I don't like list_empty() as the name of the function used to find out whether
-an entry is on a list.  Yes, technically, all it's doing is seeing if the
-list_head is 'empty', but, linguistically, it looks wrong: the question you're
-asking is not if the list is empty (you're not looking at the list head), but
-if the entry is on a list.
+After spending some more time on this, I think we should not add
+fc->source_path. This is because in many cases, dev_name for a new mount
+is not a dev, or a path. For example, I can create a btrfs raid0 volume on =
+two
+devices, and use either of them as dev_name to mount the volume. It is not
+accurate to put the path of either device in fc->source_path.
 
-So if I see in the code:
+OTOH, if a LSM really wants to monitor the devices used by this mount,
+security_sb_kern_mount() is a better hook to use. This will require the
+LSM understands s_fs_info for specific file systems, which is not easy but
+necessary.
 
-	if (list_empty(p))
+For now, I think it makes sense to keep security_mount_new() in this set
+as-is, and let LSMs like tomoyo and apparmor call kern_path when
+necessary.
 
-what is the test actually asking?
-
-Note that various other list types in the kernel have separate "is the list
-empty" and "is the entry on a list" primitives, though, granted, usually
-because they require separate functions programmatically.
-
-Anyway, I'll find a different way to do this, not involving checking the prev
-pointer.  What I don't want to do is hard code "prev == LIST_POISON2" into my
-stuff.  Anything like that really needs to be in list.h.
-
-David
-
+Thanks,
+Song
 
