@@ -2,53 +2,94 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id WBELNhEXy2lrDwYAu9opvQ
+	id OE9DDVcUy2kgDwYAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Tue, 31 Mar 2026 02:36:33 +0200
+	for <lists+apparmor@lfdr.de>; Tue, 31 Mar 2026 02:24:55 +0200
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CFC6362B25
-	for <lists+apparmor@lfdr.de>; Tue, 31 Mar 2026 02:36:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC9D0362A26
+	for <lists+apparmor@lfdr.de>; Tue, 31 Mar 2026 02:24:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1w7N5k-0008FD-Nk; Tue, 31 Mar 2026 00:36:24 +0000
-Received: from tor.source.kernel.org ([172.105.4.254])
- by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <kuba@kernel.org>) id 1w7N5j-0008Ez-Bb
- for apparmor@lists.ubuntu.com; Tue, 31 Mar 2026 00:36:23 +0000
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id EBF5960133;
- Tue, 31 Mar 2026 00:12:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B763CC4CEF7;
- Tue, 31 Mar 2026 00:12:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774915936;
- bh=jp4GPIkcXzyuueYJbiqqPav/rW1ddSu+I1Gm/Qd/ReQ=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=GaY/3ZjKypngfcURKwc7rTnaQcQZFk1Mt5fd6C6YnJkY0eOWeyX4tBuQy/qhdg5t9
- /+b5kIsE5fA/Fq29XjrygD/HaOHuD9EfazDtMMIRmSmM0xwcCuB5dIVNTQ/mAIsNVs
- rfteN9dcBhDDDRMGldyQ0K9DSCGVv1422zZQbfuoIi8tDWXLibCuBn245P7JHPOI1o
- 6ubW53uJL80sQfzKzzZ6mX9PwEQHiROcjLThEr29trrC7VC8r5JKpFLVslBDOUg9Op
- dafo/+7keVpjO7DqF578ErUcJJHkIgdgMFoc+bqEsqC9LF4YefuFCNjxpb/76t+j4+
- j7XYDRs2zUSAg==
-Date: Mon, 30 Mar 2026 17:12:14 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>, David Howells
- <dhowells@redhat.com>
-Message-ID: <20260330171214.4d95a6c3@kernel.org>
-In-Reply-To: <CAHk-=wjDKfhS5TvEfrsOgBgAvFMPfAd3wT=Um2AQb4txHq5sAQ@mail.gmail.com>
+	id 1w7MuS-0006jR-2o; Tue, 31 Mar 2026 00:24:44 +0000
+Received: from mail-lf1-f42.google.com ([209.85.167.42])
+ by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.86_2) (envelope-from <torvalds@linuxfoundation.org>)
+ id 1w7MuQ-0006jE-Pv
+ for apparmor@lists.ubuntu.com; Tue, 31 Mar 2026 00:24:42 +0000
+Received: by mail-lf1-f42.google.com with SMTP id
+ 2adb3069b0e04-5a2bb0fe3bbso351278e87.3
+ for <apparmor@lists.ubuntu.com>; Mon, 30 Mar 2026 17:24:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux-foundation.org; s=google; t=1774916682; x=1775521482;
+ darn=lists.ubuntu.com; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=Tir8tYzZsdvdQe2Y3Sf5wYOGCREjM5L09WG7qVnCWNg=;
+ b=UnJYgOorSob+3FQrpcU5h4UcnMmMX0/5hnP+0wJTvJ3NqV3sOnINBh/2Gc2+GOORxr
+ kqm+AOo0aYNc/8CSwhvbWjn1F4+VzGcN3mADcdX2CMGz+pS3Xn8hIzRPU8lXiKn59HL9
+ s1GcrMFuCP55U3iFPknRVu1QOk+RfjkPq1loo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774916682; x=1775521482;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Tir8tYzZsdvdQe2Y3Sf5wYOGCREjM5L09WG7qVnCWNg=;
+ b=sL/63xEMRAS2+PnPPmIOWOQrKX3jutRPzreBLTZ0zQ2qIKY7OKoXdGhiVJlLzArPVl
+ KN83S48Nh6qbhz54+v2k9JKEFAYVdF1hIyeKSyTE5rPAp8CuXC62gUqMyZ36d7PmqQwK
+ sQYsVMFEpcjTc0vTYgsFL2SQjYnMd8PNdE5N2J7lkhqnbdGgFOFyF5F7vCwyzqRyD0fT
+ UdWwsgrnB2mp5Vxk/MrSwwHKshwmCACLBTSHplGy5CsZ5XxCHRjS34OcVmPdDfv1Xu5H
+ nfu/hGMHhJwCgFlt13RGPuAl9T2u24i5i9Wkw0GnNghm5qREKqYTdqUcQtJeW5lQEvyW
+ 57Zg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWvPP3nOK/zaJf6bK9FoVGBEHhxj+iBctpg/IsP8JsW6CDouJ9Ox2PQAltuZoDsU+SLfeq/298mjA==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0Yz9aENyv6eA4GBDmsUeGh8t5a+Fv3VQ51X3joZk3JATVUEVHVAf
+ pNE4qkcrByLoXsSEo/Y4sjb4g98Rkr/aCk478b6jH8LyfWtqOS7A3ObVF6qhISuO4Bmlo8m1ur2
+ 8tOM+6tfJwA==
+X-Gm-Gg: ATEYQzzjMDacQgFpIbU0h2dOcGiyItvsiQ2upYItsvGL5Ml76DumsW5rYjr67PCzO9l
+ svozeoUZtJWQYbTFKYfltQVJpkj7tANDJSoRinFE9vWnEriwYg2monV9q8hRw7WMvImtl0ktVyh
+ u0p9AjW9HpOXjHjBxzDD9p3bHh24k8i84ut0Kpca8qJHYPAIZvc9T2wEYM/ZS6kmb5EQr0b7jLU
+ mXz0bzpfJerGo/jrQWlnYK+XQmJNOrWhWKTX4+329qNvGg7Se0Jg4sGSBA17ai6ZBLHGZubKRvk
+ yGt4pgmwCkVGOpFWxNmodE9WK1VS0LK8O5qmniVmjq6C98jhRSszZihVzBZlFhsMjvGxP9HF1zj
+ OTpAVegPjpXXpf0Wn7FbM4nk02cNCh5x63jJWyjnp2LoX9rqKT3AY8I5UCI0Wtx1r1MHUPTbVQl
+ GWjUAGw8H6+WedUeau2o/3Z60NCgaEKioorc7WOrO7b2rRIl8fLkBz3Pe/krHakZB8WJyWYV083
+ S7H
+X-Received: by 2002:a05:6512:39d0:b0:5a2:ae74:72c6 with SMTP id
+ 2adb3069b0e04-5a2ae747412mr4670656e87.32.1774916681543; 
+ Mon, 30 Mar 2026 17:24:41 -0700 (PDT)
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com.
+ [209.85.208.173]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a2b13b13bbsm2001991e87.0.2026.03.30.17.24.40
+ for <apparmor@lists.ubuntu.com>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 30 Mar 2026 17:24:41 -0700 (PDT)
+Received: by mail-lj1-f173.google.com with SMTP id
+ 38308e7fff4ca-38be66a9fc0so52336601fa.1
+ for <apparmor@lists.ubuntu.com>; Mon, 30 Mar 2026 17:24:40 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVsgyjDSLjxCju+/X0CgOIEcRlH+miW00oWGRkej8E2Z8B4EGEYWrqe5IXKdb2/RIkWxEAkavtAaA==@lists.ubuntu.com
+X-Received: by 2002:a05:6402:4346:b0:66c:4366:3217 with SMTP id
+ 4fb4d7f45d1cf-66c4366346emr280074a12.7.1774916288569; Mon, 30 Mar 2026
+ 17:18:08 -0700 (PDT)
+MIME-Version: 1.0
 References: <20260326131838.634095-1-dhowells@redhat.com>
  <20260326131838.634095-5-dhowells@redhat.com>
  <20260329121208.6092419d@kernel.org>
  <CAHk-=wiJ6gEELLviexdmSHnyjVoG7MFo8Qwhd1zxs_tCnL-=gQ@mail.gmail.com>
  <1179840.1774867765@warthog.procyon.org.uk>
  <CAHk-=wjDKfhS5TvEfrsOgBgAvFMPfAd3wT=Um2AQb4txHq5sAQ@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=172.105.4.254; envelope-from=kuba@kernel.org;
- helo=tor.source.kernel.org
+ <1317861.1774914607@warthog.procyon.org.uk>
+In-Reply-To: <1317861.1774914607@warthog.procyon.org.uk>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Mon, 30 Mar 2026 17:17:52 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wji+mTVj0vkSRJc2p38B5HaMp=oo+aUNA7CwuiguM+EUA@mail.gmail.com>
+X-Gm-Features: AQROBzCw8GXLOeNuPbkp4sgcu_wDqPonncg2z7A4jKKak2u69PJv7yB-cJ3CIOI
+Message-ID: <CAHk-=wji+mTVj0vkSRJc2p38B5HaMp=oo+aUNA7CwuiguM+EUA@mail.gmail.com>
+To: David Howells <dhowells@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Received-SPF: pass client-ip=209.85.167.42;
+ envelope-from=torvalds@linuxfoundation.org; helo=mail-lf1-f42.google.com
 Subject: Re: [apparmor] [PATCH net v3 04/11] list: Move on_list_rcu() to
  list.h and add on_list() also
 X-BeenThere: apparmor@lists.ubuntu.com
@@ -68,88 +109,71 @@ Cc: stable@kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
  Eric Dumazet <edumazet@google.com>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Simon Horman <horms@kernel.org>, Marc Dionne <marc.dionne@auristor.com>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Spamd-Result: default: False [1.59 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
+X-Spamd-Result: default: False [0.09 / 15.00];
+	R_DKIM_REJECT(1.00)[linux-foundation.org:s=google];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
-	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
+	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:-];
-	RCVD_COUNT_THREE(0.00)[4];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[kuba@kernel.org,apparmor-bounces@lists.ubuntu.com];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	FORGED_RECIPIENTS(0.00)[m:torvalds@linux-foundation.org,m:dhowells@redhat.com,m:stable@kernel.org,m:netdev@vger.kernel.org,m:linux-usb@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:linux-kernel@vger.kernel.org,m:linux-afs@lists.infradead.org,m:hminas@synopsys.com,m:edumazet@google.com,m:mathieu.desnoyers@efficios.com,m:horms@kernel.org,m:marc.dionne@auristor.com,m:pabeni@redhat.com,m:davem@davemloft.net,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_SENDER(0.00)[torvalds@linux-foundation.org,apparmor-bounces@lists.ubuntu.com];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:dhowells@redhat.com,m:stable@kernel.org,m:netdev@vger.kernel.org,m:linux-usb@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:linux-kernel@vger.kernel.org,m:linux-afs@lists.infradead.org,m:hminas@synopsys.com,m:edumazet@google.com,m:mathieu.desnoyers@efficios.com,m:horms@kernel.org,m:marc.dionne@auristor.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,s:lists@lfdr.de];
+	DMARC_NA(0.00)[linux-foundation.org];
 	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
+	ARC_NA(0.00)[];
+	DKIM_TRACE(0.00)[linux-foundation.org:-];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[kuba@kernel.org,apparmor-bounces@lists.ubuntu.com];
-	FROM_HAS_DN(0.00)[];
 	TO_DN_SOME(0.00)[];
-	NEURAL_HAM(-0.00)[-0.997];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[5];
+	FROM_NEQ_ENVFROM(0.00)[torvalds@linux-foundation.org,apparmor-bounces@lists.ubuntu.com];
+	FROM_HAS_DN(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_HAM(-0.00)[-0.812];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[apparmor];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns]
-X-Rspamd-Queue-Id: 9CFC6362B25
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid]
+X-Rspamd-Queue-Id: DC9D0362A26
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Mon, 30 Mar 2026 15:14:07 -0700 Linus Torvalds wrote:
-> On Mon, 30 Mar 2026 at 03:49, David Howells <dhowells@redhat.com> wrote:
-> >
-> > Anyway, I'll find a different way to do this, not involving checking the prev
-> > pointer.  What I don't want to do is hard code "prev == LIST_POISON2" into my
-> > stuff.  Anything like that really needs to be in list.h.  
-> 
-> So i think the proper model is:
-> 
-> (a) normal and good list users should never *use* this kind of "is
-> this entry on a list or not".
-> 
-> Dammit, you should *KNOW* that already from core logic. Not with a
-> flag, not with a function to ask, but from how things work. The whole
-> "am I on a list or not" should not be a list issue, it should be
-> obvious.
+On Mon, 30 Mar 2026 at 16:50, David Howells <dhowells@redhat.com> wrote:
+>
+> If I don't delete entries in rxrpc_destroy_all_calls(), then rxrpc_put_call()
+> only needs list_empty() to guard against the call not having being queued yet.
+> I could have a flag for that, but it would be superfluous.
 
-+1 FWIW, the use of the on_list_rcu() in patch 5 looks kinda shady:
+So make *that* code use a creaful "delete with flag".
 
-@@ -654,9 +654,9 @@ void rxrpc_put_call(struct rxrpc_call *call, enum rxrpc_call_trace why)
- 	if (dead) {
- 		ASSERTCMP(__rxrpc_call_state(call), ==, RXRPC_CALL_COMPLETE);
- 
--		if (!list_empty(&call->link)) {
-+		if (on_list_rcu(&call->link)) {
- 			spin_lock(&rxnet->call_lock);
--			list_del_init(&call->link);
-+			list_del_rcu(&call->link);
- 			spin_unlock(&rxnet->call_lock);
- 		}
+As far as I know, __list_del_clearprev() works fine for RCU walking
+too, and that "prev is NULL" works as a "this is not on a list".
 
-I haven't dug around to see if there's some higher level lock
-protecting the whole op, so I didn't mention it. But I was worried
-that on_list() would lead to questionable code, and the first use
-didn't deliver the reassurance I was hoping for.
+Admittedly I didn't think about it a lot.
 
-> (b) if the code in question really doesn't know what the ^%&%^ it did,
-> and has lost sight of what it has done to a list entry, and really
-> wants some kind of "did I remove this entry already" logic, I would
-> encourage such uses to either re-consider, or just use the
-> "__list_del_clearprev()" function when removing entries.
-> 
-> Because I really don't want the core list handling to cater to code
-> that doesn't know what the hell it has done.
+So my point is more that this should not be some "generic list"
+behavior, and I do *not* want people to think that they can just do
+"is_on_list()" kind of crap in general.
 
+This should be a "this user needs that particular behavior, and has
+used this particular function to get it".
+
+And yes, this pattern started out as a single performance-critical
+networking user, and maybe we could rename and codify this pattern
+better since we now have a couple of users (bpf and xdp) and another
+apparently appearing. But I think that "rename and codify" should be a
+separate thing (and done after ths particular issue is fixed).
+
+              Linus
 
