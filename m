@@ -2,102 +2,104 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id ME5iENZV1Wnz4wcAu9opvQ
+	id YOyCDfZU1Wkf4wcAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Tue, 07 Apr 2026 21:07:02 +0200
+	for <lists+apparmor@lfdr.de>; Tue, 07 Apr 2026 21:03:18 +0200
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09BD93B3369
-	for <lists+apparmor@lfdr.de>; Tue, 07 Apr 2026 21:07:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F306F3B3250
+	for <lists+apparmor@lfdr.de>; Tue, 07 Apr 2026 21:03:17 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1wABFB-0003ym-L7; Tue, 07 Apr 2026 18:33:45 +0000
-Received: from mail-ot1-f98.google.com ([209.85.210.98])
+	id 1wABFC-0003yw-PD; Tue, 07 Apr 2026 18:33:46 +0000
+Received: from mail-pg1-f225.google.com ([209.85.215.225])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2)
  (envelope-from <keerthana.kalyanasundaram@broadcom.com>)
- id 1w8B0A-0002s1-C9
- for apparmor@lists.ubuntu.com; Thu, 02 Apr 2026 05:53:58 +0000
-Received: by mail-ot1-f98.google.com with SMTP id
- 46e09a7af769-7d743d94d5eso94641a34.0
- for <apparmor@lists.ubuntu.com>; Wed, 01 Apr 2026 22:53:57 -0700 (PDT)
+ id 1w8B0e-0002vl-6q
+ for apparmor@lists.ubuntu.com; Thu, 02 Apr 2026 05:54:28 +0000
+Received: by mail-pg1-f225.google.com with SMTP id
+ 41be03b00d2f7-c76bb670cbfso32767a12.3
+ for <apparmor@lists.ubuntu.com>; Wed, 01 Apr 2026 22:54:27 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775109236; x=1775714036;
+ d=1e100.net; s=20251104; t=1775109266; x=1775714066;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=iVFmR/coGugPGOD5D8t57xuLW0pWKEfclUCRJYgoO14=;
- b=CAJkj2Bfoe02GvbJMZJvuD2DvjWpSoNjLm+K+vFAdlcXoCKSv0XCNioEW1N87LMYhk
- GbIoYx2fd3A3NsmLS1z2rhJZsvvN3I6mpSOzNr6JQQWABEW+BRJ/zXucrBitDS0NKf2Q
- NcUoXNKgJhMbSQn26yAjbjPpbR1Yc5Ph9Y7c4jn9F4eUppD2luIBgRsX5KKcWB/VL0KA
- B8+KZCrgLRDl5iKTTlGYP7Hshv4IVZ9THMCm87hHLszM/rf0n7zSZLaWWUO1gDW4hHCD
- So+D90OVW1IJ9AGBiIHFod6GcvseWqSm2ygwwNzEZfTjSDM0ydUwpRtt64BKvSm6FhgT
- CNtQ==
+ bh=un0TrhH26CUN0UWgks1V0cLvA+RLLEZ2+uAxYkzc7Bs=;
+ b=FSXMbOg3HhHXtzFLyKSuhojx+1IEjHRWynLe8DKVW+jkDNhNX6pSLUOQIcon4/V6jN
+ AVKvUJ9RzafmHYToO0spMTCBnBV2HO9ZL8hrbFi678+wGfPR9JbhAlICs4WZiy9unb1G
+ O8F/Y1qMQ+grJw8wr3XCMx2m9NQokEcaD3J/OmpqUUQMaBBcB7EfWRXUHB+M7QXYIJdo
+ a6cRL6RI1gScLHGSqRJ33h2Wf+7n78jBRzj3rXyJnW/RO7qSRZva8XWlcbUDr/fHNMFv
+ ETV2759oNPYQn5ODRFc/xApjOLHzoYq7Fc/JNYw5AFn2tHAJS1Wq+YR/iGa9wgkdKXNX
+ WQDQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVidFdvejObrRTbaciEj/zV64kV0EHwMmW307ds7qT0tj/BjfhzHXwIjx1KEt8EW8bt4bWaBGCiIw==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0Yxx9ENjE2AJGC2ULe+gGW/9M9hSEhQfe4jRhqw3cNf9eP15f5q5
- cmAtC4W+uIYhtGR0tY2d3RvjV7aHpj9Ap3Q7vtYV2HuR8E6LQR1dV0oswUgL4Qbr0qMhd+kw5EJ
- GlWK5OhIC6cdLSMVgpVGaW/KrN8D5+tx+o0Oexag9/VTiYKG0AyRQEVBufDPFZJnotYjPUQWTih
- HnQZxc5Ai/F25JzOE4exX/Lq5DRM39jRmAT00lwJ88k5nM1Jzev6rzrDYKaQ/32ZabQLXC4e+MC
- baAqmxEICZPgeiFPXQVq2ioOTs/xQdoaLc=
-X-Gm-Gg: ATEYQzw3lTDu1vJtS1bYES55WKUchWVQY6VnPk+NW9LA9PGL+maClJKgR91cgv4RHVT
- GdkGGTdMi6wToVwZ5UYXz8uwGAyel9s5886QA2S/Xr7M/gTPVwTgFYqz3oBye64EkU+P5EIyRku
- 4Y9D03PbcvkdIPMszo8VlPCOKv0N7PBHWa83RFJ2RDpFaVREqtBFR1+DgGK0rM5nZ+XW8fXEo5Z
- RSbZe6XSAUJPxTUVxGFOcb4zTVCVb/um5duIWeFh0Nm8UaD0H5Yu3tWRwgmSLf7pAQqgZwhp91y
- Oxqnzr7YAHYonjQPVPgBBjmT+pqGMpwH7Y0+s1P/ODJ+tCdhx6HGliw00fcG/PsW4DJhDqz++Vq
- 4lqxEZX/QUxxnw2gd8AI2hz9gNQR0nj/9GvVb+Wn5sDp4Srxcihdm21hB+FRorREm46aWO85PYC
- jfyktAZtAqd1cdFjtw+2q4ow==
-X-Received: by 2002:a05:6820:2915:b0:67e:20bf:2ea4 with SMTP id
- 006d021491bc7-67fabae0939mr2427006eaf.0.1775109236178; 
- Wed, 01 Apr 2026 22:53:56 -0700 (PDT)
+ AJvYcCXgjuEptrsB/spgi0Uv80wydnmbZ4mXzvFWl0mCn/m77Dkjw4rHH0AVxqJVurVteXTLdToh+1beVw==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0YxTpmKjb6+iZKFmyWk3ZxdNkzLeczdvvH/6XNiL8LiSI/bTs1/L
+ jvBNPesqaD3O2MhSa3P8EmhWBVv0teYJT0+XRKNawDXhlt8kmz2dcNqzxYkOgBSpDFKpVcy/7jC
+ HpGIBMgHVh904eGVBw++Cb95SZy+MT2nb3XFuF23A25YExeTHecbh8O1uYhFqm9gghESnrL+eoC
+ A6L+ejm7RdFe3iltEFyUu8VX2zcNXLxAe6gRSmdnn2maXa/68MHBVMPX1OHWo3c0x+JHf5j35NG
+ A/v+KzFLNvWClVuXeXdQIgXkGodfOQrXa8=
+X-Gm-Gg: ATEYQzwOW7miWdUHo868701oybwWLlsaRMflYXvRaVl5x2lvUTCWolTL50Zjm3iz1gJ
+ 6hStXSoToF+47A06+mZ5kYMebxnPrnRX6L5s0GWGTBLNT5Ys4GhVmbbGr9Fzluk1fIkTeDShPC1
+ /yVDAwvHaauio2GFoRshrhNYjulO0ahrcVJDtMxFIqk1ePwLSeNl/oy8RE4+giDYepv+MjaMIgs
+ wxbP6zG6kDclOI94tD4j7dHAeXvAWKz9j0qrlgGfAR0e6iV6FhWjg4xmAdTdk6i4SpdApjx3i7m
+ THtdX5WHQafhw24LyQrdasTWEmIAdtw9qvJToOdxC9GiUi1wk2SoEPFJsmpg1nUPkod4wg4BCVP
+ oVTRdhW+1bWPq+5vskgK3XKEI8p2mBG5onazDwvHYC5Fuv/9VkMETQVvqKU6oD9W0M2xL9rx4bT
+ 1fm5XeUiR9VWoPkkokozOgmdKuGVsKqb1uMOHksWt2Hz/sGClJgdbbmKAvfWfwDWa11gp2XBbl2
+ xlr
+X-Received: by 2002:a05:6a00:4f95:b0:82c:7767:5b7b with SMTP id
+ d2e1a72fcca58-82ce8c8347fmr4540219b3a.7.1775109265834; 
+ Wed, 01 Apr 2026 22:54:25 -0700 (PDT)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- ([144.49.247.127]) by smtp-relay.gmail.com with ESMTPS id
- 006d021491bc7-680a56ee8f0sm101683eaf.4.2026.04.01.22.53.54
+ (address-144-49-247-118.dlp.protect.broadcom.com. [144.49.247.118])
+ by smtp-relay.gmail.com with ESMTPS id
+ d2e1a72fcca58-82cf9a09160sm203893b3a.0.2026.04.01.22.54.25
  for <apparmor@lists.ubuntu.com>
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 01 Apr 2026 22:53:56 -0700 (PDT)
+ Wed, 01 Apr 2026 22:54:25 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-dy1-f200.google.com with SMTP id
- 5a478bee46e88-2c17a2758b0so44850eec.2
- for <apparmor@lists.ubuntu.com>; Wed, 01 Apr 2026 22:53:54 -0700 (PDT)
+Received: by mail-dl1-f70.google.com with SMTP id
+ a92af1059eb24-128b8fa9e7cso85431c88.2
+ for <apparmor@lists.ubuntu.com>; Wed, 01 Apr 2026 22:54:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1775109234; x=1775714034; darn=lists.ubuntu.com;
+ d=broadcom.com; s=google; t=1775109264; x=1775714064; darn=lists.ubuntu.com;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=iVFmR/coGugPGOD5D8t57xuLW0pWKEfclUCRJYgoO14=;
- b=BIPoZFzmbJIqFznKuBuhvz6CqeozjnyjwS154awCEzwq+eCqPIhPAb1DI/mS6qBQ4m
- n6Q+RhPYB4qbJdEdNkrPsQxTcTq0VbPCHTnUGDqLvYeihZ2RJIPlmAW5s4tyYxI+4pfm
- TqO5imftLO/jYJik1os0+zvN8yoREIB+FwrRM=
+ bh=un0TrhH26CUN0UWgks1V0cLvA+RLLEZ2+uAxYkzc7Bs=;
+ b=SXIOiRGOqw8OH359iL3y+oVv5ilKaF3vtsWYl0OsYV9DAMfmQv4i3P8E7B2vWVFEj7
+ O+2mQ9ERdT5ADOB74jYqWnMVPHmbnnAq4QB5W3xQOc84YcXrkKBj7O9JgmiTt1s323Fj
+ cymCoJv1Xjinmy8t8FW8X81eTInajg0gbUk3A=
 X-Forwarded-Encrypted: i=1;
- AJvYcCUl/nj8uFqRbi7ntcDD+kdvTiArcrFHMvpOGeIuO7sZmh8ZxNq4AU0EoEM38BksozSlZv2SSuanAA==@lists.ubuntu.com
-X-Received: by 2002:a05:7300:d70e:b0:2c4:ec89:bdb with SMTP id
- 5a478bee46e88-2c930798a42mr1523891eec.2.1775109233680; 
- Wed, 01 Apr 2026 22:53:53 -0700 (PDT)
-X-Received: by 2002:a05:7300:d70e:b0:2c4:ec89:bdb with SMTP id
- 5a478bee46e88-2c930798a42mr1523884eec.2.1775109232974; 
- Wed, 01 Apr 2026 22:53:52 -0700 (PDT)
+ AJvYcCXokPe+/ZoCbDZVNvBjvR9uSoV7ClSufl2qsjGkuXoc+rx8sHGlHHdhTnQTcAHrHEt/YAT2PkmokQ==@lists.ubuntu.com
+X-Received: by 2002:a05:7300:d50c:b0:2be:681:91b2 with SMTP id
+ 5a478bee46e88-2c9326ad3c3mr1519626eec.6.1775109263567; 
+ Wed, 01 Apr 2026 22:54:23 -0700 (PDT)
+X-Received: by 2002:a05:7300:d50c:b0:2be:681:91b2 with SMTP id
+ 5a478bee46e88-2c9326ad3c3mr1519610eec.6.1775109262899; 
+ Wed, 01 Apr 2026 22:54:22 -0700 (PDT)
 Received: from keerthanak-ph5-dev.. ([192.19.161.250])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-2ca7cf1271asm2180380eec.26.2026.04.01.22.53.50
+ 5a478bee46e88-2ca7cf126c9sm1634662eec.27.2026.04.01.22.54.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Apr 2026 22:53:51 -0700 (PDT)
+ Wed, 01 Apr 2026 22:54:22 -0700 (PDT)
 From: Keerthana K <keerthana.kalyanasundaram@broadcom.com>
 To: stable@vger.kernel.org,
 	gregkh@linuxfoundation.org
-Date: Thu,  2 Apr 2026 05:47:00 +0000
-Message-ID: <20260402054700.2798707-1-keerthana.kalyanasundaram@broadcom.com>
+Date: Thu,  2 Apr 2026 05:47:31 +0000
+Message-ID: <20260402054731.2798726-1-keerthana.kalyanasundaram@broadcom.com>
 X-Mailer: git-send-email 2.43.7
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Received-SPF: pass client-ip=209.85.210.98;
+Received-SPF: pass client-ip=209.85.215.225;
  envelope-from=keerthana.kalyanasundaram@broadcom.com;
- helo=mail-ot1-f98.google.com
+ helo=mail-pg1-f225.google.com
 X-Mailman-Approved-At: Tue, 07 Apr 2026 18:33:45 +0000
-Subject: [apparmor] [PATCH v6.1] apparmor: fix unprivileged local user can
-	do privileged policy management
+Subject: [apparmor] [PATCH v5.10-v5.15] apparmor: fix unprivileged local
+	user can do privileged policy management
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -127,7 +129,7 @@ X-Spamd-Result: default: False [4.59 / 15.00];
 	R_MISSING_CHARSET(0.50)[];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	FROM_HAS_DN(0.00)[];
@@ -135,17 +137,17 @@ X-Spamd-Result: default: False [4.59 / 15.00];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RCVD_COUNT_FIVE(0.00)[6];
-	ARC_NA(0.00)[];
 	FORGED_SENDER(0.00)[keerthana.kalyanasundaram@broadcom.com,apparmor-bounces@lists.ubuntu.com];
+	ARC_NA(0.00)[];
 	RCPT_COUNT_TWELVE(0.00)[17];
-	GREYLIST(0.00)[pass,body];
+	GREYLIST(0.00)[pass,meta];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
 	FROM_NEQ_ENVFROM(0.00)[keerthana.kalyanasundaram@broadcom.com,apparmor-bounces@lists.ubuntu.com];
 	DKIM_TRACE(0.00)[broadcom.com:-];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.665];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns,linuxfoundation.org:email,broadcom.com:email,broadcom.com:mid,qualys.com:email];
+	NEURAL_HAM(-0.00)[-0.666];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns,broadcom.com:email,broadcom.com:mid,linuxfoundation.org:email,qualys.com:email];
 	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
@@ -154,7 +156,7 @@ X-Spamd-Result: default: False [4.59 / 15.00];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
 	TO_DN_SOME(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[]
-X-Rspamd-Queue-Id: 09BD93B3369
+X-Rspamd-Queue-Id: F306F3B3250
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
@@ -203,10 +205,10 @@ Signed-off-by: Keerthana K <keerthana.kalyanasundaram@broadcom.com>
  3 files changed, 44 insertions(+), 9 deletions(-)
 
 diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
-index fa518cd82366..fa4a6f20f58e 100644
+index e736936f4f0b..3053e5731b02 100644
 --- a/security/apparmor/apparmorfs.c
 +++ b/security/apparmor/apparmorfs.c
-@@ -412,7 +412,8 @@ static struct aa_loaddata *aa_simple_write_to_buffer(const char __user *userbuf,
+@@ -409,7 +409,8 @@ static struct aa_loaddata *aa_simple_write_to_buffer(const char __user *userbuf,
  }
  
  static ssize_t policy_update(u32 mask, const char __user *buf, size_t size,
@@ -216,7 +218,7 @@ index fa518cd82366..fa4a6f20f58e 100644
  {
  	struct aa_loaddata *data;
  	struct aa_label *label;
-@@ -423,7 +424,7 @@ static ssize_t policy_update(u32 mask, const char __user *buf, size_t size,
+@@ -420,7 +421,7 @@ static ssize_t policy_update(u32 mask, const char __user *buf, size_t size,
  	/* high level check about policy management - fine grained in
  	 * below after unpack
  	 */
@@ -225,7 +227,7 @@ index fa518cd82366..fa4a6f20f58e 100644
  	if (error)
  		goto end_section;
  
-@@ -444,7 +445,8 @@ static ssize_t profile_load(struct file *f, const char __user *buf, size_t size,
+@@ -441,7 +442,8 @@ static ssize_t profile_load(struct file *f, const char __user *buf, size_t size,
  			    loff_t *pos)
  {
  	struct aa_ns *ns = aa_get_ns(f->f_inode->i_private);
@@ -235,7 +237,7 @@ index fa518cd82366..fa4a6f20f58e 100644
  
  	aa_put_ns(ns);
  
-@@ -462,7 +464,7 @@ static ssize_t profile_replace(struct file *f, const char __user *buf,
+@@ -459,7 +461,7 @@ static ssize_t profile_replace(struct file *f, const char __user *buf,
  {
  	struct aa_ns *ns = aa_get_ns(f->f_inode->i_private);
  	int error = policy_update(AA_MAY_LOAD_POLICY | AA_MAY_REPLACE_POLICY,
@@ -244,7 +246,7 @@ index fa518cd82366..fa4a6f20f58e 100644
  	aa_put_ns(ns);
  
  	return error;
-@@ -486,7 +488,7 @@ static ssize_t profile_remove(struct file *f, const char __user *buf,
+@@ -483,7 +485,7 @@ static ssize_t profile_remove(struct file *f, const char __user *buf,
  	/* high level check about policy management - fine grained in
  	 * below after unpack
  	 */
@@ -253,7 +255,7 @@ index fa518cd82366..fa4a6f20f58e 100644
  	if (error)
  		goto out;
  
-@@ -1808,7 +1810,7 @@ static int ns_mkdir_op(struct user_namespace *mnt_userns, struct inode *dir,
+@@ -1796,7 +1798,7 @@ static int ns_mkdir_op(struct inode *dir, struct dentry *dentry, umode_t mode)
  	int error;
  
  	label = begin_current_label_crit_section();
@@ -262,7 +264,7 @@ index fa518cd82366..fa4a6f20f58e 100644
  	end_current_label_crit_section(label);
  	if (error)
  		return error;
-@@ -1857,7 +1859,7 @@ static int ns_rmdir_op(struct inode *dir, struct dentry *dentry)
+@@ -1845,7 +1847,7 @@ static int ns_rmdir_op(struct inode *dir, struct dentry *dentry)
  	int error;
  
  	label = begin_current_label_crit_section();
@@ -272,24 +274,23 @@ index fa518cd82366..fa4a6f20f58e 100644
  	if (error)
  		return error;
 diff --git a/security/apparmor/include/policy.h b/security/apparmor/include/policy.h
-index 639b5b248e63..3f776f5e8de4 100644
+index b5aa4231af68..f6682a31df23 100644
 --- a/security/apparmor/include/policy.h
 +++ b/security/apparmor/include/policy.h
-@@ -308,7 +308,7 @@ static inline int AUDIT_MODE(struct aa_profile *profile)
- bool aa_policy_view_capable(struct aa_label *label, struct aa_ns *ns);
- bool aa_policy_admin_capable(struct aa_label *label, struct aa_ns *ns);
+@@ -304,6 +304,6 @@ static inline int AUDIT_MODE(struct aa_profile *profile)
+ bool policy_view_capable(struct aa_ns *ns);
+ bool policy_admin_capable(struct aa_ns *ns);
  int aa_may_manage_policy(struct aa_label *label, struct aa_ns *ns,
 -			 u32 mask);
 +			 const struct cred *ocred, u32 mask);
- bool aa_current_policy_view_capable(struct aa_ns *ns);
- bool aa_current_policy_admin_capable(struct aa_ns *ns);
  
+ #endif /* __AA_POLICY_H */
 diff --git a/security/apparmor/policy.c b/security/apparmor/policy.c
-index 4ee5a450d118..e7412a221551 100644
+index e59bdb750ef0..f2bc865bc7b6 100644
 --- a/security/apparmor/policy.c
 +++ b/security/apparmor/policy.c
-@@ -712,14 +712,42 @@ bool aa_current_policy_admin_capable(struct aa_ns *ns)
- 	return res;
+@@ -671,14 +671,42 @@ bool policy_admin_capable(struct aa_ns *ns)
+ 	return policy_view_capable(ns) && capable && !aa_g_lock_policy;
  }
  
 +static bool is_subset_of_obj_privilege(const struct cred *cred,
@@ -332,7 +333,7 @@ index 4ee5a450d118..e7412a221551 100644
  {
  	const char *op;
  
-@@ -735,6 +763,11 @@ int aa_may_manage_policy(struct aa_label *label, struct aa_ns *ns, u32 mask)
+@@ -694,6 +722,11 @@ int aa_may_manage_policy(struct aa_label *label, struct aa_ns *ns, u32 mask)
  		return audit_policy(label, op, NULL, NULL, "policy_locked",
  				    -EACCES);
  
@@ -341,7 +342,7 @@ index 4ee5a450d118..e7412a221551 100644
 +				    "not privileged for target profile",
 +				    -EACCES);
 +
- 	if (!aa_policy_admin_capable(label, ns))
+ 	if (!policy_admin_capable(ns))
  		return audit_policy(label, op, NULL, NULL, "not policy admin",
  				    -EACCES);
 -- 
