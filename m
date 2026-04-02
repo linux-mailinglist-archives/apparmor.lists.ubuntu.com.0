@@ -2,96 +2,102 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OE9DDVcUy2kgDwYAu9opvQ
+	id ME5iENZV1Wnz4wcAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Tue, 31 Mar 2026 02:24:55 +0200
+	for <lists+apparmor@lfdr.de>; Tue, 07 Apr 2026 21:07:02 +0200
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC9D0362A26
-	for <lists+apparmor@lfdr.de>; Tue, 31 Mar 2026 02:24:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09BD93B3369
+	for <lists+apparmor@lfdr.de>; Tue, 07 Apr 2026 21:07:01 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1w7MuS-0006jR-2o; Tue, 31 Mar 2026 00:24:44 +0000
-Received: from mail-lf1-f42.google.com ([209.85.167.42])
+	id 1wABFB-0003ym-L7; Tue, 07 Apr 2026 18:33:45 +0000
+Received: from mail-ot1-f98.google.com ([209.85.210.98])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <torvalds@linuxfoundation.org>)
- id 1w7MuQ-0006jE-Pv
- for apparmor@lists.ubuntu.com; Tue, 31 Mar 2026 00:24:42 +0000
-Received: by mail-lf1-f42.google.com with SMTP id
- 2adb3069b0e04-5a2bb0fe3bbso351278e87.3
- for <apparmor@lists.ubuntu.com>; Mon, 30 Mar 2026 17:24:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=google; t=1774916682; x=1775521482;
- darn=lists.ubuntu.com; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=Tir8tYzZsdvdQe2Y3Sf5wYOGCREjM5L09WG7qVnCWNg=;
- b=UnJYgOorSob+3FQrpcU5h4UcnMmMX0/5hnP+0wJTvJ3NqV3sOnINBh/2Gc2+GOORxr
- kqm+AOo0aYNc/8CSwhvbWjn1F4+VzGcN3mADcdX2CMGz+pS3Xn8hIzRPU8lXiKn59HL9
- s1GcrMFuCP55U3iFPknRVu1QOk+RfjkPq1loo=
+ (Exim 4.86_2)
+ (envelope-from <keerthana.kalyanasundaram@broadcom.com>)
+ id 1w8B0A-0002s1-C9
+ for apparmor@lists.ubuntu.com; Thu, 02 Apr 2026 05:53:58 +0000
+Received: by mail-ot1-f98.google.com with SMTP id
+ 46e09a7af769-7d743d94d5eso94641a34.0
+ for <apparmor@lists.ubuntu.com>; Wed, 01 Apr 2026 22:53:57 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774916682; x=1775521482;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Tir8tYzZsdvdQe2Y3Sf5wYOGCREjM5L09WG7qVnCWNg=;
- b=sL/63xEMRAS2+PnPPmIOWOQrKX3jutRPzreBLTZ0zQ2qIKY7OKoXdGhiVJlLzArPVl
- KN83S48Nh6qbhz54+v2k9JKEFAYVdF1hIyeKSyTE5rPAp8CuXC62gUqMyZ36d7PmqQwK
- sQYsVMFEpcjTc0vTYgsFL2SQjYnMd8PNdE5N2J7lkhqnbdGgFOFyF5F7vCwyzqRyD0fT
- UdWwsgrnB2mp5Vxk/MrSwwHKshwmCACLBTSHplGy5CsZ5XxCHRjS34OcVmPdDfv1Xu5H
- nfu/hGMHhJwCgFlt13RGPuAl9T2u24i5i9Wkw0GnNghm5qREKqYTdqUcQtJeW5lQEvyW
- 57Zg==
+ d=1e100.net; s=20251104; t=1775109236; x=1775714036;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=iVFmR/coGugPGOD5D8t57xuLW0pWKEfclUCRJYgoO14=;
+ b=CAJkj2Bfoe02GvbJMZJvuD2DvjWpSoNjLm+K+vFAdlcXoCKSv0XCNioEW1N87LMYhk
+ GbIoYx2fd3A3NsmLS1z2rhJZsvvN3I6mpSOzNr6JQQWABEW+BRJ/zXucrBitDS0NKf2Q
+ NcUoXNKgJhMbSQn26yAjbjPpbR1Yc5Ph9Y7c4jn9F4eUppD2luIBgRsX5KKcWB/VL0KA
+ B8+KZCrgLRDl5iKTTlGYP7Hshv4IVZ9THMCm87hHLszM/rf0n7zSZLaWWUO1gDW4hHCD
+ So+D90OVW1IJ9AGBiIHFod6GcvseWqSm2ygwwNzEZfTjSDM0ydUwpRtt64BKvSm6FhgT
+ CNtQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWvPP3nOK/zaJf6bK9FoVGBEHhxj+iBctpg/IsP8JsW6CDouJ9Ox2PQAltuZoDsU+SLfeq/298mjA==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0Yz9aENyv6eA4GBDmsUeGh8t5a+Fv3VQ51X3joZk3JATVUEVHVAf
- pNE4qkcrByLoXsSEo/Y4sjb4g98Rkr/aCk478b6jH8LyfWtqOS7A3ObVF6qhISuO4Bmlo8m1ur2
- 8tOM+6tfJwA==
-X-Gm-Gg: ATEYQzzjMDacQgFpIbU0h2dOcGiyItvsiQ2upYItsvGL5Ml76DumsW5rYjr67PCzO9l
- svozeoUZtJWQYbTFKYfltQVJpkj7tANDJSoRinFE9vWnEriwYg2monV9q8hRw7WMvImtl0ktVyh
- u0p9AjW9HpOXjHjBxzDD9p3bHh24k8i84ut0Kpca8qJHYPAIZvc9T2wEYM/ZS6kmb5EQr0b7jLU
- mXz0bzpfJerGo/jrQWlnYK+XQmJNOrWhWKTX4+329qNvGg7Se0Jg4sGSBA17ai6ZBLHGZubKRvk
- yGt4pgmwCkVGOpFWxNmodE9WK1VS0LK8O5qmniVmjq6C98jhRSszZihVzBZlFhsMjvGxP9HF1zj
- OTpAVegPjpXXpf0Wn7FbM4nk02cNCh5x63jJWyjnp2LoX9rqKT3AY8I5UCI0Wtx1r1MHUPTbVQl
- GWjUAGw8H6+WedUeau2o/3Z60NCgaEKioorc7WOrO7b2rRIl8fLkBz3Pe/krHakZB8WJyWYV083
- S7H
-X-Received: by 2002:a05:6512:39d0:b0:5a2:ae74:72c6 with SMTP id
- 2adb3069b0e04-5a2ae747412mr4670656e87.32.1774916681543; 
- Mon, 30 Mar 2026 17:24:41 -0700 (PDT)
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com.
- [209.85.208.173]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a2b13b13bbsm2001991e87.0.2026.03.30.17.24.40
+ AJvYcCVidFdvejObrRTbaciEj/zV64kV0EHwMmW307ds7qT0tj/BjfhzHXwIjx1KEt8EW8bt4bWaBGCiIw==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0Yxx9ENjE2AJGC2ULe+gGW/9M9hSEhQfe4jRhqw3cNf9eP15f5q5
+ cmAtC4W+uIYhtGR0tY2d3RvjV7aHpj9Ap3Q7vtYV2HuR8E6LQR1dV0oswUgL4Qbr0qMhd+kw5EJ
+ GlWK5OhIC6cdLSMVgpVGaW/KrN8D5+tx+o0Oexag9/VTiYKG0AyRQEVBufDPFZJnotYjPUQWTih
+ HnQZxc5Ai/F25JzOE4exX/Lq5DRM39jRmAT00lwJ88k5nM1Jzev6rzrDYKaQ/32ZabQLXC4e+MC
+ baAqmxEICZPgeiFPXQVq2ioOTs/xQdoaLc=
+X-Gm-Gg: ATEYQzw3lTDu1vJtS1bYES55WKUchWVQY6VnPk+NW9LA9PGL+maClJKgR91cgv4RHVT
+ GdkGGTdMi6wToVwZ5UYXz8uwGAyel9s5886QA2S/Xr7M/gTPVwTgFYqz3oBye64EkU+P5EIyRku
+ 4Y9D03PbcvkdIPMszo8VlPCOKv0N7PBHWa83RFJ2RDpFaVREqtBFR1+DgGK0rM5nZ+XW8fXEo5Z
+ RSbZe6XSAUJPxTUVxGFOcb4zTVCVb/um5duIWeFh0Nm8UaD0H5Yu3tWRwgmSLf7pAQqgZwhp91y
+ Oxqnzr7YAHYonjQPVPgBBjmT+pqGMpwH7Y0+s1P/ODJ+tCdhx6HGliw00fcG/PsW4DJhDqz++Vq
+ 4lqxEZX/QUxxnw2gd8AI2hz9gNQR0nj/9GvVb+Wn5sDp4Srxcihdm21hB+FRorREm46aWO85PYC
+ jfyktAZtAqd1cdFjtw+2q4ow==
+X-Received: by 2002:a05:6820:2915:b0:67e:20bf:2ea4 with SMTP id
+ 006d021491bc7-67fabae0939mr2427006eaf.0.1775109236178; 
+ Wed, 01 Apr 2026 22:53:56 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
+ ([144.49.247.127]) by smtp-relay.gmail.com with ESMTPS id
+ 006d021491bc7-680a56ee8f0sm101683eaf.4.2026.04.01.22.53.54
  for <apparmor@lists.ubuntu.com>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 Mar 2026 17:24:41 -0700 (PDT)
-Received: by mail-lj1-f173.google.com with SMTP id
- 38308e7fff4ca-38be66a9fc0so52336601fa.1
- for <apparmor@lists.ubuntu.com>; Mon, 30 Mar 2026 17:24:40 -0700 (PDT)
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 01 Apr 2026 22:53:56 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f200.google.com with SMTP id
+ 5a478bee46e88-2c17a2758b0so44850eec.2
+ for <apparmor@lists.ubuntu.com>; Wed, 01 Apr 2026 22:53:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=broadcom.com; s=google; t=1775109234; x=1775714034; darn=lists.ubuntu.com;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=iVFmR/coGugPGOD5D8t57xuLW0pWKEfclUCRJYgoO14=;
+ b=BIPoZFzmbJIqFznKuBuhvz6CqeozjnyjwS154awCEzwq+eCqPIhPAb1DI/mS6qBQ4m
+ n6Q+RhPYB4qbJdEdNkrPsQxTcTq0VbPCHTnUGDqLvYeihZ2RJIPlmAW5s4tyYxI+4pfm
+ TqO5imftLO/jYJik1os0+zvN8yoREIB+FwrRM=
 X-Forwarded-Encrypted: i=1;
- AJvYcCVsgyjDSLjxCju+/X0CgOIEcRlH+miW00oWGRkej8E2Z8B4EGEYWrqe5IXKdb2/RIkWxEAkavtAaA==@lists.ubuntu.com
-X-Received: by 2002:a05:6402:4346:b0:66c:4366:3217 with SMTP id
- 4fb4d7f45d1cf-66c4366346emr280074a12.7.1774916288569; Mon, 30 Mar 2026
- 17:18:08 -0700 (PDT)
+ AJvYcCUl/nj8uFqRbi7ntcDD+kdvTiArcrFHMvpOGeIuO7sZmh8ZxNq4AU0EoEM38BksozSlZv2SSuanAA==@lists.ubuntu.com
+X-Received: by 2002:a05:7300:d70e:b0:2c4:ec89:bdb with SMTP id
+ 5a478bee46e88-2c930798a42mr1523891eec.2.1775109233680; 
+ Wed, 01 Apr 2026 22:53:53 -0700 (PDT)
+X-Received: by 2002:a05:7300:d70e:b0:2c4:ec89:bdb with SMTP id
+ 5a478bee46e88-2c930798a42mr1523884eec.2.1775109232974; 
+ Wed, 01 Apr 2026 22:53:52 -0700 (PDT)
+Received: from keerthanak-ph5-dev.. ([192.19.161.250])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-2ca7cf1271asm2180380eec.26.2026.04.01.22.53.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 01 Apr 2026 22:53:51 -0700 (PDT)
+From: Keerthana K <keerthana.kalyanasundaram@broadcom.com>
+To: stable@vger.kernel.org,
+	gregkh@linuxfoundation.org
+Date: Thu,  2 Apr 2026 05:47:00 +0000
+Message-ID: <20260402054700.2798707-1-keerthana.kalyanasundaram@broadcom.com>
+X-Mailer: git-send-email 2.43.7
 MIME-Version: 1.0
-References: <20260326131838.634095-1-dhowells@redhat.com>
- <20260326131838.634095-5-dhowells@redhat.com>
- <20260329121208.6092419d@kernel.org>
- <CAHk-=wiJ6gEELLviexdmSHnyjVoG7MFo8Qwhd1zxs_tCnL-=gQ@mail.gmail.com>
- <1179840.1774867765@warthog.procyon.org.uk>
- <CAHk-=wjDKfhS5TvEfrsOgBgAvFMPfAd3wT=Um2AQb4txHq5sAQ@mail.gmail.com>
- <1317861.1774914607@warthog.procyon.org.uk>
-In-Reply-To: <1317861.1774914607@warthog.procyon.org.uk>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Mon, 30 Mar 2026 17:17:52 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wji+mTVj0vkSRJc2p38B5HaMp=oo+aUNA7CwuiguM+EUA@mail.gmail.com>
-X-Gm-Features: AQROBzCw8GXLOeNuPbkp4sgcu_wDqPonncg2z7A4jKKak2u69PJv7yB-cJ3CIOI
-Message-ID: <CAHk-=wji+mTVj0vkSRJc2p38B5HaMp=oo+aUNA7CwuiguM+EUA@mail.gmail.com>
-To: David Howells <dhowells@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Received-SPF: pass client-ip=209.85.167.42;
- envelope-from=torvalds@linuxfoundation.org; helo=mail-lf1-f42.google.com
-Subject: Re: [apparmor] [PATCH net v3 04/11] list: Move on_list_rcu() to
- list.h and add on_list() also
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Received-SPF: pass client-ip=209.85.210.98;
+ envelope-from=keerthana.kalyanasundaram@broadcom.com;
+ helo=mail-ot1-f98.google.com
+X-Mailman-Approved-At: Tue, 07 Apr 2026 18:33:45 +0000
+Subject: [apparmor] [PATCH v6.1] apparmor: fix unprivileged local user can
+	do privileged policy management
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -103,77 +109,242 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: stable@kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- apparmor@lists.ubuntu.com, linux-kernel@vger.kernel.org,
- linux-afs@lists.infradead.org, Minas Harutyunyan <hminas@synopsys.com>,
- Eric Dumazet <edumazet@google.com>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Simon Horman <horms@kernel.org>, Marc Dionne <marc.dionne@auristor.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>
+Cc: sashal@kernel.org, ajay.kaher@broadcom.com, paul@paul-moore.com,
+ Salvatore Bonaccorso <carnil@debian.org>,
+ Qualys Security Advisory <qsa@qualys.com>, linux-kernel@vger.kernel.org,
+ apparmor@lists.ubuntu.com, jmorris@namei.org,
+ Keerthana K <keerthana.kalyanasundaram@broadcom.com>,
+ linux-security-module@vger.kernel.org,
+ vamsi-krishna.brahmajosyula@broadcom.com, alexey.makhalov@broadcom.com,
+ tapas.kundu@broadcom.com, yin.ding@broadcom.com, serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Spamd-Result: default: False [0.09 / 15.00];
-	R_DKIM_REJECT(1.00)[linux-foundation.org:s=google];
+X-Spamd-Result: default: False [4.59 / 15.00];
+	DMARC_POLICY_REJECT(2.00)[broadcom.com : SPF not aligned (relaxed),reject];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_REJECT(1.00)[broadcom.com:s=google];
+	DATE_IN_PAST(1.00)[133];
+	R_MISSING_CHARSET(0.50)[];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER(0.00)[torvalds@linux-foundation.org,apparmor-bounces@lists.ubuntu.com];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:dhowells@redhat.com,m:stable@kernel.org,m:netdev@vger.kernel.org,m:linux-usb@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:linux-kernel@vger.kernel.org,m:linux-afs@lists.infradead.org,m:hminas@synopsys.com,m:edumazet@google.com,m:mathieu.desnoyers@efficios.com,m:horms@kernel.org,m:marc.dionne@auristor.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,s:lists@lfdr.de];
-	DMARC_NA(0.00)[linux-foundation.org];
-	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
-	ARC_NA(0.00)[];
-	DKIM_TRACE(0.00)[linux-foundation.org:-];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FROM_NEQ_ENVFROM(0.00)[torvalds@linux-foundation.org,apparmor-bounces@lists.ubuntu.com];
 	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:stable@vger.kernel.org,m:gregkh@linuxfoundation.org,m:sashal@kernel.org,m:ajay.kaher@broadcom.com,m:paul@paul-moore.com,m:carnil@debian.org,m:qsa@qualys.com,m:linux-kernel@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:jmorris@namei.org,m:keerthana.kalyanasundaram@broadcom.com,m:linux-security-module@vger.kernel.org,m:vamsi-krishna.brahmajosyula@broadcom.com,m:alexey.makhalov@broadcom.com,m:tapas.kundu@broadcom.com,m:yin.ding@broadcom.com,m:serge@hallyn.com,s:lists@lfdr.de];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[6];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[keerthana.kalyanasundaram@broadcom.com,apparmor-bounces@lists.ubuntu.com];
+	RCPT_COUNT_TWELVE(0.00)[17];
+	GREYLIST(0.00)[pass,body];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
+	FROM_NEQ_ENVFROM(0.00)[keerthana.kalyanasundaram@broadcom.com,apparmor-bounces@lists.ubuntu.com];
+	DKIM_TRACE(0.00)[broadcom.com:-];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-0.665];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns,linuxfoundation.org:email,broadcom.com:email,broadcom.com:mid,qualys.com:email];
 	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_HAM(-0.00)[-0.812];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[apparmor];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid]
-X-Rspamd-Queue-Id: DC9D0362A26
+	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
+	TO_DN_SOME(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[]
+X-Rspamd-Queue-Id: 09BD93B3369
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Mon, 30 Mar 2026 at 16:50, David Howells <dhowells@redhat.com> wrote:
->
-> If I don't delete entries in rxrpc_destroy_all_calls(), then rxrpc_put_call()
-> only needs list_empty() to guard against the call not having being queued yet.
-> I could have a flag for that, but it would be superfluous.
+From: John Johansen <john.johansen@canonical.com>
 
-So make *that* code use a creaful "delete with flag".
+commit 6601e13e82841879406bf9f369032656f441a425 upstream.
 
-As far as I know, __list_del_clearprev() works fine for RCU walking
-too, and that "prev is NULL" works as a "this is not on a list".
+An unprivileged local user can load, replace, and remove profiles by
+opening the apparmorfs interfaces, via a confused deputy attack, by
+passing the opened fd to a privileged process, and getting the
+privileged process to write to the interface.
 
-Admittedly I didn't think about it a lot.
+This does require a privileged target that can be manipulated to do
+the write for the unprivileged process, but once such access is
+achieved full policy management is possible and all the possible
+implications that implies: removing confinement, DoS of system or
+target applications by denying all execution, by-passing the
+unprivileged user namespace restriction, to exploiting kernel bugs for
+a local privilege escalation.
 
-So my point is more that this should not be some "generic list"
-behavior, and I do *not* want people to think that they can just do
-"is_on_list()" kind of crap in general.
+The policy management interface can not have its permissions simply
+changed from 0666 to 0600 because non-root processes need to be able
+to load policy to different policy namespaces.
 
-This should be a "this user needs that particular behavior, and has
-used this particular function to get it".
+Instead ensure the task writing the interface has privileges that
+are a subset of the task that opened the interface. This is already
+done via policy for confined processes, but unconfined can delegate
+access to the opened fd, by-passing the usual policy check.
 
-And yes, this pattern started out as a single performance-critical
-networking user, and maybe we could rename and codify this pattern
-better since we now have a couple of users (bpf and xdp) and another
-apparently appearing. But I think that "rename and codify" should be a
-separate thing (and done after ths particular issue is fixed).
+Fixes: b7fd2c0340eac ("apparmor: add per policy ns .load, .replace, .remove interface files")
+Reported-by: Qualys Security Advisory <qsa@qualys.com>
+Tested-by: Salvatore Bonaccorso <carnil@debian.org>
+Reviewed-by: Georgia Garcia <georgia.garcia@canonical.com>
+Reviewed-by: Cengiz Can <cengiz.can@canonical.com>
+Signed-off-by: John Johansen <john.johansen@canonical.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[Keerthana: aa_may_manage_policy() does not take a subj_cred
+parameter (added in 90c436a64a6e, merged in v6.7). Pass current_cred()
+directly to is_subset_of_obj_privilege() in place of subj_cred, which
+is equivalent since all call sites pass current_cred() as subj_cred.]
+Signed-off-by: Keerthana K <keerthana.kalyanasundaram@broadcom.com>
+---
+ security/apparmor/apparmorfs.c     | 16 ++++++++------
+ security/apparmor/include/policy.h |  2 +-
+ security/apparmor/policy.c         | 35 +++++++++++++++++++++++++++++-
+ 3 files changed, 44 insertions(+), 9 deletions(-)
 
-              Linus
+diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
+index fa518cd82366..fa4a6f20f58e 100644
+--- a/security/apparmor/apparmorfs.c
++++ b/security/apparmor/apparmorfs.c
+@@ -412,7 +412,8 @@ static struct aa_loaddata *aa_simple_write_to_buffer(const char __user *userbuf,
+ }
+ 
+ static ssize_t policy_update(u32 mask, const char __user *buf, size_t size,
+-			     loff_t *pos, struct aa_ns *ns)
++			     loff_t *pos, struct aa_ns *ns,
++			     const struct cred *ocred)
+ {
+ 	struct aa_loaddata *data;
+ 	struct aa_label *label;
+@@ -423,7 +424,7 @@ static ssize_t policy_update(u32 mask, const char __user *buf, size_t size,
+ 	/* high level check about policy management - fine grained in
+ 	 * below after unpack
+ 	 */
+-	error = aa_may_manage_policy(label, ns, mask);
++	error = aa_may_manage_policy(label, ns, ocred, mask);
+ 	if (error)
+ 		goto end_section;
+ 
+@@ -444,7 +445,8 @@ static ssize_t profile_load(struct file *f, const char __user *buf, size_t size,
+ 			    loff_t *pos)
+ {
+ 	struct aa_ns *ns = aa_get_ns(f->f_inode->i_private);
+-	int error = policy_update(AA_MAY_LOAD_POLICY, buf, size, pos, ns);
++	int error = policy_update(AA_MAY_LOAD_POLICY, buf, size, pos, ns,
++				  f->f_cred);
+ 
+ 	aa_put_ns(ns);
+ 
+@@ -462,7 +464,7 @@ static ssize_t profile_replace(struct file *f, const char __user *buf,
+ {
+ 	struct aa_ns *ns = aa_get_ns(f->f_inode->i_private);
+ 	int error = policy_update(AA_MAY_LOAD_POLICY | AA_MAY_REPLACE_POLICY,
+-				  buf, size, pos, ns);
++				  buf, size, pos, ns, f->f_cred);
+ 	aa_put_ns(ns);
+ 
+ 	return error;
+@@ -486,7 +488,7 @@ static ssize_t profile_remove(struct file *f, const char __user *buf,
+ 	/* high level check about policy management - fine grained in
+ 	 * below after unpack
+ 	 */
+-	error = aa_may_manage_policy(label, ns, AA_MAY_REMOVE_POLICY);
++	error = aa_may_manage_policy(label, ns, f->f_cred, AA_MAY_REMOVE_POLICY);
+ 	if (error)
+ 		goto out;
+ 
+@@ -1808,7 +1810,7 @@ static int ns_mkdir_op(struct user_namespace *mnt_userns, struct inode *dir,
+ 	int error;
+ 
+ 	label = begin_current_label_crit_section();
+-	error = aa_may_manage_policy(label, NULL, AA_MAY_LOAD_POLICY);
++	error = aa_may_manage_policy(label, NULL, NULL, AA_MAY_LOAD_POLICY);
+ 	end_current_label_crit_section(label);
+ 	if (error)
+ 		return error;
+@@ -1857,7 +1859,7 @@ static int ns_rmdir_op(struct inode *dir, struct dentry *dentry)
+ 	int error;
+ 
+ 	label = begin_current_label_crit_section();
+-	error = aa_may_manage_policy(label, NULL, AA_MAY_LOAD_POLICY);
++	error = aa_may_manage_policy(label, NULL, NULL, AA_MAY_LOAD_POLICY);
+ 	end_current_label_crit_section(label);
+ 	if (error)
+ 		return error;
+diff --git a/security/apparmor/include/policy.h b/security/apparmor/include/policy.h
+index 639b5b248e63..3f776f5e8de4 100644
+--- a/security/apparmor/include/policy.h
++++ b/security/apparmor/include/policy.h
+@@ -308,7 +308,7 @@ static inline int AUDIT_MODE(struct aa_profile *profile)
+ bool aa_policy_view_capable(struct aa_label *label, struct aa_ns *ns);
+ bool aa_policy_admin_capable(struct aa_label *label, struct aa_ns *ns);
+ int aa_may_manage_policy(struct aa_label *label, struct aa_ns *ns,
+-			 u32 mask);
++			 const struct cred *ocred, u32 mask);
+ bool aa_current_policy_view_capable(struct aa_ns *ns);
+ bool aa_current_policy_admin_capable(struct aa_ns *ns);
+ 
+diff --git a/security/apparmor/policy.c b/security/apparmor/policy.c
+index 4ee5a450d118..e7412a221551 100644
+--- a/security/apparmor/policy.c
++++ b/security/apparmor/policy.c
+@@ -712,14 +712,42 @@ bool aa_current_policy_admin_capable(struct aa_ns *ns)
+ 	return res;
+ }
+ 
++static bool is_subset_of_obj_privilege(const struct cred *cred,
++				       struct aa_label *label,
++				       const struct cred *ocred)
++{
++	if (cred == ocred)
++		return true;
++
++	if (!aa_label_is_subset(label, cred_label(ocred)))
++		return false;
++	/* don't allow crossing userns for now */
++	if (cred->user_ns != ocred->user_ns)
++		return false;
++	if (!cap_issubset(cred->cap_inheritable, ocred->cap_inheritable))
++		return false;
++	if (!cap_issubset(cred->cap_permitted, ocred->cap_permitted))
++		return false;
++	if (!cap_issubset(cred->cap_effective, ocred->cap_effective))
++		return false;
++	if (!cap_issubset(cred->cap_bset, ocred->cap_bset))
++		return false;
++	if (!cap_issubset(cred->cap_ambient, ocred->cap_ambient))
++		return false;
++	return true;
++}
++
++
+ /**
+  * aa_may_manage_policy - can the current task manage policy
+  * @label: label to check if it can manage policy
++ * @ocred: object cred if request is coming from an open object
+  * @op: the policy manipulation operation being done
+  *
+  * Returns: 0 if the task is allowed to manipulate policy else error
+  */
+-int aa_may_manage_policy(struct aa_label *label, struct aa_ns *ns, u32 mask)
++int aa_may_manage_policy(struct aa_label *label, struct aa_ns *ns,
++			 const struct cred *ocred, u32 mask)
+ {
+ 	const char *op;
+ 
+@@ -735,6 +763,11 @@ int aa_may_manage_policy(struct aa_label *label, struct aa_ns *ns, u32 mask)
+ 		return audit_policy(label, op, NULL, NULL, "policy_locked",
+ 				    -EACCES);
+ 
++	if (ocred && !is_subset_of_obj_privilege(current_cred(), label, ocred))
++		return audit_policy(label, op, NULL, NULL,
++				    "not privileged for target profile",
++				    -EACCES);
++
+ 	if (!aa_policy_admin_capable(label, ns))
+ 		return audit_policy(label, op, NULL, NULL, "not policy admin",
+ 				    -EACCES);
+-- 
+2.43.7
+
 
