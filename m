@@ -2,56 +2,48 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id AIJOIO5T1Wkf4wcAu9opvQ
+	id kCcuASbt12lEUwgAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Tue, 07 Apr 2026 20:58:54 +0200
+	for <lists+apparmor@lfdr.de>; Thu, 09 Apr 2026 20:17:10 +0200
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 733243B31C5
-	for <lists+apparmor@lfdr.de>; Tue, 07 Apr 2026 20:58:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE9323CEA19
+	for <lists+apparmor@lfdr.de>; Thu, 09 Apr 2026 20:17:09 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1wABG8-0004G9-KH; Tue, 07 Apr 2026 18:34:44 +0000
-Received: from canpmsgout11.his.huawei.com ([113.46.200.226])
+	id 1wAtvt-0007vg-45; Thu, 09 Apr 2026 18:16:49 +0000
+Received: from zeniv.linux.org.uk ([62.89.141.173])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <gongruiqi1@huawei.com>)
- id 1w8VLF-0002c1-KV
- for apparmor@lists.ubuntu.com; Fri, 03 Apr 2026 03:37:05 +0000
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
- c=relaxed/relaxed; q=dns/txt; h=From;
- bh=wOVp4eov60EWNuICi4DIGcfBecJjzeAODZJh0cY7OCs=;
- b=tRwCfA7F0raCaUeV8sh/y1pn1hw7S1ldQTQzrFLq9WAaZ4kcuXOx+3v8qiCRJpLtVhYp//vUW
- 0vT9AesSPAzXvvffSUVyBr3Hf6X+FmIaW+K5b8mDx5kkvoEYJG/IbYobwO6cqpVFI3/I8DUMhra
- 2rrmIbdzo/SZX0qDmqUEvCo=
-Received: from mail.maildlp.com (unknown [172.19.163.200])
- by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4fn44T4mVWzKmVj;
- Fri,  3 Apr 2026 11:30:49 +0800 (CST)
-Received: from kwepemk100018.china.huawei.com (unknown [7.202.194.66])
- by mail.maildlp.com (Postfix) with ESMTPS id 634FB4056C;
- Fri,  3 Apr 2026 11:37:02 +0800 (CST)
-Received: from huawei.com (10.67.174.33) by kwepemk100018.china.huawei.com
- (7.202.194.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Fri, 3 Apr
- 2026 11:37:01 +0800
-From: GONG Ruiqi <gongruiqi1@huawei.com>
-To: John Johansen <john.johansen@canonical.com>, Paul Moore
- <paul@paul-moore.com>, James Morris <jmorris@namei.org>, "Serge E . Hallyn"
- <serge@hallyn.com>
-Date: Fri, 3 Apr 2026 11:51:19 +0800
-Message-ID: <20260403035119.2132418-1-gongruiqi1@huawei.com>
-X-Mailer: git-send-email 2.43.0
+ (Exim 4.86_2) (envelope-from <viro@ftp.linux.org.uk>)
+ id 1wAts7-00077c-8x
+ for apparmor@lists.ubuntu.com; Thu, 09 Apr 2026 18:12:55 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=linux.org.uk; s=zeniv-20220401; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=BoGW7oywgvm57yYmgFIJhKPYzBfyhEW/uN+KSu6heaU=; b=JJcsCEcaKqyNrvJOUZ8XOnA1AS
+ yC//2gnLRa8FcBRiXofOYljopOoyt9r8CbkWaLEFmbUVfW5qK5utkUh3D77jxlkhKoZiYVbvdTEnm
+ X8jEr88bUddVEJ+24e8elVa7rPEDm9C+KeO3Yi+QSp+riwZi9Be8u3P2jnyNq7RhzU24dEi9YT5JB
+ 9o5OjQL5vQk2h32ksN+l6XHB7LZbu7YtKRAMPXU1ZH+Yata0JOXemtl88QWI3UJ7mBXR7GCgddkg5
+ qrhpzNPrKwHYiMCapxKfC0E4ZwUatWZBULD1y88efyo7haqTewJrOOn317SRlKBwAg9TXV76h3bsC
+ A/eZOWQA==;
+Received: from viro by zeniv.linux.org.uk with local (Exim 4.99.1 #2 (Red Hat
+ Linux)) id 1wAtvH-00000003xj6-26He; Thu, 09 Apr 2026 18:16:11 +0000
+Date: Thu, 9 Apr 2026 19:16:11 +0100
+From: Al Viro <viro@zeniv.linux.org.uk>
+To: Philipp Hahn <phahn-oss@avm.de>
+Message-ID: <20260409181611.GP3836593@ZenIV>
+References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.67.174.33]
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- kwepemk100018.china.huawei.com (7.202.194.66)
-Received-SPF: pass client-ip=113.46.200.226;
- envelope-from=gongruiqi1@huawei.com; helo=canpmsgout11.his.huawei.com
-X-Mailman-Approved-At: Tue, 07 Apr 2026 18:34:42 +0000
-Subject: [apparmor] [PATCH] apparmor: Fix two bugs of aa_setup_dfa_engine's
-	fail handling
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
+Received-SPF: none client-ip=62.89.141.173; envelope-from=viro@ftp.linux.org.uk;
+ helo=zeniv.linux.org.uk
+X-Mailman-Approved-At: Thu, 09 Apr 2026 18:16:47 +0000
+Subject: Re: [apparmor] [PATCH 00/61] treewide: Use IS_ERR_OR_NULL over
+ manual NULL check - refactor
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -63,84 +55,198 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
- linux-kernel@vger.kernel.org, lujialin4@huawei.com, gongruiqi1@huawei.com
+Cc: Latchesar Ionkov <lucho@ionkov.net>, Juri Lelli <juri.lelli@redhat.com>,
+ Justin Sanders <justin@coraid.com>, Paulo Alcantara <pc@manguebit.org>,
+ Igor Russkikh <irusskikh@marvell.com>, linux-sh@vger.kernel.org,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Ulf Hansson <ulf.hansson@linaro.org>,
+ dri-devel@lists.freedesktop.org, Jaroslav Kysela <perex@perex.cz>,
+ Ben Segall <bsegall@google.com>, linux-sctp@vger.kernel.org,
+ Iyappan Subramanian <iyappan@os.amperecomputing.com>,
+ David Vernet <void@manifault.com>, Miquel Raynal <miquel.raynal@bootlin.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ "K. Y. Srinivasan" <kys@microsoft.com>, linux-clk@vger.kernel.org,
+ Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
+ Anna Schumaker <anna@kernel.org>, Wei Liu <wei.liu@kernel.org>,
+ linux-omap@vger.kernel.org, Vincent Guittot <vincent.guittot@linaro.org>,
+ Long Li <longli@microsoft.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ James Morris <jmorris@namei.org>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ Andrea Righi <arighi@nvidia.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>, dm-devel@lists.linux.dev,
+ Shyam Prasad N <sprasad@microsoft.com>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Jiri Pirko <jiri@resnulli.us>,
+ Jesper Dangaard Brouer <hawk@kernel.org>, linux-pm@vger.kernel.org,
+ Potnuri Bharat Teja <bharat@chelsio.com>, linux-sound@vger.kernel.org,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Eric Van Hensbergen <ericvh@kernel.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ "Serge E. Hallyn" <serge@hallyn.com>, Christian Brauner <brauner@kernel.org>,
+ Chris Mason <clm@fb.com>, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ David Ahern <dsahern@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>,
+ Chuck Lever <chuck.lever@oracle.com>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Lukasz Luba <lukasz.luba@arm.com>, Jan Kara <jack@suse.com>,
+ linux-fsdevel@vger.kernel.org, Georgi Djakov <djakov@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-trace-kernel@vger.kernel.org,
+ Trond Myklebust <trondmy@kernel.org>,
+ Quan Nguyen <quan@os.amperecomputing.com>, linux-hyperv@vger.kernel.org,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Sandeep Dhavale <dhavale@google.com>, Jeff Layton <jlayton@kernel.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Max Filippov <jcmvbkbc@gmail.com>,
+ Eric Dumazet <edumazet@google.com>, target-devel@vger.kernel.org,
+ Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Alasdair Kergon <agk@redhat.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-cifs@vger.kernel.org,
+ Valentin Schneider <vschneid@redhat.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ Paul Moore <paul@paul-moore.com>, Yoshinori Sato <ysato@users.sourceforge.jp>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Mark Greer <mgreer@animalcreek.com>,
+ Gregory Clement <gregory.clement@bootlin.com>, Lee Jones <lee@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
+ iommu@lists.linux.dev, linux-media@vger.kernel.org,
+ Olga Kornievskaia <okorniev@redhat.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Pavel Machek <pavel@kernel.org>, apparmor@lists.ubuntu.com,
+ Mike Snitzer <snitzer@kernel.org>, Maxime Ripard <mripard@kernel.org>,
+ linux-gpio@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Michael Chan <mchan@broadcom.com>, Xin Long <lucien.xin@gmail.com>,
+ bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Tom Talpey <tom@talpey.com>, Tony Luck <tony.luck@intel.com>,
+ Theodore Ts'o <tytso@mit.edu>, Zhenyu Wang <zhenyuw.linux@gmail.com>,
+ Dave Penkler <dpenkler@gmail.com>, Sandy Huang <hjc@rock-chips.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Jon Maloy <jmaloy@redhat.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+ Keyur Chudgar <keyur@os.amperecomputing.com>,
+ Hongbo Li <lihongbo22@huawei.com>, Simon Horman <horms@kernel.org>,
+ Pavan Chebbi <pavan.chebbi@broadcom.com>, Andy Yan <andy.yan@rock-chips.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>,
+ Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
+ Heiner Kallweit <hkallweit1@gmail.com>,
+ Taras Chornyi <taras.chornyi@plvision.eu>,
+ Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Alex Markuze <amarkuze@redhat.com>,
+ Kees Cook <kees@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Alexei Starovoitov <ast@kernel.org>, David Sterba <dsterba@suse.com>,
+ linux-mtd@lists.infradead.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, linux-phy@lists.infradead.org,
+ Chunhai Guo <guochunhai@vivo.com>, Will Deacon <will@kernel.org>,
+ Zhi Wang <zhi.wang.linux@gmail.com>, Daniel Borkmann <daniel@iogearbox.net>,
+ Miklos Szeredi <miklos@szeredi.hu>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Dexuan Cui <decui@microsoft.com>,
+ Kieran Bingham <kieran.bingham@ideasonboard.com>,
+ amd-gfx@lists.freedesktop.org, Stanislav Fomichev <sdf@fomichev.me>,
+ Viacheslav Dubeyko <slava@dubeyko.com>,
+ Sami Tolvanen <samitolvanen@google.com>, linux-input@vger.kernel.org,
+ NeilBrown <neil@brown.name>, Vinod Koul <vkoul@kernel.org>,
+ Ilya Dryomov <idryomov@gmail.com>, linux-ext4@vger.kernel.org,
+ Mel Gorman <mgorman@suse.de>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Petr Pavlu <petr.pavlu@suse.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ intel-gfx@lists.freedesktop.org, Jamal Hadi Salim <jhs@mojatatu.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Robert Foss <rfoss@kernel.org>,
+ Mark Brown <broonie@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ John Crispin <john@phrozen.org>, ceph-devel@vger.kernel.org,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Gao Xiang <xiang@kernel.org>,
+ cocci@inria.fr, gfs2@lists.linux.dev, linux-nfs@vger.kernel.org,
+ Paolo Abeni <pabeni@redhat.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Linus Walleij <linusw@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ samba-technical@lists.samba.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Steve French <sfrench@samba.org>, Julia Lawall <Julia.Lawall@inria.fr>,
+ Aaron Tomlin <atomlin@atomlin.com>, Changwoo Min <changwoo@igalia.com>,
+ Keerthy <j-keerthy@ti.com>, Tejun Heo <tj@kernel.org>,
+ sched-ext@lists.linux.dev, ntfs3@lists.linux.dev, linux-erofs@lists.ozlabs.org,
+ "David S. Miller" <davem@davemloft.net>, Rich Felker <dalias@libc.org>,
+ Jan Kara <jack@suse.cz>, Vignesh Raghavendra <vigneshr@ti.com>,
+ kvm@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
+ Dominique Martinet <asmadeus@codewreck.org>,
+ Christian Schoenebeck <linux_oss@crudebyte.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Takashi Iwai <tiwai@suse.com>,
+ Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+ linux-mm@kvack.org, Haiyang Zhang <haiyangz@microsoft.com>,
+ Alex Williamson <alex@shazbot.org>, Andreas Dilger <adilger.kernel@dilger.ca>,
+ Daniel Gomez <da.gomez@kernel.org>, Borislav Petkov <bp@alien8.de>,
+ Russell King <linux@armlinux.org.uk>, David Airlie <airlied@gmail.com>,
+ linux-leds@vger.kernel.org, Andreas Gruenbacher <agruenba@redhat.com>,
+ linux-scsi@vger.kernel.org, Marc Zyngier <maz@kernel.org>,
+ Joerg Roedel <joro@8bytes.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Dai Ngo <Dai.Ngo@oracle.com>, Ingo Molnar <mingo@redhat.com>,
+ intel-wired-lan@lists.osuosl.org, Jakub Kicinski <kuba@kernel.org>,
+ Zhang Rui <rui.zhang@intel.com>, Marcel Holtmann <marcel@holtmann.org>,
+ Thomas Gleixner <tglx@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>,
+ Johan Hedberg <johan.hedberg@gmail.com>, linux-s390@vger.kernel.org,
+ Heiko Carstens <hca@linux.ibm.com>, Chao Yu <chao@kernel.org>,
+ Nicolas Palix <nicolas.palix@imag.fr>, linux-block@vger.kernel.org,
+ Bharath SM <bharathsm@microsoft.com>, Mikulas Patocka <mpatocka@redhat.com>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Jeffle Xu <jefflexu@linux.alibaba.com>,
+ x86@kernel.org, Yue Hu <zbestahu@gmail.com>, Jens Axboe <axboe@kernel.dk>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Eduardo Valentin <edubezval@gmail.com>, netdev@vger.kernel.org,
+ v9fs@lists.linux.dev, linux-mips@vger.kernel.org,
+ Sven Schnelle <svens@linux.ibm.com>, Andrew Lunn <andrew@lunn.ch>,
+ linux-bluetooth@vger.kernel.org, linux-security-module@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, linux-btrfs@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, Richard Weinberger <richard@nod.at>,
+ Phillip Lougher <phillip@squashfs.org.uk>,
+ Johannes Berg <johannes@sipsolutions.net>, Stephen Boyd <sboyd@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, linux-modules@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Spamd-Result: default: False [0.89 / 15.00];
-	DATE_IN_PAST(1.00)[111];
-	MID_CONTAINS_FROM(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[huawei.com,quarantine];
-	R_MISSING_CHARSET(0.50)[];
+X-Spamd-Result: default: False [2.19 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[linux.org.uk:s=zeniv-20220401];
+	MID_RHS_NOT_FQDN(0.50)[];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
 	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
-	R_DKIM_ALLOW(-0.20)[huawei.com:s=dkim];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[zeniv.linux.org.uk : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:john.johansen@canonical.com,m:paul@paul-moore.com,m:jmorris@namei.org,m:serge@hallyn.com,m:linux-security-module@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:linux-kernel@vger.kernel.org,m:lujialin4@huawei.com,m:gongruiqi1@huawei.com,s:lists@lfdr.de];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	FORGED_SENDER(0.00)[gongruiqi1@huawei.com,apparmor-bounces@lists.ubuntu.com];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:phahn-oss@avm.de,m:lucho@ionkov.net,m:juri.lelli@redhat.com,m:justin@coraid.com,m:pc@manguebit.org,m:irusskikh@marvell.com,m:linux-sh@vger.kernel.org,m:catalin.marinas@arm.com,m:rodrigo.vivi@intel.com,m:ulf.hansson@linaro.org,m:dri-devel@lists.freedesktop.org,m:perex@perex.cz,m:bsegall@google.com,m:linux-sctp@vger.kernel.org,m:iyappan@os.amperecomputing.com,m:void@manifault.com,m:miquel.raynal@bootlin.com,m:agordeev@linux.ibm.com,m:kys@microsoft.com,m:linux-clk@vger.kernel.org,m:heiko@sntech.de,m:anna@kernel.org,m:wei.liu@kernel.org,m:linux-omap@vger.kernel.org,m:vincent.guittot@linaro.org,m:longli@microsoft.com,m:rafael@kernel.org,m:jmorris@namei.org,m:tursulin@ursulin.net,m:arighi@nvidia.com,m:borntraeger@linux.ibm.com,m:dm-devel@lists.linux.dev,m:sprasad@microsoft.com,m:daniel.lezcano@kernel.org,m:jiri@resnulli.us,m:hawk@kernel.org,m:linux-pm@vger.kernel.org,m:bharat@chelsio.com,m:linux-sound@vger.kernel.org,m:tsbogend@alpha.franken.de,m:ronniesahlberg@g
+ mail.com,m:glaubitz@physik.fu-berlin.de,m:ericvh@kernel.org,m:dietmar.eggemann@arm.com,m:serge@hallyn.com,m:brauner@kernel.org,m:clm@fb.com,m:linux-usb@vger.kernel.org,m:linux-wireless@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:dsahern@kernel.org,m:mcgrof@kernel.org,m:chuck.lever@oracle.com,m:mhiramat@kernel.org,m:lukasz.luba@arm.com,m:jack@suse.com,m:linux-fsdevel@vger.kernel.org,m:djakov@kernel.org,m:akpm@linux-foundation.org,m:linux-trace-kernel@vger.kernel.org,m:trondmy@kernel.org,m:quan@os.amperecomputing.com,m:linux-hyperv@vger.kernel.org,m:s.nawrocki@samsung.com,m:dhavale@google.com,m:jlayton@kernel.org,m:dave.hansen@linux.intel.com,m:jcmvbkbc@gmail.com,m:edumazet@google.com,m:target-devel@vger.kernel.org,m:anthony.l.nguyen@intel.com,m:sebastian.hesselbarth@gmail.com,m:alexander.deucher@amd.com,m:agk@redhat.com,m:simona@ffwll.ch,m:linux-cifs@vger.kernel.org,m:vschneid@redhat.com,m:hpa@zytor.com,m:paul@paul-moore.com,m:ysato@users.sourceforge.jp,m:andrew+netdev@lunn.ch,m
+ :mgreer@animalcreek.com,m:gregory.clement@bootlin.com,m:lee@kernel.org,m:john.fastabend@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-rockchip@lists.infradead.org,m:iommu@lists.linux.dev,m:linux-media@vger.kernel.org,m:okorniev@redhat.com,m:gor@linux.ibm.com,m:pavel@kernel.org,m:apparmor@lists.ubuntu.com,m:snitzer@kernel.org,m:mripard@kernel.org,m:linux-gpio@vger.kernel.org,m:jani.nikula@linux.intel.com,m:mchan@broadcom.com,m:lucien.xin@gmail.com,s:lists@lfdr.de];
 	TO_DN_SOME(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	MIME_TRACE(0.00)[0:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	FORGED_SENDER(0.00)[viro@zeniv.linux.org.uk,apparmor-bounces@lists.ubuntu.com];
 	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
-	FROM_HAS_DN(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	NEURAL_HAM(-0.00)[-1.000];
-	HAS_XOIP(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[gongruiqi1@huawei.com,apparmor-bounces@lists.ubuntu.com];
-	TAGGED_RCPT(0.00)[apparmor];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns,huawei.com:dkim,huawei.com:email,huawei.com:mid];
-	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
-	DKIM_TRACE(0.00)[huawei.com:+];
+	ARC_NA(0.00)[];
+	DKIM_TRACE(0.00)[linux.org.uk:-];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[]
-X-Rspamd-Queue-Id: 733243B31C5
+	FORGED_SENDER_FORWARDING(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[246];
+	FROM_NEQ_ENVFROM(0.00)[viro@zeniv.linux.org.uk,apparmor-bounces@lists.ubuntu.com];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[ionkov.net,redhat.com,coraid.com,manguebit.org,marvell.com,vger.kernel.org,arm.com,intel.com,linaro.org,lists.freedesktop.org,perex.cz,google.com,os.amperecomputing.com,manifault.com,bootlin.com,linux.ibm.com,microsoft.com,sntech.de,kernel.org,namei.org,ursulin.net,nvidia.com,lists.linux.dev,resnulli.us,chelsio.com,alpha.franken.de,gmail.com,physik.fu-berlin.de,hallyn.com,fb.com,oracle.com,suse.com,linux-foundation.org,samsung.com,linux.intel.com,amd.com,ffwll.ch,zytor.com,paul-moore.com,users.sourceforge.jp,lunn.ch,animalcreek.com,st-md-mailman.stormreply.com,lists.infradead.org,lists.ubuntu.com,broadcom.com,talpey.com,mit.edu,rock-chips.com,igalia.com,huawei.com,plvision.eu,baylibre.com,ideasonboard.com,vivo.com,iogearbox.net,szeredi.hu,fomichev.me,dubeyko.com,brown.name,suse.de,pengutronix.de,mojatatu.com,goodmis.org,efficios.com,phrozen.org,inria.fr,lists.samba.org,samba.org,atomlin.com,ti.com,lists.ozlabs.org,davemloft.net,libc.org,suse.cz,infradead.org,codewr
+ eck.org,crudebyte.com,foss.st.com,paragon-software.com,kvack.org,shazbot.org,dilger.ca,alien8.de,armlinux.org.uk,8bytes.org,kwiboo.se,lists.osuosl.org,holtmann.org,linuxfoundation.org,imag.fr,linux.alibaba.com,kernel.dk,lists.sourceforge.net,nod.at,squashfs.org.uk,sipsolutions.net];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TAGGED_RCPT(0.00)[apparmor,netdev];
+	NEURAL_SPAM(0.00)[0.791];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns]
+X-Rspamd-Queue-Id: AE9323CEA19
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-First, aa_dfa_unpack returns ERR_PTR not NULL when it fails, but
-aa_put_dfa only checks NULL for its input, which would cause invalid
-memory access in aa_put_dfa. Set nulldfa to NULL explicitly to fix that.
+On Tue, Mar 10, 2026 at 12:48:26PM +0100, Philipp Hahn wrote:
+> While doing some static code analysis I stumbled over a common pattern,
+> where IS_ERR() is combined with a NULL check. For that there is
+> IS_ERR_OR_NULL().
 
-Second, aa_put_pdb calls aa_pdb_free_kref -> aa_free_pdb -> aa_put_dfa,
-i.e.  it will free nullpdb->dfa. But there's another aa_put_dfa(nulldfa)
-after aa_put_pdb(nullpdb), which would cause double free. Remove that
-redundant aa_put_dfa to fix that.
+... and valid uses of IS_ERR_OR_NULL are rare as hen teeth.
+Most of those are "I'm not sure how this function returns an
+error, let's use that just in case".
 
-Fixes: 98b824ff8984 ("apparmor: refcount the pdb")
-Signed-off-by: GONG Ruiqi <gongruiqi1@huawei.com>
----
- security/apparmor/lsm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
-index c1d42fc72fdb..be82ec1b9fd9 100644
---- a/security/apparmor/lsm.c
-+++ b/security/apparmor/lsm.c
-@@ -2465,6 +2465,7 @@ static int __init aa_setup_dfa_engine(void)
- 			    TO_ACCEPT2_FLAG(YYTD_DATA32));
- 	if (IS_ERR(nulldfa)) {
- 		error = PTR_ERR(nulldfa);
-+		nulldfa = NULL;
- 		goto fail;
- 	}
- 	nullpdb->dfa = aa_get_dfa(nulldfa);
-@@ -2486,7 +2487,6 @@ static int __init aa_setup_dfa_engine(void)
- 
- fail:
- 	aa_put_pdb(nullpdb);
--	aa_put_dfa(nulldfa);
- 	nullpdb = NULL;
- 	nulldfa = NULL;
- 	stacksplitdfa = NULL;
--- 
-2.43.0
-
+Please, do not introduce more of that crap.
 
