@@ -2,75 +2,79 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id AMwBDxkL2WnnlQgAu9opvQ
+	id wJYdBKEa2WnfmAgAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Fri, 10 Apr 2026 16:37:13 +0200
+	for <lists+apparmor@lfdr.de>; Fri, 10 Apr 2026 17:43:29 +0200
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD1673D8B89
-	for <lists+apparmor@lfdr.de>; Fri, 10 Apr 2026 16:37:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE8233D9956
+	for <lists+apparmor@lfdr.de>; Fri, 10 Apr 2026 17:43:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1wBCyk-0003Cr-Ji; Fri, 10 Apr 2026 14:37:02 +0000
-Received: from mail-wr1-f48.google.com ([209.85.221.48])
+	id 1wBE0u-0007zG-UE; Fri, 10 Apr 2026 15:43:20 +0000
+Received: from outgoing-auth-1.mit.edu ([18.9.28.11] helo=outgoing.mit.edu)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <error27@gmail.com>) id 1wB8v6-0004gL-MY
- for apparmor@lists.ubuntu.com; Fri, 10 Apr 2026 10:17:00 +0000
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-43cf7683a28so1217111f8f.2
- for <apparmor@lists.ubuntu.com>; Fri, 10 Apr 2026 03:17:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775816220; x=1776421020; darn=lists.ubuntu.com;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=f9rShI5mdv2hEKKBqcWX3rqR3B5LhDWxTbl7ZnSCgGk=;
- b=eKcaY+0Jvwdp4ljvm/dItbct+1E8OrrVS07W92VfKzkSlyw6efGWtsNLi56npJYo9e
- TyzEYdQwliEs3L7SYN1bAp30qOH87uLsnHUNMS2JO05svF2J+mpn6oNULATr+uuT1xof
- 6opMYCb1A9Qki/hpmg1ue29smWCuCHy6O9TBZ6j/HG4YjBy9vKlmwpKSyH/jJT9QHtBS
- f5BHN/AK0e4DaTyqewltfK232IrDWEYY7ivLjQaREY4jXh3Q72YNSCLj+1IG3PQwqL/w
- TRzZcxSrmMIXIVbSI07K/mn6lCxZDpcjr7smdwfhgMVtqE4zfsbAADtPuaQs/Yjmnjsc
- jzLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775816220; x=1776421020;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=f9rShI5mdv2hEKKBqcWX3rqR3B5LhDWxTbl7ZnSCgGk=;
- b=B0DaaHF6gz0kArQvwTm76J/EF6aIPHvr1ZCMHdMnyywI6gnJ3Lvqrc9UkGtYQhAeJg
- L9DNRKr5+0KGENUTV4AYhTvyFTioNz0j0dyzIGIf5nkKh3aXARe9GzmHf8kq+ylesWVY
- EWrNWy00hvhxM6B4HdXkZHoIIHesZKYhARUL2pe9Z2J0kX5FExMPpbtM5TKf8gkN+M26
- 5N7iSpYhK+A2fLl0hfMdTS418CtJB3TnOw6CuI6fvGSDwe4MGoWn2r4+o14yLYNDSvJz
- FzxsWu6KRY9D622RCCM2M4t4/6lWFKD/N8mv3k68o4Lbx/wPNouTczbmFfoxGvpyJkM3
- Kd9Q==
-X-Gm-Message-State: AOJu0YwxfB5hSIaCJ08ADgd1cv/P3kddoTm1OJ4/3tJH5VR0HnzZ7pF6
- hPaEkOE+hp2kDLYdPLkiiW+HloMwFVSbA8DLCU9VUIwrpglIxNGkDfUn
-X-Gm-Gg: AeBDieuC3rbHgn1MqtlcGjzVX3yrD+U0GRG3lu1Qjf9GsoO2aRoZS/AGnccsy+PkmSc
- RUJmwJ7HnMIB5FwBg+gJirIA2DtRe5h6SyMrMiQoAtf16iFSLdPMNaO5BaIfFjuubVJyq1R2QN1
- ycEOZTLkp8CpSld/DckbE6UpIcqk/Z8AKkLH5oQcNeFj18oeMDyVIowFrk9PMSkeSMgjwC4Cax5
- tQuYB/bJ6UX0uW1cUwqCBDKwm0dV+0YIldESH9jL27T2Sn4TeXUOCtHpN2c3x0tooGG99FjkXWC
- XPsmG9cqTNLlsJ9peAKM3siapvT7O1PljATSux/bDW+0mMXsFVCu/LSXMOWf1fdy1Y/t3qXIoHP
- ev49dOlKYRljHsPPQWiWja9P3ZVyVCL3bRaRaM2D8mR7PD08tZGymdpiSosIL/1ViB3tJJNprvd
- 9a1LTfnjn9POC0Bwukplo=
-X-Received: by 2002:a5d:5d83:0:b0:43d:30af:a173 with SMTP id
- ffacd0b85a97d-43d64259b7emr3549720f8f.5.1775816219806; 
- Fri, 10 Apr 2026 03:16:59 -0700 (PDT)
-Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43d63e5062fsm5911153f8f.31.2026.04.10.03.16.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Apr 2026 03:16:59 -0700 (PDT)
-Date: Fri, 10 Apr 2026 13:16:56 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: John Johansen <john.johansen@canonical.com>
-Message-ID: <adjOGC9qtr_9XkgS@stanley.mountain>
+ (Exim 4.86_2) (envelope-from <tytso@mit.edu>) id 1wBDeX-0003dV-Tj
+ for apparmor@lists.ubuntu.com; Fri, 10 Apr 2026 15:20:14 +0000
+Received: from trampoline.thunk.org
+ (pool-173-48-116-90.bstnma.fios.verizon.net [173.48.116.90])
+ (authenticated bits=0) (User authenticated as tytso@ATHENA.MIT.EDU)
+ by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 63AFIonm015842
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 10 Apr 2026 11:18:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+ t=1775834338; bh=eTlXD+fEi5OyNbu4TxRTwpDmEzFd2ThBwniicSqJG9M=;
+ h=From:Subject:Date:Message-ID:MIME-Version:Content-Type;
+ b=VM9pR3FUqiyu4dGQLYjxtn5fwtIzfU7ySZMp0abbH18xV6/gDABRi9uB743lXz8hh
+ DLg+D58JGiw6cmfTe96qrNZsfI1LrX8CH4Z4SZsryjUI4LnJNSYnME68kmTAWN0bac
+ +APmObxjmRctPfSGmHJbriSXfrkN55pWYIbiVRfu2y0ECqpOPHSJun6K+BHM+LkVI2
+ DM7T+QYmlRWbU/sqPlO03FdXluf2F9iRmmuiDmCsbPLwL4U9izV2zs90P/AyWnNi7/
+ WJE2W3FtW9KojAgen2wKI5w3YJJGh4CS8IuF5T47bMgUta6WPQzUW9F7QaunmIRgXz
+ enYXQQPwNnobw==
+Received: by trampoline.thunk.org (Postfix, from userid 15806)
+ id 0D7462E00E1; Fri, 10 Apr 2026 11:18:48 -0400 (EDT)
+From: "Theodore Ts'o" <tytso@mit.edu>
+To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com,
+ bpf@vger.kernel.org, ceph-devel@vger.kernel.org, cocci@inria.fr,
+ dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ gfs2@lists.linux.dev, intel-gfx@lists.freedesktop.org,
+ intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev,
+ kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-block@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+ linux-btrfs@vger.kernel.org, linux-cifs@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+ linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-leds@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-mm@kvack.org,
+ linux-modules@vger.kernel.org, linux-mtd@lists.infradead.org,
+ linux-nfs@vger.kernel.org, linux-omap@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-pm@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org,
+ linux-security-module@vger.kernel.org, linux-sh@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-trace-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
+ ntfs3@lists.linux.dev, samba-technical@lists.samba.org,
+ sched-ext@lists.linux.dev, target-devel@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev,
+ Philipp Hahn <phahn-oss@avm.de>
+Date: Fri, 10 Apr 2026 11:18:40 -0400
+Message-ID: <177583430870.2758959.6171961359325912353.b4-ty@b4>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260310-b4-is_err_or_null-v1-4-bd63b656022d@avm.de>
+References: <20260310-b4-is_err_or_null-v1-4-bd63b656022d@avm.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Received-SPF: pass client-ip=209.85.221.48; envelope-from=error27@gmail.com;
- helo=mail-wr1-f48.google.com
-X-Mailman-Approved-At: Fri, 10 Apr 2026 14:37:01 +0000
-Subject: [apparmor] [bug report] apparmor: add support loading per
-	permission tagging
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=18.9.28.11; envelope-from=tytso@mit.edu;
+ helo=outgoing.mit.edu
+X-Mailman-Approved-At: Fri, 10 Apr 2026 15:43:19 +0000
+Subject: Re: [apparmor] [PATCH 04/61] ext4: Prefer IS_ERR_OR_NULL over
+	manual NULL check
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -82,110 +86,58 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com
+Cc: Andreas Dilger <adilger.kernel@dilger.ca>, Theodore Ts'o <tytso@mit.edu>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Spamd-Result: default: False [0.19 / 15.00];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
+X-Spamd-Result: default: False [2.19 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[mit.edu:s=outgoing];
+	MID_RHS_NOT_FQDN(0.50)[];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[mit.edu : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:john.johansen@canonical.com,m:linux-security-module@vger.kernel.org,m:apparmor@lists.ubuntu.com,s:lists@lfdr.de];
+	RCVD_COUNT_THREE(0.00)[4];
 	ARC_NA(0.00)[];
-	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[error27@gmail.com,apparmor-bounces@lists.ubuntu.com];
+	FORGED_SENDER(0.00)[tytso@mit.edu,apparmor-bounces@lists.ubuntu.com];
 	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:amd-gfx@lists.freedesktop.org,m:apparmor@lists.ubuntu.com,m:bpf@vger.kernel.org,m:ceph-devel@vger.kernel.org,m:cocci@inria.fr,m:dm-devel@lists.linux.dev,m:dri-devel@lists.freedesktop.org,m:gfs2@lists.linux.dev,m:intel-gfx@lists.freedesktop.org,m:intel-wired-lan@lists.osuosl.org,m:iommu@lists.linux.dev,m:kvm@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:linux-block@vger.kernel.org,m:linux-bluetooth@vger.kernel.org,m:linux-btrfs@vger.kernel.org,m:linux-cifs@vger.kernel.org,m:linux-clk@vger.kernel.org,m:linux-erofs@lists.ozlabs.org,m:linux-ext4@vger.kernel.org,m:linux-fsdevel@vger.kernel.org,m:linux-gpio@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:linux-input@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-leds@vger.kernel.org,m:linux-media@vger.kernel.org,m:linux-mips@vger.kernel.org,m:linux-mm@kvack.org,m:linux-modules@vger.kernel.org,m:linux-mtd@lists.infradead.org,m:linux-nfs@vger.kernel.org,m:linux-omap@vger.kernel.org,m:linux-phy@l
+ ists.infradead.org,m:linux-pm@vger.kernel.org,m:linux-rockchip@lists.infradead.org,m:linux-s390@vger.kernel.org,m:linux-scsi@vger.kernel.org,m:linux-sctp@vger.kernel.org,m:linux-security-module@vger.kernel.org,m:linux-sh@vger.kernel.org,m:linux-sound@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-trace-kernel@vger.kernel.org,m:linux-usb@vger.kernel.org,m:linux-wireless@vger.kernel.org,m:netdev@vger.kernel.org,m:ntfs3@lists.linux.dev,m:samba-technical@lists.samba.org,m:sched-ext@lists.linux.dev,m:target-devel@vger.kernel.org,m:tipc-discussion@lists.sourceforge.net,m:v9fs@lists.linux.dev,m:phahn-oss@avm.de,m:adilger.kernel@dilger.ca,m:tytso@mit.edu,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
+	RCVD_TLS_LAST(0.00)[];
+	DKIM_TRACE(0.00)[mit.edu:-];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
-	FROM_NEQ_ENVFROM(0.00)[error27@gmail.com,apparmor-bounces@lists.ubuntu.com];
+	FROM_NEQ_ENVFROM(0.00)[tytso@mit.edu,apparmor-bounces@lists.ubuntu.com];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:-];
-	NEURAL_HAM(-0.00)[-0.828];
-	TAGGED_RCPT(0.00)[apparmor];
-	MISSING_XM_UA(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[56];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	NEURAL_HAM(-0.00)[-0.038];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stanley.mountain:mid,lists.ubuntu.com:helo,lists.ubuntu.com:rdns]
-X-Rspamd-Queue-Id: DD1673D8B89
+	TAGGED_RCPT(0.00)[apparmor];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns]
+X-Rspamd-Queue-Id: CE8233D9956
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Hello John Johansen,
 
-Commit 3d28e2397af7 ("apparmor: add support loading per permission
-tagging") from Apr 1, 2025 (linux-next), leads to the following
-Smatch static checker warning:
+On Tue, 10 Mar 2026 12:48:30 +0100, Philipp Hahn wrote:
+> Prefer using IS_ERR_OR_NULL() over using IS_ERR() and a manual NULL
+> check.
+> 
+> Change generated with coccinelle.
 
-	security/apparmor/policy_unpack.c:883 unpack_tags()
-	warn: missing error code 'error'
+Applied, thanks!
 
-security/apparmor/policy_unpack.c
-    852 static int unpack_tags(struct aa_ext *e, struct aa_tags_struct *tags,
-    853         const char **info)
-    854 {
-    855         int error = -EPROTO;
-    856         void *pos = e->pos;
-    857 
-    858         AA_BUG(!tags);
-    859         /* policy tags are optional */
-    860         if (aa_unpack_nameX(e, AA_STRUCT, "tags")) {
-    861                 u32 version;
-    862 
-    863                 if (!aa_unpack_u32(e, &version, "version") || version != 1) {
-    864                         *info = "invalid tags version";
-    865                         goto fail_reset;
-    866                 }
-    867                 error = unpack_strs_table(e, "strs", true, &tags->strs);
-    868                 if (error) {
-    869                         *info = "failed to unpack profile tag.strs";
-    870                         goto fail;
-    871                 }
-    872                 error = unpack_tag_headers(e, tags);
-    873                 if (error) {
-    874                         *info = "failed to unpack profile tag.headers";
-    875                         goto fail;
-    876                 }
-    877                 error = unpack_tagsets(e, tags);
-    878                 if (error) {
-    879                         *info = "failed to unpack profile tag.sets";
-    880                         goto fail;
-    881                 }
-    882                 if (!aa_unpack_nameX(e, AA_STRUCTEND, NULL))
---> 883                         goto fail;
+[04/61] ext4: Prefer IS_ERR_OR_NULL over manual NULL check
+        commit: 1d749e110277ce4103f27bd60d6181e52c0cc1e3
 
-set the error code here
-
-    884 
-    885                 if (!verify_tags(tags, info))
-    886                         goto fail;
-
-and here
-
-    887         }
-    888 
-    889         return 0;
-    890 
-    891 fail:
-    892         aa_destroy_tags(tags);
-    893 fail_reset:
-    894         e->pos = pos;
-    895         return error;
-    896 }
-
-This email is a free service from the Smatch-CI project [smatch.sf.net].
-
-regards,
-dan carpenter
+Best regards,
+-- 
+Theodore Ts'o <tytso@mit.edu>
 
