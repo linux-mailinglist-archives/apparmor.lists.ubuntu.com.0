@@ -2,79 +2,46 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wJYdBKEa2WnfmAgAu9opvQ
+	id YPpmNFye3GkEUgkAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Fri, 10 Apr 2026 17:43:29 +0200
+	for <lists+apparmor@lfdr.de>; Mon, 13 Apr 2026 09:42:20 +0200
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE8233D9956
-	for <lists+apparmor@lfdr.de>; Fri, 10 Apr 2026 17:43:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6EF83E8630
+	for <lists+apparmor@lfdr.de>; Mon, 13 Apr 2026 09:42:20 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1wBE0u-0007zG-UE; Fri, 10 Apr 2026 15:43:20 +0000
-Received: from outgoing-auth-1.mit.edu ([18.9.28.11] helo=outgoing.mit.edu)
- by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <tytso@mit.edu>) id 1wBDeX-0003dV-Tj
- for apparmor@lists.ubuntu.com; Fri, 10 Apr 2026 15:20:14 +0000
-Received: from trampoline.thunk.org
- (pool-173-48-116-90.bstnma.fios.verizon.net [173.48.116.90])
- (authenticated bits=0) (User authenticated as tytso@ATHENA.MIT.EDU)
- by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 63AFIonm015842
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 10 Apr 2026 11:18:51 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
- t=1775834338; bh=eTlXD+fEi5OyNbu4TxRTwpDmEzFd2ThBwniicSqJG9M=;
- h=From:Subject:Date:Message-ID:MIME-Version:Content-Type;
- b=VM9pR3FUqiyu4dGQLYjxtn5fwtIzfU7ySZMp0abbH18xV6/gDABRi9uB743lXz8hh
- DLg+D58JGiw6cmfTe96qrNZsfI1LrX8CH4Z4SZsryjUI4LnJNSYnME68kmTAWN0bac
- +APmObxjmRctPfSGmHJbriSXfrkN55pWYIbiVRfu2y0ECqpOPHSJun6K+BHM+LkVI2
- DM7T+QYmlRWbU/sqPlO03FdXluf2F9iRmmuiDmCsbPLwL4U9izV2zs90P/AyWnNi7/
- WJE2W3FtW9KojAgen2wKI5w3YJJGh4CS8IuF5T47bMgUta6WPQzUW9F7QaunmIRgXz
- enYXQQPwNnobw==
-Received: by trampoline.thunk.org (Postfix, from userid 15806)
- id 0D7462E00E1; Fri, 10 Apr 2026 11:18:48 -0400 (EDT)
-From: "Theodore Ts'o" <tytso@mit.edu>
-To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com,
- bpf@vger.kernel.org, ceph-devel@vger.kernel.org, cocci@inria.fr,
- dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org,
- gfs2@lists.linux.dev, intel-gfx@lists.freedesktop.org,
- intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev,
- kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-block@vger.kernel.org, linux-bluetooth@vger.kernel.org,
- linux-btrfs@vger.kernel.org, linux-cifs@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-erofs@lists.ozlabs.org,
- linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-hyperv@vger.kernel.org,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-leds@vger.kernel.org, linux-media@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-mm@kvack.org,
- linux-modules@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-nfs@vger.kernel.org, linux-omap@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-pm@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org,
- linux-security-module@vger.kernel.org, linux-sh@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-trace-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
- ntfs3@lists.linux.dev, samba-technical@lists.samba.org,
- sched-ext@lists.linux.dev, target-devel@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev,
- Philipp Hahn <phahn-oss@avm.de>
-Date: Fri, 10 Apr 2026 11:18:40 -0400
-Message-ID: <177583430870.2758959.6171961359325912353.b4-ty@b4>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260310-b4-is_err_or_null-v1-4-bd63b656022d@avm.de>
-References: <20260310-b4-is_err_or_null-v1-4-bd63b656022d@avm.de>
+	id 1wCBvo-0005A5-NF; Mon, 13 Apr 2026 07:42:04 +0000
+Received: from n169-113.mail.139.com ([120.232.169.113])
+ by lists.ubuntu.com with smtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.86_2) (envelope-from <1468888505@139.com>)
+ id 1wCAAW-0002sd-Q3
+ for apparmor@lists.ubuntu.com; Mon, 13 Apr 2026 05:49:09 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=139.com; s=dkim; l=0;
+ h=from:subject:message-id:to:cc:mime-version;
+ bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+ b=yN/EXui/XoPBwWoSIJyBLc8rUk1D+tEDg+++v1AvBW2H1wB9vntmbdGO0TP6DYaGighSgdJmegcVC
+ ucHo7vJO+6lTLoWqSarwI5mskxNtgQIa5PyCmKVXIoVy0/5RxSOg3JT9AUvuS+Fu83hvPoo2/dTw76
+ c4Ao2JYQdm1Maj58=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM: 
+X-RM-SPAM-FLAG: 00000000
+Received: from NTT-kernel-dev (unknown[60.247.85.88])
+ by rmsmtp-lg-appmail-33-12047 (RichMail) with SMTP id 2f0f69dc83c3027-00028;
+ Mon, 13 Apr 2026 13:48:55 +0800 (CST)
+X-RM-TRANSID: 2f0f69dc83c3027-00028
+From: Li hongliang <1468888505@139.com>
+To: massimiliano.pellizzer@canonical.com
+Date: Mon, 13 Apr 2026 13:48:53 +0800
+Message-Id: <20260413054853.2244655-1-1468888505@139.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=18.9.28.11; envelope-from=tytso@mit.edu;
- helo=outgoing.mit.edu
-X-Mailman-Approved-At: Fri, 10 Apr 2026 15:43:19 +0000
-Subject: Re: [apparmor] [PATCH 04/61] ext4: Prefer IS_ERR_OR_NULL over
-	manual NULL check
+Received-SPF: pass client-ip=120.232.169.113; envelope-from=1468888505@139.com;
+ helo=n169-113.mail.139.com
+X-Mailman-Approved-At: Mon, 13 Apr 2026 07:42:02 +0000
+Subject: [apparmor] [PATCH 6.1.y] apparmor: fix memory leak in verify_header
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -86,58 +53,86 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Andreas Dilger <adilger.kernel@dilger.ca>, Theodore Ts'o <tytso@mit.edu>
+Cc: qsa@qualys.com, paul@paul-moore.com, apparmor@lists.ubuntu.com,
+ jmorris@namei.org, linux-security-module@vger.kernel.org, carnil@debian.org,
+ serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Spamd-Result: default: False [2.19 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[mit.edu:s=outgoing];
-	MID_RHS_NOT_FQDN(0.50)[];
+X-Spamd-Result: default: False [1.59 / 15.00];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_REJECT(1.00)[139.com:s=dkim];
+	R_MISSING_CHARSET(0.50)[];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[mit.edu : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
+	DMARC_NA(0.00)[139.com];
+	FORGED_RECIPIENTS(0.00)[m:massimiliano.pellizzer@canonical.com,m:qsa@qualys.com,m:paul@paul-moore.com,m:apparmor@lists.ubuntu.com,m:jmorris@namei.org,m:linux-security-module@vger.kernel.org,m:carnil@debian.org,m:serge@hallyn.com,s:lists@lfdr.de];
+	RCVD_COUNT_THREE(0.00)[3];
 	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[tytso@mit.edu,apparmor-bounces@lists.ubuntu.com];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:amd-gfx@lists.freedesktop.org,m:apparmor@lists.ubuntu.com,m:bpf@vger.kernel.org,m:ceph-devel@vger.kernel.org,m:cocci@inria.fr,m:dm-devel@lists.linux.dev,m:dri-devel@lists.freedesktop.org,m:gfs2@lists.linux.dev,m:intel-gfx@lists.freedesktop.org,m:intel-wired-lan@lists.osuosl.org,m:iommu@lists.linux.dev,m:kvm@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:linux-block@vger.kernel.org,m:linux-bluetooth@vger.kernel.org,m:linux-btrfs@vger.kernel.org,m:linux-cifs@vger.kernel.org,m:linux-clk@vger.kernel.org,m:linux-erofs@lists.ozlabs.org,m:linux-ext4@vger.kernel.org,m:linux-fsdevel@vger.kernel.org,m:linux-gpio@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:linux-input@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-leds@vger.kernel.org,m:linux-media@vger.kernel.org,m:linux-mips@vger.kernel.org,m:linux-mm@kvack.org,m:linux-modules@vger.kernel.org,m:linux-mtd@lists.infradead.org,m:linux-nfs@vger.kernel.org,m:linux-omap@vger.kernel.org,m:linux-phy@l
- ists.infradead.org,m:linux-pm@vger.kernel.org,m:linux-rockchip@lists.infradead.org,m:linux-s390@vger.kernel.org,m:linux-scsi@vger.kernel.org,m:linux-sctp@vger.kernel.org,m:linux-security-module@vger.kernel.org,m:linux-sh@vger.kernel.org,m:linux-sound@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-trace-kernel@vger.kernel.org,m:linux-usb@vger.kernel.org,m:linux-wireless@vger.kernel.org,m:netdev@vger.kernel.org,m:ntfs3@lists.linux.dev,m:samba-technical@lists.samba.org,m:sched-ext@lists.linux.dev,m:target-devel@vger.kernel.org,m:tipc-discussion@lists.sourceforge.net,m:v9fs@lists.linux.dev,m:phahn-oss@avm.de,m:adilger.kernel@dilger.ca,m:tytso@mit.edu,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
+	TO_DN_NONE(0.00)[];
+	FORGED_SENDER(0.00)[1468888505@139.com,apparmor-bounces@lists.ubuntu.com];
 	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FREEMAIL_FROM(0.00)[139.com];
+	MIME_TRACE(0.00)[0:+];
 	RCVD_TLS_LAST(0.00)[];
-	DKIM_TRACE(0.00)[mit.edu:-];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[1468888505@139.com,apparmor-bounces@lists.ubuntu.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[tytso@mit.edu,apparmor-bounces@lists.ubuntu.com];
-	FROM_HAS_DN(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[56];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	NEURAL_HAM(-0.00)[-0.038];
-	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[qualys.com:email,139.com:email,139.com:mid,canonical.com:email,lists.ubuntu.com:helo,lists.ubuntu.com:rdns];
+	FROM_HAS_DN(0.00)[];
 	TAGGED_RCPT(0.00)[apparmor];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns]
-X-Rspamd-Queue-Id: CE8233D9956
+	NEURAL_SPAM(0.00)[0.841];
+	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
+	DKIM_TRACE(0.00)[139.com:-];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[]
+X-Rspamd-Queue-Id: C6EF83E8630
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
+From: Massimiliano Pellizzer <massimiliano.pellizzer@canonical.com>
 
-On Tue, 10 Mar 2026 12:48:30 +0100, Philipp Hahn wrote:
-> Prefer using IS_ERR_OR_NULL() over using IS_ERR() and a manual NULL
-> check.
-> 
-> Change generated with coccinelle.
+[ Upstream commit e38c55d9f834e5b848bfed0f5c586aaf45acb825 ]
 
-Applied, thanks!
+The function sets `*ns = NULL` on every call, leaking the namespace
+string allocated in previous iterations when multiple profiles are
+unpacked. This also breaks namespace consistency checking since *ns
+is always NULL when the comparison is made.
 
-[04/61] ext4: Prefer IS_ERR_OR_NULL over manual NULL check
-        commit: 1d749e110277ce4103f27bd60d6181e52c0cc1e3
+Remove the incorrect assignment.
+The caller (aa_unpack) initializes *ns to NULL once before the loop,
+which is sufficient.
 
-Best regards,
+Fixes: dd51c8485763 ("apparmor: provide base for multiple profiles to be replaced at once")
+Reported-by: Qualys Security Advisory <qsa@qualys.com>
+Tested-by: Salvatore Bonaccorso <carnil@debian.org>
+Reviewed-by: Georgia Garcia <georgia.garcia@canonical.com>
+Reviewed-by: Cengiz Can <cengiz.can@canonical.com>
+Signed-off-by: Massimiliano Pellizzer <massimiliano.pellizzer@canonical.com>
+Signed-off-by: John Johansen <john.johansen@canonical.com>
+Signed-off-by: Li hongliang <1468888505@139.com>
+---
+ security/apparmor/policy_unpack.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
+index 17601235ff98..22cc968a01fc 100644
+--- a/security/apparmor/policy_unpack.c
++++ b/security/apparmor/policy_unpack.c
+@@ -942,7 +942,6 @@ static int verify_header(struct aa_ext *e, int required, const char **ns)
+ {
+ 	int error = -EPROTONOSUPPORT;
+ 	const char *name = NULL;
+-	*ns = NULL;
+ 
+ 	/* get the interface version */
+ 	if (!aa_unpack_u32(e, &e->version, "version")) {
 -- 
-Theodore Ts'o <tytso@mit.edu>
+2.34.1
+
+
 
