@@ -2,38 +2,38 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MFz5Lobv4Gl4ngAAu9opvQ
+	id 4FLmLIfv4Gl4ngAAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Thu, 16 Apr 2026 16:17:42 +0200
+	for <lists+apparmor@lfdr.de>; Thu, 16 Apr 2026 16:17:43 +0200
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66D2F40F7A7
-	for <lists+apparmor@lfdr.de>; Thu, 16 Apr 2026 16:17:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F96B40F7AE
+	for <lists+apparmor@lfdr.de>; Thu, 16 Apr 2026 16:17:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1wDNXA-0002Ll-PQ; Thu, 16 Apr 2026 14:17:32 +0000
-Received: from tor.source.kernel.org ([172.105.4.254])
+	id 1wDNXA-0002Lv-T9; Thu, 16 Apr 2026 14:17:32 +0000
+Received: from sea.source.kernel.org ([172.234.252.31])
  by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <krzk@kernel.org>) id 1wDLsw-0005Su-Ml
- for apparmor@lists.ubuntu.com; Thu, 16 Apr 2026 12:31:54 +0000
+ (envelope-from <krzk@kernel.org>) id 1wDLxC-000609-S1
+ for apparmor@lists.ubuntu.com; Thu, 16 Apr 2026 12:36:19 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 54A6B60126;
- Thu, 16 Apr 2026 12:25:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4797C2BCB3;
- Thu, 16 Apr 2026 12:25:04 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 91B2640474;
+ Thu, 16 Apr 2026 12:30:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB8D2C2BCAF;
+ Thu, 16 Apr 2026 12:30:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776342318;
- bh=gECMS4EGrtN1lWkNcMdqV1cQaJPbxrgRQTXN3zouHSg=;
+ s=k20201202; t=1776342653;
+ bh=0+upWZt1SQSfIz6OgmfLK1joGZgudnQ2lP+Bv+7s1DM=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=GQGv29sXj5S5z7UPKnXaUJAuD1qc92DQaWs8UXQ6wwBCK62RBOeMuB3RtNcxzLs+n
- PPcHL7L8pFqT/h2G0bvvPkUySB8nqp1hX+g8DsxNBEPpxoa8+yXm1bMdZVixBjqxgs
- n60V3osh+8lSW6pt2nDmsfqoDHDW6Auv9CDrXKgdtoPlM9Xla54AXl1OSAYSKpcXrA
- NmL+fSV7Qk/BTzx5WK8y+vV+U+fxOTS5SiuiemUg0UByoPARoWSlKdZYhXUYnMvTFf
- DgJsTYvf1ogHE4V/gC2FO90mA6aK9sVcz0Z1Cm9dDcGVpaCAj1nCKENYb7/YBcL1F4
- 1oc9q29NjGBrg==
-Message-ID: <1fd72d1b-f5cd-447f-ae11-6f4d4426b8e8@kernel.org>
-Date: Thu, 16 Apr 2026 14:24:57 +0200
+ b=aREs4pY9AFWiyPis1yCUHi655kH6F2cmateO3OS3vwiWh4XGstegazkXh9fTeJRQW
+ F7PNlGo+5uv4JS1ghUA7GmLt/nGdKTIiz0N3eNo0k9qdgxnlZ6UVo1xvuY/jm0Jsgz
+ 6OXZlHvLM95FlzgQqthFFGhbIejPY5s4jQOos8SHiaMv+4GNWDNJ4NBjKmastJKLl9
+ B+kLcT7cwceOa9aKNihg3CZG+65E3BtgCcBvAVf5SIS4E47zAqVB8uUKfjkayyutdK
+ 0Jj6v6r/4toyxe6BrveBQ3dEYq/LaiTL2nhXiDsBmOQK54Y4zcD7qDew9ISAzQHpha
+ d9g1fsIICa3fA==
+Message-ID: <1fba96bd-124d-431d-8de8-78688c248600@kernel.org>
+Date: Thu, 16 Apr 2026 14:30:37 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Philipp Hahn <phahn-oss@avm.de>, amd-gfx@lists.freedesktop.org,
@@ -63,7 +63,7 @@ To: Philipp Hahn <phahn-oss@avm.de>, amd-gfx@lists.freedesktop.org,
  sched-ext@lists.linux.dev, target-devel@vger.kernel.org,
  tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev
 References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
- <20260310-b4-is_err_or_null-v1-55-bd63b656022d@avm.de>
+ <20260310-b4-is_err_or_null-v1-1-bd63b656022d@avm.de>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -109,14 +109,14 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260310-b4-is_err_or_null-v1-55-bd63b656022d@avm.de>
+In-Reply-To: <20260310-b4-is_err_or_null-v1-1-bd63b656022d@avm.de>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=172.105.4.254; envelope-from=krzk@kernel.org;
- helo=tor.source.kernel.org
+Received-SPF: pass client-ip=172.234.252.31; envelope-from=krzk@kernel.org;
+ helo=sea.source.kernel.org
 X-Mailman-Approved-At: Thu, 16 Apr 2026 14:17:31 +0000
-Subject: Re: [apparmor] [PATCH 55/61] interconnect: Prefer IS_ERR_OR_NULL
- over manual NULL check
+Subject: Re: [apparmor] [PATCH 01/61] Coccinelle: Prefer IS_ERR_OR_NULL over
+ manual NULL check
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -128,7 +128,7 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Georgi Djakov <djakov@kernel.org>
+Cc: Julia Lawall <Julia.Lawall@inria.fr>, Nicolas Palix <nicolas.palix@imag.fr>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 X-Spamd-Result: default: False [3.09 / 15.00];
@@ -137,24 +137,24 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_SENDER(0.00)[krzk@kernel.org,apparmor-bounces@lists.ubuntu.com];
 	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[krzk@kernel.org,apparmor-bounces@lists.ubuntu.com];
 	TO_DN_SOME(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:phahn-oss@avm.de,m:amd-gfx@lists.freedesktop.org,m:apparmor@lists.ubuntu.com,m:bpf@vger.kernel.org,m:ceph-devel@vger.kernel.org,m:cocci@inria.fr,m:dm-devel@lists.linux.dev,m:dri-devel@lists.freedesktop.org,m:gfs2@lists.linux.dev,m:intel-gfx@lists.freedesktop.org,m:intel-wired-lan@lists.osuosl.org,m:iommu@lists.linux.dev,m:kvm@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:linux-block@vger.kernel.org,m:linux-bluetooth@vger.kernel.org,m:linux-btrfs@vger.kernel.org,m:linux-cifs@vger.kernel.org,m:linux-clk@vger.kernel.org,m:linux-erofs@lists.ozlabs.org,m:linux-ext4@vger.kernel.org,m:linux-fsdevel@vger.kernel.org,m:linux-gpio@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:linux-input@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-leds@vger.kernel.org,m:linux-media@vger.kernel.org,m:linux-mips@vger.kernel.org,m:linux-mm@kvack.org,m:linux-modules@vger.kernel.org,m:linux-mtd@lists.infradead.org,m:linux-nfs@vger.kernel.org,m:linux-omap@vger.kerne
- l.org,m:linux-phy@lists.infradead.org,m:linux-pm@vger.kernel.org,m:linux-rockchip@lists.infradead.org,m:linux-s390@vger.kernel.org,m:linux-scsi@vger.kernel.org,m:linux-sctp@vger.kernel.org,m:linux-security-module@vger.kernel.org,m:linux-sh@vger.kernel.org,m:linux-sound@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-trace-kernel@vger.kernel.org,m:linux-usb@vger.kernel.org,m:linux-wireless@vger.kernel.org,m:netdev@vger.kernel.org,m:ntfs3@lists.linux.dev,m:samba-technical@lists.samba.org,m:sched-ext@lists.linux.dev,m:target-devel@vger.kernel.org,m:tipc-discussion@lists.sourceforge.net,m:v9fs@lists.linux.dev,m:djakov@kernel.org,s:lists@lfdr.de];
+ l.org,m:linux-phy@lists.infradead.org,m:linux-pm@vger.kernel.org,m:linux-rockchip@lists.infradead.org,m:linux-s390@vger.kernel.org,m:linux-scsi@vger.kernel.org,m:linux-sctp@vger.kernel.org,m:linux-security-module@vger.kernel.org,m:linux-sh@vger.kernel.org,m:linux-sound@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-trace-kernel@vger.kernel.org,m:linux-usb@vger.kernel.org,m:linux-wireless@vger.kernel.org,m:netdev@vger.kernel.org,m:ntfs3@lists.linux.dev,m:samba-technical@lists.samba.org,m:sched-ext@lists.linux.dev,m:target-devel@vger.kernel.org,m:tipc-discussion@lists.sourceforge.net,m:v9fs@lists.linux.dev,m:Julia.Lawall@inria.fr,m:nicolas.palix@imag.fr,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
 	DKIM_TRACE(0.00)[kernel.org:-];
-	NEURAL_SPAM(0.00)[0.410];
+	NEURAL_SPAM(0.00)[0.408];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[55];
+	RCPT_COUNT_GT_50(0.00)[56];
 	FROM_NEQ_ENVFROM(0.00)[krzk@kernel.org,apparmor-bounces@lists.ubuntu.com];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
@@ -163,46 +163,56 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns,avm.de:email]
-X-Rspamd-Queue-Id: 66D2F40F7A7
+	DBL_BLOCKED_OPENRESOLVER(0.00)[avm.de:email,lists.ubuntu.com:helo,lists.ubuntu.com:rdns]
+X-Rspamd-Queue-Id: 5F96B40F7AE
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 10/03/2026 12:49, Philipp Hahn wrote:
-> Prefer using IS_ERR_OR_NULL() over using IS_ERR() and a manual NULL
-> check.
+On 10/03/2026 12:48, Philipp Hahn wrote:
+> Find and convert uses of IS_ERR() plus NULL check to IS_ERR_OR_NULL().
 > 
-> Semantich change: Previously the code only printed the warning on error,
-> but not when the pointer was NULL. Now the warning is printed in both
-> cases!
-
-NAK, read the code
-
+> There are several cases where `!ptr && WARN_ON[_ONCE](IS_ERR(ptr))` is
+> used:
+> - arch/x86/kernel/callthunks.c:215 WARN_ON_ONCE
+> - drivers/clk/clk.c:4561 WARN_ON_ONCE
+> - drivers/interconnect/core.c:793 WARN_ON
+> - drivers/reset/core.c:718 WARN_ON
+> The change is not 100% semantical equivalent as the warning will now
+> also happen when the pointer is NULL.
 > 
-> Change found with coccinelle.
-> 
-> To: Georgi Djakov <djakov@kernel.org>
-> Cc: linux-pm@vger.kernel.org
+> To: Julia Lawall <Julia.Lawall@inria.fr>
+> To: Nicolas Palix <nicolas.palix@imag.fr>
+> Cc: cocci@inria.fr
 > Cc: linux-kernel@vger.kernel.org
+> 
+> ---
+> drivers/clocksource/mips-gic-timer.c:283 looks suspicious: ret != clk,
+> but Daniel Lezcano verified it as cottect.
+> 
+> There are some cases where the checks are part of a larger expression:
+> - mm/kmemleak.c:1095
+> - mm/kmemleak.c:1155
+> - mm/kmemleak.c:1173
+> - mm/kmemleak.c:1290
+> - mm/kmemleak.c:1328
+> - mm/kmemleak.c:1241
+> - mm/kmemleak.c:1310
+> - mm/kmemleak.c:1258
+> - net/netlink/af_netlink.c:2670
+> Thanks to Julia Lawall for the help to also handle them.
+> 
 > Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
 > ---
->  drivers/interconnect/core.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  scripts/coccinelle/api/is_err_or_null.cocci | 125 ++++++++++++++++++++++++++++
+>  1 file changed, 125 insertions(+)
 > 
-> diff --git a/drivers/interconnect/core.c b/drivers/interconnect/core.c
-> index 8569b78a18517b33abeafac091978b25cbc1acc7..22e92b30f73853d5bd2e05b4f52cb5aa22556468 100644
-> --- a/drivers/interconnect/core.c
-> +++ b/drivers/interconnect/core.c
-> @@ -790,7 +790,7 @@ void icc_put(struct icc_path *path)
->  	size_t i;
->  	int ret;
->  
-> -	if (!path || WARN_ON(IS_ERR(path)))
-> +	if (WARN_ON(IS_ERR_OR_NULL(path)))
 
-IS_ERR_OR_NULL is simply discouraged, but beside of code preference, you
-just added bug here. This is clearly not equivalent and you emit warn on
-perfectly valid case!
+Neither this, nor try from 2011, nor any future try should be accepted,
+because it creates impression IS_ERR_OR_NULL is somehow okay. No, it is
+not okay, it is a discouraged pattern leading to less readable and
+maintainable code. We should not have therefore any tools suggesting
+usage of IS_ERR_OR_NULL, because people will be converting poor code
+into that, instead of fixing that poor code.
 
 Best regards,
 Krzysztof
