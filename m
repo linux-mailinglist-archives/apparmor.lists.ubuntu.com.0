@@ -2,94 +2,76 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wA+nEN1f62kCMAAAu9opvQ
+	id aHBXDN1f62kCMAAAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
 	for <lists+apparmor@lfdr.de>; Fri, 24 Apr 2026 14:19:41 +0200
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1F2545E51C
+	by mail.lfdr.de (Postfix) with ESMTPS id F274345E51D
 	for <lists+apparmor@lfdr.de>; Fri, 24 Apr 2026 14:19:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1wGFVK-0004oy-Mt; Fri, 24 Apr 2026 12:19:30 +0000
-Received: from mail-qv1-f46.google.com ([209.85.219.46])
+	id 1wGFVK-0004pE-V7; Fri, 24 Apr 2026 12:19:31 +0000
+Received: from mail-pj1-f41.google.com ([209.85.216.41])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <phx0fer@gmail.com>) id 1wGDDV-0007zp-Ol
- for apparmor@lists.ubuntu.com; Fri, 24 Apr 2026 09:52:57 +0000
-Received: by mail-qv1-f46.google.com with SMTP id
- 6a1803df08f44-8a151012558so82526296d6.3
- for <apparmor@lists.ubuntu.com>; Fri, 24 Apr 2026 02:52:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777024376; cv=none;
- d=google.com; s=arc-20240605;
- b=F+UYwz/tfwifgHztkT3Cgzdd1s1+y4ZCCXF1OT1Blv5CWU+C1mgWthyaBHurvGsiq7
- kp/yUh2tF8eme7RVlWZgLfczaiA6IiQosn4+neyLQrce72jVZhMNSzZYS+oG5MeqRhSZ
- Db3HgrVNKOaf1vl6kHxOldvpUuXWYlAlF86qc4JzoAx75+0zU3PoUE6560PCFnBdLfnL
- qJt7pgHoFa5DBq+jtk+8aoX8Jvo01RFxY+dDp6XLW/SiyDnhvVQPGVMt8iRTM5e9/Qbg
- Q3jHx8fBDRkY9wEYml/S68eP4U5Yl/KIBnyiBa08oG5pLxXyo4+Egxz0G2qAzGCOI2rU
- DNEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=hKb/vK1BjpPFdvL4ny+gwWWNUROcsi898naU28/Ggoo=;
- fh=GDLzk/hupgLaMEy8y6oA1P/c7VeHx/V/hSEx/sj+uZ4=;
- b=DjMEnZVkm4UZALuuysQ0sl5IzayNZfAX5YAr4/0IhMuCyyY/a3/nLwDr86GEFv8FHl
- KLvsrxHlCrTv+AiVJLhM/LEGZXB35sgwwkkz1ILoXcmoBKEkGsDBiSHOl48DXZN13RlT
- LrcTBzbpoSSp5oyMJJKJSVOh0HAXe01w3CVnkoJC7WqeNRDutFkHB6DFtyjxEAHO58Gx
- mK0zLmdZK+18PxEQ8qQiSG7SeRYt5ia89MsSB4kfltGa7lzbTDDoM/Pp2o35ENpUdh9J
- 32kAgTm3mbiy8IO4YNToAXGJH634A8jPBAu8H2wkzQYDez3YoWahELxihE3gW+hvUsky
- uf0g==; darn=lists.ubuntu.com
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+ (Exim 4.86_2) (envelope-from <phx0fer@gmail.com>) id 1wGDG2-0001ei-TB
+ for apparmor@lists.ubuntu.com; Fri, 24 Apr 2026 09:55:35 +0000
+Received: by mail-pj1-f41.google.com with SMTP id
+ 98e67ed59e1d1-35d99bae2ebso6888427a91.3
+ for <apparmor@lists.ubuntu.com>; Fri, 24 Apr 2026 02:55:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777024376; x=1777629176; darn=lists.ubuntu.com;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=hKb/vK1BjpPFdvL4ny+gwWWNUROcsi898naU28/Ggoo=;
- b=GMM0f9DB6yVGe+gtCV8h2Bmwgwr14JSxyIXLiVg/tz6bbZpYpi2hRXa12m+mx30TFG
- lfFW79cXqqp2JewCvPVrdJpcBsT/VGFtGFo+MRoMeoOHr1h3B1hxmsP9ZUZFyBRpdOxO
- +waR8VAnkR4NjJ/QzK4WxTGuQkwCcNkVWSM5WkvAdvgFQjUBf0K0sLBDIeEZR5yId0Nm
- 2NRVHnFA8EWtVgTqqxY5+OIba65BP/hk5p98pTW+q8oSpz1X3BdOqC0ph+/K8p5DPs4+
- M7kBnDdTCO/6DuLUdfJAYfdTXH8sXD78f7G9pvL8bxfZfZxcr62ejHGzzxdj+0AF7INc
- FAwg==
+ d=gmail.com; s=20251104; t=1777024532; x=1777629332; darn=lists.ubuntu.com;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=1T1x+L7IhncD5ZnteL/angAEjhqfpbRDWQ7kgFrGqQc=;
+ b=YNP9GQv2Jnzj1AlsqS4SbgROVrr10sX6+mmUMWMagizuY491sXNCmgH6895K3PFBuQ
+ SWv32VNgg95ggL/5SDO5gYedBjOY5pFH3QPVGF8aPvVYGEXNncZKW//ohScy8qw275Jr
+ 9V2lP6GniNHvL5RzvnhIzBRMysxHDCblNM+1P+tHYOkamx3/UjPDAcrhGX75xNn6sqaT
+ 3zGwHTDEBcwONh/KSdTuoGuNMQEiER6rgeNwu68ylecr0Xq2B4v6tJmr0J5JhwqbpNgX
+ xDE0AmjgOGWErUUcRdxih0XX8yjUhf2N9mIzhVsXT0x8TetzFX2cqukNKeCXQaCalKTl
+ SAhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777024376; x=1777629176;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20251104; t=1777024532; x=1777629332;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=hKb/vK1BjpPFdvL4ny+gwWWNUROcsi898naU28/Ggoo=;
- b=CKHzguLmyCk6Y7H3CMb5ffY5WFJhS/qOeA4kP7gnosbO4kcrSkj5oOGi/jSNkR5tgl
- H8zVY6O3Yy7NHZPuI02rQg+BwSsDvfDbXkz4x1J1PgI4AkiXere36x9fQxcFel9u9SB/
- kVgthFy8ONpcHS5kiNPRarbT2hQo9wo51Dkx+TB1hCMMsNpNdodDrVK4K06+JdOd2971
- tk3iT6W+nh10OFpMtiq9wBesLEQZ/Y8GJw/wiq+smm3jUQjkc1t8oY2RQ92uknkd5T7V
- wSI3HoYURtjx9zinOvd3RHlUCcHjmIpkI/+To5qp6u8ZhrzajuNu/hchIOE5pbZnk/qs
- MCgQ==
-X-Gm-Message-State: AOJu0YwdDkuY+nw5EdTbdffQ6MR2Vcv1QwZF8qd3rPdXc0pK3fof3Ajm
- lOY2QqfynbRo5ryJxxOG/qhXyO95X5tjQGL9KvNHS2ZoHy7nSUN+ukmjEraVRK+d6VZlRogfAKI
- Weq08Ce6JM38FfPWIwrDq3GcruYWK9kwXejtCXas=
-X-Gm-Gg: AeBDieuoLULeUuEQF5+u7kUIpGsxu7WzKYm8KPO1MhHrqPTH3FG0Z/ke7UOOh4ObwYl
- L1gQP2SUZm/YvJi/UrD9wr52UhQ/dsoyHR4TKowWGOQv8AlYbUV8u2VIYoTjSPiaV1PV4HR1wqq
- G42LIKjvK5tRpyw9UpZcOWbFKE7d6EE3HrUgvLDVJy1Ew4Rwd0xU5IBLiRxC9E74NPDTy2kbuXj
- QV/G1XCkUrPnJQ1zVr69JwrYIkxHvuQvxwuwHSyLYzkhNXv5n9kqXyJcm2vRG47AwGdGVDr1jwa
- VZe6UYWcD10fcQfNbswpWuqsKynYxA==
-X-Received: by 2002:a05:6214:29e9:b0:8ac:a611:740e with SMTP id
- 6a1803df08f44-8b0280ee523mr472722236d6.28.1777024376473; Fri, 24 Apr 2026
- 02:52:56 -0700 (PDT)
+ bh=1T1x+L7IhncD5ZnteL/angAEjhqfpbRDWQ7kgFrGqQc=;
+ b=jeMZePBRskx7hGHG1RpsiqN7McmQID31a9QpnlHiWNo7etk2sgIXfwxMWm/PrjxoFd
+ nBd88lmxj4NzGvtjm6XzL8gYpqOM14T4zK6b6s1Ii7Z8SR4TqaaY7iyqnppW/eClSMtI
+ /l1i7JfIkFA9lb9vlyUvRdjSkknejmFyCiKzg1o3ZQ0PSObgdoRgVURryy9EDJvwhynq
+ JP5R1xDWIOLXO8tkJeBb/5l5D1oXMc78ygtLAUnDYlK2y8Skb5vYKHek/UBP+aRdQBqA
+ /z5VYTxfHHU3bSKkc+McdAkf+5CksFHHGwX6sESkmcmZEhdJTgyvGyQi9v3D6ty96BoH
+ 1CGw==
+X-Gm-Message-State: AOJu0Ywa92u4aVzbpVZIz6/XVb0RL9dl/WvxqUbRV3UCOa9IKca8yCOV
+ 8CY77AbQxd3tVXOFQgQt0x+rP3BGKxNV4ETDJLklAp3PIA9LNXd0pFaJz33sSY4x
+X-Gm-Gg: AeBDies8XX9kNdFI+NNLjjm+vWuQrbECyEzKg3Mh+0jEw+qHTleoZfY6q48z6QIz+lx
+ BBkkQ7Y27EgIeF9QE3fg4r3+JPewbGOJS+GcDxeR8YDPu7FaVCKguc6dRWWpve/iwFsbA/Rmsjk
+ O/YE1JZ2DAJQenwfXIlx/Amr1MZDgDgxrdXSsYR6toF2LOSo35hGAWxepmv9Db3TC8G0+tjB+Rs
+ mOL7JYRadJ43V0xyQ++Pn5s6qm+mLWSoBmOFVrCpsh7Sbpoj6bKGOJNYNwGJ9KxFfMryQmyagPK
+ qHhrx2S4fs3j5GIgg460WOOzdOUaeers1kXp+/SmfHyGxQYS2lmrTcovEQVF+3QtRrjpzoZSIFO
+ LeNOLU9o5LIDmLx2kTZin0sgm9a5CqBE909rM4gKLHADxX76SELBjKeo97kQEciK9bbKRK/ij/f
+ YaUl2e9MDITT3OR1AaZCYyq8HvhUvcCo3d7hFfN30rCe2QYFynXeGJ
+X-Received: by 2002:a17:902:ce0c:b0:2b7:88f9:9c3d with SMTP id
+ d9443c01a7336-2b788f9a2bcmr172400995ad.12.1777024532410; 
+ Fri, 24 Apr 2026 02:55:32 -0700 (PDT)
+Received: from localhost.localdomain ([180.172.12.49])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2b5faa3073asm211016825ad.27.2026.04.24.02.55.30
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Fri, 24 Apr 2026 02:55:31 -0700 (PDT)
+From: Dudu Lu <phx0fer@gmail.com>
+To: apparmor@lists.ubuntu.com
+Date: Fri, 24 Apr 2026 17:55:21 +0800
+Message-Id: <20260424095521.33655-1-phx0fer@gmail.com>
+X-Mailer: git-send-email 2.39.3 (Apple Git-145)
 MIME-Version: 1.0
-References: <20260413090313.79315-1-phx0fer@gmail.com>
- <6310cc11dd67ff2fb928a08fed9a6e11ac884e7b.camel@canonical.com>
-In-Reply-To: <6310cc11dd67ff2fb928a08fed9a6e11ac884e7b.camel@canonical.com>
-From: phx <phx0fer@gmail.com>
-Date: Fri, 24 Apr 2026 17:52:43 +0800
-X-Gm-Features: AQROBzBBifYIqFd10cEXW44r-RhoGnOH-NLipF6qPqYZTx5NVkKklku9492ZyNU
-Message-ID: <CAKvCo-zf17t5qwDmKN8whysM+pwoOjkUq+uu1hr1OJ5xh6UY-w@mail.gmail.com>
-To: Georgia Garcia <georgia.garcia@canonical.com>
-Content-Type: multipart/alternative; boundary="000000000000b78b87065031ba01"
-Received-SPF: pass client-ip=209.85.219.46; envelope-from=phx0fer@gmail.com;
- helo=mail-qv1-f46.google.com
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=209.85.216.41; envelope-from=phx0fer@gmail.com;
+ helo=mail-pj1-f41.google.com
 X-Mailman-Approved-At: Fri, 24 Apr 2026 12:19:29 +0000
-Subject: Re: [apparmor] [PATCH] apparmor: Fix wrong dentry in
- RENAME_EXCHANGE uid check
+Subject: [apparmor] [PATCH] apparmor: fix wrong dentry in RENAME_EXCHANGE
+	uid check
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -101,187 +83,79 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: apparmor@lists.ubuntu.com
+Cc: Dudu Lu <phx0fer@gmail.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Rspamd-Queue-Id: F1F2545E51C
+X-Rspamd-Queue-Id: F274345E51D
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.61 / 15.00];
-	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+X-Spamd-Result: default: False [1.69 / 15.00];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
+	R_MISSING_CHARSET(0.50)[];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
-	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
+	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
-	RCVD_COUNT_THREE(0.00)[3];
-	FORGED_RECIPIENTS(0.00)[m:georgia.garcia@canonical.com,m:apparmor@lists.ubuntu.com,s:lists@lfdr.de];
 	RCPT_COUNT_TWO(0.00)[2];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER(0.00)[phx0fer@gmail.com,apparmor-bounces@lists.ubuntu.com];
-	MISSING_XM_UA(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
 	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
-	FROM_NEQ_ENVFROM(0.00)[phx0fer@gmail.com,apparmor-bounces@lists.ubuntu.com];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	NEURAL_HAM(-0.00)[-0.998];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	ARC_NA(0.00)[];
 	FREEMAIL_FROM(0.00)[gmail.com];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[phx0fer@gmail.com,apparmor-bounces@lists.ubuntu.com];
 	TAGGED_RCPT(0.00)[apparmor];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,canonical.com:email]
+	NEURAL_HAM(-0.00)[-0.969];
+	FREEMAIL_CC(0.00)[gmail.com];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:-]
 
---000000000000b78b87065031ba01
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In apparmor_path_rename(), when handling RENAME_EXCHANGE, the
+cond_exchange structure is supposed to carry the attributes of the
+*new* dentry (since it is used to authorize moving new_dentry to the
+old location). However, line 412 reads:
 
-Thanks for the review. Will respin with the Fixes tag added.
+    vfsuid = i_uid_into_vfsuid(idmap, d_backing_inode(old_dentry));
 
-On Thu, Apr 23, 2026 at 1:24=E2=80=AFAM Georgia Garcia <georgia.garcia@cano=
-nical.com>
-wrote:
+This fetches the uid of old_dentry instead of new_dentry. As a result,
+the RENAME_EXCHANGE permission check uses the wrong file owner, which
+can allow a rename that should be denied (if old_dentry's owner has
+more privileges) or deny one that should be allowed.
 
-> Hello,
->
-> On Mon, 2026-04-13 at 17:03 +0800, Dudu Lu wrote:
-> > In apparmor_path_rename(), when handling RENAME_EXCHANGE, the
-> > cond_exchange structure is supposed to carry the attributes of the
-> > *new* dentry (since it is used to authorize moving new_dentry to the
-> > old location). However, line 412 reads:
-> >
-> >     vfsuid =3D i_uid_into_vfsuid(idmap, d_backing_inode(old_dentry));
-> >
-> > This fetches the uid of old_dentry instead of new_dentry. As a result,
-> > the RENAME_EXCHANGE permission check uses the wrong file owner, which
-> > can allow a rename that should be denied (if old_dentry's owner has
-> > more privileges) or deny one that should be allowed.
-> >
-> > Note that cond_exchange.mode on the line above correctly uses
-> > new_dentry. Only the uid lookup is wrong.
-> >
-> > Fix by changing old_dentry to new_dentry in the i_uid_into_vfsuid call.
-> >
->
-> This looks correct to me, but could you add a Fixes tag?
->
-> Fixes: 5e26a01e56fd ("apparmor: use type safe idmapping helpers")
->
-> Thank you,
-> Georgia
->
-> > Signed-off-by: Dudu Lu <phx0fer@gmail.com>
-> > ---
-> >  security/apparmor/lsm.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
-> > index c1d42fc72fdb..e8de919fbea6 100644
-> > --- a/security/apparmor/lsm.c
-> > +++ b/security/apparmor/lsm.c
-> > @@ -409,7 +409,7 @@ static int apparmor_path_rename(const struct path
-> *old_dir, struct dentry *old_d
-> >                       struct path_cond cond_exchange =3D {
-> >                               .mode =3D
-> d_backing_inode(new_dentry)->i_mode,
-> >                       };
-> > -                     vfsuid =3D i_uid_into_vfsuid(idmap,
-> d_backing_inode(old_dentry));
-> > +                     vfsuid =3D i_uid_into_vfsuid(idmap,
-> d_backing_inode(new_dentry));
-> >                       cond_exchange.uid =3D vfsuid_into_kuid(vfsuid);
-> >
-> >                       error =3D aa_path_perm(OP_RENAME_SRC, current_cre=
-d(),
->
->
+Note that cond_exchange.mode on the line above correctly uses
+new_dentry. Only the uid lookup is wrong.
 
---000000000000b78b87065031ba01
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Fix by changing old_dentry to new_dentry in the i_uid_into_vfsuid call.
 
-<div dir=3D"ltr">Thanks for the review. Will respin with the Fixes tag adde=
-d.=C2=A0=C2=A0</div><br><div class=3D"gmail_quote gmail_quote_container"><d=
-iv dir=3D"ltr" class=3D"gmail_attr">On Thu, Apr 23, 2026 at 1:24=E2=80=AFAM=
- Georgia Garcia &lt;<a href=3D"mailto:georgia.garcia@canonical.com">georgia=
-.garcia@canonical.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_qu=
-ote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,20=
-4);padding-left:1ex">Hello,<br>
-<br>
-On Mon, 2026-04-13 at 17:03 +0800, Dudu Lu wrote:<br>
-&gt; In apparmor_path_rename(), when handling RENAME_EXCHANGE, the<br>
-&gt; cond_exchange structure is supposed to carry the attributes of the<br>
-&gt; *new* dentry (since it is used to authorize moving new_dentry to the<b=
-r>
-&gt; old location). However, line 412 reads:<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0vfsuid =3D i_uid_into_vfsuid(idmap, d_backing_inode=
-(old_dentry));<br>
-&gt; <br>
-&gt; This fetches the uid of old_dentry instead of new_dentry. As a result,=
-<br>
-&gt; the RENAME_EXCHANGE permission check uses the wrong file owner, which<=
-br>
-&gt; can allow a rename that should be denied (if old_dentry&#39;s owner ha=
-s<br>
-&gt; more privileges) or deny one that should be allowed.<br>
-&gt; <br>
-&gt; Note that cond_exchange.mode on the line above correctly uses<br>
-&gt; new_dentry. Only the uid lookup is wrong.<br>
-&gt; <br>
-&gt; Fix by changing old_dentry to new_dentry in the i_uid_into_vfsuid call=
-.<br>
-&gt; <br>
-<br>
-This looks correct to me, but could you add a Fixes tag?<br>
-<br>
-Fixes: 5e26a01e56fd (&quot;apparmor: use type safe idmapping helpers&quot;)=
-<br>
-<br>
-Thank you,<br>
-Georgia<br>
-<br>
-&gt; Signed-off-by: Dudu Lu &lt;<a href=3D"mailto:phx0fer@gmail.com" target=
-=3D"_blank">phx0fer@gmail.com</a>&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 security/apparmor/lsm.c | 2 +-<br>
-&gt;=C2=A0 1 file changed, 1 insertion(+), 1 deletion(-)<br>
-&gt; <br>
-&gt; diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c<br>
-&gt; index c1d42fc72fdb..e8de919fbea6 100644<br>
-&gt; --- a/security/apparmor/lsm.c<br>
-&gt; +++ b/security/apparmor/lsm.c<br>
-&gt; @@ -409,7 +409,7 @@ static int apparmor_path_rename(const struct path =
-*old_dir, struct dentry *old_d<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0struct path_cond cond_exchange =3D {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.mode =3D d_backing_inode(new_dent=
-ry)-&gt;i_mode,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0};<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0vfsuid =3D i_uid_into_vfsuid(idmap, d_backing_inode(old_dentry));<br=
->
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0vfsuid =3D i_uid_into_vfsuid(idmap, d_backing_inode(new_dentry));<br=
->
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0cond_exchange.uid =3D vfsuid_into_kuid(vfsuid);<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0error =3D aa_path_perm(OP_RENAME_SRC, current_cred(),<br>
-<br>
-</blockquote></div>
+Fixes: 5e26a01e56fd ("apparmor: use type safe idmapping helpers")
+Signed-off-by: Dudu Lu <phx0fer@gmail.com>
+---
+ security/apparmor/lsm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---000000000000b78b87065031ba01--
+diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
+index c1d42fc72fdb..e8de919fbea6 100644
+--- a/security/apparmor/lsm.c
++++ b/security/apparmor/lsm.c
+@@ -409,7 +409,7 @@ static int apparmor_path_rename(const struct path *old_dir, struct dentry *old_d
+ 			struct path_cond cond_exchange = {
+ 				.mode = d_backing_inode(new_dentry)->i_mode,
+ 			};
+-			vfsuid = i_uid_into_vfsuid(idmap, d_backing_inode(old_dentry));
++			vfsuid = i_uid_into_vfsuid(idmap, d_backing_inode(new_dentry));
+ 			cond_exchange.uid = vfsuid_into_kuid(vfsuid);
+ 
+ 			error = aa_path_perm(OP_RENAME_SRC, current_cred(),
+-- 
+2.39.3 (Apple Git-145)
+
 
