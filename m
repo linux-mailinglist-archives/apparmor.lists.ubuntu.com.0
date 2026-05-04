@@ -2,80 +2,85 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sGt8F6B/+GmXwAIAu9opvQ
+	id yJj0E8bF+Gnh0gIAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Mon, 04 May 2026 13:14:40 +0200
+	for <lists+apparmor@lfdr.de>; Mon, 04 May 2026 18:13:58 +0200
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91EEA4BC44D
-	for <lists+apparmor@lfdr.de>; Mon, 04 May 2026 13:14:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C00F64C13E5
+	for <lists+apparmor@lfdr.de>; Mon, 04 May 2026 18:13:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1wJrFZ-0006RO-8J; Mon, 04 May 2026 11:14:09 +0000
-Received: from fout-a4-smtp.messagingengine.com ([103.168.172.147])
+	id 1wJvvB-0006AW-MJ; Mon, 04 May 2026 16:13:25 +0000
+Received: from fout-b5-smtp.messagingengine.com ([202.12.124.148])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <me@zygoon.pl>) id 1wJrFX-0006QV-HZ
- for apparmor@lists.ubuntu.com; Mon, 04 May 2026 11:14:08 +0000
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
- by mailfout.phl.internal (Postfix) with ESMTP id 87642EC00AE;
- Mon,  4 May 2026 07:14:06 -0400 (EDT)
+ (Exim 4.86_2) (envelope-from <code@tyhicks.com>) id 1wJvv8-0006AH-UI
+ for apparmor@lists.ubuntu.com; Mon, 04 May 2026 16:13:24 +0000
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+ by mailfout.stl.internal (Postfix) with ESMTP id ACCD01D0001A;
+ Mon,  4 May 2026 12:13:21 -0400 (EDT)
 Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-06.internal (MEProxy); Mon, 04 May 2026 07:14:06 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zygoon.pl; h=cc
- :cc:content-transfer-encoding:content-type:date:date:from:from
- :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
- :to; s=fm2; t=1777893246; x=1777979646; bh=tiG8mybx1Eia2d5EM/vxa
- QTq9dwNak6QiSsJolTJO2g=; b=Hlcme+3X2uSrtUO8tu0sOn0k30VFemjLfOuet
- K4WsF9KiOb1GS2qsUZeCreM0TnJK615HcoHOJ9MfE97Kzt2kDXEY6ewnz7pMG5Aa
- vjgqEVL1IvL9XjG2GJV/UtBKN7gNPojsrpfpb0zzaiwKfI8B7bRCKWAyAN44TsEu
- cWd1ti1UILPHsKKMAz6ZRWRri78KwFA1S9dbuBn13xOVBYOWZToCjmC6LT6c8az6
- K4FmsJgHxXylcsvXfzb+dfDeSMNe51a+racEPz7qxs10I+WrNzNlogatm/ZfLpZb
- Is8wY0gg+1HMx4VR94URzhJfHB5qfYViLQmaWWdGIJ0Puuu6g==
+ by phl-compute-03.internal (MEProxy); Mon, 04 May 2026 12:13:21 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tyhicks.com; h=
+ cc:cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm2; t=1777911201;
+ x=1777997601; bh=JsgHmh+mhxA5OlhQRCOAjI7bg/ewT7I9AP70n8TTGBE=; b=
+ Rigi4qjbwUxIrrrWLFY0fxWFRF4otlWd/a+AXx0V3nLf4XKKSvTa2ieR7oZjSqsm
+ 5VGHWg+qGP7P5BrVqGbuinVPqHD/4+rEr218kYFJQFmk74VlVMs8ujaSSTxsfs7N
+ luhYgytf+6+kxB+wpSKDrC12+m+3S5iMBWegUR5lQn16KUwmXxdpJtez3RyBnNyJ
+ 6jMd9GQDmiZeEkUm05EwjKrkEuAxqQmcLBUdrk6HG8wUdmyxuL5Dz3WKZVVgjV/z
+ uQDURr+PKzTeRQyCgiYAu9g7NX64cv84NXdwHXt8cN9dYuU+J+w0umFUg+XObfSr
+ pKxTdmRtGH+ohUegoGRUmg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
- :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
- 1777893246; x=1777979646; bh=tiG8mybx1Eia2d5EM/vxaQTq9dwNak6QiSs
- JolTJO2g=; b=OyXvDaL/QA89IOSdM4Vu9yJgr8Hn7dzar5RGA/lA06kisLPe5EI
- CIjIJ8FnVYCZNCx49IIF5Cm0S/1PeAJFYyGQG+8IPyn6Tc7lodr/Hu3cn85HaZRB
- y0hereh+B4HUjPdyqnDQTkhiHMX8eXEJcmTLKMcTGAcXRI85zh+0zlmAxBM/a81E
- Wvb29Bl8YYwK/bwxf5E2ERxqWhklN3xMI/9lRk0NbyinX6X1hMbqWb60qHJE2Wvq
- Y7Wxvpby0GyogoCUGbMD1w00YBtagGEO/uLHHqq4DUYiUjj4h/pulU1NXjeZcwlE
- jtEsHfs36rlt/8SozZvFG0J9GPALHYLW30g==
-X-ME-Sender: <xms:fn_4aUu5TpujUQ0BB_ExJhhm-3y28_vzSNWzCQOnES2RVSn0xZEWAA>
- <xme:fn_4aXfmtY6KLPlLTBppqD5DNRGtUDi9O8Njhh032T78MYY5nFa4dzvs2nKcw4gRa
- QNNkfl23-KkVKFYbOAAz75sXknTQDvEPPfBg6kc16h84VJ0PFCIIQ>
-X-ME-Received: <xmr:fn_4adYAfww2S7G7SIspUbzJgw4MFaY3hawjbsT2KoPNyMGmFzw7l5FU7O7aT5-h039HeiLB-yR90R-ncAmFdN0MYDp7hG7Z>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdelkeeilecutefuodetggdotefrod
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1777911201; x=
+ 1777997601; bh=JsgHmh+mhxA5OlhQRCOAjI7bg/ewT7I9AP70n8TTGBE=; b=P
+ OXyCsnwAOqgm1A49R+jpLSOa0ADXoOrNxFVCFFblU+2LL1oYFaU0c/RFeHYMuthN
+ XbKP+AyobGVuS3u5lsgaO2ujYvx0xI5ZyJC1fxVUkO7av0Exth+HJGJASvJVNdbH
+ BUgVaYKDiHCcx9bii0aZfuDDqwLjCM5ZSAvaz5WdFn2txg7z5R1P8+Dg2cK4hPVQ
+ 1CIqAlCNWJnq4WyPxQnhJve0AXAfSdi5MxC4drqESXyrDW6/Didjk7clWFzc+Nlt
+ 8emU398wBTtK+7rEpc649SIStJ5Pced4SOZB/y9O/iE0XNkMspio2McTCEkIDiSK
+ VE7Pyngh4mJkHQfPY54uQ==
+X-ME-Sender: <xms:ocX4ad22kqln12bCIalv1EuO6wHYPT5bc-IcuRIdrQUg8y6w6IrzvQ>
+ <xme:ocX4aaEJEhYNgWFbV3ybT6cVdnfJNiU-aNewLgiay-bR4LCFsyXFcWw5YqRxLkIt-
+ gGu-7iEmvvDAwkOwOtQXMOzveL99YdHigX_sZnI4qkHSaAqUCNJwq8>
+X-ME-Received: <xmr:ocX4abi1CU1Qx6RQ7klz7Z0-QSBXSkSILzXLrAB_QtiPjzixg4knN_o>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdelledvlecutefuodetggdotefrod
  ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
- ihhlohhuthemuceftddtnecunecujfgurhephffvvefufffkofgggfestdekredtredttd
- enucfhrhhomhepkgihghhmuhhnthcumfhrhihnihgtkhhiuceomhgvseiihihgohhonhdr
- phhlqeenucggtffrrghtthgvrhhnpefhhefhfefgjeeufeetjeekueefuedthfeltdekfe
- effeekteeitefgheehffejueenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhep
- mhgrihhlfhhrohhmpehmvgesiiihghhoohhnrdhplhdpnhgspghrtghpthhtohepvddpmh
- houggvpehsmhhtphhouhhtpdhrtghpthhtoheprghpphgrrhhmohhrsehlihhsthhsrdhu
- sghunhhtuhdrtghomhdprhgtphhtthhopehmvgesiiihghhoohhnrdhplh
-X-ME-Proxy: <xmx:fn_4aSXo9e2t8Cld2VhkAddCniCRC70NoCCLMUDg3rX2KMUeKCbl1w>
- <xmx:fn_4aXiTJ0JLhSRFmRfb8lc_bw7PJRObJr22XDYFptMP5BoxiZgMcA>
- <xmx:fn_4aYWFj1kO2gauE06hV3LFLCgqpSIYYRL7K4KZ7EdkktU1IWurMw>
- <xmx:fn_4aWMKQlzIMf45jLSVfJ0yFREG6IUZ3sT_5oFsf_swdX3pTjI6Mg>
- <xmx:fn_4aQQPHWE9r1rT0PMydeltYJ7CX4v2xIp3HC7-KSMuxz-7JseKbj4T>
-Feedback-ID: i416c40e7:Fastmail
+ ihhlohhuthemuceftddtnecunecujfgurhepfffhvfevuffkfhggtggugfgjsehtqhertd
+ dttddvnecuhfhrohhmpefvhihlvghrucfjihgtkhhsuceotghouggvsehthihhihgtkhhs
+ rdgtohhmqeenucggtffrrghtthgvrhhnpeeukefhffdukeeuiedtteetgeevffffleethe
+ dttddvjeeikedttefffedtffelieenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgr
+ mhepmhgrihhlfhhrohhmpegtohguvgesthihhhhitghkshdrtghomhdpnhgspghrtghpth
+ htohepvddpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepmhgvseiihihgohhonhdr
+ phhlpdhrtghpthhtoheprghpphgrrhhmohhrsehlihhsthhsrdhusghunhhtuhdrtghomh
+X-ME-Proxy: <xmx:ocX4aV_438Mj7F8z3K1NMPJOlCDRfBWYkkoKGkYMV7IJfQ9EmflHUg>
+ <xmx:ocX4aSqY3OIisK_SysmbS8R2fVdbM-rH_mN1OKPit1n7PPFIrTW5Ow>
+ <xmx:ocX4aU9x8hh1nhe5zr_08vh1l422zTY52d2lE-xou7RzV0JmakMNjw>
+ <xmx:ocX4aWXrb0Mrq0OssxoeJ8k1jUYOoYgavpFjSQ2ccf-aHmaFIc60BA>
+ <xmx:ocX4acaih3_00Hp6e23jewtfy8n1pd_FjTk28FioMu6kzRndeMwC7TKx>
+Feedback-ID: i78e14604:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 4 May 2026 07:14:05 -0400 (EDT)
-From: Zygmunt Krynicki <me@zygoon.pl>
-To: apparmor@lists.ubuntu.com
-Date: Mon,  4 May 2026 13:13:24 +0200
-Message-ID: <20260504111402.18714-1-me@zygoon.pl>
-X-Mailer: git-send-email 2.53.0
+ 4 May 2026 12:13:20 -0400 (EDT)
+Date: Mon, 4 May 2026 11:13:18 -0500
+From: Tyler Hicks <code@tyhicks.com>
+To: Zygmunt Krynicki <me@zygoon.pl>
+Message-ID: <afjFno4Derx5-DOa@yaupon>
+References: <20260502113720.185194-1-me@zygoon.pl>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=103.168.172.147; envelope-from=me@zygoon.pl;
- helo=fout-a4-smtp.messagingengine.com
-Subject: [apparmor] [PATCH] apparmor: release exe file resources on path
-	failure
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260502113720.185194-1-me@zygoon.pl>
+Received-SPF: pass client-ip=202.12.124.148; envelope-from=code@tyhicks.com;
+ helo=fout-b5-smtp.messagingengine.com
+Subject: Re: [apparmor] [PATCH] apparmor: aa_getprocattr free procattr leak
+ on format failure
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -87,71 +92,80 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
+Cc: apparmor@lists.ubuntu.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Rspamd-Queue-Id: 91EEA4BC44D
+X-Rspamd-Queue-Id: C00F64C13E5
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [1.69 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_REJECT(1.00)[zygoon.pl:s=fm2,messagingengine.com:s=fm3];
-	R_MISSING_CHARSET(0.50)[];
+X-Spamd-Result: default: False [-0.61 / 15.00];
+	MID_RHS_NOT_FQDN(0.50)[];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
+	R_DKIM_ALLOW(-0.20)[tyhicks.com:s=fm2,messagingengine.com:s=fm3];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[zygoon.pl : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
+	RCPT_COUNT_TWO(0.00)[2];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_DN_NONE(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:me@zygoon.pl,m:apparmor@lists.ubuntu.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[code@tyhicks.com,apparmor-bounces@lists.ubuntu.com];
 	ARC_NA(0.00)[];
-	RCPT_COUNT_ONE(0.00)[1];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[me@zygoon.pl,apparmor-bounces@lists.ubuntu.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	TAGGED_RCPT(0.00)[apparmor];
-	NEURAL_HAM(-0.00)[-0.535];
-	DKIM_TRACE(0.00)[zygoon.pl:-,messagingengine.com:-];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
+	TO_DN_SOME(0.00)[];
+	DMARC_NA(0.00)[tyhicks.com];
 	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[]
+	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[5];
+	FROM_NEQ_ENVFROM(0.00)[code@tyhicks.com,apparmor-bounces@lists.ubuntu.com];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[tyhicks.com:+,messagingengine.com:+];
+	NEURAL_HAM(-0.00)[-1.000];
+	TAGGED_RCPT(0.00)[apparmor];
+	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[messagingengine.com:dkim,lists.ubuntu.com:helo,lists.ubuntu.com:rdns,zygoon.pl:email,tyhicks.com:dkim]
 
-get_current_exe_path() takes both an exe_file reference and a path
-reference before resolving the path name. If aa_path_name() failed, it
-returned immediately and leaked both references.
+On 2026-05-02 13:37:14, Zygmunt Krynicki wrote:
+> aa_getprocattr() allocates the output string before rendering the label
+> into it. If the second aa_label_snxprint() call fails, the function
+> returned without freeing that allocation.
+>=20
+> Free and clear the output pointer on the uncommon formatting failure path
+> before dropping the namespace reference.
+>=20
+> Signed-off-by: Zygmunt Krynicki <me@zygoon.pl>
+> ---
+>  security/apparmor/procattr.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>=20
+> diff --git a/security/apparmor/procattr.c b/security/apparmor/procattr.c
+> index ce40f15d4952d..c07b6e8fd9c93 100644
+> --- a/security/apparmor/procattr.c
+> +++ b/security/apparmor/procattr.c
+> @@ -54,6 +54,8 @@ int aa_getprocattr(struct aa_label *label, char **strin=
+g, bool newline)
+>  				FLAG_SHOW_MODE | FLAG_VIEW_SUBNS |
+>  				FLAG_HIDDEN_UNCONFINED);
+>  	if (len < 0) {
+> +		kfree(*string);
+> +		*string =3D NULL;
 
-Route the failure through the common cleanup path so fput() and path_put()
-always run after the references are acquired.
+Upstream doesn't have this call to kfree(). Did you create this patch
+=66rom an Ubuntu kernel tree?
 
-Fixes: 8d34e16f7f2b ("apparmor: userns: Add support for execpath in userns")
-Signed-off-by: Zygmunt Krynicki <me@zygoon.pl>
----
- security/apparmor/task.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+Tyler
 
-diff --git a/security/apparmor/task.c b/security/apparmor/task.c
-index 0db0e81b46001..6445cb5f85266 100644
---- a/security/apparmor/task.c
-+++ b/security/apparmor/task.c
-@@ -313,9 +313,12 @@ static const char *get_current_exe_path(char *buffer, int buffer_size)
- 	p = exe_file->f_path;
- 	path_get(&p);
- 
--	if (aa_path_name(&p, FLAG_VIEW_SUBNS, buffer, &path_str, NULL, NULL))
--		return ERR_PTR(-ENOMEM);
-+	if (aa_path_name(&p, FLAG_VIEW_SUBNS, buffer, &path_str, NULL, NULL)) {
-+		path_str = ERR_PTR(-ENOMEM);
-+		goto out;
-+	}
- 
-+out:
- 	fput(exe_file);
- 	path_put(&p);
- 
--- 
-2.53.0
-
+>  		aa_put_ns(current_ns);
+>  		return len;
+>  	}
+> --=20
+> 2.53.0
+>=20
+>=20
 
