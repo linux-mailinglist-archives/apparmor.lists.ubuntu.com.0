@@ -2,41 +2,41 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gZqtOQih/mnmuAAAu9opvQ
+	id Q3+HL6i6/mmSvgAAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Sat, 09 May 2026 04:50:48 +0200
+	for <lists+apparmor@lfdr.de>; Sat, 09 May 2026 06:40:08 +0200
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF0124FDBF2
-	for <lists+apparmor@lfdr.de>; Sat, 09 May 2026 04:50:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67A3F4FE13A
+	for <lists+apparmor@lfdr.de>; Sat, 09 May 2026 06:40:07 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1wLWzZ-00027V-F4; Sat, 09 May 2026 02:00:33 +0000
+	id 1wLWza-0002AG-AB; Sat, 09 May 2026 02:00:34 +0000
 Received: from tor.source.kernel.org ([172.105.4.254])
  by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <song@kernel.org>) id 1wLWzX-00022J-Cy
+ (envelope-from <song@kernel.org>) id 1wLWzX-00022H-F7
  for apparmor@lists.ubuntu.com; Sat, 09 May 2026 02:00:31 +0000
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 309B66057A;
- Sat,  9 May 2026 01:52:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E993FC2BCB4;
- Sat,  9 May 2026 01:52:47 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1B6B460583;
+ Sat,  9 May 2026 01:52:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5886C2BCB4;
+ Sat,  9 May 2026 01:52:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778291569;
- bh=mmCExyJxTO6Xp2k5oCU3W/AMDGuM9RqzltHMW2TSgDE=;
+ s=k20201202; t=1778291575;
+ bh=AtrOkJUBiJw15BHd9exFumAP4R9M99uCBNgnQ+ZQ5FU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ZQqdw7NvvJ9A1doCnkVidfTnep1Bu+m60nkU9Y8ITYY7jPdK7AitG4cEE1ZoDF7XQ
- eRIfjNU+pV9laSfpePYcX4KfUvM90/nrVrGxkX3tjPM16XjHwsTpB8Ee8yousR7OOp
- CYgpBa7q7hIK44YMaqKx/3tjYqwdSYua+LnZt2ETK/a2etge7sDwRjLpiram4enxEk
- wLVNThU7+TqSAlcoAZOXQkFb1xVprfFUWVR0zWAC2cjHKZwMmNB9FOgfZ1JaqtjQdA
- X4RO1bGfC8jhxkbS6bJ+/x8gA9jQAhDR2nE7sl8i/Y/+b+8kzj7YvBNngm+IpVdrPQ
- +qkTzdV1HTiDA==
+ b=LxbhM+FttoH5/6Ck7glfu96/9h4Lj7wrkU+rn26m1TKiQyjyUe/dMYDzE09kD5TH5
+ 6gI0omZ7agXTze0nbQuw6C6FAmZmuIFLpVUH0tss2PN4oJhUacQEXh9y800sDPyi5u
+ V7h+5o4Y1BRueL3JNxH3aOyRa4L78iDK6Z8BkfGG1lL09R33XmtsZTgxlh1Yf9T1zB
+ y0g9nU6W+Flae3bJaipeaslizOd1TKTmHyp9tKJW1LqtoBfe3tmheVRKmoet4MLAgY
+ 3slPcuUKvC8m+gN+3do8pBTdsNAA8LkWc4IhM5uBIuvL4vY0waHgEJLjeJfzzJ/tod
+ bhhuOaWx+RDag==
 From: Song Liu <song@kernel.org>
 To: linux-security-module@vger.kernel.org, linux-fsdevel@vger.kernel.org,
  selinux@vger.kernel.org, apparmor@lists.ubuntu.com
-Date: Fri,  8 May 2026 18:52:05 -0700
-Message-ID: <20260509015208.3853132-5-song@kernel.org>
+Date: Fri,  8 May 2026 18:52:06 -0700
+Message-ID: <20260509015208.3853132-6-song@kernel.org>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260509015208.3853132-1-song@kernel.org>
 References: <20260509015208.3853132-1-song@kernel.org>
@@ -44,7 +44,7 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Received-SPF: pass client-ip=172.105.4.254; envelope-from=song@kernel.org;
  helo=tor.source.kernel.org
-Subject: [apparmor] [PATCH v3 4/7] selinux: Convert from sb_mount to
+Subject: [apparmor] [PATCH v3 5/7] landlock: Convert from sb_mount to
 	granular mount hooks
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -64,7 +64,7 @@ Cc: herton@canonical.com, brauner@kernel.org, jack@suse.cz, paul@paul-moore.com,
  mic@digikod.net, takedakn@nttdata.co.jp, serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Rspamd-Queue-Id: AF0124FDBF2
+X-Rspamd-Queue-Id: 67A3F4FE13A
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [4.59 / 15.00];
 	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
@@ -73,7 +73,7 @@ X-Spamd-Result: default: False [4.59 / 15.00];
 	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	R_MISSING_CHARSET(0.50)[];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -92,7 +92,7 @@ X-Spamd-Result: default: False [4.59 / 15.00];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	TAGGED_RCPT(0.00)[apparmor];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	NEURAL_HAM(-0.00)[-0.383];
+	NEURAL_HAM(-0.00)[-0.349];
 	FROM_NEQ_ENVFROM(0.00)[song@kernel.org,apparmor-bounces@lists.ubuntu.com];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
@@ -102,91 +102,83 @@ X-Spamd-Result: default: False [4.59 / 15.00];
 	DKIM_TRACE(0.00)[kernel.org:-]
 X-Rspamd-Action: no action
 
-Replace selinux_mount() with granular mount hooks, preserving the
-same permission checks:
-
-- mount_bind, mount_new, mount_change_type: FILE__MOUNTON
-- mount_remount, mount_reconfigure: FILESYSTEM__REMOUNT
-- mount_move: FILE__MOUNTON (reuses selinux_move_mount)
-
-The flags and data parameters are unused by SELinux.
+Replace hook_sb_mount() with granular mount hooks. Landlock denies
+all mount operations for sandboxed processes regardless of flags,
+so all new hooks share a common hook_mount_deny() helper. The
+mount_move hook reuses hook_move_mount().
 
 Code generated with the assistance of Claude, reviewed by human.
 
-Reviewed-by: Stephen Smalley <stephen.smalley.work@gmail.com>
-Tested-by: Stephen Smalley <stephen.smalley.work@gmail.com>
 Signed-off-by: Song Liu <song@kernel.org>
 ---
- security/selinux/hooks.c | 47 ++++++++++++++++++++++++++++++----------
- 1 file changed, 35 insertions(+), 12 deletions(-)
+ security/landlock/fs.c | 40 ++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 36 insertions(+), 4 deletions(-)
 
-diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-index 0f704380a8c8..864a3ca772c9 100644
---- a/security/selinux/hooks.c
-+++ b/security/selinux/hooks.c
-@@ -2802,19 +2802,37 @@ static int selinux_sb_statfs(struct dentry *dentry)
- 	return superblock_has_perm(cred, dentry->d_sb, FILESYSTEM__GETATTR, &ad);
- }
- 
--static int selinux_mount(const char *dev_name,
--			 const struct path *path,
--			 const char *type,
--			 unsigned long flags,
--			 void *data)
-+static int selinux_mount_bind(const struct path *from, const struct path *to,
-+			      bool recurse)
+diff --git a/security/landlock/fs.c b/security/landlock/fs.c
+index c1ecfe239032..4547e736e496 100644
+--- a/security/landlock/fs.c
++++ b/security/landlock/fs.c
+@@ -1416,9 +1416,7 @@ static void log_fs_change_topology_dentry(
+  * inherit these new constraints.  Anyway, for backward compatibility reasons,
+  * a dedicated user space option would be required (e.g. as a ruleset flag).
+  */
+-static int hook_sb_mount(const char *const dev_name,
+-			 const struct path *const path, const char *const type,
+-			 const unsigned long flags, void *const data)
++static int hook_mount_deny(const struct path *const path)
  {
--	const struct cred *cred = current_cred();
-+	return path_has_perm(current_cred(), to, FILE__MOUNTON);
-+}
- 
--	if (flags & MS_REMOUNT)
--		return superblock_has_perm(cred, path->dentry->d_sb,
--					   FILESYSTEM__REMOUNT, NULL);
--	else
--		return path_has_perm(cred, path, FILE__MOUNTON);
-+static int selinux_mount_new(struct fs_context *fc, const struct path *mp,
-+			     int mnt_flags, unsigned long flags, void *data)
-+{
-+	return path_has_perm(current_cred(), mp, FILE__MOUNTON);
-+}
-+
-+static int selinux_mount_remount(struct fs_context *fc, const struct path *mp,
-+				 int mnt_flags, unsigned long flags,
-+				 void *data)
-+{
-+	return superblock_has_perm(current_cred(), fc->root->d_sb,
-+				   FILESYSTEM__REMOUNT, NULL);
-+}
-+
-+static int selinux_mount_reconfigure(const struct path *mp,
-+				     unsigned int mnt_flags,
-+				     unsigned long flags)
-+{
-+	return superblock_has_perm(current_cred(), mp->dentry->d_sb,
-+				   FILESYSTEM__REMOUNT, NULL);
-+}
-+
-+static int selinux_mount_change_type(const struct path *mp, int ms_flags)
-+{
-+	return path_has_perm(current_cred(), mp, FILE__MOUNTON);
+ 	size_t handle_layer;
+ 	const struct landlock_cred_security *const subject =
+@@ -1432,6 +1430,35 @@ static int hook_sb_mount(const char *const dev_name,
+ 	return -EPERM;
  }
  
- static int selinux_move_mount(const struct path *from_path,
-@@ -7558,7 +7576,12 @@ static struct security_hook_list selinux_hooks[] __ro_after_init = {
- 	LSM_HOOK_INIT(sb_kern_mount, selinux_sb_kern_mount),
- 	LSM_HOOK_INIT(sb_show_options, selinux_sb_show_options),
- 	LSM_HOOK_INIT(sb_statfs, selinux_sb_statfs),
--	LSM_HOOK_INIT(sb_mount, selinux_mount),
-+	LSM_HOOK_INIT(mount_bind, selinux_mount_bind),
-+	LSM_HOOK_INIT(mount_new, selinux_mount_new),
-+	LSM_HOOK_INIT(mount_remount, selinux_mount_remount),
-+	LSM_HOOK_INIT(mount_reconfigure, selinux_mount_reconfigure),
-+	LSM_HOOK_INIT(mount_change_type, selinux_mount_change_type),
-+	LSM_HOOK_INIT(mount_move, selinux_move_mount),
- 	LSM_HOOK_INIT(sb_umount, selinux_umount),
- 	LSM_HOOK_INIT(sb_set_mnt_opts, selinux_set_mnt_opts),
- 	LSM_HOOK_INIT(sb_clone_mnt_opts, selinux_sb_clone_mnt_opts),
++static int hook_mount_bind(const struct path *const from,
++			   const struct path *const to, bool recurse)
++{
++	return hook_mount_deny(to);
++}
++
++static int hook_mount_new(struct fs_context *fc, const struct path *const mp,
++			  int mnt_flags, unsigned long flags, void *data)
++{
++	return hook_mount_deny(mp);
++}
++
++static int hook_mount_remount(struct fs_context *fc, const struct path *mp,
++			      int mnt_flags, unsigned long flags, void *data)
++{
++	return hook_mount_deny(mp);
++}
++
++static int hook_mount_reconfigure(const struct path *const mp,
++				  unsigned int mnt_flags, unsigned long flags)
++{
++	return hook_mount_deny(mp);
++}
++
++static int hook_mount_change_type(const struct path *const mp, int ms_flags)
++{
++	return hook_mount_deny(mp);
++}
++
+ static int hook_move_mount(const struct path *const from_path,
+ 			   const struct path *const to_path)
+ {
+@@ -1950,7 +1977,12 @@ static struct security_hook_list landlock_hooks[] __ro_after_init = {
+ 	LSM_HOOK_INIT(inode_free_security_rcu, hook_inode_free_security_rcu),
+ 
+ 	LSM_HOOK_INIT(sb_delete, hook_sb_delete),
+-	LSM_HOOK_INIT(sb_mount, hook_sb_mount),
++	LSM_HOOK_INIT(mount_bind, hook_mount_bind),
++	LSM_HOOK_INIT(mount_new, hook_mount_new),
++	LSM_HOOK_INIT(mount_remount, hook_mount_remount),
++	LSM_HOOK_INIT(mount_reconfigure, hook_mount_reconfigure),
++	LSM_HOOK_INIT(mount_change_type, hook_mount_change_type),
++	LSM_HOOK_INIT(mount_move, hook_move_mount),
+ 	LSM_HOOK_INIT(move_mount, hook_move_mount),
+ 	LSM_HOOK_INIT(sb_umount, hook_sb_umount),
+ 	LSM_HOOK_INIT(sb_remount, hook_sb_remount),
 -- 
 2.53.0-Meta
 
