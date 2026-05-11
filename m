@@ -2,69 +2,70 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id VG9EEJszAmocpAEAu9opvQ
+	id gAwZGZ8zAmocpAEAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Mon, 11 May 2026 21:52:59 +0200
+	for <lists+apparmor@lfdr.de>; Mon, 11 May 2026 21:53:03 +0200
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id D04CA51546C
-	for <lists+apparmor@lfdr.de>; Mon, 11 May 2026 21:52:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52D64515488
+	for <lists+apparmor@lfdr.de>; Mon, 11 May 2026 21:53:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1wMWgJ-000385-B3; Mon, 11 May 2026 19:52:47 +0000
-Received: from mail-qk1-f173.google.com ([209.85.222.173])
+	id 1wMWgL-00039V-GR; Mon, 11 May 2026 19:52:49 +0000
+Received: from mail-qv1-f54.google.com ([209.85.219.54])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <paul@paul-moore.com>)
- id 1wMWgH-000379-O9
- for apparmor@lists.ubuntu.com; Mon, 11 May 2026 19:52:45 +0000
-Received: by mail-qk1-f173.google.com with SMTP id
- af79cd13be357-90ce49af8easo8597385a.3
- for <apparmor@lists.ubuntu.com>; Mon, 11 May 2026 12:52:45 -0700 (PDT)
+ id 1wMWgK-00038C-Dj
+ for apparmor@lists.ubuntu.com; Mon, 11 May 2026 19:52:48 +0000
+Received: by mail-qv1-f54.google.com with SMTP id
+ 6a1803df08f44-8bc3ef10cc4so53240216d6.1
+ for <apparmor@lists.ubuntu.com>; Mon, 11 May 2026 12:52:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=paul-moore.com; s=google; t=1778529164; x=1779133964; darn=lists.ubuntu.com; 
+ d=paul-moore.com; s=google; t=1778529167; x=1779133967; darn=lists.ubuntu.com; 
  h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
  :mime-version:message-id:date:from:to:cc:subject:date:message-id
- :reply-to; bh=QhgeQ/Hv8h2FLNPnpqx7Nq4djCqVR8s71dQNMbQD8h8=;
- b=TKCO7SBFjp0T2W0L6jhyao+Ko7uE4IvD5vE3QTlhSOgqOer5p6UEgKXMWYFU9dDPQ0
- 5VOFe23SPBiqW3lFnPMPVfcFHl1OWkbcCZpiw6AZxW1sArTL/TURmxGlLVvmy94snIsV
- 5+Dsnk/Ia63CzyaBIdkeY4sitrHP16vNjZmaBvt88GDCJRoyD3FlZipK/iQVTPiVtWIk
- x5MSwfuj/pplBZsTLdRT1UNaLzsQbwsOy06RTPoNW69eJgd9Kv7tMXxmnF7Tj8wHfRMB
- HcxnC8nsb1RASwltkU2WYi9AJK80ijjBP9NiHmkVxIka6+0DMWe1VnY8dOmLxc7cGENQ
- 4RlA==
+ :reply-to; bh=LL+UPYnZCOjrePrtqK6xOAZ5G7o1QmvEfzGseYDEIaM=;
+ b=gixuTaz3iurntlTxgo3JlmuWRbW8xu9ObkR+zu+j6u3+hZm5smquQbkFJSUs9TPtfF
+ WF3sNL+7rAlQNcBxNs8gv6QyN+lymb/qrqB+SrX524/4EyGT97BAAMsvfScHyLcC8GXc
+ qEGQUy4bxJcEtxqQ61MXozJNdpx6Set/VVJxDqptDZw0BKEA6denzA1mc5KP7+hv4xSw
+ W6rRfxB4k9WuV8rSoWrMnllEa/3/H8pF3zzuJfQM3VC5LBEi7m+ULhXcBeCeE0K+1KAQ
+ D62NtQtvmE25I4i9QGz97G6t247cbqQyKDGvk9HcOpmhV4UzvrhVhMkm9kOFyYpeyAsa
+ 87Kw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778529164; x=1779133964;
+ d=1e100.net; s=20251104; t=1778529167; x=1779133967;
  h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
  :mime-version:message-id:date:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=QhgeQ/Hv8h2FLNPnpqx7Nq4djCqVR8s71dQNMbQD8h8=;
- b=ImFmaEQh8oArOXecW/Nwr+65K1eRZAqBVy3pPvI5Xvimidlk/3iF3E+Q6R26sT4s0+
- w7OBynK/qtw362i+u7NUKoMBmNRAxu1+iO712bma9dyjwNEZbdNLoTZjfXMxDDyo9FjO
- gr4Kjei1U/nqoWa4y+iTKyIoPcd5KViZhR1rJdRUoAiXcQaCCkhhXThAg85Pgsw6uXuI
- X6ZPRXT3wkQSLs4XO3146u3dLwwVezKNa5Af0J+XouJm1PJy/SOvTG61dzOzVE4Q3RjH
- 3Fowf07UZ4rml1geWtY1x+2qtcH8r4BzBhXAvVD/97rzDJix+byDNc/PeSxjz2ms1xQW
- +XNQ==
+ bh=LL+UPYnZCOjrePrtqK6xOAZ5G7o1QmvEfzGseYDEIaM=;
+ b=ZdwUStrSnAcOPP+wJHe3Hny4P37GKmlAPtjxSUicdkaEjnHmdDZ43awBxcsXXWJuoh
+ L8ONo7y0TeiEawX1ZBRinFmC9nuzP+gZGrfcYvdhVPH4p7sx7IpopsG0cuSLOpsNrPPA
+ Q8ZpU0y2IRFc8xuYVrwF5pv9NyYpFDcZezfv7T0z7Nr2pg7ER9FO5MNHOYEJmyHme+9I
+ af3SVtJ+LHBWEvA6RRnGjT8iz3w+51YO+2FIXYlp9FYWu/6ElLRi2fBDEN32ShePo4Ze
+ 4G1WvJIRrQfnuSsZDXbRi1XXo0CS+e+xOijFMccab+d4GoVivq1C9fa2RToD8qRwfD8u
+ PBag==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+nEliL4GuYfWo2C8YjIZZGLpjFby8Vb87O/JLHXSruqAob0rDgi1T4koE1r/+IOtE9PVGeUi2iCw==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0Ywx8KD5GHXEsLSaQXrFonrQ6Qgs9BKaOvf7SAW+C2h0rc4xuvcC
- 0h0IoDUepkHXIy2DKdhw0pFJdcu9p1vx8s7peuz+Ugng/g0d58GbykK0wzb+1mrV7w==
-X-Gm-Gg: Acq92OFulq8sTPAzSI896do8cshZ/R5otOcMigHn9F/Qxxgh7DqmLAjkVSaS6xvTUCS
- Q7a/7h5dechc7UrgidbZeIp8tgaHROXAB4RzgezvxtKiFmf/ozNDzuoM6cHbEh5l4bQIdhZHBcY
- hJ8gsuk3kaSdweppGxOFNrLshGItASTL6geDGEVlFoL5xz0W04ul21O+KMaPoHlAr6DfIByBbTg
- fQg4ZDx1ZFD4OOWHE0fvcxpkSmlttXup4pTOdQa7g43PjMejyeTwfSwzqogqupjx0B+kLYKiYI1
- mS1+KL9Sn2R6gybYsdHaRXjFxwWq3gMoYmboOyhtcjYspRJ9g6lV0uVE1qdqjAWXMyoaSJ1SREc
- RwIUUg1byBhZlh1snawsA3sHOreiCTisxGAFqIBU94+Wlytanu1d2QSVlSqIjRsqegDJEvLC9st
- hAI2Iekk3EwYmxKh85qIYZCyqabgqO9fLV6e1t4yxhEXdaX9uqjV3wmuRXsSaGfdyNmaCa
-X-Received: by 2002:a05:620a:318d:b0:8e8:ffd2:ef90 with SMTP id
- af79cd13be357-907b8d9e67dmr2467034385a.3.1778529164314; 
- Mon, 11 May 2026 12:52:44 -0700 (PDT)
+ AFNElJ/XlyyWZn8c45bhf75jx2b6qJ6Z68gzcJUvnP3fUawatEQf7Nrs1+vvKFYl2s5vX4WDmwhuxnA3+A==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0YzVfoDGfaCdF2i+Sd8bg6TLTDwgKbeml7wnOSkEwHF+e2FHI9ij
+ k3xSDpW2VSDeqBVNnKsKUmHRHSJS0q42RLcBsCCO0Eu5+H5TT6Bid1ttIU1NGRNsiw==
+X-Gm-Gg: Acq92OEBgnL7gAV/OVdXhj8NE7WKsymHCnKfyvqT1XNQt/1pdExP9nAc1JPoXv2S/ZE
+ aHazsy+2CwoHvgKMob4RM6WhnldMLC3a6MOQ2G+raDCKRy/S2nykq2GzHYEUJdmNSIUvj4cw7C4
+ 1AhTzPvbvy1GR2mkmRPlwDoHyVCktI9uJ3p+S8FCyG30gTe8Em0tyD0xxqvyta29SKv6XtDIezJ
+ jr6qTA8HJPBxLngspzVFfno4n7oJVZmfcm4T9wPmIhy1HTMbBipeNlds61SVtbn59jwgKVJjGUn
+ VeZZQwGpGKALtlemrPJs9eVnWB3UPb7DCTs7GkICO9U4e+YS5br2ez28cXsmMNgRqU/yYIKdhvW
+ J90xe1h2Xuyxabr8eZEu7fSFMxEkvYw31JpJMsNksTkERWS0Z7Ri6zOsx0zIIUsB8H4ckCqvEbO
+ 9oPb2+5m3YDEXmWfC1tV1gz8l+57M7makXzJfZw2FEgL2PAIRDyGeHOvkz9yJHiLGOOXqToPKGn
+ iXL12U=
+X-Received: by 2002:a05:6214:2301:b0:8b5:e126:e77d with SMTP id
+ 6a1803df08f44-8c1a2531e7emr167597196d6.8.1778529166775; 
+ Mon, 11 May 2026 12:52:46 -0700 (PDT)
 Received: from localhost (pool-71-126-255-178.bstnma.fios.verizon.net.
  [71.126.255.178]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-907b9286f22sm1151090885a.13.2026.05.11.12.52.43
+ 6a1803df08f44-8b53d450dcbsm322404436d6.45.2026.05.11.12.52.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 May 2026 12:52:43 -0700 (PDT)
-Date: Mon, 11 May 2026 15:52:42 -0400
-Message-ID: <b32ee44eb833fad926f4667892f2259f@paul-moore.com>
+ Mon, 11 May 2026 12:52:45 -0700 (PDT)
+Date: Mon, 11 May 2026 15:52:44 -0400
+Message-ID: <ce407923a8717656e21a9f59b45043d4@paul-moore.com>
 MIME-Version: 1.0 
 Content-Type: text/plain; charset=UTF-8 
 Content-Transfer-Encoding: 8bit 
@@ -74,12 +75,12 @@ To: john.johansen@canonical.com, georgia.garcia@canonical.com,
  Song Liu <song@kernel.org>, linux-security-module@vger.kernel.org,
  linux-fsdevel@vger.kernel.org, selinux@vger.kernel.org,
  apparmor@lists.ubuntu.com
-References: <20260509015208.3853132-3-song@kernel.org>
-In-Reply-To: <20260509015208.3853132-3-song@kernel.org>
-Received-SPF: pass client-ip=209.85.222.173; envelope-from=paul@paul-moore.com;
- helo=mail-qk1-f173.google.com
-Subject: Re: [apparmor] [PATCH v3 2/7] apparmor: Remove redundant MS_MGC_MSK
-	stripping in apparmor_sb_mount
+References: <20260509015208.3853132-4-song@kernel.org>
+In-Reply-To: <20260509015208.3853132-4-song@kernel.org>
+Received-SPF: pass client-ip=209.85.219.54; envelope-from=paul@paul-moore.com;
+ helo=mail-qv1-f54.google.com
+Subject: Re: [apparmor] [PATCH v3 3/7] apparmor: Convert from sb_mount to
+	granular mount hooks
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -98,13 +99,13 @@ Cc: brauner@kernel.org, herton@canonical.com, jack@suse.cz,
  mic@digikod.net, takedakn@nttdata.co.jp, serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Rspamd-Queue-Id: D04CA51546C
+X-Rspamd-Queue-Id: 52D64515488
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [1.69 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	R_DKIM_REJECT(1.00)[paul-moore.com:s=google];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
 	MAILLIST(-0.20)[mailman];
 	DMARC_POLICY_SOFTFAIL(0.10)[paul-moore.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
@@ -115,8 +116,8 @@ X-Spamd-Result: default: False [1.69 / 15.00];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
 	FORGED_RECIPIENTS(0.00)[m:john.johansen@canonical.com,m:georgia.garcia@canonical.com,m:song@kernel.org,m:linux-security-module@vger.kernel.org,m:linux-fsdevel@vger.kernel.org,m:selinux@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:brauner@kernel.org,m:herton@canonical.com,m:jack@suse.cz,m:penguin-kernel@I-love.SAKURA.ne.jp,m:stephen.smalley.work@gmail.com,m:kernel-team@meta.com,m:jmorris@namei.org,m:omosnace@redhat.com,m:viro@zeniv.linux.org.uk,m:gnoack@google.com,m:mic@digikod.net,m:takedakn@nttdata.co.jp,m:serge@hallyn.com,m:stephensmalleywork@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[paul@paul-moore.com,apparmor-bounces@lists.ubuntu.com];
 	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[paul@paul-moore.com,apparmor-bounces@lists.ubuntu.com];
 	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
 	FREEMAIL_CC(0.00)[kernel.org,canonical.com,suse.cz,I-love.SAKURA.ne.jp,gmail.com,meta.com,namei.org,redhat.com,zeniv.linux.org.uk,google.com,digikod.net,nttdata.co.jp,hallyn.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
@@ -127,29 +128,48 @@ X-Spamd-Result: default: False [1.69 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[paul@paul-moore.com,apparmor-bounces@lists.ubuntu.com];
 	DKIM_TRACE(0.00)[paul-moore.com:-];
-	NEURAL_HAM(-0.00)[-0.817];
+	NEURAL_HAM(-0.00)[-0.815];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[apparmor];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[paul-moore.com:url,paul-moore.com:mid,lists.ubuntu.com:helo,lists.ubuntu.com:rdns]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns,paul-moore.com:url,paul-moore.com:mid]
 X-Rspamd-Action: no action
 
 On May  8, 2026 Song Liu <song@kernel.org> wrote:
 > 
-> path_mount() already strips the magic number from flags before
-> calling security_sb_mount(), so this check in apparmor_sb_mount()
-> is a no-op. Remove it.
+> Replace AppArmor's monolithic apparmor_sb_mount() with granular
+> mount hooks.
+> 
+> Key changes:
+> - mount_bind: uses the pre-resolved struct path from VFS instead of
+>   re-resolving dev_name via kern_path(), eliminating a TOCTOU
+>   vulnerability. aa_bind_mount() now takes a struct path instead of
+>   a string for the source.
+> - mount_new, mount_remount: receive the original mount(2) flags and
+>   data parameters for policy matching via match_mnt_flags() and
+>   AA_MNT_CONT_MATCH data matching.
+> - mount_reconfigure: handles MS_REMOUNT|MS_BIND (mount attribute
+>   reconfiguration) which was previously handled as a remount.
+> - mount_move: reuses apparmor_move_mount() which already handles
+>   pre-resolved paths.
+> - mount_change_type: propagation type changes.
+> 
+> aa_move_mount_old() is removed since move mounts now go through
+> security_mount_move() with pre-resolved struct path pointers for
+> both the old mount(2) and new move_mount(2) APIs.
 > 
 > Code generated with the assistance of Claude, reviewed by human.
 > 
 > Signed-off-by: Song Liu <song@kernel.org>
 > ---
->  security/apparmor/lsm.c | 4 ----
->  1 file changed, 4 deletions(-)
+>  security/apparmor/include/mount.h |  5 +-
+>  security/apparmor/lsm.c           | 99 ++++++++++++++++++++++++-------
+>  security/apparmor/mount.c         | 37 ++----------
+>  3 files changed, 83 insertions(+), 58 deletions(-)
 
-John, Georgia, are you okay with this patch?
+John, Georgia, are you guys okay with this patch?
 
 --
 paul-moore.com
