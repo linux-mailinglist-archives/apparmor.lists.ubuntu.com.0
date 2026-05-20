@@ -2,42 +2,42 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qEdoINKADWrUyQUAu9opvQ
+	id SF0NL9uADWrUyQUAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Wed, 20 May 2026 11:37:22 +0200
+	for <lists+apparmor@lfdr.de>; Wed, 20 May 2026 11:37:31 +0200
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75FBB58AE44
-	for <lists+apparmor@lfdr.de>; Wed, 20 May 2026 11:37:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BBB858AE5B
+	for <lists+apparmor@lfdr.de>; Wed, 20 May 2026 11:37:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1wPdMT-0007at-W2; Wed, 20 May 2026 09:37:10 +0000
-Received: from tor.source.kernel.org ([172.105.4.254])
+	id 1wPdMV-0007bT-RS; Wed, 20 May 2026 09:37:11 +0000
+Received: from sea.source.kernel.org ([172.234.252.31])
  by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <rppt@kernel.org>) id 1wPcGf-0005a5-Jq
- for apparmor@lists.ubuntu.com; Wed, 20 May 2026 08:27:05 +0000
+ (envelope-from <rppt@kernel.org>) id 1wPcHU-0006Dp-Ew
+ for apparmor@lists.ubuntu.com; Wed, 20 May 2026 08:27:56 +0000
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 69B406012B;
+ by sea.source.kernel.org (Postfix) with ESMTP id 608214069A;
+ Wed, 20 May 2026 08:19:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D39A1F00893;
  Wed, 20 May 2026 08:19:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BBAD1F000E9;
- Wed, 20 May 2026 08:19:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779265161;
- bh=zQRjpjIyAer953PPORKHqLJlFZ+L04n/ATscYla4KeM=;
+ s=k20260515; t=1779265164;
+ bh=z/4rfPWQ5HkZJZbwpLmw5R+Mmu26rwOzXYpZdnVV9Dk=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Fcgnwf+NkTvhc7Mit+rAGitTzJZDlSEN/uHXD+gkXTB4npyMOpLlukZugq5ohxYtX
- lp6Azi92eVPhKV2Of6k/TAuTwG5evXZE5iWXANKE368n2gb20O7Yk1D8poK4bptGLN
- gKe8i674mGmddBOIeCjCdBQZB++cVpQ3pABKGDDtYv1sDVGuBJybOROagMRccDcSYN
- IOJ+03oCmUzYmIeuCTV917LSALVXG/MOjKC37dj+ruYComBK3Zm/MddcvAxEHycf0d
- 5NeR4M53U0lDs0Dt7niUyxN8BHwvrWRr2eCyzFovqPzYoGX+jRtPZSSK5eflbyRre6
- JMGR0/leTjL/g==
+ b=dhrtBEWShLy1GXu88WxKJts8sqyBs3VBaS/0WLRV9zaUqdWgXLHfayljVW97Fzzt4
+ 7RtyF7wImuoFzhQU2h1L/9hdvim4iIBcz+tYzmJARLjMnGtyMGEVbK6TanLVgv5ezd
+ pl2W90AdTAhfQYtdHrNc/ZaD6QYOJsb+tmCa4s+FcbkkL1YVX+LulzmbDC0pnq4PMo
+ DOm/1SfLkw4tBV6zjcUB1mSnHQb6DFgEY8+1JAf3u3TUVlgsOTyhBBEs84dzpl+0hv
+ Io6iD2BfJBbqMYv94X1UXa0e+rWghxaGSLk/NiWOlAMkORwV4u37I9g6gA5eJAi3h2
+ jYSNBO2FU/hAg==
 From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Date: Wed, 20 May 2026 11:18:56 +0300
+Date: Wed, 20 May 2026 11:18:57 +0300
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260520-security-v1-2-831bd8e21dd0@kernel.org>
+Message-Id: <20260520-security-v1-3-831bd8e21dd0@kernel.org>
 References: <20260520-security-v1-0-831bd8e21dd0@kernel.org>
 In-Reply-To: <20260520-security-v1-0-831bd8e21dd0@kernel.org>
 To: James Morris <jmorris@namei.org>, 
@@ -46,22 +46,22 @@ To: James Morris <jmorris@namei.org>,
  "Serge E. Hallyn" <serge@hallyn.com>, 
  Stephen Smalley <stephen.smalley.work@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1022; i=rppt@kernel.org;
- h=from:subject:message-id; bh=F5N75Y8mUQYU1TgbgAwnzxz6xj0Y0zUFBQbr3qsftFc=;
- b=owEBbQGS/pANAwAKATkDhibLDv2RAcsmYgBqDW55/xeAuypW72Duwu823AN1y512GZtlik/jj
- f9D/szH8CKJATMEAAEKAB0WIQR45VhVpZkvn3TRr+k5A4Ymyw79kQUCag1ueQAKCRA5A4Ymyw79
- kZuWB/43kQ89qeDN/5ULkrNOC7BisGyehYajp/+I5dGOiekEQFVDn0eaXHd2QTlf2f+hnv9BbpS
- fupeiqIj/Ou0trjtruRc0roPfmTRWNl9OxfhUuaSxc9GbFpfOSSmDFlvcmAvuVfqHGwLIFMFssG
- 8mm454MTwB23N3EFSGJSY2MNo4gGywEW6qmCrvBydmM27UydkD17stPOyxleOIbhjcFw9EU+Tbb
- +ElbtkFJ9OCCiKpoaEQ2mt0A6m1jr7ibLlu4TaUUYxaBcV2k/0oDtw0F6cQCRfH5oKGirJnU7/p
- mu1k/3MeSbO7pTCcTcyGil3l1Jnug1PwZNhjPyZbODCzEwv3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1580; i=rppt@kernel.org;
+ h=from:subject:message-id; bh=+ey+joQwrn1qEqiykmTx8dcM/5TMNFhXgYB3MVPrqgk=;
+ b=owEBbQGS/pANAwAKATkDhibLDv2RAcsmYgBqDW58nz384TTzPZOUrhMG7PeyvhDRvKQD8RIHd
+ PLEfs78XJeJATMEAAEKAB0WIQR45VhVpZkvn3TRr+k5A4Ymyw79kQUCag1ufAAKCRA5A4Ymyw79
+ kTbyCACtJ9ZYDN3YybRMNR2UBnLXfQyIAs1SRXhO192EBvmpN0Vt1m1sNk+uZlH2OVV5dTRBzer
+ ZUVu6/sROZL71OF1VFySzWa2xD3gLaKVlDyPHe7gMBIdFhQXjQSEkzNGbSjvJOMChXiBsUYfHoP
+ 8/amlGCtmTomdv0rSvCj0jqMgMKqzQRqkZNjEH90UwnQthW1EMjaZxKlluFPBguq2912ZX3N37M
+ 39ADj+W0iqAhCINM5YCk/d6G5x1kKmOGD0cVEdms7dn/8CLb7b/5BGRj4tIG1uoK+Yn+hh31hYu
+ 1+YvsR3KShRortBO77alQvQ9eR/1ZUROdSNcuV07i91Ita/k
 X-Developer-Key: i=rppt@kernel.org; a=openpgp;
  fpr=B8E96E880C4A40C3C1255AA8C532392DE6DA7CE9
-Received-SPF: pass client-ip=172.105.4.254; envelope-from=rppt@kernel.org;
- helo=tor.source.kernel.org
+Received-SPF: pass client-ip=172.234.252.31; envelope-from=rppt@kernel.org;
+ helo=sea.source.kernel.org
 X-Mailman-Approved-At: Wed, 20 May 2026 09:37:07 +0000
-Subject: [apparmor] [PATCH 2/3] selinux: hooks: use __getname() to allocate
- path buffer
+Subject: [apparmor] [PATCH 3/3] apparmor: replace get_zeroed_page() with
+	kzalloc()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -111,43 +111,55 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:rdns,lists.ubuntu.com:helo]
-X-Rspamd-Queue-Id: 75FBB58AE44
+X-Rspamd-Queue-Id: 9BBB858AE5B
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-selinux_genfs_get_sid() allocates memory for a path with __get_free_page()
-although there is a dedicated helper for allocation of file paths:
-__getname().
+multi_transaction_new() allocates memory with get_zeroed_page() and uses
+it as struct multi_transaction.
 
-Replace __get_free_page() for allocation of a path buffer with __getname().
+The usage of that structure does not require struct page access and it is
+better to allocate multi_transaction objects with kzalloc() that provides
+better scalability and more debugging possibilities.
 
+Replace use of get_zeroed_page() with kzalloc().
+
+Link: https://lore.kernel.org/all/635405e4-9423-4a25-a6e7-e03c8ea0bcbe@redhat.com
 Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 ---
- security/selinux/hooks.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ security/apparmor/apparmorfs.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-index 0f704380a8c8..05b84b3781e0 100644
---- a/security/selinux/hooks.c
-+++ b/security/selinux/hooks.c
-@@ -1336,7 +1336,7 @@ static int selinux_genfs_get_sid(struct dentry *dentry,
- 	struct super_block *sb = dentry->d_sb;
- 	char *buffer, *path;
+diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
+index ededaf46f3ca..e5c99c71e7ca 100644
+--- a/security/apparmor/apparmorfs.c
++++ b/security/apparmor/apparmorfs.c
+@@ -9,6 +9,7 @@
+  */
  
--	buffer = (char *)__get_free_page(GFP_KERNEL);
-+	buffer = __getname();
- 	if (!buffer)
- 		return -ENOMEM;
+ #include <linux/ctype.h>
++#include <linux/slab.h>
+ #include <linux/security.h>
+ #include <linux/vmalloc.h>
+ #include <linux/init.h>
+@@ -904,7 +905,7 @@ static void multi_transaction_kref(struct kref *kref)
+ 	struct multi_transaction *t;
  
-@@ -1361,7 +1361,7 @@ static int selinux_genfs_get_sid(struct dentry *dentry,
- 			rc = 0;
- 		}
- 	}
--	free_page((unsigned long)buffer);
-+	__putname(buffer);
- 	return rc;
+ 	t = container_of(kref, struct multi_transaction, count);
+-	free_page((unsigned long) t);
++	kfree(t);
  }
  
+ static struct multi_transaction *
+@@ -947,7 +948,7 @@ static struct multi_transaction *multi_transaction_new(struct file *file,
+ 	if (size > MULTI_TRANSACTION_LIMIT - 1)
+ 		return ERR_PTR(-EFBIG);
+ 
+-	t = (struct multi_transaction *)get_zeroed_page(GFP_KERNEL);
++	t = kzalloc(PAGE_SIZE, GFP_KERNEL);
+ 	if (!t)
+ 		return ERR_PTR(-ENOMEM);
+ 	kref_init(&t->count);
 
 -- 
 2.53.0
