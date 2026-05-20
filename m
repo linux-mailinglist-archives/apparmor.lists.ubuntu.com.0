@@ -2,50 +2,68 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aN82BPmGB2r57AIAu9opvQ
+	id aBpHGNaADWrUyQUAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Fri, 15 May 2026 22:50:01 +0200
+	for <lists+apparmor@lfdr.de>; Wed, 20 May 2026 11:37:26 +0200
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA78F5578D6
-	for <lists+apparmor@lfdr.de>; Fri, 15 May 2026 22:50:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4115958AE52
+	for <lists+apparmor@lfdr.de>; Wed, 20 May 2026 11:37:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1wNytC-00063D-S8; Fri, 15 May 2026 20:12:06 +0000
-Received: from tor.source.kernel.org ([172.105.4.254])
+	id 1wPdMU-0007bB-Bj; Wed, 20 May 2026 09:37:10 +0000
+Received: from sea.source.kernel.org ([172.234.252.31])
  by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <song@kernel.org>) id 1wNytA-0005wl-9H
- for apparmor@lists.ubuntu.com; Fri, 15 May 2026 20:12:05 +0000
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 2B575601E3;
- Fri, 15 May 2026 20:02:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C663C2BCB3;
- Fri, 15 May 2026 20:02:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778875362;
- bh=cR3wh/wZldxor/U/wloaVqGPfeyIVbFmZyecLzQWXHc=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=WoCDOq+goSrz8869cpT9DxEqg622RF9dCVj1v6L9zFeKrqDR1r7ww9qDJvzS0id2r
- h6MU093kckiujXO5lhf6SuHGu+zDe1NybWvxzylgfgolNPlt63vgccpTDLSA+uwHao
- wmXss0l6HpeGvf0UdO8IaWxZTRHArBpgEYS4XYjQ5QFSZhEHPAccR0hdrBsch0mtTl
- AHL9doZ6RC2TtnbLE71RuCnCeVj67myY30eFzAypT5VfNl+GdndUOW8CqD4u9HziXW
- xaubUv1qwIpVeJZH6aWpP8ANYAMVfQWUKvtbQs7UlK1HSMov31M8yb9dzApt4TynZ8
- cmNcSDMf4ibhA==
-From: Song Liu <song@kernel.org>
-To: linux-security-module@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- selinux@vger.kernel.org, apparmor@lists.ubuntu.com
-Date: Fri, 15 May 2026 13:01:58 -0700
-Message-ID: <20260515200158.4081915-8-song@kernel.org>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260515200158.4081915-1-song@kernel.org>
-References: <20260515200158.4081915-1-song@kernel.org>
+ (envelope-from <rppt@kernel.org>) id 1wPcHU-0006Do-Cn
+ for apparmor@lists.ubuntu.com; Wed, 20 May 2026 08:27:56 +0000
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id F015643BF8;
+ Wed, 20 May 2026 08:19:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3794C1F000E9;
+ Wed, 20 May 2026 08:19:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779265154;
+ bh=tJOszf5ccvQ8Uj34Ns+l0JyEoj1luDQ1JSgscLEUjH8=;
+ h=From:Subject:Date:To:Cc;
+ b=oqb6SkS5YytIpVTUQsjo2xHQ4SS571cAqH37sjtk3n5/2i0pUW5fADVVxvUdkIAgo
+ Ei/YzX4Stje++RmND/Sxw+GgF8GkC2YAKmsKtBKgIidtQ3Lnh/GOV8qbAUxWGtMSXM
+ lArDAXrc0inMaKNgo1ea/d6dZqCLBG03ZFePlkMmRKxUhrbFQqPPJeix9ku4CUhHB0
+ Sb1SCaw6Q9oKG7uzDNy2Bu9C/uFTiFz7SA1od/3QLL1sWK+kuQhsseNWJtZvEY8AeV
+ VAb9otpjpJ9Mf2ht2E7QfZB0sMJDWaA2FxwHg9a7aiS1369hhwS97doRMt9y3pWb2V
+ arJKoZ/lAdSrA==
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Date: Wed, 20 May 2026 11:18:54 +0300
+Message-Id: <20260520-security-v1-0-831bd8e21dd0@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=172.105.4.254; envelope-from=song@kernel.org;
- helo=tor.source.kernel.org
-Subject: [apparmor] [PATCH v4 7/7] lsm: Remove security_sb_mount and
-	security_move_mount
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAG5uDWoC/yWM0QrCMAxFf2Xk2WJXtKK/Into0ugiUiXZRBn7d
+ 1t9PJdz7gLGKmxw6hZQfonJo1ToNx3QmMqVneTKEHyIfh+8M6ZZZfq4SDlHn9OhD0eo+lP5Iu/
+ f1Xn4s814Y5pa3wxMxg41FRrbhLvtXRDW9QtMxMJyhQAAAA==
+X-Change-ID: 20260520-security-6cdd60da7129
+To: James Morris <jmorris@namei.org>, 
+ John Johansen <john.johansen@canonical.com>, 
+ Ondrej Mosnacek <omosnace@redhat.com>, Paul Moore <paul@paul-moore.com>, 
+ "Serge E. Hallyn" <serge@hallyn.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=818; i=rppt@kernel.org;
+ h=from:subject:message-id; bh=8sDsVcUg45SCDAbOd4Qy+nlWe7vZVoKzJPYWNem4zG4=;
+ b=owEBbQGS/pANAwAKATkDhibLDv2RAcsmYgBqDW5yZa7B7j3ohKSc2JgmRG/bo7d/2fltrRWB+
+ SeIMUzfGumJATMEAAEKAB0WIQR45VhVpZkvn3TRr+k5A4Ymyw79kQUCag1ucgAKCRA5A4Ymyw79
+ kfc/B/4uBqwgyaoh4EWczWSCvk4YvrDw+P5GIcZkmNuCZQCZgn2Hx05kpDcm+rYUwU39QhN7JvA
+ tgMGPGR88/BwX8R27raP67u6j1ETp4W+lZ1idGU+icFaOpOgkAUJhNMnoaD/AYaSMcNJIZk5CIr
+ dg5H160CUyvtcCaHO7sCSGKOxTBqqG1Qb8w0Dw+ZWEDuplwxznqiP/VegbHSKV8nw60H6hitxX/
+ +WYSMij90yhsivt8xYrlLro5YpMLv+Emy4CxwBnYAAtGzmsSjY2kRashqG5odUQ+sRifrYPPbgs
+ qiubvcrUP21lk5w02frOGk4LnKpN/uDysCVOPUN4MSQ1pdt1
+X-Developer-Key: i=rppt@kernel.org; a=openpgp;
+ fpr=B8E96E880C4A40C3C1255AA8C532392DE6DA7CE9
+Received-SPF: pass client-ip=172.234.252.31; envelope-from=rppt@kernel.org;
+ helo=sea.source.kernel.org
+X-Mailman-Approved-At: Wed, 20 May 2026 09:37:07 +0000
+Subject: [apparmor] [PATCH 0/3] security: replace __get_free_pages() call
+ with kmalloc()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -57,252 +75,72 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: herton@canonical.com, brauner@kernel.org, jack@suse.cz, paul@paul-moore.com,
- penguin-kernel@I-love.SAKURA.ne.jp, stephen.smalley.work@gmail.com,
- kernel-team@meta.com, jmorris@namei.org, omosnace@redhat.com,
- Song Liu <song@kernel.org>, viro@zeniv.linux.org.uk, gnoack@google.com,
- mic@digikod.net, takedakn@nttdata.co.jp, serge@hallyn.com
+Cc: selinux@vger.kernel.org, apparmor@lists.ubuntu.com,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ linux-security-module@vger.kernel.org, Mike Rapoport <rppt@kernel.org>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Rspamd-Queue-Id: BA78F5578D6
-X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [4.59 / 15.00];
+X-Spamd-Result: default: False [3.09 / 15.00];
 	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
-	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20260515];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[canonical.com,kernel.org,suse.cz,paul-moore.com,I-love.SAKURA.ne.jp,gmail.com,meta.com,namei.org,redhat.com,zeniv.linux.org.uk,google.com,digikod.net,nttdata.co.jp,hallyn.com];
-	FORGED_RECIPIENTS(0.00)[m:linux-security-module@vger.kernel.org,m:linux-fsdevel@vger.kernel.org,m:selinux@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:herton@canonical.com,m:brauner@kernel.org,m:jack@suse.cz,m:paul@paul-moore.com,m:penguin-kernel@I-love.SAKURA.ne.jp,m:stephen.smalley.work@gmail.com,m:kernel-team@meta.com,m:jmorris@namei.org,m:omosnace@redhat.com,m:song@kernel.org,m:viro@zeniv.linux.org.uk,m:gnoack@google.com,m:mic@digikod.net,m:takedakn@nttdata.co.jp,m:serge@hallyn.com,m:stephensmalleywork@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FREEMAIL_TO(0.00)[namei.org,canonical.com,redhat.com,paul-moore.com,hallyn.com,gmail.com];
+	FORGED_RECIPIENTS(0.00)[m:jmorris@namei.org,m:john.johansen@canonical.com,m:omosnace@redhat.com,m:paul@paul-moore.com,m:serge@hallyn.com,m:stephen.smalley.work@gmail.com,m:selinux@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:linux-kernel@vger.kernel.org,m:linux-mm@kvack.org,m:linux-security-module@vger.kernel.org,m:rppt@kernel.org,m:stephensmalleywork@gmail.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[rppt@kernel.org,apparmor-bounces@lists.ubuntu.com];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
-	FORGED_SENDER(0.00)[song@kernel.org,apparmor-bounces@lists.ubuntu.com];
-	RCPT_COUNT_TWELVE(0.00)[19];
-	MIME_TRACE(0.00)[0:+];
 	RCVD_TLS_LAST(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	MIME_TRACE(0.00)[0:+];
 	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	TAGGED_RCPT(0.00)[apparmor];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	NEURAL_HAM(-0.00)[-0.844];
-	FROM_NEQ_ENVFROM(0.00)[song@kernel.org,apparmor-bounces@lists.ubuntu.com];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	FROM_NEQ_ENVFROM(0.00)[rppt@kernel.org,apparmor-bounces@lists.ubuntu.com];
+	TAGGED_RCPT(0.00)[apparmor];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
-	TO_DN_SOME(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:-]
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:rdns,lists.ubuntu.com:helo]
+X-Rspamd-Queue-Id: 4115958AE52
 X-Rspamd-Action: no action
+X-Rspamd-Server: lfdr
 
-Now that all LSMs have been converted to granular mount hooks,
-remove the old hooks:
+This is a (tiny) part of larger work of replacing page allocator calls
+with kmalloc:
 
-- security_sb_mount(): removed from lsm_hook_defs.h, security.h,
-  security.c, and its call in path_mount().
-- security_move_mount(): removed and replaced by security_mount_move()
-  in do_move_mount(). All LSMs now use mount_move exclusively.
+Also in git:
+https://git.kernel.org/pub/scm/linux/kernel/git/rppt/linux.git gfp-to-kmalloc/security
 
-Code generated with the assistance of Claude, reviewed by human.
-
-Reviewed-by: Stephen Smalley <stephen.smalley.work@gmail.com>
-Tested-by: Stephen Smalley <stephen.smalley.work@gmail.com> # for selinux only
-Signed-off-by: Song Liu <song@kernel.org>
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 ---
- fs/namespace.c                |  8 --------
- include/linux/lsm_hook_defs.h |  4 ----
- include/linux/security.h      | 16 ---------------
- kernel/bpf/bpf_lsm.c          |  2 --
- security/security.c           | 38 -----------------------------------
- 5 files changed, 68 deletions(-)
+Mike Rapoport (Microsoft) (3):
+      selinux: use k[mz]alloc() to allocate temporary buffers
+      selinux: hooks: use __getname() to allocate path buffer
+      apparmor: replace get_zeroed_page() with kzalloc()
 
-diff --git a/fs/namespace.c b/fs/namespace.c
-index 04e3bd7f6336..43f22c5e2bf4 100644
---- a/fs/namespace.c
-+++ b/fs/namespace.c
-@@ -4103,7 +4103,6 @@ int path_mount(const char *dev_name, const struct path *path,
- 		const char *type_page, unsigned long flags, void *data_page)
- {
- 	unsigned int mnt_flags = 0, sb_flags;
--	int ret;
- 
- 	/* Discard magic */
- 	if ((flags & MS_MGC_MSK) == MS_MGC_VAL)
-@@ -4116,9 +4115,6 @@ int path_mount(const char *dev_name, const struct path *path,
- 	if (flags & MS_NOUSER)
- 		return -EINVAL;
- 
--	ret = security_sb_mount(dev_name, path, type_page, flags, data_page);
--	if (ret)
--		return ret;
- 	if (!may_mount())
- 		return -EPERM;
- 	if (flags & SB_MANDLOCK)
-@@ -4568,10 +4564,6 @@ static inline int vfs_move_mount(const struct path *from_path,
- {
- 	int ret;
- 
--	ret = security_move_mount(from_path, to_path);
--	if (ret)
--		return ret;
--
- 	ret = security_mount_move(from_path, to_path);
- 	if (ret)
- 		return ret;
-diff --git a/include/linux/lsm_hook_defs.h b/include/linux/lsm_hook_defs.h
-index 98f0fe382665..c870260bf402 100644
---- a/include/linux/lsm_hook_defs.h
-+++ b/include/linux/lsm_hook_defs.h
-@@ -69,8 +69,6 @@ LSM_HOOK(int, 0, sb_remount, struct super_block *sb, void *mnt_opts)
- LSM_HOOK(int, 0, sb_kern_mount, const struct super_block *sb)
- LSM_HOOK(int, 0, sb_show_options, struct seq_file *m, struct super_block *sb)
- LSM_HOOK(int, 0, sb_statfs, struct dentry *dentry)
--LSM_HOOK(int, 0, sb_mount, const char *dev_name, const struct path *path,
--	 const char *type, unsigned long flags, void *data)
- LSM_HOOK(int, 0, sb_umount, struct vfsmount *mnt, int flags)
- LSM_HOOK(int, 0, sb_pivotroot, const struct path *old_path,
- 	 const struct path *new_path)
-@@ -79,8 +77,6 @@ LSM_HOOK(int, 0, sb_set_mnt_opts, struct super_block *sb, void *mnt_opts,
- LSM_HOOK(int, 0, sb_clone_mnt_opts, const struct super_block *oldsb,
- 	 struct super_block *newsb, unsigned long kern_flags,
- 	 unsigned long *set_kern_flags)
--LSM_HOOK(int, 0, move_mount, const struct path *from_path,
--	 const struct path *to_path)
- LSM_HOOK(int, 0, mount_bind, const struct path *from, const struct path *to,
- 	 bool recurse)
- LSM_HOOK(int, 0, mount_new, struct fs_context *fc, const struct path *mp,
-diff --git a/include/linux/security.h b/include/linux/security.h
-index b1b3da51a88d..f1dcfc569cf2 100644
---- a/include/linux/security.h
-+++ b/include/linux/security.h
-@@ -373,8 +373,6 @@ int security_sb_remount(struct super_block *sb, void *mnt_opts);
- int security_sb_kern_mount(const struct super_block *sb);
- int security_sb_show_options(struct seq_file *m, struct super_block *sb);
- int security_sb_statfs(struct dentry *dentry);
--int security_sb_mount(const char *dev_name, const struct path *path,
--		      const char *type, unsigned long flags, void *data);
- int security_sb_umount(struct vfsmount *mnt, int flags);
- int security_sb_pivotroot(const struct path *old_path, const struct path *new_path);
- int security_sb_set_mnt_opts(struct super_block *sb,
-@@ -385,7 +383,6 @@ int security_sb_clone_mnt_opts(const struct super_block *oldsb,
- 				struct super_block *newsb,
- 				unsigned long kern_flags,
- 				unsigned long *set_kern_flags);
--int security_move_mount(const struct path *from_path, const struct path *to_path);
- int security_mount_bind(const struct path *from, const struct path *to,
- 			bool recurse);
- int security_mount_new(struct fs_context *fc, const struct path *mp,
-@@ -825,13 +822,6 @@ static inline int security_sb_statfs(struct dentry *dentry)
- 	return 0;
- }
- 
--static inline int security_sb_mount(const char *dev_name, const struct path *path,
--				    const char *type, unsigned long flags,
--				    void *data)
--{
--	return 0;
--}
--
- static inline int security_sb_umount(struct vfsmount *mnt, int flags)
- {
- 	return 0;
-@@ -859,12 +849,6 @@ static inline int security_sb_clone_mnt_opts(const struct super_block *oldsb,
- 	return 0;
- }
- 
--static inline int security_move_mount(const struct path *from_path,
--				      const struct path *to_path)
--{
--	return 0;
--}
--
- static inline int security_mount_bind(const struct path *from,
- 				      const struct path *to, bool recurse)
- {
-diff --git a/kernel/bpf/bpf_lsm.c b/kernel/bpf/bpf_lsm.c
-index aa228372cfb4..77371ca25d09 100644
---- a/kernel/bpf/bpf_lsm.c
-+++ b/kernel/bpf/bpf_lsm.c
-@@ -350,7 +350,6 @@ BTF_ID(func, bpf_lsm_release_secctx)
- BTF_ID(func, bpf_lsm_sb_alloc_security)
- BTF_ID(func, bpf_lsm_sb_eat_lsm_opts)
- BTF_ID(func, bpf_lsm_sb_kern_mount)
--BTF_ID(func, bpf_lsm_sb_mount)
- BTF_ID(func, bpf_lsm_sb_remount)
- BTF_ID(func, bpf_lsm_sb_set_mnt_opts)
- BTF_ID(func, bpf_lsm_sb_show_options)
-@@ -382,7 +381,6 @@ BTF_ID(func, bpf_lsm_task_setscheduler)
- BTF_ID(func, bpf_lsm_userns_create)
- BTF_ID(func, bpf_lsm_bdev_alloc_security)
- BTF_ID(func, bpf_lsm_bdev_setintegrity)
--BTF_ID(func, bpf_lsm_move_mount)
- BTF_ID(func, bpf_lsm_mount_bind)
- BTF_ID(func, bpf_lsm_mount_new)
- BTF_ID(func, bpf_lsm_mount_remount)
-diff --git a/security/security.c b/security/security.c
-index b7ec0ec7af26..bc55ee588c59 100644
---- a/security/security.c
-+++ b/security/security.c
-@@ -1065,29 +1065,6 @@ int security_sb_statfs(struct dentry *dentry)
- 	return call_int_hook(sb_statfs, dentry);
- }
- 
--/**
-- * security_sb_mount() - Check permission for mounting a filesystem
-- * @dev_name: filesystem backing device
-- * @path: mount point
-- * @type: filesystem type
-- * @flags: mount flags
-- * @data: filesystem specific data
-- *
-- * Check permission before an object specified by @dev_name is mounted on the
-- * mount point named by @nd.  For an ordinary mount, @dev_name identifies a
-- * device if the file system type requires a device.  For a remount
-- * (@flags & MS_REMOUNT), @dev_name is irrelevant.  For a loopback/bind mount
-- * (@flags & MS_BIND), @dev_name identifies the	pathname of the object being
-- * mounted.
-- *
-- * Return: Returns 0 if permission is granted.
-- */
--int security_sb_mount(const char *dev_name, const struct path *path,
--		      const char *type, unsigned long flags, void *data)
--{
--	return call_int_hook(sb_mount, dev_name, path, type, flags, data);
--}
--
- /**
-  * security_sb_umount() - Check permission for unmounting a filesystem
-  * @mnt: mounted filesystem
-@@ -1167,21 +1144,6 @@ int security_sb_clone_mnt_opts(const struct super_block *oldsb,
- }
- EXPORT_SYMBOL(security_sb_clone_mnt_opts);
- 
--/**
-- * security_move_mount() - Check permissions for moving a mount
-- * @from_path: source mount point
-- * @to_path: destination mount point
-- *
-- * Check permission before a mount is moved.
-- *
-- * Return: Returns 0 if permission is granted.
-- */
--int security_move_mount(const struct path *from_path,
--			const struct path *to_path)
--{
--	return call_int_hook(move_mount, from_path, to_path);
--}
--
- /**
-  * security_mount_bind() - Check permissions for a bind mount
-  * @from: source path
--- 
-2.53.0-Meta
+ security/apparmor/apparmorfs.c |  5 +++--
+ security/selinux/hooks.c       |  4 ++--
+ security/selinux/selinuxfs.c   | 12 ++++++------
+ 3 files changed, 11 insertions(+), 10 deletions(-)
+---
+base-commit: 5d6919055dec134de3c40167a490f33c74c12581
+change-id: 20260520-security-6cdd60da7129
+
+Best regards,
+--  
+Sincerely yours,
+Mike.
 
 
