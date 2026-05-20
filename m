@@ -2,68 +2,66 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aBpHGNaADWrUyQUAu9opvQ
+	id dXT8NtCADWrUyQUAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Wed, 20 May 2026 11:37:26 +0200
+	for <lists+apparmor@lfdr.de>; Wed, 20 May 2026 11:37:20 +0200
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4115958AE52
-	for <lists+apparmor@lfdr.de>; Wed, 20 May 2026 11:37:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A82F458AE37
+	for <lists+apparmor@lfdr.de>; Wed, 20 May 2026 11:37:20 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1wPdMU-0007bB-Bj; Wed, 20 May 2026 09:37:10 +0000
+	id 1wPdMS-0007ab-Fd; Wed, 20 May 2026 09:37:08 +0000
 Received: from sea.source.kernel.org ([172.234.252.31])
  by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <rppt@kernel.org>) id 1wPcHU-0006Do-Cn
+ (envelope-from <rppt@kernel.org>) id 1wPcHU-0006Dn-CP
  for apparmor@lists.ubuntu.com; Wed, 20 May 2026 08:27:56 +0000
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id F015643BF8;
- Wed, 20 May 2026 08:19:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3794C1F000E9;
- Wed, 20 May 2026 08:19:12 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1D5BB43E73;
+ Wed, 20 May 2026 08:19:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A23C1F00893;
+ Wed, 20 May 2026 08:19:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779265154;
- bh=tJOszf5ccvQ8Uj34Ns+l0JyEoj1luDQ1JSgscLEUjH8=;
- h=From:Subject:Date:To:Cc;
- b=oqb6SkS5YytIpVTUQsjo2xHQ4SS571cAqH37sjtk3n5/2i0pUW5fADVVxvUdkIAgo
- Ei/YzX4Stje++RmND/Sxw+GgF8GkC2YAKmsKtBKgIidtQ3Lnh/GOV8qbAUxWGtMSXM
- lArDAXrc0inMaKNgo1ea/d6dZqCLBG03ZFePlkMmRKxUhrbFQqPPJeix9ku4CUhHB0
- Sb1SCaw6Q9oKG7uzDNy2Bu9C/uFTiFz7SA1od/3QLL1sWK+kuQhsseNWJtZvEY8AeV
- VAb9otpjpJ9Mf2ht2E7QfZB0sMJDWaA2FxwHg9a7aiS1369hhwS97doRMt9y3pWb2V
- arJKoZ/lAdSrA==
+ s=k20260515; t=1779265158;
+ bh=GVDlYomtipo4qtAHTcknpPeYaQN/qiVuV/EAqg0FNOE=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=QGRWwoluHB1wxqmq1NnHTwUGrOw0HmNcITLn8Pe3aTepQ46r2jdkcAYNLOmQLC6Ws
+ fAO7nMcK4IAkEmw7q1Rz88yVzOt27cWANLTYW1boJbIknXERD1KFDTQKy4tYZOuC8K
+ Xa83/+bLmy01KovNY7i3HHz3XSz0Y55T2cD1454db7Enrehvtwru2MztE1Skbw8C6K
+ TzwzSQ9MpvS02tzUSDzYmwgI436vCppFZB1Rztx7znFzz5ZPc7GKf2Bv7bJ/FVIRKG
+ DWbYxGBPnHJkKZKcVSZ0d3B7MBNCEqN4D1I+B9cReO5mepsJHAHs9ie8fqs14ga6GT
+ +nHHtsTbiaf7Q==
 From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Date: Wed, 20 May 2026 11:18:54 +0300
-Message-Id: <20260520-security-v1-0-831bd8e21dd0@kernel.org>
+Date: Wed, 20 May 2026 11:18:55 +0300
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAG5uDWoC/yWM0QrCMAxFf2Xk2WJXtKK/Into0ugiUiXZRBn7d
- 1t9PJdz7gLGKmxw6hZQfonJo1ToNx3QmMqVneTKEHyIfh+8M6ZZZfq4SDlHn9OhD0eo+lP5Iu/
- f1Xn4s814Y5pa3wxMxg41FRrbhLvtXRDW9QtMxMJyhQAAAA==
-X-Change-ID: 20260520-security-6cdd60da7129
+Message-Id: <20260520-security-v1-1-831bd8e21dd0@kernel.org>
+References: <20260520-security-v1-0-831bd8e21dd0@kernel.org>
+In-Reply-To: <20260520-security-v1-0-831bd8e21dd0@kernel.org>
 To: James Morris <jmorris@namei.org>, 
  John Johansen <john.johansen@canonical.com>, 
  Ondrej Mosnacek <omosnace@redhat.com>, Paul Moore <paul@paul-moore.com>, 
  "Serge E. Hallyn" <serge@hallyn.com>, 
  Stephen Smalley <stephen.smalley.work@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=818; i=rppt@kernel.org;
- h=from:subject:message-id; bh=8sDsVcUg45SCDAbOd4Qy+nlWe7vZVoKzJPYWNem4zG4=;
- b=owEBbQGS/pANAwAKATkDhibLDv2RAcsmYgBqDW5yZa7B7j3ohKSc2JgmRG/bo7d/2fltrRWB+
- SeIMUzfGumJATMEAAEKAB0WIQR45VhVpZkvn3TRr+k5A4Ymyw79kQUCag1ucgAKCRA5A4Ymyw79
- kfc/B/4uBqwgyaoh4EWczWSCvk4YvrDw+P5GIcZkmNuCZQCZgn2Hx05kpDcm+rYUwU39QhN7JvA
- tgMGPGR88/BwX8R27raP67u6j1ETp4W+lZ1idGU+icFaOpOgkAUJhNMnoaD/AYaSMcNJIZk5CIr
- dg5H160CUyvtcCaHO7sCSGKOxTBqqG1Qb8w0Dw+ZWEDuplwxznqiP/VegbHSKV8nw60H6hitxX/
- +WYSMij90yhsivt8xYrlLro5YpMLv+Emy4CxwBnYAAtGzmsSjY2kRashqG5odUQ+sRifrYPPbgs
- qiubvcrUP21lk5w02frOGk4LnKpN/uDysCVOPUN4MSQ1pdt1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2557; i=rppt@kernel.org;
+ h=from:subject:message-id; bh=egsexhbhZMn6N2VNXPeFT9FZiiU9sNsftvujWkJEIxM=;
+ b=owEBbQGS/pANAwAKATkDhibLDv2RAcsmYgBqDW51z/2b9a1wBbACD7Lqy3AESWFSJG96Ft/Fc
+ u9GHWORn7qJATMEAAEKAB0WIQR45VhVpZkvn3TRr+k5A4Ymyw79kQUCag1udQAKCRA5A4Ymyw79
+ kesfB/95neKLPMgBSsir1CVvO5hzi/mjOmpGVmukHgd+jj7BYpflrDOxXDEgBs6XHWLBXr6p9JI
+ xvWliqXNwwYOaRYZrG10Gbl4vCSoFGOQPMOCctQQm9FEIATJM8lY9frjkw41Nd9vpyDWOUNoaB2
+ 3KByTXQIPueuUKZKZxZf990V0FXHun2IroxnjikC7dbpoD+Ok7KlOfCucRjXTKN283DLquejXI/
+ MXWd19xgl5hyQaJR8l/0oPy+zZfbJBFZRt//57o+nv0whqgh4IDwfpdTwytJ50DBSSXdYZ7OH1j
+ GtKAKh+ZMI9rY83yzUXjIC1ZjMGgzVRheIfJSJrbV+SP0mx7
 X-Developer-Key: i=rppt@kernel.org; a=openpgp;
  fpr=B8E96E880C4A40C3C1255AA8C532392DE6DA7CE9
 Received-SPF: pass client-ip=172.234.252.31; envelope-from=rppt@kernel.org;
  helo=sea.source.kernel.org
 X-Mailman-Approved-At: Wed, 20 May 2026 09:37:07 +0000
-Subject: [apparmor] [PATCH 0/3] security: replace __get_free_pages() call
- with kmalloc()
+Subject: [apparmor] [PATCH 1/3] selinux: use k[mz]alloc() to allocate
+ temporary buffers
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -86,7 +84,7 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	R_DKIM_REJECT(1.00)[kernel.org:s=k20260515];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
@@ -94,8 +92,8 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	FORGED_RECIPIENTS(0.00)[m:jmorris@namei.org,m:john.johansen@canonical.com,m:omosnace@redhat.com,m:paul@paul-moore.com,m:serge@hallyn.com,m:stephen.smalley.work@gmail.com,m:selinux@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:linux-kernel@vger.kernel.org,m:linux-mm@kvack.org,m:linux-security-module@vger.kernel.org,m:rppt@kernel.org,m:stephensmalleywork@gmail.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_SENDER(0.00)[rppt@kernel.org,apparmor-bounces@lists.ubuntu.com];
 	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[rppt@kernel.org,apparmor-bounces@lists.ubuntu.com];
 	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
 	RCVD_TLS_LAST(0.00)[];
 	RCPT_COUNT_TWELVE(0.00)[12];
@@ -113,34 +111,89 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:rdns,lists.ubuntu.com:helo]
-X-Rspamd-Queue-Id: 4115958AE52
+X-Rspamd-Queue-Id: A82F458AE37
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-This is a (tiny) part of larger work of replacing page allocator calls
-with kmalloc:
+Several functions in selinuxfs.c allocate temporary buffers using
+__get_free_page() or get_zeroed_page().
 
-Also in git:
-https://git.kernel.org/pub/scm/linux/kernel/git/rppt/linux.git gfp-to-kmalloc/security
+These buffers are used either to store a string generated by snprintf() (in
+sel_make_bools()) or to copy data from user (sel_read_avc_hash_stats() and
+sel_read_sidtab_hash_stats()).
 
+Such usage does not require struct page access and it is better to allocate
+these buffers with kzalloc()/kmalloc() that provide better scalability and
+more debugging possibilities.
+
+Replace use of get_zeroed_page() with kzalloc() and usage of
+__get_free_page() with kmalloc().
+
+Link: https://lore.kernel.org/all/635405e4-9423-4a25-a6e7-e03c8ea0bcbe@redhat.com
 Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 ---
-Mike Rapoport (Microsoft) (3):
-      selinux: use k[mz]alloc() to allocate temporary buffers
-      selinux: hooks: use __getname() to allocate path buffer
-      apparmor: replace get_zeroed_page() with kzalloc()
+ security/selinux/selinuxfs.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
- security/apparmor/apparmorfs.c |  5 +++--
- security/selinux/hooks.c       |  4 ++--
- security/selinux/selinuxfs.c   | 12 ++++++------
- 3 files changed, 11 insertions(+), 10 deletions(-)
----
-base-commit: 5d6919055dec134de3c40167a490f33c74c12581
-change-id: 20260520-security-6cdd60da7129
+diff --git a/security/selinux/selinuxfs.c b/security/selinux/selinuxfs.c
+index 25ca7d714014..e7b884eedf80 100644
+--- a/security/selinux/selinuxfs.c
++++ b/security/selinux/selinuxfs.c
+@@ -1244,7 +1244,7 @@ static int sel_make_bools(struct selinux_policy *newpolicy, struct dentry *bool_
+ 	char **names, *page;
+ 	u32 i, num;
+ 
+-	page = (char *)get_zeroed_page(GFP_KERNEL);
++	page = kzalloc(PAGE_SIZE, GFP_KERNEL);
+ 	if (!page)
+ 		return -ENOMEM;
+ 
+@@ -1290,7 +1290,7 @@ static int sel_make_bools(struct selinux_policy *newpolicy, struct dentry *bool_
+ 		ret = sel_attach_file(bool_dir, names[i], inode);
+ 	}
+ out:
+-	free_page((unsigned long)page);
++	kfree(page);
+ 	return ret;
+ }
+ 
+@@ -1349,14 +1349,14 @@ static ssize_t sel_read_avc_hash_stats(struct file *filp, char __user *buf,
+ 	char *page;
+ 	ssize_t length;
+ 
+-	page = (char *)__get_free_page(GFP_KERNEL);
++	page = kmalloc(PAGE_SIZE, GFP_KERNEL);
+ 	if (!page)
+ 		return -ENOMEM;
+ 
+ 	length = avc_get_hash_stats(page);
+ 	if (length >= 0)
+ 		length = simple_read_from_buffer(buf, count, ppos, page, length);
+-	free_page((unsigned long)page);
++	kfree(page);
+ 
+ 	return length;
+ }
+@@ -1367,7 +1367,7 @@ static ssize_t sel_read_sidtab_hash_stats(struct file *filp, char __user *buf,
+ 	char *page;
+ 	ssize_t length;
+ 
+-	page = (char *)__get_free_page(GFP_KERNEL);
++	page = kmalloc(PAGE_SIZE, GFP_KERNEL);
+ 	if (!page)
+ 		return -ENOMEM;
+ 
+@@ -1375,7 +1375,7 @@ static ssize_t sel_read_sidtab_hash_stats(struct file *filp, char __user *buf,
+ 	if (length >= 0)
+ 		length = simple_read_from_buffer(buf, count, ppos, page,
+ 						length);
+-	free_page((unsigned long)page);
++	kfree(page);
+ 
+ 	return length;
+ }
 
-Best regards,
---  
-Sincerely yours,
-Mike.
+-- 
+2.53.0
 
 
