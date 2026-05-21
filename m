@@ -2,66 +2,92 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id SF0NL9uADWrUyQUAu9opvQ
+	id 0A0QElXuDmqwDAYAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Wed, 20 May 2026 11:37:31 +0200
+	for <lists+apparmor@lfdr.de>; Thu, 21 May 2026 13:36:53 +0200
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BBB858AE5B
-	for <lists+apparmor@lfdr.de>; Wed, 20 May 2026 11:37:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D210D5A41AD
+	for <lists+apparmor@lfdr.de>; Thu, 21 May 2026 13:36:52 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1wPdMV-0007bT-RS; Wed, 20 May 2026 09:37:11 +0000
-Received: from sea.source.kernel.org ([172.234.252.31])
- by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <rppt@kernel.org>) id 1wPcHU-0006Dp-Ew
- for apparmor@lists.ubuntu.com; Wed, 20 May 2026 08:27:56 +0000
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 608214069A;
- Wed, 20 May 2026 08:19:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D39A1F00893;
- Wed, 20 May 2026 08:19:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779265164;
- bh=z/4rfPWQ5HkZJZbwpLmw5R+Mmu26rwOzXYpZdnVV9Dk=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=dhrtBEWShLy1GXu88WxKJts8sqyBs3VBaS/0WLRV9zaUqdWgXLHfayljVW97Fzzt4
- 7RtyF7wImuoFzhQU2h1L/9hdvim4iIBcz+tYzmJARLjMnGtyMGEVbK6TanLVgv5ezd
- pl2W90AdTAhfQYtdHrNc/ZaD6QYOJsb+tmCa4s+FcbkkL1YVX+LulzmbDC0pnq4PMo
- DOm/1SfLkw4tBV6zjcUB1mSnHQb6DFgEY8+1JAf3u3TUVlgsOTyhBBEs84dzpl+0hv
- Io6iD2BfJBbqMYv94X1UXa0e+rWghxaGSLk/NiWOlAMkORwV4u37I9g6gA5eJAi3h2
- jYSNBO2FU/hAg==
-From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Date: Wed, 20 May 2026 11:18:57 +0300
+	id 1wQ1hh-00069W-48; Thu, 21 May 2026 11:36:41 +0000
+Received: from flow-a3-smtp.messagingengine.com ([103.168.172.138])
+ by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.86_2) (envelope-from <eduardo@eduardovasconcelos.com>)
+ id 1wPxMJ-0006VK-8e
+ for apparmor@lists.ubuntu.com; Thu, 21 May 2026 06:58:19 +0000
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+ by mailflow.phl.internal (Postfix) with ESMTP id EC35F138027F;
+ Thu, 21 May 2026 02:58:17 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-04.internal (MEProxy); Thu, 21 May 2026 02:58:17 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ eduardovasconcelos.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:from:from:in-reply-to:message-id
+ :mime-version:reply-to:subject:subject:to:to; s=fm1; t=
+ 1779346697; x=1779350297; bh=8KKk4OstiZD1mRxwYz1AQFEeysiHg2heUSn
+ DHuC1LuA=; b=YROikU3pH27BEfuvHGZWQcua54t9lJ+0ejva5hp6j3rpacbrOQI
+ nUBY/MPr3GbWB1K4lUR4AFfKWtFiIUdpGecqqlewxQYG64VkBCntq58AZZFLEUzO
+ /w1DuKhKi+xrhk3uBPCdAmLgZg2n4Y48eIVP5jFYCdFsIoNNAxTfHZ8TOYRX5GyB
+ f7Z9USQ/I0/0raYeM3KUGKG+aRhhUaImszwxif96kF0aX+qidt5Lpxs4LApdgpMz
+ ONMcSVi+1/7bU79SiMIjntf/hadPbfX5kmsEt8a66UWzKQMbcsIUYuTPAPar4bF1
+ L9rk1V5xDAyKKgF20U9dGlIB5C4i81fBC1A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+ 1779346697; x=1779350297; bh=8KKk4OstiZD1mRxwYz1AQFEeysiHg2heUSn
+ DHuC1LuA=; b=RBbvRLu2WNa2/BZb3XIg0Xtgigv5l84bG9GyQXthmqcGeI7bsQC
+ tjz2nIiq/7T3sMK8uHqonOAE4ONuPPh3RZHahHSqfN2iMLrIp4ryhnnMKBHnYnkr
+ MpF86arRkC6VRGbRe/HyBw8FYiD2bordRtehGJtSk1vA2fsMzNCdqa0Y82BxFzF8
+ /gQuoV4zqzT+hk0hz2OW2O52T1UAeMUB/zQ7ENb94y2Fs8VHfHo+Qiw6n0obYmAi
+ IeWC6gsCCZbEOuKBWMmrLRXMfPqrZbWqBpfvVhiLOwnNN4ykANWnAXJlRc0EaQpa
+ +M1+a1NJsNurAA8SVr7kN1FNxGiwfUnYDLw==
+X-ME-Sender: <xms:CK0OagdBpGDenSU-jKcodHXLgtGPJJN8Sq41vTflZTcOS52lymH12Q>
+ <xme:CK0OauP3h52P7pf6vc2hdDLqsyh6kdqc1ujUSsAeWi_xvsJ7JsNyIJaJk7UvmmbbR
+ sM5cJs5NokMdwkjc1A4zpJ2HF2D0l4XVWqVIPac-NQhX5h20FdMNiU>
+X-ME-Received: <xmr:CK0OajvOoR25JvWNTt0eOXHu1msEhGP5YE43GwXkFgqS81mYdNzGp2o2R2YXXA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgddugeeikeehucetufdoteggodetrf
+ dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+ rghilhhouhhtmecufedttdenucenucfjughrpefhvfevufffkffoggfgsedtkeertdertd
+ dtnecuhfhrohhmpefgughurghrughoucggrghstghonhgtvghlohhsuceovgguuhgrrhgu
+ ohesvgguuhgrrhguohhvrghstghonhgtvghlohhsrdgtohhmqeenucggtffrrghtthgvrh
+ hnpedutdeuffehveeguddugeefffejveevueeggeejuedvleehgfekueejgffghfffueen
+ ucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegvughurg
+ hrughosegvughurghrughovhgrshgtohhntggvlhhoshdrtghomhdpnhgspghrtghpthht
+ ohepkedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepjhhohhhnrdhjohhhrghnsh
+ gvnhestggrnhhonhhitggrlhdrtghomhdprhgtphhtthhopehprghulhesphgruhhlqdhm
+ ohhorhgvrdgtohhmpdhrtghpthhtohepjhhmohhrrhhishesnhgrmhgvihdrohhrghdprh
+ gtphhtthhopehsvghrghgvsehhrghllhihnhdrtghomhdprhgtphhtthhopegvughurghr
+ ughosegvughurghrughovhgrshgtohhntggvlhhoshdrtghomhdprhgtphhtthhopegrph
+ hprghrmhhorheslhhishhtshdruhgsuhhnthhurdgtohhmpdhrtghpthhtoheplhhinhhu
+ gidqshgvtghurhhithihqdhmohguuhhlvgesvhhgvghrrdhkvghrnhgvlhdrohhrghdprh
+ gtphhtthhopehlihhnuhigqdhkvghrnhgvlhesvhhgvghrrdhkvghrnhgvlhdrohhrgh
+X-ME-Proxy: <xmx:CK0OanCxRXjwszm_Kx9GvCOVbVkRijYM8eD3-aC8l2nE9j-r9C757g>
+ <xmx:CK0OaqYBdQ3n_v-A_iqtmW-9HH3QInlbE8Q3-Cq3pcwBKD89ujLiYw>
+ <xmx:CK0OaiWN4WBhgzfSpM6dFN3FZFSN4zZ8RSD-qM3bZ_X7bSjqWP24IA>
+ <xmx:CK0OapOGdJoQO0dRAdkaV7mOmcxDfTebHjcaqt6Ap_9Sq9ap8-Iwgg>
+ <xmx:Ca0OajhlSpA3-u7jJ0hAKqBf8IPj2Sqon8iZ6G36UikUEtnVr5xYCusj>
+Feedback-ID: iac1e4b6b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 21 May 2026 02:58:13 -0400 (EDT)
+From: Eduardo Vasconcelos <eduardo@eduardovasconcelos.com>
+To: john.johansen@canonical.com, paul@paul-moore.com, jmorris@namei.org,
+ serge@hallyn.com
+Date: Thu, 21 May 2026 03:57:24 -0300
+Message-ID: <20260521065731.6888-1-eduardo@eduardovasconcelos.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260520-security-v1-3-831bd8e21dd0@kernel.org>
-References: <20260520-security-v1-0-831bd8e21dd0@kernel.org>
-In-Reply-To: <20260520-security-v1-0-831bd8e21dd0@kernel.org>
-To: James Morris <jmorris@namei.org>, 
- John Johansen <john.johansen@canonical.com>, 
- Ondrej Mosnacek <omosnace@redhat.com>, Paul Moore <paul@paul-moore.com>, 
- "Serge E. Hallyn" <serge@hallyn.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1580; i=rppt@kernel.org;
- h=from:subject:message-id; bh=+ey+joQwrn1qEqiykmTx8dcM/5TMNFhXgYB3MVPrqgk=;
- b=owEBbQGS/pANAwAKATkDhibLDv2RAcsmYgBqDW58nz384TTzPZOUrhMG7PeyvhDRvKQD8RIHd
- PLEfs78XJeJATMEAAEKAB0WIQR45VhVpZkvn3TRr+k5A4Ymyw79kQUCag1ufAAKCRA5A4Ymyw79
- kTbyCACtJ9ZYDN3YybRMNR2UBnLXfQyIAs1SRXhO192EBvmpN0Vt1m1sNk+uZlH2OVV5dTRBzer
- ZUVu6/sROZL71OF1VFySzWa2xD3gLaKVlDyPHe7gMBIdFhQXjQSEkzNGbSjvJOMChXiBsUYfHoP
- 8/amlGCtmTomdv0rSvCj0jqMgMKqzQRqkZNjEH90UwnQthW1EMjaZxKlluFPBguq2912ZX3N37M
- 39ADj+W0iqAhCINM5YCk/d6G5x1kKmOGD0cVEdms7dn/8CLb7b/5BGRj4tIG1uoK+Yn+hh31hYu
- 1+YvsR3KShRortBO77alQvQ9eR/1ZUROdSNcuV07i91Ita/k
-X-Developer-Key: i=rppt@kernel.org; a=openpgp;
- fpr=B8E96E880C4A40C3C1255AA8C532392DE6DA7CE9
-Received-SPF: pass client-ip=172.234.252.31; envelope-from=rppt@kernel.org;
- helo=sea.source.kernel.org
-X-Mailman-Approved-At: Wed, 20 May 2026 09:37:07 +0000
-Subject: [apparmor] [PATCH 3/3] apparmor: replace get_zeroed_page() with
-	kzalloc()
+Content-Transfer-Encoding: 8bit
+Received-SPF: pass client-ip=103.168.172.138;
+ envelope-from=eduardo@eduardovasconcelos.com;
+ helo=flow-a3-smtp.messagingengine.com
+X-Mailman-Approved-At: Thu, 21 May 2026 11:36:39 +0000
+Subject: [apparmor] [PATCH] apparmor: Fix inverted comparison in
+	cache_hold_inc()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -73,95 +99,76 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: selinux@vger.kernel.org, apparmor@lists.ubuntu.com,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- linux-security-module@vger.kernel.org, Mike Rapoport <rppt@kernel.org>
+Cc: linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com,
+ linux-kernel@vger.kernel.org,
+ Eduardo Vasconcelos <eduardo@eduardovasconcelos.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Spamd-Result: default: False [3.09 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
-	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20260515];
+X-Spamd-Result: default: False [0.59 / 15.00];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FREEMAIL_TO(0.00)[namei.org,canonical.com,redhat.com,paul-moore.com,hallyn.com,gmail.com];
-	FORGED_RECIPIENTS(0.00)[m:jmorris@namei.org,m:john.johansen@canonical.com,m:omosnace@redhat.com,m:paul@paul-moore.com,m:serge@hallyn.com,m:stephen.smalley.work@gmail.com,m:selinux@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:linux-kernel@vger.kernel.org,m:linux-mm@kvack.org,m:linux-security-module@vger.kernel.org,m:rppt@kernel.org,m:stephensmalleywork@gmail.com,s:lists@lfdr.de];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_SENDER(0.00)[rppt@kernel.org,apparmor-bounces@lists.ubuntu.com];
+	DMARC_NA(0.00)[eduardovasconcelos.com];
+	FORGED_RECIPIENTS(0.00)[m:john.johansen@canonical.com,m:paul@paul-moore.com,m:jmorris@namei.org,m:serge@hallyn.com,m:linux-security-module@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:linux-kernel@vger.kernel.org,m:eduardo@eduardovasconcelos.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[eduardo@eduardovasconcelos.com,apparmor-bounces@lists.ubuntu.com];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
-	RCVD_TLS_LAST(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
 	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:-];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	FROM_NEQ_ENVFROM(0.00)[rppt@kernel.org,apparmor-bounces@lists.ubuntu.com];
-	TAGGED_RCPT(0.00)[apparmor];
-	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:rdns,lists.ubuntu.com:helo]
-X-Rspamd-Queue-Id: 9BBB858AE5B
+	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[eduardo@eduardovasconcelos.com,apparmor-bounces@lists.ubuntu.com];
+	FROM_HAS_DN(0.00)[];
+	NEURAL_SPAM(0.00)[0.999];
+	RCVD_COUNT_FIVE(0.00)[5];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[apparmor];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[eduardovasconcelos.com:mid,eduardovasconcelos.com:email]
+X-Rspamd-Queue-Id: D210D5A41AD
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-multi_transaction_new() allocates memory with get_zeroed_page() and uses
-it as struct multi_transaction.
+cache_hold_inc() prevents the per-CPU cache hold counter from
+rising above MAX_HOLD_COUNT, but the comparison is inverted
+(> MAX_HOLD_COUNT instead of <), so the counter never rises
+above 0.
 
-The usage of that structure does not require struct page access and it is
-better to allocate multi_transaction objects with kzalloc() that provides
-better scalability and more debugging possibilities.
+This breaks the cache mechanism because since the hold counter
+is always 0, the global pool is always attempted first before
+falling back to the local cache. The decrement also never occurs,
+thus the hold counter is effectively dead.
 
-Replace use of get_zeroed_page() with kzalloc().
+Fix by changing > to < in cache_hold_inc().
 
-Link: https://lore.kernel.org/all/635405e4-9423-4a25-a6e7-e03c8ea0bcbe@redhat.com
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Signed-off-by: Eduardo Vasconcelos <eduardo@eduardovasconcelos.com>
 ---
- security/apparmor/apparmorfs.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ security/apparmor/lsm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
-index ededaf46f3ca..e5c99c71e7ca 100644
---- a/security/apparmor/apparmorfs.c
-+++ b/security/apparmor/apparmorfs.c
-@@ -9,6 +9,7 @@
+diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
+index 3491e9f60194..b7c19805a216 100644
+--- a/security/apparmor/lsm.c
++++ b/security/apparmor/lsm.c
+@@ -2129,7 +2129,7 @@ static int param_set_mode(const char *val, const struct kernel_param *kp)
   */
- 
- #include <linux/ctype.h>
-+#include <linux/slab.h>
- #include <linux/security.h>
- #include <linux/vmalloc.h>
- #include <linux/init.h>
-@@ -904,7 +905,7 @@ static void multi_transaction_kref(struct kref *kref)
- 	struct multi_transaction *t;
- 
- 	t = container_of(kref, struct multi_transaction, count);
--	free_page((unsigned long) t);
-+	kfree(t);
+ static void cache_hold_inc(unsigned int *hold)
+ {
+-	if (*hold > MAX_HOLD_COUNT)
++	if (*hold < MAX_HOLD_COUNT)
+ 		(*hold)++;
  }
  
- static struct multi_transaction *
-@@ -947,7 +948,7 @@ static struct multi_transaction *multi_transaction_new(struct file *file,
- 	if (size > MULTI_TRANSACTION_LIMIT - 1)
- 		return ERR_PTR(-EFBIG);
- 
--	t = (struct multi_transaction *)get_zeroed_page(GFP_KERNEL);
-+	t = kzalloc(PAGE_SIZE, GFP_KERNEL);
- 	if (!t)
- 		return ERR_PTR(-ENOMEM);
- 	kref_init(&t->count);
-
 -- 
-2.53.0
+2.54.0
 
 
