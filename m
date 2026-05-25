@@ -2,89 +2,89 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id ch/GJbGbFGqGOwcAu9opvQ
+	id qHF4MbabFGqGOwcAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Mon, 25 May 2026 20:57:53 +0200
+	for <lists+apparmor@lfdr.de>; Mon, 25 May 2026 20:57:58 +0200
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53F005CDDAA
-	for <lists+apparmor@lfdr.de>; Mon, 25 May 2026 20:57:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B32B65CDDBB
+	for <lists+apparmor@lfdr.de>; Mon, 25 May 2026 20:57:58 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1wRaUh-0000rD-I0; Mon, 25 May 2026 18:57:43 +0000
-Received: from mail-wm1-f45.google.com ([209.85.128.45])
+	id 1wRaUi-0000rT-RQ; Mon, 25 May 2026 18:57:44 +0000
+Received: from mail-wr1-f49.google.com ([209.85.221.49])
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <petr.pavlu@suse.com>)
- id 1wRY1U-0007Jd-5w
- for apparmor@lists.ubuntu.com; Mon, 25 May 2026 16:19:24 +0000
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-49041e84237so26867525e9.1
- for <apparmor@lists.ubuntu.com>; Mon, 25 May 2026 09:19:23 -0700 (PDT)
+ id 1wRY67-0002f0-KO
+ for apparmor@lists.ubuntu.com; Mon, 25 May 2026 16:24:11 +0000
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-44a14580111so7325102f8f.0
+ for <apparmor@lists.ubuntu.com>; Mon, 25 May 2026 09:24:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1779725963; x=1780330763; darn=lists.ubuntu.com;
+ d=suse.com; s=google; t=1779726251; x=1780331051; darn=lists.ubuntu.com;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=6YA+/JJXQ9abERc/NViF0XyaL5qdJ2pUb4chRkVwshY=;
- b=ANhEW3sl0IhnDhUqLaBmkXUlk9Fsmp7W3u+AW6R/QtEUVRBMErm5xM/rHdvI5P5gh2
- uITDGevDLBDj7gVjCFSuBImFkPR/kUoqzZQiTwd9bPzlv61IRLsc7dWwc+UxaTOqzk5s
- ldITZECnUC9m1UhnXSO9hS2GMu2FrVruDCIiTs+FmPKZdWVNmkAXA1ejyW1rKdNK5SUF
- vUeKWcPeHhB1zD0RSviVuVD68mrQRxf/ZRWS7w6F8pMepp1bmGQUA56HSAf37+HBb7zW
- vJ3v4FqXKjQzUj5SKbxuuFU74w9cR50AyiYv6ijo/ALFgRya3xnSXOTlMrFDzoHUSWQA
- Ppcw==
+ bh=WThGrJlj0+d9TTzzXLAp8aZigkvM5HszOOE/MfwSIgg=;
+ b=KPjh4LcWPCiiMOBL0guGpSIavwUEHVesy2YMRu77OCMcipM1+HVeKdRE1te3m933HV
+ U2hhnZ39syrZReO+6zO+5wauA6Ev0YH7ux+xeUFPI4GcuaDst3YKVjw84XcX5TuKGMev
+ UmKa4QTo4nNDJ/0Jc9+ViTEUv8CVNrQ+NnWlVPNJ5nFufr5MDaoYBLphxlU91m9N2A9E
+ vUVJ17EnrYNWKF+kz8Mi+otAQScbaCrnNL4XjVemxIBfjD9fx4BJAuMeEDVsOMncT9sy
+ 8FwQdsDDc8TOfWYh2/bcy4b31fq5AiBNNzWIX96qL2yZDbPrJh1GbY5zWE7PflyQDfMN
+ Z14w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779725963; x=1780330763;
+ d=1e100.net; s=20251104; t=1779726251; x=1780331051;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=6YA+/JJXQ9abERc/NViF0XyaL5qdJ2pUb4chRkVwshY=;
- b=hhwAMd46HwiQ3/1LgGPQwJ4n2/DfepQtNcEM7Y+J6zkCv59xuWQYEQ6zK9Hk2UqN7O
- senU0r8SGb/uFjjKv/eWrFUJeFfi4YDT0dH7d8qBENfVTeYsWOUTICu+Hx4HV3guFU5m
- tlsvncicqWTNWOqeFYUu+MBbWRV78LSHhUSxqQmiueRGOrD0AK9KAJ5VzYb//OAm/wI9
- vaxpyDGubnWt9o0dTRbm+LSm9Quu2WRw5KWR+MSneR4jNxH6ZU5K5WETHyUBBE9umwUa
- LNdycigMviUQQQBDSz9bklIWWX3CGmz09fZwCw9Z/rWbVDt0efQERC0/OPrKRnh9Al5b
- zSqg==
+ bh=WThGrJlj0+d9TTzzXLAp8aZigkvM5HszOOE/MfwSIgg=;
+ b=pSxKJ5fqiKgIX5WbQix+qq7Spd2MmOSbz6Q0YqfUkZKJbGh5dw/CsNvIQr9YQJQyit
+ ApNB1Fsww9ph6ZNDWRwikzt8kcHBuBOzV1ZciCLn6hIAWwEnnkf4aALVgZtNvmzAygv8
+ oqi16oXMFmKdMqAiUWmzYxlstU5LEJJvRIxHK66tYzgpm2qfxUNXIt+wpABUoJR3tt0I
+ U3Fn9TpLRtDNQeu+lG3JiNVv/G+GFHogYwr1blt5dIhcsrdEqTs6gPMYYVgg9O36xoR6
+ 5YTxDRuEgcSAplzjzUvi7Ryh/NyQZk14Q329Q9Go26J1WOE/4RjbHetVRG0qTy7rnK/7
+ Z3CQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/XjgeBR1MCOrSYxeCXAMQgJqxbOx6iv1QT8zvTJW3igRCn+xP1HWGpCtzI2VrIiILjRNq7FimTkQ==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0YxWS933s/q5Z+2qs4W9em9fFWf7tfLOZnc/EYKLsrR3L1CzSscZ
- +8itdG08t1Mnq7EZ4K9sD48NwcntAuGoqDKSGDOcQmqhDDubRklJs/D0KggilIS2yp0=
-X-Gm-Gg: Acq92OFsmTrgRKp5tIDwHluj1F+nvqEssWEMEXhnroeJwjE5gwE0tFKuVw8CJfP7Z1t
- F7Vch+7wNytVPbbFxGwZMmemk8Z7Q3X8Yvow6KRj6DHyAFiBnASWquNBLYIEy4pi7DXBsH7wWcZ
- qvURFlZXJuBvE2Um/koPQstFnwpUP9VnfETPS06XBFr3cGaUbsEY5Q7BNCSNPcF8w+HlalImT8M
- kuKKTznph3QQrUh9SOshvMOa5pV529suldaIo0ucjBuGF5Ve72SZkNP9/l6f6CEBG2j/EPnzNRt
- PY5vWOj80GMJrczbAWlJLquN5EWEsbufFVx1XbKpqI2trT4etvnobhvzyEBK4ErV1SPI3gyiPu7
- S/oTEoNbhSgv7+/kQsUNpJ3EozBrmxH5s8gRTidHDyPRoBWBub20JHKJxvPM9VJWe+0zKbK87y3
- 2liPzwDTdCgd78hYfFLh4h141lZi8aq0RzmZa94SSoTrMTj+Y/6VecrMyTFpy/GBPX6/ccMXhyP
- xJsEEYvPZEpGnf7Lin4mlIT7V8ug37cYHGeVIt/UnyFODTkW0OAIC5GtHNlmUqfTzMz2g==
-X-Received: by 2002:a05:600c:3b07:b0:490:f7c:b19 with SMTP id
- 5b1f17b1804b1-490420f67f5mr197977845e9.0.1779725963153; 
- Mon, 25 May 2026 09:19:23 -0700 (PDT)
+ AFNElJ/FNK3914YQSYeOkaRZIH9QJSsaiFYNj3GARUxwvPC/lugfUeC2cshfN9uWBw5b2ALmUMPZj+kvFA==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0YydAIaG479gu2JWLbLRTegG8wNfILEptx0VeoZw/QYYY+Jeo2RX
+ 4ZGOFp1CfSV0XvoVzbsO+lF81/sNfcgEWL5TvlbHA0u6aQtVJWQMyFb6Lo/0mez9Ivo=
+X-Gm-Gg: Acq92OGTCqPSmAViH05R9nsoleYLRcyizAzXKUe9TmCCQ5MjCQGFzVZc7KPC/V1ZcF6
+ INQiegCuu/i73rTRoTSfE+9VI5q6McFyDXr7AMH68nSPeSwu62nnDT6evorlAFv++XaHOgOBVSE
+ vFZ1Hq0wuak3VVFZBQR5RqcMced6g8hQSg3oPugcEJWOiGROFHy5HF0QkKhgKTWTQaWJwZ9I5+0
+ 9g1yWTh3HI9/ZenLwdANnPsRyLC7g2vQFsAYDUnccSyPsQ6ioPzuApNNr3KY37en7bH2OZ0JvPJ
+ ytz8twhLqBDybOQ7u41RDgDLfz29pRXq3P4zsvpnfH82leHpyG479KgIBuT1ccifhWMOlvD74od
+ ovCSud1T73l8yjKiblTw5eetRqSNr4N943QaTCGS+1ns/ietgOtSjEjzaZhRnMkuyVhIfx7Q0Ab
+ ECUlI+TMJp4Nbz/UP81QKZ54OEXSmVO4qrMe61JA6g9OT9QLLcutturlNa4/9EC0Cx5nkBAx7oC
+ gA/4CdSqa0g0NZvBIcYo2pSE5vDFrKNVXEui5wUJVlaua0zG5XNHZyolGigKEZ+w9rmEg==
+X-Received: by 2002:a05:6000:26cf:b0:45e:b215:12e9 with SMTP id
+ ffacd0b85a97d-45eb368903emr24724531f8f.6.1779726250728; 
+ Mon, 25 May 2026 09:24:10 -0700 (PDT)
 Received: from ?IPV6:2a00:1028:838d:271e:8e3b:4aff:fe4c:a100?
  (dynamic-2a00-1028-838d-271e-8e3b-4aff-fe4c-a100.ipv6.o2.cz.
  [2a00:1028:838d:271e:8e3b:4aff:fe4c:a100])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49059cc9a91sm48939425e9.1.2026.05.25.09.19.19
+ ffacd0b85a97d-45eb6d47b82sm28202483f8f.19.2026.05.25.09.24.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 May 2026 09:19:22 -0700 (PDT)
-Message-ID: <a4c7ccee-6189-4c74-bad8-57d1438c7d8d@suse.com>
-Date: Mon, 25 May 2026 18:19:19 +0200
+ Mon, 25 May 2026 09:24:10 -0700 (PDT)
+Message-ID: <4e54ae4a-4f7b-451d-9b37-97f30b8fefba@suse.com>
+Date: Mon, 25 May 2026 18:24:07 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Kees Cook <kees@kernel.org>
 References: <20260521133315.work.845-kees@kernel.org>
- <20260521133326.2465264-6-kees@kernel.org>
+ <20260521133326.2465264-7-kees@kernel.org>
 Content-Language: en-US
 From: Petr Pavlu <petr.pavlu@suse.com>
-In-Reply-To: <20260521133326.2465264-6-kees@kernel.org>
+In-Reply-To: <20260521133326.2465264-7-kees@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Received-SPF: pass client-ip=209.85.128.45; envelope-from=petr.pavlu@suse.com;
- helo=mail-wm1-f45.google.com
+Received-SPF: pass client-ip=209.85.221.49; envelope-from=petr.pavlu@suse.com;
+ helo=mail-wr1-f49.google.com
 X-Mailman-Approved-At: Mon, 25 May 2026 18:57:41 +0000
-Subject: Re: [apparmor] [PATCH 06/11] moduleparam: Add seq_buf-based .get
- callback alongside .get_str
+Subject: Re: [apparmor] [PATCH 07/11] moduleparam: Route
+ DEFINE_KERNEL_PARAM_OPS get pointer via _Generic
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -161,7 +161,7 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	R_DKIM_REJECT(1.00)[suse.com:s=google];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -171,10 +171,10 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	MIME_TRACE(0.00)[0:+];
 	FREEMAIL_CC(0.00)[kernel.org,lists.freedesktop.org,iscas.ac.cn,linux.intel.com,vger.kernel.org,acm.org,ziepe.ca,namei.org,googlegroups.com,ursulin.net,rowland.harvard.edu,lists.infradead.org,linuxfoundation.org,linux-foundation.org,arm.com,orcam.me.uk,HansenPartnership.com,ffwll.ch,linux.alibaba.com,paul-moore.com,cmu.edu,linux.ibm.com,akamai.com,google.com,gmail.com,lists.one-eyed-alien.net,redhat.com,ideasonboard.com,hallyn.com,minyard.net,alien8.de,intel.com,lists.sourceforge.net,oracle.com,atomlin.com,infradead.org,zytor.com,nongnu.org,kvack.org,cambridgegreys.com,nod.at,lists.ubuntu.com,lists.linux.dev,suse.de,antgroup.com,sipsolutions.net,lists.ozlabs.org];
 	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
-	FORGED_SENDER(0.00)[petr.pavlu@suse.com,apparmor-bounces@lists.ubuntu.com];
+	ARC_NA(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[petr.pavlu@suse.com,apparmor-bounces@lists.ubuntu.com];
 	RCVD_COUNT_THREE(0.00)[4];
 	DKIM_TRACE(0.00)[suse.com:-];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
@@ -187,39 +187,99 @@ X-Spamd-Result: default: False [3.09 / 15.00];
 	RCPT_COUNT_GT_50(0.00)[96];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_HAM(-0.00)[-0.246];
+	NEURAL_HAM(-0.00)[-0.274];
 	TAGGED_RCPT(0.00)[apparmor];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[]
-X-Rspamd-Queue-Id: 53F005CDDAA
+X-Rspamd-Queue-Id: B32B65CDDBB
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 On 5/21/26 3:33 PM, Kees Cook wrote:
-> Add a new struct kernel_param_ops::get callback whose signature
-> takes a struct seq_buf instead of a raw char buffer:
+> Make the DEFINE_KERNEL_PARAM_OPS family route their _get argument to
+> either .get (struct seq_buf *) or .get_str (char *) at compile time
+> based on the pointer's actual function signature. Two helper macros
+> do the routing:
 > 
->   int (*get)(struct seq_buf *sb, const struct kernel_param *kp);
+>   _KERNEL_PARAM_OPS_GET     - return the pointer if it has the seq_buf
+>                               signature, otherwise NULL of that type
+>   _KERNEL_PARAM_OPS_GET_STR - mirror image for the char * signature
 > 
-> The previously-legacy .get field is now .get_str (char *buffer);
-> .get is the new seq_buf-aware form.  param_attr_show() prefers .get
-> when set, otherwise falls back to .get_str.  WARN_ON_ONCE() if both
-> are set.  Return contract for .get:
+> Both use _Generic; only the two valid function-pointer types are
+> listed, so any third-party type is a compile error rather than
+> silently falling through.
 > 
->   < 0 : errno propagated to userspace; seq_buf contents discarded
->   = 0 : success; length derived from seq_buf_used()
->   > 0 : forbidden; the dispatcher WARN_ON_ONCE()s and treats as 0
-> 
-> The default policy on seq_buf_has_overflowed() is silent truncation,
-> matching scnprintf()/sysfs_emit() behaviour.  Callbacks that want a
-> specific overflow errno can check seq_buf_has_overflowed() and
-> return their preferred error.
-> 
-> No callbacks use .get yet; the legacy path is still the only one in use
-> after this commit. A subsequent commit teaches DEFINE_KERNEL_PARAM_OPS
-> to route initializers by type.
+> Now a callback whose body has been migrated from char * to struct
+> seq_buf * needs no change at its kernel_param_ops initialization site,
+> because the macro picks up the new type automatically and assigns to
+> the correct field.
 > 
 > Signed-off-by: Kees Cook <kees@kernel.org>
+> ---
+>  include/linux/moduleparam.h | 33 ++++++++++++++++++++++++++-------
+>  1 file changed, 26 insertions(+), 7 deletions(-)
+> 
+> diff --git a/include/linux/moduleparam.h b/include/linux/moduleparam.h
+> index c52120f6ac28..795bc7c654ef 100644
+> --- a/include/linux/moduleparam.h
+> +++ b/include/linux/moduleparam.h
+> @@ -85,15 +85,32 @@ struct kernel_param_ops {
+>   *
+>   *   static DEFINE_KERNEL_PARAM_OPS(my_ops, my_set, my_get);
+>   *
+> - * Routing the @_set and @_get function pointers through the macro
+> - * (rather than naming the struct fields at every call site) lets the
+> - * field layout change in one place when callbacks are migrated to a
+> - * new signature.
+> + * @_get may be either of:
+> + *   int (*)(struct seq_buf *, const struct kernel_param *) (seq_buf)
+> + *   int (*)(char *, const struct kernel_param *)           (legacy)
+> + *
+> + * The macro uses _Generic to route the function pointer to the
+> + * matching field (.get or .get_str) at compile time, leaving the
+> + * other field NULL. Each helper matches the wrong prototype signature
+> + * and returns NULL, falling through to the default branch otherwise;
+> + * if @_get has neither expected signature the assignment to the
+> + * fields gets a normal compile-time type-mismatch error.
+>   */
+> +#define _KERNEL_PARAM_OPS_GET(_get)					\
+> +	_Generic((_get),						\
+> +	    int (*)(char *, const struct kernel_param *): NULL,		\
+> +	    default: (_get))
+> +
+> +#define _KERNEL_PARAM_OPS_GET_STR(_get)					\
+> +	_Generic((_get),						\
+> +	    int (*)(struct seq_buf *, const struct kernel_param *): NULL, \
+> +	    default: (_get))
+> +
+>  #define DEFINE_KERNEL_PARAM_OPS(_name, _set, _get)			\
+>  	const struct kernel_param_ops _name = {				\
+>  		.set = (_set),						\
+> -		.get_str = (_get),					\
+> +		.get = _KERNEL_PARAM_OPS_GET(_get),			\
+> +		.get_str = _KERNEL_PARAM_OPS_GET_STR(_get),		\
+>  	}
+>  
+>  /* As DEFINE_KERNEL_PARAM_OPS, with KERNEL_PARAM_OPS_FL_NOARG set. */
+> @@ -101,14 +118,16 @@ struct kernel_param_ops {
+>  	const struct kernel_param_ops _name = {				\
+>  		.flags = KERNEL_PARAM_OPS_FL_NOARG,			\
+>  		.set = (_set),						\
+> -		.get_str = (_get),					\
+> +		.get = _KERNEL_PARAM_OPS_GET(_get),			\
+> +		.get_str = _KERNEL_PARAM_OPS_GET_STR(_get),		\
+>  	}
+>  
+>  /* As DEFINE_KERNEL_PARAM_OPS, with an additional .free callback. */
+>  #define DEFINE_KERNEL_PARAM_OPS_FREE(_name, _set, _get, _free)		\
+>  	const struct kernel_param_ops _name = {				\
+>  		.set = (_set),						\
+> -		.get_str = (_get),					\
+> +		.get = _KERNEL_PARAM_OPS_GET(_get),			\
+> +		.get_str = _KERNEL_PARAM_OPS_GET_STR(_get),		\
+>  		.free = (_free),					\
+>  	}
+>  
 
 Reviewed-by: Petr Pavlu <petr.pavlu@suse.com>
 
