@@ -1,77 +1,44 @@
 Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
-	by lfdr with LMTP
-	id yO/oHXl/HWotbQkAu9opvQ
+	by mail.lfdr.de with LMTP
+	id 3Qg5G+BHH2pAjgAAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Mon, 01 Jun 2026 14:47:53 +0200
+	for <lists+apparmor@lfdr.de>; Tue, 02 Jun 2026 23:15:12 +0200
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E28161F82A
-	for <lists+apparmor@lfdr.de>; Mon, 01 Jun 2026 14:47:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 022396320B1
+	for <lists+apparmor@lfdr.de>; Tue, 02 Jun 2026 23:15:12 +0200 (CEST)
+Authentication-Results: mail.lfdr.de;
+	dkim=none;
+	spf=pass (mail.lfdr.de: domain of apparmor-bounces@lists.ubuntu.com designates 185.125.189.65 as permitted sender) smtp.mailfrom=apparmor-bounces@lists.ubuntu.com;
+	dmarc=pass (policy=none) header.from=lists.ubuntu.com
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1wU23H-0002d9-Tm; Mon, 01 Jun 2026 12:47:31 +0000
-Received: from mail-ua1-f45.google.com ([209.85.222.45])
- by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <rodrigoffzz@gmail.com>)
- id 1wTlxi-0003Vx-TG
- for apparmor@lists.ubuntu.com; Sun, 31 May 2026 19:36:43 +0000
-Received: by mail-ua1-f45.google.com with SMTP id
- a1e0cc1a2514c-9639d7daff3so2041109241.1
- for <apparmor@lists.ubuntu.com>; Sun, 31 May 2026 12:36:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780256201; x=1780861001; darn=lists.ubuntu.com;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=PYDzzyBJ0elLKB0jP/bszGkmeDK9wZmW8LHbbh9j164=;
- b=ji4EDi42SzahhapY2BKO+XEJ4ZvNQ6WRBgtvTkpB/Bo26V6o8PEKoPirAEta5Lt1/K
- qI8wnHaJj65750hijE3oQfMo0RHkHkmMycqEcTr6wkfPa1cp7gCdNESNLNpZk8RVF4q+
- tCEtZPMRGOIKf9B6kUxR5wwI9nrqlzvR+TWqRLbbIKf8gnGh2Gmzu6iFhnF/MoQze2vg
- STxB9ZDRZY2fcGw53ppmRKbdfGyvYwbudJC9NP4ZTXP6SdCM0i0SJCUcF8U2x0q9ugMB
- 3rj+RHcsXhQIn7L7cEe6sR7Du5bvx44ReMJcKMSW4tIp+BAwo+usJ4qxVUAhT4hLITDE
- B3AA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780256201; x=1780861001;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=PYDzzyBJ0elLKB0jP/bszGkmeDK9wZmW8LHbbh9j164=;
- b=tR0rXKo4O/n9+bTUPkR5pKZykHgz49AVpJVD5q+0qeQUYJLqKHameQpa1lhizl5uin
- Jjow3iEYVay7vwjiW4bMUrwqma88eD7V27dPw+7QC0P9tGBoGn/bRZlShYgLkn6up+Dg
- xmtaMEH0H3xXjzUI6tK2CsesDPAeXXAywXzCiTaWND6m1ZAuZwAkJKAGWfi5qlE9w2k7
- zNQTFkjEtTzxOKsGdZ0qLRjYuLg+zQjFYUSi9HbP2wWX2etb1js67wK+OCEl92qOBa8Y
- m71gfeQDAS2KF5N49dRU1FCptrtChJjqxvRQXqpEMR5I6pEWrUAOb5Mf1xUdrUbZmdCR
- 63HQ==
-X-Gm-Message-State: AOJu0Yw8q41N57b/l90msWei+ubYNIF5OHK1hG/SYceiLWA3GEZbZeTA
- wTXWWAwdqqIhZZ3Fwy0xJVSzjsGYLGmeDHoGWnhUJzBO7jBJDvsDNt8O
-X-Gm-Gg: Acq92OHku3MRBB+IRWk+b3VQdgybk8jxJepLyyDJMOw8w3Y5o8HW3UtOXYb3qEq/VTh
- SvR5+FJDU6eLSII0sZ69ezFoJHemNGO+pGbvLM7ti/ETP69obWSS4T1b4hBD8X13VXQx4O3tSQg
- 7Ik4RAYHOha3xcUJaN4yCUGbWb/1R0qfZodvXFyXvdDENG9TE/NfTo0UPQW3WB4N70W2RXRdZVV
- xzD6esx7u30NCc4fWBcJOTuvzteedMRQ50glHS/SSlJyNPLCrUQT/7Hl5Q/wAGaQcTNj272J7Cf
- 3njeKZqne4qoNRMrs+32079Wxym45EZSarROV3S19Ql5cZUfXG4gp7IQcleaF4COLTspMAu2sqX
- 5Fm7lpVkWV6KxrsM5YBR/f3CeB839gwK/C4KVXaumfXkwbZ5BZAApbbcstySuiScF9Cbj3Dq89/
- 1KaugvJYzLthlUvKRZ8rGkYusCx4W8gA0T
-X-Received: by 2002:a05:6102:5988:b0:65b:c17:70b4 with SMTP id
- ada2fe7eead31-6c66383c6d9mr3437544137.0.1780256201137; 
- Sun, 31 May 2026 12:36:41 -0700 (PDT)
-Received: from dream.. ([2804:1b3:a702:ed22:1ad5:a049:6ba5:86b2])
- by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-6c78792bc3bsm3253136137.1.2026.05.31.12.36.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 31 May 2026 12:36:40 -0700 (PDT)
-From: Rodrigo Zaiden <rodrigoffzz@gmail.com>
-To: John Johansen <john.johansen@canonical.com>
-Date: Sun, 31 May 2026 16:36:28 -0300
-Message-ID: <20260531193628.286270-1-rodrigoffzz@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	id 1wUPQo-0004Fs-6c; Tue, 02 Jun 2026 13:45:22 +0000
+Received: from sea.source.kernel.org ([172.234.252.31])
+ by lists.ubuntu.com with esmtp (Exim 4.86_2)
+ (envelope-from <kees@kernel.org>) id 1wU8vi-0004yX-Vn
+ for apparmor@lists.ubuntu.com; Mon, 01 Jun 2026 20:08:11 +0000
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 4E93A40825;
+ Mon,  1 Jun 2026 19:59:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D6831F00893;
+ Mon,  1 Jun 2026 19:59:50 +0000 (UTC)
+Date: Mon, 1 Jun 2026 12:59:49 -0700
+To: Petr Pavlu <petr.pavlu@suse.com>
+Message-ID: <202606011259.CE6E74CE@keescook>
+References: <20260521133315.work.845-kees@kernel.org>
+ <88c5ca1d-eeda-4023-bc7a-397b92780db9@suse.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=209.85.222.45; envelope-from=rodrigoffzz@gmail.com;
- helo=mail-ua1-f45.google.com
-X-Mailman-Approved-At: Mon, 01 Jun 2026 12:47:31 +0000
-Subject: [apparmor] [PATCH] apparmor: fix kernel-doc warnings
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <88c5ca1d-eeda-4023-bc7a-397b92780db9@suse.com>
+Received-SPF: pass client-ip=172.234.252.31; envelope-from=kees@kernel.org;
+ helo=sea.source.kernel.org
+X-Mailman-Approved-At: Tue, 02 Jun 2026 13:45:21 +0000
+Subject: Re: [apparmor] [PATCH 00/11] Convert moduleparams to seq_buf
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -83,91 +50,147 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-Cc: Rodrigo Zaiden <rodrigoffzz@gmail.com>,
- linux-kernel-mentees@lists.linuxfoundation.org,
- Brigham Campbell <me@brighamcampbell.com>, apparmor@lists.ubuntu.com,
- Shuah Khan <skhan@linuxfoundation.org>
+From: Kees Cook via AppArmor <apparmor@lists.ubuntu.com>
+Reply-To: Kees Cook <kees@kernel.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, dri-devel@lists.freedesktop.org,
+ Pengpeng Hou <pengpeng@iscas.ac.cn>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ linux-arch@vger.kernel.org, Bart Van Assche <bvanassche@acm.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, James Morris <jmorris@namei.org>,
+ kasan-dev@googlegroups.com, Tvrtko Ursulin <tursulin@ursulin.net>,
+ linux-acpi@vger.kernel.org, Alan Stern <stern@rowland.harvard.edu>,
+ linux-pm@vger.kernel.org, linux-um@lists.infradead.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Luis Chamberlain <mcgrof@kernel.org>,
+ linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ linux-media@vger.kernel.org, Lukasz Luba <lukasz.luba@arm.com>,
+ "Maciej W. Rozycki" <macro@orcam.me.uk>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Simona Vetter <simona@ffwll.ch>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+ Paul Moore <paul@paul-moore.com>, Leon Romanovsky <leon@kernel.org>,
+ Frank Li <Frank.Li@kernel.org>, Gabriel Somlo <somlo@cmu.edu>,
+ Len Brown <lenb@kernel.org>, Vasily Gorbik <gor@linux.ibm.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Jason Baron <jbaron@akamai.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Jim Cromie <jim.cromie@gmail.com>,
+ Sean Christopherson <seanjc@google.com>, Thomas Gleixner <tglx@kernel.org>,
+ usb-storage@lists.one-eyed-alien.net, linux-pci@vger.kernel.org,
+ Jason Wang <jasowang@redhat.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ "David E. Box" <david.e.box@linux.intel.com>,
+ Jiri Slaby <jirislaby@kernel.org>, linux-rdma@vger.kernel.org,
+ Sami Tolvanen <samitolvanen@google.com>,
+ Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ "Serge E. Hallyn" <serge@hallyn.com>, Marco Elver <elver@google.com>,
+ intel-gfx@lists.freedesktop.org, Corey Minyard <corey@minyard.net>,
+ Borislav Petkov <bp@alien8.de>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ openipmi-developer@lists.sourceforge.net,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Aaron Tomlin <atomlin@atomlin.com>, Hans de Goede <hansg@kernel.org>,
+ kvm@vger.kernel.org, "Michael S. Tsirkin" <mst@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>, "H. Peter Anvin" <hpa@zytor.com>,
+ qemu-devel@nongnu.org, linux-mm@kvack.org,
+ Alexander Potapenko <glider@google.com>, Daniel Gomez <da.gomez@kernel.org>,
+ David Airlie <airlied@gmail.com>,
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>, linux-scsi@vger.kernel.org,
+ Richard Weinberger <richard@nod.at>, x86@kernel.org,
+ linux-security-module@vger.kernel.org,
+ Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+ Ingo Molnar <mingo@redhat.com>, linux-serial@vger.kernel.org,
+ Zhang Rui <rui.zhang@intel.com>, Heiko Carstens <hca@linux.ibm.com>,
+ apparmor@lists.ubuntu.com, virtualization@lists.linux.dev,
+ linux-hardening@vger.kernel.org, Hannes Reinecke <hare@suse.de>,
+ Benjamin Berg <benjamin.berg@intel.com>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Tiwei Bie <tiwei.btw@antgroup.com>, Dmitry Vyukov <dvyukov@google.com>,
+ netdev@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
+ dmaengine@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
+ Johannes Berg <johannes@sipsolutions.net>, linuxppc-dev@lists.ozlabs.org,
+ linux-modules@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
-X-Spamd-Result: default: False [1.69 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
-	R_MISSING_CHARSET(0.50)[];
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [5.89 / 15.00];
+	SEM_URIBL(3.50)[lists.ubuntu.com:from_mime,lists.ubuntu.com:from_smtp];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DATE_IN_PAST(1.00)[25];
+	MID_RHS_NOT_FQDN(0.50)[];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
+	BAD_REP_POLICIES(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:john.johansen@canonical.com,m:rodrigoffzz@gmail.com,m:linux-kernel-mentees@lists.linuxfoundation.org,m:me@brighamcampbell.com,m:apparmor@lists.ubuntu.com,m:skhan@linuxfoundation.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:rdns,lists.ubuntu.com:helo];
-	RCVD_COUNT_THREE(0.00)[4];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[rodrigoffzz@gmail.com,apparmor-bounces@lists.ubuntu.com];
-	MIME_TRACE(0.00)[0:+];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:petr.pavlu@suse.com,m:rafael@kernel.org,m:dri-devel@lists.freedesktop.org,m:pengpeng@iscas.ac.cn,m:srinivas.pandruvada@linux.intel.com,m:linux-arch@vger.kernel.org,m:bvanassche@acm.org,m:jgg@ziepe.ca,m:jmorris@namei.org,m:kasan-dev@googlegroups.com,m:tursulin@ursulin.net,m:linux-acpi@vger.kernel.org,m:stern@rowland.harvard.edu,m:linux-pm@vger.kernel.org,m:linux-um@lists.infradead.org,m:gregkh@linuxfoundation.org,m:linux-usb@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:mcgrof@kernel.org,m:linux-fsdevel@vger.kernel.org,m:akpm@linux-foundation.org,m:linux-media@vger.kernel.org,m:lukasz.luba@arm.com,m:macro@orcam.me.uk,m:dave.hansen@linux.intel.com,m:James.Bottomley@hansenpartnership.com,m:simona@ffwll.ch,m:xuanzhuo@linux.alibaba.com,m:paul@paul-moore.com,m:leon@kernel.org,m:Frank.Li@kernel.org,m:somlo@cmu.edu,m:lenb@kernel.org,m:gor@linux.ibm.com,m:jani.nikula@linux.intel.com,m:jbaron@akamai.com,m:bhelgaas@google.com,m:jim.cromie@gmail.com,m:seanjc@google.
+ com,m:tglx@kernel.org,m:usb-storage@lists.one-eyed-alien.net,m:linux-pci@vger.kernel.org,m:jasowang@redhat.com,m:joonas.lahtinen@linux.intel.com,m:laurent.pinchart@ideasonboard.com,m:david.e.box@linux.intel.com,m:jirislaby@kernel.org,m:linux-rdma@vger.kernel.org,m:samitolvanen@google.com,m:ilpo.jarvinen@linux.intel.com,m:serge@hallyn.com,m:elver@google.com,m:intel-gfx@lists.freedesktop.org,m:corey@minyard.net,m:bp@alien8.de,m:rodrigo.vivi@intel.com,m:openipmi-developer@lists.sourceforge.net,m:mchehab@kernel.org,m:martin.petersen@oracle.com,m:atomlin@atomlin.com,m:hansg@kernel.org,m:kvm@vger.kernel.org,m:mst@redhat.com,m:peterz@infradead.org,m:hpa@zytor.com,m:qemu-devel@nongnu.org,m:linux-mm@kvack.org,m:glider@google.com,m:da.gomez@kernel.org,m:airlied@gmail.com,m:anton.ivanov@cambridgegreys.com,m:linux-scsi@vger.kernel.org,m:richard@nod.at,m:x86@kernel.org,m:linux-security-module@vger.kernel.org,m:eperezma@redhat.com,m:mingo@redhat.com,m:linux-serial@vger.kernel.org,m:rui.zhang@inte
+ l.com,m:hca@linux.ibm.com,m:apparmor@lists.ubuntu.com,m:virtualization@lists.linux.dev,m:linux-hardening@vger.kernel.org,m:hare@suse.de,m:benjamin.berg@intel.com,m:daniel.lezcano@kernel.org,m:andriy.shevchenko@linux.intel.com,m:tiwei.btw@antgroup.com,m:dvyukov@google.com,m:netdev@vger.kernel.org,m:vkoul@kernel.org,m:dmaengine@vger.kernel.org,m:pbonzini@redhat.com,m:johannes@sipsolutions.net,m:linuxppc-dev@lists.ozlabs.org,m:linux-modules@vger.kernel.org,s:lists@lfdr.de];
 	FROM_HAS_DN(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	TAGGED_RCPT(0.00)[apparmor];
+	RCVD_TLS_LAST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[96];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[apparmor@lists.ubuntu.com,apparmor-bounces@lists.ubuntu.com];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	GREYLIST(0.00)[pass,meta];
+	TO_DN_SOME(0.00)[];
+	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
+	MIME_TRACE(0.00)[0:+];
+	FROM_NEQ_ENVFROM(0.00)[apparmor@lists.ubuntu.com,apparmor-bounces@lists.ubuntu.com];
+	FREEMAIL_CC(0.00)[kernel.org,lists.freedesktop.org,iscas.ac.cn,linux.intel.com,vger.kernel.org,acm.org,ziepe.ca,namei.org,googlegroups.com,ursulin.net,rowland.harvard.edu,lists.infradead.org,linuxfoundation.org,linux-foundation.org,arm.com,orcam.me.uk,hansenpartnership.com,ffwll.ch,linux.alibaba.com,paul-moore.com,cmu.edu,linux.ibm.com,akamai.com,google.com,gmail.com,lists.one-eyed-alien.net,redhat.com,ideasonboard.com,hallyn.com,minyard.net,alien8.de,intel.com,lists.sourceforge.net,oracle.com,atomlin.com,infradead.org,zytor.com,nongnu.org,kvack.org,cambridgegreys.com,nod.at,lists.ubuntu.com,lists.linux.dev,suse.de,antgroup.com,sipsolutions.net,lists.ozlabs.org];
+	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
+	R_SPF_ALLOW(0.00)[+ip4:185.125.189.65:c];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
-	FREEMAIL_CC(0.00)[gmail.com,lists.linuxfoundation.org,brighamcampbell.com,lists.ubuntu.com,linuxfoundation.org];
+	TAGGED_RCPT(0.00)[apparmor];
+	ALIAS_RESOLVED(0.00)[];
+	R_DKIM_NA(0.00)[];
+	DMARC_POLICY_ALLOW(0.00)[lists.ubuntu.com,none];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	HAS_REPLYTO(0.00)[kees@kernel.org];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
+	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_SPAM(0.00)[0.398];
-	FROM_NEQ_ENVFROM(0.00)[rodrigoffzz@gmail.com,apparmor-bounces@lists.ubuntu.com];
-	RCPT_COUNT_FIVE(0.00)[6];
-	DKIM_TRACE(0.00)[gmail.com:-]
-X-Rspamd-Queue-Id: 4E28161F82A
-X-Rspamd-Action: no action
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:helo,lists.ubuntu.com:rdns,lists.ubuntu.com:from_mime,lists.ubuntu.com:from_smtp]
 X-Rspamd-Server: lfdr
+X-Rspamd-Queue-Id: 022396320B1
 
-Fix two kernel-doc warnings:
-- non-kernel-doc comment marked with '/**' in af_unix.c
-- documented symbol name mismatch for aa_get_i_loaddata() in
-  policy_unpack.h
+On Tue, May 26, 2026 at 08:53:06AM +0200, Petr Pavlu wrote:
+> On 5/21/26 3:33 PM, Kees Cook wrote:
+> > Hi,
+> > 
+> > I tried to trim the CC list here, but it's still pretty huge...
+> > 
+> > We've had a long-standing issue with "write to a string pointer" callbacks
+> > that don't bounds check the destination (and for which the bounds is
+> > also not part of the callback prototype, even if it is "known" to be
+> > PAGE_SIZE, which sysfs_emit() depends on). Both moduleparams and sysfs
+> > use this pattern. As a first step, and to test the migration method,
+> > migrate moduleparams first.
+> > 
+> > There are 2 "mechanical" treewide patches that are handled by Coccinelle:
+> > - treewide: Convert struct kernel_param_ops initializers to DEFINE_KERNEL_PARAM_OPS
+> > - treewide: Convert custom kernel_param_ops .get callbacks to seq_buf via cocci
+> > 
+> > The last treewide patch is manual, and may need to be broken up into
+> > per-subsystem patches, though I'd prefer to avoid this, as it would
+> > extend the migration from 1 relase to at least 2 releases. (1 to
+> > release the migration infrastructure, then 1 release to collect all the
+> > subsystem changes, and possibly 1 more release to remove the migration
+> > infrastructure.)
+> > 
+> > Thoughts, questions?
+> 
+> This looks reasonable to me. I added a few minor comments on the patches
+> but they already look solid.
 
-No functional changes.
+Thanks for the review! I'll get a v2 prepared with your notes addressed. :)
 
-Signed-off-by: Rodrigo Zaiden <rodrigoffzz@gmail.com>
----
- security/apparmor/af_unix.c               | 2 +-
- security/apparmor/include/policy_unpack.h | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+-Kees
 
-diff --git a/security/apparmor/af_unix.c b/security/apparmor/af_unix.c
-index fdb4a9f212c3..ec6018662b1a 100644
---- a/security/apparmor/af_unix.c
-+++ b/security/apparmor/af_unix.c
-@@ -615,7 +615,7 @@ static int unix_peer_perm(const struct cred *subj_cred,
- 					  peer_label, &ad));
- }
- 
--/**
-+/*
-  *
-  * Requires: lock held on both @sk and @peer_sk
-  *           called by unix_stream_connect, unix_may_send
-diff --git a/security/apparmor/include/policy_unpack.h b/security/apparmor/include/policy_unpack.h
-index e5a95dc4da1f..0399cec16fe8 100644
---- a/security/apparmor/include/policy_unpack.h
-+++ b/security/apparmor/include/policy_unpack.h
-@@ -131,7 +131,7 @@ struct aa_loaddata {
- int aa_unpack(struct aa_loaddata *udata, struct list_head *lh, const char **ns);
- 
- /**
-- * aa_get_loaddata - get a reference count from a counted data reference
-+ * aa_get_i_loaddata - get a reference count from a counted data reference
-  * @data: reference to get a count on
-  *
-  * Returns: pointer to reference
 -- 
-2.43.0
-
+Kees Cook
 
