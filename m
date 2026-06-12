@@ -2,13 +2,13 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id h5wJA9FPLGrcPAQAu9opvQ
+	id 7VsxAJBTLGrAPQQAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Fri, 12 Jun 2026 20:28:33 +0200
+	for <lists+apparmor@lfdr.de>; Fri, 12 Jun 2026 20:44:32 +0200
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id A36CE67BB08
-	for <lists+apparmor@lfdr.de>; Fri, 12 Jun 2026 20:28:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 886F367BD3B
+	for <lists+apparmor@lfdr.de>; Fri, 12 Jun 2026 20:44:31 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
 	dkim=none;
 	dmarc=pass (policy=none) header.from=lists.ubuntu.com;
@@ -16,64 +16,66 @@ Authentication-Results: mail.lfdr.de;
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1wY6c6-0006pK-DI; Fri, 12 Jun 2026 18:28:18 +0000
-Received: from smtp-relay-internal-1.internal ([10.131.114.114]
- helo=smtp-relay-internal-1.canonical.com)
+	id 1wY6rY-0005Jn-Br; Fri, 12 Jun 2026 18:44:16 +0000
+Received: from smtp-relay-internal-0.internal ([10.131.114.225]
+ helo=smtp-relay-internal-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1wY6c5-0006ok-4m
- for apparmor@lists.ubuntu.com; Fri, 12 Jun 2026 18:28:17 +0000
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
- [209.85.215.198])
+ id 1wY6rW-0005JG-Ub
+ for apparmor@lists.ubuntu.com; Fri, 12 Jun 2026 18:44:14 +0000
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
+ [209.85.210.198])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id EB0FB3F1C0
- for <apparmor@lists.ubuntu.com>; Fri, 12 Jun 2026 18:28:16 +0000 (UTC)
-Received: by mail-pg1-f198.google.com with SMTP id
- 41be03b00d2f7-c8620ee0971so1287675a12.0
- for <apparmor@lists.ubuntu.com>; Fri, 12 Jun 2026 11:28:16 -0700 (PDT)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id A7D4F3F1D3
+ for <apparmor@lists.ubuntu.com>; Fri, 12 Jun 2026 18:44:14 +0000 (UTC)
+Received: by mail-pf1-f198.google.com with SMTP id
+ d2e1a72fcca58-8423970cb30so939513b3a.2
+ for <apparmor@lists.ubuntu.com>; Fri, 12 Jun 2026 11:44:14 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781288895; x=1781893695;
+ d=1e100.net; s=20251104; t=1781289853; x=1781894653;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
  :content-language:references:to:subject:user-agent:mime-version:date
  :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=rA5X3GSceOtHbd+zSxtSH5jNoDUBrITgtC8Q4iv1gao=;
- b=A+JY8UeieosjEDzWGypyxQ+zqyCe/gdPqhl92JatLZhw57WjW4W+xZG332UT0eSrFG
- JzUShNr/zJhenwik9S1ak8l6AEGkbnQXvpoVoEHy3i3WjoukifOqiZQp6FODnHToLUQj
- 7filNuK+sPJ86me6u28IBw2sBdHIVfNXFqMyVrWH6eQZBhN4obCMpf58JZ2mP84xB+00
- zInvwb42/G1Q/2sjNgBG601mAyz06bk1YSy9pL1ZUbk7CWz8PGxOtAOTPBthpsSLDDhd
- bVboZ7O0xzksLI0w6gPuqY+VR8SlMEDWPDM52SS4Pqtp6kPi9XJeeIetCv/N3BnnHYT6
- qoYw==
-X-Gm-Message-State: AOJu0YyQLKGhrNahB7SbKUOH4lPeeH+dJxVL2f9O7QXJx7DfCZPU9lmb
- gFllOGV9lHYE5qcEsy1AYm0Okbtt+3O1Ylu1/lTynzNMt+apMxBctaHpW+CjCa7W+GFevubXW3b
- tVbjuGrMF6l9ziYyI2bNqTA9m2aFthCOVnygiH428cfEvowwUFBeVJ/ISYm2sRPSePqGJV6w8rg
- kN4Q6nSEk5Vw==
-X-Gm-Gg: Acq92OEr6fxe33L5V9JxWkZp6jsONBIQRSwZFPsuv8Q8x6/CTiehsp6JEyQZD6Tjx30
- EGp3Rgw1CLAUajMvhapKO6vkUxr4abl8A6k8/8eC9JqLBNPvZzXPdWTpA4KZVeIZd1HIXR6Nuyt
- /ARFQu6nea5eeOLTRta+Ff1vQQlmicOz5Z6Xg0ZWpiOIWhbFstdjG88vHNpLltCaNHMu+m3EDs0
- 6U99V+DeWDtmze4zOdxtdNacROTbA/1CKh6ACHjDWfTf5A5qSNX3Svhd93L56l+idghNyDTcTui
- hEicCj61SX6rAiRuR47Aex00n9wlZne5soBy0xsCy6Hw0ICX4bsNX0+fov82qm1NiBF4dAhExSm
- vNWieurj3lNw4lTGnp+VBgqI/YgXXRic6gwJS
-X-Received: by 2002:a05:6a21:4d8d:b0:3b1:cce5:9140 with SMTP id
- adf61e73a8af0-3b7963dc7d2mr862796637.33.1781288895303; 
- Fri, 12 Jun 2026 11:28:15 -0700 (PDT)
-X-Received: by 2002:a05:6a21:4d8d:b0:3b1:cce5:9140 with SMTP id
- adf61e73a8af0-3b7963dc7d2mr862769637.33.1781288894816; 
- Fri, 12 Jun 2026 11:28:14 -0700 (PDT)
+ bh=dF0/l4NllLl1Yf/JlcSWULHwhtYFTVYzSPp4Io1b/FU=;
+ b=f/EZQFxm1NiWz4AaYsWdruzTeLCo8duFoNkcZjDEE6ZAOhNzNushl/ycq/2wyBmTF7
+ oaqNr5m6okq3f7Sd8O7aeRWw2RPfUrVaWkMQcZJI/JtfYUMHswLuIXqgG0FpBm6y8hB8
+ gzHcexrEcXNqBPIKlMDVb4ey1wjB8BCDqWQPj0z9koIC8pNtq3RO0q87hndYCuQq+Hpv
+ O9IP6Tc1tpLc9+Ci9tVzDCEohwdHYREnp4E5rSAVJbbQL4VZsOVBtuQpgh1mmGnNbpIn
+ xHurvLZKqFv1zOccq9oNS9fAMegNjMUiYAuFkt4RmB/WG+zutRGFGOxmDHOjw9Wua5vp
+ l6Qg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8vmdV3fLlyfvX0St0AaITQpPa1UR7PTFO5pqUr5WKRNDHM9SV8GPMk/Q+eD8JnOqBKnUzvxGQsoQ==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0Yzx1cGUHcp188xiCcQNuND9uJKhHwoZtdLNJjzlewkaaAmZriHe
+ tkqX8Sw9slX0o3wZfcw0iAjJc6qtnTR2AqWTBUNZrAXehruskSHaIEEeZXkDw7WOkcPvByhgFLD
+ WC364wiWasydxkCvnWXh19bMLlGQYG6D2FSS3RIlL/flwEzr/CusH03rY24xW2wib2e/S45ikk/
+ ThSF3ReaVVcA==
+X-Gm-Gg: Acq92OEBLC39IuVZqmx86CdQANSS2w1AayNluHobFeS6E88mghD5e+U/VVFEmomSvGi
+ jzHSGDib80TOQsBix6bE46mlwCkAZTjRaisewLuLySbsP/sKrJR7kl4SmzPIIK2CYxkOMTfVi9w
+ gVm0CB3L8KuamXA3m86i+lmkscCKws8XP5VC/J+5EH34EmjU/KxuS5BIlzmOkWMDOkQ8bYoi2bp
+ xUoXGP3MJb+V81dIDVSyV8w6fgQd6ezgFz9P+6kVv11lhCFOGJjr7B9p0E3OvuCzGox4UvMUrs4
+ 78zZl2HJPZymANtYJhHlmK5MnDGWfNb7NvySBBy3ZTfXFnjuOVG/Qk/GJnbM+8R+umwynO1cEoj
+ ZmlvZK+V7srLyNHmlR48x3VLKM07sjLzIzNA7
+X-Received: by 2002:a05:6a00:3d48:b0:838:127d:a167 with SMTP id
+ d2e1a72fcca58-844e1987135mr949553b3a.16.1781289853177; 
+ Fri, 12 Jun 2026 11:44:13 -0700 (PDT)
+X-Received: by 2002:a05:6a00:3d48:b0:838:127d:a167 with SMTP id
+ d2e1a72fcca58-844e1987135mr949525b3a.16.1781289852781; 
+ Fri, 12 Jun 2026 11:44:12 -0700 (PDT)
 Received: from [192.168.192.71] ([50.47.147.90])
  by smtp.googlemail.com with ESMTPSA id
- 41be03b00d2f7-c8661b5b207sm2789441a12.5.2026.06.12.11.28.13
- for <apparmor@lists.ubuntu.com>
+ d2e1a72fcca58-8434ad0118asm2754967b3a.27.2026.06.12.11.44.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 12 Jun 2026 11:28:13 -0700 (PDT)
-Message-ID: <2465508d-b60d-4ae5-b887-06e54989f8cb@canonical.com>
-Date: Fri, 12 Jun 2026 11:28:12 -0700
+ Fri, 12 Jun 2026 11:44:12 -0700 (PDT)
+Message-ID: <768ebf8a-5b96-4c52-96c4-1e20c2e29386@canonical.com>
+Date: Fri, 12 Jun 2026 11:44:11 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: apparmor@lists.ubuntu.com
-References: <20260528190412.680277-1-georgia.garcia@canonical.com>
+To: Andrew Morton <akpm@linux-foundation.org>, serge@hallyn.com,
+ paul@paul-moore.com, jmorris@namei.org, apparmor@lists.ubuntu.com
+References: <20260603203406.E03761F00893@smtp.kernel.org>
 Content-Language: en-US
 Autocrypt: addr=john.johansen@canonical.com; keydata=
  xsFNBE5mrPoBEADAk19PsgVgBKkImmR2isPQ6o7KJhTTKjJdwVbkWSnNn+o6Up5knKP1f49E
@@ -118,11 +120,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20260528190412.680277-1-georgia.garcia@canonical.com>
+In-Reply-To: <20260603203406.E03761F00893@smtp.kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH] apparmor: don't audit files pointing to
- aa_null.dentry
+Subject: Re: [apparmor] [patch 1/1] security/apparmor/apparmorfs.c:
+ conditionally compile get_loaddata_common_ref()
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -143,66 +145,89 @@ X-Spamd-Result: default: False [2.89 / 15.00];
 	SEM_URIBL(3.50)[lists.ubuntu.com:from_smtp,lists.ubuntu.com:from_mime];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
 	MAILLIST(-0.20)[mailman];
-	BAD_REP_POLICIES(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
+	BAD_REP_POLICIES(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
-	DMARC_POLICY_ALLOW(0.00)[lists.ubuntu.com,none];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
 	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
-	HAS_ORG_HEADER(0.00)[];
-	RCPT_COUNT_ONE(0.00)[1];
+	DMARC_POLICY_ALLOW(0.00)[lists.ubuntu.com,none];
 	RCVD_TLS_LAST(0.00)[];
-	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:akpm@linux-foundation.org,m:serge@hallyn.com,m:paul@paul-moore.com,m:jmorris@namei.org,m:apparmor@lists.ubuntu.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[apparmor@lists.ubuntu.com,apparmor-bounces@lists.ubuntu.com];
+	TO_DN_SOME(0.00)[];
 	ARC_NA(0.00)[];
-	R_SPF_ALLOW(0.00)[+ip4:185.125.189.65];
-	TO_EQ_FROM(0.00)[];
+	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	HAS_ORG_HEADER(0.00)[];
+	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
+	HAS_REPLYTO(0.00)[john.johansen@canonical.com];
 	RCVD_COUNT_FIVE(0.00)[5];
-	TO_DN_NONE(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[apparmor@lists.ubuntu.com,apparmor-bounces@lists.ubuntu.com];
-	FROM_HAS_DN(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[apparmor@lists.ubuntu.com,apparmor-bounces@lists.ubuntu.com];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linux-foundation.org:email,canonical.com:replyto,canonical.com:email,canonical.com:mid,lists.ubuntu.com:from_smtp,lists.ubuntu.com:helo,lists.ubuntu.com:rdns,lists.ubuntu.com:from_mime,hallyn.com:email,namei.org:email,paul-moore.com:email];
 	R_DKIM_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	R_SPF_ALLOW(0.00)[+ip4:185.125.189.65];
 	TAGGED_RCPT(0.00)[apparmor];
-	HAS_REPLYTO(0.00)[john.johansen@canonical.com]
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: A36CE67BB08
+X-Rspamd-Queue-Id: 886F367BD3B
 
-On 5/28/26 12:04, Georgia Garcia wrote:
-> In 4a134723f9f1 there was a change to not audit files pointing to
-> aa_null.dentry because they provide no value, but setting the error
-> variable instead of returning -EACCES was still causing them to be
-> audited.
+On 6/3/26 13:34, Andrew Morton wrote:
+> From: Andrew Morton <akpm@linux-foundation.org>
+> Subject: security/apparmor/apparmorfs.c: conditionally compile get_loaddata_common_ref()
+> Date: Wed Jun  3 01:30:46 PM PDT 2026
 > 
-> Fixes: 4a134723f9f1 ("apparmor: move check for aa_null file to cover all cases")
-> Signed-off-by: Georgia Garcia <georgia.garcia@canonical.com>
+> Some config did this:
+> 
+> security/apparmor/apparmorfs.c:177:28: warning: 'get_loaddata_common_ref' defined but not used [-Wunused-function]
+>    177 | static struct aa_loaddata *get_loaddata_common_ref(struct aa_common_ref *ref)
+> 
+> get_loaddata_common_ref() is only used if
+> CONFIG_SECURITY_APPARMOR_EXPORT_BINARY=y.
+> 
+> (Or of course move the function into that block if maintainers perfer)
+> 
+> Cc: John Johansen <john.johansen@canonical.com>
+> Cc: Paul Moore <paul@paul-moore.com>
+> Cc: James Morris <jmorris@namei.org>
+> Cc: "Serge E. Hallyn" <serge@hallyn.com>
+> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 
 Acked-by: John Johansen <john.johansen@canonical.com>
 
 I have pulled this into my tree
 
-
 > ---
->   security/apparmor/file.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/security/apparmor/file.c b/security/apparmor/file.c
-> index 694e157149e8..fc5abd5473c8 100644
-> --- a/security/apparmor/file.c
-> +++ b/security/apparmor/file.c
-> @@ -157,7 +157,7 @@ static int path_name(const char *op, const struct cred *subj_cred,
+>   security/apparmor/apparmorfs.c |    2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> --- a/security/apparmor/apparmorfs.c~security-apparmor-apparmorfsc-conditionally-compile-get_loaddata_common_ref
+> +++ a/security/apparmor/apparmorfs.c
+> @@ -174,6 +174,7 @@ static struct aa_proxy *get_proxy_common
+>   	return NULL;
+>   }
 >   
->   	/* don't reaudit files closed during inheritance */
->   	if (unlikely(path->dentry == aa_null.dentry))
-> -		error = -EACCES;
-> +		return -EACCES;
->   	else
->   		error = aa_path_name(path, flags, buffer, name, &info,
->   				     labels_profile(label)->disconnected);
+> +#ifdef CONFIG_SECURITY_APPARMOR_EXPORT_BINARY
+>   static struct aa_loaddata *get_loaddata_common_ref(struct aa_common_ref *ref)
+>   {
+>   	if (ref)
+> @@ -181,6 +182,7 @@ static struct aa_loaddata *get_loaddata_
+>   						      count));
+>   	return NULL;
+>   }
+> +#endif
+>   
+>   static void aa_put_common_ref(struct aa_common_ref *ref)
+>   {
+> _
 
 
