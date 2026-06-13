@@ -2,13 +2,13 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id B8KNDUjoLGq/XQQAu9opvQ
+	id iMUOHAHrLGoYXgQAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Sat, 13 Jun 2026 07:19:04 +0200
+	for <lists+apparmor@lfdr.de>; Sat, 13 Jun 2026 07:30:41 +0200
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEEED67DBD9
-	for <lists+apparmor@lfdr.de>; Sat, 13 Jun 2026 07:19:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15D3F67DC63
+	for <lists+apparmor@lfdr.de>; Sat, 13 Jun 2026 07:30:41 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
 	dkim=none;
 	dmarc=pass (policy=none) header.from=lists.ubuntu.com;
@@ -16,65 +16,64 @@ Authentication-Results: mail.lfdr.de;
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1wYGlT-00032s-PL; Sat, 13 Jun 2026 05:18:39 +0000
+	id 1wYGwr-0004gB-8i; Sat, 13 Jun 2026 05:30:25 +0000
 Received: from smtp-relay-internal-0.internal ([10.131.114.225]
  helo=smtp-relay-internal-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1wYGlR-00032k-Ux
- for apparmor@lists.ubuntu.com; Sat, 13 Jun 2026 05:18:37 +0000
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
+ id 1wYGwp-0004fd-N9
+ for apparmor@lists.ubuntu.com; Sat, 13 Jun 2026 05:30:23 +0000
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id C704D3F1E4
- for <apparmor@lists.ubuntu.com>; Sat, 13 Jun 2026 05:18:37 +0000 (UTC)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-2c2c98c1be2so12805465ad.0
- for <apparmor@lists.ubuntu.com>; Fri, 12 Jun 2026 22:18:37 -0700 (PDT)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 83D6C3F185
+ for <apparmor@lists.ubuntu.com>; Sat, 13 Jun 2026 05:30:23 +0000 (UTC)
+Received: by mail-pj1-f69.google.com with SMTP id
+ 98e67ed59e1d1-36bc5e97950so1897036a91.1
+ for <apparmor@lists.ubuntu.com>; Fri, 12 Jun 2026 22:30:23 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781327916; x=1781932716;
+ d=1e100.net; s=20251104; t=1781328622; x=1781933422;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
  :content-language:references:to:subject:user-agent:mime-version:date
  :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=5w6ewO07vly9Rwb9SBql/I+2bUdVBxWRyNXeJC+MmEE=;
- b=IXRJClf4u4yNklB4dWg4PdgrrXqzFMzS8oigzo3hpQG2UQbWjYo9CoF3M+59ynZnVY
- NpLtgGssdgK906R+jbFu6WoP9ZBW/PK/RZxggSWkLenNsgrZhGOhv5YK2FZFvzLwMmRy
- 3MSNQ7f4B6/OZAqMbpm+k3ccDVEzVdRbLheuBaoCGOzOls4OggYHfC1ABmSKsIrYmkB7
- dEd5JACNxmUAgeMgNfmDWMb2uiy56GheuzToteBEedDzm18E3IsE3HnJW1MY3UKl2e0s
- oRqZfrnwpInddv6sinZla4adKEMAjmUu5TKzGnM2qLRNu3akSYYP8vJSU/gFbuTp73Cs
- jb+g==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+aNTD9x4Wbdf25gav/tRywBhsKmNWxj0uXpVfAlokPuIxxBivLI4OpboFOiZmng3vjkL+/+wXUtA==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0Yxmf1x/X6IcbPrVqDNYTCGyJmjIJiPm2Xz9mFZnqSv4y7gHZN6m
- eoqnJEICQFd6pi1yCUiKR//aHd02Am9MByOmWI/tBDPAOjxA5/u75MDLPW7zKob05mIaC72UxtZ
- FH3h6P6NFBdAYpt4L3k/BZKupPI6xyNlJlI4zKTMp+cDcbFnZIAdVZsYuZ2/Xpos0a2kIgb4LTX
- Pt6kaPSIMjBw==
-X-Gm-Gg: Acq92OGcJKX8m7EI77p6d19L/gI68nSrWDghZrd7WelJxLcWD9NMItRbp7kWn1YmkAA
- Hvpyvg4WE/ArTpk+dL7nDVxMxOCJpaDgu6SGP27Zopg9ubimqCQ1JKewgSuEtbO+gJA9qz7og1i
- x0oc06CmItAHyMGYFgUEDhWWWQA5pQRAcoxjq+pCz9SksDTIcyjS262uzY+jI+wrMhBBsG078wH
- H6BYkS4ioMNNBalKm2Z/ZiupjszHgOeZslpKVF6/yxUiMkvq0jvBaXy3NBXfnwLIsFgNkwx3Uye
- kxEU5YXSQKAJPWFwvXQlVjLXw2xVNeupJ8Zem/c8+d8A2QdvSrnmxAMYPOP4TcpzCZ78x7gmG72
- OuW5wtxKPPwbSsRI0h0jl9JZ5I+CwtQbbKzdI
-X-Received: by 2002:a17:902:fc8d:b0:2c0:c0fa:1659 with SMTP id
- d9443c01a7336-2c413dbe166mr72066745ad.33.1781327916008; 
- Fri, 12 Jun 2026 22:18:36 -0700 (PDT)
-X-Received: by 2002:a17:902:fc8d:b0:2c0:c0fa:1659 with SMTP id
- d9443c01a7336-2c413dbe166mr72066585ad.33.1781327915622; 
- Fri, 12 Jun 2026 22:18:35 -0700 (PDT)
+ bh=7M1ZCuiBXjP7qoQNmTH6pfwLXAzlCgBxzjfVXODnsOs=;
+ b=A5QzMSrxTtgnzWxDF4/yMAJd8EyK9OyXGMeWxPKlad7wD+LRxMLU6BlpSylbiTLBl2
+ JNrnxZSBu+oQRAIRikJ/xrxgNs/5Gce+LZJ72B4UAkrZhdabgBg2tpsn9xN2RlsGLwzs
+ Ca3QPqFb5NPzphqfgCwp2WiDTQi2pIGQr/u+ZcrolIYS9aUQVz7ds+oNk3DI5aC7/iSW
+ YbPOmmHRhE7TDAqo88mJUeBNUWTMaePnGcYwWIUOMqkaItDIEdj5Cg4HD/SuxN5IR+9z
+ LemP4S7Dmb0R39D16VYMFWhdxvjs9kwitwnj0/VIL+wnvgzanJYhcfdB5TcJrPPeR/+Y
+ 1haA==
+X-Gm-Message-State: AOJu0YxSSLu4mXsbogPa2ntrvzeVyakpA1AjPqOMXwAog8qUYXL9ICXX
+ iYDEBMj2v1x8M4Cz52UbGcZEoXkuooa+yCrWW1wnVki5xZDwIS1oIuY92hmPf84Nl2vReOPTJTv
+ oNjrBxPWU4IdPeSWUYUpGChfjxfrH1FfWmI9KkZaCqPmlCOehIojA5RCGLs+6yf2MyLSujWJEiR
+ 6IlUcEevluuQ==
+X-Gm-Gg: Acq92OFokgKc9OLpQeL2UgYLUpwiFOW4/JrPUSWUZkofq0ikiUgGMqB+91Vl8sPs494
+ rm4Le12YJ/JK96MVaTYwEeEnY3IupO1rQZHDs+TRk7U1C1Ezch1LKtlykAFI1M51Z7DG3PdI+P0
+ WNfuuQALoSIFrPQFdfn0WzRrtvBgciJCAbwbfwrPOv0VOjXR980/x2acaUp3XmuORtSPJ4OuidN
+ Ty1+Ra8IITa1U81FhUWHYycps/iC9+McJPZsxl/6ka0q1g1TMVtVGe0/2OKOqiIZiF3TVQpZkEo
+ sGvVVtXMxHUnYcp4sOPoF/hHKBaXFCygGKwtglcn3lDLL3n6fZsaaqMF0oUY+T6mq+2MwTK3HNo
+ uFbkMa8tW1qUsVdfDrHIwfYpWjRtXfPoDReVN
+X-Received: by 2002:a17:90b:3912:b0:36b:afa0:c53d with SMTP id
+ 98e67ed59e1d1-37a0184a180mr6043014a91.2.1781328621828; 
+ Fri, 12 Jun 2026 22:30:21 -0700 (PDT)
+X-Received: by 2002:a17:90b:3912:b0:36b:afa0:c53d with SMTP id
+ 98e67ed59e1d1-37a0184a180mr6042987a91.2.1781328621454; 
+ Fri, 12 Jun 2026 22:30:21 -0700 (PDT)
 Received: from [192.168.192.71] ([50.47.147.90])
  by smtp.googlemail.com with ESMTPSA id
- d9443c01a7336-2c432f77479sm37445325ad.63.2026.06.12.22.18.34
+ 98e67ed59e1d1-37a262adf21sm3722366a91.14.2026.06.12.22.30.20
+ for <apparmor@lists.ubuntu.com>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 12 Jun 2026 22:18:35 -0700 (PDT)
-Message-ID: <77d00962-f91f-47cc-9f02-7aeef6b88a19@canonical.com>
-Date: Fri, 12 Jun 2026 22:18:34 -0700
+ Fri, 12 Jun 2026 22:30:20 -0700 (PDT)
+Message-ID: <0db4e58f-896c-43b5-a9b5-0e7f30916a2a@canonical.com>
+Date: Fri, 12 Jun 2026 22:30:20 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Dudu Lu <phx0fer@gmail.com>, apparmor@lists.ubuntu.com
-References: <20260413090313.79315-1-phx0fer@gmail.com>
+To: apparmor@lists.ubuntu.com
+References: <20260502112134.182049-1-me@zygoon.pl>
 Content-Language: en-US
 Autocrypt: addr=john.johansen@canonical.com; keydata=
  xsFNBE5mrPoBEADAk19PsgVgBKkImmR2isPQ6o7KJhTTKjJdwVbkWSnNn+o6Up5knKP1f49E
@@ -119,11 +118,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20260413090313.79315-1-phx0fer@gmail.com>
+In-Reply-To: <20260502112134.182049-1-me@zygoon.pl>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH] apparmor: Fix wrong dentry in
-	RENAME_EXCHANGE uid check
+Subject: Re: [apparmor] [PATCH] apparmor: aa_label_alloc use aa_label_free
+ on alloc failure
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -147,80 +146,62 @@ X-Spamd-Result: default: False [2.89 / 15.00];
 	BAD_REP_POLICIES(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:phx0fer@gmail.com,m:apparmor@lists.ubuntu.com,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	RCPT_COUNT_TWO(0.00)[2];
-	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com,lists.ubuntu.com];
-	FORGED_SENDER(0.00)[apparmor@lists.ubuntu.com,apparmor-bounces@lists.ubuntu.com];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	DMARC_POLICY_ALLOW(0.00)[lists.ubuntu.com,none];
-	MIME_TRACE(0.00)[0:+];
-	HAS_ORG_HEADER(0.00)[];
-	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
 	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	HAS_REPLYTO(0.00)[john.johansen@canonical.com];
-	RCVD_COUNT_FIVE(0.00)[5];
-	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[apparmor@lists.ubuntu.com,apparmor-bounces@lists.ubuntu.com];
+	DMARC_POLICY_ALLOW(0.00)[lists.ubuntu.com,none];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[apparmor];
+	MIME_TRACE(0.00)[0:+];
+	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
+	HAS_ORG_HEADER(0.00)[];
+	RCPT_COUNT_ONE(0.00)[1];
+	RCVD_TLS_LAST(0.00)[];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
-	R_DKIM_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	ARC_NA(0.00)[];
 	R_SPF_ALLOW(0.00)[+ip4:185.125.189.65];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:from_smtp,lists.ubuntu.com:helo,lists.ubuntu.com:rdns,lists.ubuntu.com:from_mime]
+	TO_EQ_FROM(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[5];
+	TO_DN_NONE(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[apparmor@lists.ubuntu.com,apparmor-bounces@lists.ubuntu.com];
+	FROM_HAS_DN(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
+	R_DKIM_NA(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_RCPT(0.00)[apparmor];
+	HAS_REPLYTO(0.00)[john.johansen@canonical.com]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: BEEED67DBD9
+X-Rspamd-Queue-Id: 15D3F67DC63
 
-On 4/13/26 02:03, Dudu Lu wrote:
-> In apparmor_path_rename(), when handling RENAME_EXCHANGE, the
-> cond_exchange structure is supposed to carry the attributes of the
-> *new* dentry (since it is used to authorize moving new_dentry to the
-> old location). However, line 412 reads:
+On 5/2/26 04:21, Zygmunt Krynicki wrote:
+> aa_label_alloc() allocates a secid before allocating or taking the label
+> proxy. If the later proxy step fails, the error path only freed the label
+> memory, leaking any resources initialized by aa_label_init().
 > 
->      vfsuid = i_uid_into_vfsuid(idmap, d_backing_inode(old_dentry));
+> Use aa_label_free() on the failure path so partially initialized labels
+> release their secid and other label resources before the backing memory is
+> freed.
 > 
-> This fetches the uid of old_dentry instead of new_dentry. As a result,
-> the RENAME_EXCHANGE permission check uses the wrong file owner, which
-> can allow a rename that should be denied (if old_dentry's owner has
-> more privileges) or deny one that should be allowed.
-> 
-> Note that cond_exchange.mode on the line above correctly uses
-> new_dentry. Only the uid lookup is wrong.
-> 
-> Fix by changing old_dentry to new_dentry in the i_uid_into_vfsuid call.
-> 
-> Signed-off-by: Dudu Lu <phx0fer@gmail.com>
-
-Sorry for the lateness of my reply, my email was broken when I pulled
-this in for 7.1
+> Signed-off-by: Zygmunt Krynicki <me@zygoon.pl>
 
 Acked-by: John Johansen <john.johansen@canonical.com>
 
 > ---
->   security/apparmor/lsm.c | 2 +-
+>   security/apparmor/label.c | 2 +-
 >   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
-> index c1d42fc72fdb..e8de919fbea6 100644
-> --- a/security/apparmor/lsm.c
-> +++ b/security/apparmor/lsm.c
-> @@ -409,7 +409,7 @@ static int apparmor_path_rename(const struct path *old_dir, struct dentry *old_d
->   			struct path_cond cond_exchange = {
->   				.mode = d_backing_inode(new_dentry)->i_mode,
->   			};
-> -			vfsuid = i_uid_into_vfsuid(idmap, d_backing_inode(old_dentry));
-> +			vfsuid = i_uid_into_vfsuid(idmap, d_backing_inode(new_dentry));
->   			cond_exchange.uid = vfsuid_into_kuid(vfsuid);
+> diff --git a/security/apparmor/label.c b/security/apparmor/label.c
+> index 3a721fdf18339..c6a96355e8d9e 100644
+> --- a/security/apparmor/label.c
+> +++ b/security/apparmor/label.c
+> @@ -458,7 +458,7 @@ struct aa_label *aa_label_alloc(int size, struct aa_proxy *proxy, gfp_t gfp)
+>   	return new;
 >   
->   			error = aa_path_perm(OP_RENAME_SRC, current_cred(),
+>   fail:
+> -	kfree(new);
+> +	aa_label_free(new);
+>   
+>   	return NULL;
+>   }
 
 
