@@ -2,13 +2,13 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id r3u+Bh4DLWoZZAQAu9opvQ
+	id 69TiNyAmLWpScwQAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Sat, 13 Jun 2026 09:13:34 +0200
+	for <lists+apparmor@lfdr.de>; Sat, 13 Jun 2026 11:42:56 +0200
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2F5567DF24
-	for <lists+apparmor@lfdr.de>; Sat, 13 Jun 2026 09:13:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BD2367E454
+	for <lists+apparmor@lfdr.de>; Sat, 13 Jun 2026 11:42:56 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
 	dkim=none;
 	dmarc=pass (policy=none) header.from=lists.ubuntu.com;
@@ -16,65 +16,67 @@ Authentication-Results: mail.lfdr.de;
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1wYIYM-0000jK-K4; Sat, 13 Jun 2026 07:13:14 +0000
+	id 1wYKsv-0006JG-3B; Sat, 13 Jun 2026 09:42:37 +0000
 Received: from smtp-relay-internal-1.internal ([10.131.114.114]
  helo=smtp-relay-internal-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1wYIYK-0000jB-Nj
- for apparmor@lists.ubuntu.com; Sat, 13 Jun 2026 07:13:12 +0000
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71])
+ id 1wYKst-0006J9-Fl
+ for apparmor@lists.ubuntu.com; Sat, 13 Jun 2026 09:42:35 +0000
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
+ [209.85.215.198])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 339683F60F
- for <apparmor@lists.ubuntu.com>; Sat, 13 Jun 2026 07:13:12 +0000 (UTC)
-Received: by mail-pj1-f71.google.com with SMTP id
- 98e67ed59e1d1-36bbcd40642so1283780a91.0
- for <apparmor@lists.ubuntu.com>; Sat, 13 Jun 2026 00:13:12 -0700 (PDT)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 348B13F5FF
+ for <apparmor@lists.ubuntu.com>; Sat, 13 Jun 2026 09:42:35 +0000 (UTC)
+Received: by mail-pg1-f198.google.com with SMTP id
+ 41be03b00d2f7-c85dcdbe502so1029842a12.2
+ for <apparmor@lists.ubuntu.com>; Sat, 13 Jun 2026 02:42:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781334790; x=1781939590;
+ d=1e100.net; s=20251104; t=1781343753; x=1781948553;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=n9wC9N11IWejja/NrlLdSDt9GWEelDFusP9beswEFvw=;
- b=phXC6vkNQP8IN4K/Ic14cxe2f7QEUyfPhkp9+86Lrbb+1WEUD6PWEz5BGWXEHiw2bJ
- xNrLUCfPDYEbQ4a4JHxnO9KjUL2ZPBGSwH4QfM2L5FbPkqNE6Zc0X4rKJVufHc8yMzIF
- W3QT9caHJf6je8MZ8wouQnJMubeBA5AElOA0XWdB74VWjNzPyv2Z0cW6L352NgsJN22v
- SWeYDX9rSfJ1SGlWfwXv63+zQ74e3F8GLGCUdmXZK1zPoERs6tqd8mXJhURNy95tK9GN
- LkOeoIiAKg71wCGVLo9S5y6fBebkhPsr7bjfYeCVeGKen9z6f92+Ki+e3h/bWxC9qCvO
- gBiw==
-X-Gm-Message-State: AOJu0YzqygxZL1/r2mwbl8CkGrBA4fpiDfSJS8eg9rW8wUQnnkx+36Fd
- RrRbdDVsS8nVMaIbI9MayJ/Abv21o+G89QetER1xjBD2qVU22fuHugdRaVwKgoIJD5nMsMePOJV
- pXh3MjZ5wACYW6MBCRzMgu+5JXpD17wjs0FTZJ4HYZMxJ2XZ65Yo8DEbsqvlIs/cswA4wsIO0Wk
- tPuw==
-X-Gm-Gg: Acq92OFZjtsvvhro6g+5UyTjD42eR/gc/i7bXuSO7JLhR145ogoY2X2ZaSGL3Y9ZTYq
- 8hZpCRqyY0RkNZpJZReIRE5S3vHtwAufEbP0GELdxqpUnK1Z47OZ9WrX6o/glBRomCakH/34RKC
- FWq6U4ZQp0GPhi5UuSQAJBJniaUikYyi4iY6oOg+X2MD5IOeunMqFRNgVELycmkUZy9eASmM5sO
- u2IdkWcpZlWrBrP7Lv/xuSF6vpWptGjpBh52JF19AKoBF3Io+ICBo/tex38t5EprVUUOgc0jxjH
- /PNBo2dAa2paOL0InYATLVv8jXPyERakhcXwzT99o66yPlIv55fezGIIvW9Nlgwqv+TPuFDt166
- Bfbd/X/ztHmGe6ySiMK0kRI9HDfvG7QNAm6vX
-X-Received: by 2002:a17:90b:4fd0:b0:36d:9ea4:d0b with SMTP id
- 98e67ed59e1d1-37a041a878cmr6964879a91.24.1781334790423; 
- Sat, 13 Jun 2026 00:13:10 -0700 (PDT)
-X-Received: by 2002:a17:90b:4fd0:b0:36d:9ea4:d0b with SMTP id
- 98e67ed59e1d1-37a041a878cmr6964848a91.24.1781334790048; 
- Sat, 13 Jun 2026 00:13:10 -0700 (PDT)
+ bh=3cNWgxOsVXXusBlgwT5EOutzJoWn3PYwrKdwFsGdgcU=;
+ b=sQ1VO4NFLXbajjBwxo88aSALvpwPkC27829iDT7dG0hdIRl7j75bnGqdFNi0kufpJ6
+ KD/SgOP6eBFihhuBNSzsiuXH9VEJ/+t/QWqhS0V51OVmsQa1scUavzwBaxWE8kFXcO2E
+ Q6wV+NW54RzRQ1O3z6QTdmJ0UGX8rnfEcwO944NtBagPsuGAW3XejLr4BFYOW3/xVKwd
+ nXmj5oNYv7rVI3PE+q6BZarf9rT/MhIEsfS3ZPwnvrH/lWpQoIIiy/E3EtUMUZkjly0f
+ 79tolpI2A7Fwqf98mMl+dydBQFRCe+NvVvpMe87afM9UJtxHRpNMh/TZbwaQteQ94Tsp
+ XPMw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+vsBHNXKfpRu+eb8MNnMBUY13qzkYYfeqRgS8ygd/JPyDJiTC/N7oI6Ph+7LFOg6Egmd5uhUIgyg==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0YzerQqhN7jw2LI0dOCc64szas2YFCs71g9nv7Ku4YIWDScCc6Mr
+ xMl97WoObNd4VhTK8Vb4Xuy5QnikwjZvR8khHELK0xbAHaWZMl3EIwlv6e6ajh1MzzVNLqb2eCX
+ r/Kcg0bf/qJNiQN0zH5D1SFj4ZpwzNlGSMpyAZy442nalANoCtXcVw4AVZP2/E9Su+f5zmrl+FZ
+ FImK6bY6oygw==
+X-Gm-Gg: Acq92OFT3m0GbfdJgNY5RHC167I/e4cP/poQJjGNw4VOjifO31YK7yHyxvAVdq1aKaI
+ eMBTojLIBUX9cG+qYdf1YngQXLlbkNvi5a0ZnFlJ3/tjgaKfEvnJDo4XOcNrQK5Jy+J0N/8i3iM
+ zXBSGf6jGJqNXQw6Wphw3C/qTg47ceHi2n88rBJ/SP30XwRceaCgurqeD1w9b/K3886H3AnkUGy
+ AStuP/VwoFal5y4xvxQMwUnJrTStHRXWtTUF2zfnaXlunStuYXzMxgkmyCXTVFaWzFh80mdoUnI
+ hoWT3G05cZa3DoZJNs2Qo1Pme3oXwCzjthPemiIuQ3Rt7yCHfp/5fxSnlqw8rpwfsa1txBPTonI
+ 8ZtdEN4zHpn0Hm7/pEjRjUbMPee+HlxndZPBo
+X-Received: by 2002:a05:6a21:6da4:b0:3b1:80c7:5f8c with SMTP id
+ adf61e73a8af0-3b783f3c781mr8077335637.28.1781343753522; 
+ Sat, 13 Jun 2026 02:42:33 -0700 (PDT)
+X-Received: by 2002:a05:6a21:6da4:b0:3b1:80c7:5f8c with SMTP id
+ adf61e73a8af0-3b783f3c781mr8077307637.28.1781343753109; 
+ Sat, 13 Jun 2026 02:42:33 -0700 (PDT)
 Received: from [192.168.192.71] ([50.47.147.90])
  by smtp.googlemail.com with ESMTPSA id
- 98e67ed59e1d1-37a1f176e92sm5215838a91.7.2026.06.13.00.13.08
+ 41be03b00d2f7-c8661b5d505sm3958420a12.1.2026.06.13.02.42.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 13 Jun 2026 00:13:09 -0700 (PDT)
-Message-ID: <8d7701ab-52a4-4c86-9519-959c806ecf04@canonical.com>
-Date: Sat, 13 Jun 2026 00:13:08 -0700
+ Sat, 13 Jun 2026 02:42:32 -0700 (PDT)
+Message-ID: <c1bd4bd4-26d9-49d7-9989-2609493c2410@canonical.com>
+Date: Sat, 13 Jun 2026 02:42:31 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Hongling Zeng <zenghongling@kylinos.cn>, paul@paul-moore.com,
- jmorris@namei.org, serge@hallyn.com, neil@brown.name, brauner@kernel.org,
- jlayton@kernel.org, jack@suse.cz
-References: <20260503041243.200895-1-zenghongling@kylinos.cn>
+To: Junxiao Chang <junxiao.chang@intel.com>, paul@paul-moore.com,
+ jmorris@namei.org, serge@hallyn.com, apparmor@lists.ubuntu.com,
+ linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260613060424.2213712-1-junxiao.chang@intel.com>
 Content-Language: en-US
 Autocrypt: addr=john.johansen@canonical.com; keydata=
  xsFNBE5mrPoBEADAk19PsgVgBKkImmR2isPQ6o7KJhTTKjJdwVbkWSnNn+o6Up5knKP1f49E
@@ -119,10 +121,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20260503041243.200895-1-zenghongling@kylinos.cn>
+In-Reply-To: <20260613060424.2213712-1-junxiao.chang@intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] [PATCH 1/3] apparmor: Fix return in ns_mkdir_op
+Subject: Re: [apparmor] [PATCH] apparmor: fix use-after-free in policy
+	replacement path
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -136,8 +139,6 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
 From: John Johansen via AppArmor <apparmor@lists.ubuntu.com>
 Reply-To: John Johansen <john.johansen@canonical.com>
-Cc: zhongling0719@126.com, linux-security-module@vger.kernel.org,
- apparmor@lists.ubuntu.com, linux-kernel@vger.kernel.org
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 X-Rspamd-Action: no action
@@ -148,22 +149,21 @@ X-Spamd-Result: default: False [2.89 / 15.00];
 	MIME_GOOD(-0.10)[text/plain];
 	BAD_REP_POLICIES(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[126.com,vger.kernel.org,lists.ubuntu.com];
 	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
 	DMARC_POLICY_ALLOW(0.00)[lists.ubuntu.com,none];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:junxiao.chang@intel.com,m:paul@paul-moore.com,m:jmorris@namei.org,m:serge@hallyn.com,m:apparmor@lists.ubuntu.com,m:linux-security-module@vger.kernel.org,m:linux-kernel@vger.kernel.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[apparmor@lists.ubuntu.com,apparmor-bounces@lists.ubuntu.com];
+	TO_DN_SOME(0.00)[];
 	ARC_NA(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:zenghongling@kylinos.cn,m:paul@paul-moore.com,m:jmorris@namei.org,m:serge@hallyn.com,m:neil@brown.name,m:brauner@kernel.org,m:jlayton@kernel.org,m:jack@suse.cz,m:zhongling0719@126.com,m:linux-security-module@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:linux-kernel@vger.kernel.org,s:lists@lfdr.de];
 	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
-	FORGED_SENDER(0.00)[apparmor@lists.ubuntu.com,apparmor-bounces@lists.ubuntu.com];
 	HAS_ORG_HEADER(0.00)[];
+	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
-	TO_DN_SOME(0.00)[];
+	HAS_REPLYTO(0.00)[john.johansen@canonical.com];
 	RCVD_COUNT_FIVE(0.00)[5];
 	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
@@ -171,44 +171,68 @@ X-Spamd-Result: default: False [2.89 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[apparmor@lists.ubuntu.com,apparmor-bounces@lists.ubuntu.com];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[apparmor];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	R_DKIM_NA(0.00)[];
 	R_SPF_ALLOW(0.00)[+ip4:185.125.189.65];
+	TAGGED_RCPT(0.00)[apparmor];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	HAS_REPLYTO(0.00)[john.johansen@canonical.com]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[canonical.com:replyto,canonical.com:mid,intel.com:email]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: A2F5567DF24
+X-Rspamd-Queue-Id: 7BD2367E454
 
-On 5/2/26 21:12, Hongling Zeng wrote:
-> Return NULL instead of passing to ERR_PTR while error is zero.
->    Fixes smatch warning:
->      - security/apparmor/apparmorfs.c:1846 ns_mkdir_op() warn:
->        passing zero to 'ERR_PTR'
+On 6/12/26 23:04, Junxiao Chang wrote:
+> A use-after-free issue can be triggered when running the
+> following stress-ng workload:
 > 
-> Fixes: 88d5baf69082 ("Change inode_operations.mkdir to return struct dentry *")
-> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+> ```
+> sudo stress-ng --apparmor 0 --timeout 30 \
+>      --oom-avoid-bytes 10% --skip-silent --verbose
+> ```
+> 
+> The warning looks like:
+> 
+> ```
+> refcount_t: addition on 0; use-after-free
+> aa_replace_profiles+0xbe5/0x12a0
+> policy_update+0xdb/0x170
+> profile_replace+0x4b/0xb0
+> ```
+> 
+> The issue can be reproduced on both v7.1-rc7 and Ubuntu
+> 6.17.0-35-generic kernels.
+> 
+> aa_get_profile_loaddata() requires the supplied loaddata object
+> to hold a valid reference. However, the loaddata reference count
+> may already have reached zero in the replacement loop, resulting
+> in a use-after-free condition.
+> 
+> Avoid calling aa_get_profile_loaddata() on loaddata objects with
+> a zero reference count and skip those entries instead.
+> 
+> Fixes: a0b7091c4de4 ("apparmor: fix race on rawdata dereference")
+> Signed-off-by: Junxiao Chang <junxiao.chang@intel.com>
 
-Acked-by: John Johansen <john.johansen@canonical.com>
-
-this has been pulled in to my tree
+sorry I went with Ruslan Valiyev's earlier patch that fixes the same
+issue
+    apparmor: fix use-after-free in rawdata dedup loop
 
 > ---
->   security/apparmor/apparmorfs.c | 2 +-
+>   security/apparmor/policy.c | 2 +-
 >   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
-> index ededaf46f3ca..1d7b1c70f22a 100644
-> --- a/security/apparmor/apparmorfs.c
-> +++ b/security/apparmor/apparmorfs.c
-> @@ -1922,7 +1922,7 @@ static struct dentry *ns_mkdir_op(struct mnt_idmap *idmap, struct inode *dir,
->   	mutex_unlock(&parent->lock);
->   	aa_put_ns(parent);
+> diff --git a/security/apparmor/policy.c b/security/apparmor/policy.c
+> index b6a5eb4021dbd..98f84d4552697 100644
+> --- a/security/apparmor/policy.c
+> +++ b/security/apparmor/policy.c
+> @@ -1220,7 +1220,7 @@ ssize_t aa_replace_profiles(struct aa_ns *policy_ns, struct aa_label *label,
+>   	/* check for duplicate rawdata blobs: space and file dedup */
+>   	if (!list_empty(&ns->rawdata_list)) {
+>   		list_for_each_entry(rawdata_ent, &ns->rawdata_list, list) {
+> -			if (aa_rawdata_eq(rawdata_ent, udata)) {
+> +			if (kref_read(&rawdata_ent->pcount) && aa_rawdata_eq(rawdata_ent, udata)) {
+>   				struct aa_loaddata *tmp;
 >   
-> -	return ERR_PTR(error);
-> +	return error ? ERR_PTR(error) : NULL;
->   }
->   
->   static int ns_rmdir_op(struct inode *dir, struct dentry *dentry)
+>   				tmp = aa_get_profile_loaddata(rawdata_ent);
 
 
