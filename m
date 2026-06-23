@@ -2,13 +2,13 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 6Ef/BAM6Omo/4QcAu9opvQ
+	id D63fFZ86Omp/4QcAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Tue, 23 Jun 2026 09:47:15 +0200
+	for <lists+apparmor@lfdr.de>; Tue, 23 Jun 2026 09:49:51 +0200
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 919F46B4F53
-	for <lists+apparmor@lfdr.de>; Tue, 23 Jun 2026 09:47:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D95216B4FC6
+	for <lists+apparmor@lfdr.de>; Tue, 23 Jun 2026 09:49:50 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
 	dkim=none;
 	dmarc=pass (policy=none) header.from=lists.ubuntu.com;
@@ -16,64 +16,64 @@ Authentication-Results: mail.lfdr.de;
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1wbvqR-0006Pr-8z; Tue, 23 Jun 2026 07:46:55 +0000
+	id 1wbvt1-0006q8-57; Tue, 23 Jun 2026 07:49:35 +0000
 Received: from smtp-relay-internal-0.internal ([10.131.114.225]
  helo=smtp-relay-internal-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1wbvqQ-0006Pk-DF
- for apparmor@lists.ubuntu.com; Tue, 23 Jun 2026 07:46:54 +0000
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
- [209.85.214.200])
+ id 1wbvt0-0006pw-4L
+ for apparmor@lists.ubuntu.com; Tue, 23 Jun 2026 07:49:34 +0000
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
+ [209.85.210.197])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id AB2A23F1F4
- for <apparmor@lists.ubuntu.com>; Tue, 23 Jun 2026 07:46:53 +0000 (UTC)
-Received: by mail-pl1-f200.google.com with SMTP id
- d9443c01a7336-2c6bbd0afffso97201545ad.0
- for <apparmor@lists.ubuntu.com>; Tue, 23 Jun 2026 00:46:53 -0700 (PDT)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id CE2163F1F4
+ for <apparmor@lists.ubuntu.com>; Tue, 23 Jun 2026 07:49:33 +0000 (UTC)
+Received: by mail-pf1-f197.google.com with SMTP id
+ d2e1a72fcca58-8423efbfb61so3914606b3a.0
+ for <apparmor@lists.ubuntu.com>; Tue, 23 Jun 2026 00:49:33 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782200812; x=1782805612;
+ d=1e100.net; s=20251104; t=1782200972; x=1782805772;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
  :content-language:references:to:subject:user-agent:mime-version:date
  :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=jMZ/4AU6RBOUlHGNfPCwyGV8pjFbwCbirbDx1kc8SO8=;
- b=RByHbJvcyy2nY7e32gBB8Ye8IalXPyyT/GjxkcNf7Cce3h2zfZBNId4ut1F8AUhft5
- vDAJ4TLbYP/h9S5E9BczmkwHQZViQhzpB8LO7M09Xksbz+Zh/6XMnrkwrn/eUaXOB72w
- muMq00PDHCIT0b9AntrMbbYo0n/xUj+EVirUkhGB1/psIvk6dyw+aisVEG+XfmFleUk/
- onLUzlPmdtFoPLvgLoZgHmjAefQ6PHpzf21Xf/4ghz4M3sDS5wgLA8FPbxKvG/i5g4cn
- wqdOGAUNoPeLGfy1WAf3bJ9KnIgMYbrXciKS/CmtZi91yZHpBjBPKw1S1W9VgTUFxxMW
- WzEg==
-X-Gm-Message-State: AOJu0Yx0AGWruGLTppMpsYnN0QRa9lHw0AlUhSiTSP2ekXgE1MzkR/TW
- 3yBl/8DyfgKXnvQ+JyGg0kcg4K5pJrxgHet1ksXl0Ax+Dev03TjmJei1fjy8w0YSzUBAR4creUf
- fV9POmnnWlTDczo/Io4PhIF7Oe1dNauTjU4W2QrqgEkXKyHu+hfCve2woRCaApzQhGSFntBJodh
- nu6XgLxJnlKw==
-X-Gm-Gg: AfdE7cnEM6Fkuuw9X5Xc/WrRYIT4tjSzPI8M5Kj3VFjXX7YBHUaQIfPRzClShjZL2V0
- 3cD47IhqIVfURFa/dtHEuau2oiN8+ebK6lSqXoi17BRe8UysCKlHkIzH7fyjwCH4qkTPWc7J2Pf
- lu2RqolgcXzJm+hE08WNjtvNH0J6ZfxGjudmgxW3yC+7tJ1PS6K6Q41SjUWRwpnwNWUzw0AQ0JQ
- 469Cho4KYSunDmj1FJifs6/2D5oEXgCU/P4sqmZOoTq4YExmReWcMQT25ysCtd2dy6UXwgS5KLc
- lyVoqUDZEk0pNJ6dv82giy+uMJTbVA1y13H/iDh2Z3WzCGdNaVMX++uu0VZ/YmotZZnNs9ctfBx
- u44wgzv1dhTRNFWHunAjTF/Oc3Q==
-X-Received: by 2002:a17:90b:4d0a:b0:36b:936e:73c8 with SMTP id
- 98e67ed59e1d1-37dd0dd0770mr2045350a91.19.1782200811923; 
- Tue, 23 Jun 2026 00:46:51 -0700 (PDT)
-X-Received: by 2002:a17:90b:4d0a:b0:36b:936e:73c8 with SMTP id
- 98e67ed59e1d1-37dd0dd0770mr2045331a91.19.1782200811489; 
- Tue, 23 Jun 2026 00:46:51 -0700 (PDT)
+ bh=jHm5FUb9yQVfGYSofLCg5hQx8C9AkGcHH4DHaB6X0Ic=;
+ b=CUtw2hrTGL9eUVU2jYCFUDnMUtngWLLXLIUD/2L/c0MPF/lhFQDMi7SnnxGTQAQudx
+ 4OXSOXPENh6BCG45neVNNTUZj57e96cZLUDwJ72K1XeaemQ24JsZw372/N7vhZZkt4f2
+ Cy0CeEwHKIHyJzZd5LcdZ+AYWxjoztVPPGalEoHFS62m9SmOvogpyJEOgaCE2xNCj102
+ AIIxkHkEafxhApmDTevmOSMntefWVroZWA/sKHu11MCdVw42jZVNlew2+qAwFk7AVeaH
+ zjEpeEOi4StWrAvEGtZzUAiNBpKEqKc4X+0/uQgqJ0ctYFAST4/xY1tgeWF0U4nbhSSa
+ zIMA==
+X-Gm-Message-State: AOJu0YyLRsUVi59SATy7YEnzFnwNsFYd+133NKfde3sKqDDKNwT8K2uU
+ ZThHH5o5AYnKNf64rZ3rb2NQN5A64aEZELSyp6EeHIx7poNBULG/gOULVh4jzZWgfz5iJw9hhnz
+ HltoPmhynEuQ4OFR3yFDG9/H8UJGpECMRnyyD3+RyTmYlpDCUkbRiOi6BU5tlAza0q8wh3Z4LpO
+ nwTskuZ2TN+A==
+X-Gm-Gg: AfdE7cnR/hMf6NcU0xyaM+JXigF4Ivnde2qvOK4H1iVdQcWoZ7LyAdVwbtA5Zh230j1
+ 92O3VQx7NtPMHJMCYHym9OczjD4fykBze5+nr8ywRmBfr03+hLsaMQzuia9lehxa2cduZ0+Yuxv
+ cCjqqT3FSuqxowhyjEY6om0AX4j8YG6gDzVW4UYYDVdrQJZNs5NJFTfg+69XH9hIwVwkRls8ef3
+ ANABViNieDdZ6Uwa4aShVUkzfojKQZZ/aMmnVxeXT4G6vQYNpSvWxkZ36OuJRdgNDN8V4evPMvA
+ kDBiyFIoYFtvMywilE4SH5SZ1TA4G/nCFYUU5USilUPzeBCt3qwWqbzE0ngJU/NdA17nNLqCJns
+ Mi/6kSTrJAuvI0UBPxqFjKLWPlQ==
+X-Received: by 2002:a05:6a00:993:b0:845:344f:eee9 with SMTP id
+ d2e1a72fcca58-84597070df3mr1698759b3a.1.1782200972146; 
+ Tue, 23 Jun 2026 00:49:32 -0700 (PDT)
+X-Received: by 2002:a05:6a00:993:b0:845:344f:eee9 with SMTP id
+ d2e1a72fcca58-84597070df3mr1698742b3a.1.1782200971744; 
+ Tue, 23 Jun 2026 00:49:31 -0700 (PDT)
 Received: from [192.168.192.71] ([50.47.147.90])
  by smtp.googlemail.com with ESMTPSA id
- 98e67ed59e1d1-37d15de53ffsm12469836a91.12.2026.06.23.00.46.50
+ d2e1a72fcca58-84564d6813bsm9929631b3a.8.2026.06.23.00.49.30
  for <apparmor@lists.ubuntu.com>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Jun 2026 00:46:50 -0700 (PDT)
-Message-ID: <3a6f4f2a-c440-4bb9-b23d-bf013643c303@canonical.com>
-Date: Tue, 23 Jun 2026 00:46:49 -0700
+ Tue, 23 Jun 2026 00:49:31 -0700 (PDT)
+Message-ID: <eaaca019-54ad-41ef-ac40-d46307c28c02@canonical.com>
+Date: Tue, 23 Jun 2026 00:49:30 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: apparmor@lists.ubuntu.com
-References: <WN7WCYIYDTU4.W5VLAKCJWJ3Q2@mailcore-77ff78dfb9-6kk5j>
+References: <T8YEGFN2ETU4.8WJE2RYVCFUC2@mailcore-77ff78dfb9-6kk5j>
 Content-Language: en-US
 Autocrypt: addr=john.johansen@canonical.com; keydata=
  xsFNBE5mrPoBEADAk19PsgVgBKkImmR2isPQ6o7KJhTTKjJdwVbkWSnNn+o6Up5knKP1f49E
@@ -118,9 +118,9 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <WN7WCYIYDTU4.W5VLAKCJWJ3Q2@mailcore-77ff78dfb9-6kk5j>
+In-Reply-To: <T8YEGFN2ETU4.8WJE2RYVCFUC2@mailcore-77ff78dfb9-6kk5j>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
 Subject: Re: [apparmor] Questions about Contributing
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
@@ -138,129 +138,56 @@ Reply-To: John Johansen <john.johansen@canonical.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.31 / 15.00];
+X-Spamd-Result: default: False [-1.41 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[lists.ubuntu.com,none];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
 	MAILLIST(-0.20)[mailman];
-	MIME_BASE64_TEXT(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FROM_HAS_DN(0.00)[];
+	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	ARC_NA(0.00)[];
 	HAS_ORG_HEADER(0.00)[];
 	TO_EQ_FROM(0.00)[];
 	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
-	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
 	RCPT_COUNT_ONE(0.00)[1];
 	MIME_TRACE(0.00)[0:+];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
-	ARC_NA(0.00)[];
-	HAS_REPLYTO(0.00)[john.johansen@canonical.com];
-	RCVD_COUNT_FIVE(0.00)[5];
-	TO_DN_NONE(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[apparmor@lists.ubuntu.com,apparmor-bounces@lists.ubuntu.com];
-	FROM_HAS_DN(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	HAS_REPLYTO(0.00)[john.johansen@canonical.com];
+	TO_DN_NONE(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[5];
+	FROM_NEQ_ENVFROM(0.00)[apparmor@lists.ubuntu.com,apparmor-bounces@lists.ubuntu.com];
+	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
 	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
 	R_DKIM_NA(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[apparmor];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[canonical.com:replyto,canonical.com:mid,hfa.cc:url]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[canonical.com:replyto,canonical.com:mid,lists.ubuntu.com:from_smtp,lists.ubuntu.com:helo,lists.ubuntu.com:rdns,lists.ubuntu.com:from_mime]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 919F46B4F53
+X-Rspamd-Queue-Id: D95216B4FC6
 
-T24gNS8yOC8yNiAxOTozMiwgYWVucmkgd3JvdGU6DQo+IEhpIGFsbCwNCj4gDQo+IA0KPiAN
-Cj4gDQo+IEkndmUgcmVjZW50bHkgcnVuIGludG8gYSBsaW1pdGF0aW9uIHdoaWxlIHRyeWlu
-ZyB0byBjb25maWd1cmUgQXBwQXJtb3IgZm9yIHVzZSB3aXRoIG5vbi1GSFMgZmlsZXN5c3Rl
-bSBsYXlvdXRzLCBzdWNoIGFzIChhbmQgcGFydGljdWxhcmx5IGZvciBteSB1c2UtY2FzZSkg
-Tml4LCB3aGVyZSBiaW5hcmllcyBsaXZlIHVuZGVyIC9uaXgvc3RvcmUvPGhhc2g+L2JpbiBp
-bnN0ZWFkIG9mIHRoZSB0eXBpY2FsIC91c3IvYmluLiBJIGJlbGlldmUgSSd2ZSB0cmFjZWQg
-aXQgdG8gYSBtaW5vciBzaG9ydGZhbGwgaW4gZXhlY3V0YWJsZSBmbGFnIGNvbmZsaWN0IHJl
-c29sdXRpb247IHRoZSBtZWNoYW5pc20gaXRzZWxmIGlzIGFuIG90aGVyd2lzZSBlZmZlY3Rp
-dmUgYW5kIHJlYXNvbmFibGUgc29sdXRpb24sIGhvd2V2ZXIgYWxsIHBhdGhzIHdpdGggd2ls
-ZGNhcmRzwqBhbnl3aGVyZcKgd2l0aGluIHRoZSBwYXRoIGFyZSB0cmVhdGVkIHRoZSBleGFj
-dCBzYW1lIHdpdGhpbiBoZmEuY2MgLyBwcmlfdXBkYXRlX3Blcm0uIFRoaXMgbGVhZHMgdG8g
-c3lzdGVtLWJyZWFraW5nIGNvbmZsaWN0cyBhbmQgdW5uZWNlc3NhcnkgZmFpbHVyZXMgdG8N
-Cg0KY29ycmVjdCB0aGVyZSBpcyBhbiBpc3N1ZSB3aXRoIGRvbWluYW5jZSByZXNvbHV0aW9u
-LCBhdG0gaXQgb25seSB3b3JrcyBmb3IgZXhhY3QgbWF0Y2ggcGF0aHMuIE9uZSBwb3RlbnRp
-YWwgd29yayBhcm91bmQgaXMgdG8gdXNlIHByaW9yaXR5IHJ1bGVzDQoNCj4gY29tcGlsZSBE
-RkEgcHJvZmlsZXMgZGVzcGl0ZSBvbmUgcGF0aCBiZWluZyBkZXRlcm1pbmlzdGljYWxseSBh
-bmQNCj4gcHJvdmFibHkgbW9yZSBzcGVjaWZpYy4gVW5kZXIgRkhTIGxheW91dHMsIHRoaXMg
-d291bGQgb25seSByYXJlbHksIGlmIGV2ZXIsIGJlIGFuIGlzc3VlLCBob3dldmVyIHdpdGgg
-Tml4J3Mgbm9uLUZIUyBsYXlvdXQgaXQncyBtb3N0IGVmZmVjdGl2ZSB0byB1c2UgYSB3aWxk
-Y2FyZCB0byBpbmNsdWRlIGFsbCAvbml4L3N0b3JlLzxoYXNoPi9iaW4gZm9sZGVycyBhcyBA
-e2Jpbn0gZW50cmllcywgYXMgb3Bwb3NlZCB0byBnZW5lcmF0aW5nIGFuIGV2ZXItY2hhbmdp
-bmcgZ2lnYW50aWMgZmlsZSBpbmNsdWRpbmcgZXZlcnkgTml4IHN0b3JlIGZvbGRlciBhcyBh
-biBAe2Jpbn0gZW50cnkuwqBGb3IgZXhhbXBsZSwgL25peC9zdG9yZS8qL2Jpbi9mb28gYW5k
-IC9uaXgvc3RvcmUvKi9iaW4vKiBhcmUgYm90aCBldmFsdWF0ZWQgdGhyb3VnaMKgYWFyZV9y
-dWxlcy5oK2MgaW50byBNYXRjaEZsYWdzLCBhbmQgdGh1cyBib3RoIGhhdmUgdGhlIHNhbWUg
-bG93IHByaW9yaXR5IHdoZW4gYXR0ZW1wdGluZyB0byBtZXJnZSBleGVjdXRhYmxlIGZsYWdz
-LCBkZXNwaXRlIC9uaXgvc3RvcmUvKi9iaW4vZm9vIGJlaW5nIGEgZGV0ZXJtaW5pc3RpY2Fs
-bHkgbW9yZSBzcGVjaWZpYyBwYXRoIHdoaWNoIHNob3dzIGludGVudCB0byBtb2RpZnkgdGhl
-IHBlcm1pc3Npb25zIGZvciB0aGUgc3BlY2lmaWMgTml4LWRpc3RyaWJ1dGVkIGJpbmFyeS4g
-SSd2ZSBpbnZlc3RpZ2F0ZWQgYSBwb3NzaWJsZSBzb2x1dGlvbiB0aGF0IGxlYXZlcyBydW50
-aW1lIGVuZm9yY2VtZW50IGFuZCBhbGwgY29uZmxpY3QtZnJlZSBwYXRocyB1bmFmZmVjdGVk
-IHdoaWxlIGNvbXBpbGluZyBERkEgcHJvZmlsZXMsIGJ1dCBJIHRob3VnaHQgaXQgd291bGQg
-YmUgYmVzdCB0byBzZWUgaWYgdGhlcmUgYXJlIGFueSBwb3NpdGl2ZS9uZWdhdGl2ZSBvcGlu
-aW9ucyBmcm9tIHRoZSBtYWludGFpbmVycyBvbiB0aGlzIGlkZWEgYmVmb3JlIHB1c2hpbmcg
-dG9vIGZhciBvbiBjb2RlIG9yIHN1Ym1pdHRpbmcgc29tZSByYW5kb20gUFIuDQo+IA0KPiAN
-Cj4gDQo+IA0KPiBNeSBpZGVhIGlzIHRvIGFkZCBvbiB0byB0aGUgYmVoYXZpb3Igb2YgcGVy
-bXNfdCBhbmQgcHJpX3VwZGF0ZV9wZXJtIGluIG9yZGVyIHRvIHJlc29sdmUgY29uZmxpY3Rz
-IGJldHdlZW4gdHdvIGRpZmZlcmVudCBNYXRjaEZsYWdzIGJ5IHRyYXZlcnNpbmcgdGhlIHJl
-Z2V4IEFTVCBvZiBib3RoIG1hdGNoaW5nIGl0ZW1zIGFuZCBkZXRlcm1pbmluZyBzdWJzZXQg
-cmVsYXRpb25zaGlwcyBiZXR3ZWVuIHRoZW0gb25seSBhdCBjb21waWxlIHRpbWUgb24gYSBj
-b25mbGljdC4gVGhpcyBzdWJzZXQgcmVsYXRpb25zaGlwIChlLmcuIC9uaXgvc3RvcmUvKi9i
-aW4vZm9vIGlzIGEgc3Vic2V0IG9mIC9uaXgvc3RvcmUvKi9iaW4vKiwgYW5kIHRodXMgbW9y
-ZSBzcGVjaWZpYykgaXMgdGhlbiB1c2VkIHRvIHByaW9yaXRpemUgdGhlIG1vcmUgc3BlY2lm
-aWMgTWF0Y2hGbGFnLiBJbiBhIGNhc2Ugd2hlcmUgbm8gc3Vic2V0IHJlbGF0aW9uc2hpcCBj
-YW4gYmUgZGV0ZXJtaW5lZCAoZS5nLiBwYXR0ZXJucyB0aGF0IG92ZXJsYXAgYnV0IHdoZXJl
-IG5laXRoZXIgZW50aXJlbHkgY29udGFpbnMgdGhlIG90aGVyKSwgd2Ugd291bGQgZmFsbCBi
-YWNrIHRvIHRoZSBleGlzdGluZyBjb25mbGljdC9lcnJvciBiZWhhdmlvci4gQ29uc2lkZXJp
-bmcgdGhlIGluZnJlcXVlbmN5IHdpdGggd2hpY2ggY29uZmxpY3RzIG9jY3VyLCBldmVuIHVu
-ZGVyIE5peCzCoEkgd291bGQgZXhwZWN0IHRoaXMgdG8gaGF2ZSBuZWdsaWdpYmxlIGlmwqBh
-bnkgbm90aWNlYWJsZSBwZXJmb3JtYW5jZSBlZmZlY3RzIGF0IERGQSBjb21waWxlIHRpbWUs
-IGFuZCBubyBwZXJmb3JtYW5jZSBlZmZlY3RzIGR1cmluZyBydW50aW1lIGVuZm9yY2VtZW50
-LiBUaGF0IHNhaWQsIHdoZW4gdGhleSBkbyBvY2N1ciB0aGV5J3JlIG9mdGVuIHNldmVyZTsg
-aW4gbXkgY2FzZSwgZW5vdWdoIHByb2ZpbGVzIGZhaWxlZCB0byBjb21waWxlIHRvIGxlYXZl
-IG15IHN5c3RlbSBjb21wbGV0ZWx5IHVudXNhYmxlIHdpdGhvdXQgZGlzYWJsaW5nIEFwcEFy
-bW9yLg0KDQpTbyB5ZXMsIHRoaXMgaXMgZmluZGluZyB0aGUgcnVsZSBkb21pbmFuY2UuIEl0
-IGlzIG9uIHRoZSBsaXN0IG9mIHRvZG8gaXRlbXMuIFRoZSBpbXBhY3QgaXQgd291bGQgaGF2
-ZSB3b3VsZCBncmVhdGx5IGRlcGVuZCBvbiB0aGUgbnVtYmVyIG9mIHN0YXRlcy9ydWxlcyB0
-aGF0IG5lZWRzIHRvIGJlIHJlc29sdmVkLCBidXQgbGlrZSB5b3Ugc2FpZCBpZiBkb25lIHJp
-Z2h0IGl0IHNob3VsZG4ndCBzbG93IHRoaW5ncyBkb3duIHRvbyBtdWNoLCBhbmQgdGhhdCBp
-cyBiZXR0ZXIgdGhhbiBub3QgY29tcGlsaW5nLg0KDQpUaGlzIGlzIGluZGVlZCBnb2luZyB0
-byBiZSBtdWNoIG1vcmUgb2YgYW4gaXNzdWUgaW4gdGhlIGZ1dHVyZSwgc28gaXQgaXMgc29t
-ZXRoaW5nIHRoYXQgbmVlZHMgdG8gYmUgZG9uZSBzb29uLg0KDQo+IA0KPiANCj4gDQo+IA0K
-PiBTb21lIHF1ZXN0aW9ucyBhYm91dCB0aGlzIHByb2Nlc3M6DQo+IA0KPiANCj4gLSBEb2Vz
-IHRoaXMgYXBwcm9hY2ggc2VlbSBzb3VuZD8gSXMgdGhlcmUgc29tZSBjb250ZXh0IEknbSBt
-aXNzaW5nIGFib3V0IHdoeSBleGVjdXRhYmxlIGZsYWcgcHJpb3JpdHkgaXMgc2ltcGx5IGV4
-YWN0IHZzIG5vbi1leGFjdCB2ZXJzdXMgYW4gYXBwcm9hY2ggc2ltaWxhciB0byB0aGlzPw0K
-DQp0aGlzIHdvdWxkIHJlcGxhY2UgZXhhY3Qvbm9uLWV4YWN0IHdoaWNoIHdhcyBhIGhhY2sg
-dG8gcHJvdmlkZSB0aGlzIGJlaGF2aW9yIGZvciB0aGUgZXhhY3QgbWF0Y2ggY2FzZSwgd2hp
-Y2ggaXMgdGhlIG1vc3QgY29tbW9uDQoNCj4gLSBXaGVuIEkgaGF2ZSBhIHBhdGNoLCB3b3Vs
-ZCB5b3UgYWxsIHByZWZlciBhIEdpdExhYiBQUiBvciBhIHBhdGNoIHNlbnQgdG8gdGhlIGxp
-c3Q/DQoNCmVpdGhlciB3b3JrcywgdGhvdWdoIGdpdGxhYiBpcyBnb2luZyB0byBnZXQgcmVw
-bGllcyBzb29uZXIgYXMgaXQgaXMgbW9yZSBhY3RpdmUsIGFuZCBtb3JlIG9mIHRoZSBkZXZl
-bG9wZXJzIGFyZSB3b3JraW5nIHRoZXJlDQoNCj4gLSBJcyB0aGVyZSBhbnkgZXhpc3Rpbmcg
-ZGlzY3Vzc2lvbiBvciB3b3JrIG9uIHRoaXMgdGhhdCBJJ3ZlIG1pc3NlZCBvciBzaG91bGQg
-YmUgYXdhcmUgb2YgYmVmb3JlIHdvcmtpbmcgb24gdGhpcyBwYXRjaD8NCj4gDQp0aGVyZSBp
-cyBzb21lIGV4aXN0aW5nIGRpc2N1c3Npb24gYXJvdW5kIGZpeGluZyBkb21pbmFuY2UsIHRo
-ZXJlIGFyZSBldmVuIHNvbWUgb2xkIHBhdGNoZXMgdGhhdCBuZWVkIHRvIGJlIGNvbXBsZXRl
-bHkgcmV3b3JrZWQgbm93LCBzbyB0aGV5IGFyZW4ndCByZWFsbHkgdXNlZnVsDQoNCj4gDQo+
-ID4gDQo+IEknbSBvcGVuIHRvIGFueSBjb21tZW50cywgcXVlc3Rpb25zLCBvciBjb25jZXJu
-cyBhYm91dCB0aGlzLCBJJ2QgcHJlZmVyIHRvIGFsaWduIG9uIGRpcmVjdGlvbiB0aGFuIHRv
-IGNvbWUgaW4gd2l0aCBhIGJsaW5kIFBSIHRoYXQgbm8gb25lIHdhbnRzIG9yIG5lZWRzLiBJ
-J2QgYmUgaGFwcHkgdG8gd3JpdGUgdXAgZnVydGhlciBhYm91dCB0aGUgY2hhbmdlcyBJJ2Qg
-YmUgbWFraW5nIHRvIGFjaGlldmUgdGhpcyBhcyB3ZWxsIQ0KPiANCg0KVGhlIGNoYW5nZSB3
-b3VsZCBiZSBhIG1lYW5zIHRvIHRyYWNrIHRoZSBydWxlLCBpbiB0aGUgYWNjZXB0IG5vZGUv
-c3RhdGUgKGEgc2V0KS4gVW5pb25pbmcgdGhlIHNldHMgd2hlbiBjcmVhdGluZyB0aGUgYWNj
-ZXB0IHN0YXRlL3Blcm1zLCBhbmQgdGhlbiBhIGNvbmZsaWN0IHJlc29sdXRpb24gcm91dGlu
-ZSBpZiB5b3UgaGl0IGEgY29uZmxpY3QuDQoNCkdlbmVyYWxseSBzcGVha2luZyB0aGlzIGhh
-cyBiZWVuIHdhaXRpbmcgb24gdXMgdG8gZmluaXNoIHRoZSBmcm9udCBlbmQgcmVmYWN0b3Jp
-bmcgYnV0IHRoaXMgY291bGQgYmUgZG9uZSBqdXN0IGZvciB4IHJ1bGVzIGF0bSwgdXNpbmcg
-dGhlIHBvaW50ZXJzIHRvIGNvZF9lbnRyaWVzIGluIHRoZSBzZXQuDQoNCg0KPiANCj4gDQo+
-IA0KPiANCj4gVGhhbmsgeW91LA0KPiANCj4gQWVucmkgTG92ZWhhcnQNCg0K
+On 5/29/26 04:30, aenri wrote:
+> Thank you for your question, Robin!
+> 
+> 
+> 
+> 
+> The conflict between some /foo/*/bar and some /foo/**/bar would resolve to /foo/*/bar taking priority, as * is a direct subset of **. since (according to my understanding of the code) the only direct difference is that * consumes up until a slash (/) (noted that both reject the null byte \x00) but otherwise will accept anything that's thrown it's way, it is considered a direct subset.
+> 
+
+yep this is correct. As long as the conflict can be resolved with a subset of states, you are good. It gets trickier if you have multiple rules conflicting, but you can do just a pairwise comparison for each combination in the set.
+
+
+> 
+> 
+> 
+> Thank you,
+> 
+> Aenri Lovehart
+
 
