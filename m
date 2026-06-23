@@ -2,13 +2,13 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id LelQCjwyOmpE3wcAu9opvQ
+	id ixTiCa0yOmp03wcAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Tue, 23 Jun 2026 09:14:04 +0200
+	for <lists+apparmor@lfdr.de>; Tue, 23 Jun 2026 09:15:57 +0200
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCE9A6B4BE1
-	for <lists+apparmor@lfdr.de>; Tue, 23 Jun 2026 09:14:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDFE46B4C42
+	for <lists+apparmor@lfdr.de>; Tue, 23 Jun 2026 09:15:56 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
 	dkim=none;
 	dmarc=pass (policy=none) header.from=lists.ubuntu.com;
@@ -16,66 +16,65 @@ Authentication-Results: mail.lfdr.de;
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1wbvKP-0002IA-BE; Tue, 23 Jun 2026 07:13:49 +0000
-Received: from smtp-relay-internal-0.internal ([10.131.114.225]
- helo=smtp-relay-internal-0.canonical.com)
+	id 1wbvMD-0002SD-Cy; Tue, 23 Jun 2026 07:15:41 +0000
+Received: from smtp-relay-internal-1.internal ([10.131.114.114]
+ helo=smtp-relay-internal-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1wbvKN-0002I3-SW
- for apparmor@lists.ubuntu.com; Tue, 23 Jun 2026 07:13:47 +0000
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
- [209.85.215.198])
+ id 1wbvMA-0002S4-TK
+ for apparmor@lists.ubuntu.com; Tue, 23 Jun 2026 07:15:39 +0000
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
+ [209.85.215.197])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 9BFD23F5B6
- for <apparmor@lists.ubuntu.com>; Tue, 23 Jun 2026 07:13:47 +0000 (UTC)
-Received: by mail-pg1-f198.google.com with SMTP id
- 41be03b00d2f7-c85798977dcso3444027a12.0
- for <apparmor@lists.ubuntu.com>; Tue, 23 Jun 2026 00:13:47 -0700 (PDT)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 4C3F73F2C9
+ for <apparmor@lists.ubuntu.com>; Tue, 23 Jun 2026 07:15:38 +0000 (UTC)
+Received: by mail-pg1-f197.google.com with SMTP id
+ 41be03b00d2f7-c889d1eebafso7228575a12.0
+ for <apparmor@lists.ubuntu.com>; Tue, 23 Jun 2026 00:15:38 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782198826; x=1782803626;
+ d=1e100.net; s=20251104; t=1782198937; x=1782803737;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=TFcPZJr7OnPmIdUVN+MTZFKKeAf+5ltdnQrc4dogtko=;
- b=B1QbjwK9CkglDbeWe+xnAR+bTgGdlJnGA8xsOsf6yeC/CUlQiivhod3+CD0cXWcHt3
- OL9j6DP0D0JP55JuqkrD03Pisk5FPKXgf/6NECsWTEuFbzjwdKiYl2VTXI3W5FzcOgBo
- CIqcjJy/L2ohDRIZV9DCjnFHh5g9qd7G1glFBnRVOEVwPVCc5fqdYKwRuoj97SZqVIrp
- NNau9sCA8Iy8/Wg3j0dCk/XtU6BlufXO94mok5WIhhIYmGZ78gFS/DogHUicrKxA3fee
- JdUyMgeKzmzwKwqDEchoH0PJy8p6H+nXsaZC1DmuOTwBIcsKh7WR97AKu7XhcHHLyJun
- EsoA==
+ bh=UJ28Quv7slmdN0gFykwlCCszHWU5zR4AurdWTg5hrBs=;
+ b=mwo3FU0uPxekm4VD8I0xM0ipjwUWz1Xz272SID1lXvEpgE/nSyuWMFIqf8OWP0As7Y
+ PlvUS7gMUEwe4TcROicI8FEvqUIv3emjK97JoDCjcIXvO4l4vslHTv+aK+IB2B/zprB8
+ Fc5xYsSxU2LdRELGQ5eQiIXVblumd9MRqDb9Gch7I/dAGFeXnjmzpyPrhX2HtNZchJD6
+ jfwdcxl7uBfsnFU25ZD/J5s085JswW9sWAcaMBfBXz+bM+1+oQE8oOckYkvC78iqR/Kd
+ FUuSNHRsu9cuVn6+oFfc41bP5mVMUmdTWci345I/ZV+DJKOLkgU/LyhnXpASQd8ZeSji
+ vSuA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RrwUxGu0kRx9a3EF8c6HrV6zoHtOnQfVNiQxAJf3T0MJ9L4rh/LBupBkwFtdbodP3FqzIHjWikQvw==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0Yz8m9dQ1wr2p5oZQBtfmorhjwwNghG4CHoKPGDW9rru683/JAqV
- BZuhXeOJ61WmHvduNKKq7CQo3D+dHFGtOb/2RiLmi8NorqztdHIcRigNloftq2gOOtmha4VZfFG
- F8hRTJsgi+8rA5mW/1tMN4nK6DTufqa4+PEgQuIY12foytSXZhOvG3nelxpKHlmfdKaqcGFZBK1
- QTTw==
-X-Gm-Gg: AfdE7clCyt21ZQteG46nqsNr1AefGtS/HYHpmdoL+0oF4OTLyTVmcZgrICNWGjITfhE
- XKH+tEu2WRp8IyFd1yAJKdkEzHWhSUeOsnXrny/wZMNTWx18APboNmC+rts7QafI0vCHXmfC5XJ
- cUo7P8cOR7GebJj620XNLBtlQXXCl1Li6zqXvEWuVRUNrTrM/kSycIcEuF/gtNDOQ8fVLZuBTel
- OurQfpi1RnI2VjZr/hFaH8Xq9PiTcDcmP/2w6DV8iXWBgj//pkMcaCW0oswv9+qhGm8+Y60RmVA
- FXILTmMC8WJ4CZrz7ekjx/g8eEN34izUaF3dzf0sKYTXeHX/pofVga60ffki7olWFSToz2VLYFS
- vj61fd3S43N1BSfWHszemgRmZkw==
-X-Received: by 2002:a17:90b:3fc3:b0:36d:79c6:1562 with SMTP id
- 98e67ed59e1d1-37dd17a276emr1681387a91.25.1782198825999; 
- Tue, 23 Jun 2026 00:13:45 -0700 (PDT)
-X-Received: by 2002:a17:90b:3fc3:b0:36d:79c6:1562 with SMTP id
- 98e67ed59e1d1-37dd17a276emr1681352a91.25.1782198825554; 
- Tue, 23 Jun 2026 00:13:45 -0700 (PDT)
+ AFNElJ//PK760IHu87vKnSzQL4+6f+BAnKoabXKd7xAEwP7+/OhUHNBAKhaNlbFtLexbHAesmB+EBltuRg==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0YzRuhB7h++8h0rw9qoi4tdPKHys+3gw4dStmDlXCciF1M+gZ8T+
+ voP9ECx6I1xRNDw4zZn6dEbwm6LcU576r7mzY6fyy5UEgyp4VgYf9l7jJGMiEKlAcyk86gJi+Re
+ Y3Ehpyk5N9LQE0J+FbQNMzAsKgroepdevPaUeo/co6ZtKXZbILSrNnUssZFfy76E6izOuA1CrAk
+ uQKw==
+X-Gm-Gg: AfdE7clzTa+zqMY69uG0eVUil40xVLTQ9+cVrXx+Z27QroXrOg9HIkd+WyGWcobtwHQ
+ 1YZrXVaLrfdjvDz5UStWx5GBVRd02ms2ve8+sY+KkV2Ocg6ss6TEuH8QlGdlpdunIEOjrhR4ckJ
+ ltaCC9URgSqxkminsV1ymsScLyIJxjNeeS4a9feLoFjRpDpcorXrouoyRGPredaAEl5hpp60FyD
+ ELzea2umT2kAzCS9+XtNSPXGXD7XrM4iNM6lI6OZNQA2VHly6qqHDkDS8i58H97oc7gSePmpl2c
+ XxreZPW4absDcS7vSbfFDvQLBUPYudQ1rTnwSnBJtFPdEH1icYgm4BNJsWJwQjSaw7i3aaICE2J
+ 2LK1HWq3Nr1EIHIUSYUNEO6vhGw==
+X-Received: by 2002:a05:6a00:238c:b0:845:3d4b:8f8a with SMTP id
+ d2e1a72fcca58-845508a1d4fmr20512989b3a.35.1782198936949; 
+ Tue, 23 Jun 2026 00:15:36 -0700 (PDT)
+X-Received: by 2002:a05:6a00:238c:b0:845:3d4b:8f8a with SMTP id
+ d2e1a72fcca58-845508a1d4fmr20512970b3a.35.1782198936570; 
+ Tue, 23 Jun 2026 00:15:36 -0700 (PDT)
 Received: from [192.168.192.71] ([50.47.147.90])
  by smtp.googlemail.com with ESMTPSA id
- 98e67ed59e1d1-37d15e0b1d4sm13105240a91.17.2026.06.23.00.13.44
+ d2e1a72fcca58-84564d8a7f0sm10037091b3a.13.2026.06.23.00.15.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Jun 2026 00:13:44 -0700 (PDT)
-Message-ID: <ff6eb32d-a2d3-480c-8291-e2e6dede2423@canonical.com>
-Date: Tue, 23 Jun 2026 00:13:43 -0700
+ Tue, 23 Jun 2026 00:15:36 -0700 (PDT)
+Message-ID: <2ea3bc97-8422-4e33-88b8-a8b0fee79793@canonical.com>
+Date: Tue, 23 Jun 2026 00:15:35 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Bryam Vargas <hexlabsecurity@proton.me>,
- linux-security-module@vger.kernel.org, apparmor@lists.ubuntu.com
-References: <20260619011138.264578-1-hexlabsecurity@proton.me>
+To: hexlabsecurity@proton.me, Ryan Lee <ryan.lee@canonical.com>
+References: <20260622-b4-disp-aba401c6-v1-1-9d74343c7ced@proton.me>
 Content-Language: en-US
 Autocrypt: addr=john.johansen@canonical.com; keydata=
  xsFNBE5mrPoBEADAk19PsgVgBKkImmR2isPQ6o7KJhTTKjJdwVbkWSnNn+o6Up5knKP1f49E
@@ -120,11 +119,11 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <20260619011138.264578-1-hexlabsecurity@proton.me>
+In-Reply-To: <20260622-b4-disp-aba401c6-v1-1-9d74343c7ced@proton.me>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [apparmor] AppArmor: TCP Fast Open bypasses connect mediation
- (last unaddressed LSM)
+Subject: Re: [apparmor] [PATCH] apparmor: mediate the implicit connect of
+ TCP fast open sendmsg
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -138,13 +137,12 @@ List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
 From: John Johansen via AppArmor <apparmor@lists.ubuntu.com>
 Reply-To: John Johansen <john.johansen@canonical.com>
-Cc: Paul Moore <paul@paul-moore.com>, netdev@vger.kernel.org,
- Stephen Smalley <stephen.smalley.work@gmail.com>,
+Cc: Paul Moore <paul@paul-moore.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>, apparmor@lists.ubuntu.com,
  James Morris <jmorris@namei.org>, Matthieu Buffet <matthieu@buffet.re>,
- linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
+ linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
  Mikhail Ivanov <ivanov.mikhail1@huawei-partners.com>,
- Mickael Salaun <mic@digikod.net>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "Serge E . Hallyn" <serge@hallyn.com>
+ Mickael Salaun <mic@digikod.net>, "Serge E. Hallyn" <serge@hallyn.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 X-Rspamd-Action: no action
@@ -153,19 +151,19 @@ X-Spamd-Result: default: False [0.09 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[lists.ubuntu.com,none];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
-	FREEMAIL_CC(0.00)[paul-moore.com,vger.kernel.org,gmail.com,namei.org,buffet.re,google.com,huawei-partners.com,digikod.net,kernel.org,redhat.com,hallyn.com];
+	FREEMAIL_CC(0.00)[paul-moore.com,gmail.com,lists.ubuntu.com,namei.org,buffet.re,vger.kernel.org,huawei-partners.com,digikod.net,hallyn.com];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	ARC_NA(0.00)[];
 	FORGED_SENDER(0.00)[apparmor@lists.ubuntu.com,apparmor-bounces@lists.ubuntu.com];
+	ARC_NA(0.00)[];
 	HAS_ORG_HEADER(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:hexlabsecurity@proton.me,m:linux-security-module@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:paul@paul-moore.com,m:netdev@vger.kernel.org,m:stephen.smalley.work@gmail.com,m:jmorris@namei.org,m:matthieu@buffet.re,m:linux-kernel@vger.kernel.org,m:edumazet@google.com,m:ivanov.mikhail1@huawei-partners.com,m:mic@digikod.net,m:kuba@kernel.org,m:pabeni@redhat.com,m:serge@hallyn.com,m:stephensmalleywork@gmail.com,s:lists@lfdr.de];
-	RCPT_COUNT_TWELVE(0.00)[15];
+	FORGED_RECIPIENTS(0.00)[m:hexlabsecurity@proton.me,m:ryan.lee@canonical.com,m:paul@paul-moore.com,m:stephen.smalley.work@gmail.com,m:apparmor@lists.ubuntu.com,m:jmorris@namei.org,m:matthieu@buffet.re,m:linux-kernel@vger.kernel.org,m:linux-security-module@vger.kernel.org,m:ivanov.mikhail1@huawei-partners.com,m:mic@digikod.net,m:serge@hallyn.com,m:stephensmalleywork@gmail.com,s:lists@lfdr.de];
+	RCPT_COUNT_TWELVE(0.00)[12];
 	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
 	MIME_TRACE(0.00)[0:+];
 	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
@@ -183,82 +181,97 @@ X-Spamd-Result: default: False [0.09 / 15.00];
 	R_DKIM_NA(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:from_smtp,lists.ubuntu.com:helo,lists.ubuntu.com:rdns,lists.ubuntu.com:from_mime,canonical.com:replyto,canonical.com:mid]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:from_smtp,lists.ubuntu.com:helo,lists.ubuntu.com:rdns,lists.ubuntu.com:from_mime,canonical.com:replyto,canonical.com:email,canonical.com:mid,proton.me:email]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: BCE9A6B4BE1
+X-Rspamd-Queue-Id: BDFE46B4C42
 
-On 6/18/26 18:11, Bryam Vargas wrote:
-> Hello John, and LSM folks,
+On 6/22/26 13:57, Bryam Vargas via B4 Relay wrote:
+> From: Bryam Vargas <hexlabsecurity@proton.me>
 > 
-> I have been working on the Landlock TCP Fast Open connect bypass [1]. Stephen
-> Smalley's SELinux fix for the same issue [3] -- "Similar to Landlock, SELinux was
-> not updated when TCP Fast Open support was introduced ..." -- made me go back and
-> check the rest of the connect-mediating LSMs, since I had only been looking at
-> Landlock. With Landlock [2], SELinux [3], and now TOMOYO [4] all getting fixes,
-> AppArmor is the last one with the same gap and no fix yet.
+> sendmsg()/sendto() with MSG_FASTOPEN is a combination of connect(2) and
+> write(2): it opens the connection in the SYN. apparmor_socket_sendmsg()
+> only checks AA_MAY_SEND, so a profile that grants send but denies connect
+> lets a confined task open an outbound TCP/MPTCP connection that connect(2)
+> would have refused, bypassing connect mediation.
 > 
-> Root cause (shared with the others)
-> -----------------------------------
-> security_socket_connect() has a single call site, net/socket.c (the connect(2)
-> syscall). TCP Fast Open performs an implicit connect inside sendmsg:
+> Mediate the implicit connect when MSG_FASTOPEN is set and a destination
+> is supplied. Add it to apparmor_socket_sendmsg() (not the shared
+> aa_sock_msg_perm() helper, which recvmsg also uses) and call aa_sk_perm()
+> directly, mirroring the selinux and tomoyo fixes. sk_is_tcp() does not
+> cover MPTCP fast open, so the SOCK_STREAM/IPPROTO_MPTCP arm is explicit.
 > 
->    tcp_sendmsg -> tcp_sendmsg_fastopen -> __inet_stream_connect(..., is_sendmsg=1)
->                -> sk->sk_prot->connect()                 net/ipv4/{tcp.c,af_inet.c}
-> 
-> This never calls security_socket_connect(); the only LSM hook on the path is
-> security_socket_sendmsg(). mptcp_sendmsg_fastopen reaches the same code and is a
-> second producer.
-> 
-> AppArmor
-> --------
-> apparmor_socket_connect() requests AA_MAY_CONNECT; apparmor_socket_sendmsg() (via
-> aa_sock_msg_perm) requests AA_MAY_SEND. These are distinct bits, and apparmor_parser
-> compiles them independently: "network send inet stream," yields accept mask 0x02
-> while "network connect inet stream," yields 0x40. So an egress-restriction profile
-> that grants send but not connect is bypassed by MSG_FASTOPEN.
-> 
-> Reproduced on 6.12.88 with apparmor active. Under a profile granting the inet/inet6
-> stream lifecycle except connect:
-> 
->    aa-exec -p egress_restricted -- ./probe
->    [TCP ] connect(2)=EACCES(blocked)  sendto(MSG_FASTOPEN)=OK(reached)  => connection established
->    [TCP6] connect(2)=EACCES(blocked)  sendto(MSG_FASTOPEN)=OK(reached)  => connection established
-> 
-> (The coarse "network inet stream," idiom grants connect anyway, so this only bites the
-> fine-grained "allow send, deny connect" policy that the asymmetry is meant to serve.)
-> 
-> Fix
+> Fixes: cf60af03ca4e ("net-tcp: Fast Open client - sendmsg(MSG_FASTOPEN)")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+
+Acked-by: John Johansen <john.johansen@canonical.com>
+
+I have pulled this into my tree
+
 > ---
-> Same shape as the TOMOYO [4] and SELinux [3] fixes: in apparmor_socket_sendmsg (or
-> aa_sock_msg_perm), when MSG_FASTOPEN is set and msg_name carries a destination on a
-> not-yet-connected stream socket, additionally require aa_sk_perm(OP_CONNECT,
-> AA_MAY_CONNECT, sk). I am happy to send that patch and the reproducer.
+> This is the patch and reproducer requested in [1]. A userspace regression test
+> (tests/regression/apparmor/net_inet_tcp_fastopen) follows separately to the
+> apparmor tree, as suggested.
 > 
-If you have a patch, I'd love to take it and give you the credit other wise I can
-throw it together.
-
-> (A single core check in __inet_stream_connect(), gated on is_sendmsg, would have
-> covered all five LSMs and both the TCP and MPTCP producers in one place -- the kernel
-> already mediates the analogous implicit-connect-on-send for AF_UNIX via
-> security_unix_may_send and for SCTP via security_sctp_bind_connect. But since the
-> other four LSMs are taking per-hook fixes, AppArmor matching them is the consistent
-> move; mentioning the core option only in case it is preferred.)
+> Reproducer (behavioral; the bypassed value is policy, not bus state, so no special
+> hardware). Under a profile that grants inet/inet6 stream send but denies connect, on
+> the current Debian security kernel 6.12.94 (apparmor active):
 > 
-I think per LSM makes sense, at least atm, as it is probably easier. We can look
-at refactoring after the fact.
-
-> [1] Landlock: LANDLOCK_ACCESS_NET_CONNECT_TCP bypass via TCP Fast Open (report)
->      https://lore.kernel.org/r/20260616201615.275032-1-hexlabsecurity@proton.me
-> [2] landlock: fix TCP Fast Open connection bypass (Matthieu Buffet)
->      https://lore.kernel.org/r/20260617180526.15627-2-matthieu@buffet.re
-> [3] selinux: check connect-related permissions on TCP Fast Open (Stephen Smalley)
->      https://lore.kernel.org/r/20260618175513.112443-2-stephen.smalley.work@gmail.com
-> [4] tomoyo: Enforce connect policy in TCP Fast Open (Matthieu Buffet)
->      https://lore.kernel.org/r/20260619002207.61104-1-matthieu@buffet.re
+>    [TCP ] connect(2)=EACCES   sendto(MSG_FASTOPEN)=OK   -> connect bypassed (listener accepted)
+>    [TCP6] connect(2)=EACCES   sendto(MSG_FASTOPEN)=OK   -> connect bypassed
 > 
-> Thanks,
-> Bryam Vargas
+> The kernel audit shows the connect(2) denial and no connect record for the fastopen
+> sendto:
 > 
-Thanks for the detailed report Bryan
+>    apparmor="DENIED" operation="connect" profile="egress_restricted" comm="lsm_tfo_ab"
+>      family="inet" sock_type="stream" protocol=6 requested_mask="connect" denied_mask="connect"
+> 
+> With this patch the fastopen sendto hits that same connect denial. Full reproducer
+> available on request.
+> 
+> Same-class fixes: selinux [2], tomoyo [3]; the original cross-LSM report (landlock,
+> the first instance) is [4].
+> 
+> [1] https://lore.kernel.org/r/20260619011138.264578-1-hexlabsecurity@proton.me
+> [2] https://lore.kernel.org/r/20260618175513.112443-2-stephen.smalley.work@gmail.com
+> [3] https://lore.kernel.org/r/20260619002207.61104-1-matthieu@buffet.re
+> [4] https://lore.kernel.org/r/20260616201615.275032-1-hexlabsecurity@proton.me
+> ---
+>   security/apparmor/lsm.c | 16 +++++++++++++++-
+>   1 file changed, 15 insertions(+), 1 deletion(-)
+> 
+> diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
+> index 3491e9f60194..e01efdf50efa 100644
+> --- a/security/apparmor/lsm.c
+> +++ b/security/apparmor/lsm.c
+> @@ -1422,7 +1422,21 @@ static int aa_sock_msg_perm(const char *op, u32 request, struct socket *sock,
+>   static int apparmor_socket_sendmsg(struct socket *sock,
+>   				   struct msghdr *msg, int size)
+>   {
+> -	return aa_sock_msg_perm(OP_SENDMSG, AA_MAY_SEND, sock, msg, size);
+> +	int error = aa_sock_msg_perm(OP_SENDMSG, AA_MAY_SEND, sock, msg, size);
+> +
+> +	if (error)
+> +		return error;
+> +
+> +	/* TCP fast open carries connect() semantics in sendmsg(); mediate
+> +	 * the implicit connect so it cannot bypass the connect permission.
+> +	 */
+> +	if ((msg->msg_flags & MSG_FASTOPEN) && msg->msg_name &&
+> +	    (sk_is_tcp(sock->sk) ||
+> +	     (sk_is_inet(sock->sk) && sock->sk->sk_type == SOCK_STREAM &&
+> +	      sock->sk->sk_protocol == IPPROTO_MPTCP)))
+> +		error = aa_sk_perm(OP_CONNECT, AA_MAY_CONNECT, sock->sk);
+> +
+> +	return error;
+>   }
+>   
+>   static int apparmor_socket_recvmsg(struct socket *sock,
+> 
+> ---
+> base-commit: 4549871118cf616eecdd2d939f78e3b9e1dddc48
+> change-id: 20260622-b4-disp-aba401c6-f02842c82975
+> 
+> Best regards,
 
 
