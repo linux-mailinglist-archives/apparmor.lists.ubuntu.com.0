@@ -2,13 +2,13 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id D63fFZ86Omp/4QcAu9opvQ
+	id MYzuABSLPWrt3wgAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Tue, 23 Jun 2026 09:49:51 +0200
+	for <lists+apparmor@lfdr.de>; Thu, 25 Jun 2026 22:09:56 +0200
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id D95216B4FC6
-	for <lists+apparmor@lfdr.de>; Tue, 23 Jun 2026 09:49:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 876EB6C877A
+	for <lists+apparmor@lfdr.de>; Thu, 25 Jun 2026 22:09:55 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
 	dkim=none;
 	dmarc=pass (policy=none) header.from=lists.ubuntu.com;
@@ -16,65 +16,63 @@ Authentication-Results: mail.lfdr.de;
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1wbvt1-0006q8-57; Tue, 23 Jun 2026 07:49:35 +0000
-Received: from smtp-relay-internal-0.internal ([10.131.114.225]
- helo=smtp-relay-internal-0.canonical.com)
+	id 1wcqOG-0002hz-0u; Thu, 25 Jun 2026 20:09:36 +0000
+Received: from smtp-relay-internal-1.internal ([10.131.114.114]
+ helo=smtp-relay-internal-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <john.johansen@canonical.com>)
- id 1wbvt0-0006pw-4L
- for apparmor@lists.ubuntu.com; Tue, 23 Jun 2026 07:49:34 +0000
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
- [209.85.210.197])
+ id 1wcqOE-0002fN-1U
+ for apparmor@lists.ubuntu.com; Thu, 25 Jun 2026 20:09:34 +0000
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
+ [209.85.214.197])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id CE2163F1F4
- for <apparmor@lists.ubuntu.com>; Tue, 23 Jun 2026 07:49:33 +0000 (UTC)
-Received: by mail-pf1-f197.google.com with SMTP id
- d2e1a72fcca58-8423efbfb61so3914606b3a.0
- for <apparmor@lists.ubuntu.com>; Tue, 23 Jun 2026 00:49:33 -0700 (PDT)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id AC0743F471
+ for <apparmor@lists.ubuntu.com>; Thu, 25 Jun 2026 20:09:33 +0000 (UTC)
+Received: by mail-pl1-f197.google.com with SMTP id
+ d9443c01a7336-2c804e38c65so2987665ad.2
+ for <apparmor@lists.ubuntu.com>; Thu, 25 Jun 2026 13:09:33 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782200972; x=1782805772;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
- :content-language:references:to:subject:user-agent:mime-version:date
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=jHm5FUb9yQVfGYSofLCg5hQx8C9AkGcHH4DHaB6X0Ic=;
- b=CUtw2hrTGL9eUVU2jYCFUDnMUtngWLLXLIUD/2L/c0MPF/lhFQDMi7SnnxGTQAQudx
- 4OXSOXPENh6BCG45neVNNTUZj57e96cZLUDwJ72K1XeaemQ24JsZw372/N7vhZZkt4f2
- Cy0CeEwHKIHyJzZd5LcdZ+AYWxjoztVPPGalEoHFS62m9SmOvogpyJEOgaCE2xNCj102
- AIIxkHkEafxhApmDTevmOSMntefWVroZWA/sKHu11MCdVw42jZVNlew2+qAwFk7AVeaH
- zjEpeEOi4StWrAvEGtZzUAiNBpKEqKc4X+0/uQgqJ0ctYFAST4/xY1tgeWF0U4nbhSSa
- zIMA==
-X-Gm-Message-State: AOJu0YyLRsUVi59SATy7YEnzFnwNsFYd+133NKfde3sKqDDKNwT8K2uU
- ZThHH5o5AYnKNf64rZ3rb2NQN5A64aEZELSyp6EeHIx7poNBULG/gOULVh4jzZWgfz5iJw9hhnz
- HltoPmhynEuQ4OFR3yFDG9/H8UJGpECMRnyyD3+RyTmYlpDCUkbRiOi6BU5tlAza0q8wh3Z4LpO
- nwTskuZ2TN+A==
-X-Gm-Gg: AfdE7cnR/hMf6NcU0xyaM+JXigF4Ivnde2qvOK4H1iVdQcWoZ7LyAdVwbtA5Zh230j1
- 92O3VQx7NtPMHJMCYHym9OczjD4fykBze5+nr8ywRmBfr03+hLsaMQzuia9lehxa2cduZ0+Yuxv
- cCjqqT3FSuqxowhyjEY6om0AX4j8YG6gDzVW4UYYDVdrQJZNs5NJFTfg+69XH9hIwVwkRls8ef3
- ANABViNieDdZ6Uwa4aShVUkzfojKQZZ/aMmnVxeXT4G6vQYNpSvWxkZ36OuJRdgNDN8V4evPMvA
- kDBiyFIoYFtvMywilE4SH5SZ1TA4G/nCFYUU5USilUPzeBCt3qwWqbzE0ngJU/NdA17nNLqCJns
- Mi/6kSTrJAuvI0UBPxqFjKLWPlQ==
-X-Received: by 2002:a05:6a00:993:b0:845:344f:eee9 with SMTP id
- d2e1a72fcca58-84597070df3mr1698759b3a.1.1782200972146; 
- Tue, 23 Jun 2026 00:49:32 -0700 (PDT)
-X-Received: by 2002:a05:6a00:993:b0:845:344f:eee9 with SMTP id
- d2e1a72fcca58-84597070df3mr1698742b3a.1.1782200971744; 
- Tue, 23 Jun 2026 00:49:31 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1782418172; x=1783022972;
+ h=organization:autocrypt:subject:from:to:content-language:user-agent
+ :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Re8z9Vz7k3Vt2r6kzkTDsIBYcvGWx/ZNJYtbCR0QuDw=;
+ b=qUe+q03/Kje0cnoJaldUMEwtyfGFea8/u4NLIjo2NfGP5kUcXBu3euPUiwL+0RZvGj
+ RXbwdL8HBdow/Jnz6OZoBt79lJKPTZYzVjYLkgCK1Av06pzUK1evjIl63z+qNgHAFwAh
+ 8WUhPEXdTrKm2Ny0Y0UtyUj0b0p1nwI1yBChqIzfFsiNAVrpfOSs7WTCK0p90Z4RC2VT
+ 3l0XYrdTn+8kUb31rIXJZ6FsH10BUvH9PEemJbVL0azwuFn3+t73QJXUx1FvVu5pGZKt
+ uk9sAEkN7xwqko8mou+0MRCif6KTC1cHJ1N6OnxGT7RFdQh3+mzjvRs0mOp7jxGXpI98
+ 0LyQ==
+X-Gm-Message-State: AOJu0YzfJjn3hcLy6xtqVPozEiDiAPVOMluHGIcAp36r1BzF8hTvb/qt
+ c3w5HL/9YKU9HHf34ObDdrrtbMQXLdteJeXwZYV93iB1/jHKol18RzwqReuz9nv5gLsm8vdemwK
+ bEKqElGNlPFV5QxdVELTb0027Ae92UJbVYSE6b5lL/NhCbrb4nYKR8buxHepSEK96OudRzkrgkO
+ IaVZLela90VA==
+X-Gm-Gg: AfdE7cnI7c+ndUn8c0wc2uMPDB8CaXrWR+lVMZuHEK68bge8mgK3RpGN8HWf/YPveON
+ KXB4MCtgteVSbUvVoZFBjRBbF/1D5fQFb+ghX8Zyu32UtfQBMicZj/+TPEcQnoQm+NvuuFLrAOc
+ gf75+QFZRNyQWVDE2nH+PUVtl83OVqhAIodEfwl0l8k21+mfTmmdiDLtgDAf/7E52o/OE8e9keD
+ rbsMfejJCnwXH3PkXRhpMd+uTUUj4JRguvboW6DHADwfAuqgWc/Q7T+5MwVbEwKBL07p6set6XI
+ ALOL/mAYrQcIkqIwYq4YF2QuiJSv6saAjjvSaXuxUs2msvSw11EyH8GSPgxM3oU8kWHzRtlY0Zk
+ SHN3ah3HDQ+QVY0p+1qzO8vvjbQ==
+X-Received: by 2002:a17:902:f641:b0:2c8:be9:1d9a with SMTP id
+ d9443c01a7336-2c80be91efemr17233085ad.10.1782418171709; 
+ Thu, 25 Jun 2026 13:09:31 -0700 (PDT)
+X-Received: by 2002:a17:902:f641:b0:2c8:be9:1d9a with SMTP id
+ d9443c01a7336-2c80be91efemr17232705ad.10.1782418171105; 
+ Thu, 25 Jun 2026 13:09:31 -0700 (PDT)
 Received: from [192.168.192.71] ([50.47.147.90])
  by smtp.googlemail.com with ESMTPSA id
- d2e1a72fcca58-84564d6813bsm9929631b3a.8.2026.06.23.00.49.30
+ d9443c01a7336-2c7f6518bb1sm26110905ad.84.2026.06.25.13.09.29
  for <apparmor@lists.ubuntu.com>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Jun 2026 00:49:31 -0700 (PDT)
-Message-ID: <eaaca019-54ad-41ef-ac40-d46307c28c02@canonical.com>
-Date: Tue, 23 Jun 2026 00:49:30 -0700
+ Thu, 25 Jun 2026 13:09:30 -0700 (PDT)
+Message-ID: <75621600-a087-4888-8aaf-3011732cad1b@canonical.com>
+Date: Thu, 25 Jun 2026 13:09:29 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: apparmor@lists.ubuntu.com
-References: <T8YEGFN2ETU4.8WJE2RYVCFUC2@mailcore-77ff78dfb9-6kk5j>
 Content-Language: en-US
+To: apparmor <apparmor@lists.ubuntu.com>
 Autocrypt: addr=john.johansen@canonical.com; keydata=
  xsFNBE5mrPoBEADAk19PsgVgBKkImmR2isPQ6o7KJhTTKjJdwVbkWSnNn+o6Up5knKP1f49E
  BQlceWg1yp/NwbR8ad+eSEO/uma/K+PqWvBptKC9SWD97FG4uB4/caomLEU97sLQMtnvGWdx
@@ -118,10 +116,10 @@ Autocrypt: addr=john.johansen@canonical.com; keydata=
  +T7sv9+iY+e0Y+SolyJgTxMYeRnDWE6S77g6gzYYHmcQOWP7ZMX+MtD4SKlf0+Q8li/F9GUL
  p0rw8op9f0p1+YAhyAd+dXWNKf7zIfZ2ME+0qKpbQnr1oizLHuJX/Telo8KMmHter28DPJ03 lT9Q
 Organization: Canonical
-In-Reply-To: <T8YEGFN2ETU4.8WJE2RYVCFUC2@mailcore-77ff78dfb9-6kk5j>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [apparmor] Questions about Contributing
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------ScBFBi0CZr03rxYRvP33cKhQ"
+Subject: [apparmor] New co-maintainer
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -138,56 +136,85 @@ Reply-To: John Johansen <john.johansen@canonical.com>
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.41 / 15.00];
+X-Spamd-Result: default: False [-2.41 / 15.00];
+	SIGNED_PGP(-2.00)[];
+	MIME_BASE64_TEXT_BOGUS(1.00)[];
 	DMARC_POLICY_ALLOW(-0.50)[lists.ubuntu.com,none];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
+	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
 	MAILLIST(-0.20)[mailman];
-	MIME_GOOD(-0.10)[text/plain];
+	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	FROM_HAS_DN(0.00)[];
-	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	TO_DN_ALL(0.00)[];
 	ARC_NA(0.00)[];
-	HAS_ORG_HEADER(0.00)[];
+	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
 	TO_EQ_FROM(0.00)[];
-	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+,2:+,3:~];
 	RCPT_COUNT_ONE(0.00)[1];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	HAS_REPLYTO(0.00)[john.johansen@canonical.com];
-	TO_DN_NONE(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FROM_NEQ_ENVFROM(0.00)[apparmor@lists.ubuntu.com,apparmor-bounces@lists.ubuntu.com];
+	HAS_ORG_HEADER(0.00)[];
+	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[5];
 	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
-	R_DKIM_NA(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[apparmor@lists.ubuntu.com,apparmor-bounces@lists.ubuntu.com];
+	FROM_HAS_DN(0.00)[];
+	HAS_ATTACHMENT(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[apparmor];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[canonical.com:replyto,canonical.com:mid,lists.ubuntu.com:from_smtp,lists.ubuntu.com:helo,lists.ubuntu.com:rdns,lists.ubuntu.com:from_mime]
+	HAS_REPLYTO(0.00)[john.johansen@canonical.com];
+	R_DKIM_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:from_smtp,lists.ubuntu.com:helo,lists.ubuntu.com:rdns,lists.ubuntu.com:from_mime]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: D95216B4FC6
+X-Rspamd-Queue-Id: 876EB6C877A
 
-On 5/29/26 04:30, aenri wrote:
-> Thank you for your question, Robin!
-> 
-> 
-> 
-> 
-> The conflict between some /foo/*/bar and some /foo/**/bar would resolve to /foo/*/bar taking priority, as * is a direct subset of **. since (according to my understanding of the code) the only direct difference is that * consumes up until a slash (/) (noted that both reject the null byte \x00) but otherwise will accept anything that's thrown it's way, it is considered a direct subset.
-> 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------ScBFBi0CZr03rxYRvP33cKhQ
+Content-Type: multipart/mixed; boundary="------------QfujCixok7sb26YejRoIHM0B";
+ protected-headers="v1"
+From: John Johansen <john.johansen@canonical.com>
+To: apparmor <apparmor@lists.ubuntu.com>
+Message-ID: <75621600-a087-4888-8aaf-3011732cad1b@canonical.com>
+Subject: New co-maintainer
 
-yep this is correct. As long as the conflict can be resolved with a subset of states, you are good. It gets trickier if you have multiple rules conflicting, but you can do just a pairwise comparison for each combination in the set.
+--------------QfujCixok7sb26YejRoIHM0B
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
+R2VvcmdpYSBHYXJjaWEgPGdlb3JnaWEuZ2FyY2lhQGNhbm9uaWNhbC5jb20+IGlzIG5vdyBh
+IGNvLW1haW50YWluZXIgb2YgdGhlIGFwcGFybW9yIHByb2plY3QsIGJvdGggaW4gdXNlcnNw
+YWNlLCBhbmQgbW9yZSBpbXBvcnRhbnRseSBpbiB0aGUga2VybmVsLg0KDQpUaGlzIHNob3Vs
+ZCBoZWxwIGFsbGV2aWF0ZSBzb21lIG9mIHRoZSBiYWNrbG9nIHByb2JsZW1zIHdlIGhhdmUg
+aGFkIGxhdGVseS4NCg0KVGhhbmsgeW91IEdlb3JnaWEgZm9yIHN0ZXBwaW5nIHVwIGFuZCBo
+ZWxwaW5nIHRha2Ugb24gdGhpcyByZXNwb25zaWJpbGl0eS4NCg0KamoNCg0KDQo=
 
-> 
-> 
-> 
-> Thank you,
-> 
-> Aenri Lovehart
+--------------QfujCixok7sb26YejRoIHM0B--
 
+--------------ScBFBi0CZr03rxYRvP33cKhQ
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsF5BAABCAAjFiEE7cSDD705q2rFEEf7BS82cBjVw9gFAmo9ivkFAwAAAAAACgkQBS82cBjVw9jt
+8A/+PrVU055hCdJtfCKHXJ2CnIdSeaQ/K0ABwIC1C5E35ijiD2Mz3laCKLt6QVeOn2o64mq8BCdC
+YSplOMPYKq3jLfMrsZHuZrDPR5tbrdsWOfvTdJGmfEZ0bNGFbYA9ldqHejc081ZkqEvLip+eFh8R
+xyCteyAYn0IrWOELqnzPNRJAwJ+xLkHbVqySx2QBkiJHWpvHaw/qxWKmLvVU2UYvv83m0c+iJtsA
+RBiENKM9oF1id5op2JrIuHAWGdlEiKigoxmuGgBK+FhcutIWTnWbuKCcWnOaTGnR4oVRWr+2hE1q
+c9nmRwIh3kEs/rx+/1ohxgun4ZxY9YlRQeUs7EpqPbc6xs4iTF3n0KoxqKryfIVp/SLaeGm9HzLl
+KQtyNTSynOllXsp+VoodCig1BWgdyVLmlmGq7KlRtgJt/BDx/fFIcBjcCZHRH3ka41CXTwNA0A2P
+KhLFy2tLsD4AuxT9FTqEE16lwZMFD7z5JeXoUQumj94afX1ooMBQ4MmJ69OY00Kbvla+iLsnxJJQ
+/vzNW+kqJm1mDLg/35tA0lM0/T6VivCGDuk/jg1XaG+CzJYgddXP+bl8tILI1uWPvAK8atVEfbqP
+cUXI2vqFO0Y5+ZPwhPzVGWC2mOiJgCuOsWtV8ZRh1wdCu14tipTjjwzfbHSrTA3Ic1va+igOCCqS
+uYI=
+=9DOJ
+-----END PGP SIGNATURE-----
+
+--------------ScBFBi0CZr03rxYRvP33cKhQ--
 
