@@ -2,13 +2,13 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id RyrIAf+gS2pHXQEAu9opvQ
+	id CIsTCAKhS2pMXQEAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Mon, 06 Jul 2026 14:35:11 +0200
+	for <lists+apparmor@lfdr.de>; Mon, 06 Jul 2026 14:35:14 +0200
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id A431F710965
-	for <lists+apparmor@lfdr.de>; Mon, 06 Jul 2026 14:35:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B87C710980
+	for <lists+apparmor@lfdr.de>; Mon, 06 Jul 2026 14:35:14 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
 	dkim=none;
 	dmarc=pass (policy=none) header.from=lists.ubuntu.com;
@@ -16,26 +16,44 @@ Authentication-Results: mail.lfdr.de;
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1wgiXJ-0005sE-0M; Mon, 06 Jul 2026 12:34:57 +0000
-Received: from confino.investici.org ([93.190.126.19])
+	id 1wgiXJ-0005sM-6w; Mon, 06 Jul 2026 12:34:57 +0000
+Received: from us-smtp-delivery-124.mimecast.com ([170.10.133.124])
  by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <include@grrlz.net>) id 1wgR9T-0005kL-UD
- for apparmor@lists.ubuntu.com; Sun, 05 Jul 2026 18:01:12 +0000
-Received: from mx1.investici.org (unknown [127.0.0.1])
- by confino.investici.org (Postfix) with ESMTP id 4gtZq03zksz111n;
- Sun, 05 Jul 2026 17:53:32 +0000 (UTC)
-Received: by mx1.investici.org (Postfix) id 4gtZq00J6Gz111k;
- Sun, 05 Jul 2026 17:53:32 +0000 (UTC)
-Date: Sun, 05 Jul 2026 18:53:31 +0100
-To: oleg@redhat.com
-In-Reply-To: <akqL3YWi28ZUzca3@redhat.com>
-Message-ID: <65E9B858-C580-41A3-9B39-B383ED5F0ACF@grrlz.net>
+ (envelope-from <oleg@redhat.com>) id 1wgRt3-0001bX-Ej
+ for apparmor@lists.ubuntu.com; Sun, 05 Jul 2026 18:48:17 +0000
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-676-3UqcXPImOcyk_WgjeI8yOg-1; Sun,
+ 05 Jul 2026 14:48:11 -0400
+X-MC-Unique: 3UqcXPImOcyk_WgjeI8yOg-1
+X-Mimecast-MFC-AGG-ID: 3UqcXPImOcyk_WgjeI8yOg_1783277290
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 97C4B19560B9; Sun,  5 Jul 2026 18:48:09 +0000 (UTC)
+Received: from fedora (unknown [10.44.32.112])
+ by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP
+ id 08025180058F; Sun,  5 Jul 2026 18:48:05 +0000 (UTC)
+Received: by fedora (nbSMTP-1.00) for uid 1000
+ oleg@redhat.com; Sun,  5 Jul 2026 20:48:09 +0200 (CEST)
+Date: Sun, 5 Jul 2026 20:48:04 +0200
+To: Bradley Morgan <include@grrlz.net>
+Message-ID: <akqm5EMVZpqM6gnQ@redhat.com>
+References: <akqL3YWi28ZUzca3@redhat.com>
+ <65E9B858-C580-41A3-9B39-B383ED5F0ACF@grrlz.net>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=93.190.126.19; envelope-from=include@grrlz.net;
- helo=confino.investici.org
+In-Reply-To: <65E9B858-C580-41A3-9B39-B383ED5F0ACF@grrlz.net>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+X-Mimecast-MFC-PROC-ID: NjJMs3LKGYsplgo6QxkKqHOUQoKCIR5s5f8P-jO4ZiI_1783277290
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Received-SPF: pass client-ip=170.10.133.124; envelope-from=oleg@redhat.com;
+ helo=us-smtp-delivery-124.mimecast.com
 X-Mailman-Approved-At: Mon, 06 Jul 2026 12:34:55 +0000
 Subject: Re: [apparmor] [PATCH] apparmor: use SEND_SIG_NOINFO instead of
  NULL in aa_audit()
@@ -50,8 +68,8 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-From: Bradley Morgan via AppArmor <apparmor@lists.ubuntu.com>
-Reply-To: Bradley Morgan <include@grrlz.net>
+From: Oleg Nesterov via AppArmor <apparmor@lists.ubuntu.com>
+Reply-To: Oleg Nesterov <oleg@redhat.com>
 Cc: paul@paul-moore.com, apparmor@lists.ubuntu.com, jmorris@namei.org,
  linux-kernel@vger.kernel.org, serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
@@ -60,72 +78,68 @@ X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-1.41 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[lists.ubuntu.com,none];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_RECIPIENTS(0.00)[m:oleg@redhat.com,m:paul@paul-moore.com,m:apparmor@lists.ubuntu.com,m:jmorris@namei.org,m:linux-kernel@vger.kernel.org,m:serge@hallyn.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:include@grrlz.net,m:paul@paul-moore.com,m:apparmor@lists.ubuntu.com,m:jmorris@namei.org,m:linux-kernel@vger.kernel.org,m:serge@hallyn.com,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
+	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER(0.00)[apparmor@lists.ubuntu.com,apparmor-bounces@lists.ubuntu.com];
+	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
 	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	HAS_REPLYTO(0.00)[include@grrlz.net];
+	RCPT_COUNT_FIVE(0.00)[6];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	TO_DN_NONE(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[6];
 	FROM_NEQ_ENVFROM(0.00)[apparmor@lists.ubuntu.com,apparmor-bounces@lists.ubuntu.com];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[grrlz.net:replyto,grrlz.net:mid,grrlz.net:email,lists.ubuntu.com:from_smtp,lists.ubuntu.com:from_mime,lists.ubuntu.com:helo,lists.ubuntu.com:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[grrlz.net:email,lists.ubuntu.com:from_smtp,lists.ubuntu.com:from_mime,lists.ubuntu.com:helo,lists.ubuntu.com:rdns];
 	R_DKIM_NA(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
 	TAGGED_RCPT(0.00)[apparmor];
-	RCPT_COUNT_FIVE(0.00)[6]
+	HAS_REPLYTO(0.00)[oleg@redhat.com]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: A431F710965
+X-Rspamd-Queue-Id: 0B87C710980
 
-> SEND_SIG_NOINFO is defined as ((struct kernel_siginfo *) 0), so passing
-> NULL works, but:
+On 07/05, Bradley Morgan wrote:
 >
-> - this works "by accident" and looks as if the caller doesn't understand
->   the signal sending API.
->
-> - more importantly, this hides the usage of SEND_SIG_NOINFO from grep,
->   and this is really bad.
-- also drop the now redundant (void)
->
-Reviewed-by: Bradley Morgan <include@grrlz.net>
-> Signed-off-by: Oleg Nesterov <oleg@redhat.com>
-> ---
->  security/apparmor/audit.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/security/apparmor/audit.c b/security/apparmor/audit.c
-> index 4a60b6fda75f..15e42e96b163 100644
-> --- a/security/apparmor/audit.c
-> +++ b/security/apparmor/audit.c
-> @@ -192,7 +192,7 @@ int aa_audit(int type, struct aa_profile *profile,
->  	aa_audit_msg(type, ad, cb);
->  
->  	if (ad->type == AUDIT_APPARMOR_KILL)
-> -		(void)send_sig_info(profile->signal, NULL,
-> +		send_sig_info(profile->signal, SEND_SIG_NOINFO,
->  			ad->common.type == LSM_AUDIT_DATA_TASK &&
->  			ad->common.u.tsk ? ad->common.u.tsk : current);
->  
-> -- 
-> 2.52.0
+> > SEND_SIG_NOINFO is defined as ((struct kernel_siginfo *) 0), so passing
+> > NULL works, but:
+> >
+> > - this works "by accident" and looks as if the caller doesn't understand
+> >   the signal sending API.
+> >
+> > - more importantly, this hides the usage of SEND_SIG_NOINFO from grep,
+> >   and this is really bad.
+> - also drop the now redundant (void)
 
+Yes, but the "void" cast was never necessary, I guess.
 
-Also, feel free to CC me in signal patches, so I can review, from you
-or from others.
-Thanks!
+and just in case... To me the usage of SEND_SIG_NOINFO here doesn't look right with
+or without this change. Perhaps I am wrong, but please lets not discuss this right
+now, this connects to other cleanups I have in mind.
+
+The purpose of this change is to make aa_audit() grep-friendly wrt SEND_SIG_NOINFO.
+And because send_sig_info(NULL) looks "just wrong" to me, no matter what.
+
+> Reviewed-by: Bradley Morgan <include@grrlz.net>
+
+Thanks,
+
+> Also, feel free to CC me in signal patches, so I can review, from you
+> or from others.
+
+OK, will do.
+
+Oleg.
+
 
