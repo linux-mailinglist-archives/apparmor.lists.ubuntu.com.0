@@ -2,13 +2,13 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 5vwdCAkgTGpzggEAu9opvQ
+	id 2pW+MqxATGphiQEAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Mon, 06 Jul 2026 23:37:13 +0200
+	for <lists+apparmor@lfdr.de>; Tue, 07 Jul 2026 01:56:28 +0200
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4022715C1C
-	for <lists+apparmor@lfdr.de>; Mon, 06 Jul 2026 23:37:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A253716626
+	for <lists+apparmor@lfdr.de>; Tue, 07 Jul 2026 01:56:28 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
 	dkim=none;
 	dmarc=pass (policy=none) header.from=lists.ubuntu.com;
@@ -16,68 +16,27 @@ Authentication-Results: mail.lfdr.de;
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1wgqzt-0001yF-28; Mon, 06 Jul 2026 21:37:01 +0000
-Received: from smtp-relay-internal-1.internal ([10.131.114.114]
- helo=smtp-relay-internal-1.canonical.com)
- by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.86_2) (envelope-from <ryan.lee@canonical.com>)
- id 1wgqzr-0001y6-Eu
- for apparmor@lists.ubuntu.com; Mon, 06 Jul 2026 21:36:59 +0000
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 4408A3F290
- for <apparmor@lists.ubuntu.com>; Mon,  6 Jul 2026 21:36:59 +0000 (UTC)
-Received: by mail-pj1-f72.google.com with SMTP id
- 98e67ed59e1d1-3810fcd9adbso5364542a91.3
- for <apparmor@lists.ubuntu.com>; Mon, 06 Jul 2026 14:36:59 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783373817; x=1783978617;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=5UMOJKInPNfhZY08tQk/YlWULOR7MXa/HYsBQQtaKEg=;
- b=Dz6JA2ZmX0YoEaqXy253CYoMyMKM6jRpeT1kYxZYBSHRRk4oqinx4AdZc+8gElS699
- qWnOvnXd7uTLXSnargdZ2o/8s/eSFmbtm5jQ7LpGIvbHs6IfvT08drfM3YZ8wGQmq/vq
- BI8ahsOdfnAhzPxTVc8Ll/dbrSbVplC5XKEbA9OwB0XCr6Z/bLFqyNfkwYryr5LU5xdk
- /gPSPpdSyf91tqRcOJmN2ubuiuQ0sO54erY4gw1fw7XNblT6gNgSowveePD4g0sMshT7
- 35WYUpJe0kvr5Q6jdOC1g+Tit8sE+49TjArqZ0IfsClz4k94V83MVbfTL21UAsTpcgMG
- 26JA==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rq9PpKP9cvdLTI8WWzqhtb0OW4QHQ8a8iS+0YSIxOyG2xvkZS+lV1zDIMJtuyYGJdzhhlSmigoTng==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0YyfrHkStBOVPgBxf47Mbgg2+bfHAUwIwdtfivWccKR3M+iGOY0O
- bp17/oyPBEpR0j52aZuV4PSeRYTmlX6JR2aR/UU6MUL82Ili2J4LqunB/+PjMsyyAjzdgwBx9pk
- jytWqwfhhN5if/FR557NMg2FJBVqm2tPkjIPr/AuKLM6RtcQXqlfSMHRJUcNG7q/tW98EcrqMFY
- 0R5cs8Qb+YOQ==
-X-Gm-Gg: AfdE7cm+ufi5Xb4NMeDzEuS4qTcuTM/Q5IMOggLzbOIMSn53HBXxV/9hFt5a0s0ntne
- 11VuhiIRd95Knn+M4LPCJNI5YoJetjlansM4FNj+g9PG3DDJUDvibL1JDw/dUznYRuanKC4s6eq
- NaCU2yKOjbGCJQYWBIyrOBpuCr364b0cJgfwbQhPLn0iOkU/V/AyEeoYyOlnNU8fuaOWIXe70R1
- U729ab5ZlvQIqLkzaFJ9WnTBXZ2lCtpMfUV/v8JJ+THMnJl6Kg1BKDZeSLa6krQJOXkz1zZIEGZ
- PRDlcJBvJuBrLSqQVJzArGnDBzwpdZaS+iClJTf7rGBIgad1dXQ8OyMLd1ovdoh1X+oqp5DnRRR
- P96sg2nEaOh5xoS4excQwm++VcUDAmI3/d9cwtAV+XbxQ7mNpJeCdw8W1Sfksvc+A98/dTpHiRs
- 3TN+vBzDOz12IdsQMWkn9jDm8j+uciY3Ly8l8zm8NhUMWd+fKru18kGGQq
-X-Received: by 2002:a17:90b:5291:b0:37e:1c8f:3dff with SMTP id
- 98e67ed59e1d1-38755a562ffmr2557727a91.11.1783373817481; 
- Mon, 06 Jul 2026 14:36:57 -0700 (PDT)
-X-Received: by 2002:a17:90b:5291:b0:37e:1c8f:3dff with SMTP id
- 98e67ed59e1d1-38755a562ffmr2557690a91.11.1783373816950; 
- Mon, 06 Jul 2026 14:36:56 -0700 (PDT)
-Received: from ryan-lee-laptop-13-amd..
- (access-63-249-67-94.static.cruzio.net. [63.249.67.94])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-311747f5982sm696099eec.5.2026.07.06.14.36.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Jul 2026 14:36:56 -0700 (PDT)
-To: john.johansen@canonical.com
-Date: Mon,  6 Jul 2026 14:36:46 -0700
-Message-ID: <20260706213647.266177-1-ryan.lee@canonical.com>
-X-Mailer: git-send-email 2.43.0
+	id 1wgtAd-0006DR-Q7; Mon, 06 Jul 2026 23:56:15 +0000
+Received: from tor.source.kernel.org ([172.105.4.254])
+ by lists.ubuntu.com with esmtp (Exim 4.86_2)
+ (envelope-from <song@kernel.org>) id 1wgtAc-0006DJ-0v
+ for apparmor@lists.ubuntu.com; Mon, 06 Jul 2026 23:56:14 +0000
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 36CC66004E;
+ Mon,  6 Jul 2026 23:51:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 068D71F000E9;
+ Mon,  6 Jul 2026 23:50:59 +0000 (UTC)
+To: linux-security-module@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ selinux@vger.kernel.org, apparmor@lists.ubuntu.com
+Date: Mon,  6 Jul 2026 16:50:45 -0700
+Message-ID: <20260706235053.4104951-1-song@kernel.org>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [apparmor] [PATCH] apparmor: transfer refcount in update_sk_ctx
-	instead of taking new one
+Received-SPF: pass client-ip=172.105.4.254; envelope-from=song@kernel.org;
+ helo=tor.source.kernel.org
+Subject: [apparmor] [PATCH v6 0/8] lsm: Replace security_sb_mount with
+	granular mount hooks
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -89,147 +48,161 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-From: Ryan Lee via AppArmor <apparmor@lists.ubuntu.com>
-Reply-To: Ryan Lee <ryan.lee@canonical.com>
-Cc: apparmor@lists.ubuntu.com
+From: Song Liu via AppArmor <apparmor@lists.ubuntu.com>
+Reply-To: Song Liu <song@kernel.org>
+Cc: herton@canonical.com, brauner@kernel.org, jack@suse.cz, paul@paul-moore.com,
+ penguin-kernel@I-love.SAKURA.ne.jp, stephen.smalley.work@gmail.com,
+ kernel-team@meta.com, jmorris@namei.org, omosnace@redhat.com,
+ Song Liu <song@kernel.org>, viro@zeniv.linux.org.uk, gnoack@google.com,
+ mic@digikod.net, takedakn@nttdata.co.jp, serge@hallyn.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [0.09 / 15.00];
-	MID_RHS_MATCH_TO(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[lists.ubuntu.com,none];
+X-Spamd-Result: default: False [0.59 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[lists.ubuntu.com,none];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
-	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
+	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:john.johansen@canonical.com,m:apparmor@lists.ubuntu.com,s:lists@lfdr.de];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:linux-security-module@vger.kernel.org,m:linux-fsdevel@vger.kernel.org,m:selinux@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:herton@canonical.com,m:brauner@kernel.org,m:jack@suse.cz,m:paul@paul-moore.com,m:penguin-kernel@I-love.SAKURA.ne.jp,m:stephen.smalley.work@gmail.com,m:kernel-team@meta.com,m:jmorris@namei.org,m:omosnace@redhat.com,m:song@kernel.org,m:viro@zeniv.linux.org.uk,m:gnoack@google.com,m:mic@digikod.net,m:takedakn@nttdata.co.jp,m:serge@hallyn.com,m:stephensmalleywork@gmail.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	REPLYTO_DOM_EQ_TO_DOM(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCPT_COUNT_TWO(0.00)[2];
-	RCVD_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER(0.00)[apparmor@lists.ubuntu.com,apparmor-bounces@lists.ubuntu.com];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
-	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:from_smtp,lists.ubuntu.com:from_mime,lists.ubuntu.com:helo,lists.ubuntu.com:rdns];
 	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
+	TO_DN_SOME(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	R_DKIM_NA(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
-	TO_DN_NONE(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:from_smtp,lists.ubuntu.com:from_mime,lists.ubuntu.com:helo,lists.ubuntu.com:rdns,canonical.com:replyto,canonical.com:mid,canonical.com:email];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[apparmor];
+	RCPT_COUNT_TWELVE(0.00)[19];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_CC(0.00)[canonical.com,kernel.org,suse.cz,paul-moore.com,I-love.SAKURA.ne.jp,gmail.com,meta.com,namei.org,redhat.com,zeniv.linux.org.uk,google.com,digikod.net,nttdata.co.jp,hallyn.com];
 	FROM_NEQ_ENVFROM(0.00)[apparmor@lists.ubuntu.com,apparmor-bounces@lists.ubuntu.com];
-	HAS_REPLYTO(0.00)[ryan.lee@canonical.com];
-	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB]
+	FORGED_SENDER_FORWARDING(0.00)[];
+	TAGGED_RCPT(0.00)[apparmor];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	R_DKIM_NA(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
+	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
+	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
+	HAS_REPLYTO(0.00)[song@kernel.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: B4022715C1C
+X-Rspamd-Queue-Id: 7A253716626
 
-Commit
-6d25e7b47616cb2db43351210929c8f19dc305a3 ("apparmor: fix refcount leak when updating the sk_ctx")
+This series replaces the monolithic security_sb_mount() hook with
+per-operation mount hooks, addressing two main issues:
 
-fixes a refcount leak by unconditionally getting and putting a reference
-to plabel in update_sk_ctx. However, update_sk_ctx can instead inform its
-caller (aa_unix_file_perm) whether or not it persists a reference, and
-then conditionally put the reference if it is not used. Semantically, this
-involves update_sk_ctx now conditionally transferring the refcount, and
-informing aa_unix_file_perm whether the refcount was used (and thus
-whether it should be put as part of cleanups).
+1. TOCTOU: security_sb_mount() receives dev_name as a string, which
+   LSMs like AppArmor and Tomoyo re-resolve via kern_path(). The new
+   hooks pass pre-resolved struct path pointers where possible (bind
+   mount, move mount), eliminating the double-resolution.
 
-Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
----
- security/apparmor/af_unix.c | 30 +++++++++++++++++++++---------
- 1 file changed, 21 insertions(+), 9 deletions(-)
+2. Conflation: security_sb_mount() handles bind, new mount, remount,
+   move, propagation changes, and mount reconfiguration through a
+   single hook, requiring LSMs to dispatch on flags internally. The
+   new hooks are called at the operation level with appropriate
+   context.
 
-diff --git a/security/apparmor/af_unix.c b/security/apparmor/af_unix.c
-index 9ca9d1b890ba..2730f4ad08d3 100644
---- a/security/apparmor/af_unix.c
-+++ b/security/apparmor/af_unix.c
-@@ -643,13 +643,16 @@ int aa_unix_peer_perm(const struct cred *subj_cred,
- 			      peer_label);
- }
- 
--/* sk_plabel for comparison only */
--static void update_sk_ctx(struct sock *sk, struct aa_label *label,
-+/* sk_plabel for comparison only
-+ * Returns whether plabel was assigned to a pointer
-+ */
-+static bool update_sk_ctx(struct sock *sk, struct aa_label *label,
- 			  struct aa_label *plabel)
- {
- 	struct aa_label *l, *old;
- 	struct aa_sk_ctx *ctx = aa_sock(sk);
- 	bool update_sk;
-+	bool plabel_used = false;
- 
- 	rcu_read_lock();
- 	update_sk = (plabel &&
-@@ -658,7 +661,7 @@ static void update_sk_ctx(struct sock *sk, struct aa_label *label,
- 	  !__aa_subj_label_is_cached(label, rcu_dereference(ctx->label));
- 	rcu_read_unlock();
- 	if (!update_sk)
--		return;
-+		return false;
- 
- 	spin_lock(&unix_sk(sk)->lock);
- 	old = rcu_dereference_protected(ctx->label,
-@@ -675,16 +678,17 @@ static void update_sk_ctx(struct sock *sk, struct aa_label *label,
- 		old = rcu_dereference_protected(ctx->peer, lockdep_is_held(&unix_sk(sk)->lock));
- 
- 		if (old == plabel) {
--			rcu_assign_pointer(ctx->peer_lastupdate,
--					   aa_get_label(plabel));
-+			rcu_assign_pointer(ctx->peer_lastupdate, plabel);
-+			plabel_used = true;
- 		} else if (aa_label_is_subset(plabel, old)) {
--			rcu_assign_pointer(ctx->peer_lastupdate,
--					   aa_get_label(plabel));
-+			rcu_assign_pointer(ctx->peer_lastupdate, plabel);
- 			rcu_assign_pointer(ctx->peer, aa_get_label(plabel));
- 			aa_put_label(old);
-+			plabel_used = true;
- 		} /* else race or a subset - don't update */
- 	}
- 	spin_unlock(&unix_sk(sk)->lock);
-+	return plabel_used;
- }
- 
- static void update_peer_ctx(struct sock *sk, struct aa_sk_ctx *ctx,
-@@ -721,6 +725,7 @@ int aa_unix_file_perm(const struct cred *subj_cred, struct aa_label *label,
- 	struct path path;
- 	bool is_sk_fs;
- 	int error = 0;
-+	bool plabel_owner_transfer = false;
- 
- 	AA_BUG(!label);
- 	AA_BUG(!sock);
-@@ -799,8 +804,15 @@ int aa_unix_file_perm(const struct cred *subj_cred, struct aa_label *label,
- 
- 	/* update peer cache to latest successful perm check */
- 	if (error == 0)
--		update_sk_ctx(sock->sk, label, plabel);
--	aa_put_label(plabel);
-+		plabel_owner_transfer = update_sk_ctx(sock->sk, label, plabel);
-+
-+	/* If plabel ownership was not transferred, plabel can be either null
-+	 * (we never got a ref) or non-null (we got a ref and nobody else will
-+	 * use it, so we need to put it). Either way, aa_put_label will do
-+	 * the right thing.
-+	 */
-+	if (!plabel_owner_transfer)
-+		aa_put_label(plabel);
- 
- 	return error;
- }
--- 
-2.43.0
+The new hooks are:
+  mount_bind        - bind mount (pre-resolved source path)
+  mount_new         - new filesystem mount (with fs_context)
+  mount_remount     - filesystem remount (with fs_context)
+  mount_reconfigure - mount flag reconfiguration (MS_REMOUNT|MS_BIND)
+  mount_move        - move mount (pre-resolved paths)
+  mount_change_type - propagation type changes
 
+mount_new and mount_remount are called after parse_monolithic_mount_data(),
+so LSMs have access to the fs_context with parsed mount options. They also
+receive the original mount(2) flags and data pointer for LSMs (AppArmor,
+Tomoyo) that need them for policy matching.
+
+The series also replaces security_move_mount() with the new mount_move
+hook, unifying the old mount(2) MS_MOVE path with the move_mount(2)
+syscall path.
+
+All existing LSM behaviors are preserved:
+  AppArmor: same policy matching, TOCTOU fixed for bind/move
+  SELinux:  same permission checks (FILE__MOUNTON, FILESYSTEM__REMOUNT)
+  Landlock: same deny-all for sandboxed processes
+  Tomoyo:   same policy matching, TOCTOU fixed for bind/move, unused
+            data_page parameter removed
+
+
+This work is inspired by earlier discussions:
+
+[1] https://lore.kernel.org/bpf/20251127005011.1872209-1-song@kernel.org/
+[2] https://lore.kernel.org/linux-security-module/20250708230504.3994335-1-song@kernel.org/
+
+Changes v5 => v6:
+1. Move security_mount_bind() and security_mount_move() under
+   LOCK_MOUNT()/LOCK_MOUNT_MAYBE_BENEATH(). (Christian Brauner)
+2. Rebase.
+
+v5: https://lore.kernel.org/all/20260528182607.3150386-1-song@kernel.org/
+
+Changes v4 => v5:
+1. Restructure series: add new hooks in security/ first, then convert
+   individual LSMs, then replace old hooks with new hooks in
+   fs/namespace.c (single patch), then remove old hooks. This keeps
+   all fs/namespace.c changes in one patch. (Christian Brauner)
+2. Rebase.
+
+v4: https://lore.kernel.org/linux-security-module/20260515200158.4081915-1-song@kernel.org/
+
+Changes v3 => v4:
+1. Move LSM_HOOK_INIT(move_mount, ...) removal from patch 7/7 to each
+   per-LSM conversion patch (3/7, 4/7, 5/7). (Paul Moore)
+2. Add kdoc comments to tomoyo mount hook functions and rename
+   tomoyo_move_mount to tomoyo_mount_move in patch 6/7. (Tetsuo Handa)
+3. Add Acked-by from Tetsuo Handa to patch 6/7.
+
+v3: https://lore.kernel.org/linux-security-module/20260509015208.3853132-1-song@kernel.org/
+
+Changes v2 => v3:
+1. Rebase.
+2. Move security_mount_move() call in vfs_move_mount() from patch 7/7
+   to patch 1/7. (Paul Moore)
+
+v2: https://lore.kernel.org/linux-security-module/20260430000315.918964-1-song@kernel.org/
+
+Changes v1 => v2:
+1. Rebase.
+2. Add Reviewed-by and Tested-by from Stephen Smalley.
+
+v1: https://lore.kernel.org/linux-security-module/20260318184400.3502908-1-song@kernel.org/
+
+Song Liu (8):
+  lsm: Add granular mount hooks
+  apparmor: Remove redundant MS_MGC_MSK stripping in apparmor_sb_mount
+  apparmor: Convert from sb_mount to granular mount hooks
+  selinux: Convert from sb_mount to granular mount hooks
+  landlock: Convert from sb_mount to granular mount hooks
+  tomoyo: Convert from sb_mount to granular mount hooks
+  vfs: Replace security_sb_mount/security_move_mount with granular hooks
+  lsm: Remove security_sb_mount and security_move_mount
+
+ fs/namespace.c                    |  77 ++++++++++++++----
+ include/linux/lsm_hook_defs.h     |  16 +++-
+ include/linux/security.h          |  60 +++++++++++---
+ kernel/bpf/bpf_lsm.c              |   7 +-
+ security/apparmor/include/mount.h |   5 +-
+ security/apparmor/lsm.c           | 105 +++++++++++++++++-------
+ security/apparmor/mount.c         |  37 ++-------
+ security/landlock/fs.c            |  44 ++++++++--
+ security/security.c               | 129 +++++++++++++++++++++++-------
+ security/selinux/hooks.c          |  52 ++++++++----
+ security/tomoyo/common.h          |   2 +-
+ security/tomoyo/mount.c           |  31 ++++---
+ security/tomoyo/tomoyo.c          | 111 ++++++++++++++++++++++---
+ 13 files changed, 508 insertions(+), 168 deletions(-)
+
+--
+2.53.0-Meta
 
