@@ -2,12 +2,12 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 7sMjOOxBTWq4xQEAu9opvQ
+	id KORkJOxBTWq2xQEAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
 	for <lists+apparmor@lfdr.de>; Tue, 07 Jul 2026 20:14:04 +0200
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDFCF71E873
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E33E71E86D
 	for <lists+apparmor@lfdr.de>; Tue, 07 Jul 2026 20:14:04 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
 	dkim=none;
@@ -16,69 +16,69 @@ Authentication-Results: mail.lfdr.de;
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1whAIs-0007t4-89; Tue, 07 Jul 2026 18:13:54 +0000
+	id 1whAIs-0007tB-Bb; Tue, 07 Jul 2026 18:13:54 +0000
 Received: from smtp-relay-internal-1.internal ([10.131.114.114]
  helo=smtp-relay-internal-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <ryan.lee@canonical.com>)
- id 1whAIp-0007sL-If
- for apparmor@lists.ubuntu.com; Tue, 07 Jul 2026 18:13:51 +0000
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
+ id 1whAIq-0007sb-6o
+ for apparmor@lists.ubuntu.com; Tue, 07 Jul 2026 18:13:52 +0000
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 19B0B3F600
- for <apparmor@lists.ubuntu.com>; Tue,  7 Jul 2026 18:13:51 +0000 (UTC)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-2cca5e0a0c9so49045415ad.1
- for <apparmor@lists.ubuntu.com>; Tue, 07 Jul 2026 11:13:51 -0700 (PDT)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 1CD033F600
+ for <apparmor@lists.ubuntu.com>; Tue,  7 Jul 2026 18:13:52 +0000 (UTC)
+Received: by mail-pj1-f70.google.com with SMTP id
+ 98e67ed59e1d1-38869800848so1009972a91.0
+ for <apparmor@lists.ubuntu.com>; Tue, 07 Jul 2026 11:13:52 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783448029; x=1784052829;
+ d=1e100.net; s=20251104; t=1783448030; x=1784052830;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=DJXaiwXtRUfiWxyi/nOAS5r9GvvY+h3/hoyJqSOq7CE=;
- b=ZWiSdoooKYBiufC4AqsCqBqcAUO4FFtLoac6eMX79ee5fIhc71Fx77akpgQj9Iwvsr
- Ksr+rcodO6xF+zcKRlaamdvQGcxB8pUkJBeYniAK2Ny/Oh7SDjpvUWcRYwWcm3X9mO9S
- 6qDaoAX4nvClvZXMPrVdmjGP6ua0j49dpO9vLfyhZMhzg3AAZR+iaAjDUhj6W5mhpLbr
- wsDc755L8jJQ4hOxqX9ETZtB8D0THnD1eG7m8BNdZ1FgJ5mN3Sk1yQf9r7AgEXLrx7A1
- XD+fIRJ/voD1fbxZ4I7AVYqIMSePuHisbgaglPxbP+RC7/DjdXzrEbE2os3XYYcWgFdc
- dy9A==
+ :to:cc:subject:date:message-id:reply-to;
+ bh=lPQuVurTltKBcYfTNmrRFTzs0Wsecj01pfL/NT7uECo=;
+ b=OE3WWX+0ZcaEEpfrTayp+nqedaEbjVWq6XBdYYBGC6+B3UnkbOmiahnyFTNZrt4X8R
+ 3fPFHuXsCohKPfmWfqzBvv1cErQjtRVwsjZNuzIGCLPWALCcYwq1C9xteiCESQdWn7zh
+ qZ+/aTyg4wDg8Ht0a9pezYsyuSzOOV3xE/2YTE5cEVlmY1dF/enfBrERscWSuz629+2l
+ YGE/PRQssQDimFJW3ZcMAvT6si3vLOgZNmiFyoDFIy92zrik25q1HO78mEoi9i9QwM1R
+ GRohvcuVvSfoQwn2TywEABvxOb3o4IMtz1q9pU49EW7E2Y5K81tcXT/401dbFbyLlXEA
+ 4bSw==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqsDVW4eNnHztwdHAb9Z7+OD6Py480ekWM27Narhyg53hQq7U18qOx4XmfTbtFLZ/pjH+UG8dApjQ==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0YzCPJRRQlLsaSr0WU9QE6AuCZzU+BN6xyhengmFauuEOeIzD41d
- eixqLjVWE4tw8W/T9hWI8CV6Z/pe9lpGiRobtJVmFMwbqqM5yTvfkerl3llzDtZ818BzOV2qDsu
- CVzbfJx4q4rCzlYCgnZ5BjK6LjNUim/dG5nmG/FvcwrD6l7oVAOcE3jWmWurFPRy5U5DqTxetWP
- /d/Q==
-X-Gm-Gg: AfdE7clJqMy1NeCoVEqbGQVgxGxzodlBPdFux2nVtbuxJM8Q1AH3zGDhERE5EsEyncn
- iJ9jXiOWUJ/GBWQyE5LZghCdRVcCFUm+RpDpShB0GANUJTiTqkouTmMUIV/qIVYespTnvhxiwJ3
- I6ciaUgGK8pINX2K1w8xdnk80x2eu1EXhsjyjEmk4VTAdsqO3oNuloBSwB4d5RwkSFtah8pFMEW
- QKl8CSY3SH3GXqKO4bx6sa3jIO7cGpZY6t6X7SQsShXUhGIMf1t48Zam5W/M5uI9TA5b8L5NqjI
- ZIh6H246U216nyr+VNX/wymzCqQpRYKjSYARNPbofkkkX01NCdSp4fbfGxScPi39tFTsjhLDEOG
- yN3DJ0SkeZAUHInu3DELIKaRB1PuqRhYfYRRZ7uNy3/H8p8gtbchpF2MoXDX9iNJ6tNSS1xY7Yl
- Zih13ldfkPvinUymzd1sNf74k3E01u4qVaUmsVVqoWiFaUPXE=
-X-Received: by 2002:a05:6a20:3282:b0:3b4:6f7e:d0f9 with SMTP id
- adf61e73a8af0-3c08ec71673mr7031405637.3.1783448029516; 
- Tue, 07 Jul 2026 11:13:49 -0700 (PDT)
-X-Received: by 2002:a05:6a20:3282:b0:3b4:6f7e:d0f9 with SMTP id
- adf61e73a8af0-3c08ec71673mr7031384637.3.1783448029201; 
- Tue, 07 Jul 2026 11:13:49 -0700 (PDT)
+ AHgh+RqdLuApBThILKVXB4+wk/3HT953fNOdkDV74myg9vKjNlDtjbWEVY9cM0YXBXS5eR93NfXqQg9xwA==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0YwsWtlG7XdUH8tGqpYVCfwtbgRBJoYhT1xcOmhMlmH9JzioS3OI
+ vpcCXeD+BGb8BZ24bK/NSyf1lTK0yEL7SGaqPceQAWvfBJ9w65nexFe3JfZiBKmdCtKWLtHngxv
+ iyjfXuOWyBvcM7HfNICVmclgtLALfuJkOEKAIRavAVfn8fBbSckN8bHUaKmnVX3f6QdCo5QSVkC
+ cfQQ==
+X-Gm-Gg: AfdE7cmZllCD6NWrZliNZFLx32qLzLiRER1/zYoD8r9poNp9wuZQbJIKuqjgOhw3+bF
+ rstCMQPGSbdoz6jzFtPqa4QBluMK38ZAvm8J9oBaVtMgiJDZ/VLolwb9VOSXXLfEuweh4jwfOet
+ TgzEy+RrE6q4rZuxH0yy+ZK/iRJfPEj22UpQgt2mefvjsIPgF4se3pPcMhSfqHmTCz1uACS9EhO
+ 0LTnDJY1nleCIUIz1HYaGWlReNoR5mVgbKkRqQp4ziA76Q9i1hHH+dfXhOvfkBgCq0APo4ye4Id
+ 6G6NLtUvCxA1CKlRdYchZBsA9RrWO8zLXwxu1oVlYrijqCwTdtvntb4ymJcQiweT0Vf2HjGV+fb
+ iKiuNf7S4LAint6EykZ7hMPC9A76IvPN8H1PtaYEpI3C9PzNub0Ep07T0+v8uLyxSlh1y10OEfu
+ Y6N/RJideI5wZdBj/5FjB08BCoIkbHse8ulOCuPEfTSh1pe3M=
+X-Received: by 2002:a17:90b:4a0c:b0:380:873:49cb with SMTP id
+ 98e67ed59e1d1-387572b380cmr6006784a91.21.1783448030490; 
+ Tue, 07 Jul 2026 11:13:50 -0700 (PDT)
+X-Received: by 2002:a17:90b:4a0c:b0:380:873:49cb with SMTP id
+ 98e67ed59e1d1-387572b380cmr6006768a91.21.1783448030132; 
+ Tue, 07 Jul 2026 11:13:50 -0700 (PDT)
 Received: from ryan-lee-laptop-13-amd.. (c-98-37-40-2.hsd1.ca.comcast.net.
  [98.37.40.2]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-31174892711sm11387097eec.13.2026.07.07.11.13.48
+ 5a478bee46e88-31174892711sm11387097eec.13.2026.07.07.11.13.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jul 2026 11:13:48 -0700 (PDT)
+ Tue, 07 Jul 2026 11:13:49 -0700 (PDT)
 To: john.johansen@canonical.com
-Date: Tue,  7 Jul 2026 11:13:15 -0700
-Message-ID: <20260707181326.968650-2-ryan.lee@canonical.com>
+Date: Tue,  7 Jul 2026 11:13:16 -0700
+Message-ID: <20260707181326.968650-3-ryan.lee@canonical.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260707181326.968650-1-ryan.lee@canonical.com>
 References: <20260707181326.968650-1-ryan.lee@canonical.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [apparmor] [PATCH 01/10] apparmor: explain why aa_file_perm cannot
-	use the condref helpers
+Subject: [apparmor] [PATCH 02/10] apparmor: simplify update_to_newest_parent
+	cleanup logic
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -132,31 +132,38 @@ X-Spamd-Result: default: False [0.09 / 15.00];
 	HAS_REPLYTO(0.00)[ryan.lee@canonical.com];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: CDFCF71E873
+X-Rspamd-Queue-Id: 7E33E71E86D
+
+This is a preparatory cleanup for switching to a condref version of
+refreshing the parent label.
 
 Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
 ---
- security/apparmor/file.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ security/apparmor/policy.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/security/apparmor/file.c b/security/apparmor/file.c
-index c9d55fe1086f..f42e31e8541b 100644
---- a/security/apparmor/file.c
-+++ b/security/apparmor/file.c
-@@ -653,7 +653,12 @@ int aa_file_perm(const char *op, const struct cred *subj_cred,
- 		goto done;
- 	}
+diff --git a/security/apparmor/policy.c b/security/apparmor/policy.c
+index f6f1b72d7c3d..9475f6455542 100644
+--- a/security/apparmor/policy.c
++++ b/security/apparmor/policy.c
+@@ -1145,10 +1145,14 @@ static struct aa_profile *update_to_newest_parent(struct aa_profile *new)
  
--	/* slow path - revalidate access */
-+	/* slow path - revalidate access
-+	 * Because flabel was previously obtained under RCU, it might be due
-+	 * for cleanup once the RCU grace period ends. Thus, to mediate against
-+	 * it on the slow path, we always need to keep a refcount after exiting
-+	 * the RCU read-side section, and we cannot use condref optimizations.
+ 	/* parent replaced in this atomic set? */
+ 	if (newest != parent) {
+-		aa_put_profile(parent);
+ 		rcu_assign_pointer(new->parent, newest);
+-	} else
+-		aa_put_profile(newest);
++	}
++	/* Unconditionally put the parent:
++	 * If parent != newest, we aren't using the parent anymore
++	 * If parent == newest, we got an extra ref to it, so put it and
++	 *   retain the other ref we have to newest
 +	 */
- 	flabel  = aa_get_newest_label(flabel);
- 	rcu_read_unlock();
++	aa_put_profile(parent);
  
+ 	return newest;
+ }
 -- 
 2.43.0
 
