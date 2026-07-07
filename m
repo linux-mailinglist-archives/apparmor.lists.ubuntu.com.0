@@ -2,12 +2,12 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 5ThIMOpBTWqwxQEAu9opvQ
+	id HbwsNOpBTWq0xQEAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
 	for <lists+apparmor@lfdr.de>; Tue, 07 Jul 2026 20:14:02 +0200
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60E5971E85F
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F30471E861
 	for <lists+apparmor@lfdr.de>; Tue, 07 Jul 2026 20:14:02 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
 	dkim=none;
@@ -16,69 +16,69 @@ Authentication-Results: mail.lfdr.de;
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1whAIv-0007vs-Rg; Tue, 07 Jul 2026 18:13:57 +0000
+	id 1whAIx-0007xX-1r; Tue, 07 Jul 2026 18:13:59 +0000
 Received: from smtp-relay-internal-1.internal ([10.131.114.114]
  helo=smtp-relay-internal-1.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <ryan.lee@canonical.com>)
- id 1whAIu-0007um-Rq
- for apparmor@lists.ubuntu.com; Tue, 07 Jul 2026 18:13:56 +0000
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
- [209.85.216.69])
+ id 1whAIv-0007vW-Ha
+ for apparmor@lists.ubuntu.com; Tue, 07 Jul 2026 18:13:57 +0000
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
+ [209.85.215.198])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 790773F600
- for <apparmor@lists.ubuntu.com>; Tue,  7 Jul 2026 18:13:56 +0000 (UTC)
-Received: by mail-pj1-f69.google.com with SMTP id
- 98e67ed59e1d1-38001e788d6so6563019a91.3
- for <apparmor@lists.ubuntu.com>; Tue, 07 Jul 2026 11:13:56 -0700 (PDT)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 70A0C3F600
+ for <apparmor@lists.ubuntu.com>; Tue,  7 Jul 2026 18:13:57 +0000 (UTC)
+Received: by mail-pg1-f198.google.com with SMTP id
+ 41be03b00d2f7-c88ad1558f4so7323757a12.2
+ for <apparmor@lists.ubuntu.com>; Tue, 07 Jul 2026 11:13:57 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783448035; x=1784052835;
+ d=1e100.net; s=20251104; t=1783448036; x=1784052836;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=bpoEQE+YBguvuoVuFsXYA3Hq1mOgptqA/t0mzNmwLVU=;
- b=OdiV0Hs+nUvonTRt8JtqT57qxqT5Kom4jxmgfoyAw89uAAHehFipGu56iC3LTUX6ff
- xWyqfsGa49OAtOzMvDTyiCdUvAlmwV8ey3L66p9gz/f79gZaqCuOe1pL8i55je7OVpmr
- wFeCFcpAiRS7sf9RFDhIXEykpboWfdSzsGwgKSltvz+8jCLJyhmFpWiAJEI36jDSUTMg
- GsxD79mzmQ33A6JGrRMuKabiQiRWmQWNnLUijiQ1K6GLStcHIEy9ZEhKS/zJybRAMMOS
- mhbZ//XIEXirOmWwu2jtkhM3Rd5+LCGirchw/re305jIuBof9cRImMWa602F6TbrFh4S
- 91xA==
+ bh=dz9WVWjYUyZo2gFfLnAUohN0tOVpPuhhUTGV2TTwQcw=;
+ b=FB+bDhwpn5qiJxnf8JPf3gKdCsogym0smSxWhEw8kq+6SOOpKj99GvQlMZp8tJbBMq
+ fA0jsGo+bhJ49UWm9ZY3SM6XywVEc5Z0YMk5fuidTeqrH56cQKEDocmd7XA1mu1bkWDQ
+ bmf4A3bFjbMEdoZa4yrc4RziW0L9aD1Yw1avk2+ety2mQveJZyiDr/K7WU6ilIHWMHkm
+ OY8mZW9f80sJdOHKgRP/QEwYsFPu+G36YKIS+wLwCfTe9BBqhotYCsSK9dAlGJiwfHkR
+ 1mcRM8v2CbG30qXCTCEZmkgStcDaPFRiwvvd991u/fkRLFezBRttC26bJmbDCgBNgcCH
+ RLtA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqLjztN7ok7Fy1rVQLiTYiqAU8pQXKi7/sbTs1qspZ7xJDwKXRQlSlYrfwrGBA747LewNgv2L9B2A==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0YzxD/SO72EkCRUW1COes3hdgaN4d0YizQJSOdzm22j+ae3cbMci
- yQCmqOYzYbm88qSKrRSwA6n8/it1qHRuPVm0ml9uf98WF76IaHtBikarrPPrEvct71gE3ED2M0i
- 9TerjFb2whCYdvXnuUNCRHUUbmx06upJiOYD+su49PnQKoiCcMzj3hoBmpxntHvJV8CyCNn6eu0
- IcN2WQd6Vd8w==
-X-Gm-Gg: AfdE7cm3eZ7rYc0Xnf2QrVvWwwPe1iWL0R6ChImNvCR/z9dMv+jsfKpXmFpVIiIfZvR
- t4o1InJr2y99srLqPd5Il/GNFbZREsfV8aTkS7GGRz7mfHt47sdMJ7mNeRnpNc+y7KhMDXN5tWy
- bcSaTdkBw2DT/MgYvkCh7J16t9g43lz2JEZTondA1mtdCvbkBgWex5/cPARtrawnmIIn04a1CRy
- 2JxxqeR4hznRTRV4DXHuDixUegjPmYrPKQDSIXR3Ycb3RNBYLG4JrGNs6OD3SGobK8CXWJIcWai
- lozjfU1Vva+ASkLAe81tZScyjOFZ5xihVwYqr5cuMR8BBunYLoceJuVbm+3ceSPHq2sMe7ltB9r
- FVkTu8n5GKasV9ei0hTQGYMqBxRJ84qKLV3DIxx8neGWsWukIuvAzU6ww4dLcec65RLP4bDt2Wu
- Ut8cfvLXOQJL09MGUnHgvtPdnfv5XbeacQu6bH2mIbW4ONwqI=
-X-Received: by 2002:a17:90a:fc50:b0:381:f7a:2e0d with SMTP id
- 98e67ed59e1d1-3875854e02amr5810034a91.33.1783448035034; 
+ AHgh+RrUX+NBreAcrqZLwONjK5SbMTBcVJOOfsw4kEMEb13YKxmvQzoRYDZ9jEJVgIbq76agkzfR+Ys2yA==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0Yxs1zwcnAWEMsPbu4YYt1aAJ3RVrj6IDJ16sUjyd7h+g4dhQZk3
+ cnhI3zO7Rr6oGOVVNlJv5/X/w3Yl+UV+CcxYsGEpZ5iiQdIV65Q0v/ujcGWer+sqKWmKsyI/r8v
+ P6burYPh83gdZxR/0LD7fREZZC/7c7f8vVhwSTCvrVENSbWuD//dX15+ZNRITKzH4rNwBegoZV6
+ jkn+Vh1J9CWg==
+X-Gm-Gg: AfdE7ckc4sBXwzWQyiZDejcg12fUMD4tyTk/cCJFTW3/R5IbdXLrNZW2fK44nuWtRsq
+ d/veag6uAWg5aVnQ/a5bf6Pud2UnKwUwg4PhuDp0PlIhZljnVGKY2LLl/1AAJFdd4NkMhRVF6xh
+ f0k+eHS/KGDphWl1lA0uCA4CR6OOA+ysVtlWwgyqsorNcS6JfSSppznCmaUcdpQJsI1AIWH3Ol5
+ zsxcsiH0Zv/OHGqZ7J/rN7ze97FBQe2SO5WjenW1Aq+uqPKvIRZ1nSfYmoiKBHcRlg9R3TMa9Ac
+ u/rOmw6CDiDry8az90Wzh1SkuT9QcU3hKKmoWTE1GvfIA4oKz+jyyTE8PTwRRM0n1esuBAYmiLL
+ tPzErvLOmLAgpdv8QX8huCQZHpeHuSZWh98IbHffL3hJaVErxy+cL403QtFOnensZziBSzAMWdz
+ 2UeHhGgH0nIBTfpSdvcLa+OGE+oYeZBroea3wfLrK3NAVeLBc=
+X-Received: by 2002:a05:6a21:32a2:b0:398:8870:b58f with SMTP id
+ adf61e73a8af0-3c08edc8ec2mr8832512637.14.1783448035996; 
  Tue, 07 Jul 2026 11:13:55 -0700 (PDT)
-X-Received: by 2002:a17:90a:fc50:b0:381:f7a:2e0d with SMTP id
- 98e67ed59e1d1-3875854e02amr5810011a91.33.1783448034658; 
- Tue, 07 Jul 2026 11:13:54 -0700 (PDT)
+X-Received: by 2002:a05:6a21:32a2:b0:398:8870:b58f with SMTP id
+ adf61e73a8af0-3c08edc8ec2mr8832472637.14.1783448035619; 
+ Tue, 07 Jul 2026 11:13:55 -0700 (PDT)
 Received: from ryan-lee-laptop-13-amd.. (c-98-37-40-2.hsd1.ca.comcast.net.
  [98.37.40.2]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-31174892711sm11387097eec.13.2026.07.07.11.13.53
+ 5a478bee46e88-31174892711sm11387097eec.13.2026.07.07.11.13.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jul 2026 11:13:54 -0700 (PDT)
+ Tue, 07 Jul 2026 11:13:55 -0700 (PDT)
 To: john.johansen@canonical.com
-Date: Tue,  7 Jul 2026 11:13:21 -0700
-Message-ID: <20260707181326.968650-8-ryan.lee@canonical.com>
+Date: Tue,  7 Jul 2026 11:13:22 -0700
+Message-ID: <20260707181326.968650-9-ryan.lee@canonical.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260707181326.968650-1-ryan.lee@canonical.com>
 References: <20260707181326.968650-1-ryan.lee@canonical.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [apparmor] [PATCH 07/10] apparmor: switch to
-	aa_get_newest_cred_label_condref variants in apparmor_getselfattr
+Subject: [apparmor] [PATCH 08/10] apparmor: also use condref variants in
+	apparmor_task_kill USB branch
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -102,7 +102,7 @@ X-Spamd-Result: default: False [0.09 / 15.00];
 	R_MISSING_CHARSET(0.50)[];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	FORGED_RECIPIENTS(0.00)[m:john.johansen@canonical.com,m:apparmor@lists.ubuntu.com,s:lists@lfdr.de];
@@ -111,11 +111,11 @@ X-Spamd-Result: default: False [0.09 / 15.00];
 	RCVD_TLS_LAST(0.00)[];
 	RCPT_COUNT_TWO(0.00)[2];
 	RCVD_COUNT_FIVE(0.00)[5];
-	FORGED_SENDER(0.00)[apparmor@lists.ubuntu.com,apparmor-bounces@lists.ubuntu.com];
+	ARC_NA(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[apparmor@lists.ubuntu.com,apparmor-bounces@lists.ubuntu.com];
 	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
@@ -132,50 +132,29 @@ X-Spamd-Result: default: False [0.09 / 15.00];
 	HAS_REPLYTO(0.00)[ryan.lee@canonical.com];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 60E5971E85F
+X-Rspamd-Queue-Id: 8F30471E861
 
 Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
 ---
- security/apparmor/lsm.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ security/apparmor/lsm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
-index d158c5108f0e..a30a17afe4b3 100644
+index a30a17afe4b3..3c2fc6daa75f 100644
 --- a/security/apparmor/lsm.c
 +++ b/security/apparmor/lsm.c
-@@ -786,19 +786,20 @@ static int apparmor_getselfattr(unsigned int attr, struct lsm_ctx __user *lx,
- 	int error = -ENOENT;
- 	struct aa_task_ctx *ctx = task_ctx(current);
- 	struct aa_label *label = NULL;
-+	bool needput = false;
- 	char *value = NULL;
- 
- 	switch (attr) {
- 	case LSM_ATTR_CURRENT:
--		label = aa_get_newest_label(cred_label(current_cred()));
-+		label = aa_get_newest_cred_label_condref(current_cred(), &needput);
- 		break;
- 	case LSM_ATTR_PREV:
- 		if (ctx->previous)
--			label = aa_get_newest_label(ctx->previous);
-+			label = aa_get_newest_label_condref(ctx->previous, &needput);
- 		break;
- 	case LSM_ATTR_EXEC:
- 		if (ctx->onexec)
--			label = aa_get_newest_label(ctx->onexec);
-+			label = aa_get_newest_label_condref(ctx->onexec, &needput);
- 		break;
- 	default:
- 		error = -EOPNOTSUPP;
-@@ -813,7 +814,7 @@ static int apparmor_getselfattr(unsigned int attr, struct lsm_ctx __user *lx,
- 		kfree(value);
- 	}
- 
--	aa_put_label(label);
-+	aa_put_label_condref(label, needput);
- 
- 	if (error < 0)
- 		return error;
+@@ -1029,9 +1029,9 @@ static int apparmor_task_kill(struct task_struct *target, struct kernel_siginfo
+ 		/*
+ 		 * Dealing with USB IO specific behavior
+ 		 */
+-		cl = aa_get_newest_cred_label(cred);
++		cl = aa_get_newest_cred_label_condref(cred, &needput);
+ 		error = aa_may_signal(cred, cl, tc, tl, sig);
+-		aa_put_label(cl);
++		aa_put_label_condref(cl, needput);
+ 	} else {
+ 		cl = __begin_current_label_crit_section(&needput);
+ 		error = aa_may_signal(current_cred(), cl, tc, tl, sig);
 -- 
 2.43.0
 
