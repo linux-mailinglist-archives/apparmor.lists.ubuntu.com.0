@@ -2,12 +2,12 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id K3yOFu5BTWq9xQEAu9opvQ
+	id N2F1Fe1BTWq5xQEAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Tue, 07 Jul 2026 20:14:06 +0200
+	for <lists+apparmor@lfdr.de>; Tue, 07 Jul 2026 20:14:05 +0200
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id F241A71E889
+	by mail.lfdr.de (Postfix) with ESMTPS id 40B1071E87A
 	for <lists+apparmor@lfdr.de>; Tue, 07 Jul 2026 20:14:05 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
 	dkim=none;
@@ -16,69 +16,69 @@ Authentication-Results: mail.lfdr.de;
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1whAIt-0007tZ-I1; Tue, 07 Jul 2026 18:13:55 +0000
+	id 1whAIs-0007tI-EY; Tue, 07 Jul 2026 18:13:54 +0000
 Received: from smtp-relay-internal-0.internal ([10.131.114.225]
  helo=smtp-relay-internal-0.canonical.com)
  by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
  (Exim 4.86_2) (envelope-from <ryan.lee@canonical.com>)
- id 1whAIr-0007sq-PK
+ id 1whAIr-0007sr-Rl
  for apparmor@lists.ubuntu.com; Tue, 07 Jul 2026 18:13:53 +0000
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71])
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 9E7403F301
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id B9CFD3F442
  for <apparmor@lists.ubuntu.com>; Tue,  7 Jul 2026 18:13:53 +0000 (UTC)
-Received: by mail-pj1-f71.google.com with SMTP id
- 98e67ed59e1d1-3811279d51aso9173839a91.1
+Received: by mail-pj1-f72.google.com with SMTP id
+ 98e67ed59e1d1-381ed6616f7so6799597a91.1
  for <apparmor@lists.ubuntu.com>; Tue, 07 Jul 2026 11:13:53 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783448031; x=1784052831;
+ d=1e100.net; s=20251104; t=1783448032; x=1784052832;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=4zefxjPcO1jCre5yN8eFyMIAr1O6uGWug+O3QuyXbgA=;
- b=Tapx49kbiO3ciD8z3S3i1ywBSRv5jtwkU4RD9+PWYEgAAcIbn+jm0VoyGpnxahUOcP
- OwB3RoxOkg+skVuZoawmqRkF5RwS++TATI6UGOKdbTKCcoRa/Wp36ekK3S2y+cy/ZEvH
- ezDPHsb3k5SfwIJxmRn2HYsbTs9WGvUuka9WX6L+1NivQhde1stVz/uX8IV1IrA4TI5J
- WlLKwGJ+te14K683Mz9pbNvf5oBcYACw1Y57FEuDDgSYQ47nVNeznS4gg1rYp7FYBWG/
- ScMQq8oCkUdTdnVQczAutSR/miR9l0WuJ02b0vGVXif6Bv8xLzcizbfd+qD+cAjZE3qf
- 5a9g==
+ :to:cc:subject:date:message-id:reply-to;
+ bh=aT9kPzgaifMf3hFcKazrxQlwrAl00q4obBYA0YuKf0s=;
+ b=SN6D77N4SwSK29PmbCXrt9meCKE5Wf1DLSqCD9G1FBZTCl8nrYfkliEeQN7rs3Lpby
+ zKXySD4lTbxTPz1HieYHNGWkh/+kcjLqr7/Un9HjFOAW+S6ar07GWgbWo/4k1xhzKAFr
+ AN5CTk/C97bq5eC7WGGRbVBq4/CrwUUgUBgH8LmBW/IDat7bZ60n2VVOhLBZDa7iypZB
+ C/FaH87WeA7D/qj6L2Uj/BovJ+qq/tuI4p4ftwM3jFxraWmM7FZUaPr96SVGIfJVbV9z
+ gENfoOsB6xjq5eMGqtNgxS8mMba9KCt05ez82q9wKDrLFJsXrV2B9VkFb4ninFr11FXx
+ CjCA==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rp9d39QIpFuXkzR2RqwzfkuVqh9m2TyP0ZLcW71IPBorhTtPBs4CYDu+zq6irOPk88DV/yszFpkmw==@lists.ubuntu.com
-X-Gm-Message-State: AOJu0YxU0UoC9y1irVmoUwhNYNlMh4/NKtsWPpdOfoW+Xsv4eG6nZogs
- NTEn7Ooj5EqPmoodLFPkTu485hrn+3x7hZf+ENCIFaPKXqelaA48t1iXMn01xG/T+xPXGGpN8wB
- Kmu2WClnyowfZCkpOspJ3SyLDzLv/qSYLT1KCW0QSKa4ahwBC5VaPCi1UEwqKBUIlkHJJivRTkr
- cjvG3df0zgsw==
-X-Gm-Gg: AfdE7ck9tcaSZpvP6r/Qe1WYdXPREIFoZK5DIFhvyML3ffp6+vDlJtJdphIaVkgSO8W
- LX75yWdYY/clX18ftRoclgTA1Mr0zv3NlITIsaUmar//ksjO7LP+kCN71rgFMMkBr+LFoUjbLo8
- Cqzzu7Rjxn5wfoOIv0VQHsUNDF6ZWFSmnJgvg5bG0fRrGptDdM4ZghSjqXiPImnGZIeTZlIFYvn
- FfhQQBPdKmTVn46KHEm8BD178XG3itU0PjphmDl9ukubElfpuog89dmktksvWOC9k9bQKHZ6jJA
- SnL63oW7Q0RyZhqkM/23vQDAi8svlLMEPdouVWGtx0eXjb2dr4PecPfImMa9FJmjljF6tpk8PER
- aXZJr1wpRdqRQVFyHuOYUd3a5Na/fmH1mtl+s/UxquN4/cfM0MvCUPIztrFpKaPdDZdaEZFZte8
- lGXMf2BGNXkGpo8Oavnl6+8xtUhz2JLjDyhewD/wOp9bBh87g=
-X-Received: by 2002:a17:90a:e18b:b0:381:854:dba4 with SMTP id
- 98e67ed59e1d1-38758164250mr6696010a91.20.1783448031308; 
- Tue, 07 Jul 2026 11:13:51 -0700 (PDT)
-X-Received: by 2002:a17:90a:e18b:b0:381:854:dba4 with SMTP id
- 98e67ed59e1d1-38758164250mr6695994a91.20.1783448031011; 
+ AHgh+RoM3yy/GHMVv1H4N3BdupFf73bfdciG3iftB3eGTGepbNjjD7GntAgLjaS7QkvS6CqOtBwXGWBpHQ==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0Yz91uSxRgnNEkX/ammc8QYVvvjdEWfZtaVKv8lA6ZsdjMnroLq+
+ uJ3l/wAKyZxA7OwItIVWOwex9Gs7SijD8pV4vRTJAA3timjKvCF8xVIr7LspI0F0q+vabsD/y/3
+ nlmLB24heZzOwcjBWxHJlF8cPaCk6v1E7Z1g55nAArf4sZ66+QkwF2QHTwwjJQ0zBbeF0dDep5E
+ +FGw==
+X-Gm-Gg: AfdE7cmN/ZOP761PeXqZn6An5FU8WIkYrB8nCU9o3mHRG+hWXGwMjvjzXVNcYf0mVbi
+ gbHzsn91DKb2vxChZ0uyrxATS1T5rww+l1QdU+Uk0cwjase06fF6CKzSLDkyghdxpNCYFwYFXkG
+ xuENrlsSVyQjW8rsNsYdC7p0C//dRQOOXVhUt8tir+YGWOT0IPmaGwhH+kywITzX4H+xuorr/mu
+ r7vrmHdwMD8uQsvFiN4s97QOAmfMmHrrssVwL1Wv5+t32W64QzZ/1h+dQU4RgXOa7Q+m/ABTr9e
+ cePhOc6o5aAxvsWWeEn3v9OuuZVhybpwpIGn0R1tpblEI2ENQ5sVt8XQQeRPAg9My/7DbG02Ty5
+ wGJdjBB3G+QSS5+qacrMdG9P0viICenFK2bj+cCh6P7PzgFHYavFXd+ffnYNu/Dr/7e2opaGCJb
+ PdGGiXcTUSS4rQBrl08z3zhyqKBFP5YGbHFkoybuDVP/t8/ks=
+X-Received: by 2002:a17:90b:2e48:b0:384:8a11:33eb with SMTP id
+ 98e67ed59e1d1-387575abe72mr6565195a91.24.1783448032230; 
+ Tue, 07 Jul 2026 11:13:52 -0700 (PDT)
+X-Received: by 2002:a17:90b:2e48:b0:384:8a11:33eb with SMTP id
+ 98e67ed59e1d1-387575abe72mr6565162a91.24.1783448031856; 
  Tue, 07 Jul 2026 11:13:51 -0700 (PDT)
 Received: from ryan-lee-laptop-13-amd.. (c-98-37-40-2.hsd1.ca.comcast.net.
  [98.37.40.2]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-31174892711sm11387097eec.13.2026.07.07.11.13.50
+ 5a478bee46e88-31174892711sm11387097eec.13.2026.07.07.11.13.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jul 2026 11:13:50 -0700 (PDT)
+ Tue, 07 Jul 2026 11:13:51 -0700 (PDT)
 To: john.johansen@canonical.com
-Date: Tue,  7 Jul 2026 11:13:17 -0700
-Message-ID: <20260707181326.968650-4-ryan.lee@canonical.com>
+Date: Tue,  7 Jul 2026 11:13:18 -0700
+Message-ID: <20260707181326.968650-5-ryan.lee@canonical.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260707181326.968650-1-ryan.lee@canonical.com>
 References: <20260707181326.968650-1-ryan.lee@canonical.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [apparmor] [PATCH 03/10] apparmor: add
-	aa_get_newest_profile_condref and aa_put_profile_condref helpers
+Subject: [apparmor] [PATCH 04/10] apparmor: use
+	aa_get_newest_profile_condref helpers in update_to_newest_parent
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -125,64 +125,52 @@ X-Spamd-Result: default: False [0.09 / 15.00];
 	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
 	TO_DN_NONE(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[canonical.com:replyto,canonical.com:mid,canonical.com:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:from_smtp,lists.ubuntu.com:from_mime,lists.ubuntu.com:helo,lists.ubuntu.com:rdns,canonical.com:replyto,canonical.com:mid,canonical.com:email];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[apparmor];
 	FROM_NEQ_ENVFROM(0.00)[apparmor@lists.ubuntu.com,apparmor-bounces@lists.ubuntu.com];
 	HAS_REPLYTO(0.00)[ryan.lee@canonical.com];
 	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: F241A71E889
-
-This will be needed for introducing condref variants into
-policy.c:update_to_newest_parent.
+X-Rspamd-Queue-Id: 40B1071E87A
 
 Signed-off-by: Ryan Lee <ryan.lee@canonical.com>
 ---
- security/apparmor/include/policy.h | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+ security/apparmor/policy.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/security/apparmor/include/policy.h b/security/apparmor/include/policy.h
-index 240b2eba7687..2b210fc0dd9e 100644
---- a/security/apparmor/include/policy.h
-+++ b/security/apparmor/include/policy.h
-@@ -324,6 +324,19 @@ static inline struct aa_profile *aa_get_newest_profile(struct aa_profile *p)
+diff --git a/security/apparmor/policy.c b/security/apparmor/policy.c
+index 9475f6455542..be939a8332f6 100644
+--- a/security/apparmor/policy.c
++++ b/security/apparmor/policy.c
+@@ -1138,21 +1138,22 @@ static void share_name(struct aa_profile *old, struct aa_profile *new)
+ static struct aa_profile *update_to_newest_parent(struct aa_profile *new)
  {
- 	return labels_profile(aa_get_newest_label(&p->label));
- }
-+/**
-+ * aa_get_newest_profile_condref - simple wrapper fn to wrap the label version
-+ * @p: profile (NOT NULL)
-+ * @needput: returns whether the reference needs put
-+ *
-+ * Returns refcount to newest version of the profile (maybe @p)
-+ *
-+ * Requires: @p must be held with a valid refcount
-+ */
-+static inline struct aa_profile *aa_get_newest_profile_condref(struct aa_profile *p, bool *needput)
-+{
-+	return labels_profile(aa_get_newest_label_condref(&p->label, needput));
-+}
+ 	struct aa_profile *parent, *newest;
++	bool needput;
  
- static inline aa_state_t RULE_MEDIATES(struct aa_ruleset *rules,
- 				       unsigned char class)
-@@ -428,6 +441,16 @@ static inline void aa_put_profile(struct aa_profile *p)
- 	if (p)
- 		kref_put(&p->label.count.count, aa_label_kref);
- }
-+/**
-+ * aa_put_profile_condref - conditionally decrement refcount on profile @p
-+ * @p: profile  (MAYBE NULL)
-+ * @needput: whether to put the profile
-+ */
-+static inline void aa_put_profile_condref(struct aa_profile *p, bool needput)
-+{
-+	if (unlikely(needput))
-+		aa_put_profile(p);
-+}
+ 	parent = rcu_dereference_protected(new->parent,
+ 					   mutex_is_locked(&new->ns->lock));
+-	newest = aa_get_newest_profile(parent);
++	newest = aa_get_newest_profile_condref(parent, &needput);
  
- static inline int AUDIT_MODE(struct aa_profile *profile)
- {
+ 	/* parent replaced in this atomic set? */
+ 	if (newest != parent) {
+ 		rcu_assign_pointer(new->parent, newest);
+ 	}
+-	/* Unconditionally put the parent:
++	/* put the parent instead of newest, if necessary:
+ 	 * If parent != newest, we aren't using the parent anymore
+-	 * If parent == newest, we got an extra ref to it, so put it and
+-	 *   retain the other ref we have to newest
++	 * If parent == newest, we may have gotten an extra ref to it,
++	 *   so put it and retain the other ref we have to newest
+ 	 */
+-	aa_put_profile(parent);
++	aa_put_profile_condref(parent, needput);
+ 
+ 	return newest;
+ }
 -- 
 2.43.0
 
