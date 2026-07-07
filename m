@@ -2,13 +2,13 @@ Return-Path: <apparmor-bounces@lists.ubuntu.com>
 Delivered-To: lists+apparmor@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id NqoTOtVBTGqtiQEAu9opvQ
+	id bHR/NOxBTWq3xQEAu9opvQ
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	for <lists+apparmor@lfdr.de>; Tue, 07 Jul 2026 02:01:25 +0200
+	for <lists+apparmor@lfdr.de>; Tue, 07 Jul 2026 20:14:04 +0200
 X-Original-To: lists+apparmor@lfdr.de
 Received: from lists.ubuntu.com (lists.ubuntu.com [185.125.189.65])
-	by mail.lfdr.de (Postfix) with ESMTPS id D692F716668
-	for <lists+apparmor@lfdr.de>; Tue, 07 Jul 2026 02:01:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C05E771E872
+	for <lists+apparmor@lfdr.de>; Tue, 07 Jul 2026 20:14:04 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
 	dkim=none;
 	dmarc=pass (policy=none) header.from=lists.ubuntu.com;
@@ -16,29 +16,67 @@ Authentication-Results: mail.lfdr.de;
 Received: from localhost ([127.0.0.1] helo=lists.ubuntu.com)
 	by lists.ubuntu.com with esmtp (Exim 4.86_2)
 	(envelope-from <apparmor-bounces@lists.ubuntu.com>)
-	id 1wgtFW-0006xk-RV; Tue, 07 Jul 2026 00:01:18 +0000
-Received: from tor.source.kernel.org ([172.105.4.254])
- by lists.ubuntu.com with esmtp (Exim 4.86_2)
- (envelope-from <song@kernel.org>) id 1wgtFS-0006x0-9n
- for apparmor@lists.ubuntu.com; Tue, 07 Jul 2026 00:01:14 +0000
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 78B4660254;
- Mon,  6 Jul 2026 23:51:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DD351F000E9;
- Mon,  6 Jul 2026 23:51:46 +0000 (UTC)
-To: linux-security-module@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- selinux@vger.kernel.org, apparmor@lists.ubuntu.com
-Date: Mon,  6 Jul 2026 16:50:53 -0700
-Message-ID: <20260706235053.4104951-9-song@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260706235053.4104951-1-song@kernel.org>
-References: <20260706235053.4104951-1-song@kernel.org>
+	id 1whAIq-0007sV-3Q; Tue, 07 Jul 2026 18:13:52 +0000
+Received: from smtp-relay-internal-0.internal ([10.131.114.225]
+ helo=smtp-relay-internal-0.canonical.com)
+ by lists.ubuntu.com with esmtps (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.86_2) (envelope-from <ryan.lee@canonical.com>)
+ id 1whAIo-0007sE-Mo
+ for apparmor@lists.ubuntu.com; Tue, 07 Jul 2026 18:13:50 +0000
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
+ [209.85.216.71])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 8CF003F301
+ for <apparmor@lists.ubuntu.com>; Tue,  7 Jul 2026 18:13:50 +0000 (UTC)
+Received: by mail-pj1-f71.google.com with SMTP id
+ 98e67ed59e1d1-381d039b797so3461258a91.1
+ for <apparmor@lists.ubuntu.com>; Tue, 07 Jul 2026 11:13:50 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783448029; x=1784052829;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=KkwkCk9RMWEMvbA8WafdK2OditFyI+bSKP/Q8Pg9yaM=;
+ b=j605dYQj/pREE5Y37JVcrRxuFobElW4jQC/UEReQb3fqx0dxAFcolZIcipTeHeNFb7
+ IPMxeBL26EfZDw81AUmrYRIfP/cFJCgJCgIIOnY5TJ1EfnNKQL8YRuFqCiM8EQAML1wI
+ lXJdSIB39JGwPahaOgp7HmdBsHwTXozAWEj91hQYRq1Jjx+xK0j9Kd1EHwoqWvAzOtr8
+ 1d30K68h2IAdfifjLeIhDgT1rwyC3JoqZZXtIKb0uuOwH/IIt+bugXCwcWJBWeOLHd6D
+ ODhBJx2BRwnP7FhNwgSLcVF0jgXdYHNl1v7Vhd8m3KtF5HovucQLxTvgEi6EjwrY0Vfx
+ ax6A==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Ro9JC14hdIwRvE4/oIXw7j9foebh7eo5YYP0auKZHywYW+va9XHYRzhUWekX9/yUS8P2auT26R5jg==@lists.ubuntu.com
+X-Gm-Message-State: AOJu0YzC3KPDb8LkscvRLWU3fjKDPUbP04PImtM1rAUSChwuIKjlRDZi
+ eJbZmS537ftpYrl2uxOq+7qLwgfe2YkC2MslDrGyXz6d6iU9WSfRlnSoWE18z9x1IQCpUk2zDEd
+ yq+FE7huAbZjEUEAp5WQbS2L4oGjbhNpMthQ8EQ78PcN4EGI6ADgKlcLlavBBZrJ/8Hpx6iNKbw
+ 1074Q9FE/7YA==
+X-Gm-Gg: AfdE7cnpFmvxVnMgg4RAZi9Ak9JxhJfbpHsAd5diXBjBoMfdjuaYAYMyY+oYrorspwh
+ Go9EqZNwS0BwXgCgXnP20u4JzP2Yq/z71fyvCdxqeoqjGGQBMPl8NcddDn/adPTGJ9k3M6U7YG/
+ gMtZ0datODoly2lLVh9MZdFjQThbOaJNU2/ndtKw/SCwfH4+PJHBHyFQxS1J8UpLZOFysMmatZb
+ /xmSczOQFgHpyyw00em9z5QA8+LbScpQfa84KsVwvXxkfe4g2vqsFlO1tSatB5xlTEpWYLTrBaj
+ PYt/G6ITJmvIS6ag1E5RLh48vbew9a4V6AGhxK75ea7A5pEwyvDouHnnIkuJBeWlEsVutLH+bQb
+ b189gutDgDjKyuDvHhqTB3tp8jwjnKTD3hIyP9uF9d6XDpjfOusuL1PYmfeaflvLgDGwYiKLuKy
+ yUNAoli/rwuIQPFhiG1BbdYzKMcPm1d+FzySJrf7J00enAsdQ=
+X-Received: by 2002:a17:90b:3a8e:b0:36d:8f51:fe29 with SMTP id
+ 98e67ed59e1d1-38756ce27d1mr5663751a91.17.1783448028804; 
+ Tue, 07 Jul 2026 11:13:48 -0700 (PDT)
+X-Received: by 2002:a17:90b:3a8e:b0:36d:8f51:fe29 with SMTP id
+ 98e67ed59e1d1-38756ce27d1mr5663724a91.17.1783448028272; 
+ Tue, 07 Jul 2026 11:13:48 -0700 (PDT)
+Received: from ryan-lee-laptop-13-amd.. (c-98-37-40-2.hsd1.ca.comcast.net.
+ [98.37.40.2]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-31174892711sm11387097eec.13.2026.07.07.11.13.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 07 Jul 2026 11:13:47 -0700 (PDT)
+To: john.johansen@canonical.com
+Date: Tue,  7 Jul 2026 11:13:14 -0700
+Message-ID: <20260707181326.968650-1-ryan.lee@canonical.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Received-SPF: pass client-ip=172.105.4.254; envelope-from=song@kernel.org;
- helo=tor.source.kernel.org
-Subject: [apparmor] [PATCH v6 8/8] lsm: Remove security_sb_mount and
-	security_move_mount
+Subject: [apparmor] [PATCH 00/10] Refactor more aa_get_newest_* callsites to
+	use condref variants
 X-BeenThere: apparmor@lists.ubuntu.com
 X-Mailman-Version: 2.1.20
 Precedence: list
@@ -50,221 +88,84 @@ List-Post: <mailto:apparmor@lists.ubuntu.com>
 List-Help: <mailto:apparmor-request@lists.ubuntu.com?subject=help>
 List-Subscribe: <https://lists.ubuntu.com/mailman/listinfo/apparmor>,
  <mailto:apparmor-request@lists.ubuntu.com?subject=subscribe>
-From: Song Liu via AppArmor <apparmor@lists.ubuntu.com>
-Reply-To: Song Liu <song@kernel.org>
-Cc: herton@canonical.com, brauner@kernel.org, jack@suse.cz, paul@paul-moore.com,
- penguin-kernel@I-love.SAKURA.ne.jp, stephen.smalley.work@gmail.com,
- kernel-team@meta.com, jmorris@namei.org, omosnace@redhat.com,
- Song Liu <song@kernel.org>, viro@zeniv.linux.org.uk, gnoack@google.com,
- mic@digikod.net, takedakn@nttdata.co.jp, serge@hallyn.com
+From: Ryan Lee via AppArmor <apparmor@lists.ubuntu.com>
+Reply-To: Ryan Lee <ryan.lee@canonical.com>
+Cc: apparmor@lists.ubuntu.com
 Errors-To: apparmor-bounces@lists.ubuntu.com
 Sender: "AppArmor" <apparmor-bounces@lists.ubuntu.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [0.59 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	R_MISSING_CHARSET(0.50)[];
+X-Spamd-Result: default: False [0.09 / 15.00];
+	MID_RHS_MATCH_TO(1.00)[];
 	DMARC_POLICY_ALLOW(-0.50)[lists.ubuntu.com,none];
+	R_MISSING_CHARSET(0.50)[];
 	RWL_MAILSPIKE_EXCELLENT(-0.40)[185.125.189.65:from];
-	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:185.125.189.65:c];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:linux-security-module@vger.kernel.org,m:linux-fsdevel@vger.kernel.org,m:selinux@vger.kernel.org,m:apparmor@lists.ubuntu.com,m:herton@canonical.com,m:brauner@kernel.org,m:jack@suse.cz,m:paul@paul-moore.com,m:penguin-kernel@I-love.SAKURA.ne.jp,m:stephen.smalley.work@gmail.com,m:kernel-team@meta.com,m:jmorris@namei.org,m:omosnace@redhat.com,m:song@kernel.org,m:viro@zeniv.linux.org.uk,m:gnoack@google.com,m:mic@digikod.net,m:takedakn@nttdata.co.jp,m:serge@hallyn.com,m:stephensmalleywork@gmail.com,s:lists@lfdr.de];
-	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:john.johansen@canonical.com,m:apparmor@lists.ubuntu.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	REPLYTO_DOM_EQ_TO_DOM(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
+	RCPT_COUNT_TWO(0.00)[2];
+	RCVD_COUNT_FIVE(0.00)[5];
 	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[apparmor@lists.ubuntu.com,apparmor-bounces@lists.ubuntu.com];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:from_smtp,lists.ubuntu.com:from_mime,lists.ubuntu.com:helo,lists.ubuntu.com:rdns];
-	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[19];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[canonical.com,kernel.org,suse.cz,paul-moore.com,I-love.SAKURA.ne.jp,gmail.com,meta.com,namei.org,redhat.com,zeniv.linux.org.uk,google.com,digikod.net,nttdata.co.jp,hallyn.com];
-	FROM_NEQ_ENVFROM(0.00)[apparmor@lists.ubuntu.com,apparmor-bounces@lists.ubuntu.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	TAGGED_RCPT(0.00)[apparmor];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	R_DKIM_NA(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
 	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[apparmor@lists.ubuntu.com,apparmor-bounces@lists.ubuntu.com];
+	FORWARDED(0.00)[apparmor@lists.ubuntu.com];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
+	R_DKIM_NA(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[apparmor@lists.ubuntu.com];
+	TO_DN_NONE(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB];
-	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
-	HAS_REPLYTO(0.00)[song@kernel.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.ubuntu.com:from_smtp,lists.ubuntu.com:from_mime,lists.ubuntu.com:helo,lists.ubuntu.com:rdns,canonical.com:mid,canonical.com:replyto];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[apparmor];
+	FROM_NEQ_ENVFROM(0.00)[apparmor@lists.ubuntu.com,apparmor-bounces@lists.ubuntu.com];
+	HAS_REPLYTO(0.00)[ryan.lee@canonical.com];
+	ASN(0.00)[asn:41231, ipnet:185.125.188.0/23, country:GB]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: D692F716668
+X-Rspamd-Queue-Id: C05E771E872
 
-Now that all LSMs have been converted to granular mount hooks and
-fs/namespace.c calls the new hooks, remove the old hooks:
+There are various callsites in the AppArmor code that use aa_get_newest_*
+to obtain a reference, followed by putting a reference during cleanup.
+Using the condref variants of these functions allows avoiding taking
+refcounts unnecessarily, improving performance. Where they cannot be used
+(and the reason for that isn't immediately obvious), add comments documenting
+the reason.
 
-- security_sb_mount(): removed from lsm_hook_defs.h, security.h,
-  security.c.
-- security_move_mount(): removed from lsm_hook_defs.h, security.h,
-  security.c, and bpf_lsm.c.
+Ryan Lee (10):
+  apparmor: explain why aa_file_perm cannot use the condref helpers
+  apparmor: simplify update_to_newest_parent cleanup logic
+  apparmor: add aa_get_newest_profile_condref and aa_put_profile_condref
+    helpers
+  apparmor: use aa_get_newest_profile_condref helpers in
+    update_to_newest_parent
+  apparmor: use aa_get_newest_label_condref in aa_replace_current_label
+    nnp refresh
+  apparmor: switch to aa_get_newest_cred_label_condref variants in
+    apparmor_capget
+  apparmor: switch to aa_get_newest_cred_label_condref variants in
+    apparmor_getselfattr
+  apparmor: also use condref variants in apparmor_task_kill USB branch
+  apparmor: also use condref variants for apparmor_task_kill's tc cred
+    label
+  apparmor: explain why apparmor_getprocattr cannot use the condref
+    helpers
 
-Code generated with the assistance of Claude, reviewed by human.
+ security/apparmor/file.c           |  7 +++++-
+ security/apparmor/include/policy.h | 23 ++++++++++++++++++++
+ security/apparmor/lsm.c            | 35 +++++++++++++++++++-----------
+ security/apparmor/policy.c         | 13 +++++++----
+ security/apparmor/task.c           |  5 +++--
+ 5 files changed, 63 insertions(+), 20 deletions(-)
 
-Reviewed-by: Stephen Smalley <stephen.smalley.work@gmail.com>
-Tested-by: Stephen Smalley <stephen.smalley.work@gmail.com> # for selinux only
-Signed-off-by: Song Liu <song@kernel.org>
----
- include/linux/lsm_hook_defs.h |  4 ----
- include/linux/security.h      | 16 ---------------
- kernel/bpf/bpf_lsm.c          |  2 --
- security/security.c           | 38 -----------------------------------
- 4 files changed, 60 deletions(-)
-
-diff --git a/include/linux/lsm_hook_defs.h b/include/linux/lsm_hook_defs.h
-index 06c904cb478e..4015f6b579c3 100644
---- a/include/linux/lsm_hook_defs.h
-+++ b/include/linux/lsm_hook_defs.h
-@@ -69,8 +69,6 @@ LSM_HOOK(int, 0, sb_remount, struct super_block *sb, void *mnt_opts)
- LSM_HOOK(int, 0, sb_kern_mount, const struct super_block *sb)
- LSM_HOOK(int, 0, sb_show_options, struct seq_file *m, struct super_block *sb)
- LSM_HOOK(int, 0, sb_statfs, struct dentry *dentry)
--LSM_HOOK(int, 0, sb_mount, const char *dev_name, const struct path *path,
--	 const char *type, unsigned long flags, void *data)
- LSM_HOOK(int, 0, sb_umount, struct vfsmount *mnt, int flags)
- LSM_HOOK(int, 0, sb_pivotroot, const struct path *old_path,
- 	 const struct path *new_path)
-@@ -79,8 +77,6 @@ LSM_HOOK(int, 0, sb_set_mnt_opts, struct super_block *sb, void *mnt_opts,
- LSM_HOOK(int, 0, sb_clone_mnt_opts, const struct super_block *oldsb,
- 	 struct super_block *newsb, unsigned long kern_flags,
- 	 unsigned long *set_kern_flags)
--LSM_HOOK(int, 0, move_mount, const struct path *from_path,
--	 const struct path *to_path)
- LSM_HOOK(int, 0, mount_bind, const struct path *from, const struct path *to,
- 	 bool recurse)
- LSM_HOOK(int, 0, mount_new, struct fs_context *fc, const struct path *mp,
-diff --git a/include/linux/security.h b/include/linux/security.h
-index 5e207e38c004..ff16831e8064 100644
---- a/include/linux/security.h
-+++ b/include/linux/security.h
-@@ -373,8 +373,6 @@ int security_sb_remount(struct super_block *sb, void *mnt_opts);
- int security_sb_kern_mount(const struct super_block *sb);
- int security_sb_show_options(struct seq_file *m, struct super_block *sb);
- int security_sb_statfs(struct dentry *dentry);
--int security_sb_mount(const char *dev_name, const struct path *path,
--		      const char *type, unsigned long flags, void *data);
- int security_sb_umount(struct vfsmount *mnt, int flags);
- int security_sb_pivotroot(const struct path *old_path, const struct path *new_path);
- int security_sb_set_mnt_opts(struct super_block *sb,
-@@ -385,7 +383,6 @@ int security_sb_clone_mnt_opts(const struct super_block *oldsb,
- 				struct super_block *newsb,
- 				unsigned long kern_flags,
- 				unsigned long *set_kern_flags);
--int security_move_mount(const struct path *from_path, const struct path *to_path);
- int security_mount_bind(const struct path *from, const struct path *to,
- 			bool recurse);
- int security_mount_new(struct fs_context *fc, const struct path *mp,
-@@ -826,13 +823,6 @@ static inline int security_sb_statfs(struct dentry *dentry)
- 	return 0;
- }
- 
--static inline int security_sb_mount(const char *dev_name, const struct path *path,
--				    const char *type, unsigned long flags,
--				    void *data)
--{
--	return 0;
--}
--
- static inline int security_sb_umount(struct vfsmount *mnt, int flags)
- {
- 	return 0;
-@@ -860,12 +850,6 @@ static inline int security_sb_clone_mnt_opts(const struct super_block *oldsb,
- 	return 0;
- }
- 
--static inline int security_move_mount(const struct path *from_path,
--				      const struct path *to_path)
--{
--	return 0;
--}
--
- static inline int security_mount_bind(const struct path *from,
- 				      const struct path *to, bool recurse)
- {
-diff --git a/kernel/bpf/bpf_lsm.c b/kernel/bpf/bpf_lsm.c
-index 4b1ee9c67d6f..9cece66a0c49 100644
---- a/kernel/bpf/bpf_lsm.c
-+++ b/kernel/bpf/bpf_lsm.c
-@@ -353,7 +353,6 @@ BTF_ID(func, bpf_lsm_release_secctx)
- BTF_ID(func, bpf_lsm_sb_alloc_security)
- BTF_ID(func, bpf_lsm_sb_eat_lsm_opts)
- BTF_ID(func, bpf_lsm_sb_kern_mount)
--BTF_ID(func, bpf_lsm_sb_mount)
- BTF_ID(func, bpf_lsm_sb_remount)
- BTF_ID(func, bpf_lsm_sb_set_mnt_opts)
- BTF_ID(func, bpf_lsm_sb_show_options)
-@@ -385,7 +384,6 @@ BTF_ID(func, bpf_lsm_task_setscheduler)
- BTF_ID(func, bpf_lsm_userns_create)
- BTF_ID(func, bpf_lsm_bdev_alloc_security)
- BTF_ID(func, bpf_lsm_bdev_setintegrity)
--BTF_ID(func, bpf_lsm_move_mount)
- BTF_ID(func, bpf_lsm_mount_bind)
- BTF_ID(func, bpf_lsm_mount_new)
- BTF_ID(func, bpf_lsm_mount_remount)
-diff --git a/security/security.c b/security/security.c
-index 1ede060db3ca..0456680738f2 100644
---- a/security/security.c
-+++ b/security/security.c
-@@ -1065,29 +1065,6 @@ int security_sb_statfs(struct dentry *dentry)
- 	return call_int_hook(sb_statfs, dentry);
- }
- 
--/**
-- * security_sb_mount() - Check permission for mounting a filesystem
-- * @dev_name: filesystem backing device
-- * @path: mount point
-- * @type: filesystem type
-- * @flags: mount flags
-- * @data: filesystem specific data
-- *
-- * Check permission before an object specified by @dev_name is mounted on the
-- * mount point named by @nd.  For an ordinary mount, @dev_name identifies a
-- * device if the file system type requires a device.  For a remount
-- * (@flags & MS_REMOUNT), @dev_name is irrelevant.  For a loopback/bind mount
-- * (@flags & MS_BIND), @dev_name identifies the	pathname of the object being
-- * mounted.
-- *
-- * Return: Returns 0 if permission is granted.
-- */
--int security_sb_mount(const char *dev_name, const struct path *path,
--		      const char *type, unsigned long flags, void *data)
--{
--	return call_int_hook(sb_mount, dev_name, path, type, flags, data);
--}
--
- /**
-  * security_sb_umount() - Check permission for unmounting a filesystem
-  * @mnt: mounted filesystem
-@@ -1167,21 +1144,6 @@ int security_sb_clone_mnt_opts(const struct super_block *oldsb,
- }
- EXPORT_SYMBOL(security_sb_clone_mnt_opts);
- 
--/**
-- * security_move_mount() - Check permissions for moving a mount
-- * @from_path: source mount point
-- * @to_path: destination mount point
-- *
-- * Check permission before a mount is moved.
-- *
-- * Return: Returns 0 if permission is granted.
-- */
--int security_move_mount(const struct path *from_path,
--			const struct path *to_path)
--{
--	return call_int_hook(move_mount, from_path, to_path);
--}
--
- /**
-  * security_mount_bind() - Check permissions for a bind mount
-  * @from: source path
 -- 
-2.53.0-Meta
+2.43.0
 
 
